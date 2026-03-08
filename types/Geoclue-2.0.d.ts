@@ -16,628 +16,7 @@ declare module "gi://Geoclue?version=2.0" {
 
     
 
-
     namespace Geoclue {
-        const __name__: "Geoclue"
-        const __version: "2.0"
-        
-
-        namespace Client {
-            interface SignalSignatures  {
-                /**
-                 *  D-Bus method.
-                 *
-                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_client_complete_start() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
-                 * @param invocation A #GDBusMethodInvocation.
-                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
-                 */
-                "handle-start"(invocation: Gio.DBusMethodInvocation): boolean
-                /**
-                 *  D-Bus method.
-                 *
-                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_client_complete_stop() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
-                 * @param invocation A #GDBusMethodInvocation.
-                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
-                 */
-                "handle-stop"(invocation: Gio.DBusMethodInvocation): boolean
-                /**
-                 *  is received.
-                 *
-                 * On the service-side, this signal can be used with e.g. g_signal_emit_by_name() to make the object emit the D-Bus signal.
-                 * @param arg_old Argument.
-                 * @param arg_new Argument.
-                 */
-                "location-updated"(arg_old: string, arg_new: string): void
-            }
-
-            interface ReadableProperties  {
-                "active": boolean
-                "desktop-id": string | null
-                "distance-threshold": number
-                "location": string | null
-                "requested-accuracy-level": number
-                "time-threshold": number
-            }
-
-            interface WritableProperties  {
-                "active": boolean
-                "desktop-id": string | null
-                "distance-threshold": number
-                "location": string | null
-                "requested-accuracy-level": number
-                "time-threshold": number
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * Handler for the #GClueClient::handle-start signal.
-                 * @param invocation
-                 */
-                vfunc_handle_start(invocation: Gio.DBusMethodInvocation): boolean
-                /**
-                 * Handler for the #GClueClient::handle-stop signal.
-                 * @param invocation
-                 */
-                vfunc_handle_stop(invocation: Gio.DBusMethodInvocation): boolean
-                /**
-                 * Handler for the #GClueClient::location-updated signal.
-                 * @param arg_old
-                 * @param arg_new
-                 */
-                vfunc_location_updated(arg_old: string, arg_new: string): void
-            }
-        }
-
-        /**
-         * .
-         */
-        interface Client extends Client.Interface {
-            readonly $signals: Client.SignalSignatures
-            readonly $readableProperties: Client.ReadableProperties
-            readonly $writableProperties: Client.WritableProperties
-            readonly $constructOnlyProperties: Client.ConstructOnlyProperties
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             * @default FALSE
-             */
-            get active(): boolean
-            set active(value: boolean)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is both readable and writable, it is meaningful to both read from it and write to it on both the service- and client-side.
-             * @default NULL
-             */
-            get desktopId(): string | null
-            set desktopId(value: string | null)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is both readable and writable, it is meaningful to both read from it and write to it on both the service- and client-side.
-             * @default 0
-             */
-            get distanceThreshold(): number
-            set distanceThreshold(value: number)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             * @default NULL
-             */
-            get location(): string | null
-            set location(value: string | null)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is both readable and writable, it is meaningful to both read from it and write to it on both the service- and client-side.
-             * @default 0
-             */
-            get requestedAccuracyLevel(): number
-            set requestedAccuracyLevel(value: number)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is both readable and writable, it is meaningful to both read from it and write to it on both the service- and client-side.
-             * @default 0
-             */
-            get timeThreshold(): number
-            set timeThreshold(value: number)
-            /**
-             *  D-Bus method on @proxy.
-             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
-             * You can then call gclue_client_call_start_finish() to get the result of the operation.
-             *
-             * See gclue_client_call_start_sync() for the synchronous, blocking version of this method.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
-             */
-            call_start(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with gclue_client_call_start().
-             * @throws {GLib.Error}
-             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_client_call_start().
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
-             */
-            call_start_finish(res: Gio.AsyncResult): boolean
-            /**
-             *  D-Bus method on @proxy. The calling thread is blocked until a reply is received.
-             *
-             * See gclue_client_call_start() for the asynchronous version of this method.
-             * @throws {GLib.Error}
-             * @param cancellable A #GCancellable or %NULL.
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
-             */
-            call_start_sync(cancellable: Gio.Cancellable | null): boolean
-            /**
-             *  D-Bus method on @proxy.
-             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
-             * You can then call gclue_client_call_stop_finish() to get the result of the operation.
-             *
-             * See gclue_client_call_stop_sync() for the synchronous, blocking version of this method.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
-             */
-            call_stop(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with gclue_client_call_stop().
-             * @throws {GLib.Error}
-             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_client_call_stop().
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
-             */
-            call_stop_finish(res: Gio.AsyncResult): boolean
-            /**
-             *  D-Bus method on @proxy. The calling thread is blocked until a reply is received.
-             *
-             * See gclue_client_call_stop() for the asynchronous version of this method.
-             * @throws {GLib.Error}
-             * @param cancellable A #GCancellable or %NULL.
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
-             */
-            call_stop_sync(cancellable: Gio.Cancellable | null): boolean
-            /**
-             *  D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
-             *
-             * This method will free @invocation, you cannot use it afterwards.
-             * @param invocation A #GDBusMethodInvocation.
-             */
-            complete_start(invocation: Gio.DBusMethodInvocation): void
-            /**
-             *  D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
-             *
-             * This method will free @invocation, you cannot use it afterwards.
-             * @param invocation A #GDBusMethodInvocation.
-             */
-            complete_stop(invocation: Gio.DBusMethodInvocation): void
-            /**
-             *  D-Bus signal.
-             * @param arg_old Argument to pass with the signal.
-             * @param arg_new Argument to pass with the signal.
-             */
-            emit_location_updated(arg_old: string, arg_new: string): void
-        }
-
-
-        interface ClientIface {
-            readonly $gtype: GObject.GType<Client>
-            readonly prototype: Client
-            /**
-             *  D-Bus interface.
-             * @returns A #GDBusInterfaceInfo. Do not free.
-             */
-            interface_info(): Gio.DBusInterfaceInfo
-            /**
-             * Overrides all #GObject properties in the #GClueClient interface for a concrete class.
-             * The properties are overridden in the order they are defined.
-             * @param klass The class structure for a #GObject derived class.
-             * @param property_id_begin The property id to assign to the first overridden property.
-             * @returns The last property id.
-             */
-            override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
-
-            [Symbol.hasInstance](instance: unknown): instance is Client
-        }
-
-        const Client: ClientIface
-        
-
-        namespace Location {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-                "accuracy": number
-                "altitude": number
-                "description": string | null
-                "heading": number
-                "latitude": number
-                "longitude": number
-                "speed": number
-                "timestamp": GLib.Variant | null
-            }
-
-            interface WritableProperties  {
-                "accuracy": number
-                "altitude": number
-                "description": string | null
-                "heading": number
-                "latitude": number
-                "longitude": number
-                "speed": number
-                "timestamp": GLib.Variant | null
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         * .
-         */
-        interface Location extends Location.Interface {
-            readonly $signals: Location.SignalSignatures
-            readonly $readableProperties: Location.ReadableProperties
-            readonly $writableProperties: Location.WritableProperties
-            readonly $constructOnlyProperties: Location.ConstructOnlyProperties
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             * @default 0.000000
-             */
-            get accuracy(): number
-            set accuracy(value: number)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             * @default 0.000000
-             */
-            get altitude(): number
-            set altitude(value: number)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             * @default NULL
-             */
-            get description(): string | null
-            set description(value: string | null)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             * @default 0.000000
-             */
-            get heading(): number
-            set heading(value: number)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             * @default 0.000000
-             */
-            get latitude(): number
-            set latitude(value: number)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             * @default 0.000000
-             */
-            get longitude(): number
-            set longitude(value: number)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             * @default 0.000000
-             */
-            get speed(): number
-            set speed(value: number)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             */
-            get timestamp(): GLib.Variant | null
-            set timestamp(value: GLib.Variant | null)
-        }
-
-
-        interface LocationIface {
-            readonly $gtype: GObject.GType<Location>
-            readonly prototype: Location
-            /**
-             *  D-Bus interface.
-             * @returns A #GDBusInterfaceInfo. Do not free.
-             */
-            interface_info(): Gio.DBusInterfaceInfo
-            /**
-             * Overrides all #GObject properties in the #GClueLocation interface for a concrete class.
-             * The properties are overridden in the order they are defined.
-             * @param klass The class structure for a #GObject derived class.
-             * @param property_id_begin The property id to assign to the first overridden property.
-             * @returns The last property id.
-             */
-            override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
-
-            [Symbol.hasInstance](instance: unknown): instance is Location
-        }
-
-        const Location: LocationIface
-        
-
-        namespace Manager {
-            interface SignalSignatures  {
-                /**
-                 *  D-Bus method.
-                 *
-                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_manager_complete_add_agent() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
-                 * @param invocation A #GDBusMethodInvocation.
-                 * @param arg_id Argument passed by remote caller.
-                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
-                 */
-                "handle-add-agent"(invocation: Gio.DBusMethodInvocation, arg_id: string): boolean
-                /**
-                 *  D-Bus method.
-                 *
-                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_manager_complete_create_client() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
-                 * @param invocation A #GDBusMethodInvocation.
-                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
-                 */
-                "handle-create-client"(invocation: Gio.DBusMethodInvocation): boolean
-                /**
-                 *  D-Bus method.
-                 *
-                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_manager_complete_delete_client() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
-                 * @param invocation A #GDBusMethodInvocation.
-                 * @param arg_client Argument passed by remote caller.
-                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
-                 */
-                "handle-delete-client"(invocation: Gio.DBusMethodInvocation, arg_client: string): boolean
-                /**
-                 *  D-Bus method.
-                 *
-                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_manager_complete_get_client() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
-                 * @param invocation A #GDBusMethodInvocation.
-                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
-                 */
-                "handle-get-client"(invocation: Gio.DBusMethodInvocation): boolean
-            }
-
-            interface ReadableProperties  {
-                "available-accuracy-level": number
-                "in-use": boolean
-            }
-
-            interface WritableProperties  {
-                "available-accuracy-level": number
-                "in-use": boolean
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * Handler for the #GClueManager::handle-add-agent signal.
-                 * @param invocation
-                 * @param arg_id
-                 */
-                vfunc_handle_add_agent(invocation: Gio.DBusMethodInvocation, arg_id: string): boolean
-                /**
-                 * Handler for the #GClueManager::handle-create-client signal.
-                 * @param invocation
-                 */
-                vfunc_handle_create_client(invocation: Gio.DBusMethodInvocation): boolean
-                /**
-                 * Handler for the #GClueManager::handle-delete-client signal.
-                 * @param invocation
-                 * @param arg_client
-                 */
-                vfunc_handle_delete_client(invocation: Gio.DBusMethodInvocation, arg_client: string): boolean
-                /**
-                 * Handler for the #GClueManager::handle-get-client signal.
-                 * @param invocation
-                 */
-                vfunc_handle_get_client(invocation: Gio.DBusMethodInvocation): boolean
-            }
-        }
-
-        /**
-         * .
-         */
-        interface Manager extends Manager.Interface {
-            readonly $signals: Manager.SignalSignatures
-            readonly $readableProperties: Manager.ReadableProperties
-            readonly $writableProperties: Manager.WritableProperties
-            readonly $constructOnlyProperties: Manager.ConstructOnlyProperties
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             * @default 0
-             */
-            get availableAccuracyLevel(): number
-            set availableAccuracyLevel(value: number)
-            /**
-             * .
-             *
-             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
-             * @default FALSE
-             */
-            get inUse(): boolean
-            set inUse(value: boolean)
-            /**
-             *  D-Bus method on @proxy.
-             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
-             * You can then call gclue_manager_call_add_agent_finish() to get the result of the operation.
-             *
-             * See gclue_manager_call_add_agent_sync() for the synchronous, blocking version of this method.
-             * @param arg_id Argument to pass with the method invocation.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
-             */
-            call_add_agent(arg_id: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with gclue_manager_call_add_agent().
-             * @throws {GLib.Error}
-             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_add_agent().
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
-             */
-            call_add_agent_finish(res: Gio.AsyncResult): boolean
-            /**
-             *  D-Bus method on @proxy. The calling thread is blocked until a reply is received.
-             *
-             * See gclue_manager_call_add_agent() for the asynchronous version of this method.
-             * @throws {GLib.Error}
-             * @param arg_id Argument to pass with the method invocation.
-             * @param cancellable A #GCancellable or %NULL.
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
-             */
-            call_add_agent_sync(arg_id: string, cancellable: Gio.Cancellable | null): boolean
-            /**
-             *  D-Bus method on @proxy.
-             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
-             * You can then call gclue_manager_call_create_client_finish() to get the result of the operation.
-             *
-             * See gclue_manager_call_create_client_sync() for the synchronous, blocking version of this method.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
-             */
-            call_create_client(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with gclue_manager_call_create_client().
-             * @throws {GLib.Error}
-             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_create_client().
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set., Return location for return parameter or %NULL to ignore.
-             */
-            call_create_client_finish(res: Gio.AsyncResult): boolean
-            /**
-             *  D-Bus method on @proxy. The calling thread is blocked until a reply is received.
-             *
-             * See gclue_manager_call_create_client() for the asynchronous version of this method.
-             * @throws {GLib.Error}
-             * @param cancellable A #GCancellable or %NULL.
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set., Return location for return parameter or %NULL to ignore.
-             */
-            call_create_client_sync(cancellable: Gio.Cancellable | null): boolean
-            /**
-             *  D-Bus method on @proxy.
-             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
-             * You can then call gclue_manager_call_delete_client_finish() to get the result of the operation.
-             *
-             * See gclue_manager_call_delete_client_sync() for the synchronous, blocking version of this method.
-             * @param arg_client Argument to pass with the method invocation.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
-             */
-            call_delete_client(arg_client: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with gclue_manager_call_delete_client().
-             * @throws {GLib.Error}
-             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_delete_client().
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
-             */
-            call_delete_client_finish(res: Gio.AsyncResult): boolean
-            /**
-             *  D-Bus method on @proxy. The calling thread is blocked until a reply is received.
-             *
-             * See gclue_manager_call_delete_client() for the asynchronous version of this method.
-             * @throws {GLib.Error}
-             * @param arg_client Argument to pass with the method invocation.
-             * @param cancellable A #GCancellable or %NULL.
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
-             */
-            call_delete_client_sync(arg_client: string, cancellable: Gio.Cancellable | null): boolean
-            /**
-             *  D-Bus method on @proxy.
-             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
-             * You can then call gclue_manager_call_get_client_finish() to get the result of the operation.
-             *
-             * See gclue_manager_call_get_client_sync() for the synchronous, blocking version of this method.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
-             */
-            call_get_client(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with gclue_manager_call_get_client().
-             * @throws {GLib.Error}
-             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_get_client().
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set., Return location for return parameter or %NULL to ignore.
-             */
-            call_get_client_finish(res: Gio.AsyncResult): boolean
-            /**
-             *  D-Bus method on @proxy. The calling thread is blocked until a reply is received.
-             *
-             * See gclue_manager_call_get_client() for the asynchronous version of this method.
-             * @throws {GLib.Error}
-             * @param cancellable A #GCancellable or %NULL.
-             * @returns %TRUE if the call succeeded, %FALSE if `error` is set., Return location for return parameter or %NULL to ignore.
-             */
-            call_get_client_sync(cancellable: Gio.Cancellable | null): boolean
-            /**
-             *  D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
-             *
-             * This method will free @invocation, you cannot use it afterwards.
-             * @param invocation A #GDBusMethodInvocation.
-             */
-            complete_add_agent(invocation: Gio.DBusMethodInvocation): void
-            /**
-             *  D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
-             *
-             * This method will free @invocation, you cannot use it afterwards.
-             * @param invocation A #GDBusMethodInvocation.
-             * @param client Parameter to return.
-             */
-            complete_create_client(invocation: Gio.DBusMethodInvocation, client: string): void
-            /**
-             *  D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
-             *
-             * This method will free @invocation, you cannot use it afterwards.
-             * @param invocation A #GDBusMethodInvocation.
-             */
-            complete_delete_client(invocation: Gio.DBusMethodInvocation): void
-            /**
-             *  D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
-             *
-             * This method will free @invocation, you cannot use it afterwards.
-             * @param invocation A #GDBusMethodInvocation.
-             * @param client Parameter to return.
-             */
-            complete_get_client(invocation: Gio.DBusMethodInvocation, client: string): void
-        }
-
-
-        interface ManagerIface {
-            readonly $gtype: GObject.GType<Manager>
-            readonly prototype: Manager
-            /**
-             *  D-Bus interface.
-             * @returns A #GDBusInterfaceInfo. Do not free.
-             */
-            interface_info(): Gio.DBusInterfaceInfo
-            /**
-             * Overrides all #GObject properties in the #GClueManager interface for a concrete class.
-             * The properties are overridden in the order they are defined.
-             * @param klass The class structure for a #GObject derived class.
-             * @param property_id_begin The property id to assign to the first overridden property.
-             * @returns The last property id.
-             */
-            override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
-
-            [Symbol.hasInstance](instance: unknown): instance is Manager
-        }
-
-        const Manager: ManagerIface
         
 
         namespace ClientProxy {
@@ -654,9 +33,6 @@ declare module "gi://Geoclue?version=2.0" {
             }
         }
 
-        /**
-         * The #GClueClientProxy structure contains only private data and should only be accessed using the provided API.
-         */
         interface ClientProxy extends Gio.DBusProxy, Client, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
             readonly $signals: ClientProxy.SignalSignatures
             readonly $readableProperties: ClientProxy.ReadableProperties
@@ -667,6 +43,7 @@ declare module "gi://Geoclue?version=2.0" {
         interface ClientProxyClass extends Omit<Gio.DBusProxyClass, "new"> {
             readonly $gtype: GObject.GType<ClientProxy>
             readonly prototype: ClientProxy
+
             new (props?: Partial<GObject.ConstructorProps<ClientProxy>>): ClientProxy
             /**
              * Finishes an operation started with gclue_client_proxy_new().
@@ -698,7 +75,7 @@ declare module "gi://Geoclue?version=2.0" {
              */
             new_for_bus_sync(bus_type: Gio.BusType, flags: Gio.DBusProxyFlags, name: string, object_path: string, cancellable: Gio.Cancellable | null): ClientProxy
             /**
-             * . See g_dbus_proxy_new_sync() for more details.
+             * Synchronously creates a proxy for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Client.top_of_page">org.freedesktop.GeoClue2.Client</link>. See g_dbus_proxy_new_sync() for more details.
              *
              * The calling thread is blocked until a reply is received.
              *
@@ -792,7 +169,7 @@ declare module "gi://Geoclue?version=2.0" {
              */
             create_sync(desktop_id: string, accuracy_level: AccuracyLevel, cancellable: Gio.Cancellable | null): ClientProxy
             /**
-             * . See g_dbus_proxy_new() for more details.
+             * Asynchronously creates a proxy for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Client.top_of_page">org.freedesktop.GeoClue2.Client</link>. See g_dbus_proxy_new() for more details.
              *
              * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
              * You can then call gclue_client_proxy_new_finish() to get the result of the operation.
@@ -823,7 +200,12 @@ declare module "gi://Geoclue?version=2.0" {
             new_for_bus(bus_type: Gio.BusType, flags: Gio.DBusProxyFlags, name: string, object_path: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         }
 
-        const ClientProxy: ClientProxyClass
+        interface $Exports {
+            /**
+             * The #GClueClientProxy structure contains only private data and should only be accessed using the provided API.
+             */
+            ClientProxy: ClientProxyClass
+        }
         
 
         namespace ClientSkeleton {
@@ -840,9 +222,6 @@ declare module "gi://Geoclue?version=2.0" {
             }
         }
 
-        /**
-         * The #GClueClientSkeleton structure contains only private data and should only be accessed using the provided API.
-         */
         interface ClientSkeleton extends Gio.DBusInterfaceSkeleton, Client, Gio.DBusInterface {
             readonly $signals: ClientSkeleton.SignalSignatures
             readonly $readableProperties: ClientSkeleton.ReadableProperties
@@ -853,15 +232,21 @@ declare module "gi://Geoclue?version=2.0" {
         interface ClientSkeletonClass extends Omit<Gio.DBusInterfaceSkeletonClass, "new"> {
             readonly $gtype: GObject.GType<ClientSkeleton>
             readonly prototype: ClientSkeleton
+
             new (props?: Partial<GObject.ConstructorProps<ClientSkeleton>>): ClientSkeleton
             /**
-             * .
+             * Creates a skeleton object for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Client.top_of_page">org.freedesktop.GeoClue2.Client</link>.
              * @returns The skeleton object.
              */
             "new"(): ClientSkeleton
         }
 
-        const ClientSkeleton: ClientSkeletonClass
+        interface $Exports {
+            /**
+             * The #GClueClientSkeleton structure contains only private data and should only be accessed using the provided API.
+             */
+            ClientSkeleton: ClientSkeletonClass
+        }
         
 
         namespace LocationProxy {
@@ -878,9 +263,6 @@ declare module "gi://Geoclue?version=2.0" {
             }
         }
 
-        /**
-         * The #GClueLocationProxy structure contains only private data and should only be accessed using the provided API.
-         */
         interface LocationProxy extends Gio.DBusProxy, Location, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
             readonly $signals: LocationProxy.SignalSignatures
             readonly $readableProperties: LocationProxy.ReadableProperties
@@ -891,6 +273,7 @@ declare module "gi://Geoclue?version=2.0" {
         interface LocationProxyClass extends Omit<Gio.DBusProxyClass, "new"> {
             readonly $gtype: GObject.GType<LocationProxy>
             readonly prototype: LocationProxy
+
             new (props?: Partial<GObject.ConstructorProps<LocationProxy>>): LocationProxy
             /**
              * Finishes an operation started with gclue_location_proxy_new().
@@ -922,7 +305,7 @@ declare module "gi://Geoclue?version=2.0" {
              */
             new_for_bus_sync(bus_type: Gio.BusType, flags: Gio.DBusProxyFlags, name: string, object_path: string, cancellable: Gio.Cancellable | null): LocationProxy
             /**
-             * . See g_dbus_proxy_new_sync() for more details.
+             * Synchronously creates a proxy for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Location.top_of_page">org.freedesktop.GeoClue2.Location</link>. See g_dbus_proxy_new_sync() for more details.
              *
              * The calling thread is blocked until a reply is received.
              *
@@ -937,7 +320,7 @@ declare module "gi://Geoclue?version=2.0" {
              */
             new_sync(connection: Gio.DBusConnection, flags: Gio.DBusProxyFlags, name: string | null, object_path: string, cancellable: Gio.Cancellable | null): LocationProxy
             /**
-             * . See g_dbus_proxy_new() for more details.
+             * Asynchronously creates a proxy for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Location.top_of_page">org.freedesktop.GeoClue2.Location</link>. See g_dbus_proxy_new() for more details.
              *
              * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
              * You can then call gclue_location_proxy_new_finish() to get the result of the operation.
@@ -968,7 +351,12 @@ declare module "gi://Geoclue?version=2.0" {
             new_for_bus(bus_type: Gio.BusType, flags: Gio.DBusProxyFlags, name: string, object_path: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         }
 
-        const LocationProxy: LocationProxyClass
+        interface $Exports {
+            /**
+             * The #GClueLocationProxy structure contains only private data and should only be accessed using the provided API.
+             */
+            LocationProxy: LocationProxyClass
+        }
         
 
         namespace LocationSkeleton {
@@ -985,9 +373,6 @@ declare module "gi://Geoclue?version=2.0" {
             }
         }
 
-        /**
-         * The #GClueLocationSkeleton structure contains only private data and should only be accessed using the provided API.
-         */
         interface LocationSkeleton extends Gio.DBusInterfaceSkeleton, Location, Gio.DBusInterface {
             readonly $signals: LocationSkeleton.SignalSignatures
             readonly $readableProperties: LocationSkeleton.ReadableProperties
@@ -998,15 +383,21 @@ declare module "gi://Geoclue?version=2.0" {
         interface LocationSkeletonClass extends Omit<Gio.DBusInterfaceSkeletonClass, "new"> {
             readonly $gtype: GObject.GType<LocationSkeleton>
             readonly prototype: LocationSkeleton
+
             new (props?: Partial<GObject.ConstructorProps<LocationSkeleton>>): LocationSkeleton
             /**
-             * .
+             * Creates a skeleton object for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Location.top_of_page">org.freedesktop.GeoClue2.Location</link>.
              * @returns The skeleton object.
              */
             "new"(): LocationSkeleton
         }
 
-        const LocationSkeleton: LocationSkeletonClass
+        interface $Exports {
+            /**
+             * The #GClueLocationSkeleton structure contains only private data and should only be accessed using the provided API.
+             */
+            LocationSkeleton: LocationSkeletonClass
+        }
         
 
         namespace ManagerProxy {
@@ -1023,9 +414,6 @@ declare module "gi://Geoclue?version=2.0" {
             }
         }
 
-        /**
-         * The #GClueManagerProxy structure contains only private data and should only be accessed using the provided API.
-         */
         interface ManagerProxy extends Gio.DBusProxy, Manager, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
             readonly $signals: ManagerProxy.SignalSignatures
             readonly $readableProperties: ManagerProxy.ReadableProperties
@@ -1036,6 +424,7 @@ declare module "gi://Geoclue?version=2.0" {
         interface ManagerProxyClass extends Omit<Gio.DBusProxyClass, "new"> {
             readonly $gtype: GObject.GType<ManagerProxy>
             readonly prototype: ManagerProxy
+
             new (props?: Partial<GObject.ConstructorProps<ManagerProxy>>): ManagerProxy
             /**
              * Finishes an operation started with gclue_manager_proxy_new().
@@ -1067,7 +456,7 @@ declare module "gi://Geoclue?version=2.0" {
              */
             new_for_bus_sync(bus_type: Gio.BusType, flags: Gio.DBusProxyFlags, name: string, object_path: string, cancellable: Gio.Cancellable | null): ManagerProxy
             /**
-             * . See g_dbus_proxy_new_sync() for more details.
+             * Synchronously creates a proxy for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Manager.top_of_page">org.freedesktop.GeoClue2.Manager</link>. See g_dbus_proxy_new_sync() for more details.
              *
              * The calling thread is blocked until a reply is received.
              *
@@ -1082,7 +471,7 @@ declare module "gi://Geoclue?version=2.0" {
              */
             new_sync(connection: Gio.DBusConnection, flags: Gio.DBusProxyFlags, name: string | null, object_path: string, cancellable: Gio.Cancellable | null): ManagerProxy
             /**
-             * . See g_dbus_proxy_new() for more details.
+             * Asynchronously creates a proxy for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Manager.top_of_page">org.freedesktop.GeoClue2.Manager</link>. See g_dbus_proxy_new() for more details.
              *
              * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
              * You can then call gclue_manager_proxy_new_finish() to get the result of the operation.
@@ -1113,7 +502,12 @@ declare module "gi://Geoclue?version=2.0" {
             new_for_bus(bus_type: Gio.BusType, flags: Gio.DBusProxyFlags, name: string, object_path: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         }
 
-        const ManagerProxy: ManagerProxyClass
+        interface $Exports {
+            /**
+             * The #GClueManagerProxy structure contains only private data and should only be accessed using the provided API.
+             */
+            ManagerProxy: ManagerProxyClass
+        }
         
 
         namespace ManagerSkeleton {
@@ -1130,9 +524,6 @@ declare module "gi://Geoclue?version=2.0" {
             }
         }
 
-        /**
-         * The #GClueManagerSkeleton structure contains only private data and should only be accessed using the provided API.
-         */
         interface ManagerSkeleton extends Gio.DBusInterfaceSkeleton, Manager, Gio.DBusInterface {
             readonly $signals: ManagerSkeleton.SignalSignatures
             readonly $readableProperties: ManagerSkeleton.ReadableProperties
@@ -1143,15 +534,21 @@ declare module "gi://Geoclue?version=2.0" {
         interface ManagerSkeletonClass extends Omit<Gio.DBusInterfaceSkeletonClass, "new"> {
             readonly $gtype: GObject.GType<ManagerSkeleton>
             readonly prototype: ManagerSkeleton
+
             new (props?: Partial<GObject.ConstructorProps<ManagerSkeleton>>): ManagerSkeleton
             /**
-             * .
+             * Creates a skeleton object for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Manager.top_of_page">org.freedesktop.GeoClue2.Manager</link>.
              * @returns The skeleton object.
              */
             "new"(): ManagerSkeleton
         }
 
-        const ManagerSkeleton: ManagerSkeletonClass
+        interface $Exports {
+            /**
+             * The #GClueManagerSkeleton structure contains only private data and should only be accessed using the provided API.
+             */
+            ManagerSkeleton: ManagerSkeletonClass
+        }
         
 
         namespace Simple {
@@ -1166,20 +563,18 @@ declare module "gi://Geoclue?version=2.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties, Gio.AsyncInitable.WritableProperties {
-                "accuracy-level": AccuracyLevel
                 "client": ClientProxy | null
-                "desktop-id": string
-                "distance-threshold": number
                 "location": LocationProxy | null
-                "time-threshold": number
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties {
+                "accuracy-level": AccuracyLevel
+                "desktop-id": string
+                "distance-threshold": number
+                "time-threshold": number
             }
         }
 
-        /**
-         */
         interface Simple extends GObject.Object, Gio.AsyncInitable {
             readonly $signals: Simple.SignalSignatures
             readonly $readableProperties: Simple.ReadableProperties
@@ -1242,6 +637,7 @@ declare module "gi://Geoclue?version=2.0" {
         interface SimpleClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Simple>
             readonly prototype: Simple
+
             new (props?: Partial<GObject.ConstructorProps<Simple>>): Simple
             /**
              * Finishes an operation started with #gclue_simple_new().
@@ -1307,148 +703,810 @@ declare module "gi://Geoclue?version=2.0" {
             new_with_thresholds(desktop_id: string, accuracy_level: AccuracyLevel, time_threshold: number, distance_threshold: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         }
 
-        const Simple: SimpleClass
-        none
-        none
-        /**
-         */
-        abstract class ClientProxyPrivate {
-            static readonly $gtype: GObject.GType<ClientProxyPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class ClientSkeletonPrivate {
-            static readonly $gtype: GObject.GType<ClientSkeletonPrivate>
-
-            
-        }
-        none
-        none
-        /**
-         */
-        abstract class LocationProxyPrivate {
-            static readonly $gtype: GObject.GType<LocationProxyPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class LocationSkeletonPrivate {
-            static readonly $gtype: GObject.GType<LocationSkeletonPrivate>
-
-            
-        }
-        none
-        none
-        /**
-         */
-        abstract class ManagerProxyPrivate {
-            static readonly $gtype: GObject.GType<ManagerProxyPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class ManagerSkeletonPrivate {
-            static readonly $gtype: GObject.GType<ManagerSkeletonPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class SimplePrivate {
-            static readonly $gtype: GObject.GType<SimplePrivate>
-
-            
-        }
-        /**
-         *  D-Bus interface.
-         * @returns A #GDBusInterfaceInfo. Do not free.
-         */
-        function client_interface_info(): Gio.DBusInterfaceInfo
-        /**
-         * Overrides all #GObject properties in the #GClueClient interface for a concrete class.
-         * The properties are overridden in the order they are defined.
-         * @param klass The class structure for a #GObject derived class.
-         * @param property_id_begin The property id to assign to the first overridden property.
-         * @returns The last property id.
-         */
-        function client_override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
-        /**
-         *  D-Bus interface.
-         * @returns A #GDBusInterfaceInfo. Do not free.
-         */
-        function location_interface_info(): Gio.DBusInterfaceInfo
-        /**
-         * Overrides all #GObject properties in the #GClueLocation interface for a concrete class.
-         * The properties are overridden in the order they are defined.
-         * @param klass The class structure for a #GObject derived class.
-         * @param property_id_begin The property id to assign to the first overridden property.
-         * @returns The last property id.
-         */
-        function location_override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
-        /**
-         *  D-Bus interface.
-         * @returns A #GDBusInterfaceInfo. Do not free.
-         */
-        function manager_interface_info(): Gio.DBusInterfaceInfo
-        /**
-         * Overrides all #GObject properties in the #GClueManager interface for a concrete class.
-         * The properties are overridden in the order they are defined.
-         * @param klass The class structure for a #GObject derived class.
-         * @param property_id_begin The property id to assign to the first overridden property.
-         * @returns The last property id.
-         */
-        function manager_override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
-        
-        namespace AccuracyLevel {
-            const $gtype: GObject.GType<AccuracyLevel>
-        }
-
-        /**
-         */
-        enum AccuracyLevel {
+        interface $Exports {
             /**
              */
-            "NONE" = 0,
-            /**
-             */
-            "COUNTRY" = 1,
-            /**
-             */
-            "CITY" = 4,
-            /**
-             */
-            "NEIGHBORHOOD" = 5,
-            /**
-             */
-            "STREET" = 6,
-            /**
-             */
-            "EXACT" = 8,
+            Simple: SimpleClass
         }
         
-        namespace ClientProxyCreateFlags {
-            const $gtype: GObject.GType<ClientProxyCreateFlags>
+
+        namespace Client {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Signal emitted when a remote caller is invoking the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Start">Start()</link> D-Bus method.
+                 *
+                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_client_complete_start() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
+                 * @param invocation A #GDBusMethodInvocation.
+                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
+                 */
+                "handle-start"(invocation: Gio.DBusMethodInvocation): boolean
+                /**
+                 * Signal emitted when a remote caller is invoking the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Stop">Stop()</link> D-Bus method.
+                 *
+                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_client_complete_stop() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
+                 * @param invocation A #GDBusMethodInvocation.
+                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
+                 */
+                "handle-stop"(invocation: Gio.DBusMethodInvocation): boolean
+                /**
+                 * On the client-side, this signal is emitted whenever the D-Bus signal <link linkend="gdbus-signal-org-freedesktop-GeoClue2-Client.LocationUpdated">"LocationUpdated"</link> is received.
+                 *
+                 * On the service-side, this signal can be used with e.g. g_signal_emit_by_name() to make the object emit the D-Bus signal.
+                 * @param arg_old Argument.
+                 * @param arg_new Argument.
+                 */
+                "location-updated"(arg_old: string, arg_new: string): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "active": boolean
+                "desktop-id": string | null
+                "distance-threshold": number
+                "location": string | null
+                "requested-accuracy-level": number
+                "time-threshold": number
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "active": boolean
+                "desktop-id": string | null
+                "distance-threshold": number
+                "location": string | null
+                "requested-accuracy-level": number
+                "time-threshold": number
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * Handler for the #GClueClient::handle-start signal.
+                 * @param invocation
+                 */
+                vfunc_handle_start(invocation: Gio.DBusMethodInvocation): boolean
+                /**
+                 * Handler for the #GClueClient::handle-stop signal.
+                 * @param invocation
+                 */
+                vfunc_handle_stop(invocation: Gio.DBusMethodInvocation): boolean
+                /**
+                 * Handler for the #GClueClient::location-updated signal.
+                 * @param arg_old
+                 * @param arg_new
+                 */
+                vfunc_location_updated(arg_old: string, arg_new: string): void
+            }
         }
 
-        /**
-         */
-        enum ClientProxyCreateFlags {
+        interface Client extends GObject.Object, Client.Interface {
+            readonly $signals: Client.SignalSignatures
+            readonly $readableProperties: Client.ReadableProperties
+            readonly $writableProperties: Client.WritableProperties
+            readonly $constructOnlyProperties: Client.ConstructOnlyProperties
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Client.Active">"Active"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             * @default FALSE
+             */
+            get active(): boolean
+            set active(value: boolean)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Client.DesktopId">"DesktopId"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is both readable and writable, it is meaningful to both read from it and write to it on both the service- and client-side.
+             * @default NULL
+             */
+            get desktopId(): string | null
+            set desktopId(value: string | null)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Client.DistanceThreshold">"DistanceThreshold"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is both readable and writable, it is meaningful to both read from it and write to it on both the service- and client-side.
+             * @default 0
+             */
+            get distanceThreshold(): number
+            set distanceThreshold(value: number)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Client.Location">"Location"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             * @default NULL
+             */
+            get location(): string | null
+            set location(value: string | null)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Client.RequestedAccuracyLevel">"RequestedAccuracyLevel"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is both readable and writable, it is meaningful to both read from it and write to it on both the service- and client-side.
+             * @default 0
+             */
+            get requestedAccuracyLevel(): number
+            set requestedAccuracyLevel(value: number)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Client.TimeThreshold">"TimeThreshold"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is both readable and writable, it is meaningful to both read from it and write to it on both the service- and client-side.
+             * @default 0
+             */
+            get timeThreshold(): number
+            set timeThreshold(value: number)
+            /**
+             * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Start">Start()</link> D-Bus method on @proxy.
+             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
+             * You can then call gclue_client_call_start_finish() to get the result of the operation.
+             *
+             * See gclue_client_call_start_sync() for the synchronous, blocking version of this method.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
+             */
+            call_start(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an operation started with gclue_client_call_start().
+             * @throws {GLib.Error}
+             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_client_call_start().
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
+             */
+            call_start_finish(res: Gio.AsyncResult): boolean
+            /**
+             * Synchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Start">Start()</link> D-Bus method on @proxy. The calling thread is blocked until a reply is received.
+             *
+             * See gclue_client_call_start() for the asynchronous version of this method.
+             * @throws {GLib.Error}
+             * @param cancellable A #GCancellable or %NULL.
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
+             */
+            call_start_sync(cancellable: Gio.Cancellable | null): boolean
+            /**
+             * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Stop">Stop()</link> D-Bus method on @proxy.
+             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
+             * You can then call gclue_client_call_stop_finish() to get the result of the operation.
+             *
+             * See gclue_client_call_stop_sync() for the synchronous, blocking version of this method.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
+             */
+            call_stop(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an operation started with gclue_client_call_stop().
+             * @throws {GLib.Error}
+             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_client_call_stop().
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
+             */
+            call_stop_finish(res: Gio.AsyncResult): boolean
+            /**
+             * Synchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Stop">Stop()</link> D-Bus method on @proxy. The calling thread is blocked until a reply is received.
+             *
+             * See gclue_client_call_stop() for the asynchronous version of this method.
+             * @throws {GLib.Error}
+             * @param cancellable A #GCancellable or %NULL.
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
+             */
+            call_stop_sync(cancellable: Gio.Cancellable | null): boolean
+            /**
+             * Helper function used in service implementations to finish handling invocations of the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Start">Start()</link> D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
+             *
+             * This method will free @invocation, you cannot use it afterwards.
+             * @param invocation A #GDBusMethodInvocation.
+             */
+            complete_start(invocation: Gio.DBusMethodInvocation): void
+            /**
+             * Helper function used in service implementations to finish handling invocations of the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Stop">Stop()</link> D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
+             *
+             * This method will free @invocation, you cannot use it afterwards.
+             * @param invocation A #GDBusMethodInvocation.
+             */
+            complete_stop(invocation: Gio.DBusMethodInvocation): void
+            /**
+             * Emits the <link linkend="gdbus-signal-org-freedesktop-GeoClue2-Client.LocationUpdated">"LocationUpdated"</link> D-Bus signal.
+             * @param arg_old Argument to pass with the signal.
+             * @param arg_new Argument to pass with the signal.
+             */
+            emit_location_updated(arg_old: string, arg_new: string): void
+        }
+
+        interface ClientIface {
+            readonly $gtype: GObject.GType<Client>
+            readonly prototype: Client
+            [Symbol.hasInstance](instance: unknown): instance is Client
+            /**
+             * Gets a machine-readable description of the <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Client.top_of_page">org.freedesktop.GeoClue2.Client</link> D-Bus interface.
+             * @returns A #GDBusInterfaceInfo. Do not free.
+             */
+            interface_info(): Gio.DBusInterfaceInfo
+            /**
+             * Overrides all #GObject properties in the #GClueClient interface for a concrete class.
+             * The properties are overridden in the order they are defined.
+             * @param klass The class structure for a #GObject derived class.
+             * @param property_id_begin The property id to assign to the first overridden property.
+             * @returns The last property id.
+             */
+            override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
+        }
+
+        interface $Exports {
+            /**
+             * Abstract interface type for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Client.top_of_page">org.freedesktop.GeoClue2.Client</link>.
+             */
+            Client: ClientIface
+        }
+        
+
+        namespace Location {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "accuracy": number
+                "altitude": number
+                "description": string | null
+                "heading": number
+                "latitude": number
+                "longitude": number
+                "speed": number
+                "timestamp": GLib.Variant | null
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "accuracy": number
+                "altitude": number
+                "description": string | null
+                "heading": number
+                "latitude": number
+                "longitude": number
+                "speed": number
+                "timestamp": GLib.Variant | null
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface Location extends GObject.Object, Location.Interface {
+            readonly $signals: Location.SignalSignatures
+            readonly $readableProperties: Location.ReadableProperties
+            readonly $writableProperties: Location.WritableProperties
+            readonly $constructOnlyProperties: Location.ConstructOnlyProperties
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Location.Accuracy">"Accuracy"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             * @default 0.000000
+             */
+            get accuracy(): number
+            set accuracy(value: number)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Location.Altitude">"Altitude"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             * @default 0.000000
+             */
+            get altitude(): number
+            set altitude(value: number)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Location.Description">"Description"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             * @default NULL
+             */
+            get description(): string | null
+            set description(value: string | null)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Location.Heading">"Heading"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             * @default 0.000000
+             */
+            get heading(): number
+            set heading(value: number)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Location.Latitude">"Latitude"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             * @default 0.000000
+             */
+            get latitude(): number
+            set latitude(value: number)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Location.Longitude">"Longitude"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             * @default 0.000000
+             */
+            get longitude(): number
+            set longitude(value: number)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Location.Speed">"Speed"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             * @default 0.000000
+             */
+            get speed(): number
+            set speed(value: number)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Location.Timestamp">"Timestamp"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             */
+            get timestamp(): GLib.Variant | null
+            set timestamp(value: GLib.Variant | null)
+        }
+
+        interface LocationIface {
+            readonly $gtype: GObject.GType<Location>
+            readonly prototype: Location
+            [Symbol.hasInstance](instance: unknown): instance is Location
+            /**
+             * Gets a machine-readable description of the <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Location.top_of_page">org.freedesktop.GeoClue2.Location</link> D-Bus interface.
+             * @returns A #GDBusInterfaceInfo. Do not free.
+             */
+            interface_info(): Gio.DBusInterfaceInfo
+            /**
+             * Overrides all #GObject properties in the #GClueLocation interface for a concrete class.
+             * The properties are overridden in the order they are defined.
+             * @param klass The class structure for a #GObject derived class.
+             * @param property_id_begin The property id to assign to the first overridden property.
+             * @returns The last property id.
+             */
+            override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
+        }
+
+        interface $Exports {
+            /**
+             * Abstract interface type for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Location.top_of_page">org.freedesktop.GeoClue2.Location</link>.
+             */
+            Location: LocationIface
+        }
+        
+
+        namespace Manager {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Signal emitted when a remote caller is invoking the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.AddAgent">AddAgent()</link> D-Bus method.
+                 *
+                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_manager_complete_add_agent() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
+                 * @param invocation A #GDBusMethodInvocation.
+                 * @param arg_id Argument passed by remote caller.
+                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
+                 */
+                "handle-add-agent"(invocation: Gio.DBusMethodInvocation, arg_id: string): boolean
+                /**
+                 * Signal emitted when a remote caller is invoking the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.CreateClient">CreateClient()</link> D-Bus method.
+                 *
+                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_manager_complete_create_client() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
+                 * @param invocation A #GDBusMethodInvocation.
+                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
+                 */
+                "handle-create-client"(invocation: Gio.DBusMethodInvocation): boolean
+                /**
+                 * Signal emitted when a remote caller is invoking the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.DeleteClient">DeleteClient()</link> D-Bus method.
+                 *
+                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_manager_complete_delete_client() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
+                 * @param invocation A #GDBusMethodInvocation.
+                 * @param arg_client Argument passed by remote caller.
+                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
+                 */
+                "handle-delete-client"(invocation: Gio.DBusMethodInvocation, arg_client: string): boolean
+                /**
+                 * Signal emitted when a remote caller is invoking the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.GetClient">GetClient()</link> D-Bus method.
+                 *
+                 * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call gclue_manager_complete_get_client() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
+                 * @param invocation A #GDBusMethodInvocation.
+                 * @returns %G_DBUS_METHOD_INVOCATION_HANDLED or %TRUE if the invocation was handled, %G_DBUS_METHOD_INVOCATION_UNHANDLED or %FALSE to let other signal handlers run.
+                 */
+                "handle-get-client"(invocation: Gio.DBusMethodInvocation): boolean
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "available-accuracy-level": number
+                "in-use": boolean
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "available-accuracy-level": number
+                "in-use": boolean
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * Handler for the #GClueManager::handle-add-agent signal.
+                 * @param invocation
+                 * @param arg_id
+                 */
+                vfunc_handle_add_agent(invocation: Gio.DBusMethodInvocation, arg_id: string): boolean
+                /**
+                 * Handler for the #GClueManager::handle-create-client signal.
+                 * @param invocation
+                 */
+                vfunc_handle_create_client(invocation: Gio.DBusMethodInvocation): boolean
+                /**
+                 * Handler for the #GClueManager::handle-delete-client signal.
+                 * @param invocation
+                 * @param arg_client
+                 */
+                vfunc_handle_delete_client(invocation: Gio.DBusMethodInvocation, arg_client: string): boolean
+                /**
+                 * Handler for the #GClueManager::handle-get-client signal.
+                 * @param invocation
+                 */
+                vfunc_handle_get_client(invocation: Gio.DBusMethodInvocation): boolean
+            }
+        }
+
+        interface Manager extends GObject.Object, Manager.Interface {
+            readonly $signals: Manager.SignalSignatures
+            readonly $readableProperties: Manager.ReadableProperties
+            readonly $writableProperties: Manager.WritableProperties
+            readonly $constructOnlyProperties: Manager.ConstructOnlyProperties
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Manager.AvailableAccuracyLevel">"AvailableAccuracyLevel"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             * @default 0
+             */
+            get availableAccuracyLevel(): number
+            set availableAccuracyLevel(value: number)
+            /**
+             * Represents the D-Bus property <link linkend="gdbus-property-org-freedesktop-GeoClue2-Manager.InUse">"InUse"</link>.
+             *
+             * Since the D-Bus property for this #GObject property is readable but not writable, it is meaningful to read from it on both the client- and service-side. It is only meaningful, however, to write to it on the service-side.
+             * @default FALSE
+             */
+            get inUse(): boolean
+            set inUse(value: boolean)
+            /**
+             * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.AddAgent">AddAgent()</link> D-Bus method on @proxy.
+             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
+             * You can then call gclue_manager_call_add_agent_finish() to get the result of the operation.
+             *
+             * See gclue_manager_call_add_agent_sync() for the synchronous, blocking version of this method.
+             * @param arg_id Argument to pass with the method invocation.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
+             */
+            call_add_agent(arg_id: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an operation started with gclue_manager_call_add_agent().
+             * @throws {GLib.Error}
+             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_add_agent().
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
+             */
+            call_add_agent_finish(res: Gio.AsyncResult): boolean
+            /**
+             * Synchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.AddAgent">AddAgent()</link> D-Bus method on @proxy. The calling thread is blocked until a reply is received.
+             *
+             * See gclue_manager_call_add_agent() for the asynchronous version of this method.
+             * @throws {GLib.Error}
+             * @param arg_id Argument to pass with the method invocation.
+             * @param cancellable A #GCancellable or %NULL.
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
+             */
+            call_add_agent_sync(arg_id: string, cancellable: Gio.Cancellable | null): boolean
+            /**
+             * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.CreateClient">CreateClient()</link> D-Bus method on @proxy.
+             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
+             * You can then call gclue_manager_call_create_client_finish() to get the result of the operation.
+             *
+             * See gclue_manager_call_create_client_sync() for the synchronous, blocking version of this method.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
+             */
+            call_create_client(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an operation started with gclue_manager_call_create_client().
+             * @throws {GLib.Error}
+             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_create_client().
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set., Return location for return parameter or %NULL to ignore.
+             */
+            call_create_client_finish(res: Gio.AsyncResult): [boolean, string]
+            /**
+             * Synchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.CreateClient">CreateClient()</link> D-Bus method on @proxy. The calling thread is blocked until a reply is received.
+             *
+             * See gclue_manager_call_create_client() for the asynchronous version of this method.
+             * @throws {GLib.Error}
+             * @param cancellable A #GCancellable or %NULL.
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set., Return location for return parameter or %NULL to ignore.
+             */
+            call_create_client_sync(cancellable: Gio.Cancellable | null): [boolean, string]
+            /**
+             * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.DeleteClient">DeleteClient()</link> D-Bus method on @proxy.
+             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
+             * You can then call gclue_manager_call_delete_client_finish() to get the result of the operation.
+             *
+             * See gclue_manager_call_delete_client_sync() for the synchronous, blocking version of this method.
+             * @param arg_client Argument to pass with the method invocation.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
+             */
+            call_delete_client(arg_client: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an operation started with gclue_manager_call_delete_client().
+             * @throws {GLib.Error}
+             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_delete_client().
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
+             */
+            call_delete_client_finish(res: Gio.AsyncResult): boolean
+            /**
+             * Synchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.DeleteClient">DeleteClient()</link> D-Bus method on @proxy. The calling thread is blocked until a reply is received.
+             *
+             * See gclue_manager_call_delete_client() for the asynchronous version of this method.
+             * @throws {GLib.Error}
+             * @param arg_client Argument to pass with the method invocation.
+             * @param cancellable A #GCancellable or %NULL.
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set.
+             */
+            call_delete_client_sync(arg_client: string, cancellable: Gio.Cancellable | null): boolean
+            /**
+             * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.GetClient">GetClient()</link> D-Bus method on @proxy.
+             * When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
+             * You can then call gclue_manager_call_get_client_finish() to get the result of the operation.
+             *
+             * See gclue_manager_call_get_client_sync() for the synchronous, blocking version of this method.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
+             */
+            call_get_client(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an operation started with gclue_manager_call_get_client().
+             * @throws {GLib.Error}
+             * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_get_client().
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set., Return location for return parameter or %NULL to ignore.
+             */
+            call_get_client_finish(res: Gio.AsyncResult): [boolean, string]
+            /**
+             * Synchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.GetClient">GetClient()</link> D-Bus method on @proxy. The calling thread is blocked until a reply is received.
+             *
+             * See gclue_manager_call_get_client() for the asynchronous version of this method.
+             * @throws {GLib.Error}
+             * @param cancellable A #GCancellable or %NULL.
+             * @returns %TRUE if the call succeeded, %FALSE if `error` is set., Return location for return parameter or %NULL to ignore.
+             */
+            call_get_client_sync(cancellable: Gio.Cancellable | null): [boolean, string]
+            /**
+             * Helper function used in service implementations to finish handling invocations of the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.AddAgent">AddAgent()</link> D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
+             *
+             * This method will free @invocation, you cannot use it afterwards.
+             * @param invocation A #GDBusMethodInvocation.
+             */
+            complete_add_agent(invocation: Gio.DBusMethodInvocation): void
+            /**
+             * Helper function used in service implementations to finish handling invocations of the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.CreateClient">CreateClient()</link> D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
+             *
+             * This method will free @invocation, you cannot use it afterwards.
+             * @param invocation A #GDBusMethodInvocation.
+             * @param client Parameter to return.
+             */
+            complete_create_client(invocation: Gio.DBusMethodInvocation, client: string): void
+            /**
+             * Helper function used in service implementations to finish handling invocations of the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.DeleteClient">DeleteClient()</link> D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
+             *
+             * This method will free @invocation, you cannot use it afterwards.
+             * @param invocation A #GDBusMethodInvocation.
+             */
+            complete_delete_client(invocation: Gio.DBusMethodInvocation): void
+            /**
+             * Helper function used in service implementations to finish handling invocations of the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.GetClient">GetClient()</link> D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
+             *
+             * This method will free @invocation, you cannot use it afterwards.
+             * @param invocation A #GDBusMethodInvocation.
+             * @param client Parameter to return.
+             */
+            complete_get_client(invocation: Gio.DBusMethodInvocation, client: string): void
+        }
+
+        interface ManagerIface {
+            readonly $gtype: GObject.GType<Manager>
+            readonly prototype: Manager
+            [Symbol.hasInstance](instance: unknown): instance is Manager
+            /**
+             * Gets a machine-readable description of the <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Manager.top_of_page">org.freedesktop.GeoClue2.Manager</link> D-Bus interface.
+             * @returns A #GDBusInterfaceInfo. Do not free.
+             */
+            interface_info(): Gio.DBusInterfaceInfo
+            /**
+             * Overrides all #GObject properties in the #GClueManager interface for a concrete class.
+             * The properties are overridden in the order they are defined.
+             * @param klass The class structure for a #GObject derived class.
+             * @param property_id_begin The property id to assign to the first overridden property.
+             * @returns The last property id.
+             */
+            override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
+        }
+
+        interface $Exports {
+            /**
+             * Abstract interface type for the D-Bus interface <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Manager.top_of_page">org.freedesktop.GeoClue2.Manager</link>.
+             */
+            Manager: ManagerIface
+        }
+        
+
+        interface ClientProxyPrivateStruct {
+            readonly $gtype: GObject.GType<ClientProxyPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ClientProxyPrivate
+        }
+
+        interface ClientProxyPrivate {
+        }
+
+        interface $Exports {
+            ClientProxyPrivate: ClientProxyPrivateStruct
+        }
+        
+
+        interface ClientSkeletonPrivateStruct {
+            readonly $gtype: GObject.GType<ClientSkeletonPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ClientSkeletonPrivate
+        }
+
+        interface ClientSkeletonPrivate {
+        }
+
+        interface $Exports {
+            ClientSkeletonPrivate: ClientSkeletonPrivateStruct
+        }
+        
+
+        interface LocationProxyPrivateStruct {
+            readonly $gtype: GObject.GType<LocationProxyPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is LocationProxyPrivate
+        }
+
+        interface LocationProxyPrivate {
+        }
+
+        interface $Exports {
+            LocationProxyPrivate: LocationProxyPrivateStruct
+        }
+        
+
+        interface LocationSkeletonPrivateStruct {
+            readonly $gtype: GObject.GType<LocationSkeletonPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is LocationSkeletonPrivate
+        }
+
+        interface LocationSkeletonPrivate {
+        }
+
+        interface $Exports {
+            LocationSkeletonPrivate: LocationSkeletonPrivateStruct
+        }
+        
+
+        interface ManagerProxyPrivateStruct {
+            readonly $gtype: GObject.GType<ManagerProxyPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ManagerProxyPrivate
+        }
+
+        interface ManagerProxyPrivate {
+        }
+
+        interface $Exports {
+            ManagerProxyPrivate: ManagerProxyPrivateStruct
+        }
+        
+
+        interface ManagerSkeletonPrivateStruct {
+            readonly $gtype: GObject.GType<ManagerSkeletonPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ManagerSkeletonPrivate
+        }
+
+        interface ManagerSkeletonPrivate {
+        }
+
+        interface $Exports {
+            ManagerSkeletonPrivate: ManagerSkeletonPrivateStruct
+        }
+        
+
+        interface SimplePrivateStruct {
+            readonly $gtype: GObject.GType<SimplePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is SimplePrivate
+        }
+
+        interface SimplePrivate {
+        }
+
+        interface $Exports {
+            SimplePrivate: SimplePrivateStruct
+        }
+        
+        interface AccuracyLevelEnum {
+            readonly $gtype: GObject.GType<AccuracyLevel>
             /**
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              */
-            "AUTO_DELETE" = 1,
+            readonly "COUNTRY": 1
+            /**
+             */
+            readonly "CITY": 4
+            /**
+             */
+            readonly "NEIGHBORHOOD": 5
+            /**
+             */
+            readonly "STREET": 6
+            /**
+             */
+            readonly "EXACT": 8
+        }
+        type AccuracyLevel = AccuracyLevelEnum[Exclude<keyof AccuracyLevelEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            AccuracyLevel: AccuracyLevelEnum
+        }
+        
+        interface ClientProxyCreateFlagsBitfield {
+            readonly $gtype: GObject.GType<ClientProxyCreateFlags>
+            /**
+             */
+            readonly "NONE": 0
+            /**
+             */
+            readonly "AUTO_DELETE": 1
+        }
+        type ClientProxyCreateFlags = number
+        interface $Exports {
+            /**
+             */
+            ClientProxyCreateFlags: ClientProxyCreateFlagsBitfield
+        }
+
+        interface $Exports {
+            __name__: "Geoclue"
+            __version: "2.0"
+            /**
+             * Gets a machine-readable description of the <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Client.top_of_page">org.freedesktop.GeoClue2.Client</link> D-Bus interface.
+             * @returns A #GDBusInterfaceInfo. Do not free.
+             */
+            client_interface_info(): Gio.DBusInterfaceInfo
+            /**
+             * Overrides all #GObject properties in the #GClueClient interface for a concrete class.
+             * The properties are overridden in the order they are defined.
+             * @param klass The class structure for a #GObject derived class.
+             * @param property_id_begin The property id to assign to the first overridden property.
+             * @returns The last property id.
+             */
+            client_override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
+            /**
+             * Gets a machine-readable description of the <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Location.top_of_page">org.freedesktop.GeoClue2.Location</link> D-Bus interface.
+             * @returns A #GDBusInterfaceInfo. Do not free.
+             */
+            location_interface_info(): Gio.DBusInterfaceInfo
+            /**
+             * Overrides all #GObject properties in the #GClueLocation interface for a concrete class.
+             * The properties are overridden in the order they are defined.
+             * @param klass The class structure for a #GObject derived class.
+             * @param property_id_begin The property id to assign to the first overridden property.
+             * @returns The last property id.
+             */
+            location_override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
+            /**
+             * Gets a machine-readable description of the <link linkend="gdbus-interface-org-freedesktop-GeoClue2-Manager.top_of_page">org.freedesktop.GeoClue2.Manager</link> D-Bus interface.
+             * @returns A #GDBusInterfaceInfo. Do not free.
+             */
+            manager_interface_info(): Gio.DBusInterfaceInfo
+            /**
+             * Overrides all #GObject properties in the #GClueManager interface for a concrete class.
+             * The properties are overridden in the order they are defined.
+             * @param klass The class structure for a #GObject derived class.
+             * @param property_id_begin The property id to assign to the first overridden property.
+             * @returns The last property id.
+             */
+            manager_override_properties(klass: GObject.ObjectClass, property_id_begin: number): number
         }
     }
 
+    const Geoclue: Geoclue.$Exports
     export default Geoclue
 }

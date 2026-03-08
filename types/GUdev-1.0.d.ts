@@ -12,16 +12,23 @@ declare module "gi://GUdev?version=1.0" {
 
     
 
-
     namespace GUdev {
-        const __name__: "GUdev"
-        const __version: "1.0"
         
 
         namespace Client {
             interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
+                 * Emitted when @client receives an uevent.
                  *
+                 * Note that while you'll have access to all the device's properties and attributes
+                 * for the majority of actions, only the sysfs path will be available when the device
+                 * is removed.
+                 *
+                 * Also note that the action is an arbitrary string, controlled by device drivers. Other
+                 * values than those listed is possible, but unlikely.
+                 *
+                 * This signal is emitted in the
+                 * <link linkend="g-main-context-push-thread-default">thread-default main loop</link>
                  * of the thread that @client was created in.
                  * @param action The action for the uevent e.g. "add", "remove", "change", "move",
                          "online" or "offline"
@@ -35,30 +42,13 @@ declare module "gi://GUdev?version=1.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "subsystems": string[]
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "subsystems": string[]
             }
         }
 
-        /**
-         *  filesystem) and presented through
-         * #GUdevDevice objects. This means that no blocking IO ever happens
-         * (in both cases, we are essentially just reading data from kernel
-         * memory) and as such there are no asynchronous versions of the
-         * provided methods.
-         *
-         * To get #GUdevDevice objects, use
-         * g_udev_client_query_by_subsystem(),
-         * g_udev_client_query_by_device_number(),
-         * g_udev_client_query_by_device_file(),
-         * g_udev_client_query_by_sysfs_path(),
-         * g_udev_client_query_by_subsystem_and_name()
-         * or the #GUdevEnumerator type.
-         *
-         * To listen to uevents, connect to the #GUdevClient::uevent signal.
-         */
         interface Client extends GObject.Object {
             readonly $signals: Client.SignalSignatures
             readonly $readableProperties: Client.ReadableProperties
@@ -121,9 +111,13 @@ declare module "gi://GUdev?version=1.0" {
         interface ClientClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Client>
             readonly prototype: Client
+
             new (props?: Partial<GObject.ConstructorProps<Client>>): Client
             /**
-             *
+             * Constructs a #GUdevClient object that can be used to query
+             * information about devices. Connect to the #GUdevClient::uevent
+             * signal to listen for uevents. Note that signals are emitted in the
+             * <link linkend="g-main-context-push-thread-default">thread-default main loop</link>
              * of the thread that you call this constructor from.
              * @param subsystems A %NULL terminated string array of subsystems to listen for uevents on, %NULL to not listen on uevents at all, or an empty array to listen to uevents on all subsystems. See the documentation for the #GUdevClient:subsystems property for details on this parameter.
              * @returns A new #GUdevClient object. Free with g_object_unref().
@@ -131,7 +125,32 @@ declare module "gi://GUdev?version=1.0" {
             "new"(subsystems: string[] | null): Client
         }
 
-        const Client: ClientClass
+        interface $Exports {
+            /**
+             * #GUdevClient is used to query information about devices on a Linux
+             * system from the Linux kernel and the udev device
+             * manager.
+             *
+             * Device information is retrieved from the kernel (through the
+             * <literal>sysfs</literal> filesystem) and the udev daemon (through a
+             * <literal>tmpfs</literal> filesystem) and presented through
+             * #GUdevDevice objects. This means that no blocking IO ever happens
+             * (in both cases, we are essentially just reading data from kernel
+             * memory) and as such there are no asynchronous versions of the
+             * provided methods.
+             *
+             * To get #GUdevDevice objects, use
+             * g_udev_client_query_by_subsystem(),
+             * g_udev_client_query_by_device_number(),
+             * g_udev_client_query_by_device_file(),
+             * g_udev_client_query_by_sysfs_path(),
+             * g_udev_client_query_by_subsystem_and_name()
+             * or the #GUdevEnumerator type.
+             *
+             * To listen to uevents, connect to the #GUdevClient::uevent signal.
+             */
+            Client: ClientClass
+        }
         
 
         namespace Device {
@@ -148,54 +167,6 @@ declare module "gi://GUdev?version=1.0" {
             }
         }
 
-        /**
-         * The #GUdevDevice class is used to get information about a specific
-         * device. Note that you cannot instantiate a #GUdevDevice object
-         * yourself. Instead you must use #GUdevClient to obtain #GUdevDevice
-         * objects.
-         *
-         * To get basic information about a device, use
-         * g_udev_device_get_subsystem(), g_udev_device_get_devtype(),
-         * g_udev_device_get_name(), g_udev_device_get_number(),
-         * g_udev_device_get_sysfs_path(), g_udev_device_get_driver(),
-         * g_udev_device_get_action(), g_udev_device_get_seqnum(),
-         * g_udev_device_get_device_type(), g_udev_device_get_device_number(),
-         * g_udev_device_get_device_file(),
-         * g_udev_device_get_device_file_symlinks().
-         *
-         * To navigate the device tree, use g_udev_device_get_parent() and
-         * g_udev_device_get_parent_with_subsystem().
-         *
-         * To access udev properties for the device, use
-         * g_udev_device_get_property_keys(),
-         * g_udev_device_has_property(),
-         * g_udev_device_get_property(),
-         * g_udev_device_get_property_as_int(),
-         * g_udev_device_get_property_as_uint64(),
-         * g_udev_device_get_property_as_double(),
-         * g_udev_device_get_property_as_boolean() and
-         * g_udev_device_get_property_as_strv().
-         *
-         * To access sysfs attributes for the device, use
-         * g_udev_device_get_sysfs_attr_keys(),
-         * g_udev_device_has_sysfs_attr(),
-         * g_udev_device_get_sysfs_attr(),
-         * g_udev_device_get_sysfs_attr_as_int(),
-         * g_udev_device_get_sysfs_attr_as_uint64(),
-         * g_udev_device_get_sysfs_attr_as_double(),
-         * g_udev_device_get_sysfs_attr_as_boolean() and
-         * g_udev_device_get_sysfs_attr_as_strv().
-         *
-         * Note that all getters on #GUdevDevice are non-reffing – returned
-         * values are owned by the object, should not be freed and are only
-         * valid as long as the object is alive.
-         *
-         * By design, #GUdevDevice will not react to changes for a device – it
-         * only contains a snapshot of information when the #GUdevDevice
-         * object was created. To work with changes, you typically connect to
-         * the #GUdevClient::uevent signal on a #GUdevClient and get a new
-         * #GUdevDevice whenever an event happens.
-         */
         interface Device extends GObject.Object {
             readonly $signals: Device.SignalSignatures
             readonly $readableProperties: Device.ReadableProperties
@@ -220,7 +191,7 @@ declare module "gi://GUdev?version=1.0" {
              */
             get_device_file(): string | null
             /**
-             * ) that points to
+             * Gets a list of symlinks (in <literal>/dev</literal>) that points to
              * the device file for @device.
              * @returns A %NULL terminated string array of symlinks. This array is owned by `device` and should not be freed by the caller.
              */
@@ -520,10 +491,61 @@ declare module "gi://GUdev?version=1.0" {
         interface DeviceClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Device>
             readonly prototype: Device
+
             new (props?: Partial<GObject.ConstructorProps<Device>>): Device
         }
 
-        const Device: DeviceClass
+        interface $Exports {
+            /**
+             * The #GUdevDevice class is used to get information about a specific
+             * device. Note that you cannot instantiate a #GUdevDevice object
+             * yourself. Instead you must use #GUdevClient to obtain #GUdevDevice
+             * objects.
+             *
+             * To get basic information about a device, use
+             * g_udev_device_get_subsystem(), g_udev_device_get_devtype(),
+             * g_udev_device_get_name(), g_udev_device_get_number(),
+             * g_udev_device_get_sysfs_path(), g_udev_device_get_driver(),
+             * g_udev_device_get_action(), g_udev_device_get_seqnum(),
+             * g_udev_device_get_device_type(), g_udev_device_get_device_number(),
+             * g_udev_device_get_device_file(),
+             * g_udev_device_get_device_file_symlinks().
+             *
+             * To navigate the device tree, use g_udev_device_get_parent() and
+             * g_udev_device_get_parent_with_subsystem().
+             *
+             * To access udev properties for the device, use
+             * g_udev_device_get_property_keys(),
+             * g_udev_device_has_property(),
+             * g_udev_device_get_property(),
+             * g_udev_device_get_property_as_int(),
+             * g_udev_device_get_property_as_uint64(),
+             * g_udev_device_get_property_as_double(),
+             * g_udev_device_get_property_as_boolean() and
+             * g_udev_device_get_property_as_strv().
+             *
+             * To access sysfs attributes for the device, use
+             * g_udev_device_get_sysfs_attr_keys(),
+             * g_udev_device_has_sysfs_attr(),
+             * g_udev_device_get_sysfs_attr(),
+             * g_udev_device_get_sysfs_attr_as_int(),
+             * g_udev_device_get_sysfs_attr_as_uint64(),
+             * g_udev_device_get_sysfs_attr_as_double(),
+             * g_udev_device_get_sysfs_attr_as_boolean() and
+             * g_udev_device_get_sysfs_attr_as_strv().
+             *
+             * Note that all getters on #GUdevDevice are non-reffing – returned
+             * values are owned by the object, should not be freed and are only
+             * valid as long as the object is alive.
+             *
+             * By design, #GUdevDevice will not react to changes for a device – it
+             * only contains a snapshot of information when the #GUdevDevice
+             * object was created. To work with changes, you typically connect to
+             * the #GUdevClient::uevent signal on a #GUdevClient and get a new
+             * #GUdevDevice whenever an event happens.
+             */
+            Device: DeviceClass
+        }
         
 
         namespace Enumerator {
@@ -535,17 +557,13 @@ declare module "gi://GUdev?version=1.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "client": Client
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "client": Client
             }
         }
 
-        /**
-         * #GUdevEnumerator is used to lookup and sort devices.
-         * @since 165
-         */
         interface Enumerator extends GObject.Object {
             readonly $signals: Enumerator.SignalSignatures
             readonly $readableProperties: Enumerator.ReadableProperties
@@ -633,6 +651,7 @@ declare module "gi://GUdev?version=1.0" {
         interface EnumeratorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Enumerator>
             readonly prototype: Enumerator
+
             new (props?: Partial<GObject.ConstructorProps<Enumerator>>): Enumerator
             /**
              * Constructs a #GUdevEnumerator object that can be used to enumerate
@@ -646,59 +665,87 @@ declare module "gi://GUdev?version=1.0" {
             "new"(client: Client): Enumerator
         }
 
-        const Enumerator: EnumeratorClass
-        none
-        /**
-         */
-        abstract class ClientPrivate {
-            static readonly $gtype: GObject.GType<ClientPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class DevicePrivate {
-            static readonly $gtype: GObject.GType<DevicePrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class EnumeratorPrivate {
-            static readonly $gtype: GObject.GType<EnumeratorPrivate>
-
-            
+        interface $Exports {
+            /**
+             * #GUdevEnumerator is used to lookup and sort devices.
+             * @since 165
+             */
+            Enumerator: EnumeratorClass
         }
         
-        namespace DeviceType {
-            const $gtype: GObject.GType<DeviceType>
+
+        interface ClientPrivateStruct {
+            readonly $gtype: GObject.GType<ClientPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ClientPrivate
         }
 
-        /**
-         * Enumeration used to specify a the type of a device.
-         */
-        enum DeviceType {
+        interface ClientPrivate {
+        }
+
+        interface $Exports {
+            ClientPrivate: ClientPrivateStruct
+        }
+        
+
+        interface DevicePrivateStruct {
+            readonly $gtype: GObject.GType<DevicePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DevicePrivate
+        }
+
+        interface DevicePrivate {
+        }
+
+        interface $Exports {
+            DevicePrivate: DevicePrivateStruct
+        }
+        
+
+        interface EnumeratorPrivateStruct {
+            readonly $gtype: GObject.GType<EnumeratorPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is EnumeratorPrivate
+        }
+
+        interface EnumeratorPrivate {
+        }
+
+        interface $Exports {
+            EnumeratorPrivate: EnumeratorPrivateStruct
+        }
+        
+        interface DeviceTypeEnum {
+            readonly $gtype: GObject.GType<DeviceType>
             /**
              * Device does not have a device file.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Device is a block device.
              */
-            "BLOCK" = 98,
+            readonly "BLOCK": 98
             /**
              * Device is a character device.
              */
-            "CHAR" = 99,
+            readonly "CHAR": 99
+        }
+        type DeviceType = DeviceTypeEnum[Exclude<keyof DeviceTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used to specify a the type of a device.
+             */
+            DeviceType: DeviceTypeEnum
         }
         /**
          * Corresponds to the standard #dev_t type as defined by POSIX (Until
          * bug 584517 is resolved this work-around is needed).
          */
         type DeviceNumber = number
+
+        interface $Exports {
+            __name__: "GUdev"
+            __version: "1.0"
+        }
     }
 
+    const GUdev: GUdev.$Exports
     export default GUdev
 }

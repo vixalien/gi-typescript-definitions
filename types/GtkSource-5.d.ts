@@ -36,641 +36,7 @@ declare module "gi://GtkSource?version=5" {
 
     
 
-
     namespace GtkSource {
-        const __name__: "GtkSource"
-        const __version: "5"
-        
-
-        namespace CompletionProposal {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * Gets the typed-text for the proposal, if supported by the implementation.
-                 *
-                 * Implementing this virtual-function is optional, but can be useful to allow
-                 * external tooling to compare results.
-                 * @since 5.6
-                 * @returns a newly allocated string, or %NULL
-                 */
-                vfunc_get_typed_text(): string | null
-            }
-        }
-
-        /**
-         * Interface for completion proposals.
-         *
-         * This interface is used to denote that an object is capable of being
-         * a completion proposal for [class@Completion].
-         *
-         * Currently, no method or functions are required but additional methods
-         * may be added in the future. Proposals created by
-         * #GtkSourceCompletionProvider can use [func@GObject.IMPLEMENT_INTERFACE] to
-         * implement this with %NULL for the interface init function.
-         */
-        interface CompletionProposal extends CompletionProposal.Interface {
-            readonly $signals: CompletionProposal.SignalSignatures
-            readonly $readableProperties: CompletionProposal.ReadableProperties
-            readonly $writableProperties: CompletionProposal.WritableProperties
-            readonly $constructOnlyProperties: CompletionProposal.ConstructOnlyProperties
-            /**
-             * Gets the typed-text for the proposal, if supported by the implementation.
-             *
-             * Implementing this virtual-function is optional, but can be useful to allow
-             * external tooling to compare results.
-             * @since 5.6
-             * @returns a newly allocated string, or %NULL
-             */
-            get_typed_text(): string | null
-        }
-
-
-        interface CompletionProposalInterface {
-            readonly $gtype: GObject.GType<CompletionProposal>
-            readonly prototype: CompletionProposal
-
-            [Symbol.hasInstance](instance: unknown): instance is CompletionProposal
-        }
-
-        const CompletionProposal: CompletionProposalInterface
-        
-
-        namespace CompletionProvider {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * This function requests @proposal to be activated by the
-                 * #GtkSourceCompletionProvider.
-                 *
-                 * What the provider does to activate the proposal is specific to that
-                 * provider. Many providers may choose to insert a #GtkSourceSnippet with
-                 * edit points the user may cycle through.
-                 *
-                 * See also: [class@Snippet], [class@SnippetChunk], [method@View.push_snippet]
-                 * @param context a #GtkSourceCompletionContext
-                 * @param proposal a #GtkSourceCompletionProposal
-                 */
-                vfunc_activate(context: CompletionContext, proposal: CompletionProposal): void
-                /**
-                 * This function requests that the #GtkSourceCompletionProvider prepares
-                 * @cell to display the contents of @proposal.
-                 *
-                 * Based on @cells column type, you may want to display different information.
-                 *
-                 * This allows for columns of information among completion proposals
-                 * resulting in better alignment of similar content (icons, return types,
-                 * method names, and parameter lists).
-                 * @param context a #GtkSourceCompletionContext
-                 * @param proposal a #GtkSourceCompletionProposal
-                 * @param cell a #GtkSourceCompletionCell
-                 */
-                vfunc_display(context: CompletionContext, proposal: CompletionProposal, cell: CompletionCell): void
-                /**
-                 * This function should return the priority of @self in @context.
-                 *
-                 * The priority is used to sort groups of completion proposals by
-                 * provider so that higher priority providers results are shown
-                 * above lower priority providers.
-                 *
-                 * Higher value indicates higher priority.
-                 * @param context a #GtkSourceCompletionContext
-                 */
-                vfunc_get_priority(context: CompletionContext): number
-                /**
-                 * Gets the title of the completion provider, if any.
-                 *
-                 * Currently, titles are not displayed in the completion results, but may be
-                 * at some point in the future when non-%NULL.
-                 * @returns a title for the provider or %NULL
-                 */
-                vfunc_get_title(): string | null
-                /**
-                 * This function is used to determine if a character inserted into the text
-                 * editor should cause a new completion request to be triggered.
-                 *
-                 * An example would be period '.' which might indicate that the user wants
-                 * to complete method or field names of an object.
-                 *
-                 * This method will only trigger when text is inserted into the #GtkTextBuffer
-                 * while the completion list is visible and a proposal is selected. Incremental
-                 * key-presses (like shift, control, or alt) are not triggerable.
-                 * @param iter a #GtkTextIter
-                 * @param ch a #gunichar of the character inserted
-                 */
-                vfunc_is_trigger(iter: Gtk.TextIter, ch: string): boolean
-                /**
-                 * This function is used to determine if a key typed by the user should
-                 * activate @proposal (resulting in committing the text to the editor).
-                 *
-                 * This is useful when using languages where convention may lead to less
-                 * typing by the user. One example may be the use of "." or "-" to expand
-                 * a field access in the C programming language.
-                 * @param context a #GtkSourceCompletionContext
-                 * @param proposal a #GtkSourceCompletionProposal
-                 * @param keyval a keyval such as [const@Gdk.KEY_period]
-                 * @param state a #GdkModifierType or 0
-                 */
-                vfunc_key_activates(context: CompletionContext, proposal: CompletionProposal, keyval: number, state: Gdk.ModifierType): boolean
-                /**
-                 * Providers should return a list of alternates to @proposal or %NULL if
-                 * there are no alternates available.
-                 *
-                 * This can be used by the completion view to allow the user to move laterally
-                 * through similar proposals, such as overrides of methods by the same name.
-                 * @param context a #GtkSourceCompletionContext
-                 * @param proposal a #GtkSourceCompletionProposal
-                 * @returns    a #GPtrArray of #GtkSourceCompletionProposal or %NULL.
-                 */
-                vfunc_list_alternates(context: CompletionContext, proposal: CompletionProposal): CompletionProposal[] | null
-                /**
-                 * Asynchronously requests that the provider populates the completion
-                 * results for @context.
-                 *
-                 * For providers that would like to populate a [iface@Gio.ListModel] while those
-                 * results are displayed to the user,
-                 * [method@CompletionContext.set_proposals_for_provider] may be used
-                 * to reduce latency until the user sees results.
-                 * @param context a #GtkSourceCompletionContext
-                 * @param cancellable a #GCancellable or %NULL
-                 * @param callback a callback to execute upon completion
-                 */
-                vfunc_populate_async(context: CompletionContext, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-                /**
-                 * Completes an asynchronous operation to populate a completion provider.
-                 * @throws {GLib.Error}
-                 * @param result a #GAsyncResult provided to callback
-                 * @returns a #GListModel of #GtkSourceCompletionProposal
-                 */
-                vfunc_populate_finish(result: Gio.AsyncResult): Gio.ListModel
-                /**
-                 * This function can be used to filter results previously provided to
-                 * the [class@CompletionContext] by the #GtkSourceCompletionProvider.
-                 *
-                 * This can happen as the user types additional text onto the word so
-                 * that previously matched items may be removed from the list instead of
-                 * generating new [iface@Gio.ListModel] of results.
-                 * @param context a #GtkSourceCompletionContext
-                 * @param model a #GListModel
-                 */
-                vfunc_refilter(context: CompletionContext, model: Gio.ListModel): void
-            }
-        }
-
-        /**
-         * Completion provider interface.
-         *
-         * You must implement this interface to provide proposals to [class@Completion].
-         *
-         * In most cases, implementations of this interface will want to use
-         * [vfunc@CompletionProvider.populate_async] to asynchronously populate the results
-         * to avoid blocking the main loop.
-         */
-        interface CompletionProvider extends CompletionProvider.Interface {
-            readonly $signals: CompletionProvider.SignalSignatures
-            readonly $readableProperties: CompletionProvider.ReadableProperties
-            readonly $writableProperties: CompletionProvider.WritableProperties
-            readonly $constructOnlyProperties: CompletionProvider.ConstructOnlyProperties
-            /**
-             * This function requests @proposal to be activated by the
-             * #GtkSourceCompletionProvider.
-             *
-             * What the provider does to activate the proposal is specific to that
-             * provider. Many providers may choose to insert a #GtkSourceSnippet with
-             * edit points the user may cycle through.
-             *
-             * See also: [class@Snippet], [class@SnippetChunk], [method@View.push_snippet]
-             * @param context a #GtkSourceCompletionContext
-             * @param proposal a #GtkSourceCompletionProposal
-             */
-            activate(context: CompletionContext, proposal: CompletionProposal): void
-            /**
-             * This function requests that the #GtkSourceCompletionProvider prepares
-             * @cell to display the contents of @proposal.
-             *
-             * Based on @cells column type, you may want to display different information.
-             *
-             * This allows for columns of information among completion proposals
-             * resulting in better alignment of similar content (icons, return types,
-             * method names, and parameter lists).
-             * @param context a #GtkSourceCompletionContext
-             * @param proposal a #GtkSourceCompletionProposal
-             * @param cell a #GtkSourceCompletionCell
-             */
-            display(context: CompletionContext, proposal: CompletionProposal, cell: CompletionCell): void
-            /**
-             * This function should return the priority of @self in @context.
-             *
-             * The priority is used to sort groups of completion proposals by
-             * provider so that higher priority providers results are shown
-             * above lower priority providers.
-             *
-             * Higher value indicates higher priority.
-             * @param context a #GtkSourceCompletionContext
-             */
-            get_priority(context: CompletionContext): number
-            /**
-             * Gets the title of the completion provider, if any.
-             *
-             * Currently, titles are not displayed in the completion results, but may be
-             * at some point in the future when non-%NULL.
-             * @returns a title for the provider or %NULL
-             */
-            get_title(): string | null
-            /**
-             * This function is used to determine if a character inserted into the text
-             * editor should cause a new completion request to be triggered.
-             *
-             * An example would be period '.' which might indicate that the user wants
-             * to complete method or field names of an object.
-             *
-             * This method will only trigger when text is inserted into the #GtkTextBuffer
-             * while the completion list is visible and a proposal is selected. Incremental
-             * key-presses (like shift, control, or alt) are not triggerable.
-             * @param iter a #GtkTextIter
-             * @param ch a #gunichar of the character inserted
-             */
-            is_trigger(iter: Gtk.TextIter, ch: string): boolean
-            /**
-             * This function is used to determine if a key typed by the user should
-             * activate @proposal (resulting in committing the text to the editor).
-             *
-             * This is useful when using languages where convention may lead to less
-             * typing by the user. One example may be the use of "." or "-" to expand
-             * a field access in the C programming language.
-             * @param context a #GtkSourceCompletionContext
-             * @param proposal a #GtkSourceCompletionProposal
-             * @param keyval a keyval such as [const@Gdk.KEY_period]
-             * @param state a #GdkModifierType or 0
-             */
-            key_activates(context: CompletionContext, proposal: CompletionProposal, keyval: number, state: Gdk.ModifierType): boolean
-            /**
-             * Providers should return a list of alternates to @proposal or %NULL if
-             * there are no alternates available.
-             *
-             * This can be used by the completion view to allow the user to move laterally
-             * through similar proposals, such as overrides of methods by the same name.
-             * @param context a #GtkSourceCompletionContext
-             * @param proposal a #GtkSourceCompletionProposal
-             * @returns    a #GPtrArray of #GtkSourceCompletionProposal or %NULL.
-             */
-            list_alternates(context: CompletionContext, proposal: CompletionProposal): CompletionProposal[] | null
-            /**
-             * Asynchronously requests that the provider populates the completion
-             * results for @context.
-             *
-             * For providers that would like to populate a [iface@Gio.ListModel] while those
-             * results are displayed to the user,
-             * [method@CompletionContext.set_proposals_for_provider] may be used
-             * to reduce latency until the user sees results.
-             * @param context a #GtkSourceCompletionContext
-             * @param cancellable a #GCancellable or %NULL
-             * @param callback a callback to execute upon completion
-             */
-            populate_async(context: CompletionContext, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Completes an asynchronous operation to populate a completion provider.
-             * @throws {GLib.Error}
-             * @param result a #GAsyncResult provided to callback
-             * @returns a #GListModel of #GtkSourceCompletionProposal
-             */
-            populate_finish(result: Gio.AsyncResult): Gio.ListModel
-            /**
-             * This function can be used to filter results previously provided to
-             * the [class@CompletionContext] by the #GtkSourceCompletionProvider.
-             *
-             * This can happen as the user types additional text onto the word so
-             * that previously matched items may be removed from the list instead of
-             * generating new [iface@Gio.ListModel] of results.
-             * @param context a #GtkSourceCompletionContext
-             * @param model a #GListModel
-             */
-            refilter(context: CompletionContext, model: Gio.ListModel): void
-        }
-
-
-        interface CompletionProviderInterface {
-            readonly $gtype: GObject.GType<CompletionProvider>
-            readonly prototype: CompletionProvider
-
-            [Symbol.hasInstance](instance: unknown): instance is CompletionProvider
-        }
-
-        const CompletionProvider: CompletionProviderInterface
-        
-
-        namespace HoverProvider {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * @throws {GLib.Error}
-                 * @param context
-                 * @param display
-                 */
-                vfunc_populate(context: HoverContext, display: HoverDisplay): boolean
-                /**
-                 * @param context
-                 * @param display
-                 * @param cancellable
-                 * @param callback
-                 */
-                vfunc_populate_async(context: HoverContext, display: HoverDisplay, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-                /**
-                 * @throws {GLib.Error}
-                 * @param result
-                 */
-                vfunc_populate_finish(result: Gio.AsyncResult): boolean
-            }
-        }
-
-        /**
-         * Interface to populate interactive tooltips.
-         *
-         * `GtkSourceHoverProvider` is an interface that should be implemented to extend
-         * the contents of a [class@HoverDisplay]. This is typical in editors that
-         * interact external tooling such as those utilizing Language Server Protocol.
-         *
-         * If you can populate the [class@HoverDisplay] synchronously, use
-         * [vfunc@HoverProvider.populate]. Otherwise, interface implementations that
-         * may take additional time should use [vfunc@HoverProvider.populate_async]
-         * to avoid blocking the main loop.
-         */
-        interface HoverProvider extends HoverProvider.Interface {
-            readonly $signals: HoverProvider.SignalSignatures
-            readonly $readableProperties: HoverProvider.ReadableProperties
-            readonly $writableProperties: HoverProvider.WritableProperties
-            readonly $constructOnlyProperties: HoverProvider.ConstructOnlyProperties
-            /**
-             * @param context
-             * @param display
-             * @param cancellable
-             * @param callback
-             */
-            populate_async(context: HoverContext, display: HoverDisplay, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * @throws {GLib.Error}
-             * @param result
-             */
-            populate_finish(result: Gio.AsyncResult): boolean
-        }
-
-
-        interface HoverProviderInterface {
-            readonly $gtype: GObject.GType<HoverProvider>
-            readonly prototype: HoverProvider
-
-            [Symbol.hasInstance](instance: unknown): instance is HoverProvider
-        }
-
-        const HoverProvider: HoverProviderInterface
-        
-
-        namespace Indenter {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * This function should be implemented to alter the indentation of text
-                 * within the view.
-                 *
-                 * @view is provided so that the indenter may retrieve settings such as indentation and tab widths.
-                 *
-                 * @iter is the location where the indentation was requested. This typically
-                 * is after having just inserted a newline (\n) character but can be other
-                 * situations such as a manually requested indentation or reformatting.
-                 *
-                 * See [vfunc@GtkSource.Indenter.is_trigger] for how to trigger indentation on
-                 * various characters inserted into the buffer.
-                 *
-                 * The implementor of this function is expected to keep @iter valid across
-                 * calls to the function and should contain the location of the insert mark
-                 * after calling this function.
-                 *
-                 * The default implementation for this virtual function will copy the
-                 * indentation of the previous line.
-                 * @param view a #GtkSourceView
-                 * @returns , the location of the indentation request
-                 */
-                vfunc_indent(view: View): Gtk.TextIter
-                /**
-                 * This function is used to determine if a key pressed should cause the
-                 * indenter to automatically indent.
-                 *
-                 * The default implementation of this virtual method will check to see
-                 * if @keyval is [const@Gdk.KEY_Return] or [const@Gdk.KEY_KP_Enter] and @state does
-                 * not have %GDK_SHIFT_MASK set. This is to allow the user to avoid
-                 * indentation when Shift+Return is pressed. Other indenters may want
-                 * to copy this behavior to provide a consistent experience to users.
-                 * @param view a #GtkSourceView
-                 * @param location the location where @ch is to be inserted
-                 * @param state modifier state for the insertion
-                 * @param keyval the keyval pressed such as [const@Gdk.KEY_Return]
-                 * @returns %TRUE if indentation should be automatically triggered;   otherwise %FALSE and no indentation will be performed.
-                 */
-                vfunc_is_trigger(view: View, location: Gtk.TextIter, state: Gdk.ModifierType, keyval: number): boolean
-            }
-        }
-
-        /**
-         * Auto-indentation interface.
-         *
-         * By default, [class@View] can auto-indent as you type when
-         * [property@View:auto-indent] is enabled. The indentation simply copies the
-         * previous lines indentation.
-         *
-         * This can be changed by implementing `GtkSourceIndenter` and setting the
-         * [property@View:indenter] property.
-         *
-         * Implementors of this interface should implement both
-         * [vfunc@GtkSource.Indenter.is_trigger] and [vfunc@GtkSource.Indenter.indent].
-         *
-         * [vfunc@GtkSource.Indenter.is_trigger] is called upon key-press to
-         * determine of the key press should trigger an indentation.  The default
-         * implementation of the interface checks to see if the key was
-         * [const@Gdk.KEY_Return] or [const@Gdk.KEY_KP_Enter] without %GDK_SHIFT_MASK set.
-         *
-         * [vfunc@GtkSource.Indenter.indent] is called after text has been
-         * inserted into [class@Buffer] when
-         * [vfunc@GtkSource.Indenter.is_trigger] returned %TRUE. The [struct@Gtk.TextIter]
-         * is placed directly after the inserted character or characters.
-         *
-         * It may be beneficial to move the insertion mark using
-         * [method@Gtk.TextBuffer.select_range] depending on how the indenter changes
-         * the indentation.
-         *
-         * All changes are encapsulated within a single user action so that the
-         * user may undo them using standard undo/redo accelerators.
-         */
-        interface Indenter extends Indenter.Interface {
-            readonly $signals: Indenter.SignalSignatures
-            readonly $readableProperties: Indenter.ReadableProperties
-            readonly $writableProperties: Indenter.WritableProperties
-            readonly $constructOnlyProperties: Indenter.ConstructOnlyProperties
-            /**
-             * This function should be implemented to alter the indentation of text
-             * within the view.
-             *
-             * @view is provided so that the indenter may retrieve settings such as indentation and tab widths.
-             *
-             * @iter is the location where the indentation was requested. This typically
-             * is after having just inserted a newline (\n) character but can be other
-             * situations such as a manually requested indentation or reformatting.
-             *
-             * See [vfunc@GtkSource.Indenter.is_trigger] for how to trigger indentation on
-             * various characters inserted into the buffer.
-             *
-             * The implementor of this function is expected to keep @iter valid across
-             * calls to the function and should contain the location of the insert mark
-             * after calling this function.
-             *
-             * The default implementation for this virtual function will copy the
-             * indentation of the previous line.
-             * @param view a #GtkSourceView
-             * @returns , the location of the indentation request
-             */
-            indent(view: View): Gtk.TextIter
-            /**
-             * This function is used to determine if a key pressed should cause the
-             * indenter to automatically indent.
-             *
-             * The default implementation of this virtual method will check to see
-             * if @keyval is [const@Gdk.KEY_Return] or [const@Gdk.KEY_KP_Enter] and @state does
-             * not have %GDK_SHIFT_MASK set. This is to allow the user to avoid
-             * indentation when Shift+Return is pressed. Other indenters may want
-             * to copy this behavior to provide a consistent experience to users.
-             * @param view a #GtkSourceView
-             * @param location the location where @ch is to be inserted
-             * @param state modifier state for the insertion
-             * @param keyval the keyval pressed such as [const@Gdk.KEY_Return]
-             * @returns %TRUE if indentation should be automatically triggered;   otherwise %FALSE and no indentation will be performed.
-             */
-            is_trigger(view: View, location: Gtk.TextIter, state: Gdk.ModifierType, keyval: number): boolean
-        }
-
-
-        interface IndenterInterface {
-            readonly $gtype: GObject.GType<Indenter>
-            readonly prototype: Indenter
-
-            [Symbol.hasInstance](instance: unknown): instance is Indenter
-        }
-
-        const Indenter: IndenterInterface
-        
-
-        namespace StyleSchemeChooser {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-                "style-scheme": StyleScheme
-            }
-
-            interface WritableProperties  {
-                "style-scheme": StyleScheme
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * Gets the currently-selected scheme.
-                 * @returns the currently-selected scheme.
-                 */
-                vfunc_get_style_scheme(): StyleScheme
-                /**
-                 * Sets the scheme.
-                 * @param scheme a #GtkSourceStyleScheme
-                 */
-                vfunc_set_style_scheme(scheme: StyleScheme): void
-            }
-        }
-
-        /**
-         * Interface implemented by widgets for choosing style schemes.
-         *
-         * `GtkSourceStyleSchemeChooser` is an interface that is implemented by widgets
-         * for choosing style schemes.
-         *
-         * In GtkSourceView, the main widgets that implement this interface are
-         * [class@StyleSchemeChooserWidget] and [class@StyleSchemeChooserButton].
-         */
-        interface StyleSchemeChooser extends StyleSchemeChooser.Interface {
-            readonly $signals: StyleSchemeChooser.SignalSignatures
-            readonly $readableProperties: StyleSchemeChooser.ReadableProperties
-            readonly $writableProperties: StyleSchemeChooser.WritableProperties
-            readonly $constructOnlyProperties: StyleSchemeChooser.ConstructOnlyProperties
-            /**
-             * Contains the currently selected style scheme.
-             *
-             * The property can be set to change the current selection programmatically.
-             */
-            get styleScheme(): StyleScheme
-            set styleScheme(value: StyleScheme)
-            /**
-             * Gets the currently-selected scheme.
-             * @returns the currently-selected scheme.
-             */
-            get_style_scheme(): StyleScheme
-            /**
-             * Sets the scheme.
-             * @param scheme a #GtkSourceStyleScheme
-             */
-            set_style_scheme(scheme: StyleScheme): void
-        }
-
-
-        interface StyleSchemeChooserInterface {
-            readonly $gtype: GObject.GType<StyleSchemeChooser>
-            readonly prototype: StyleSchemeChooser
-
-            [Symbol.hasInstance](instance: unknown): instance is StyleSchemeChooser
-        }
-
-        const StyleSchemeChooser: StyleSchemeChooserInterface
         
 
         namespace Annotation {
@@ -695,15 +61,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Represents an annotation added to [class@View], it has a [property@Annotation:line] property,
-         * [property@Annotation:description], icon and a style.
-         *
-         * It will be displayed always at the end of a line.
-         *
-         * If the style is GTK_SOURCE_ANNOTATION_STYLE_NONE it will use the same color as [class@SpaceDrawer].
-         * @since 5.18
-         */
         interface Annotation extends GObject.Object {
             readonly $signals: Annotation.SignalSignatures
             readonly $readableProperties: Annotation.ReadableProperties
@@ -759,6 +116,7 @@ declare module "gi://GtkSource?version=5" {
         interface AnnotationClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Annotation>
             readonly prototype: Annotation
+
             new (props?: Partial<GObject.ConstructorProps<Annotation>>): Annotation
             /**
              * @param description the text to display or %NULL.
@@ -770,7 +128,18 @@ declare module "gi://GtkSource?version=5" {
             "new"(description: string | null, icon: Gio.Icon | null, line: number, style: AnnotationStyle): Annotation
         }
 
-        const Annotation: AnnotationClass
+        interface $Exports {
+            /**
+             * Represents an annotation added to [class@View], it has a [property@Annotation:line] property,
+             * [property@Annotation:description], icon and a style.
+             *
+             * It will be displayed always at the end of a line.
+             *
+             * If the style is GTK_SOURCE_ANNOTATION_STYLE_NONE it will use the same color as [class@SpaceDrawer].
+             * @since 5.18
+             */
+            Annotation: AnnotationClass
+        }
         
 
         namespace AnnotationProvider {
@@ -791,15 +160,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * It is used to provide annotations and display them on [class@View] and also populate
-         * [class@HoverDisplay] when the user hovers over an annotation.
-         *
-         * You can subclass this object and implement [method@AnnotationProvider.populate_hover_async] and
-         * [method@AnnotationProvider.populate_hover_finish] or connect to [signal@AnnotationProvider::populate]
-         * and call [method@AnnotationProvider.populate] or do it asynchronously.
-         * @since 5.18
-         */
         interface AnnotationProvider extends GObject.Object {
             readonly $signals: AnnotationProvider.SignalSignatures
             readonly $readableProperties: AnnotationProvider.ReadableProperties
@@ -864,6 +224,7 @@ declare module "gi://GtkSource?version=5" {
         interface AnnotationProviderClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<AnnotationProvider>
             readonly prototype: AnnotationProvider
+
             new (props?: Partial<GObject.ConstructorProps<AnnotationProvider>>): AnnotationProvider
             /**
              * Used to create a new annotation provider.
@@ -873,7 +234,18 @@ declare module "gi://GtkSource?version=5" {
             "new"(): AnnotationProvider
         }
 
-        const AnnotationProvider: AnnotationProviderClass
+        interface $Exports {
+            /**
+             * It is used to provide annotations and display them on [class@View] and also populate
+             * [class@HoverDisplay] when the user hovers over an annotation.
+             *
+             * You can subclass this object and implement [method@AnnotationProvider.populate_hover_async] and
+             * [method@AnnotationProvider.populate_hover_finish] or connect to [signal@AnnotationProvider::populate]
+             * and call [method@AnnotationProvider.populate] or do it asynchronously.
+             * @since 5.18
+             */
+            AnnotationProvider: AnnotationProviderClass
+        }
         
 
         namespace Annotations {
@@ -893,14 +265,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Use this object to manage [class@Annotation]s. Each [class@View] has a single annotation
-         * manager and it is guaranteed to be the same for the lifetime of [class@View].
-         *
-         * Add [class@AnnotationProvider]s with [method@Annotations.add_provider] to
-         * display all the annotations added to each [class@AnnotationProvider].
-         * @since 5.18
-         */
         interface Annotations extends GObject.Object {
             readonly $signals: Annotations.SignalSignatures
             readonly $readableProperties: Annotations.ReadableProperties
@@ -922,10 +286,21 @@ declare module "gi://GtkSource?version=5" {
         interface AnnotationsClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Annotations>
             readonly prototype: Annotations
+
             new (props?: Partial<GObject.ConstructorProps<Annotations>>): Annotations
         }
 
-        const Annotations: AnnotationsClass
+        interface $Exports {
+            /**
+             * Use this object to manage [class@Annotation]s. Each [class@View] has a single annotation
+             * manager and it is guaranteed to be the same for the lifetime of [class@View].
+             *
+             * Add [class@AnnotationProvider]s with [method@Annotations.add_provider] to
+             * display all the annotations added to each [class@AnnotationProvider].
+             * @since 5.18
+             */
+            Annotations: AnnotationsClass
+        }
         
 
         namespace Buffer {
@@ -985,38 +360,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * `. For example to
-         * retrieve the [class@Gtk.TextTag] for the string context class, one can write:
-         * ```c
-         * GtkTextTagTable *tag_table;
-         * GtkTextTag *tag;
-         *
-         * tag_table = gtk_text_buffer_get_tag_table (buffer);
-         * tag = gtk_text_tag_table_lookup (tag_table, "gtksourceview:context-classes:string");
-         * ```
-         * ```python
-         * buffer = GtkSource.Buffer()
-         *
-         * tag_table = buffer.get_tag_table()
-         * tag = tag_table.lookup(name="gtksourceview:context-classes:string")
-         * ```
-         *
-         * The tag must be used for read-only purposes.
-         *
-         * Accessing a context class via the associated [class@Gtk.TextTag] is less
-         * convenient than the `GtkSourceBuffer` API, because:
-         *
-         *  - The tag doesn't always exist, you need to listen to the
-         *    [signal@Gtk.TextTagTable::tag-added] and [signal@Gtk.TextTagTable::tag-removed] signals.
-         *  - Instead of the [signal@GtkSource.Buffer::highlight-updated] signal, you can listen
-         *    to the [signal@Gtk.TextBuffer::apply-tag] and [signal@Gtk.TextBuffer::remove-tag] signals.
-         *
-         * A possible use-case for accessing a context class via the associated
-         * [class@Gtk.TextTag] is to read the region but without adding a hard dependency on the
-         * GtkSourceView library (for example for a spell-checking library that wants to
-         * read the no-spell-check region).
-         */
         interface Buffer extends Gtk.TextBuffer {
             readonly $signals: Buffer.SignalSignatures
             readonly $readableProperties: Buffer.ReadableProperties
@@ -1338,6 +681,7 @@ declare module "gi://GtkSource?version=5" {
         interface BufferClass extends Omit<Gtk.TextBufferClass, "new"> {
             readonly $gtype: GObject.GType<Buffer>
             readonly prototype: Buffer
+
             new (props?: Partial<GObject.ConstructorProps<Buffer>>): Buffer
             /**
              * Creates a new source buffer.
@@ -1356,7 +700,81 @@ declare module "gi://GtkSource?version=5" {
             new_with_language(language: Language): Buffer
         }
 
-        const Buffer: BufferClass
+        interface $Exports {
+            /**
+             * Subclass of [class@Gtk.TextBuffer].
+             *
+             * A `GtkSourceBuffer` object is the model for [class@View] widgets.
+             * It extends the [class@Gtk.TextBuffer] class by adding features useful to display
+             * and edit source code such as syntax highlighting and bracket matching.
+             *
+             * To create a `GtkSourceBuffer` use [ctor@GtkSource.Buffer.new] or
+             * [ctor@GtkSource.Buffer.new_with_language]. The second form is just a convenience
+             * function which allows you to initially set a [class@Language]. You can also
+             * directly create a [class@View] and get its [class@Buffer] with
+             * [method@Gtk.TextView.get_buffer].
+             *
+             * The highlighting is enabled by default, but you can disable it with
+             * [method@Buffer.set_highlight_syntax].
+             *
+             * # Context Classes:
+             *
+             * It is possible to retrieve some information from the syntax highlighting
+             * engine. The default context classes that are applied to regions of a
+             * `GtkSourceBuffer`:
+             *
+             *  - **comment**: the region delimits a comment;
+             *  - **no-spell-check**: the region should not be spell checked;
+             *  - **path**: the region delimits a path to a file;
+             *  - **string**: the region delimits a string.
+             *
+             * Custom language definition files can create their own context classes,
+             * since the functions like [method@Buffer.iter_has_context_class] take
+             * a string parameter as the context class.
+             *
+             * `GtkSourceBuffer` provides an API to access the context classes:
+             * [method@Buffer.iter_has_context_class],
+             * [method@Buffer.get_context_classes_at_iter],
+             * [method@Buffer.iter_forward_to_context_class_toggle] and
+             * [method@Buffer.iter_backward_to_context_class_toggle].
+             *
+             * And the [signal@GtkSource.Buffer::highlight-updated] signal permits to be notified
+             * when a context class region changes.
+             *
+             * Each context class has also an associated [class@Gtk.TextTag] with the name
+             * `gtksourceview:context-classes:<name>`. For example to
+             * retrieve the [class@Gtk.TextTag] for the string context class, one can write:
+             * ```c
+             * GtkTextTagTable *tag_table;
+             * GtkTextTag *tag;
+             *
+             * tag_table = gtk_text_buffer_get_tag_table (buffer);
+             * tag = gtk_text_tag_table_lookup (tag_table, "gtksourceview:context-classes:string");
+             * ```
+             * ```python
+             * buffer = GtkSource.Buffer()
+             *
+             * tag_table = buffer.get_tag_table()
+             * tag = tag_table.lookup(name="gtksourceview:context-classes:string")
+             * ```
+             *
+             * The tag must be used for read-only purposes.
+             *
+             * Accessing a context class via the associated [class@Gtk.TextTag] is less
+             * convenient than the `GtkSourceBuffer` API, because:
+             *
+             *  - The tag doesn't always exist, you need to listen to the
+             *    [signal@Gtk.TextTagTable::tag-added] and [signal@Gtk.TextTagTable::tag-removed] signals.
+             *  - Instead of the [signal@GtkSource.Buffer::highlight-updated] signal, you can listen
+             *    to the [signal@Gtk.TextBuffer::apply-tag] and [signal@Gtk.TextBuffer::remove-tag] signals.
+             *
+             * A possible use-case for accessing a context class via the associated
+             * [class@Gtk.TextTag] is to read the region but without adding a hard dependency on the
+             * GtkSourceView library (for example for a spell-checking library that wants to
+             * read the no-spell-check region).
+             */
+            Buffer: BufferClass
+        }
         
 
         namespace Completion {
@@ -1400,44 +818,13 @@ declare module "gi://GtkSource?version=5" {
                 "remember-info-visibility": boolean
                 "select-on-show": boolean
                 "show-icons": boolean
-                "view": View
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "view": View
             }
         }
 
-        /**
-         * Main Completion Object.
-         *
-         * The completion system helps the user when they writes some text,
-         * such as words, command names, functions, and suchlike. Proposals can
-         * be shown, to complete the text the user is writing. Each proposal can
-         * contain an additional piece of information (for example
-         * documentation), that is displayed when the "Details" button is
-         * clicked.
-         *
-         * Proposals are created via a [iface@CompletionProvider]. There can
-         * be for example a provider to complete words (see [class@CompletionWords]),
-         * another provider for the completion of
-         * function names, etc. To add a provider, call
-         * [method@Completion.add_provider].
-         *
-         * The [iface@CompletionProposal] interface represents a proposal.
-         *
-         * If a proposal contains extra information (see
-         * %GTK_SOURCE_COMPLETION_COLUMN_DETAILS), it will be
-         * displayed in a supplemental details window, which appears when
-         * the "Details" button is clicked.
-         *
-         * Each [class@View] object is associated with a [class@Completion]
-         * instance. This instance can be obtained with
-         * [method@View.get_completion]. The [class@View] class contains also the
-         * [signal@View::show-completion] signal.
-         *
-         * A same [iface@CompletionProvider] object can be used for several
-         * `GtkSourceCompletion`'s.
-         */
         interface Completion extends GObject.Object {
             readonly $signals: Completion.SignalSignatures
             readonly $readableProperties: Completion.ReadableProperties
@@ -1536,9 +923,10 @@ declare module "gi://GtkSource?version=5" {
         interface CompletionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Completion>
             readonly prototype: Completion
+
             new (props?: Partial<GObject.ConstructorProps<Completion>>): Completion
             /**
-             * ` tags around matched characters in @haystack
+             * This will add `<b>` tags around matched characters in @haystack
              * based on @casefold_query.
              * @param haystack the string to be highlighted
              * @param casefold_query the typed-text used to highlight @haystack
@@ -1558,10 +946,43 @@ declare module "gi://GtkSource?version=5" {
              * @param casefold_needle A g_utf8_casefold() version of the needle.
              * @returns %TRUE if `haystack` matched `casefold_needle`, otherwise %FALSE., An optional location for the score of the match
              */
-            fuzzy_match(haystack: string | null, casefold_needle: string): boolean
+            fuzzy_match(haystack: string | null, casefold_needle: string): [boolean, number]
         }
 
-        const Completion: CompletionClass
+        interface $Exports {
+            /**
+             * Main Completion Object.
+             *
+             * The completion system helps the user when they writes some text,
+             * such as words, command names, functions, and suchlike. Proposals can
+             * be shown, to complete the text the user is writing. Each proposal can
+             * contain an additional piece of information (for example
+             * documentation), that is displayed when the "Details" button is
+             * clicked.
+             *
+             * Proposals are created via a [iface@CompletionProvider]. There can
+             * be for example a provider to complete words (see [class@CompletionWords]),
+             * another provider for the completion of
+             * function names, etc. To add a provider, call
+             * [method@Completion.add_provider].
+             *
+             * The [iface@CompletionProposal] interface represents a proposal.
+             *
+             * If a proposal contains extra information (see
+             * %GTK_SOURCE_COMPLETION_COLUMN_DETAILS), it will be
+             * displayed in a supplemental details window, which appears when
+             * the "Details" button is clicked.
+             *
+             * Each [class@View] object is associated with a [class@Completion]
+             * instance. This instance can be obtained with
+             * [method@View.get_completion]. The [class@View] class contains also the
+             * [signal@View::show-completion] signal.
+             *
+             * A same [iface@CompletionProvider] object can be used for several
+             * `GtkSourceCompletion`'s.
+             */
+            Completion: CompletionClass
+        }
         
 
         namespace CompletionCell {
@@ -1577,7 +998,6 @@ declare module "gi://GtkSource?version=5" {
             }
 
             interface WritableProperties extends Gtk.Widget.WritableProperties, Gtk.Accessible.WritableProperties, Gtk.Buildable.WritableProperties, Gtk.ConstraintTarget.WritableProperties {
-                "column": CompletionColumn
                 "markup": string
                 "paintable": Gdk.Paintable
                 "text": string
@@ -1585,26 +1005,10 @@ declare module "gi://GtkSource?version=5" {
             }
 
             interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties, Gtk.Accessible.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties, Gtk.ConstraintTarget.ConstructOnlyProperties {
+                "column": CompletionColumn
             }
         }
 
-        /**
-         * Widget for single cell of completion proposal.
-         *
-         * The `GtkSourceCompletionCell` widget provides a container to display various
-         * types of information with the completion display.
-         *
-         * Each proposal may consist of multiple cells depending on the complexity of
-         * the proposal. For example, programming language proposals may contain a cell
-         * for the "left-hand-side" of an operation along with the "typed-text" for a
-         * function name and "parameters". They may also optionally set an icon to
-         * signify the kind of result.
-         *
-         * A [iface@CompletionProvider] should implement the
-         * [vfunc@CompletionProvider.display] virtual function to control
-         * how to convert data from their [iface@CompletionProposal] to content for
-         * the `GtkSourceCompletionCell`.
-         */
         interface CompletionCell extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: CompletionCell.SignalSignatures
             readonly $readableProperties: CompletionCell.ReadableProperties
@@ -1676,10 +1080,30 @@ declare module "gi://GtkSource?version=5" {
         interface CompletionCellClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<CompletionCell>
             readonly prototype: CompletionCell
+
             new (props?: Partial<GObject.ConstructorProps<CompletionCell>>): CompletionCell
         }
 
-        const CompletionCell: CompletionCellClass
+        interface $Exports {
+            /**
+             * Widget for single cell of completion proposal.
+             *
+             * The `GtkSourceCompletionCell` widget provides a container to display various
+             * types of information with the completion display.
+             *
+             * Each proposal may consist of multiple cells depending on the complexity of
+             * the proposal. For example, programming language proposals may contain a cell
+             * for the "left-hand-side" of an operation along with the "typed-text" for a
+             * function name and "parameters". They may also optionally set an icon to
+             * signify the kind of result.
+             *
+             * A [iface@CompletionProvider] should implement the
+             * [vfunc@CompletionProvider.display] virtual function to control
+             * how to convert data from their [iface@CompletionProposal] to content for
+             * the `GtkSourceCompletionCell`.
+             */
+            CompletionCell: CompletionCellClass
+        }
         
 
         namespace CompletionContext {
@@ -1705,32 +1129,14 @@ declare module "gi://GtkSource?version=5" {
 
             interface WritableProperties extends GObject.Object.WritableProperties, Gio.ListModel.WritableProperties {
                 "busy": boolean
-                "completion": Completion | null
                 "empty": boolean
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.ListModel.ConstructOnlyProperties {
+                "completion": Completion | null
             }
         }
 
-        /**
-         * The context of a completion.
-         *
-         * `GtkSourceCompletionContext` contains information about an attept to display
-         * completion proposals to the user based on typed text in the [class@View].
-         *
-         * When typing, [class@Completion] may use registered
-         * [iface@CompletionProvider] to determine if there may be results which
-         * could be displayed. If so, a `GtkSourceCompletionContext` is created with
-         * information that is provided to the [iface@CompletionProvider] to populate
-         * results which might be useful to the user.
-         *
-         * [iface@CompletionProvider] are expected to provide [iface@Gio.ListModel] with
-         * [iface@CompletionProposal] which may be joined together in a list of
-         * results for the user. They are also responsible for how the contents are
-         * displayed using [class@CompletionCell] which allows for some level of
-         * customization.
-         */
         interface CompletionContext extends GObject.Object, Gio.ListModel {
             readonly $signals: CompletionContext.SignalSignatures
             readonly $readableProperties: CompletionContext.ReadableProperties
@@ -1773,7 +1179,7 @@ declare module "gi://GtkSource?version=5" {
              * current word being completed.
              * @returns %TRUE if the marks are still valid and `begin` or `end` was set., a #GtkTextIter, a #GtkTextIter
              */
-            get_bounds(): boolean
+            get_bounds(): [boolean, Gtk.TextIter, Gtk.TextIter]
             /**
              * Gets the underlying buffer used by the context.
              *
@@ -1848,10 +1254,31 @@ declare module "gi://GtkSource?version=5" {
         interface CompletionContextClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<CompletionContext>
             readonly prototype: CompletionContext
+
             new (props?: Partial<GObject.ConstructorProps<CompletionContext>>): CompletionContext
         }
 
-        const CompletionContext: CompletionContextClass
+        interface $Exports {
+            /**
+             * The context of a completion.
+             *
+             * `GtkSourceCompletionContext` contains information about an attept to display
+             * completion proposals to the user based on typed text in the [class@View].
+             *
+             * When typing, [class@Completion] may use registered
+             * [iface@CompletionProvider] to determine if there may be results which
+             * could be displayed. If so, a `GtkSourceCompletionContext` is created with
+             * information that is provided to the [iface@CompletionProvider] to populate
+             * results which might be useful to the user.
+             *
+             * [iface@CompletionProvider] are expected to provide [iface@Gio.ListModel] with
+             * [iface@CompletionProposal] which may be joined together in a list of
+             * results for the user. They are also responsible for how the contents are
+             * displayed using [class@CompletionCell] which allows for some level of
+             * customization.
+             */
+            CompletionContext: CompletionContextClass
+        }
         
 
         namespace CompletionSnippets {
@@ -1872,13 +1299,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * A [iface@CompletionProvider] for the completion of snippets.
-         *
-         * The `GtkSourceCompletionSnippets` is an example of an implementation of
-         * the [iface@CompletionProvider] interface. The proposals are snippets
-         * registered with the [class@SnippetManager].
-         */
         interface CompletionSnippets extends GObject.Object, CompletionProvider {
             readonly $signals: CompletionSnippets.SignalSignatures
             readonly $readableProperties: CompletionSnippets.ReadableProperties
@@ -1899,13 +1319,23 @@ declare module "gi://GtkSource?version=5" {
         interface CompletionSnippetsClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<CompletionSnippets>
             readonly prototype: CompletionSnippets
+
             new (props?: Partial<GObject.ConstructorProps<CompletionSnippets>>): CompletionSnippets
             /**
              */
             "new"(): CompletionSnippets
         }
 
-        const CompletionSnippets: CompletionSnippetsClass
+        interface $Exports {
+            /**
+             * A [iface@CompletionProvider] for the completion of snippets.
+             *
+             * The `GtkSourceCompletionSnippets` is an example of an implementation of
+             * the [iface@CompletionProvider] interface. The proposals are snippets
+             * registered with the [class@SnippetManager].
+             */
+            CompletionSnippets: CompletionSnippetsClass
+        }
         
 
         namespace CompletionWords {
@@ -1932,13 +1362,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * A [iface@CompletionProvider] for the completion of words.
-         *
-         * The `GtkSourceCompletionWords` is an example of an implementation of
-         * the [iface@CompletionProvider] interface. The proposals are words
-         * appearing in the registered [class@Gtk.TextBuffer]s.
-         */
         interface CompletionWords extends GObject.Object, CompletionProvider {
             readonly $signals: CompletionWords.SignalSignatures
             readonly $readableProperties: CompletionWords.ReadableProperties
@@ -1984,6 +1407,7 @@ declare module "gi://GtkSource?version=5" {
         interface CompletionWordsClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<CompletionWords>
             readonly prototype: CompletionWords
+
             new (props?: Partial<GObject.ConstructorProps<CompletionWords>>): CompletionWords
             /**
              * @param title The title for the provider, or %NULL.
@@ -1992,7 +1416,16 @@ declare module "gi://GtkSource?version=5" {
             "new"(title: string | null): CompletionWords
         }
 
-        const CompletionWords: CompletionWordsClass
+        interface $Exports {
+            /**
+             * A [iface@CompletionProvider] for the completion of words.
+             *
+             * The `GtkSourceCompletionWords` is an example of an implementation of
+             * the [iface@CompletionProvider] interface. The proposals are words
+             * appearing in the registered [class@Gtk.TextBuffer]s.
+             */
+            CompletionWords: CompletionWordsClass
+        }
         
 
         namespace File {
@@ -2019,17 +1452,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * On-disk representation of a [class@Buffer].
-         *
-         * A `GtkSourceFile` object is the on-disk representation of a [class@Buffer].
-         * With a `GtkSourceFile`, you can create and configure a [class@FileLoader]
-         * and [class@FileSaver] which take by default the values of the
-         * `GtkSourceFile` properties (except for the file loader which auto-detect some
-         * properties). On a successful load or save operation, the `GtkSourceFile`
-         * properties are updated. If an operation fails, the `GtkSourceFile` properties
-         * have still the previous valid values.
-         */
         interface File extends GObject.Object {
             readonly $signals: File.SignalSignatures
             readonly $readableProperties: File.ReadableProperties
@@ -2138,6 +1560,7 @@ declare module "gi://GtkSource?version=5" {
         interface FileClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<File>
             readonly prototype: File
+
             new (props?: Partial<GObject.ConstructorProps<File>>): File
             /**
              * @returns a new #GtkSourceFile object.
@@ -2145,7 +1568,20 @@ declare module "gi://GtkSource?version=5" {
             "new"(): File
         }
 
-        const File: FileClass
+        interface $Exports {
+            /**
+             * On-disk representation of a [class@Buffer].
+             *
+             * A `GtkSourceFile` object is the on-disk representation of a [class@Buffer].
+             * With a `GtkSourceFile`, you can create and configure a [class@FileLoader]
+             * and [class@FileSaver] which take by default the values of the
+             * `GtkSourceFile` properties (except for the file loader which auto-detect some
+             * properties). On a successful load or save operation, the `GtkSourceFile`
+             * properties are updated. If an operation fails, the `GtkSourceFile` properties
+             * have still the previous valid values.
+             */
+            File: FileClass
+        }
         
 
         namespace FileLoader {
@@ -2160,36 +1596,16 @@ declare module "gi://GtkSource?version=5" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "buffer": Buffer
                 "file": File
                 "input-stream": Gio.InputStream | null
                 "location": Gio.File | null
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Load a file into a GtkSourceBuffer.
-         *
-         * A `GtkSourceFileLoader` object permits to load the contents of a [iface@Gio.File] or a
-         * [class@Gio.InputStream] into a [class@Buffer].
-         *
-         * A file loader should be used only for one load operation, including errors
-         * handling. If an error occurs, you can reconfigure the loader and relaunch the
-         * operation with [method@FileLoader.load_async].
-         *
-         * Running a `GtkSourceFileLoader` is an undoable action for the
-         * [class@Buffer].
-         *
-         * After a file loading, the buffer is reset to the contents provided by the
-         * [iface@Gio.File] or [class@Gio.InputStream], so the buffer is set as “unmodified”, that is,
-         * [method@Gtk.TextBuffer.set_modified] is called with %FALSE. If the contents isn't
-         * saved somewhere (for example if you load from stdin), then you should
-         * probably call [method@Gtk.TextBuffer.set_modified] with %TRUE after calling
-         * [method@FileLoader.load_finish].
-         */
         interface FileLoader extends GObject.Object {
             readonly $signals: FileLoader.SignalSignatures
             readonly $readableProperties: FileLoader.ReadableProperties
@@ -2286,7 +1702,8 @@ declare module "gi://GtkSource?version=5" {
              *
              * 1. If set, the [class@File]'s encoding as returned by [method@File.get_encoding].
              * 2. The default candidates as returned by [func@Encoding.get_default_candidates].
-             * @param candidate_encodings s.
+             * @param candidate_encodings a list of
+              #GtkSourceEncoding<!-- -->s.
              */
             set_candidate_encodings(candidate_encodings: Encoding[]): void
         }
@@ -2294,6 +1711,7 @@ declare module "gi://GtkSource?version=5" {
         interface FileLoaderClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FileLoader>
             readonly prototype: FileLoader
+
             new (props?: Partial<GObject.ConstructorProps<FileLoader>>): FileLoader
             /**
              * Creates a new `GtkSourceFileLoader` object. The contents is read from the
@@ -2317,7 +1735,29 @@ declare module "gi://GtkSource?version=5" {
             new_from_stream(buffer: Buffer, file: File, stream: Gio.InputStream): FileLoader
         }
 
-        const FileLoader: FileLoaderClass
+        interface $Exports {
+            /**
+             * Load a file into a GtkSourceBuffer.
+             *
+             * A `GtkSourceFileLoader` object permits to load the contents of a [iface@Gio.File] or a
+             * [class@Gio.InputStream] into a [class@Buffer].
+             *
+             * A file loader should be used only for one load operation, including errors
+             * handling. If an error occurs, you can reconfigure the loader and relaunch the
+             * operation with [method@FileLoader.load_async].
+             *
+             * Running a `GtkSourceFileLoader` is an undoable action for the
+             * [class@Buffer].
+             *
+             * After a file loading, the buffer is reset to the contents provided by the
+             * [iface@Gio.File] or [class@Gio.InputStream], so the buffer is set as “unmodified”, that is,
+             * [method@Gtk.TextBuffer.set_modified] is called with %FALSE. If the contents isn't
+             * saved somewhere (for example if you load from stdin), then you should
+             * probably call [method@Gtk.TextBuffer.set_modified] with %TRUE after calling
+             * [method@FileLoader.load_finish].
+             */
+            FileLoader: FileLoaderClass
+        }
         
 
         namespace FileSaver {
@@ -2335,29 +1775,19 @@ declare module "gi://GtkSource?version=5" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "buffer": Buffer
                 "compression-type": CompressionType
                 "encoding": Encoding
-                "file": File
                 "flags": FileSaverFlags
-                "location": Gio.File
                 "newline-type": NewlineType
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "buffer": Buffer
+                "file": File
+                "location": Gio.File
             }
         }
 
-        /**
-         * Save a [class@Buffer] into a file.
-         *
-         * A `GtkSourceFileSaver` object permits to save a [class@Buffer] into a
-         * [iface@Gio.File].
-         *
-         * A file saver should be used only for one save operation, including errors
-         * handling. If an error occurs, you can reconfigure the saver and relaunch the
-         * operation with [method@FileSaver.save_async].
-         */
         interface FileSaver extends GObject.Object {
             readonly $signals: FileSaver.SignalSignatures
             readonly $readableProperties: FileSaver.ReadableProperties
@@ -2488,6 +1918,7 @@ declare module "gi://GtkSource?version=5" {
         interface FileSaverClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FileSaver>
             readonly prototype: FileSaver
+
             new (props?: Partial<GObject.ConstructorProps<FileSaver>>): FileSaver
             /**
              * Creates a new #GtkSourceFileSaver object. The @buffer will be saved to the
@@ -2517,7 +1948,19 @@ declare module "gi://GtkSource?version=5" {
             new_with_target(buffer: Buffer, file: File, target_location: Gio.File): FileSaver
         }
 
-        const FileSaver: FileSaverClass
+        interface $Exports {
+            /**
+             * Save a [class@Buffer] into a file.
+             *
+             * A `GtkSourceFileSaver` object permits to save a [class@Buffer] into a
+             * [iface@Gio.File].
+             *
+             * A file saver should be used only for one save operation, including errors
+             * handling. If an error occurs, you can reconfigure the saver and relaunch the
+             * operation with [method@FileSaver.save_async].
+             */
+            FileSaver: FileSaverClass
+        }
         
 
         namespace Gutter {
@@ -2530,33 +1973,14 @@ declare module "gi://GtkSource?version=5" {
             }
 
             interface WritableProperties extends Gtk.Widget.WritableProperties, Gtk.Accessible.WritableProperties, Gtk.Buildable.WritableProperties, Gtk.ConstraintTarget.WritableProperties {
-                "view": View
-                "window-type": Gtk.TextWindowType
             }
 
             interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties, Gtk.Accessible.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties, Gtk.ConstraintTarget.ConstructOnlyProperties {
+                "view": View
+                "window-type": Gtk.TextWindowType
             }
         }
 
-        /**
-         * Gutter object for [class@View].
-         *
-         * The `GtkSourceGutter` object represents the left or right gutter of the text
-         * view. It is used by [class@View] to draw the line numbers and
-         * [class@Mark]s that might be present on a line. By packing
-         * additional [class@GutterRenderer] objects in the gutter, you can extend the
-         * gutter with your own custom drawings.
-         *
-         * To get a `GtkSourceGutter`, use the [method@View.get_gutter] function.
-         *
-         * The gutter works very much the same way as cells rendered in a [class@Gtk.TreeView].
-         * The concept is similar, with the exception that the gutter does not have an
-         * underlying [iface@Gtk.TreeModel]. The builtin line number renderer is at position
-         * %GTK_SOURCE_VIEW_GUTTER_POSITION_LINES (-30) and the marks renderer is at
-         * %GTK_SOURCE_VIEW_GUTTER_POSITION_MARKS (-20). The gutter sorts the renderers
-         * in ascending order, from left to right. So the marks are displayed on the
-         * right of the line numbers.
-         */
         interface Gutter extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: Gutter.SignalSignatures
             readonly $readableProperties: Gutter.ReadableProperties
@@ -2601,10 +2025,32 @@ declare module "gi://GtkSource?version=5" {
         interface GutterClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Gutter>
             readonly prototype: Gutter
+
             new (props?: Partial<GObject.ConstructorProps<Gutter>>): Gutter
         }
 
-        const Gutter: GutterClass
+        interface $Exports {
+            /**
+             * Gutter object for [class@View].
+             *
+             * The `GtkSourceGutter` object represents the left or right gutter of the text
+             * view. It is used by [class@View] to draw the line numbers and
+             * [class@Mark]s that might be present on a line. By packing
+             * additional [class@GutterRenderer] objects in the gutter, you can extend the
+             * gutter with your own custom drawings.
+             *
+             * To get a `GtkSourceGutter`, use the [method@View.get_gutter] function.
+             *
+             * The gutter works very much the same way as cells rendered in a [class@Gtk.TreeView].
+             * The concept is similar, with the exception that the gutter does not have an
+             * underlying [iface@Gtk.TreeModel]. The builtin line number renderer is at position
+             * %GTK_SOURCE_VIEW_GUTTER_POSITION_LINES (-30) and the marks renderer is at
+             * %GTK_SOURCE_VIEW_GUTTER_POSITION_MARKS (-20). The gutter sorts the renderers
+             * in ascending order, from left to right. So the marks are displayed on the
+             * right of the line numbers.
+             */
+            Gutter: GutterClass
+        }
         
 
         namespace GutterLines {
@@ -2621,17 +2067,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Collected information about visible lines.
-         *
-         * The `GtkSourceGutterLines` object is used to collect information about
-         * visible lines.
-         *
-         * Use this from your [signal@GutterRenderer::query-data] to collect the
-         * necessary information on visible lines. Doing so reduces the number of
-         * passes through the text btree allowing GtkSourceView to reach more
-         * frames-per-second while performing kinetic scrolling.
-         */
         interface GutterLines extends GObject.Object {
             readonly $signals: GutterLines.SignalSignatures
             readonly $readableProperties: GutterLines.ReadableProperties
@@ -2778,10 +2213,24 @@ declare module "gi://GtkSource?version=5" {
         interface GutterLinesClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GutterLines>
             readonly prototype: GutterLines
+
             new (props?: Partial<GObject.ConstructorProps<GutterLines>>): GutterLines
         }
 
-        const GutterLines: GutterLinesClass
+        interface $Exports {
+            /**
+             * Collected information about visible lines.
+             *
+             * The `GtkSourceGutterLines` object is used to collect information about
+             * visible lines.
+             *
+             * Use this from your [signal@GutterRenderer::query-data] to collect the
+             * necessary information on visible lines. Doing so reduces the number of
+             * passes through the text btree allowing GtkSourceView to reach more
+             * frames-per-second while performing kinetic scrolling.
+             */
+            GutterLines: GutterLinesClass
+        }
         
 
         namespace GutterRenderer {
@@ -2832,40 +2281,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Gutter cell renderer.
-         *
-         * A `GtkSourceGutterRenderer` represents a column in a [class@Gutter]. The
-         * column contains one cell for each visible line of the [class@Gtk.TextBuffer]. Due to
-         * text wrapping, a cell can thus span multiple lines of the [class@Gtk.TextView]. In
-         * this case, [enum@GutterRendererAlignmentMode] controls the alignment of
-         * the cell.
-         *
-         * The gutter renderer is a [class@Gtk.Widget] and is measured using the normal widget
-         * measurement facilities. The width of the gutter will be determined by the
-         * measurements of the gutter renderers.
-         *
-         * The width of a gutter renderer generally takes into account the entire text
-         * buffer. For instance, to display the line numbers, if the buffer contains 100
-         * lines, the gutter renderer will always set its width such as three digits can
-         * be printed, even if only the first 20 lines are shown. Another strategy is to
-         * take into account only the visible lines.  In this case, only two digits are
-         * necessary to display the line numbers of the first 20 lines. To take another
-         * example, the gutter renderer for [class@Mark]s doesn't need to take
-         * into account the text buffer to announce its width. It only depends on the
-         * icons size displayed in the gutter column.
-         *
-         * When the available size to render a cell is greater than the required size to
-         * render the cell contents, the cell contents can be aligned horizontally and
-         * vertically with [method@GutterRenderer.set_alignment_mode].
-         *
-         * The cells rendering occurs using [vfunc@Gtk.Widget.snapshot]. Implementations
-         * should use `gtk_source_gutter_renderer_get_lines()` to retrieve information
-         * about the lines to be rendered. To help with aligning content which takes
-         * into account the padding and alignment of a cell, implementations may call
-         * [method@GutterRenderer.align_cell] for a given line number with the
-         * width and height measurement of the content they width to render.
-         */
         interface GutterRenderer extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: GutterRenderer.SignalSignatures
             readonly $readableProperties: GutterRenderer.ReadableProperties
@@ -3086,10 +2501,47 @@ declare module "gi://GtkSource?version=5" {
         interface GutterRendererClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<GutterRenderer>
             readonly prototype: GutterRenderer
+
             new (props?: Partial<GObject.ConstructorProps<GutterRenderer>>): GutterRenderer
         }
 
-        const GutterRenderer: GutterRendererClass
+        interface $Exports {
+            /**
+             * Gutter cell renderer.
+             *
+             * A `GtkSourceGutterRenderer` represents a column in a [class@Gutter]. The
+             * column contains one cell for each visible line of the [class@Gtk.TextBuffer]. Due to
+             * text wrapping, a cell can thus span multiple lines of the [class@Gtk.TextView]. In
+             * this case, [enum@GutterRendererAlignmentMode] controls the alignment of
+             * the cell.
+             *
+             * The gutter renderer is a [class@Gtk.Widget] and is measured using the normal widget
+             * measurement facilities. The width of the gutter will be determined by the
+             * measurements of the gutter renderers.
+             *
+             * The width of a gutter renderer generally takes into account the entire text
+             * buffer. For instance, to display the line numbers, if the buffer contains 100
+             * lines, the gutter renderer will always set its width such as three digits can
+             * be printed, even if only the first 20 lines are shown. Another strategy is to
+             * take into account only the visible lines.  In this case, only two digits are
+             * necessary to display the line numbers of the first 20 lines. To take another
+             * example, the gutter renderer for [class@Mark]s doesn't need to take
+             * into account the text buffer to announce its width. It only depends on the
+             * icons size displayed in the gutter column.
+             *
+             * When the available size to render a cell is greater than the required size to
+             * render the cell contents, the cell contents can be aligned horizontally and
+             * vertically with [method@GutterRenderer.set_alignment_mode].
+             *
+             * The cells rendering occurs using [vfunc@Gtk.Widget.snapshot]. Implementations
+             * should use `gtk_source_gutter_renderer_get_lines()` to retrieve information
+             * about the lines to be rendered. To help with aligning content which takes
+             * into account the padding and alignment of a cell, implementations may call
+             * [method@GutterRenderer.align_cell] for a given line number with the
+             * width and height measurement of the content they width to render.
+             */
+            GutterRenderer: GutterRendererClass
+        }
         
 
         namespace GutterRendererPixbuf {
@@ -3114,12 +2566,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Renders a pixbuf in the gutter.
-         *
-         * A `GtkSourceGutterRendererPixbuf` can be used to render an image in a cell of
-         * [class@Gutter].
-         */
         interface GutterRendererPixbuf extends GutterRenderer, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: GutterRendererPixbuf.SignalSignatures
             readonly $readableProperties: GutterRendererPixbuf.ReadableProperties
@@ -3189,15 +2635,24 @@ declare module "gi://GtkSource?version=5" {
         interface GutterRendererPixbufClass extends Omit<GutterRendererClass, "new"> {
             readonly $gtype: GObject.GType<GutterRendererPixbuf>
             readonly prototype: GutterRendererPixbuf
+
             new (props?: Partial<GObject.ConstructorProps<GutterRendererPixbuf>>): GutterRendererPixbuf
             /**
              * Create a new #GtkSourceGutterRendererPixbuf.
              * @returns A #GtkSourceGutterRenderer
              */
-            "new"(): GutterRenderer
+            "new"(): GutterRendererPixbuf
         }
 
-        const GutterRendererPixbuf: GutterRendererPixbufClass
+        interface $Exports {
+            /**
+             * Renders a pixbuf in the gutter.
+             *
+             * A `GtkSourceGutterRendererPixbuf` can be used to render an image in a cell of
+             * [class@Gutter].
+             */
+            GutterRendererPixbuf: GutterRendererPixbufClass
+        }
         
 
         namespace GutterRendererText {
@@ -3218,12 +2673,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Renders text in the gutter.
-         *
-         * A `GtkSourceGutterRendererText` can be used to render text in a cell of
-         * [class@Gutter].
-         */
         interface GutterRendererText extends GutterRenderer, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: GutterRendererText.SignalSignatures
             readonly $readableProperties: GutterRendererText.ReadableProperties
@@ -3245,14 +2694,14 @@ declare module "gi://GtkSource?version=5" {
              * @param text the text to measure.
              * @returns , location to store the width of the text in pixels,   or %NULL., location to store the height of the text in   pixels, or %NULL.
              */
-            measure(text: string): void
+            measure(text: string): [number, number]
             /**
              * Measures the pango markup provided using the pango layout used by the
              * #GtkSourceGutterRendererText.
              * @param markup the pango markup to measure.
              * @returns , location to store the width of the text in pixels,   or %NULL., location to store the height of the text in   pixels, or %NULL.
              */
-            measure_markup(markup: string): void
+            measure_markup(markup: string): [number, number]
             /**
              * @param markup
              * @param length
@@ -3268,15 +2717,24 @@ declare module "gi://GtkSource?version=5" {
         interface GutterRendererTextClass extends Omit<GutterRendererClass, "new"> {
             readonly $gtype: GObject.GType<GutterRendererText>
             readonly prototype: GutterRendererText
+
             new (props?: Partial<GObject.ConstructorProps<GutterRendererText>>): GutterRendererText
             /**
              * Create a new #GtkSourceGutterRendererText.
              * @returns A #GtkSourceGutterRenderer
              */
-            "new"(): GutterRenderer
+            "new"(): GutterRendererText
         }
 
-        const GutterRendererText: GutterRendererTextClass
+        interface $Exports {
+            /**
+             * Renders text in the gutter.
+             *
+             * A `GtkSourceGutterRendererText` can be used to render text in a cell of
+             * [class@Gutter].
+             */
+            GutterRendererText: GutterRendererTextClass
+        }
         
 
         namespace Hover {
@@ -3295,21 +2753,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Interactive tooltips.
-         *
-         * `GtkSourceHover` allows a [class@View] to provide contextual information.
-         * When enabled, if the user hovers over a word in the text editor, a series
-         * of registered [iface@HoverProvider] can populate a [class@HoverDisplay]
-         * with useful information.
-         *
-         * To enable call [method@View.get_hover] and add [iface@HoverProvider]
-         * using [method@Hover.add_provider]. To disable, remove all registered
-         * providers with [method@Hover.remove_provider].
-         *
-         * You can change how long to wait to display the interactive tooltip by
-         * setting the [property@Hover:hover-delay] property in milliseconds.
-         */
         interface Hover extends GObject.Object {
             readonly $signals: Hover.SignalSignatures
             readonly $readableProperties: Hover.ReadableProperties
@@ -3334,10 +2777,28 @@ declare module "gi://GtkSource?version=5" {
         interface HoverClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Hover>
             readonly prototype: Hover
+
             new (props?: Partial<GObject.ConstructorProps<Hover>>): Hover
         }
 
-        const Hover: HoverClass
+        interface $Exports {
+            /**
+             * Interactive tooltips.
+             *
+             * `GtkSourceHover` allows a [class@View] to provide contextual information.
+             * When enabled, if the user hovers over a word in the text editor, a series
+             * of registered [iface@HoverProvider] can populate a [class@HoverDisplay]
+             * with useful information.
+             *
+             * To enable call [method@View.get_hover] and add [iface@HoverProvider]
+             * using [method@Hover.add_provider]. To disable, remove all registered
+             * providers with [method@Hover.remove_provider].
+             *
+             * You can change how long to wait to display the interactive tooltip by
+             * setting the [property@Hover:hover-delay] property in milliseconds.
+             */
+            Hover: HoverClass
+        }
         
 
         namespace HoverContext {
@@ -3354,19 +2815,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Context for populating [class@HoverDisplay] contents.
-         *
-         * `GtkSourceHoverContext` contains information about the request to populate
-         * contents for a [class@HoverDisplay].
-         *
-         * It can be used to retrieve the [class@View], [class@Buffer], and
-         * [struct@Gtk.TextIter] for the regions of text which are being displayed.
-         *
-         * Use [method@HoverContext.get_bounds] to get the word that was
-         * requested. [method@HoverContext.get_iter] will get you the location
-         * of the pointer when the request was made.
-         */
         interface HoverContext extends GObject.Object {
             readonly $signals: HoverContext.SignalSignatures
             readonly $readableProperties: HoverContext.ReadableProperties
@@ -3382,7 +2830,7 @@ declare module "gi://GtkSource?version=5" {
              * current word being hovered.
              * @returns %TRUE if the marks are still valid and `begin` or `end` was set., a #GtkTextIter, a #GtkTextIter
              */
-            get_bounds(): boolean
+            get_bounds(): [boolean, Gtk.TextIter, Gtk.TextIter]
             /**
              * A convenience function to get the buffer.
              * @returns The #GtkSourceBuffer for the view
@@ -3402,10 +2850,26 @@ declare module "gi://GtkSource?version=5" {
         interface HoverContextClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<HoverContext>
             readonly prototype: HoverContext
+
             new (props?: Partial<GObject.ConstructorProps<HoverContext>>): HoverContext
         }
 
-        const HoverContext: HoverContextClass
+        interface $Exports {
+            /**
+             * Context for populating [class@HoverDisplay] contents.
+             *
+             * `GtkSourceHoverContext` contains information about the request to populate
+             * contents for a [class@HoverDisplay].
+             *
+             * It can be used to retrieve the [class@View], [class@Buffer], and
+             * [struct@Gtk.TextIter] for the regions of text which are being displayed.
+             *
+             * Use [method@HoverContext.get_bounds] to get the word that was
+             * requested. [method@HoverContext.get_iter] will get you the location
+             * of the pointer when the request was made.
+             */
+            HoverContext: HoverContextClass
+        }
         
 
         namespace HoverDisplay {
@@ -3422,16 +2886,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Display for interactive tooltips.
-         *
-         * `GtkSourceHoverDisplay` is a [class@Gtk.Widget] that may be populated with widgets
-         * to be displayed to the user in interactive tooltips. The children widgets
-         * are packed vertically using a [class@Gtk.Box].
-         *
-         * Implement the [iface@HoverProvider] interface to be notified of when
-         * to populate a `GtkSourceHoverDisplay` on behalf of the user.
-         */
         interface HoverDisplay extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: HoverDisplay.SignalSignatures
             readonly $readableProperties: HoverDisplay.ReadableProperties
@@ -3459,10 +2913,23 @@ declare module "gi://GtkSource?version=5" {
         interface HoverDisplayClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<HoverDisplay>
             readonly prototype: HoverDisplay
+
             new (props?: Partial<GObject.ConstructorProps<HoverDisplay>>): HoverDisplay
         }
 
-        const HoverDisplay: HoverDisplayClass
+        interface $Exports {
+            /**
+             * Display for interactive tooltips.
+             *
+             * `GtkSourceHoverDisplay` is a [class@Gtk.Widget] that may be populated with widgets
+             * to be displayed to the user in interactive tooltips. The children widgets
+             * are packed vertically using a [class@Gtk.Box].
+             *
+             * Implement the [iface@HoverProvider] interface to be notified of when
+             * to populate a `GtkSourceHoverDisplay` on behalf of the user.
+             */
+            HoverDisplay: HoverDisplayClass
+        }
         
 
         namespace Language {
@@ -3487,15 +2954,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Represents a syntax highlighted language.
-         *
-         * A `GtkSourceLanguage` represents a programming or markup language, affecting
-         * syntax highlighting and [context classes](./class.Buffer.html#context-classes).
-         *
-         * Use [class@LanguageManager] to obtain a `GtkSourceLanguage` instance, and
-         * [method@Buffer.set_language] to apply it to a [class@Buffer].
-         */
         interface Language extends GObject.Object {
             readonly $signals: Language.SignalSignatures
             readonly $readableProperties: Language.ReadableProperties
@@ -3597,10 +3055,22 @@ declare module "gi://GtkSource?version=5" {
         interface LanguageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Language>
             readonly prototype: Language
+
             new (props?: Partial<GObject.ConstructorProps<Language>>): Language
         }
 
-        const Language: LanguageClass
+        interface $Exports {
+            /**
+             * Represents a syntax highlighted language.
+             *
+             * A `GtkSourceLanguage` represents a programming or markup language, affecting
+             * syntax highlighting and [context classes](./class.Buffer.html#context-classes).
+             *
+             * Use [class@LanguageManager] to obtain a `GtkSourceLanguage` instance, and
+             * [method@Buffer.set_language] to apply it to a [class@Buffer].
+             */
+            Language: LanguageClass
+        }
         
 
         namespace LanguageManager {
@@ -3621,18 +3091,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Provides access to [class@Language]s.
-         *
-         * `GtkSourceLanguageManager` is an object which processes language description
-         * files and creates and stores [class@Language] objects, and provides API to
-         * access them.
-         *
-         * Use [func@LanguageManager.get_default] to retrieve the default
-         * instance of `GtkSourceLanguageManager`, and
-         * [method@LanguageManager.guess_language] to get a [class@Language] for
-         * given file name and content type.
-         */
         interface LanguageManager extends GObject.Object {
             readonly $signals: LanguageManager.SignalSignatures
             readonly $readableProperties: LanguageManager.ReadableProperties
@@ -3673,7 +3131,57 @@ declare module "gi://GtkSource?version=5" {
              */
             get_search_path(): string[]
             /**
-             *  language mapping.
+             * Picks a [class@Language] for given file name and content type,
+             * according to the information in lang files.
+             *
+             * Either @filename or @content_type may be %NULL. This function can be used as follows:
+             *
+             * ```c
+             * GtkSourceLanguage *lang;
+             * GtkSourceLanguageManager *manager;
+             * lm = gtk_source_language_manager_get_default ();
+             * lang = gtk_source_language_manager_guess_language (manager, filename, NULL);
+             * gtk_source_buffer_set_language (buffer, lang);
+             * ```
+             * ```python
+             * manager = GtkSource.LanguageManager.get_default()
+             * language = manager.guess_language(filename=filename, content_type=None)
+             * buffer.set_language(language=language)
+             * ```
+             *
+             * or
+             *
+             * ```c
+             * GtkSourceLanguage *lang = NULL;
+             * GtkSourceLanguageManager *manager;
+             * gboolean result_uncertain;
+             * gchar *content_type;
+             *
+             * content_type = g_content_type_guess (filename, NULL, 0, &result_uncertain);
+             * if (result_uncertain)
+             *   {
+             *     g_free (content_type);
+             *     content_type = NULL;
+             *   }
+             *
+             * manager = gtk_source_language_manager_get_default ();
+             * lang = gtk_source_language_manager_guess_language (manager, filename, content_type);
+             * gtk_source_buffer_set_language (buffer, lang);
+             *
+             * g_free (content_type);
+             * ```
+             * ```python
+             * content_type, uncertain = Gio.content_type_guess(filename=filename, data=None)
+             * if uncertain:
+             *     content_type = None
+             *
+             * manager = GtkSource.LanguageManager.get_default()
+             * language = manager.guess_language(filename=filename, content_type=content_type)
+             * buffer.set_language(language=language)
+             * ```
+             *
+             * etc. Use [method@Language.get_mime_types] and [method@Language.get_globs]
+             * if you need full control over file -> language mapping.
              * @param filename a filename in Glib filename encoding, or %NULL.
              * @param content_type a content type (as in GIO API), or %NULL.
              * @returns a #GtkSourceLanguage, or %NULL if there is no suitable language for given `filename` and/or `content_type`. Return value is owned by `lm` and should not be freed.
@@ -3711,6 +3219,7 @@ declare module "gi://GtkSource?version=5" {
         interface LanguageManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<LanguageManager>
             readonly prototype: LanguageManager
+
             new (props?: Partial<GObject.ConstructorProps<LanguageManager>>): LanguageManager
             /**
              * Creates a new language manager.
@@ -3727,7 +3236,21 @@ declare module "gi://GtkSource?version=5" {
             get_default(): LanguageManager
         }
 
-        const LanguageManager: LanguageManagerClass
+        interface $Exports {
+            /**
+             * Provides access to [class@Language]s.
+             *
+             * `GtkSourceLanguageManager` is an object which processes language description
+             * files and creates and stores [class@Language] objects, and provides API to
+             * access them.
+             *
+             * Use [func@LanguageManager.get_default] to retrieve the default
+             * instance of `GtkSourceLanguageManager`, and
+             * [method@LanguageManager.guess_language] to get a [class@Language] for
+             * given file name and content type.
+             */
+            LanguageManager: LanguageManagerClass
+        }
         
 
         namespace Map {
@@ -3748,31 +3271,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Widget that displays a map for a specific [class@View].
-         *
-         * `GtkSourceMap` is a widget that maps the content of a [class@View] into
-         * a smaller view so the user can have a quick overview of the whole document.
-         *
-         * This works by connecting a [class@View] to to the `GtkSourceMap` using
-         * the [property@Map:view] property or [method@Map.set_view].
-         *
-         * `GtkSourceMap` is a [class@View] object. This means that you can add a
-         * [class@GutterRenderer] to a gutter in the same way you would for a
-         * [class@View]. One example might be a [class@GutterRenderer] that shows
-         * which lines have changed in the document.
-         *
-         * Additionally, it is desirable to match the font of the `GtkSourceMap` and
-         * the [class@View] used for editing. Therefore, [property@Map:font-desc]
-         * should be used to set the target font. You will need to adjust this to the
-         * desired font size for the map. A 1pt font generally seems to be an
-         * appropriate font size. "Monospace 1" is the default. See
-         * [method@Pango.FontDescription.set_size] for how to alter the size of an existing
-         * [struct@Pango.FontDescription].
-         *
-         * When FontConfig is available, `GtkSourceMap` will try to use a bundled
-         * "block" font to make the map more legible.
-         */
         interface Map extends View, Gtk.Accessible, Gtk.AccessibleText, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Scrollable {
             readonly $signals: Map.SignalSignatures
             readonly $readableProperties: Map.ReadableProperties
@@ -3801,15 +3299,43 @@ declare module "gi://GtkSource?version=5" {
         interface MapClass extends Omit<ViewClass, "new"> {
             readonly $gtype: GObject.GType<Map>
             readonly prototype: Map
+
             new (props?: Partial<GObject.ConstructorProps<Map>>): Map
             /**
              * Creates a new `GtkSourceMap`.
              * @returns a new #GtkSourceMap.
              */
-            "new"(): Gtk.Widget
+            "new"(): Map
         }
 
-        const Map: MapClass
+        interface $Exports {
+            /**
+             * Widget that displays a map for a specific [class@View].
+             *
+             * `GtkSourceMap` is a widget that maps the content of a [class@View] into
+             * a smaller view so the user can have a quick overview of the whole document.
+             *
+             * This works by connecting a [class@View] to to the `GtkSourceMap` using
+             * the [property@Map:view] property or [method@Map.set_view].
+             *
+             * `GtkSourceMap` is a [class@View] object. This means that you can add a
+             * [class@GutterRenderer] to a gutter in the same way you would for a
+             * [class@View]. One example might be a [class@GutterRenderer] that shows
+             * which lines have changed in the document.
+             *
+             * Additionally, it is desirable to match the font of the `GtkSourceMap` and
+             * the [class@View] used for editing. Therefore, [property@Map:font-desc]
+             * should be used to set the target font. You will need to adjust this to the
+             * desired font size for the map. A 1pt font generally seems to be an
+             * appropriate font size. "Monospace 1" is the default. See
+             * [method@Pango.FontDescription.set_size] for how to alter the size of an existing
+             * [struct@Pango.FontDescription].
+             *
+             * When FontConfig is available, `GtkSourceMap` will try to use a bundled
+             * "block" font to make the map more legible.
+             */
+            Map: MapClass
+        }
         
 
         namespace Mark {
@@ -3821,28 +3347,13 @@ declare module "gi://GtkSource?version=5" {
             }
 
             interface WritableProperties extends Gtk.TextMark.WritableProperties {
-                "category": string
             }
 
             interface ConstructOnlyProperties extends Gtk.TextMark.ConstructOnlyProperties {
+                "category": string
             }
         }
 
-        /**
-         * Mark object for [class@Buffer].
-         *
-         * A `GtkSourceMark` marks a position in the text where you want to display
-         * additional info. It is based on [class@Gtk.TextMark] and thus is still valid after
-         * the text has changed though its position may change.
-         *
-         * `GtkSourceMark`s are organized in categories which you have to set
-         * when you create the mark. Each category can have a priority, a pixbuf and
-         * other associated attributes. See [method@View.set_mark_attributes].
-         * The pixbuf will be displayed in the margin at the line where the mark
-         * residents if the [property@View:show-line-marks] property is set to %TRUE. If
-         * there are multiple marks in the same line, the pixbufs will be drawn on top
-         * of each other. The mark with the highest priority will be drawn on top.
-         */
         interface Mark extends Gtk.TextMark {
             readonly $signals: Mark.SignalSignatures
             readonly $readableProperties: Mark.ReadableProperties
@@ -3887,6 +3398,7 @@ declare module "gi://GtkSource?version=5" {
         interface MarkClass extends Omit<Gtk.TextMarkClass, "new"> {
             readonly $gtype: GObject.GType<Mark>
             readonly prototype: Mark
+
             new (props?: Partial<GObject.ConstructorProps<Mark>>): Mark
             /**
              * Creates a text mark.
@@ -3906,7 +3418,24 @@ declare module "gi://GtkSource?version=5" {
             "new"(name: string | null, category: string): Mark
         }
 
-        const Mark: MarkClass
+        interface $Exports {
+            /**
+             * Mark object for [class@Buffer].
+             *
+             * A `GtkSourceMark` marks a position in the text where you want to display
+             * additional info. It is based on [class@Gtk.TextMark] and thus is still valid after
+             * the text has changed though its position may change.
+             *
+             * `GtkSourceMark`s are organized in categories which you have to set
+             * when you create the mark. Each category can have a priority, a pixbuf and
+             * other associated attributes. See [method@View.set_mark_attributes].
+             * The pixbuf will be displayed in the margin at the line where the mark
+             * residents if the [property@View:show-line-marks] property is set to %TRUE. If
+             * there are multiple marks in the same line, the pixbufs will be drawn on top
+             * of each other. The mark with the highest priority will be drawn on top.
+             */
+            Mark: MarkClass
+        }
         
 
         namespace MarkAttributes {
@@ -3945,39 +3474,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * The source mark attributes object.
-         *
-         * `GtkSourceMarkAttributes` is an object specifying attributes used by
-         * a [class@View] to visually show lines marked with [class@Mark]s
-         * of a specific category. It allows you to define a background color of a line,
-         * an icon shown in gutter and tooltips.
-         *
-         * The background color is used as a background of a line where a mark is placed
-         * and it can be set with [method@MarkAttributes.set_background]. To check
-         * if any custom background color was defined and what color it is, use
-         * [method@MarkAttributes.get_background].
-         *
-         * An icon is a graphic element which is shown in the gutter of a view. An
-         * example use is showing a red filled circle in a debugger to show that a
-         * breakpoint was set in certain line. To get an icon that will be placed in
-         * a gutter, first a base for it must be specified and then
-         * [method@MarkAttributes.render_icon] must be called.
-         * There are several ways to specify a base for an icon:
-         *
-         * - [method@MarkAttributes.set_icon_name]
-         * - [method@MarkAttributes.set_gicon]
-         * - [method@MarkAttributes.set_pixbuf]
-         *
-         * Using any of the above functions overrides the one used earlier. But note
-         * that a getter counterpart of earlier used function can still return some
-         * value, but it is just not used when rendering the proper icon.
-         *
-         * To provide meaningful tooltips for a given mark of a category, you should
-         * connect to [signal@MarkAttributes::query-tooltip-text] or
-         * [signal@MarkAttributes::query-tooltip-markup] where the latter
-         * takes precedence.
-         */
         interface MarkAttributes extends GObject.Object {
             readonly $signals: MarkAttributes.SignalSignatures
             readonly $readableProperties: MarkAttributes.ReadableProperties
@@ -4086,6 +3582,7 @@ declare module "gi://GtkSource?version=5" {
         interface MarkAttributesClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<MarkAttributes>
             readonly prototype: MarkAttributes
+
             new (props?: Partial<GObject.ConstructorProps<MarkAttributes>>): MarkAttributes
             /**
              * Creates a new source mark attributes.
@@ -4094,7 +3591,42 @@ declare module "gi://GtkSource?version=5" {
             "new"(): MarkAttributes
         }
 
-        const MarkAttributes: MarkAttributesClass
+        interface $Exports {
+            /**
+             * The source mark attributes object.
+             *
+             * `GtkSourceMarkAttributes` is an object specifying attributes used by
+             * a [class@View] to visually show lines marked with [class@Mark]s
+             * of a specific category. It allows you to define a background color of a line,
+             * an icon shown in gutter and tooltips.
+             *
+             * The background color is used as a background of a line where a mark is placed
+             * and it can be set with [method@MarkAttributes.set_background]. To check
+             * if any custom background color was defined and what color it is, use
+             * [method@MarkAttributes.get_background].
+             *
+             * An icon is a graphic element which is shown in the gutter of a view. An
+             * example use is showing a red filled circle in a debugger to show that a
+             * breakpoint was set in certain line. To get an icon that will be placed in
+             * a gutter, first a base for it must be specified and then
+             * [method@MarkAttributes.render_icon] must be called.
+             * There are several ways to specify a base for an icon:
+             *
+             * - [method@MarkAttributes.set_icon_name]
+             * - [method@MarkAttributes.set_gicon]
+             * - [method@MarkAttributes.set_pixbuf]
+             *
+             * Using any of the above functions overrides the one used earlier. But note
+             * that a getter counterpart of earlier used function can still return some
+             * value, but it is just not used when rendering the proper icon.
+             *
+             * To provide meaningful tooltips for a given mark of a category, you should
+             * connect to [signal@MarkAttributes::query-tooltip-text] or
+             * [signal@MarkAttributes::query-tooltip-markup] where the latter
+             * takes precedence.
+             */
+            MarkAttributes: MarkAttributesClass
+        }
         
 
         namespace PrintCompositor {
@@ -4118,7 +3650,6 @@ declare module "gi://GtkSource?version=5" {
 
             interface WritableProperties extends GObject.Object.WritableProperties {
                 "body-font-name": string
-                "buffer": Buffer
                 "footer-font-name": string
                 "header-font-name": string
                 "highlight-syntax": boolean
@@ -4132,32 +3663,20 @@ declare module "gi://GtkSource?version=5" {
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "buffer": Buffer
             }
         }
 
-        /**
-         * Compose a [class@Buffer] for printing.
-         *
-         * The `GtkSourcePrintCompositor` object is used to compose a [class@Buffer]
-         * for printing. You can set various configuration options to customize the
-         * printed output. `GtkSourcePrintCompositor` is designed to be used with the
-         * high-level printing API of gtk+, i.e. [class@Gtk.PrintOperation].
-         *
-         * The margins specified in this object are the layout margins: they define the
-         * blank space bordering the printed area of the pages. They must not be
-         * confused with the "print margins", i.e. the parts of the page that the
-         * printer cannot print on, defined in the [class@Gtk.PageSetup] objects. If the
-         * specified layout margins are smaller than the "print margins", the latter
-         * ones are used as a fallback by the `GtkSourcePrintCompositor` object, so that
-         * the printed area is not clipped.
-         */
         interface PrintCompositor extends GObject.Object {
             readonly $signals: PrintCompositor.SignalSignatures
             readonly $readableProperties: PrintCompositor.ReadableProperties
             readonly $writableProperties: PrintCompositor.WritableProperties
             readonly $constructOnlyProperties: PrintCompositor.ConstructOnlyProperties
             /**
-             * quot;). See [func@Pango.FontDescription.from_string]
+             * Name of the font used for the text body.
+             *
+             * Accepted values are strings representing a font description Pango can understand.
+             * (e.g. &quot;Monospace 10&quot;). See [func@Pango.FontDescription.from_string]
              * for a description of the format of the string representation.
              *
              * The value of this property cannot be changed anymore after the first
@@ -4172,7 +3691,11 @@ declare module "gi://GtkSource?version=5" {
             get buffer(): Buffer
             set buffer(value: Buffer)
             /**
-             * quot;). See [func@Pango.FontDescription.from_string]
+             * Name of the font used to print page footer.
+             * If this property is unspecified, the text body font is used.
+             *
+             * Accepted values are strings representing a font description Pango can understand.
+             * (e.g. &quot;Monospace 10&quot;). See [func@Pango.FontDescription.from_string]
              * for a description of the format of the string representation.
              *
              * The value of this property cannot be changed anymore after the first
@@ -4182,7 +3705,11 @@ declare module "gi://GtkSource?version=5" {
             get footerFontName(): string
             set footerFontName(value: string)
             /**
-             * quot;). See [func@Pango.FontDescription.from_string]
+             * Name of the font used to print page header.
+             * If this property is unspecified, the text body font is used.
+             *
+             * Accepted values are strings representing a font description Pango can understand.
+             * (e.g. &quot;Monospace 10&quot;). See [func@Pango.FontDescription.from_string]
              * for a description of the format of the string representation.
              *
              * The value of this property cannot be changed anymore after the first
@@ -4201,7 +3728,11 @@ declare module "gi://GtkSource?version=5" {
             get highlightSyntax(): boolean
             set highlightSyntax(value: boolean)
             /**
-             * quot;). See [func@Pango.FontDescription.from_string]
+             * Name of the font used to print line numbers on the left margin.
+             * If this property is unspecified, the text body font is used.
+             *
+             * Accepted values are strings representing a font description Pango can understand.
+             * (e.g. &quot;Monospace 10&quot;). See [func@Pango.FontDescription.from_string]
              * for a description of the format of the string representation.
              *
              * The value of this property cannot be changed anymore after the first
@@ -4211,7 +3742,7 @@ declare module "gi://GtkSource?version=5" {
             get lineNumbersFontName(): string
             set lineNumbersFontName(value: string)
             /**
-             *  if the
+             * The number of pages in the document or <code>-1</code> if the
              * document has not been completely paginated.
              * @default -1
              */
@@ -4275,7 +3806,36 @@ declare module "gi://GtkSource?version=5" {
             get wrapMode(): Gtk.WrapMode
             set wrapMode(value: Gtk.WrapMode)
             /**
-             *  None:
+             * Draw page @page_nr for printing on the the Cairo context encapsuled in @context.
+             *
+             * This method has been designed to be called in the handler of the [signal@Gtk.PrintOperation::draw_page] signal
+             * as shown in the following example:
+             *
+             * ```c
+             * // Signal handler for the GtkPrintOperation::draw_page signal
+             *
+             * static void
+             * draw_page (GtkPrintOperation *operation,
+             *            GtkPrintContext   *context,
+             *            gint               page_nr,
+             *            gpointer           user_data)
+             * {
+             *     GtkSourcePrintCompositor *compositor;
+             *
+             *     compositor = GTK_SOURCE_PRINT_COMPOSITOR (user_data);
+             *
+             *     gtk_source_print_compositor_draw_page (compositor,
+             *                                            context,
+             *                                            page_nr);
+             * }
+             * ```
+             * ```python
+             * def on_draw_page(
+             *     operation: Gtk.PrintOperation,
+             *     context: Gtk.PrintContext,
+             *     page_nr: int,
+             *     compositor: GtkSource.PrintCompositor,
+             * ) -> None:
              *     """Signal handler for draw-page that renders a single page."""
              *     compositor.draw_page(context=context, page_nr=page_nr)
              * ```
@@ -4341,9 +3901,9 @@ declare module "gi://GtkSource?version=5" {
              */
             get_line_numbers_font_name(): string
             /**
-             *  if the
+             * Returns the number of pages in the document or <code>-1</code> if the
              * document has not been completely paginated.
-             * @returns  if the document has not been completely paginated.
+             * @returns the number of pages in the document or <code>-1</code> if the document has not been completely paginated.
              */
             get_n_pages(): number
             /**
@@ -4407,7 +3967,84 @@ declare module "gi://GtkSource?version=5" {
              */
             ignore_tag(tag: Gtk.TextTag): void
             /**
-             *  None:
+             * Paginate the document associated with the @compositor.
+             *
+             * In order to support non-blocking pagination, document is paginated in small chunks.
+             * Each time [method@PrintCompositor.paginate] is invoked, a chunk of the document
+             * is paginated. To paginate the entire document, [method@PrintCompositor.paginate]
+             * must be invoked multiple times.
+             * It returns %TRUE if the document has been completely paginated, otherwise it returns %FALSE.
+             *
+             * This method has been designed to be invoked in the handler of the [signal@Gtk.PrintOperation::paginate] signal,
+             * as shown in the following example:
+             *
+             * ```c
+             * // Signal handler for the GtkPrintOperation::paginate signal
+             *
+             * static gboolean
+             * paginate (GtkPrintOperation *operation,
+             *           GtkPrintContext   *context,
+             *           gpointer           user_data)
+             * {
+             *     GtkSourcePrintCompositor *compositor;
+             *
+             *     compositor = GTK_SOURCE_PRINT_COMPOSITOR (user_data);
+             *
+             *     if (gtk_source_print_compositor_paginate (compositor, context))
+             *     {
+             *         gint n_pages;
+             *
+             *         n_pages = gtk_source_print_compositor_get_n_pages (compositor);
+             *         gtk_print_operation_set_n_pages (operation, n_pages);
+             *
+             *         return TRUE;
+             *     }
+             *
+             *     return FALSE;
+             * }
+             * ```
+             * ```python
+             * def on_paginate(
+             *     operation: Gtk.PrintOperation,
+             *     context: Gtk.PrintContext,
+             *     compositor: GtkSource.PrintCompositor,
+             * ) -> bool:
+             *     if compositor.paginate(context=context):
+             *         n_pages = compositor.get_n_pages()
+             *         operation.set_n_pages(n_pages=n_pages)
+             *         return True
+             *     return False
+             * ```
+             *
+             * If you don't need to do pagination in chunks, you can simply do it all in the
+             * [signal@Gtk.PrintOperation::begin-print] handler, and set the number of pages from there, like
+             * in the following example:
+             *
+             * ```c
+             * // Signal handler for the GtkPrintOperation::begin-print signal
+             *
+             * static void
+             * begin_print (GtkPrintOperation *operation,
+             *              GtkPrintContext   *context,
+             *              gpointer           user_data)
+             * {
+             *     GtkSourcePrintCompositor *compositor;
+             *     gint n_pages;
+             *
+             *     compositor = GTK_SOURCE_PRINT_COMPOSITOR (user_data);
+             *
+             *     while (!gtk_source_print_compositor_paginate (compositor, context));
+             *
+             *     n_pages = gtk_source_print_compositor_get_n_pages (compositor);
+             *     gtk_print_operation_set_n_pages (operation, n_pages);
+             * }
+             * ```
+             * ```python
+             * def on_begin_print(
+             *     operation: Gtk.PrintOperation,
+             *     context: Gtk.PrintContext,
+             *     compositor: GtkSource.PrintCompositor,
+             * ) -> None:
              *     # Paginate until complete
              *     while not compositor.paginate(context=context):
              *         pass
@@ -4421,7 +4058,11 @@ declare module "gi://GtkSource?version=5" {
              */
             paginate(context: Gtk.PrintContext): boolean
             /**
-             * quot;). See [func@Pango.FontDescription.from_string]
+             * Sets the default font for the printed text.
+             *
+             * @font_name should be a
+             * string representation of a font description Pango can understand.
+             * (e.g. &quot;Monospace 10&quot;). See [func@Pango.FontDescription.from_string]
              * for a description of the format of the string representation.
              *
              * This function cannot be called anymore after the first call to the
@@ -4436,7 +4077,14 @@ declare module "gi://GtkSource?version=5" {
              */
             set_bottom_margin(margin: number, unit: Gtk.Unit): void
             /**
-             * quot;). See [func@Pango.FontDescription.from_string]
+             * Sets the font for printing the page footer.
+             *
+             * If %NULL is supplied, the default font (i.e. the one being used for the
+             * text) will be used instead.
+             *
+             * @font_name should be a
+             * string representation of a font description Pango can understand.
+             * (e.g. &quot;Monospace 10&quot;). See [func@Pango.FontDescription.from_string]
              * for a description of the format of the string representation.
              *
              * This function cannot be called anymore after the first call to the
@@ -4454,7 +4102,14 @@ declare module "gi://GtkSource?version=5" {
              */
             set_footer_format(separator: boolean, left: string | null, center: string | null, right: string | null): void
             /**
-             * quot;). See [func@Pango.FontDescription.from_string]
+             * Sets the font for printing the page header.
+             *
+             * If %NULL is supplied, the default font (i.e. the one being used for the
+             * text) will be used instead.
+             *
+             * @font_name should be a
+             * string representation of a font description Pango can understand.
+             * (e.g. &quot;Monospace 10&quot;). See [func@Pango.FontDescription.from_string]
              * for a description of the format of the string representation.
              *
              * This function cannot be called anymore after the first call to the
@@ -4508,7 +4163,14 @@ declare module "gi://GtkSource?version=5" {
              */
             set_left_margin(margin: number, unit: Gtk.Unit): void
             /**
-             * quot;). See [func@Pango.FontDescription.from_string]
+             * Sets the font for printing line numbers on the left margin.
+             *
+             * If %NULL is supplied, the default font (i.e. the one being used for the
+             * text) will be used instead.
+             *
+             * @font_name should be a
+             * string representation of a font description Pango can understand.
+             * (e.g. &quot;Monospace 10&quot;). See [func@Pango.FontDescription.from_string]
              * for a description of the format of the string representation.
              *
              * This function cannot be called anymore after the first call to the
@@ -4591,6 +4253,7 @@ declare module "gi://GtkSource?version=5" {
         interface PrintCompositorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PrintCompositor>
             readonly prototype: PrintCompositor
+
             new (props?: Partial<GObject.ConstructorProps<PrintCompositor>>): PrintCompositor
             /**
              * Creates a new print compositor that can be used to print @buffer.
@@ -4613,7 +4276,25 @@ declare module "gi://GtkSource?version=5" {
             new_from_view(view: View): PrintCompositor
         }
 
-        const PrintCompositor: PrintCompositorClass
+        interface $Exports {
+            /**
+             * Compose a [class@Buffer] for printing.
+             *
+             * The `GtkSourcePrintCompositor` object is used to compose a [class@Buffer]
+             * for printing. You can set various configuration options to customize the
+             * printed output. `GtkSourcePrintCompositor` is designed to be used with the
+             * high-level printing API of gtk+, i.e. [class@Gtk.PrintOperation].
+             *
+             * The margins specified in this object are the layout margins: they define the
+             * blank space bordering the printed area of the pages. They must not be
+             * confused with the "print margins", i.e. the parts of the page that the
+             * printer cannot print on, defined in the [class@Gtk.PageSetup] objects. If the
+             * specified layout margins are smaller than the "print margins", the latter
+             * ones are used as a fallback by the `GtkSourcePrintCompositor` object, so that
+             * the printed area is not clipped.
+             */
+            PrintCompositor: PrintCompositorClass
+        }
         
 
         namespace Region {
@@ -4625,32 +4306,13 @@ declare module "gi://GtkSource?version=5" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "buffer": Gtk.TextBuffer | null
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "buffer": Gtk.TextBuffer | null
             }
         }
 
-        /**
-         * region_iter);
-         * }
-         * ```
-         * ```python
-         * buffer: GtkSource.Buffer = GtkSource.Buffer()
-         * region: GtkSource.Region = GtkSource.Region(buffer=buffer)
-         * region_iter = region.get_start_region_iter()
-         *
-         * while not region_iter.is_end():
-         *     success, start, end = region_iter.get_subregion()
-         *     if not success:
-         *         break
-         *
-         *     # Do something useful with the subregion
-         *
-         *     region_iter.next()
-         * ```
-         */
         interface Region extends GObject.Object {
             readonly $signals: Region.SignalSignatures
             readonly $readableProperties: Region.ReadableProperties
@@ -4679,7 +4341,7 @@ declare module "gi://GtkSource?version=5" {
              * Gets the @start and @end bounds of the @region.
              * @returns %TRUE if `start` and `end` have been set successfully (if non-%NULL),   or %FALSE if the `region` is empty., iterator to initialize with the start of `region`,   or %NULL., iterator to initialize with the end of `region`,   or %NULL.
              */
-            get_bounds(): boolean
+            get_bounds(): [boolean, Gtk.TextIter, Gtk.TextIter]
             /**
              * @returns the #GtkTextBuffer.
              */
@@ -4743,6 +4405,7 @@ declare module "gi://GtkSource?version=5" {
         interface RegionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Region>
             readonly prototype: Region
+
             new (props?: Partial<GObject.ConstructorProps<Region>>): Region
             /**
              * @param buffer a #GtkTextBuffer.
@@ -4751,7 +4414,67 @@ declare module "gi://GtkSource?version=5" {
             "new"(buffer: Gtk.TextBuffer): Region
         }
 
-        const Region: RegionClass
+        interface $Exports {
+            /**
+             * Region utility.
+             *
+             * A `GtkSourceRegion` permits to store a group of subregions of a
+             * [class@Gtk.TextBuffer]. `GtkSourceRegion` stores the subregions with pairs of
+             * [class@Gtk.TextMark]'s, so the region is still valid after insertions and deletions
+             * in the [class@Gtk.TextBuffer].
+             *
+             * The [class@Gtk.TextMark] for the start of a subregion has a left gravity, while the
+             * [class@Gtk.TextMark] for the end of a subregion has a right gravity.
+             *
+             * The typical use-case of `GtkSourceRegion` is to scan a [class@Gtk.TextBuffer] chunk by
+             * chunk, not the whole buffer at once to not block the user interface. The
+             * `GtkSourceRegion` represents in that case the remaining region to scan. You
+             * can listen to the [signal@Gtk.TextBuffer::insert-text] and
+             * [signal@Gtk.TextBuffer::delete-range] signals to update the `GtkSourceRegion`
+             * accordingly.
+             *
+             * To iterate through the subregions, you need to use a [struct@RegionIter],
+             * for example:
+             * ```c
+             * GtkSourceRegion *region;
+             * GtkSourceRegionIter region_iter;
+             *
+             * gtk_source_region_get_start_region_iter (region, &region_iter);
+             *
+             * while (!gtk_source_region_iter_is_end (&region_iter))
+             * {
+             *         GtkTextIter subregion_start;
+             *         GtkTextIter subregion_end;
+             *
+             *         if (!gtk_source_region_iter_get_subregion (&region_iter,
+             *                                                    &subregion_start,
+             *                                                    &subregion_end))
+             *         {
+             *                 break;
+             *         }
+             *
+             *         // Do something useful with the subregion.
+             *
+             *         gtk_source_region_iter_next (&region_iter);
+             * }
+             * ```
+             * ```python
+             * buffer: GtkSource.Buffer = GtkSource.Buffer()
+             * region: GtkSource.Region = GtkSource.Region(buffer=buffer)
+             * region_iter = region.get_start_region_iter()
+             *
+             * while not region_iter.is_end():
+             *     success, start, end = region_iter.get_subregion()
+             *     if not success:
+             *         break
+             *
+             *     # Do something useful with the subregion
+             *
+             *     region_iter.next()
+             * ```
+             */
+            Region: RegionClass
+        }
         
 
         namespace SearchContext {
@@ -4768,73 +4491,18 @@ declare module "gi://GtkSource?version=5" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "buffer": Buffer
                 "highlight": boolean
                 "match-style": Style | null
                 "occurrences-count": number
                 "regex-error": GLib.Error | null
-                "settings": SearchSettings
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "buffer": Buffer
+                "settings": SearchSettings
             }
         }
 
-        /**
-         * Search context.
-         *
-         * A `GtkSourceSearchContext` is used for the search and replace in a
-         * [class@Buffer]. The search settings are represented by a
-         * [class@SearchSettings] object. There can be a many-to-many relationship
-         * between buffers and search settings, with the search contexts in-between: a
-         * search settings object can be shared between several search contexts; and a
-         * buffer can contain several search contexts at the same time.
-         *
-         * The total number of search occurrences can be retrieved with
-         * [method@SearchContext.get_occurrences_count]. To know the position of a
-         * certain match, use [method@SearchContext.get_occurrence_position].
-         *
-         * The buffer is scanned asynchronously, so it doesn't block the user interface.
-         * For each search, the buffer is scanned at most once. After that, navigating
-         * through the occurrences doesn't require to re-scan the buffer entirely.
-         *
-         * To search forward, use [method@SearchContext.forward] or
-         * [method@SearchContext.forward_async] for the asynchronous version.
-         * The backward search is done similarly. To replace a search match, or all
-         * matches, use [method@SearchContext.replace] and
-         * [method@SearchContext.replace_all].
-         *
-         * The search occurrences are highlighted by default. To disable it, use
-         * [method@SearchContext.set_highlight]. You can enable the search
-         * highlighting for several `GtkSourceSearchContext`s attached to the
-         * same buffer. Moreover, each of those `GtkSourceSearchContext`s can
-         * have a different text style associated. Use
-         * [method@SearchContext.set_match_style] to specify the [class@Style]
-         * to apply on search matches.
-         *
-         * Note that the [property@SearchContext:highlight] and
-         * [property@SearchContext:match-style] properties are in the
-         * `GtkSourceSearchContext` class, not [class@SearchSettings]. Appearance
-         * settings should be tied to one, and only one buffer, as different buffers can
-         * have different style scheme associated (a [class@SearchSettings] object
-         * can be bound indirectly to several buffers).
-         *
-         * The concept of "current match" doesn't exist yet. A way to highlight
-         * differently the current match is to select it.
-         *
-         * A search occurrence's position doesn't depend on the cursor position or other
-         * parameters. Take for instance the buffer "aaaa" with the search text "aa".
-         * The two occurrences are at positions [0:2] and [2:4]. If you begin to search
-         * at position 1, you will get the occurrence [2:4], not [1:3]. This is a
-         * prerequisite for regular expression searches. The pattern ".*" matches the
-         * entire line. If the cursor is at the middle of the line, you don't want the
-         * rest of the line as the occurrence, you want an entire line. (As a side note,
-         * regular expression searches can also match multiple lines.)
-         *
-         * In the GtkSourceView source code, there is an example of how to use the
-         * search and replace API: see the tests/test-search.c file. It is a mini
-         * application for the search and replace, with a basic user interface.
-         */
         interface SearchContext extends GObject.Object {
             readonly $signals: SearchContext.SignalSignatures
             readonly $readableProperties: SearchContext.ReadableProperties
@@ -4895,7 +4563,7 @@ declare module "gi://GtkSource?version=5" {
              * @param iter start of search.
              * @returns whether a match was found., return location for start of match, or %NULL., return location for end of match, or %NULL., return location to know whether the   search has wrapped around, or %NULL.
              */
-            backward(iter: Gtk.TextIter): boolean
+            backward(iter: Gtk.TextIter): [boolean, Gtk.TextIter, Gtk.TextIter, boolean]
             /**
              * The asynchronous version of [method@SearchContext.backward].
              *
@@ -4919,7 +4587,7 @@ declare module "gi://GtkSource?version=5" {
              * @param result a #GAsyncResult.
              * @returns whether a match was found., return location for start of match, or %NULL., return location for end of match, or %NULL., return location to know whether the   search has wrapped around, or %NULL.
              */
-            backward_finish(result: Gio.AsyncResult): boolean
+            backward_finish(result: Gio.AsyncResult): [boolean, Gtk.TextIter, Gtk.TextIter, boolean]
             /**
              * Synchronous forward search.
              *
@@ -4935,7 +4603,7 @@ declare module "gi://GtkSource?version=5" {
              * @param iter start of search.
              * @returns whether a match was found., return location for start of match, or %NULL., return location for end of match, or %NULL., return location to know whether the   search has wrapped around, or %NULL.
              */
-            forward(iter: Gtk.TextIter): boolean
+            forward(iter: Gtk.TextIter): [boolean, Gtk.TextIter, Gtk.TextIter, boolean]
             /**
              * The asynchronous version of [method@SearchContext.forward].
              *
@@ -4958,7 +4626,7 @@ declare module "gi://GtkSource?version=5" {
              * @param result a #GAsyncResult.
              * @returns whether a match was found., return location for start of match, or %NULL., return location for end of match, or %NULL., return location to know whether the   search has wrapped around, or %NULL.
              */
-            forward_finish(result: Gio.AsyncResult): boolean
+            forward_finish(result: Gio.AsyncResult): [boolean, Gtk.TextIter, Gtk.TextIter, boolean]
             /**
              * @returns the associated buffer.
              */
@@ -5055,6 +4723,7 @@ declare module "gi://GtkSource?version=5" {
         interface SearchContextClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SearchContext>
             readonly prototype: SearchContext
+
             new (props?: Partial<GObject.ConstructorProps<SearchContext>>): SearchContext
             /**
              * Creates a new search context, associated with @buffer, and customized with
@@ -5069,7 +4738,64 @@ declare module "gi://GtkSource?version=5" {
             "new"(buffer: Buffer, settings: SearchSettings | null): SearchContext
         }
 
-        const SearchContext: SearchContextClass
+        interface $Exports {
+            /**
+             * Search context.
+             *
+             * A `GtkSourceSearchContext` is used for the search and replace in a
+             * [class@Buffer]. The search settings are represented by a
+             * [class@SearchSettings] object. There can be a many-to-many relationship
+             * between buffers and search settings, with the search contexts in-between: a
+             * search settings object can be shared between several search contexts; and a
+             * buffer can contain several search contexts at the same time.
+             *
+             * The total number of search occurrences can be retrieved with
+             * [method@SearchContext.get_occurrences_count]. To know the position of a
+             * certain match, use [method@SearchContext.get_occurrence_position].
+             *
+             * The buffer is scanned asynchronously, so it doesn't block the user interface.
+             * For each search, the buffer is scanned at most once. After that, navigating
+             * through the occurrences doesn't require to re-scan the buffer entirely.
+             *
+             * To search forward, use [method@SearchContext.forward] or
+             * [method@SearchContext.forward_async] for the asynchronous version.
+             * The backward search is done similarly. To replace a search match, or all
+             * matches, use [method@SearchContext.replace] and
+             * [method@SearchContext.replace_all].
+             *
+             * The search occurrences are highlighted by default. To disable it, use
+             * [method@SearchContext.set_highlight]. You can enable the search
+             * highlighting for several `GtkSourceSearchContext`s attached to the
+             * same buffer. Moreover, each of those `GtkSourceSearchContext`s can
+             * have a different text style associated. Use
+             * [method@SearchContext.set_match_style] to specify the [class@Style]
+             * to apply on search matches.
+             *
+             * Note that the [property@SearchContext:highlight] and
+             * [property@SearchContext:match-style] properties are in the
+             * `GtkSourceSearchContext` class, not [class@SearchSettings]. Appearance
+             * settings should be tied to one, and only one buffer, as different buffers can
+             * have different style scheme associated (a [class@SearchSettings] object
+             * can be bound indirectly to several buffers).
+             *
+             * The concept of "current match" doesn't exist yet. A way to highlight
+             * differently the current match is to select it.
+             *
+             * A search occurrence's position doesn't depend on the cursor position or other
+             * parameters. Take for instance the buffer "aaaa" with the search text "aa".
+             * The two occurrences are at positions [0:2] and [2:4]. If you begin to search
+             * at position 1, you will get the occurrence [2:4], not [1:3]. This is a
+             * prerequisite for regular expression searches. The pattern ".*" matches the
+             * entire line. If the cursor is at the middle of the line, you don't want the
+             * rest of the line as the occurrence, you want an entire line. (As a side note,
+             * regular expression searches can also match multiple lines.)
+             *
+             * In the GtkSourceView source code, there is an example of how to use the
+             * search and replace API: see the tests/test-search.c file. It is a mini
+             * application for the search and replace, with a basic user interface.
+             */
+            SearchContext: SearchContextClass
+        }
         
 
         namespace SearchSettings {
@@ -5098,13 +4824,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Search settings.
-         *
-         * A `GtkSourceSearchSettings` object represents the settings of a search. The
-         * search settings can be associated with one or several
-         * [class@SearchContext]s.
-         */
         interface SearchSettings extends GObject.Object {
             readonly $signals: SearchSettings.SignalSignatures
             readonly $readableProperties: SearchSettings.ReadableProperties
@@ -5246,6 +4965,7 @@ declare module "gi://GtkSource?version=5" {
         interface SearchSettingsClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SearchSettings>
             readonly prototype: SearchSettings
+
             new (props?: Partial<GObject.ConstructorProps<SearchSettings>>): SearchSettings
             /**
              * Creates a new search settings object.
@@ -5254,7 +4974,16 @@ declare module "gi://GtkSource?version=5" {
             "new"(): SearchSettings
         }
 
-        const SearchSettings: SearchSettingsClass
+        interface $Exports {
+            /**
+             * Search settings.
+             *
+             * A `GtkSourceSearchSettings` object represents the settings of a search. The
+             * search settings can be associated with one or several
+             * [class@SearchContext]s.
+             */
+            SearchSettings: SearchSettingsClass
+        }
         
 
         namespace Snippet {
@@ -5283,20 +5012,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Quick insertion code snippets.
-         *
-         * The `GtkSourceSnippet` represents a series of chunks that can quickly be
-         * inserted into the [class@View].
-         *
-         * Snippets are defined in XML files which are loaded by the
-         * [class@SnippetManager]. Alternatively, applications can create snippets
-         * on demand and insert them into the [class@View] using
-         * [method@View.push_snippet].
-         *
-         * Snippet chunks can reference other snippet chunks as well as post-process
-         * the values from other chunks such as capitalization.
-         */
         interface Snippet extends GObject.Object {
             readonly $signals: Snippet.SignalSignatures
             readonly $readableProperties: Snippet.ReadableProperties
@@ -5419,6 +5134,7 @@ declare module "gi://GtkSource?version=5" {
         interface SnippetClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Snippet>
             readonly prototype: Snippet
+
             new (props?: Partial<GObject.ConstructorProps<Snippet>>): Snippet
             /**
              * Creates a new #GtkSourceSnippet
@@ -5438,7 +5154,23 @@ declare module "gi://GtkSource?version=5" {
             new_parsed(text: string): Snippet
         }
 
-        const Snippet: SnippetClass
+        interface $Exports {
+            /**
+             * Quick insertion code snippets.
+             *
+             * The `GtkSourceSnippet` represents a series of chunks that can quickly be
+             * inserted into the [class@View].
+             *
+             * Snippets are defined in XML files which are loaded by the
+             * [class@SnippetManager]. Alternatively, applications can create snippets
+             * on demand and insert them into the [class@View] using
+             * [method@View.push_snippet].
+             *
+             * Snippet chunks can reference other snippet chunks as well as post-process
+             * the values from other chunks such as capitalization.
+             */
+            Snippet: SnippetClass
+        }
         
 
         namespace SnippetChunk {
@@ -5467,14 +5199,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * A chunk of text within the source snippet.
-         *
-         * The `GtkSourceSnippetChunk` represents a single chunk of text that
-         * may or may not be an edit point within the snippet. Chunks that are
-         * an edit point (also called a tab stop) have the
-         * [property@SnippetChunk:focus-position] property set.
-         */
         interface SnippetChunk extends GObject.InitiallyUnowned {
             readonly $signals: SnippetChunk.SignalSignatures
             readonly $readableProperties: SnippetChunk.ReadableProperties
@@ -5613,6 +5337,7 @@ declare module "gi://GtkSource?version=5" {
         interface SnippetChunkClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
             readonly $gtype: GObject.GType<SnippetChunk>
             readonly prototype: SnippetChunk
+
             new (props?: Partial<GObject.ConstructorProps<SnippetChunk>>): SnippetChunk
             /**
              * Create a new `GtkSourceSnippetChunk` that can be added to
@@ -5621,7 +5346,17 @@ declare module "gi://GtkSource?version=5" {
             "new"(): SnippetChunk
         }
 
-        const SnippetChunk: SnippetChunkClass
+        interface $Exports {
+            /**
+             * A chunk of text within the source snippet.
+             *
+             * The `GtkSourceSnippetChunk` represents a single chunk of text that
+             * may or may not be an edit point within the snippet. Chunks that are
+             * an edit point (also called a tab stop) have the
+             * [property@SnippetChunk:focus-position] property set.
+             */
+            SnippetChunk: SnippetChunkClass
+        }
         
 
         namespace SnippetContext {
@@ -5645,17 +5380,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Context for expanding [class@SnippetChunk].
-         *
-         * This class is currently used primary as a hashtable. However, the longer
-         * term goal is to have it hold onto a `GjsContext` as well as other languages
-         * so that [class@SnippetChunk] can expand themselves by executing
-         * script within the context.
-         *
-         * The [class@Snippet] will build the context and then expand each of the
-         * chunks during the insertion/edit phase.
-         */
         interface SnippetContext extends GObject.Object {
             readonly $signals: SnippetContext.SignalSignatures
             readonly $readableProperties: SnippetContext.ReadableProperties
@@ -5712,6 +5436,7 @@ declare module "gi://GtkSource?version=5" {
         interface SnippetContextClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SnippetContext>
             readonly prototype: SnippetContext
+
             new (props?: Partial<GObject.ConstructorProps<SnippetContext>>): SnippetContext
             /**
              * Creates a new #GtkSourceSnippetContext.
@@ -5723,7 +5448,20 @@ declare module "gi://GtkSource?version=5" {
             "new"(): SnippetContext
         }
 
-        const SnippetContext: SnippetContextClass
+        interface $Exports {
+            /**
+             * Context for expanding [class@SnippetChunk].
+             *
+             * This class is currently used primary as a hashtable. However, the longer
+             * term goal is to have it hold onto a `GjsContext` as well as other languages
+             * so that [class@SnippetChunk] can expand themselves by executing
+             * script within the context.
+             *
+             * The [class@Snippet] will build the context and then expand each of the
+             * chunks during the insertion/edit phase.
+             */
+            SnippetContext: SnippetContextClass
+        }
         
 
         namespace SnippetManager {
@@ -5742,18 +5480,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Provides access to [class@Snippet].
-         *
-         * `GtkSourceSnippetManager` is an object which processes snippet description
-         * files and creates [class@Snippet] objects.
-         *
-         * Use [func@SnippetManager.get_default] to retrieve the default
-         * instance of `GtkSourceSnippetManager`.
-         *
-         * Use [method@SnippetManager.get_snippet] to retrieve snippets for
-         * a given snippets.
-         */
         interface SnippetManager extends GObject.Object {
             readonly $signals: SnippetManager.SignalSignatures
             readonly $readableProperties: SnippetManager.ReadableProperties
@@ -5832,6 +5558,7 @@ declare module "gi://GtkSource?version=5" {
         interface SnippetManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SnippetManager>
             readonly prototype: SnippetManager
+
             new (props?: Partial<GObject.ConstructorProps<SnippetManager>>): SnippetManager
             /**
              * Returns the default #GtkSourceSnippetManager instance.
@@ -5840,7 +5567,21 @@ declare module "gi://GtkSource?version=5" {
             get_default(): SnippetManager
         }
 
-        const SnippetManager: SnippetManagerClass
+        interface $Exports {
+            /**
+             * Provides access to [class@Snippet].
+             *
+             * `GtkSourceSnippetManager` is an object which processes snippet description
+             * files and creates [class@Snippet] objects.
+             *
+             * Use [func@SnippetManager.get_default] to retrieve the default
+             * instance of `GtkSourceSnippetManager`.
+             *
+             * Use [method@SnippetManager.get_snippet] to retrieve snippets for
+             * a given snippets.
+             */
+            SnippetManager: SnippetManagerClass
+        }
         
 
         namespace SpaceDrawer {
@@ -5861,27 +5602,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         *  ~int(GtkSource.SpaceTypeFlags.NEWLINE)
-         * )
-         * space_drawer.set_types_for_locations(
-         *     locations=GtkSource.SpaceLocationFlags.TRAILING,
-         *     types=all_types_except_newline,
-         * )
-         *
-         * space_drawer.set_enable_matrix(True)
-         * ```
-         *
-         * # Use-case: draw unwanted white spaces
-         *
-         * A possible use-case is to draw only unwanted white spaces. Examples:
-         *
-         * - Draw all trailing spaces.
-         * - If the indentation and alignment must be done with spaces, draw tabs.
-         *
-         * And non-breaking spaces can always be drawn, everywhere, to distinguish them
-         * from normal spaces.
-         */
         interface SpaceDrawer extends GObject.Object {
             readonly $signals: SpaceDrawer.SignalSignatures
             readonly $readableProperties: SpaceDrawer.ReadableProperties
@@ -5982,6 +5702,7 @@ declare module "gi://GtkSource?version=5" {
         interface SpaceDrawerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SpaceDrawer>
             readonly prototype: SpaceDrawer
+
             new (props?: Partial<GObject.ConstructorProps<SpaceDrawer>>): SpaceDrawer
             /**
              * Creates a new #GtkSourceSpaceDrawer object.
@@ -5992,7 +5713,72 @@ declare module "gi://GtkSource?version=5" {
             "new"(): SpaceDrawer
         }
 
-        const SpaceDrawer: SpaceDrawerClass
+        interface $Exports {
+            /**
+             * Represent white space characters with symbols.
+             *
+             * #GtkSourceSpaceDrawer provides a way to visualize white spaces, by drawing
+             * symbols.
+             *
+             * Call [method@View.get_space_drawer] to get the `GtkSourceSpaceDrawer`
+             * instance of a certain [class@View].
+             *
+             * By default, no white spaces are drawn because the
+             * [property@SpaceDrawer:enable-matrix] is %FALSE.
+             *
+             * To draw white spaces, [method@SpaceDrawer.set_types_for_locations] can
+             * be called to set the [property@SpaceDrawer:matrix] property (by default all
+             * space types are enabled at all locations). Then call
+             * [method@SpaceDrawer.set_enable_matrix].
+             *
+             * For a finer-grained method, there is also the [class@Tag]'s
+             * [property@Tag:draw-spaces] property.
+             *
+             * # Example
+             *
+             * To draw non-breaking spaces everywhere and draw all types of trailing spaces
+             * except newlines:
+             * ```c
+             * gtk_source_space_drawer_set_types_for_locations (space_drawer,
+             *                                                  GTK_SOURCE_SPACE_LOCATION_ALL,
+             *                                                  GTK_SOURCE_SPACE_TYPE_NBSP);
+             *
+             * gtk_source_space_drawer_set_types_for_locations (space_drawer,
+             *                                                  GTK_SOURCE_SPACE_LOCATION_TRAILING,
+             *                                                  GTK_SOURCE_SPACE_TYPE_ALL &
+             *                                                  ~GTK_SOURCE_SPACE_TYPE_NEWLINE);
+             *
+             * gtk_source_space_drawer_set_enable_matrix (space_drawer, TRUE);
+             * ```
+             * ```python
+             * space_drawer.set_types_for_locations(
+             *     locations=GtkSource.SpaceLocationFlags.ALL,
+             *     types=GtkSource.SpaceTypeFlags.NBSP,
+             * )
+             *
+             * all_types_except_newline = GtkSource.SpaceTypeFlags(
+             *     int(GtkSource.SpaceTypeFlags.ALL) & ~int(GtkSource.SpaceTypeFlags.NEWLINE)
+             * )
+             * space_drawer.set_types_for_locations(
+             *     locations=GtkSource.SpaceLocationFlags.TRAILING,
+             *     types=all_types_except_newline,
+             * )
+             *
+             * space_drawer.set_enable_matrix(True)
+             * ```
+             *
+             * # Use-case: draw unwanted white spaces
+             *
+             * A possible use-case is to draw only unwanted white spaces. Examples:
+             *
+             * - Draw all trailing spaces.
+             * - If the indentation and alignment must be done with spaces, draw tabs.
+             *
+             * And non-breaking spaces can always be drawn, everywhere, to distinguish them
+             * from normal spaces.
+             */
+            SpaceDrawer: SpaceDrawerClass
+        }
         
 
         namespace Style {
@@ -6023,6 +5809,9 @@ declare module "gi://GtkSource?version=5" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "background": string
                 "background-set": boolean
                 "bold": boolean
@@ -6044,17 +5833,8 @@ declare module "gi://GtkSource?version=5" {
                 "weight": Pango.Weight
                 "weight-set": boolean
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Represents a style.
-         *
-         * The `GtkSourceStyle` structure is used to describe text attributes
-         * which are set when given style is used.
-         */
         interface Style extends GObject.Object {
             readonly $signals: Style.SignalSignatures
             readonly $readableProperties: Style.ReadableProperties
@@ -6182,10 +5962,19 @@ declare module "gi://GtkSource?version=5" {
         interface StyleClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Style>
             readonly prototype: Style
+
             new (props?: Partial<GObject.ConstructorProps<Style>>): Style
         }
 
-        const Style: StyleClass
+        interface $Exports {
+            /**
+             * Represents a style.
+             *
+             * The `GtkSourceStyle` structure is used to describe text attributes
+             * which are set when given style is used.
+             */
+            Style: StyleClass
+        }
         
 
         namespace StyleScheme {
@@ -6202,29 +5991,14 @@ declare module "gi://GtkSource?version=5" {
             interface WritableProperties extends GObject.Object.WritableProperties {
                 "description": string | null
                 "filename": string | null
-                "id": string
                 "name": string
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "id": string
             }
         }
 
-        /**
-         * Controls the appearance of [class@View].
-         *
-         * #GtkSourceStyleScheme contains all the text styles to be used in
-         * [class@View] and [class@Buffer]. For instance, it contains text styles
-         * for syntax highlighting, it may contain foreground and background color for
-         * non-highlighted text, color for the line numbers, current line highlighting,
-         * bracket matching, etc.
-         *
-         * Style schemes are stored in XML files. The format of a scheme file is
-         * documented in the [style scheme reference](./style-reference.html).
-         *
-         * The two style schemes with IDs "classic" and "tango" follow more closely the
-         * GTK theme (for example for the background color).
-         */
         interface StyleScheme extends GObject.Object {
             readonly $signals: StyleScheme.SignalSignatures
             readonly $readableProperties: StyleScheme.ReadableProperties
@@ -6292,10 +6066,28 @@ declare module "gi://GtkSource?version=5" {
         interface StyleSchemeClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<StyleScheme>
             readonly prototype: StyleScheme
+
             new (props?: Partial<GObject.ConstructorProps<StyleScheme>>): StyleScheme
         }
 
-        const StyleScheme: StyleSchemeClass
+        interface $Exports {
+            /**
+             * Controls the appearance of [class@View].
+             *
+             * #GtkSourceStyleScheme contains all the text styles to be used in
+             * [class@View] and [class@Buffer]. For instance, it contains text styles
+             * for syntax highlighting, it may contain foreground and background color for
+             * non-highlighted text, color for the line numbers, current line highlighting,
+             * bracket matching, etc.
+             *
+             * Style schemes are stored in XML files. The format of a scheme file is
+             * documented in the [style scheme reference](./style-reference.html).
+             *
+             * The two style schemes with IDs "classic" and "tango" follow more closely the
+             * GTK theme (for example for the background color).
+             */
+            StyleScheme: StyleSchemeClass
+        }
         
 
         namespace StyleSchemeChooserButton {
@@ -6312,17 +6104,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * A button to launch a style scheme selection dialog.
-         *
-         * The `GtkSourceStyleSchemeChooserButton` is a button which displays
-         * the currently selected style scheme and allows to open a style scheme
-         * selection dialog to change the style scheme.
-         * It is suitable widget for selecting a style scheme in a preference dialog.
-         *
-         * In `GtkSourceStyleSchemeChooserButton`, a [class@StyleSchemeChooserWidget]
-         * is used to provide a dialog for selecting style schemes.
-         */
         interface StyleSchemeChooserButton extends Gtk.Button, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget, StyleSchemeChooser {
             readonly $signals: StyleSchemeChooserButton.SignalSignatures
             readonly $readableProperties: StyleSchemeChooserButton.ReadableProperties
@@ -6333,15 +6114,29 @@ declare module "gi://GtkSource?version=5" {
         interface StyleSchemeChooserButtonClass extends Omit<Gtk.ButtonClass, "new"> {
             readonly $gtype: GObject.GType<StyleSchemeChooserButton>
             readonly prototype: StyleSchemeChooserButton
+
             new (props?: Partial<GObject.ConstructorProps<StyleSchemeChooserButton>>): StyleSchemeChooserButton
             /**
              * Creates a new #GtkSourceStyleSchemeChooserButton.
              * @returns a new #GtkSourceStyleSchemeChooserButton.
              */
-            "new"(): Gtk.Widget
+            "new"(): StyleSchemeChooserButton
         }
 
-        const StyleSchemeChooserButton: StyleSchemeChooserButtonClass
+        interface $Exports {
+            /**
+             * A button to launch a style scheme selection dialog.
+             *
+             * The `GtkSourceStyleSchemeChooserButton` is a button which displays
+             * the currently selected style scheme and allows to open a style scheme
+             * selection dialog to change the style scheme.
+             * It is suitable widget for selecting a style scheme in a preference dialog.
+             *
+             * In `GtkSourceStyleSchemeChooserButton`, a [class@StyleSchemeChooserWidget]
+             * is used to provide a dialog for selecting style schemes.
+             */
+            StyleSchemeChooserButton: StyleSchemeChooserButtonClass
+        }
         
 
         namespace StyleSchemeChooserWidget {
@@ -6358,18 +6153,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * A widget for choosing style schemes.
-         *
-         * The `GtkSourceStyleSchemeChooserWidget` widget lets the user select a
-         * style scheme. By default, the chooser presents a predefined list
-         * of style schemes.
-         *
-         * To change the initially selected style scheme,
-         * use [method@StyleSchemeChooser.set_style_scheme].
-         * To get the selected style scheme
-         * use [method@StyleSchemeChooser.get_style_scheme].
-         */
         interface StyleSchemeChooserWidget extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, StyleSchemeChooser {
             readonly $signals: StyleSchemeChooserWidget.SignalSignatures
             readonly $readableProperties: StyleSchemeChooserWidget.ReadableProperties
@@ -6380,15 +6163,30 @@ declare module "gi://GtkSource?version=5" {
         interface StyleSchemeChooserWidgetClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<StyleSchemeChooserWidget>
             readonly prototype: StyleSchemeChooserWidget
+
             new (props?: Partial<GObject.ConstructorProps<StyleSchemeChooserWidget>>): StyleSchemeChooserWidget
             /**
              * Creates a new #GtkSourceStyleSchemeChooserWidget.
              * @returns a new  #GtkSourceStyleSchemeChooserWidget.
              */
-            "new"(): Gtk.Widget
+            "new"(): StyleSchemeChooserWidget
         }
 
-        const StyleSchemeChooserWidget: StyleSchemeChooserWidgetClass
+        interface $Exports {
+            /**
+             * A widget for choosing style schemes.
+             *
+             * The `GtkSourceStyleSchemeChooserWidget` widget lets the user select a
+             * style scheme. By default, the chooser presents a predefined list
+             * of style schemes.
+             *
+             * To change the initially selected style scheme,
+             * use [method@StyleSchemeChooser.set_style_scheme].
+             * To get the selected style scheme
+             * use [method@StyleSchemeChooser.get_style_scheme].
+             */
+            StyleSchemeChooserWidget: StyleSchemeChooserWidgetClass
+        }
         
 
         namespace StyleSchemeManager {
@@ -6409,9 +6207,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Provides access to [class@StyleScheme]s.
-         */
         interface StyleSchemeManager extends GObject.Object {
             readonly $signals: StyleSchemeManager.SignalSignatures
             readonly $readableProperties: StyleSchemeManager.ReadableProperties
@@ -6484,6 +6279,7 @@ declare module "gi://GtkSource?version=5" {
         interface StyleSchemeManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<StyleSchemeManager>
             readonly prototype: StyleSchemeManager
+
             new (props?: Partial<GObject.ConstructorProps<StyleSchemeManager>>): StyleSchemeManager
             /**
              * Creates a new style manager.
@@ -6500,7 +6296,12 @@ declare module "gi://GtkSource?version=5" {
             get_default(): StyleSchemeManager
         }
 
-        const StyleSchemeManager: StyleSchemeManagerClass
+        interface $Exports {
+            /**
+             * Provides access to [class@StyleScheme]s.
+             */
+            StyleSchemeManager: StyleSchemeManagerClass
+        }
         
 
         namespace StyleSchemePreview {
@@ -6516,23 +6317,14 @@ declare module "gi://GtkSource?version=5" {
             }
 
             interface WritableProperties extends Gtk.Widget.WritableProperties, Gtk.Accessible.WritableProperties, Gtk.Actionable.WritableProperties, Gtk.Buildable.WritableProperties, Gtk.ConstraintTarget.WritableProperties {
-                "scheme": StyleScheme
                 "selected": boolean
             }
 
             interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties, Gtk.Accessible.ConstructOnlyProperties, Gtk.Actionable.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties, Gtk.ConstraintTarget.ConstructOnlyProperties {
+                "scheme": StyleScheme
             }
         }
 
-        /**
-         * A preview widget for [class@StyleScheme].
-         *
-         * This widget provides a convenient [class@Gtk.Widget] to preview a [class@StyleScheme].
-         *
-         * The [property@StyleSchemePreview:selected] property can be used to manage
-         * the selection state of a single preview widget.
-         * @since 5.4
-         */
         interface StyleSchemePreview extends Gtk.Widget, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: StyleSchemePreview.SignalSignatures
             readonly $readableProperties: StyleSchemePreview.ReadableProperties
@@ -6565,6 +6357,7 @@ declare module "gi://GtkSource?version=5" {
         interface StyleSchemePreviewClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<StyleSchemePreview>
             readonly prototype: StyleSchemePreview
+
             new (props?: Partial<GObject.ConstructorProps<StyleSchemePreview>>): StyleSchemePreview
             /**
              * Creates a new #GtkSourceStyleSchemePreview to preview the style scheme
@@ -6573,10 +6366,21 @@ declare module "gi://GtkSource?version=5" {
              * @param scheme a #GtkSourceStyleScheme
              * @returns a #GtkWidget
              */
-            "new"(scheme: StyleScheme): Gtk.Widget
+            "new"(scheme: StyleScheme): StyleSchemePreview
         }
 
-        const StyleSchemePreview: StyleSchemePreviewClass
+        interface $Exports {
+            /**
+             * A preview widget for [class@StyleScheme].
+             *
+             * This widget provides a convenient [class@Gtk.Widget] to preview a [class@StyleScheme].
+             *
+             * The [property@StyleSchemePreview:selected] property can be used to manage
+             * the selection state of a single preview widget.
+             * @since 5.4
+             */
+            StyleSchemePreview: StyleSchemePreviewClass
+        }
         
 
         namespace Tag {
@@ -6597,15 +6401,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * A tag that can be applied to text in a [class@Buffer].
-         *
-         * `GtkSourceTag` is a subclass of [class@Gtk.TextTag] that adds properties useful for
-         * the GtkSourceView library.
-         *
-         * If, for a certain tag, [class@Gtk.TextTag] is sufficient, it's better that you create
-         * a [class@Gtk.TextTag], not a [class@Tag].
-         */
         interface Tag extends Gtk.TextTag {
             readonly $signals: Tag.SignalSignatures
             readonly $readableProperties: Tag.ReadableProperties
@@ -6635,6 +6430,7 @@ declare module "gi://GtkSource?version=5" {
         interface TagClass extends Omit<Gtk.TextTagClass, "new"> {
             readonly $gtype: GObject.GType<Tag>
             readonly prototype: Tag
+
             new (props?: Partial<GObject.ConstructorProps<Tag>>): Tag
             /**
              * Creates a `GtkSourceTag`.
@@ -6646,10 +6442,21 @@ declare module "gi://GtkSource?version=5" {
              * @param name tag name, or %NULL.
              * @returns a new `GtkSourceTag`.
              */
-            "new"(name: string | null): Gtk.TextTag
+            "new"(name: string | null): Tag
         }
 
-        const Tag: TagClass
+        interface $Exports {
+            /**
+             * A tag that can be applied to text in a [class@Buffer].
+             *
+             * `GtkSourceTag` is a subclass of [class@Gtk.TextTag] that adds properties useful for
+             * the GtkSourceView library.
+             *
+             * If, for a certain tag, [class@Gtk.TextTag] is sufficient, it's better that you create
+             * a [class@Gtk.TextTag], not a [class@Tag].
+             */
+            Tag: TagClass
+        }
         
 
         namespace View {
@@ -6711,7 +6518,9 @@ declare module "gi://GtkSource?version=5" {
                  */
                 "push-snippet"(snippet: Snippet): Gtk.TextIter
                 /**
-                 * .
+                 * The signal is a key binding signal which gets
+                 * emitted when the user requests a completion, by pressing
+                 * <keycombo><keycap>Control</keycap><keycap>space</keycap></keycombo>.
                  *
                  * This will create a [class@CompletionContext] with the activation
                  * type as %GTK_SOURCE_COMPLETION_ACTIVATION_USER_REQUESTED.
@@ -6780,37 +6589,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * # Changing the Font
-         *
-         * Gtk CSS provides the best way to change the font for a `GtkSourceView` in a
-         * manner that allows for components like [class@Map] to scale the desired
-         * font.
-         *
-         * ```c
-         * GtkCssProvider *provider = gtk_css_provider_new ();
-         * gtk_css_provider_load_from_string (provider,
-         *                                   "textview { font-family: Monospace; font-size: 8pt; }");
-         * gtk_style_context_add_provider (gtk_widget_get_style_context (view),
-         *                                 GTK_STYLE_PROVIDER (provider),
-         *                                 GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-         * g_object_unref (provider);
-         * ```
-         * ```python
-         * provider = Gtk.CssProvider()
-         * provider.load_from_string("textview { font-family: Monospace; font-size: 8pt; }")
-         * style_context = view.get_style_context()
-         * style_context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-         * ```
-         *
-         * If you need to adjust the font or size of font within a portion of the
-         * document only, you should use a [class@Gtk.TextTag] with the [property@Gtk.TextTag:family] or
-         * [property@Gtk.TextTag:scale] set so that the font size may be scaled relative to
-         * the default font set in CSS.
-         */
         interface View extends Gtk.TextView, Gtk.Accessible, Gtk.AccessibleText, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Scrollable {
             readonly $signals: View.SignalSignatures
             readonly $readableProperties: View.ReadableProperties
@@ -7254,6 +7032,7 @@ declare module "gi://GtkSource?version=5" {
         interface ViewClass extends Omit<Gtk.TextViewClass, "new"> {
             readonly $gtype: GObject.GType<View>
             readonly prototype: View
+
             new (props?: Partial<GObject.ConstructorProps<View>>): View
             /**
              * Creates a new `GtkSourceView`.
@@ -7266,7 +7045,7 @@ declare module "gi://GtkSource?version=5" {
              * [ctor@View.new_with_buffer].
              * @returns a new #GtkSourceView.
              */
-            "new"(): Gtk.Widget
+            "new"(): View
             /**
              * Creates a new #GtkSourceView widget displaying the buffer @buffer.
              *
@@ -7274,10 +7053,76 @@ declare module "gi://GtkSource?version=5" {
              * @param buffer a #GtkSourceBuffer.
              * @returns a new #GtkSourceView.
              */
-            new_with_buffer(buffer: Buffer): Gtk.Widget
+            new_with_buffer(buffer: Buffer): View
         }
 
-        const View: ViewClass
+        interface $Exports {
+            /**
+             * Subclass of [class@Gtk.TextView].
+             *
+             * `GtkSourceView` is the main class of the GtkSourceView library.
+             * Use a [class@Buffer] to display text with a `GtkSourceView`.
+             *
+             * This class provides:
+             *
+             *  - Show the line numbers;
+             *  - Show a right margin;
+             *  - Highlight the current line;
+             *  - Indentation settings;
+             *  - Configuration for the Home and End keyboard keys;
+             *  - Configure and show line marks;
+             *  - And a few other things.
+             *
+             * An easy way to test all these features is to use the test-widget mini-program
+             * provided in the GtkSourceView repository, in the tests/ directory.
+             *
+             * # GtkSourceView as GtkBuildable
+             *
+             * The GtkSourceView implementation of the [iface@Gtk.Buildable] interface exposes the
+             * [property@View:completion] object with the internal-child "completion".
+             *
+             * An example of a UI definition fragment with GtkSourceView:
+             * ```xml
+             * <object class="GtkSourceView" id="source_view">
+             *   <property name="tab-width">4</property>
+             *   <property name="auto-indent">True</property>
+             *   <child internal-child="completion">
+             *     <object class="GtkSourceCompletion">
+             *       <property name="select-on-show">False</property>
+             *     </object>
+             *   </child>
+             * </object>
+             * ```
+             *
+             * # Changing the Font
+             *
+             * Gtk CSS provides the best way to change the font for a `GtkSourceView` in a
+             * manner that allows for components like [class@Map] to scale the desired
+             * font.
+             *
+             * ```c
+             * GtkCssProvider *provider = gtk_css_provider_new ();
+             * gtk_css_provider_load_from_string (provider,
+             *                                   "textview { font-family: Monospace; font-size: 8pt; }");
+             * gtk_style_context_add_provider (gtk_widget_get_style_context (view),
+             *                                 GTK_STYLE_PROVIDER (provider),
+             *                                 GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+             * g_object_unref (provider);
+             * ```
+             * ```python
+             * provider = Gtk.CssProvider()
+             * provider.load_from_string("textview { font-family: Monospace; font-size: 8pt; }")
+             * style_context = view.get_style_context()
+             * style_context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+             * ```
+             *
+             * If you need to adjust the font or size of font within a portion of the
+             * document only, you should use a [class@Gtk.TextTag] with the [property@Gtk.TextTag:family] or
+             * [property@Gtk.TextTag:scale] set so that the font size may be scaled relative to
+             * the default font set in CSS.
+             */
+            View: ViewClass
+        }
         
 
         namespace VimIMContext {
@@ -7295,7 +7140,8 @@ declare module "gi://GtkSource?version=5" {
                  */
                 "edit"(view: View, path: string | null): void
                 /**
-                 * `.
+                 * The signal is emitted when a command should be
+                 * executed. This might be something like `:wq` or `:e <path>`.
                  *
                  * If the application chooses to implement this, it should return
                  * %TRUE from this signal to indicate the command has been handled.
@@ -7338,80 +7184,6 @@ declare module "gi://GtkSource?version=5" {
             }
         }
 
-        /**
-         * Vim emulation.
-         *
-         * The `GtkSourceVimIMContext` is a [class@Gtk.IMContext] implementation that can
-         * be used to provide Vim-like editing controls within a [class@View].
-         *
-         * The `GtkSourceViMIMContext` will process incoming [class@Gdk.KeyEvent] as the
-         * user types. It should be used in conjunction with a [class@Gtk.EventControllerKey].
-         *
-         * Various features supported by `GtkSourceVimIMContext` include:
-         *
-         *  - Normal, Insert, Replace, Visual, and Visual Line modes
-         *  - Support for an integrated command bar and current command preview
-         *  - Search and replace
-         *  - Motions and Text Objects
-         *  - History replay
-         *  - Jumplists within the current file
-         *  - Registers including the system and primary clipboards
-         *  - Creation and motion to marks
-         *  - Some commonly used Vim commands
-         *
-         * It is recommended that applications display the contents of
-         * [property@VimIMContext:command-bar-text] and
-         * [property@VimIMContext:command-text] to the user as they represent the
-         * command-bar and current command preview found in Vim.
-         *
-         * `GtkSourceVimIMContext` attempts to work with additional [class@Gtk.IMContext]
-         * implementations such as IBus by querying the [class@Gtk.TextView] before processing
-         * the command in states which support it (notably Insert and Replace modes).
-         *
-         * ```c
-         * GtkEventController *key;
-         * GtkIMContext *im_context;
-         * GtkWidget *view;
-         *
-         * view = gtk_source_view_new ();
-         * im_context = gtk_source_vim_im_context_new ();
-         * key = gtk_event_controller_key_new ();
-         *
-         * gtk_event_controller_key_set_im_context (GTK_EVENT_CONTROLLER_KEY (key), im_context);
-         * gtk_event_controller_set_propagation_phase (key, GTK_PHASE_CAPTURE);
-         * gtk_widget_add_controller (view, key);
-         * gtk_im_context_set_client_widget (im_context, view);
-         *
-         * g_object_bind_property (im_context, "command-bar-text", command_bar_label, "label", 0);
-         * g_object_bind_property (im_context, "command-text", command_label, "label", 0);
-         * ```
-         * ```python
-         * key = Gtk.EventControllerKey.new()
-         * im_context = GtkSource.VimIMContext.new()
-         * buffer = GtkSource.Buffer()
-         * view = GtkSource.View.new_with_buffer(buffer)
-         *
-         * key.set_im_context(im_context)
-         * key.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
-         * view.add_controller(key)
-         * im_context.set_client_widget(view)
-         *
-         * im_context.bind_property(
-         *     source_property="command-text",
-         *     target=command_label,
-         *     target_property="label",
-         *     flags=GObject.BindingFlags.DEFAULT,
-         * )
-         *
-         * im_context.bind_property(
-         *     source_property="command-bar-text",
-         *     target=command_bar_label,
-         *     target_property="label",
-         *     flags=GObject.BindingFlags.DEFAULT,
-         * )
-         * ```
-         * @since 5.4
-         */
         interface VimIMContext extends Gtk.IMContext {
             readonly $signals: VimIMContext.SignalSignatures
             readonly $readableProperties: VimIMContext.ReadableProperties
@@ -7452,47 +7224,738 @@ declare module "gi://GtkSource?version=5" {
         interface VimIMContextClass extends Omit<Gtk.IMContextClass, "new"> {
             readonly $gtype: GObject.GType<VimIMContext>
             readonly prototype: VimIMContext
+
             new (props?: Partial<GObject.ConstructorProps<VimIMContext>>): VimIMContext
             /**
              */
-            "new"(): Gtk.IMContext
+            "new"(): VimIMContext
         }
 
-        const VimIMContext: VimIMContextClass
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Character encoding.
-         *
-         * The #GtkSourceEncoding boxed type represents a character encoding. It is used
-         * for example by #GtkSourceFile. Note that the text in GTK widgets is always
-         * encoded in UTF-8.
-         */
-        abstract class Encoding {
-            static readonly $gtype: GObject.GType<Encoding>
+        interface $Exports {
+            /**
+             * Vim emulation.
+             *
+             * The `GtkSourceVimIMContext` is a [class@Gtk.IMContext] implementation that can
+             * be used to provide Vim-like editing controls within a [class@View].
+             *
+             * The `GtkSourceViMIMContext` will process incoming [class@Gdk.KeyEvent] as the
+             * user types. It should be used in conjunction with a [class@Gtk.EventControllerKey].
+             *
+             * Various features supported by `GtkSourceVimIMContext` include:
+             *
+             *  - Normal, Insert, Replace, Visual, and Visual Line modes
+             *  - Support for an integrated command bar and current command preview
+             *  - Search and replace
+             *  - Motions and Text Objects
+             *  - History replay
+             *  - Jumplists within the current file
+             *  - Registers including the system and primary clipboards
+             *  - Creation and motion to marks
+             *  - Some commonly used Vim commands
+             *
+             * It is recommended that applications display the contents of
+             * [property@VimIMContext:command-bar-text] and
+             * [property@VimIMContext:command-text] to the user as they represent the
+             * command-bar and current command preview found in Vim.
+             *
+             * `GtkSourceVimIMContext` attempts to work with additional [class@Gtk.IMContext]
+             * implementations such as IBus by querying the [class@Gtk.TextView] before processing
+             * the command in states which support it (notably Insert and Replace modes).
+             *
+             * ```c
+             * GtkEventController *key;
+             * GtkIMContext *im_context;
+             * GtkWidget *view;
+             *
+             * view = gtk_source_view_new ();
+             * im_context = gtk_source_vim_im_context_new ();
+             * key = gtk_event_controller_key_new ();
+             *
+             * gtk_event_controller_key_set_im_context (GTK_EVENT_CONTROLLER_KEY (key), im_context);
+             * gtk_event_controller_set_propagation_phase (key, GTK_PHASE_CAPTURE);
+             * gtk_widget_add_controller (view, key);
+             * gtk_im_context_set_client_widget (im_context, view);
+             *
+             * g_object_bind_property (im_context, "command-bar-text", command_bar_label, "label", 0);
+             * g_object_bind_property (im_context, "command-text", command_label, "label", 0);
+             * ```
+             * ```python
+             * key = Gtk.EventControllerKey.new()
+             * im_context = GtkSource.VimIMContext.new()
+             * buffer = GtkSource.Buffer()
+             * view = GtkSource.View.new_with_buffer(buffer)
+             *
+             * key.set_im_context(im_context)
+             * key.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
+             * view.add_controller(key)
+             * im_context.set_client_widget(view)
+             *
+             * im_context.bind_property(
+             *     source_property="command-text",
+             *     target=command_label,
+             *     target_property="label",
+             *     flags=GObject.BindingFlags.DEFAULT,
+             * )
+             *
+             * im_context.bind_property(
+             *     source_property="command-bar-text",
+             *     target=command_bar_label,
+             *     target_property="label",
+             *     flags=GObject.BindingFlags.DEFAULT,
+             * )
+             * ```
+             * @since 5.4
+             */
+            VimIMContext: VimIMContextClass
+        }
+        
 
-            
+        namespace CompletionProposal {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * Gets the typed-text for the proposal, if supported by the implementation.
+                 *
+                 * Implementing this virtual-function is optional, but can be useful to allow
+                 * external tooling to compare results.
+                 * @since 5.6
+                 * @returns a newly allocated string, or %NULL
+                 */
+                vfunc_get_typed_text(): string | null
+            }
+        }
+
+        interface CompletionProposal extends GObject.Object, CompletionProposal.Interface {
+            readonly $signals: CompletionProposal.SignalSignatures
+            readonly $readableProperties: CompletionProposal.ReadableProperties
+            readonly $writableProperties: CompletionProposal.WritableProperties
+            readonly $constructOnlyProperties: CompletionProposal.ConstructOnlyProperties
+            /**
+             * Gets the typed-text for the proposal, if supported by the implementation.
+             *
+             * Implementing this virtual-function is optional, but can be useful to allow
+             * external tooling to compare results.
+             * @since 5.6
+             * @returns a newly allocated string, or %NULL
+             */
+            get_typed_text(): string | null
+        }
+
+        interface CompletionProposalInterface {
+            readonly $gtype: GObject.GType<CompletionProposal>
+            readonly prototype: CompletionProposal
+            [Symbol.hasInstance](instance: unknown): instance is CompletionProposal
+        }
+
+        interface $Exports {
+            /**
+             * Interface for completion proposals.
+             *
+             * This interface is used to denote that an object is capable of being
+             * a completion proposal for [class@Completion].
+             *
+             * Currently, no method or functions are required but additional methods
+             * may be added in the future. Proposals created by
+             * #GtkSourceCompletionProvider can use [func@GObject.IMPLEMENT_INTERFACE] to
+             * implement this with %NULL for the interface init function.
+             */
+            CompletionProposal: CompletionProposalInterface
+        }
+        
+
+        namespace CompletionProvider {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * This function requests @proposal to be activated by the
+                 * #GtkSourceCompletionProvider.
+                 *
+                 * What the provider does to activate the proposal is specific to that
+                 * provider. Many providers may choose to insert a #GtkSourceSnippet with
+                 * edit points the user may cycle through.
+                 *
+                 * See also: [class@Snippet], [class@SnippetChunk], [method@View.push_snippet]
+                 * @param context a #GtkSourceCompletionContext
+                 * @param proposal a #GtkSourceCompletionProposal
+                 */
+                vfunc_activate(context: CompletionContext, proposal: CompletionProposal): void
+                /**
+                 * This function requests that the #GtkSourceCompletionProvider prepares
+                 * @cell to display the contents of @proposal.
+                 *
+                 * Based on @cells column type, you may want to display different information.
+                 *
+                 * This allows for columns of information among completion proposals
+                 * resulting in better alignment of similar content (icons, return types,
+                 * method names, and parameter lists).
+                 * @param context a #GtkSourceCompletionContext
+                 * @param proposal a #GtkSourceCompletionProposal
+                 * @param cell a #GtkSourceCompletionCell
+                 */
+                vfunc_display(context: CompletionContext, proposal: CompletionProposal, cell: CompletionCell): void
+                /**
+                 * This function should return the priority of @self in @context.
+                 *
+                 * The priority is used to sort groups of completion proposals by
+                 * provider so that higher priority providers results are shown
+                 * above lower priority providers.
+                 *
+                 * Higher value indicates higher priority.
+                 * @param context a #GtkSourceCompletionContext
+                 */
+                vfunc_get_priority(context: CompletionContext): number
+                /**
+                 * Gets the title of the completion provider, if any.
+                 *
+                 * Currently, titles are not displayed in the completion results, but may be
+                 * at some point in the future when non-%NULL.
+                 * @returns a title for the provider or %NULL
+                 */
+                vfunc_get_title(): string | null
+                /**
+                 * This function is used to determine if a character inserted into the text
+                 * editor should cause a new completion request to be triggered.
+                 *
+                 * An example would be period '.' which might indicate that the user wants
+                 * to complete method or field names of an object.
+                 *
+                 * This method will only trigger when text is inserted into the #GtkTextBuffer
+                 * while the completion list is visible and a proposal is selected. Incremental
+                 * key-presses (like shift, control, or alt) are not triggerable.
+                 * @param iter a #GtkTextIter
+                 * @param ch a #gunichar of the character inserted
+                 */
+                vfunc_is_trigger(iter: Gtk.TextIter, ch: string): boolean
+                /**
+                 * This function is used to determine if a key typed by the user should
+                 * activate @proposal (resulting in committing the text to the editor).
+                 *
+                 * This is useful when using languages where convention may lead to less
+                 * typing by the user. One example may be the use of "." or "-" to expand
+                 * a field access in the C programming language.
+                 * @param context a #GtkSourceCompletionContext
+                 * @param proposal a #GtkSourceCompletionProposal
+                 * @param keyval a keyval such as [const@Gdk.KEY_period]
+                 * @param state a #GdkModifierType or 0
+                 */
+                vfunc_key_activates(context: CompletionContext, proposal: CompletionProposal, keyval: number, state: Gdk.ModifierType): boolean
+                /**
+                 * Providers should return a list of alternates to @proposal or %NULL if
+                 * there are no alternates available.
+                 *
+                 * This can be used by the completion view to allow the user to move laterally
+                 * through similar proposals, such as overrides of methods by the same name.
+                 * @param context a #GtkSourceCompletionContext
+                 * @param proposal a #GtkSourceCompletionProposal
+                 * @returns    a #GPtrArray of #GtkSourceCompletionProposal or %NULL.
+                 */
+                vfunc_list_alternates(context: CompletionContext, proposal: CompletionProposal): CompletionProposal[] | null
+                /**
+                 * Asynchronously requests that the provider populates the completion
+                 * results for @context.
+                 *
+                 * For providers that would like to populate a [iface@Gio.ListModel] while those
+                 * results are displayed to the user,
+                 * [method@CompletionContext.set_proposals_for_provider] may be used
+                 * to reduce latency until the user sees results.
+                 * @param context a #GtkSourceCompletionContext
+                 * @param cancellable a #GCancellable or %NULL
+                 * @param callback a callback to execute upon completion
+                 */
+                vfunc_populate_async(context: CompletionContext, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Completes an asynchronous operation to populate a completion provider.
+                 * @throws {GLib.Error}
+                 * @param result a #GAsyncResult provided to callback
+                 * @returns a #GListModel of #GtkSourceCompletionProposal
+                 */
+                vfunc_populate_finish(result: Gio.AsyncResult): Gio.ListModel
+                /**
+                 * This function can be used to filter results previously provided to
+                 * the [class@CompletionContext] by the #GtkSourceCompletionProvider.
+                 *
+                 * This can happen as the user types additional text onto the word so
+                 * that previously matched items may be removed from the list instead of
+                 * generating new [iface@Gio.ListModel] of results.
+                 * @param context a #GtkSourceCompletionContext
+                 * @param model a #GListModel
+                 */
+                vfunc_refilter(context: CompletionContext, model: Gio.ListModel): void
+            }
+        }
+
+        interface CompletionProvider extends GObject.Object, CompletionProvider.Interface {
+            readonly $signals: CompletionProvider.SignalSignatures
+            readonly $readableProperties: CompletionProvider.ReadableProperties
+            readonly $writableProperties: CompletionProvider.WritableProperties
+            readonly $constructOnlyProperties: CompletionProvider.ConstructOnlyProperties
+            /**
+             * This function requests @proposal to be activated by the
+             * #GtkSourceCompletionProvider.
+             *
+             * What the provider does to activate the proposal is specific to that
+             * provider. Many providers may choose to insert a #GtkSourceSnippet with
+             * edit points the user may cycle through.
+             *
+             * See also: [class@Snippet], [class@SnippetChunk], [method@View.push_snippet]
+             * @param context a #GtkSourceCompletionContext
+             * @param proposal a #GtkSourceCompletionProposal
+             */
+            activate(context: CompletionContext, proposal: CompletionProposal): void
+            /**
+             * This function requests that the #GtkSourceCompletionProvider prepares
+             * @cell to display the contents of @proposal.
+             *
+             * Based on @cells column type, you may want to display different information.
+             *
+             * This allows for columns of information among completion proposals
+             * resulting in better alignment of similar content (icons, return types,
+             * method names, and parameter lists).
+             * @param context a #GtkSourceCompletionContext
+             * @param proposal a #GtkSourceCompletionProposal
+             * @param cell a #GtkSourceCompletionCell
+             */
+            display(context: CompletionContext, proposal: CompletionProposal, cell: CompletionCell): void
+            /**
+             * This function should return the priority of @self in @context.
+             *
+             * The priority is used to sort groups of completion proposals by
+             * provider so that higher priority providers results are shown
+             * above lower priority providers.
+             *
+             * Higher value indicates higher priority.
+             * @param context a #GtkSourceCompletionContext
+             */
+            get_priority(context: CompletionContext): number
+            /**
+             * Gets the title of the completion provider, if any.
+             *
+             * Currently, titles are not displayed in the completion results, but may be
+             * at some point in the future when non-%NULL.
+             * @returns a title for the provider or %NULL
+             */
+            get_title(): string | null
+            /**
+             * This function is used to determine if a character inserted into the text
+             * editor should cause a new completion request to be triggered.
+             *
+             * An example would be period '.' which might indicate that the user wants
+             * to complete method or field names of an object.
+             *
+             * This method will only trigger when text is inserted into the #GtkTextBuffer
+             * while the completion list is visible and a proposal is selected. Incremental
+             * key-presses (like shift, control, or alt) are not triggerable.
+             * @param iter a #GtkTextIter
+             * @param ch a #gunichar of the character inserted
+             */
+            is_trigger(iter: Gtk.TextIter, ch: string): boolean
+            /**
+             * This function is used to determine if a key typed by the user should
+             * activate @proposal (resulting in committing the text to the editor).
+             *
+             * This is useful when using languages where convention may lead to less
+             * typing by the user. One example may be the use of "." or "-" to expand
+             * a field access in the C programming language.
+             * @param context a #GtkSourceCompletionContext
+             * @param proposal a #GtkSourceCompletionProposal
+             * @param keyval a keyval such as [const@Gdk.KEY_period]
+             * @param state a #GdkModifierType or 0
+             */
+            key_activates(context: CompletionContext, proposal: CompletionProposal, keyval: number, state: Gdk.ModifierType): boolean
+            /**
+             * Providers should return a list of alternates to @proposal or %NULL if
+             * there are no alternates available.
+             *
+             * This can be used by the completion view to allow the user to move laterally
+             * through similar proposals, such as overrides of methods by the same name.
+             * @param context a #GtkSourceCompletionContext
+             * @param proposal a #GtkSourceCompletionProposal
+             * @returns    a #GPtrArray of #GtkSourceCompletionProposal or %NULL.
+             */
+            list_alternates(context: CompletionContext, proposal: CompletionProposal): CompletionProposal[] | null
+            /**
+             * Asynchronously requests that the provider populates the completion
+             * results for @context.
+             *
+             * For providers that would like to populate a [iface@Gio.ListModel] while those
+             * results are displayed to the user,
+             * [method@CompletionContext.set_proposals_for_provider] may be used
+             * to reduce latency until the user sees results.
+             * @param context a #GtkSourceCompletionContext
+             * @param cancellable a #GCancellable or %NULL
+             * @param callback a callback to execute upon completion
+             */
+            populate_async(context: CompletionContext, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Completes an asynchronous operation to populate a completion provider.
+             * @throws {GLib.Error}
+             * @param result a #GAsyncResult provided to callback
+             * @returns a #GListModel of #GtkSourceCompletionProposal
+             */
+            populate_finish(result: Gio.AsyncResult): Gio.ListModel
+            /**
+             * This function can be used to filter results previously provided to
+             * the [class@CompletionContext] by the #GtkSourceCompletionProvider.
+             *
+             * This can happen as the user types additional text onto the word so
+             * that previously matched items may be removed from the list instead of
+             * generating new [iface@Gio.ListModel] of results.
+             * @param context a #GtkSourceCompletionContext
+             * @param model a #GListModel
+             */
+            refilter(context: CompletionContext, model: Gio.ListModel): void
+        }
+
+        interface CompletionProviderInterface {
+            readonly $gtype: GObject.GType<CompletionProvider>
+            readonly prototype: CompletionProvider
+            [Symbol.hasInstance](instance: unknown): instance is CompletionProvider
+        }
+
+        interface $Exports {
+            /**
+             * Completion provider interface.
+             *
+             * You must implement this interface to provide proposals to [class@Completion].
+             *
+             * In most cases, implementations of this interface will want to use
+             * [vfunc@CompletionProvider.populate_async] to asynchronously populate the results
+             * to avoid blocking the main loop.
+             */
+            CompletionProvider: CompletionProviderInterface
+        }
+        
+
+        namespace HoverProvider {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * @throws {GLib.Error}
+                 * @param context
+                 * @param display
+                 */
+                vfunc_populate(context: HoverContext, display: HoverDisplay): boolean
+                /**
+                 * @param context
+                 * @param display
+                 * @param cancellable
+                 * @param callback
+                 */
+                vfunc_populate_async(context: HoverContext, display: HoverDisplay, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * @throws {GLib.Error}
+                 * @param result
+                 */
+                vfunc_populate_finish(result: Gio.AsyncResult): boolean
+            }
+        }
+
+        interface HoverProvider extends GObject.Object, HoverProvider.Interface {
+            readonly $signals: HoverProvider.SignalSignatures
+            readonly $readableProperties: HoverProvider.ReadableProperties
+            readonly $writableProperties: HoverProvider.WritableProperties
+            readonly $constructOnlyProperties: HoverProvider.ConstructOnlyProperties
+            /**
+             * @param context
+             * @param display
+             * @param cancellable
+             * @param callback
+             */
+            populate_async(context: HoverContext, display: HoverDisplay, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * @throws {GLib.Error}
+             * @param result
+             */
+            populate_finish(result: Gio.AsyncResult): boolean
+        }
+
+        interface HoverProviderInterface {
+            readonly $gtype: GObject.GType<HoverProvider>
+            readonly prototype: HoverProvider
+            [Symbol.hasInstance](instance: unknown): instance is HoverProvider
+        }
+
+        interface $Exports {
+            /**
+             * Interface to populate interactive tooltips.
+             *
+             * `GtkSourceHoverProvider` is an interface that should be implemented to extend
+             * the contents of a [class@HoverDisplay]. This is typical in editors that
+             * interact external tooling such as those utilizing Language Server Protocol.
+             *
+             * If you can populate the [class@HoverDisplay] synchronously, use
+             * [vfunc@HoverProvider.populate]. Otherwise, interface implementations that
+             * may take additional time should use [vfunc@HoverProvider.populate_async]
+             * to avoid blocking the main loop.
+             */
+            HoverProvider: HoverProviderInterface
+        }
+        
+
+        namespace Indenter {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * This function should be implemented to alter the indentation of text
+                 * within the view.
+                 *
+                 * @view is provided so that the indenter may retrieve settings such as indentation and tab widths.
+                 *
+                 * @iter is the location where the indentation was requested. This typically
+                 * is after having just inserted a newline (\n) character but can be other
+                 * situations such as a manually requested indentation or reformatting.
+                 *
+                 * See [vfunc@GtkSource.Indenter.is_trigger] for how to trigger indentation on
+                 * various characters inserted into the buffer.
+                 *
+                 * The implementor of this function is expected to keep @iter valid across
+                 * calls to the function and should contain the location of the insert mark
+                 * after calling this function.
+                 *
+                 * The default implementation for this virtual function will copy the
+                 * indentation of the previous line.
+                 * @param view a #GtkSourceView
+                 * @returns , the location of the indentation request
+                 */
+                vfunc_indent(view: View): Gtk.TextIter
+                /**
+                 * This function is used to determine if a key pressed should cause the
+                 * indenter to automatically indent.
+                 *
+                 * The default implementation of this virtual method will check to see
+                 * if @keyval is [const@Gdk.KEY_Return] or [const@Gdk.KEY_KP_Enter] and @state does
+                 * not have %GDK_SHIFT_MASK set. This is to allow the user to avoid
+                 * indentation when Shift+Return is pressed. Other indenters may want
+                 * to copy this behavior to provide a consistent experience to users.
+                 * @param view a #GtkSourceView
+                 * @param location the location where @ch is to be inserted
+                 * @param state modifier state for the insertion
+                 * @param keyval the keyval pressed such as [const@Gdk.KEY_Return]
+                 * @returns %TRUE if indentation should be automatically triggered;   otherwise %FALSE and no indentation will be performed.
+                 */
+                vfunc_is_trigger(view: View, location: Gtk.TextIter, state: Gdk.ModifierType, keyval: number): boolean
+            }
+        }
+
+        interface Indenter extends GObject.Object, Indenter.Interface {
+            readonly $signals: Indenter.SignalSignatures
+            readonly $readableProperties: Indenter.ReadableProperties
+            readonly $writableProperties: Indenter.WritableProperties
+            readonly $constructOnlyProperties: Indenter.ConstructOnlyProperties
+            /**
+             * This function should be implemented to alter the indentation of text
+             * within the view.
+             *
+             * @view is provided so that the indenter may retrieve settings such as indentation and tab widths.
+             *
+             * @iter is the location where the indentation was requested. This typically
+             * is after having just inserted a newline (\n) character but can be other
+             * situations such as a manually requested indentation or reformatting.
+             *
+             * See [vfunc@GtkSource.Indenter.is_trigger] for how to trigger indentation on
+             * various characters inserted into the buffer.
+             *
+             * The implementor of this function is expected to keep @iter valid across
+             * calls to the function and should contain the location of the insert mark
+             * after calling this function.
+             *
+             * The default implementation for this virtual function will copy the
+             * indentation of the previous line.
+             * @param view a #GtkSourceView
+             * @returns , the location of the indentation request
+             */
+            indent(view: View): Gtk.TextIter
+            /**
+             * This function is used to determine if a key pressed should cause the
+             * indenter to automatically indent.
+             *
+             * The default implementation of this virtual method will check to see
+             * if @keyval is [const@Gdk.KEY_Return] or [const@Gdk.KEY_KP_Enter] and @state does
+             * not have %GDK_SHIFT_MASK set. This is to allow the user to avoid
+             * indentation when Shift+Return is pressed. Other indenters may want
+             * to copy this behavior to provide a consistent experience to users.
+             * @param view a #GtkSourceView
+             * @param location the location where @ch is to be inserted
+             * @param state modifier state for the insertion
+             * @param keyval the keyval pressed such as [const@Gdk.KEY_Return]
+             * @returns %TRUE if indentation should be automatically triggered;   otherwise %FALSE and no indentation will be performed.
+             */
+            is_trigger(view: View, location: Gtk.TextIter, state: Gdk.ModifierType, keyval: number): boolean
+        }
+
+        interface IndenterInterface {
+            readonly $gtype: GObject.GType<Indenter>
+            readonly prototype: Indenter
+            [Symbol.hasInstance](instance: unknown): instance is Indenter
+        }
+
+        interface $Exports {
+            /**
+             * Auto-indentation interface.
+             *
+             * By default, [class@View] can auto-indent as you type when
+             * [property@View:auto-indent] is enabled. The indentation simply copies the
+             * previous lines indentation.
+             *
+             * This can be changed by implementing `GtkSourceIndenter` and setting the
+             * [property@View:indenter] property.
+             *
+             * Implementors of this interface should implement both
+             * [vfunc@GtkSource.Indenter.is_trigger] and [vfunc@GtkSource.Indenter.indent].
+             *
+             * [vfunc@GtkSource.Indenter.is_trigger] is called upon key-press to
+             * determine of the key press should trigger an indentation.  The default
+             * implementation of the interface checks to see if the key was
+             * [const@Gdk.KEY_Return] or [const@Gdk.KEY_KP_Enter] without %GDK_SHIFT_MASK set.
+             *
+             * [vfunc@GtkSource.Indenter.indent] is called after text has been
+             * inserted into [class@Buffer] when
+             * [vfunc@GtkSource.Indenter.is_trigger] returned %TRUE. The [struct@Gtk.TextIter]
+             * is placed directly after the inserted character or characters.
+             *
+             * It may be beneficial to move the insertion mark using
+             * [method@Gtk.TextBuffer.select_range] depending on how the indenter changes
+             * the indentation.
+             *
+             * All changes are encapsulated within a single user action so that the
+             * user may undo them using standard undo/redo accelerators.
+             */
+            Indenter: IndenterInterface
+        }
+        
+
+        namespace StyleSchemeChooser {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "style-scheme": StyleScheme
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "style-scheme": StyleScheme
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * Gets the currently-selected scheme.
+                 * @returns the currently-selected scheme.
+                 */
+                vfunc_get_style_scheme(): StyleScheme
+                /**
+                 * Sets the scheme.
+                 * @param scheme a #GtkSourceStyleScheme
+                 */
+                vfunc_set_style_scheme(scheme: StyleScheme): void
+            }
+        }
+
+        interface StyleSchemeChooser extends GObject.Object, StyleSchemeChooser.Interface {
+            readonly $signals: StyleSchemeChooser.SignalSignatures
+            readonly $readableProperties: StyleSchemeChooser.ReadableProperties
+            readonly $writableProperties: StyleSchemeChooser.WritableProperties
+            readonly $constructOnlyProperties: StyleSchemeChooser.ConstructOnlyProperties
+            /**
+             * Contains the currently selected style scheme.
+             *
+             * The property can be set to change the current selection programmatically.
+             */
+            get styleScheme(): StyleScheme
+            set styleScheme(value: StyleScheme)
+            /**
+             * Gets the currently-selected scheme.
+             * @returns the currently-selected scheme.
+             */
+            get_style_scheme(): StyleScheme
+            /**
+             * Sets the scheme.
+             * @param scheme a #GtkSourceStyleScheme
+             */
+            set_style_scheme(scheme: StyleScheme): void
+        }
+
+        interface StyleSchemeChooserInterface {
+            readonly $gtype: GObject.GType<StyleSchemeChooser>
+            readonly prototype: StyleSchemeChooser
+            [Symbol.hasInstance](instance: unknown): instance is StyleSchemeChooser
+        }
+
+        interface $Exports {
+            /**
+             * Interface implemented by widgets for choosing style schemes.
+             *
+             * `GtkSourceStyleSchemeChooser` is an interface that is implemented by widgets
+             * for choosing style schemes.
+             *
+             * In GtkSourceView, the main widgets that implement this interface are
+             * [class@StyleSchemeChooserWidget] and [class@StyleSchemeChooserButton].
+             */
+            StyleSchemeChooser: StyleSchemeChooserInterface
+        }
+        
+
+        interface EncodingStruct {
+            readonly $gtype: GObject.GType<Encoding>
+            [Symbol.hasInstance](instance: unknown): instance is Encoding
             /**
              * Gets all encodings.
              * @returns a list of all #GtkSourceEncoding's. Free with g_slist_free().
              */
-            static get_all(): Encoding[]
+            get_all(): Encoding[]
             /**
              * Gets the #GtkSourceEncoding for the current locale.
              *
              * See also [func@GLib.get_charset].
              * @returns the current locale encoding.
              */
-            static get_current(): Encoding
+            get_current(): Encoding
             /**
              * Gets the list of default candidate encodings to try when loading a file.
              *
@@ -7503,18 +7966,21 @@ declare module "gi://GtkSource?version=5" {
              * locale encoding are guaranteed to be present in the returned list.
              * @returns the list of default candidate encodings. Free with g_slist_free().
              */
-            static get_default_candidates(): Encoding[]
+            get_default_candidates(): Encoding[]
             /**
              * Gets a #GtkSourceEncoding from a character set such as "UTF-8" or
              * "ISO-8859-1".
              * @param charset a character set.
              * @returns the corresponding #GtkSourceEncoding, or %NULL if not found.
              */
-            static get_from_charset(charset: string): Encoding | null
+            get_from_charset(charset: string): Encoding | null
             /**
              * @returns the UTF-8 encoding.
              */
-            static get_utf8(): Encoding
+            get_utf8(): Encoding
+        }
+
+        interface Encoding {
             /**
              * Used by language bindings.
              * @returns a copy of `enc`.
@@ -7540,40 +8006,23 @@ declare module "gi://GtkSource?version=5" {
              */
             to_string(): string
         }
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * An opaque datatype.
-         *
-         * Ignore all its fields and initialize the iter with [method@Region.get_start_region_iter].
-         */
-        abstract class RegionIter {
-            static readonly $gtype: GObject.GType<RegionIter>
 
-            
+        interface $Exports {
+            Encoding: EncodingStruct
+        }
+        
+
+        interface RegionIterStruct {
+            readonly $gtype: GObject.GType<RegionIter>
+            [Symbol.hasInstance](instance: unknown): instance is RegionIter
+        }
+
+        interface RegionIter {
             /**
              * Gets the subregion at this iterator.
              * @returns %TRUE if `start` and `end` have been set successfully (if non-%NULL),   or %FALSE if `iter` is the end iterator or if the region is empty., iterator to initialize with the subregion start, or %NULL., iterator to initialize with the subregion end, or %NULL.
              */
-            get_subregion(): boolean
+            get_subregion(): [boolean, Gtk.TextIter, Gtk.TextIter]
             /**
              * @returns whether `iter` is the end iterator.
              */
@@ -7584,588 +8033,463 @@ declare module "gi://GtkSource?version=5" {
              */
             next(): boolean
         }
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Like GTK_SOURCE_CHECK_VERSION, but the check for gtk_source_check_version is
-         * at runtime instead of compile time. This is useful for compiling
-         * against older versions of GtkSourceView, but using features from newer
-         * versions.
-         * @param major the major version to check
-         * @param minor the minor version to check
-         * @param micro the micro version to check
-         * @returns %TRUE if the version of the GtkSourceView currently loaded is the same as or newer than the passed-in version.
-         */
-        function check_version(major: number, minor: number, micro: number): boolean
-        /**
-         * Gets all encodings.
-         * @returns a list of all #GtkSourceEncoding's. Free with g_slist_free().
-         */
-        function encoding_get_all(): Encoding[]
-        /**
-         * Gets the #GtkSourceEncoding for the current locale.
-         *
-         * See also [func@GLib.get_charset].
-         * @returns the current locale encoding.
-         */
-        function encoding_get_current(): Encoding
-        /**
-         * Gets the list of default candidate encodings to try when loading a file.
-         *
-         * See [method@FileLoader.set_candidate_encodings].
-         *
-         * This function returns a different list depending on the current locale (i.e.
-         * language, country and default encoding). The UTF-8 encoding and the current
-         * locale encoding are guaranteed to be present in the returned list.
-         * @returns the list of default candidate encodings. Free with g_slist_free().
-         */
-        function encoding_get_default_candidates(): Encoding[]
-        /**
-         * Gets a #GtkSourceEncoding from a character set such as "UTF-8" or
-         * "ISO-8859-1".
-         * @param charset a character set.
-         * @returns the corresponding #GtkSourceEncoding, or %NULL if not found.
-         */
-        function encoding_get_from_charset(charset: string): Encoding | null
-        /**
-         * @returns the UTF-8 encoding.
-         */
-        function encoding_get_utf8(): Encoding
-        /**
-         */
-        function file_loader_error_quark(): GLib.Quark
-        /**
-         */
-        function file_saver_error_quark(): GLib.Quark
-        /**
-         * Free the resources allocated by GtkSourceView. For example it unrefs the
-         * singleton objects.
-         *
-         * It is not mandatory to call this function, it's just to be friendlier to
-         * memory debugging tools. This function is meant to be called at the end of
-         * main(). It can be called several times.
-         */
-        function finalize(): void
-        /**
-         * Returns the major version number of the GtkSourceView library.
-         * (e.g. in GtkSourceView version 3.20.0 this is 3.)
-         *
-         * This function is in the library, so it represents the GtkSourceView library
-         * your code is running against. Contrast with the #GTK_SOURCE_MAJOR_VERSION
-         * macro, which represents the major version of the GtkSourceView headers you
-         * have included when compiling your code.
-         * @returns the major version number of the GtkSourceView library
-         */
-        function get_major_version(): number
-        /**
-         * Returns the micro version number of the GtkSourceView library.
-         * (e.g. in GtkSourceView version 3.20.0 this is 0.)
-         *
-         * This function is in the library, so it represents the GtkSourceView library
-         * your code is running against. Contrast with the #GTK_SOURCE_MICRO_VERSION
-         * macro, which represents the micro version of the GtkSourceView headers you
-         * have included when compiling your code.
-         * @returns the micro version number of the GtkSourceView library
-         */
-        function get_micro_version(): number
-        /**
-         * Returns the minor version number of the GtkSourceView library.
-         * (e.g. in GtkSourceView version 3.20.0 this is 20.)
-         *
-         * This function is in the library, so it represents the GtkSourceView library
-         * your code is running against. Contrast with the #GTK_SOURCE_MINOR_VERSION
-         * macro, which represents the minor version of the GtkSourceView headers you
-         * have included when compiling your code.
-         * @returns the minor version number of the GtkSourceView library
-         */
-        function get_minor_version(): number
-        /**
-         * Initializes the GtkSourceView library (e.g. for the internationalization).
-         *
-         * This function can be called several times, but is meant to be called at the
-         * beginning of main(), before any other GtkSourceView function call.
-         *
-         * The counterpart to this function is [func@finalize] which can be convenient
-         * when using memory debugging tools.
-         */
-        function init(): void
-        none
-        /**
-         * Adds a new callback that will be executed as time permits on the main thread.
-         *
-         * This is useful when you need to do a lot of background work but want to do
-         * it incrementally.
-         *
-         * @callback will be provided a deadline that it should complete it's work by
-         * (or near) and can be checked using [func@GLib.get_monotonic_time] for comparison.
-         *
-         * Use [func@scheduler_remove] to remove the handler.
-         * @override
-         * @since 5.2
-         * @param callback the callback to execute
-         */
-        function scheduler_add_full(callback: SchedulerCallback): number
-        /**
-         * Removes a scheduler callback previously registered with
-         * [func@scheduler_add] or [func@scheduler_add_full].
-         * @since 5.2
-         * @param handler_id the handler id
-         */
-        function scheduler_remove(handler_id: number): void
-        /**
-         * >
-         * @param text the text to escape.
-         * @returns the escaped `text`.
-         */
-        function utils_escape_search_text(text: string): string
-        /**
-         * Use this function before [method@SearchSettings.set_search_text], to
-         * unescape the following sequences of characters: `\n`, `\r`, `\t` and `\\`.
-         * The purpose is to easily write those characters in a search entry.
-         *
-         * Note that unescaping the search text is not needed for regular expression
-         * searches.
-         *
-         * See also: [func@utils_escape_search_text].
-         * @param text the text to unescape.
-         * @returns the unescaped `text`.
-         */
-        function utils_unescape_search_text(text: string): string
-        const MAJOR_VERSION: 5
-        const MICRO_VERSION: 1
-        const MINOR_VERSION: 19
-        
-        namespace AnnotationStyle {
-            const $gtype: GObject.GType<AnnotationStyle>
-        }
 
-        /**
-         * @since 5.18
-         */
-        enum AnnotationStyle {
+        interface $Exports {
+            RegionIter: RegionIterStruct
+        }
+        
+        interface AnnotationStyleEnum {
+            readonly $gtype: GObject.GType<AnnotationStyle>
             /**
              * same color as drawn spaces
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * same as the diff:changed-line foreground color
              */
-            "WARNING" = 1,
+            readonly "WARNING": 1
             /**
              * same as the diff:removed-line foreground color
              */
-            "ERROR" = 2,
+            readonly "ERROR": 2
             /**
              * same as the diff:added-line foreground color
              */
-            "ACCENT" = 3,
+            readonly "ACCENT": 3
+        }
+        type AnnotationStyle = AnnotationStyleEnum[Exclude<keyof AnnotationStyleEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 5.18
+             */
+            AnnotationStyle: AnnotationStyleEnum
         }
         
-        namespace BackgroundPatternType {
-            const $gtype: GObject.GType<BackgroundPatternType>
-        }
-
-        /**
-         */
-        enum BackgroundPatternType {
+        interface BackgroundPatternTypeEnum {
+            readonly $gtype: GObject.GType<BackgroundPatternType>
             /**
              * no pattern
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * grid pattern
              */
-            "GRID" = 1,
+            readonly "GRID": 1
+        }
+        type BackgroundPatternType = BackgroundPatternTypeEnum[Exclude<keyof BackgroundPatternTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            BackgroundPatternType: BackgroundPatternTypeEnum
         }
         
-        namespace BracketMatchType {
-            const $gtype: GObject.GType<BracketMatchType>
-        }
-
-        /**
-         */
-        enum BracketMatchType {
+        interface BracketMatchTypeEnum {
+            readonly $gtype: GObject.GType<BracketMatchType>
             /**
              * there is no bracket to match.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * matching a bracket
              *  failed because the maximum range was reached.
              */
-            "OUT_OF_RANGE" = 1,
+            readonly "OUT_OF_RANGE": 1
             /**
              * a matching bracket was not found.
              */
-            "NOT_FOUND" = 2,
+            readonly "NOT_FOUND": 2
             /**
              * a matching bracket was found.
              */
-            "FOUND" = 3,
+            readonly "FOUND": 3
+        }
+        type BracketMatchType = BracketMatchTypeEnum[Exclude<keyof BracketMatchTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            BracketMatchType: BracketMatchTypeEnum
         }
         
-        namespace ChangeCaseType {
-            const $gtype: GObject.GType<ChangeCaseType>
-        }
-
-        /**
-         */
-        enum ChangeCaseType {
+        interface ChangeCaseTypeEnum {
+            readonly $gtype: GObject.GType<ChangeCaseType>
             /**
              * change case to lowercase.
              */
-            "LOWER" = 0,
+            readonly "LOWER": 0
             /**
              * change case to uppercase.
              */
-            "UPPER" = 1,
+            readonly "UPPER": 1
             /**
              * toggle case of each character.
              */
-            "TOGGLE" = 2,
+            readonly "TOGGLE": 2
             /**
              * capitalize each word.
              */
-            "TITLE" = 3,
+            readonly "TITLE": 3
+        }
+        type ChangeCaseType = ChangeCaseTypeEnum[Exclude<keyof ChangeCaseTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            ChangeCaseType: ChangeCaseTypeEnum
         }
         
-        namespace CompletionActivation {
-            const $gtype: GObject.GType<CompletionActivation>
+        interface CompletionActivationEnum {
+            readonly $gtype: GObject.GType<CompletionActivation>
+            /**
+             */
+            readonly "NONE": 0
+            /**
+             */
+            readonly "INTERACTIVE": 1
+            /**
+             */
+            readonly "USER_REQUESTED": 2
         }
-
-        /**
-         */
-        enum CompletionActivation {
+        type CompletionActivation = CompletionActivationEnum[Exclude<keyof CompletionActivationEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "NONE" = 0,
-            /**
-             */
-            "INTERACTIVE" = 1,
-            /**
-             */
-            "USER_REQUESTED" = 2,
-        }
-        
-        namespace CompletionColumn {
-            const $gtype: GObject.GType<CompletionColumn>
-        }
-
-        /**
-         */
-        enum CompletionColumn {
-            /**
-             */
-            "ICON" = 0,
-            /**
-             */
-            "BEFORE" = 1,
-            /**
-             */
-            "TYPED_TEXT" = 2,
-            /**
-             */
-            "AFTER" = 3,
-            /**
-             */
-            "COMMENT" = 4,
-            /**
-             */
-            "DETAILS" = 5,
+            CompletionActivation: CompletionActivationEnum
         }
         
-        namespace CompressionType {
-            const $gtype: GObject.GType<CompressionType>
+        interface CompletionColumnEnum {
+            readonly $gtype: GObject.GType<CompletionColumn>
+            /**
+             */
+            readonly "ICON": 0
+            /**
+             */
+            readonly "BEFORE": 1
+            /**
+             */
+            readonly "TYPED_TEXT": 2
+            /**
+             */
+            readonly "AFTER": 3
+            /**
+             */
+            readonly "COMMENT": 4
+            /**
+             */
+            readonly "DETAILS": 5
         }
-
-        /**
-         */
-        enum CompressionType {
+        type CompletionColumn = CompletionColumnEnum[Exclude<keyof CompletionColumnEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            CompletionColumn: CompletionColumnEnum
+        }
+        
+        interface CompressionTypeEnum {
+            readonly $gtype: GObject.GType<CompressionType>
             /**
              * plain text.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * gzip compression.
              */
-            "GZIP" = 1,
+            readonly "GZIP": 1
+        }
+        type CompressionType = CompressionTypeEnum[Exclude<keyof CompressionTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            CompressionType: CompressionTypeEnum
         }
         
-        abstract class FileLoaderError extends GLib.Error {
-            static readonly $gtype: GObject.GType<FileLoaderError>
+        interface FileLoaderError extends GLib.Error {}
+
+        interface FileLoaderErrorEnum {
+            readonly $gtype: GObject.GType<FileLoaderError>
+
+            new(props: { message: string, code: number }): FileLoaderError
             /**
              * The file is too big.
              */
-            static readonly "TOO_BIG": 0
+            readonly "TOO_BIG": 0
             /**
              * It is not
              * possible to detect the encoding automatically.
              */
-            static readonly "ENCODING_AUTO_DETECTION_FAILED": 1
+            readonly "ENCODING_AUTO_DETECTION_FAILED": 1
             /**
              * There was an encoding
              * conversion error and it was needed to use a fallback character.
              */
-            static readonly "CONVERSION_FALLBACK": 2
-        }
-        /**
+            readonly "CONVERSION_FALLBACK": 2
+            /**
          */
-        function quark(): GLib.Quark
+        quark: () => GLib.Quark
+        }
+
+        interface $Exports {
+            /**
+             * An error code used with the %GTK_SOURCE_FILE_LOADER_ERROR domain.
+             */
+            FileLoaderError: FileLoaderErrorEnum
+        }
         
-        abstract class FileSaverError extends GLib.Error {
-            static readonly $gtype: GObject.GType<FileSaverError>
+        interface FileSaverError extends GLib.Error {}
+
+        interface FileSaverErrorEnum {
+            readonly $gtype: GObject.GType<FileSaverError>
+
+            new(props: { message: string, code: number }): FileSaverError
             /**
              * The buffer contains invalid
              *   characters.
              */
-            static readonly "INVALID_CHARS": 0
+            readonly "INVALID_CHARS": 0
             /**
              * The file is externally
              *   modified.
              */
-            static readonly "EXTERNALLY_MODIFIED": 1
-        }
-        /**
+            readonly "EXTERNALLY_MODIFIED": 1
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace GutterRendererAlignmentMode {
-            const $gtype: GObject.GType<GutterRendererAlignmentMode>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The alignment mode of the renderer, when a cell spans multiple lines (due to
-         * text wrapping).
-         */
-        enum GutterRendererAlignmentMode {
+        interface $Exports {
+            /**
+             * An error code used with the %GTK_SOURCE_FILE_SAVER_ERROR domain.
+             */
+            FileSaverError: FileSaverErrorEnum
+        }
+        
+        interface GutterRendererAlignmentModeEnum {
+            readonly $gtype: GObject.GType<GutterRendererAlignmentMode>
             /**
              * The full cell.
              */
-            "CELL" = 0,
+            readonly "CELL": 0
             /**
              * The first line.
              */
-            "FIRST" = 1,
+            readonly "FIRST": 1
             /**
              * The last line.
              */
-            "LAST" = 2,
+            readonly "LAST": 2
+        }
+        type GutterRendererAlignmentMode = GutterRendererAlignmentModeEnum[Exclude<keyof GutterRendererAlignmentModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The alignment mode of the renderer, when a cell spans multiple lines (due to
+             * text wrapping).
+             */
+            GutterRendererAlignmentMode: GutterRendererAlignmentModeEnum
         }
         
-        namespace NewlineType {
-            const $gtype: GObject.GType<NewlineType>
-        }
-
-        /**
-         */
-        enum NewlineType {
+        interface NewlineTypeEnum {
+            readonly $gtype: GObject.GType<NewlineType>
             /**
              * line feed, used on UNIX.
              */
-            "LF" = 0,
+            readonly "LF": 0
             /**
              * carriage return, used on Mac.
              */
-            "CR" = 1,
+            readonly "CR": 1
             /**
              * carriage return followed by a line feed, used
              *   on Windows.
              */
-            "CR_LF" = 2,
+            readonly "CR_LF": 2
+        }
+        type NewlineType = NewlineTypeEnum[Exclude<keyof NewlineTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            NewlineType: NewlineTypeEnum
         }
         
-        namespace SmartHomeEndType {
-            const $gtype: GObject.GType<SmartHomeEndType>
-        }
-
-        /**
-         */
-        enum SmartHomeEndType {
+        interface SmartHomeEndTypeEnum {
+            readonly $gtype: GObject.GType<SmartHomeEndType>
             /**
              * smart-home-end disabled.
              */
-            "DISABLED" = 0,
+            readonly "DISABLED": 0
             /**
              * move to the first/last
              * non-whitespace character on the first press of the HOME/END keys and
              * to the beginning/end of the line on the second press.
              */
-            "BEFORE" = 1,
+            readonly "BEFORE": 1
             /**
              * move to the beginning/end of the
              * line on the first press of the HOME/END keys and to the first/last
              * non-whitespace character on the second press.
              */
-            "AFTER" = 2,
+            readonly "AFTER": 2
             /**
              * always move to the first/last
              * non-whitespace character when the HOME/END keys are pressed.
              */
-            "ALWAYS" = 3,
+            readonly "ALWAYS": 3
+        }
+        type SmartHomeEndType = SmartHomeEndTypeEnum[Exclude<keyof SmartHomeEndTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            SmartHomeEndType: SmartHomeEndTypeEnum
         }
         
-        namespace ViewGutterPosition {
-            const $gtype: GObject.GType<ViewGutterPosition>
-        }
-
-        /**
-         */
-        enum ViewGutterPosition {
+        interface ViewGutterPositionEnum {
+            readonly $gtype: GObject.GType<ViewGutterPosition>
             /**
              * the gutter position of the lines
              * renderer
              */
-            "LINES" = -30,
+            readonly "LINES": -30
             /**
              * the gutter position of the marks
              * renderer
              */
-            "MARKS" = -20,
+            readonly "MARKS": -20
+        }
+        type ViewGutterPosition = ViewGutterPositionEnum[Exclude<keyof ViewGutterPositionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            ViewGutterPosition: ViewGutterPositionEnum
         }
         
-        namespace FileSaverFlags {
-            const $gtype: GObject.GType<FileSaverFlags>
-        }
-
-        /**
-         * Flags to define the behavior of a [flags@FileSaverFlags].
-         */
-        enum FileSaverFlags {
+        interface FileSaverFlagsBitfield {
+            readonly $gtype: GObject.GType<FileSaverFlags>
             /**
              * No flags.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Ignore invalid characters.
              */
-            "IGNORE_INVALID_CHARS" = 1,
+            readonly "IGNORE_INVALID_CHARS": 1
             /**
              * Save file despite external modifications.
              */
-            "IGNORE_MODIFICATION_TIME" = 2,
+            readonly "IGNORE_MODIFICATION_TIME": 2
             /**
              * Create a backup before saving the file.
              */
-            "CREATE_BACKUP" = 4,
+            readonly "CREATE_BACKUP": 4
+        }
+        type FileSaverFlags = number
+        interface $Exports {
+            /**
+             * Flags to define the behavior of a [flags@FileSaverFlags].
+             */
+            FileSaverFlags: FileSaverFlagsBitfield
         }
         
-        namespace SortFlags {
-            const $gtype: GObject.GType<SortFlags>
-        }
-
-        /**
-         */
-        enum SortFlags {
+        interface SortFlagsBitfield {
+            readonly $gtype: GObject.GType<SortFlags>
             /**
              * no flags specified
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * case sensitive sort
              */
-            "CASE_SENSITIVE" = 1,
+            readonly "CASE_SENSITIVE": 1
             /**
              * sort in reverse order
              */
-            "REVERSE_ORDER" = 2,
+            readonly "REVERSE_ORDER": 2
             /**
              * remove duplicates
              */
-            "REMOVE_DUPLICATES" = 4,
+            readonly "REMOVE_DUPLICATES": 4
             /**
              * improved sorting for filenames.
              *
              * see [func@GLib.utf8_collate_key_for_filename]
              * @since 5.16
              */
-            "FILENAME" = 8,
+            readonly "FILENAME": 8
+        }
+        type SortFlags = number
+        interface $Exports {
+            /**
+             */
+            SortFlags: SortFlagsBitfield
         }
         
-        namespace SpaceLocationFlags {
-            const $gtype: GObject.GType<SpaceLocationFlags>
-        }
-
-        /**
-         * #GtkSourceSpaceLocationFlags contains flags for white space locations.
-         *
-         * If a line contains only white spaces (no text), the white spaces match both
-         * %GTK_SOURCE_SPACE_LOCATION_LEADING and %GTK_SOURCE_SPACE_LOCATION_TRAILING.
-         */
-        enum SpaceLocationFlags {
+        interface SpaceLocationFlagsBitfield {
+            readonly $gtype: GObject.GType<SpaceLocationFlags>
             /**
              * No flags.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Leading white spaces on a line, i.e. the
              *   indentation.
              */
-            "LEADING" = 1,
+            readonly "LEADING": 1
             /**
              * White spaces inside a line of text.
              */
-            "INSIDE_TEXT" = 2,
+            readonly "INSIDE_TEXT": 2
             /**
              * Trailing white spaces on a line.
              */
-            "TRAILING" = 4,
+            readonly "TRAILING": 4
             /**
              * White spaces anywhere.
              */
-            "ALL" = 7,
+            readonly "ALL": 7
+        }
+        type SpaceLocationFlags = number
+        interface $Exports {
+            /**
+             * #GtkSourceSpaceLocationFlags contains flags for white space locations.
+             *
+             * If a line contains only white spaces (no text), the white spaces match both
+             * %GTK_SOURCE_SPACE_LOCATION_LEADING and %GTK_SOURCE_SPACE_LOCATION_TRAILING.
+             */
+            SpaceLocationFlags: SpaceLocationFlagsBitfield
         }
         
-        namespace SpaceTypeFlags {
-            const $gtype: GObject.GType<SpaceTypeFlags>
-        }
-
-        /**
-         * #GtkSourceSpaceTypeFlags contains flags for white space types.
-         */
-        enum SpaceTypeFlags {
+        interface SpaceTypeFlagsBitfield {
+            readonly $gtype: GObject.GType<SpaceTypeFlags>
             /**
              * No flags.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Space character.
              */
-            "SPACE" = 1,
+            readonly "SPACE": 1
             /**
              * Tab character.
              */
-            "TAB" = 2,
+            readonly "TAB": 2
             /**
              * Line break character. If the
              *   #GtkSourceBuffer:implicit-trailing-newline property is %TRUE,
              *   #GtkSourceSpaceDrawer also draws a line break at the end of the buffer.
              */
-            "NEWLINE" = 4,
+            readonly "NEWLINE": 4
             /**
              * Non-breaking space character.
              */
-            "NBSP" = 8,
+            readonly "NBSP": 8
             /**
              * All white spaces.
              */
-            "ALL" = 15,
+            readonly "ALL": 15
         }
-        none
+        type SpaceTypeFlags = number
+        interface $Exports {
+            /**
+             * #GtkSourceSpaceTypeFlags contains flags for white space types.
+             */
+            SpaceTypeFlags: SpaceTypeFlagsBitfield
+        }
         /**
          * This function is called incrementally to process additional background work.
          * A deadline is provided which can be checked using [func@GLib.get_monotonic_time] so
@@ -8178,7 +8502,174 @@ declare module "gi://GtkSource?version=5" {
          * @returns %TRUE if there is more work to process, otherwise %FALSE and the   handler is unregistered.
          */
         type SchedulerCallback = (deadline: number) => boolean
+
+        interface $Exports {
+            __name__: "GtkSource"
+            __version: "5"
+            MAJOR_VERSION: 5
+            MICRO_VERSION: 1
+            MINOR_VERSION: 19
+            /**
+             * Like GTK_SOURCE_CHECK_VERSION, but the check for gtk_source_check_version is
+             * at runtime instead of compile time. This is useful for compiling
+             * against older versions of GtkSourceView, but using features from newer
+             * versions.
+             * @param major the major version to check
+             * @param minor the minor version to check
+             * @param micro the micro version to check
+             * @returns %TRUE if the version of the GtkSourceView currently loaded is the same as or newer than the passed-in version.
+             */
+            check_version(major: number, minor: number, micro: number): boolean
+            /**
+             * Gets all encodings.
+             * @returns a list of all #GtkSourceEncoding's. Free with g_slist_free().
+             */
+            encoding_get_all(): Encoding[]
+            /**
+             * Gets the #GtkSourceEncoding for the current locale.
+             *
+             * See also [func@GLib.get_charset].
+             * @returns the current locale encoding.
+             */
+            encoding_get_current(): Encoding
+            /**
+             * Gets the list of default candidate encodings to try when loading a file.
+             *
+             * See [method@FileLoader.set_candidate_encodings].
+             *
+             * This function returns a different list depending on the current locale (i.e.
+             * language, country and default encoding). The UTF-8 encoding and the current
+             * locale encoding are guaranteed to be present in the returned list.
+             * @returns the list of default candidate encodings. Free with g_slist_free().
+             */
+            encoding_get_default_candidates(): Encoding[]
+            /**
+             * Gets a #GtkSourceEncoding from a character set such as "UTF-8" or
+             * "ISO-8859-1".
+             * @param charset a character set.
+             * @returns the corresponding #GtkSourceEncoding, or %NULL if not found.
+             */
+            encoding_get_from_charset(charset: string): Encoding | null
+            /**
+             * @returns the UTF-8 encoding.
+             */
+            encoding_get_utf8(): Encoding
+            /**
+             */
+            file_loader_error_quark(): GLib.Quark
+            /**
+             */
+            file_saver_error_quark(): GLib.Quark
+            /**
+             * Free the resources allocated by GtkSourceView. For example it unrefs the
+             * singleton objects.
+             *
+             * It is not mandatory to call this function, it's just to be friendlier to
+             * memory debugging tools. This function is meant to be called at the end of
+             * main(). It can be called several times.
+             */
+            finalize(): void
+            /**
+             * Returns the major version number of the GtkSourceView library.
+             * (e.g. in GtkSourceView version 3.20.0 this is 3.)
+             *
+             * This function is in the library, so it represents the GtkSourceView library
+             * your code is running against. Contrast with the #GTK_SOURCE_MAJOR_VERSION
+             * macro, which represents the major version of the GtkSourceView headers you
+             * have included when compiling your code.
+             * @returns the major version number of the GtkSourceView library
+             */
+            get_major_version(): number
+            /**
+             * Returns the micro version number of the GtkSourceView library.
+             * (e.g. in GtkSourceView version 3.20.0 this is 0.)
+             *
+             * This function is in the library, so it represents the GtkSourceView library
+             * your code is running against. Contrast with the #GTK_SOURCE_MICRO_VERSION
+             * macro, which represents the micro version of the GtkSourceView headers you
+             * have included when compiling your code.
+             * @returns the micro version number of the GtkSourceView library
+             */
+            get_micro_version(): number
+            /**
+             * Returns the minor version number of the GtkSourceView library.
+             * (e.g. in GtkSourceView version 3.20.0 this is 20.)
+             *
+             * This function is in the library, so it represents the GtkSourceView library
+             * your code is running against. Contrast with the #GTK_SOURCE_MINOR_VERSION
+             * macro, which represents the minor version of the GtkSourceView headers you
+             * have included when compiling your code.
+             * @returns the minor version number of the GtkSourceView library
+             */
+            get_minor_version(): number
+            /**
+             * Initializes the GtkSourceView library (e.g. for the internationalization).
+             *
+             * This function can be called several times, but is meant to be called at the
+             * beginning of main(), before any other GtkSourceView function call.
+             *
+             * The counterpart to this function is [func@finalize] which can be convenient
+             * when using memory debugging tools.
+             */
+            init(): void
+            /**
+             * Adds a new callback that will be executed as time permits on the main thread.
+             *
+             * This is useful when you need to do a lot of background work but want to do
+             * it incrementally.
+             *
+             * @callback will be provided a deadline that it should complete it's work by
+             * (or near) and can be checked using [func@GLib.get_monotonic_time] for comparison.
+             *
+             * Use [func@scheduler_remove] to remove the handler.
+             * @since 5.2
+             * @param callback the callback to execute
+             */
+            scheduler_add(callback: SchedulerCallback): number
+            /**
+             * Removes a scheduler callback previously registered with
+             * [func@scheduler_add] or [func@scheduler_add_full].
+             * @since 5.2
+             * @param handler_id the handler id
+             */
+            scheduler_remove(handler_id: number): void
+            /**
+             * Use this function to escape the following characters: `\n`, `\r`, `\t` and `\`.
+             *
+             * For a regular expression search, use g_regex_escape_string() instead.
+             *
+             * One possible use case is to take the #GtkTextBuffer's selection and put it in a
+             * search entry. The selection can contain tabulations, newlines, etc. So it's
+             * better to escape those special characters to better fit in the search entry.
+             *
+             * See also: [func@utils_unescape_search_text].
+             *
+             * <warning>
+             * Warning: the escape and unescape functions are not reciprocal! For example,
+             * escape (unescape (\)) = \\. So avoid cycles such as: search entry -> unescape
+             * -> search settings -> escape -> search entry. The original search entry text
+             * may be modified.
+             * </warning>
+             * @param text the text to escape.
+             * @returns the escaped `text`.
+             */
+            utils_escape_search_text(text: string): string
+            /**
+             * Use this function before [method@SearchSettings.set_search_text], to
+             * unescape the following sequences of characters: `\n`, `\r`, `\t` and `\\`.
+             * The purpose is to easily write those characters in a search entry.
+             *
+             * Note that unescaping the search text is not needed for regular expression
+             * searches.
+             *
+             * See also: [func@utils_escape_search_text].
+             * @param text the text to unescape.
+             * @returns the unescaped `text`.
+             */
+            utils_unescape_search_text(text: string): string
+        }
     }
 
+    const GtkSource: GtkSource.$Exports
     export default GtkSource
 }

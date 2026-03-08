@@ -20,10 +20,7 @@ declare module "gi://GstVa?version=1.0" {
 
     
 
-
     namespace GstVa {
-        const __name__: "GstVa"
-        const __version: "1.0"
         
 
         namespace VaAllocator {
@@ -40,13 +37,6 @@ declare module "gi://GstVa?version=1.0" {
             }
         }
 
-        /**
-         * There are two types of VA allocators:
-         *
-         * * #GstVaAllocator
-         * * #GstVaDmabufAllocator
-         * @since 1.22
-         */
         interface VaAllocator extends Gst.Allocator {
             readonly $signals: VaAllocator.SignalSignatures
             readonly $readableProperties: VaAllocator.ReadableProperties
@@ -57,6 +47,7 @@ declare module "gi://GstVa?version=1.0" {
         interface VaAllocatorClass extends Omit<Gst.AllocatorClass, "new"> {
             readonly $gtype: GObject.GType<VaAllocator>
             readonly prototype: VaAllocator
+
             new (props?: Partial<GObject.ConstructorProps<VaAllocator>>): VaAllocator
             /**
              * Instanciate a new pooled #GstAllocator backed by VASurfaceID.
@@ -66,7 +57,7 @@ declare module "gi://GstVa?version=1.0" {
                 of valid #GstVideoFormat for surfaces in current VA context.
              * @returns a #GstVaDisplay
              */
-            "new"(display: VaDisplay, surface_formats: number[]): Gst.Allocator
+            "new"(display: VaDisplay, surface_formats: number[]): VaAllocator
             /**
              * Allocate a new VASurfaceID backed #GstMemory.
              * @since 1.22
@@ -86,7 +77,7 @@ declare module "gi://GstVa?version=1.0" {
              * @param allocator a #GstAllocator
              * @returns %TRUE if `allocator` is already configured; %FALSE otherwise., a #GstVideoInfo, VA usage hint, whether derived images are used for buffer     mapping.
              */
-            get_format(allocator: Gst.Allocator): boolean
+            get_format(allocator: Gst.Allocator): [boolean, GstVideo.VideoInfo, number, boolean]
             /**
              * @since 1.22
              * @param allocator a #GstAllocator
@@ -127,7 +118,16 @@ declare module "gi://GstVa?version=1.0" {
             setup_buffer(allocator: Gst.Allocator, buffer: Gst.Buffer): boolean
         }
 
-        const VaAllocator: VaAllocatorClass
+        interface $Exports {
+            /**
+             * There are two types of VA allocators:
+             *
+             * * #GstVaAllocator
+             * * #GstVaDmabufAllocator
+             * @since 1.22
+             */
+            VaAllocator: VaAllocatorClass
+        }
         
 
         namespace VaDisplay {
@@ -141,25 +141,13 @@ declare module "gi://GstVa?version=1.0" {
 
             interface WritableProperties extends Gst.Object.WritableProperties {
                 "description": string
-                "va-display": never
             }
 
             interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                "va-display": never
             }
         }
 
-        /**
-         * It is a generic wrapper for VADisplay. To create new instances
-         * subclasses are required, depending on the display type to use
-         * (v.gr. DRM, X11, Wayland, etc.).
-         *
-         * The purpose of this class is to be shared among pipelines via
-         * #GstContext so all the VA processing elements will use the same
-         * display entry. Application developers can create their own
-         * subclass, based on their display, and shared it via the synced bus
-         * message for the application.
-         * @since 1.20
-         */
         interface VaDisplay extends Gst.Object {
             readonly $signals: VaDisplay.SignalSignatures
             readonly $readableProperties: VaDisplay.ReadableProperties
@@ -217,10 +205,25 @@ declare module "gi://GstVa?version=1.0" {
         interface VaDisplayClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<VaDisplay>
             readonly prototype: VaDisplay
+
             new (props?: Partial<GObject.ConstructorProps<VaDisplay>>): VaDisplay
         }
 
-        const VaDisplay: VaDisplayClass
+        interface $Exports {
+            /**
+             * It is a generic wrapper for VADisplay. To create new instances
+             * subclasses are required, depending on the display type to use
+             * (v.gr. DRM, X11, Wayland, etc.).
+             *
+             * The purpose of this class is to be shared among pipelines via
+             * #GstContext so all the VA processing elements will use the same
+             * display entry. Application developers can create their own
+             * subclass, based on their display, and shared it via the synced bus
+             * message for the application.
+             * @since 1.20
+             */
+            VaDisplay: VaDisplayClass
+        }
         
 
         namespace VaDisplayDrm {
@@ -232,17 +235,13 @@ declare module "gi://GstVa?version=1.0" {
             }
 
             interface WritableProperties extends VaDisplay.WritableProperties {
-                "path": string
             }
 
             interface ConstructOnlyProperties extends VaDisplay.ConstructOnlyProperties {
+                "path": string
             }
         }
 
-        /**
-         * This is a #GstVaDisplay subclass to instantiate with DRM devices.
-         * @since 1.20
-         */
         interface VaDisplayDrm extends VaDisplay {
             readonly $signals: VaDisplayDrm.SignalSignatures
             readonly $readableProperties: VaDisplayDrm.ReadableProperties
@@ -258,6 +257,7 @@ declare module "gi://GstVa?version=1.0" {
         interface VaDisplayDrmClass extends Omit<VaDisplayClass, "new"> {
             readonly $gtype: GObject.GType<VaDisplayDrm>
             readonly prototype: VaDisplayDrm
+
             new (props?: Partial<GObject.ConstructorProps<VaDisplayDrm>>): VaDisplayDrm
             /**
              * Creates a new #GstVaDisplay from a DRM device . It will try to open
@@ -266,10 +266,16 @@ declare module "gi://GstVa?version=1.0" {
              * @param path the path to the DRM device
              * @returns a newly allocated #GstVaDisplay if the     specified DRM render device could be opened and initialized;     otherwise %NULL is returned.
              */
-            new_from_path(path: string): VaDisplay
+            new_from_path(path: string): VaDisplayDrm
         }
 
-        const VaDisplayDrm: VaDisplayDrmClass
+        interface $Exports {
+            /**
+             * This is a #GstVaDisplay subclass to instantiate with DRM devices.
+             * @since 1.20
+             */
+            VaDisplayDrm: VaDisplayDrmClass
+        }
         
 
         namespace VaDisplayWrapped {
@@ -286,11 +292,6 @@ declare module "gi://GstVa?version=1.0" {
             }
         }
 
-        /**
-         * This is a #GstVaDisplay instantiaton subclass for custom created
-         * VADisplay, such as X11 or Wayland, wrapping it.
-         * @since 1.20
-         */
         interface VaDisplayWrapped extends VaDisplay {
             readonly $signals: VaDisplayWrapped.SignalSignatures
             readonly $readableProperties: VaDisplayWrapped.ReadableProperties
@@ -301,6 +302,7 @@ declare module "gi://GstVa?version=1.0" {
         interface VaDisplayWrappedClass extends Omit<VaDisplayClass, "new"> {
             readonly $gtype: GObject.GType<VaDisplayWrapped>
             readonly prototype: VaDisplayWrapped
+
             new (props?: Partial<GObject.ConstructorProps<VaDisplayWrapped>>): VaDisplayWrapped
             /**
              * Creates a #GstVaDisplay wrapping an already created and initialized
@@ -313,10 +315,17 @@ declare module "gi://GstVa?version=1.0" {
              * @param handle a VADisplay to wrap
              * @returns a new #GstVaDisplay if `handle` is valid,     Otherwise %NULL.
              */
-            "new"(handle: never | null): VaDisplay
+            "new"(handle: never | null): VaDisplayWrapped
         }
 
-        const VaDisplayWrapped: VaDisplayWrappedClass
+        interface $Exports {
+            /**
+             * This is a #GstVaDisplay instantiaton subclass for custom created
+             * VADisplay, such as X11 or Wayland, wrapping it.
+             * @since 1.20
+             */
+            VaDisplayWrapped: VaDisplayWrappedClass
+        }
         
 
         namespace VaDmabufAllocator {
@@ -333,12 +342,6 @@ declare module "gi://GstVa?version=1.0" {
             }
         }
 
-        /**
-         * A pooled memory allocator backed by the DMABufs exported from a
-         * VASurfaceID. Also it is possible to import DMAbufs into a
-         * VASurfaceID.
-         * @since 1.22
-         */
         interface VaDmabufAllocator extends Gst.Allocator {
             readonly $signals: VaDmabufAllocator.SignalSignatures
             readonly $readableProperties: VaDmabufAllocator.ReadableProperties
@@ -349,6 +352,7 @@ declare module "gi://GstVa?version=1.0" {
         interface VaDmabufAllocatorClass extends Omit<Gst.AllocatorClass, "new"> {
             readonly $gtype: GObject.GType<VaDmabufAllocator>
             readonly prototype: VaDmabufAllocator
+
             new (props?: Partial<GObject.ConstructorProps<VaDmabufAllocator>>): VaDmabufAllocator
             /**
              * Instanciate a new pooled allocator backed with both DMABuf and
@@ -357,7 +361,7 @@ declare module "gi://GstVa?version=1.0" {
              * @param display a #GstVaDisplay
              * @returns a new allocated #GstAllocator
              */
-            "new"(display: VaDisplay): Gst.Allocator
+            "new"(display: VaDisplay): VaDmabufAllocator
             /**
              * Removes all the memories in @allocator's pool.
              * @since 1.22
@@ -370,7 +374,7 @@ declare module "gi://GstVa?version=1.0" {
              * @param allocator a #GstAllocator
              * @returns %TRUE if `allocator` is already configured; %FALSE otherwise., a #GstVideoInfoDmaDrm, VA usage hint
              */
-            get_format(allocator: Gst.Allocator): boolean
+            get_format(allocator: Gst.Allocator): [boolean, GstVideo.VideoInfoDmaDrm, number]
             /**
              * This method will populate @buffer with pooled VASurfaceID/DMABuf
              * memories. It doesn't allocate new VASurfacesID.
@@ -405,7 +409,15 @@ declare module "gi://GstVa?version=1.0" {
             setup_buffer(allocator: Gst.Allocator, buffer: Gst.Buffer): boolean
         }
 
-        const VaDmabufAllocator: VaDmabufAllocatorClass
+        interface $Exports {
+            /**
+             * A pooled memory allocator backed by the DMABufs exported from a
+             * VASurfaceID. Also it is possible to import DMAbufs into a
+             * VASurfaceID.
+             * @since 1.22
+             */
+            VaDmabufAllocator: VaDmabufAllocatorClass
+        }
         
 
         namespace VaPool {
@@ -422,10 +434,6 @@ declare module "gi://GstVa?version=1.0" {
             }
         }
 
-        /**
-         * @GstVaPool is a buffer pool for VA allocators.
-         * @since 1.22
-         */
         interface VaPool extends Gst.BufferPool {
             readonly $signals: VaPool.SignalSignatures
             readonly $readableProperties: VaPool.ReadableProperties
@@ -436,12 +444,13 @@ declare module "gi://GstVa?version=1.0" {
         interface VaPoolClass extends Omit<Gst.BufferPoolClass, "new"> {
             readonly $gtype: GObject.GType<VaPool>
             readonly prototype: VaPool
+
             new (props?: Partial<GObject.ConstructorProps<VaPool>>): VaPool
             /**
              * @since 1.22
              * @returns A new #GstBufferPool for VA allocators.
              */
-            "new"(): Gst.BufferPool
+            "new"(): VaPool
             /**
              * @since 1.22
              * @param caps the #GstCaps of the buffers handled by the new pool.
@@ -454,14 +463,14 @@ declare module "gi://GstVa?version=1.0" {
              * @param alloc_params #GstAllocationParams to use.
              * @returns a new #GstBufferPool that handles VASurfacesID-backed     buffers. If the pool cannot be configured correctly, %NULL is     returned.
              */
-            new_with_config(caps: Gst.Caps, min_buffers: number, max_buffers: number, usage_hint: number, use_derived: VaFeature, allocator: Gst.Allocator, alloc_params: Gst.AllocationParams): Gst.BufferPool
+            new_with_config(caps: Gst.Caps, min_buffers: number, max_buffers: number, usage_hint: number, use_derived: VaFeature, allocator: Gst.Allocator, alloc_params: Gst.AllocationParams): VaPool
             /**
              * Helper function to retrieve the VA surface size provided by @pool.
              * @since 1.24
              * @param pool a #GstBufferPool
              * @returns whether the surface size was retrieved., the declared surface size
              */
-            get_buffer_size(pool: Gst.BufferPool): boolean
+            get_buffer_size(pool: Gst.BufferPool): [boolean, number]
             /**
              * Retuns: %TRUE if @pool always add #GstVideoMeta to its
              *     buffers. Otherwise, %FALSE.
@@ -471,196 +480,204 @@ declare module "gi://GstVa?version=1.0" {
             requires_video_meta(pool: Gst.BufferPool): boolean
         }
 
-        const VaPool: VaPoolClass
-        none
-        none
-        none
-        /**
-         * Video alignment is not handled as expected by VA since it uses
-         * opaque surfaces, not directly mappable memory. Still, decoders
-         * might need to request bigger surfaces for coded size rather than
-         * display sizes. This method will set the coded size to bufferpool's
-         * configuration, out of the typical video aligment.
-         * @since 1.20.2
-         * @param config the #GstStructure with the pool's configuration.
-         * @param align a #GstVideoAlignment
-         */
-        function buffer_pool_config_set_va_alignment(config: Gst.Structure, align: GstVideo.VideoAlignment): void
-        /**
-         * Sets the usage hint for the buffers handled by the buffer pool.
-         * @since 1.22
-         * @param config the #GstStructure with the pool's configuration.
-         * @param usage_hint the VA usage hint for new VASurfaceID.
-         * @param use_derived a #GstVaFeature for derived mapping (only used when
-            VA allocator).
-         */
-        function buffer_pool_config_set_va_allocation_params(config: Gst.Structure, usage_hint: number, use_derived: VaFeature): void
-        /**
-         * @since 1.22
-         * @param context a #GstContext may contain the display
-         * @param type_name a #gchar string of the element type
-         * @param render_device_path the #gchar string of render device path
-         * @returns whether we find a valid `display` in the `context`, the #GstVaDisplay we get
-         */
-        function context_get_va_display(context: Gst.Context, type_name: string, render_device_path: string): [boolean, VaDisplay]
-        /**
-         * Set the @display in the @context
-         * @since 1.22
-         * @param context a #GstContext
-         * @param display the #GstVaDisplay we want to set
-         */
-        function context_set_va_display(context: Gst.Context, display: VaDisplay): void
-        /**
-         * Creates a new VASurfaceID with @buffer's allocator and attached it
-         * to it.
-         *
-         * *This method is used only by plugin's internal VA decoder.*
-         * @since 1.22
-         * @param buffer a #GstBuffer
-         * @returns %TRUE if the new VASurfaceID is attached to `buffer`     correctly; %FALSE, otherwise.
-         */
-        function va_buffer_create_aux_surface(buffer: Gst.Buffer): boolean
-        none
-        none
-        /**
-         * @since 1.22
-         * @param buffer a #GstBuffer
-         * @returns the display which this     `buffer` belongs to. The reference of the display is unchanged.
-         */
-        function va_buffer_peek_display(buffer: Gst.Buffer): VaDisplay
-        /**
-         * Query the specified context type name.
-         * @since 1.22
-         * @param element a #GstElement
-         * @param context_type the #gchar string specify the context type name
-         */
-        function va_context_query(element: Gst.Element, context_type: string): void
-        /**
-         * Get the underlying modifier for specified @format and @usage_hint.
-         * @since 1.24
-         * @param display a #GstVaDisplay
-         * @param format a #GstVideoFormat
-         * @param usage_hint VA usage hint
-         * @returns the underlying modifier.
-         */
-        function va_dmabuf_get_modifier_for_format(display: VaDisplay, format: GstVideo.VideoFormat, usage_hint: number): number
-        /**
-         * It imports the array of @mem, representing a single frame, into a
-         * VASurfaceID and it's attached into every @mem.
-         * @since 1.22
-         * @param display a #GstVaDisplay
-         * @param drm_info a #GstVideoInfoDmaDrm
-         * @param mem Memories. One
-            per plane.
-         * @param fds array of
-            DMABuf file descriptors.
-         * @param offset array of memory
-            offsets.
-         * @param usage_hint VA usage hint.
-         * @returns %TRUE if frame is imported correctly into a VASurfaceID; %FALSE otherwise.
-         */
-        function va_dmabuf_memories_setup(display: VaDisplay, drm_info: GstVideo.VideoInfoDmaDrm, mem: Gst.Memory[], fds: never[], offset: number[], usage_hint: number): boolean
-        /**
-         * Propagate @display by posting it as #GstContext in the pipeline's bus.
-         * @since 1.22
-         * @param element a #GstElement
-         * @param display the #GstVaDisplay to propagate
-         */
-        function va_element_propagate_display_context(element: Gst.Element, display: VaDisplay): void
-        /**
-         * Called by the va element to ensure a valid #GstVaDisplay.
-         * @since 1.22
-         * @param element a #GstElement
-         * @param render_device_path the #gchar string of render device path
-         * @returns whether a #GstVaDisplay exists in `display_ptr`, The #GstVaDisplay to ensure
-         */
-        function va_ensure_element_data(element: never | null, render_device_path: string): [boolean, VaDisplay]
-        /**
-         * Used by elements when processing their pad's queries, propagating
-         * element's #GstVaDisplay if the processed query requests it.
-         * @since 1.22
-         * @param element a #GstElement
-         * @param query a #GstQuery to query the context
-         * @param display a #GstVaDisplay to answer the query
-         * @returns whether we can handle the context query successfully
-         */
-        function va_handle_context_query(element: Gst.Element, query: Gst.Query, display: VaDisplay): boolean
-        /**
-         * Called by elements in their #GstElementClass::set_context vmethod.
-         * It gets a valid #GstVaDisplay if @context has it.
-         * @since 1.22
-         * @param element a #GstElement
-         * @param context a #GstContext may contain the display
-         * @param render_device_path the #gchar string of render device path
-         * @returns whether the `display_ptr` could be successfully set to a valid #GstVaDisplay in the `context`, The #GstVaDisplay to set
-         */
-        function va_handle_set_context(element: Gst.Element, context: Gst.Context, render_device_path: string): [boolean, VaDisplay]
-        none
-        /**
-         * @since 1.22
-         * @param mem a #GstMemory
-         * @returns the display which     this `mem` belongs to. The reference of the display is unchanged.
-         */
-        function va_memory_peek_display(mem: Gst.Memory): VaDisplay
-        const ALLOCATOR_VASURFACE: "VAMemory"
-        const CAPS_FEATURE_MEMORY_VA: "memory:VAMemory"
-        const MAP_VA: 131072
-        const VA_DISPLAY_HANDLE_CONTEXT_TYPE_STR: "gst.va.display.handle"
-        
-        namespace VaFeature {
-            const $gtype: GObject.GType<VaFeature>
+        interface $Exports {
+            /**
+             * @GstVaPool is a buffer pool for VA allocators.
+             * @since 1.22
+             */
+            VaPool: VaPoolClass
         }
-
-        /**
-         * @since 1.22
-         */
-        enum VaFeature {
+        
+        interface VaFeatureEnum {
+            readonly $gtype: GObject.GType<VaFeature>
             /**
              * The feature is disabled.
              */
-            "DISABLED" = 0,
+            readonly "DISABLED": 0
             /**
              * The feature is enabled.
              */
-            "ENABLED" = 1,
+            readonly "ENABLED": 1
             /**
              * The feature is enabled automatically.
              */
-            "AUTO" = 2,
+            readonly "AUTO": 2
+        }
+        type VaFeature = VaFeatureEnum[Exclude<keyof VaFeatureEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 1.22
+             */
+            VaFeature: VaFeatureEnum
         }
         
-        namespace VaImplementation {
-            const $gtype: GObject.GType<VaImplementation>
-        }
-
-        /**
-         * Types of different VA API implemented drivers. These are the typical and
-         * the most widely used VA drivers.
-         * @since 1.20
-         */
-        enum VaImplementation {
+        interface VaImplementationEnum {
+            readonly $gtype: GObject.GType<VaImplementation>
             /**
              * The mesa gallium implementation.
              */
-            "MESA_GALLIUM" = 0,
+            readonly "MESA_GALLIUM": 0
             /**
              * The legacy i965 intel implementation.
              */
-            "INTEL_I965" = 1,
+            readonly "INTEL_I965": 1
             /**
              * The iHD intel implementation.
              */
-            "INTEL_IHD" = 2,
+            readonly "INTEL_IHD": 2
             /**
              * Other implementation.
              */
-            "OTHER" = 3,
+            readonly "OTHER": 3
             /**
              * Invalid implementation.
              */
-            "INVALID" = 4,
+            readonly "INVALID": 4
+        }
+        type VaImplementation = VaImplementationEnum[Exclude<keyof VaImplementationEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Types of different VA API implemented drivers. These are the typical and
+             * the most widely used VA drivers.
+             * @since 1.20
+             */
+            VaImplementation: VaImplementationEnum
+        }
+
+        interface $Exports {
+            __name__: "GstVa"
+            __version: "1.0"
+            ALLOCATOR_VASURFACE: "VAMemory"
+            CAPS_FEATURE_MEMORY_VA: "memory:VAMemory"
+            MAP_VA: 131072
+            VA_DISPLAY_HANDLE_CONTEXT_TYPE_STR: "gst.va.display.handle"
+            /**
+             * Video alignment is not handled as expected by VA since it uses
+             * opaque surfaces, not directly mappable memory. Still, decoders
+             * might need to request bigger surfaces for coded size rather than
+             * display sizes. This method will set the coded size to bufferpool's
+             * configuration, out of the typical video aligment.
+             * @since 1.20.2
+             * @param config the #GstStructure with the pool's configuration.
+             * @param align a #GstVideoAlignment
+             */
+            buffer_pool_config_set_va_alignment(config: Gst.Structure, align: GstVideo.VideoAlignment): void
+            /**
+             * Sets the usage hint for the buffers handled by the buffer pool.
+             * @since 1.22
+             * @param config the #GstStructure with the pool's configuration.
+             * @param usage_hint the VA usage hint for new VASurfaceID.
+             * @param use_derived a #GstVaFeature for derived mapping (only used when
+                VA allocator).
+             */
+            buffer_pool_config_set_va_allocation_params(config: Gst.Structure, usage_hint: number, use_derived: VaFeature): void
+            /**
+             * @since 1.22
+             * @param context a #GstContext may contain the display
+             * @param type_name a #gchar string of the element type
+             * @param render_device_path the #gchar string of render device path
+             * @returns whether we find a valid `display` in the `context`, the #GstVaDisplay we get
+             */
+            context_get_va_display(context: Gst.Context, type_name: string, render_device_path: string): [boolean, VaDisplay]
+            /**
+             * Set the @display in the @context
+             * @since 1.22
+             * @param context a #GstContext
+             * @param display the #GstVaDisplay we want to set
+             */
+            context_set_va_display(context: Gst.Context, display: VaDisplay): void
+            /**
+             * Creates a new VASurfaceID with @buffer's allocator and attached it
+             * to it.
+             *
+             * *This method is used only by plugin's internal VA decoder.*
+             * @since 1.22
+             * @param buffer a #GstBuffer
+             * @returns %TRUE if the new VASurfaceID is attached to `buffer`     correctly; %FALSE, otherwise.
+             */
+            va_buffer_create_aux_surface(buffer: Gst.Buffer): boolean
+            /**
+             * @since 1.22
+             * @param buffer a #GstBuffer
+             * @returns the display which this     `buffer` belongs to. The reference of the display is unchanged.
+             */
+            va_buffer_peek_display(buffer: Gst.Buffer): VaDisplay
+            /**
+             * Query the specified context type name.
+             * @since 1.22
+             * @param element a #GstElement
+             * @param context_type the #gchar string specify the context type name
+             */
+            va_context_query(element: Gst.Element, context_type: string): void
+            /**
+             * Get the underlying modifier for specified @format and @usage_hint.
+             * @since 1.24
+             * @param display a #GstVaDisplay
+             * @param format a #GstVideoFormat
+             * @param usage_hint VA usage hint
+             * @returns the underlying modifier.
+             */
+            va_dmabuf_get_modifier_for_format(display: VaDisplay, format: GstVideo.VideoFormat, usage_hint: number): number
+            /**
+             * It imports the array of @mem, representing a single frame, into a
+             * VASurfaceID and it's attached into every @mem.
+             * @since 1.22
+             * @param display a #GstVaDisplay
+             * @param drm_info a #GstVideoInfoDmaDrm
+             * @param mem Memories. One
+                per plane.
+             * @param fds array of
+                DMABuf file descriptors.
+             * @param offset array of memory
+                offsets.
+             * @param usage_hint VA usage hint.
+             * @returns %TRUE if frame is imported correctly into a VASurfaceID; %FALSE otherwise.
+             */
+            va_dmabuf_memories_setup(display: VaDisplay, drm_info: GstVideo.VideoInfoDmaDrm, mem: Gst.Memory[], fds: never[], offset: number[], usage_hint: number): boolean
+            /**
+             * Propagate @display by posting it as #GstContext in the pipeline's bus.
+             * @since 1.22
+             * @param element a #GstElement
+             * @param display the #GstVaDisplay to propagate
+             */
+            va_element_propagate_display_context(element: Gst.Element, display: VaDisplay): void
+            /**
+             * Called by the va element to ensure a valid #GstVaDisplay.
+             * @since 1.22
+             * @param element a #GstElement
+             * @param render_device_path the #gchar string of render device path
+             * @returns whether a #GstVaDisplay exists in `display_ptr`, The #GstVaDisplay to ensure
+             */
+            va_ensure_element_data(element: never | null, render_device_path: string): [boolean, VaDisplay]
+            /**
+             * Used by elements when processing their pad's queries, propagating
+             * element's #GstVaDisplay if the processed query requests it.
+             * @since 1.22
+             * @param element a #GstElement
+             * @param query a #GstQuery to query the context
+             * @param display a #GstVaDisplay to answer the query
+             * @returns whether we can handle the context query successfully
+             */
+            va_handle_context_query(element: Gst.Element, query: Gst.Query, display: VaDisplay): boolean
+            /**
+             * Called by elements in their #GstElementClass::set_context vmethod.
+             * It gets a valid #GstVaDisplay if @context has it.
+             * @since 1.22
+             * @param element a #GstElement
+             * @param context a #GstContext may contain the display
+             * @param render_device_path the #gchar string of render device path
+             * @returns whether the `display_ptr` could be successfully set to a valid #GstVaDisplay in the `context`, The #GstVaDisplay to set
+             */
+            va_handle_set_context(element: Gst.Element, context: Gst.Context, render_device_path: string): [boolean, VaDisplay]
+            /**
+             * @since 1.22
+             * @param mem a #GstMemory
+             * @returns the display which     this `mem` belongs to. The reference of the display is unchanged.
+             */
+            va_memory_peek_display(mem: Gst.Memory): VaDisplay
         }
     }
 
+    const GstVa: GstVa.$Exports
     export default GstVa
 }

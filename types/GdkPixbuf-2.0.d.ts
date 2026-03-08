@@ -16,10 +16,7 @@ declare module "gi://GdkPixbuf?version=2.0" {
 
     
 
-
     namespace GdkPixbuf {
-        const __name__: "GdkPixbuf"
-        const __version: "2.0"
         
 
         namespace Pixbuf {
@@ -39,6 +36,9 @@ declare module "gi://GdkPixbuf?version=2.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
                 "bits-per-sample": number
                 "colorspace": Colorspace
                 "has-alpha": boolean
@@ -49,47 +49,8 @@ declare module "gi://GdkPixbuf?version=2.0" {
                 "rowstride": number
                 "width": number
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         *  height);
-         *
-         *   int rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-         *
-         *   // The pixel buffer in the GdkPixbuf instance
-         *   guchar *pixels = gdk_pixbuf_get_pixels (pixbuf);
-         *
-         *   // The pixel we wish to modify
-         *   guchar *p = pixels + y * rowstride + x * n_channels;
-         *   p[0] = red;
-         *   p[1] = green;
-         *   p[2] = blue;
-         *   p[3] = alpha;
-         * }
-         * ```
-         *
-         * ## Loading images
-         *
-         * The `GdkPixBuf` class provides a simple mechanism for loading
-         * an image from a file in synchronous and asynchronous fashion.
-         *
-         * For GUI applications, it is recommended to use the asynchronous
-         * stream API to avoid blocking the control flow of the application.
-         *
-         * Additionally, `GdkPixbuf` provides the [class@GdkPixbuf.PixbufLoader`]
-         * API for progressive image loading.
-         *
-         * ## Saving images
-         *
-         * The `GdkPixbuf` class provides methods for saving image data in
-         * a number of file formats. The formatted data can be written to a
-         * file or to a memory buffer. `GdkPixbuf` can also call a user-defined
-         * callback on the data, which allows to e.g. write the image
-         * to a socket or store it in a database.
-         */
         interface Pixbuf extends GObject.Object, Gio.Icon, Gio.LoadableIcon {
             readonly $signals: Pixbuf.SignalSignatures
             readonly $readableProperties: Pixbuf.ReadableProperties
@@ -398,11 +359,10 @@ declare module "gi://GdkPixbuf?version=2.0" {
              *
              * Please see the section on [image data](class.Pixbuf.html#image-data) for information
              * about how the pixel data is stored in memory.
-             * @override
              * @since 2.26
              * @returns A pointer to the pixbuf's pixel data.
              */
-            get_pixels_with_length(): Uint8Array
+            get_pixels(): Uint8Array
             /**
              * Queries the rowstride of a pixbuf, which is the number of bytes between
              * the start of a row and the start of the next row.
@@ -640,6 +600,7 @@ declare module "gi://GdkPixbuf?version=2.0" {
         interface PixbufClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Pixbuf>
             readonly prototype: Pixbuf
+
             new (props?: Partial<GObject.ConstructorProps<Pixbuf>>): Pixbuf
             /**
              * Creates a new `GdkPixbuf` structure and allocates a buffer for it.
@@ -651,8 +612,8 @@ declare module "gi://GdkPixbuf?version=2.0" {
              * @param colorspace Color space for image
              * @param has_alpha Whether the image should have transparency information
              * @param bits_per_sample Number of bits per color sample
-             * @param width  0
-             * @param height  0
+             * @param width Width of image in pixels, must be > 0
+             * @param height Height of image in pixels, must be > 0
              * @returns A newly-created pixel buffer
              */
             "new"(colorspace: Colorspace, has_alpha: boolean, bits_per_sample: number, width: number, height: number): Pixbuf | null
@@ -668,12 +629,12 @@ declare module "gi://GdkPixbuf?version=2.0" {
              * @param colorspace Colorspace for the image data
              * @param has_alpha Whether the data has an opacity channel
              * @param bits_per_sample Number of bits per sample
-             * @param width  0
-             * @param height  0
+             * @param width Width of the image in pixels, must be > 0
+             * @param height Height of the image in pixels, must be > 0
              * @param rowstride Distance in bytes between row starts
              * @returns A newly-created pixbuf
              */
-            new_from_bytes(data: GLib.Bytes, colorspace: Colorspace, has_alpha: boolean, bits_per_sample: number, width: number, height: number, rowstride: number): Pixbuf
+            new_from_bytes(data: (GLib.Bytes | Uint8Array), colorspace: Colorspace, has_alpha: boolean, bits_per_sample: number, width: number, height: number, rowstride: number): Pixbuf
             /**
              * Creates a new #GdkPixbuf out of in-memory image data.
              *
@@ -690,8 +651,8 @@ declare module "gi://GdkPixbuf?version=2.0" {
              * @param colorspace Colorspace for the image data
              * @param has_alpha Whether the data has an opacity channel
              * @param bits_per_sample Number of bits per sample
-             * @param width  0
-             * @param height  0
+             * @param width Width of the image in pixels, must be > 0
+             * @param height Height of the image in pixels, must be > 0
              * @param rowstride Distance in bytes between row starts
              * @param destroy_fn Function
               used to free the data when the pixbuf's reference count
@@ -937,8 +898,8 @@ declare module "gi://GdkPixbuf?version=2.0" {
              * @param colorspace Color space for image
              * @param has_alpha Whether the image should have transparency information
              * @param bits_per_sample Number of bits per color sample
-             * @param width  0
-             * @param height  0
+             * @param width Width of image in pixels, must be > 0
+             * @param height Height of image in pixels, must be > 0
              * @returns the rowstride for the given values, or -1 in case of error.
              */
             calculate_rowstride(colorspace: Colorspace, has_alpha: boolean, bits_per_sample: number, width: number, height: number): number
@@ -948,7 +909,7 @@ declare module "gi://GdkPixbuf?version=2.0" {
              * @param filename The name of the file to identify.
              * @returns A `GdkPixbufFormat` describing   the image format of the file, Return location for the width of the image, Return location for the height of the image
              */
-            get_file_info(filename: string): PixbufFormat | null
+            get_file_info(filename: string): [PixbufFormat | null, number, number]
             /**
              * Asynchronously parses an image file far enough to determine its
              * format and size.
@@ -1043,7 +1004,143 @@ declare module "gi://GdkPixbuf?version=2.0" {
             save_to_stream_finish(async_result: Gio.AsyncResult): boolean
         }
 
-        const Pixbuf: PixbufClass
+        interface $Exports {
+            /**
+             * A pixel buffer.
+             *
+             * `GdkPixbuf` contains information about an image's pixel data,
+             * its color space, bits per sample, width and height, and the
+             * rowstride (the number of bytes between the start of one row
+             * and the start of the next).
+             *
+             * ## Creating new `GdkPixbuf`
+             *
+             * The most basic way to create a pixbuf is to wrap an existing pixel
+             * buffer with a [class@GdkPixbuf.Pixbuf] instance. You can use the
+             * [`ctor@GdkPixbuf.Pixbuf.new_from_data`] function to do this.
+             *
+             * Every time you create a new `GdkPixbuf` instance for some data, you
+             * will need to specify the destroy notification function that will be
+             * called when the data buffer needs to be freed; this will happen when
+             * a `GdkPixbuf` is finalized by the reference counting functions. If
+             * you have a chunk of static data compiled into your application, you
+             * can pass in `NULL` as the destroy notification function so that the
+             * data will not be freed.
+             *
+             * The [`ctor@GdkPixbuf.Pixbuf.new`] constructor function can be used
+             * as a convenience to create a pixbuf with an empty buffer; this is
+             * equivalent to allocating a data buffer using `malloc()` and then
+             * wrapping it with `gdk_pixbuf_new_from_data()`. The `gdk_pixbuf_new()`
+             * function will compute an optimal rowstride so that rendering can be
+             * performed with an efficient algorithm.
+             *
+             * You can also copy an existing pixbuf with the [method@Pixbuf.copy]
+             * function. This is not the same as just acquiring a reference to
+             * the old pixbuf instance: the copy function will actually duplicate
+             * the pixel data in memory and create a new [class@Pixbuf] instance
+             * for it.
+             *
+             * ## Reference counting
+             *
+             * `GdkPixbuf` structures are reference counted. This means that an
+             * application can share a single pixbuf among many parts of the
+             * code. When a piece of the program needs to use a pixbuf, it should
+             * acquire a reference to it by calling `g_object_ref()`; when it no
+             * longer needs the pixbuf, it should release the reference it acquired
+             * by calling `g_object_unref()`. The resources associated with a
+             * `GdkPixbuf` will be freed when its reference count drops to zero.
+             * Newly-created `GdkPixbuf` instances start with a reference count
+             * of one.
+             *
+             * ## Image Data
+             *
+             * Image data in a pixbuf is stored in memory in an uncompressed,
+             * packed format. Rows in the image are stored top to bottom, and
+             * in each row pixels are stored from left to right.
+             *
+             * There may be padding at the end of a row.
+             *
+             * The "rowstride" value of a pixbuf, as returned by [`method@GdkPixbuf.Pixbuf.get_rowstride`],
+             * indicates the number of bytes between rows.
+             *
+             * **NOTE**: If you are copying raw pixbuf data with `memcpy()` note that the
+             * last row in the pixbuf may not be as wide as the full rowstride, but rather
+             * just as wide as the pixel data needs to be; that is: it is unsafe to do
+             * `memcpy (dest, pixels, rowstride * height)` to copy a whole pixbuf. Use
+             * [method@GdkPixbuf.Pixbuf.copy] instead, or compute the width in bytes of the
+             * last row as:
+             *
+             * ```c
+             * last_row = width * ((n_channels * bits_per_sample + 7) / 8);
+             * ```
+             *
+             * The same rule applies when iterating over each row of a `GdkPixbuf` pixels
+             * array.
+             *
+             * The following code illustrates a simple `put_pixel()`
+             * function for RGB pixbufs with 8 bits per channel with an alpha
+             * channel.
+             *
+             * ```c
+             * static void
+             * put_pixel (GdkPixbuf *pixbuf,
+             *            int x,
+             * 	   int y,
+             * 	   guchar red,
+             * 	   guchar green,
+             * 	   guchar blue,
+             * 	   guchar alpha)
+             * {
+             *   int n_channels = gdk_pixbuf_get_n_channels (pixbuf);
+             *
+             *   // Ensure that the pixbuf is valid
+             *   g_assert (gdk_pixbuf_get_colorspace (pixbuf) == GDK_COLORSPACE_RGB);
+             *   g_assert (gdk_pixbuf_get_bits_per_sample (pixbuf) == 8);
+             *   g_assert (gdk_pixbuf_get_has_alpha (pixbuf));
+             *   g_assert (n_channels == 4);
+             *
+             *   int width = gdk_pixbuf_get_width (pixbuf);
+             *   int height = gdk_pixbuf_get_height (pixbuf);
+             *
+             *   // Ensure that the coordinates are in a valid range
+             *   g_assert (x >= 0 && x < width);
+             *   g_assert (y >= 0 && y < height);
+             *
+             *   int rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+             *
+             *   // The pixel buffer in the GdkPixbuf instance
+             *   guchar *pixels = gdk_pixbuf_get_pixels (pixbuf);
+             *
+             *   // The pixel we wish to modify
+             *   guchar *p = pixels + y * rowstride + x * n_channels;
+             *   p[0] = red;
+             *   p[1] = green;
+             *   p[2] = blue;
+             *   p[3] = alpha;
+             * }
+             * ```
+             *
+             * ## Loading images
+             *
+             * The `GdkPixBuf` class provides a simple mechanism for loading
+             * an image from a file in synchronous and asynchronous fashion.
+             *
+             * For GUI applications, it is recommended to use the asynchronous
+             * stream API to avoid blocking the control flow of the application.
+             *
+             * Additionally, `GdkPixbuf` provides the [class@GdkPixbuf.PixbufLoader`]
+             * API for progressive image loading.
+             *
+             * ## Saving images
+             *
+             * The `GdkPixbuf` class provides methods for saving image data in
+             * a number of file formats. The formatted data can be written to a
+             * file or to a memory buffer. `GdkPixbuf` can also call a user-defined
+             * callback on the data, which allows to e.g. write the image
+             * to a socket or store it in a database.
+             */
+            Pixbuf: PixbufClass
+        }
         
 
         namespace PixbufAnimation {
@@ -1060,22 +1157,6 @@ declare module "gi://GdkPixbuf?version=2.0" {
             }
         }
 
-        /**
-         * An opaque object representing an animation.
-         *
-         * The GdkPixBuf library provides a simple mechanism to load and
-         * represent animations. An animation is conceptually a series of
-         * frames to be displayed over time.
-         *
-         * The animation may not be represented as a series of frames
-         * internally; for example, it may be stored as a sprite and
-         * instructions for moving the sprite around a background.
-         *
-         * To display an animation you don't need to understand its
-         * representation, however; you just ask `GdkPixbuf` what should
-         * be displayed at a given point in time.
-         * @deprecated since 2.44 Use a different image loading library for animatable assets
-         */
         interface PixbufAnimation extends GObject.Object {
             readonly $signals: PixbufAnimation.SignalSignatures
             readonly $readableProperties: PixbufAnimation.ReadableProperties
@@ -1238,6 +1319,7 @@ declare module "gi://GdkPixbuf?version=2.0" {
         interface PixbufAnimationClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PixbufAnimation>
             readonly prototype: PixbufAnimation
+
             new (props?: Partial<GObject.ConstructorProps<PixbufAnimation>>): PixbufAnimation
             /**
              * Creates a new animation by loading it from a file.
@@ -1316,7 +1398,25 @@ declare module "gi://GdkPixbuf?version=2.0" {
             new_from_stream_async(stream: Gio.InputStream, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         }
 
-        const PixbufAnimation: PixbufAnimationClass
+        interface $Exports {
+            /**
+             * An opaque object representing an animation.
+             *
+             * The GdkPixBuf library provides a simple mechanism to load and
+             * represent animations. An animation is conceptually a series of
+             * frames to be displayed over time.
+             *
+             * The animation may not be represented as a series of frames
+             * internally; for example, it may be stored as a sprite and
+             * instructions for moving the sprite around a background.
+             *
+             * To display an animation you don't need to understand its
+             * representation, however; you just ask `GdkPixbuf` what should
+             * be displayed at a given point in time.
+             * @deprecated since 2.44 Use a different image loading library for animatable assets
+             */
+            PixbufAnimation: PixbufAnimationClass
+        }
         
 
         namespace PixbufAnimationIter {
@@ -1333,11 +1433,6 @@ declare module "gi://GdkPixbuf?version=2.0" {
             }
         }
 
-        /**
-         * An opaque object representing an iterator which points to a
-         * certain position in an animation.
-         * @deprecated since 2.44 Use a different image loading library for animatable assets
-         */
         interface PixbufAnimationIter extends GObject.Object {
             readonly $signals: PixbufAnimationIter.SignalSignatures
             readonly $readableProperties: PixbufAnimationIter.ReadableProperties
@@ -1492,10 +1587,18 @@ declare module "gi://GdkPixbuf?version=2.0" {
         interface PixbufAnimationIterClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PixbufAnimationIter>
             readonly prototype: PixbufAnimationIter
+
             new (props?: Partial<GObject.ConstructorProps<PixbufAnimationIter>>): PixbufAnimationIter
         }
 
-        const PixbufAnimationIter: PixbufAnimationIterClass
+        interface $Exports {
+            /**
+             * An opaque object representing an iterator which points to a
+             * certain position in an animation.
+             * @deprecated since 2.44 Use a different image loading library for animatable assets
+             */
+            PixbufAnimationIter: PixbufAnimationIterClass
+        }
         
 
         namespace PixbufLoader {
@@ -1556,53 +1659,6 @@ declare module "gi://GdkPixbuf?version=2.0" {
             }
         }
 
-        /**
-         * Incremental image loader.
-         *
-         * `GdkPixbufLoader` provides a way for applications to drive the
-         * process of loading an image, by letting them send the image data
-         * directly to the loader instead of having the loader read the data
-         * from a file. Applications can use this functionality instead of
-         * `gdk_pixbuf_new_from_file()` or `gdk_pixbuf_animation_new_from_file()`
-         * when they need to parse image data in small chunks. For example,
-         * it should be used when reading an image from a (potentially) slow
-         * network connection, or when loading an extremely large file.
-         *
-         * To use `GdkPixbufLoader` to load an image, create a new instance,
-         * and call [method@GdkPixbuf.PixbufLoader.write] to send the data
-         * to it. When done, [method@GdkPixbuf.PixbufLoader.close] should be
-         * called to end the stream and finalize everything.
-         *
-         * The loader will emit three important signals throughout the process:
-         *
-         *  - [signal@GdkPixbuf.PixbufLoader::size-prepared] will be emitted as
-         *    soon as the image has enough information to determine the size of
-         *    the image to be used. If you want to scale the image while loading
-         *    it, you can call [method@GdkPixbuf.PixbufLoader.set_size] in
-         *    response to this signal.
-         *  - [signal@GdkPixbuf.PixbufLoader::area-prepared] will be emitted as
-         *    soon as the pixbuf of the desired has been allocated. You can obtain
-         *    the `GdkPixbuf` instance by calling [method@GdkPixbuf.PixbufLoader.get_pixbuf].
-         *    If you want to use it, simply acquire a reference to it. You can
-         *    also call `gdk_pixbuf_loader_get_pixbuf()` later to get the same
-         *    pixbuf.
-         *  - [signal@GdkPixbuf.PixbufLoader::area-updated] will be emitted every
-         *    time a region is updated. This way you can update a partially
-         *    completed image. Note that you do not know anything about the
-         *    completeness of an image from the updated area. For example, in an
-         *    interlaced image you will need to make several passes before the
-         *    image is done loading.
-         *
-         * ## Loading an animation
-         *
-         * Loading an animation is almost as easy as loading an image. Once the
-         * first [signal@GdkPixbuf.PixbufLoader::area-prepared] signal has been
-         * emitted, you can call [method@GdkPixbuf.PixbufLoader.get_animation] to
-         * get the [class@GdkPixbuf.PixbufAnimation] instance, and then call
-         * and [method@GdkPixbuf.PixbufAnimation.get_iter] to get a
-         * [class@GdkPixbuf.PixbufAnimationIter] to retrieve the pixbuf for the
-         * desired time stamp.
-         */
         interface PixbufLoader extends GObject.Object {
             readonly $signals: PixbufLoader.SignalSignatures
             readonly $readableProperties: PixbufLoader.ReadableProperties
@@ -1694,7 +1750,7 @@ declare module "gi://GdkPixbuf?version=2.0" {
              * @param buffer The image data as a `GBytes` buffer.
              * @returns `TRUE` if the write was successful, or `FALSE` if   the loader cannot parse the buffer
              */
-            write_bytes(buffer: GLib.Bytes): boolean
+            write_bytes(buffer: (GLib.Bytes | Uint8Array)): boolean
             /**
              */
             vfunc_area_prepared(): void
@@ -1718,6 +1774,7 @@ declare module "gi://GdkPixbuf?version=2.0" {
         interface PixbufLoaderClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PixbufLoader>
             readonly prototype: PixbufLoader
+
             new (props?: Partial<GObject.ConstructorProps<PixbufLoader>>): PixbufLoader
             /**
              * Creates a new pixbuf loader object.
@@ -1768,7 +1825,56 @@ declare module "gi://GdkPixbuf?version=2.0" {
             new_with_type(image_type: string): PixbufLoader
         }
 
-        const PixbufLoader: PixbufLoaderClass
+        interface $Exports {
+            /**
+             * Incremental image loader.
+             *
+             * `GdkPixbufLoader` provides a way for applications to drive the
+             * process of loading an image, by letting them send the image data
+             * directly to the loader instead of having the loader read the data
+             * from a file. Applications can use this functionality instead of
+             * `gdk_pixbuf_new_from_file()` or `gdk_pixbuf_animation_new_from_file()`
+             * when they need to parse image data in small chunks. For example,
+             * it should be used when reading an image from a (potentially) slow
+             * network connection, or when loading an extremely large file.
+             *
+             * To use `GdkPixbufLoader` to load an image, create a new instance,
+             * and call [method@GdkPixbuf.PixbufLoader.write] to send the data
+             * to it. When done, [method@GdkPixbuf.PixbufLoader.close] should be
+             * called to end the stream and finalize everything.
+             *
+             * The loader will emit three important signals throughout the process:
+             *
+             *  - [signal@GdkPixbuf.PixbufLoader::size-prepared] will be emitted as
+             *    soon as the image has enough information to determine the size of
+             *    the image to be used. If you want to scale the image while loading
+             *    it, you can call [method@GdkPixbuf.PixbufLoader.set_size] in
+             *    response to this signal.
+             *  - [signal@GdkPixbuf.PixbufLoader::area-prepared] will be emitted as
+             *    soon as the pixbuf of the desired has been allocated. You can obtain
+             *    the `GdkPixbuf` instance by calling [method@GdkPixbuf.PixbufLoader.get_pixbuf].
+             *    If you want to use it, simply acquire a reference to it. You can
+             *    also call `gdk_pixbuf_loader_get_pixbuf()` later to get the same
+             *    pixbuf.
+             *  - [signal@GdkPixbuf.PixbufLoader::area-updated] will be emitted every
+             *    time a region is updated. This way you can update a partially
+             *    completed image. Note that you do not know anything about the
+             *    completeness of an image from the updated area. For example, in an
+             *    interlaced image you will need to make several passes before the
+             *    image is done loading.
+             *
+             * ## Loading an animation
+             *
+             * Loading an animation is almost as easy as loading an image. Once the
+             * first [signal@GdkPixbuf.PixbufLoader::area-prepared] signal has been
+             * emitted, you can call [method@GdkPixbuf.PixbufLoader.get_animation] to
+             * get the [class@GdkPixbuf.PixbufAnimation] instance, and then call
+             * and [method@GdkPixbuf.PixbufAnimation.get_iter] to get a
+             * [class@GdkPixbuf.PixbufAnimationIter] to retrieve the pixbuf for the
+             * desired time stamp.
+             */
+            PixbufLoader: PixbufLoaderClass
+        }
         
 
         namespace PixbufNonAnim {
@@ -1785,8 +1891,6 @@ declare module "gi://GdkPixbuf?version=2.0" {
             }
         }
 
-        /**
-         */
         interface PixbufNonAnim extends PixbufAnimation {
             readonly $signals: PixbufNonAnim.SignalSignatures
             readonly $readableProperties: PixbufNonAnim.ReadableProperties
@@ -1797,14 +1901,19 @@ declare module "gi://GdkPixbuf?version=2.0" {
         interface PixbufNonAnimClass extends Omit<PixbufAnimationClass, "new"> {
             readonly $gtype: GObject.GType<PixbufNonAnim>
             readonly prototype: PixbufNonAnim
+
             new (props?: Partial<GObject.ConstructorProps<PixbufNonAnim>>): PixbufNonAnim
             /**
              * @param pixbuf
              */
-            "new"(pixbuf: Pixbuf): PixbufAnimation
+            "new"(pixbuf: Pixbuf): PixbufNonAnim
         }
 
-        const PixbufNonAnim: PixbufNonAnimClass
+        interface $Exports {
+            /**
+             */
+            PixbufNonAnim: PixbufNonAnimClass
+        }
         
 
         namespace PixbufSimpleAnim {
@@ -1823,9 +1932,6 @@ declare module "gi://GdkPixbuf?version=2.0" {
             }
         }
 
-        /**
-         * An opaque struct representing a simple animation.
-         */
         interface PixbufSimpleAnim extends PixbufAnimation {
             readonly $signals: PixbufSimpleAnim.SignalSignatures
             readonly $readableProperties: PixbufSimpleAnim.ReadableProperties
@@ -1867,6 +1973,7 @@ declare module "gi://GdkPixbuf?version=2.0" {
         interface PixbufSimpleAnimClass extends Omit<PixbufAnimationClass, "new"> {
             readonly $gtype: GObject.GType<PixbufSimpleAnim>
             readonly prototype: PixbufSimpleAnim
+
             new (props?: Partial<GObject.ConstructorProps<PixbufSimpleAnim>>): PixbufSimpleAnim
             /**
              * Creates a new, empty animation.
@@ -1880,7 +1987,12 @@ declare module "gi://GdkPixbuf?version=2.0" {
             "new"(width: number, height: number, rate: number): PixbufSimpleAnim
         }
 
-        const PixbufSimpleAnim: PixbufSimpleAnimClass
+        interface $Exports {
+            /**
+             * An opaque struct representing a simple animation.
+             */
+            PixbufSimpleAnim: PixbufSimpleAnimClass
+        }
         
 
         namespace PixbufSimpleAnimIter {
@@ -1897,8 +2009,6 @@ declare module "gi://GdkPixbuf?version=2.0" {
             }
         }
 
-        /**
-         */
         interface PixbufSimpleAnimIter extends PixbufAnimationIter {
             readonly $signals: PixbufSimpleAnimIter.SignalSignatures
             readonly $readableProperties: PixbufSimpleAnimIter.ReadableProperties
@@ -1909,24 +2019,23 @@ declare module "gi://GdkPixbuf?version=2.0" {
         interface PixbufSimpleAnimIterClass extends Omit<PixbufAnimationIterClass, "new"> {
             readonly $gtype: GObject.GType<PixbufSimpleAnimIter>
             readonly prototype: PixbufSimpleAnimIter
+
             new (props?: Partial<GObject.ConstructorProps<PixbufSimpleAnimIter>>): PixbufSimpleAnimIter
         }
 
-        const PixbufSimpleAnimIter: PixbufSimpleAnimIterClass
-        none
-        none
-        /**
-         * A `GdkPixbufFormat` contains information about the image format accepted
-         * by a module.
-         *
-         * Only modules should access the fields directly, applications should
-         * use the `gdk_pixbuf_format_*` family of functions.
-         * @since 2.2
-         */
-        abstract class PixbufFormat {
-            static readonly $gtype: GObject.GType<PixbufFormat>
+        interface $Exports {
+            /**
+             */
+            PixbufSimpleAnimIter: PixbufSimpleAnimIterClass
+        }
+        
 
-            
+        interface PixbufFormatStruct {
+            readonly $gtype: GObject.GType<PixbufFormat>
+            [Symbol.hasInstance](instance: unknown): instance is PixbufFormat
+        }
+
+        interface PixbufFormat {
             /**
              * the name of the image format
              */
@@ -2058,58 +2167,18 @@ declare module "gi://GdkPixbuf?version=2.0" {
              */
             set_disabled(disabled: boolean): void
         }
-        none
-        /**
-         * A `GdkPixbufModule` contains the necessary functions to load and save
-         * images in a certain file format.
-         *
-         * If `GdkPixbuf` has been compiled with `GModule` support, it can be extended
-         * by modules which can load (and perhaps also save) new image and animation
-         * formats.
-         *
-         * ## Implementing modules
-         *
-         * The `GdkPixbuf` interfaces needed for implementing modules are contained in
-         * `gdk-pixbuf-io.h` (and `gdk-pixbuf-animation.h` if the module supports
-         * animations). They are not covered by the same stability guarantees as the
-         * regular GdkPixbuf API. To underline this fact, they are protected by the
-         * `GDK_PIXBUF_ENABLE_BACKEND` pre-processor symbol.
-         *
-         * Each loadable module must contain a `GdkPixbufModuleFillVtableFunc` function
-         * named `fill_vtable`, which will get called when the module
-         * is loaded and must set the function pointers of the `GdkPixbufModule`.
-         *
-         * In order to make format-checking work before actually loading the modules
-         * (which may require calling `dlopen` to load image libraries), modules export
-         * their signatures (and other information) via the `fill_info` function. An
-         * external utility, `gdk-pixbuf-query-loaders`, uses this to create a text
-         * file containing a list of all available loaders and  their signatures.
-         * This file is then read at runtime by `GdkPixbuf` to obtain the list of
-         * available loaders and their signatures.
-         *
-         * Modules may only implement a subset of the functionality available via
-         * `GdkPixbufModule`. If a particular functionality is not implemented, the
-         * `fill_vtable` function will simply not set the corresponding
-         * function pointers of the `GdkPixbufModule` structure. If a module supports
-         * incremental loading (i.e. provides `begin_load`, `stop_load` and
-         * `load_increment`), it doesn't have to implement `load`, since `GdkPixbuf`
-         * can supply a generic `load` implementation wrapping the incremental loading.
-         *
-         * ## Installing modules
-         *
-         * Installing a module is a two-step process:
-         *
-         *  - copy the module file(s) to the loader directory (normally
-         *    `$libdir/gdk-pixbuf-2.0/$version/loaders`, unless overridden by the
-         *    environment variable `GDK_PIXBUF_MODULEDIR`)
-         *  - call `gdk-pixbuf-query-loaders` to update the module file (normally
-         *    `$libdir/gdk-pixbuf-2.0/$version/loaders.cache`, unless overridden
-         *    by the environment variable `GDK_PIXBUF_MODULE_FILE`)
-         */
-        abstract class PixbufModule {
-            static readonly $gtype: GObject.GType<PixbufModule>
 
-            
+        interface $Exports {
+            PixbufFormat: PixbufFormatStruct
+        }
+        
+
+        interface PixbufModuleStruct {
+            readonly $gtype: GObject.GType<PixbufModule>
+            [Symbol.hasInstance](instance: unknown): instance is PixbufModule
+        }
+
+        interface PixbufModule {
             /**
              * the name of the module, usually the same as the
              *  usual file extension for images of this type, eg. "xpm", "jpeg" or "png".
@@ -2156,43 +2225,18 @@ declare module "gi://GdkPixbuf?version=2.0" {
              */
             is_save_option_supported: PixbufModuleSaveOptionSupportedFunc
         }
-        /**
-         * The signature prefix for a module.
-         *
-         * The signature of a module is a set of prefixes. Prefixes are encoded as
-         * pairs of ordinary strings, where the second string, called the mask, if
-         * not `NULL`, must be of the same length as the first one and may contain
-         * ' ', '!', 'x', 'z', and 'n' to indicate bytes that must be matched,
-         * not matched, "don't-care"-bytes, zeros and non-zeros, respectively.
-         *
-         * Each prefix has an associated integer that describes the relevance of
-         * the prefix, with 0 meaning a mismatch and 100 a "perfect match".
-         *
-         * Starting with gdk-pixbuf 2.8, the first byte of the mask may be '*',
-         * indicating an unanchored pattern that matches not only at the beginning,
-         * but also in the middle. Versions prior to 2.8 will interpret the '*'
-         * like an 'x'.
-         *
-         * The signature of a module is stored as an array of
-         * `GdkPixbufModulePatterns`. The array is terminated by a pattern
-         * where the `prefix` is `NULL`.
-         *
-         * ```c
-         * GdkPixbufModulePattern *signature[] = {
-         *   { "abcdx", " !x z", 100 },
-         *   { "bla", NULL,  90 },
-         *   { NULL, NULL, 0 }
-         * };
-         * ```
-         *
-         * In the example above, the signature matches e.g. "auud\0" with
-         * relevance 100, and "blau" with relevance 90.
-         * @since 2.2
-         */
-        abstract class PixbufModulePattern {
-            static readonly $gtype: GObject.GType<PixbufModulePattern>
 
-            
+        interface $Exports {
+            PixbufModule: PixbufModuleStruct
+        }
+        
+
+        interface PixbufModulePatternStruct {
+            readonly $gtype: GObject.GType<PixbufModulePattern>
+            [Symbol.hasInstance](instance: unknown): instance is PixbufModulePattern
+        }
+
+        interface PixbufModulePattern {
             /**
              * the prefix for this pattern
              */
@@ -2207,54 +2251,37 @@ declare module "gi://GdkPixbuf?version=2.0" {
              */
             relevance: number
         }
-        none
-        /**
-         */
-        function pixbuf_error_quark(): GLib.Quark
-        const PIXBUF_MAJOR: 2
-        const PIXBUF_MICRO: 5
-        const PIXBUF_MINOR: 44
-        const PIXBUF_VERSION: "2.44.5"
-        
-        namespace Colorspace {
-            const $gtype: GObject.GType<Colorspace>
-        }
 
-        /**
-         * This enumeration defines the color spaces that are supported by
-         * the gdk-pixbuf library.
-         *
-         * Currently only RGB is supported.
-         */
-        enum Colorspace {
+        interface $Exports {
+            PixbufModulePattern: PixbufModulePatternStruct
+        }
+        
+        interface ColorspaceEnum {
+            readonly $gtype: GObject.GType<Colorspace>
             /**
              * Indicates a red/green/blue additive color space.
              */
-            "RGB" = 0,
+            readonly "RGB": 0
+        }
+        type Colorspace = ColorspaceEnum[Exclude<keyof ColorspaceEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * This enumeration defines the color spaces that are supported by
+             * the gdk-pixbuf library.
+             *
+             * Currently only RGB is supported.
+             */
+            Colorspace: ColorspaceEnum
         }
         
-        namespace InterpType {
-            const $gtype: GObject.GType<InterpType>
-        }
-
-        /**
-         * Interpolation modes for scaling functions.
-         *
-         * The `GDK_INTERP_NEAREST` mode is the fastest scaling method, but has
-         * horrible quality when scaling down; `GDK_INTERP_BILINEAR` is the best
-         * choice if you aren't sure what to choose, it has a good speed/quality
-         * balance.
-         *
-         * **Note**: Cubic filtering is missing from the list; hyperbolic
-         * interpolation is just as fast and results in higher quality.
-         */
-        enum InterpType {
+        interface InterpTypeEnum {
+            readonly $gtype: GObject.GType<InterpType>
             /**
              * Nearest neighbor sampling; this is the fastest
              *  and lowest quality mode. Quality is normally unacceptable when scaling
              *  down, but may be OK when scaling up.
              */
-            "NEAREST" = 0,
+            readonly "NEAREST": 0
             /**
              * This is an accurate simulation of the PostScript
              *  image operator without any interpolation enabled.  Each pixel is
@@ -2262,7 +2289,7 @@ declare module "gi://GdkPixbuf?version=2.0" {
              *  are implemented with antialiasing.  It resembles nearest neighbor for
              *  enlargement, and bilinear for reduction.
              */
-            "TILES" = 1,
+            readonly "TILES": 1
             /**
              * Best quality/speed balance; use this mode by
              *  default. Bilinear interpolation.  For enlargement, it is
@@ -2270,7 +2297,7 @@ declare module "gi://GdkPixbuf?version=2.0" {
              *  For reduction, it is equivalent to laying down small tiles and
              *  integrating over the coverage area.
              */
-            "BILINEAR" = 2,
+            readonly "BILINEAR": 2
             /**
              * This is the slowest and highest quality
              *  reconstruction function. It is derived from the hyperbolic filters in
@@ -2281,130 +2308,162 @@ declare module "gi://GdkPixbuf?version=2.0" {
              *  it has a lower quality than the @GDK_INTERP_BILINEAR filter
              *  (Since: 2.38)
              */
-            "HYPER" = 3,
+            readonly "HYPER": 3
+        }
+        type InterpType = InterpTypeEnum[Exclude<keyof InterpTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Interpolation modes for scaling functions.
+             *
+             * The `GDK_INTERP_NEAREST` mode is the fastest scaling method, but has
+             * horrible quality when scaling down; `GDK_INTERP_BILINEAR` is the best
+             * choice if you aren't sure what to choose, it has a good speed/quality
+             * balance.
+             *
+             * **Note**: Cubic filtering is missing from the list; hyperbolic
+             * interpolation is just as fast and results in higher quality.
+             */
+            InterpType: InterpTypeEnum
         }
         
-        namespace PixbufAlphaMode {
-            const $gtype: GObject.GType<PixbufAlphaMode>
-        }
-
-        /**
-         * Control the alpha channel for drawables.
-         *
-         * These values can be passed to gdk_pixbuf_xlib_render_to_drawable_alpha()
-         * in gdk-pixbuf-xlib to control how the alpha channel of an image should
-         * be handled.
-         *
-         * This function can create a bilevel clipping mask (black and white) and use
-         * it while painting the image.
-         *
-         * In the future, when the X Window System gets an alpha channel extension,
-         * it will be possible to do full alpha compositing onto arbitrary drawables.
-         * For now both cases fall back to a bilevel clipping mask.
-         * @deprecated since 2.42 There is no user of GdkPixbufAlphaMode in GdkPixbuf,   and the Xlib utility functions have been split out to their own   library, gdk-pixbuf-xlib
-         */
-        enum PixbufAlphaMode {
+        interface PixbufAlphaModeEnum {
+            readonly $gtype: GObject.GType<PixbufAlphaMode>
             /**
              * A bilevel clipping mask (black and white)
              *  will be created and used to draw the image.  Pixels below 0.5 opacity
              *  will be considered fully transparent, and all others will be
              *  considered fully opaque.
              */
-            "BILEVEL" = 0,
+            readonly "BILEVEL": 0
             /**
              * For now falls back to #GDK_PIXBUF_ALPHA_BILEVEL.
              *  In the future it will do full alpha compositing.
              */
-            "FULL" = 1,
+            readonly "FULL": 1
+        }
+        type PixbufAlphaMode = PixbufAlphaModeEnum[Exclude<keyof PixbufAlphaModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Control the alpha channel for drawables.
+             *
+             * These values can be passed to gdk_pixbuf_xlib_render_to_drawable_alpha()
+             * in gdk-pixbuf-xlib to control how the alpha channel of an image should
+             * be handled.
+             *
+             * This function can create a bilevel clipping mask (black and white) and use
+             * it while painting the image.
+             *
+             * In the future, when the X Window System gets an alpha channel extension,
+             * it will be possible to do full alpha compositing onto arbitrary drawables.
+             * For now both cases fall back to a bilevel clipping mask.
+             * @deprecated since 2.42 There is no user of GdkPixbufAlphaMode in GdkPixbuf,   and the Xlib utility functions have been split out to their own   library, gdk-pixbuf-xlib
+             */
+            PixbufAlphaMode: PixbufAlphaModeEnum
         }
         
-        abstract class PixbufError extends GLib.Error {
-            static readonly $gtype: GObject.GType<PixbufError>
+        interface PixbufError extends GLib.Error {}
+
+        interface PixbufErrorEnum {
+            readonly $gtype: GObject.GType<PixbufError>
+
+            new(props: { message: string, code: number }): PixbufError
             /**
              * An image file was broken somehow.
              */
-            static readonly "CORRUPT_IMAGE": 0
+            readonly "CORRUPT_IMAGE": 0
             /**
              * Not enough memory.
              */
-            static readonly "INSUFFICIENT_MEMORY": 1
+            readonly "INSUFFICIENT_MEMORY": 1
             /**
              * A bad option was passed to a pixbuf save module.
              */
-            static readonly "BAD_OPTION": 2
+            readonly "BAD_OPTION": 2
             /**
              * Unknown image type.
              */
-            static readonly "UNKNOWN_TYPE": 3
+            readonly "UNKNOWN_TYPE": 3
             /**
              * Don't know how to perform the
              *  given operation on the type of image at hand.
              */
-            static readonly "UNSUPPORTED_OPERATION": 4
+            readonly "UNSUPPORTED_OPERATION": 4
             /**
              * Generic failure code, something went wrong.
              */
-            static readonly "FAILED": 5
+            readonly "FAILED": 5
             /**
              * Only part of the animation was loaded.
              */
-            static readonly "INCOMPLETE_ANIMATION": 6
-        }
-        /**
+            readonly "INCOMPLETE_ANIMATION": 6
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace PixbufRotation {
-            const $gtype: GObject.GType<PixbufRotation>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The possible rotations which can be passed to gdk_pixbuf_rotate_simple().
-         *
-         * To make them easier to use, their numerical values are the actual degrees.
-         */
-        enum PixbufRotation {
+        interface $Exports {
+            /**
+             * An error code in the `GDK_PIXBUF_ERROR` domain.
+             *
+             * Many gdk-pixbuf operations can cause errors in this domain, or in
+             * the `G_FILE_ERROR` domain.
+             */
+            PixbufError: PixbufErrorEnum
+        }
+        
+        interface PixbufRotationEnum {
+            readonly $gtype: GObject.GType<PixbufRotation>
             /**
              * No rotation.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Rotate by 90 degrees.
              */
-            "COUNTERCLOCKWISE" = 90,
+            readonly "COUNTERCLOCKWISE": 90
             /**
              * Rotate by 180 degrees.
              */
-            "UPSIDEDOWN" = 180,
+            readonly "UPSIDEDOWN": 180
             /**
              * Rotate by 270 degrees.
              */
-            "CLOCKWISE" = 270,
+            readonly "CLOCKWISE": 270
+        }
+        type PixbufRotation = PixbufRotationEnum[Exclude<keyof PixbufRotationEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The possible rotations which can be passed to gdk_pixbuf_rotate_simple().
+             *
+             * To make them easier to use, their numerical values are the actual degrees.
+             */
+            PixbufRotation: PixbufRotationEnum
         }
         
-        namespace PixbufFormatFlags {
-            const $gtype: GObject.GType<PixbufFormatFlags>
-        }
-
-        /**
-         * Flags which allow a module to specify further details about the supported
-         * operations.
-         * @since 2.2
-         */
-        enum PixbufFormatFlags {
+        interface PixbufFormatFlagsBitfield {
+            readonly $gtype: GObject.GType<PixbufFormatFlags>
             /**
              * the module can write out images in the format.
              */
-            "WRITABLE" = 1,
+            readonly "WRITABLE": 1
             /**
              * the image format is scalable
              */
-            "SCALABLE" = 2,
+            readonly "SCALABLE": 2
             /**
              * the module is threadsafe. gdk-pixbuf
              *     ignores modules that are not marked as threadsafe. (Since 2.28).
              */
-            "THREADSAFE" = 4,
+            readonly "THREADSAFE": 4
+        }
+        type PixbufFormatFlags = number
+        interface $Exports {
+            /**
+             * Flags which allow a module to specify further details about the supported
+             * operations.
+             * @since 2.2
+             */
+            PixbufFormatFlags: PixbufFormatFlagsBitfield
         }
         /**
          * A function of this type is responsible for freeing the pixel array
@@ -2418,7 +2477,6 @@ declare module "gi://GdkPixbuf?version=2.0" {
           that is being finalized.
          */
         type PixbufDestroyNotify = (pixels: Uint8Array) => void
-        none
         /**
          * Defines the type of the function used to fill a
          * #GdkPixbufFormat structure with information about a module.
@@ -2466,14 +2524,17 @@ declare module "gi://GdkPixbuf?version=2.0" {
          */
         type PixbufModuleLoadXpmDataFunc = (data: string[]) => Pixbuf
         /**
-         * "
+         * Defines the type of the function that gets called once the initial
+         * setup of @pixbuf is done.
+         *
+         * #GdkPixbufLoader uses a function of this type to emit the
+         * "<link linkend="GdkPixbufLoader-area-prepared">area_prepared</link>"
          * signal.
          * @since 2.2
          * @param pixbuf the #GdkPixbuf that is currently being loaded.
          * @param anim if an animation is being loaded, the #GdkPixbufAnimation, else %NULL.
          */
         type PixbufModulePreparedFunc = (pixbuf: Pixbuf, anim: PixbufAnimation) => void
-        none
         /**
          * Saves a `GdkPixbuf` into a standard C file stream.
          *
@@ -2523,7 +2584,11 @@ declare module "gi://GdkPixbuf?version=2.0" {
          */
         type PixbufModuleStopLoadFunc = (context: never | null) => boolean
         /**
-         * "
+         * Defines the type of the function that gets called every time a region
+         * of @pixbuf is updated.
+         *
+         * #GdkPixbufLoader uses a function of this type to emit the
+         * "<link linkend="GdkPixbufLoader-area-updated">area_updated</link>"
          * signal.
          * @since 2.2
          * @param pixbuf the #GdkPixbuf that is currently being loaded.
@@ -2547,7 +2612,20 @@ declare module "gi://GdkPixbuf?version=2.0" {
          * @returns `TRUE` if successful, `FALSE` otherwise, A location to return an error.
          */
         type PixbufSaveFunc = (buf: Uint8Array) => [boolean, GLib.Error]
+
+        interface $Exports {
+            __name__: "GdkPixbuf"
+            __version: "2.0"
+            PIXBUF_MAJOR: 2
+            PIXBUF_MICRO: 5
+            PIXBUF_MINOR: 44
+            PIXBUF_VERSION: "2.44.5"
+            /**
+             */
+            pixbuf_error_quark(): GLib.Quark
+        }
     }
 
+    const GdkPixbuf: GdkPixbuf.$Exports
     export default GdkPixbuf
 }

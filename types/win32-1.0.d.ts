@@ -12,16 +12,19 @@ declare module "gi://win32?version=1.0" {
 
     
 
-
     namespace win32 {
-        const __name__: "win32"
-        const __version: "1.0"
-        /**
-         */
-        abstract class MSG {
-            static readonly $gtype: GObject.GType<MSG>
+        
 
-            
+        interface MSGStruct {
+            readonly $gtype: GObject.GType<MSG>
+            [Symbol.hasInstance](instance: unknown): instance is MSG
+        }
+
+        interface MSG {
+        }
+
+        interface $Exports {
+            MSG: MSGStruct
         }
         /**
          */
@@ -35,7 +38,13 @@ declare module "gi://win32?version=1.0" {
         /**
          */
         type HGDIOBJ = number
+
+        interface $Exports {
+            __name__: "win32"
+            __version: "1.0"
+        }
     }
 
+    const win32: win32.$Exports
     export default win32
 }

@@ -16,10 +16,7 @@ declare module "gi://AppStream?version=1.0" {
 
     
 
-
     namespace AppStream {
-        const __name__: "AppStream"
-        const __version: "1.0"
         
 
         namespace Agreement {
@@ -36,8 +33,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Agreement extends GObject.Object {
             readonly $signals: Agreement.SignalSignatures
             readonly $readableProperties: Agreement.ReadableProperties
@@ -88,6 +83,7 @@ declare module "gi://AppStream?version=1.0" {
         interface AgreementClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Agreement>
             readonly prototype: Agreement
+
             new (props?: Partial<GObject.ConstructorProps<Agreement>>): Agreement
             /**
              * Creates a new #AsAgreement.
@@ -97,7 +93,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Agreement
         }
 
-        const Agreement: AgreementClass
+        interface $Exports {
+            /**
+             */
+            Agreement: AgreementClass
+        }
         
 
         namespace AgreementSection {
@@ -114,8 +114,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface AgreementSection extends GObject.Object {
             readonly $signals: AgreementSection.SignalSignatures
             readonly $readableProperties: AgreementSection.ReadableProperties
@@ -178,6 +176,7 @@ declare module "gi://AppStream?version=1.0" {
         interface AgreementSectionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<AgreementSection>
             readonly prototype: AgreementSection
+
             new (props?: Partial<GObject.ConstructorProps<AgreementSection>>): AgreementSection
             /**
              * Creates a new #AsAgreementSection.
@@ -187,7 +186,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): AgreementSection
         }
 
-        const AgreementSection: AgreementSectionClass
+        interface $Exports {
+            /**
+             */
+            AgreementSection: AgreementSectionClass
+        }
         
 
         namespace Artifact {
@@ -204,8 +207,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Artifact extends GObject.Object {
             readonly $signals: Artifact.SignalSignatures
             readonly $readableProperties: Artifact.ReadableProperties
@@ -295,6 +296,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ArtifactClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Artifact>
             readonly prototype: Artifact
+
             new (props?: Partial<GObject.ConstructorProps<Artifact>>): Artifact
             /**
              * Creates a new #AsArtifact.
@@ -303,7 +305,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Artifact
         }
 
-        const Artifact: ArtifactClass
+        interface $Exports {
+            /**
+             */
+            Artifact: ArtifactClass
+        }
         
 
         namespace Branding {
@@ -320,8 +326,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Branding extends GObject.Object {
             readonly $signals: Branding.SignalSignatures
             readonly $readableProperties: Branding.ReadableProperties
@@ -358,6 +362,7 @@ declare module "gi://AppStream?version=1.0" {
         interface BrandingClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Branding>
             readonly prototype: Branding
+
             new (props?: Partial<GObject.ConstructorProps<Branding>>): Branding
             /**
              * Creates a new #AsBranding.
@@ -367,7 +372,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Branding
         }
 
-        const Branding: BrandingClass
+        interface $Exports {
+            /**
+             */
+            Branding: BrandingClass
+        }
         
 
         namespace Bundle {
@@ -384,8 +393,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Bundle extends GObject.Object {
             readonly $signals: Bundle.SignalSignatures
             readonly $readableProperties: Bundle.ReadableProperties
@@ -420,6 +427,7 @@ declare module "gi://AppStream?version=1.0" {
         interface BundleClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Bundle>
             readonly prototype: Bundle
+
             new (props?: Partial<GObject.ConstructorProps<Bundle>>): Bundle
             /**
              * Creates a new #AsBundle.
@@ -429,7 +437,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Bundle
         }
 
-        const Bundle: BundleClass
+        interface $Exports {
+            /**
+             */
+            Bundle: BundleClass
+        }
         
 
         namespace Category {
@@ -456,8 +468,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Category extends GObject.Object {
             readonly $signals: Category.SignalSignatures
             readonly $readableProperties: Category.ReadableProperties
@@ -573,6 +583,7 @@ declare module "gi://AppStream?version=1.0" {
         interface CategoryClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Category>
             readonly prototype: Category
+
             new (props?: Partial<GObject.ConstructorProps<Category>>): Category
             /**
              * Creates a new #AsCategory.
@@ -581,7 +592,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Category
         }
 
-        const Category: CategoryClass
+        interface $Exports {
+            /**
+             */
+            Category: CategoryClass
+        }
         
 
         namespace Checksum {
@@ -598,8 +613,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Checksum extends GObject.Object {
             readonly $signals: Checksum.SignalSignatures
             readonly $readableProperties: Checksum.ReadableProperties
@@ -630,6 +643,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ChecksumClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Checksum>
             readonly prototype: Checksum
+
             new (props?: Partial<GObject.ConstructorProps<Checksum>>): Checksum
             /**
              * Creates a new #AsChecksum.
@@ -647,7 +661,11 @@ declare module "gi://AppStream?version=1.0" {
             new_with_value(kind: ChecksumKind, value: string): Checksum
         }
 
-        const Checksum: ChecksumClass
+        interface $Exports {
+            /**
+             */
+            Checksum: ChecksumClass
+        }
         
 
         namespace Component {
@@ -690,8 +708,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Component extends GObject.Object {
             readonly $signals: Component.SignalSignatures
             readonly $readableProperties: Component.ReadableProperties
@@ -1059,7 +1075,14 @@ declare module "gi://AppStream?version=1.0" {
              */
             get_extends(): string[] | null
             /**
-             *  1.
+             * Gets an icon matching the size constraints.
+             * The icons are not filtered by type, and the first icon
+             * which matches the size is returned.
+             * If you want more control over which icons you use for displaying,
+             * use the %as_component_get_icons() function to get a list of all icons.
+             *
+             * Note that this function is not HiDPI aware! It will never return an icon with
+             * a scaling factor > 1.
              * @param width The icon width in pixels.
              * @param height the icon height in pixels.
              * @returns An icon matching the given width/height, or %NULL if not found.
@@ -1092,7 +1115,7 @@ declare module "gi://AppStream?version=1.0" {
             /**
              * Retrieve the internal hash table mapping languages to
              * keword arrays.
-             * @returns keyword arrays
+             * @returns Hash table locale->keyword arrays
              */
             get_keywords_table(): Record<never, never>
             /**
@@ -1146,7 +1169,7 @@ declare module "gi://AppStream?version=1.0" {
             /**
              * Get the internal locale to component name
              * mapping table.
-             * @returns names map
+             * @returns locale->names map
              */
             get_name_table(): Record<never, never>
             /**
@@ -1290,7 +1313,7 @@ declare module "gi://AppStream?version=1.0" {
             /**
              * Get the internal locale to component summary
              * mapping table.
-             * @returns summary map
+             * @returns locale->summary map
              */
             get_summary_table(): Record<never, never>
             /**
@@ -1309,7 +1332,7 @@ declare module "gi://AppStream?version=1.0" {
              * @param is_template if %TRUE, treat system info as neutral template, ignoring any peripheral devices or kernel relations.
              * @returns a compatibility score between 0 and 100, Receive the resulting check results
              */
-            get_system_compatibility_score(sysinfo: SystemInfo, is_template: boolean): number
+            get_system_compatibility_score(sysinfo: SystemInfo, is_template: boolean): [number, RelationCheckResult[]]
             /**
              * Gets the UNIX timestamp for the date when this component
              * is out of support (end-of-life) and will receive no more
@@ -1408,7 +1431,7 @@ declare module "gi://AppStream?version=1.0" {
              * @param bytes the data to load.
              * @returns %TRUE on success.
              */
-            load_from_bytes(context: Context, format: FormatKind, bytes: GLib.Bytes): boolean
+            load_from_bytes(context: Context, format: FormatKind, bytes: (GLib.Bytes | Uint8Array)): boolean
             /**
              * Get release information for this component, download it
              * if necessary.
@@ -1632,6 +1655,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ComponentClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Component>
             readonly prototype: Component
+
             new (props?: Partial<GObject.ConstructorProps<Component>>): Component
             /**
              * Creates a new #AsComponent.
@@ -1640,7 +1664,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Component
         }
 
-        const Component: ComponentClass
+        interface $Exports {
+            /**
+             */
+            Component: ComponentClass
+        }
         
 
         namespace ComponentBox {
@@ -1652,15 +1680,13 @@ declare module "gi://AppStream?version=1.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "flags": number
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "flags": number
             }
         }
 
-        /**
-         */
         interface ComponentBox extends GObject.Object {
             readonly $signals: ComponentBox.SignalSignatures
             readonly $readableProperties: ComponentBox.ReadableProperties
@@ -1730,6 +1756,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ComponentBoxClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ComponentBox>
             readonly prototype: ComponentBox
+
             new (props?: Partial<GObject.ConstructorProps<ComponentBox>>): ComponentBox
             /**
              * Creates a new #AsComponentBox.
@@ -1750,7 +1777,11 @@ declare module "gi://AppStream?version=1.0" {
             new_simple(): ComponentBox
         }
 
-        const ComponentBox: ComponentBoxClass
+        interface $Exports {
+            /**
+             */
+            ComponentBox: ComponentBoxClass
+        }
         
 
         namespace ContentRating {
@@ -1767,8 +1798,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface ContentRating extends GObject.Object {
             readonly $signals: ContentRating.SignalSignatures
             readonly $readableProperties: ContentRating.ReadableProperties
@@ -1835,6 +1864,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ContentRatingClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ContentRating>
             readonly prototype: ContentRating
+
             new (props?: Partial<GObject.ConstructorProps<ContentRating>>): ContentRating
             /**
              * Creates a new #AsContentRating.
@@ -1887,7 +1917,11 @@ declare module "gi://AppStream?version=1.0" {
             get_all_rating_ids(): string[]
         }
 
-        const ContentRating: ContentRatingClass
+        interface $Exports {
+            /**
+             */
+            ContentRating: ContentRatingClass
+        }
         
 
         namespace Context {
@@ -1904,8 +1938,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Context extends GObject.Object {
             readonly $signals: Context.SignalSignatures
             readonly $readableProperties: Context.ReadableProperties
@@ -1997,6 +2029,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ContextClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Context>
             readonly prototype: Context
+
             new (props?: Partial<GObject.ConstructorProps<Context>>): Context
             /**
              * Creates a new #AsContext.
@@ -2005,7 +2038,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Context
         }
 
-        const Context: ContextClass
+        interface $Exports {
+            /**
+             */
+            Context: ContextClass
+        }
         
 
         namespace Developer {
@@ -2022,8 +2059,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Developer extends GObject.Object {
             readonly $signals: Developer.SignalSignatures
             readonly $readableProperties: Developer.ReadableProperties
@@ -2055,6 +2090,7 @@ declare module "gi://AppStream?version=1.0" {
         interface DeveloperClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Developer>
             readonly prototype: Developer
+
             new (props?: Partial<GObject.ConstructorProps<Developer>>): Developer
             /**
              * Creates a new #AsDeveloper.
@@ -2063,7 +2099,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Developer
         }
 
-        const Developer: DeveloperClass
+        interface $Exports {
+            /**
+             */
+            Developer: DeveloperClass
+        }
         
 
         namespace Icon {
@@ -2080,8 +2120,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Icon extends GObject.Object {
             readonly $signals: Icon.SignalSignatures
             readonly $readableProperties: Icon.ReadableProperties
@@ -2160,6 +2198,7 @@ declare module "gi://AppStream?version=1.0" {
         interface IconClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Icon>
             readonly prototype: Icon
+
             new (props?: Partial<GObject.ConstructorProps<Icon>>): Icon
             /**
              * Creates a new #AsIcon.
@@ -2168,7 +2207,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Icon
         }
 
-        const Icon: IconClass
+        interface $Exports {
+            /**
+             */
+            Icon: IconClass
+        }
         
 
         namespace Image {
@@ -2185,8 +2228,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Image extends GObject.Object {
             readonly $signals: Image.SignalSignatures
             readonly $readableProperties: Image.ReadableProperties
@@ -2259,6 +2300,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ImageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Image>
             readonly prototype: Image
+
             new (props?: Partial<GObject.ConstructorProps<Image>>): Image
             /**
              * Creates a new #AsImage.
@@ -2267,7 +2309,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Image
         }
 
-        const Image: ImageClass
+        interface $Exports {
+            /**
+             */
+            Image: ImageClass
+        }
         
 
         namespace Issue {
@@ -2284,8 +2330,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Issue extends GObject.Object {
             readonly $signals: Issue.SignalSignatures
             readonly $readableProperties: Issue.ReadableProperties
@@ -2327,6 +2371,7 @@ declare module "gi://AppStream?version=1.0" {
         interface IssueClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Issue>
             readonly prototype: Issue
+
             new (props?: Partial<GObject.ConstructorProps<Issue>>): Issue
             /**
              * Creates a new #AsIssue.
@@ -2335,7 +2380,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Issue
         }
 
-        const Issue: IssueClass
+        interface $Exports {
+            /**
+             */
+            Issue: IssueClass
+        }
         
 
         namespace Launchable {
@@ -2352,8 +2401,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Launchable extends GObject.Object {
             readonly $signals: Launchable.SignalSignatures
             readonly $readableProperties: Launchable.ReadableProperties
@@ -2390,6 +2437,7 @@ declare module "gi://AppStream?version=1.0" {
         interface LaunchableClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Launchable>
             readonly prototype: Launchable
+
             new (props?: Partial<GObject.ConstructorProps<Launchable>>): Launchable
             /**
              * Creates a new #AsLaunchable.
@@ -2399,7 +2447,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Launchable
         }
 
-        const Launchable: LaunchableClass
+        interface $Exports {
+            /**
+             */
+            Launchable: LaunchableClass
+        }
         
 
         namespace Metadata {
@@ -2416,8 +2468,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Metadata extends GObject.Object {
             readonly $signals: Metadata.SignalSignatures
             readonly $readableProperties: Metadata.ReadableProperties
@@ -2527,7 +2577,7 @@ declare module "gi://AppStream?version=1.0" {
              * @param format The format of the data (XML or YAML).
              * @returns %TRUE on success.
              */
-            parse_bytes(bytes: GLib.Bytes, format: FormatKind): boolean
+            parse_bytes(bytes: (GLib.Bytes | Uint8Array), format: FormatKind): boolean
             /**
              * Parses any AppStream metadata into one or more #AsComponent instances.
              * @throws {GLib.Error}
@@ -2569,7 +2619,7 @@ declare module "gi://AppStream?version=1.0" {
              * @param bytes Metadata describing release notes.
              * @returns %TRUE on success.
              */
-            parse_releases_bytes(bytes: GLib.Bytes): boolean
+            parse_releases_bytes(bytes: (GLib.Bytes | Uint8Array)): boolean
             /**
              * Parses any AppStream release metadata into #AsRelease objects
              * using the provided file.
@@ -2672,6 +2722,7 @@ declare module "gi://AppStream?version=1.0" {
         interface MetadataClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Metadata>
             readonly prototype: Metadata
+
             new (props?: Partial<GObject.ConstructorProps<Metadata>>): Metadata
             /**
              * Creates a new #AsMetadata.
@@ -2688,7 +2739,11 @@ declare module "gi://AppStream?version=1.0" {
             file_guess_style(filename: string): FormatStyle
         }
 
-        const Metadata: MetadataClass
+        interface $Exports {
+            /**
+             */
+            Metadata: MetadataClass
+        }
         
 
         namespace Pool {
@@ -2711,8 +2766,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Pool extends GObject.Object {
             readonly $signals: Pool.SignalSignatures
             readonly $readableProperties: Pool.ReadableProperties
@@ -2913,6 +2966,7 @@ declare module "gi://AppStream?version=1.0" {
         interface PoolClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Pool>
             readonly prototype: Pool
+
             new (props?: Partial<GObject.ConstructorProps<Pool>>): Pool
             /**
              * Creates a new #AsPool.
@@ -2921,7 +2975,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Pool
         }
 
-        const Pool: PoolClass
+        interface $Exports {
+            /**
+             */
+            Pool: PoolClass
+        }
         
 
         namespace Provided {
@@ -2938,8 +2996,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Provided extends GObject.Object {
             readonly $signals: Provided.SignalSignatures
             readonly $readableProperties: Provided.ReadableProperties
@@ -2977,6 +3033,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ProvidedClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Provided>
             readonly prototype: Provided
+
             new (props?: Partial<GObject.ConstructorProps<Provided>>): Provided
             /**
              * Creates a new #AsProvided.
@@ -2985,7 +3042,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Provided
         }
 
-        const Provided: ProvidedClass
+        interface $Exports {
+            /**
+             */
+            Provided: ProvidedClass
+        }
         
 
         namespace Reference {
@@ -3002,8 +3063,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Reference extends GObject.Object {
             readonly $signals: Reference.SignalSignatures
             readonly $readableProperties: Reference.ReadableProperties
@@ -3051,6 +3110,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ReferenceClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Reference>
             readonly prototype: Reference
+
             new (props?: Partial<GObject.ConstructorProps<Reference>>): Reference
             /**
              * Creates a new #AsReference.
@@ -3059,7 +3119,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Reference
         }
 
-        const Reference: ReferenceClass
+        interface $Exports {
+            /**
+             */
+            Reference: ReferenceClass
+        }
         
 
         namespace Relation {
@@ -3076,8 +3140,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Relation extends GObject.Object {
             readonly $signals: Relation.SignalSignatures
             readonly $readableProperties: Relation.ReadableProperties
@@ -3143,7 +3205,7 @@ declare module "gi://AppStream?version=1.0" {
              * In case this #AsRelation is of kind %AS_RELATION_ITEM_KIND_DISPLAY_LENGTH,
              * return the set logical pixel amount.
              * @since 0.12.12
-             * @returns = 0 on error.
+             * @returns The logical pixel amount for this display length, value <= 0 on error.
              */
             get_value_px(): number
             /**
@@ -3250,6 +3312,7 @@ declare module "gi://AppStream?version=1.0" {
         interface RelationClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Relation>
             readonly prototype: Relation
+
             new (props?: Partial<GObject.ConstructorProps<Relation>>): Relation
             /**
              * Creates a new #AsRelation.
@@ -3268,7 +3331,11 @@ declare module "gi://AppStream?version=1.0" {
             check_results_get_compatibility_score(rc_results: RelationCheckResult[]): number
         }
 
-        const Relation: RelationClass
+        interface $Exports {
+            /**
+             */
+            Relation: RelationClass
+        }
         
 
         namespace RelationCheckResult {
@@ -3285,8 +3352,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface RelationCheckResult extends GObject.Object {
             readonly $signals: RelationCheckResult.SignalSignatures
             readonly $readableProperties: RelationCheckResult.ReadableProperties
@@ -3335,6 +3400,7 @@ declare module "gi://AppStream?version=1.0" {
         interface RelationCheckResultClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<RelationCheckResult>
             readonly prototype: RelationCheckResult
+
             new (props?: Partial<GObject.ConstructorProps<RelationCheckResult>>): RelationCheckResult
             /**
              * Creates a new #AsRelationCheckResult.
@@ -3344,7 +3410,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): RelationCheckResult
         }
 
-        const RelationCheckResult: RelationCheckResultClass
+        interface $Exports {
+            /**
+             */
+            RelationCheckResult: RelationCheckResultClass
+        }
         
 
         namespace Release {
@@ -3361,8 +3431,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Release extends GObject.Object {
             readonly $signals: Release.SignalSignatures
             readonly $readableProperties: Release.ReadableProperties
@@ -3554,6 +3622,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ReleaseClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Release>
             readonly prototype: Release
+
             new (props?: Partial<GObject.ConstructorProps<Release>>): Release
             /**
              * Creates a new #AsRelease.
@@ -3562,7 +3631,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Release
         }
 
-        const Release: ReleaseClass
+        interface $Exports {
+            /**
+             */
+            Release: ReleaseClass
+        }
         
 
         namespace ReleaseList {
@@ -3579,8 +3652,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface ReleaseList extends GObject.Object {
             readonly $signals: ReleaseList.SignalSignatures
             readonly $readableProperties: ReleaseList.ReadableProperties
@@ -3644,7 +3715,7 @@ declare module "gi://AppStream?version=1.0" {
              * @param bytes the release XML data as #GBytes
              * @returns %TRUE on success.
              */
-            load_from_bytes(context: Context | null, bytes: GLib.Bytes): boolean
+            load_from_bytes(context: Context | null, bytes: (GLib.Bytes | Uint8Array)): boolean
             /**
              * Sets the document context these releases are associated with.
              * @param context the #AsContext.
@@ -3678,6 +3749,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ReleaseListClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ReleaseList>
             readonly prototype: ReleaseList
+
             new (props?: Partial<GObject.ConstructorProps<ReleaseList>>): ReleaseList
             /**
              * Creates a new #AsReleaseList.
@@ -3687,7 +3759,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): ReleaseList
         }
 
-        const ReleaseList: ReleaseListClass
+        interface $Exports {
+            /**
+             */
+            ReleaseList: ReleaseListClass
+        }
         
 
         namespace Review {
@@ -3726,8 +3802,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Review extends GObject.Object {
             readonly $signals: Review.SignalSignatures
             readonly $readableProperties: Review.ReadableProperties
@@ -3972,6 +4046,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ReviewClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Review>
             readonly prototype: Review
+
             new (props?: Partial<GObject.ConstructorProps<Review>>): Review
             /**
              * Creates a new #AsReview.
@@ -3981,7 +4056,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Review
         }
 
-        const Review: ReviewClass
+        interface $Exports {
+            /**
+             */
+            Review: ReviewClass
+        }
         
 
         namespace Screenshot {
@@ -3998,8 +4077,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Screenshot extends GObject.Object {
             readonly $signals: Screenshot.SignalSignatures
             readonly $readableProperties: Screenshot.ReadableProperties
@@ -4119,6 +4196,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ScreenshotClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Screenshot>
             readonly prototype: Screenshot
+
             new (props?: Partial<GObject.ConstructorProps<Screenshot>>): Screenshot
             /**
              * Creates a new #AsScreenshot.
@@ -4127,7 +4205,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Screenshot
         }
 
-        const Screenshot: ScreenshotClass
+        interface $Exports {
+            /**
+             */
+            Screenshot: ScreenshotClass
+        }
         
 
         namespace Suggested {
@@ -4144,8 +4226,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Suggested extends GObject.Object {
             readonly $signals: Suggested.SignalSignatures
             readonly $readableProperties: Suggested.ReadableProperties
@@ -4182,6 +4262,7 @@ declare module "gi://AppStream?version=1.0" {
         interface SuggestedClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Suggested>
             readonly prototype: Suggested
+
             new (props?: Partial<GObject.ConstructorProps<Suggested>>): Suggested
             /**
              * Creates a new #AsSuggested.
@@ -4190,7 +4271,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Suggested
         }
 
-        const Suggested: SuggestedClass
+        interface $Exports {
+            /**
+             */
+            Suggested: SuggestedClass
+        }
         
 
         namespace SystemInfo {
@@ -4207,8 +4292,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface SystemInfo extends GObject.Object {
             readonly $signals: SystemInfo.SignalSignatures
             readonly $readableProperties: SystemInfo.ReadableProperties
@@ -4329,6 +4412,7 @@ declare module "gi://AppStream?version=1.0" {
         interface SystemInfoClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SystemInfo>
             readonly prototype: SystemInfo
+
             new (props?: Partial<GObject.ConstructorProps<SystemInfo>>): SystemInfo
             /**
              * Creates a new #AsSystemInfo.
@@ -4353,7 +4437,11 @@ declare module "gi://AppStream?version=1.0" {
             new_template_for_chassis(chassis: ChassisKind): SystemInfo
         }
 
-        const SystemInfo: SystemInfoClass
+        interface $Exports {
+            /**
+             */
+            SystemInfo: SystemInfoClass
+        }
         
 
         namespace Translation {
@@ -4370,8 +4458,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Translation extends GObject.Object {
             readonly $signals: Translation.SignalSignatures
             readonly $readableProperties: Translation.ReadableProperties
@@ -4416,6 +4502,7 @@ declare module "gi://AppStream?version=1.0" {
         interface TranslationClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Translation>
             readonly prototype: Translation
+
             new (props?: Partial<GObject.ConstructorProps<Translation>>): Translation
             /**
              * Creates a new #AsTranslation.
@@ -4424,7 +4511,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Translation
         }
 
-        const Translation: TranslationClass
+        interface $Exports {
+            /**
+             */
+            Translation: TranslationClass
+        }
         
 
         namespace Validator {
@@ -4441,8 +4532,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Validator extends GObject.Object {
             readonly $signals: Validator.SignalSignatures
             readonly $readableProperties: Validator.ReadableProperties
@@ -4468,7 +4557,7 @@ declare module "gi://AppStream?version=1.0" {
              * @param release_fname File basename of the release metadata file to add.
              * @param release_metadata Data of the release metadata file.
              */
-            add_release_bytes(release_fname: string, release_metadata: GLib.Bytes): boolean
+            add_release_bytes(release_fname: string, release_metadata: (GLib.Bytes | Uint8Array)): boolean
             /**
              * Add a release metadata file to the validation process.
              * @throws {GLib.Error}
@@ -4564,7 +4653,7 @@ declare module "gi://AppStream?version=1.0" {
              * @param metadata XML metadata as #GBytes.
              * @returns %TRUE if bytes validated successfully.
              */
-            validate_bytes(metadata: GLib.Bytes): boolean
+            validate_bytes(metadata: (GLib.Bytes | Uint8Array)): boolean
             /**
              * Validate AppStream XML data.
              * @param metadata XML metadata.
@@ -4588,6 +4677,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ValidatorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Validator>
             readonly prototype: Validator
+
             new (props?: Partial<GObject.ConstructorProps<Validator>>): Validator
             /**
              * Creates a new #AsValidator.
@@ -4596,7 +4686,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Validator
         }
 
-        const Validator: ValidatorClass
+        interface $Exports {
+            /**
+             */
+            Validator: ValidatorClass
+        }
         
 
         namespace ValidatorIssue {
@@ -4613,8 +4707,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface ValidatorIssue extends GObject.Object {
             readonly $signals: ValidatorIssue.SignalSignatures
             readonly $readableProperties: ValidatorIssue.ReadableProperties
@@ -4708,6 +4800,7 @@ declare module "gi://AppStream?version=1.0" {
         interface ValidatorIssueClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ValidatorIssue>
             readonly prototype: ValidatorIssue
+
             new (props?: Partial<GObject.ConstructorProps<ValidatorIssue>>): ValidatorIssue
             /**
              * Creates a new #AsValidatorIssue.
@@ -4716,7 +4809,11 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): ValidatorIssue
         }
 
-        const ValidatorIssue: ValidatorIssueClass
+        interface $Exports {
+            /**
+             */
+            ValidatorIssue: ValidatorIssueClass
+        }
         
 
         namespace Video {
@@ -4733,8 +4830,6 @@ declare module "gi://AppStream?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Video extends GObject.Object {
             readonly $signals: Video.SignalSignatures
             readonly $readableProperties: Video.ReadableProperties
@@ -4805,6 +4900,7 @@ declare module "gi://AppStream?version=1.0" {
         interface VideoClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Video>
             readonly prototype: Video
+
             new (props?: Partial<GObject.ConstructorProps<Video>>): Video
             /**
              * Creates a new #AsVideo.
@@ -4813,21 +4909,19 @@ declare module "gi://AppStream?version=1.0" {
             "new"(): Video
         }
 
-        const Video: VideoClass
-        none
-        none
-        none
-        none
-        /**
-         * A #AsBrandingColorIter structure represents an iterator that can be used
-         * to iterate over the accent colors of an #AsBranding object.
-         * #AsBrandingColorIter structures are typically allocated on the stack and
-         * then initialized with as_branding_color_iter_init().
-         */
-        abstract class BrandingColorIter {
-            static readonly $gtype: GObject.GType<BrandingColorIter>
+        interface $Exports {
+            /**
+             */
+            Video: VideoClass
+        }
+        
 
-            
+        interface BrandingColorIterStruct {
+            readonly $gtype: GObject.GType<BrandingColorIter>
+            [Symbol.hasInstance](instance: unknown): instance is BrandingColorIter
+        }
+
+        interface BrandingColorIter {
             /**
              * Initializes a color iterator for the accent color list and associates it
              * it with @branding.
@@ -4837,1488 +4931,562 @@ declare module "gi://AppStream?version=1.0" {
              */
             init(branding: Branding): void
             /**
-             * color_value)) {
+             * Returns the current color entry and advances the iterator.
+             * Example:
+             * |[<!-- language="C" -->
+             * AsBrandingColorIter iter;
+             * AsColorKind ckind;
+             * AsColorSchemeKind scheme_preference;
+             * const gchar *color_value;
+             *
+             * as_branding_color_iter_init (&iter, branding);
+             * while (as_branding_color_iter_next (&iter, &ckind, &scheme_preference, &color_value)) {
              *     // do something with the color data
              * }
              * ]|
              * @returns %FALSE if the last entry has been reached., Destination of the returned color kind., Destination of the returned color's scheme preference., Destination of the returned color code.
              */
-            next(): boolean
-        }
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.12.1
-         * @param value the string.
-         * @returns a #AsAgreementKind or %AS_AGREEMENT_KIND_UNKNOWN for unknown
-         */
-        function agreement_kind_from_string(value: string): AgreementKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 0.12.1
-         * @param value the #AsAgreementKind.
-         * @returns string version of `value`
-         */
-        function agreement_kind_to_string(value: AgreementKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param kind the string.
-         * @returns a #AsArtifactKind, or %AS_ARTIFACT_KIND_UNKNOWN for unknown.
-         */
-        function artifact_kind_from_string(kind: string): ArtifactKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param kind the #AsArtifactKind.
-         * @returns string version of `kind`
-         */
-        function artifact_kind_to_string(kind: ArtifactKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param bundle_str the string.
-         * @returns a #AsBundleKind or %AS_BUNDLE_KIND_UNKNOWN for unknown
-         */
-        function bundle_kind_from_string(bundle_str: string): BundleKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 0.8.0
-         * @param kind the %AsBundleKind.
-         * @returns string version of `kind`
-         */
-        function bundle_kind_to_string(kind: BundleKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 1.0.0
-         * @param kind_str the string.
-         * @returns a #AsChassisKind or %AS_CHASSIS_KIND_UNKNOWN for unknown
-         */
-        function chassis_kind_from_string(kind_str: string): ChassisKind
-        /**
-         * Converts the enumerated value to a text representation.
-         * @since 1.0.0
-         * @param kind the #AsChassisKind.
-         * @returns string version of `kind`
-         */
-        function chassis_kind_to_string(kind: ChassisKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param kind_str the string.
-         * @returns a #AsChecksumKind or %AS_CHECKSUM_KIND_NONE for unknown
-         */
-        function checksum_kind_from_string(kind_str: string): ChecksumKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param kind the %AsChecksumKind.
-         * @returns string version of `kind`
-         */
-        function checksum_kind_to_string(kind: ChecksumKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.15.2
-         * @param str the string.
-         * @returns a #AsColorKind or %AS_COLOR_KIND_UNKNOWN for unknown.
-         */
-        function color_kind_from_string(str: string): ColorKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 0.15.2
-         * @param kind the %AsColorKind.
-         * @returns string version of `kind`
-         */
-        function color_kind_to_string(kind: ColorKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.15.2
-         * @param str the string.
-         * @returns a #AsColorKind or %AS_COLOR_SCHEME_KIND_UNKNOWN for unknown.
-         */
-        function color_scheme_kind_from_string(str: string): ColorSchemeKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 0.15.2
-         * @param kind the %AsColorSchemeKind.
-         * @returns string version of `kind`
-         */
-        function color_scheme_kind_to_string(kind: ColorSchemeKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param kind_str the string.
-         * @returns a #AsComponentKind or %AS_COMPONENT_KIND_UNKNOWN for unknown
-         */
-        function component_kind_from_string(kind_str: string): ComponentKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param kind the #AsComponentKind.
-         * @returns string version of `kind`
-         */
-        function component_kind_to_string(kind: ComponentKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param scope_str the string.
-         * @returns a #AsComponentScope or %AS_COMPONENT_SCOPE_UNKNOWN for unknown
-         */
-        function component_scope_from_string(scope_str: string): ComponentScope
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param scope the #AsComponentScope.
-         * @returns string version of `scope`
-         */
-        function component_scope_to_string(scope: ComponentScope): string
-        /**
-         * Format @age as a human-readable string in the given rating @system. This is
-         * the way to present system-specific strings in a UI.
-         * @since 0.12.12
-         * @param system an #AsContentRatingSystem
-         * @param age a CSM age to format
-         * @returns a newly allocated formatted version of    `age`, or %NULL if the given `system` has no representation for `age`
-         */
-        function content_rating_system_format_age(system: ContentRatingSystem, age: number): string | null
-        /**
-         * Determine the most appropriate #AsContentRatingSystem for the given @locale.
-         * Content rating systems are selected by territory. If no content rating system
-         * seems suitable, %AS_CONTENT_RATING_SYSTEM_IARC is returned.
-         * @since 0.12.12
-         * @param locale a locale, in the format described in `man 3 setlocale`
-         * @returns the most relevant #AsContentRatingSystem
-         */
-        function content_rating_system_from_locale(locale: string): ContentRatingSystem
-        /**
-         * Get the CSM ages corresponding to the entries returned by
-         * as_content_rating_system_get_formatted_ages() for this @system.
-         * @since 0.12.12
-         * @param system an #AsContentRatingSystem
-         * @returns an array of CSM ages
-         */
-        function content_rating_system_get_csm_ages(system: ContentRatingSystem): number[]
-        /**
-         * Get an array of all the possible return values of
-         * as_content_rating_system_format_age() for the given @system. The array is
-         * sorted with youngest CSM age first.
-         * @since 0.12.12
-         * @param system an #AsContentRatingSystem
-         * @returns %NULL-terminated array of human-readable age strings
-         */
-        function content_rating_system_get_formatted_ages(system: ContentRatingSystem): string[]
-        /**
-         * Get a human-readable string to identify @system. %NULL will be returned for
-         * %AS_CONTENT_RATING_SYSTEM_UNKNOWN.
-         * @since 0.12.12
-         * @param system an #AsContentRatingSystem
-         * @returns a human-readable string for `system`, or %NULL if unknown
-         */
-        function content_rating_system_to_string(system: ContentRatingSystem): string | null
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.11.0
-         * @param value the string.
-         * @returns a #AsContentRatingValue or %AS_CONTENT_RATING_VALUE_UNKNOWN for unknown
-         */
-        function content_rating_value_from_string(value: string): ContentRatingValue
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 0.11.0
-         * @param value the #AsContentRatingValue.
-         * @returns string version of `value`
-         */
-        function content_rating_value_to_string(value: ContentRatingValue): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.12.11
-         * @param kind_str the string.
-         * @returns a #AsControlKind or %AS_CONTROL_KIND_UNKNOWN for unknown
-         */
-        function control_kind_from_string(kind_str: string): ControlKind
-        /**
-         * Converts the enumerated value to a text representation.
-         * @since 0.12.11
-         * @param kind the #AsControlKind.
-         * @returns string version of `kind`
-         */
-        function control_kind_to_string(kind: ControlKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.12.12
-         * @param kind_str the string.
-         * @returns a #AsDisplaySideKind or %AS_DISPLAY_SIDE_KIND_UNKNOWN for unknown
-         */
-        function display_side_kind_from_string(kind_str: string): DisplaySideKind
-        /**
-         * Converts the enumerated value to a text representation.
-         * @since 0.12.12
-         * @param kind the #AsDisplaySideKind.
-         * @returns string version of `kind`
-         */
-        function display_side_kind_to_string(kind: DisplaySideKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.10.0
-         * @param kind_str the string.
-         * @returns a #AsFormatKind or %AS_FORMAT_KIND_UNKNOWN for unknown
-         */
-        function format_kind_from_string(kind_str: string): FormatKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 0.10.0
-         * @param kind the #AsFormatKind.
-         * @returns string version of `kind`
-         */
-        function format_kind_to_string(kind: FormatKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.10.0
-         * @param version_str the string.
-         * @returns a #AsFormatVersion. For unknown, the highest version number is assumed.
-         */
-        function format_version_from_string(version_str: string): FormatVersion
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 0.10.0
-         * @param version the #AsFormatKind.
-         * @returns string version of `version`
-         */
-        function format_version_to_string(version: FormatVersion): string
-        /**
-         * Returns the component-ID of the current distribution based on contents
-         * of the `/etc/os-release` file.
-         * This function is a shorthand for %as_distro_details_get_cid
-         */
-        function get_current_distro_component_id(): string
-        none
-        /**
-         * Get a list of the default Freedesktop and AppStream categories
-         * that software components (especially GUI applications) can be sorted
-         * into in software centers.
-         *
-         * This function fully transfers ownership of the returned container,
-         * to be used in GIR bindings.
-         * @override
-         * @param with_special Include special categories (e.g. "addons", and "all"/"featured" in submenus)
-         * @returns a list of #AsCategory
-         */
-        function get_default_categories_gi(with_special: boolean): Category[]
-        /**
-         * Get a translated license name for the given SPDX ID.
-         * @since 1.0.0
-         * @param license The SPDX license ID.
-         * @returns The license name, or %NULL if none found.
-         */
-        function get_license_name(license: string): string | null
-        /**
-         * Get a web URL to the license text and more license information for an SPDX
-         * license identifier.
-         * @since 0.12.7
-         * @param license The SPDX license ID.
-         * @returns The license URL, or %NULL if none available.
-         */
-        function get_license_url(license: string): string | null
-        /**
-         * Replaces the string @find with the string @replace in a #GString up to
-         * @limit times. If the number of instances of @find in the #GString is
-         * less than @limit, all instances are replaced. If @limit is `0`,
-         * all instances of @find are replaced.
-         * @param string a #GString
-         * @param find the string to find in @string
-         * @param replace the string to insert in place of @find
-         * @param limit the maximum instances of @find to replace with @replace, or `0` for no limit
-         * @returns the number of find and replace operations performed.
-         */
-        function gstring_replace(string: GLib.String, find: string, replace: string, limit: number): number
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param kind_str the string.
-         * @returns a #AsIconKind or %AS_ICON_KIND_UNKNOWN for unknown
-         */
-        function icon_kind_from_string(kind_str: string): IconKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param kind the %AsIconKind.
-         * @returns string version of `kind`
-         */
-        function icon_kind_to_string(kind: IconKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param kind the string.
-         * @returns a #AsImageKind, or %AS_IMAGE_KIND_UNKNOWN for unknown.
-         */
-        function image_kind_from_string(kind: string): ImageKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param kind the #AsImageKind.
-         * @returns string version of `kind`
-         */
-        function image_kind_to_string(kind: ImageKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.15.5
-         * @param kind_str the string.
-         * @returns a #AsInternetKind or %AS_INTERNET_KIND_UNKNOWN for unknown
-         */
-        function internet_kind_from_string(kind_str: string): InternetKind
-        /**
-         * Converts the enumerated value to a text representation.
-         * @since 0.15.5
-         * @param kind the #AsInternetKind.
-         * @returns string version of `kind`
-         */
-        function internet_kind_to_string(kind: InternetKind): string
-        /**
-         * Searches the known list of SPDX license exception IDs.
-         * @since 0.12.10
-         * @param exception_id a single SPDX license exception ID, e.g. "GCC-exception-3.1"
-         * @returns %TRUE if the string is a valid SPDX license exception ID
-         */
-        function is_spdx_license_exception_id(exception_id: string): boolean
-        /**
-         * Checks the licence string to check it being a valid licence.
-         * NOTE: SPDX licenses can't typically contain brackets.
-         * @since 0.9.8
-         * @param license a SPDX license string, e.g. "CC-BY-3.0 and GFDL-1.3"
-         * @returns %TRUE if the icon is a valid "SPDX license"
-         */
-        function is_spdx_license_expression(license: string): boolean
-        /**
-         * Searches the known list of SPDX license IDs.
-         * @since 0.9.8
-         * @param license_id a single SPDX license ID, e.g. "GPL-3.0"
-         * @returns %TRUE if the string is a valid SPDX license ID
-         */
-        function is_spdx_license_id(license_id: string): boolean
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param kind_str the string.
-         * @returns a #AsIssueKind or %AS_ISSUE_KIND_UNKNOWN for unknown
-         */
-        function issue_kind_from_string(kind_str: string): IssueKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param kind the %AsIssueKind.
-         * @returns string version of `kind`
-         */
-        function issue_kind_to_string(kind: IssueKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param str the string.
-         * @returns a #AsIssueSeverity, or %AS_ISSUE_SEVERITY_UNKNOWN for unknown.
-         */
-        function issue_severity_from_string(str: string): IssueSeverity
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param severity the #AsIssueSeverity.
-         * @returns string version of `severity`
-         */
-        function issue_severity_to_string(severity: IssueSeverity): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.11.0
-         * @param kind_str the string.
-         * @returns a #AsLaunchableKind or %AS_LAUNCHABLE_KIND_UNKNOWN for unknown
-         */
-        function launchable_kind_from_string(kind_str: string): LaunchableKind
-        /**
-         * Converts the enumerated value to a text representation.
-         * @since 0.11.0
-         * @param kind the #AsLaunchableKind.
-         * @returns string version of `kind`
-         */
-        function launchable_kind_to_string(kind: LaunchableKind): string
-        /**
-         * Check if the given license is for free-as-in-freedom software.
-         * A free software license is either approved by the Free Software Foundation
-         * or the Open Source Initiative.
-         *
-         * This function does *not* yet handle complex license expressions with AND and OR.
-         * If the expression contains any of these, it will still simply check if all mentioned
-         * licenses are Free licenses.
-         * Currently, any license exception recognized by SPDX is assumed to not impact the free-ness
-         * status of a software component.
-         *
-         * Please note that this function does not give any legal advice. Please read the license texts
-         * to learn more about the individual licenses and their conditions.
-         * @since 0.12.10
-         * @param license The SPDX license string to test.
-         * @returns %TRUE if the license string contains only free-as-in-freedom licenses.
-         */
-        function license_is_free_license(license: string): boolean
-        /**
-         * Check if the metadata license is suitable for mixing with other
-         * metadata and redistributing the bundled result (this means we
-         * prefer permissive licenses here, to not require people shipping
-         * catalog metadata to perform a full license review).
-         *
-         * This method checks against a hardcoded list of permissive licenses
-         * commonly used to license metadata under.
-         * @param license The SPDX license string to test.
-         * @returns %TRUE if the license contains only permissive licenses suitable as metadata license.
-         */
-        function license_is_metadata_license(license: string): boolean
-        /**
-         * Tests license ID against the vetted list of licenses that
-         * can be used for metainfo metadata.
-         * This function will not work for license expressions, if you need
-         * to test an SPDX license expression for compliance, please
-         * use %as_license_is_metadata_license insread.
-         * @param license_id a single SPDX license ID, e.g. "FSFAP"
-         * @returns %TRUE if the string is a valid metadata license ID.
-         */
-        function license_is_metadata_license_id(license_id: string): boolean
-        /**
-         * Converts a non-SPDX license into an SPDX format string where possible.
-         * @since 0.9.8
-         * @param license a not-quite SPDX license string, e.g. "GPLv3+"
-         * @returns the best-effort SPDX license string
-         */
-        function license_to_spdx_id(license: string): string
-        /**
-         * Converts XML description markup into other forms of text.
-         * @throws {GLib.Error}
-         * @param markup the XML markup to transform.
-         * @param to_kind The markup style to convert into.
-         * @returns a newly allocated string, or %NULL on error.
-         */
-        function markup_convert(markup: string, to_kind: MarkupKind): string
-        /**
-         * Splits up a long line into an array of smaller strings, each being no longer
-         * than @line_len. Words are not split.
-         * @since 0.14.0
-         * @param text the text to split.
-         * @param line_len the maximum length of the output line
-         * @returns lines, or %NULL in event of an error
-         */
-        function markup_strsplit_words(text: string, line_len: number): string[]
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param kind_str the string.
-         * @returns a #AsMergeKind or %AS_MERGE_KIND_NONE for unknown
-         */
-        function merge_kind_from_string(kind_str: string): MergeKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param kind the #AsMergeKind.
-         * @returns string version of `kind`
-         */
-        function merge_kind_to_string(kind: MergeKind): string
-        /**
-         * @returns An error quark.
-         */
-        function metadata_error_quark(): GLib.Quark
-        /**
-         * @returns An error quark.
-         */
-        function pool_error_quark(): GLib.Quark
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param kind_str the string.
-         * @returns a #AsProvidedKind or %AS_PROVIDED_KIND_UNKNOWN for unknown
-         */
-        function provided_kind_from_string(kind_str: string): ProvidedKind
-        /**
-         * Converts the enumerated value to a localized text representation,
-         * using the plural forms (e.g. "Libraries" instead of "Library").
-         *
-         * This can be useful when displaying provided items in GUI dialogs.
-         * @param kind the #AsProvidedKind.
-         * @returns Pluralized, l10n string version of `kind`
-         */
-        function provided_kind_to_l10n_string(kind: ProvidedKind): string
-        /**
-         * Converts the enumerated value to a text representation.
-         * @param kind the #AsProvidedKind.
-         * @returns string version of `kind`
-         */
-        function provided_kind_to_string(kind: ProvidedKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param str the string.
-         * @returns a AsReferenceKind or %AS_REFERENCE_KIND_UNKNOWN for unknown
-         */
-        function reference_kind_from_string(str: string): ReferenceKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 1.0.0
-         * @param kind the %AsReferenceKind.
-         * @returns string version of `kind`
-         */
-        function reference_kind_to_string(kind: ReferenceKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.12.0
-         * @param compare_str the string.
-         * @returns a #AsRelationCompare, or %AS_RELATION_COMPARE_UNKNOWN for unknown.
-         */
-        function relation_compare_from_string(compare_str: string): RelationCompare
-        /**
-         * Converts the enumerated value to an text representation.
-         * The enum is converted into a two-letter identifier ("eq", "ge", etc.)
-         * for use in the XML representation.
-         * @since 0.12.0
-         * @param compare the #AsRelationCompare.
-         * @returns string version of `compare`
-         */
-        function relation_compare_to_string(compare: RelationCompare): string
-        /**
-         * =", etc.)
-         * for use in the YAML representation and user interfaces.
-         * @since 0.12.0
-         * @param compare the #AsRelationCompare.
-         * @returns string version of `compare`
-         */
-        function relation_compare_to_symbols_string(compare: RelationCompare): string
-        /**
-         * @since 0.16.0
-         * @returns An error quark.
-         */
-        function relation_error_quark(): GLib.Quark
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.12.0
-         * @param kind_str the string.
-         * @returns a #AsRelationItemKind or %AS_RELATION_ITEM_KIND_UNKNOWN for unknown
-         */
-        function relation_item_kind_from_string(kind_str: string): RelationItemKind
-        /**
-         * Converts the enumerated value to a text representation.
-         * @since 0.12.0
-         * @param kind the #AsRelationKind.
-         * @returns string version of `kind`
-         */
-        function relation_item_kind_to_string(kind: RelationItemKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.12.0
-         * @param kind_str the string.
-         * @returns a #AsRelationKind or %AS_RELATION_KIND_UNKNOWN for unknown
-         */
-        function relation_kind_from_string(kind_str: string): RelationKind
-        /**
-         * Converts the enumerated value to a text representation.
-         * @since 0.12.0
-         * @param kind the #AsRelationKind.
-         * @returns string version of `kind`
-         */
-        function relation_kind_to_string(kind: RelationKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.12.0
-         * @param kind_str the string.
-         * @returns an #AsReleaseKind or %AS_RELEASE_KIND_UNKNOWN for unknown
-         */
-        function release_kind_from_string(kind_str: string): ReleaseKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 0.12.0
-         * @param kind the #AsReleaseKind.
-         * @returns string version of `kind`
-         */
-        function release_kind_to_string(kind: ReleaseKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.16.0
-         * @param kind_str the string.
-         * @returns an #AsReleaseKind or %AS_RELEASE_KIND_UNKNOWN for unknown
-         */
-        function release_list_kind_from_string(kind_str: string): ReleaseListKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 0.16.0
-         * @param kind the #AsReleaseKind.
-         * @returns string version of `kind`
-         */
-        function release_list_kind_to_string(kind: ReleaseListKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.12.5
-         * @param kind_str the string.
-         * @returns an #AsReleaseUrlKind or %AS_RELEASE_URL_KIND_UNKNOWN for unknown
-         */
-        function release_url_kind_from_string(kind_str: string): ReleaseUrlKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 0.12.5
-         * @param kind the #AsReleaseUrlKind.
-         * @returns string version of `kind`
-         */
-        function release_url_kind_to_string(kind: ReleaseUrlKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param kind the string.
-         * @returns a %AsScreenshotKind, or %AS_SCREENSHOT_KIND_UNKNOWN if not known.
-         */
-        function screenshot_kind_from_string(kind: string): ScreenshotKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param kind the #AsScreenshotKind.
-         * @returns string version of `kind`
-         */
-        function screenshot_kind_to_string(kind: ScreenshotKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param size_kind the string.
-         * @returns an #AsSizeKind or %AS_SIZE_KIND_UNKNOWN for unknown
-         */
-        function size_kind_from_string(size_kind: string): SizeKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param size_kind the #AsSizeKind.
-         * @returns string version of `size_kind`
-         */
-        function size_kind_to_string(size_kind: SizeKind): string
-        /**
-         * De-tokenizes the SPDX licenses into a string.
-         * @since 0.9.8
-         * @param license_tokens license tokens, typically from as_spdx_license_tokenize()
-         * @returns string, or %NULL for invalid
-         */
-        function spdx_license_detokenize(license_tokens: string): string | null
-        /**
-         * ", the disjunctive replaced
-         * with "|" and the WITH operator for license exceptions replaced with "^".
-         * Brackets are added as indervidual tokens and other strings are
-         * appended into single tokens where possible.
-         * @since 0.9.8
-         * @param license a license string, e.g. "LGPLv2+ and (QPL or GPLv2) and MIT"
-         * @returns array of strings, or %NULL for invalid
-         */
-        function spdx_license_tokenize(license: string): string[] | null
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param kind_str the string.
-         * @returns a #AsSuggestedKind or %AS_SUGGESTED_KIND_UNKNOWN for unknown
-         */
-        function suggested_kind_from_string(kind_str: string): SuggestedKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param kind the %AsSuggestedKind.
-         * @returns string version of `kind`
-         */
-        function suggested_kind_to_string(kind: SuggestedKind): string
-        /**
-         * @since 0.16.0
-         * @returns An error quark.
-         */
-        function system_info_error_quark(): GLib.Quark
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param kind_str the string.
-         * @returns a #AsTranslationKind or %AS_TRANSLATION_KIND_UNKNOWN for unknown
-         */
-        function translation_kind_from_string(kind_str: string): TranslationKind
-        /**
-         * Converts the enumerated value to a text representation.
-         * @param kind the #AsTranslationKind.
-         * @returns string version of `kind`
-         */
-        function translation_kind_to_string(kind: TranslationKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @since 0.6.5
-         * @param urgency_kind the string.
-         * @returns a %AsUrgencyKind or %AS_URGENCY_KIND_UNKNOWN for unknown
-         */
-        function urgency_kind_from_string(urgency_kind: string): UrgencyKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @since 0.6.5
-         * @param urgency_kind the %AsUrgencyKind.
-         * @returns string version of `urgency_kind`
-         */
-        function urgency_kind_to_string(urgency_kind: UrgencyKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param url_kind the string.
-         * @returns a #AsUrlKind or %AS_URL_KIND_UNKNOWN for unknown
-         */
-        function url_kind_from_string(url_kind: string): UrlKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param url_kind the %AsUrlKind.
-         * @returns string version of `url_kind`
-         */
-        function url_kind_to_string(url_kind: UrlKind): string
-        /**
-         * Builds an identifier string unique to the individual dataset using the supplied information.
-         * @since 0.14.0
-         * @param scope Scope of the metadata as #AsComponentScope e.g. %AS_COMPONENT_SCOPE_SYSTEM
-         * @param bundle_kind Bundling system providing this data, e.g. 'package' or 'flatpak'
-         * @param origin Origin string, e.g. 'os' or 'gnome-apps-nightly'
-         * @param cid AppStream component ID, e.g. 'org.freedesktop.appstream.cli'
-         * @param branch Branch, e.g. '3-20' or 'master'
-         */
-        function utils_build_data_id(scope: ComponentScope, bundle_kind: BundleKind, origin: string, cid: string, branch: string): string
-        /**
-         * Checks two component data IDs for equality allowing globs to match.
-         * @since 0.14.0
-         * @param data_id1 a data ID
-         * @param data_id2 another data ID
-         * @returns %TRUE if the ID's should be considered equal.
-         */
-        function utils_data_id_equal(data_id1: string, data_id2: string): boolean
-        /**
-         * Get the component-id part of the data-id.
-         * @param data_id The data-id.
-         */
-        function utils_data_id_get_cid(data_id: string): string
-        /**
-         * Converts a data-id to a hash value.
-         *
-         * This function implements the widely used DJB hash on the ID subset of the
-         * data-id string.
-         *
-         * It can be passed to g_hash_table_new() as the hash_func parameter,
-         * when using non-NULL strings or unique_ids as keys in a GHashTable.
-         * @since 0.14.0
-         * @param data_id a data ID
-         * @returns a hash value corresponding to the key
-         */
-        function utils_data_id_hash(data_id: string): number
-        /**
-         * Checks two data IDs for equality allowing globs to match, whilst also
-         * allowing clients to whitelist sections that have to match.
-         * @since 0.14.0
-         * @param data_id1 a data ID
-         * @param data_id2 another data ID
-         * @param match_flags a #AsDataIdMatchFlags bitfield, e.g. %AS_DATA_ID_MATCH_FLAG_ID
-         * @returns %TRUE if the IDs should be considered equal.
-         */
-        function utils_data_id_match(data_id1: string, data_id2: string, match_flags: DataIdMatchFlags): boolean
-        /**
-         * Checks if a data ID is valid i.e. has the correct number of
-         * sections.
-         * @since 0.14.0
-         * @param data_id a component data ID
-         * @returns %TRUE if the ID is valid
-         */
-        function utils_data_id_valid(data_id: string): boolean
-        /**
-         * @since 0.14.0
-         * @returns An error quark.
-         */
-        function utils_error_quark(): GLib.Quark
-        /**
-         * Get a human-readable, translated name of the desktop environment
-         * represented by the given ID.
-         * @since 1.0.0
-         * @param de_id a desktop environment id.
-         * @returns A localized name of the DE, or %NULL if none available.
-         */
-        function utils_get_desktop_environment_name(de_id: string): string
-        /**
-         * Get a human-readable, translated name of the combination
-         * of GUI environment and style. E.g. "plasma:dark" becomes "Plasma (Dark)".
-         * @since 1.0.0
-         * @param env_style a GUI environment style ID, e.g. "pantheon:dark"
-         * @returns A localized name of the environment style, or %NULL if none available.
-         */
-        function utils_get_gui_environment_style_name(env_style: string): string
-        /**
-         * Retrieve the raw search token weight for the given tag name that AppStream uses
-         * internally for searching.
-         * This can be used to implement separate, but compatible search logic.
-         * @param tag_name A tag name in a component element, e.g. "name" or "summary" or "keyword"
-         * @returns The tag weight used in (fulltext) searches. 0 for lowest weight/unused.
-         */
-        function utils_get_tag_search_weight(tag_name: string): number
-        /**
-         * Guess the #AsComponentScope that applies to a given path.
-         * @since 0.15.0
-         * @param path The filename to test.
-         * @returns the #AsComponentScope
-         */
-        function utils_guess_scope_from_path(path: string): ComponentScope
-        /**
-         * Installs an AppStream MetaInfo, AppStream Metadata Catalog or AppStream Icon tarball file
-         * to the right place on the filesystem.
-         * Please note that this function does almost no validation and may guess missing values such
-         * as icon sizes and origin names.
-         * Ensure your metadata is good before installing it.
-         * @throws {GLib.Error}
-         * @since 0.14.0
-         * @param location the #AsMetadataLocation, e.g. %AS_METADATA_LOCATION_CACHE
-         * @param filename the full path of the file to install
-         * @param origin the origin to use for the installation, or %NULL
-         * @param destdir the destdir to use, or %NULL
-         * @returns %TRUE for success, %FALSE if error is set
-         */
-        function utils_install_metadata_file(location: MetadataLocation, filename: string, origin: string, destdir: string): boolean
-        /**
-         * Searches the known list of registered XDG category names.
-         * See https://specifications.freedesktop.org/menu-spec/latest/category-registry.html
-         * for a reference.
-         * @since 0.9.7
-         * @param category_name a XDG category name, e.g. "ProjectManagement"
-         * @returns %TRUE if the category name is valid
-         */
-        function utils_is_category_name(category_name: string): boolean
-        /**
-         * Checks if the submitted desktop environment ID is
-         * known and valid.
-         * @since 0.10.0
-         * @param de_id a desktop environment id.
-         * @returns %TRUE if the desktop-id is valid
-         */
-        function utils_is_desktop_environment(de_id: string): boolean
-        /**
-         * Checks if the given identifier is a valid, known GUI environment style.
-         * @since 1.0.0
-         * @param env_style a GUI environment style ID, e.g. "pantheon:dark"
-         * @returns %TRUE if the environment-style ID is is valid
-         */
-        function utils_is_gui_environment_style(env_style: string): boolean
-        /**
-         * Test if the given string is a valid platform triplet recognized by
-         * AppStream.
-         * @since 0.14.0
-         * @param triplet a platform triplet.
-         * @returns %TRUE if triplet is valid.
-         */
-        function utils_is_platform_triplet(triplet: string): boolean
-        /**
-         * Searches the known list of TLDs we allow for AppStream IDs.
-         * This excludes internationalized names.
-         * @since 0.9.8
-         * @param tld a top-level domain without dot, e.g. "de", "org", "name"
-         * @returns %TRUE if the TLD is valid
-         */
-        function utils_is_tld(tld: string): boolean
-        /**
-         * Calculates if one locale is compatible with another.
-         * When doing the calculation the locale and language code is taken into
-         * account if possible.
-         * @since 0.9.5
-         * @param locale1 a BCP47 or POSIX locale string, or %NULL
-         * @param locale2 a BCP47 or POSIX locale string, or %NULL
-         * @returns %TRUE if the locale is compatible.
-         */
-        function utils_locale_is_compatible(locale1: string | null, locale2: string | null): boolean
-        /**
-         * Converts a POSIX locale string to the corresponding IETF BCP47 format.
-         * If the given locale is already in BCP47 format, no change will be done.
-         * @param locale
-         * @returns A locale string, free with g_free()
-         */
-        function utils_posix_locale_to_bcp47(locale: string): string
-        /**
-         * Sorts all components in @cpts into the #AsCategory categories listed in @categories.
-         * @param cpts List of components.
-         * @param categories List of categories to sort components into.
-         * @param check_duplicates Whether to check for duplicates.
-         */
-        function utils_sort_components_into_categories(cpts: Component[], categories: Category[], check_duplicates: boolean): void
-        /**
-         * @since 0.15.4
-         * @returns An error quark.
-         */
-        function validator_error_quark(): GLib.Quark
-        /**
-         * Compare alpha and numeric segments of two software versions,
-         * considering @flags.
-         * @param a First version number
-         * @param b Second version number
-         * @param flags Flags, e.g. %AS_VERCMP_FLAG_NONE
-         * @returns  0 if b is newer than a
-         */
-        function vercmp(a: string, b: string, flags: VercmpFlags): number
-        /**
-         * Compare alpha and numeric segments of two software versions.
-         * @param a First version number
-         * @param b Second version number
-         * @returns  0 if b is newer than a
-         */
-        function vercmp_simple(a: string, b: string): number
-        /**
-         * Compare two version numbers and check if the given version comparator matches.
-         * @since 0.16.0
-         * @param ver1 first version number
-         * @param compare the comparison operator
-         * @param ver2 second version number
-         * @param flags the #AsVercmpFlags to use
-         * @returns %TRUE if the version comparison matches, %FALSE otherwise.
-         */
-        function vercmp_test_match(ver1: string, compare: RelationCompare, ver2: string, flags: VercmpFlags): boolean
-        /**
-         * Get the version of the AppStream library that is currently used
-         * at runtime as a string.
-         * @since 0.14.0
-         * @returns a version number, e.g. "0.14.2"
-         */
-        function version_string(): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param str the string.
-         * @returns a #AsVideoCodecKind, or %AS_VIDEO_CODEC_KIND_UNKNOWN for unknown.
-         */
-        function video_codec_kind_from_string(str: string): VideoCodecKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param kind the #AsVideoCodecKind.
-         * @returns string version of `codec`
-         */
-        function video_codec_kind_to_string(kind: VideoCodecKind): string
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param str the string.
-         * @returns a #AsVideoContainerKind, or %AS_VIDEO_CONTAINER_KIND_UNKNOWN for unknown.
-         */
-        function video_container_kind_from_string(str: string): VideoContainerKind
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param kind the #AsVideoContainerKind.
-         * @returns string version of `kind`
-         */
-        function video_container_kind_to_string(kind: VideoContainerKind): string
-        const MAJOR_VERSION: 1
-        const MICRO_VERSION: 6
-        const MINOR_VERSION: 0
-        
-        namespace AgreementKind {
-            const $gtype: GObject.GType<AgreementKind>
+            next(): [boolean, ColorKind, ColorSchemeKind, string]
         }
 
-        /**
-         * The kind of the agreement.
-         */
-        enum AgreementKind {
+        interface $Exports {
+            BrandingColorIter: BrandingColorIterStruct
+        }
+        
+        interface AgreementKindEnum {
+            readonly $gtype: GObject.GType<AgreementKind>
             /**
              * Unknown value
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * A generic agreement without a specific type
              */
-            "GENERIC" = 1,
+            readonly "GENERIC": 1
             /**
              * An End User License Agreement
              */
-            "EULA" = 2,
+            readonly "EULA": 2
             /**
              * A privacy agreement, typically a GDPR statement
              */
-            "PRIVACY" = 3,
+            readonly "PRIVACY": 3
         }
-        /**
+        type AgreementKind = AgreementKindEnum[Exclude<keyof AgreementKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The kind of the agreement.
+             */
+            AgreementKind: AgreementKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.12.1
          * @param value the string.
          * @returns a #AsAgreementKind or %AS_AGREEMENT_KIND_UNKNOWN for unknown
          */
-        function from_string(value: string): AgreementKind
-        /**
+        from_string: (value: string) => AgreementKind
+            /**
          * Converts the enumerated value to an text representation.
          * @since 0.12.1
          * @param value the #AsAgreementKind.
          * @returns string version of `value`
          */
-        function to_string(value: AgreementKind): string
-        
-        namespace ArtifactKind {
-            const $gtype: GObject.GType<ArtifactKind>
+        to_string: (value: AgreementKind) => string
         }
-
-        /**
-         * The artifact type.
-         */
-        enum ArtifactKind {
+        
+        interface ArtifactKindEnum {
+            readonly $gtype: GObject.GType<ArtifactKind>
             /**
              * Type invalid or not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * The artifact describes software sources.
              */
-            "SOURCE" = 1,
+            readonly "SOURCE": 1
             /**
              * The artifact describes a binary distribution of the component.
              */
-            "BINARY" = 2,
+            readonly "BINARY": 2
         }
-        /**
+        type ArtifactKind = ArtifactKindEnum[Exclude<keyof ArtifactKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The artifact type.
+             */
+            ArtifactKind: ArtifactKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param kind the string.
          * @returns a #AsArtifactKind, or %AS_ARTIFACT_KIND_UNKNOWN for unknown.
          */
-        function from_string(kind: string): ArtifactKind
-        /**
+        from_string: (kind: string) => ArtifactKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param kind the #AsArtifactKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ArtifactKind): string
-        
-        namespace BundleKind {
-            const $gtype: GObject.GType<BundleKind>
+        to_string: (kind: ArtifactKind) => string
         }
-
-        /**
-         * The bundle type.
-         */
-        enum BundleKind {
+        
+        interface BundleKindEnum {
+            readonly $gtype: GObject.GType<BundleKind>
             /**
              * Type invalid or not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * A native package (currently not used)
              */
-            "PACKAGE" = 1,
+            readonly "PACKAGE": 1
             /**
              * A Limba bundle
              */
-            "LIMBA" = 2,
+            readonly "LIMBA": 2
             /**
              * A Flatpak bundle
              */
-            "FLATPAK" = 3,
+            readonly "FLATPAK": 3
             /**
              * An AppImageKit bundle
              */
-            "APPIMAGE" = 4,
+            readonly "APPIMAGE": 4
             /**
              * A Snap/Snappy bundle
              */
-            "SNAP" = 5,
+            readonly "SNAP": 5
             /**
              * A (maybe compressed) tarball.
              */
-            "TARBALL" = 6,
+            readonly "TARBALL": 6
             /**
              * Cabinet firmware deployment
              */
-            "CABINET" = 7,
+            readonly "CABINET": 7
             /**
              * A Linglong bundle
              */
-            "LINGLONG" = 8,
+            readonly "LINGLONG": 8
             /**
              * A systemd-sysupdate bundle
              */
-            "SYSUPDATE" = 9,
+            readonly "SYSUPDATE": 9
         }
-        /**
+        type BundleKind = BundleKindEnum[Exclude<keyof BundleKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The bundle type.
+             */
+            BundleKind: BundleKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param bundle_str the string.
          * @returns a #AsBundleKind or %AS_BUNDLE_KIND_UNKNOWN for unknown
          */
-        function from_string(bundle_str: string): BundleKind
-        /**
+        from_string: (bundle_str: string) => BundleKind
+            /**
          * Converts the enumerated value to an text representation.
          * @since 0.8.0
          * @param kind the %AsBundleKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: BundleKind): string
-        
-        namespace ChassisKind {
-            const $gtype: GObject.GType<ChassisKind>
+        to_string: (kind: BundleKind) => string
         }
-
-        /**
-         * The type of chassis a computing device is built into.
-         */
-        enum ChassisKind {
+        
+        interface ChassisKindEnum {
+            readonly $gtype: GObject.GType<ChassisKind>
             /**
              * Unknown chassis.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * A desktop/workstation
              */
-            "DESKTOP" = 1,
+            readonly "DESKTOP": 1
             /**
              * A mobile computer with a bigger screen / laptop
              */
-            "LAPTOP" = 2,
+            readonly "LAPTOP": 2
             /**
              * A server, often without GUI
              */
-            "SERVER" = 3,
+            readonly "SERVER": 3
             /**
              * A tablet with touch as primary input method
              */
-            "TABLET" = 4,
+            readonly "TABLET": 4
             /**
              * A smaller touch-input device, like a smartphone
              */
-            "HANDSET" = 5,
+            readonly "HANDSET": 5
         }
-        /**
+        type ChassisKind = ChassisKindEnum[Exclude<keyof ChassisKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of chassis a computing device is built into.
+             */
+            ChassisKind: ChassisKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 1.0.0
          * @param kind_str the string.
          * @returns a #AsChassisKind or %AS_CHASSIS_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): ChassisKind
-        /**
+        from_string: (kind_str: string) => ChassisKind
+            /**
          * Converts the enumerated value to a text representation.
          * @since 1.0.0
          * @param kind the #AsChassisKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ChassisKind): string
-        
-        namespace CheckResult {
-            const $gtype: GObject.GType<CheckResult>
+        to_string: (kind: ChassisKind) => string
         }
-
-        /**
-         * Result of a check operation.
-         */
-        enum CheckResult {
+        
+        interface CheckResultEnum {
+            readonly $gtype: GObject.GType<CheckResult>
             /**
              * The check failed.
              */
-            "ERROR" = 0,
+            readonly "ERROR": 0
             /**
              * The outcome could not be determined.
              */
-            "UNKNOWN" = 1,
+            readonly "UNKNOWN": 1
             /**
              * False/No
              */
-            "FALSE" = 2,
+            readonly "FALSE": 2
             /**
              * True/Yes
              */
-            "TRUE" = 3,
+            readonly "TRUE": 3
+        }
+        type CheckResult = CheckResultEnum[Exclude<keyof CheckResultEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Result of a check operation.
+             */
+            CheckResult: CheckResultEnum
         }
         
-        namespace ChecksumKind {
-            const $gtype: GObject.GType<ChecksumKind>
-        }
-
-        /**
-         * Checksums supported by #AsRelease
-         */
-        enum ChecksumKind {
+        interface ChecksumKindEnum {
+            readonly $gtype: GObject.GType<ChecksumKind>
             /**
              * No checksum
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * SHA1 checksum
              */
-            "SHA1" = 1,
+            readonly "SHA1": 1
             /**
              * SHA256 checksum
              */
-            "SHA256" = 2,
+            readonly "SHA256": 2
             /**
              * SHA512 checksum
              */
-            "SHA512" = 3,
+            readonly "SHA512": 3
             /**
              * BLAKE2 checksum
              */
-            "BLAKE2B" = 4,
+            readonly "BLAKE2B": 4
             /**
              * BLAKE3 checksum
              */
-            "BLAKE3" = 5,
+            readonly "BLAKE3": 5
         }
-        /**
+        type ChecksumKind = ChecksumKindEnum[Exclude<keyof ChecksumKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Checksums supported by #AsRelease
+             */
+            ChecksumKind: ChecksumKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param kind_str the string.
          * @returns a #AsChecksumKind or %AS_CHECKSUM_KIND_NONE for unknown
          */
-        function from_string(kind_str: string): ChecksumKind
-        /**
+        from_string: (kind_str: string) => ChecksumKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param kind the %AsChecksumKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ChecksumKind): string
-        
-        namespace ColorKind {
-            const $gtype: GObject.GType<ColorKind>
+        to_string: (kind: ChecksumKind) => string
         }
-
-        /**
-         * A branding color type.
-         */
-        enum ColorKind {
+        
+        interface ColorKindEnum {
+            readonly $gtype: GObject.GType<ColorKind>
             /**
              * Color type invalid or not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Primary accent color
              */
-            "PRIMARY" = 1,
+            readonly "PRIMARY": 1
         }
-        /**
+        type ColorKind = ColorKindEnum[Exclude<keyof ColorKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * A branding color type.
+             */
+            ColorKind: ColorKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.15.2
          * @param str the string.
          * @returns a #AsColorKind or %AS_COLOR_KIND_UNKNOWN for unknown.
          */
-        function from_string(str: string): ColorKind
-        /**
+        from_string: (str: string) => ColorKind
+            /**
          * Converts the enumerated value to an text representation.
          * @since 0.15.2
          * @param kind the %AsColorKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ColorKind): string
-        
-        namespace ColorSchemeKind {
-            const $gtype: GObject.GType<ColorSchemeKind>
+        to_string: (kind: ColorKind) => string
         }
-
-        /**
-         * A color scheme type.
-         */
-        enum ColorSchemeKind {
+        
+        interface ColorSchemeKindEnum {
+            readonly $gtype: GObject.GType<ColorSchemeKind>
             /**
              * Color scheme invalid or not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * A light color scheme
              */
-            "LIGHT" = 1,
+            readonly "LIGHT": 1
             /**
              * A dark color scheme
              */
-            "DARK" = 2,
+            readonly "DARK": 2
         }
-        /**
+        type ColorSchemeKind = ColorSchemeKindEnum[Exclude<keyof ColorSchemeKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * A color scheme type.
+             */
+            ColorSchemeKind: ColorSchemeKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.15.2
          * @param str the string.
          * @returns a #AsColorKind or %AS_COLOR_SCHEME_KIND_UNKNOWN for unknown.
          */
-        function from_string(str: string): ColorSchemeKind
-        /**
+        from_string: (str: string) => ColorSchemeKind
+            /**
          * Converts the enumerated value to an text representation.
          * @since 0.15.2
          * @param kind the %AsColorSchemeKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ColorSchemeKind): string
-        
-        namespace ComponentKind {
-            const $gtype: GObject.GType<ComponentKind>
+        to_string: (kind: ColorSchemeKind) => string
         }
-
-        /**
-         * The type of an #AsComponent.
-         */
-        enum ComponentKind {
+        
+        interface ComponentKindEnum {
+            readonly $gtype: GObject.GType<ComponentKind>
             /**
              * Type invalid or not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * A generic (= without specialized type) component
              */
-            "GENERIC" = 1,
+            readonly "GENERIC": 1
             /**
              * An application with a .desktop-file
              */
-            "DESKTOP_APP" = 2,
+            readonly "DESKTOP_APP": 2
             /**
              * A console application
              */
-            "CONSOLE_APP" = 3,
+            readonly "CONSOLE_APP": 3
             /**
              * A web application
              */
-            "WEB_APP" = 4,
+            readonly "WEB_APP": 4
             /**
              * A system service launched by the init system
              */
-            "SERVICE" = 5,
+            readonly "SERVICE": 5
             /**
              * An extension of existing software, which does not run standalone
              */
-            "ADDON" = 6,
+            readonly "ADDON": 6
             /**
              * An application runtime platform
              */
-            "RUNTIME" = 7,
+            readonly "RUNTIME": 7
             /**
              * A font
              */
-            "FONT" = 8,
+            readonly "FONT": 8
             /**
              * A multimedia codec
              */
-            "CODEC" = 9,
+            readonly "CODEC": 9
             /**
              * An input-method provider
              */
-            "INPUT_METHOD" = 10,
+            readonly "INPUT_METHOD": 10
             /**
              * A computer operating system
              */
-            "OPERATING_SYSTEM" = 11,
+            readonly "OPERATING_SYSTEM": 11
             /**
              * Firmware
              */
-            "FIRMWARE" = 12,
+            readonly "FIRMWARE": 12
             /**
              * A driver
              */
-            "DRIVER" = 13,
+            readonly "DRIVER": 13
             /**
              * Software localization (usually l10n resources)
              */
-            "LOCALIZATION" = 14,
+            readonly "LOCALIZATION": 14
             /**
              * A remote software or data source
              */
-            "REPOSITORY" = 15,
+            readonly "REPOSITORY": 15
             /**
              * An icon theme following the XDG specification
              */
-            "ICON_THEME" = 16,
+            readonly "ICON_THEME": 16
         }
-        /**
+        type ComponentKind = ComponentKindEnum[Exclude<keyof ComponentKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of an #AsComponent.
+             */
+            ComponentKind: ComponentKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param kind_str the string.
          * @returns a #AsComponentKind or %AS_COMPONENT_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): ComponentKind
-        /**
+        from_string: (kind_str: string) => ComponentKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param kind the #AsComponentKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ComponentKind): string
-        
-        namespace ComponentScope {
-            const $gtype: GObject.GType<ComponentScope>
+        to_string: (kind: ComponentKind) => string
         }
-
-        /**
-         * Scope of the #AsComponent (system-wide or user-scope)
-         */
-        enum ComponentScope {
+        
+        interface ComponentScopeEnum {
+            readonly $gtype: GObject.GType<ComponentScope>
             /**
              * Unknown scope
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * System scope
              */
-            "SYSTEM" = 1,
+            readonly "SYSTEM": 1
             /**
              * User scope
              */
-            "USER" = 2,
+            readonly "USER": 2
         }
-        /**
+        type ComponentScope = ComponentScopeEnum[Exclude<keyof ComponentScopeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Scope of the #AsComponent (system-wide or user-scope)
+             */
+            ComponentScope: ComponentScopeEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param scope_str the string.
          * @returns a #AsComponentScope or %AS_COMPONENT_SCOPE_UNKNOWN for unknown
          */
-        function from_string(scope_str: string): ComponentScope
-        /**
+        from_string: (scope_str: string) => ComponentScope
+            /**
          * Converts the enumerated value to an text representation.
          * @param scope the #AsComponentScope.
          * @returns string version of `scope`
          */
-        function to_string(scope: ComponentScope): string
-        
-        namespace ContentRatingSystem {
-            const $gtype: GObject.GType<ContentRatingSystem>
+        to_string: (scope: ComponentScope) => string
         }
-
-        /**
-         * A content rating system for a particular territory.
-         * @since 0.12.12
-         */
-        enum ContentRatingSystem {
+        
+        interface ContentRatingSystemEnum {
+            readonly $gtype: GObject.GType<ContentRatingSystem>
             /**
              * Unknown ratings system
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * INCAA
              */
-            "INCAA" = 1,
+            readonly "INCAA": 1
             /**
              * ACB
              */
-            "ACB" = 2,
+            readonly "ACB": 2
             /**
              * DJCTQ
              */
-            "DJCTQ" = 3,
+            readonly "DJCTQ": 3
             /**
              * GSRR
              */
-            "GSRR" = 4,
+            readonly "GSRR": 4
             /**
              * PEGI
              */
-            "PEGI" = 5,
+            readonly "PEGI": 5
             /**
              * KAVI
              */
-            "KAVI" = 6,
+            readonly "KAVI": 6
             /**
              * USK
              */
-            "USK" = 7,
+            readonly "USK": 7
             /**
              * ESRA
              */
-            "ESRA" = 8,
+            readonly "ESRA": 8
             /**
              * CERO
              */
-            "CERO" = 9,
+            readonly "CERO": 9
             /**
              * OFLCNZ
              */
-            "OFLCNZ" = 10,
+            readonly "OFLCNZ": 10
             /**
              * Russia
              */
-            "RUSSIA" = 11,
+            readonly "RUSSIA": 11
             /**
              * MDA
              */
-            "MDA" = 12,
+            readonly "MDA": 12
             /**
              * GRAC
              */
-            "GRAC" = 13,
+            readonly "GRAC": 13
             /**
              * ESRB
              */
-            "ESRB" = 14,
+            readonly "ESRB": 14
             /**
              * IARC
              */
-            "IARC" = 15,
+            readonly "IARC": 15
         }
-        /**
+        type ContentRatingSystem = ContentRatingSystemEnum[Exclude<keyof ContentRatingSystemEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * A content rating system for a particular territory.
+             * @since 0.12.12
+             */
+            ContentRatingSystem: ContentRatingSystemEnum
+            /**
          * Format @age as a human-readable string in the given rating @system. This is
          * the way to present system-specific strings in a UI.
          * @since 0.12.12
@@ -6326,8 +5494,8 @@ declare module "gi://AppStream?version=1.0" {
          * @param age a CSM age to format
          * @returns a newly allocated formatted version of    `age`, or %NULL if the given `system` has no representation for `age`
          */
-        function format_age(system: ContentRatingSystem, age: number): string | null
-        /**
+        format_age: (system: ContentRatingSystem, age: number) => string | null
+            /**
          * Determine the most appropriate #AsContentRatingSystem for the given @locale.
          * Content rating systems are selected by territory. If no content rating system
          * seems suitable, %AS_CONTENT_RATING_SYSTEM_IARC is returned.
@@ -6335,16 +5503,16 @@ declare module "gi://AppStream?version=1.0" {
          * @param locale a locale, in the format described in `man 3 setlocale`
          * @returns the most relevant #AsContentRatingSystem
          */
-        function from_locale(locale: string): ContentRatingSystem
-        /**
+        from_locale: (locale: string) => ContentRatingSystem
+            /**
          * Get the CSM ages corresponding to the entries returned by
          * as_content_rating_system_get_formatted_ages() for this @system.
          * @since 0.12.12
          * @param system an #AsContentRatingSystem
          * @returns an array of CSM ages
          */
-        function get_csm_ages(system: ContentRatingSystem): number[]
-        /**
+        get_csm_ages: (system: ContentRatingSystem) => number[]
+            /**
          * Get an array of all the possible return values of
          * as_content_rating_system_format_age() for the given @system. The array is
          * sorted with youngest CSM age first.
@@ -6352,710 +5520,748 @@ declare module "gi://AppStream?version=1.0" {
          * @param system an #AsContentRatingSystem
          * @returns %NULL-terminated array of human-readable age strings
          */
-        function get_formatted_ages(system: ContentRatingSystem): string[]
-        /**
+        get_formatted_ages: (system: ContentRatingSystem) => string[]
+            /**
          * Get a human-readable string to identify @system. %NULL will be returned for
          * %AS_CONTENT_RATING_SYSTEM_UNKNOWN.
          * @since 0.12.12
          * @param system an #AsContentRatingSystem
          * @returns a human-readable string for `system`, or %NULL if unknown
          */
-        function to_string(system: ContentRatingSystem): string | null
-        
-        namespace ContentRatingValue {
-            const $gtype: GObject.GType<ContentRatingValue>
+        to_string: (system: ContentRatingSystem) => string | null
         }
-
-        /**
-         * The specified level of an content_rating rating ID.
-         */
-        enum ContentRatingValue {
+        
+        interface ContentRatingValueEnum {
+            readonly $gtype: GObject.GType<ContentRatingValue>
             /**
              * Unknown value
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * None
              */
-            "NONE" = 1,
+            readonly "NONE": 1
             /**
              * A small amount
              */
-            "MILD" = 2,
+            readonly "MILD": 2
             /**
              * A moderate amount
              */
-            "MODERATE" = 3,
+            readonly "MODERATE": 3
             /**
              * An intense amount
              */
-            "INTENSE" = 4,
+            readonly "INTENSE": 4
         }
-        /**
+        type ContentRatingValue = ContentRatingValueEnum[Exclude<keyof ContentRatingValueEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The specified level of an content_rating rating ID.
+             */
+            ContentRatingValue: ContentRatingValueEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.11.0
          * @param value the string.
          * @returns a #AsContentRatingValue or %AS_CONTENT_RATING_VALUE_UNKNOWN for unknown
          */
-        function from_string(value: string): ContentRatingValue
-        /**
+        from_string: (value: string) => ContentRatingValue
+            /**
          * Converts the enumerated value to an text representation.
          * @since 0.11.0
          * @param value the #AsContentRatingValue.
          * @returns string version of `value`
          */
-        function to_string(value: ContentRatingValue): string
-        
-        namespace ControlKind {
-            const $gtype: GObject.GType<ControlKind>
+        to_string: (value: ContentRatingValue) => string
         }
-
-        /**
-         * Kind of an input method for users to control software
-         */
-        enum ControlKind {
+        
+        interface ControlKindEnum {
+            readonly $gtype: GObject.GType<ControlKind>
             /**
              * Unknown kind
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Mouse/cursors/other precision pointing device
              */
-            "POINTING" = 1,
+            readonly "POINTING": 1
             /**
              * Keyboard input
              */
-            "KEYBOARD" = 2,
+            readonly "KEYBOARD": 2
             /**
              * Console / command-line interface
              */
-            "CONSOLE" = 3,
+            readonly "CONSOLE": 3
             /**
              * Touch input
              */
-            "TOUCH" = 4,
+            readonly "TOUCH": 4
             /**
              * Gamepad input (any game controller with wheels/buttons/joysticks)
              */
-            "GAMEPAD" = 5,
+            readonly "GAMEPAD": 5
             /**
              * Control via voice recognition/activation
              */
-            "VOICE" = 6,
+            readonly "VOICE": 6
             /**
              * Computer vision / visual object and sign detection
              */
-            "VISION" = 7,
+            readonly "VISION": 7
             /**
              * Input via a television remote
              */
-            "TV_REMOTE" = 8,
+            readonly "TV_REMOTE": 8
             /**
              * Graphics tablet input
              */
-            "TABLET" = 9,
+            readonly "TABLET": 9
         }
-        /**
+        type ControlKind = ControlKindEnum[Exclude<keyof ControlKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Kind of an input method for users to control software
+             */
+            ControlKind: ControlKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.12.11
          * @param kind_str the string.
          * @returns a #AsControlKind or %AS_CONTROL_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): ControlKind
-        /**
+        from_string: (kind_str: string) => ControlKind
+            /**
          * Converts the enumerated value to a text representation.
          * @since 0.12.11
          * @param kind the #AsControlKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ControlKind): string
-        
-        namespace DisplaySideKind {
-            const $gtype: GObject.GType<DisplaySideKind>
+        to_string: (kind: ControlKind) => string
         }
-
-        /**
-         * Side a display_length requirement is for.
-         */
-        enum DisplaySideKind {
+        
+        interface DisplaySideKindEnum {
+            readonly $gtype: GObject.GType<DisplaySideKind>
             /**
              * Unknown
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Shortest side of the display rectangle.
              */
-            "SHORTEST" = 1,
+            readonly "SHORTEST": 1
             /**
              * Longest side of the display rectangle.
              */
-            "LONGEST" = 2,
+            readonly "LONGEST": 2
         }
-        /**
+        type DisplaySideKind = DisplaySideKindEnum[Exclude<keyof DisplaySideKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Side a display_length requirement is for.
+             */
+            DisplaySideKind: DisplaySideKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.12.12
          * @param kind_str the string.
          * @returns a #AsDisplaySideKind or %AS_DISPLAY_SIDE_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): DisplaySideKind
-        /**
+        from_string: (kind_str: string) => DisplaySideKind
+            /**
          * Converts the enumerated value to a text representation.
          * @since 0.12.12
          * @param kind the #AsDisplaySideKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: DisplaySideKind): string
-        
-        namespace FormatKind {
-            const $gtype: GObject.GType<FormatKind>
+        to_string: (kind: DisplaySideKind) => string
         }
-
-        /**
-         * Format of the AppStream metadata.
-         */
-        enum FormatKind {
+        
+        interface FormatKindEnum {
+            readonly $gtype: GObject.GType<FormatKind>
             /**
              * Unknown metadata format.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * AppStream XML metadata.
              */
-            "XML" = 1,
+            readonly "XML": 1
             /**
              * AppStream YAML (DEP-11) metadata.
              */
-            "YAML" = 2,
+            readonly "YAML": 2
             /**
              * XDG Desktop Entry data.
              */
-            "DESKTOP_ENTRY" = 3,
+            readonly "DESKTOP_ENTRY": 3
         }
-        /**
+        type FormatKind = FormatKindEnum[Exclude<keyof FormatKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Format of the AppStream metadata.
+             */
+            FormatKind: FormatKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.10.0
          * @param kind_str the string.
          * @returns a #AsFormatKind or %AS_FORMAT_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): FormatKind
-        /**
+        from_string: (kind_str: string) => FormatKind
+            /**
          * Converts the enumerated value to an text representation.
          * @since 0.10.0
          * @param kind the #AsFormatKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: FormatKind): string
-        
-        namespace FormatStyle {
-            const $gtype: GObject.GType<FormatStyle>
+        to_string: (kind: FormatKind) => string
         }
-
-        /**
-         * There are a few differences between AppStream's metainfo files (shipped by upstream projects)
-         * and the catalog metadata (shipped by distributors).
-         * The data source kind indicates which style we should process.
-         * Usually you do not want to set this explicitly.
-         */
-        enum FormatStyle {
+        
+        interface FormatStyleEnum {
+            readonly $gtype: GObject.GType<FormatStyle>
             /**
              * The format style is unknown.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Parse AppStream upstream metadata (metainfo files)
              */
-            "METAINFO" = 1,
+            readonly "METAINFO": 1
             /**
              * Parse AppStream metadata catalog (shipped by software distributors)
              */
-            "CATALOG" = 2,
+            readonly "CATALOG": 2
+        }
+        type FormatStyle = FormatStyleEnum[Exclude<keyof FormatStyleEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * There are a few differences between AppStream's metainfo files (shipped by upstream projects)
+             * and the catalog metadata (shipped by distributors).
+             * The data source kind indicates which style we should process.
+             * Usually you do not want to set this explicitly.
+             */
+            FormatStyle: FormatStyleEnum
         }
         
-        namespace FormatVersion {
-            const $gtype: GObject.GType<FormatVersion>
-        }
-
-        /**
-         * Format version / API level of the AppStream metadata.
-         */
-        enum FormatVersion {
+        interface FormatVersionEnum {
+            readonly $gtype: GObject.GType<FormatVersion>
             /**
              * Unknown format version
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * 1.0
              */
-            "V1_0" = 1,
+            readonly "V1_0": 1
         }
-        /**
+        type FormatVersion = FormatVersionEnum[Exclude<keyof FormatVersionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Format version / API level of the AppStream metadata.
+             */
+            FormatVersion: FormatVersionEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.10.0
          * @param version_str the string.
          * @returns a #AsFormatVersion. For unknown, the highest version number is assumed.
          */
-        function from_string(version_str: string): FormatVersion
-        /**
+        from_string: (version_str: string) => FormatVersion
+            /**
          * Converts the enumerated value to an text representation.
          * @since 0.10.0
          * @param version the #AsFormatKind.
          * @returns string version of `version`
          */
-        function to_string(version: FormatVersion): string
-        
-        namespace IconKind {
-            const $gtype: GObject.GType<IconKind>
+        to_string: (version: FormatVersion) => string
         }
-
-        /**
-         * The icon type.
-         */
-        enum IconKind {
+        
+        interface IconKindEnum {
+            readonly $gtype: GObject.GType<IconKind>
             /**
              * Unknown icon kind
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Stock icon name
              */
-            "STOCK" = 1,
+            readonly "STOCK": 1
             /**
              * Icon in the internal caches
              */
-            "CACHED" = 2,
+            readonly "CACHED": 2
             /**
              * Local icon name
              */
-            "LOCAL" = 3,
+            readonly "LOCAL": 3
             /**
              * Remote icon URL
              */
-            "REMOTE" = 4,
+            readonly "REMOTE": 4
         }
-        /**
+        type IconKind = IconKindEnum[Exclude<keyof IconKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The icon type.
+             */
+            IconKind: IconKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param kind_str the string.
          * @returns a #AsIconKind or %AS_ICON_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): IconKind
-        /**
+        from_string: (kind_str: string) => IconKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param kind the %AsIconKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: IconKind): string
-        
-        namespace ImageKind {
-            const $gtype: GObject.GType<ImageKind>
+        to_string: (kind: IconKind) => string
         }
-
-        /**
-         * The image type.
-         */
-        enum ImageKind {
+        
+        interface ImageKindEnum {
+            readonly $gtype: GObject.GType<ImageKind>
             /**
              * Type invalid or not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * The source image at full resolution
              */
-            "SOURCE" = 1,
+            readonly "SOURCE": 1
             /**
              * A thumbnail at reduced resolution
              */
-            "THUMBNAIL" = 2,
+            readonly "THUMBNAIL": 2
         }
-        /**
+        type ImageKind = ImageKindEnum[Exclude<keyof ImageKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The image type.
+             */
+            ImageKind: ImageKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param kind the string.
          * @returns a #AsImageKind, or %AS_IMAGE_KIND_UNKNOWN for unknown.
          */
-        function from_string(kind: string): ImageKind
-        /**
+        from_string: (kind: string) => ImageKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param kind the #AsImageKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ImageKind): string
-        
-        namespace InternetKind {
-            const $gtype: GObject.GType<InternetKind>
+        to_string: (kind: ImageKind) => string
         }
-
-        /**
-         * Different internet connectivity requirements or recommendations for an
-         * application.
-         * @since 0.15.5
-         */
-        enum InternetKind {
+        
+        interface InternetKindEnum {
+            readonly $gtype: GObject.GType<InternetKind>
             /**
              * Unknown
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Always requires/recommends internet
              */
-            "ALWAYS" = 1,
+            readonly "ALWAYS": 1
             /**
              * Application is offline-only
              */
-            "OFFLINE_ONLY" = 2,
+            readonly "OFFLINE_ONLY": 2
             /**
              * Requires/Recommends internet on first run only
              */
-            "FIRST_RUN" = 3,
+            readonly "FIRST_RUN": 3
         }
-        /**
+        type InternetKind = InternetKindEnum[Exclude<keyof InternetKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Different internet connectivity requirements or recommendations for an
+             * application.
+             * @since 0.15.5
+             */
+            InternetKind: InternetKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.15.5
          * @param kind_str the string.
          * @returns a #AsInternetKind or %AS_INTERNET_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): InternetKind
-        /**
+        from_string: (kind_str: string) => InternetKind
+            /**
          * Converts the enumerated value to a text representation.
          * @since 0.15.5
          * @param kind the #AsInternetKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: InternetKind): string
-        
-        namespace IssueKind {
-            const $gtype: GObject.GType<IssueKind>
+        to_string: (kind: InternetKind) => string
         }
-
-        /**
-         * Checksums supported by #AsRelease
-         */
-        enum IssueKind {
+        
+        interface IssueKindEnum {
+            readonly $gtype: GObject.GType<IssueKind>
             /**
              * Unknown issue type
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Generic issue type
              */
-            "GENERIC" = 1,
+            readonly "GENERIC": 1
             /**
              * Common Vulnerabilities and Exposures issue
              */
-            "CVE" = 2,
+            readonly "CVE": 2
         }
-        /**
+        type IssueKind = IssueKindEnum[Exclude<keyof IssueKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Checksums supported by #AsRelease
+             */
+            IssueKind: IssueKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param kind_str the string.
          * @returns a #AsIssueKind or %AS_ISSUE_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): IssueKind
-        /**
+        from_string: (kind_str: string) => IssueKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param kind the %AsIssueKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: IssueKind): string
-        
-        namespace IssueSeverity {
-            const $gtype: GObject.GType<IssueSeverity>
+        to_string: (kind: IssueKind) => string
         }
-
-        /**
-         * The severity of an issue found by #AsValidator
-         */
-        enum IssueSeverity {
+        
+        interface IssueSeverityEnum {
+            readonly $gtype: GObject.GType<IssueSeverity>
             /**
              * The severity is unknown.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Pedantic information about ways to improve the data, but could also be ignored.
              */
-            "PEDANTIC" = 1,
+            readonly "PEDANTIC": 1
             /**
              * Non-essential information on how to improve metadata, no immediate action needed.
              */
-            "INFO" = 2,
+            readonly "INFO": 2
             /**
              * Something metadata issue which should be fixed as soon as possible.
              */
-            "WARNING" = 3,
+            readonly "WARNING": 3
             /**
              * There is a serious, fatal error in your metadata
              */
-            "ERROR" = 4,
+            readonly "ERROR": 4
         }
-        /**
+        type IssueSeverity = IssueSeverityEnum[Exclude<keyof IssueSeverityEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The severity of an issue found by #AsValidator
+             */
+            IssueSeverity: IssueSeverityEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param str the string.
          * @returns a #AsIssueSeverity, or %AS_ISSUE_SEVERITY_UNKNOWN for unknown.
          */
-        function from_string(str: string): IssueSeverity
-        /**
+        from_string: (str: string) => IssueSeverity
+            /**
          * Converts the enumerated value to an text representation.
          * @param severity the #AsIssueSeverity.
          * @returns string version of `severity`
          */
-        function to_string(severity: IssueSeverity): string
-        
-        namespace LaunchableKind {
-            const $gtype: GObject.GType<LaunchableKind>
+        to_string: (severity: IssueSeverity) => string
         }
-
-        /**
-         * Type of launch system the entries belong to.
-         */
-        enum LaunchableKind {
+        
+        interface LaunchableKindEnum {
+            readonly $gtype: GObject.GType<LaunchableKind>
             /**
              * Unknown kind
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Launch by desktop-id
              */
-            "DESKTOP_ID" = 1,
+            readonly "DESKTOP_ID": 1
             /**
              * A systemd/SysV-init service name
              */
-            "SERVICE" = 2,
+            readonly "SERVICE": 2
             /**
              * A Cockpit manifest / package name
              */
-            "COCKPIT_MANIFEST" = 3,
+            readonly "COCKPIT_MANIFEST": 3
             /**
              * A web HTTPS URL to launch a web application from
              */
-            "URL" = 4,
+            readonly "URL": 4
         }
-        /**
+        type LaunchableKind = LaunchableKindEnum[Exclude<keyof LaunchableKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Type of launch system the entries belong to.
+             */
+            LaunchableKind: LaunchableKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.11.0
          * @param kind_str the string.
          * @returns a #AsLaunchableKind or %AS_LAUNCHABLE_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): LaunchableKind
-        /**
+        from_string: (kind_str: string) => LaunchableKind
+            /**
          * Converts the enumerated value to a text representation.
          * @since 0.11.0
          * @param kind the #AsLaunchableKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: LaunchableKind): string
-        
-        namespace MarkupKind {
-            const $gtype: GObject.GType<MarkupKind>
+        to_string: (kind: LaunchableKind) => string
         }
-
-        /**
-         * Text markup types.
-         */
-        enum MarkupKind {
+        
+        interface MarkupKindEnum {
+            readonly $gtype: GObject.GType<MarkupKind>
             /**
              * Unknown markup.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * XML markup.
              */
-            "XML" = 1,
+            readonly "XML": 1
             /**
              * Simple text with unicode symbols.
              */
-            "TEXT" = 2,
+            readonly "TEXT": 2
             /**
              * Markdown
              */
-            "MARKDOWN" = 3,
+            readonly "MARKDOWN": 3
+        }
+        type MarkupKind = MarkupKindEnum[Exclude<keyof MarkupKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Text markup types.
+             */
+            MarkupKind: MarkupKindEnum
         }
         
-        namespace MergeKind {
-            const $gtype: GObject.GType<MergeKind>
-        }
-
-        /**
-         * Defines how #AsComponent data should be merged if the component is
-         * set for merge.
-         */
-        enum MergeKind {
+        interface MergeKindEnum {
+            readonly $gtype: GObject.GType<MergeKind>
             /**
              * No merge is happening.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Merge replacing data of target.
              */
-            "REPLACE" = 1,
+            readonly "REPLACE": 1
             /**
              * Merge appending data to target.
              */
-            "APPEND" = 2,
+            readonly "APPEND": 2
             /**
              * Remove the entire component if it matches.
              */
-            "REMOVE_COMPONENT" = 3,
+            readonly "REMOVE_COMPONENT": 3
         }
-        /**
+        type MergeKind = MergeKindEnum[Exclude<keyof MergeKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Defines how #AsComponent data should be merged if the component is
+             * set for merge.
+             */
+            MergeKind: MergeKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param kind_str the string.
          * @returns a #AsMergeKind or %AS_MERGE_KIND_NONE for unknown
          */
-        function from_string(kind_str: string): MergeKind
-        /**
+        from_string: (kind_str: string) => MergeKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param kind the #AsMergeKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: MergeKind): string
+        to_string: (kind: MergeKind) => string
+        }
         
-        abstract class MetadataError extends GLib.Error {
-            static readonly $gtype: GObject.GType<MetadataError>
+        interface MetadataError extends GLib.Error {}
+
+        interface MetadataErrorEnum {
+            readonly $gtype: GObject.GType<MetadataError>
+
+            new(props: { message: string, code: number }): MetadataError
             /**
              * Generic failure.
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * Unable to parse the metadata file.
              */
-            static readonly "PARSE": 1
+            readonly "PARSE": 1
             /**
              * Expected catalog metadata but got metainfo metadata, or vice versa.
              */
-            static readonly "FORMAT_UNEXPECTED": 2
+            readonly "FORMAT_UNEXPECTED": 2
             /**
              * We expected a component in the pool, but couldn't find one.
              */
-            static readonly "NO_COMPONENT": 3
+            readonly "NO_COMPONENT": 3
             /**
              * A essential value is missing in the source document.
              */
-            static readonly "VALUE_MISSING": 4
-        }
-        /**
+            readonly "VALUE_MISSING": 4
+            /**
          * @returns An error quark.
          */
-        function quark(): GLib.Quark
-        
-        namespace MetadataLocation {
-            const $gtype: GObject.GType<MetadataLocation>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The flags used when installing and removing metadata files.
-         */
-        enum MetadataLocation {
+        interface $Exports {
+            /**
+             * A metadata processing error.
+             */
+            MetadataError: MetadataErrorEnum
+        }
+        
+        interface MetadataLocationEnum {
+            readonly $gtype: GObject.GType<MetadataLocation>
             /**
              * An unknown/invalid location.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Installed by the vendor, shared
              */
-            "SHARED" = 1,
+            readonly "SHARED": 1
             /**
              * Installed as metadata into /var/lib, shared
              */
-            "STATE" = 2,
+            readonly "STATE": 2
             /**
              * Installed as metadata into /var/cache, shared
              */
-            "CACHE" = 3,
+            readonly "CACHE": 3
             /**
              * Installed for the current user
              */
-            "USER" = 4,
+            readonly "USER": 4
+        }
+        type MetadataLocation = MetadataLocationEnum[Exclude<keyof MetadataLocationEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The flags used when installing and removing metadata files.
+             */
+            MetadataLocation: MetadataLocationEnum
         }
         
-        abstract class PoolError extends GLib.Error {
-            static readonly $gtype: GObject.GType<PoolError>
+        interface PoolError extends GLib.Error {}
+
+        interface PoolErrorEnum {
+            readonly $gtype: GObject.GType<PoolError>
+
+            new(props: { message: string, code: number }): PoolError
             /**
              * Generic failure
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * The pool was loaded, but we had to ignore some metadata.
              */
-            static readonly "INCOMPLETE": 1
+            readonly "INCOMPLETE": 1
             /**
              * An AppStream-ID collision occured (a component with that ID already existed in the pool)
              */
-            static readonly "COLLISION": 2
+            readonly "COLLISION": 2
             /**
              * Unable to write to *any* cache file (not even tmpfs writes worked)
              */
-            static readonly "CACHE_WRITE_FAILED": 3
+            readonly "CACHE_WRITE_FAILED": 3
             /**
              * The disk cache was broken and we could not automatically recover.
              */
-            static readonly "CACHE_DAMAGED": 4
-        }
-        /**
+            readonly "CACHE_DAMAGED": 4
+            /**
          * @returns An error quark.
          */
-        function quark(): GLib.Quark
-        
-        namespace ProvidedKind {
-            const $gtype: GObject.GType<ProvidedKind>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Type of the public interface components can provide.
-         */
-        enum ProvidedKind {
+        interface $Exports {
+            /**
+             * A metadata pool error.
+             */
+            PoolError: PoolErrorEnum
+        }
+        
+        interface ProvidedKindEnum {
+            readonly $gtype: GObject.GType<ProvidedKind>
             /**
              * Unknown kind
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * A shared library
              */
-            "LIBRARY" = 1,
+            readonly "LIBRARY": 1
             /**
              * A binary installed into a directory in PATH
              */
-            "BINARY" = 2,
+            readonly "BINARY": 2
             /**
              * Provides a handler for a mimetype
              */
-            "MEDIATYPE" = 3,
+            readonly "MEDIATYPE": 3
             /**
              * A font
              */
-            "FONT" = 4,
+            readonly "FONT": 4
             /**
              * A modalias
              */
-            "MODALIAS" = 5,
+            readonly "MODALIAS": 5
             /**
              * A Python 3 module
              */
-            "PYTHON" = 6,
+            readonly "PYTHON": 6
             /**
              * A DBus service name on the system bus.
              */
-            "DBUS_SYSTEM" = 7,
+            readonly "DBUS_SYSTEM": 7
             /**
              * A DBus service name on the user/session bus.
              */
-            "DBUS_USER" = 8,
+            readonly "DBUS_USER": 8
             /**
              * Firmware flashed at runtime.
              */
-            "FIRMWARE_RUNTIME" = 9,
+            readonly "FIRMWARE_RUNTIME": 9
             /**
              * Firmware flashed permanently to the device.
              */
-            "FIRMWARE_FLASHED" = 10,
+            readonly "FIRMWARE_FLASHED": 10
             /**
              * An AppStream component
              */
-            "ID" = 11,
+            readonly "ID": 11
         }
-        /**
+        type ProvidedKind = ProvidedKindEnum[Exclude<keyof ProvidedKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Type of the public interface components can provide.
+             */
+            ProvidedKind: ProvidedKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param kind_str the string.
          * @returns a #AsProvidedKind or %AS_PROVIDED_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): ProvidedKind
-        /**
+        from_string: (kind_str: string) => ProvidedKind
+            /**
          * Converts the enumerated value to a localized text representation,
          * using the plural forms (e.g. "Libraries" instead of "Library").
          *
@@ -7063,98 +6269,100 @@ declare module "gi://AppStream?version=1.0" {
          * @param kind the #AsProvidedKind.
          * @returns Pluralized, l10n string version of `kind`
          */
-        function to_l10n_string(kind: ProvidedKind): string
-        /**
+        to_l10n_string: (kind: ProvidedKind) => string
+            /**
          * Converts the enumerated value to a text representation.
          * @param kind the #AsProvidedKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ProvidedKind): string
-        
-        namespace ReferenceKind {
-            const $gtype: GObject.GType<ReferenceKind>
+        to_string: (kind: ProvidedKind) => string
         }
-
-        /**
-         * A reference type.
-         */
-        enum ReferenceKind {
+        
+        interface ReferenceKindEnum {
+            readonly $gtype: GObject.GType<ReferenceKind>
             /**
              * Unknown reference kind.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Digital Object Identifier
              */
-            "DOI" = 1,
+            readonly "DOI": 1
             /**
              * Web URL to a Citation File Format file
              */
-            "CITATION_CFF" = 2,
+            readonly "CITATION_CFF": 2
             /**
              * A generic registry.
              */
-            "REGISTRY" = 3,
+            readonly "REGISTRY": 3
         }
-        /**
+        type ReferenceKind = ReferenceKindEnum[Exclude<keyof ReferenceKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * A reference type.
+             */
+            ReferenceKind: ReferenceKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param str the string.
          * @returns a AsReferenceKind or %AS_REFERENCE_KIND_UNKNOWN for unknown
          */
-        function from_string(str: string): ReferenceKind
-        /**
+        from_string: (str: string) => ReferenceKind
+            /**
          * Converts the enumerated value to an text representation.
          * @since 1.0.0
          * @param kind the %AsReferenceKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ReferenceKind): string
-        
-        namespace RelationCompare {
-            const $gtype: GObject.GType<RelationCompare>
+        to_string: (kind: ReferenceKind) => string
         }
-
-        /**
-         * The relational comparison type.
-         */
-        enum RelationCompare {
+        
+        interface RelationCompareEnum {
+            readonly $gtype: GObject.GType<RelationCompare>
             /**
              * Comparison predicate invalid or not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Equal to
              */
-            "EQ" = 1,
+            readonly "EQ": 1
             /**
              * Not equal to
              */
-            "NE" = 2,
+            readonly "NE": 2
             /**
              * Less than
              */
-            "LT" = 3,
+            readonly "LT": 3
             /**
              * Greater than
              */
-            "GT" = 4,
+            readonly "GT": 4
             /**
              * Less than or equal to
              */
-            "LE" = 5,
+            readonly "LE": 5
             /**
              * Greater than or equal to
              */
-            "GE" = 6,
+            readonly "GE": 6
         }
-        /**
+        type RelationCompare = RelationCompareEnum[Exclude<keyof RelationCompareEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The relational comparison type.
+             */
+            RelationCompare: RelationCompareEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.12.0
          * @param compare_str the string.
          * @returns a #AsRelationCompare, or %AS_RELATION_COMPARE_UNKNOWN for unknown.
          */
-        function from_string(compare_str: string): RelationCompare
-        /**
+        from_string: (compare_str: string) => RelationCompare
+            /**
          * Converts the enumerated value to an text representation.
          * The enum is converted into a two-letter identifier ("eq", "ge", etc.)
          * for use in the XML representation.
@@ -7162,872 +6370,1871 @@ declare module "gi://AppStream?version=1.0" {
          * @param compare the #AsRelationCompare.
          * @returns string version of `compare`
          */
-        function to_string(compare: RelationCompare): string
-        /**
-         * =", etc.)
+        to_string: (compare: RelationCompare) => string
+            /**
+         * Converts the enumerated value to an text representation.
+         * The enum is converted into an identifier consisting of two
+         * mathematical comparison operators ("==", ">=", etc.)
          * for use in the YAML representation and user interfaces.
          * @since 0.12.0
          * @param compare the #AsRelationCompare.
          * @returns string version of `compare`
          */
-        function to_symbols_string(compare: RelationCompare): string
+        to_symbols_string: (compare: RelationCompare) => string
+        }
         
-        abstract class RelationError extends GLib.Error {
-            static readonly $gtype: GObject.GType<RelationError>
+        interface RelationError extends GLib.Error {}
+
+        interface RelationErrorEnum {
+            readonly $gtype: GObject.GType<RelationError>
+
+            new(props: { message: string, code: number }): RelationError
             /**
              * Generic failure
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * A metadata value was bad.
              */
-            static readonly "BAD_VALUE": 1
+            readonly "BAD_VALUE": 1
             /**
              * Some check was not (yet) implemented.
              */
-            static readonly "NOT_IMPLEMENTED": 2
-        }
-        /**
+            readonly "NOT_IMPLEMENTED": 2
+            /**
          * @since 0.16.0
          * @returns An error quark.
          */
-        function quark(): GLib.Quark
-        
-        namespace RelationItemKind {
-            const $gtype: GObject.GType<RelationItemKind>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Type of the item an #AsRelation is for.
-         */
-        enum RelationItemKind {
+        interface $Exports {
+            /**
+             * The error type.
+             */
+            RelationError: RelationErrorEnum
+        }
+        
+        interface RelationItemKindEnum {
+            readonly $gtype: GObject.GType<RelationItemKind>
             /**
              * Unknown kind
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * A component ID
              */
-            "ID" = 1,
+            readonly "ID": 1
             /**
              * A hardware modalias
              */
-            "MODALIAS" = 2,
+            readonly "MODALIAS": 2
             /**
              * An operating system kernel (like Linux)
              */
-            "KERNEL" = 3,
+            readonly "KERNEL": 3
             /**
              * A system RAM requirement
              */
-            "MEMORY" = 4,
+            readonly "MEMORY": 4
             /**
              * A device firmware requirement (used by fwupd)
              */
-            "FIRMWARE" = 5,
+            readonly "FIRMWARE": 5
             /**
              * An input method for users to control software
              */
-            "CONTROL" = 6,
+            readonly "CONTROL": 6
             /**
              * Display edge length
              */
-            "DISPLAY_LENGTH" = 7,
+            readonly "DISPLAY_LENGTH": 7
             /**
              * A Computer Hardware ID (CHID) to depend on system hardware
              */
-            "HARDWARE" = 8,
+            readonly "HARDWARE": 8
             /**
              * Internet connectivity (Since: 0.15.5)
              */
-            "INTERNET" = 9,
+            readonly "INTERNET": 9
         }
-        /**
+        type RelationItemKind = RelationItemKindEnum[Exclude<keyof RelationItemKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Type of the item an #AsRelation is for.
+             */
+            RelationItemKind: RelationItemKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.12.0
          * @param kind_str the string.
          * @returns a #AsRelationItemKind or %AS_RELATION_ITEM_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): RelationItemKind
-        /**
+        from_string: (kind_str: string) => RelationItemKind
+            /**
          * Converts the enumerated value to a text representation.
          * @since 0.12.0
          * @param kind the #AsRelationKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: RelationItemKind): string
-        
-        namespace RelationKind {
-            const $gtype: GObject.GType<RelationKind>
+        to_string: (kind: RelationItemKind) => string
         }
-
-        /**
-         * Type of a component's relation to other items.
-         */
-        enum RelationKind {
+        
+        interface RelationKindEnum {
+            readonly $gtype: GObject.GType<RelationKind>
             /**
              * Unknown kind
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * The referenced item is required by the component
              */
-            "REQUIRES" = 1,
+            readonly "REQUIRES": 1
             /**
              * The referenced item is recommended
              */
-            "RECOMMENDS" = 2,
+            readonly "RECOMMENDS": 2
             /**
              * The referenced item is supported
              */
-            "SUPPORTS" = 3,
+            readonly "SUPPORTS": 3
         }
-        /**
+        type RelationKind = RelationKindEnum[Exclude<keyof RelationKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Type of a component's relation to other items.
+             */
+            RelationKind: RelationKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.12.0
          * @param kind_str the string.
          * @returns a #AsRelationKind or %AS_RELATION_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): RelationKind
-        /**
+        from_string: (kind_str: string) => RelationKind
+            /**
          * Converts the enumerated value to a text representation.
          * @since 0.12.0
          * @param kind the #AsRelationKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: RelationKind): string
-        
-        namespace RelationStatus {
-            const $gtype: GObject.GType<RelationStatus>
+        to_string: (kind: RelationKind) => string
         }
-
-        /**
-         * Status of a relation check result.
-         */
-        enum RelationStatus {
+        
+        interface RelationStatusEnum {
+            readonly $gtype: GObject.GType<RelationStatus>
             /**
              * Unknown status.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * An error occured and the status could not be checked.
              */
-            "ERROR" = 1,
+            readonly "ERROR": 1
             /**
              * The relation is not satisfied.
              */
-            "NOT_SATISFIED" = 2,
+            readonly "NOT_SATISFIED": 2
             /**
              * The relation is satisfied.
              */
-            "SATISFIED" = 3,
+            readonly "SATISFIED": 3
+        }
+        type RelationStatus = RelationStatusEnum[Exclude<keyof RelationStatusEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Status of a relation check result.
+             */
+            RelationStatus: RelationStatusEnum
         }
         
-        namespace ReleaseKind {
-            const $gtype: GObject.GType<ReleaseKind>
-        }
-
-        /**
-         * The release kind.
-         * @since 0.12.0
-         */
-        enum ReleaseKind {
+        interface ReleaseKindEnum {
+            readonly $gtype: GObject.GType<ReleaseKind>
             /**
              * Unknown release type
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * A stable release for end-users
              */
-            "STABLE" = 1,
+            readonly "STABLE": 1
             /**
              * A development release or pre-release for testing
              */
-            "DEVELOPMENT" = 2,
+            readonly "DEVELOPMENT": 2
             /**
              * A snapshot of a software being worked on
              */
-            "SNAPSHOT" = 3,
+            readonly "SNAPSHOT": 3
         }
-        /**
+        type ReleaseKind = ReleaseKindEnum[Exclude<keyof ReleaseKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The release kind.
+             * @since 0.12.0
+             */
+            ReleaseKind: ReleaseKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.12.0
          * @param kind_str the string.
          * @returns an #AsReleaseKind or %AS_RELEASE_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): ReleaseKind
-        /**
+        from_string: (kind_str: string) => ReleaseKind
+            /**
          * Converts the enumerated value to an text representation.
          * @since 0.12.0
          * @param kind the #AsReleaseKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ReleaseKind): string
-        
-        namespace ReleaseListKind {
-            const $gtype: GObject.GType<ReleaseListKind>
+        to_string: (kind: ReleaseKind) => string
         }
-
-        /**
-         * The kind of a releases block.
-         * @since 0.16.0
-         */
-        enum ReleaseListKind {
+        
+        interface ReleaseListKindEnum {
+            readonly $gtype: GObject.GType<ReleaseListKind>
             /**
              * Unknown releases type
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Release info is embedded in metainfo file
              */
-            "EMBEDDED" = 1,
+            readonly "EMBEDDED": 1
             /**
              * Release info is split to a separate file
              */
-            "EXTERNAL" = 2,
+            readonly "EXTERNAL": 2
         }
-        /**
+        type ReleaseListKind = ReleaseListKindEnum[Exclude<keyof ReleaseListKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The kind of a releases block.
+             * @since 0.16.0
+             */
+            ReleaseListKind: ReleaseListKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.16.0
          * @param kind_str the string.
          * @returns an #AsReleaseKind or %AS_RELEASE_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): ReleaseListKind
-        /**
+        from_string: (kind_str: string) => ReleaseListKind
+            /**
          * Converts the enumerated value to an text representation.
          * @since 0.16.0
          * @param kind the #AsReleaseKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ReleaseListKind): string
-        
-        namespace ReleaseUrlKind {
-            const $gtype: GObject.GType<ReleaseUrlKind>
+        to_string: (kind: ReleaseListKind) => string
         }
-
-        /**
-         * @AS_RELEASE_URL_KIND_UNKNOWN		Unknown release web URL type
-         * The release URL kinds.
-         * @since 0.12.5
-         */
-        enum ReleaseUrlKind {
+        
+        interface ReleaseUrlKindEnum {
+            readonly $gtype: GObject.GType<ReleaseUrlKind>
             /**
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Weblink to detailed release notes.
              */
-            "DETAILS" = 1,
+            readonly "DETAILS": 1
         }
-        /**
+        type ReleaseUrlKind = ReleaseUrlKindEnum[Exclude<keyof ReleaseUrlKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @AS_RELEASE_URL_KIND_UNKNOWN		Unknown release web URL type
+             * The release URL kinds.
+             * @since 0.12.5
+             */
+            ReleaseUrlKind: ReleaseUrlKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.12.5
          * @param kind_str the string.
          * @returns an #AsReleaseUrlKind or %AS_RELEASE_URL_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): ReleaseUrlKind
-        /**
+        from_string: (kind_str: string) => ReleaseUrlKind
+            /**
          * Converts the enumerated value to an text representation.
          * @since 0.12.5
          * @param kind the #AsReleaseUrlKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ReleaseUrlKind): string
-        
-        namespace ScreenshotKind {
-            const $gtype: GObject.GType<ScreenshotKind>
+        to_string: (kind: ReleaseUrlKind) => string
         }
-
-        /**
-         * The screenshot type.
-         */
-        enum ScreenshotKind {
+        
+        interface ScreenshotKindEnum {
+            readonly $gtype: GObject.GType<ScreenshotKind>
             /**
              * Type invalid or not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * The primary screenshot to show by default
              */
-            "DEFAULT" = 1,
+            readonly "DEFAULT": 1
             /**
              * Optional screenshot
              */
-            "EXTRA" = 2,
+            readonly "EXTRA": 2
         }
-        /**
+        type ScreenshotKind = ScreenshotKindEnum[Exclude<keyof ScreenshotKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The screenshot type.
+             */
+            ScreenshotKind: ScreenshotKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param kind the string.
          * @returns a %AsScreenshotKind, or %AS_SCREENSHOT_KIND_UNKNOWN if not known.
          */
-        function from_string(kind: string): ScreenshotKind
-        /**
+        from_string: (kind: string) => ScreenshotKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param kind the #AsScreenshotKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: ScreenshotKind): string
-        
-        namespace ScreenshotMediaKind {
-            const $gtype: GObject.GType<ScreenshotMediaKind>
+        to_string: (kind: ScreenshotKind) => string
         }
-
-        /**
-         * The media kind contained in this screenshot.
-         */
-        enum ScreenshotMediaKind {
+        
+        interface ScreenshotMediaKindEnum {
+            readonly $gtype: GObject.GType<ScreenshotMediaKind>
             /**
              * Media kind is unknown
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * The screenshot contains images
              */
-            "IMAGE" = 1,
+            readonly "IMAGE": 1
             /**
              * The screenshot contains videos
              */
-            "VIDEO" = 2,
+            readonly "VIDEO": 2
+        }
+        type ScreenshotMediaKind = ScreenshotMediaKindEnum[Exclude<keyof ScreenshotMediaKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The media kind contained in this screenshot.
+             */
+            ScreenshotMediaKind: ScreenshotMediaKindEnum
         }
         
-        namespace SizeKind {
-            const $gtype: GObject.GType<SizeKind>
-        }
-
-        /**
-         * The artifact size kind.
-         * @since 0.8.6
-         */
-        enum SizeKind {
+        interface SizeKindEnum {
+            readonly $gtype: GObject.GType<SizeKind>
             /**
              * Unknown size
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Size of download of component
              */
-            "DOWNLOAD" = 1,
+            readonly "DOWNLOAD": 1
             /**
              * Size of installed component
              */
-            "INSTALLED" = 2,
+            readonly "INSTALLED": 2
         }
-        /**
+        type SizeKind = SizeKindEnum[Exclude<keyof SizeKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The artifact size kind.
+             * @since 0.8.6
+             */
+            SizeKind: SizeKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param size_kind the string.
          * @returns an #AsSizeKind or %AS_SIZE_KIND_UNKNOWN for unknown
          */
-        function from_string(size_kind: string): SizeKind
-        /**
+        from_string: (size_kind: string) => SizeKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param size_kind the #AsSizeKind.
          * @returns string version of `size_kind`
          */
-        function to_string(size_kind: SizeKind): string
-        
-        namespace SuggestedKind {
-            const $gtype: GObject.GType<SuggestedKind>
+        to_string: (size_kind: SizeKind) => string
         }
-
-        /**
-         * The suggested type.
-         */
-        enum SuggestedKind {
+        
+        interface SuggestedKindEnum {
+            readonly $gtype: GObject.GType<SuggestedKind>
             /**
              * Unknown suggested kind
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Suggestions provided by the upstream project.
              */
-            "UPSTREAM" = 1,
+            readonly "UPSTREAM": 1
             /**
              * Suggestions provided by automatic heuristics.
              */
-            "HEURISTIC" = 2,
+            readonly "HEURISTIC": 2
         }
-        /**
+        type SuggestedKind = SuggestedKindEnum[Exclude<keyof SuggestedKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The suggested type.
+             */
+            SuggestedKind: SuggestedKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param kind_str the string.
          * @returns a #AsSuggestedKind or %AS_SUGGESTED_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): SuggestedKind
-        /**
+        from_string: (kind_str: string) => SuggestedKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param kind the %AsSuggestedKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: SuggestedKind): string
+        to_string: (kind: SuggestedKind) => string
+        }
         
-        abstract class SystemInfoError extends GLib.Error {
-            static readonly $gtype: GObject.GType<SystemInfoError>
+        interface SystemInfoError extends GLib.Error {}
+
+        interface SystemInfoErrorEnum {
+            readonly $gtype: GObject.GType<SystemInfoError>
+
+            new(props: { message: string, code: number }): SystemInfoError
             /**
              * Generic failure
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * Information was not found.
              */
-            static readonly "NOT_FOUND": 1
-        }
-        /**
+            readonly "NOT_FOUND": 1
+            /**
          * @since 0.16.0
          * @returns An error quark.
          */
-        function quark(): GLib.Quark
-        
-        namespace TranslationKind {
-            const $gtype: GObject.GType<TranslationKind>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The translation type.
-         */
-        enum TranslationKind {
+        interface $Exports {
+            /**
+             * The error type.
+             */
+            SystemInfoError: SystemInfoErrorEnum
+        }
+        
+        interface TranslationKindEnum {
+            readonly $gtype: GObject.GType<TranslationKind>
             /**
              * Type invalid or not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Gettext translation domain
              */
-            "GETTEXT" = 1,
+            readonly "GETTEXT": 1
             /**
              * Qt translation domain
              */
-            "QT" = 2,
+            readonly "QT": 2
         }
-        /**
+        type TranslationKind = TranslationKindEnum[Exclude<keyof TranslationKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The translation type.
+             */
+            TranslationKind: TranslationKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param kind_str the string.
          * @returns a #AsTranslationKind or %AS_TRANSLATION_KIND_UNKNOWN for unknown
          */
-        function from_string(kind_str: string): TranslationKind
-        /**
+        from_string: (kind_str: string) => TranslationKind
+            /**
          * Converts the enumerated value to a text representation.
          * @param kind the #AsTranslationKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: TranslationKind): string
-        
-        namespace UrgencyKind {
-            const $gtype: GObject.GType<UrgencyKind>
+        to_string: (kind: TranslationKind) => string
         }
-
-        /**
-         * The urgency of an #AsRelease
-         */
-        enum UrgencyKind {
+        
+        interface UrgencyKindEnum {
+            readonly $gtype: GObject.GType<UrgencyKind>
             /**
              * Urgency is unknown or not set
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Low urgency
              */
-            "LOW" = 1,
+            readonly "LOW": 1
             /**
              * Medium urgency
              */
-            "MEDIUM" = 2,
+            readonly "MEDIUM": 2
             /**
              * High urgency
              */
-            "HIGH" = 3,
+            readonly "HIGH": 3
             /**
              * Critical urgency
              */
-            "CRITICAL" = 4,
+            readonly "CRITICAL": 4
         }
-        /**
+        type UrgencyKind = UrgencyKindEnum[Exclude<keyof UrgencyKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The urgency of an #AsRelease
+             */
+            UrgencyKind: UrgencyKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @since 0.6.5
          * @param urgency_kind the string.
          * @returns a %AsUrgencyKind or %AS_URGENCY_KIND_UNKNOWN for unknown
          */
-        function from_string(urgency_kind: string): UrgencyKind
-        /**
+        from_string: (urgency_kind: string) => UrgencyKind
+            /**
          * Converts the enumerated value to an text representation.
          * @since 0.6.5
          * @param urgency_kind the %AsUrgencyKind.
          * @returns string version of `urgency_kind`
          */
-        function to_string(urgency_kind: UrgencyKind): string
-        
-        namespace UrlKind {
-            const $gtype: GObject.GType<UrlKind>
+        to_string: (urgency_kind: UrgencyKind) => string
         }
-
-        /**
-         * The URL type.
-         */
-        enum UrlKind {
+        
+        interface UrlKindEnum {
+            readonly $gtype: GObject.GType<UrlKind>
             /**
              * Type invalid or not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Project homepage
              */
-            "HOMEPAGE" = 1,
+            readonly "HOMEPAGE": 1
             /**
              * Bugtracker
              */
-            "BUGTRACKER" = 2,
+            readonly "BUGTRACKER": 2
             /**
              * FAQ page
              */
-            "FAQ" = 3,
+            readonly "FAQ": 3
             /**
              * Help manual
              */
-            "HELP" = 4,
+            readonly "HELP": 4
             /**
              * Page with information about how to donate to the project
              */
-            "DONATION" = 5,
+            readonly "DONATION": 5
             /**
              * Page with instructions on how to translate the project / submit translations.
              */
-            "TRANSLATE" = 6,
+            readonly "TRANSLATE": 6
             /**
              * Contact the developers
              */
-            "CONTACT" = 7,
+            readonly "CONTACT": 7
             /**
              * Browse the source code
              */
-            "VCS_BROWSER" = 8,
+            readonly "VCS_BROWSER": 8
             /**
              * Help developing
              */
-            "CONTRIBUTE" = 9,
+            readonly "CONTRIBUTE": 9
         }
-        /**
+        type UrlKind = UrlKindEnum[Exclude<keyof UrlKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The URL type.
+             */
+            UrlKind: UrlKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param url_kind the string.
          * @returns a #AsUrlKind or %AS_URL_KIND_UNKNOWN for unknown
          */
-        function from_string(url_kind: string): UrlKind
-        /**
+        from_string: (url_kind: string) => UrlKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param url_kind the %AsUrlKind.
          * @returns string version of `url_kind`
          */
-        function to_string(url_kind: UrlKind): string
+        to_string: (url_kind: UrlKind) => string
+        }
         
-        abstract class UtilsError extends GLib.Error {
-            static readonly $gtype: GObject.GType<UtilsError>
+        interface UtilsError extends GLib.Error {}
+
+        interface UtilsErrorEnum {
+            readonly $gtype: GObject.GType<UtilsError>
+
+            new(props: { message: string, code: number }): UtilsError
             /**
              * Generic failure
              */
-            static readonly "FAILED": 0
-        }
-        /**
+            readonly "FAILED": 0
+            /**
          * @since 0.14.0
          * @returns An error quark.
          */
-        function quark(): GLib.Quark
+        quark: () => GLib.Quark
+        }
+
+        interface $Exports {
+            /**
+             * The error type.
+             */
+            UtilsError: UtilsErrorEnum
+        }
         
-        abstract class ValidatorError extends GLib.Error {
-            static readonly $gtype: GObject.GType<ValidatorError>
+        interface ValidatorError extends GLib.Error {}
+
+        interface ValidatorErrorEnum {
+            readonly $gtype: GObject.GType<ValidatorError>
+
+            new(props: { message: string, code: number }): ValidatorError
             /**
              * Generic failure
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * The issue override was not accepted.
              */
-            static readonly "INVALID_OVERRIDE": 1
+            readonly "INVALID_OVERRIDE": 1
             /**
              * The filename was invalid.
              */
-            static readonly "INVALID_FILENAME": 2
-        }
-        /**
+            readonly "INVALID_FILENAME": 2
+            /**
          * @since 0.15.4
          * @returns An error quark.
          */
-        function quark(): GLib.Quark
-        
-        namespace VideoCodecKind {
-            const $gtype: GObject.GType<VideoCodecKind>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Supported video codecs.
-         */
-        enum VideoCodecKind {
+        interface $Exports {
+            /**
+             * The error type.
+             */
+            ValidatorError: ValidatorErrorEnum
+        }
+        
+        interface VideoCodecKindEnum {
+            readonly $gtype: GObject.GType<VideoCodecKind>
             /**
              * Unknown video codec
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * The VP9 video codec
              */
-            "VP9" = 1,
+            readonly "VP9": 1
             /**
              * The AV1 video codec
              */
-            "AV1" = 2,
+            readonly "AV1": 2
         }
-        /**
+        type VideoCodecKind = VideoCodecKindEnum[Exclude<keyof VideoCodecKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Supported video codecs.
+             */
+            VideoCodecKind: VideoCodecKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param str the string.
          * @returns a #AsVideoCodecKind, or %AS_VIDEO_CODEC_KIND_UNKNOWN for unknown.
          */
-        function from_string(str: string): VideoCodecKind
-        /**
+        from_string: (str: string) => VideoCodecKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param kind the #AsVideoCodecKind.
          * @returns string version of `codec`
          */
-        function to_string(kind: VideoCodecKind): string
-        
-        namespace VideoContainerKind {
-            const $gtype: GObject.GType<VideoContainerKind>
+        to_string: (kind: VideoCodecKind) => string
         }
-
-        /**
-         * Supported video codecs.
-         */
-        enum VideoContainerKind {
+        
+        interface VideoContainerKindEnum {
+            readonly $gtype: GObject.GType<VideoContainerKind>
             /**
              * Unknown video container
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * The Matroska video (MKV) container
              */
-            "MKV" = 1,
+            readonly "MKV": 1
             /**
              * The WebM video container
              */
-            "WEBM" = 2,
+            readonly "WEBM": 2
         }
-        /**
+        type VideoContainerKind = VideoContainerKindEnum[Exclude<keyof VideoContainerKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Supported video codecs.
+             */
+            VideoContainerKind: VideoContainerKindEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param str the string.
          * @returns a #AsVideoContainerKind, or %AS_VIDEO_CONTAINER_KIND_UNKNOWN for unknown.
          */
-        function from_string(str: string): VideoContainerKind
-        /**
+        from_string: (str: string) => VideoContainerKind
+            /**
          * Converts the enumerated value to an text representation.
          * @param kind the #AsVideoContainerKind.
          * @returns string version of `kind`
          */
-        function to_string(kind: VideoContainerKind): string
-        
-        namespace CacheFlags {
-            const $gtype: GObject.GType<CacheFlags>
+        to_string: (kind: VideoContainerKind) => string
         }
-
-        /**
-         * Flags on how caching should be used.
-         */
-        enum CacheFlags {
+        
+        interface CacheFlagsBitfield {
+            readonly $gtype: GObject.GType<CacheFlags>
             /**
              * No flags.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Create an user-specific metadata cache.
              */
-            "USE_USER" = 1,
+            readonly "USE_USER": 1
             /**
              * Use and - if possible - update the system metadata cache.
              */
-            "USE_SYSTEM" = 2,
+            readonly "USE_SYSTEM": 2
             /**
              * Don't clear the cache when opening it.
              */
-            "NO_CLEAR" = 4,
+            readonly "NO_CLEAR": 4
             /**
              * Refresh the system cache that is shared between applications.
              */
-            "REFRESH_SYSTEM" = 8,
+            readonly "REFRESH_SYSTEM": 8
+        }
+        type CacheFlags = number
+        interface $Exports {
+            /**
+             * Flags on how caching should be used.
+             */
+            CacheFlags: CacheFlagsBitfield
         }
         
-        namespace ComponentBoxFlags {
-            const $gtype: GObject.GType<ComponentBoxFlags>
-        }
-
-        /**
-         * Flags controlling the component box behavior.
-         */
-        enum ComponentBoxFlags {
+        interface ComponentBoxFlagsBitfield {
+            readonly $gtype: GObject.GType<ComponentBoxFlags>
             /**
              * No flags.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Only perform the most basic verification.
              */
-            "NO_CHECKS" = 1,
+            readonly "NO_CHECKS": 1
+        }
+        type ComponentBoxFlags = number
+        interface $Exports {
+            /**
+             * Flags controlling the component box behavior.
+             */
+            ComponentBoxFlags: ComponentBoxFlagsBitfield
         }
         
-        namespace DataIdMatchFlags {
-            const $gtype: GObject.GType<DataIdMatchFlags>
-        }
-
-        /**
-         * The flags used when matching unique IDs.
-         */
-        enum DataIdMatchFlags {
+        interface DataIdMatchFlagsBitfield {
+            readonly $gtype: GObject.GType<DataIdMatchFlags>
             /**
              * No flags set
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Scope, e.g. a #AsComponentScope
              */
-            "SCOPE" = 1,
+            readonly "SCOPE": 1
             /**
              * Bundle kind, e.g. a #AsBundleKind
              */
-            "BUNDLE_KIND" = 2,
+            readonly "BUNDLE_KIND": 2
             /**
              * Origin
              */
-            "ORIGIN" = 4,
+            readonly "ORIGIN": 4
             /**
              * Component AppStream ID
              */
-            "ID" = 8,
+            readonly "ID": 8
             /**
              * Branch
              */
-            "BRANCH" = 16,
+            readonly "BRANCH": 16
+        }
+        type DataIdMatchFlags = number
+        interface $Exports {
+            /**
+             * The flags used when matching unique IDs.
+             */
+            DataIdMatchFlags: DataIdMatchFlagsBitfield
         }
         
-        namespace ParseFlags {
-            const $gtype: GObject.GType<ParseFlags>
-        }
-
-        /**
-         * Influence certain aspects of how AppStream metadata is parsed.
-         */
-        enum ParseFlags {
+        interface ParseFlagsBitfield {
+            readonly $gtype: GObject.GType<ParseFlags>
             /**
              * No flags.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Do not process the media_baseurl document property.
              */
-            "IGNORE_MEDIABASEURL" = 1,
+            readonly "IGNORE_MEDIABASEURL": 1
+        }
+        type ParseFlags = number
+        interface $Exports {
+            /**
+             * Influence certain aspects of how AppStream metadata is parsed.
+             */
+            ParseFlags: ParseFlagsBitfield
         }
         
-        namespace PoolFlags {
-            const $gtype: GObject.GType<PoolFlags>
-        }
-
-        /**
-         * Flags controlling the metadata pool behavior.
-         */
-        enum PoolFlags {
+        interface PoolFlagsBitfield {
+            readonly $gtype: GObject.GType<PoolFlags>
             /**
              * No flags.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Load AppStream catalog metadata from OS locations.
              */
-            "LOAD_OS_CATALOG" = 1,
+            readonly "LOAD_OS_CATALOG": 1
             /**
              * Load MetaInfo data from OS locations.
              */
-            "LOAD_OS_METAINFO" = 2,
+            readonly "LOAD_OS_METAINFO": 2
             /**
              * Load components from desktop-entry files in OS locations.
              */
-            "LOAD_OS_DESKTOP_FILES" = 4,
+            readonly "LOAD_OS_DESKTOP_FILES": 4
             /**
              * Load AppStream catalog metadata from Flatpak.
              */
-            "LOAD_FLATPAK" = 8,
+            readonly "LOAD_FLATPAK": 8
             /**
              * Load fresh data even if an up-o-date cache is available.
              */
-            "IGNORE_CACHE_AGE" = 16,
+            readonly "IGNORE_CACHE_AGE": 16
             /**
              * Always resolve addons for returned components.
              */
-            "RESOLVE_ADDONS" = 32,
+            readonly "RESOLVE_ADDONS": 32
             /**
              * Prefer local metainfo data over the system-provided catalog data. Useful for previewing local data.
              */
-            "PREFER_OS_METAINFO" = 64,
+            readonly "PREFER_OS_METAINFO": 64
             /**
              * Monitor registered directories for changes, and auto-reload metadata if necessary.
              */
-            "MONITOR" = 128,
+            readonly "MONITOR": 128
+        }
+        type PoolFlags = number
+        interface $Exports {
+            /**
+             * Flags controlling the metadata pool behavior.
+             */
+            PoolFlags: PoolFlagsBitfield
         }
         
-        namespace ReviewFlags {
-            const $gtype: GObject.GType<ReviewFlags>
-        }
-
-        /**
-         * The flags for the review.
-         * @since 0.14.0
-         */
-        enum ReviewFlags {
+        interface ReviewFlagsBitfield {
+            readonly $gtype: GObject.GType<ReviewFlags>
             /**
              * No special flags set
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * The user wrote the review themselves
              */
-            "SELF" = 1,
+            readonly "SELF": 1
             /**
              * The user voted on the review
              */
-            "VOTED" = 2,
+            readonly "VOTED": 2
+        }
+        type ReviewFlags = number
+        interface $Exports {
+            /**
+             * The flags for the review.
+             * @since 0.14.0
+             */
+            ReviewFlags: ReviewFlagsBitfield
         }
         
-        namespace ValueFlags {
-            const $gtype: GObject.GType<ValueFlags>
-        }
-
-        /**
-         * Set how values assigned to an #AsComponent should be treated when
-         * they are set or retrieved.
-         */
-        enum ValueFlags {
+        interface ValueFlagsBitfield {
+            readonly $gtype: GObject.GType<ValueFlags>
             /**
              * No flags.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Check for duplicates when adding items to list values.
              */
-            "DUPLICATE_CHECK" = 1,
+            readonly "DUPLICATE_CHECK": 1
             /**
              * Don't fall back to C when retrieving translated values.
              */
-            "NO_TRANSLATION_FALLBACK" = 2,
+            readonly "NO_TRANSLATION_FALLBACK": 2
+        }
+        type ValueFlags = number
+        interface $Exports {
+            /**
+             * Set how values assigned to an #AsComponent should be treated when
+             * they are set or retrieved.
+             */
+            ValueFlags: ValueFlagsBitfield
         }
         
-        namespace VercmpFlags {
-            const $gtype: GObject.GType<VercmpFlags>
-        }
-
-        /**
-         * The flags used when matching unique IDs.
-         */
-        enum VercmpFlags {
+        interface VercmpFlagsBitfield {
+            readonly $gtype: GObject.GType<VercmpFlags>
             /**
              * No flags set
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Ignore epoch part of a version string.
              */
-            "IGNORE_EPOCH" = 1,
+            readonly "IGNORE_EPOCH": 1
+        }
+        type VercmpFlags = number
+        interface $Exports {
+            /**
+             * The flags used when matching unique IDs.
+             */
+            VercmpFlags: VercmpFlagsBitfield
+        }
+
+        interface $Exports {
+            __name__: "AppStream"
+            __version: "1.0"
+            MAJOR_VERSION: 1
+            MICRO_VERSION: 6
+            MINOR_VERSION: 0
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.12.1
+             * @param value the string.
+             * @returns a #AsAgreementKind or %AS_AGREEMENT_KIND_UNKNOWN for unknown
+             */
+            agreement_kind_from_string(value: string): AgreementKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 0.12.1
+             * @param value the #AsAgreementKind.
+             * @returns string version of `value`
+             */
+            agreement_kind_to_string(value: AgreementKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param kind the string.
+             * @returns a #AsArtifactKind, or %AS_ARTIFACT_KIND_UNKNOWN for unknown.
+             */
+            artifact_kind_from_string(kind: string): ArtifactKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param kind the #AsArtifactKind.
+             * @returns string version of `kind`
+             */
+            artifact_kind_to_string(kind: ArtifactKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param bundle_str the string.
+             * @returns a #AsBundleKind or %AS_BUNDLE_KIND_UNKNOWN for unknown
+             */
+            bundle_kind_from_string(bundle_str: string): BundleKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 0.8.0
+             * @param kind the %AsBundleKind.
+             * @returns string version of `kind`
+             */
+            bundle_kind_to_string(kind: BundleKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 1.0.0
+             * @param kind_str the string.
+             * @returns a #AsChassisKind or %AS_CHASSIS_KIND_UNKNOWN for unknown
+             */
+            chassis_kind_from_string(kind_str: string): ChassisKind
+            /**
+             * Converts the enumerated value to a text representation.
+             * @since 1.0.0
+             * @param kind the #AsChassisKind.
+             * @returns string version of `kind`
+             */
+            chassis_kind_to_string(kind: ChassisKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param kind_str the string.
+             * @returns a #AsChecksumKind or %AS_CHECKSUM_KIND_NONE for unknown
+             */
+            checksum_kind_from_string(kind_str: string): ChecksumKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param kind the %AsChecksumKind.
+             * @returns string version of `kind`
+             */
+            checksum_kind_to_string(kind: ChecksumKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.15.2
+             * @param str the string.
+             * @returns a #AsColorKind or %AS_COLOR_KIND_UNKNOWN for unknown.
+             */
+            color_kind_from_string(str: string): ColorKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 0.15.2
+             * @param kind the %AsColorKind.
+             * @returns string version of `kind`
+             */
+            color_kind_to_string(kind: ColorKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.15.2
+             * @param str the string.
+             * @returns a #AsColorKind or %AS_COLOR_SCHEME_KIND_UNKNOWN for unknown.
+             */
+            color_scheme_kind_from_string(str: string): ColorSchemeKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 0.15.2
+             * @param kind the %AsColorSchemeKind.
+             * @returns string version of `kind`
+             */
+            color_scheme_kind_to_string(kind: ColorSchemeKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param kind_str the string.
+             * @returns a #AsComponentKind or %AS_COMPONENT_KIND_UNKNOWN for unknown
+             */
+            component_kind_from_string(kind_str: string): ComponentKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param kind the #AsComponentKind.
+             * @returns string version of `kind`
+             */
+            component_kind_to_string(kind: ComponentKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param scope_str the string.
+             * @returns a #AsComponentScope or %AS_COMPONENT_SCOPE_UNKNOWN for unknown
+             */
+            component_scope_from_string(scope_str: string): ComponentScope
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param scope the #AsComponentScope.
+             * @returns string version of `scope`
+             */
+            component_scope_to_string(scope: ComponentScope): string
+            /**
+             * Format @age as a human-readable string in the given rating @system. This is
+             * the way to present system-specific strings in a UI.
+             * @since 0.12.12
+             * @param system an #AsContentRatingSystem
+             * @param age a CSM age to format
+             * @returns a newly allocated formatted version of    `age`, or %NULL if the given `system` has no representation for `age`
+             */
+            content_rating_system_format_age(system: ContentRatingSystem, age: number): string | null
+            /**
+             * Determine the most appropriate #AsContentRatingSystem for the given @locale.
+             * Content rating systems are selected by territory. If no content rating system
+             * seems suitable, %AS_CONTENT_RATING_SYSTEM_IARC is returned.
+             * @since 0.12.12
+             * @param locale a locale, in the format described in `man 3 setlocale`
+             * @returns the most relevant #AsContentRatingSystem
+             */
+            content_rating_system_from_locale(locale: string): ContentRatingSystem
+            /**
+             * Get the CSM ages corresponding to the entries returned by
+             * as_content_rating_system_get_formatted_ages() for this @system.
+             * @since 0.12.12
+             * @param system an #AsContentRatingSystem
+             * @returns an array of CSM ages
+             */
+            content_rating_system_get_csm_ages(system: ContentRatingSystem): number[]
+            /**
+             * Get an array of all the possible return values of
+             * as_content_rating_system_format_age() for the given @system. The array is
+             * sorted with youngest CSM age first.
+             * @since 0.12.12
+             * @param system an #AsContentRatingSystem
+             * @returns %NULL-terminated array of human-readable age strings
+             */
+            content_rating_system_get_formatted_ages(system: ContentRatingSystem): string[]
+            /**
+             * Get a human-readable string to identify @system. %NULL will be returned for
+             * %AS_CONTENT_RATING_SYSTEM_UNKNOWN.
+             * @since 0.12.12
+             * @param system an #AsContentRatingSystem
+             * @returns a human-readable string for `system`, or %NULL if unknown
+             */
+            content_rating_system_to_string(system: ContentRatingSystem): string | null
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.11.0
+             * @param value the string.
+             * @returns a #AsContentRatingValue or %AS_CONTENT_RATING_VALUE_UNKNOWN for unknown
+             */
+            content_rating_value_from_string(value: string): ContentRatingValue
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 0.11.0
+             * @param value the #AsContentRatingValue.
+             * @returns string version of `value`
+             */
+            content_rating_value_to_string(value: ContentRatingValue): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.12.11
+             * @param kind_str the string.
+             * @returns a #AsControlKind or %AS_CONTROL_KIND_UNKNOWN for unknown
+             */
+            control_kind_from_string(kind_str: string): ControlKind
+            /**
+             * Converts the enumerated value to a text representation.
+             * @since 0.12.11
+             * @param kind the #AsControlKind.
+             * @returns string version of `kind`
+             */
+            control_kind_to_string(kind: ControlKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.12.12
+             * @param kind_str the string.
+             * @returns a #AsDisplaySideKind or %AS_DISPLAY_SIDE_KIND_UNKNOWN for unknown
+             */
+            display_side_kind_from_string(kind_str: string): DisplaySideKind
+            /**
+             * Converts the enumerated value to a text representation.
+             * @since 0.12.12
+             * @param kind the #AsDisplaySideKind.
+             * @returns string version of `kind`
+             */
+            display_side_kind_to_string(kind: DisplaySideKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.10.0
+             * @param kind_str the string.
+             * @returns a #AsFormatKind or %AS_FORMAT_KIND_UNKNOWN for unknown
+             */
+            format_kind_from_string(kind_str: string): FormatKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 0.10.0
+             * @param kind the #AsFormatKind.
+             * @returns string version of `kind`
+             */
+            format_kind_to_string(kind: FormatKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.10.0
+             * @param version_str the string.
+             * @returns a #AsFormatVersion. For unknown, the highest version number is assumed.
+             */
+            format_version_from_string(version_str: string): FormatVersion
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 0.10.0
+             * @param version the #AsFormatKind.
+             * @returns string version of `version`
+             */
+            format_version_to_string(version: FormatVersion): string
+            /**
+             * Returns the component-ID of the current distribution based on contents
+             * of the `/etc/os-release` file.
+             * This function is a shorthand for %as_distro_details_get_cid
+             */
+            get_current_distro_component_id(): string
+            /**
+             * Get a list of the default Freedesktop and AppStream categories
+             * that software components (especially GUI applications) can be sorted
+             * into in software centers.
+             *
+             * This function fully transfers ownership of the returned container,
+             * to be used in GIR bindings.
+             * @param with_special Include special categories (e.g. "addons", and "all"/"featured" in submenus)
+             * @returns a list of #AsCategory
+             */
+            get_default_categories(with_special: boolean): Category[]
+            /**
+             * Get a translated license name for the given SPDX ID.
+             * @since 1.0.0
+             * @param license The SPDX license ID.
+             * @returns The license name, or %NULL if none found.
+             */
+            get_license_name(license: string): string | null
+            /**
+             * Get a web URL to the license text and more license information for an SPDX
+             * license identifier.
+             * @since 0.12.7
+             * @param license The SPDX license ID.
+             * @returns The license URL, or %NULL if none available.
+             */
+            get_license_url(license: string): string | null
+            /**
+             * Replaces the string @find with the string @replace in a #GString up to
+             * @limit times. If the number of instances of @find in the #GString is
+             * less than @limit, all instances are replaced. If @limit is `0`,
+             * all instances of @find are replaced.
+             * @param string a #GString
+             * @param find the string to find in @string
+             * @param replace the string to insert in place of @find
+             * @param limit the maximum instances of @find to replace with @replace, or `0` for no limit
+             * @returns the number of find and replace operations performed.
+             */
+            gstring_replace(string: GLib.String, find: string, replace: string, limit: number): number
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param kind_str the string.
+             * @returns a #AsIconKind or %AS_ICON_KIND_UNKNOWN for unknown
+             */
+            icon_kind_from_string(kind_str: string): IconKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param kind the %AsIconKind.
+             * @returns string version of `kind`
+             */
+            icon_kind_to_string(kind: IconKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param kind the string.
+             * @returns a #AsImageKind, or %AS_IMAGE_KIND_UNKNOWN for unknown.
+             */
+            image_kind_from_string(kind: string): ImageKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param kind the #AsImageKind.
+             * @returns string version of `kind`
+             */
+            image_kind_to_string(kind: ImageKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.15.5
+             * @param kind_str the string.
+             * @returns a #AsInternetKind or %AS_INTERNET_KIND_UNKNOWN for unknown
+             */
+            internet_kind_from_string(kind_str: string): InternetKind
+            /**
+             * Converts the enumerated value to a text representation.
+             * @since 0.15.5
+             * @param kind the #AsInternetKind.
+             * @returns string version of `kind`
+             */
+            internet_kind_to_string(kind: InternetKind): string
+            /**
+             * Searches the known list of SPDX license exception IDs.
+             * @since 0.12.10
+             * @param exception_id a single SPDX license exception ID, e.g. "GCC-exception-3.1"
+             * @returns %TRUE if the string is a valid SPDX license exception ID
+             */
+            is_spdx_license_exception_id(exception_id: string): boolean
+            /**
+             * Checks the licence string to check it being a valid licence.
+             * NOTE: SPDX licenses can't typically contain brackets.
+             * @since 0.9.8
+             * @param license a SPDX license string, e.g. "CC-BY-3.0 and GFDL-1.3"
+             * @returns %TRUE if the icon is a valid "SPDX license"
+             */
+            is_spdx_license_expression(license: string): boolean
+            /**
+             * Searches the known list of SPDX license IDs.
+             * @since 0.9.8
+             * @param license_id a single SPDX license ID, e.g. "GPL-3.0"
+             * @returns %TRUE if the string is a valid SPDX license ID
+             */
+            is_spdx_license_id(license_id: string): boolean
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param kind_str the string.
+             * @returns a #AsIssueKind or %AS_ISSUE_KIND_UNKNOWN for unknown
+             */
+            issue_kind_from_string(kind_str: string): IssueKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param kind the %AsIssueKind.
+             * @returns string version of `kind`
+             */
+            issue_kind_to_string(kind: IssueKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param str the string.
+             * @returns a #AsIssueSeverity, or %AS_ISSUE_SEVERITY_UNKNOWN for unknown.
+             */
+            issue_severity_from_string(str: string): IssueSeverity
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param severity the #AsIssueSeverity.
+             * @returns string version of `severity`
+             */
+            issue_severity_to_string(severity: IssueSeverity): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.11.0
+             * @param kind_str the string.
+             * @returns a #AsLaunchableKind or %AS_LAUNCHABLE_KIND_UNKNOWN for unknown
+             */
+            launchable_kind_from_string(kind_str: string): LaunchableKind
+            /**
+             * Converts the enumerated value to a text representation.
+             * @since 0.11.0
+             * @param kind the #AsLaunchableKind.
+             * @returns string version of `kind`
+             */
+            launchable_kind_to_string(kind: LaunchableKind): string
+            /**
+             * Check if the given license is for free-as-in-freedom software.
+             * A free software license is either approved by the Free Software Foundation
+             * or the Open Source Initiative.
+             *
+             * This function does *not* yet handle complex license expressions with AND and OR.
+             * If the expression contains any of these, it will still simply check if all mentioned
+             * licenses are Free licenses.
+             * Currently, any license exception recognized by SPDX is assumed to not impact the free-ness
+             * status of a software component.
+             *
+             * Please note that this function does not give any legal advice. Please read the license texts
+             * to learn more about the individual licenses and their conditions.
+             * @since 0.12.10
+             * @param license The SPDX license string to test.
+             * @returns %TRUE if the license string contains only free-as-in-freedom licenses.
+             */
+            license_is_free_license(license: string): boolean
+            /**
+             * Check if the metadata license is suitable for mixing with other
+             * metadata and redistributing the bundled result (this means we
+             * prefer permissive licenses here, to not require people shipping
+             * catalog metadata to perform a full license review).
+             *
+             * This method checks against a hardcoded list of permissive licenses
+             * commonly used to license metadata under.
+             * @param license The SPDX license string to test.
+             * @returns %TRUE if the license contains only permissive licenses suitable as metadata license.
+             */
+            license_is_metadata_license(license: string): boolean
+            /**
+             * Tests license ID against the vetted list of licenses that
+             * can be used for metainfo metadata.
+             * This function will not work for license expressions, if you need
+             * to test an SPDX license expression for compliance, please
+             * use %as_license_is_metadata_license insread.
+             * @param license_id a single SPDX license ID, e.g. "FSFAP"
+             * @returns %TRUE if the string is a valid metadata license ID.
+             */
+            license_is_metadata_license_id(license_id: string): boolean
+            /**
+             * Converts a non-SPDX license into an SPDX format string where possible.
+             * @since 0.9.8
+             * @param license a not-quite SPDX license string, e.g. "GPLv3+"
+             * @returns the best-effort SPDX license string
+             */
+            license_to_spdx_id(license: string): string
+            /**
+             * Converts XML description markup into other forms of text.
+             * @throws {GLib.Error}
+             * @param markup the XML markup to transform.
+             * @param to_kind The markup style to convert into.
+             * @returns a newly allocated string, or %NULL on error.
+             */
+            markup_convert(markup: string, to_kind: MarkupKind): string
+            /**
+             * Splits up a long line into an array of smaller strings, each being no longer
+             * than @line_len. Words are not split.
+             * @since 0.14.0
+             * @param text the text to split.
+             * @param line_len the maximum length of the output line
+             * @returns lines, or %NULL in event of an error
+             */
+            markup_strsplit_words(text: string, line_len: number): string[]
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param kind_str the string.
+             * @returns a #AsMergeKind or %AS_MERGE_KIND_NONE for unknown
+             */
+            merge_kind_from_string(kind_str: string): MergeKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param kind the #AsMergeKind.
+             * @returns string version of `kind`
+             */
+            merge_kind_to_string(kind: MergeKind): string
+            /**
+             * @returns An error quark.
+             */
+            metadata_error_quark(): GLib.Quark
+            /**
+             * @returns An error quark.
+             */
+            pool_error_quark(): GLib.Quark
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param kind_str the string.
+             * @returns a #AsProvidedKind or %AS_PROVIDED_KIND_UNKNOWN for unknown
+             */
+            provided_kind_from_string(kind_str: string): ProvidedKind
+            /**
+             * Converts the enumerated value to a localized text representation,
+             * using the plural forms (e.g. "Libraries" instead of "Library").
+             *
+             * This can be useful when displaying provided items in GUI dialogs.
+             * @param kind the #AsProvidedKind.
+             * @returns Pluralized, l10n string version of `kind`
+             */
+            provided_kind_to_l10n_string(kind: ProvidedKind): string
+            /**
+             * Converts the enumerated value to a text representation.
+             * @param kind the #AsProvidedKind.
+             * @returns string version of `kind`
+             */
+            provided_kind_to_string(kind: ProvidedKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param str the string.
+             * @returns a AsReferenceKind or %AS_REFERENCE_KIND_UNKNOWN for unknown
+             */
+            reference_kind_from_string(str: string): ReferenceKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 1.0.0
+             * @param kind the %AsReferenceKind.
+             * @returns string version of `kind`
+             */
+            reference_kind_to_string(kind: ReferenceKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.12.0
+             * @param compare_str the string.
+             * @returns a #AsRelationCompare, or %AS_RELATION_COMPARE_UNKNOWN for unknown.
+             */
+            relation_compare_from_string(compare_str: string): RelationCompare
+            /**
+             * Converts the enumerated value to an text representation.
+             * The enum is converted into a two-letter identifier ("eq", "ge", etc.)
+             * for use in the XML representation.
+             * @since 0.12.0
+             * @param compare the #AsRelationCompare.
+             * @returns string version of `compare`
+             */
+            relation_compare_to_string(compare: RelationCompare): string
+            /**
+             * Converts the enumerated value to an text representation.
+             * The enum is converted into an identifier consisting of two
+             * mathematical comparison operators ("==", ">=", etc.)
+             * for use in the YAML representation and user interfaces.
+             * @since 0.12.0
+             * @param compare the #AsRelationCompare.
+             * @returns string version of `compare`
+             */
+            relation_compare_to_symbols_string(compare: RelationCompare): string
+            /**
+             * @since 0.16.0
+             * @returns An error quark.
+             */
+            relation_error_quark(): GLib.Quark
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.12.0
+             * @param kind_str the string.
+             * @returns a #AsRelationItemKind or %AS_RELATION_ITEM_KIND_UNKNOWN for unknown
+             */
+            relation_item_kind_from_string(kind_str: string): RelationItemKind
+            /**
+             * Converts the enumerated value to a text representation.
+             * @since 0.12.0
+             * @param kind the #AsRelationKind.
+             * @returns string version of `kind`
+             */
+            relation_item_kind_to_string(kind: RelationItemKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.12.0
+             * @param kind_str the string.
+             * @returns a #AsRelationKind or %AS_RELATION_KIND_UNKNOWN for unknown
+             */
+            relation_kind_from_string(kind_str: string): RelationKind
+            /**
+             * Converts the enumerated value to a text representation.
+             * @since 0.12.0
+             * @param kind the #AsRelationKind.
+             * @returns string version of `kind`
+             */
+            relation_kind_to_string(kind: RelationKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.12.0
+             * @param kind_str the string.
+             * @returns an #AsReleaseKind or %AS_RELEASE_KIND_UNKNOWN for unknown
+             */
+            release_kind_from_string(kind_str: string): ReleaseKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 0.12.0
+             * @param kind the #AsReleaseKind.
+             * @returns string version of `kind`
+             */
+            release_kind_to_string(kind: ReleaseKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.16.0
+             * @param kind_str the string.
+             * @returns an #AsReleaseKind or %AS_RELEASE_KIND_UNKNOWN for unknown
+             */
+            release_list_kind_from_string(kind_str: string): ReleaseListKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 0.16.0
+             * @param kind the #AsReleaseKind.
+             * @returns string version of `kind`
+             */
+            release_list_kind_to_string(kind: ReleaseListKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.12.5
+             * @param kind_str the string.
+             * @returns an #AsReleaseUrlKind or %AS_RELEASE_URL_KIND_UNKNOWN for unknown
+             */
+            release_url_kind_from_string(kind_str: string): ReleaseUrlKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 0.12.5
+             * @param kind the #AsReleaseUrlKind.
+             * @returns string version of `kind`
+             */
+            release_url_kind_to_string(kind: ReleaseUrlKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param kind the string.
+             * @returns a %AsScreenshotKind, or %AS_SCREENSHOT_KIND_UNKNOWN if not known.
+             */
+            screenshot_kind_from_string(kind: string): ScreenshotKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param kind the #AsScreenshotKind.
+             * @returns string version of `kind`
+             */
+            screenshot_kind_to_string(kind: ScreenshotKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param size_kind the string.
+             * @returns an #AsSizeKind or %AS_SIZE_KIND_UNKNOWN for unknown
+             */
+            size_kind_from_string(size_kind: string): SizeKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param size_kind the #AsSizeKind.
+             * @returns string version of `size_kind`
+             */
+            size_kind_to_string(size_kind: SizeKind): string
+            /**
+             * De-tokenizes the SPDX licenses into a string.
+             * @since 0.9.8
+             * @param license_tokens license tokens, typically from as_spdx_license_tokenize()
+             * @returns string, or %NULL for invalid
+             */
+            spdx_license_detokenize(license_tokens: string): string | null
+            /**
+             * Tokenizes the SPDX license string (or any simarly formatted string)
+             * into parts. Any license parts of the string e.g. "LGPL-2.0+" are prefexed
+             * with "@", the conjunctive replaced with "&", the disjunctive replaced
+             * with "|" and the WITH operator for license exceptions replaced with "^".
+             * Brackets are added as indervidual tokens and other strings are
+             * appended into single tokens where possible.
+             * @since 0.9.8
+             * @param license a license string, e.g. "LGPLv2+ and (QPL or GPLv2) and MIT"
+             * @returns array of strings, or %NULL for invalid
+             */
+            spdx_license_tokenize(license: string): string[] | null
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param kind_str the string.
+             * @returns a #AsSuggestedKind or %AS_SUGGESTED_KIND_UNKNOWN for unknown
+             */
+            suggested_kind_from_string(kind_str: string): SuggestedKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param kind the %AsSuggestedKind.
+             * @returns string version of `kind`
+             */
+            suggested_kind_to_string(kind: SuggestedKind): string
+            /**
+             * @since 0.16.0
+             * @returns An error quark.
+             */
+            system_info_error_quark(): GLib.Quark
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param kind_str the string.
+             * @returns a #AsTranslationKind or %AS_TRANSLATION_KIND_UNKNOWN for unknown
+             */
+            translation_kind_from_string(kind_str: string): TranslationKind
+            /**
+             * Converts the enumerated value to a text representation.
+             * @param kind the #AsTranslationKind.
+             * @returns string version of `kind`
+             */
+            translation_kind_to_string(kind: TranslationKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @since 0.6.5
+             * @param urgency_kind the string.
+             * @returns a %AsUrgencyKind or %AS_URGENCY_KIND_UNKNOWN for unknown
+             */
+            urgency_kind_from_string(urgency_kind: string): UrgencyKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @since 0.6.5
+             * @param urgency_kind the %AsUrgencyKind.
+             * @returns string version of `urgency_kind`
+             */
+            urgency_kind_to_string(urgency_kind: UrgencyKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param url_kind the string.
+             * @returns a #AsUrlKind or %AS_URL_KIND_UNKNOWN for unknown
+             */
+            url_kind_from_string(url_kind: string): UrlKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param url_kind the %AsUrlKind.
+             * @returns string version of `url_kind`
+             */
+            url_kind_to_string(url_kind: UrlKind): string
+            /**
+             * Builds an identifier string unique to the individual dataset using the supplied information.
+             * @since 0.14.0
+             * @param scope Scope of the metadata as #AsComponentScope e.g. %AS_COMPONENT_SCOPE_SYSTEM
+             * @param bundle_kind Bundling system providing this data, e.g. 'package' or 'flatpak'
+             * @param origin Origin string, e.g. 'os' or 'gnome-apps-nightly'
+             * @param cid AppStream component ID, e.g. 'org.freedesktop.appstream.cli'
+             * @param branch Branch, e.g. '3-20' or 'master'
+             */
+            utils_build_data_id(scope: ComponentScope, bundle_kind: BundleKind, origin: string, cid: string, branch: string): string
+            /**
+             * Checks two component data IDs for equality allowing globs to match.
+             * @since 0.14.0
+             * @param data_id1 a data ID
+             * @param data_id2 another data ID
+             * @returns %TRUE if the ID's should be considered equal.
+             */
+            utils_data_id_equal(data_id1: string, data_id2: string): boolean
+            /**
+             * Get the component-id part of the data-id.
+             * @param data_id The data-id.
+             */
+            utils_data_id_get_cid(data_id: string): string
+            /**
+             * Converts a data-id to a hash value.
+             *
+             * This function implements the widely used DJB hash on the ID subset of the
+             * data-id string.
+             *
+             * It can be passed to g_hash_table_new() as the hash_func parameter,
+             * when using non-NULL strings or unique_ids as keys in a GHashTable.
+             * @since 0.14.0
+             * @param data_id a data ID
+             * @returns a hash value corresponding to the key
+             */
+            utils_data_id_hash(data_id: string): number
+            /**
+             * Checks two data IDs for equality allowing globs to match, whilst also
+             * allowing clients to whitelist sections that have to match.
+             * @since 0.14.0
+             * @param data_id1 a data ID
+             * @param data_id2 another data ID
+             * @param match_flags a #AsDataIdMatchFlags bitfield, e.g. %AS_DATA_ID_MATCH_FLAG_ID
+             * @returns %TRUE if the IDs should be considered equal.
+             */
+            utils_data_id_match(data_id1: string, data_id2: string, match_flags: DataIdMatchFlags): boolean
+            /**
+             * Checks if a data ID is valid i.e. has the correct number of
+             * sections.
+             * @since 0.14.0
+             * @param data_id a component data ID
+             * @returns %TRUE if the ID is valid
+             */
+            utils_data_id_valid(data_id: string): boolean
+            /**
+             * @since 0.14.0
+             * @returns An error quark.
+             */
+            utils_error_quark(): GLib.Quark
+            /**
+             * Get a human-readable, translated name of the desktop environment
+             * represented by the given ID.
+             * @since 1.0.0
+             * @param de_id a desktop environment id.
+             * @returns A localized name of the DE, or %NULL if none available.
+             */
+            utils_get_desktop_environment_name(de_id: string): string
+            /**
+             * Get a human-readable, translated name of the combination
+             * of GUI environment and style. E.g. "plasma:dark" becomes "Plasma (Dark)".
+             * @since 1.0.0
+             * @param env_style a GUI environment style ID, e.g. "pantheon:dark"
+             * @returns A localized name of the environment style, or %NULL if none available.
+             */
+            utils_get_gui_environment_style_name(env_style: string): string
+            /**
+             * Retrieve the raw search token weight for the given tag name that AppStream uses
+             * internally for searching.
+             * This can be used to implement separate, but compatible search logic.
+             * @param tag_name A tag name in a component element, e.g. "name" or "summary" or "keyword"
+             * @returns The tag weight used in (fulltext) searches. 0 for lowest weight/unused.
+             */
+            utils_get_tag_search_weight(tag_name: string): number
+            /**
+             * Guess the #AsComponentScope that applies to a given path.
+             * @since 0.15.0
+             * @param path The filename to test.
+             * @returns the #AsComponentScope
+             */
+            utils_guess_scope_from_path(path: string): ComponentScope
+            /**
+             * Installs an AppStream MetaInfo, AppStream Metadata Catalog or AppStream Icon tarball file
+             * to the right place on the filesystem.
+             * Please note that this function does almost no validation and may guess missing values such
+             * as icon sizes and origin names.
+             * Ensure your metadata is good before installing it.
+             * @throws {GLib.Error}
+             * @since 0.14.0
+             * @param location the #AsMetadataLocation, e.g. %AS_METADATA_LOCATION_CACHE
+             * @param filename the full path of the file to install
+             * @param origin the origin to use for the installation, or %NULL
+             * @param destdir the destdir to use, or %NULL
+             * @returns %TRUE for success, %FALSE if error is set
+             */
+            utils_install_metadata_file(location: MetadataLocation, filename: string, origin: string, destdir: string): boolean
+            /**
+             * Searches the known list of registered XDG category names.
+             * See https://specifications.freedesktop.org/menu-spec/latest/category-registry.html
+             * for a reference.
+             * @since 0.9.7
+             * @param category_name a XDG category name, e.g. "ProjectManagement"
+             * @returns %TRUE if the category name is valid
+             */
+            utils_is_category_name(category_name: string): boolean
+            /**
+             * Checks if the submitted desktop environment ID is
+             * known and valid.
+             * @since 0.10.0
+             * @param de_id a desktop environment id.
+             * @returns %TRUE if the desktop-id is valid
+             */
+            utils_is_desktop_environment(de_id: string): boolean
+            /**
+             * Checks if the given identifier is a valid, known GUI environment style.
+             * @since 1.0.0
+             * @param env_style a GUI environment style ID, e.g. "pantheon:dark"
+             * @returns %TRUE if the environment-style ID is is valid
+             */
+            utils_is_gui_environment_style(env_style: string): boolean
+            /**
+             * Test if the given string is a valid platform triplet recognized by
+             * AppStream.
+             * @since 0.14.0
+             * @param triplet a platform triplet.
+             * @returns %TRUE if triplet is valid.
+             */
+            utils_is_platform_triplet(triplet: string): boolean
+            /**
+             * Searches the known list of TLDs we allow for AppStream IDs.
+             * This excludes internationalized names.
+             * @since 0.9.8
+             * @param tld a top-level domain without dot, e.g. "de", "org", "name"
+             * @returns %TRUE if the TLD is valid
+             */
+            utils_is_tld(tld: string): boolean
+            /**
+             * Calculates if one locale is compatible with another.
+             * When doing the calculation the locale and language code is taken into
+             * account if possible.
+             * @since 0.9.5
+             * @param locale1 a BCP47 or POSIX locale string, or %NULL
+             * @param locale2 a BCP47 or POSIX locale string, or %NULL
+             * @returns %TRUE if the locale is compatible.
+             */
+            utils_locale_is_compatible(locale1: string | null, locale2: string | null): boolean
+            /**
+             * Converts a POSIX locale string to the corresponding IETF BCP47 format.
+             * If the given locale is already in BCP47 format, no change will be done.
+             * @param locale
+             * @returns A locale string, free with g_free()
+             */
+            utils_posix_locale_to_bcp47(locale: string): string
+            /**
+             * Sorts all components in @cpts into the #AsCategory categories listed in @categories.
+             * @param cpts List of components.
+             * @param categories List of categories to sort components into.
+             * @param check_duplicates Whether to check for duplicates.
+             */
+            utils_sort_components_into_categories(cpts: Component[], categories: Category[], check_duplicates: boolean): void
+            /**
+             * @since 0.15.4
+             * @returns An error quark.
+             */
+            validator_error_quark(): GLib.Quark
+            /**
+             * Compare alpha and numeric segments of two software versions,
+             * considering @flags.
+             * @param a First version number
+             * @param b Second version number
+             * @param flags Flags, e.g. %AS_VERCMP_FLAG_NONE
+             * @returns an integer > 0 if a is newer than b;     0 if a and b are the same version;     < 0 if b is newer than a
+             */
+            vercmp(a: string, b: string, flags: VercmpFlags): number
+            /**
+             * Compare alpha and numeric segments of two software versions.
+             * @param a First version number
+             * @param b Second version number
+             * @returns an integer > 0 if a is newer than b;     0 if a and b are the same version;     < 0 if b is newer than a
+             */
+            vercmp_simple(a: string, b: string): number
+            /**
+             * Compare two version numbers and check if the given version comparator matches.
+             * @since 0.16.0
+             * @param ver1 first version number
+             * @param compare the comparison operator
+             * @param ver2 second version number
+             * @param flags the #AsVercmpFlags to use
+             * @returns %TRUE if the version comparison matches, %FALSE otherwise.
+             */
+            vercmp_test_match(ver1: string, compare: RelationCompare, ver2: string, flags: VercmpFlags): boolean
+            /**
+             * Get the version of the AppStream library that is currently used
+             * at runtime as a string.
+             * @since 0.14.0
+             * @returns a version number, e.g. "0.14.2"
+             */
+            version_string(): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param str the string.
+             * @returns a #AsVideoCodecKind, or %AS_VIDEO_CODEC_KIND_UNKNOWN for unknown.
+             */
+            video_codec_kind_from_string(str: string): VideoCodecKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param kind the #AsVideoCodecKind.
+             * @returns string version of `codec`
+             */
+            video_codec_kind_to_string(kind: VideoCodecKind): string
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param str the string.
+             * @returns a #AsVideoContainerKind, or %AS_VIDEO_CONTAINER_KIND_UNKNOWN for unknown.
+             */
+            video_container_kind_from_string(str: string): VideoContainerKind
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param kind the #AsVideoContainerKind.
+             * @returns string version of `kind`
+             */
+            video_container_kind_to_string(kind: VideoContainerKind): string
         }
     }
 
+    const AppStream: AppStream.$Exports
     export default AppStream
 }

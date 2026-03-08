@@ -14,1671 +14,7 @@ declare module "gi://Atspi?version=2.0" {
 
     
 
-
     namespace Atspi {
-        const __name__: "Atspi"
-        const __version: "2.0"
-        
-
-        namespace Action {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         */
-        interface Action extends Action.Interface {
-            readonly $signals: Action.SignalSignatures
-            readonly $readableProperties: Action.ReadableProperties
-            readonly $writableProperties: Action.WritableProperties
-            readonly $constructOnlyProperties: Action.ConstructOnlyProperties
-            /**
-             * Invoke the action indicated by #index.
-             * @throws {GLib.Error}
-             * @param i an integer specifying which action to invoke.
-             * @returns #TRUE if the action is successfully invoked, otherwise #FALSE.
-             */
-            do_action(i: number): boolean
-            /**
-             * Get the description of '@i-th' action invocable on an
-             *      object implementing #AtspiAction.
-             * @throws {GLib.Error}
-             * @param i an integer indicating which action to query.
-             * @returns a UTF-8 string describing the '@i-th' invocable action.
-             */
-            get_action_description(i: number): string
-            /**
-             * Get the name of the '@i-th' action invocable on an
-             *      object implementing #AtspiAction.
-             * @throws {GLib.Error}
-             * @param i an integer indicating which action to query.
-             * @returns the non-localized name of the action, as a UTF-8 string.
-             */
-            get_action_name(i: number): string
-            /**
-             * Get the description of '@i-th' action invocable on an
-             *      object implementing #AtspiAction.
-             * @throws {GLib.Error}
-             * @override
-             * @deprecated since 2.10 Use atspi_action_get_action_description instead.
-             * @param i an integer indicating which action to query.
-             * @returns a UTF-8 string describing the '@i-th' invocable action.
-             */
-            get_description(i: number): string
-            /**
-             * gt;",
-             *        etc. (we use the same string as gtk_accelerator_name() in
-             *        gtk+-2.X.
-             * @throws {GLib.Error}
-             * @param i an integer indicating which action to query.
-             * @returns a UTF-8 string which can be parsed to determine the `i`-th       invocable action's keybindings.
-             */
-            get_key_binding(i: number): string
-            /**
-             * Get the name of the '@i-th' action invocable on an
-             *      object implementing #AtspiAction.
-             * @throws {GLib.Error}
-             * @param i an integer indicating which action to query.
-             * @returns the name of the action, as a UTF-8 string.
-             */
-            get_localized_name(i: number): string
-            /**
-             * Get the number of actions invokable on an #AtspiAction implementor.
-             * @throws {GLib.Error}
-             * @returns an integer indicating the number of invocable actions.
-             */
-            get_n_actions(): number
-            /**
-             * Get the name of the '@i-th' action invocable on an
-             *      object implementing #AtspiAction.
-             * @throws {GLib.Error}
-             * @override
-             * @deprecated since 2.10 Use atspi_action_get_action_name instead.
-             * @param i an integer indicating which action to query.
-             * @returns the non-localized name of the action, as a UTF-8 string.
-             */
-            get_name(i: number): string
-        }
-
-
-        interface ActionIface {
-            readonly $gtype: GObject.GType<Action>
-            readonly prototype: Action
-
-            [Symbol.hasInstance](instance: unknown): instance is Action
-        }
-
-        const Action: ActionIface
-        
-
-        namespace Collection {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         * An interface designed to allow accessibles which satisfy a set of
-         * criteria to be returned.
-         *
-         * An interface designed to allow accessibles which satisfy a set of
-         * criteria to be returned. This interface can be used to avoid iteration
-         * or client-side search of the object tree.
-         */
-        interface Collection extends Collection.Interface {
-            readonly $signals: Collection.SignalSignatures
-            readonly $readableProperties: Collection.ReadableProperties
-            readonly $writableProperties: Collection.WritableProperties
-            readonly $constructOnlyProperties: Collection.ConstructOnlyProperties
-            /**
-             * @throws {GLib.Error}
-             * @returns The active descendant of the given object. Not yet implemented.
-             */
-            get_active_descendant(): Accessible
-            /**
-             * Gets all #AtspiAccessible objects from the @collection matching a given
-             * @rule.
-             * @throws {GLib.Error}
-             * @param rule An #AtspiMatchRule describing the match criteria.
-             * @param sortby An #AtspiCollectionSortOrder specifying the way the results are to
-                     be sorted.
-             * @param count The maximum number of results to return, or 0 for no limit.
-             * @param traverse Whether to traverse the accessible subtree (in case
-                    of #TRUE) or only the direct children (on case of #FALSE).
-             * @returns All          #AtspiAccessible objects matching the given match rule.
-             */
-            get_matches(rule: MatchRule, sortby: CollectionSortOrder, count: number, traverse: boolean): Accessible[]
-            /**
-             * Gets all #AtspiAccessible objects from the @collection, before
-             * @current_object, matching a given @rule.
-             * @throws {GLib.Error}
-             * @param current_object Upon reaching this object, searching should stop.
-             * @param rule An #AtspiMatchRule describing the match criteria.
-             * @param sortby An #AtspiCollectionSortOrder specifying the way the results are to
-                     be sorted.
-             * @param tree An #AtspiCollectionTreeTraversalType specifying restrictions on
-                     the objects to be traversed.
-             * @param count The maximum number of results to return, or 0 for no limit.
-             * @param traverse Whether to traverse the accessible subtree (in case
-                    of #TRUE) or only the direct children (on case of #FALSE).
-             * @returns All          #AtspiAccessible objects matching the given match rule that preceed          `current_object`.
-             */
-            get_matches_from(current_object: Accessible, rule: MatchRule, sortby: CollectionSortOrder, tree: CollectionTreeTraversalType, count: number, traverse: boolean): Accessible[]
-            /**
-             * Gets all #AtspiAccessible objects from the @collection, after
-             * @current_object, matching a given @rule.
-             * @throws {GLib.Error}
-             * @param current_object The object at which to start searching.
-             * @param rule An #AtspiMatchRule describing the match criteria.
-             * @param sortby An #AtspiCollectionSortOrder specifying the way the results are to
-                     be sorted.
-             * @param tree An #AtspiCollectionTreeTraversalType specifying restrictions on
-                     the objects to be traversed.
-             * @param limit_scope If #TRUE, only descendants of @current_object's parent
-                     will be returned. Otherwise (if #FALSE), any accessible may be
-                     returned if it would preceed @current_object in a flattened
-                     hierarchy.
-             * @param count The maximum number of results to return, or 0 for no limit.
-             * @param traverse Whether to traverse the accessible subtree (in case
-                    of #TRUE) or only the direct children (on case of #FALSE).
-             * @returns All          #AtspiAccessible objects matching the given match rule after          `current_object`.
-             */
-            get_matches_to(current_object: Accessible, rule: MatchRule, sortby: CollectionSortOrder, tree: CollectionTreeTraversalType, limit_scope: boolean, count: number, traverse: boolean): Accessible[]
-            /**
-             * Not yet implemented.
-             * @throws {GLib.Error}
-             * @param test
-             */
-            is_ancestor_of(test: Accessible): boolean
-        }
-
-
-        interface CollectionIface {
-            readonly $gtype: GObject.GType<Collection>
-            readonly prototype: Collection
-
-            [Symbol.hasInstance](instance: unknown): instance is Collection
-        }
-
-        const Collection: CollectionIface
-        
-
-        namespace Component {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         * An interface implemented by objects which have onscreen visual
-         * representations.
-         *
-         * The Component interface is implemented by objects which occupy on-screen
-         * space, e.g. objects which have onscreen visual representations. The methods
-         * in Component allow clients to identify where the objects lie in the onscreen
-         * coordinate system, their relative size, stacking order, and position. It
-         * also provides a mechanism whereby keyboard focus may be transferred to
-         * specific user interface elements programmatically.  This is a 2D API.
-         * Coordinates of 3D objects are projected into the 2-dimensional screen view
-         * for purposes of this interface.
-         */
-        interface Component extends Component.Interface {
-            readonly $signals: Component.SignalSignatures
-            readonly $readableProperties: Component.ReadableProperties
-            readonly $writableProperties: Component.WritableProperties
-            readonly $constructOnlyProperties: Component.ConstructOnlyProperties
-            /**
-             * Queries whether a given #AtspiComponent contains a particular point.
-             * @throws {GLib.Error}
-             * @param x a #gint specifying the x coordinate in question.
-             * @param y a #gint specifying the y coordinate in question.
-             * @param ctype the desired coordinate system of the point (@x, @y)
-                    (e.g. CSPI_COORD_TYPE_WINDOW, CSPI_COORD_TYPE_SCREEN).
-             * @returns #TRUE if the specified component contains the point (@x, `y`),          #FALSE otherwise.
-             */
-            contains(x: number, y: number, ctype: CoordType): boolean
-            /**
-             * Gets the accessible child at a given coordinate within an #AtspiComponent.
-             * @throws {GLib.Error}
-             * @param x a #gint specifying the x coordinate of the point in question.
-             * @param y a #gint specifying the y coordinate of the point in question.
-             * @param ctype the coordinate system of the point (@x, @y)
-                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
-             * @returns a pointer to an          #AtspiAccessible child of the specified component which          contains the point (@x, `y`), or NULL if no child contains          the point.
-             */
-            get_accessible_at_point(x: number, y: number, ctype: CoordType): Accessible | null
-            /**
-             * Gets the opacity/alpha value of a component, if alpha blending is in use.
-             * @throws {GLib.Error}
-             * @returns the opacity value of a component, as a #gdouble between 0.0 and 1.0.
-             */
-            get_alpha(): number
-            /**
-             * Gets the bounding box of the specified #AtspiComponent.
-             * The returned values are meaningful only if the Component has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @param ctype the desired coordinate system into which to return the results,
-                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
-             * @returns An #AtspiRect giving the accessible's extents.
-             */
-            get_extents(ctype: CoordType): Rect
-            /**
-             * Queries which layer the component is painted into, to help determine its
-             *      visibility in terms of stacking order.
-             * @throws {GLib.Error}
-             * @returns the #AtspiComponentLayer into which this component is painted.
-             */
-            get_layer(): ComponentLayer
-            /**
-             * Queries the z stacking order of a component which is in the MDI or window
-             *       layer. (Bigger z-order numbers mean nearer the top)
-             * @throws {GLib.Error}
-             * @returns a #gshort indicating the stacking order of the component       in the MDI layer, or -1 if the component is not in the MDI layer.
-             */
-            get_mdi_z_order(): number
-            /**
-             * Gets the minimum x and y coordinates of the specified #AtspiComponent.
-             * The returned values are meaningful only if the Component has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @param ctype the desired coordinate system into which to return the results,
-                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
-             * @returns An #AtspiPoint giving the `obj`'s position.
-             */
-            get_position(ctype: CoordType): Point
-            /**
-             * Gets the size of the specified #AtspiComponent.
-             * The returned values are meaningful only if the Component has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @returns An #AtspiPoint giving the `obj`'s size.
-             */
-            get_size(): Point
-            /**
-             * Attempts to set the keyboard input focus to the specified
-             *         #AtspiComponent.
-             * @throws {GLib.Error}
-             * @returns #TRUE if successful, #FALSE otherwise.
-             */
-            grab_focus(): boolean
-            /**
-             * Scrolls whatever container of the #AtspiComponent object so it becomes
-             * visible on the screen.
-             * @throws {GLib.Error}
-             * @param type a #AtspiScrollType indicating where the object should be placed on the
-                   screen.
-             * @returns #TRUE if successful, #FALSE otherwise.
-             */
-            scroll_to(type: ScrollType): boolean
-            /**
-             * Scrolls whatever container of the #AtspiComponent object so it becomes
-             * visible on the screen at a given position.
-             * @throws {GLib.Error}
-             * @param coords a #AtspiCoordType indicating whether the coordinates are relative to
-                     the screen, to the window, or to the parent object.
-             * @param x the x coordinate of the point to reach
-             * @param y the y coordinate of the point to reach
-             * @returns #TRUE if successful, #FALSE otherwise.
-             */
-            scroll_to_point(coords: CoordType, x: number, y: number): boolean
-            /**
-             * Moves and resizes the specified component.
-             * @throws {GLib.Error}
-             * @param x the new horizontal position to which the component should be moved.
-             * @param y the new vertical position to which the component should be moved.
-             * @param width the width to which the component should be resized.
-             * @param height the height to which the component should be resized.
-             * @param ctype the coordinate system in which the position is specified.
-                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
-             * @returns #TRUE if successful; #FALSE otherwise.
-             */
-            set_extents(x: number, y: number, width: number, height: number, ctype: CoordType): boolean
-            /**
-             * Moves the component to the specified position.
-             * @throws {GLib.Error}
-             * @param x the new horizontal position to which the component should be moved.
-             * @param y the new vertical position to which the component should be moved.
-             * @param ctype the coordinate system in which the position is specified.
-                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
-             * @returns #TRUE if successful; #FALSE otherwise.
-             */
-            set_position(x: number, y: number, ctype: CoordType): boolean
-            /**
-             * Resizes the specified component to the given pixel dimensions.
-             * @throws {GLib.Error}
-             * @param width the width to which the component should be resized.
-             * @param height the height to which the component should be resized.
-             * @returns #TRUE if successful; #FALSE otherwise.
-             */
-            set_size(width: number, height: number): boolean
-        }
-
-
-        interface ComponentIface {
-            readonly $gtype: GObject.GType<Component>
-            readonly prototype: Component
-
-            [Symbol.hasInstance](instance: unknown): instance is Component
-        }
-
-        const Component: ComponentIface
-        
-
-        namespace Document {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         */
-        interface Document extends Document.Interface {
-            readonly $signals: Document.SignalSignatures
-            readonly $readableProperties: Document.ReadableProperties
-            readonly $writableProperties: Document.WritableProperties
-            readonly $constructOnlyProperties: Document.ConstructOnlyProperties
-            /**
-             * Gets the value of a single attribute, if specified for the document as a whole.
-             * @throws {GLib.Error}
-             * @override
-             * @deprecated since 2.10 Use atspi_document_get_document_attribute_value instead.
-             * @param attribute a string indicating the name of a specific attribute.
-             * @returns a string corresponding to the value of the specified attribute, or an empty string if the attribute is unspecified for the object.
-             */
-            get_attribute_value(attribute: string): string
-            /**
-             * Gets all constant attributes for the document as a whole. For attributes
-             * that change within the document content, see @atspi_text_get_attribute_run instead.
-             * @throws {GLib.Error}
-             * @override
-             * @deprecated since 2.10 Use atspi_document_get_document_attributes instead.
-             * @returns a #GHashTable          containing the constant attributes of the document, as name-value pairs.
-             */
-            get_attributes(): Record<string, string>
-            /**
-             * Gets the current page number of an #AccessibleDocument object.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the current page number in the #AccessibleDocument object.
-             */
-            get_current_page_number(): number
-            /**
-             * Gets the value of a single attribute, if specified for the document as a whole.
-             * @throws {GLib.Error}
-             * @param attribute a string indicating the name of a specific attribute.
-             * @returns a string corresponding to the value of the specified attribute, or an empty string if the attribute is unspecified for the object.
-             */
-            get_document_attribute_value(attribute: string): string
-            /**
-             * Gets all constant attributes for the document as a whole. For attributes
-             * that change within the document content, see @atspi_text_get_attribute_run instead.
-             * @throws {GLib.Error}
-             * @returns a #GHashTable          containing the constant attributes of the document, as name-value pairs.
-             */
-            get_document_attributes(): Record<string, string>
-            /**
-             * Gets the locale associated with the document's content,
-             * e.g. the locale for LOCALE_TYPE_MESSAGES.
-             * @throws {GLib.Error}
-             * @returns a string compliant with the POSIX standard for locale description.
-             */
-            get_locale(): string
-            /**
-             * Gets the page count of an #AccessibleDocument object.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the page count of an #AccessibleDocument object.
-             */
-            get_page_count(): number
-            /**
-             * Returns an array of AtspiTextSelections within this document.
-             * @throws {GLib.Error}
-             * @since 2.52
-             * @returns a GArray of AtspiTextSelection structures representing the selection.
-             */
-            get_text_selections(): TextSelection[]
-            /**
-             * Makes 1 or more selections within this document denoted by the given
-             * array of AtspiTextSelections. Any existing physical selection (inside or
-             * outside this document) is replaced by the new selections. All objects within
-             * the given selection ranges must be descendants of this document. Otherwise
-             * FALSE will be returned.
-             * @throws {GLib.Error}
-             * @since 2.52
-             * @param selections a GArray of AtspiTextSelections
-                         to be selected.
-             * @returns TRUE if the selection was made successfully; FALSE otherwise.
-             */
-            set_text_selections(selections: TextSelection[]): boolean
-        }
-
-
-        interface DocumentIface {
-            readonly $gtype: GObject.GType<Document>
-            readonly prototype: Document
-
-            [Symbol.hasInstance](instance: unknown): instance is Document
-        }
-
-        const Document: DocumentIface
-        
-
-        namespace EditableText {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         */
-        interface EditableText extends EditableText.Interface {
-            readonly $signals: EditableText.SignalSignatures
-            readonly $readableProperties: EditableText.ReadableProperties
-            readonly $writableProperties: EditableText.WritableProperties
-            readonly $constructOnlyProperties: EditableText.ConstructOnlyProperties
-            /**
-             * Copies text from an #AtspiEditableText object into the system clipboard.
-             *
-             * see: #atspi_editable_text_paste_text
-             * @throws {GLib.Error}
-             * @param start_pos a #gint indicating the starting character offset
-                  of the text to copy.
-             * @param end_pos a #gint indicating the offset of the first character
-                  past the end of the text section to be copied.
-             * @returns #TRUE if the operation was successful, otherwise #FALSE.
-             */
-            copy_text(start_pos: number, end_pos: number): boolean
-            /**
-             * Deletes text from an #AtspiEditableText object, copying the
-             *       excised portion into the system clipboard.
-             *
-             * see: #atspi_editable_text_paste_text
-             * @throws {GLib.Error}
-             * @param start_pos a #gint indicating the starting character offset
-                  of the text to cut.
-             * @param end_pos a #gint indicating the offset of the first character
-                  past the end of the text section to be cut.
-             * @returns #TRUE if operation was successful, #FALSE otherwise.
-             */
-            cut_text(start_pos: number, end_pos: number): boolean
-            /**
-             * Deletes text from an #AtspiEditableText object, without copying the
-             *       excised portion into the system clipboard.
-             *
-             * see: #atspi_editable_text_cut_text
-             * @throws {GLib.Error}
-             * @param start_pos a #gint indicating the starting character offset
-                  of the text to delete.
-             * @param end_pos a #gint indicating the offset of the first character
-                  past the end of the text section to be deleted.
-             * @returns #TRUE if the operation was successful, otherwise #FALSE.
-             */
-            delete_text(start_pos: number, end_pos: number): boolean
-            /**
-             * Inserts text into an #AtspiEditableText object.
-             * As with all character offsets, the specified @position may not be the
-             * same as the resulting byte offset, since the text is in a
-             * variable-width encoding.
-             * @throws {GLib.Error}
-             * @param position a #gint indicating the character offset at which to insert
-                  the new text.
-             * @param text a string representing the text to insert, in UTF-8 encoding.
-             * @param length the number of characters of text to insert, in bytes. If the
-            byte count of text is less than or equal to length, the entire contents
-            of text will be inserted.
-             * @returns #TRUE if the operation was successful, otherwise #FALSE.
-             */
-            insert_text(position: number, text: string, length: number): boolean
-            /**
-             * Inserts text from the system clipboard into an #AtspiEditableText object.
-             * As with all character offsets, the specified @position may not be the
-             *       same as the resulting byte offset, since the text is in a
-             *       variable-width encoding.
-             * @throws {GLib.Error}
-             * @param position a #gint indicating the character offset at which to insert
-                  the new text.
-             * @returns #TRUE if the operation was successful, otherwise #FALSE.
-             */
-            paste_text(position: number): boolean
-            /**
-             * Replace the entire text contents of an #AtspiEditableText object.
-             * @throws {GLib.Error}
-             * @param new_contents a character string, encoded in UTF-8, which is to
-                 become the new text contents of the #AtspiEditableText object.
-             * @returns #TRUE if the operation was successful, otherwise #FALSE.
-             */
-            set_text_contents(new_contents: string): boolean
-        }
-
-
-        interface EditableTextIface {
-            readonly $gtype: GObject.GType<EditableText>
-            readonly prototype: EditableText
-
-            [Symbol.hasInstance](instance: unknown): instance is EditableText
-        }
-
-        const EditableText: EditableTextIface
-        
-
-        namespace Hypertext {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         * An interface used for objects which implement linking between
-         * multiple resource locations.
-         *
-         * An interface used for objects which implement linking between
-         * multiple resource or content locations, or multiple 'markers'
-         * within a single document. A hypertext instance is associated
-         * with one or more hyperlinks which are associated with particular
-         * offsets within the hypertext's content.
-         */
-        interface Hypertext extends Hypertext.Interface {
-            readonly $signals: Hypertext.SignalSignatures
-            readonly $readableProperties: Hypertext.ReadableProperties
-            readonly $writableProperties: Hypertext.WritableProperties
-            readonly $constructOnlyProperties: Hypertext.ConstructOnlyProperties
-            /**
-             * Gets the #AtspiHyperlink object at a specified index.
-             * @throws {GLib.Error}
-             * @param link_index a (zero-index) #gint indicating which hyperlink to query.
-             * @returns the #AtspiHyperlink object          specified by `link_index`.
-             */
-            get_link(link_index: number): Hyperlink | null
-            /**
-             * Gets the index of the #AtspiHyperlink object at a specified
-             *        character offset.
-             * @throws {GLib.Error}
-             * @param character_offset a #gint specifying the character offset to query.
-             * @returns the linkIndex of the #AtspiHyperlink active at        character offset `character_offset`, or -1 if there is        no hyperlink at the specified character offset.
-             */
-            get_link_index(character_offset: number): number
-            /**
-             * Gets the total number of #AtspiHyperlink objects that an
-             * #AtspiHypertext implementor has.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the number of #AtspiHyperlink objects        of the #AtspiHypertext implementor, or -1 if        the number cannot be determined (for example, if the        #AtspiHypertext object is so large that it is not        all currently in the memory cache).
-             */
-            get_n_links(): number
-        }
-
-
-        interface HypertextIface {
-            readonly $gtype: GObject.GType<Hypertext>
-            readonly prototype: Hypertext
-
-            [Symbol.hasInstance](instance: unknown): instance is Hypertext
-        }
-
-        const Hypertext: HypertextIface
-        
-
-        namespace Image {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         */
-        interface Image extends Image.Interface {
-            readonly $signals: Image.SignalSignatures
-            readonly $readableProperties: Image.ReadableProperties
-            readonly $writableProperties: Image.WritableProperties
-            readonly $constructOnlyProperties: Image.ConstructOnlyProperties
-            /**
-             * Gets the description of the image displayed in an #AtspiImage object.
-             * @throws {GLib.Error}
-             * @returns a UTF-8 string describing the image.
-             */
-            get_image_description(): string
-            /**
-             * Gets the bounding box of the image displayed in a
-             *         specified #AtspiImage implementor.
-             * The returned values are meaningful only if the Image has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @param ctype the desired coordinate system into which to return the results,
-                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
-             * @returns a pointer to an #AtspiRect corresponding to the image's bounding box. The minimum x and y coordinates, width, and height are specified.
-             */
-            get_image_extents(ctype: CoordType): Rect
-            /**
-             * Gets the locale associated with an image and its textual representation.
-             * @throws {GLib.Error}
-             * @returns A POSIX LC_MESSAGES-style locale value for image description and text.
-             */
-            get_image_locale(): string
-            /**
-             * Gets the minimum x and y coordinates of the image displayed in a
-             *         specified #AtspiImage implementor.
-             * The returned values are meaningful only if the Image has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @param ctype the desired coordinate system into which to return the results,
-                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
-             * @returns a pointer to an #AtspiPoint where x and y correspond to the minimum coordinates of the displayed image.
-             */
-            get_image_position(ctype: CoordType): Point
-            /**
-             * Gets the size of the image displayed in a specified #AtspiImage object.
-             * The returned values are meaningful only if the Image has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @returns a pointer to an #AtspiPoint where x corresponds to the image's width and y corresponds to the image's height.
-             */
-            get_image_size(): Point
-        }
-
-
-        interface ImageIface {
-            readonly $gtype: GObject.GType<Image>
-            readonly prototype: Image
-
-            [Symbol.hasInstance](instance: unknown): instance is Image
-        }
-
-        const Image: ImageIface
-        
-
-        namespace Selection {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         * An interface which indicates that an object exposes a 'selection' model,
-         * allowing the selection of one or more of its children.
-         *
-         * An interface which indicates that an object exposes a 'selection'
-         * model, allowing the selection of one or more of its children.
-         * Read-only Selection instances are possible, in which case the
-         * interface is used to programmatically determine the selected-ness
-         * of its children.
-         */
-        interface Selection extends Selection.Interface {
-            readonly $signals: Selection.SignalSignatures
-            readonly $readableProperties: Selection.ReadableProperties
-            readonly $writableProperties: Selection.WritableProperties
-            readonly $constructOnlyProperties: Selection.ConstructOnlyProperties
-            /**
-             * Clears the current selection, removing all selected children from the
-             *       specified #AtspiSelection implementor's selection list.
-             * @throws {GLib.Error}
-             * @returns #TRUE if successful, #FALSE otherwise.
-             */
-            clear_selection(): boolean
-            /**
-             * Deselects a specific child of an #AtspiSelection.
-             *          Note that @child_index is the index of the child
-             *          in the parent container.
-             *
-             * See #atspi_selection_deselect_selected_child
-             * @throws {GLib.Error}
-             * @param child_index a #gint indicating which of the children
-                         of the #AtspiAccessible is to be de-selected.
-             * @returns #TRUE if the child was successfully deselected, #FALSE otherwise.
-             */
-            deselect_child(child_index: number): boolean
-            /**
-             * Removes a child from the selected children list of an #AtspiSelection.
-             *          Note that @selected_child_index is the index in the
-             *          selected-children list, not the index in the parent container.
-             *          @selected_child_index in this method and @child_index in
-             *          #atspi_selection_select_child are asymmetric.
-             * @throws {GLib.Error}
-             * @param selected_child_index a #gint indicating which of the selected children
-                         of the #Accessible is to be deselected.
-             * @returns #TRUE if the child was successfully deselected, #FALSE otherwise.
-             */
-            deselect_selected_child(selected_child_index: number): boolean
-            /**
-             * Gets the number of children of an #AtspiSelection implementor which are
-             *        currently selected.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the number of #Accessible children        of the #AtspiSelection implementor which are currently selected.
-             */
-            get_n_selected_children(): number
-            /**
-             * Gets the i-th selected #AtspiAccessible child of an #AtspiSelection.
-             *      Note that @selected_child_index refers to the index in the list
-             *      of 'selected'
-             *      children and generally differs from that used in
-             *      #atspi_accessible_get_child_at_index or returned by
-             *      #atspi_accessible_get_index_in_parent.
-             *      @selected_child_index must lie between 0
-             *      and #atspi_selection_get_n_selected_children - 1, inclusive.
-             * @throws {GLib.Error}
-             * @param selected_child_index a #gint indicating which of the selected
-                 children is specified.
-             * @returns a pointer to a selected #AtspiAccessible child          object, specified by `selected_child_index`.
-             */
-            get_selected_child(selected_child_index: number): Accessible
-            /**
-             * Determines whether a particular child of an #AtspiSelection implementor
-             *        is currently selected.  Note that @child_index is the index into the
-             *        standard #AtspiAccessible container's list of children.
-             * @throws {GLib.Error}
-             * @param child_index an index into the #AtspiSelection's list of children.
-             * @returns #TRUE if the specified child is currently selected,          #FALSE otherwise.
-             */
-            is_child_selected(child_index: number): boolean
-            /**
-             * Attempts to select all of the children of an #AtspiSelection implementor.
-             * Not all #AtspiSelection implementors support this operation.
-             * @throws {GLib.Error}
-             * @returns #TRUE if successful, #FALSE otherwise.
-             */
-            select_all(): boolean
-            /**
-             * Adds a child to the selected children list of an #AtspiSelection.
-             *         For #AtspiSelection implementors that only allow
-             *         single selections, this may replace the (single) current
-             *         selection.
-             * @throws {GLib.Error}
-             * @param child_index a #gint indicating which child of the #Accessible
-                         is to be selected.
-             * @returns #TRUE if the child was successfully selected, #FALSE otherwise.
-             */
-            select_child(child_index: number): boolean
-        }
-
-
-        interface SelectionIface {
-            readonly $gtype: GObject.GType<Selection>
-            readonly prototype: Selection
-
-            [Symbol.hasInstance](instance: unknown): instance is Selection
-        }
-
-        const Selection: SelectionIface
-        
-
-        namespace Table {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         * An interface used by containers whose data is arranged in a tabular form.
-         *
-         * An interface used by containers whose contained data is arranged
-         * in a tabular (i.e. row-column) form. Tables may resemble
-         * a two-dimensional grid, as in a spreadsheet, or may feature objects
-         * which span multiple rows and/or columns, but whose bounds are
-         * aligned on a row/column matrix. Objects within tables are children
-         * of the table object, and they may be referenced either via a child
-         * index or via a row/column pair. Table 'cells' may implement other
-         * interfaces, such as Text, Action, Image, and Component, and should do
-         * so as appropriate to their onscreen presentation and/or behavior.
-         */
-        interface Table extends Table.Interface {
-            readonly $signals: Table.SignalSignatures
-            readonly $readableProperties: Table.ReadableProperties
-            readonly $writableProperties: Table.WritableProperties
-            readonly $constructOnlyProperties: Table.ConstructOnlyProperties
-            /**
-             * Selects the specified column, adding it to the current column selection.
-             * Not all tables support column selection.
-             * @throws {GLib.Error}
-             * @param column the zero-indexed column number of the column being selected.
-             * @returns #TRUE if the specified column was successfully selected, #FALSE if not.
-             */
-            add_column_selection(column: number): boolean
-            /**
-             * Selects the specified row, adding it to the current row selection.
-             * Not all tables support row selection.
-             * @throws {GLib.Error}
-             * @param row the zero-indexed row number of the row being selected.
-             * @returns #TRUE if the specified row was successfully selected, #FALSE if not.
-             */
-            add_row_selection(row: number): boolean
-            /**
-             * Gets the table cell at the specified row and column indices.
-             * To get the accessible object at a particular (x, y) screen
-             * coordinate, use #atspi_component_get_accessible_at_point.
-             * @throws {GLib.Error}
-             * @param row the specified table row, zero-indexed.
-             * @param column the specified table column, zero-indexed.
-             * @returns an #AtspiAccessible object representing the          specified table cell.
-             */
-            get_accessible_at(row: number, column: number): Accessible
-            /**
-             * Gets an accessible representation of the caption for an #AtspiTable.
-             * @throws {GLib.Error}
-             * @returns an #AtspiAccessible object that serves as the table's caption.
-             */
-            get_caption(): Accessible
-            /**
-             * Gets the table column index occupied by the child at a particular 1-D
-             * child index.
-             *
-             * @see #atspi_table_get_index_at, #atspi_table_get_row_at_index
-             * @throws {GLib.Error}
-             * @param index the specified child index, zero-indexed.
-             * @returns a #gint indicating the first column spanned by the child of a          table, at the specified 1-D (zero-offset) `index`.
-             */
-            get_column_at_index(index: number): number
-            /**
-             * Gets a text description of a particular table column.  This differs from
-             * #atspi_table_get_column_header, which returns an #Accessible.
-             * @throws {GLib.Error}
-             * @param column the specified table column, zero-indexed.
-             * @returns a UTF-8 string describing the specified table column, if available.
-             */
-            get_column_description(column: number): string
-            /**
-             * Gets the number of columns spanned by the table cell at the specific
-             * row and column (some tables can have cells which span multiple
-             * rows and/or columns).
-             * The returned values are meaningful only if the Table has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @param row the specified table row, zero-indexed.
-             * @param column the specified table column, zero-indexed.
-             * @returns a #gint indicating the number of columns spanned by the specified cell.
-             */
-            get_column_extent_at(row: number, column: number): number
-            /**
-             * Gets the header associated with a table column, if available.
-             * This differs from #atspi_table_get_column_description, which
-             * returns a string.
-             * @throws {GLib.Error}
-             * @param column the specified table column, zero-indexed.
-             * @returns an #AtspiAccessible representation of the          specified table column, if available.
-             */
-            get_column_header(column: number): Accessible
-            /**
-             * Gets the 1-D child index corresponding to the specified 2-D row and
-             * column indices. To get the accessible object at a particular (x, y) screen
-             * coordinate, use #atspi_component_get_accessible_at_point.
-             *
-             * @see #atspi_table_get_row_at_index, #atspi_table_get_column_at_index
-             * @throws {GLib.Error}
-             * @param row the specified table row, zero-indexed.
-             * @param column the specified table column, zero-indexed.
-             * @returns a #gint which serves as the index of a specified cell in the          table, in a form usable by #atspi_get_child_at_index.
-             */
-            get_index_at(row: number, column: number): number
-            /**
-             * Gets the number of columns in an #AtspiTable,
-             *        exclusive of any columns that are programmatically hidden, but inclusive
-             *        of columns that may be outside of the current scrolling window or viewport.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the number of columns in the table.
-             */
-            get_n_columns(): number
-            /**
-             * Gets the number of rows in an #AtspiTable,
-             *        exclusive of any rows that are programmatically hidden, but inclusive
-             *        of rows that may be outside of the current scrolling window or viewport.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the number of rows in the table.
-             */
-            get_n_rows(): number
-            /**
-             * Queries a table to find out how many columns are currently selected.
-             * Not all tables support column selection.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the number of columns currently selected.
-             */
-            get_n_selected_columns(): number
-            /**
-             * Query a table to find out how many rows are currently selected.
-             * Not all tables support row selection.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the number of rows currently selected.
-             */
-            get_n_selected_rows(): number
-            /**
-             * Gets the table row index occupied by the child at a particular 1-D
-             * child index.
-             *
-             * @see #atspi_table_get_index_at, #atspi_table_get_column_at_index
-             * @throws {GLib.Error}
-             * @param index the specified child index, zero-indexed.
-             * @returns a #gint indicating the first row spanned by the child of a          table, at the specified 1-D (zero-offset) `index`.
-             */
-            get_row_at_index(index: number): number
-            /**
-             * Given a child index, determines the row and column indices and
-             * extents, and whether the cell is currently selected.  If
-             * the child at index is not a cell (for instance, if it is
-             * a summary, caption, etc.), #FALSE is returned.
-             * The returned values are meaningful only if the Table has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             *
-             * Example:
-             * If the #AtspiTable child at index '6' extends across columns 5 and 6 of
-             * row 2 of an #AtspiTable instance, and is currently selected, then
-             *
-             * retval = atspi_table_get_row_column_extents_at_index (table, 6,
-             *                                             row, col,
-             *                                             row_extents,
-             *                                             col_extents,
-             *                                             is_selected);
-             *
-             * will return #TRUE, and after the call
-             * row, col, row_extents, col_extents,
-             * and is_selected will contain 2, 5, 1, 2, and
-             * #TRUE, respectively.
-             * @throws {GLib.Error}
-             * @param index the index of the #AtspiTable child whose row/column
-            extents are requested.
-             * @returns #TRUE if the index is associated with a valid table cell, #FALSE if the index does not correspond to a cell.  If #FALSE is returned, the values of the out parameters are undefined., back-filled with the first table row associated with the cell with child index., back-filled with the first table column associated with the cell with child index., back-filled with the number of table rows across which child i extends., back-filled with the number of table columns across which child i extends., a boolean which is back-filled with #TRUE if the child at index i corresponds to a selected table cell, #FALSE otherwise.
-             */
-            get_row_column_extents_at_index(index: number): [boolean, number, number, number, number, boolean]
-            /**
-             * Gets a text description of a particular table row.  This differs from
-             * #atspi_table_get_row_header, which returns an #AtspiAccessible.
-             * @throws {GLib.Error}
-             * @param row the specified table row, zero-indexed.
-             * @returns a UTF-8 string describing the specified table row, if available.
-             */
-            get_row_description(row: number): string
-            /**
-             * Gets the number of rows spanned by the table cell at the specific row
-             * and column. (some tables can have cells which span multiple rows
-             * and/or columns).
-             * The returned values are meaningful only if the Table has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @param row the specified table row, zero-indexed.
-             * @param column the specified table column, zero-indexed.
-             * @returns a #gint indicating the number of rows spanned by the specified cell.
-             */
-            get_row_extent_at(row: number, column: number): number
-            /**
-             * Gets the header associated with a table row, if available. This differs from
-             * #atspi_table_get_row_description, which returns a string.
-             * @throws {GLib.Error}
-             * @param row the specified table row, zero-indexed.
-             * @returns an #AtspiAccessible representation of the specified          table row, if available.
-             */
-            get_row_header(row: number): Accessible
-            /**
-             * Queries a table for a list of indices of columns which are currently
-             * selected.
-             * @throws {GLib.Error}
-             * @returns an array of #gint values,          specifying which columns are currently selected.
-             */
-            get_selected_columns(): number[]
-            /**
-             * Queries a table for a list of indices of rows which are currently selected.
-             * @throws {GLib.Error}
-             * @returns an array of #gint values,          specifying which rows are currently selected.
-             */
-            get_selected_rows(): number[]
-            /**
-             * Gets an accessible object which summarizes the contents of an #AtspiTable.
-             * @throws {GLib.Error}
-             * @returns an #AtspiAccessible object that serves as the          table's summary (often a reduced #AtspiTable).
-             */
-            get_summary(): Accessible
-            /**
-             * Determines whether specified table column is selected.
-             * Not all tables support column selection.
-             * @throws {GLib.Error}
-             * @param column the zero-indexed column number of the column being queried.
-             * @returns #TRUE if the specified column is currently selected, #FALSE if not.
-             */
-            is_column_selected(column: number): boolean
-            /**
-             * Determines whether a table row is selected.  Not all tables support
-             * row selection.
-             * @throws {GLib.Error}
-             * @param row the zero-indexed row number of the row being queried.
-             * @returns #TRUE if the specified row is currently selected, #FALSE if not.
-             */
-            is_row_selected(row: number): boolean
-            /**
-             * Determines whether the cell at a specific row and column is selected.
-             * @throws {GLib.Error}
-             * @param row the zero-indexed row of the cell being queried.
-             * @param column the zero-indexed column of the cell being queried.
-             * @returns #TRUE if the specified cell is currently selected, #FALSE if not.
-             */
-            is_selected(row: number, column: number): boolean
-            /**
-             * De-selects the specified column, removing it from the current column
-             * selection.
-             * Not all tables support column selection.
-             * @throws {GLib.Error}
-             * @param column the zero-indexed column number of the column being de-selected.
-             * @returns #TRUE if the specified column was successfully de-selected, #FALSE if not.
-             */
-            remove_column_selection(column: number): boolean
-            /**
-             * De-selects the specified row, removing it from the current row selection.
-             * Not all tables support row selection.
-             * @throws {GLib.Error}
-             * @param row the zero-indexed number of the row being de-selected.
-             * @returns #TRUE if the specified row was successfully de-selected, #FALSE if not.
-             */
-            remove_row_selection(row: number): boolean
-        }
-
-
-        interface TableIface {
-            readonly $gtype: GObject.GType<Table>
-            readonly prototype: Table
-
-            [Symbol.hasInstance](instance: unknown): instance is Table
-        }
-
-        const Table: TableIface
-        
-
-        namespace TableCell {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         */
-        interface TableCell extends TableCell.Interface {
-            readonly $signals: TableCell.SignalSignatures
-            readonly $readableProperties: TableCell.ReadableProperties
-            readonly $writableProperties: TableCell.WritableProperties
-            readonly $constructOnlyProperties: TableCell.ConstructOnlyProperties
-            /**
-             * Returns the column headers as an array of cell accessibles.
-             * @throws {GLib.Error}
-             * @returns a GPtrArray of AtspiAccessibles representing the column header cells.
-             */
-            get_column_header_cells(): Accessible[]
-            /**
-             * @throws {GLib.Error}
-             */
-            get_column_index(): number
-            /**
-             * Returns the number of columns occupied by this cell accessible.
-             * The returned values are meaningful only if the table cell has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @returns a gint representing the number of columns occupied by this cell, or 0 if the cell does not implement this method.
-             */
-            get_column_span(): number
-            /**
-             * Retrieves the tabular position of this cell.
-             * @throws {GLib.Error}
-             * @returns TRUE if successful, FALSE otherwise., the row of the given cell., the column of the given cell.
-             */
-            get_position(): [number, number, number]
-            /**
-             * Gets the row and column indexes and extents of this cell accessible.
-             * The returned values are meaningful only if the table cell has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @returns , the row index of the given cell., the column index of the given cell., the number of rows occupied by this cell., the number of columns occupied by this cell.
-             */
-            get_row_column_span(): [number, number, number, number]
-            /**
-             * Returns the row headers as an array of cell accessibles.
-             * @throws {GLib.Error}
-             * @returns a GPtrArray of AtspiAccessibles representing the row header cells.
-             */
-            get_row_header_cells(): Accessible[]
-            /**
-             * Returns the number of rows occupied by this cell accessible.
-             * The returned values are meaningful only if the table cell has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @returns a gint representing the number of rows occupied by this cell, or 0 if the cell does not implement this method.
-             */
-            get_row_span(): number
-            /**
-             * Returns a reference to the accessible of the containing table.
-             * @throws {GLib.Error}
-             * @returns the AtspiAccessible for the containing table.
-             */
-            get_table(): Accessible
-        }
-
-
-        interface TableCellIface {
-            readonly $gtype: GObject.GType<TableCell>
-            readonly prototype: TableCell
-
-            [Symbol.hasInstance](instance: unknown): instance is TableCell
-        }
-
-        const TableCell: TableCellIface
-        
-
-        namespace Text {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         * An interface implemented by objects which place textual
-         * information onscreen.
-         *
-         * The text interface should be implemented by objects which place textual
-         * information onscreen as character strings or glyphs. The text interface
-         * allows access to textual content including display attributes and
-         * semantic hints associated with runs of text, and to bounding
-         * information for glyphs and substrings. It also allows portions of text to
-         * be selected, if the objects StateSet includes STATE_SELECTABLE_TEXT.
-         */
-        interface Text extends Text.Interface {
-            readonly $signals: Text.SignalSignatures
-            readonly $readableProperties: Text.ReadableProperties
-            readonly $writableProperties: Text.WritableProperties
-            readonly $constructOnlyProperties: Text.ConstructOnlyProperties
-            /**
-             * Selects some text (adds a text selection) in an #AtspiText object.
-             * @throws {GLib.Error}
-             * @param start_offset the starting offset of the desired new selection.
-             * @param end_offset the offset of the first character after the new selection.
-             * @returns #TRUE if successful, #FALSE otherwise.
-             */
-            add_selection(start_offset: number, end_offset: number): boolean
-            /**
-             * Gets a set of attributes applied to a range of text from an #AtspiText object, optionally
-             * including its 'default' attributes.
-             * @throws {GLib.Error}
-             * @param offset a #gint indicating the offset from which the attribute
-                   search is based.
-             * @param include_defaults a #bool that, when set as #FALSE, indicates the call
-            should only return those attributes which are explicitly set on the current
-            attribute run, omitting any attributes which are inherited from the
-            default values.
-             * @returns a #GHashTable with attributes          defined at the indicated offset, optionally including the 'default' ones., a #gint pointer indicating the start of the desired text                range., a #gint pointer indicating the first character past the desired              range.
-             */
-            get_attribute_run(offset: number, include_defaults: boolean): [Record<string, string>, number, number]
-            /**
-             * Gets the value of a named attribute at a given offset.
-             * @throws {GLib.Error}
-             * @override
-             * @deprecated since 2.10 Use atspi_text_get_text_attribute_value instead.
-             * @param offset The character offset at which to query the attribute.
-             * @param attribute_name The attribute to query.
-             * @returns the value of a given attribute at the given offset, or %NULL if not present.
-             */
-            get_attribute_value(offset: number, attribute_name: string): string | null
-            /**
-             * Gets the attributes applied to a range of text from an #AtspiText
-             * object. The text attributes correspond to CSS attributes
-             * where possible.
-             * @throws {GLib.Error}
-             * @override
-             * @deprecated since 2.10 Use atspi_text_get_text_attributes instead.
-             * @param offset a #gint indicating the offset from which the attribute
-                   search is based.
-             * @returns a #GHashTable describing the attributes at the given character offset., a #gint pointer indicating the start of the desired text                range., a #gint pointer indicating the first character past the desired              range.
-             */
-            get_attributes(offset: number): [Record<string, string>, number, number]
-            /**
-             * Gets the ranges of text from an #AtspiText object which lie within the
-             *          bounds defined by (@x, @y) and (@x+@width, @y+@height).
-             * @throws {GLib.Error}
-             * @param x the 'starting' x coordinate of the bounding box.
-             * @param y the 'starting' y coordinate of the bounding box.
-             * @param width the x extent of the bounding box.
-             * @param height the y extent of the bounding box.
-             * @param type an #AccessibleCoordType indicating the coordinate system to use
-                   for the returned values.
-             * @param clipTypeX an #AtspiTextClipType indicating how to treat characters that
-                   intersect the bounding box's x extents.
-             * @param clipTypeY an #AtspiTextClipType indicating how to treat characters that
-                   intersect the bounding box's y extents.
-             * @returns a null-terminated list of          pointers to #AtspiTextRange structs detailing the bounded text.
-             */
-            get_bounded_ranges(x: number, y: number, width: number, height: number, type: CoordType, clipTypeX: TextClipType, clipTypeY: TextClipType): TextRange[]
-            /**
-             * Gets the current offset of the text caret in an #AtspiText object.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the current position of the text caret.
-             */
-            get_caret_offset(): number
-            /**
-             * Gets the character at a given offset for an #AtspiText object.
-             * @throws {GLib.Error}
-             * @param offset a #gint indicating the text offset where the desired
-                     character is located.
-             * @returns a #guint  representing the        UCS-4 unicode code point of the given character, or        0xFFFFFFFF if the character in question cannot be represented        in the UCS-4 encoding.
-             */
-            get_character_at_offset(offset: number): number
-            /**
-             * Gets the character count of an #AccessibleText object.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the total number of              characters in the #AccessibleText object.
-             */
-            get_character_count(): number
-            /**
-             * Gets a bounding box containing the glyph representing
-             *        the character at a particular text offset.
-             * The returned values are meaningful only if the Text has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @param offset a #gint indicating the offset of the text character for
-                   whom boundary information is requested.
-             * @param type an #AccessibleCoordType indicating the coordinate system to use
-                   for the returned values.
-             * @returns An #AtspiRect specifying the position and size of the character.
-             */
-            get_character_extents(offset: number, type: CoordType): Rect
-            /**
-             * Gets the default attributes applied to an #AtspiText
-             * object. The text attributes correspond to CSS attributes
-             * where possible. The combination of this attribute set and
-             * the attributes reported by #atspi_text_get_attributes
-             * describes the entire set of text attributes over a range.
-             * @throws {GLib.Error}
-             * @returns a #GHashTable          containing the default attributes applied to a text object,          (exclusive of explicitly-set attributes), encoded as UTF-8.
-             */
-            get_default_attributes(): Record<string, string>
-            /**
-             * Gets the number of active non-contiguous selections for an
-             *          #AtspiText object.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the current          number of non-contiguous text selections active          within an #AtspiText object.
-             */
-            get_n_selections(): number
-            /**
-             * Gets the character offset into the text at a given point.
-             * @throws {GLib.Error}
-             * @param x the x coordinate of the point to be queried.
-             * @param y the y coordinate of the point to be queried.
-             * @param type an #AtspiCoordType indicating the coordinate system in which
-                  the values should be returned.
-             * @returns the offset (as a #gint) at the point (@x, `y`)       in the specified coordinate system.
-             */
-            get_offset_at_point(x: number, y: number, type: CoordType): number
-            /**
-             * Gets the bounding box for text within a range in an  #AtspiText object.
-             * The returned values are meaningful only if the Text has both
-             * STATE_VISIBLE and STATE_SHOWING.
-             * @throws {GLib.Error}
-             * @param start_offset a #gint indicating the offset of the first text character for
-                   whom boundary information is requested.
-             * @param end_offset a #gint indicating the offset of the text character
-                   after the last character for whom boundary information is requested.
-             * @param type an #AtspiCoordType indicating the coordinate system to use
-                   for the returned values.
-             * @returns An #AtspiRect giving the position and size of the specified range          of text.
-             */
-            get_range_extents(start_offset: number, end_offset: number, type: CoordType): Rect
-            /**
-             * Gets the bounds of the @selection_num-th active text selection for an
-             *         #AtspiText object.
-             * @throws {GLib.Error}
-             * @param selection_num a #gint indicating which selection to query.
-             */
-            get_selection(selection_num: number): Range
-            /**
-             * Gets a portion of the text exposed through an #AtspiText according to a given @offset
-             * and a specific @granularity, along with the start and end offsets defining the
-             * boundaries of such a portion of text.
-             *
-             * If @granularity is ATSPI_TEXT_GRANULARITY_CHAR the character at the
-             * offset is returned.
-             *
-             * If @granularity is ATSPI_TEXT_GRANULARITY_WORD the returned string
-             * is from the word start at or before the offset to the word start after
-             * the offset.
-             *
-             * The returned string will contain the word at the offset if the offset
-             * is inside a word and will contain the word before the offset if the
-             * offset is not inside a word.
-             *
-             * If @granularity is ATSPI_TEXT_GRANULARITY_SENTENCE the returned string
-             * is from the sentence start at or before the offset to the sentence
-             * start after the offset.
-             *
-             * The returned string will contain the sentence at the offset if the offset
-             * is inside a sentence and will contain the sentence before the offset
-             * if the offset is not inside a sentence.
-             *
-             * If @granularity is ATSPI_TEXT_GRANULARITY_LINE the returned string
-             * is from the line start at or before the offset to the line
-             * start after the offset.
-             *
-             * If @granularity is ATSPI_TEXT_GRANULARITY_PARAGRAPH the returned string
-             * is from the start of the paragraph at or before the offset to the start
-             * of the following paragraph after the offset.
-             * @throws {GLib.Error}
-             * @since 2.9.90
-             * @param offset position
-             * @param granularity An #AtspiTextGranularity
-             * @returns a newly allocated string containing the text at the `offset` bounded   by the specified `granularity`. Use g_free() to free the returned string.   Returns %NULL if the offset is invalid or no implementation is available.
-             */
-            get_string_at_offset(offset: number, granularity: TextGranularity): TextRange
-            /**
-             * Gets a range of text from an #AtspiText object.  The number of bytes
-             *          in the returned string may exceed either end_offset or start_offset, since
-             *          UTF-8 is a variable-width encoding.
-             * @throws {GLib.Error}
-             * @param start_offset a #gint indicating the start of the desired text range.
-             * @param end_offset a #gint indicating the first character past the desired range.
-             * @returns a text string containing characters from `start_offset`          to `end_offset`-1, inclusive, encoded as UTF-8.
-             */
-            get_text(start_offset: number, end_offset: number): string
-            /**
-             * Gets delimited text from an #AtspiText object which follows a given
-             *          text offset.
-             * @throws {GLib.Error}
-             * @param offset a #gint indicating the offset from which the delimiter
-                   search is based.
-             * @param type an #AtspiTextBoundaryType indicating whether the desired
-                  text string is a word, sentence, line, or attribute run.
-             * @returns an #AtspiTextRange containing a UTF-8 string representing the          delimited text, both of whose delimiting boundaries are after or          inclusive of the current offset, or an empty string if no such          text exists.
-             */
-            get_text_after_offset(offset: number, type: TextBoundaryType): TextRange
-            /**
-             * Gets delimited text from an #AtspiText object which includes a given
-             *          text offset.
-             * @throws {GLib.Error}
-             * @deprecated since 2.10 Use atspi_text_get_string_at_offset.
-             * @param offset a #gint indicating the offset from which the delimiter
-                   search is based.
-             * @param type an #AtspiTextBoundaryType indicating whether the desired
-                  text string is a word, sentence, line, or attribute run.
-             * @returns an #AtspiTextRange containing a UTF-8 string representing the          delimited text, whose delimiting boundaries bracket the          current offset, or an empty string if no such text exists.
-             */
-            get_text_at_offset(offset: number, type: TextBoundaryType): TextRange
-            /**
-             * Gets the value of a named attribute at a given offset.
-             * @throws {GLib.Error}
-             * @param offset The character offset at which to query the attribute.
-             * @param attribute_name The attribute to query.
-             * @returns the value of a given attribute at the given offset, or %NULL if not present.
-             */
-            get_text_attribute_value(offset: number, attribute_name: string): string | null
-            /**
-             * Gets the attributes applied to a range of text from an #AtspiText
-             * object. The text attributes correspond to CSS attributes
-             * where possible.
-             * @throws {GLib.Error}
-             * @param offset a #gint indicating the offset from which the attribute
-                   search is based.
-             * @returns a #GHashTable describing the attributes at the given character offset., a #gint pointer indicating the start of the desired text                range., a #gint pointer indicating the first character past the desired              range.
-             */
-            get_text_attributes(offset: number): [Record<string, string>, number, number]
-            /**
-             * Gets delimited text from an #AtspiText object which precedes a given
-             *          text offset.
-             * @throws {GLib.Error}
-             * @param offset a #gint indicating the offset from which the delimiter
-                   search is based.
-             * @param type an #AtspiTextBoundaryType indicating whether the desired
-                  text string is a word, sentence, line, or attribute run.
-             * @returns an #AtspiTextRange containing a UTF-8 string representing the          delimited text, both of whose delimiting boundaries are before the          current offset, or an empty string if no such text exists.
-             */
-            get_text_before_offset(offset: number, type: TextBoundaryType): TextRange
-            /**
-             * De-selects a text selection.
-             * @throws {GLib.Error}
-             * @param selection_num a #gint indicating which text selection to remove.
-             * @returns #TRUE if successful, #FALSE otherwise.
-             */
-            remove_selection(selection_num: number): boolean
-            /**
-             * Scrolls whatever container of the #AtspiText text range so it becomes
-             * visible on the screen.
-             * @throws {GLib.Error}
-             * @param start_offset a #gint indicating the start of the desired text range.
-             * @param end_offset a #gint indicating the first character past the desired range.
-             * @param type a #AtspiScrollType indicating where the object should be placed on the
-                   screen.
-             * @returns #TRUE if successful, #FALSE otherwise.
-             */
-            scroll_substring_to(start_offset: number, end_offset: number, type: ScrollType): boolean
-            /**
-             * Scrolls whatever container of the #AtspiText text range so it becomes
-             * visible on the screen at a given position.
-             * @throws {GLib.Error}
-             * @param start_offset a #gint indicating the start of the desired text range.
-             * @param end_offset a #gint indicating the first character past the desired range.
-             * @param coords a #AtspiCoordType indicating whether the coordinates are relative to
-                     the screen, to the window, or to the parent object.
-             * @param x the x coordinate of the point to reach
-             * @param y the y coordinate of the point to reach
-             * @returns #TRUE if successful, #FALSE otherwise.
-             */
-            scroll_substring_to_point(start_offset: number, end_offset: number, coords: CoordType, x: number, y: number): boolean
-            /**
-             * Moves the text caret to a given position.
-             * @throws {GLib.Error}
-             * @param new_offset the offset to which the text caret is to be moved.
-             * @returns #TRUE if successful, #FALSE otherwise.
-             */
-            set_caret_offset(new_offset: number): boolean
-            /**
-             * Changes the bounds of an existing #AtspiText text selection.
-             * @throws {GLib.Error}
-             * @param selection_num a zero-offset index indicating which text selection to modify.
-             * @param start_offset a #gint indicating the new starting offset for the selection.
-             * @param end_offset a #gint indicating the desired new offset of the first character
-                        after the selection.
-             * @returns #TRUE if successful, #FALSE otherwise.
-             */
-            set_selection(selection_num: number, start_offset: number, end_offset: number): boolean
-        }
-
-
-        interface TextIface {
-            readonly $gtype: GObject.GType<Text>
-            readonly prototype: Text
-
-            [Symbol.hasInstance](instance: unknown): instance is Text
-        }
-
-        const Text: TextIface
-        
-
-        namespace Value {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         * An interface supporting a one-dimensional scalar
-         * to be modified, or which reflects its value.
-         *
-         * An interface supporting a one-dimensional scalar
-         * to be modified, or which reflects its value. If
-         * STATE_EDITABLE is not present, the value is
-         * treated as "read only".
-         */
-        interface Value extends Value.Interface {
-            readonly $signals: Value.SignalSignatures
-            readonly $readableProperties: Value.ReadableProperties
-            readonly $writableProperties: Value.WritableProperties
-            readonly $constructOnlyProperties: Value.ConstructOnlyProperties
-            /**
-             * Gets the current value for an #AtspiValue.
-             * @throws {GLib.Error}
-             * @returns the current value for this object.
-             */
-            get_current_value(): number
-            /**
-             * Gets the maximum allowed value for an #AtspiValue.
-             * @throws {GLib.Error}
-             * @returns the maximum allowed value for this object.
-             */
-            get_maximum_value(): number
-            /**
-             * Gets the minimum increment by which an #AtspiValue can be adjusted.
-             * @throws {GLib.Error}
-             * @returns the minimum increment by which the value may be changed, or zero if the minimum increment cannot be determined.
-             */
-            get_minimum_increment(): number
-            /**
-             * Gets the minimum allowed value for an #AtspiValue.
-             * @throws {GLib.Error}
-             * @returns the minimum allowed value for this object.
-             */
-            get_minimum_value(): number
-            /**
-             * Gets the human readable text alternative associated with the value.
-             * @text is a newly created string, that must be freed by the
-             * caller. Can be NULL if no descriptor is available.
-             * @throws {GLib.Error}
-             * @since 2.46
-             */
-            get_text(): string
-            /**
-             * Sets the current value of an #AtspiValue.
-             * @throws {GLib.Error}
-             * @param new_value a #gdouble value which is the desired new value of the object.
-             * @returns #TRUE if the value could be assigned the specified value,          #FALSE otherwise.
-             */
-            set_current_value(new_value: number): boolean
-        }
-
-
-        interface ValueIface {
-            readonly $gtype: GObject.GType<Value>
-            readonly prototype: Value
-
-            [Symbol.hasInstance](instance: unknown): instance is Value
-        }
-
-        const Value: ValueIface
         
 
         namespace Accessible {
@@ -1718,13 +54,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         * The base interface which is implemented by all accessible objects.
-         *
-         * All objects support interfaces for querying their contained 'children'
-         * and position in the accessible-object hierarchy, whether or not they
-         * actually have children.
-         */
         interface Accessible extends Object, Action, Collection, Component, Document, EditableText, Hypertext, Image, Selection, Table, TableCell, Text, Value {
             readonly $signals: Accessible.SignalSignatures
             readonly $readableProperties: Accessible.ReadableProperties
@@ -1935,7 +264,9 @@ declare module "gi://Atspi?version=2.0" {
              */
             get_parent(): Accessible | null
             /**
-             * bus_name and then calling GetConnectionUnixProcessID.
+             * Returns the process id associated with the given accessible.  Mainly
+             * added for debugging; it is a shortcut to explicitly querying the
+             * accessible's app->bus_name and then calling GetConnectionUnixProcessID.
              * @throws {GLib.Error}
              * @returns The process ID or undetermined value if `error` is set.
              */
@@ -2138,10 +469,20 @@ declare module "gi://Atspi?version=2.0" {
         interface AccessibleClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Accessible>
             readonly prototype: Accessible
+
             new (props?: Partial<GObject.ConstructorProps<Accessible>>): Accessible
         }
 
-        const Accessible: AccessibleClass
+        interface $Exports {
+            /**
+             * The base interface which is implemented by all accessible objects.
+             *
+             * All objects support interfaces for querying their contained 'children'
+             * and position in the accessible-object hierarchy, whether or not they
+             * actually have children.
+             */
+            Accessible: AccessibleClass
+        }
         
 
         namespace Application {
@@ -2158,13 +499,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         * An interface identifying the root object associated
-         * with a running application.
-         *
-         * An interface identifying an object which is the root of the
-         * hierarchy associated with a running application.
-         */
         interface Application extends GObject.Object {
             readonly $signals: Application.SignalSignatures
             readonly $readableProperties: Application.ReadableProperties
@@ -2175,10 +509,20 @@ declare module "gi://Atspi?version=2.0" {
         interface ApplicationClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Application>
             readonly prototype: Application
+
             new (props?: Partial<GObject.ConstructorProps<Application>>): Application
         }
 
-        const Application: ApplicationClass
+        interface $Exports {
+            /**
+             * An interface identifying the root object associated
+             * with a running application.
+             *
+             * An interface identifying an object which is the root of the
+             * hierarchy associated with a running application.
+             */
+            Application: ApplicationClass
+        }
         
 
         namespace Device {
@@ -2213,15 +557,13 @@ declare module "gi://Atspi?version=2.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "app-id": string
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "app-id": string
             }
         }
 
-        /**
-         */
         interface Device extends GObject.Object {
             readonly $signals: Device.SignalSignatures
             readonly $readableProperties: Device.ReadableProperties
@@ -2504,6 +846,7 @@ declare module "gi://Atspi?version=2.0" {
         interface DeviceClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Device>
             readonly prototype: Device
+
             new (props?: Partial<GObject.ConstructorProps<Device>>): Device
             /**
              * Creates a new #AtspiDevice.
@@ -2519,7 +862,11 @@ declare module "gi://Atspi?version=2.0" {
             new_full(app_id: string | null): Device
         }
 
-        const Device: DeviceClass
+        interface $Exports {
+            /**
+             */
+            Device: DeviceClass
+        }
         
 
         namespace DeviceA11yManager {
@@ -2536,8 +883,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         */
         interface DeviceA11yManager extends Device {
             readonly $signals: DeviceA11yManager.SignalSignatures
             readonly $readableProperties: DeviceA11yManager.ReadableProperties
@@ -2548,6 +893,7 @@ declare module "gi://Atspi?version=2.0" {
         interface DeviceA11yManagerClass extends Omit<DeviceClass, "new"> {
             readonly $gtype: GObject.GType<DeviceA11yManager>
             readonly prototype: DeviceA11yManager
+
             new (props?: Partial<GObject.ConstructorProps<DeviceA11yManager>>): DeviceA11yManager
             /**
              * Tries to create a new #AtspiDeviceA11yManager.
@@ -2564,7 +910,11 @@ declare module "gi://Atspi?version=2.0" {
             try_new_full(app_id: string | null): DeviceA11yManager
         }
 
-        const DeviceA11yManager: DeviceA11yManagerClass
+        interface $Exports {
+            /**
+             */
+            DeviceA11yManager: DeviceA11yManagerClass
+        }
         
 
         namespace DeviceLegacy {
@@ -2581,8 +931,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         */
         interface DeviceLegacy extends Device {
             readonly $signals: DeviceLegacy.SignalSignatures
             readonly $readableProperties: DeviceLegacy.ReadableProperties
@@ -2593,6 +941,7 @@ declare module "gi://Atspi?version=2.0" {
         interface DeviceLegacyClass extends Omit<DeviceClass, "new"> {
             readonly $gtype: GObject.GType<DeviceLegacy>
             readonly prototype: DeviceLegacy
+
             new (props?: Partial<GObject.ConstructorProps<DeviceLegacy>>): DeviceLegacy
             /**
              * Creates a new #AtspiDeviceLegacy.
@@ -2608,7 +957,11 @@ declare module "gi://Atspi?version=2.0" {
             new_full(app_id: string | null): DeviceLegacy
         }
 
-        const DeviceLegacy: DeviceLegacyClass
+        interface $Exports {
+            /**
+             */
+            DeviceLegacy: DeviceLegacyClass
+        }
         
 
         namespace DeviceListener {
@@ -2625,8 +978,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         */
         interface DeviceListener extends GObject.Object {
             readonly $signals: DeviceListener.SignalSignatures
             readonly $readableProperties: DeviceListener.ReadableProperties
@@ -2653,6 +1004,7 @@ declare module "gi://Atspi?version=2.0" {
         interface DeviceListenerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DeviceListener>
             readonly prototype: DeviceListener
+
             new (props?: Partial<GObject.ConstructorProps<DeviceListener>>): DeviceListener
             /**
              * Creates a new #AtspiDeviceListener with a specified callback function.
@@ -2663,7 +1015,11 @@ declare module "gi://Atspi?version=2.0" {
             "new"(callback: DeviceListenerCB | null): DeviceListener
         }
 
-        const DeviceListener: DeviceListenerClass
+        interface $Exports {
+            /**
+             */
+            DeviceListener: DeviceListenerClass
+        }
         
 
         namespace DeviceX11 {
@@ -2680,8 +1036,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         */
         interface DeviceX11 extends Device {
             readonly $signals: DeviceX11.SignalSignatures
             readonly $readableProperties: DeviceX11.ReadableProperties
@@ -2692,6 +1046,7 @@ declare module "gi://Atspi?version=2.0" {
         interface DeviceX11Class extends Omit<DeviceClass, "new"> {
             readonly $gtype: GObject.GType<DeviceX11>
             readonly prototype: DeviceX11
+
             new (props?: Partial<GObject.ConstructorProps<DeviceX11>>): DeviceX11
             /**
              * Creates a new #AtspiDeviceX11.
@@ -2707,7 +1062,11 @@ declare module "gi://Atspi?version=2.0" {
             new_full(app_id: string | null): DeviceX11
         }
 
-        const DeviceX11: DeviceX11Class
+        interface $Exports {
+            /**
+             */
+            DeviceX11: DeviceX11Class
+        }
         
 
         namespace EventListener {
@@ -2724,15 +1083,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         * A generic interface implemented by objects for the receipt of event
-         * notifications.
-         *
-         * A generic interface implemented by objects for the receipt of event
-         * notifications. atspi-event-listener is the interface via which clients of
-         * the atspi-registry receive notification of changes to an application's user
-         * interface and content.
-         */
         interface EventListener extends GObject.Object {
             readonly $signals: EventListener.SignalSignatures
             readonly $readableProperties: EventListener.ReadableProperties
@@ -2875,6 +1225,7 @@ declare module "gi://Atspi?version=2.0" {
         interface EventListenerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<EventListener>
             readonly prototype: EventListener
+
             new (props?: Partial<GObject.ConstructorProps<EventListener>>): EventListener
             /**
              * Creates a new #AtspiEventListener associated with a specified @callback.
@@ -2926,7 +1277,18 @@ declare module "gi://Atspi?version=2.0" {
             register_from_callback_with_app(callback: EventListenerCB, event_type: string, properties: string[], app: Accessible | null): boolean
         }
 
-        const EventListener: EventListenerClass
+        interface $Exports {
+            /**
+             * A generic interface implemented by objects for the receipt of event
+             * notifications.
+             *
+             * A generic interface implemented by objects for the receipt of event
+             * notifications. atspi-event-listener is the interface via which clients of
+             * the atspi-registry receive notification of changes to an application's user
+             * interface and content.
+             */
+            EventListener: EventListenerClass
+        }
         
 
         namespace Hyperlink {
@@ -2943,18 +1305,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         * Instances of atspi-hyperlink are the means by which end users
-         * and clients interact with linked content.
-         *
-         *  Instances of atspi-hyperlink are returned by
-         * atspi-hypertext objects, and are the means by
-         * which end users and clients interact with linked,
-         * and in some cases embedded, content. These instances
-         * may have multiple "anchors", where an anchor corresponds to a
-         * reference to a particular resource with a corresponding resource
-         * identified (URI).
-         */
         interface Hyperlink extends Object {
             readonly $signals: Hyperlink.SignalSignatures
             readonly $readableProperties: Hyperlink.ReadableProperties
@@ -3016,10 +1366,25 @@ declare module "gi://Atspi?version=2.0" {
         interface HyperlinkClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Hyperlink>
             readonly prototype: Hyperlink
+
             new (props?: Partial<GObject.ConstructorProps<Hyperlink>>): Hyperlink
         }
 
-        const Hyperlink: HyperlinkClass
+        interface $Exports {
+            /**
+             * Instances of atspi-hyperlink are the means by which end users
+             * and clients interact with linked content.
+             *
+             *  Instances of atspi-hyperlink are returned by
+             * atspi-hypertext objects, and are the means by
+             * which end users and clients interact with linked,
+             * and in some cases embedded, content. These instances
+             * may have multiple "anchors", where an anchor corresponds to a
+             * reference to a particular resource with a corresponding resource
+             * identified (URI).
+             */
+            Hyperlink: HyperlinkClass
+        }
         
 
         namespace MatchRule {
@@ -3036,10 +1401,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         * An interface that allows the definition of match rules
-         * for accessible objects.
-         */
         interface MatchRule extends GObject.Object {
             readonly $signals: MatchRule.SignalSignatures
             readonly $readableProperties: MatchRule.ReadableProperties
@@ -3050,6 +1411,7 @@ declare module "gi://Atspi?version=2.0" {
         interface MatchRuleClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<MatchRule>
             readonly prototype: MatchRule
+
             new (props?: Partial<GObject.ConstructorProps<MatchRule>>): MatchRule
             /**
              * Creates a new #AtspiMatchRule with specified @states, @attributes,
@@ -3091,7 +1453,13 @@ declare module "gi://Atspi?version=2.0" {
             "new"(states: StateSet | null, statematchtype: CollectionMatchType, attributes: Record<string, string> | null, attributematchtype: CollectionMatchType, roles: Role[] | null, rolematchtype: CollectionMatchType, interfaces: string[] | null, interfacematchtype: CollectionMatchType, invert: boolean): MatchRule
         }
 
-        const MatchRule: MatchRuleClass
+        interface $Exports {
+            /**
+             * An interface that allows the definition of match rules
+             * for accessible objects.
+             */
+            MatchRule: MatchRuleClass
+        }
         
 
         namespace Object {
@@ -3108,8 +1476,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         */
         interface Object extends GObject.Object {
             readonly $signals: Object.SignalSignatures
             readonly $readableProperties: Object.ReadableProperties
@@ -3120,10 +1486,15 @@ declare module "gi://Atspi?version=2.0" {
         interface ObjectClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Object>
             readonly prototype: Object
+
             new (props?: Partial<GObject.ConstructorProps<Object>>): Object
         }
 
-        const Object: ObjectClass
+        interface $Exports {
+            /**
+             */
+            Object: ObjectClass
+        }
         
 
         namespace Relation {
@@ -3140,14 +1511,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         * An interface via which non-hierarchical relationships
-         * are indicated.
-         *
-         * An interface via which non-hierarchical relationships
-         * are indicated. An instance of this interface represents
-         * a "one-to-many" correspondence.
-         */
         interface Relation extends GObject.Object {
             readonly $signals: Relation.SignalSignatures
             readonly $readableProperties: Relation.ReadableProperties
@@ -3176,10 +1539,21 @@ declare module "gi://Atspi?version=2.0" {
         interface RelationClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Relation>
             readonly prototype: Relation
+
             new (props?: Partial<GObject.ConstructorProps<Relation>>): Relation
         }
 
-        const Relation: RelationClass
+        interface $Exports {
+            /**
+             * An interface via which non-hierarchical relationships
+             * are indicated.
+             *
+             * An interface via which non-hierarchical relationships
+             * are indicated. An instance of this interface represents
+             * a "one-to-many" correspondence.
+             */
+            Relation: RelationClass
+        }
         
 
         namespace StateSet {
@@ -3196,10 +1570,6 @@ declare module "gi://Atspi?version=2.0" {
             }
         }
 
-        /**
-         * The atspi-stateset objects implement wrappers around a
-         * bitmap of accessible states.
-         */
         interface StateSet extends GObject.Object {
             readonly $signals: StateSet.SignalSignatures
             readonly $readableProperties: StateSet.ReadableProperties
@@ -3264,6 +1634,7 @@ declare module "gi://Atspi?version=2.0" {
         interface StateSetClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<StateSet>
             readonly prototype: StateSet
+
             new (props?: Partial<GObject.ConstructorProps<StateSet>>): StateSet
             /**
              * Generates an #AtspiStateSet with the given @states.
@@ -3274,24 +1645,1707 @@ declare module "gi://Atspi?version=2.0" {
             "new"(states: StateType[]): StateSet
         }
 
-        const StateSet: StateSetClass
-        none
-        /**
-         */
-        abstract class AccessiblePrivate {
-            static readonly $gtype: GObject.GType<AccessiblePrivate>
-
-            
+        interface $Exports {
+            /**
+             * The atspi-stateset objects implement wrappers around a
+             * bitmap of accessible states.
+             */
+            StateSet: StateSetClass
         }
-        none
-        none
-        none
-        /**
-         */
-        abstract class DeviceEvent {
-            static readonly $gtype: GObject.GType<DeviceEvent>
+        
 
-            
+        namespace Action {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface Action extends GObject.Object, Action.Interface {
+            readonly $signals: Action.SignalSignatures
+            readonly $readableProperties: Action.ReadableProperties
+            readonly $writableProperties: Action.WritableProperties
+            readonly $constructOnlyProperties: Action.ConstructOnlyProperties
+            /**
+             * Invoke the action indicated by #index.
+             * @throws {GLib.Error}
+             * @param i an integer specifying which action to invoke.
+             * @returns #TRUE if the action is successfully invoked, otherwise #FALSE.
+             */
+            do_action(i: number): boolean
+            /**
+             * Get the description of '@i-th' action invocable on an
+             *      object implementing #AtspiAction.
+             * @throws {GLib.Error}
+             * @param i an integer indicating which action to query.
+             * @returns a UTF-8 string describing the '@i-th' invocable action.
+             */
+            get_action_description(i: number): string
+            /**
+             * Get the name of the '@i-th' action invocable on an
+             *      object implementing #AtspiAction.
+             * @throws {GLib.Error}
+             * @param i an integer indicating which action to query.
+             * @returns the non-localized name of the action, as a UTF-8 string.
+             */
+            get_action_name(i: number): string
+            /**
+             * Get the description of '@i-th' action invocable on an
+             *      object implementing #AtspiAction.
+             * @throws {GLib.Error}
+             * @deprecated since 2.10 Use atspi_action_get_action_description instead.
+             * @param i an integer indicating which action to query.
+             * @returns a UTF-8 string describing the '@i-th' invocable action.
+             */
+            get_action_description(i: number): string
+            /**
+             * Get the keybindings for the @i-th action invocable on an
+             *      object implementing #AtspiAction, if any are defined.
+             *      The keybindings string format is as follows:
+             *        there are multiple parts to a keybinding string (typically 3).
+             *        They are delimited with ";".  The first is the action's
+             *        keybinding which is usable if the object implementing the action
+             *        is currently posted to the screen, e.g. if a menu is posted
+             *        then these keybindings for the corresponding menu-items are
+             *        available.  The second keybinding substring is the full key sequence
+             *        necessary to post the action's widget and activate it, e.g. for
+             *        a menu item such as "File->Open" it would both post the menu and
+             *        activate the item.  Thus the second keybinding string is available
+             *        during the lifetime of the containing toplevel window as a whole,
+             *        whereas the first keybinding string only works while the object
+             *        implementing AtkAction is posted.  The third (and optional)
+             *        keybinding string is the "keyboard shortcut" which invokes the
+             *        action without posting any menus.
+             *        Meta-keys are indicated by the conventional strings
+             *        "&lt;Control&gt;", "&lt;Alt&gt;", "&lt;Shift&gt;", "&lt;Mod2&gt;",
+             *        etc. (we use the same string as gtk_accelerator_name() in
+             *        gtk+-2.X.
+             * @throws {GLib.Error}
+             * @param i an integer indicating which action to query.
+             * @returns a UTF-8 string which can be parsed to determine the `i`-th       invocable action's keybindings.
+             */
+            get_key_binding(i: number): string
+            /**
+             * Get the name of the '@i-th' action invocable on an
+             *      object implementing #AtspiAction.
+             * @throws {GLib.Error}
+             * @param i an integer indicating which action to query.
+             * @returns the name of the action, as a UTF-8 string.
+             */
+            get_localized_name(i: number): string
+            /**
+             * Get the number of actions invokable on an #AtspiAction implementor.
+             * @throws {GLib.Error}
+             * @returns an integer indicating the number of invocable actions.
+             */
+            get_n_actions(): number
+            /**
+             * Get the name of the '@i-th' action invocable on an
+             *      object implementing #AtspiAction.
+             * @throws {GLib.Error}
+             * @deprecated since 2.10 Use atspi_action_get_action_name instead.
+             * @param i an integer indicating which action to query.
+             * @returns the non-localized name of the action, as a UTF-8 string.
+             */
+            get_action_name(i: number): string
+        }
+
+        interface ActionIface {
+            readonly $gtype: GObject.GType<Action>
+            readonly prototype: Action
+            [Symbol.hasInstance](instance: unknown): instance is Action
+        }
+
+        interface $Exports {
+            /**
+             */
+            Action: ActionIface
+        }
+        
+
+        namespace Collection {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface Collection extends GObject.Object, Collection.Interface {
+            readonly $signals: Collection.SignalSignatures
+            readonly $readableProperties: Collection.ReadableProperties
+            readonly $writableProperties: Collection.WritableProperties
+            readonly $constructOnlyProperties: Collection.ConstructOnlyProperties
+            /**
+             * @throws {GLib.Error}
+             * @returns The active descendant of the given object. Not yet implemented.
+             */
+            get_active_descendant(): Accessible
+            /**
+             * Gets all #AtspiAccessible objects from the @collection matching a given
+             * @rule.
+             * @throws {GLib.Error}
+             * @param rule An #AtspiMatchRule describing the match criteria.
+             * @param sortby An #AtspiCollectionSortOrder specifying the way the results are to
+                     be sorted.
+             * @param count The maximum number of results to return, or 0 for no limit.
+             * @param traverse Whether to traverse the accessible subtree (in case
+                    of #TRUE) or only the direct children (on case of #FALSE).
+             * @returns All          #AtspiAccessible objects matching the given match rule.
+             */
+            get_matches(rule: MatchRule, sortby: CollectionSortOrder, count: number, traverse: boolean): Accessible[]
+            /**
+             * Gets all #AtspiAccessible objects from the @collection, before
+             * @current_object, matching a given @rule.
+             * @throws {GLib.Error}
+             * @param current_object Upon reaching this object, searching should stop.
+             * @param rule An #AtspiMatchRule describing the match criteria.
+             * @param sortby An #AtspiCollectionSortOrder specifying the way the results are to
+                     be sorted.
+             * @param tree An #AtspiCollectionTreeTraversalType specifying restrictions on
+                     the objects to be traversed.
+             * @param count The maximum number of results to return, or 0 for no limit.
+             * @param traverse Whether to traverse the accessible subtree (in case
+                    of #TRUE) or only the direct children (on case of #FALSE).
+             * @returns All          #AtspiAccessible objects matching the given match rule that preceed          `current_object`.
+             */
+            get_matches_from(current_object: Accessible, rule: MatchRule, sortby: CollectionSortOrder, tree: CollectionTreeTraversalType, count: number, traverse: boolean): Accessible[]
+            /**
+             * Gets all #AtspiAccessible objects from the @collection, after
+             * @current_object, matching a given @rule.
+             * @throws {GLib.Error}
+             * @param current_object The object at which to start searching.
+             * @param rule An #AtspiMatchRule describing the match criteria.
+             * @param sortby An #AtspiCollectionSortOrder specifying the way the results are to
+                     be sorted.
+             * @param tree An #AtspiCollectionTreeTraversalType specifying restrictions on
+                     the objects to be traversed.
+             * @param limit_scope If #TRUE, only descendants of @current_object's parent
+                     will be returned. Otherwise (if #FALSE), any accessible may be
+                     returned if it would preceed @current_object in a flattened
+                     hierarchy.
+             * @param count The maximum number of results to return, or 0 for no limit.
+             * @param traverse Whether to traverse the accessible subtree (in case
+                    of #TRUE) or only the direct children (on case of #FALSE).
+             * @returns All          #AtspiAccessible objects matching the given match rule after          `current_object`.
+             */
+            get_matches_to(current_object: Accessible, rule: MatchRule, sortby: CollectionSortOrder, tree: CollectionTreeTraversalType, limit_scope: boolean, count: number, traverse: boolean): Accessible[]
+            /**
+             * Not yet implemented.
+             * @throws {GLib.Error}
+             * @param test
+             */
+            is_ancestor_of(test: Accessible): boolean
+        }
+
+        interface CollectionIface {
+            readonly $gtype: GObject.GType<Collection>
+            readonly prototype: Collection
+            [Symbol.hasInstance](instance: unknown): instance is Collection
+        }
+
+        interface $Exports {
+            /**
+             * An interface designed to allow accessibles which satisfy a set of
+             * criteria to be returned.
+             *
+             * An interface designed to allow accessibles which satisfy a set of
+             * criteria to be returned. This interface can be used to avoid iteration
+             * or client-side search of the object tree.
+             */
+            Collection: CollectionIface
+        }
+        
+
+        namespace Component {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface Component extends GObject.Object, Component.Interface {
+            readonly $signals: Component.SignalSignatures
+            readonly $readableProperties: Component.ReadableProperties
+            readonly $writableProperties: Component.WritableProperties
+            readonly $constructOnlyProperties: Component.ConstructOnlyProperties
+            /**
+             * Queries whether a given #AtspiComponent contains a particular point.
+             * @throws {GLib.Error}
+             * @param x a #gint specifying the x coordinate in question.
+             * @param y a #gint specifying the y coordinate in question.
+             * @param ctype the desired coordinate system of the point (@x, @y)
+                    (e.g. CSPI_COORD_TYPE_WINDOW, CSPI_COORD_TYPE_SCREEN).
+             * @returns #TRUE if the specified component contains the point (@x, `y`),          #FALSE otherwise.
+             */
+            contains(x: number, y: number, ctype: CoordType): boolean
+            /**
+             * Gets the accessible child at a given coordinate within an #AtspiComponent.
+             * @throws {GLib.Error}
+             * @param x a #gint specifying the x coordinate of the point in question.
+             * @param y a #gint specifying the y coordinate of the point in question.
+             * @param ctype the coordinate system of the point (@x, @y)
+                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
+             * @returns a pointer to an          #AtspiAccessible child of the specified component which          contains the point (@x, `y`), or NULL if no child contains          the point.
+             */
+            get_accessible_at_point(x: number, y: number, ctype: CoordType): Accessible | null
+            /**
+             * Gets the opacity/alpha value of a component, if alpha blending is in use.
+             * @throws {GLib.Error}
+             * @returns the opacity value of a component, as a #gdouble between 0.0 and 1.0.
+             */
+            get_alpha(): number
+            /**
+             * Gets the bounding box of the specified #AtspiComponent.
+             * The returned values are meaningful only if the Component has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @param ctype the desired coordinate system into which to return the results,
+                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
+             * @returns An #AtspiRect giving the accessible's extents.
+             */
+            get_extents(ctype: CoordType): Rect
+            /**
+             * Queries which layer the component is painted into, to help determine its
+             *      visibility in terms of stacking order.
+             * @throws {GLib.Error}
+             * @returns the #AtspiComponentLayer into which this component is painted.
+             */
+            get_layer(): ComponentLayer
+            /**
+             * Queries the z stacking order of a component which is in the MDI or window
+             *       layer. (Bigger z-order numbers mean nearer the top)
+             * @throws {GLib.Error}
+             * @returns a #gshort indicating the stacking order of the component       in the MDI layer, or -1 if the component is not in the MDI layer.
+             */
+            get_mdi_z_order(): number
+            /**
+             * Gets the minimum x and y coordinates of the specified #AtspiComponent.
+             * The returned values are meaningful only if the Component has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @param ctype the desired coordinate system into which to return the results,
+                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
+             * @returns An #AtspiPoint giving the `obj`'s position.
+             */
+            get_position(ctype: CoordType): Point
+            /**
+             * Gets the size of the specified #AtspiComponent.
+             * The returned values are meaningful only if the Component has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @returns An #AtspiPoint giving the `obj`'s size.
+             */
+            get_size(): Point
+            /**
+             * Attempts to set the keyboard input focus to the specified
+             *         #AtspiComponent.
+             * @throws {GLib.Error}
+             * @returns #TRUE if successful, #FALSE otherwise.
+             */
+            grab_focus(): boolean
+            /**
+             * Scrolls whatever container of the #AtspiComponent object so it becomes
+             * visible on the screen.
+             * @throws {GLib.Error}
+             * @param type a #AtspiScrollType indicating where the object should be placed on the
+                   screen.
+             * @returns #TRUE if successful, #FALSE otherwise.
+             */
+            scroll_to(type: ScrollType): boolean
+            /**
+             * Scrolls whatever container of the #AtspiComponent object so it becomes
+             * visible on the screen at a given position.
+             * @throws {GLib.Error}
+             * @param coords a #AtspiCoordType indicating whether the coordinates are relative to
+                     the screen, to the window, or to the parent object.
+             * @param x the x coordinate of the point to reach
+             * @param y the y coordinate of the point to reach
+             * @returns #TRUE if successful, #FALSE otherwise.
+             */
+            scroll_to_point(coords: CoordType, x: number, y: number): boolean
+            /**
+             * Moves and resizes the specified component.
+             * @throws {GLib.Error}
+             * @param x the new horizontal position to which the component should be moved.
+             * @param y the new vertical position to which the component should be moved.
+             * @param width the width to which the component should be resized.
+             * @param height the height to which the component should be resized.
+             * @param ctype the coordinate system in which the position is specified.
+                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
+             * @returns #TRUE if successful; #FALSE otherwise.
+             */
+            set_extents(x: number, y: number, width: number, height: number, ctype: CoordType): boolean
+            /**
+             * Moves the component to the specified position.
+             * @throws {GLib.Error}
+             * @param x the new horizontal position to which the component should be moved.
+             * @param y the new vertical position to which the component should be moved.
+             * @param ctype the coordinate system in which the position is specified.
+                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
+             * @returns #TRUE if successful; #FALSE otherwise.
+             */
+            set_position(x: number, y: number, ctype: CoordType): boolean
+            /**
+             * Resizes the specified component to the given pixel dimensions.
+             * @throws {GLib.Error}
+             * @param width the width to which the component should be resized.
+             * @param height the height to which the component should be resized.
+             * @returns #TRUE if successful; #FALSE otherwise.
+             */
+            set_size(width: number, height: number): boolean
+        }
+
+        interface ComponentIface {
+            readonly $gtype: GObject.GType<Component>
+            readonly prototype: Component
+            [Symbol.hasInstance](instance: unknown): instance is Component
+        }
+
+        interface $Exports {
+            /**
+             * An interface implemented by objects which have onscreen visual
+             * representations.
+             *
+             * The Component interface is implemented by objects which occupy on-screen
+             * space, e.g. objects which have onscreen visual representations. The methods
+             * in Component allow clients to identify where the objects lie in the onscreen
+             * coordinate system, their relative size, stacking order, and position. It
+             * also provides a mechanism whereby keyboard focus may be transferred to
+             * specific user interface elements programmatically.  This is a 2D API.
+             * Coordinates of 3D objects are projected into the 2-dimensional screen view
+             * for purposes of this interface.
+             */
+            Component: ComponentIface
+        }
+        
+
+        namespace Document {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface Document extends GObject.Object, Document.Interface {
+            readonly $signals: Document.SignalSignatures
+            readonly $readableProperties: Document.ReadableProperties
+            readonly $writableProperties: Document.WritableProperties
+            readonly $constructOnlyProperties: Document.ConstructOnlyProperties
+            /**
+             * Gets the value of a single attribute, if specified for the document as a whole.
+             * @throws {GLib.Error}
+             * @deprecated since 2.10 Use atspi_document_get_document_attribute_value instead.
+             * @param attribute a string indicating the name of a specific attribute.
+             * @returns a string corresponding to the value of the specified attribute, or an empty string if the attribute is unspecified for the object.
+             */
+            get_document_attribute_value(attribute: string): string
+            /**
+             * Gets all constant attributes for the document as a whole. For attributes
+             * that change within the document content, see @atspi_text_get_attribute_run instead.
+             * @throws {GLib.Error}
+             * @deprecated since 2.10 Use atspi_document_get_document_attributes instead.
+             * @returns a #GHashTable          containing the constant attributes of the document, as name-value pairs.
+             */
+            get_document_attributes(): Record<string, string>
+            /**
+             * Gets the current page number of an #AccessibleDocument object.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the current page number in the #AccessibleDocument object.
+             */
+            get_current_page_number(): number
+            /**
+             * Gets the value of a single attribute, if specified for the document as a whole.
+             * @throws {GLib.Error}
+             * @param attribute a string indicating the name of a specific attribute.
+             * @returns a string corresponding to the value of the specified attribute, or an empty string if the attribute is unspecified for the object.
+             */
+            get_document_attribute_value(attribute: string): string
+            /**
+             * Gets all constant attributes for the document as a whole. For attributes
+             * that change within the document content, see @atspi_text_get_attribute_run instead.
+             * @throws {GLib.Error}
+             * @returns a #GHashTable          containing the constant attributes of the document, as name-value pairs.
+             */
+            get_document_attributes(): Record<string, string>
+            /**
+             * Gets the locale associated with the document's content,
+             * e.g. the locale for LOCALE_TYPE_MESSAGES.
+             * @throws {GLib.Error}
+             * @returns a string compliant with the POSIX standard for locale description.
+             */
+            get_locale(): string
+            /**
+             * Gets the page count of an #AccessibleDocument object.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the page count of an #AccessibleDocument object.
+             */
+            get_page_count(): number
+            /**
+             * Returns an array of AtspiTextSelections within this document.
+             * @throws {GLib.Error}
+             * @since 2.52
+             * @returns a GArray of AtspiTextSelection structures representing the selection.
+             */
+            get_text_selections(): TextSelection[]
+            /**
+             * Makes 1 or more selections within this document denoted by the given
+             * array of AtspiTextSelections. Any existing physical selection (inside or
+             * outside this document) is replaced by the new selections. All objects within
+             * the given selection ranges must be descendants of this document. Otherwise
+             * FALSE will be returned.
+             * @throws {GLib.Error}
+             * @since 2.52
+             * @param selections a GArray of AtspiTextSelections
+                         to be selected.
+             * @returns TRUE if the selection was made successfully; FALSE otherwise.
+             */
+            set_text_selections(selections: TextSelection[]): boolean
+        }
+
+        interface DocumentIface {
+            readonly $gtype: GObject.GType<Document>
+            readonly prototype: Document
+            [Symbol.hasInstance](instance: unknown): instance is Document
+        }
+
+        interface $Exports {
+            /**
+             */
+            Document: DocumentIface
+        }
+        
+
+        namespace EditableText {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface EditableText extends GObject.Object, EditableText.Interface {
+            readonly $signals: EditableText.SignalSignatures
+            readonly $readableProperties: EditableText.ReadableProperties
+            readonly $writableProperties: EditableText.WritableProperties
+            readonly $constructOnlyProperties: EditableText.ConstructOnlyProperties
+            /**
+             * Copies text from an #AtspiEditableText object into the system clipboard.
+             *
+             * see: #atspi_editable_text_paste_text
+             * @throws {GLib.Error}
+             * @param start_pos a #gint indicating the starting character offset
+                  of the text to copy.
+             * @param end_pos a #gint indicating the offset of the first character
+                  past the end of the text section to be copied.
+             * @returns #TRUE if the operation was successful, otherwise #FALSE.
+             */
+            copy_text(start_pos: number, end_pos: number): boolean
+            /**
+             * Deletes text from an #AtspiEditableText object, copying the
+             *       excised portion into the system clipboard.
+             *
+             * see: #atspi_editable_text_paste_text
+             * @throws {GLib.Error}
+             * @param start_pos a #gint indicating the starting character offset
+                  of the text to cut.
+             * @param end_pos a #gint indicating the offset of the first character
+                  past the end of the text section to be cut.
+             * @returns #TRUE if operation was successful, #FALSE otherwise.
+             */
+            cut_text(start_pos: number, end_pos: number): boolean
+            /**
+             * Deletes text from an #AtspiEditableText object, without copying the
+             *       excised portion into the system clipboard.
+             *
+             * see: #atspi_editable_text_cut_text
+             * @throws {GLib.Error}
+             * @param start_pos a #gint indicating the starting character offset
+                  of the text to delete.
+             * @param end_pos a #gint indicating the offset of the first character
+                  past the end of the text section to be deleted.
+             * @returns #TRUE if the operation was successful, otherwise #FALSE.
+             */
+            delete_text(start_pos: number, end_pos: number): boolean
+            /**
+             * Inserts text into an #AtspiEditableText object.
+             * As with all character offsets, the specified @position may not be the
+             * same as the resulting byte offset, since the text is in a
+             * variable-width encoding.
+             * @throws {GLib.Error}
+             * @param position a #gint indicating the character offset at which to insert
+                  the new text.
+             * @param text a string representing the text to insert, in UTF-8 encoding.
+             * @param length the number of characters of text to insert, in bytes. If the
+            byte count of text is less than or equal to length, the entire contents
+            of text will be inserted.
+             * @returns #TRUE if the operation was successful, otherwise #FALSE.
+             */
+            insert_text(position: number, text: string, length: number): boolean
+            /**
+             * Inserts text from the system clipboard into an #AtspiEditableText object.
+             * As with all character offsets, the specified @position may not be the
+             *       same as the resulting byte offset, since the text is in a
+             *       variable-width encoding.
+             * @throws {GLib.Error}
+             * @param position a #gint indicating the character offset at which to insert
+                  the new text.
+             * @returns #TRUE if the operation was successful, otherwise #FALSE.
+             */
+            paste_text(position: number): boolean
+            /**
+             * Replace the entire text contents of an #AtspiEditableText object.
+             * @throws {GLib.Error}
+             * @param new_contents a character string, encoded in UTF-8, which is to
+                 become the new text contents of the #AtspiEditableText object.
+             * @returns #TRUE if the operation was successful, otherwise #FALSE.
+             */
+            set_text_contents(new_contents: string): boolean
+        }
+
+        interface EditableTextIface {
+            readonly $gtype: GObject.GType<EditableText>
+            readonly prototype: EditableText
+            [Symbol.hasInstance](instance: unknown): instance is EditableText
+        }
+
+        interface $Exports {
+            /**
+             */
+            EditableText: EditableTextIface
+        }
+        
+
+        namespace Hypertext {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface Hypertext extends GObject.Object, Hypertext.Interface {
+            readonly $signals: Hypertext.SignalSignatures
+            readonly $readableProperties: Hypertext.ReadableProperties
+            readonly $writableProperties: Hypertext.WritableProperties
+            readonly $constructOnlyProperties: Hypertext.ConstructOnlyProperties
+            /**
+             * Gets the #AtspiHyperlink object at a specified index.
+             * @throws {GLib.Error}
+             * @param link_index a (zero-index) #gint indicating which hyperlink to query.
+             * @returns the #AtspiHyperlink object          specified by `link_index`.
+             */
+            get_link(link_index: number): Hyperlink | null
+            /**
+             * Gets the index of the #AtspiHyperlink object at a specified
+             *        character offset.
+             * @throws {GLib.Error}
+             * @param character_offset a #gint specifying the character offset to query.
+             * @returns the linkIndex of the #AtspiHyperlink active at        character offset `character_offset`, or -1 if there is        no hyperlink at the specified character offset.
+             */
+            get_link_index(character_offset: number): number
+            /**
+             * Gets the total number of #AtspiHyperlink objects that an
+             * #AtspiHypertext implementor has.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the number of #AtspiHyperlink objects        of the #AtspiHypertext implementor, or -1 if        the number cannot be determined (for example, if the        #AtspiHypertext object is so large that it is not        all currently in the memory cache).
+             */
+            get_n_links(): number
+        }
+
+        interface HypertextIface {
+            readonly $gtype: GObject.GType<Hypertext>
+            readonly prototype: Hypertext
+            [Symbol.hasInstance](instance: unknown): instance is Hypertext
+        }
+
+        interface $Exports {
+            /**
+             * An interface used for objects which implement linking between
+             * multiple resource locations.
+             *
+             * An interface used for objects which implement linking between
+             * multiple resource or content locations, or multiple 'markers'
+             * within a single document. A hypertext instance is associated
+             * with one or more hyperlinks which are associated with particular
+             * offsets within the hypertext's content.
+             */
+            Hypertext: HypertextIface
+        }
+        
+
+        namespace Image {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface Image extends GObject.Object, Image.Interface {
+            readonly $signals: Image.SignalSignatures
+            readonly $readableProperties: Image.ReadableProperties
+            readonly $writableProperties: Image.WritableProperties
+            readonly $constructOnlyProperties: Image.ConstructOnlyProperties
+            /**
+             * Gets the description of the image displayed in an #AtspiImage object.
+             * @throws {GLib.Error}
+             * @returns a UTF-8 string describing the image.
+             */
+            get_image_description(): string
+            /**
+             * Gets the bounding box of the image displayed in a
+             *         specified #AtspiImage implementor.
+             * The returned values are meaningful only if the Image has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @param ctype the desired coordinate system into which to return the results,
+                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
+             * @returns a pointer to an #AtspiRect corresponding to the image's bounding box. The minimum x and y coordinates, width, and height are specified.
+             */
+            get_image_extents(ctype: CoordType): Rect
+            /**
+             * Gets the locale associated with an image and its textual representation.
+             * @throws {GLib.Error}
+             * @returns A POSIX LC_MESSAGES-style locale value for image description and text.
+             */
+            get_image_locale(): string
+            /**
+             * Gets the minimum x and y coordinates of the image displayed in a
+             *         specified #AtspiImage implementor.
+             * The returned values are meaningful only if the Image has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @param ctype the desired coordinate system into which to return the results,
+                    (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
+             * @returns a pointer to an #AtspiPoint where x and y correspond to the minimum coordinates of the displayed image.
+             */
+            get_image_position(ctype: CoordType): Point
+            /**
+             * Gets the size of the image displayed in a specified #AtspiImage object.
+             * The returned values are meaningful only if the Image has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @returns a pointer to an #AtspiPoint where x corresponds to the image's width and y corresponds to the image's height.
+             */
+            get_image_size(): Point
+        }
+
+        interface ImageIface {
+            readonly $gtype: GObject.GType<Image>
+            readonly prototype: Image
+            [Symbol.hasInstance](instance: unknown): instance is Image
+        }
+
+        interface $Exports {
+            /**
+             */
+            Image: ImageIface
+        }
+        
+
+        namespace Selection {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface Selection extends GObject.Object, Selection.Interface {
+            readonly $signals: Selection.SignalSignatures
+            readonly $readableProperties: Selection.ReadableProperties
+            readonly $writableProperties: Selection.WritableProperties
+            readonly $constructOnlyProperties: Selection.ConstructOnlyProperties
+            /**
+             * Clears the current selection, removing all selected children from the
+             *       specified #AtspiSelection implementor's selection list.
+             * @throws {GLib.Error}
+             * @returns #TRUE if successful, #FALSE otherwise.
+             */
+            clear_selection(): boolean
+            /**
+             * Deselects a specific child of an #AtspiSelection.
+             *          Note that @child_index is the index of the child
+             *          in the parent container.
+             *
+             * See #atspi_selection_deselect_selected_child
+             * @throws {GLib.Error}
+             * @param child_index a #gint indicating which of the children
+                         of the #AtspiAccessible is to be de-selected.
+             * @returns #TRUE if the child was successfully deselected, #FALSE otherwise.
+             */
+            deselect_child(child_index: number): boolean
+            /**
+             * Removes a child from the selected children list of an #AtspiSelection.
+             *          Note that @selected_child_index is the index in the
+             *          selected-children list, not the index in the parent container.
+             *          @selected_child_index in this method and @child_index in
+             *          #atspi_selection_select_child are asymmetric.
+             * @throws {GLib.Error}
+             * @param selected_child_index a #gint indicating which of the selected children
+                         of the #Accessible is to be deselected.
+             * @returns #TRUE if the child was successfully deselected, #FALSE otherwise.
+             */
+            deselect_selected_child(selected_child_index: number): boolean
+            /**
+             * Gets the number of children of an #AtspiSelection implementor which are
+             *        currently selected.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the number of #Accessible children        of the #AtspiSelection implementor which are currently selected.
+             */
+            get_n_selected_children(): number
+            /**
+             * Gets the i-th selected #AtspiAccessible child of an #AtspiSelection.
+             *      Note that @selected_child_index refers to the index in the list
+             *      of 'selected'
+             *      children and generally differs from that used in
+             *      #atspi_accessible_get_child_at_index or returned by
+             *      #atspi_accessible_get_index_in_parent.
+             *      @selected_child_index must lie between 0
+             *      and #atspi_selection_get_n_selected_children - 1, inclusive.
+             * @throws {GLib.Error}
+             * @param selected_child_index a #gint indicating which of the selected
+                 children is specified.
+             * @returns a pointer to a selected #AtspiAccessible child          object, specified by `selected_child_index`.
+             */
+            get_selected_child(selected_child_index: number): Accessible
+            /**
+             * Determines whether a particular child of an #AtspiSelection implementor
+             *        is currently selected.  Note that @child_index is the index into the
+             *        standard #AtspiAccessible container's list of children.
+             * @throws {GLib.Error}
+             * @param child_index an index into the #AtspiSelection's list of children.
+             * @returns #TRUE if the specified child is currently selected,          #FALSE otherwise.
+             */
+            is_child_selected(child_index: number): boolean
+            /**
+             * Attempts to select all of the children of an #AtspiSelection implementor.
+             * Not all #AtspiSelection implementors support this operation.
+             * @throws {GLib.Error}
+             * @returns #TRUE if successful, #FALSE otherwise.
+             */
+            select_all(): boolean
+            /**
+             * Adds a child to the selected children list of an #AtspiSelection.
+             *         For #AtspiSelection implementors that only allow
+             *         single selections, this may replace the (single) current
+             *         selection.
+             * @throws {GLib.Error}
+             * @param child_index a #gint indicating which child of the #Accessible
+                         is to be selected.
+             * @returns #TRUE if the child was successfully selected, #FALSE otherwise.
+             */
+            select_child(child_index: number): boolean
+        }
+
+        interface SelectionIface {
+            readonly $gtype: GObject.GType<Selection>
+            readonly prototype: Selection
+            [Symbol.hasInstance](instance: unknown): instance is Selection
+        }
+
+        interface $Exports {
+            /**
+             * An interface which indicates that an object exposes a 'selection' model,
+             * allowing the selection of one or more of its children.
+             *
+             * An interface which indicates that an object exposes a 'selection'
+             * model, allowing the selection of one or more of its children.
+             * Read-only Selection instances are possible, in which case the
+             * interface is used to programmatically determine the selected-ness
+             * of its children.
+             */
+            Selection: SelectionIface
+        }
+        
+
+        namespace Table {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface Table extends GObject.Object, Table.Interface {
+            readonly $signals: Table.SignalSignatures
+            readonly $readableProperties: Table.ReadableProperties
+            readonly $writableProperties: Table.WritableProperties
+            readonly $constructOnlyProperties: Table.ConstructOnlyProperties
+            /**
+             * Selects the specified column, adding it to the current column selection.
+             * Not all tables support column selection.
+             * @throws {GLib.Error}
+             * @param column the zero-indexed column number of the column being selected.
+             * @returns #TRUE if the specified column was successfully selected, #FALSE if not.
+             */
+            add_column_selection(column: number): boolean
+            /**
+             * Selects the specified row, adding it to the current row selection.
+             * Not all tables support row selection.
+             * @throws {GLib.Error}
+             * @param row the zero-indexed row number of the row being selected.
+             * @returns #TRUE if the specified row was successfully selected, #FALSE if not.
+             */
+            add_row_selection(row: number): boolean
+            /**
+             * Gets the table cell at the specified row and column indices.
+             * To get the accessible object at a particular (x, y) screen
+             * coordinate, use #atspi_component_get_accessible_at_point.
+             * @throws {GLib.Error}
+             * @param row the specified table row, zero-indexed.
+             * @param column the specified table column, zero-indexed.
+             * @returns an #AtspiAccessible object representing the          specified table cell.
+             */
+            get_accessible_at(row: number, column: number): Accessible
+            /**
+             * Gets an accessible representation of the caption for an #AtspiTable.
+             * @throws {GLib.Error}
+             * @returns an #AtspiAccessible object that serves as the table's caption.
+             */
+            get_caption(): Accessible
+            /**
+             * Gets the table column index occupied by the child at a particular 1-D
+             * child index.
+             *
+             * @see #atspi_table_get_index_at, #atspi_table_get_row_at_index
+             * @throws {GLib.Error}
+             * @param index the specified child index, zero-indexed.
+             * @returns a #gint indicating the first column spanned by the child of a          table, at the specified 1-D (zero-offset) `index`.
+             */
+            get_column_at_index(index: number): number
+            /**
+             * Gets a text description of a particular table column.  This differs from
+             * #atspi_table_get_column_header, which returns an #Accessible.
+             * @throws {GLib.Error}
+             * @param column the specified table column, zero-indexed.
+             * @returns a UTF-8 string describing the specified table column, if available.
+             */
+            get_column_description(column: number): string
+            /**
+             * Gets the number of columns spanned by the table cell at the specific
+             * row and column (some tables can have cells which span multiple
+             * rows and/or columns).
+             * The returned values are meaningful only if the Table has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @param row the specified table row, zero-indexed.
+             * @param column the specified table column, zero-indexed.
+             * @returns a #gint indicating the number of columns spanned by the specified cell.
+             */
+            get_column_extent_at(row: number, column: number): number
+            /**
+             * Gets the header associated with a table column, if available.
+             * This differs from #atspi_table_get_column_description, which
+             * returns a string.
+             * @throws {GLib.Error}
+             * @param column the specified table column, zero-indexed.
+             * @returns an #AtspiAccessible representation of the          specified table column, if available.
+             */
+            get_column_header(column: number): Accessible
+            /**
+             * Gets the 1-D child index corresponding to the specified 2-D row and
+             * column indices. To get the accessible object at a particular (x, y) screen
+             * coordinate, use #atspi_component_get_accessible_at_point.
+             *
+             * @see #atspi_table_get_row_at_index, #atspi_table_get_column_at_index
+             * @throws {GLib.Error}
+             * @param row the specified table row, zero-indexed.
+             * @param column the specified table column, zero-indexed.
+             * @returns a #gint which serves as the index of a specified cell in the          table, in a form usable by #atspi_get_child_at_index.
+             */
+            get_index_at(row: number, column: number): number
+            /**
+             * Gets the number of columns in an #AtspiTable,
+             *        exclusive of any columns that are programmatically hidden, but inclusive
+             *        of columns that may be outside of the current scrolling window or viewport.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the number of columns in the table.
+             */
+            get_n_columns(): number
+            /**
+             * Gets the number of rows in an #AtspiTable,
+             *        exclusive of any rows that are programmatically hidden, but inclusive
+             *        of rows that may be outside of the current scrolling window or viewport.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the number of rows in the table.
+             */
+            get_n_rows(): number
+            /**
+             * Queries a table to find out how many columns are currently selected.
+             * Not all tables support column selection.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the number of columns currently selected.
+             */
+            get_n_selected_columns(): number
+            /**
+             * Query a table to find out how many rows are currently selected.
+             * Not all tables support row selection.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the number of rows currently selected.
+             */
+            get_n_selected_rows(): number
+            /**
+             * Gets the table row index occupied by the child at a particular 1-D
+             * child index.
+             *
+             * @see #atspi_table_get_index_at, #atspi_table_get_column_at_index
+             * @throws {GLib.Error}
+             * @param index the specified child index, zero-indexed.
+             * @returns a #gint indicating the first row spanned by the child of a          table, at the specified 1-D (zero-offset) `index`.
+             */
+            get_row_at_index(index: number): number
+            /**
+             * Given a child index, determines the row and column indices and
+             * extents, and whether the cell is currently selected.  If
+             * the child at index is not a cell (for instance, if it is
+             * a summary, caption, etc.), #FALSE is returned.
+             * The returned values are meaningful only if the Table has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             *
+             * Example:
+             * If the #AtspiTable child at index '6' extends across columns 5 and 6 of
+             * row 2 of an #AtspiTable instance, and is currently selected, then
+             *
+             * retval = atspi_table_get_row_column_extents_at_index (table, 6,
+             *                                             row, col,
+             *                                             row_extents,
+             *                                             col_extents,
+             *                                             is_selected);
+             *
+             * will return #TRUE, and after the call
+             * row, col, row_extents, col_extents,
+             * and is_selected will contain 2, 5, 1, 2, and
+             * #TRUE, respectively.
+             * @throws {GLib.Error}
+             * @param index the index of the #AtspiTable child whose row/column
+            extents are requested.
+             * @returns #TRUE if the index is associated with a valid table cell, #FALSE if the index does not correspond to a cell.  If #FALSE is returned, the values of the out parameters are undefined., back-filled with the first table row associated with the cell with child index., back-filled with the first table column associated with the cell with child index., back-filled with the number of table rows across which child i extends., back-filled with the number of table columns across which child i extends., a boolean which is back-filled with #TRUE if the child at index i corresponds to a selected table cell, #FALSE otherwise.
+             */
+            get_row_column_extents_at_index(index: number): [boolean, number, number, number, number, boolean]
+            /**
+             * Gets a text description of a particular table row.  This differs from
+             * #atspi_table_get_row_header, which returns an #AtspiAccessible.
+             * @throws {GLib.Error}
+             * @param row the specified table row, zero-indexed.
+             * @returns a UTF-8 string describing the specified table row, if available.
+             */
+            get_row_description(row: number): string
+            /**
+             * Gets the number of rows spanned by the table cell at the specific row
+             * and column. (some tables can have cells which span multiple rows
+             * and/or columns).
+             * The returned values are meaningful only if the Table has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @param row the specified table row, zero-indexed.
+             * @param column the specified table column, zero-indexed.
+             * @returns a #gint indicating the number of rows spanned by the specified cell.
+             */
+            get_row_extent_at(row: number, column: number): number
+            /**
+             * Gets the header associated with a table row, if available. This differs from
+             * #atspi_table_get_row_description, which returns a string.
+             * @throws {GLib.Error}
+             * @param row the specified table row, zero-indexed.
+             * @returns an #AtspiAccessible representation of the specified          table row, if available.
+             */
+            get_row_header(row: number): Accessible
+            /**
+             * Queries a table for a list of indices of columns which are currently
+             * selected.
+             * @throws {GLib.Error}
+             * @returns an array of #gint values,          specifying which columns are currently selected.
+             */
+            get_selected_columns(): number[]
+            /**
+             * Queries a table for a list of indices of rows which are currently selected.
+             * @throws {GLib.Error}
+             * @returns an array of #gint values,          specifying which rows are currently selected.
+             */
+            get_selected_rows(): number[]
+            /**
+             * Gets an accessible object which summarizes the contents of an #AtspiTable.
+             * @throws {GLib.Error}
+             * @returns an #AtspiAccessible object that serves as the          table's summary (often a reduced #AtspiTable).
+             */
+            get_summary(): Accessible
+            /**
+             * Determines whether specified table column is selected.
+             * Not all tables support column selection.
+             * @throws {GLib.Error}
+             * @param column the zero-indexed column number of the column being queried.
+             * @returns #TRUE if the specified column is currently selected, #FALSE if not.
+             */
+            is_column_selected(column: number): boolean
+            /**
+             * Determines whether a table row is selected.  Not all tables support
+             * row selection.
+             * @throws {GLib.Error}
+             * @param row the zero-indexed row number of the row being queried.
+             * @returns #TRUE if the specified row is currently selected, #FALSE if not.
+             */
+            is_row_selected(row: number): boolean
+            /**
+             * Determines whether the cell at a specific row and column is selected.
+             * @throws {GLib.Error}
+             * @param row the zero-indexed row of the cell being queried.
+             * @param column the zero-indexed column of the cell being queried.
+             * @returns #TRUE if the specified cell is currently selected, #FALSE if not.
+             */
+            is_selected(row: number, column: number): boolean
+            /**
+             * De-selects the specified column, removing it from the current column
+             * selection.
+             * Not all tables support column selection.
+             * @throws {GLib.Error}
+             * @param column the zero-indexed column number of the column being de-selected.
+             * @returns #TRUE if the specified column was successfully de-selected, #FALSE if not.
+             */
+            remove_column_selection(column: number): boolean
+            /**
+             * De-selects the specified row, removing it from the current row selection.
+             * Not all tables support row selection.
+             * @throws {GLib.Error}
+             * @param row the zero-indexed number of the row being de-selected.
+             * @returns #TRUE if the specified row was successfully de-selected, #FALSE if not.
+             */
+            remove_row_selection(row: number): boolean
+        }
+
+        interface TableIface {
+            readonly $gtype: GObject.GType<Table>
+            readonly prototype: Table
+            [Symbol.hasInstance](instance: unknown): instance is Table
+        }
+
+        interface $Exports {
+            /**
+             * An interface used by containers whose data is arranged in a tabular form.
+             *
+             * An interface used by containers whose contained data is arranged
+             * in a tabular (i.e. row-column) form. Tables may resemble
+             * a two-dimensional grid, as in a spreadsheet, or may feature objects
+             * which span multiple rows and/or columns, but whose bounds are
+             * aligned on a row/column matrix. Objects within tables are children
+             * of the table object, and they may be referenced either via a child
+             * index or via a row/column pair. Table 'cells' may implement other
+             * interfaces, such as Text, Action, Image, and Component, and should do
+             * so as appropriate to their onscreen presentation and/or behavior.
+             */
+            Table: TableIface
+        }
+        
+
+        namespace TableCell {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface TableCell extends GObject.Object, TableCell.Interface {
+            readonly $signals: TableCell.SignalSignatures
+            readonly $readableProperties: TableCell.ReadableProperties
+            readonly $writableProperties: TableCell.WritableProperties
+            readonly $constructOnlyProperties: TableCell.ConstructOnlyProperties
+            /**
+             * Returns the column headers as an array of cell accessibles.
+             * @throws {GLib.Error}
+             * @returns a GPtrArray of AtspiAccessibles representing the column header cells.
+             */
+            get_column_header_cells(): Accessible[]
+            /**
+             * @throws {GLib.Error}
+             */
+            get_column_index(): number
+            /**
+             * Returns the number of columns occupied by this cell accessible.
+             * The returned values are meaningful only if the table cell has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @returns a gint representing the number of columns occupied by this cell, or 0 if the cell does not implement this method.
+             */
+            get_column_span(): number
+            /**
+             * Retrieves the tabular position of this cell.
+             * @throws {GLib.Error}
+             * @returns TRUE if successful, FALSE otherwise., the row of the given cell., the column of the given cell.
+             */
+            get_position(): [number, number, number]
+            /**
+             * Gets the row and column indexes and extents of this cell accessible.
+             * The returned values are meaningful only if the table cell has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @returns , the row index of the given cell., the column index of the given cell., the number of rows occupied by this cell., the number of columns occupied by this cell.
+             */
+            get_row_column_span(): [number, number, number, number]
+            /**
+             * Returns the row headers as an array of cell accessibles.
+             * @throws {GLib.Error}
+             * @returns a GPtrArray of AtspiAccessibles representing the row header cells.
+             */
+            get_row_header_cells(): Accessible[]
+            /**
+             * Returns the number of rows occupied by this cell accessible.
+             * The returned values are meaningful only if the table cell has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @returns a gint representing the number of rows occupied by this cell, or 0 if the cell does not implement this method.
+             */
+            get_row_span(): number
+            /**
+             * Returns a reference to the accessible of the containing table.
+             * @throws {GLib.Error}
+             * @returns the AtspiAccessible for the containing table.
+             */
+            get_table(): Accessible
+        }
+
+        interface TableCellIface {
+            readonly $gtype: GObject.GType<TableCell>
+            readonly prototype: TableCell
+            [Symbol.hasInstance](instance: unknown): instance is TableCell
+        }
+
+        interface $Exports {
+            /**
+             */
+            TableCell: TableCellIface
+        }
+        
+
+        namespace Text {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface Text extends GObject.Object, Text.Interface {
+            readonly $signals: Text.SignalSignatures
+            readonly $readableProperties: Text.ReadableProperties
+            readonly $writableProperties: Text.WritableProperties
+            readonly $constructOnlyProperties: Text.ConstructOnlyProperties
+            /**
+             * Selects some text (adds a text selection) in an #AtspiText object.
+             * @throws {GLib.Error}
+             * @param start_offset the starting offset of the desired new selection.
+             * @param end_offset the offset of the first character after the new selection.
+             * @returns #TRUE if successful, #FALSE otherwise.
+             */
+            add_selection(start_offset: number, end_offset: number): boolean
+            /**
+             * Gets a set of attributes applied to a range of text from an #AtspiText object, optionally
+             * including its 'default' attributes.
+             * @throws {GLib.Error}
+             * @param offset a #gint indicating the offset from which the attribute
+                   search is based.
+             * @param include_defaults a #bool that, when set as #FALSE, indicates the call
+            should only return those attributes which are explicitly set on the current
+            attribute run, omitting any attributes which are inherited from the
+            default values.
+             * @returns a #GHashTable with attributes          defined at the indicated offset, optionally including the 'default' ones., a #gint pointer indicating the start of the desired text                range., a #gint pointer indicating the first character past the desired              range.
+             */
+            get_attribute_run(offset: number, include_defaults: boolean): [Record<string, string>, number, number]
+            /**
+             * Gets the value of a named attribute at a given offset.
+             * @throws {GLib.Error}
+             * @deprecated since 2.10 Use atspi_text_get_text_attribute_value instead.
+             * @param offset The character offset at which to query the attribute.
+             * @param attribute_name The attribute to query.
+             * @returns the value of a given attribute at the given offset, or %NULL if not present.
+             */
+            get_text_attribute_value(offset: number, attribute_name: string): string | null
+            /**
+             * Gets the attributes applied to a range of text from an #AtspiText
+             * object. The text attributes correspond to CSS attributes
+             * where possible.
+             * @throws {GLib.Error}
+             * @deprecated since 2.10 Use atspi_text_get_text_attributes instead.
+             * @param offset a #gint indicating the offset from which the attribute
+                   search is based.
+             * @returns a #GHashTable describing the attributes at the given character offset., a #gint pointer indicating the start of the desired text                range., a #gint pointer indicating the first character past the desired              range.
+             */
+            get_text_attributes(offset: number): [Record<string, string>, number, number]
+            /**
+             * Gets the ranges of text from an #AtspiText object which lie within the
+             *          bounds defined by (@x, @y) and (@x+@width, @y+@height).
+             * @throws {GLib.Error}
+             * @param x the 'starting' x coordinate of the bounding box.
+             * @param y the 'starting' y coordinate of the bounding box.
+             * @param width the x extent of the bounding box.
+             * @param height the y extent of the bounding box.
+             * @param type an #AccessibleCoordType indicating the coordinate system to use
+                   for the returned values.
+             * @param clipTypeX an #AtspiTextClipType indicating how to treat characters that
+                   intersect the bounding box's x extents.
+             * @param clipTypeY an #AtspiTextClipType indicating how to treat characters that
+                   intersect the bounding box's y extents.
+             * @returns a null-terminated list of          pointers to #AtspiTextRange structs detailing the bounded text.
+             */
+            get_bounded_ranges(x: number, y: number, width: number, height: number, type: CoordType, clipTypeX: TextClipType, clipTypeY: TextClipType): TextRange[]
+            /**
+             * Gets the current offset of the text caret in an #AtspiText object.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the current position of the text caret.
+             */
+            get_caret_offset(): number
+            /**
+             * Gets the character at a given offset for an #AtspiText object.
+             * @throws {GLib.Error}
+             * @param offset a #gint indicating the text offset where the desired
+                     character is located.
+             * @returns a #guint  representing the        UCS-4 unicode code point of the given character, or        0xFFFFFFFF if the character in question cannot be represented        in the UCS-4 encoding.
+             */
+            get_character_at_offset(offset: number): number
+            /**
+             * Gets the character count of an #AccessibleText object.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the total number of              characters in the #AccessibleText object.
+             */
+            get_character_count(): number
+            /**
+             * Gets a bounding box containing the glyph representing
+             *        the character at a particular text offset.
+             * The returned values are meaningful only if the Text has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @param offset a #gint indicating the offset of the text character for
+                   whom boundary information is requested.
+             * @param type an #AccessibleCoordType indicating the coordinate system to use
+                   for the returned values.
+             * @returns An #AtspiRect specifying the position and size of the character.
+             */
+            get_character_extents(offset: number, type: CoordType): Rect
+            /**
+             * Gets the default attributes applied to an #AtspiText
+             * object. The text attributes correspond to CSS attributes
+             * where possible. The combination of this attribute set and
+             * the attributes reported by #atspi_text_get_attributes
+             * describes the entire set of text attributes over a range.
+             * @throws {GLib.Error}
+             * @returns a #GHashTable          containing the default attributes applied to a text object,          (exclusive of explicitly-set attributes), encoded as UTF-8.
+             */
+            get_default_attributes(): Record<string, string>
+            /**
+             * Gets the number of active non-contiguous selections for an
+             *          #AtspiText object.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the current          number of non-contiguous text selections active          within an #AtspiText object.
+             */
+            get_n_selections(): number
+            /**
+             * Gets the character offset into the text at a given point.
+             * @throws {GLib.Error}
+             * @param x the x coordinate of the point to be queried.
+             * @param y the y coordinate of the point to be queried.
+             * @param type an #AtspiCoordType indicating the coordinate system in which
+                  the values should be returned.
+             * @returns the offset (as a #gint) at the point (@x, `y`)       in the specified coordinate system.
+             */
+            get_offset_at_point(x: number, y: number, type: CoordType): number
+            /**
+             * Gets the bounding box for text within a range in an  #AtspiText object.
+             * The returned values are meaningful only if the Text has both
+             * STATE_VISIBLE and STATE_SHOWING.
+             * @throws {GLib.Error}
+             * @param start_offset a #gint indicating the offset of the first text character for
+                   whom boundary information is requested.
+             * @param end_offset a #gint indicating the offset of the text character
+                   after the last character for whom boundary information is requested.
+             * @param type an #AtspiCoordType indicating the coordinate system to use
+                   for the returned values.
+             * @returns An #AtspiRect giving the position and size of the specified range          of text.
+             */
+            get_range_extents(start_offset: number, end_offset: number, type: CoordType): Rect
+            /**
+             * Gets the bounds of the @selection_num-th active text selection for an
+             *         #AtspiText object.
+             * @throws {GLib.Error}
+             * @param selection_num a #gint indicating which selection to query.
+             */
+            get_selection(selection_num: number): Range
+            /**
+             * Gets a portion of the text exposed through an #AtspiText according to a given @offset
+             * and a specific @granularity, along with the start and end offsets defining the
+             * boundaries of such a portion of text.
+             *
+             * If @granularity is ATSPI_TEXT_GRANULARITY_CHAR the character at the
+             * offset is returned.
+             *
+             * If @granularity is ATSPI_TEXT_GRANULARITY_WORD the returned string
+             * is from the word start at or before the offset to the word start after
+             * the offset.
+             *
+             * The returned string will contain the word at the offset if the offset
+             * is inside a word and will contain the word before the offset if the
+             * offset is not inside a word.
+             *
+             * If @granularity is ATSPI_TEXT_GRANULARITY_SENTENCE the returned string
+             * is from the sentence start at or before the offset to the sentence
+             * start after the offset.
+             *
+             * The returned string will contain the sentence at the offset if the offset
+             * is inside a sentence and will contain the sentence before the offset
+             * if the offset is not inside a sentence.
+             *
+             * If @granularity is ATSPI_TEXT_GRANULARITY_LINE the returned string
+             * is from the line start at or before the offset to the line
+             * start after the offset.
+             *
+             * If @granularity is ATSPI_TEXT_GRANULARITY_PARAGRAPH the returned string
+             * is from the start of the paragraph at or before the offset to the start
+             * of the following paragraph after the offset.
+             * @throws {GLib.Error}
+             * @since 2.9.90
+             * @param offset position
+             * @param granularity An #AtspiTextGranularity
+             * @returns a newly allocated string containing the text at the `offset` bounded   by the specified `granularity`. Use g_free() to free the returned string.   Returns %NULL if the offset is invalid or no implementation is available.
+             */
+            get_string_at_offset(offset: number, granularity: TextGranularity): TextRange
+            /**
+             * Gets a range of text from an #AtspiText object.  The number of bytes
+             *          in the returned string may exceed either end_offset or start_offset, since
+             *          UTF-8 is a variable-width encoding.
+             * @throws {GLib.Error}
+             * @param start_offset a #gint indicating the start of the desired text range.
+             * @param end_offset a #gint indicating the first character past the desired range.
+             * @returns a text string containing characters from `start_offset`          to `end_offset`-1, inclusive, encoded as UTF-8.
+             */
+            get_text(start_offset: number, end_offset: number): string
+            /**
+             * Gets delimited text from an #AtspiText object which follows a given
+             *          text offset.
+             * @throws {GLib.Error}
+             * @param offset a #gint indicating the offset from which the delimiter
+                   search is based.
+             * @param type an #AtspiTextBoundaryType indicating whether the desired
+                  text string is a word, sentence, line, or attribute run.
+             * @returns an #AtspiTextRange containing a UTF-8 string representing the          delimited text, both of whose delimiting boundaries are after or          inclusive of the current offset, or an empty string if no such          text exists.
+             */
+            get_text_after_offset(offset: number, type: TextBoundaryType): TextRange
+            /**
+             * Gets delimited text from an #AtspiText object which includes a given
+             *          text offset.
+             * @throws {GLib.Error}
+             * @deprecated since 2.10 Use atspi_text_get_string_at_offset.
+             * @param offset a #gint indicating the offset from which the delimiter
+                   search is based.
+             * @param type an #AtspiTextBoundaryType indicating whether the desired
+                  text string is a word, sentence, line, or attribute run.
+             * @returns an #AtspiTextRange containing a UTF-8 string representing the          delimited text, whose delimiting boundaries bracket the          current offset, or an empty string if no such text exists.
+             */
+            get_text_at_offset(offset: number, type: TextBoundaryType): TextRange
+            /**
+             * Gets the value of a named attribute at a given offset.
+             * @throws {GLib.Error}
+             * @param offset The character offset at which to query the attribute.
+             * @param attribute_name The attribute to query.
+             * @returns the value of a given attribute at the given offset, or %NULL if not present.
+             */
+            get_text_attribute_value(offset: number, attribute_name: string): string | null
+            /**
+             * Gets the attributes applied to a range of text from an #AtspiText
+             * object. The text attributes correspond to CSS attributes
+             * where possible.
+             * @throws {GLib.Error}
+             * @param offset a #gint indicating the offset from which the attribute
+                   search is based.
+             * @returns a #GHashTable describing the attributes at the given character offset., a #gint pointer indicating the start of the desired text                range., a #gint pointer indicating the first character past the desired              range.
+             */
+            get_text_attributes(offset: number): [Record<string, string>, number, number]
+            /**
+             * Gets delimited text from an #AtspiText object which precedes a given
+             *          text offset.
+             * @throws {GLib.Error}
+             * @param offset a #gint indicating the offset from which the delimiter
+                   search is based.
+             * @param type an #AtspiTextBoundaryType indicating whether the desired
+                  text string is a word, sentence, line, or attribute run.
+             * @returns an #AtspiTextRange containing a UTF-8 string representing the          delimited text, both of whose delimiting boundaries are before the          current offset, or an empty string if no such text exists.
+             */
+            get_text_before_offset(offset: number, type: TextBoundaryType): TextRange
+            /**
+             * De-selects a text selection.
+             * @throws {GLib.Error}
+             * @param selection_num a #gint indicating which text selection to remove.
+             * @returns #TRUE if successful, #FALSE otherwise.
+             */
+            remove_selection(selection_num: number): boolean
+            /**
+             * Scrolls whatever container of the #AtspiText text range so it becomes
+             * visible on the screen.
+             * @throws {GLib.Error}
+             * @param start_offset a #gint indicating the start of the desired text range.
+             * @param end_offset a #gint indicating the first character past the desired range.
+             * @param type a #AtspiScrollType indicating where the object should be placed on the
+                   screen.
+             * @returns #TRUE if successful, #FALSE otherwise.
+             */
+            scroll_substring_to(start_offset: number, end_offset: number, type: ScrollType): boolean
+            /**
+             * Scrolls whatever container of the #AtspiText text range so it becomes
+             * visible on the screen at a given position.
+             * @throws {GLib.Error}
+             * @param start_offset a #gint indicating the start of the desired text range.
+             * @param end_offset a #gint indicating the first character past the desired range.
+             * @param coords a #AtspiCoordType indicating whether the coordinates are relative to
+                     the screen, to the window, or to the parent object.
+             * @param x the x coordinate of the point to reach
+             * @param y the y coordinate of the point to reach
+             * @returns #TRUE if successful, #FALSE otherwise.
+             */
+            scroll_substring_to_point(start_offset: number, end_offset: number, coords: CoordType, x: number, y: number): boolean
+            /**
+             * Moves the text caret to a given position.
+             * @throws {GLib.Error}
+             * @param new_offset the offset to which the text caret is to be moved.
+             * @returns #TRUE if successful, #FALSE otherwise.
+             */
+            set_caret_offset(new_offset: number): boolean
+            /**
+             * Changes the bounds of an existing #AtspiText text selection.
+             * @throws {GLib.Error}
+             * @param selection_num a zero-offset index indicating which text selection to modify.
+             * @param start_offset a #gint indicating the new starting offset for the selection.
+             * @param end_offset a #gint indicating the desired new offset of the first character
+                        after the selection.
+             * @returns #TRUE if successful, #FALSE otherwise.
+             */
+            set_selection(selection_num: number, start_offset: number, end_offset: number): boolean
+        }
+
+        interface TextIface {
+            readonly $gtype: GObject.GType<Text>
+            readonly prototype: Text
+            [Symbol.hasInstance](instance: unknown): instance is Text
+        }
+
+        interface $Exports {
+            /**
+             * An interface implemented by objects which place textual
+             * information onscreen.
+             *
+             * The text interface should be implemented by objects which place textual
+             * information onscreen as character strings or glyphs. The text interface
+             * allows access to textual content including display attributes and
+             * semantic hints associated with runs of text, and to bounding
+             * information for glyphs and substrings. It also allows portions of text to
+             * be selected, if the objects StateSet includes STATE_SELECTABLE_TEXT.
+             */
+            Text: TextIface
+        }
+        
+
+        namespace Value {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface Value extends GObject.Object, Value.Interface {
+            readonly $signals: Value.SignalSignatures
+            readonly $readableProperties: Value.ReadableProperties
+            readonly $writableProperties: Value.WritableProperties
+            readonly $constructOnlyProperties: Value.ConstructOnlyProperties
+            /**
+             * Gets the current value for an #AtspiValue.
+             * @throws {GLib.Error}
+             * @returns the current value for this object.
+             */
+            get_current_value(): number
+            /**
+             * Gets the maximum allowed value for an #AtspiValue.
+             * @throws {GLib.Error}
+             * @returns the maximum allowed value for this object.
+             */
+            get_maximum_value(): number
+            /**
+             * Gets the minimum increment by which an #AtspiValue can be adjusted.
+             * @throws {GLib.Error}
+             * @returns the minimum increment by which the value may be changed, or zero if the minimum increment cannot be determined.
+             */
+            get_minimum_increment(): number
+            /**
+             * Gets the minimum allowed value for an #AtspiValue.
+             * @throws {GLib.Error}
+             * @returns the minimum allowed value for this object.
+             */
+            get_minimum_value(): number
+            /**
+             * Gets the human readable text alternative associated with the value.
+             * @text is a newly created string, that must be freed by the
+             * caller. Can be NULL if no descriptor is available.
+             * @throws {GLib.Error}
+             * @since 2.46
+             */
+            get_text(): string
+            /**
+             * Sets the current value of an #AtspiValue.
+             * @throws {GLib.Error}
+             * @param new_value a #gdouble value which is the desired new value of the object.
+             * @returns #TRUE if the value could be assigned the specified value,          #FALSE otherwise.
+             */
+            set_current_value(new_value: number): boolean
+        }
+
+        interface ValueIface {
+            readonly $gtype: GObject.GType<Value>
+            readonly prototype: Value
+            [Symbol.hasInstance](instance: unknown): instance is Value
+        }
+
+        interface $Exports {
+            /**
+             * An interface supporting a one-dimensional scalar
+             * to be modified, or which reflects its value.
+             *
+             * An interface supporting a one-dimensional scalar
+             * to be modified, or which reflects its value. If
+             * STATE_EDITABLE is not present, the value is
+             * treated as "read only".
+             */
+            Value: ValueIface
+        }
+        
+
+        interface AccessiblePrivateStruct {
+            readonly $gtype: GObject.GType<AccessiblePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AccessiblePrivate
+        }
+
+        interface AccessiblePrivate {
+        }
+
+        interface $Exports {
+            AccessiblePrivate: AccessiblePrivateStruct
+        }
+        
+
+        interface DeviceEventStruct {
+            readonly $gtype: GObject.GType<DeviceEvent>
+            [Symbol.hasInstance](instance: unknown): instance is DeviceEvent
+        }
+
+        interface DeviceEvent {
             /**
              */
             type: EventType
@@ -3314,27 +3368,30 @@ declare module "gi://Atspi?version=2.0" {
              */
             is_text: boolean
         }
-        none
-        none
-        none
-        /**
-         */
-        abstract class Event {
-            static readonly $gtype: GObject.GType<Event>
 
-            
+        interface $Exports {
+            DeviceEvent: DeviceEventStruct
+        }
+        
+
+        interface EventStruct {
+            readonly $gtype: GObject.GType<Event>
+            [Symbol.hasInstance](instance: unknown): instance is Event
             /**
              * Starts/enters the main event loop for the AT-SPI services.
              *
              * NOTE: This method does not return control; it is exited via a call to
              * #atspi_event_quit from within an event handler.
              */
-            static main(): void
+            main(): void
             /**
              * Quits the last main event loop for the AT-SPI services,
              * See: #atspi_event_main
              */
-            static quit(): void
+            quit(): void
+        }
+
+        interface Event {
             /**
              */
             type: string
@@ -3354,13 +3411,18 @@ declare module "gi://Atspi?version=2.0" {
              */
             sender: Accessible
         }
-        none
-        /**
-         */
-        abstract class EventListenerMode {
-            static readonly $gtype: GObject.GType<EventListenerMode>
 
-            
+        interface $Exports {
+            Event: EventStruct
+        }
+        
+
+        interface EventListenerModeStruct {
+            readonly $gtype: GObject.GType<EventListenerMode>
+            [Symbol.hasInstance](instance: unknown): instance is EventListenerMode
+        }
+
+        interface EventListenerMode {
             /**
              */
             synchronous: boolean
@@ -3371,13 +3433,18 @@ declare module "gi://Atspi?version=2.0" {
              */
             global: boolean
         }
-        none
-        /**
-         */
-        abstract class KeyDefinition {
-            static readonly $gtype: GObject.GType<KeyDefinition>
 
-            
+        interface $Exports {
+            EventListenerMode: EventListenerModeStruct
+        }
+        
+
+        interface KeyDefinitionStruct {
+            readonly $gtype: GObject.GType<KeyDefinition>
+            [Symbol.hasInstance](instance: unknown): instance is KeyDefinition
+        }
+
+        interface KeyDefinition {
             /**
              */
             keycode: number
@@ -3391,14 +3458,18 @@ declare module "gi://Atspi?version=2.0" {
              */
             modifiers: number
         }
-        /**
-         * Structure containing identifying information about a set of keycode or
-         *        keysyms.
-         */
-        abstract class KeySet {
-            static readonly $gtype: GObject.GType<KeySet>
 
-            
+        interface $Exports {
+            KeyDefinition: KeyDefinitionStruct
+        }
+        
+
+        interface KeySetStruct {
+            readonly $gtype: GObject.GType<KeySet>
+            [Symbol.hasInstance](instance: unknown): instance is KeySet
+        }
+
+        interface KeySet {
             /**
              */
             keysyms: number
@@ -3412,14 +3483,18 @@ declare module "gi://Atspi?version=2.0" {
              */
             len: number
         }
-        none
-        none
-        /**
-         */
-        abstract class Point {
-            static readonly $gtype: GObject.GType<Point>
 
-            
+        interface $Exports {
+            KeySet: KeySetStruct
+        }
+        
+
+        interface PointStruct {
+            readonly $gtype: GObject.GType<Point>
+            [Symbol.hasInstance](instance: unknown): instance is Point
+        }
+
+        interface Point {
             /**
              */
             x: number
@@ -3430,12 +3505,18 @@ declare module "gi://Atspi?version=2.0" {
              */
             copy(): Point
         }
-        /**
-         */
-        abstract class Range {
-            static readonly $gtype: GObject.GType<Range>
 
-            
+        interface $Exports {
+            Point: PointStruct
+        }
+        
+
+        interface RangeStruct {
+            readonly $gtype: GObject.GType<Range>
+            [Symbol.hasInstance](instance: unknown): instance is Range
+        }
+
+        interface Range {
             /**
              */
             start_offset: number
@@ -3448,12 +3529,18 @@ declare module "gi://Atspi?version=2.0" {
              */
             copy(): Range
         }
-        /**
-         */
-        abstract class Rect {
-            static readonly $gtype: GObject.GType<Rect>
 
-            
+        interface $Exports {
+            Range: RangeStruct
+        }
+        
+
+        interface RectStruct {
+            readonly $gtype: GObject.GType<Rect>
+            [Symbol.hasInstance](instance: unknown): instance is Rect
+        }
+
+        interface Rect {
             /**
              */
             x: number
@@ -3470,14 +3557,18 @@ declare module "gi://Atspi?version=2.0" {
              */
             copy(): Rect
         }
-        none
-        none
-        /**
-         */
-        abstract class TextRange {
-            static readonly $gtype: GObject.GType<TextRange>
 
-            
+        interface $Exports {
+            Rect: RectStruct
+        }
+        
+
+        interface TextRangeStruct {
+            readonly $gtype: GObject.GType<TextRange>
+            [Symbol.hasInstance](instance: unknown): instance is TextRange
+        }
+
+        interface TextRange {
             /**
              */
             start_offset: number
@@ -3488,32 +3579,18 @@ declare module "gi://Atspi?version=2.0" {
              */
             content: string
         }
-        /**
-         * This structure represents a single  text selection within a document. This
-         * selection is defined by two points in the content, where each one is defined
-         * by an AtkObject supporting the AtkText interface and a character offset
-         * relative to it.
-         *
-         * The end object must appear after the start object in the accessibility tree,
-         * i.e. the end object must be reachable from the start object by navigating
-         * forward (next, first child etc).
-         *
-         * This struct also contains a @start_is_active boolean, to communicate if the
-         * start of the selection is the active point or not.
-         *
-         * The active point corresponds to the user's focus or point of interest. The
-         * user moves the active point to expand or collapse the range. The anchor
-         * point is the other point of the range and typically remains constant. In
-         * most cases, anchor is the start of the range and active is the end. However,
-         * when selecting backwards (e.g. pressing shift+left arrow in a text field),
-         * the start of the range is the active point, as the user moves this to
-         * manipulate the selection.
-         * @since 2.52
-         */
-        abstract class TextSelection {
-            static readonly $gtype: GObject.GType<TextSelection>
 
-            
+        interface $Exports {
+            TextRange: TextRangeStruct
+        }
+        
+
+        interface TextSelectionStruct {
+            readonly $gtype: GObject.GType<TextSelection>
+            [Symbol.hasInstance](instance: unknown): instance is TextSelection
+        }
+
+        interface TextSelection {
             /**
              * the AtspiAccessible containing the start of the selection.
              */
@@ -3537,588 +3614,290 @@ declare module "gi://Atspi?version=2.0" {
              */
             start_is_active: boolean
         }
-        none
-        none
-        /**
-         * Removes a device event listener from the registry's listener queue,
-         *            ceasing notification of events of the specified type.
-         * @throws {GLib.Error}
-         * @param listener a pointer to the #AtspiDeviceListener for which
-                   device events are requested.
-         * @param filter Unused parameter.
-         * @returns %TRUE if successful, otherwise %FALSE.
-         */
-        function deregister_device_event_listener(listener: DeviceListener, filter: never | null): boolean
-        /**
-         * Removes a keystroke event listener from the registry's listener queue,
-         *            ceasing notification of events with modifiers matching @modmask.
-         * @throws {GLib.Error}
-         * @param listener a pointer to the #AtspiDeviceListener for which
-                   keystroke events are requested.
-         * @param key_set a pointer to the
-               #AtspiKeyDefinition array indicating which keystroke events are
-               requested, or %NULL
-               to indicate that all keycodes and keyvals for the specified
-               modifier set are to be included.
-         * @param modmask the key modifier mask for which this listener is to be
-                   'deregistered' (of type #AtspiKeyMaskType).
-         * @param event_types an #AtspiKeyMaskType mask indicating which
-                    types of key events were requested (%ATSPI_KEY_PRESSED, etc.).
-         * @returns %TRUE if successful, otherwise %FALSE.
-         */
-        function deregister_keystroke_listener(listener: DeviceListener, key_set: KeyDefinition[] | null, modmask: KeyMaskType, event_types: KeyEventMask): boolean
-        /**
-         * Starts/enters the main event loop for the AT-SPI services.
-         *
-         * NOTE: This method does not return control; it is exited via a call to
-         * #atspi_event_quit from within an event handler.
-         */
-        function event_main(): void
-        /**
-         * Quits the last main event loop for the AT-SPI services,
-         * See: #atspi_event_main
-         */
-        function event_quit(): void
-        /**
-         * Disconnects from #AtspiRegistry instances and releases
-         * any floating resources. Call only once at exit.
-         * @returns 0 if there were no leaks, otherwise other integer values.
-         */
-        function exit(): number
-        /**
-         * Synthesizes a keyboard event (as if a hardware keyboard event occurred in the
-         * current UI context).
-         * @throws {GLib.Error}
-         * @param keyval a #gint indicating the keycode or keysym or modifier mask of the
-                  key event being synthesized.
-         * @param keystring an (optional) UTF-8 string which, if
-                  @synth_type is %ATSPI_KEY_STRING, indicates a 'composed'
-                  keyboard input string being synthesized; this type of
-                  keyboard event synthesis does not emulate hardware
-                  keypresses but injects the string as though a composing
-                  input method (such as XIM) were used.
-         * @param synth_type an #AtspiKeySynthType flag indicating whether @keyval
-                  is to be interpreted as a keysym rather than a keycode
-                  (%ATSPI_KEY_SYM) or a string (%ATSPI_KEY_STRING) or a modifier
-                  mask (%ATSPI_KEY_LOCKMODIFIERS and %ATSPI_KEY_UNLOCKMODIFIERS), or
-                  whether to synthesize %ATSPI_KEY_PRESS,
-                  %ATSPI_KEY_RELEASE, or both (%ATSPI_KEY_PRESSRELEASE).
-         * @returns %TRUE if successful, otherwise %FALSE.
-         */
-        function generate_keyboard_event(keyval: number, keystring: string | null, synth_type: KeySynthType): boolean
-        /**
-         * Synthesizes a mouse event at a specific screen coordinate.
-         * Most AT clients should use the #AccessibleAction interface when
-         * tempted to generate mouse events, rather than this method.
-         * Event names: b1p = button 1 press; b2r = button 2 release;
-         *              b3c = button 3 click; b2d = button 2 double-click;
-         *              abs = absolute motion; rel = relative motion.
-         * @throws {GLib.Error}
-         * @param x a #glong indicating the screen x coordinate of the mouse event.
-         * @param y a #glong indicating the screen y coordinate of the mouse event.
-         * @param name a string indicating which mouse event to be synthesized
-               (e.g. "b1p", "b1c", "b2r", "rel", "abs").
-         * @returns %TRUE if successful, otherwise %FALSE.
-         */
-        function generate_mouse_event(x: number, y: number, name: string): boolean
-        /**
-         * Like atspi_generate_mouse_event, but asynchronous.
-         * @throws {GLib.Error}
-         * @param x a #glong indicating the screen x coordinate of the mouse event.
-         * @param y a #glong indicating the screen y coordinate of the mouse event.
-         * @param name a string indicating which mouse event to be synthesized
-               (e.g. "b1p", "b1c", "b2r", "rel", "abs").
-         * @param callback a callback to be called when a
-        reply is received. May be NULL.
-         */
-        function generate_mouse_event_async(x: number, y: number, name: string, callback: GenerateMouseEventCB): void
-        none
-        /**
-         * Gets the virtual desktop indicated by index @i.
-         * NOTE: currently multiple virtual desktops are not implemented;
-         * as a consequence, any @i value different from 0 will not return a
-         * virtual desktop - instead it will return NULL.
-         * @param i a #gint indicating which of the accessible desktops is to be returned.
-         * @returns a pointer to the `i`-th virtual desktop's #AtspiAccessible representation.
-         */
-        function get_desktop(i: number): Accessible
-        /**
-         * Gets the number of virtual desktops.
-         * NOTE: multiple virtual desktops are not implemented yet; as a
-         * consequence, this function always returns 1.
-         * @returns a #gint indicating the number of active virtual desktops.
-         */
-        function get_desktop_count(): number
-        /**
-         * Gets the list of virtual desktops.  On return, @list will point
-         *     to a newly-created, NULL terminated array of virtual desktop
-         *     pointers.
-         *     It is the responsibility of the caller to free this array when
-         *     it is no longer needed.
-         * NOTE: currently multiple virtual desktops are not implemented;
-         * this implementation always returns a #Garray with a single
-         * #AtspiAccessible desktop.
-         * @returns a #GArray of desktops.
-         */
-        function get_desktop_list(): Accessible[]
-        /**
-         * Returns the version of the AT-SPI library being used at runtime.
-         * @since 2.50
-         * @returns , the major version., the minor version., the micro/patch version.
-         */
-        function get_version(): [number, number, number]
-        /**
-         * Connects to the accessibility registry and initializes the SPI.
-         * @returns 0 on success, 1 if already initialized, or an integer error code.
-         */
-        function init(): number
-        /**
-         * Indicates whether AT-SPI has been initialized.
-         * @returns %True if initialized; %False otherwise.
-         */
-        function is_initialized(): boolean
-        /**
-         * This function does nothing and should not be called.
-         * @throws {GLib.Error}
-         * @param listener
-         * @param event_types
-         * @param filter
-         * @returns Always returns %FALSE.
-         */
-        function register_device_event_listener(listener: DeviceListener, event_types: DeviceEventMask, filter: never | null): boolean
-        /**
-         * Registers a listener for keystroke events, either pre-emptively for
-         *             all windows (%ATSPI_KEYLISTENER_ALL_WINDOWS),
-         *             non-preemptively (%ATSPI_KEYLISTENER_NOSYNC), or
-         *             pre-emptively at the toolkit level (%ATSPI_KEYLISTENER_CANCONSUME).
-         *             If ALL_WINDOWS or CANCONSUME are used, the event is consumed
-         *             upon receipt if one of @listener's callbacks returns %TRUE
-         *             (other sync_type values may be available in the future).
-         * @throws {GLib.Error}
-         * @param listener a pointer to the #AtspiDeviceListener for which
-                    keystroke events are requested.
-         * @param key_set a pointer to the
-               #AtspiKeyDefinition array indicating which keystroke events are
-               requested, or NULL
-               to indicate that all keycodes and keyvals for the specified
-               modifier set are to be included.
-         * @param modmask an #AtspiKeyMaskType mask indicating which
-                    key event modifiers must be set in combination with @keys,
-                    events will only be reported for key events for which all
-                    modifiers in @modmask are set.  If you wish to listen for
-                    events with multiple modifier combinations, you must call
-                    #atspi_register_keystroke_listener once for each
-                    combination.
-         * @param event_types an #AtspiKeyMaskType mask indicating which
-                    types of key events are requested (%ATSPI_KEY_PRESSED etc.).
-         * @param sync_type an #AtspiKeyListenerSyncType parameter indicating
-                    the behavior of the notification/listener transaction.
-         * @returns %TRUE if successful, otherwise %FALSE.
-         */
-        function register_keystroke_listener(listener: DeviceListener, key_set: KeyDefinition[] | null, modmask: KeyMaskType, event_types: KeyEventMask, sync_type: KeyListenerSyncType): boolean
-        /**
-         * Gets the localized description string describing the #AtspiRole @role.
-         * @param role an #AtspiRole object to query.
-         * @returns the localized string describing the AtspiRole
-         */
-        function role_get_localized_name(role: Role): string
-        /**
-         * Gets a localizable string that indicates the name of an #AtspiRole.
-         * @param role an #AtspiRole object to query.
-         * @returns a localizable string name for an #AtspiRole enumerated type.
-         */
-        function role_get_name(role: Role): string
-        /**
-         * Sets the main loop context that AT-SPI should assume is in use when
-         * setting an idle callback.
-         * This function should be called by application-side implementors (ie,
-         * at-spi2-atk) when it is desirable to re-enter the main loop.
-         * @param cnx The #GMainContext to use.
-         */
-        function set_main_context(cnx: GLib.MainContext): void
-        /**
-         * Deprecated. This function no longer does anything and should not be used.
-         * @param accessible the #AtspiAccessible corresponding to the window to select.
-                     should be a top-level window with a role of
-                     ATSPI_ROLE_APPLICATION.
-         */
-        function set_reference_window(accessible: Accessible): void
-        /**
-         * Set the timeout used for method calls. If this is not set explicitly,
-         * a default of 800 ms is used.
-         * Note that at-spi2-registryd currently uses a timeout of 3 seconds when
-         * sending a keyboard event notification. This means that, if an AT makes
-         * a call in response to the keyboard notification and the application
-         * being called does not respond before the timeout is reached,
-         * at-spi2-registryd will time out on the keyboard event notification and
-         * pass the key onto the application (ie, reply to indicate that the key
-         * was not consumed), so this may make it undesirable to set a timeout
-         * larger than 3 seconds.
-         *
-         * By default, the normal timeout is set to 800 ms, and the application startup
-         * timeout is set to 15 seconds.
-         * @param val The timeout value, in milliseconds, or -1 to disable the timeout.
-         * @param startup_time The amount of time, in milliseconds, to allow to pass
-        before enforcing timeouts on an application. Can be used to prevent
-        timeout exceptions if an application is likely to block for an extended
-        period of time on initialization. -1 can be passed to disable this
-        behavior.
-         */
-        function set_timeout(val: number, startup_time: number): void
-        const ACCESSIBLE_VERSION: 1
-        const ACTION_VERSION: 1
-        const APPLICATION_VERSION: 1
-        const CACHE_VERSION: 1
-        const COLLECTION_VERSION: 1
-        const COMPONENTLAYER_COUNT: 9
-        const COMPONENT_VERSION: 1
-        const COORD_TYPE_COUNT: 3
-        const DBUS_INTERFACE_ACCESSIBLE: "org.a11y.atspi.Accessible"
-        const DBUS_INTERFACE_ACTION: "org.a11y.atspi.Action"
-        const DBUS_INTERFACE_APPLICATION: "org.a11y.atspi.Application"
-        const DBUS_INTERFACE_CACHE: "org.a11y.atspi.Cache"
-        const DBUS_INTERFACE_COLLECTION: "org.a11y.atspi.Collection"
-        const DBUS_INTERFACE_COMPONENT: "org.a11y.atspi.Component"
-        const DBUS_INTERFACE_DEC: "org.a11y.atspi.DeviceEventController"
-        const DBUS_INTERFACE_DEVICE_EVENT_LISTENER: "org.a11y.atspi.DeviceEventListener"
-        const DBUS_INTERFACE_DOCUMENT: "org.a11y.atspi.Document"
-        const DBUS_INTERFACE_EDITABLE_TEXT: "org.a11y.atspi.EditableText"
-        const DBUS_INTERFACE_EVENT_KEYBOARD: "org.a11y.atspi.Event.Keyboard"
-        const DBUS_INTERFACE_EVENT_MOUSE: "org.a11y.atspi.Event.Mouse"
-        const DBUS_INTERFACE_EVENT_OBJECT: "org.a11y.atspi.Event.Object"
-        const DBUS_INTERFACE_EVENT_SCREEN_READER: "org.a11y.atspi.Event.ScreenReader"
-        const DBUS_INTERFACE_HYPERLINK: "org.a11y.atspi.Hyperlink"
-        const DBUS_INTERFACE_HYPERTEXT: "org.a11y.atspi.Hypertext"
-        const DBUS_INTERFACE_IMAGE: "org.a11y.atspi.Image"
-        const DBUS_INTERFACE_KEYBOARD_MONITOR: "org.freedesktop.a11y.KeyboardMonitor"
-        const DBUS_INTERFACE_POINTER_LOCATOR: "org.freedesktop.a11y.PointerLocator"
-        const DBUS_INTERFACE_REGISTRY: "org.a11y.atspi.Registry"
-        const DBUS_INTERFACE_SELECTION: "org.a11y.atspi.Selection"
-        const DBUS_INTERFACE_SOCKET: "org.a11y.atspi.Socket"
-        const DBUS_INTERFACE_TABLE: "org.a11y.atspi.Table"
-        const DBUS_INTERFACE_TABLE_CELL: "org.a11y.atspi.TableCell"
-        const DBUS_INTERFACE_TEXT: "org.a11y.atspi.Text"
-        const DBUS_INTERFACE_VALUE: "org.a11y.atspi.Value"
-        const DBUS_NAME_A11Y_MANAGER: "org.freedesktop.a11y.Manager"
-        const DBUS_NAME_REGISTRY: "org.a11y.atspi.Registry"
-        const DBUS_PATH_A11Y_MANAGER: "/org/freedesktop/a11y/Manager"
-        const DBUS_PATH_DEC: "/org/a11y/atspi/registry/deviceeventcontroller"
-        const DBUS_PATH_NULL: "/org/a11y/atspi/null"
-        const DBUS_PATH_REGISTRY: "/org/a11y/atspi/registry"
-        const DBUS_PATH_ROOT: "/org/a11y/atspi/accessible/root"
-        const DBUS_PATH_SCREEN_READER: "/org/a11y/atspi/screenreader"
-        const DEVICE_A11Y_MANAGER_VIRTUAL_MOD_END: 31
-        const DEVICE_A11Y_MANAGER_VIRTUAL_MOD_START: 15
-        const DEVICE_EVENT_CONTROLLER_VERSION: 1
-        const DEVICE_EVENT_LISTENER_VERSION: 1
-        const DOCUMENT_VERSION: 1
-        const EDITABLE_TEXT_VERSION: 1
-        const EVENTTYPE_COUNT: 4
-        const EVENT_VERSION: 1
-        const HYPERLINK_VERSION: 1
-        const HYPERTEXT_VERSION: 1
-        const IMAGE_VERSION: 1
-        const KEYEVENTTYPE_COUNT: 2
-        const KEYSYNTHTYPE_COUNT: 5
-        const LOCALE_TYPE_COUNT: 6
-        const MATCHTYPES_COUNT: 6
-        const MAX_CHILDREN: 65536
-        const MODIFIERTYPE_COUNT: 8
-        const REGISTRY_VERSION: 1
-        const RELATIONTYPE_COUNT: 24
-        const ROLE_COUNT: 132
-        const SCROLLTYPE_COUNT: 7
-        const SELECTION_VERSION: 1
-        const SOCKET_VERSION: 1
-        const SORTORDER_COUNT: 8
-        const STATETYPE_COUNT: 45
-        const TABLE_CELL_VERSION: 1
-        const TABLE_VERSION: 1
-        const TEXT_BOUNDARY_TYPE_COUNT: 7
-        const TEXT_CLIP_TYPE_COUNT: 4
-        const TEXT_VERSION: 1
-        const TREETRAVERSALTYPE_COUNT: 4
-        const VALUE_VERSION: 1
-        
-        namespace CollectionMatchType {
-            const $gtype: GObject.GType<CollectionMatchType>
-        }
 
-        /**
-         * Enumeration used by #AtspiMatchRule to specify
-         * how to interpret #AtspiAccessible objects.
-         */
-        enum CollectionMatchType {
+        interface $Exports {
+            TextSelection: TextSelectionStruct
+        }
+        
+        interface CollectionMatchTypeEnum {
+            readonly $gtype: GObject.GType<CollectionMatchType>
             /**
              * Indicates an error condition or
              * uninitialized value.
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * #TRUE if all of the criteria are met.
              */
-            "ALL" = 1,
+            readonly "ALL": 1
             /**
              * #TRUE if any of the criteria are met.
              */
-            "ANY" = 2,
+            readonly "ANY": 2
             /**
              * #TRUE if none of the criteria are met.
              */
-            "NONE" = 3,
+            readonly "NONE": 3
             /**
              * Same as @ATSPI_Collection_MATCH_ALL if
              * the criteria is non-empty; for empty criteria this rule requires returned
              * value to also have empty set.
              */
-            "EMPTY" = 4,
+            readonly "EMPTY": 4
             /**
              * Used only to determine the end of the
              * enumeration.
              */
-            "LAST_DEFINED" = 5,
+            readonly "LAST_DEFINED": 5
+        }
+        type CollectionMatchType = CollectionMatchTypeEnum[Exclude<keyof CollectionMatchTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used by #AtspiMatchRule to specify
+             * how to interpret #AtspiAccessible objects.
+             */
+            CollectionMatchType: CollectionMatchTypeEnum
         }
         
-        namespace CollectionSortOrder {
-            const $gtype: GObject.GType<CollectionSortOrder>
-        }
-
-        /**
-         * Enumeration used by interface #AtspiCollection to specify
-         * the way #AtspiAccesible objects should be sorted.
-         */
-        enum CollectionSortOrder {
+        interface CollectionSortOrderEnum {
+            readonly $gtype: GObject.GType<CollectionSortOrder>
             /**
              * Invalid sort order
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * Canonical sort order
              */
-            "CANONICAL" = 1,
+            readonly "CANONICAL": 1
             /**
              * Flow sort order
              */
-            "FLOW" = 2,
+            readonly "FLOW": 2
             /**
              * Tab sort order
              */
-            "TAB" = 3,
+            readonly "TAB": 3
             /**
              * Reverse canonical sort order
              */
-            "REVERSE_CANONICAL" = 4,
+            readonly "REVERSE_CANONICAL": 4
             /**
              * Reverse flow sort order
              */
-            "REVERSE_FLOW" = 5,
+            readonly "REVERSE_FLOW": 5
             /**
              * Reverse tab sort order
              */
-            "REVERSE_TAB" = 6,
+            readonly "REVERSE_TAB": 6
             /**
              * Used only to determine the end of the
              * enumeration.
              */
-            "LAST_DEFINED" = 7,
+            readonly "LAST_DEFINED": 7
+        }
+        type CollectionSortOrder = CollectionSortOrderEnum[Exclude<keyof CollectionSortOrderEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used by interface #AtspiCollection to specify
+             * the way #AtspiAccesible objects should be sorted.
+             */
+            CollectionSortOrder: CollectionSortOrderEnum
         }
         
-        namespace CollectionTreeTraversalType {
-            const $gtype: GObject.GType<CollectionTreeTraversalType>
-        }
-
-        /**
-         * Enumeration used by interface #AtspiCollection to specify
-         * restrictions on #AtspiAccesible objects to be traversed.
-         */
-        enum CollectionTreeTraversalType {
+        interface CollectionTreeTraversalTypeEnum {
+            readonly $gtype: GObject.GType<CollectionTreeTraversalType>
             /**
              * Restrict children tree traveral
              */
-            "RESTRICT_CHILDREN" = 0,
+            readonly "RESTRICT_CHILDREN": 0
             /**
              * Restrict sibling tree traversal
              */
-            "RESTRICT_SIBLING" = 1,
+            readonly "RESTRICT_SIBLING": 1
             /**
              * In-order tree traversal.
              */
-            "INORDER" = 2,
+            readonly "INORDER": 2
             /**
              * Used only to determine the end of the
              * enumeration.
              */
-            "LAST_DEFINED" = 3,
+            readonly "LAST_DEFINED": 3
+        }
+        type CollectionTreeTraversalType = CollectionTreeTraversalTypeEnum[Exclude<keyof CollectionTreeTraversalTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used by interface #AtspiCollection to specify
+             * restrictions on #AtspiAccesible objects to be traversed.
+             */
+            CollectionTreeTraversalType: CollectionTreeTraversalTypeEnum
         }
         
-        namespace ComponentLayer {
-            const $gtype: GObject.GType<ComponentLayer>
-        }
-
-        /**
-         * The #AtspiComponentLayer of an #AtspiComponent instance indicates its
-         * relative stacking order with respect to the onscreen visual representation
-         * of the UI. #AtspiComponentLayer, in combination with #AtspiComponent bounds
-         * information, can be used to compute the visibility of all or part of a
-         * component.  This is important in programmatic determination of
-         * region-of-interest for magnification, and in
-         * flat screen review models of the screen, as well as
-         * for other uses. Objects residing in two of the #AtspiComponentLayer
-         * categories support further z-ordering information, with respect to their
-         * peers in the same layer: namely, @ATSPI_LAYER_WINDOW and
-         * @ATSPI_LAYER_MDI.  Relative stacking order for other objects within the
-         * same layer is not available; the recommended heuristic is
-         * first child paints first. In other words, assume that the
-         * first siblings in the child list are subject to being overpainted by later
-         * siblings if their bounds intersect. The order of layers, from bottom to top,
-         *  is: @ATSPI_LAYER_BACKGROUND, @ATSPI_LAYER_WINDOW, @ATSPI_LAYER_MDI,
-         * @ATSPI_LAYER_CANVAS, @ATSPI_LAYER_WIDGET, @ATSPI_LAYER_POPUP, and
-         * @ATSPI_LAYER_OVERLAY.
-         */
-        enum ComponentLayer {
+        interface ComponentLayerEnum {
+            readonly $gtype: GObject.GType<ComponentLayer>
             /**
              * Indicates an error condition or uninitialized value.
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * The bottom-most layer, over which everything else
              * is painted.        The 'desktop background' is generally in this layer.
              */
-            "BACKGROUND" = 1,
+            readonly "BACKGROUND": 1
             /**
              * The 'background' layer for most content renderers and
              * UI #AtspiComponent containers.
              */
-            "CANVAS" = 2,
+            readonly "CANVAS": 2
             /**
              * The layer in which the majority of ordinary
              * 'foreground' widgets reside.
              */
-            "WIDGET" = 3,
+            readonly "WIDGET": 3
             /**
              * A special layer between @ATSPI_LAYER_CANVAS and
              * @ATSPI_LAYER_WIDGET, in which the 'pseudo windows' (e.g. the MDI frames)
              * reside. See #atspi_component_get_mdi_z_order.
              */
-            "MDI" = 4,
+            readonly "MDI": 4
             /**
              * A layer for popup window content, above
              * @ATSPI_LAYER_WIDGET.
              */
-            "POPUP" = 5,
+            readonly "POPUP": 5
             /**
              * The topmost layer.
              */
-            "OVERLAY" = 6,
+            readonly "OVERLAY": 6
             /**
              * The layer in which a toplevel window background usually
              * resides.
              */
-            "WINDOW" = 7,
+            readonly "WINDOW": 7
             /**
              * Used only to determine the end of the
              * enumeration.
              */
-            "LAST_DEFINED" = 8,
+            readonly "LAST_DEFINED": 8
+        }
+        type ComponentLayer = ComponentLayerEnum[Exclude<keyof ComponentLayerEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The #AtspiComponentLayer of an #AtspiComponent instance indicates its
+             * relative stacking order with respect to the onscreen visual representation
+             * of the UI. #AtspiComponentLayer, in combination with #AtspiComponent bounds
+             * information, can be used to compute the visibility of all or part of a
+             * component.  This is important in programmatic determination of
+             * region-of-interest for magnification, and in
+             * flat screen review models of the screen, as well as
+             * for other uses. Objects residing in two of the #AtspiComponentLayer
+             * categories support further z-ordering information, with respect to their
+             * peers in the same layer: namely, @ATSPI_LAYER_WINDOW and
+             * @ATSPI_LAYER_MDI.  Relative stacking order for other objects within the
+             * same layer is not available; the recommended heuristic is
+             * first child paints first. In other words, assume that the
+             * first siblings in the child list are subject to being overpainted by later
+             * siblings if their bounds intersect. The order of layers, from bottom to top,
+             *  is: @ATSPI_LAYER_BACKGROUND, @ATSPI_LAYER_WINDOW, @ATSPI_LAYER_MDI,
+             * @ATSPI_LAYER_CANVAS, @ATSPI_LAYER_WIDGET, @ATSPI_LAYER_POPUP, and
+             * @ATSPI_LAYER_OVERLAY.
+             */
+            ComponentLayer: ComponentLayerEnum
         }
         
-        namespace CoordType {
-            const $gtype: GObject.GType<CoordType>
-        }
-
-        /**
-         * Enumeration used by #AtspiComponent, #AtspiImage, and #AtspiText interfaces
-         * to specify whether coordinates are relative to the window or the screen.
-         */
-        enum CoordType {
+        interface CoordTypeEnum {
+            readonly $gtype: GObject.GType<CoordType>
             /**
              * Specifies xy coordinates relative to the screen.
              */
-            "SCREEN" = 0,
+            readonly "SCREEN": 0
             /**
              * Specifies xy coordinates relative to the widget's
              * top-level window.
              */
-            "WINDOW" = 1,
+            readonly "WINDOW": 1
             /**
              * Specifies xy coordinates relative to the widget's
              * immediate parent.
              */
-            "PARENT" = 2,
+            readonly "PARENT": 2
+        }
+        type CoordType = CoordTypeEnum[Exclude<keyof CoordTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used by #AtspiComponent, #AtspiImage, and #AtspiText interfaces
+             * to specify whether coordinates are relative to the window or the screen.
+             */
+            CoordType: CoordTypeEnum
         }
         
-        namespace EventType {
-            const $gtype: GObject.GType<EventType>
-        }
-
-        /**
-         * Enumeration used to specify the event types of interest to an
-         * #AtspiEventListener, or
-         * to identify the type of an event for which notification has been sent.
-         */
-        enum EventType {
+        interface EventTypeEnum {
+            readonly $gtype: GObject.GType<EventType>
             /**
              * Indicates that a key on a keyboard device was
              * pressed.
              */
-            "KEY_PRESSED_EVENT" = 0,
+            readonly "KEY_PRESSED_EVENT": 0
             /**
              * Indicates that a key on a keyboard device was
              * released.
              */
-            "KEY_RELEASED_EVENT" = 1,
+            readonly "KEY_RELEASED_EVENT": 1
             /**
              * Indicates that a button on a non-keyboard
              * human interface device (HID) was pressed.
              */
-            "BUTTON_PRESSED_EVENT" = 2,
+            readonly "BUTTON_PRESSED_EVENT": 2
             /**
              * Indicates that a button on a non-keyboard
              * human interface device (HID) was released.
              */
-            "BUTTON_RELEASED_EVENT" = 3,
+            readonly "BUTTON_RELEASED_EVENT": 3
+        }
+        type EventType = EventTypeEnum[Exclude<keyof EventTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used to specify the event types of interest to an
+             * #AtspiEventListener, or
+             * to identify the type of an event for which notification has been sent.
+             */
+            EventType: EventTypeEnum
         }
         
-        namespace KeyEventType {
-            const $gtype: GObject.GType<KeyEventType>
-        }
-
-        /**
-         * Deprecated. Should not be used.
-         */
-        enum KeyEventType {
+        interface KeyEventTypeEnum {
+            readonly $gtype: GObject.GType<KeyEventType>
             /**
              * Key press event
              */
-            "PRESSED" = 0,
+            readonly "PRESSED": 0
             /**
              * Key release event
              */
-            "RELEASED" = 1,
+            readonly "RELEASED": 1
+        }
+        type KeyEventType = KeyEventTypeEnum[Exclude<keyof KeyEventTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Deprecated. Should not be used.
+             */
+            KeyEventType: KeyEventTypeEnum
         }
         
-        namespace KeySynthType {
-            const $gtype: GObject.GType<KeySynthType>
-        }
-
-        /**
-         * Enumeration used when synthesizing keyboard input via
-         * #atspi_generate_keyboard_event.
-         */
-        enum KeySynthType {
+        interface KeySynthTypeEnum {
+            readonly $gtype: GObject.GType<KeySynthType>
             /**
              * Emulates the pressing of a hardware keyboard key.
              */
-            "PRESS" = 0,
+            readonly "PRESS": 0
             /**
              * Emulates the release of a hardware keyboard key.
              */
-            "RELEASE" = 1,
+            readonly "RELEASE": 1
             /**
              * Emulates the pressing and immediate releasing
              * of a hardware keyboard key.
              */
-            "PRESSRELEASE" = 2,
+            readonly "PRESSRELEASE": 2
             /**
              * A symbolic key event is generated, without specifying a
              * hardware key. Note: if the keysym is not present in the current keyboard
@@ -4132,7 +3911,7 @@ declare module "gi://Atspi?version=2.0" {
              * i.e., present on the system keyboard for the current locale (even if a
              * physical hardware keyboard is not connected).
              */
-            "SYM" = 3,
+            readonly "SYM": 3
             /**
              * A string is converted to its equivalent keyboard events
              * and emitted. If the string consists of complex characters or composed
@@ -4141,104 +3920,109 @@ declare module "gi://Atspi?version=2.0" {
              * @ATSPI_KEY_SYM. In practice this limitation primarily effects
              * Chinese and Japanese locales.
              */
-            "STRING" = 4,
+            readonly "STRING": 4
             /**
              * Emulates locking a set of modifiers.
              */
-            "LOCKMODIFIERS" = 5,
+            readonly "LOCKMODIFIERS": 5
             /**
              * Emulates unlocking a set of modifiers.
              */
-            "UNLOCKMODIFIERS" = 6,
+            readonly "UNLOCKMODIFIERS": 6
+        }
+        type KeySynthType = KeySynthTypeEnum[Exclude<keyof KeySynthTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used when synthesizing keyboard input via
+             * #atspi_generate_keyboard_event.
+             */
+            KeySynthType: KeySynthTypeEnum
         }
         
-        namespace Live {
-            const $gtype: GObject.GType<Live>
-        }
-
-        /**
-         * Enumeration used to indicate a type of live region and how assertive it
-         * should be in terms of speaking notifications. Currently, this is only used
-         * for "announcement" events, but it may be used for additional purposes
-         * in the future.
-         */
-        enum Live {
+        interface LiveEnum {
+            readonly $gtype: GObject.GType<Live>
             /**
              * No live region.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * This live region should be considered polite.
              */
-            "POLITE" = 1,
+            readonly "POLITE": 1
             /**
              * This live region should be considered assertive.
              */
-            "ASSERTIVE" = 2,
+            readonly "ASSERTIVE": 2
+        }
+        type Live = LiveEnum[Exclude<keyof LiveEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used to indicate a type of live region and how assertive it
+             * should be in terms of speaking notifications. Currently, this is only used
+             * for "announcement" events, but it may be used for additional purposes
+             * in the future.
+             */
+            Live: LiveEnum
         }
         
-        namespace LocaleType {
-            const $gtype: GObject.GType<LocaleType>
-        }
-
-        /**
-         * Used by interfaces #AtspiText and #AtspiDocument, this
-         * enumeration corresponds to the POSIX 'setlocale' enum values.
-         */
-        enum LocaleType {
+        interface LocaleTypeEnum {
+            readonly $gtype: GObject.GType<LocaleType>
             /**
              * For localizable natural-language messages.
              */
-            "MESSAGES" = 0,
+            readonly "MESSAGES": 0
             /**
              * For regular expression matching and string
              * collation.
              */
-            "COLLATE" = 1,
+            readonly "COLLATE": 1
             /**
              * For regular expression matching, character
              * classification, conversion, case-sensitive comparison, and wide character
              * functions.
              */
-            "CTYPE" = 2,
+            readonly "CTYPE": 2
             /**
              * For monetary formatting.
              */
-            "MONETARY" = 3,
+            readonly "MONETARY": 3
             /**
              * For number formatting (such as the decimal
              * point and the thousands separator).
              */
-            "NUMERIC" = 4,
+            readonly "NUMERIC": 4
             /**
              * For time and date formatting.
              */
-            "TIME" = 5,
+            readonly "TIME": 5
+        }
+        type LocaleType = LocaleTypeEnum[Exclude<keyof LocaleTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Used by interfaces #AtspiText and #AtspiDocument, this
+             * enumeration corresponds to the POSIX 'setlocale' enum values.
+             */
+            LocaleType: LocaleTypeEnum
         }
         
-        namespace ModifierType {
-            const $gtype: GObject.GType<ModifierType>
-        }
-
-        /**
-         */
-        enum ModifierType {
+        interface ModifierTypeEnum {
+            readonly $gtype: GObject.GType<ModifierType>
             /**
              * The left or right 'Shift' key.
              */
-            "SHIFT" = 0,
+            readonly "SHIFT": 0
             /**
              * The ShiftLock or CapsLock key.
              */
-            "SHIFTLOCK" = 1,
+            readonly "SHIFTLOCK": 1
             /**
              * 'Control'/'Ctrl'.
              */
-            "CONTROL" = 2,
+            readonly "CONTROL": 2
             /**
              * The Alt key (as opposed to AltGr).
              */
-            "ALT" = 3,
+            readonly "ALT": 3
             /**
              * Depending on the platform, this may map to 'Window',
              * 'Function', 'Meta', 'Menu', or 'NumLock'. Such 'Meta keys' will
@@ -4247,129 +4031,112 @@ declare module "gi://Atspi?version=2.0" {
              * event having @ATSPI_MODIFIER_META2 means that the 'Mod2Mask' bit
              * is set in the corresponding XEvent.
              */
-            "META" = 4,
+            readonly "META": 4
             /**
              * See @ATSPI_MODIFIER_META.
              */
-            "META2" = 5,
+            readonly "META2": 5
             /**
              * See @ATSPI_MODIFIER_META.
              */
-            "META3" = 6,
+            readonly "META3": 6
             /**
              * Alias for META3.
              */
-            "SUPER" = 6,
+            readonly "SUPER": 6
             /**
              * A symbolic meta key name that is mapped by AT-SPI
              * to the appropriate META value, for the convenience of the client.
              */
-            "NUMLOCK" = 14,
+            readonly "NUMLOCK": 14
+        }
+        type ModifierType = ModifierTypeEnum[Exclude<keyof ModifierTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            ModifierType: ModifierTypeEnum
         }
         
-        namespace RelationType {
-            const $gtype: GObject.GType<RelationType>
-        }
-
-        /**
-         * #AtspiRelationType specifies a relationship between objects
-         * (possibly one-to-many
-         * or many-to-one) outside of the normal parent/child hierarchical
-         * relationship. It allows better semantic identification of how objects
-         * are associated with one another.       For instance the
-         * @ATSPI_RELATION_LABELLED_BY
-         * relationship may be used to identify labelling information that should
-         * accompany the accessible name property when presenting an object's content or
-         * identity to the end user.  Similarly,
-         * @ATSPI_RELATION_CONTROLLER_FOR can be used
-         * to further specify the context in which a valuator is useful, and/or the
-         * other UI components which are directly effected by user interactions with
-         * the valuator. Common examples include association of scrollbars with the
-         * viewport or panel which they control.
-         *
-         *
-         * Enumeration used to specify
-         * the type of relation encapsulated in an #AtspiRelation object.
-         */
-        enum RelationType {
+        interface RelationTypeEnum {
+            readonly $gtype: GObject.GType<RelationType>
             /**
              * Not a meaningful relationship; clients should not
              * normally encounter this #AtspiRelationType value.
              */
-            "NULL" = 0,
+            readonly "NULL": 0
             /**
              * Object is a label for one or more other objects.
              */
-            "LABEL_FOR" = 1,
+            readonly "LABEL_FOR": 1
             /**
              * Object is labelled by one or more other
              * objects.
              */
-            "LABELLED_BY" = 2,
+            readonly "LABELLED_BY": 2
             /**
              * Object is an interactive object which
              * modifies the state, onscreen location, or other attributes of one or more
              * target objects.
              */
-            "CONTROLLER_FOR" = 3,
+            readonly "CONTROLLER_FOR": 3
             /**
              * Object state, position, etc. is
              * modified/controlled by user interaction with one or more other objects.
              * For instance a viewport or scroll pane may be @ATSPI_RELATION_CONTROLLED_BY
              * scrollbars.
              */
-            "CONTROLLED_BY" = 4,
+            readonly "CONTROLLED_BY": 4
             /**
              * Object has a grouping relationship (e.g. 'same
              * group as') to one or more other objects.
              */
-            "MEMBER_OF" = 5,
+            readonly "MEMBER_OF": 5
             /**
              * Object is a tooltip associated with another
              * object.
              */
-            "TOOLTIP_FOR" = 6,
+            readonly "TOOLTIP_FOR": 6
             /**
              * Object is a child of the target.
              */
-            "NODE_CHILD_OF" = 7,
+            readonly "NODE_CHILD_OF": 7
             /**
              * Object is a parent of the target.
              */
-            "NODE_PARENT_OF" = 8,
+            readonly "NODE_PARENT_OF": 8
             /**
              * Used to indicate that a relationship exists, but
              * its type is not specified in the enumeration.
              */
-            "EXTENDED" = 9,
+            readonly "EXTENDED": 9
             /**
              * Object renders content which flows logically to
              * another object. For instance, text in a paragraph may flow to another
              * object which is not the 'next sibling' in the accessibility hierarchy.
              */
-            "FLOWS_TO" = 10,
+            readonly "FLOWS_TO": 10
             /**
              * Reciprocal of @ATSPI_RELATION_FLOWS_TO.
              */
-            "FLOWS_FROM" = 11,
+            readonly "FLOWS_FROM": 11
             /**
              * Object is visually and semantically considered
              * a subwindow of another object, even though it is not the object's child.
              * Useful when dealing with embedded applications and other cases where the
              * widget hierarchy does not map cleanly to the onscreen presentation.
              */
-            "SUBWINDOW_OF" = 12,
+            readonly "SUBWINDOW_OF": 12
             /**
              * Similar to @ATSPI_RELATION_SUBWINDOW_OF, but
              * specifically used for cross-process embedding.
              */
-            "EMBEDS" = 13,
+            readonly "EMBEDS": 13
             /**
              * Reciprocal of @ATSPI_RELATION_EMBEDS. Used to
              * denote content rendered by embedded renderers that live in a separate process
              * space from the embedding context.
              */
-            "EMBEDDED_BY" = 14,
+            readonly "EMBEDDED_BY": 14
             /**
              * Denotes that the object is a transient window or
              * frame associated with another onscreen object. Similar to @ATSPI_TOOLTIP_FOR,
@@ -4381,18 +4148,18 @@ declare module "gi://Atspi?version=2.0" {
              * of assistive technology clients, even though the previous toplevel
              * @ATSPI_ROLE_FRAME object may still be the active window.
              */
-            "POPUP_FOR" = 15,
+            readonly "POPUP_FOR": 15
             /**
              * This is the reciprocal relation to
              * @ATSPI_RELATION_POPUP_FOR.
              */
-            "PARENT_WINDOW_OF" = 16,
+            readonly "PARENT_WINDOW_OF": 16
             /**
              * Reciprocal of %ATSPI_RELATION_DESCRIBED_BY.
              * Indicates that this object provides descriptive information about the target
              * object(s). See also %ATSPI_RELATION_DETAILS_FOR and %ATSPI_RELATION_ERROR_FOR.
              */
-            "DESCRIPTION_FOR" = 17,
+            readonly "DESCRIPTION_FOR": 17
             /**
              * Reciprocal of %ATSPI_RELATION_DESCRIPTION_FOR.
              * Indicates that one or more target objects provide descriptive information
@@ -4407,7 +4174,7 @@ declare module "gi://Atspi?version=2.0" {
              * objects containing detailed descriptions so that their content can be more
              * closely reviewed.
              */
-            "DESCRIBED_BY" = 18,
+            readonly "DESCRIBED_BY": 18
             /**
              * Reciprocal of %ATSPI_RELATION_DETAILS_FOR. Indicates that this object has a
              * detailed or extended description, the contents of which can be found in the
@@ -4419,14 +4186,14 @@ declare module "gi://Atspi?version=2.0" {
              * be used instead.
              * @since 2.26
              */
-            "DETAILS" = 19,
+            readonly "DETAILS": 19
             /**
              * Reciprocal of %ATSPI_RELATION_DETAILS. Indicates that this object provides a
              * detailed or extended description about the target object(s). See also
              * %ATSPI_RELATION_DESCRIPTION_FOR and %ATSPI_RELATION_ERROR_FOR.
              * @since 2.26
              */
-            "DETAILS_FOR" = 20,
+            readonly "DETAILS_FOR": 20
             /**
              * Reciprocal of %ATSPI_RELATION_ERROR_FOR. Indicates that this object has one
              * or more errors, the nature of which is described in the contents of the
@@ -4434,268 +4201,285 @@ declare module "gi://Atspi?version=2.0" {
              * %ATSPI_STATE_INVALID_ENTRY in their #AtspiStateSet.
              * @since 2.26
              */
-            "ERROR_MESSAGE" = 21,
+            readonly "ERROR_MESSAGE": 21
             /**
              * Reciprocal of %ATSPI_RELATION_ERROR_MESSAGE. Indicates that this object
              * contains an error message describing an invalid condition in the target
              * object(s).
              * @since 2.26
              */
-            "ERROR_FOR" = 22,
+            readonly "ERROR_FOR": 22
             /**
              * Do not use as a parameter value, used to
              * determine the size of the enumeration.
              */
-            "LAST_DEFINED" = 23,
+            readonly "LAST_DEFINED": 23
+        }
+        type RelationType = RelationTypeEnum[Exclude<keyof RelationTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * #AtspiRelationType specifies a relationship between objects
+             * (possibly one-to-many
+             * or many-to-one) outside of the normal parent/child hierarchical
+             * relationship. It allows better semantic identification of how objects
+             * are associated with one another.       For instance the
+             * @ATSPI_RELATION_LABELLED_BY
+             * relationship may be used to identify labelling information that should
+             * accompany the accessible name property when presenting an object's content or
+             * identity to the end user.  Similarly,
+             * @ATSPI_RELATION_CONTROLLER_FOR can be used
+             * to further specify the context in which a valuator is useful, and/or the
+             * other UI components which are directly effected by user interactions with
+             * the valuator. Common examples include association of scrollbars with the
+             * viewport or panel which they control.
+             *
+             *
+             * Enumeration used to specify
+             * the type of relation encapsulated in an #AtspiRelation object.
+             */
+            RelationType: RelationTypeEnum
         }
         
-        namespace Role {
-            const $gtype: GObject.GType<Role>
-        }
-
-        /**
-         * Enumeration used by interface #AtspiAccessible to specify the role
-         * of an #AtspiAccessible object.
-         */
-        enum Role {
+        interface RoleEnum {
+            readonly $gtype: GObject.GType<Role>
             /**
              * A role indicating an error condition, such as
              * uninitialized Role data.
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * Object is a label indicating the keyboard
              * accelerators for the parent.
              */
-            "ACCELERATOR_LABEL" = 1,
+            readonly "ACCELERATOR_LABEL": 1
             /**
              * Object is used to alert the user about something.
              */
-            "ALERT" = 2,
+            readonly "ALERT": 2
             /**
              * Object contains a dynamic or moving image of some
              * kind.
              */
-            "ANIMATION" = 3,
+            readonly "ANIMATION": 3
             /**
              * Object is a 2d directional indicator.
              */
-            "ARROW" = 4,
+            readonly "ARROW": 4
             /**
              * Object contains one or more dates, usually arranged
              * into a 2d list.
              */
-            "CALENDAR" = 5,
+            readonly "CALENDAR": 5
             /**
              * Object that can be drawn into and is used to trap
              * events.
              */
-            "CANVAS" = 6,
+            readonly "CANVAS": 6
             /**
              * A choice that can be checked or unchecked and
              * provides a separate indicator for the current state.
              */
-            "CHECK_BOX" = 7,
+            readonly "CHECK_BOX": 7
             /**
              * A menu item that behaves like a check box. See
              * @ATSPI_ROLE_CHECK_BOX.
              */
-            "CHECK_MENU_ITEM" = 8,
+            readonly "CHECK_MENU_ITEM": 8
             /**
              * A specialized dialog that lets the user choose a
              * color.
              */
-            "COLOR_CHOOSER" = 9,
+            readonly "COLOR_CHOOSER": 9
             /**
              * The header for a column of data.
              */
-            "COLUMN_HEADER" = 10,
+            readonly "COLUMN_HEADER": 10
             /**
              * A list of choices the user can select from.
              */
-            "COMBO_BOX" = 11,
+            readonly "COMBO_BOX": 11
             /**
              * An object which allows entry of a date.
              */
-            "DATE_EDITOR" = 12,
+            readonly "DATE_EDITOR": 12
             /**
              * An inconifed internal frame within a DESKTOP_FRAME.
              */
-            "DESKTOP_ICON" = 13,
+            readonly "DESKTOP_ICON": 13
             /**
              * A pane that supports internal frames and
              * iconified versions of those internal frames.
              */
-            "DESKTOP_FRAME" = 14,
+            readonly "DESKTOP_FRAME": 14
             /**
              * An object that allows a value to be changed via rotating a
              * visual element, or which displays a value via such a rotating element.
              */
-            "DIAL" = 15,
+            readonly "DIAL": 15
             /**
              * A top level window with title bar and a border.
              */
-            "DIALOG" = 16,
+            readonly "DIALOG": 16
             /**
              * A pane that allows the user to navigate through
              * and select the contents of a directory.
              */
-            "DIRECTORY_PANE" = 17,
+            readonly "DIRECTORY_PANE": 17
             /**
              * An object used for drawing custom user interface
              * elements.
              */
-            "DRAWING_AREA" = 18,
+            readonly "DRAWING_AREA": 18
             /**
              * A specialized dialog that displays the files in
              * the directory and lets the user select a file, browse a different
              * directory, or specify a filename.
              */
-            "FILE_CHOOSER" = 19,
+            readonly "FILE_CHOOSER": 19
             /**
              * A object that fills up space in a user interface.
              */
-            "FILLER" = 20,
+            readonly "FILLER": 20
             /**
              * Don't use, reserved for future use.
              */
-            "FOCUS_TRAVERSABLE" = 21,
+            readonly "FOCUS_TRAVERSABLE": 21
             /**
              * Allows selection of a display font.
              */
-            "FONT_CHOOSER" = 22,
+            readonly "FONT_CHOOSER": 22
             /**
              * A top level window with a title bar, border, menubar,
              * etc.
              */
-            "FRAME" = 23,
+            readonly "FRAME": 23
             /**
              * A pane that is guaranteed to be painted on top of
              * all panes beneath it.
              */
-            "GLASS_PANE" = 24,
+            readonly "GLASS_PANE": 24
             /**
              * A document container for HTML, whose children
              * represent the document content.
              */
-            "HTML_CONTAINER" = 25,
+            readonly "HTML_CONTAINER": 25
             /**
              * A small fixed size picture, typically used to decorate
              * components.
              */
-            "ICON" = 26,
+            readonly "ICON": 26
             /**
              * An image, typically static.
              */
-            "IMAGE" = 27,
+            readonly "IMAGE": 27
             /**
              * A frame-like object that is clipped by a desktop
              * pane.
              */
-            "INTERNAL_FRAME" = 28,
+            readonly "INTERNAL_FRAME": 28
             /**
              * For text views, see @ATSPI_ROLE_TEXT. For generic containers, see
              * @ATSPI_ROLE_PANEL. For objects whose role is not known by the implementor,
              * see @ATSPI_ROLE_UNKNOWN.
              * @since 2.16
              */
-            "LABEL" = 29,
+            readonly "LABEL": 29
             /**
              * A specialized pane that allows its children to be
              * drawn in layers, providing a form of stacking order.
              */
-            "LAYERED_PANE" = 30,
+            readonly "LAYERED_PANE": 30
             /**
              * An object that presents a list of objects to the user and
              * allows the user to select one or more of them.
              */
-            "LIST" = 31,
+            readonly "LIST": 31
             /**
              * An object that represents an element of a list.
              */
-            "LIST_ITEM" = 32,
+            readonly "LIST_ITEM": 32
             /**
              * An object usually found inside a menu bar that contains a
              * list of actions the user can choose from.
              */
-            "MENU" = 33,
+            readonly "MENU": 33
             /**
              * An object usually drawn at the top of the primary
              * dialog box of an application that contains a list of menus the user can
              * choose from.
              */
-            "MENU_BAR" = 34,
+            readonly "MENU_BAR": 34
             /**
              * An object usually contained in a menu that presents
              * an action the user can choose.
              */
-            "MENU_ITEM" = 35,
+            readonly "MENU_ITEM": 35
             /**
              * A specialized pane whose primary use is inside a
              * dialog.
              */
-            "OPTION_PANE" = 36,
+            readonly "OPTION_PANE": 36
             /**
              * An object that is a child of a page tab list.
              */
-            "PAGE_TAB" = 37,
+            readonly "PAGE_TAB": 37
             /**
              * An object that presents a series of panels (or
              * page tabs), one at a time,through some mechanism provided by the
              * object.
              */
-            "PAGE_TAB_LIST" = 38,
+            readonly "PAGE_TAB_LIST": 38
             /**
              * A generic container that is often used to group objects.
              */
-            "PANEL" = 39,
+            readonly "PANEL": 39
             /**
              * A text object uses for passwords, or other places
              * where the text content is not shown visibly to the user.
              */
-            "PASSWORD_TEXT" = 40,
+            readonly "PASSWORD_TEXT": 40
             /**
              * A temporary window that is usually used to offer the
              * user a list of choices, and then hides when the user selects one of those
              * choices.
              */
-            "POPUP_MENU" = 41,
+            readonly "POPUP_MENU": 41
             /**
              * An object used to indicate how much of a task has
              * been completed.
              */
-            "PROGRESS_BAR" = 42,
+            readonly "PROGRESS_BAR": 42
             /**
              * An object the user can manipulate to tell the
              * application to do something.
              */
-            "BUTTON" = 43,
+            readonly "BUTTON": 43
             /**
              * A specialized check box that will cause other
              * radio buttons in the same group to become unchecked when this one is
              * checked.
              */
-            "RADIO_BUTTON" = 44,
+            readonly "RADIO_BUTTON": 44
             /**
              * Object is both a menu item and a "radio button"
              * . See @ATSPI_ROLE_RADIO_BUTTON.
              */
-            "RADIO_MENU_ITEM" = 45,
+            readonly "RADIO_MENU_ITEM": 45
             /**
              * A specialized pane that has a glass pane and a
              * layered pane as its children.
              */
-            "ROOT_PANE" = 46,
+            readonly "ROOT_PANE": 46
             /**
              * The header for a row of data.
              */
-            "ROW_HEADER" = 47,
+            readonly "ROW_HEADER": 47
             /**
              * An object usually used to allow a user to
              * incrementally view a large amount of data by moving the bounds of a
              * viewport along a one-dimensional axis.
              */
-            "SCROLL_BAR" = 48,
+            readonly "SCROLL_BAR": 48
             /**
              * An object that allows a user to incrementally view
              * a large amount of information. @ATSPI_ROLE_SCROLL_PANE objects are usually
@@ -4703,65 +4487,65 @@ declare module "gi://Atspi?version=2.0" {
              * @ATSPI_RELATION_CONTROLLER_FOR and @ATSPI_RELATION_CONTROLLED_BY
              * reciprocal relations are set. See #atspi_get_relation_set.
              */
-            "SCROLL_PANE" = 49,
+            readonly "SCROLL_PANE": 49
             /**
              * An object usually contained in a menu to provide a
              * visible and logical separation of the contents in a menu.
              */
-            "SEPARATOR" = 50,
+            readonly "SEPARATOR": 50
             /**
              * An object that allows the user to select from a bounded
              * range.  Unlike @ATSPI_ROLE_SCROLL_BAR, @ATSPI_ROLE_SLIDER objects need not control
              * 'viewport'-like objects.
              */
-            "SLIDER" = 51,
+            readonly "SLIDER": 51
             /**
              * An object which allows one of a set of choices to
              * be selected, and which displays the current choice.
              */
-            "SPIN_BUTTON" = 52,
+            readonly "SPIN_BUTTON": 52
             /**
              * A specialized panel that presents two other panels
              * at the same time.
              */
-            "SPLIT_PANE" = 53,
+            readonly "SPLIT_PANE": 53
             /**
              * Object displays non-quantitative status information
              * (c.f. @ATSPI_ROLE_PROGRESS_BAR)
              */
-            "STATUS_BAR" = 54,
+            readonly "STATUS_BAR": 54
             /**
              * An object used to repesent information in terms of rows
              * and columns.
              */
-            "TABLE" = 55,
+            readonly "TABLE": 55
             /**
              * A 'cell' or discrete child within a Table. Note:
              * Table cells need not have @ATSPI_ROLE_TABLE_CELL, other
              * #AtspiRoleType values are valid as well.
              */
-            "TABLE_CELL" = 56,
+            readonly "TABLE_CELL": 56
             /**
              * An object which labels a particular column
              * in an #AtspiTable.
              */
-            "TABLE_COLUMN_HEADER" = 57,
+            readonly "TABLE_COLUMN_HEADER": 57
             /**
              * An object which labels a particular row in a
              * #AtspiTable. #AtspiTable rows and columns may also be labelled via the
              * @ATSPI_RELATION_LABEL_FOR/@ATSPI_RELATION_LABELLED_BY relationships.
              * See #atspi_get_relation_set.
              */
-            "TABLE_ROW_HEADER" = 58,
+            readonly "TABLE_ROW_HEADER": 58
             /**
              * Object allows menu to be removed from menubar
              * and shown in its own window.
              */
-            "TEAROFF_MENU_ITEM" = 59,
+            readonly "TEAROFF_MENU_ITEM": 59
             /**
              * An object that emulates a terminal.
              */
-            "TERMINAL" = 60,
+            readonly "TERMINAL": 60
             /**
              * An interactive widget that supports multiple lines of text
              * and optionally accepts user input, but whose purpose is not to solicit user
@@ -4771,89 +4555,89 @@ declare module "gi://Atspi?version=2.0" {
              * and @ATSPI_ROLE_PASSWORD_TEXT. For generic objects which display a brief amount
              * of textual information, see @ATSPI_ROLE_STATIC.
              */
-            "TEXT" = 61,
+            readonly "TEXT": 61
             /**
              * A specialized push button that can be checked or
              * unchecked, but does not procide a separate indicator for the current
              * state.
              */
-            "TOGGLE_BUTTON" = 62,
+            readonly "TOGGLE_BUTTON": 62
             /**
              * A bar or palette usually composed of push buttons or
              * toggle buttons.
              */
-            "TOOL_BAR" = 63,
+            readonly "TOOL_BAR": 63
             /**
              * An object that provides information about another
              * object.
              */
-            "TOOL_TIP" = 64,
+            readonly "TOOL_TIP": 64
             /**
              * An object used to repsent hierarchical information to the
              * user.
              */
-            "TREE" = 65,
+            readonly "TREE": 65
             /**
              * An object that presents both tabular and
              * hierarchical info to the user.
              */
-            "TREE_TABLE" = 66,
+            readonly "TREE_TABLE": 66
             /**
              * The object contains some #AtspiAccessible information,
              * but its role is not known.
              */
-            "UNKNOWN" = 67,
+            readonly "UNKNOWN": 67
             /**
              * An object usually used in a scroll pane, or to
              * otherwise clip a larger object or content renderer to a specific
              * onscreen viewport.
              */
-            "VIEWPORT" = 68,
+            readonly "VIEWPORT": 68
             /**
              * A top level window with no title or border.
              */
-            "WINDOW" = 69,
+            readonly "WINDOW": 69
             /**
              * means that the role for this item is known, but not
              * included in the core enumeration. Deprecated since 2.24.
              */
-            "EXTENDED" = 70,
+            readonly "EXTENDED": 70
             /**
              * An object that serves as a document header.
              */
-            "HEADER" = 71,
+            readonly "HEADER": 71
             /**
              * An object that serves as a document footer.
              */
-            "FOOTER" = 72,
+            readonly "FOOTER": 72
             /**
              * An object which is contains a single paragraph of
              * text content. See also @ATSPI_ROLE_TEXT.
              */
-            "PARAGRAPH" = 73,
+            readonly "PARAGRAPH": 73
             /**
              * An object which describes margins and tab stops, etc.
              *    for text objects which it controls (should have
              * @ATSPI_RELATION_CONTROLLER_FOR relation to such).
              */
-            "RULER" = 74,
+            readonly "RULER": 74
             /**
              * An object corresponding to the toplevel accessible
              * of an application, which may contain @ATSPI_ROLE_FRAME objects or other
              * accessible objects. Children of objects with the #ATSPI_ROLE_DESKTOP_FRAME role are generally
              * @ATSPI_ROLE_APPLICATION objects.
              */
-            "APPLICATION" = 75,
+            readonly "APPLICATION": 75
             /**
              * The object is a dialog or list containing items
              * for insertion into an entry widget, for instance a list of words for
              * completion of a text entry.
              */
-            "AUTOCOMPLETE" = 76,
+            readonly "AUTOCOMPLETE": 76
             /**
              * The object is an editable text object in a toolbar.
              */
-            "EDITBAR" = 77,
+            readonly "EDITBAR": 77
             /**
              * The object is an embedded component container.  This
              * role is a "grouping" hint that the contained objects share a context
@@ -4861,7 +4645,7 @@ declare module "gi://Atspi?version=2.0" {
              * embedded. In particular, it is used for some kinds of document embedding,
              * and for embedding of out-of-process component, "panel applets", etc.
              */
-            "EMBEDDED" = 78,
+            readonly "EMBEDDED": 78
             /**
              * The object is a component whose textual content may be
              * entered or modified by the user, provided @ATSPI_STATE_EDITABLE is present.
@@ -4869,7 +4653,7 @@ declare module "gi://Atspi?version=2.0" {
              * not present) implies a read-only 'text field' in a form, as opposed to a
              * title, label, or caption.
              */
-            "ENTRY" = 79,
+            readonly "ENTRY": 79
             /**
              * The object is a graphical depiction of quantitative data.
              * It may contain multiple subelements whose attributes and/or description
@@ -4878,13 +4662,13 @@ declare module "gi://Atspi?version=2.0" {
              * particularly important in interpreting objects of this type, as is the
              * accessible description property. See @ATSPI_ROLE_CAPTION.
              */
-            "CHART" = 80,
+            readonly "CHART": 80
             /**
              * The object contains descriptive information, usually
              * textual, about another user interface element such as a table, chart, or
              * image.
              */
-            "CAPTION" = 81,
+            readonly "CAPTION": 81
             /**
              * The object is a visual frame or container which
              * contains a view of document content. #AtspiDocument frames may occur within
@@ -4893,19 +4677,19 @@ declare module "gi://Atspi?version=2.0" {
              * ATSPI_ROLE_DOCUMENT_FRAME:  Either this object, or a singleton descendant,
              * should implement the #AtspiDocument interface.
              */
-            "DOCUMENT_FRAME" = 82,
+            readonly "DOCUMENT_FRAME": 82
             /**
              * The object serves as a heading for content which
              * follows it in a document. The 'heading level' of the heading, if
              * available,  may be obtained by querying the object's attributes.
              */
-            "HEADING" = 83,
+            readonly "HEADING": 83
             /**
              * The object is a containing instance which encapsulates a
              * page of information. @ATSPI_ROLE_PAGE is used in documents and content which
              * support a paginated navigation model.
              */
-            "PAGE" = 84,
+            readonly "PAGE": 84
             /**
              * The object is a containing instance of document content
              * which constitutes a particular 'logical' section of the document.  The
@@ -4913,13 +4697,13 @@ declare module "gi://Atspi?version=2.0" {
              * itself, may be obtained by querying the object's attributes.  Sections
              * may be nested.
              */
-            "SECTION" = 85,
+            readonly "SECTION": 85
             /**
              * The object is redundant with another object in
              * the hierarchy, and is exposed for purely technical reasons.  Objects of
              * this role should be ignored by clients, if they are encountered at all.
              */
-            "REDUNDANT_OBJECT" = 86,
+            readonly "REDUNDANT_OBJECT": 86
             /**
              * The object is a containing instance of document content
              * which has within it components with which the user can interact in order
@@ -4933,7 +4717,7 @@ declare module "gi://Atspi?version=2.0" {
              * associated with the current document, rather than the current foreground
              * application or viewer instance.
              */
-            "FORM" = 87,
+            readonly "FORM": 87
             /**
              * The object is a hypertext anchor, i.e. a "link" in a
              * hypertext document.  Such objects are distinct from 'inline'       content
@@ -4941,126 +4725,126 @@ declare module "gi://Atspi?version=2.0" {
              * the range/location within a text object where an inline or embedded object
              * lies.
              */
-            "LINK" = 88,
+            readonly "LINK": 88
             /**
              * The object is a window or similar viewport
              * which is used to allow composition or input of a 'complex character',
              * in other words it is an "input method window".
              */
-            "INPUT_METHOD_WINDOW" = 89,
+            readonly "INPUT_METHOD_WINDOW": 89
             /**
              * A row in a table.
              */
-            "TABLE_ROW" = 90,
+            readonly "TABLE_ROW": 90
             /**
              * An object that represents an element of a tree.
              */
-            "TREE_ITEM" = 91,
+            readonly "TREE_ITEM": 91
             /**
              * A document frame which contains a
              * spreadsheet.
              */
-            "DOCUMENT_SPREADSHEET" = 92,
+            readonly "DOCUMENT_SPREADSHEET": 92
             /**
              * A document frame which contains a
              * presentation or slide content.
              */
-            "DOCUMENT_PRESENTATION" = 93,
+            readonly "DOCUMENT_PRESENTATION": 93
             /**
              * A document frame which contains textual content,
              * such as found in a word processing
              * application.
              */
-            "DOCUMENT_TEXT" = 94,
+            readonly "DOCUMENT_TEXT": 94
             /**
              * A document frame which contains HTML or other
              * markup suitable for display in a web browser.
              */
-            "DOCUMENT_WEB" = 95,
+            readonly "DOCUMENT_WEB": 95
             /**
              * A document frame which contains email content
              * to be displayed or composed either in plain text or
              * HTML.
              */
-            "DOCUMENT_EMAIL" = 96,
+            readonly "DOCUMENT_EMAIL": 96
             /**
              * An object found within a document and designed to
              * present a comment, note, or other annotation. In some cases, this object
              * might not be visible until activated.
              */
-            "COMMENT" = 97,
+            readonly "COMMENT": 97
             /**
              * A non-collapsible list of choices the user can
              * select from.
              */
-            "LIST_BOX" = 98,
+            readonly "LIST_BOX": 98
             /**
              * A group of related widgets. This group typically has
              * a label.
              */
-            "GROUPING" = 99,
+            readonly "GROUPING": 99
             /**
              * An image map object. Usually a graphic with multiple
              * hotspots, where each hotspot can be activated resulting in the loading of
              * another document or section of a document.
              */
-            "IMAGE_MAP" = 100,
+            readonly "IMAGE_MAP": 100
             /**
              * A transitory object designed to present a
              * message to the user, typically at the desktop level rather than inside a
              * particular application.
              */
-            "NOTIFICATION" = 101,
+            readonly "NOTIFICATION": 101
             /**
              * An object designed to present a message to the user
              * within an existing window.
              */
-            "INFO_BAR" = 102,
+            readonly "INFO_BAR": 102
             /**
              * A bar that serves as a level indicator to, for instance, show the strength
              * of a password or the state of a battery.
              * @since 2.8
              */
-            "LEVEL_BAR" = 103,
+            readonly "LEVEL_BAR": 103
             /**
              * A bar that serves as the title of a window or a dialog.
              * @since 2.12
              */
-            "TITLE_BAR" = 104,
+            readonly "TITLE_BAR": 104
             /**
              * An object which contains a text section that is quoted from another source.
              * @since 2.12
              */
-            "BLOCK_QUOTE" = 105,
+            readonly "BLOCK_QUOTE": 105
             /**
              * An object which represents an audio element.
              * @since 2.12
              */
-            "AUDIO" = 106,
+            readonly "AUDIO": 106
             /**
              * An object which represents a video element.
              * @since 2.12
              */
-            "VIDEO" = 107,
+            readonly "VIDEO": 107
             /**
              * A definition of a term or concept.
              * @since 2.12
              */
-            "DEFINITION" = 108,
+            readonly "DEFINITION": 108
             /**
              * A section of a page that consists of a composition that forms an
              * independent part of a document, page, or site. Examples: A blog entry, a
              * news story, a forum post.
              * @since 2.12
              */
-            "ARTICLE" = 109,
+            readonly "ARTICLE": 109
             /**
              * A region of a web page intended as a navigational landmark. This is
              * designed to allow Assistive Technologies to provide quick navigation among
              * key regions within a document.
              * @since 2.12
              */
-            "LANDMARK" = 110,
+            readonly "LANDMARK": 110
             /**
              * A text widget or container holding log content, such as chat history and
              * error logs. In this role there is a relationship between the arrival of new
@@ -5069,7 +4853,7 @@ declare module "gi://Atspi?version=2.0" {
              * arbitrary points.
              * @since 2.12
              */
-            "LOG" = 111,
+            readonly "LOG": 111
             /**
              * A container where non-essential information changes frequently. Common
              * usages of marquee include stock tickers and ad banners. The primary
@@ -5077,25 +4861,25 @@ declare module "gi://Atspi?version=2.0" {
              * meaningful order or sequence of important content changes.
              * @since 2.12
              */
-            "MARQUEE" = 112,
+            readonly "MARQUEE": 112
             /**
              * A text widget or container that holds a mathematical expression.
              * @since 2.12
              */
-            "MATH" = 113,
+            readonly "MATH": 113
             /**
              * A widget whose purpose is to display a rating,  such as the number of stars
              * associated with a song in a media player. Objects of this role should also
              * implement AtspiValue.
              * @since 2.12
              */
-            "RATING" = 114,
+            readonly "RATING": 114
             /**
              * An object containing a numerical counter which indicates an amount of
              * elapsed time from a start point, or the time remaining until an end point.
              * @since 2.12
              */
-            "TIMER" = 115,
+            readonly "TIMER": 115
             /**
              * A generic non-container object whose purpose is to display
              *  a brief amount of information to the user and whose role is known by the
@@ -5108,28 +4892,28 @@ declare module "gi://Atspi?version=2.0" {
              *  displayed information, as a general rule, should be exposed through the
              *  accessible name of the object. For labels which describe another widget, see
              */
-            "STATIC" = 116,
+            readonly "STATIC": 116
             /**
              * An object that represents a mathematical fraction.
              * @since 2.16
              */
-            "MATH_FRACTION" = 117,
+            readonly "MATH_FRACTION": 117
             /**
              * An object that represents a mathematical expression displayed with a
              * radical.
              * @since 2.16
              */
-            "MATH_ROOT" = 118,
+            readonly "MATH_ROOT": 118
             /**
              * An object that contains text that is displayed as a subscript.
              * @since 2.16
              */
-            "SUBSCRIPT" = 119,
+            readonly "SUBSCRIPT": 119
             /**
              * An object that contains text that is displayed as a superscript.
              * @since 2.16
              */
-            "SUPERSCRIPT" = 120,
+            readonly "SUPERSCRIPT": 120
             /**
              * An object that represents a list of term-value groups. A term-value group
              * represents an individual description and consist of one or more names
@@ -5138,34 +4922,34 @@ declare module "gi://Atspi?version=2.0" {
              * than one group with the same term name.
              * @since 2.26
              */
-            "DESCRIPTION_LIST" = 121,
+            readonly "DESCRIPTION_LIST": 121
             /**
              * An object that represents a term or phrase with a corresponding definition.
              * @since 2.26
              */
-            "DESCRIPTION_TERM" = 122,
+            readonly "DESCRIPTION_TERM": 122
             /**
              * An object that represents the description,  definition, or value of a term.
              * @since 2.26
              */
-            "DESCRIPTION_VALUE" = 123,
+            readonly "DESCRIPTION_VALUE": 123
             /**
              * An object that contains the text of a footnote.
              * @since 2.26
              */
-            "FOOTNOTE" = 124,
+            readonly "FOOTNOTE": 124
             /**
              * Content previously deleted or proposed to be deleted, e.g. in revision
              * history or a content view providing suggestions from reviewers.
              * @since 2.34
              */
-            "CONTENT_DELETION" = 125,
+            readonly "CONTENT_DELETION": 125
             /**
              * Content previously inserted or proposed to be inserted, e.g. in revision
              * history or a content view providing suggestions from reviewers.
              * @since 2.34
              */
-            "CONTENT_INSERTION" = 126,
+            readonly "CONTENT_INSERTION": 126
             /**
              * A run of content that is marked or highlighted, such as for reference
              * purposes, or to call it out as having a special purpose. If the marked
@@ -5176,7 +4960,7 @@ declare module "gi://Atspi?version=2.0" {
              * to point back to the mark.
              * @since 2.36
              */
-            "MARK" = 127,
+            readonly "MARK": 127
             /**
              * A container for content that is called out as a proposed change from the
              * current version of the document, such as by a reviewer of the content. An
@@ -5185,98 +4969,100 @@ declare module "gi://Atspi?version=2.0" {
              * order, to indicate what the actual change is.
              * @since 2.36
              */
-            "SUGGESTION" = 128,
+            readonly "SUGGESTION": 128
             /**
              * A specialized push button to open a menu.
              * @since 2.46
              */
-            "PUSH_BUTTON_MENU" = 129,
+            readonly "PUSH_BUTTON_MENU": 129
             /**
              * A switch that can be toggled on/off.
              * @since 2.56
              */
-            "SWITCH" = 130,
+            readonly "SWITCH": 130
             /**
              * Not a valid role, used for finding end of
              * enumeration.
              */
-            "LAST_DEFINED" = 131,
+            readonly "LAST_DEFINED": 131
             /**
              */
-            "PUSH_BUTTON" = 43,
+            readonly "PUSH_BUTTON": 43
         }
-        /**
+        type Role = RoleEnum[Exclude<keyof RoleEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used by interface #AtspiAccessible to specify the role
+             * of an #AtspiAccessible object.
+             */
+            Role: RoleEnum
+            /**
          * Gets the localized description string describing the #AtspiRole @role.
          * @param role an #AtspiRole object to query.
          * @returns the localized string describing the AtspiRole
          */
-        function get_localized_name(role: Role): string
-        /**
+        get_localized_name: (role: Role) => string
+            /**
          * Gets a localizable string that indicates the name of an #AtspiRole.
          * @param role an #AtspiRole object to query.
          * @returns a localizable string name for an #AtspiRole enumerated type.
          */
-        function get_name(role: Role): string
-        
-        namespace ScrollType {
-            const $gtype: GObject.GType<ScrollType>
+        get_name: (role: Role) => string
         }
-
-        /**
-         * Enumeration used by interface #AtspiAccessible to specify where an
-         * #AtspiAccessible object should be placed on the screen when using scroll_to.
-         */
-        enum ScrollType {
+        
+        interface ScrollTypeEnum {
+            readonly $gtype: GObject.GType<ScrollType>
             /**
              * Scroll the object to the top left corner of the
              * window.
              */
-            "TOP_LEFT" = 0,
+            readonly "TOP_LEFT": 0
             /**
              * Scroll the object to the bottom right corner of
              * the window.
              */
-            "BOTTOM_RIGHT" = 1,
+            readonly "BOTTOM_RIGHT": 1
             /**
              * Scroll the object to the top edge of the window.
              */
-            "TOP_EDGE" = 2,
+            readonly "TOP_EDGE": 2
             /**
              * Scroll the object to the bottom edge of the
              * window.
              */
-            "BOTTOM_EDGE" = 3,
+            readonly "BOTTOM_EDGE": 3
             /**
              * Scroll the object to the left edge of the
              * window.
              */
-            "LEFT_EDGE" = 4,
+            readonly "LEFT_EDGE": 4
             /**
              * Scroll the object to the right edge of the
              * window.
              */
-            "RIGHT_EDGE" = 5,
+            readonly "RIGHT_EDGE": 5
             /**
              * Scroll the object to application-dependent position
              * on the window.
              */
-            "ANYWHERE" = 6,
+            readonly "ANYWHERE": 6
+        }
+        type ScrollType = ScrollTypeEnum[Exclude<keyof ScrollTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used by interface #AtspiAccessible to specify where an
+             * #AtspiAccessible object should be placed on the screen when using scroll_to.
+             */
+            ScrollType: ScrollTypeEnum
         }
         
-        namespace StateType {
-            const $gtype: GObject.GType<StateType>
-        }
-
-        /**
-         * Enumeration used by various interfaces indicating every possible state
-         * an #AtspiAccessible object can assume.
-         */
-        enum StateType {
+        interface StateTypeEnum {
+            readonly $gtype: GObject.GType<StateType>
             /**
              * Indicates an invalid state - probably an error
              * condition.
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * Indicates a window is currently the active window, or
              * an object is the active subelement within a container or table.
@@ -5287,35 +5073,35 @@ declare module "gi://Atspi?version=2.0" {
              * focusable and not selectable is the currently-active item within its
              * parent container.
              */
-            "ACTIVE" = 1,
+            readonly "ACTIVE": 1
             /**
              * Indicates that the object is armed.
              */
-            "ARMED" = 2,
+            readonly "ARMED": 2
             /**
              * Indicates the current object is busy, i.e. onscreen
              * representation is in the process of changing, or the object is
              * temporarily unavailable for interaction due to activity already in progress.
              */
-            "BUSY" = 3,
+            readonly "BUSY": 3
             /**
              * Indicates this object is currently checked.
              */
-            "CHECKED" = 4,
+            readonly "CHECKED": 4
             /**
              * Indicates this object is collapsed.
              */
-            "COLLAPSED" = 5,
+            readonly "COLLAPSED": 5
             /**
              * Indicates that this object no longer has a valid
              * backing widget (for instance, if its peer object has been destroyed).
              */
-            "DEFUNCT" = 6,
+            readonly "DEFUNCT": 6
             /**
              * Indicates the user can change the contents of this
              * object.
              */
-            "EDITABLE" = 7,
+            readonly "EDITABLE": 7
             /**
              * Indicates that this object is enabled, i.e. that it
              * currently reflects some application state. Objects that are "greyed out"
@@ -5323,85 +5109,85 @@ declare module "gi://Atspi?version=2.0" {
              * user interaction cannot cause them to acquire @ATSPI_STATE_ENABLED.
              * See @ATSPI_STATE_SENSITIVE.
              */
-            "ENABLED" = 8,
+            readonly "ENABLED": 8
             /**
              * Indicates this object allows progressive
              * disclosure of its children.
              */
-            "EXPANDABLE" = 9,
+            readonly "EXPANDABLE": 9
             /**
              * Indicates this object is expanded.
              */
-            "EXPANDED" = 10,
+            readonly "EXPANDED": 10
             /**
              * Indicates this object can accept keyboard focus,
              * which means all events resulting from typing on the keyboard will
              * normally be passed to it when it has focus.
              */
-            "FOCUSABLE" = 11,
+            readonly "FOCUSABLE": 11
             /**
              * Indicates this object currently has the keyboard
              * focus.
              */
-            "FOCUSED" = 12,
+            readonly "FOCUSED": 12
             /**
              * Indicates that the object has an associated
              * tooltip.
              */
-            "HAS_TOOLTIP" = 13,
+            readonly "HAS_TOOLTIP": 13
             /**
              * Indicates the orientation of this object is
              * horizontal.
              */
-            "HORIZONTAL" = 14,
+            readonly "HORIZONTAL": 14
             /**
              * Indicates this object is minimized and is
              * represented only by an icon.
              */
-            "ICONIFIED" = 15,
+            readonly "ICONIFIED": 15
             /**
              * Indicates something must be done with this object
              * before the user can interact with an object in a different window.
              */
-            "MODAL" = 16,
+            readonly "MODAL": 16
             /**
              * Indicates this (text) object can contain multiple
              * lines of text.
              */
-            "MULTI_LINE" = 17,
+            readonly "MULTI_LINE": 17
             /**
              * Indicates this object allows more than one of
              * its children to be selected at the same time, or in the case of text
              * objects, that the object supports non-contiguous text selections.
              */
-            "MULTISELECTABLE" = 18,
+            readonly "MULTISELECTABLE": 18
             /**
              * Indicates this object paints every pixel within its
              * rectangular region. It also indicates an alpha value of unity, if it
              * supports alpha blending.
              */
-            "OPAQUE" = 19,
+            readonly "OPAQUE": 19
             /**
              * Indicates this object is currently pressed.
              */
-            "PRESSED" = 20,
+            readonly "PRESSED": 20
             /**
              * Indicates the size of this object's size is not
              * fixed.
              */
-            "RESIZABLE" = 21,
+            readonly "RESIZABLE": 21
             /**
              * Indicates this object is the child of an object
              * that allows its children to be selected and that this child is one of
              * those children that can be selected.
              */
-            "SELECTABLE" = 22,
+            readonly "SELECTABLE": 22
             /**
              * Indicates this object is the child of an object that
              * allows its children to be selected and that this child is one of those
              * children that has been selected.
              */
-            "SELECTED" = 23,
+            readonly "SELECTED": 23
             /**
              * Indicates this object is sensitive, e.g. to user
              * interaction. @ATSPI_STATE_SENSITIVE usually accompanies.
@@ -5413,36 +5199,36 @@ declare module "gi://Atspi?version=2.0" {
              * current state is ambiguous or undefined. See @ATSPI_STATE_ENABLED,
              * @ATSPI_STATE_INDETERMINATE.
              */
-            "SENSITIVE" = 24,
+            readonly "SENSITIVE": 24
             /**
              * Indicates this object, the object's parent, the
              * object's parent's parent, and so on, are all 'shown' to the end-user,
              * i.e. subject to "exposure" if blocking or obscuring objects do not
              * interpose between this object and the top of the window stack.
              */
-            "SHOWING" = 25,
+            readonly "SHOWING": 25
             /**
              * Indicates this (text) object can contain only a
              * single line of text.
              */
-            "SINGLE_LINE" = 26,
+            readonly "SINGLE_LINE": 26
             /**
              * Indicates that the information returned for this object
              * may no longer be synchronized with the application state.  This can occur
              * if the object has @ATSPI_STATE_TRANSIENT, and can also occur towards the
              * end of the object peer's lifecycle.
              */
-            "STALE" = 27,
+            readonly "STALE": 27
             /**
              * Indicates this object is transient.
              */
-            "TRANSIENT" = 28,
+            readonly "TRANSIENT": 28
             /**
              * Indicates the orientation of this object is vertical;
              * for example this state may appear on such objects as scrollbars, text
              * objects (with vertical text flow), separators, etc.
              */
-            "VERTICAL" = 29,
+            readonly "VERTICAL": 29
             /**
              * Indicates this object is visible, e.g. has been
              * explicitly marked for exposure to the user. @ATSPI_STATE_VISIBLE is no
@@ -5454,7 +5240,7 @@ declare module "gi://Atspi?version=2.0" {
              * @ATSPI_STATE_VISIBLE and @ATSPI_STATE_SHOWING is
              * semantically equivalent to saying that an object is 'hidden'.
              */
-            "VISIBLE" = 30,
+            readonly "VISIBLE": 30
             /**
              * Indicates that "active-descendant-changed"
              * event is sent when children become 'active' (i.e. are selected or
@@ -5467,7 +5253,7 @@ declare module "gi://Atspi?version=2.0" {
              * visibility changes and activation of their contained child objects, without
              * the client having previously requested references to those children.
              */
-            "MANAGES_DESCENDANTS" = 31,
+            readonly "MANAGES_DESCENDANTS": 31
             /**
              * Indicates that a check box or other boolean
              * indicator is in a state other than checked or not checked.  This
@@ -5481,18 +5267,18 @@ declare module "gi://Atspi?version=2.0" {
              * @ATSPI_STATE_INDETERMINATE and a corresponding state-changed event will be
              * fired.
              */
-            "INDETERMINATE" = 32,
+            readonly "INDETERMINATE": 32
             /**
              * Indicates that user interaction with this object is
              * 'required' from the user, for instance before completing the
              * processing of a form.
              */
-            "REQUIRED" = 33,
+            readonly "REQUIRED": 33
             /**
              * Indicates that an object's onscreen content
              * is truncated, e.g. a text value in a spreadsheet cell.
              */
-            "TRUNCATED" = 34,
+            readonly "TRUNCATED": 34
             /**
              * Indicates this object's visual representation is
              * dynamic, not static. This state may be applied to an object during an
@@ -5503,13 +5289,13 @@ declare module "gi://Atspi?version=2.0" {
              * definitive evidence that the object's visual representation is
              * static; this state is advisory.
              */
-            "ANIMATED" = 35,
+            readonly "ANIMATED": 35
             /**
              * This object has indicated an error condition
              * due to failure of input validation.  For instance, a form control may
              * acquire this state in response to invalid or malformed user input.
              */
-            "INVALID_ENTRY" = 36,
+            readonly "INVALID_ENTRY": 36
             /**
              * This state indicates that the object
              * in question implements some form of typeahead or
@@ -5522,7 +5308,7 @@ declare module "gi://Atspi?version=2.0" {
              * completion of the data in the input field, in which case
              * these input events may trigger text-changed events from the source.
              */
-            "SUPPORTS_AUTOCOMPLETION" = 37,
+            readonly "SUPPORTS_AUTOCOMPLETION": 37
             /**
              * This state indicates that the object in
              * question supports text selection. It should only be exposed on objects
@@ -5531,26 +5317,26 @@ declare module "gi://Atspi?version=2.0" {
              * selectable child of an object which implements #AtspiSelection. While
              * similar, text selection and subelement selection are distinct operations.
              */
-            "SELECTABLE_TEXT" = 38,
+            readonly "SELECTABLE_TEXT": 38
             /**
              * This state indicates that the object in question is
              * the 'default' interaction object in a dialog, i.e. the one that gets
              * activated if the user presses "Enter" when the dialog is initially
              * posted.
              */
-            "IS_DEFAULT" = 39,
+            readonly "IS_DEFAULT": 39
             /**
              * This state indicates that the object (typically a
              * hyperlink) has already been activated or invoked, with the result that
              * some backing data has been downloaded or rendered.
              */
-            "VISITED" = 40,
+            readonly "VISITED": 40
             /**
              * Indicates this object has the potential to be checked, such as a checkbox
              * or toggle-able table cell.
              * @since 2.12
              */
-            "CHECKABLE" = 41,
+            readonly "CHECKABLE": 41
             /**
              * Indicates that the object has a popup context menu or sub-level menu
              * which may or may not be showing. This means that activation renders
@@ -5558,45 +5344,42 @@ declare module "gi://Atspi?version=2.0" {
              * popups in this context.
              * @since 2.12
              */
-            "HAS_POPUP" = 42,
+            readonly "HAS_POPUP": 42
             /**
              * Indicates that an object which is ENABLED and SENSITIVE has a value
              * which can be read, but not modified, by the user.
              * @since 2.16
              */
-            "READ_ONLY" = 43,
+            readonly "READ_ONLY": 43
             /**
              * This value of the enumeration should not be used
              * as a parameter, it indicates the number of items in the #AtspiStateType
              * enumeration.
              */
-            "LAST_DEFINED" = 44,
+            readonly "LAST_DEFINED": 44
+        }
+        type StateType = StateTypeEnum[Exclude<keyof StateTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used by various interfaces indicating every possible state
+             * an #AtspiAccessible object can assume.
+             */
+            StateType: StateTypeEnum
         }
         
-        namespace TextBoundaryType {
-            const $gtype: GObject.GType<TextBoundaryType>
-        }
-
-        /**
-         * Specifies the boundary conditions determining a run of text as returned from
-         * #atspi_text_get_text_at_offset, #atspi_text_get_text_after_offset, and
-         * #atspi_text_get_text_before_offset.
-         *
-         * This enumerationis deprecated since 2.9.90 and should not be used. Use
-         * AtspiTextGranularity with #atspi_text_get_string_at_offset instead.
-         */
-        enum TextBoundaryType {
+        interface TextBoundaryTypeEnum {
+            readonly $gtype: GObject.GType<TextBoundaryType>
             /**
              * An #AtspiText instance is bounded by this
              * character only. Start and end offsets differ by one, by definition,
              * for this value.
              */
-            "CHAR" = 0,
+            readonly "CHAR": 0
             /**
              * Boundary condition is start of a word; i.e.
              * range is from start of one word to the start of another word.
              */
-            "WORD_START" = 1,
+            readonly "WORD_START": 1
             /**
              * Boundary condition is the end of a word; i.e.
              * range is from the end of one word to the end of another. Some locales
@@ -5605,7 +5388,7 @@ declare module "gi://Atspi?version=2.0" {
              * In these cases, characters may be returned in lieu of multi-character
              * substrings.
              */
-            "WORD_END" = 2,
+            readonly "WORD_END": 2
             /**
              * Boundary condition is start of a
              * sentence, as determined by the application. Some locales or
@@ -5613,7 +5396,7 @@ declare module "gi://Atspi?version=2.0" {
              * boundary type can not always be honored. Some locales will return lines
              * of text instead of grammatical sentences.
              */
-            "SENTENCE_START" = 3,
+            readonly "SENTENCE_START": 3
             /**
              * Boundary condition is end of a sentence,
              * as determined by the application, including the sentence-delimiting
@@ -5622,207 +5405,211 @@ declare module "gi://Atspi?version=2.0" {
              * always be honored. Some locales will return lines of text instead of
              * grammatical sentences.
              */
-            "SENTENCE_END" = 4,
+            readonly "SENTENCE_END": 4
             /**
              * Boundary condition is the start of a line;
              * i.e. range is from start of one line to the start of another.  This
              * generally means that an end-of-line character will appear at the end of
              * the range.
              */
-            "LINE_START" = 5,
+            readonly "LINE_START": 5
             /**
              * Boundary condition is the end of a line; i.e.
              * range is from start of one line to the start of another.  This generally
              * means that an end-of-line character will be the first character of the
              * range.
              */
-            "LINE_END" = 6,
+            readonly "LINE_END": 6
+        }
+        type TextBoundaryType = TextBoundaryTypeEnum[Exclude<keyof TextBoundaryTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the boundary conditions determining a run of text as returned from
+             * #atspi_text_get_text_at_offset, #atspi_text_get_text_after_offset, and
+             * #atspi_text_get_text_before_offset.
+             *
+             * This enumerationis deprecated since 2.9.90 and should not be used. Use
+             * AtspiTextGranularity with #atspi_text_get_string_at_offset instead.
+             */
+            TextBoundaryType: TextBoundaryTypeEnum
         }
         
-        namespace TextClipType {
-            const $gtype: GObject.GType<TextClipType>
-        }
-
-        /**
-         * Enumeration used by interface #AtspiText to indicate
-         * how to treat characters intersecting bounding boxes.
-         */
-        enum TextClipType {
+        interface TextClipTypeEnum {
+            readonly $gtype: GObject.GType<TextClipType>
             /**
              * No characters/glyphs are omitted.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Characters/glyphs clipped by the minimum coordinate
              * are omitted.
              */
-            "MIN" = 1,
+            readonly "MIN": 1
             /**
              * Characters/glyphs which intersect the maximum
              * coordinate are omitted.
              */
-            "MAX" = 2,
+            readonly "MAX": 2
             /**
              * Only glyphs falling entirely within the region
              * bounded by min and max are retained.
              */
-            "BOTH" = 3,
+            readonly "BOTH": 3
+        }
+        type TextClipType = TextClipTypeEnum[Exclude<keyof TextClipTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration used by interface #AtspiText to indicate
+             * how to treat characters intersecting bounding boxes.
+             */
+            TextClipType: TextClipTypeEnum
         }
         
-        namespace TextGranularity {
-            const $gtype: GObject.GType<TextGranularity>
-        }
-
-        /**
-         * Text granularity types used for specifying the granularity of the region of
-         * text we are interested in.
-         */
-        enum TextGranularity {
+        interface TextGranularityEnum {
+            readonly $gtype: GObject.GType<TextGranularity>
             /**
              * Granularity is defined by the boundaries between characters
              * (including non-printing characters)
              */
-            "CHAR" = 0,
+            readonly "CHAR": 0
             /**
              * Granularity is defined by the boundaries of a word,
              * starting at the beginning of the current word and finishing at the beginning of
              * the following one, if present.
              */
-            "WORD" = 1,
+            readonly "WORD": 1
             /**
              * Granularity is defined by the boundaries of a sentence,
              * starting at the beginning of the current sentence and finishing at the beginning of
              * the following one, if present.
              */
-            "SENTENCE" = 2,
+            readonly "SENTENCE": 2
             /**
              * Granularity is defined by the boundaries of a line,
              * starting at the beginning of the current line and finishing at the beginning of
              * the following one, if present.
              */
-            "LINE" = 3,
+            readonly "LINE": 3
             /**
              * Granularity is defined by the boundaries of a paragraph,
              * starting at the beginning of the current paragraph and finishing at the beginning of
              * the following one, if present.
              */
-            "PARAGRAPH" = 4,
+            readonly "PARAGRAPH": 4
+        }
+        type TextGranularity = TextGranularityEnum[Exclude<keyof TextGranularityEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Text granularity types used for specifying the granularity of the region of
+             * text we are interested in.
+             */
+            TextGranularity: TextGranularityEnum
         }
         
-        namespace Cache {
-            const $gtype: GObject.GType<Cache>
+        interface CacheBitfield {
+            readonly $gtype: GObject.GType<Cache>
+            /**
+             */
+            readonly "NONE": 0
+            /**
+             */
+            readonly "PARENT": 1
+            /**
+             */
+            readonly "CHILDREN": 2
+            /**
+             */
+            readonly "NAME": 4
+            /**
+             */
+            readonly "DESCRIPTION": 8
+            /**
+             */
+            readonly "STATES": 16
+            /**
+             */
+            readonly "ROLE": 32
+            /**
+             */
+            readonly "INTERFACES": 64
+            /**
+             */
+            readonly "ATTRIBUTES": 128
+            /**
+             */
+            readonly "ALL": 1073741823
+            /**
+             */
+            readonly "DEFAULT": 127
+            /**
+             */
+            readonly "UNDEFINED": 1073741824
         }
-
-        /**
-         */
-        enum Cache {
+        type Cache = number
+        interface $Exports {
             /**
              */
-            "NONE" = 0,
-            /**
-             */
-            "PARENT" = 1,
-            /**
-             */
-            "CHILDREN" = 2,
-            /**
-             */
-            "NAME" = 4,
-            /**
-             */
-            "DESCRIPTION" = 8,
-            /**
-             */
-            "STATES" = 16,
-            /**
-             */
-            "ROLE" = 32,
-            /**
-             */
-            "INTERFACES" = 64,
-            /**
-             */
-            "ATTRIBUTES" = 128,
-            /**
-             */
-            "ALL" = 1073741823,
-            /**
-             */
-            "DEFAULT" = 127,
-            /**
-             */
-            "UNDEFINED" = 1073741824,
+            Cache: CacheBitfield
         }
         
-        namespace DeviceCapability {
-            const $gtype: GObject.GType<DeviceCapability>
-        }
-
-        /**
-         * Enumeration used to query and enable device capabilities.
-         * @since 2.60
-         */
-        enum DeviceCapability {
+        interface DeviceCapabilityBitfield {
+            readonly $gtype: GObject.GType<DeviceCapability>
             /**
              * The capability to monitor keystrokes.
              */
-            "KEYBOARD_MONITOR" = 1,
+            readonly "KEYBOARD_MONITOR": 1
             /**
              * The capability to synthesize keystrokes.
              */
-            "KEYBOARD_SYNTH" = 2,
+            readonly "KEYBOARD_SYNTH": 2
             /**
              * The capability to set key grabs.
              */
-            "KEYBOARD_GRAB" = 4,
+            readonly "KEYBOARD_GRAB": 4
             /**
              * The capability to monitor the location of the pointer.
              */
-            "POINTER_MONITOR" = 8,
+            readonly "POINTER_MONITOR": 8
             /**
              * The capability to synthesize pointer motion.
              */
-            "POINTER_SYNTH" = 16,
+            readonly "POINTER_SYNTH": 16
             /**
              * The capability to monitor touch presses.
              */
-            "TOUCH_MONITOR" = 32,
+            readonly "TOUCH_MONITOR": 32
             /**
              * The capability to synthesize touch events.
              */
-            "TOUCH_SYNTH" = 64,
+            readonly "TOUCH_SYNTH": 64
+        }
+        type DeviceCapability = number
+        interface $Exports {
+            /**
+             * Enumeration used to query and enable device capabilities.
+             * @since 2.60
+             */
+            DeviceCapability: DeviceCapabilityBitfield
         }
         
-        namespace KeyListenerSyncType {
-            const $gtype: GObject.GType<KeyListenerSyncType>
-        }
-
-        /**
-         * Specifies the type of a key listener event.
-         * The values above can and should be bitwise-'OR'-ed
-         * together, observing the compatibility limitations specified in the description of
-         * each value.  For instance, #ATSPI_KEYLISTENER_ALL_WINDOWS | #ATSPI_KEYLISTENER_CANCONSUME is
-         * a commonly used combination which gives the AT complete control over the delivery of matching
-         * events.  However, such filters should be used sparingly as they may have a negative impact on
-         * system performance.
-         */
-        enum KeyListenerSyncType {
+        interface KeyListenerSyncTypeBitfield {
+            readonly $gtype: GObject.GType<KeyListenerSyncType>
             /**
              * Events may be delivered asynchronously,
              * which means in some cases they may already have been delivered to the
              * application before the AT client receives the notification.
              */
-            "NOSYNC" = 0,
+            readonly "NOSYNC": 0
             /**
              * Events are delivered synchronously, before the
              * currently focused application sees them.
              */
-            "SYNCHRONOUS" = 1,
+            readonly "SYNCHRONOUS": 1
             /**
              * Events may be consumed by the AT client.  Presumes and
              * requires #ATSPI_KEYLISTENER_SYNCHRONOUS, incompatible with #ATSPI_KEYLISTENER_NOSYNC.
              */
-            "CANCONSUME" = 2,
+            readonly "CANCONSUME": 2
             /**
              * Events are received not from the application toolkit layer, but
              * from the device driver or windowing system subsystem; such notifications are 'global' in the
@@ -5832,7 +5619,20 @@ declare module "gi://Atspi?version=2.0" {
              * event notifications, even when inaccessible or "broken" applications have focus, are not
              * required, it may be best to avoid this enum value/flag.
              */
-            "ALL_WINDOWS" = 4,
+            readonly "ALL_WINDOWS": 4
+        }
+        type KeyListenerSyncType = number
+        interface $Exports {
+            /**
+             * Specifies the type of a key listener event.
+             * The values above can and should be bitwise-'OR'-ed
+             * together, observing the compatibility limitations specified in the description of
+             * each value.  For instance, #ATSPI_KEYLISTENER_ALL_WINDOWS | #ATSPI_KEYLISTENER_CANCONSUME is
+             * a commonly used combination which gives the AT complete control over the delivery of matching
+             * events.  However, such filters should be used sparingly as they may have a negative impact on
+             * system performance.
+             */
+            KeyListenerSyncType: KeyListenerSyncTypeBitfield
         }
         /**
          * A callback function prototype via which clients receive device event notifications.
@@ -5886,7 +5686,312 @@ declare module "gi://Atspi?version=2.0" {
         /**
          */
         type KeystrokeListener = void
+
+        interface $Exports {
+            __name__: "Atspi"
+            __version: "2.0"
+            ACCESSIBLE_VERSION: 1
+            ACTION_VERSION: 1
+            APPLICATION_VERSION: 1
+            CACHE_VERSION: 1
+            COLLECTION_VERSION: 1
+            COMPONENTLAYER_COUNT: 9
+            COMPONENT_VERSION: 1
+            COORD_TYPE_COUNT: 3
+            DBUS_INTERFACE_ACCESSIBLE: "org.a11y.atspi.Accessible"
+            DBUS_INTERFACE_ACTION: "org.a11y.atspi.Action"
+            DBUS_INTERFACE_APPLICATION: "org.a11y.atspi.Application"
+            DBUS_INTERFACE_CACHE: "org.a11y.atspi.Cache"
+            DBUS_INTERFACE_COLLECTION: "org.a11y.atspi.Collection"
+            DBUS_INTERFACE_COMPONENT: "org.a11y.atspi.Component"
+            DBUS_INTERFACE_DEC: "org.a11y.atspi.DeviceEventController"
+            DBUS_INTERFACE_DEVICE_EVENT_LISTENER: "org.a11y.atspi.DeviceEventListener"
+            DBUS_INTERFACE_DOCUMENT: "org.a11y.atspi.Document"
+            DBUS_INTERFACE_EDITABLE_TEXT: "org.a11y.atspi.EditableText"
+            DBUS_INTERFACE_EVENT_KEYBOARD: "org.a11y.atspi.Event.Keyboard"
+            DBUS_INTERFACE_EVENT_MOUSE: "org.a11y.atspi.Event.Mouse"
+            DBUS_INTERFACE_EVENT_OBJECT: "org.a11y.atspi.Event.Object"
+            DBUS_INTERFACE_EVENT_SCREEN_READER: "org.a11y.atspi.Event.ScreenReader"
+            DBUS_INTERFACE_HYPERLINK: "org.a11y.atspi.Hyperlink"
+            DBUS_INTERFACE_HYPERTEXT: "org.a11y.atspi.Hypertext"
+            DBUS_INTERFACE_IMAGE: "org.a11y.atspi.Image"
+            DBUS_INTERFACE_KEYBOARD_MONITOR: "org.freedesktop.a11y.KeyboardMonitor"
+            DBUS_INTERFACE_POINTER_LOCATOR: "org.freedesktop.a11y.PointerLocator"
+            DBUS_INTERFACE_REGISTRY: "org.a11y.atspi.Registry"
+            DBUS_INTERFACE_SELECTION: "org.a11y.atspi.Selection"
+            DBUS_INTERFACE_SOCKET: "org.a11y.atspi.Socket"
+            DBUS_INTERFACE_TABLE: "org.a11y.atspi.Table"
+            DBUS_INTERFACE_TABLE_CELL: "org.a11y.atspi.TableCell"
+            DBUS_INTERFACE_TEXT: "org.a11y.atspi.Text"
+            DBUS_INTERFACE_VALUE: "org.a11y.atspi.Value"
+            DBUS_NAME_A11Y_MANAGER: "org.freedesktop.a11y.Manager"
+            DBUS_NAME_REGISTRY: "org.a11y.atspi.Registry"
+            DBUS_PATH_A11Y_MANAGER: "/org/freedesktop/a11y/Manager"
+            DBUS_PATH_DEC: "/org/a11y/atspi/registry/deviceeventcontroller"
+            DBUS_PATH_NULL: "/org/a11y/atspi/null"
+            DBUS_PATH_REGISTRY: "/org/a11y/atspi/registry"
+            DBUS_PATH_ROOT: "/org/a11y/atspi/accessible/root"
+            DBUS_PATH_SCREEN_READER: "/org/a11y/atspi/screenreader"
+            DEVICE_A11Y_MANAGER_VIRTUAL_MOD_END: 31
+            DEVICE_A11Y_MANAGER_VIRTUAL_MOD_START: 15
+            DEVICE_EVENT_CONTROLLER_VERSION: 1
+            DEVICE_EVENT_LISTENER_VERSION: 1
+            DOCUMENT_VERSION: 1
+            EDITABLE_TEXT_VERSION: 1
+            EVENTTYPE_COUNT: 4
+            EVENT_VERSION: 1
+            HYPERLINK_VERSION: 1
+            HYPERTEXT_VERSION: 1
+            IMAGE_VERSION: 1
+            KEYEVENTTYPE_COUNT: 2
+            KEYSYNTHTYPE_COUNT: 5
+            LOCALE_TYPE_COUNT: 6
+            MATCHTYPES_COUNT: 6
+            MAX_CHILDREN: 65536
+            MODIFIERTYPE_COUNT: 8
+            REGISTRY_VERSION: 1
+            RELATIONTYPE_COUNT: 24
+            ROLE_COUNT: 132
+            SCROLLTYPE_COUNT: 7
+            SELECTION_VERSION: 1
+            SOCKET_VERSION: 1
+            SORTORDER_COUNT: 8
+            STATETYPE_COUNT: 45
+            TABLE_CELL_VERSION: 1
+            TABLE_VERSION: 1
+            TEXT_BOUNDARY_TYPE_COUNT: 7
+            TEXT_CLIP_TYPE_COUNT: 4
+            TEXT_VERSION: 1
+            TREETRAVERSALTYPE_COUNT: 4
+            VALUE_VERSION: 1
+            /**
+             * Removes a device event listener from the registry's listener queue,
+             *            ceasing notification of events of the specified type.
+             * @throws {GLib.Error}
+             * @param listener a pointer to the #AtspiDeviceListener for which
+                       device events are requested.
+             * @param filter Unused parameter.
+             * @returns %TRUE if successful, otherwise %FALSE.
+             */
+            deregister_device_event_listener(listener: DeviceListener, filter: never | null): boolean
+            /**
+             * Removes a keystroke event listener from the registry's listener queue,
+             *            ceasing notification of events with modifiers matching @modmask.
+             * @throws {GLib.Error}
+             * @param listener a pointer to the #AtspiDeviceListener for which
+                       keystroke events are requested.
+             * @param key_set a pointer to the
+                   #AtspiKeyDefinition array indicating which keystroke events are
+                   requested, or %NULL
+                   to indicate that all keycodes and keyvals for the specified
+                   modifier set are to be included.
+             * @param modmask the key modifier mask for which this listener is to be
+                       'deregistered' (of type #AtspiKeyMaskType).
+             * @param event_types an #AtspiKeyMaskType mask indicating which
+                        types of key events were requested (%ATSPI_KEY_PRESSED, etc.).
+             * @returns %TRUE if successful, otherwise %FALSE.
+             */
+            deregister_keystroke_listener(listener: DeviceListener, key_set: KeyDefinition[] | null, modmask: KeyMaskType, event_types: KeyEventMask): boolean
+            /**
+             * Starts/enters the main event loop for the AT-SPI services.
+             *
+             * NOTE: This method does not return control; it is exited via a call to
+             * #atspi_event_quit from within an event handler.
+             */
+            event_main(): void
+            /**
+             * Quits the last main event loop for the AT-SPI services,
+             * See: #atspi_event_main
+             */
+            event_quit(): void
+            /**
+             * Disconnects from #AtspiRegistry instances and releases
+             * any floating resources. Call only once at exit.
+             * @returns 0 if there were no leaks, otherwise other integer values.
+             */
+            exit(): number
+            /**
+             * Synthesizes a keyboard event (as if a hardware keyboard event occurred in the
+             * current UI context).
+             * @throws {GLib.Error}
+             * @param keyval a #gint indicating the keycode or keysym or modifier mask of the
+                      key event being synthesized.
+             * @param keystring an (optional) UTF-8 string which, if
+                      @synth_type is %ATSPI_KEY_STRING, indicates a 'composed'
+                      keyboard input string being synthesized; this type of
+                      keyboard event synthesis does not emulate hardware
+                      keypresses but injects the string as though a composing
+                      input method (such as XIM) were used.
+             * @param synth_type an #AtspiKeySynthType flag indicating whether @keyval
+                      is to be interpreted as a keysym rather than a keycode
+                      (%ATSPI_KEY_SYM) or a string (%ATSPI_KEY_STRING) or a modifier
+                      mask (%ATSPI_KEY_LOCKMODIFIERS and %ATSPI_KEY_UNLOCKMODIFIERS), or
+                      whether to synthesize %ATSPI_KEY_PRESS,
+                      %ATSPI_KEY_RELEASE, or both (%ATSPI_KEY_PRESSRELEASE).
+             * @returns %TRUE if successful, otherwise %FALSE.
+             */
+            generate_keyboard_event(keyval: number, keystring: string | null, synth_type: KeySynthType): boolean
+            /**
+             * Synthesizes a mouse event at a specific screen coordinate.
+             * Most AT clients should use the #AccessibleAction interface when
+             * tempted to generate mouse events, rather than this method.
+             * Event names: b1p = button 1 press; b2r = button 2 release;
+             *              b3c = button 3 click; b2d = button 2 double-click;
+             *              abs = absolute motion; rel = relative motion.
+             * @throws {GLib.Error}
+             * @param x a #glong indicating the screen x coordinate of the mouse event.
+             * @param y a #glong indicating the screen y coordinate of the mouse event.
+             * @param name a string indicating which mouse event to be synthesized
+                   (e.g. "b1p", "b1c", "b2r", "rel", "abs").
+             * @returns %TRUE if successful, otherwise %FALSE.
+             */
+            generate_mouse_event(x: number, y: number, name: string): boolean
+            /**
+             * Like atspi_generate_mouse_event, but asynchronous.
+             * @throws {GLib.Error}
+             * @param x a #glong indicating the screen x coordinate of the mouse event.
+             * @param y a #glong indicating the screen y coordinate of the mouse event.
+             * @param name a string indicating which mouse event to be synthesized
+                   (e.g. "b1p", "b1c", "b2r", "rel", "abs").
+             * @param callback a callback to be called when a
+            reply is received. May be NULL.
+             */
+            generate_mouse_event_async(x: number, y: number, name: string, callback: GenerateMouseEventCB): void
+            /**
+             * Gets the virtual desktop indicated by index @i.
+             * NOTE: currently multiple virtual desktops are not implemented;
+             * as a consequence, any @i value different from 0 will not return a
+             * virtual desktop - instead it will return NULL.
+             * @param i a #gint indicating which of the accessible desktops is to be returned.
+             * @returns a pointer to the `i`-th virtual desktop's #AtspiAccessible representation.
+             */
+            get_desktop(i: number): Accessible
+            /**
+             * Gets the number of virtual desktops.
+             * NOTE: multiple virtual desktops are not implemented yet; as a
+             * consequence, this function always returns 1.
+             * @returns a #gint indicating the number of active virtual desktops.
+             */
+            get_desktop_count(): number
+            /**
+             * Gets the list of virtual desktops.  On return, @list will point
+             *     to a newly-created, NULL terminated array of virtual desktop
+             *     pointers.
+             *     It is the responsibility of the caller to free this array when
+             *     it is no longer needed.
+             * NOTE: currently multiple virtual desktops are not implemented;
+             * this implementation always returns a #Garray with a single
+             * #AtspiAccessible desktop.
+             * @returns a #GArray of desktops.
+             */
+            get_desktop_list(): Accessible[]
+            /**
+             * Returns the version of the AT-SPI library being used at runtime.
+             * @since 2.50
+             * @returns , the major version., the minor version., the micro/patch version.
+             */
+            get_version(): [number, number, number]
+            /**
+             * Connects to the accessibility registry and initializes the SPI.
+             * @returns 0 on success, 1 if already initialized, or an integer error code.
+             */
+            init(): number
+            /**
+             * Indicates whether AT-SPI has been initialized.
+             * @returns %True if initialized; %False otherwise.
+             */
+            is_initialized(): boolean
+            /**
+             * This function does nothing and should not be called.
+             * @throws {GLib.Error}
+             * @param listener
+             * @param event_types
+             * @param filter
+             * @returns Always returns %FALSE.
+             */
+            register_device_event_listener(listener: DeviceListener, event_types: DeviceEventMask, filter: never | null): boolean
+            /**
+             * Registers a listener for keystroke events, either pre-emptively for
+             *             all windows (%ATSPI_KEYLISTENER_ALL_WINDOWS),
+             *             non-preemptively (%ATSPI_KEYLISTENER_NOSYNC), or
+             *             pre-emptively at the toolkit level (%ATSPI_KEYLISTENER_CANCONSUME).
+             *             If ALL_WINDOWS or CANCONSUME are used, the event is consumed
+             *             upon receipt if one of @listener's callbacks returns %TRUE
+             *             (other sync_type values may be available in the future).
+             * @throws {GLib.Error}
+             * @param listener a pointer to the #AtspiDeviceListener for which
+                        keystroke events are requested.
+             * @param key_set a pointer to the
+                   #AtspiKeyDefinition array indicating which keystroke events are
+                   requested, or NULL
+                   to indicate that all keycodes and keyvals for the specified
+                   modifier set are to be included.
+             * @param modmask an #AtspiKeyMaskType mask indicating which
+                        key event modifiers must be set in combination with @keys,
+                        events will only be reported for key events for which all
+                        modifiers in @modmask are set.  If you wish to listen for
+                        events with multiple modifier combinations, you must call
+                        #atspi_register_keystroke_listener once for each
+                        combination.
+             * @param event_types an #AtspiKeyMaskType mask indicating which
+                        types of key events are requested (%ATSPI_KEY_PRESSED etc.).
+             * @param sync_type an #AtspiKeyListenerSyncType parameter indicating
+                        the behavior of the notification/listener transaction.
+             * @returns %TRUE if successful, otherwise %FALSE.
+             */
+            register_keystroke_listener(listener: DeviceListener, key_set: KeyDefinition[] | null, modmask: KeyMaskType, event_types: KeyEventMask, sync_type: KeyListenerSyncType): boolean
+            /**
+             * Gets the localized description string describing the #AtspiRole @role.
+             * @param role an #AtspiRole object to query.
+             * @returns the localized string describing the AtspiRole
+             */
+            role_get_localized_name(role: Role): string
+            /**
+             * Gets a localizable string that indicates the name of an #AtspiRole.
+             * @param role an #AtspiRole object to query.
+             * @returns a localizable string name for an #AtspiRole enumerated type.
+             */
+            role_get_name(role: Role): string
+            /**
+             * Sets the main loop context that AT-SPI should assume is in use when
+             * setting an idle callback.
+             * This function should be called by application-side implementors (ie,
+             * at-spi2-atk) when it is desirable to re-enter the main loop.
+             * @param cnx The #GMainContext to use.
+             */
+            set_main_context(cnx: GLib.MainContext): void
+            /**
+             * Deprecated. This function no longer does anything and should not be used.
+             * @param accessible the #AtspiAccessible corresponding to the window to select.
+                         should be a top-level window with a role of
+                         ATSPI_ROLE_APPLICATION.
+             */
+            set_reference_window(accessible: Accessible): void
+            /**
+             * Set the timeout used for method calls. If this is not set explicitly,
+             * a default of 800 ms is used.
+             * Note that at-spi2-registryd currently uses a timeout of 3 seconds when
+             * sending a keyboard event notification. This means that, if an AT makes
+             * a call in response to the keyboard notification and the application
+             * being called does not respond before the timeout is reached,
+             * at-spi2-registryd will time out on the keyboard event notification and
+             * pass the key onto the application (ie, reply to indicate that the key
+             * was not consumed), so this may make it undesirable to set a timeout
+             * larger than 3 seconds.
+             *
+             * By default, the normal timeout is set to 800 ms, and the application startup
+             * timeout is set to 15 seconds.
+             * @param val The timeout value, in milliseconds, or -1 to disable the timeout.
+             * @param startup_time The amount of time, in milliseconds, to allow to pass
+            before enforcing timeouts on an application. Can be used to prevent
+            timeout exceptions if an application is likely to block for an extended
+            period of time on initialization. -1 can be passed to disable this
+            behavior.
+             */
+            set_timeout(val: number, startup_time: number): void
+        }
     }
 
+    const Atspi: Atspi.$Exports
     export default Atspi
 }

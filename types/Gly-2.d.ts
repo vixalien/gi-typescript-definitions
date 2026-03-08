@@ -16,10 +16,7 @@ declare module "gi://Gly?version=2" {
 
     
 
-
     namespace Gly {
-        const __name__: "Gly"
-        const __version: "2"
         
 
         namespace Creator {
@@ -32,53 +29,14 @@ declare module "gi://Gly?version=2" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "mime-type": string
                 "sandbox-selector": SandboxSelector
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "mime-type": string
             }
         }
 
-        /**
-         *
-         *
-         * GlyCreator *creator = gly_creator_new("image/jpeg", NULL);
-         *
-         * if (!creator)
-         *   return;
-         *
-         * // Create frame with a single red pixel
-         * guint8 data[] = {255, 0, 0};
-         * gsize length = sizeof(data);
-         * GBytes *texture = g_bytes_new(data, length);
-         * GlyNewFrame *new_frame = gly_creator_add_frame(creator, 1, 1, GLY_MEMORY_R8G8B8, texture, NULL);
-         *
-         * // Create JPEG
-         * GlyEncodedImage *encoded_image = gly_creator_create(creator, NULL);
-         *
-         * if (encoded_image)
-         * {
-         *   GBytes *binary_data = gly_encoded_image_get_data(encoded_image);
-         *   if (binary_data)
-         *   {
-         *     // Write image to file
-         *     GFile *file = g_file_new_for_path("test.jpg");
-         *     g_file_replace_contents(
-         *         file,
-         *         g_bytes_get_data(binary_data, NULL),
-         *         g_bytes_get_size(binary_data),
-         *         NULL,
-         *         FALSE,
-         *         G_FILE_CREATE_NONE,
-         *         NULL,
-         *         NULL,
-         *         NULL);
-         *   }
-         * }
-         * ```
-         * @since 2.0
-         */
         interface Creator extends GObject.Object {
             readonly $signals: Creator.SignalSignatures
             readonly $readableProperties: Creator.ReadableProperties
@@ -103,7 +61,7 @@ declare module "gi://Gly?version=2" {
              * @param texture Texture data
              * @returns a new [class@NewFrame]
              */
-            add_frame(width: number, height: number, memory_format: MemoryFormat, texture: GLib.Bytes): NewFrame
+            add_frame(width: number, height: number, memory_format: MemoryFormat, texture: (GLib.Bytes | Uint8Array)): NewFrame
             /**
              * @throws {GLib.Error}
              * @since 2.0
@@ -114,7 +72,7 @@ declare module "gi://Gly?version=2" {
              * @param texture Texture data
              * @returns a new [class@NewFrame]
              */
-            add_frame_with_stride(width: number, height: number, stride: number, memory_format: MemoryFormat, texture: GLib.Bytes): NewFrame
+            add_frame_with_stride(width: number, height: number, stride: number, memory_format: MemoryFormat, texture: (GLib.Bytes | Uint8Array)): NewFrame
             /**
              * Add metadata that are stored as key-value pairs.
              * A prominent example are PNG's `tEXt` chunks.
@@ -170,6 +128,7 @@ declare module "gi://Gly?version=2" {
         interface CreatorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Creator>
             readonly prototype: Creator
+
             new (props?: Partial<GObject.ConstructorProps<Creator>>): Creator
             /**
              * @throws {GLib.Error}
@@ -180,7 +139,51 @@ declare module "gi://Gly?version=2" {
             "new"(mime_type: string): Creator
         }
 
-        const Creator: CreatorClass
+        interface $Exports {
+            /**
+             * Image creator
+             *
+             * ```c
+             * #include <glycin.h>
+             *
+             * GlyCreator *creator = gly_creator_new("image/jpeg", NULL);
+             *
+             * if (!creator)
+             *   return;
+             *
+             * // Create frame with a single red pixel
+             * guint8 data[] = {255, 0, 0};
+             * gsize length = sizeof(data);
+             * GBytes *texture = g_bytes_new(data, length);
+             * GlyNewFrame *new_frame = gly_creator_add_frame(creator, 1, 1, GLY_MEMORY_R8G8B8, texture, NULL);
+             *
+             * // Create JPEG
+             * GlyEncodedImage *encoded_image = gly_creator_create(creator, NULL);
+             *
+             * if (encoded_image)
+             * {
+             *   GBytes *binary_data = gly_encoded_image_get_data(encoded_image);
+             *   if (binary_data)
+             *   {
+             *     // Write image to file
+             *     GFile *file = g_file_new_for_path("test.jpg");
+             *     g_file_replace_contents(
+             *         file,
+             *         g_bytes_get_data(binary_data, NULL),
+             *         g_bytes_get_size(binary_data),
+             *         NULL,
+             *         FALSE,
+             *         G_FILE_CREATE_NONE,
+             *         NULL,
+             *         NULL,
+             *         NULL);
+             *   }
+             * }
+             * ```
+             * @since 2.0
+             */
+            Creator: CreatorClass
+        }
         
 
         namespace EncodedImage {
@@ -199,10 +202,6 @@ declare module "gi://Gly?version=2" {
             }
         }
 
-        /**
-         * Encoded image
-         * @since 2.0
-         */
         interface EncodedImage extends GObject.Object {
             readonly $signals: EncodedImage.SignalSignatures
             readonly $readableProperties: EncodedImage.ReadableProperties
@@ -222,10 +221,17 @@ declare module "gi://Gly?version=2" {
         interface EncodedImageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<EncodedImage>
             readonly prototype: EncodedImage
+
             new (props?: Partial<GObject.ConstructorProps<EncodedImage>>): EncodedImage
         }
 
-        const EncodedImage: EncodedImageClass
+        interface $Exports {
+            /**
+             * Encoded image
+             * @since 2.0
+             */
+            EncodedImage: EncodedImageClass
+        }
         
 
         namespace Frame {
@@ -242,10 +248,6 @@ declare module "gi://Gly?version=2" {
             }
         }
 
-        /**
-         * A frame of an image often being the complete image.
-         * @since 2.0
-         */
         interface Frame extends GObject.Object {
             readonly $signals: Frame.SignalSignatures
             readonly $readableProperties: Frame.ReadableProperties
@@ -301,10 +303,17 @@ declare module "gi://Gly?version=2" {
         interface FrameClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Frame>
             readonly prototype: Frame
+
             new (props?: Partial<GObject.ConstructorProps<Frame>>): Frame
         }
 
-        const Frame: FrameClass
+        interface $Exports {
+            /**
+             * A frame of an image often being the complete image.
+             * @since 2.0
+             */
+            Frame: FrameClass
+        }
         
 
         namespace FrameRequest {
@@ -327,15 +336,6 @@ declare module "gi://Gly?version=2" {
             }
         }
 
-        /**
-         * Defines which parts of an image to load.
-         *
-         * ::: warning
-         *     Loaders can and frequently will ignore instructions set in
-         *     `GlyFrameRequest`. The reason is that for most loaders
-         *     many instructions don't have a meaningful interpretation.
-         * @since 2.0
-         */
         interface FrameRequest extends GObject.Object {
             readonly $signals: FrameRequest.SignalSignatures
             readonly $readableProperties: FrameRequest.ReadableProperties
@@ -384,6 +384,7 @@ declare module "gi://Gly?version=2" {
         interface FrameRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FrameRequest>
             readonly prototype: FrameRequest
+
             new (props?: Partial<GObject.ConstructorProps<FrameRequest>>): FrameRequest
             /**
              * Creates a new frame request.
@@ -393,7 +394,18 @@ declare module "gi://Gly?version=2" {
             "new"(): FrameRequest
         }
 
-        const FrameRequest: FrameRequestClass
+        interface $Exports {
+            /**
+             * Defines which parts of an image to load.
+             *
+             * ::: warning
+             *     Loaders can and frequently will ignore instructions set in
+             *     `GlyFrameRequest`. The reason is that for most loaders
+             *     many instructions don't have a meaningful interpretation.
+             * @since 2.0
+             */
+            FrameRequest: FrameRequestClass
+        }
         
 
         namespace Image {
@@ -410,10 +422,6 @@ declare module "gi://Gly?version=2" {
             }
         }
 
-        /**
-         * Image handle containing metadata and allowing frame requests.
-         * @since 2.0
-         */
         interface Image extends GObject.Object {
             readonly $signals: Image.SignalSignatures
             readonly $readableProperties: Image.ReadableProperties
@@ -524,10 +532,17 @@ declare module "gi://Gly?version=2" {
         interface ImageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Image>
             readonly prototype: Image
+
             new (props?: Partial<GObject.ConstructorProps<Image>>): Image
         }
 
-        const Image: ImageClass
+        interface $Exports {
+            /**
+             * Image handle containing metadata and allowing frame requests.
+             * @since 2.0
+             */
+            Image: ImageClass
+        }
         
 
         namespace Loader {
@@ -546,37 +561,18 @@ declare module "gi://Gly?version=2" {
 
             interface WritableProperties extends GObject.Object.WritableProperties {
                 "apply-transformation": boolean
-                "bytes": GLib.Bytes
                 "cancellable": Gio.Cancellable
-                "file": Gio.File
                 "memory-format-selection": MemoryFormatSelection
                 "sandbox-selector": SandboxSelector
-                "stream": Gio.InputStream
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "bytes": GLib.Bytes
+                "file": Gio.File
+                "stream": Gio.InputStream
             }
         }
 
-        /**
-         *
-         *
-         * file = g_file_new_for_path ("test.png");
-         * loader = gly_loader_new (file);
-         * image = gly_loader_load (loader, NULL);
-         * if (image)
-         *   {
-         *     frame = gly_image_next_frame (image, NULL);
-         *     if (frame)
-         *       {
-         *         texture = gly_gtk_frame_get_texture (frame);
-         *         g_print ("Image height: %d\n", gdk_texture_get_height (texture));
-         *         image_widget = gtk_image_new_from_paintable (GDK_PAINTABLE (texture));
-         *       }
-         *   }
-         * ```
-         * @since 2.0
-         */
         interface Loader extends GObject.Object {
             readonly $signals: Loader.SignalSignatures
             readonly $readableProperties: Loader.ReadableProperties
@@ -666,6 +662,7 @@ declare module "gi://Gly?version=2" {
         interface LoaderClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Loader>
             readonly prototype: Loader
+
             new (props?: Partial<GObject.ConstructorProps<Loader>>): Loader
             /**
              * Creates a new loader for a file.
@@ -680,7 +677,7 @@ declare module "gi://Gly?version=2" {
              * @param bytes Data from which to load the image
              * @returns a new [class@Loader]
              */
-            new_for_bytes(bytes: GLib.Bytes): Loader
+            new_for_bytes(bytes: (GLib.Bytes | Uint8Array)): Loader
             /**
              * Creates a new loader for a stream.
              * @since 2.0
@@ -715,7 +712,35 @@ declare module "gi://Gly?version=2" {
             get_mime_types_finish(result: Gio.AsyncResult): string[]
         }
 
-        const Loader: LoaderClass
+        interface $Exports {
+            /**
+             * [class@Loader] prepares loading an image.
+             *
+             * The following example shows how to obtain a `Gdk.Texture`. It uses
+             * [GlyGtk4](https://gnome.pages.gitlab.gnome.org/glycin/libglycin-gtk4)
+             * for this.
+             *
+             * ```c
+             * #include <glycin-gtk4.h>
+             *
+             * file = g_file_new_for_path ("test.png");
+             * loader = gly_loader_new (file);
+             * image = gly_loader_load (loader, NULL);
+             * if (image)
+             *   {
+             *     frame = gly_image_next_frame (image, NULL);
+             *     if (frame)
+             *       {
+             *         texture = gly_gtk_frame_get_texture (frame);
+             *         g_print ("Image height: %d\n", gdk_texture_get_height (texture));
+             *         image_widget = gtk_image_new_from_paintable (GDK_PAINTABLE (texture));
+             *       }
+             *   }
+             * ```
+             * @since 2.0
+             */
+            Loader: LoaderClass
+        }
         
 
         namespace NewFrame {
@@ -732,10 +757,6 @@ declare module "gi://Gly?version=2" {
             }
         }
 
-        /**
-         * New frame
-         * @since 2.0
-         */
         interface NewFrame extends GObject.Object {
             readonly $signals: NewFrame.SignalSignatures
             readonly $readableProperties: NewFrame.ReadableProperties
@@ -746,24 +767,31 @@ declare module "gi://Gly?version=2" {
              * @param icc_profile ICC profile
              * @returns `TRUE` if format supports ICC color profiles.
              */
-            set_color_icc_profile(icc_profile: GLib.Bytes): boolean
+            set_color_icc_profile(icc_profile: (GLib.Bytes | Uint8Array)): boolean
         }
 
         interface NewFrameClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<NewFrame>
             readonly prototype: NewFrame
+
             new (props?: Partial<GObject.ConstructorProps<NewFrame>>): NewFrame
         }
 
-        const NewFrame: NewFrameClass
-        /**
-         * See ITU-T H.273
-         * @since 2.0
-         */
-        abstract class Cicp {
-            static readonly $gtype: GObject.GType<Cicp>
+        interface $Exports {
+            /**
+             * New frame
+             * @since 2.0
+             */
+            NewFrame: NewFrameClass
+        }
+        
 
-            
+        interface CicpStruct {
+            readonly $gtype: GObject.GType<Cicp>
+            [Symbol.hasInstance](instance: unknown): instance is Cicp
+        }
+
+        interface Cicp {
             /**
              */
             color_primaries: number
@@ -783,188 +811,168 @@ declare module "gi://Gly?version=2" {
              */
             free(): void
         }
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Error quark for [error@GlyLoaderError]
-         * @returns The error domain
-         */
-        function loader_error_quark(): GLib.Quark
-        /**
-         * Whether a memory format has an alpha channel
-         * @since 2.0
-         * @param memory_format
-         * @returns Returns `TRUE` if the memory format has an alpha channel
-         */
-        function memory_format_has_alpha(memory_format: MemoryFormat): boolean
-        /**
-         * Whether a memory format has an alpha channel and the color values are
-         * premultiplied with the alpha value
-         * @since 2.0
-         * @param memory_format
-         * @returns Returns `TRUE` if color channels are premultiplied
-         */
-        function memory_format_is_premultiplied(memory_format: MemoryFormat): boolean
+
+        interface $Exports {
+            Cicp: CicpStruct
+        }
         
-        abstract class LoaderError extends GLib.Error {
-            static readonly $gtype: GObject.GType<LoaderError>
+        interface LoaderError extends GLib.Error {}
+
+        interface LoaderErrorEnum {
+            readonly $gtype: GObject.GType<LoaderError>
+
+            new(props: { message: string, code: number }): LoaderError
             /**
              * Generic type for all other errors.
              * @since 2.0
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * Unknown image format.
              * @since 2.0
              */
-            static readonly "UNKNOWN_IMAGE_FORMAT": 1
+            readonly "UNKNOWN_IMAGE_FORMAT": 1
             /**
              * Reached last frame in an animation with [method@FrameRequest.set_loop_animation] to `FALSE`.
              * @since 2.0.1
              */
-            static readonly "NO_MORE_FRAMES": 2
-        }
-        /**
+            readonly "NO_MORE_FRAMES": 2
+            /**
          * Error quark for [error@GlyLoaderError]
          * @returns The error domain
          */
-        function quark(): GLib.Quark
-        
-        namespace MemoryFormat {
-            const $gtype: GObject.GType<MemoryFormat>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Memory format
-         * @since 2.0
-         */
-        enum MemoryFormat {
+        interface $Exports {
+            /**
+             * Errors that can appear while loading images.
+             * @since 2.0
+             */
+            LoaderError: LoaderErrorEnum
+        }
+        
+        interface MemoryFormatEnum {
+            readonly $gtype: GObject.GType<MemoryFormat>
             /**
              * 8-bit RGRA premultiplied
              */
-            "B8G8R8A8_PREMULTIPLIED" = 0,
+            readonly "B8G8R8A8_PREMULTIPLIED": 0
             /**
              * 8-bit ARGB premultiplied
              */
-            "A8R8G8B8_PREMULTIPLIED" = 1,
+            readonly "A8R8G8B8_PREMULTIPLIED": 1
             /**
              * 8-bit RGBA premultiplied
              */
-            "R8G8B8A8_PREMULTIPLIED" = 2,
+            readonly "R8G8B8A8_PREMULTIPLIED": 2
             /**
              * 8-bit RGBA
              */
-            "B8G8R8A8" = 3,
+            readonly "B8G8R8A8": 3
             /**
              * 8-bit AGBR
              */
-            "A8R8G8B8" = 4,
+            readonly "A8R8G8B8": 4
             /**
              * 8-bit RGBA
              */
-            "R8G8B8A8" = 5,
+            readonly "R8G8B8A8": 5
             /**
              * 8-bit ABGR
              */
-            "A8B8G8R8" = 6,
+            readonly "A8B8G8R8": 6
             /**
              * 8-bit RGB
              */
-            "R8G8B8" = 7,
+            readonly "R8G8B8": 7
             /**
              * 8-bit BGR
              */
-            "B8G8R8" = 8,
+            readonly "B8G8R8": 8
             /**
              * 16-bit RGB
              */
-            "R16G16B16" = 9,
+            readonly "R16G16B16": 9
             /**
              * 16-bit RGBA premultiplied
              */
-            "R16G16B16A16_PREMULTIPLIED" = 10,
+            readonly "R16G16B16A16_PREMULTIPLIED": 10
             /**
              * 16-bit RGBA
              */
-            "R16G16B16A16" = 11,
+            readonly "R16G16B16A16": 11
             /**
              * 16-bit float RGB
              */
-            "R16G16B16_FLOAT" = 12,
+            readonly "R16G16B16_FLOAT": 12
             /**
              * 16-bit float RGBA
              */
-            "R16G16B16A16_FLOAT" = 13,
+            readonly "R16G16B16A16_FLOAT": 13
             /**
              * 32-bit float RGB
              */
-            "R32G32B32_FLOAT" = 14,
+            readonly "R32G32B32_FLOAT": 14
             /**
              * 32-bit float RGBA premultiplied
              */
-            "R32G32B32A32_FLOAT_PREMULTIPLIED" = 15,
+            readonly "R32G32B32A32_FLOAT_PREMULTIPLIED": 15
             /**
              * 16-bit float RGBA
              */
-            "R32G32B32A32_FLOAT" = 16,
+            readonly "R32G32B32A32_FLOAT": 16
             /**
              * 8-bit gray with alpha premultiplied
              */
-            "G8A8_PREMULTIPLIED" = 17,
+            readonly "G8A8_PREMULTIPLIED": 17
             /**
              * 8-bit gray with alpha
              */
-            "G8A8" = 18,
+            readonly "G8A8": 18
             /**
              * 8-bit gray
              */
-            "G8" = 19,
+            readonly "G8": 19
             /**
              * 16-bit gray with alpha premultiplied
              */
-            "G16A16_PREMULTIPLIED" = 20,
+            readonly "G16A16_PREMULTIPLIED": 20
             /**
              * 16-bit gray with alpha
              */
-            "G16A16" = 21,
+            readonly "G16A16": 21
             /**
              * 16-bit gray
              */
-            "G16" = 22,
+            readonly "G16": 22
         }
-        /**
+        type MemoryFormat = MemoryFormatEnum[Exclude<keyof MemoryFormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Memory format
+             * @since 2.0
+             */
+            MemoryFormat: MemoryFormatEnum
+            /**
          * Whether a memory format has an alpha channel
          * @since 2.0
          * @param memory_format
          * @returns Returns `TRUE` if the memory format has an alpha channel
          */
-        function has_alpha(memory_format: MemoryFormat): boolean
-        /**
+        has_alpha: (memory_format: MemoryFormat) => boolean
+            /**
          * Whether a memory format has an alpha channel and the color values are
          * premultiplied with the alpha value
          * @since 2.0
          * @param memory_format
          * @returns Returns `TRUE` if color channels are premultiplied
          */
-        function is_premultiplied(memory_format: MemoryFormat): boolean
-        
-        namespace SandboxSelector {
-            const $gtype: GObject.GType<SandboxSelector>
+        is_premultiplied: (memory_format: MemoryFormat) => boolean
         }
-
-        /**
-         * Sandbox mechanisms
-         *
-         * ::: warning
-         *     Using @GLY_SANDBOX_SELECTOR_NOT_SANDBOXED will disable an important security layer that sandboxes loaders. It is only intended for testing and development purposes.
-         * @since 2.0
-         */
-        enum SandboxSelector {
+        
+        interface SandboxSelectorEnum {
+            readonly $gtype: GObject.GType<SandboxSelector>
             /**
              * This mode selects `bwrap` outside of Flatpaks and usually
              *  `flatpak-spawn` inside of Flatpaks. The sandbox is disabled
@@ -976,129 +984,167 @@ declare module "gi://Gly?version=2" {
              *  `flatpak-builder --run` (i.e. without installed Flatpak) and the app id
              *  ends with `Devel`, the sandbox is disabled.
              */
-            "AUTO" = 0,
+            readonly "AUTO": 0
             /**
              * bwrap
              */
-            "BWRAP" = 1,
+            readonly "BWRAP": 1
             /**
              * flatpak-spawn
              */
-            "FLATPAK_SPAWN" = 2,
+            readonly "FLATPAK_SPAWN": 2
             /**
              * Disable sandbox. Unsafe, only use for testing and development.
              */
-            "NOT_SANDBOXED" = 3,
+            readonly "NOT_SANDBOXED": 3
+        }
+        type SandboxSelector = SandboxSelectorEnum[Exclude<keyof SandboxSelectorEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Sandbox mechanisms
+             *
+             * ::: warning
+             *     Using @GLY_SANDBOX_SELECTOR_NOT_SANDBOXED will disable an important security layer that sandboxes loaders. It is only intended for testing and development purposes.
+             * @since 2.0
+             */
+            SandboxSelector: SandboxSelectorEnum
         }
         
-        namespace MemoryFormatSelection {
-            const $gtype: GObject.GType<MemoryFormatSelection>
-        }
-
-        /**
-         * Memory format selection
-         * @since 2.0
-         */
-        enum MemoryFormatSelection {
+        interface MemoryFormatSelectionBitfield {
+            readonly $gtype: GObject.GType<MemoryFormatSelection>
             /**
              * 8-bit BGRA premultiplied
              */
-            "B8G8R8A8_PREMULTIPLIED" = 1,
+            readonly "B8G8R8A8_PREMULTIPLIED": 1
             /**
              * 8-bit ARGB premultiplied
              */
-            "A8R8G8B8_PREMULTIPLIED" = 2,
+            readonly "A8R8G8B8_PREMULTIPLIED": 2
             /**
              * 8-bit RGBA premultiplied
              */
-            "R8G8B8A8_PREMULTIPLIED" = 4,
+            readonly "R8G8B8A8_PREMULTIPLIED": 4
             /**
              * 8-bit BGRA
              */
-            "B8G8R8A8" = 8,
+            readonly "B8G8R8A8": 8
             /**
              * 8-bit ARGB
              */
-            "A8R8G8B8" = 16,
+            readonly "A8R8G8B8": 16
             /**
              * 8-bit RGBA
              */
-            "R8G8B8A8" = 32,
+            readonly "R8G8B8A8": 32
             /**
              * 8-bit ABGR
              */
-            "A8B8G8R8" = 64,
+            readonly "A8B8G8R8": 64
             /**
              * 8-bit RGB
              */
-            "R8G8B8" = 128,
+            readonly "R8G8B8": 128
             /**
              * 8-bit BGR
              */
-            "B8G8R8" = 256,
+            readonly "B8G8R8": 256
             /**
              * 16-bit RGB
              */
-            "R16G16B16" = 512,
+            readonly "R16G16B16": 512
             /**
              * 16-bit RGBA premultiplied
              */
-            "R16G16B16A16_PREMULTIPLIED" = 1024,
+            readonly "R16G16B16A16_PREMULTIPLIED": 1024
             /**
              * 16-bit RGBA
              */
-            "R16G16B16A16" = 2048,
+            readonly "R16G16B16A16": 2048
             /**
              * 16-bit float RGB
              */
-            "R16G16B16_FLOAT" = 4096,
+            readonly "R16G16B16_FLOAT": 4096
             /**
              * 16-bit float RGBA
              */
-            "R16G16B16A16_FLOAT" = 8192,
+            readonly "R16G16B16A16_FLOAT": 8192
             /**
              * 32-bit float RGB
              */
-            "R32G32B32_FLOAT" = 16384,
+            readonly "R32G32B32_FLOAT": 16384
             /**
              * 32-bit float RGBA premultiplied
              */
-            "R32G32B32A32_FLOAT_PREMULTIPLIED" = 32768,
+            readonly "R32G32B32A32_FLOAT_PREMULTIPLIED": 32768
             /**
              * 16-bit float RGBA
              */
-            "R32G32B32A32_FLOAT" = 65536,
+            readonly "R32G32B32A32_FLOAT": 65536
             /**
              * 8-bit gray with alpha premultiplied
              */
-            "G8A8_PREMULTIPLIED" = 131072,
+            readonly "G8A8_PREMULTIPLIED": 131072
             /**
              * 8-bit gray with alpha
              */
-            "G8A8" = 262144,
+            readonly "G8A8": 262144
             /**
              * 8-bit gray
              */
-            "G8" = 524288,
+            readonly "G8": 524288
             /**
              * 16-bit gray with alpha premultiplied
              */
-            "G16A16_PREMULTIPLIED" = 1048576,
+            readonly "G16A16_PREMULTIPLIED": 1048576
             /**
              * 16-bit gray with alpha
              */
-            "G16A16" = 2097152,
+            readonly "G16A16": 2097152
             /**
              * 16-bit gray
              */
-            "G16" = 4194304,
+            readonly "G16": 4194304
+        }
+        type MemoryFormatSelection = number
+        interface $Exports {
+            /**
+             * Memory format selection
+             * @since 2.0
+             */
+            MemoryFormatSelection: MemoryFormatSelectionBitfield
         }
         /**
          * @param mime_types
          * @param data
          */
         type LoaderGetMimeTypesDoneFunc = (mime_types: string[], data: never | null) => void
+
+        interface $Exports {
+            __name__: "Gly"
+            __version: "2"
+            /**
+             * Error quark for [error@GlyLoaderError]
+             * @returns The error domain
+             */
+            loader_error_quark(): GLib.Quark
+            /**
+             * Whether a memory format has an alpha channel
+             * @since 2.0
+             * @param memory_format
+             * @returns Returns `TRUE` if the memory format has an alpha channel
+             */
+            memory_format_has_alpha(memory_format: MemoryFormat): boolean
+            /**
+             * Whether a memory format has an alpha channel and the color values are
+             * premultiplied with the alpha value
+             * @since 2.0
+             * @param memory_format
+             * @returns Returns `TRUE` if color channels are premultiplied
+             */
+            memory_format_is_premultiplied(memory_format: MemoryFormat): boolean
+        }
     }
 
+    const Gly: Gly.$Exports
     export default Gly
 }

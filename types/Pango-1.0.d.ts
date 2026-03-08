@@ -22,10 +22,7 @@ declare module "gi://Pango?version=1.0" {
 
     
 
-
     namespace Pango {
-        const __name__: "Pango"
-        const __version: "1.0"
         
 
         namespace Context {
@@ -42,16 +39,6 @@ declare module "gi://Pango?version=1.0" {
             }
         }
 
-        /**
-         * A `PangoContext` stores global information used to control the
-         * itemization process.
-         *
-         * The information stored by `PangoContext` includes the fontmap used
-         * to look up fonts, and default values such as the default language,
-         * default gravity, or default font.
-         *
-         * To obtain a `PangoContext`, use [method@Pango.FontMap.create_context].
-         */
         interface Context extends GObject.Object {
             readonly $signals: Context.SignalSignatures
             readonly $readableProperties: Context.ReadableProperties
@@ -279,6 +266,7 @@ declare module "gi://Pango?version=1.0" {
         interface ContextClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Context>
             readonly prototype: Context
+
             new (props?: Partial<GObject.ConstructorProps<Context>>): Context
             /**
              * Creates a new `PangoContext` initialized to default values.
@@ -297,7 +285,19 @@ declare module "gi://Pango?version=1.0" {
             "new"(): Context
         }
 
-        const Context: ContextClass
+        interface $Exports {
+            /**
+             * A `PangoContext` stores global information used to control the
+             * itemization process.
+             *
+             * The information stored by `PangoContext` includes the fontmap used
+             * to look up fonts, and default values such as the default language,
+             * default gravity, or default font.
+             *
+             * To obtain a `PangoContext`, use [method@Pango.FontMap.create_context].
+             */
+            Context: ContextClass
+        }
         
 
         namespace Coverage {
@@ -314,16 +314,6 @@ declare module "gi://Pango?version=1.0" {
             }
         }
 
-        /**
-         * A `PangoCoverage` structure is a map from Unicode characters
-         * to [enum@Pango.CoverageLevel] values.
-         *
-         * It is often necessary in Pango to determine if a particular
-         * font can represent a particular character, and also how well
-         * it can represent that character. The `PangoCoverage` is a data
-         * structure that is used to represent that information. It is an
-         * opaque structure with no public fields.
-         */
         interface Coverage extends GObject.Object {
             readonly $signals: Coverage.SignalSignatures
             readonly $readableProperties: Coverage.ReadableProperties
@@ -378,6 +368,7 @@ declare module "gi://Pango?version=1.0" {
         interface CoverageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Coverage>
             readonly prototype: Coverage
+
             new (props?: Partial<GObject.ConstructorProps<Coverage>>): Coverage
             /**
              * Create a new `PangoCoverage`
@@ -395,7 +386,19 @@ declare module "gi://Pango?version=1.0" {
             from_bytes(bytes: Uint8Array): Coverage | null
         }
 
-        const Coverage: CoverageClass
+        interface $Exports {
+            /**
+             * A `PangoCoverage` structure is a map from Unicode characters
+             * to [enum@Pango.CoverageLevel] values.
+             *
+             * It is often necessary in Pango to determine if a particular
+             * font can represent a particular character, and also how well
+             * it can represent that character. The `PangoCoverage` is a data
+             * structure that is used to represent that information. It is an
+             * opaque structure with no public fields.
+             */
+            Coverage: CoverageClass
+        }
         
 
         namespace Font {
@@ -412,10 +415,6 @@ declare module "gi://Pango?version=1.0" {
             }
         }
 
-        /**
-         * A `PangoFont` is used to represent a font in a
-         * rendering-system-independent manner.
-         */
         interface Font extends GObject.Object {
             readonly $signals: Font.SignalSignatures
             readonly $readableProperties: Font.ReadableProperties
@@ -496,7 +495,7 @@ declare module "gi://Pango?version=1.0" {
              * @param glyph the glyph index
              * @returns , rectangle used to store the extents of the glyph as drawn, rectangle used to store the logical extents of the glyph
              */
-            get_glyph_extents(glyph: Glyph): void
+            get_glyph_extents(glyph: Glyph): [Rectangle, Rectangle]
             /**
              * Returns the languages that are supported by @font.
              *
@@ -609,7 +608,7 @@ declare module "gi://Pango?version=1.0" {
              * @param glyph the glyph index
              * @returns , rectangle used to store the extents of the glyph as drawn, rectangle used to store the logical extents of the glyph
              */
-            vfunc_get_glyph_extents(glyph: Glyph): void
+            vfunc_get_glyph_extents(glyph: Glyph): [Rectangle, Rectangle]
             /**
              * Gets overall metric information for a font.
              *
@@ -630,6 +629,7 @@ declare module "gi://Pango?version=1.0" {
         interface FontClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Font>
             readonly prototype: Font
+
             new (props?: Partial<GObject.ConstructorProps<Font>>): Font
             /**
              * Frees an array of font descriptions.
@@ -652,10 +652,16 @@ declare module "gi://Pango?version=1.0" {
              * @param bytes the bytes containing the data
              * @returns a new `PangoFont`
              */
-            deserialize(context: Context, bytes: GLib.Bytes): Font | null
+            deserialize(context: Context, bytes: (GLib.Bytes | Uint8Array)): Font | null
         }
 
-        const Font: FontClass
+        interface $Exports {
+            /**
+             * A `PangoFont` is used to represent a font in a
+             * rendering-system-independent manner.
+             */
+            Font: FontClass
+        }
         
 
         namespace FontFace {
@@ -672,10 +678,6 @@ declare module "gi://Pango?version=1.0" {
             }
         }
 
-        /**
-         * A `PangoFontFace` is used to represent a group of fonts with
-         * the same family, slant, weight, and width, but varying sizes.
-         */
         interface FontFace extends GObject.Object {
             readonly $signals: FontFace.SignalSignatures
             readonly $readableProperties: FontFace.ReadableProperties
@@ -725,7 +727,7 @@ declare module "gi://Pango?version=1.0" {
              * @since 1.4
              * @returns ,    location to store a pointer to an array of int. This array   should be freed with g_free().
              */
-            list_sizes(): void
+            list_sizes(): number[] | null
             /**
              * Returns a font description that matches the face.
              *
@@ -770,16 +772,23 @@ declare module "gi://Pango?version=1.0" {
              * @since 1.4
              * @returns ,    location to store a pointer to an array of int. This array   should be freed with g_free().
              */
-            vfunc_list_sizes(): void
+            vfunc_list_sizes(): number[] | null
         }
 
         interface FontFaceClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FontFace>
             readonly prototype: FontFace
+
             new (props?: Partial<GObject.ConstructorProps<FontFace>>): FontFace
         }
 
-        const FontFace: FontFaceClass
+        interface $Exports {
+            /**
+             * A `PangoFontFace` is used to represent a group of fonts with
+             * the same family, slant, weight, and width, but varying sizes.
+             */
+            FontFace: FontFaceClass
+        }
         
 
         namespace FontFamily {
@@ -806,13 +815,6 @@ declare module "gi://Pango?version=1.0" {
             }
         }
 
-        /**
-         * A `PangoFontFamily` is used to represent a family of related
-         * font faces.
-         *
-         * The font faces in a family share a common design, but differ in
-         * slant, weight, width or other aspects.
-         */
         interface FontFamily extends GObject.Object, Gio.ListModel {
             readonly $signals: FontFamily.SignalSignatures
             readonly $readableProperties: FontFamily.ReadableProperties
@@ -912,7 +914,7 @@ declare module "gi://Pango?version=1.0" {
              * for enumerating faces.
              * @returns ,    location to store an array of pointers to `PangoFontFace` objects,   or %NULL. This array should be freed with g_free() when it is no   longer needed.
              */
-            list_faces(): void
+            list_faces(): FontFace[]
             /**
              * Gets the `PangoFontFace` of @family with the given name.
              * @since 1.46
@@ -973,16 +975,26 @@ declare module "gi://Pango?version=1.0" {
              * for enumerating faces.
              * @returns ,    location to store an array of pointers to `PangoFontFace` objects,   or %NULL. This array should be freed with g_free() when it is no   longer needed.
              */
-            vfunc_list_faces(): void
+            vfunc_list_faces(): FontFace[]
         }
 
         interface FontFamilyClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FontFamily>
             readonly prototype: FontFamily
+
             new (props?: Partial<GObject.ConstructorProps<FontFamily>>): FontFamily
         }
 
-        const FontFamily: FontFamilyClass
+        interface $Exports {
+            /**
+             * A `PangoFontFamily` is used to represent a family of related
+             * font faces.
+             *
+             * The font faces in a family share a common design, but differ in
+             * slant, weight, width or other aspects.
+             */
+            FontFamily: FontFamilyClass
+        }
         
 
         namespace FontMap {
@@ -1003,13 +1015,6 @@ declare module "gi://Pango?version=1.0" {
             }
         }
 
-        /**
-         * A `PangoFontMap` represents the set of fonts available for a
-         * particular rendering system.
-         *
-         * This is a virtual object with implementations being specific to
-         * particular rendering systems.
-         */
         interface FontMap extends GObject.Object, Gio.ListModel {
             readonly $signals: FontMap.SignalSignatures
             readonly $readableProperties: FontMap.ReadableProperties
@@ -1197,10 +1202,20 @@ declare module "gi://Pango?version=1.0" {
         interface FontMapClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FontMap>
             readonly prototype: FontMap
+
             new (props?: Partial<GObject.ConstructorProps<FontMap>>): FontMap
         }
 
-        const FontMap: FontMapClass
+        interface $Exports {
+            /**
+             * A `PangoFontMap` represents the set of fonts available for a
+             * particular rendering system.
+             *
+             * This is a virtual object with implementations being specific to
+             * particular rendering systems.
+             */
+            FontMap: FontMapClass
+        }
         
 
         namespace Fontset {
@@ -1217,14 +1232,6 @@ declare module "gi://Pango?version=1.0" {
             }
         }
 
-        /**
-         * A `PangoFontset` represents a set of `PangoFont` to use when rendering text.
-         *
-         * A `PangoFontset` is the result of resolving a `PangoFontDescription`
-         * against a particular `PangoContext`. It has operations for finding the
-         * component font for a particular Unicode character, and for finding a
-         * composite set of metrics for the entire fontset.
-         */
         interface Fontset extends GObject.Object {
             readonly $signals: Fontset.SignalSignatures
             readonly $readableProperties: Fontset.ReadableProperties
@@ -1281,10 +1288,21 @@ declare module "gi://Pango?version=1.0" {
         interface FontsetClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Fontset>
             readonly prototype: Fontset
+
             new (props?: Partial<GObject.ConstructorProps<Fontset>>): Fontset
         }
 
-        const Fontset: FontsetClass
+        interface $Exports {
+            /**
+             * A `PangoFontset` represents a set of `PangoFont` to use when rendering text.
+             *
+             * A `PangoFontset` is the result of resolving a `PangoFontDescription`
+             * against a particular `PangoContext`. It has operations for finding the
+             * component font for a particular Unicode character, and for finding a
+             * composite set of metrics for the entire fontset.
+             */
+            Fontset: FontsetClass
+        }
         
 
         namespace FontsetSimple {
@@ -1301,13 +1319,6 @@ declare module "gi://Pango?version=1.0" {
             }
         }
 
-        /**
-         * `PangoFontsetSimple` is a implementation of the abstract
-         * `PangoFontset` base class as an array of fonts.
-         *
-         * When creating a `PangoFontsetSimple`, you have to provide
-         * the array of fonts that make up the fontset.
-         */
         interface FontsetSimple extends Fontset {
             readonly $signals: FontsetSimple.SignalSignatures
             readonly $readableProperties: FontsetSimple.ReadableProperties
@@ -1330,6 +1341,7 @@ declare module "gi://Pango?version=1.0" {
         interface FontsetSimpleClass extends Omit<FontsetClass, "new"> {
             readonly $gtype: GObject.GType<FontsetSimple>
             readonly prototype: FontsetSimple
+
             new (props?: Partial<GObject.ConstructorProps<FontsetSimple>>): FontsetSimple
             /**
              * Creates a new `PangoFontsetSimple` for the given language.
@@ -1339,7 +1351,16 @@ declare module "gi://Pango?version=1.0" {
             "new"(language: Language): FontsetSimple
         }
 
-        const FontsetSimple: FontsetSimpleClass
+        interface $Exports {
+            /**
+             * `PangoFontsetSimple` is a implementation of the abstract
+             * `PangoFontset` base class as an array of fonts.
+             *
+             * When creating a `PangoFontsetSimple`, you have to provide
+             * the array of fonts that make up the fontset.
+             */
+            FontsetSimple: FontsetSimpleClass
+        }
         
 
         namespace Layout {
@@ -1356,22 +1377,6 @@ declare module "gi://Pango?version=1.0" {
             }
         }
 
-        /**
-         *
-         *
-         * The following images demonstrate the effect of alignment and
-         * justification on the layout of text:
-         *
-         * | | |
-         * | --- | --- |
-         * | ![align=left](align-left.png) | ![align=left, justify](align-left-justify.png) |
-         * | ![align=center](align-center.png) | ![align=center, justify](align-center-justify.png) |
-         * | ![align=right](align-right.png) | ![align=right, justify](align-right-justify.png) |
-         *
-         *
-         * It is possible, as well, to ignore the 2-D setup,
-         * and simply treat the results of a `PangoLayout` as a list of lines.
-         */
         interface Layout extends GObject.Object {
             readonly $signals: Layout.SignalSignatures
             readonly $readableProperties: Layout.ReadableProperties
@@ -1420,12 +1425,22 @@ declare module "gi://Pango?version=1.0" {
              */
             get_baseline(): number
             /**
-             * >
+             * Given an index within a layout, determines the positions that of the
+             * strong and weak cursors if the insertion point is at that index.
+             *
+             * This is a variant of [method@Pango.Layout.get_cursor_pos] that applies
+             * font metric information about caret slope and offset to the positions
+             * it returns.
+             *
+             * <picture>
+             *   <source srcset="caret-metrics-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Caret metrics" src="caret-metrics-light.png">
+             * </picture>
              * @since 1.50
              * @param index_ the byte index of the cursor
              * @returns , location to store the strong cursor position, location to store the weak cursor position
              */
-            get_caret_pos(index_: number): void
+            get_caret_pos(index_: number): [Rectangle, Rectangle]
             /**
              * Returns the number of Unicode characters in the
              * the text of @layout.
@@ -1439,7 +1454,28 @@ declare module "gi://Pango?version=1.0" {
              */
             get_context(): Context
             /**
+             * Given an index within a layout, determines the positions that of the
+             * strong and weak cursors if the insertion point is at that index.
              *
+             * The position of each cursor is stored as a zero-width rectangle
+             * with the height of the run extents.
+             *
+             * <picture>
+             *   <source srcset="cursor-positions-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Cursor positions" src="cursor-positions-light.png">
+             * </picture>
+             *
+             * The strong cursor location is the location where characters of the
+             * directionality equal to the base direction of the layout are inserted.
+             * The weak cursor location is the location where characters of the
+             * directionality opposite to the base direction of the layout are inserted.
+             *
+             * The following example shows text with both a strong and a weak cursor.
+             *
+             * <picture>
+             *   <source srcset="split-cursor-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Strong and weak cursors" src="split-cursor-light.png">
+             * </picture>
              *
              * The strong cursor has a little arrow pointing to the right, the weak
              * cursor to the left. Typing a 'c' in this situation will insert the
@@ -1448,7 +1484,7 @@ declare module "gi://Pango?version=1.0" {
              * @param index_ the byte index of the cursor
              * @returns , location to store the strong cursor position, location to store the weak cursor position
              */
-            get_cursor_pos(index_: number): void
+            get_cursor_pos(index_: number): [Rectangle, Rectangle]
             /**
              * Gets the text direction at the given character position in @layout.
              * @since 1.46
@@ -1480,7 +1516,7 @@ declare module "gi://Pango?version=1.0" {
              * coordinates begin at the top left corner of the layout.
              * @returns , rectangle used to store the extents of the   layout as drawn, rectangle used to store the logical   extents of the layout
              */
-            get_extents(): void
+            get_extents(): [Rectangle, Rectangle]
             /**
              * Gets the font description for the layout, if any.
              * @since 1.8
@@ -1603,7 +1639,7 @@ declare module "gi://Pango?version=1.0" {
              * passes them as first argument to [func@Pango.extents_to_pixels]).
              * @returns , rectangle used to store the extents of the   layout as drawn, rectangle used to store the logical   extents of the layout
              */
-            get_pixel_extents(): void
+            get_pixel_extents(): [Rectangle, Rectangle]
             /**
              * Determines the logical width and height of a `PangoLayout` in device
              * units.
@@ -1613,7 +1649,7 @@ declare module "gi://Pango?version=1.0" {
              * around [method@Pango.Layout.get_pixel_extents].
              * @returns , location to store the logical width, location to store the logical height
              */
-            get_pixel_size(): void
+            get_pixel_size(): [number, number]
             /**
              * Returns the current serial number of @layout.
              *
@@ -1645,7 +1681,7 @@ declare module "gi://Pango?version=1.0" {
              * This is simply a convenience function around [method@Pango.Layout.get_extents].
              * @returns , location to store the logical width, location to store the logical height
              */
-            get_size(): void
+            get_size(): [number, number]
             /**
              * Gets the amount of spacing between the lines of the layout.
              * @returns the spacing in Pango units
@@ -1697,13 +1733,20 @@ declare module "gi://Pango?version=1.0" {
              *
              * The X position is measured from the left edge of the line.
              * @param index_ the byte index of a grapheme within the layout
-             * @param trailing  0, the trailing edge of the grapheme, if 0,
+             * @param trailing an integer indicating the edge of the grapheme to retrieve the
+              position of. If > 0, the trailing edge of the grapheme, if 0,
               the leading of the grapheme
              * @returns , location to store resulting line index. (which will   between 0 and pango_layout_get_line_count(layout) - 1), location to store resulting position within line   (%PANGO_SCALE units per device unit)
              */
-            index_to_line_x(index_: number, trailing: boolean): void
+            index_to_line_x(index_: number, trailing: boolean): [number, number]
             /**
-             * width` will be negative.
+             * Converts from an index within a `PangoLayout` to the onscreen position
+             * corresponding to the grapheme at that index.
+             *
+             * The returns is represented as rectangle. Note that `pos->x` is
+             * always the leading edge of the grapheme and `pos->x + pos->width` the
+             * trailing edge of the grapheme. If the directionality of the grapheme
+             * is right-to-left, then `pos->width` will be negative.
              * @param index_ byte index within @layout
              * @returns , rectangle in which to store the position of the grapheme
              */
@@ -1749,7 +1792,8 @@ declare module "gi://Pango?version=1.0" {
               weak cursor. The strong cursor is the cursor corresponding
               to text insertion in the base direction for the layout.
              * @param old_index the byte index of the current cursor position
-             * @param old_trailing  0, the cursor
+             * @param old_trailing if 0, the cursor was at the leading edge of the
+              grapheme indicated by @old_index, if > 0, the cursor
               was at the trailing edge.
              * @param direction direction to move cursor. A negative
               value indicates motion to the left
@@ -1969,7 +2013,7 @@ declare module "gi://Pango?version=1.0" {
              * @param accel_marker marker for accelerators in the text
              * @returns , return location   for first located accelerator
              */
-            set_markup_with_accel(markup: string, length: number, accel_marker: string): void
+            set_markup_with_accel(markup: string, length: number, accel_marker: string): string
             /**
              * Sets the single paragraph mode of @layout.
              *
@@ -2094,6 +2138,7 @@ declare module "gi://Pango?version=1.0" {
         interface LayoutClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Layout>
             readonly prototype: Layout
+
             new (props?: Partial<GObject.ConstructorProps<Layout>>): Layout
             /**
              * Create a new `PangoLayout` object with attributes initialized to
@@ -2117,10 +2162,52 @@ declare module "gi://Pango?version=1.0" {
              * @param flags `PangoLayoutDeserializeFlags`
              * @returns a new `PangoLayout`
              */
-            deserialize(context: Context, bytes: GLib.Bytes, flags: LayoutDeserializeFlags): Layout | null
+            deserialize(context: Context, bytes: (GLib.Bytes | Uint8Array), flags: LayoutDeserializeFlags): Layout | null
         }
 
-        const Layout: LayoutClass
+        interface $Exports {
+            /**
+             * A `PangoLayout` structure represents an entire paragraph of text.
+             *
+             * While complete access to the layout capabilities of Pango is provided
+             * using the detailed interfaces for itemization and shaping, using
+             * that functionality directly involves writing a fairly large amount
+             * of code. `PangoLayout` provides a high-level driver for formatting
+             * entire paragraphs of text at once. This includes paragraph-level
+             * functionality such as line breaking, justification, alignment and
+             * ellipsization.
+             *
+             * A `PangoLayout` is initialized with a `PangoContext`, UTF-8 string
+             * and set of attributes for that string. Once that is done, the set of
+             * formatted lines can be extracted from the object, the layout can be
+             * rendered, and conversion between logical character positions within
+             * the layout's text, and the physical position of the resulting glyphs
+             * can be made.
+             *
+             * There are a number of parameters to adjust the formatting of a
+             * `PangoLayout`. The following image shows adjustable parameters
+             * (on the left) and font metrics (on the right):
+             *
+             * <picture>
+             *   <source srcset="layout-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Pango Layout Parameters" src="layout-light.png">
+             * </picture>
+             *
+             * The following images demonstrate the effect of alignment and
+             * justification on the layout of text:
+             *
+             * | | |
+             * | --- | --- |
+             * | ![align=left](align-left.png) | ![align=left, justify](align-left-justify.png) |
+             * | ![align=center](align-center.png) | ![align=center, justify](align-center-justify.png) |
+             * | ![align=right](align-right.png) | ![align=right, justify](align-right-justify.png) |
+             *
+             *
+             * It is possible, as well, to ignore the 2-D setup,
+             * and simply treat the results of a `PangoLayout` as a list of lines.
+             */
+            Layout: LayoutClass
+        }
         
 
         namespace Renderer {
@@ -2137,15 +2224,6 @@ declare module "gi://Pango?version=1.0" {
             }
         }
 
-        /**
-         * `PangoRenderer` is a base class for objects that can render text
-         * provided as `PangoGlyphString` or `PangoLayout`.
-         *
-         * By subclassing `PangoRenderer` and overriding operations such as
-         * @draw_glyphs and @draw_rectangle, renderers for particular font
-         * backends and destinations can be created.
-         * @since 1.8
-         */
         interface Renderer extends GObject.Object {
             readonly $signals: Renderer.SignalSignatures
             readonly $readableProperties: Renderer.ReadableProperties
@@ -2198,7 +2276,19 @@ declare module "gi://Pango?version=1.0" {
              */
             draw_glyph(font: Font, glyph: Glyph, x: number, y: number): void
             /**
-             * offset`.
+             * Draws the glyphs in @glyph_item with the specified `PangoRenderer`,
+             * embedding the text associated with the glyphs in the output if the
+             * output format supports it.
+             *
+             * This is useful for rendering text in PDF.
+             *
+             * Note that this method does not handle attributes in @glyph_item.
+             * If you want colors, shapes and lines handled automatically according
+             * to those attributes, you need to use pango_renderer_draw_layout_line()
+             * or pango_renderer_draw_layout().
+             *
+             * Note that @text is the start of the text for layout, which is then
+             * indexed by `glyph_item->item->offset`.
              *
              * If @text is %NULL, this simply calls [method@Pango.Renderer.draw_glyphs].
              *
@@ -2404,7 +2494,19 @@ declare module "gi://Pango?version=1.0" {
              */
             vfunc_draw_glyph(font: Font, glyph: Glyph, x: number, y: number): void
             /**
-             * offset`.
+             * Draws the glyphs in @glyph_item with the specified `PangoRenderer`,
+             * embedding the text associated with the glyphs in the output if the
+             * output format supports it.
+             *
+             * This is useful for rendering text in PDF.
+             *
+             * Note that this method does not handle attributes in @glyph_item.
+             * If you want colors, shapes and lines handled automatically according
+             * to those attributes, you need to use pango_renderer_draw_layout_line()
+             * or pango_renderer_draw_layout().
+             *
+             * Note that @text is the start of the text for layout, which is then
+             * indexed by `glyph_item->item->offset`.
              *
              * If @text is %NULL, this simply calls [method@Pango.Renderer.draw_glyphs].
              *
@@ -2502,18 +2604,30 @@ declare module "gi://Pango?version=1.0" {
         interface RendererClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Renderer>
             readonly prototype: Renderer
+
             new (props?: Partial<GObject.ConstructorProps<Renderer>>): Renderer
         }
 
-        const Renderer: RendererClass
-        /**
-         * The `PangoAnalysis` structure stores information about
-         * the properties of a segment of text.
-         */
-        abstract class Analysis {
-            static readonly $gtype: GObject.GType<Analysis>
+        interface $Exports {
+            /**
+             * `PangoRenderer` is a base class for objects that can render text
+             * provided as `PangoGlyphString` or `PangoLayout`.
+             *
+             * By subclassing `PangoRenderer` and overriding operations such as
+             * @draw_glyphs and @draw_rectangle, renderers for particular font
+             * backends and destinations can be created.
+             * @since 1.8
+             */
+            Renderer: RendererClass
+        }
+        
 
-            
+        interface AnalysisStruct {
+            readonly $gtype: GObject.GType<Analysis>
+            [Symbol.hasInstance](instance: unknown): instance is Analysis
+        }
+
+        interface Analysis {
             /**
              * unused, reserved
              */
@@ -2551,30 +2665,35 @@ declare module "gi://Pango?version=1.0" {
              */
             extra_attrs: never[]
         }
-        /**
-         * The `PangoAttrClass` structure stores the type and operations for
-         * a particular type of attribute.
-         *
-         * The functions in this structure should not be called directly. Instead,
-         * one should use the wrapper functions provided for `PangoAttribute`.
-         */
-        abstract class AttrClass {
-            static readonly $gtype: GObject.GType<AttrClass>
 
-            
+        interface $Exports {
+            Analysis: AnalysisStruct
+        }
+        
+
+        interface AttrClassStruct {
+            readonly $gtype: GObject.GType<AttrClass>
+            [Symbol.hasInstance](instance: unknown): instance is AttrClass
+        }
+
+        interface AttrClass {
             /**
              * the type ID for this attribute
              */
             type: AttrType
         }
-        /**
-         * The `PangoAttrColor` structure is used to represent attributes that
-         * are colors.
-         */
-        abstract class AttrColor {
-            static readonly $gtype: GObject.GType<AttrColor>
 
-            
+        interface $Exports {
+            AttrClass: AttrClassStruct
+        }
+        
+
+        interface AttrColorStruct {
+            readonly $gtype: GObject.GType<AttrColor>
+            [Symbol.hasInstance](instance: unknown): instance is AttrColor
+        }
+
+        interface AttrColor {
             /**
              * the common portion of the attribute
              */
@@ -2584,14 +2703,18 @@ declare module "gi://Pango?version=1.0" {
              */
             color: Color
         }
-        /**
-         * The `PangoAttrFloat` structure is used to represent attributes with
-         * a float or double value.
-         */
-        abstract class AttrFloat {
-            static readonly $gtype: GObject.GType<AttrFloat>
 
-            
+        interface $Exports {
+            AttrColor: AttrColorStruct
+        }
+        
+
+        interface AttrFloatStruct {
+            readonly $gtype: GObject.GType<AttrFloat>
+            [Symbol.hasInstance](instance: unknown): instance is AttrFloat
+        }
+
+        interface AttrFloat {
             /**
              * the common portion of the attribute
              */
@@ -2601,14 +2724,15 @@ declare module "gi://Pango?version=1.0" {
              */
             value: number
         }
-        /**
-         * The `PangoAttrFontDesc` structure is used to store an attribute that
-         * sets all aspects of the font description at once.
-         */
-        abstract class AttrFontDesc {
-            static readonly $gtype: GObject.GType<AttrFontDesc>
 
-            
+        interface $Exports {
+            AttrFloat: AttrFloatStruct
+        }
+        
+
+        interface AttrFontDescStruct {
+            readonly $gtype: GObject.GType<AttrFontDesc>
+            [Symbol.hasInstance](instance: unknown): instance is AttrFontDesc
             /**
              * Create a new font description attribute.
              *
@@ -2617,7 +2741,10 @@ declare module "gi://Pango?version=1.0" {
              * @param desc the font description
              * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
              */
-            static "new"(desc: FontDescription): Attribute
+            "new"(desc: FontDescription): Attribute
+        }
+
+        interface AttrFontDesc {
             /**
              * the common portion of the attribute
              */
@@ -2627,15 +2754,15 @@ declare module "gi://Pango?version=1.0" {
              */
             desc: FontDescription
         }
-        /**
-         * The `PangoAttrFontFeatures` structure is used to represent OpenType
-         * font features as an attribute.
-         * @since 1.38
-         */
-        abstract class AttrFontFeatures {
-            static readonly $gtype: GObject.GType<AttrFontFeatures>
 
-            
+        interface $Exports {
+            AttrFontDesc: AttrFontDescStruct
+        }
+        
+
+        interface AttrFontFeaturesStruct {
+            readonly $gtype: GObject.GType<AttrFontFeatures>
+            [Symbol.hasInstance](instance: unknown): instance is AttrFontFeatures
             /**
              * Create a new font features tag attribute.
              *
@@ -2646,7 +2773,10 @@ declare module "gi://Pango?version=1.0" {
             font-feature-settings property](https://www.w3.org/TR/css-fonts-4/#font-rend-desc)
              * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
              */
-            static "new"(features: string): Attribute
+            "new"(features: string): Attribute
+        }
+
+        interface AttrFontFeatures {
             /**
              * the common portion of the attribute
              */
@@ -2656,14 +2786,18 @@ declare module "gi://Pango?version=1.0" {
              */
             features: string
         }
-        /**
-         * The `PangoAttrInt` structure is used to represent attributes with
-         * an integer or enumeration value.
-         */
-        abstract class AttrInt {
-            static readonly $gtype: GObject.GType<AttrInt>
 
-            
+        interface $Exports {
+            AttrFontFeatures: AttrFontFeaturesStruct
+        }
+        
+
+        interface AttrIntStruct {
+            readonly $gtype: GObject.GType<AttrInt>
+            [Symbol.hasInstance](instance: unknown): instance is AttrInt
+        }
+
+        interface AttrInt {
             /**
              * the common portion of the attribute
              */
@@ -2673,19 +2807,18 @@ declare module "gi://Pango?version=1.0" {
              */
             value: number
         }
-        /**
-         * A `PangoAttrIterator` is used to iterate through a `PangoAttrList`.
-         *
-         * A new iterator is created with [method@Pango.AttrList.get_iterator].
-         * Once the iterator is created, it can be advanced through the style
-         * changes in the text using [method@Pango.AttrIterator.next]. At each
-         * style change, the range of the current style segment and the attributes
-         * currently in effect can be queried.
-         */
-        abstract class AttrIterator {
-            static readonly $gtype: GObject.GType<AttrIterator>
 
-            
+        interface $Exports {
+            AttrInt: AttrIntStruct
+        }
+        
+
+        interface AttrIteratorStruct {
+            readonly $gtype: GObject.GType<AttrIterator>
+            [Symbol.hasInstance](instance: unknown): instance is AttrIterator
+        }
+
+        interface AttrIterator {
             /**
              * Copy a `PangoAttrIterator`.
              * @returns the newly allocated   `PangoAttrIterator`, which should be freed with   [method@Pango.AttrIterator.destroy]
@@ -2725,7 +2858,7 @@ declare module "gi://Pango?version=1.0" {
               `pango_font_description_set_family (desc, pango_font_description_get_family (desc))`.
              * @returns , location to store language tag   for item, or %NULL if none is found.,    location in which to store a list of non-font attributes   at the the current position; only the highest priority   value of each attribute will be added to this list. In   order to free this value, you must call   [method@Pango.Attribute.destroy] on each member.
              */
-            get_font(desc: FontDescription): void
+            get_font(desc: FontDescription): [Language, Attribute[]]
             /**
              * Advance the iterator until the next change of style.
              * @returns %FALSE if the iterator is at the end   of the list, otherwise %TRUE
@@ -2742,20 +2875,24 @@ declare module "gi://Pango?version=1.0" {
              */
             range(): [number, number]
         }
-        /**
-         * The `PangoAttrLanguage` structure is used to represent attributes that
-         * are languages.
-         */
-        abstract class AttrLanguage {
-            static readonly $gtype: GObject.GType<AttrLanguage>
 
-            
+        interface $Exports {
+            AttrIterator: AttrIteratorStruct
+        }
+        
+
+        interface AttrLanguageStruct {
+            readonly $gtype: GObject.GType<AttrLanguage>
+            [Symbol.hasInstance](instance: unknown): instance is AttrLanguage
             /**
              * Create a new language tag attribute.
              * @param language language tag
              * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
              */
-            static "new"(language: Language): Attribute
+            "new"(language: Language): Attribute
+        }
+
+        interface AttrLanguage {
             /**
              * the common portion of the attribute
              */
@@ -2765,29 +2902,21 @@ declare module "gi://Pango?version=1.0" {
              */
             value: Language
         }
-        /**
-         * A `PangoAttrList` represents a list of attributes that apply to a section
-         * of text.
-         *
-         * The attributes in a `PangoAttrList` are, in general, allowed to overlap in
-         * an arbitrary fashion. However, if the attributes are manipulated only through
-         * [method@Pango.AttrList.change], the overlap between properties will meet
-         * stricter criteria.
-         *
-         * Since the `PangoAttrList` structure is stored as a linear list, it is not
-         * suitable for storing attributes for large amounts of text. In general, you
-         * should not use a single `PangoAttrList` for more than one paragraph of text.
-         */
-        abstract class AttrList {
-            static readonly $gtype: GObject.GType<AttrList>
 
-            
+        interface $Exports {
+            AttrLanguage: AttrLanguageStruct
+        }
+        
+
+        interface AttrListStruct {
+            readonly $gtype: GObject.GType<AttrList>
+            [Symbol.hasInstance](instance: unknown): instance is AttrList
             /**
              * Create a new empty attribute list with a reference
              * count of one.
              * @returns the newly allocated   `PangoAttrList`, which should be freed with   [method@Pango.AttrList.unref]
              */
-            static "new"(): AttrList
+            "new"(): AttrList
             /**
              * Deserializes a `PangoAttrList` from a string.
              *
@@ -2797,7 +2926,10 @@ declare module "gi://Pango?version=1.0" {
              * @param text a string
              * @returns a new `PangoAttrList`
              */
-            static from_string(text: string): AttrList | null
+            from_string(text: string): AttrList | null
+        }
+
+        interface AttrList {
             /**
              * Insert the given attribute into the `PangoAttrList`.
              *
@@ -2972,14 +3104,15 @@ declare module "gi://Pango?version=1.0" {
              */
             update(pos: number, remove: number, add: number): void
         }
-        /**
-         * The `PangoAttrShape` structure is used to represent attributes which
-         * impose shape restrictions.
-         */
-        abstract class AttrShape {
-            static readonly $gtype: GObject.GType<AttrShape>
 
-            
+        interface $Exports {
+            AttrList: AttrListStruct
+        }
+        
+
+        interface AttrShapeStruct {
+            readonly $gtype: GObject.GType<AttrShape>
+            [Symbol.hasInstance](instance: unknown): instance is AttrShape
             /**
              * Create a new shape attribute.
              *
@@ -2991,7 +3124,7 @@ declare module "gi://Pango?version=1.0" {
              * @param logical_rect logical rectangle to assign to each character
              * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
              */
-            static "new"(ink_rect: Rectangle, logical_rect: Rectangle): Attribute
+            "new"(ink_rect: Rectangle, logical_rect: Rectangle): Attribute
             /**
              * Creates a new shape attribute.
              *
@@ -3007,7 +3140,10 @@ declare module "gi://Pango?version=1.0" {
               as a pointer
              * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
              */
-            static new_with_data(ink_rect: Rectangle, logical_rect: Rectangle, data: never | null, copy_func: AttrDataCopyFunc | null): Attribute
+            new_with_data(ink_rect: Rectangle, logical_rect: Rectangle, data: never | null, copy_func: AttrDataCopyFunc | null): Attribute
+        }
+
+        interface AttrShape {
             /**
              * the common portion of the attribute
              */
@@ -3033,27 +3169,31 @@ declare module "gi://Pango?version=1.0" {
              */
             destroy_func: GLib.DestroyNotify
         }
-        /**
-         * The `PangoAttrSize` structure is used to represent attributes which
-         * set font size.
-         */
-        abstract class AttrSize {
-            static readonly $gtype: GObject.GType<AttrSize>
 
-            
+        interface $Exports {
+            AttrShape: AttrShapeStruct
+        }
+        
+
+        interface AttrSizeStruct {
+            readonly $gtype: GObject.GType<AttrSize>
+            [Symbol.hasInstance](instance: unknown): instance is AttrSize
             /**
              * Create a new font-size attribute in fractional points.
              * @param size the font size, in %PANGO_SCALE-ths of a point
              * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
              */
-            static "new"(size: number): Attribute
+            "new"(size: number): Attribute
             /**
              * Create a new font-size attribute in device units.
              * @since 1.8
              * @param size the font size, in %PANGO_SCALE-ths of a device unit
              * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
              */
-            static new_absolute(size: number): Attribute
+            new_absolute(size: number): Attribute
+        }
+
+        interface AttrSize {
             /**
              * the common portion of the attribute
              */
@@ -3071,14 +3211,18 @@ declare module "gi://Pango?version=1.0" {
              */
             absolute: number
         }
-        /**
-         * The `PangoAttrString` structure is used to represent attributes with
-         * a string value.
-         */
-        abstract class AttrString {
-            static readonly $gtype: GObject.GType<AttrString>
 
-            
+        interface $Exports {
+            AttrSize: AttrSizeStruct
+        }
+        
+
+        interface AttrStringStruct {
+            readonly $gtype: GObject.GType<AttrString>
+            [Symbol.hasInstance](instance: unknown): instance is AttrString
+        }
+
+        interface AttrString {
             /**
              * the common portion of the attribute
              */
@@ -3088,20 +3232,18 @@ declare module "gi://Pango?version=1.0" {
              */
             value: string
         }
-        /**
-         * The `PangoAttribute` structure represents the common portions of all
-         * attributes.
-         *
-         * Particular types of attributes include this structure as their initial
-         * portion. The common portion of the attribute holds the range to which
-         * the value in the type-specific part of the attribute applies and should
-         * be initialized using [method@Pango.Attribute.init]. By default, an attribute
-         * will have an all-inclusive range of [0,%G_MAXUINT].
-         */
-        abstract class Attribute {
-            static readonly $gtype: GObject.GType<Attribute>
 
-            
+        interface $Exports {
+            AttrString: AttrStringStruct
+        }
+        
+
+        interface AttributeStruct {
+            readonly $gtype: GObject.GType<Attribute>
+            [Symbol.hasInstance](instance: unknown): instance is Attribute
+        }
+
+        interface Attribute {
             /**
              * the class structure holding information about the type of the attribute
              */
@@ -3216,14 +3358,18 @@ declare module "gi://Pango?version=1.0" {
              */
             init(klass: AttrClass): void
         }
-        /**
-         * The `PangoColor` structure is used to
-         * represent a color in an uncalibrated RGB color-space.
-         */
-        abstract class Color {
-            static readonly $gtype: GObject.GType<Color>
 
-            
+        interface $Exports {
+            Attribute: AttributeStruct
+        }
+        
+
+        interface ColorStruct {
+            readonly $gtype: GObject.GType<Color>
+            [Symbol.hasInstance](instance: unknown): instance is Color
+        }
+
+        interface Color {
             /**
              * value of red component
              */
@@ -3284,7 +3430,7 @@ declare module "gi://Pango?version=1.0" {
              * @param spec a string specifying the new color
              * @returns %TRUE if parsing of the specifier succeeded,   otherwise %FALSE, return location for alpha
              */
-            parse_with_alpha(spec: string): boolean
+            parse_with_alpha(spec: string): [boolean, number]
             /**
              * Returns a textual specification of @color.
              *
@@ -3296,25 +3442,20 @@ declare module "gi://Pango?version=1.0" {
              */
             to_string(): string
         }
-        none
-        none
-        /**
-         * A `PangoFontDescription` describes a font in an implementation-independent
-         * manner.
-         *
-         * `PangoFontDescription` structures are used both to list what fonts are
-         * available on the system and also for specifying the characteristics of
-         * a font to load.
-         */
-        abstract class FontDescription {
-            static readonly $gtype: GObject.GType<FontDescription>
 
-            
+        interface $Exports {
+            Color: ColorStruct
+        }
+        
+
+        interface FontDescriptionStruct {
+            readonly $gtype: GObject.GType<FontDescription>
+            [Symbol.hasInstance](instance: unknown): instance is FontDescription
             /**
              * Creates a new font description structure with all fields unset.
              * @returns the newly allocated `PangoFontDescription`,   which should be freed using [method@Pango.FontDescription.free].
              */
-            static "new"(): FontDescription
+            "new"(): FontDescription
             /**
              * Creates a new font description from a string representation.
              *
@@ -3371,7 +3512,10 @@ declare module "gi://Pango?version=1.0" {
              * @param str string representation of a font description.
              * @returns a new `PangoFontDescription`.
              */
-            static from_string(str: string): FontDescription
+            from_string(str: string): FontDescription
+        }
+
+        interface FontDescription {
             /**
              * Determines if the style attributes of @new_match are a closer match
              * for @desc than those of @old_match are, or if @old_match is %NULL,
@@ -3510,7 +3654,10 @@ declare module "gi://Pango?version=1.0" {
              */
             get_weight(): Weight
             /**
-             * mask.
+             * Computes a hash of a `PangoFontDescription` structure.
+             *
+             * This is suitable to be used, for example, as an argument
+             * to g_hash_table_new(). The hash value is independent of @desc->mask.
              * @returns the hash value.
              */
             hash(): number
@@ -3759,16 +3906,18 @@ declare module "gi://Pango?version=1.0" {
              */
             unset_fields(to_unset: FontMask): void
         }
-        none
-        none
-        none
-        /**
-         * >
-         */
-        abstract class FontMetrics {
-            static readonly $gtype: GObject.GType<FontMetrics>
 
-            
+        interface $Exports {
+            FontDescription: FontDescriptionStruct
+        }
+        
+
+        interface FontMetricsStruct {
+            readonly $gtype: GObject.GType<FontMetrics>
+            [Symbol.hasInstance](instance: unknown): instance is FontMetrics
+        }
+
+        interface FontMetrics {
             /**
              * Gets the approximate character width for a font metrics structure.
              *
@@ -3863,29 +4012,18 @@ declare module "gi://Pango?version=1.0" {
              */
             unref(): void
         }
-        none
-        none
-        /**
-         * The `PangoGlyphGeometry` structure contains width and positioning
-         * information for a single glyph.
-         *
-         * Note that @width is not guaranteed to be the same as the glyph
-         * extents. Kerning and other positioning applied during shaping will
-         * affect both the @width and the @x_offset for the glyphs in the
-         * glyph string that results from shaping.
-         *
-         * The information in this struct is intended for rendering the glyphs,
-         * as follows:
-         *
-         * 1. Assume the current point is (x, y)
-         * 2. Render the current glyph at (x + x_offset, y + y_offset),
-         * 3. Advance the current point to (x + width, y)
-         * 4. Render the next glyph
-         */
-        abstract class GlyphGeometry {
-            static readonly $gtype: GObject.GType<GlyphGeometry>
 
-            
+        interface $Exports {
+            FontMetrics: FontMetricsStruct
+        }
+        
+
+        interface GlyphGeometryStruct {
+            readonly $gtype: GObject.GType<GlyphGeometry>
+            [Symbol.hasInstance](instance: unknown): instance is GlyphGeometry
+        }
+
+        interface GlyphGeometry {
             /**
              * the logical width to use for the the character.
              */
@@ -3899,14 +4037,18 @@ declare module "gi://Pango?version=1.0" {
              */
             y_offset: GlyphUnit
         }
-        /**
-         * A `PangoGlyphInfo` structure represents a single glyph with
-         * positioning information and visual attributes.
-         */
-        abstract class GlyphInfo {
-            static readonly $gtype: GObject.GType<GlyphInfo>
 
-            
+        interface $Exports {
+            GlyphGeometry: GlyphGeometryStruct
+        }
+        
+
+        interface GlyphInfoStruct {
+            readonly $gtype: GObject.GType<GlyphInfo>
+            [Symbol.hasInstance](instance: unknown): instance is GlyphInfo
+        }
+
+        interface GlyphInfo {
             /**
              * the glyph itself.
              */
@@ -3920,18 +4062,18 @@ declare module "gi://Pango?version=1.0" {
              */
             attr: GlyphVisAttr
         }
-        /**
-         * A `PangoGlyphItem` is a pair of a `PangoItem` and the glyphs
-         * resulting from shaping the items text.
-         *
-         * As an example of the usage of `PangoGlyphItem`, the results
-         * of shaping text with `PangoLayout` is a list of `PangoLayoutLine`,
-         * each of which contains a list of `PangoGlyphItem`.
-         */
-        abstract class GlyphItem {
-            static readonly $gtype: GObject.GType<GlyphItem>
 
-            
+        interface $Exports {
+            GlyphInfo: GlyphInfoStruct
+        }
+        
+
+        interface GlyphItemStruct {
+            readonly $gtype: GObject.GType<GlyphItem>
+            [Symbol.hasInstance](instance: unknown): instance is GlyphItem
+        }
+
+        interface GlyphItem {
             /**
              * corresponding `PangoItem`
              */
@@ -3956,7 +4098,19 @@ declare module "gi://Pango?version=1.0" {
              */
             end_x_offset: number
             /**
-             * extra_attrs for some of the
+             * Splits a shaped item (`PangoGlyphItem`) into multiple items based
+             * on an attribute list.
+             *
+             * The idea is that if you have attributes that don't affect shaping,
+             * such as color or underline, to avoid affecting shaping, you filter
+             * them out ([method@Pango.AttrList.filter]), apply the shaping process
+             * and then reapply them to the result using this function.
+             *
+             * All attributes that start or end inside a cluster are applied
+             * to that cluster; for instance, if half of a cluster is underlined
+             * and the other-half strikethrough, then the cluster will end
+             * up with both underline and strikethrough attributes. In these
+             * cases, it may happen that @item->extra_attrs for some of the
              * result items can have multiple attributes of the same type.
              *
              * This function takes ownership of @glyph_item; it will be reused
@@ -3987,16 +4141,18 @@ declare module "gi://Pango?version=1.0" {
              *
              * See also [method@Pango.GlyphString.get_logical_widths].
              * @since 1.26
-             * @param text offset is an offset from the
+             * @param text text that @glyph_item corresponds to
+              (glyph_item->item->offset is an offset from the
               start of @text)
-             * @returns , num_chars`) to be filled in with the resulting   character widths.
+             * @returns , an array whose length   is the number of characters in glyph_item (equal to   `glyph_item->item->num_chars`) to be filled in with the resulting   character widths.
              */
             get_logical_widths(text: string): number[]
             /**
              * Adds spacing between the graphemes of @glyph_item to
              * give the effect of typographic letter spacing.
              * @since 1.6
-             * @param text offset is an offset from the
+             * @param text text that @glyph_item corresponds to
+              (glyph_item->item->offset is an offset from the
               start of @text)
              * @param log_attrs logical attributes for the item
               (the first logical attribute refers to the position
@@ -4026,21 +4182,18 @@ declare module "gi://Pango?version=1.0" {
              */
             split(text: string, split_index: number): GlyphItem | null
         }
-        /**
-         * offset` to get to the text of @glyph_item.
-         * The @start_index and @end_index values can directly index into @text. The
-         * @start_glyph, @end_glyph, @start_char, and @end_char values however are
-         * zero-based for the @glyph_item.  For each cluster, the item pointed at by
-         * the start variables is included in the cluster while the one pointed at by
-         * end variables is not.
-         *
-         * None of the members of a `PangoGlyphItemIter` should be modified manually.
-         * @since 1.22
-         */
-        abstract class GlyphItemIter {
-            static readonly $gtype: GObject.GType<GlyphItemIter>
 
-            
+        interface $Exports {
+            GlyphItem: GlyphItemStruct
+        }
+        
+
+        interface GlyphItemIterStruct {
+            readonly $gtype: GObject.GType<GlyphItemIter>
+            [Symbol.hasInstance](instance: unknown): instance is GlyphItemIter
+        }
+
+        interface GlyphItemIter {
             /**
              */
             glyph_item: GlyphItem
@@ -4114,22 +4267,23 @@ declare module "gi://Pango?version=1.0" {
              */
             prev_cluster(): boolean
         }
-        /**
-         * A `PangoGlyphString` is used to store strings of glyphs with geometry
-         * and visual attribute information.
-         *
-         * The storage for the glyph information is owned by the structure
-         * which simplifies memory management.
-         */
-        abstract class GlyphString {
-            static readonly $gtype: GObject.GType<GlyphString>
 
-            
+        interface $Exports {
+            GlyphItemIter: GlyphItemIterStruct
+        }
+        
+
+        interface GlyphStringStruct {
+            readonly $gtype: GObject.GType<GlyphString>
+            [Symbol.hasInstance](instance: unknown): instance is GlyphString
             /**
              * Create a new `PangoGlyphString`.
              * @returns the newly allocated `PangoGlyphString`, which   should be freed with [method@Pango.GlyphString.free].
              */
-            static "new"(): GlyphString
+            "new"(): GlyphString
+        }
+
+        interface GlyphString {
             /**
              * number of glyphs in this glyph string
              */
@@ -4160,7 +4314,7 @@ declare module "gi://Pango?version=1.0" {
              * @param font a `PangoFont`
              * @returns , rectangle used to store the extents of the glyph string as drawn, rectangle used to store the logical extents of the glyph string
              */
-            extents(font: Font): void
+            extents(font: Font): [Rectangle, Rectangle]
             /**
              * Computes the extents of a sub-portion of a glyph string.
              *
@@ -4168,11 +4322,12 @@ declare module "gi://Pango?version=1.0" {
              * (the origin of their coordinate system is at the start of the range,
              * not at the start of the entire glyph string).
              * @param start start index
-             * @param end  end)
+             * @param end end index (the range is the set of bytes with
+              indices such that start <= index < end)
              * @param font a `PangoFont`
              * @returns , rectangle used to   store the extents of the glyph string range as drawn, rectangle used to   store the logical extents of the glyph string range
              */
-            extents_range(start: number, end: number, font: Font): void
+            extents_range(start: number, end: number, font: Font): [Rectangle, Rectangle]
             /**
              * Free a glyph string and associated storage.
              */
@@ -4203,7 +4358,17 @@ declare module "gi://Pango?version=1.0" {
              */
             get_width(): number
             /**
-             * >
+             * Converts from character position to x position.
+             *
+             * The X position is measured from the left edge of the run.
+             * Character positions are obtained using font metrics for ligatures
+             * where available, and computed by dividing up each cluster
+             * into equal portions, otherwise.
+             *
+             * <picture>
+             *   <source srcset="glyphstring-positions-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Glyph positions" src="glyphstring-positions-light.png">
+             * </picture>
              * @param text the text for the run
              * @param length the number of bytes (not characters) in @text.
              * @param analysis the analysis information return from [func@itemize]
@@ -4212,7 +4377,7 @@ declare module "gi://Pango?version=1.0" {
               or end (%TRUE) of the character.
              * @returns , location to store result
              */
-            index_to_x(text: string, length: number, analysis: Analysis, index_: number, trailing: boolean): void
+            index_to_x(text: string, length: number, analysis: Analysis, index_: number, trailing: boolean): number
             /**
              * Converts from character position to x position.
              *
@@ -4230,7 +4395,7 @@ declare module "gi://Pango?version=1.0" {
               or end (%TRUE) of the character.
              * @returns , location to store result
              */
-            index_to_x_full(text: string, length: number, analysis: Analysis, attrs: LogAttr | null, index_: number, trailing: boolean): void
+            index_to_x_full(text: string, length: number, analysis: Analysis, attrs: LogAttr | null, index_: number, trailing: boolean): number
             /**
              * Resize a glyph string to the given length.
              * @param new_len the new length of the string
@@ -4250,24 +4415,20 @@ declare module "gi://Pango?version=1.0" {
              * @param x_pos the x offset (in Pango units)
              * @returns , location to store calculated byte index   within `text`, location to store a boolean indicating   whether the user clicked on the leading or trailing edge of the   character
              */
-            x_to_index(text: string, length: number, analysis: Analysis, x_pos: number): void
+            x_to_index(text: string, length: number, analysis: Analysis, x_pos: number): [number, number]
         }
-        /**
-         * A `PangoGlyphVisAttr` structure communicates information between
-         * the shaping and rendering phases.
-         *
-         * Currently, it contains cluster start and color information.
-         * More attributes may be added in the future.
-         *
-         * Clusters are stored in visual order, within the cluster, glyphs
-         * are always ordered in logical order, since visual order is meaningless;
-         * that is, in Arabic text, accent glyphs follow the glyphs for the
-         * base character.
-         */
-        abstract class GlyphVisAttr {
-            static readonly $gtype: GObject.GType<GlyphVisAttr>
 
-            
+        interface $Exports {
+            GlyphString: GlyphStringStruct
+        }
+        
+
+        interface GlyphVisAttrStruct {
+            readonly $gtype: GObject.GType<GlyphVisAttr>
+            [Symbol.hasInstance](instance: unknown): instance is GlyphVisAttr
+        }
+
+        interface GlyphVisAttr {
             /**
              * set for the first logical glyph in each cluster.
              */
@@ -4277,21 +4438,23 @@ declare module "gi://Pango?version=1.0" {
              */
             is_color: number
         }
-        /**
-         * The `PangoItem` structure stores information about a segment of text.
-         *
-         * You typically obtain `PangoItems` by itemizing a piece of text
-         * with [func@itemize].
-         */
-        abstract class Item {
-            static readonly $gtype: GObject.GType<Item>
 
-            
+        interface $Exports {
+            GlyphVisAttr: GlyphVisAttrStruct
+        }
+        
+
+        interface ItemStruct {
+            readonly $gtype: GObject.GType<Item>
+            [Symbol.hasInstance](instance: unknown): instance is Item
             /**
              * Creates a new `PangoItem` structure initialized to default values.
              * @returns the newly allocated `PangoItem`, which should   be freed with [method@Pango.Item.free].
              */
-            static "new"(): Item
+            "new"(): Item
+        }
+
+        interface Item {
             /**
              * byte offset of the start of this item in text.
              */
@@ -4364,17 +4527,15 @@ declare module "gi://Pango?version=1.0" {
              */
             split(split_index: number, split_offset: number): Item
         }
-        /**
-         * The `PangoLanguage` structure is used to
-         * represent a language.
-         *
-         * `PangoLanguage` pointers can be efficiently
-         * copied and compared with each other.
-         */
-        abstract class Language {
-            static readonly $gtype: GObject.GType<Language>
 
-            
+        interface $Exports {
+            Item: ItemStruct
+        }
+        
+
+        interface LanguageStruct {
+            readonly $gtype: GObject.GType<Language>
+            [Symbol.hasInstance](instance: unknown): instance is Language
             /**
              * Convert a language tag to a `PangoLanguage`.
              *
@@ -4391,7 +4552,7 @@ declare module "gi://Pango?version=1.0" {
              * @param language a string representing a language tag
              * @returns a `PangoLanguage`
              */
-            static from_string(language: string | null): Language | null
+            from_string(language: string | null): Language | null
             /**
              * Returns the `PangoLanguage` for the current locale of the process.
              *
@@ -4427,7 +4588,7 @@ declare module "gi://Pango?version=1.0" {
              * @since 1.16
              * @returns the default language as a `PangoLanguage`
              */
-            static get_default(): Language
+            get_default(): Language
             /**
              * Returns the list of languages that the user prefers.
              *
@@ -4443,7 +4604,10 @@ declare module "gi://Pango?version=1.0" {
              * @since 1.48
              * @returns a %NULL-terminated array   of `PangoLanguage`*
              */
-            static get_preferred(): Language[] | null
+            get_preferred(): Language[] | null
+        }
+
+        interface Language {
             /**
              * Get a string that is representative of the characters needed to
              * render a particular language.
@@ -4535,19 +4699,18 @@ declare module "gi://Pango?version=1.0" {
              */
             to_string(): string
         }
-        none
-        /**
-         * A `PangoLayoutIter` can be used to iterate over the visual
-         * extents of a `PangoLayout`.
-         *
-         * To obtain a `PangoLayoutIter`, use [method@Pango.Layout.get_iter].
-         *
-         * The `PangoLayoutIter` structure is opaque, and has no user-visible fields.
-         */
-        abstract class LayoutIter {
-            static readonly $gtype: GObject.GType<LayoutIter>
 
-            
+        interface $Exports {
+            Language: LanguageStruct
+        }
+        
+
+        interface LayoutIterStruct {
+            readonly $gtype: GObject.GType<LayoutIter>
+            [Symbol.hasInstance](instance: unknown): instance is LayoutIter
+        }
+
+        interface LayoutIter {
             /**
              * Determines whether @iter is on the last line of the layout.
              * @returns %TRUE if `iter` is on the last line
@@ -4587,7 +4750,7 @@ declare module "gi://Pango?version=1.0" {
              * Layout coordinates have the origin at the top left of the entire layout.
              * @returns , rectangle to fill with ink extents, rectangle to fill with logical extents
              */
-            get_cluster_extents(): void
+            get_cluster_extents(): [Rectangle, Rectangle]
             /**
              * Gets the current byte index.
              *
@@ -4608,7 +4771,7 @@ declare module "gi://Pango?version=1.0" {
              * Obtains the extents of the `PangoLayout` being iterated over.
              * @returns , rectangle to fill with ink extents, rectangle to fill with logical extents
              */
-            get_layout_extents(): void
+            get_layout_extents(): [Rectangle, Rectangle]
             /**
              * Gets the current line.
              *
@@ -4627,7 +4790,7 @@ declare module "gi://Pango?version=1.0" {
              * as the extents returned from [method@Pango.LayoutLine.get_extents].
              * @returns , rectangle to fill with ink extents, rectangle to fill with logical extents
              */
-            get_line_extents(): void
+            get_line_extents(): [Rectangle, Rectangle]
             /**
              * Gets the current line for read-only access.
              *
@@ -4652,7 +4815,7 @@ declare module "gi://Pango?version=1.0" {
              * may be gaps between the ranges returned by this function.
              * @returns , start of line, end of line
              */
-            get_line_yrange(): void
+            get_line_yrange(): [number, number]
             /**
              * Gets the current run.
              *
@@ -4683,7 +4846,7 @@ declare module "gi://Pango?version=1.0" {
              * Layout coordinates have the origin at the top left of the entire layout.
              * @returns , rectangle to fill with ink extents, rectangle to fill with logical extents
              */
-            get_run_extents(): void
+            get_run_extents(): [Rectangle, Rectangle]
             /**
              * Gets the current run for read-only access.
              *
@@ -4728,24 +4891,24 @@ declare module "gi://Pango?version=1.0" {
              */
             next_run(): boolean
         }
-        /**
-         * A `PangoLayoutLine` represents one of the lines resulting from laying
-         * out a paragraph via `PangoLayout`.
-         *
-         * `PangoLayoutLine` structures are obtained by calling
-         * [method@Pango.Layout.get_line] and are only valid until the text,
-         * attributes, or settings of the parent `PangoLayout` are modified.
-         */
-        abstract class LayoutLine {
-            static readonly $gtype: GObject.GType<LayoutLine>
 
-            
+        interface $Exports {
+            LayoutIter: LayoutIterStruct
+        }
+        
+
+        interface LayoutLineStruct {
+            readonly $gtype: GObject.GType<LayoutLine>
+            [Symbol.hasInstance](instance: unknown): instance is LayoutLine
+        }
+
+        interface LayoutLine {
             /**
              * the layout this line belongs to, might be %NULL
              */
             layout: Layout
             /**
-             * text
+             * start of line as byte index into layout->text
              */
             start_index: number
             /**
@@ -4772,7 +4935,7 @@ declare module "gi://Pango?version=1.0" {
              * about the interpretation of the rectangles.
              * @returns , rectangle used to store the extents of   the glyph string as drawn, rectangle used to store the logical   extents of the glyph string
              */
-            get_extents(): void
+            get_extents(): [Rectangle, Rectangle]
             /**
              * Computes the height of the line, as the maximum of the heights
              * of fonts used in this line.
@@ -4784,7 +4947,7 @@ declare module "gi://Pango?version=1.0" {
              * @since 1.44
              * @returns , return location for the line height
              */
-            get_height(): void
+            get_height(): number
             /**
              * Returns the length of the line, in bytes.
              * @since 1.50
@@ -4800,7 +4963,7 @@ declare module "gi://Pango?version=1.0" {
              * passes them as first argument to [func@extents_to_pixels]).
              * @returns , rectangle used to store the extents of   the glyph string as drawn, rectangle used to store the logical   extents of the glyph string
              */
-            get_pixel_extents(): void
+            get_pixel_extents(): [Rectangle, Rectangle]
             /**
              * Returns the resolved direction of the line.
              * @since 1.50
@@ -4835,7 +4998,8 @@ declare module "gi://Pango?version=1.0" {
             /**
              * Converts an index within a line to a X position.
              * @param index_ byte offset of a grapheme within the layout
-             * @param trailing  0, the trailing edge of the grapheme,
+             * @param trailing an integer indicating the edge of the grapheme to retrieve
+              the position of. If > 0, the trailing edge of the grapheme,
               if 0, the leading of the grapheme
              * @returns , location to store the x_offset (in Pango units)
              */
@@ -4876,14 +5040,18 @@ declare module "gi://Pango?version=1.0" {
              */
             x_to_index(x_pos: number): [boolean, number, number]
         }
-        /**
-         * The `PangoLogAttr` structure stores information about the attributes of a
-         * single character.
-         */
-        abstract class LogAttr {
-            static readonly $gtype: GObject.GType<LogAttr>
 
-            
+        interface $Exports {
+            LayoutLine: LayoutLineStruct
+        }
+        
+
+        interface LogAttrStruct {
+            readonly $gtype: GObject.GType<LogAttr>
+            [Symbol.hasInstance](instance: unknown): instance is LogAttr
+        }
+
+        interface LogAttr {
             /**
              * if set, can break line in front of character
              */
@@ -4977,15 +5145,18 @@ declare module "gi://Pango?version=1.0" {
              */
             reserved: number
         }
-        /**
-         * y0;
-         * ```
-         * @since 1.6
-         */
-        abstract class Matrix {
-            static readonly $gtype: GObject.GType<Matrix>
 
-            
+        interface $Exports {
+            LogAttr: LogAttrStruct
+        }
+        
+
+        interface MatrixStruct {
+            readonly $gtype: GObject.GType<Matrix>
+            [Symbol.hasInstance](instance: unknown): instance is Matrix
+        }
+
+        interface Matrix {
             /**
              * 1st component of the transformation matrix
              */
@@ -5050,7 +5221,7 @@ declare module "gi://Pango?version=1.0" {
              * @since 1.38
              * @returns , output scale factor in the x direction, output scale factor perpendicular to the x direction
              */
-            get_font_scale_factors(): void
+            get_font_scale_factors(): [number, number]
             /**
              * Gets the slant ratio of a matrix.
              *
@@ -5116,7 +5287,7 @@ declare module "gi://Pango?version=1.0" {
              * @since 1.16
              * @returns , in/out bounding box in device units
              */
-            transform_pixel_rectangle(): void
+            transform_pixel_rectangle(): Rectangle
             /**
              * Transforms the point (@x, @y) by @matrix.
              * @since 1.16
@@ -5145,7 +5316,7 @@ declare module "gi://Pango?version=1.0" {
              * @since 1.16
              * @returns , in/out bounding box in Pango units
              */
-            transform_rectangle(): void
+            transform_rectangle(): Rectangle
             /**
              * Changes the transformation represented by @matrix to be the
              * transformation given by first translating by (@tx, @ty)
@@ -5156,17 +5327,18 @@ declare module "gi://Pango?version=1.0" {
              */
             translate(tx: number, ty: number): void
         }
-        /**
-         * The `PangoRectangle` structure represents a rectangle.
-         *
-         * `PangoRectangle` is frequently used to represent the logical or ink
-         * extents of a single glyph or section of text. (See, for instance,
-         * [method@Pango.Font.get_glyph_extents].)
-         */
-        abstract class Rectangle {
-            static readonly $gtype: GObject.GType<Rectangle>
 
-            
+        interface $Exports {
+            Matrix: MatrixStruct
+        }
+        
+
+        interface RectangleStruct {
+            readonly $gtype: GObject.GType<Rectangle>
+            [Symbol.hasInstance](instance: unknown): instance is Rectangle
+        }
+
+        interface Rectangle {
             /**
              * X coordinate of the left side of the rectangle.
              */
@@ -5184,22 +5356,28 @@ declare module "gi://Pango?version=1.0" {
              */
             height: number
         }
-        none
-        /**
-         */
-        abstract class RendererPrivate {
-            static readonly $gtype: GObject.GType<RendererPrivate>
 
-            
+        interface $Exports {
+            Rectangle: RectangleStruct
         }
-        /**
-         * A `PangoScriptIter` is used to iterate through a string
-         * and identify ranges in different scripts.
-         */
-        abstract class ScriptIter {
-            static readonly $gtype: GObject.GType<ScriptIter>
+        
 
-            
+        interface RendererPrivateStruct {
+            readonly $gtype: GObject.GType<RendererPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is RendererPrivate
+        }
+
+        interface RendererPrivate {
+        }
+
+        interface $Exports {
+            RendererPrivate: RendererPrivateStruct
+        }
+        
+
+        interface ScriptIterStruct {
+            readonly $gtype: GObject.GType<ScriptIter>
+            [Symbol.hasInstance](instance: unknown): instance is ScriptIter
             /**
              * Create a new `PangoScriptIter`, used to break a string of
              * Unicode text into runs by Unicode script.
@@ -5212,14 +5390,19 @@ declare module "gi://Pango?version=1.0" {
              * @param length length of @text, or -1 if @text is nul-terminated
              * @returns the new script iterator, initialized  to point at the first range in the text, which should be  freed with [method@Pango.ScriptIter.free]. If the string is  empty, it will point at an empty range.
              */
-            static "new"(text: string, length: number): ScriptIter
+            "new"(text: string, length: number): ScriptIter
+        }
+
+        interface ScriptIter {
             /**
              * Frees a `PangoScriptIter`.
              * @since 1.4
              */
             free(): void
             /**
-             *  *end.
+             * Gets information about the range to which @iter currently points.
+             *
+             * The range is the set of locations p where *start <= p < *end.
              * (That is, it doesn't include the character stored at *end)
              *
              * Note that while the type of the @script argument is declared
@@ -5229,7 +5412,7 @@ declare module "gi://Pango?version=1.0" {
              * @since 1.4
              * @returns , location to store start   position of the range, location to store end position   of the range, location to store script for range
              */
-            get_range(): void
+            get_range(): [string, string, Script]
             /**
              * Advances a `PangoScriptIter` to the next range.
              *
@@ -5240,17 +5423,15 @@ declare module "gi://Pango?version=1.0" {
              */
             next(): boolean
         }
-        /**
-         * A `PangoTabArray` contains an array of tab stops.
-         *
-         * `PangoTabArray` can be used to set tab stops in a `PangoLayout`.
-         * Each tab stop has an alignment, a position, and optionally
-         * a character to use as decimal point.
-         */
-        abstract class TabArray {
-            static readonly $gtype: GObject.GType<TabArray>
 
-            
+        interface $Exports {
+            ScriptIter: ScriptIterStruct
+        }
+        
+
+        interface TabArrayStruct {
+            readonly $gtype: GObject.GType<TabArray>
+            [Symbol.hasInstance](instance: unknown): instance is TabArray
             /**
              * Creates an array of @initial_size tab stops.
              *
@@ -5260,7 +5441,7 @@ declare module "gi://Pango?version=1.0" {
              * @param positions_in_pixels whether positions are in pixel units
              * @returns the newly allocated `PangoTabArray`, which should   be freed with [method@Pango.TabArray.free].
              */
-            static "new"(initial_size: number, positions_in_pixels: boolean): TabArray
+            "new"(initial_size: number, positions_in_pixels: boolean): TabArray
             /**
              * Deserializes a `PangoTabArray` from a string.
              *
@@ -5270,7 +5451,10 @@ declare module "gi://Pango?version=1.0" {
              * @param text a string
              * @returns a new `PangoTabArray`
              */
-            static from_string(text: string): TabArray | null
+            from_string(text: string): TabArray | null
+        }
+
+        interface TabArray {
             /**
              * Copies a `PangoTabArray`.
              * @returns the newly allocated `PangoTabArray`, which should   be freed with [method@Pango.TabArray.free].
@@ -5309,7 +5493,7 @@ declare module "gi://Pango?version=1.0" {
              * @param tab_index tab stop index
              * @returns , location to store alignment, location to store tab position
              */
-            get_tab(tab_index: number): void
+            get_tab(tab_index: number): [TabAlign, number]
             /**
              * If non-%NULL, @alignments and @locations are filled with allocated
              * arrays.
@@ -5318,7 +5502,7 @@ declare module "gi://Pango?version=1.0" {
              * You must free the returned array.
              * @returns , location to store an array of tab   stop alignments, location to store an array   of tab positions
              */
-            get_tabs(): void
+            get_tabs(): [TabAlign, number[]]
             /**
              * Resizes a tab array.
              *
@@ -5384,1445 +5568,207 @@ declare module "gi://Pango?version=1.0" {
              */
             to_string(): string
         }
-        /**
-         * Create a new allow-breaks attribute.
-         *
-         * If breaks are disabled, the range will be kept in a
-         * single run, as far as possible.
-         * @since 1.44
-         * @param allow_breaks %TRUE if we line breaks are allowed
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_allow_breaks_new(allow_breaks: boolean): Attribute
-        /**
-         * Create a new background alpha attribute.
-         * @since 1.38
-         * @param alpha the alpha value, between 1 and 65536
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_background_alpha_new(alpha: number): Attribute
-        /**
-         * Create a new background color attribute.
-         * @param red the red value (ranging from 0 to 65535)
-         * @param green the green value
-         * @param blue the blue value
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_background_new(red: number, green: number, blue: number): Attribute
-        /**
-         * >
-         * @since 1.50
-         * @param shift  1024)
-          in Pango units, relative to the baseline of the previous run.
-          Positive values displace the text upwards.
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_baseline_shift_new(shift: number): Attribute
-        /**
-         * Apply customization from attributes to the breaks in @attrs.
-         *
-         * The line breaks are assumed to have been produced
-         * by [func@Pango.default_break] and [func@Pango.tailor_break].
-         * @since 1.50
-         * @param text text to break. Must be valid UTF-8
-         * @param length length of text in bytes (may be -1 if @text is nul-terminated)
-         * @param attr_list `PangoAttrList` to apply
-         * @param offset Byte offset of @text from the beginning of the paragraph
-         * @returns , array with one   `PangoLogAttr` per character in `text`, plus one extra, to be filled in
-         */
-        function attr_break(text: string, length: number, attr_list: AttrList, offset: number): LogAttr[]
-        /**
-         * Create a new font fallback attribute.
-         *
-         * If fallback is disabled, characters will only be
-         * used from the closest matching font on the system.
-         * No fallback will be done to other fonts on the system
-         * that might contain the characters in the text.
-         * @since 1.4
-         * @param enable_fallback %TRUE if we should fall back on other fonts
-          for characters the active font is missing
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_fallback_new(enable_fallback: boolean): Attribute
-        /**
-         * Create a new font family attribute.
-         * @param family the family or comma-separated list of families
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_family_new(family: string): Attribute
-        /**
-         * Create a new font description attribute.
-         *
-         * This attribute allows setting family, style, weight, variant,
-         * stretch, and size simultaneously.
-         * @param desc the font description
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_font_desc_new(desc: FontDescription): Attribute
-        /**
-         * Create a new font features tag attribute.
-         *
-         * You can use this attribute to select OpenType font features like small-caps,
-         * alternative glyphs, ligatures, etc. for fonts that support them.
-         * @since 1.38
-         * @param features a string with OpenType font features, with the syntax of the [CSS
-        font-feature-settings property](https://www.w3.org/TR/css-fonts-4/#font-rend-desc)
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_font_features_new(features: string): Attribute
-        /**
-         * Create a new font scale attribute.
-         *
-         * The effect of this attribute is to change the font size of a run,
-         * relative to the size of preceding run.
-         * @since 1.50
-         * @param scale a `PangoFontScale` value, which indicates font size change relative
-          to the size of the previous run.
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_font_scale_new(scale: FontScale): Attribute
-        /**
-         * Create a new foreground alpha attribute.
-         * @since 1.38
-         * @param alpha the alpha value, between 1 and 65536
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_foreground_alpha_new(alpha: number): Attribute
-        /**
-         * Create a new foreground color attribute.
-         * @param red the red value (ranging from 0 to 65535)
-         * @param green the green value
-         * @param blue the blue value
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_foreground_new(red: number, green: number, blue: number): Attribute
-        /**
-         * Create a new gravity hint attribute.
-         * @since 1.16
-         * @param hint the gravity hint value
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_gravity_hint_new(hint: GravityHint): Attribute
-        /**
-         * Create a new gravity attribute.
-         * @since 1.16
-         * @param gravity the gravity value; should not be %PANGO_GRAVITY_AUTO
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_gravity_new(gravity: Gravity): Attribute
-        /**
-         * Create a new insert-hyphens attribute.
-         *
-         * Pango will insert hyphens when breaking lines in
-         * the middle of a word. This attribute can be used
-         * to suppress the hyphen.
-         * @since 1.44
-         * @param insert_hyphens %TRUE if hyphens should be inserted
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_insert_hyphens_new(insert_hyphens: boolean): Attribute
-        /**
-         * Create a new language tag attribute.
-         * @param language language tag
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_language_new(language: Language): Attribute
-        /**
-         * Create a new letter-spacing attribute.
-         * @since 1.6
-         * @param letter_spacing amount of extra space to add between
-          graphemes of the text, in Pango units
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_letter_spacing_new(letter_spacing: number): Attribute
-        /**
-         * Modify the height of logical line extents by a factor.
-         *
-         * This affects the values returned by
-         * [method@Pango.LayoutLine.get_extents],
-         * [method@Pango.LayoutLine.get_pixel_extents] and
-         * [method@Pango.LayoutIter.get_line_extents].
-         * @since 1.50
-         * @param factor the scaling factor to apply to the logical height
-         */
-        function attr_line_height_new(factor: number): Attribute
-        /**
-         * Override the height of logical line extents to be @height.
-         *
-         * This affects the values returned by
-         * [method@Pango.LayoutLine.get_extents],
-         * [method@Pango.LayoutLine.get_pixel_extents] and
-         * [method@Pango.LayoutIter.get_line_extents].
-         * @since 1.50
-         * @param height the line height, in %PANGO_SCALE-ths of a point
-         */
-        function attr_line_height_new_absolute(height: number): Attribute
-        /**
-         * Deserializes a `PangoAttrList` from a string.
-         *
-         * This is the counterpart to [method@Pango.AttrList.to_string].
-         * See that functions for details about the format.
-         * @since 1.50
-         * @param text a string
-         * @returns a new `PangoAttrList`
-         */
-        function attr_list_from_string(text: string): AttrList | null
-        /**
-         * Create a new overline color attribute.
-         *
-         * This attribute modifies the color of overlines.
-         * If not set, overlines will use the foreground color.
-         * @since 1.46
-         * @param red the red value (ranging from 0 to 65535)
-         * @param green the green value
-         * @param blue the blue value
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_overline_color_new(red: number, green: number, blue: number): Attribute
-        /**
-         * Create a new overline-style attribute.
-         * @since 1.46
-         * @param overline the overline style
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_overline_new(overline: Overline): Attribute
-        /**
-         * Create a new baseline displacement attribute.
-         * @param rise the amount that the text should be displaced vertically,
-          in Pango units. Positive values displace the text upwards.
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_rise_new(rise: number): Attribute
-        /**
-         * Create a new font size scale attribute.
-         *
-         * The base font for the affected text will have
-         * its size multiplied by @scale_factor.
-         * @param scale_factor factor to scale the font
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_scale_new(scale_factor: number): Attribute
-        /**
-         * Marks the range of the attribute as a single sentence.
-         *
-         * Note that this may require adjustments to word and
-         * sentence classification around the range.
-         * @since 1.50
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_sentence_new(): Attribute
-        /**
-         * Create a new shape attribute.
-         *
-         * A shape is used to impose a particular ink and logical
-         * rectangle on the result of shaping a particular glyph.
-         * This might be used, for instance, for embedding a picture
-         * or a widget inside a `PangoLayout`.
-         * @param ink_rect ink rectangle to assign to each character
-         * @param logical_rect logical rectangle to assign to each character
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_shape_new(ink_rect: Rectangle, logical_rect: Rectangle): Attribute
-        /**
-         * Creates a new shape attribute.
-         *
-         * Like [func@Pango.AttrShape.new], but a user data pointer
-         * is also provided; this pointer can be accessed when later
-         * rendering the glyph.
-         * @since 1.8
-         * @param ink_rect ink rectangle to assign to each character
-         * @param logical_rect logical rectangle to assign to each character
-         * @param data user data pointer
-         * @param copy_func function to copy @data when the
-          attribute is copied. If %NULL, @data is simply copied
-          as a pointer
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_shape_new_with_data(ink_rect: Rectangle, logical_rect: Rectangle, data: never | null, copy_func: AttrDataCopyFunc | null): Attribute
-        /**
-         * Create a new attribute that influences how invisible
-         * characters are rendered.
-         * @since 1.44
-         * @param flags `PangoShowFlags` to apply
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_show_new(flags: ShowFlags): Attribute
-        /**
-         * Create a new font-size attribute in fractional points.
-         * @param size the font size, in %PANGO_SCALE-ths of a point
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_size_new(size: number): Attribute
-        /**
-         * Create a new font-size attribute in device units.
-         * @since 1.8
-         * @param size the font size, in %PANGO_SCALE-ths of a device unit
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_size_new_absolute(size: number): Attribute
-        /**
-         * Create a new font stretch attribute.
-         * @param stretch the stretch
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_stretch_new(stretch: Stretch): Attribute
-        /**
-         * Create a new strikethrough color attribute.
-         *
-         * This attribute modifies the color of strikethrough lines.
-         * If not set, strikethrough lines will use the foreground color.
-         * @since 1.8
-         * @param red the red value (ranging from 0 to 65535)
-         * @param green the green value
-         * @param blue the blue value
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_strikethrough_color_new(red: number, green: number, blue: number): Attribute
-        /**
-         * Create a new strike-through attribute.
-         * @param strikethrough %TRUE if the text should be struck-through
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_strikethrough_new(strikethrough: boolean): Attribute
-        /**
-         * Create a new font slant style attribute.
-         * @param style the slant style
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_style_new(style: Style): Attribute
-        /**
-         * Create a new attribute that influences how characters
-         * are transformed during shaping.
-         * @since 1.50
-         * @param transform `PangoTextTransform` to apply
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_text_transform_new(transform: TextTransform): Attribute
-        /**
-         * Fetches the attribute type name.
-         *
-         * The attribute type name is the string passed in
-         * when registering the type using
-         * [func@Pango.AttrType.register].
-         *
-         * The returned value is an interned string (see
-         * g_intern_string() for what that means) that should
-         * not be modified or freed.
-         * @since 1.22
-         * @param type an attribute type ID to fetch the name for
-         * @returns the type ID name (which   may be %NULL), or %NULL if `type` is a built-in Pango   attribute type or invalid.
-         */
-        function attr_type_get_name(type: AttrType): string | null
-        /**
-         * Allocate a new attribute type ID.
-         *
-         * The attribute type name can be accessed later
-         * by using [func@Pango.AttrType.get_name].
-         * @param name an identifier for the type
-         * @returns the new type ID.
-         */
-        function attr_type_register(name: string): AttrType
-        /**
-         * Create a new underline color attribute.
-         *
-         * This attribute modifies the color of underlines.
-         * If not set, underlines will use the foreground color.
-         * @since 1.8
-         * @param red the red value (ranging from 0 to 65535)
-         * @param green the green value
-         * @param blue the blue value
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_underline_color_new(red: number, green: number, blue: number): Attribute
-        /**
-         * Create a new underline-style attribute.
-         * @param underline the underline style
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_underline_new(underline: Underline): Attribute
-        /**
-         * Create a new font variant attribute (normal or small caps).
-         * @param variant the variant
-         * @returns the newly allocated `PangoAttribute`,   which should be freed with [method@Pango.Attribute.destroy].
-         */
-        function attr_variant_new(variant: Variant): Attribute
-        /**
-         * Create a new font weight attribute.
-         * @param weight the weight
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_weight_new(weight: Weight): Attribute
-        /**
-         * Marks the range of the attribute as a single word.
-         *
-         * Note that this may require adjustments to word and
-         * sentence classification around the range.
-         * @since 1.50
-         * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
-         */
-        function attr_word_new(): Attribute
-        /**
-         * Determines the bidirectional type of a character.
-         *
-         * The bidirectional type is specified in the Unicode Character Database.
-         *
-         * A simplified version of this function is available as [func@unichar_direction].
-         * @since 1.22
-         * @param ch a Unicode character
-         * @returns the bidirectional character type, as used in the Unicode bidirectional algorithm.
-         */
-        function bidi_type_for_unichar(ch: string): BidiType
-        /**
-         * This is the default break algorithm.
-         *
-         * It applies rules from the [Unicode Line Breaking Algorithm](http://www.unicode.org/unicode/reports/tr14/)
-         * without language-specific tailoring, therefore the @analyis argument is unused
-         * and can be %NULL.
-         *
-         * See [func@Pango.tailor_break] for language-specific breaks.
-         *
-         * See [func@Pango.attr_break] for attribute-based customization.
-         * @param text text to break. Must be valid UTF-8
-         * @param length length of text in bytes (may be -1 if @text is nul-terminated)
-         * @param analysis a `PangoAnalysis` structure for the @text
-         * @returns , logical   attributes to fill in
-         */
-        function default_break(text: string, length: number, analysis: Analysis | null): LogAttr[]
-        /**
-         * Converts extents from Pango units to device units.
-         *
-         * The conversion is done by dividing by the %PANGO_SCALE factor and
-         * performing rounding.
-         *
-         * The @inclusive rectangle is converted by flooring the x/y coordinates
-         * and extending width/height, such that the final rectangle completely
-         * includes the original rectangle.
-         *
-         * The @nearest rectangle is converted by rounding the coordinates
-         * of the rectangle to the nearest device unit (pixel).
-         *
-         * The rule to which argument to use is: if you want the resulting device-space
-         * rectangle to completely contain the original rectangle, pass it in as
-         * @inclusive. If you want two touching-but-not-overlapping rectangles stay
-         * touching-but-not-overlapping after rounding to device units, pass them in
-         * as @nearest.
-         * @since 1.16
-         * @returns , rectangle to round to pixels inclusively, rectangle to round to nearest pixels
-         */
-        function extents_to_pixels(): void
-        /**
-         * Searches a string the first character that has a strong
-         * direction, according to the Unicode bidirectional algorithm.
-         * @since 1.4
-         * @param text the text to process. Must be valid UTF-8
-         * @param length length of @text in bytes (may be -1 if @text is nul-terminated)
-         * @returns The direction corresponding to the first strong character.   If no such character is found, then %PANGO_DIRECTION_NEUTRAL is returned.
-         */
-        function find_base_dir(text: string, length: number): Direction
-        /**
-         * Locates a paragraph boundary in @text.
-         *
-         * A boundary is caused by delimiter characters, such as
-         * a newline, carriage return, carriage return-newline pair,
-         * or Unicode paragraph separator character.
-         *
-         * The index of the run of delimiters is returned in
-         * @paragraph_delimiter_index. The index of the start of the
-         * next paragraph (index after all delimiters) is stored n
-         * @next_paragraph_start.
-         *
-         * If no delimiters are found, both @paragraph_delimiter_index
-         * and @next_paragraph_start are filled with the length of @text
-         * (an index one off the end).
-         * @param text UTF-8 text
-         * @param length length of @text in bytes, or -1 if nul-terminated
-         * @returns , return location  for index of delimiter, return location for  start of next paragraph
-         */
-        function find_paragraph_boundary(text: string, length: number): void
-        /**
-         * Creates a new font description from a string representation.
-         *
-         * The string must have the form
-         *
-         *     [FAMILY-LIST] [STYLE-OPTIONS] [SIZE] [VARIATIONS] [FEATURES]
-         *
-         * where FAMILY-LIST is a comma-separated list of families optionally
-         * terminated by a comma, STYLE_OPTIONS is a whitespace-separated list
-         * of words where each word describes one of style, variant, weight,
-         * stretch, or gravity, and SIZE is a decimal number (size in points)
-         * or optionally followed by the unit modifier "px" for absolute size.
-         *
-         * The following words are understood as styles:
-         * "Normal", "Roman", "Oblique", "Italic".
-         *
-         * The following words are understood as variants:
-         * "Small-Caps", "All-Small-Caps", "Petite-Caps", "All-Petite-Caps",
-         * "Unicase", "Title-Caps".
-         *
-         * The following words are understood as weights:
-         * "Thin", "Ultra-Light", "Extra-Light", "Light", "Semi-Light",
-         * "Demi-Light", "Book", "Regular", "Medium", "Semi-Bold", "Demi-Bold",
-         * "Bold", "Ultra-Bold", "Extra-Bold", "Heavy", "Black", "Ultra-Black",
-         * "Extra-Black".
-         *
-         * The following words are understood as stretch values:
-         * "Ultra-Condensed", "Extra-Condensed", "Condensed", "Semi-Condensed",
-         * "Semi-Expanded", "Expanded", "Extra-Expanded", "Ultra-Expanded".
-         *
-         * The following words are understood as gravity values:
-         * "Not-Rotated", "South", "Upside-Down", "North", "Rotated-Left",
-         * "East", "Rotated-Right", "West".
-         *
-         * The following words are understood as color values:
-         * "With-Color", "Without-Color".
-         *
-         * VARIATIONS is a comma-separated list of font variations
-         * of the form @‍axis1=value,axis2=value,...
-         *
-         * FEATURES is a comma-separated list of font features of the form
-         * \#‍feature1=value,feature2=value,...
-         * The =value part can be ommitted if the value is 1.
-         *
-         * Any one of the options may be absent. If FAMILY-LIST is absent, then
-         * the family_name field of the resulting font description will be
-         * initialized to %NULL. If STYLE-OPTIONS is missing, then all style
-         * options will be set to the default values. If SIZE is missing, the
-         * size in the resulting font description will be set to 0.
-         *
-         * A typical example:
-         *
-         *     Cantarell Italic Light 15 @‍wght=200 #‍tnum=1
-         * @param str string representation of a font description.
-         * @returns a new `PangoFontDescription`.
-         */
-        function font_description_from_string(str: string): FontDescription
-        /**
-         * Computes a `PangoLogAttr` for each character in @text.
-         *
-         * The @attrs array must have one `PangoLogAttr` for
-         * each position in @text; if @text contains N characters,
-         * it has N+1 positions, including the last position at the
-         * end of the text. @text should be an entire paragraph;
-         * logical attributes can't be computed without context
-         * (for example you need to see spaces on either side of
-         * a word to know the word is a word).
-         * @param text text to process. Must be valid UTF-8
-         * @param length length in bytes of @text
-         * @param level embedding level, or -1 if unknown
-         * @param language language tag
-         * @returns , array with one   `PangoLogAttr` per character in `text`, plus one extra, to be filled in
-         */
-        function get_log_attrs(text: string, length: number, level: number, language: Language): LogAttr[]
-        /**
-         * Returns the mirrored character of a Unicode character.
-         *
-         * Mirror characters are determined by the Unicode mirrored property.
-         * @deprecated since 1.30 Use [func@GLib.unichar_get_mirror_char] instead;   the docs for that function provide full details.
-         * @param ch a Unicode character
-         * @returns %TRUE if `ch` has a mirrored character and `mirrored_ch` is filled in, %FALSE otherwise, location to store the mirrored character
-         */
-        function get_mirror_char(ch: string): boolean
-        /**
-         * Finds the gravity that best matches the rotation component
-         * in a `PangoMatrix`.
-         * @since 1.16
-         * @param matrix a `PangoMatrix`
-         * @returns the gravity of `matrix`, which will never be %PANGO_GRAVITY_AUTO, or %PANGO_GRAVITY_SOUTH if `matrix` is %NULL
-         */
-        function gravity_get_for_matrix(matrix: Matrix | null): Gravity
-        /**
-         * Returns the gravity to use in laying out a `PangoItem`.
-         *
-         * The gravity is determined based on the script, base gravity, and hint.
-         *
-         * If @base_gravity is %PANGO_GRAVITY_AUTO, it is first replaced with the
-         * preferred gravity of @script.  To get the preferred gravity of a script,
-         * pass %PANGO_GRAVITY_AUTO and %PANGO_GRAVITY_HINT_STRONG in.
-         * @since 1.16
-         * @param script `PangoScript` to query
-         * @param base_gravity base gravity of the paragraph
-         * @param hint orientation hint
-         * @returns resolved gravity suitable to use for a run of text with `script`
-         */
-        function gravity_get_for_script(script: Script, base_gravity: Gravity, hint: GravityHint): Gravity
-        /**
-         * Returns the gravity to use in laying out a single character
-         * or `PangoItem`.
-         *
-         * The gravity is determined based on the script, East Asian width,
-         * base gravity, and hint,
-         *
-         * This function is similar to [func@Pango.Gravity.get_for_script] except
-         * that this function makes a distinction between narrow/half-width and
-         * wide/full-width characters also. Wide/full-width characters always
-         * stand *upright*, that is, they always take the base gravity,
-         * whereas narrow/full-width characters are always rotated in vertical
-         * context.
-         *
-         * If @base_gravity is %PANGO_GRAVITY_AUTO, it is first replaced with the
-         * preferred gravity of @script.
-         * @since 1.26
-         * @param script `PangoScript` to query
-         * @param wide %TRUE for wide characters as returned by g_unichar_iswide()
-         * @param base_gravity base gravity of the paragraph
-         * @param hint orientation hint
-         * @returns resolved gravity suitable to use for a run of text with `script` and `wide`.
-         */
-        function gravity_get_for_script_and_width(script: Script, wide: boolean, base_gravity: Gravity, hint: GravityHint): Gravity
-        /**
-         * Converts a `PangoGravity` value to its natural rotation in radians.
-         *
-         * Note that [method@Pango.Matrix.rotate] takes angle in degrees, not radians.
-         * So, to call [method@Pango.Matrix,rotate] with the output of this function
-         * you should multiply it by (180. / G_PI).
-         * @since 1.16
-         * @param gravity gravity to query, should not be %PANGO_GRAVITY_AUTO
-         * @returns the rotation value corresponding to `gravity`.
-         */
-        function gravity_to_rotation(gravity: Gravity): number
-        /**
-         * Checks if a character that should not be normally rendered.
-         *
-         * This includes all Unicode characters with "ZERO WIDTH" in their name,
-         * as well as *bidi* formatting characters, and a few other ones.
-         *
-         * This is totally different from [func@GLib.unichar_iszerowidth] and is at best misnamed.
-         * @since 1.10
-         * @param ch a Unicode character
-         * @returns %TRUE if `ch` is a zero-width character, %FALSE otherwise
-         */
-        function is_zero_width(ch: string): boolean
-        /**
-         * Breaks a piece of text into segments with consistent directional
-         * level and font.
-         *
-         * Each byte of @text will be contained in exactly one of the items in the
-         * returned list; the generated list of items will be in logical order (the
-         * start offsets of the items are ascending).
-         *
-         * @cached_iter should be an iterator over @attrs currently positioned
-         * at a range before or containing @start_index; @cached_iter will be
-         * advanced to the range covering the position just after
-         * @start_index + @length. (i.e. if itemizing in a loop, just keep passing
-         * in the same @cached_iter).
-         * @param context a structure holding information that affects
-          the itemization process.
-         * @param text the text to itemize. Must be valid UTF-8
-         * @param start_index first byte in @text to process
-         * @param length = 0.
-         * @param attrs the set of attributes that apply to @text.
-         * @param cached_iter Cached attribute iterator
-         * @returns a `GList` of   [struct@Pango.Item] structures. The items should be freed using   [method@Pango.Item.free] in combination with [func@GLib.List.free_full].
-         */
-        function itemize(context: Context, text: string, start_index: number, length: number, attrs: AttrList, cached_iter: AttrIterator | null): Item[]
-        /**
-         * Like `pango_itemize()`, but with an explicitly specified base direction.
-         *
-         * The base direction is used when computing bidirectional levels.
-         * [func@itemize] gets the base direction from the `PangoContext`
-         * (see [method@Pango.Context.set_base_dir]).
-         * @since 1.4
-         * @param context a structure holding information that affects
-          the itemization process.
-         * @param base_dir base direction to use for bidirectional processing
-         * @param text the text to itemize.
-         * @param start_index first byte in @text to process
-         * @param length = 0.
-         * @param attrs the set of attributes that apply to @text.
-         * @param cached_iter Cached attribute iterator
-         * @returns a `GList` of   [struct@Pango.Item] structures. The items should be freed using   [method@Pango.Item.free] probably in combination with [func@GLib.List.free_full].
-         */
-        function itemize_with_base_dir(context: Context, base_dir: Direction, text: string, start_index: number, length: number, attrs: AttrList, cached_iter: AttrIterator | null): Item[]
-        /**
-         * Convert a language tag to a `PangoLanguage`.
-         *
-         * The language tag must be in a RFC-3066 format. `PangoLanguage` pointers
-         * can be efficiently copied (copy the pointer) and compared with other
-         * language tags (compare the pointer.)
-         *
-         * This function first canonicalizes the string by converting it to
-         * lowercase, mapping '_' to '-', and stripping all characters other
-         * than letters and '-'.
-         *
-         * Use [func@Pango.Language.get_default] if you want to get the
-         * `PangoLanguage` for the current locale of the process.
-         * @param language a string representing a language tag
-         * @returns a `PangoLanguage`
-         */
-        function language_from_string(language: string | null): Language | null
-        /**
-         * Returns the `PangoLanguage` for the current locale of the process.
-         *
-         * On Unix systems, this is the return value is derived from
-         * `setlocale (LC_CTYPE, NULL)`, and the user can
-         * affect this through the environment variables LC_ALL, LC_CTYPE or
-         * LANG (checked in that order). The locale string typically is in
-         * the form lang_COUNTRY, where lang is an ISO-639 language code, and
-         * COUNTRY is an ISO-3166 country code. For instance, sv_FI for
-         * Swedish as written in Finland or pt_BR for Portuguese as written in
-         * Brazil.
-         *
-         * On Windows, the C library does not use any such environment
-         * variables, and setting them won't affect the behavior of functions
-         * like ctime(). The user sets the locale through the Regional Options
-         * in the Control Panel. The C library (in the setlocale() function)
-         * does not use country and language codes, but country and language
-         * names spelled out in English.
-         * However, this function does check the above environment
-         * variables, and does return a Unix-style locale string based on
-         * either said environment variables or the thread's current locale.
-         *
-         * Your application should call `setlocale(LC_ALL, "")` for the user
-         * settings to take effect. GTK does this in its initialization
-         * functions automatically (by calling gtk_set_locale()).
-         * See the setlocale() manpage for more details.
-         *
-         * Note that the default language can change over the life of an application.
-         *
-         * Also note that this function will not do the right thing if you
-         * use per-thread locales with uselocale(). In that case, you should
-         * just call pango_language_from_string() yourself.
-         * @since 1.16
-         * @returns the default language as a `PangoLanguage`
-         */
-        function language_get_default(): Language
-        /**
-         * Returns the list of languages that the user prefers.
-         *
-         * The list is specified by the `PANGO_LANGUAGE` or `LANGUAGE`
-         * environment variables, in order of preference. Note that this
-         * list does not necessarily include the language returned by
-         * [func@Pango.Language.get_default].
-         *
-         * When choosing language-specific resources, such as the sample
-         * text returned by [method@Pango.Language.get_sample_string],
-         * you should first try the default language, followed by the
-         * languages returned by this function.
-         * @since 1.48
-         * @returns a %NULL-terminated array   of `PangoLanguage`*
-         */
-        function language_get_preferred(): Language[] | null
-        /**
-         */
-        function layout_deserialize_error_quark(): GLib.Quark
-        /**
-         * Return the bidirectional embedding levels of the input paragraph.
-         *
-         * The bidirectional embedding levels are defined by the [Unicode Bidirectional
-         * Algorithm](http://www.unicode.org/reports/tr9/).
-         *
-         * If the input base direction is a weak direction, the direction of the
-         * characters in the text will determine the final resolved direction.
-         * @since 1.4
-         * @param text the text to itemize.
-         * @param length the number of bytes (not characters) to process, or -1
-          if @text is nul-terminated and the length should be calculated.
-         * @returns a newly allocated array of embedding   levels, one item per character (not byte), that should be freed using   [func@GLib.free]., input base direction, and output resolved direction.
-         */
-        function log2vis_get_embedding_levels(text: string, length: number): [Uint8Array, Direction]
-        /**
-         * Finishes parsing markup.
-         *
-         * After feeding a Pango markup parser some data with [method@GLib.MarkupParseContext.parse],
-         * use this function to get the list of attributes and text out of the
-         * markup. This function will not free @context, use [method@GLib.MarkupParseContext.free]
-         * to do so.
-         * @throws {GLib.Error}
-         * @since 1.31.0
-         * @param context A valid parse context that was returned from [func@markup_parser_new]
-         * @returns %FALSE if `error` is set, otherwise %TRUE, address of return location for a `PangoAttrList`, address of return location for text with tags stripped, address of return location for accelerator char
-         */
-        function markup_parser_finish(context: GLib.MarkupParseContext): boolean
-        /**
-         * Incrementally parses marked-up text to create a plain-text string
-         * and an attribute list.
-         *
-         * See the [Pango Markup](pango_markup.html) docs for details about the
-         * supported markup.
-         *
-         * If @accel_marker is nonzero, the given character will mark the
-         * character following it as an accelerator. For example, @accel_marker
-         * might be an ampersand or underscore. All characters marked
-         * as an accelerator will receive a %PANGO_UNDERLINE_LOW attribute,
-         * and the first character so marked will be returned in @accel_char,
-         * when calling [func@markup_parser_finish]. Two @accel_marker characters
-         * following each other produce a single literal @accel_marker character.
-         *
-         * To feed markup to the parser, use [method@GLib.MarkupParseContext.parse]
-         * on the returned [struct@GLib.MarkupParseContext]. When done with feeding markup
-         * to the parser, use [func@markup_parser_finish] to get the data out
-         * of it, and then use [method@GLib.MarkupParseContext.free] to free it.
-         *
-         * This function is designed for applications that read Pango markup
-         * from streams. To simply parse a string containing Pango markup,
-         * the [func@Pango.parse_markup] API is recommended instead.
-         * @since 1.31.0
-         * @param accel_marker character that precedes an accelerator, or 0 for none
-         * @returns a `GMarkupParseContext` that should be destroyed with [method@GLib.MarkupParseContext.free].
-         */
-        function markup_parser_new(accel_marker: string): GLib.MarkupParseContext
-        /**
-         * Parses an enum type and stores the result in @value.
-         *
-         * If @str does not match the nick name of any of the possible values
-         * for the enum and is not an integer, %FALSE is returned, a warning
-         * is issued if @warn is %TRUE, and a string representing the list of
-         * possible values is stored in @possible_values. The list is
-         * slash-separated, eg. "none/start/middle/end".
-         *
-         * If failed and @possible_values is not %NULL, returned string should
-         * be freed using g_free().
-         * @since 1.16
-         * @deprecated since 1.38
-         * @param type enum type to parse, eg. %PANGO_TYPE_ELLIPSIZE_MODE
-         * @param str string to parse
-         * @param warn if %TRUE, issue a g_warning() on bad input
-         * @returns %TRUE if `str` was successfully parsed, integer to store the result in, place to store list of possible   values on failure
-         */
-        function parse_enum(type: (GObject.GType | { $gtype: GObject.GType }), str: string | null, warn: boolean): boolean
-        /**
-         * Parses marked-up text to create a plain-text string and an attribute list.
-         *
-         * See the [Pango Markup](pango_markup.html) docs for details about the
-         * supported markup.
-         *
-         * If @accel_marker is nonzero, the given character will mark the
-         * character following it as an accelerator. For example, @accel_marker
-         * might be an ampersand or underscore. All characters marked
-         * as an accelerator will receive a %PANGO_UNDERLINE_LOW attribute,
-         * and the first character so marked will be returned in @accel_char.
-         * Two @accel_marker characters following each other produce a single
-         * literal @accel_marker character.
-         *
-         * To parse a stream of pango markup incrementally, use [func@markup_parser_new].
-         *
-         * If any error happens, none of the output arguments are touched except
-         * for @error.
-         * @throws {GLib.Error}
-         * @param markup_text markup to parse (see the [Pango Markup](pango_markup.html) docs)
-         * @param length length of @markup_text, or -1 if nul-terminated
-         * @param accel_marker character that precedes an accelerator, or 0 for none
-         * @returns %FALSE if `error` is set, otherwise %TRUE, address of return location for a `PangoAttrList`, address of return location for text with tags stripped, address of return location for accelerator char
-         */
-        function parse_markup(markup_text: string, length: number, accel_marker: string): boolean
-        /**
-         * Parses a font stretch.
-         *
-         * The allowed values are
-         * "ultra_condensed", "extra_condensed", "condensed",
-         * "semi_condensed", "normal", "semi_expanded", "expanded",
-         * "extra_expanded" and "ultra_expanded". Case variations are
-         * ignored and the '_' characters may be omitted.
-         * @param str a string to parse.
-         * @param warn if %TRUE, issue a g_warning() on bad input.
-         * @returns %TRUE if `str` was successfully parsed., a `PangoStretch` to store the result in.
-         */
-        function parse_stretch(str: string, warn: boolean): [boolean, Stretch]
-        /**
-         * Parses a font style.
-         *
-         * The allowed values are "normal", "italic" and "oblique", case
-         * variations being
-         * ignored.
-         * @param str a string to parse.
-         * @param warn if %TRUE, issue a g_warning() on bad input.
-         * @returns %TRUE if `str` was successfully parsed., a `PangoStyle` to store the result in.
-         */
-        function parse_style(str: string, warn: boolean): [boolean, Style]
-        /**
-         * Parses a font variant.
-         *
-         * The allowed values are "normal", "small-caps", "all-small-caps",
-         * "petite-caps", "all-petite-caps", "unicase" and "title-caps",
-         * case variations being ignored.
-         * @param str a string to parse.
-         * @param warn if %TRUE, issue a g_warning() on bad input.
-         * @returns %TRUE if `str` was successfully parsed., a `PangoVariant` to store the result in.
-         */
-        function parse_variant(str: string, warn: boolean): [boolean, Variant]
-        /**
-         * Parses a font weight.
-         *
-         * The allowed values are "heavy",
-         * "ultrabold", "bold", "normal", "light", "ultraleight"
-         * and integers. Case variations are ignored.
-         * @param str a string to parse.
-         * @param warn if %TRUE, issue a g_warning() on bad input.
-         * @returns %TRUE if `str` was successfully parsed., a `PangoWeight` to store the result in.
-         */
-        function parse_weight(str: string, warn: boolean): [boolean, Weight]
-        /**
-         * Quantizes the thickness and position of a line to whole device pixels.
-         *
-         * This is typically used for underline or strikethrough. The purpose of
-         * this function is to avoid such lines looking blurry.
-         *
-         * Care is taken to make sure @thickness is at least one pixel when this
-         * function returns, but returned @position may become zero as a result
-         * of rounding.
-         * @since 1.12
-         * @returns , pointer to the thickness of a line, in Pango units, corresponding position
-         */
-        function quantize_line_geometry(): [number, number]
-        /**
-         * Reads an entire line from a file into a buffer.
-         *
-         * Lines may be delimited with '\n', '\r', '\n\r', or '\r\n'. The delimiter
-         * is not written into the buffer. Text after a '#' character is treated as
-         * a comment and skipped. '\' can be used to escape a # character.
-         * '\' proceeding a line delimiter combines adjacent lines. A '\' proceeding
-         * any other character is ignored and written into the output buffer
-         * unmodified.
-         * @deprecated since 1.38
-         * @param stream a stdio stream
-         * @param str `GString` buffer into which to write the result
-         * @returns 0 if the stream was already at an %EOF character,   otherwise the number of lines read (this is useful for maintaining   a line number counter which doesn't combine lines with '\')
-         */
-        function read_line(stream: never | null, str: GLib.String): number
-        /**
-         * Reorder items from logical order to visual order.
-         *
-         * The visual order is determined from the associated directional
-         * levels of the items. The original list is unmodified.
-         *
-         * (Please open a bug if you use this function.
-         *  It is not a particularly convenient interface, and the code
-         *  is duplicated elsewhere in Pango for that reason.)
-         * @param items a `GList` of `PangoItem`
-          in logical order.
-         * @returns a `GList`   of `PangoItem` structures in visual order.
-         */
-        function reorder_items(items: Item[]): Item[]
-        /**
-         * Scans an integer.
-         *
-         * Leading white space is skipped.
-         * @deprecated since 1.38
-         * @returns %FALSE if a parse error occurred, in/out string position, an int into which to write the result
-         */
-        function scan_int(): [boolean, string, number]
-        /**
-         * Scans a string into a `GString` buffer.
-         *
-         * The string may either be a sequence of non-white-space characters,
-         * or a quoted string with '"'. Instead a quoted string, '\"' represents
-         * a literal quote. Leading white space outside of quotes is skipped.
-         * @deprecated since 1.38
-         * @param out a `GString` into which to write the result
-         * @returns %FALSE if a parse error occurred, in/out string position
-         */
-        function scan_string(out: GLib.String): [boolean, string]
-        /**
-         * Scans a word into a `GString` buffer.
-         *
-         * A word consists of [A-Za-z_] followed by zero or more
-         * [A-Za-z_0-9]. Leading white space is skipped.
-         * @deprecated since 1.38
-         * @param out a `GString` into which to write the result
-         * @returns %FALSE if a parse error occurred, in/out string position
-         */
-        function scan_word(out: GLib.String): [boolean, string]
-        /**
-         * Looks up the script for a particular character.
-         *
-         * The script of a character is defined by
-         * [Unicode Standard Annex 24: Script names](http://www.unicode.org/reports/tr24/).
-         *
-         * No check is made for @ch being a valid Unicode character; if you pass
-         * in invalid character, the result is undefined.
-         *
-         * Note that while the return type of this function is declared
-         * as `PangoScript`, as of Pango 1.18, this function simply returns
-         * the return value of [func@GLib.unichar_get_script]. Callers must be
-         * prepared to handle unknown values.
-         * @since 1.4
-         * @deprecated since 1.44. Use g_unichar_get_script()
-         * @param ch a Unicode character
-         * @returns the `PangoScript` for the character.
-         */
-        function script_for_unichar(ch: string): Script
-        /**
-         * Finds a language tag that is reasonably representative of @script.
-         *
-         * The language will usually be the most widely spoken or used language
-         * written in that script: for instance, the sample language for
-         * %PANGO_SCRIPT_CYRILLIC is ru (Russian), the sample language for
-         * %PANGO_SCRIPT_ARABIC is ar.
-         *
-         * For some scripts, no sample language will be returned because
-         * there is no language that is sufficiently representative. The
-         * best example of this is %PANGO_SCRIPT_HAN, where various different
-         * variants of written Chinese, Japanese, and Korean all use
-         * significantly different sets of Han characters and forms
-         * of shared characters. No sample language can be provided
-         * for many historical scripts as well.
-         *
-         * As of 1.18, this function checks the environment variables
-         * `PANGO_LANGUAGE` and `LANGUAGE` (checked in that order) first.
-         * If one of them is set, it is parsed as a list of language tags
-         * separated by colons or other separators. This function
-         * will return the first language in the parsed list that Pango
-         * believes may use @script for writing. This last predicate
-         * is tested using [method@Pango.Language.includes_script]. This can
-         * be used to control Pango's font selection for non-primary
-         * languages. For example, a `PANGO_LANGUAGE` enviroment variable
-         * set to "en:fa" makes Pango choose fonts suitable for Persian (fa)
-         * instead of Arabic (ar) when a segment of Arabic text is found
-         * in an otherwise non-Arabic text. The same trick can be used to
-         * choose a default language for %PANGO_SCRIPT_HAN when setting
-         * context language is not feasible.
-         * @since 1.4
-         * @param script a `PangoScript`
-         * @returns a `PangoLanguage` that is representative   of the script
-         */
-        function script_get_sample_language(script: Script): Language | null
-        /**
-         * Convert the characters in @text into glyphs.
-         *
-         * Given a segment of text and the corresponding `PangoAnalysis` structure
-         * returned from [func@Pango.itemize], convert the characters into glyphs. You
-         * may also pass in only a substring of the item from [func@Pango.itemize].
-         *
-         * It is recommended that you use [func@Pango.shape_full] instead, since
-         * that API allows for shaping interaction happening across text item
-         * boundaries.
-         *
-         * Some aspects of hyphen insertion and text transformation (in particular,
-         * capitalization) require log attrs, and thus can only be handled by
-         * [func@Pango.shape_item].
-         *
-         * Note that the extra attributes in the @analyis that is returned from
-         * [func@Pango.itemize] have indices that are relative to the entire paragraph,
-         * so you need to subtract the item offset from their indices before
-         * calling [func@Pango.shape].
-         * @param text the text to process
-         * @param length the length (in bytes) of @text
-         * @param analysis `PangoAnalysis` structure from [func@Pango.itemize]
-         * @returns , glyph string in which to store results
-         */
-        function shape(text: string, length: number, analysis: Analysis): GlyphString
-        /**
-         * Convert the characters in @text into glyphs.
-         *
-         * Given a segment of text and the corresponding `PangoAnalysis` structure
-         * returned from [func@Pango.itemize], convert the characters into glyphs.
-         * You may also pass in only a substring of the item from [func@Pango.itemize].
-         *
-         * This is similar to [func@Pango.shape], except it also can optionally take
-         * the full paragraph text as input, which will then be used to perform
-         * certain cross-item shaping interactions. If you have access to the broader
-         * text of which @item_text is part of, provide the broader text as
-         * @paragraph_text. If @paragraph_text is %NULL, item text is used instead.
-         *
-         * Some aspects of hyphen insertion and text transformation (in particular,
-         * capitalization) require log attrs, and thus can only be handled by
-         * [func@Pango.shape_item].
-         *
-         * Note that the extra attributes in the @analyis that is returned from
-         * [func@Pango.itemize] have indices that are relative to the entire paragraph,
-         * so you do not pass the full paragraph text as @paragraph_text, you need
-         * to subtract the item offset from their indices before calling
-         * [func@Pango.shape_full].
-         * @since 1.32
-         * @param item_text valid UTF-8 text to shape.
-         * @param item_length the length (in bytes) of @item_text. -1 means nul-terminated text.
-         * @param paragraph_text text of the paragraph (see details).
-         * @param paragraph_length the length (in bytes) of @paragraph_text. -1 means nul-terminated text.
-         * @param analysis `PangoAnalysis` structure from [func@Pango.itemize].
-         * @returns , glyph string in which to store results.
-         */
-        function shape_full(item_text: string, item_length: number, paragraph_text: string | null, paragraph_length: number, analysis: Analysis): GlyphString
-        /**
-         * Convert the characters in @item into glyphs.
-         *
-         * This is similar to [func@Pango.shape_with_flags], except it takes a
-         * `PangoItem` instead of separate @item_text and @analysis arguments.
-         *
-         * It also takes @log_attrs, which are needed for implementing some aspects
-         * of hyphen insertion and text transforms (in particular, capitalization).
-         *
-         * Note that the extra attributes in the @analyis that is returned from
-         * [func@Pango.itemize] have indices that are relative to the entire paragraph,
-         * so you do not pass the full paragraph text as @paragraph_text, you need
-         * to subtract the item offset from their indices before calling
-         * [func@Pango.shape_with_flags].
-         * @since 1.50
-         * @param item `PangoItem` to shape
-         * @param paragraph_text text of the paragraph (see details).
-         * @param paragraph_length the length (in bytes) of @paragraph_text.
-            -1 means nul-terminated text.
-         * @param log_attrs array of `PangoLogAttr` for @item
-         * @param flags flags influencing the shaping process
-         * @returns , glyph string in which to store results
-         */
-        function shape_item(item: Item, paragraph_text: string | null, paragraph_length: number, log_attrs: LogAttr | null, flags: ShapeFlags): GlyphString
-        /**
-         * Convert the characters in @text into glyphs.
-         *
-         * Given a segment of text and the corresponding `PangoAnalysis` structure
-         * returned from [func@Pango.itemize], convert the characters into glyphs.
-         * You may also pass in only a substring of the item from [func@Pango.itemize].
-         *
-         * This is similar to [func@Pango.shape_full], except it also takes flags
-         * that can influence the shaping process.
-         *
-         * Some aspects of hyphen insertion and text transformation (in particular,
-         * capitalization) require log attrs, and thus can only be handled by
-         * [func@Pango.shape_item].
-         *
-         * Note that the extra attributes in the @analyis that is returned from
-         * [func@Pango.itemize] have indices that are relative to the entire paragraph,
-         * so you do not pass the full paragraph text as @paragraph_text, you need
-         * to subtract the item offset from their indices before calling
-         * [func@Pango.shape_with_flags].
-         * @since 1.44
-         * @param item_text valid UTF-8 text to shape
-         * @param item_length the length (in bytes) of @item_text.
-            -1 means nul-terminated text.
-         * @param paragraph_text text of the paragraph (see details).
-         * @param paragraph_length the length (in bytes) of @paragraph_text.
-            -1 means nul-terminated text.
-         * @param analysis `PangoAnalysis` structure from [func@Pango.itemize]
-         * @param flags flags influencing the shaping process
-         * @returns , glyph string in which to store results
-         */
-        function shape_with_flags(item_text: string, item_length: number, paragraph_text: string | null, paragraph_length: number, analysis: Analysis, flags: ShapeFlags): GlyphString
-        /**
-         * Skips 0 or more characters of white space.
-         * @deprecated since 1.38
-         * @returns %FALSE if skipping the white space leaves   the position at a '\0' character., in/out string position
-         */
-        function skip_space(): [boolean, string]
-        /**
-         * Splits a %G_SEARCHPATH_SEPARATOR-separated list of files, stripping
-         * white space and substituting ~/ with $HOME/.
-         * @deprecated since 1.38
-         * @param str a %G_SEARCHPATH_SEPARATOR separated list of filenames
-         * @returns a list of   strings to be freed with g_strfreev()
-         */
-        function split_file_list(str: string): string[]
-        /**
-         * Deserializes a `PangoTabArray` from a string.
-         *
-         * This is the counterpart to [method@Pango.TabArray.to_string].
-         * See that functions for details about the format.
-         * @since 1.50
-         * @param text a string
-         * @returns a new `PangoTabArray`
-         */
-        function tab_array_from_string(text: string): TabArray | null
-        /**
-         * Apply language-specific tailoring to the breaks in @attrs.
-         *
-         * The line breaks are assumed to have been produced by [func@Pango.default_break].
-         *
-         * If @offset is not -1, it is used to apply attributes from @analysis that are
-         * relevant to line breaking.
-         *
-         * Note that it is better to pass -1 for @offset and use [func@Pango.attr_break]
-         * to apply attributes to the whole paragraph.
-         * @since 1.44
-         * @param text text to process. Must be valid UTF-8
-         * @param length length in bytes of @text
-         * @param analysis `PangoAnalysis` for @text
-         * @param offset Byte offset of @text from the beginning of the
-          paragraph, or -1 to ignore attributes from @analysis
-         * @returns , array with one   `PangoLogAttr` per character in `text`, plus one extra, to be filled in
-         */
-        function tailor_break(text: string, length: number, analysis: Analysis, offset: number): LogAttr[]
-        /**
-         * Trims leading and trailing whitespace from a string.
-         * @deprecated since 1.38
-         * @param str a string
-         * @returns A newly-allocated string that must be freed with g_free()
-         */
-        function trim_string(str: string): string
-        /**
-         * Determines the inherent direction of a character.
-         *
-         * The inherent direction is either `PANGO_DIRECTION_LTR`, `PANGO_DIRECTION_RTL`,
-         * or `PANGO_DIRECTION_NEUTRAL`.
-         *
-         * This function is useful to categorize characters into left-to-right
-         * letters, right-to-left letters, and everything else. If full Unicode
-         * bidirectional type of a character is needed, [func@Pango.BidiType.for_unichar]
-         * can be used instead.
-         * @param ch a Unicode character
-         * @returns the direction of the character.
-         */
-        function unichar_direction(ch: string): Direction
-        /**
-         * Converts a floating-point number to Pango units.
-         *
-         * The conversion is done by multiplying @d by %PANGO_SCALE and
-         * rounding the result to nearest integer.
-         * @since 1.16
-         * @param d double floating-point value
-         * @returns the value in Pango units.
-         */
-        function units_from_double(d: number): number
-        /**
-         * Converts a number in Pango units to floating-point.
-         *
-         * The conversion is done by dividing @i by %PANGO_SCALE.
-         * @since 1.16
-         * @param i value in Pango units
-         * @returns the double value.
-         */
-        function units_to_double(i: number): number
-        /**
-         * Returns the encoded version of Pango available at run-time.
-         *
-         * This is similar to the macro %PANGO_VERSION except that the macro
-         * returns the encoded version available at compile-time. A version
-         * number can be encoded into an integer using PANGO_VERSION_ENCODE().
-         * @since 1.16
-         * @returns The encoded version of Pango library available at run time.
-         */
-        function version(): number
-        /**
-         * Checks that the Pango library in use is compatible with the
-         * given version.
-         *
-         * Generally you would pass in the constants %PANGO_VERSION_MAJOR,
-         * %PANGO_VERSION_MINOR, %PANGO_VERSION_MICRO as the three arguments
-         * to this function; that produces a check that the library in use at
-         * run-time is compatible with the version of Pango the application or
-         * module was compiled against.
-         *
-         * Compatibility is defined by two things: first the version
-         * of the running library is newer than the version
-         * @required_major.required_minor.@required_micro. Second
-         * the running library must be binary compatible with the
-         * version @required_major.required_minor.@required_micro
-         * (same major version.)
-         *
-         * For compile-time version checking use PANGO_VERSION_CHECK().
-         * @since 1.16
-         * @param required_major the required major version
-         * @param required_minor the required minor version
-         * @param required_micro the required major version
-         * @returns %NULL if the Pango library is compatible   with the given version, or a string describing the version   mismatch.  The returned string is owned by Pango and should not   be modified or freed.
-         */
-        function version_check(required_major: number, required_minor: number, required_micro: number): string | null
-        /**
-         * Returns the version of Pango available at run-time.
-         *
-         * This is similar to the macro %PANGO_VERSION_STRING except that the
-         * macro returns the version available at compile-time.
-         * @since 1.16
-         * @returns A string containing the version of Pango library available   at run time. The returned string is owned by Pango and should not   be modified or freed.
-         */
-        function version_string(): string
-        const ANALYSIS_FLAG_CENTERED_BASELINE: 1
-        const ANALYSIS_FLAG_IS_ELLIPSIS: 2
-        const ANALYSIS_FLAG_NEED_HYPHEN: 4
-        const ATTR_INDEX_FROM_TEXT_BEGINNING: 0
-        const ATTR_INDEX_TO_TEXT_END: 4294967295
-        const GLYPH_EMPTY: Glyph
-        const GLYPH_INVALID_INPUT: Glyph
-        const GLYPH_UNKNOWN_FLAG: Glyph
-        const SCALE: 1024
-        const VERSION_MAJOR: 1
-        const VERSION_MICRO: 1
-        const VERSION_MINOR: 57
-        const VERSION_STRING: "1.57.1"
-        
-        namespace Alignment {
-            const $gtype: GObject.GType<Alignment>
-        }
 
-        /**
-         * `PangoAlignment` describes how to align the lines of a `PangoLayout`
-         * within the available space.
-         *
-         * If the `PangoLayout` is set to justify using [method@Pango.Layout.set_justify],
-         * this only affects partial lines.
-         *
-         * See [method@Pango.Layout.set_auto_dir] for how text direction affects
-         * the interpretation of `PangoAlignment` values.
-         */
-        enum Alignment {
+        interface $Exports {
+            TabArray: TabArrayStruct
+        }
+        
+        interface AlignmentEnum {
+            readonly $gtype: GObject.GType<Alignment>
             /**
              * Put all available space on the right
              */
-            "LEFT" = 0,
+            readonly "LEFT": 0
             /**
              * Center the line within the available space
              */
-            "CENTER" = 1,
+            readonly "CENTER": 1
             /**
              * Put all available space on the left
              */
-            "RIGHT" = 2,
+            readonly "RIGHT": 2
+        }
+        type Alignment = AlignmentEnum[Exclude<keyof AlignmentEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * `PangoAlignment` describes how to align the lines of a `PangoLayout`
+             * within the available space.
+             *
+             * If the `PangoLayout` is set to justify using [method@Pango.Layout.set_justify],
+             * this only affects partial lines.
+             *
+             * See [method@Pango.Layout.set_auto_dir] for how text direction affects
+             * the interpretation of `PangoAlignment` values.
+             */
+            Alignment: AlignmentEnum
         }
         
-        namespace AttrType {
-            const $gtype: GObject.GType<AttrType>
-        }
-
-        /**
-         * The `PangoAttrType` distinguishes between different types of attributes.
-         *
-         * Along with the predefined values, it is possible to allocate additional
-         * values for custom attributes using [func@AttrType.register]. The predefined
-         * values are given below. The type of structure used to store the attribute is
-         * listed in parentheses after the description.
-         */
-        enum AttrType {
+        interface AttrTypeEnum {
+            readonly $gtype: GObject.GType<AttrType>
             /**
              * does not happen
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * language ([struct@Pango.AttrLanguage])
              */
-            "LANGUAGE" = 1,
+            readonly "LANGUAGE": 1
             /**
              * font family name list ([struct@Pango.AttrString])
              */
-            "FAMILY" = 2,
+            readonly "FAMILY": 2
             /**
              * font slant style ([struct@Pango.AttrInt])
              */
-            "STYLE" = 3,
+            readonly "STYLE": 3
             /**
              * font weight ([struct@Pango.AttrInt])
              */
-            "WEIGHT" = 4,
+            readonly "WEIGHT": 4
             /**
              * font variant (normal or small caps) ([struct@Pango.AttrInt])
              */
-            "VARIANT" = 5,
+            readonly "VARIANT": 5
             /**
              * font stretch ([struct@Pango.AttrInt])
              */
-            "STRETCH" = 6,
+            readonly "STRETCH": 6
             /**
              * font size in points scaled by %PANGO_SCALE ([struct@Pango.AttrInt])
              */
-            "SIZE" = 7,
+            readonly "SIZE": 7
             /**
              * font description ([struct@Pango.AttrFontDesc])
              */
-            "FONT_DESC" = 8,
+            readonly "FONT_DESC": 8
             /**
              * foreground color ([struct@Pango.AttrColor])
              */
-            "FOREGROUND" = 9,
+            readonly "FOREGROUND": 9
             /**
              * background color ([struct@Pango.AttrColor])
              */
-            "BACKGROUND" = 10,
+            readonly "BACKGROUND": 10
             /**
              * whether the text has an underline ([struct@Pango.AttrInt])
              */
-            "UNDERLINE" = 11,
+            readonly "UNDERLINE": 11
             /**
              * whether the text is struck-through ([struct@Pango.AttrInt])
              */
-            "STRIKETHROUGH" = 12,
+            readonly "STRIKETHROUGH": 12
             /**
              * baseline displacement ([struct@Pango.AttrInt])
              */
-            "RISE" = 13,
+            readonly "RISE": 13
             /**
              * shape ([struct@Pango.AttrShape])
              */
-            "SHAPE" = 14,
+            readonly "SHAPE": 14
             /**
              * font size scale factor ([struct@Pango.AttrFloat])
              */
-            "SCALE" = 15,
+            readonly "SCALE": 15
             /**
              * whether fallback is enabled ([struct@Pango.AttrInt])
              */
-            "FALLBACK" = 16,
+            readonly "FALLBACK": 16
             /**
              * letter spacing ([struct@PangoAttrInt])
              */
-            "LETTER_SPACING" = 17,
+            readonly "LETTER_SPACING": 17
             /**
              * underline color ([struct@Pango.AttrColor])
              */
-            "UNDERLINE_COLOR" = 18,
+            readonly "UNDERLINE_COLOR": 18
             /**
              * strikethrough color ([struct@Pango.AttrColor])
              */
-            "STRIKETHROUGH_COLOR" = 19,
+            readonly "STRIKETHROUGH_COLOR": 19
             /**
              * font size in pixels scaled by %PANGO_SCALE ([struct@Pango.AttrInt])
              */
-            "ABSOLUTE_SIZE" = 20,
+            readonly "ABSOLUTE_SIZE": 20
             /**
              * base text gravity ([struct@Pango.AttrInt])
              */
-            "GRAVITY" = 21,
+            readonly "GRAVITY": 21
             /**
              * gravity hint ([struct@Pango.AttrInt])
              */
-            "GRAVITY_HINT" = 22,
+            readonly "GRAVITY_HINT": 22
             /**
              * OpenType font features ([struct@Pango.AttrFontFeatures]). Since 1.38
              */
-            "FONT_FEATURES" = 23,
+            readonly "FONT_FEATURES": 23
             /**
              * foreground alpha ([struct@Pango.AttrInt]). Since 1.38
              */
-            "FOREGROUND_ALPHA" = 24,
+            readonly "FOREGROUND_ALPHA": 24
             /**
              * background alpha ([struct@Pango.AttrInt]). Since 1.38
              */
-            "BACKGROUND_ALPHA" = 25,
+            readonly "BACKGROUND_ALPHA": 25
             /**
              * whether breaks are allowed ([struct@Pango.AttrInt]). Since 1.44
              */
-            "ALLOW_BREAKS" = 26,
+            readonly "ALLOW_BREAKS": 26
             /**
              * how to render invisible characters ([struct@Pango.AttrInt]). Since 1.44
              */
-            "SHOW" = 27,
+            readonly "SHOW": 27
             /**
              * whether to insert hyphens at intra-word line breaks ([struct@Pango.AttrInt]). Since 1.44
              */
-            "INSERT_HYPHENS" = 28,
+            readonly "INSERT_HYPHENS": 28
             /**
              * whether the text has an overline ([struct@Pango.AttrInt]). Since 1.46
              */
-            "OVERLINE" = 29,
+            readonly "OVERLINE": 29
             /**
              * overline color ([struct@Pango.AttrColor]). Since 1.46
              */
-            "OVERLINE_COLOR" = 30,
+            readonly "OVERLINE_COLOR": 30
             /**
              * line height factor ([struct@Pango.AttrFloat]). Since: 1.50
              */
-            "LINE_HEIGHT" = 31,
+            readonly "LINE_HEIGHT": 31
             /**
              * line height ([struct@Pango.AttrInt]). Since: 1.50
              */
-            "ABSOLUTE_LINE_HEIGHT" = 32,
+            readonly "ABSOLUTE_LINE_HEIGHT": 32
             /**
              */
-            "TEXT_TRANSFORM" = 33,
+            readonly "TEXT_TRANSFORM": 33
             /**
              * override segmentation to classify the range of the attribute as a single word ([struct@Pango.AttrInt]). Since 1.50
              */
-            "WORD" = 34,
+            readonly "WORD": 34
             /**
              * override segmentation to classify the range of the attribute as a single sentence ([struct@Pango.AttrInt]). Since 1.50
              */
-            "SENTENCE" = 35,
+            readonly "SENTENCE": 35
             /**
              * baseline displacement ([struct@Pango.AttrInt]). Since 1.50
              */
-            "BASELINE_SHIFT" = 36,
+            readonly "BASELINE_SHIFT": 36
             /**
              * font-relative size change ([struct@Pango.AttrInt]). Since 1.50
              */
-            "FONT_SCALE" = 37,
+            readonly "FONT_SCALE": 37
         }
-        /**
+        type AttrType = AttrTypeEnum[Exclude<keyof AttrTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The `PangoAttrType` distinguishes between different types of attributes.
+             *
+             * Along with the predefined values, it is possible to allocate additional
+             * values for custom attributes using [func@AttrType.register]. The predefined
+             * values are given below. The type of structure used to store the attribute is
+             * listed in parentheses after the description.
+             */
+            AttrType: AttrTypeEnum
+            /**
          * Fetches the attribute type name.
          *
          * The attribute type name is the string passed in
@@ -6836,8 +5782,8 @@ declare module "gi://Pango?version=1.0" {
          * @param type an attribute type ID to fetch the name for
          * @returns the type ID name (which   may be %NULL), or %NULL if `type` is a built-in Pango   attribute type or invalid.
          */
-        function get_name(type: AttrType): string | null
-        /**
+        get_name: (type: AttrType) => string | null
+            /**
          * Allocate a new attribute type ID.
          *
          * The attribute type name can be accessed later
@@ -6845,141 +5791,143 @@ declare module "gi://Pango?version=1.0" {
          * @param name an identifier for the type
          * @returns the new type ID.
          */
-        function register(name: string): AttrType
-        
-        namespace BaselineShift {
-            const $gtype: GObject.GType<BaselineShift>
+        register: (name: string) => AttrType
         }
-
-        /**
-         * An enumeration that affects baseline shifts between runs.
-         * @since 1.50
-         */
-        enum BaselineShift {
+        
+        interface BaselineShiftEnum {
+            readonly $gtype: GObject.GType<BaselineShift>
             /**
              * Leave the baseline unchanged
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Shift the baseline to the superscript position,
              *   relative to the previous run
              */
-            "SUPERSCRIPT" = 1,
+            readonly "SUPERSCRIPT": 1
             /**
              * Shift the baseline to the subscript position,
              *   relative to the previous run
              */
-            "SUBSCRIPT" = 2,
+            readonly "SUBSCRIPT": 2
+        }
+        type BaselineShift = BaselineShiftEnum[Exclude<keyof BaselineShiftEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An enumeration that affects baseline shifts between runs.
+             * @since 1.50
+             */
+            BaselineShift: BaselineShiftEnum
         }
         
-        namespace BidiType {
-            const $gtype: GObject.GType<BidiType>
-        }
-
-        /**
-         * `PangoBidiType` represents the bidirectional character
-         * type of a Unicode character.
-         *
-         * The values in this enumeration are specified by the
-         * [Unicode bidirectional algorithm](http://www.unicode.org/reports/tr9/).
-         * @since 1.22
-         * @deprecated since 1.44 Use fribidi for this information
-         */
-        enum BidiType {
+        interface BidiTypeEnum {
+            readonly $gtype: GObject.GType<BidiType>
             /**
              * Left-to-Right
              */
-            "L" = 0,
+            readonly "L": 0
             /**
              * Left-to-Right Embedding
              */
-            "LRE" = 1,
+            readonly "LRE": 1
             /**
              * Left-to-Right Override
              */
-            "LRO" = 2,
+            readonly "LRO": 2
             /**
              * Right-to-Left
              */
-            "R" = 3,
+            readonly "R": 3
             /**
              * Right-to-Left Arabic
              */
-            "AL" = 4,
+            readonly "AL": 4
             /**
              * Right-to-Left Embedding
              */
-            "RLE" = 5,
+            readonly "RLE": 5
             /**
              * Right-to-Left Override
              */
-            "RLO" = 6,
+            readonly "RLO": 6
             /**
              * Pop Directional Format
              */
-            "PDF" = 7,
+            readonly "PDF": 7
             /**
              * European Number
              */
-            "EN" = 8,
+            readonly "EN": 8
             /**
              * European Number Separator
              */
-            "ES" = 9,
+            readonly "ES": 9
             /**
              * European Number Terminator
              */
-            "ET" = 10,
+            readonly "ET": 10
             /**
              * Arabic Number
              */
-            "AN" = 11,
+            readonly "AN": 11
             /**
              * Common Number Separator
              */
-            "CS" = 12,
+            readonly "CS": 12
             /**
              * Nonspacing Mark
              */
-            "NSM" = 13,
+            readonly "NSM": 13
             /**
              * Boundary Neutral
              */
-            "BN" = 14,
+            readonly "BN": 14
             /**
              * Paragraph Separator
              */
-            "B" = 15,
+            readonly "B": 15
             /**
              * Segment Separator
              */
-            "S" = 16,
+            readonly "S": 16
             /**
              * Whitespace
              */
-            "WS" = 17,
+            readonly "WS": 17
             /**
              * Other Neutrals
              */
-            "ON" = 18,
+            readonly "ON": 18
             /**
              * Left-to-Right isolate. Since 1.48.6
              */
-            "LRI" = 19,
+            readonly "LRI": 19
             /**
              * Right-to-Left isolate. Since 1.48.6
              */
-            "RLI" = 20,
+            readonly "RLI": 20
             /**
              * First strong isolate. Since 1.48.6
              */
-            "FSI" = 21,
+            readonly "FSI": 21
             /**
              * Pop directional isolate. Since 1.48.6
              */
-            "PDI" = 22,
+            readonly "PDI": 22
         }
-        /**
+        type BidiType = BidiTypeEnum[Exclude<keyof BidiTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * `PangoBidiType` represents the bidirectional character
+             * type of a Unicode character.
+             *
+             * The values in this enumeration are specified by the
+             * [Unicode bidirectional algorithm](http://www.unicode.org/reports/tr9/).
+             * @since 1.22
+             * @deprecated since 1.44 Use fribidi for this information
+             */
+            BidiType: BidiTypeEnum
+            /**
          * Determines the bidirectional type of a character.
          *
          * The bidirectional type is specified in the Unicode Character Database.
@@ -6989,25 +5937,16 @@ declare module "gi://Pango?version=1.0" {
          * @param ch a Unicode character
          * @returns the bidirectional character type, as used in the Unicode bidirectional algorithm.
          */
-        function for_unichar(ch: string): BidiType
-        
-        namespace CoverageLevel {
-            const $gtype: GObject.GType<CoverageLevel>
+        for_unichar: (ch: string) => BidiType
         }
-
-        /**
-         * `PangoCoverageLevel` is used to indicate how well a font can
-         * represent a particular Unicode character for a particular script.
-         *
-         * Since 1.44, only %PANGO_COVERAGE_NONE and %PANGO_COVERAGE_EXACT
-         * will be returned.
-         */
-        enum CoverageLevel {
+        
+        interface CoverageLevelEnum {
+            readonly $gtype: GObject.GType<CoverageLevel>
             /**
              * The character is not representable with
              *   the font.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * The character is represented in a
              *   way that may be comprehensible but is not the correct
@@ -7015,210 +5954,225 @@ declare module "gi://Pango?version=1.0" {
              *   as a a sequence of Jamos, or a Latin transliteration of a
              *   Cyrillic word.
              */
-            "FALLBACK" = 1,
+            readonly "FALLBACK": 1
             /**
              * The character is represented as
              *   basically the correct graphical form, but with a stylistic
              *   variant inappropriate for the current script.
              */
-            "APPROXIMATE" = 2,
+            readonly "APPROXIMATE": 2
             /**
              * The character is represented as the
              *   correct graphical form.
              */
-            "EXACT" = 3,
+            readonly "EXACT": 3
+        }
+        type CoverageLevel = CoverageLevelEnum[Exclude<keyof CoverageLevelEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * `PangoCoverageLevel` is used to indicate how well a font can
+             * represent a particular Unicode character for a particular script.
+             *
+             * Since 1.44, only %PANGO_COVERAGE_NONE and %PANGO_COVERAGE_EXACT
+             * will be returned.
+             */
+            CoverageLevel: CoverageLevelEnum
         }
         
-        namespace Direction {
-            const $gtype: GObject.GType<Direction>
-        }
-
-        /**
-         * `PangoDirection` represents a direction in the Unicode bidirectional
-         * algorithm.
-         *
-         * Not every value in this enumeration makes sense for every usage of
-         * `PangoDirection`; for example, the return value of [func@unichar_direction]
-         * and [func@find_base_dir] cannot be `PANGO_DIRECTION_WEAK_LTR` or
-         * `PANGO_DIRECTION_WEAK_RTL`, since every character is either neutral
-         * or has a strong direction; on the other hand `PANGO_DIRECTION_NEUTRAL`
-         * doesn't make sense to pass to [func@itemize_with_base_dir].
-         *
-         * The `PANGO_DIRECTION_TTB_LTR`, `PANGO_DIRECTION_TTB_RTL` values come from
-         * an earlier interpretation of this enumeration as the writing direction
-         * of a block of text and are no longer used. See `PangoGravity` for how
-         * vertical text is handled in Pango.
-         *
-         * If you are interested in text direction, you should really use fribidi
-         * directly. `PangoDirection` is only retained because it is used in some
-         * public apis.
-         */
-        enum Direction {
+        interface DirectionEnum {
+            readonly $gtype: GObject.GType<Direction>
             /**
              * A strong left-to-right direction
              */
-            "LTR" = 0,
+            readonly "LTR": 0
             /**
              * A strong right-to-left direction
              */
-            "RTL" = 1,
+            readonly "RTL": 1
             /**
              * Deprecated value; treated the
              *   same as `PANGO_DIRECTION_RTL`.
              */
-            "TTB_LTR" = 2,
+            readonly "TTB_LTR": 2
             /**
              * Deprecated value; treated the
              *   same as `PANGO_DIRECTION_LTR`
              */
-            "TTB_RTL" = 3,
+            readonly "TTB_RTL": 3
             /**
              * A weak left-to-right direction
              */
-            "WEAK_LTR" = 4,
+            readonly "WEAK_LTR": 4
             /**
              * A weak right-to-left direction
              */
-            "WEAK_RTL" = 5,
+            readonly "WEAK_RTL": 5
             /**
              * No direction specified
              */
-            "NEUTRAL" = 6,
+            readonly "NEUTRAL": 6
+        }
+        type Direction = DirectionEnum[Exclude<keyof DirectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * `PangoDirection` represents a direction in the Unicode bidirectional
+             * algorithm.
+             *
+             * Not every value in this enumeration makes sense for every usage of
+             * `PangoDirection`; for example, the return value of [func@unichar_direction]
+             * and [func@find_base_dir] cannot be `PANGO_DIRECTION_WEAK_LTR` or
+             * `PANGO_DIRECTION_WEAK_RTL`, since every character is either neutral
+             * or has a strong direction; on the other hand `PANGO_DIRECTION_NEUTRAL`
+             * doesn't make sense to pass to [func@itemize_with_base_dir].
+             *
+             * The `PANGO_DIRECTION_TTB_LTR`, `PANGO_DIRECTION_TTB_RTL` values come from
+             * an earlier interpretation of this enumeration as the writing direction
+             * of a block of text and are no longer used. See `PangoGravity` for how
+             * vertical text is handled in Pango.
+             *
+             * If you are interested in text direction, you should really use fribidi
+             * directly. `PangoDirection` is only retained because it is used in some
+             * public apis.
+             */
+            Direction: DirectionEnum
         }
         
-        namespace EllipsizeMode {
-            const $gtype: GObject.GType<EllipsizeMode>
-        }
-
-        /**
-         * `PangoEllipsizeMode` describes what sort of ellipsization
-         * should be applied to text.
-         *
-         * In the ellipsization process characters are removed from the
-         * text in order to make it fit to a given width and replaced
-         * with an ellipsis.
-         */
-        enum EllipsizeMode {
+        interface EllipsizeModeEnum {
+            readonly $gtype: GObject.GType<EllipsizeMode>
             /**
              * No ellipsization
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Omit characters at the start of the text
              */
-            "START" = 1,
+            readonly "START": 1
             /**
              * Omit characters in the middle of the text
              */
-            "MIDDLE" = 2,
+            readonly "MIDDLE": 2
             /**
              * Omit characters at the end of the text
              */
-            "END" = 3,
+            readonly "END": 3
+        }
+        type EllipsizeMode = EllipsizeModeEnum[Exclude<keyof EllipsizeModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * `PangoEllipsizeMode` describes what sort of ellipsization
+             * should be applied to text.
+             *
+             * In the ellipsization process characters are removed from the
+             * text in order to make it fit to a given width and replaced
+             * with an ellipsis.
+             */
+            EllipsizeMode: EllipsizeModeEnum
         }
         
-        namespace FontColor {
-            const $gtype: GObject.GType<FontColor>
-        }
-
-        /**
-         * Specifies whether a font should or should not have color glyphs.
-         * @since 1.57
-         */
-        enum FontColor {
+        interface FontColorEnum {
+            readonly $gtype: GObject.GType<FontColor>
             /**
              * The font should not have color glyphs
              */
-            "FORBIDDEN" = 0,
+            readonly "FORBIDDEN": 0
             /**
              * The font should have color glyphs
              */
-            "REQUIRED" = 1,
+            readonly "REQUIRED": 1
             /**
              * The font may or may not use color
              */
-            "DONT_CARE" = 2,
+            readonly "DONT_CARE": 2
+        }
+        type FontColor = FontColorEnum[Exclude<keyof FontColorEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies whether a font should or should not have color glyphs.
+             * @since 1.57
+             */
+            FontColor: FontColorEnum
         }
         
-        namespace FontScale {
-            const $gtype: GObject.GType<FontScale>
-        }
-
-        /**
-         * An enumeration that affects font sizes for superscript
-         * and subscript positioning and for (emulated) Small Caps.
-         * @since 1.50
-         */
-        enum FontScale {
+        interface FontScaleEnum {
+            readonly $gtype: GObject.GType<FontScale>
             /**
              * Leave the font size unchanged
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Change the font to a size suitable for superscripts
              */
-            "SUPERSCRIPT" = 1,
+            readonly "SUPERSCRIPT": 1
             /**
              * Change the font to a size suitable for subscripts
              */
-            "SUBSCRIPT" = 2,
+            readonly "SUBSCRIPT": 2
             /**
              * Change the font to a size suitable for Small Caps
              */
-            "SMALL_CAPS" = 3,
+            readonly "SMALL_CAPS": 3
+        }
+        type FontScale = FontScaleEnum[Exclude<keyof FontScaleEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An enumeration that affects font sizes for superscript
+             * and subscript positioning and for (emulated) Small Caps.
+             * @since 1.50
+             */
+            FontScale: FontScaleEnum
         }
         
-        namespace Gravity {
-            const $gtype: GObject.GType<Gravity>
-        }
-
-        /**
-         * `PangoGravity` represents the orientation of glyphs in a segment
-         * of text.
-         *
-         * This is useful when rendering vertical text layouts. In those situations,
-         * the layout is rotated using a non-identity [struct@Pango.Matrix], and then
-         * glyph orientation is controlled using `PangoGravity`.
-         *
-         * Not every value in this enumeration makes sense for every usage of
-         * `PangoGravity`; for example, %PANGO_GRAVITY_AUTO only can be passed to
-         * [method@Pango.Context.set_base_gravity] and can only be returned by
-         * [method@Pango.Context.get_base_gravity].
-         *
-         * See also: [enum@Pango.GravityHint]
-         * @since 1.16
-         */
-        enum Gravity {
+        interface GravityEnum {
+            readonly $gtype: GObject.GType<Gravity>
             /**
-             * >
+             * Glyphs stand upright (default) <img align="right" valign="center" src="m-south.png">
              */
-            "SOUTH" = 0,
+            readonly "SOUTH": 0
             /**
-             * >
+             * Glyphs are rotated 90 degrees counter-clockwise. <img align="right" valign="center" src="m-east.png">
              */
-            "EAST" = 1,
+            readonly "EAST": 1
             /**
-             * >
+             * Glyphs are upside-down. <img align="right" valign="cener" src="m-north.png">
              */
-            "NORTH" = 2,
+            readonly "NORTH": 2
             /**
-             * >
+             * Glyphs are rotated 90 degrees clockwise. <img align="right" valign="center" src="m-west.png">
              */
-            "WEST" = 3,
+            readonly "WEST": 3
             /**
              * Gravity is resolved from the context matrix
              */
-            "AUTO" = 4,
+            readonly "AUTO": 4
         }
-        /**
+        type Gravity = GravityEnum[Exclude<keyof GravityEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * `PangoGravity` represents the orientation of glyphs in a segment
+             * of text.
+             *
+             * This is useful when rendering vertical text layouts. In those situations,
+             * the layout is rotated using a non-identity [struct@Pango.Matrix], and then
+             * glyph orientation is controlled using `PangoGravity`.
+             *
+             * Not every value in this enumeration makes sense for every usage of
+             * `PangoGravity`; for example, %PANGO_GRAVITY_AUTO only can be passed to
+             * [method@Pango.Context.set_base_gravity] and can only be returned by
+             * [method@Pango.Context.get_base_gravity].
+             *
+             * See also: [enum@Pango.GravityHint]
+             * @since 1.16
+             */
+            Gravity: GravityEnum
+            /**
          * Finds the gravity that best matches the rotation component
          * in a `PangoMatrix`.
          * @since 1.16
          * @param matrix a `PangoMatrix`
          * @returns the gravity of `matrix`, which will never be %PANGO_GRAVITY_AUTO, or %PANGO_GRAVITY_SOUTH if `matrix` is %NULL
          */
-        function get_for_matrix(matrix: Matrix | null): Gravity
-        /**
+        get_for_matrix: (matrix: Matrix | null) => Gravity
+            /**
          * Returns the gravity to use in laying out a `PangoItem`.
          *
          * The gravity is determined based on the script, base gravity, and hint.
@@ -7232,8 +6186,8 @@ declare module "gi://Pango?version=1.0" {
          * @param hint orientation hint
          * @returns resolved gravity suitable to use for a run of text with `script`
          */
-        function get_for_script(script: Script, base_gravity: Gravity, hint: GravityHint): Gravity
-        /**
+        get_for_script: (script: Script, base_gravity: Gravity, hint: GravityHint) => Gravity
+            /**
          * Returns the gravity to use in laying out a single character
          * or `PangoItem`.
          *
@@ -7256,8 +6210,8 @@ declare module "gi://Pango?version=1.0" {
          * @param hint orientation hint
          * @returns resolved gravity suitable to use for a run of text with `script` and `wide`.
          */
-        function get_for_script_and_width(script: Script, wide: boolean, base_gravity: Gravity, hint: GravityHint): Gravity
-        /**
+        get_for_script_and_width: (script: Script, wide: boolean, base_gravity: Gravity, hint: GravityHint) => Gravity
+            /**
          * Converts a `PangoGravity` value to its natural rotation in radians.
          *
          * Note that [method@Pango.Matrix.rotate] takes angle in degrees, not radians.
@@ -7267,607 +6221,623 @@ declare module "gi://Pango?version=1.0" {
          * @param gravity gravity to query, should not be %PANGO_GRAVITY_AUTO
          * @returns the rotation value corresponding to `gravity`.
          */
-        function to_rotation(gravity: Gravity): number
-        
-        namespace GravityHint {
-            const $gtype: GObject.GType<GravityHint>
+        to_rotation: (gravity: Gravity) => number
         }
-
-        /**
-         * `PangoGravityHint` defines how horizontal scripts should behave in a
-         * vertical context.
-         *
-         * That is, English excerpts in a vertical paragraph for example.
-         *
-         * See also [enum@Pango.Gravity]
-         * @since 1.16
-         */
-        enum GravityHint {
+        
+        interface GravityHintEnum {
+            readonly $gtype: GObject.GType<GravityHint>
             /**
              * scripts will take their natural gravity based
              *   on the base gravity and the script.  This is the default.
              */
-            "NATURAL" = 0,
+            readonly "NATURAL": 0
             /**
              * always use the base gravity set, regardless of
              *   the script.
              */
-            "STRONG" = 1,
+            readonly "STRONG": 1
             /**
              * for scripts not in their natural direction (eg.
              *   Latin in East gravity), choose per-script gravity such that every script
              *   respects the line progression. This means, Latin and Arabic will take
              *   opposite gravities and both flow top-to-bottom for example.
              */
-            "LINE" = 2,
+            readonly "LINE": 2
+        }
+        type GravityHint = GravityHintEnum[Exclude<keyof GravityHintEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * `PangoGravityHint` defines how horizontal scripts should behave in a
+             * vertical context.
+             *
+             * That is, English excerpts in a vertical paragraph for example.
+             *
+             * See also [enum@Pango.Gravity]
+             * @since 1.16
+             */
+            GravityHint: GravityHintEnum
         }
         
-        abstract class LayoutDeserializeError extends GLib.Error {
-            static readonly $gtype: GObject.GType<LayoutDeserializeError>
+        interface LayoutDeserializeError extends GLib.Error {}
+
+        interface LayoutDeserializeErrorEnum {
+            readonly $gtype: GObject.GType<LayoutDeserializeError>
+
+            new(props: { message: string, code: number }): LayoutDeserializeError
             /**
              * Unspecified error
              */
-            static readonly "INVALID": 0
+            readonly "INVALID": 0
             /**
              * A JSon value could not be
              *   interpreted
              */
-            static readonly "INVALID_VALUE": 1
+            readonly "INVALID_VALUE": 1
             /**
              * A required JSon member was
              *   not found
              */
-            static readonly "MISSING_VALUE": 2
-        }
-        /**
+            readonly "MISSING_VALUE": 2
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace Overline {
-            const $gtype: GObject.GType<Overline>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The `PangoOverline` enumeration is used to specify whether text
-         * should be overlined, and if so, the type of line.
-         * @since 1.46
-         */
-        enum Overline {
+        interface $Exports {
+            /**
+             * Errors that can be returned by [func@Pango.Layout.deserialize].
+             * @since 1.50
+             */
+            LayoutDeserializeError: LayoutDeserializeErrorEnum
+        }
+        
+        interface OverlineEnum {
+            readonly $gtype: GObject.GType<Overline>
             /**
              * no overline should be drawn
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Draw a single line above the ink
              *   extents of the text being underlined.
              */
-            "SINGLE" = 1,
+            readonly "SINGLE": 1
+        }
+        type Overline = OverlineEnum[Exclude<keyof OverlineEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The `PangoOverline` enumeration is used to specify whether text
+             * should be overlined, and if so, the type of line.
+             * @since 1.46
+             */
+            Overline: OverlineEnum
         }
         
-        namespace RenderPart {
-            const $gtype: GObject.GType<RenderPart>
-        }
-
-        /**
-         * `PangoRenderPart` defines different items to render for such
-         * purposes as setting colors.
-         * @since 1.8
-         */
-        enum RenderPart {
+        interface RenderPartEnum {
+            readonly $gtype: GObject.GType<RenderPart>
             /**
              * the text itself
              */
-            "FOREGROUND" = 0,
+            readonly "FOREGROUND": 0
             /**
              * the area behind the text
              */
-            "BACKGROUND" = 1,
+            readonly "BACKGROUND": 1
             /**
              * underlines
              */
-            "UNDERLINE" = 2,
+            readonly "UNDERLINE": 2
             /**
              * strikethrough lines
              */
-            "STRIKETHROUGH" = 3,
+            readonly "STRIKETHROUGH": 3
             /**
              * overlines
              */
-            "OVERLINE" = 4,
+            readonly "OVERLINE": 4
+        }
+        type RenderPart = RenderPartEnum[Exclude<keyof RenderPartEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * `PangoRenderPart` defines different items to render for such
+             * purposes as setting colors.
+             * @since 1.8
+             */
+            RenderPart: RenderPartEnum
         }
         
-        namespace Script {
-            const $gtype: GObject.GType<Script>
-        }
-
-        /**
-         * The `PangoScript` enumeration identifies different writing
-         * systems.
-         *
-         * The values correspond to the names as defined in the Unicode standard. See
-         * [Unicode Standard Annex 24: Script names](http://www.unicode.org/reports/tr24/)
-         *
-         * Note that this enumeration is deprecated and will not be updated to include values
-         * in newer versions of the Unicode standard. Applications should use the
-         * [enum@GLib.UnicodeScript] enumeration instead,
-         * whose values are interchangeable with `PangoScript`.
-         */
-        enum Script {
+        interface ScriptEnum {
+            readonly $gtype: GObject.GType<Script>
             /**
              * a value never returned from pango_script_for_unichar()
              */
-            "INVALID_CODE" = -1,
+            readonly "INVALID_CODE": -1
             /**
              * a character used by multiple different scripts
              */
-            "COMMON" = 0,
+            readonly "COMMON": 0
             /**
              * a mark glyph that takes its script from the
              * base glyph to which it is attached
              */
-            "INHERITED" = 1,
+            readonly "INHERITED": 1
             /**
              * Arabic
              */
-            "ARABIC" = 2,
+            readonly "ARABIC": 2
             /**
              * Armenian
              */
-            "ARMENIAN" = 3,
+            readonly "ARMENIAN": 3
             /**
              * Bengali
              */
-            "BENGALI" = 4,
+            readonly "BENGALI": 4
             /**
              * Bopomofo
              */
-            "BOPOMOFO" = 5,
+            readonly "BOPOMOFO": 5
             /**
              * Cherokee
              */
-            "CHEROKEE" = 6,
+            readonly "CHEROKEE": 6
             /**
              * Coptic
              */
-            "COPTIC" = 7,
+            readonly "COPTIC": 7
             /**
              * Cyrillic
              */
-            "CYRILLIC" = 8,
+            readonly "CYRILLIC": 8
             /**
              * Deseret
              */
-            "DESERET" = 9,
+            readonly "DESERET": 9
             /**
              * Devanagari
              */
-            "DEVANAGARI" = 10,
+            readonly "DEVANAGARI": 10
             /**
              * Ethiopic
              */
-            "ETHIOPIC" = 11,
+            readonly "ETHIOPIC": 11
             /**
              * Georgian
              */
-            "GEORGIAN" = 12,
+            readonly "GEORGIAN": 12
             /**
              * Gothic
              */
-            "GOTHIC" = 13,
+            readonly "GOTHIC": 13
             /**
              * Greek
              */
-            "GREEK" = 14,
+            readonly "GREEK": 14
             /**
              * Gujarati
              */
-            "GUJARATI" = 15,
+            readonly "GUJARATI": 15
             /**
              * Gurmukhi
              */
-            "GURMUKHI" = 16,
+            readonly "GURMUKHI": 16
             /**
              * Han
              */
-            "HAN" = 17,
+            readonly "HAN": 17
             /**
              * Hangul
              */
-            "HANGUL" = 18,
+            readonly "HANGUL": 18
             /**
              * Hebrew
              */
-            "HEBREW" = 19,
+            readonly "HEBREW": 19
             /**
              * Hiragana
              */
-            "HIRAGANA" = 20,
+            readonly "HIRAGANA": 20
             /**
              * Kannada
              */
-            "KANNADA" = 21,
+            readonly "KANNADA": 21
             /**
              * Katakana
              */
-            "KATAKANA" = 22,
+            readonly "KATAKANA": 22
             /**
              * Khmer
              */
-            "KHMER" = 23,
+            readonly "KHMER": 23
             /**
              * Lao
              */
-            "LAO" = 24,
+            readonly "LAO": 24
             /**
              * Latin
              */
-            "LATIN" = 25,
+            readonly "LATIN": 25
             /**
              * Malayalam
              */
-            "MALAYALAM" = 26,
+            readonly "MALAYALAM": 26
             /**
              * Mongolian
              */
-            "MONGOLIAN" = 27,
+            readonly "MONGOLIAN": 27
             /**
              * Myanmar
              */
-            "MYANMAR" = 28,
+            readonly "MYANMAR": 28
             /**
              * Ogham
              */
-            "OGHAM" = 29,
+            readonly "OGHAM": 29
             /**
              * Old Italic
              */
-            "OLD_ITALIC" = 30,
+            readonly "OLD_ITALIC": 30
             /**
              * Oriya
              */
-            "ORIYA" = 31,
+            readonly "ORIYA": 31
             /**
              * Runic
              */
-            "RUNIC" = 32,
+            readonly "RUNIC": 32
             /**
              * Sinhala
              */
-            "SINHALA" = 33,
+            readonly "SINHALA": 33
             /**
              * Syriac
              */
-            "SYRIAC" = 34,
+            readonly "SYRIAC": 34
             /**
              * Tamil
              */
-            "TAMIL" = 35,
+            readonly "TAMIL": 35
             /**
              * Telugu
              */
-            "TELUGU" = 36,
+            readonly "TELUGU": 36
             /**
              * Thaana
              */
-            "THAANA" = 37,
+            readonly "THAANA": 37
             /**
              * Thai
              */
-            "THAI" = 38,
+            readonly "THAI": 38
             /**
              * Tibetan
              */
-            "TIBETAN" = 39,
+            readonly "TIBETAN": 39
             /**
              * Canadian Aboriginal
              */
-            "CANADIAN_ABORIGINAL" = 40,
+            readonly "CANADIAN_ABORIGINAL": 40
             /**
              * Yi
              */
-            "YI" = 41,
+            readonly "YI": 41
             /**
              * Tagalog
              */
-            "TAGALOG" = 42,
+            readonly "TAGALOG": 42
             /**
              * Hanunoo
              */
-            "HANUNOO" = 43,
+            readonly "HANUNOO": 43
             /**
              * Buhid
              */
-            "BUHID" = 44,
+            readonly "BUHID": 44
             /**
              * Tagbanwa
              */
-            "TAGBANWA" = 45,
+            readonly "TAGBANWA": 45
             /**
              * Braille
              */
-            "BRAILLE" = 46,
+            readonly "BRAILLE": 46
             /**
              * Cypriot
              */
-            "CYPRIOT" = 47,
+            readonly "CYPRIOT": 47
             /**
              * Limbu
              */
-            "LIMBU" = 48,
+            readonly "LIMBU": 48
             /**
              * Osmanya
              */
-            "OSMANYA" = 49,
+            readonly "OSMANYA": 49
             /**
              * Shavian
              */
-            "SHAVIAN" = 50,
+            readonly "SHAVIAN": 50
             /**
              * Linear B
              */
-            "LINEAR_B" = 51,
+            readonly "LINEAR_B": 51
             /**
              * Tai Le
              */
-            "TAI_LE" = 52,
+            readonly "TAI_LE": 52
             /**
              * Ugaritic
              */
-            "UGARITIC" = 53,
+            readonly "UGARITIC": 53
             /**
              * New Tai Lue. Since 1.10
              */
-            "NEW_TAI_LUE" = 54,
+            readonly "NEW_TAI_LUE": 54
             /**
              * Buginese. Since 1.10
              */
-            "BUGINESE" = 55,
+            readonly "BUGINESE": 55
             /**
              * Glagolitic. Since 1.10
              */
-            "GLAGOLITIC" = 56,
+            readonly "GLAGOLITIC": 56
             /**
              * Tifinagh. Since 1.10
              */
-            "TIFINAGH" = 57,
+            readonly "TIFINAGH": 57
             /**
              * Syloti Nagri. Since 1.10
              */
-            "SYLOTI_NAGRI" = 58,
+            readonly "SYLOTI_NAGRI": 58
             /**
              * Old Persian. Since 1.10
              */
-            "OLD_PERSIAN" = 59,
+            readonly "OLD_PERSIAN": 59
             /**
              * Kharoshthi. Since 1.10
              */
-            "KHAROSHTHI" = 60,
+            readonly "KHAROSHTHI": 60
             /**
              * an unassigned code point. Since 1.14
              */
-            "UNKNOWN" = 61,
+            readonly "UNKNOWN": 61
             /**
              * Balinese. Since 1.14
              */
-            "BALINESE" = 62,
+            readonly "BALINESE": 62
             /**
              * Cuneiform. Since 1.14
              */
-            "CUNEIFORM" = 63,
+            readonly "CUNEIFORM": 63
             /**
              * Phoenician. Since 1.14
              */
-            "PHOENICIAN" = 64,
+            readonly "PHOENICIAN": 64
             /**
              * Phags-pa. Since 1.14
              */
-            "PHAGS_PA" = 65,
+            readonly "PHAGS_PA": 65
             /**
              * N'Ko. Since 1.14
              */
-            "NKO" = 66,
+            readonly "NKO": 66
             /**
              * Kayah Li. Since 1.20.1
              */
-            "KAYAH_LI" = 67,
+            readonly "KAYAH_LI": 67
             /**
              * Lepcha. Since 1.20.1
              */
-            "LEPCHA" = 68,
+            readonly "LEPCHA": 68
             /**
              * Rejang. Since 1.20.1
              */
-            "REJANG" = 69,
+            readonly "REJANG": 69
             /**
              * Sundanese. Since 1.20.1
              */
-            "SUNDANESE" = 70,
+            readonly "SUNDANESE": 70
             /**
              * Saurashtra. Since 1.20.1
              */
-            "SAURASHTRA" = 71,
+            readonly "SAURASHTRA": 71
             /**
              * Cham. Since 1.20.1
              */
-            "CHAM" = 72,
+            readonly "CHAM": 72
             /**
              * Ol Chiki. Since 1.20.1
              */
-            "OL_CHIKI" = 73,
+            readonly "OL_CHIKI": 73
             /**
              * Vai. Since 1.20.1
              */
-            "VAI" = 74,
+            readonly "VAI": 74
             /**
              * Carian. Since 1.20.1
              */
-            "CARIAN" = 75,
+            readonly "CARIAN": 75
             /**
              * Lycian. Since 1.20.1
              */
-            "LYCIAN" = 76,
+            readonly "LYCIAN": 76
             /**
              * Lydian. Since 1.20.1
              */
-            "LYDIAN" = 77,
+            readonly "LYDIAN": 77
             /**
              * Batak. Since 1.32
              */
-            "BATAK" = 78,
+            readonly "BATAK": 78
             /**
              * Brahmi. Since 1.32
              */
-            "BRAHMI" = 79,
+            readonly "BRAHMI": 79
             /**
              * Mandaic. Since 1.32
              */
-            "MANDAIC" = 80,
+            readonly "MANDAIC": 80
             /**
              * Chakma. Since: 1.32
              */
-            "CHAKMA" = 81,
+            readonly "CHAKMA": 81
             /**
              * Meroitic Cursive. Since: 1.32
              */
-            "MEROITIC_CURSIVE" = 82,
+            readonly "MEROITIC_CURSIVE": 82
             /**
              * Meroitic Hieroglyphs. Since: 1.32
              */
-            "MEROITIC_HIEROGLYPHS" = 83,
+            readonly "MEROITIC_HIEROGLYPHS": 83
             /**
              * Miao. Since: 1.32
              */
-            "MIAO" = 84,
+            readonly "MIAO": 84
             /**
              * Sharada. Since: 1.32
              */
-            "SHARADA" = 85,
+            readonly "SHARADA": 85
             /**
              * Sora Sompeng. Since: 1.32
              */
-            "SORA_SOMPENG" = 86,
+            readonly "SORA_SOMPENG": 86
             /**
              * Takri. Since: 1.32
              */
-            "TAKRI" = 87,
+            readonly "TAKRI": 87
             /**
              * Bassa. Since: 1.40
              */
-            "BASSA_VAH" = 88,
+            readonly "BASSA_VAH": 88
             /**
              * Caucasian Albanian. Since: 1.40
              */
-            "CAUCASIAN_ALBANIAN" = 89,
+            readonly "CAUCASIAN_ALBANIAN": 89
             /**
              * Duployan. Since: 1.40
              */
-            "DUPLOYAN" = 90,
+            readonly "DUPLOYAN": 90
             /**
              * Elbasan. Since: 1.40
              */
-            "ELBASAN" = 91,
+            readonly "ELBASAN": 91
             /**
              * Grantha. Since: 1.40
              */
-            "GRANTHA" = 92,
+            readonly "GRANTHA": 92
             /**
              * Kjohki. Since: 1.40
              */
-            "KHOJKI" = 93,
+            readonly "KHOJKI": 93
             /**
              * Khudawadi, Sindhi. Since: 1.40
              */
-            "KHUDAWADI" = 94,
+            readonly "KHUDAWADI": 94
             /**
              * Linear A. Since: 1.40
              */
-            "LINEAR_A" = 95,
+            readonly "LINEAR_A": 95
             /**
              * Mahajani. Since: 1.40
              */
-            "MAHAJANI" = 96,
+            readonly "MAHAJANI": 96
             /**
              * Manichaean. Since: 1.40
              */
-            "MANICHAEAN" = 97,
+            readonly "MANICHAEAN": 97
             /**
              * Mende Kikakui. Since: 1.40
              */
-            "MENDE_KIKAKUI" = 98,
+            readonly "MENDE_KIKAKUI": 98
             /**
              * Modi. Since: 1.40
              */
-            "MODI" = 99,
+            readonly "MODI": 99
             /**
              * Mro. Since: 1.40
              */
-            "MRO" = 100,
+            readonly "MRO": 100
             /**
              * Nabataean. Since: 1.40
              */
-            "NABATAEAN" = 101,
+            readonly "NABATAEAN": 101
             /**
              * Old North Arabian. Since: 1.40
              */
-            "OLD_NORTH_ARABIAN" = 102,
+            readonly "OLD_NORTH_ARABIAN": 102
             /**
              * Old Permic. Since: 1.40
              */
-            "OLD_PERMIC" = 103,
+            readonly "OLD_PERMIC": 103
             /**
              * Pahawh Hmong. Since: 1.40
              */
-            "PAHAWH_HMONG" = 104,
+            readonly "PAHAWH_HMONG": 104
             /**
              * Palmyrene. Since: 1.40
              */
-            "PALMYRENE" = 105,
+            readonly "PALMYRENE": 105
             /**
              * Pau Cin Hau. Since: 1.40
              */
-            "PAU_CIN_HAU" = 106,
+            readonly "PAU_CIN_HAU": 106
             /**
              * Psalter Pahlavi. Since: 1.40
              */
-            "PSALTER_PAHLAVI" = 107,
+            readonly "PSALTER_PAHLAVI": 107
             /**
              * Siddham. Since: 1.40
              */
-            "SIDDHAM" = 108,
+            readonly "SIDDHAM": 108
             /**
              * Tirhuta. Since: 1.40
              */
-            "TIRHUTA" = 109,
+            readonly "TIRHUTA": 109
             /**
              * Warang Citi. Since: 1.40
              */
-            "WARANG_CITI" = 110,
+            readonly "WARANG_CITI": 110
             /**
              * Ahom. Since: 1.40
              */
-            "AHOM" = 111,
+            readonly "AHOM": 111
             /**
              * Anatolian Hieroglyphs. Since: 1.40
              */
-            "ANATOLIAN_HIEROGLYPHS" = 112,
+            readonly "ANATOLIAN_HIEROGLYPHS": 112
             /**
              * Hatran. Since: 1.40
              */
-            "HATRAN" = 113,
+            readonly "HATRAN": 113
             /**
              * Multani. Since: 1.40
              */
-            "MULTANI" = 114,
+            readonly "MULTANI": 114
             /**
              * Old Hungarian. Since: 1.40
              */
-            "OLD_HUNGARIAN" = 115,
+            readonly "OLD_HUNGARIAN": 115
             /**
              * Signwriting. Since: 1.40
              */
-            "SIGNWRITING" = 116,
+            readonly "SIGNWRITING": 116
         }
-        /**
+        type Script = ScriptEnum[Exclude<keyof ScriptEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The `PangoScript` enumeration identifies different writing
+             * systems.
+             *
+             * The values correspond to the names as defined in the Unicode standard. See
+             * [Unicode Standard Annex 24: Script names](http://www.unicode.org/reports/tr24/)
+             *
+             * Note that this enumeration is deprecated and will not be updated to include values
+             * in newer versions of the Unicode standard. Applications should use the
+             * [enum@GLib.UnicodeScript] enumeration instead,
+             * whose values are interchangeable with `PangoScript`.
+             */
+            Script: ScriptEnum
+            /**
          * Looks up the script for a particular character.
          *
          * The script of a character is defined by
@@ -7885,8 +6855,8 @@ declare module "gi://Pango?version=1.0" {
          * @param ch a Unicode character
          * @returns the `PangoScript` for the character.
          */
-        function for_unichar(ch: string): Script
-        /**
+        for_unichar: (ch: string) => Script
+            /**
          * Finds a language tag that is reasonably representative of @script.
          *
          * The language will usually be the most widely spoken or used language
@@ -7920,157 +6890,155 @@ declare module "gi://Pango?version=1.0" {
          * @param script a `PangoScript`
          * @returns a `PangoLanguage` that is representative   of the script
          */
-        function get_sample_language(script: Script): Language | null
-        
-        namespace Stretch {
-            const $gtype: GObject.GType<Stretch>
+        get_sample_language: (script: Script) => Language | null
         }
-
-        /**
-         * An enumeration specifying the width of the font relative to other designs
-         * within a family.
-         */
-        enum Stretch {
+        
+        interface StretchEnum {
+            readonly $gtype: GObject.GType<Stretch>
             /**
              * ultra condensed width
              */
-            "ULTRA_CONDENSED" = 0,
+            readonly "ULTRA_CONDENSED": 0
             /**
              * extra condensed width
              */
-            "EXTRA_CONDENSED" = 1,
+            readonly "EXTRA_CONDENSED": 1
             /**
              * condensed width
              */
-            "CONDENSED" = 2,
+            readonly "CONDENSED": 2
             /**
              * semi condensed width
              */
-            "SEMI_CONDENSED" = 3,
+            readonly "SEMI_CONDENSED": 3
             /**
              * the normal width
              */
-            "NORMAL" = 4,
+            readonly "NORMAL": 4
             /**
              * semi expanded width
              */
-            "SEMI_EXPANDED" = 5,
+            readonly "SEMI_EXPANDED": 5
             /**
              * expanded width
              */
-            "EXPANDED" = 6,
+            readonly "EXPANDED": 6
             /**
              * extra expanded width
              */
-            "EXTRA_EXPANDED" = 7,
+            readonly "EXTRA_EXPANDED": 7
             /**
              * ultra expanded width
              */
-            "ULTRA_EXPANDED" = 8,
+            readonly "ULTRA_EXPANDED": 8
+        }
+        type Stretch = StretchEnum[Exclude<keyof StretchEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An enumeration specifying the width of the font relative to other designs
+             * within a family.
+             */
+            Stretch: StretchEnum
         }
         
-        namespace Style {
-            const $gtype: GObject.GType<Style>
-        }
-
-        /**
-         * An enumeration specifying the various slant styles possible for a font.
-         */
-        enum Style {
+        interface StyleEnum {
+            readonly $gtype: GObject.GType<Style>
             /**
              * the font is upright.
              */
-            "NORMAL" = 0,
+            readonly "NORMAL": 0
             /**
              * the font is slanted, but in a roman style.
              */
-            "OBLIQUE" = 1,
+            readonly "OBLIQUE": 1
             /**
              * the font is slanted in an italic style.
              */
-            "ITALIC" = 2,
+            readonly "ITALIC": 2
+        }
+        type Style = StyleEnum[Exclude<keyof StyleEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An enumeration specifying the various slant styles possible for a font.
+             */
+            Style: StyleEnum
         }
         
-        namespace TabAlign {
-            const $gtype: GObject.GType<TabAlign>
-        }
-
-        /**
-         * `PangoTabAlign` specifies where the text appears relative to the tab stop
-         * position.
-         */
-        enum TabAlign {
+        interface TabAlignEnum {
+            readonly $gtype: GObject.GType<TabAlign>
             /**
              * the text appears to the right of the tab stop position
              */
-            "LEFT" = 0,
+            readonly "LEFT": 0
             /**
              * the text appears to the left of the tab stop position
              *   until the available space is filled. Since: 1.50
              */
-            "RIGHT" = 1,
+            readonly "RIGHT": 1
             /**
              * the text is centered at the tab stop position
              *   until the available space is filled. Since: 1.50
              */
-            "CENTER" = 2,
+            readonly "CENTER": 2
             /**
              * text before the first occurrence of the decimal point
              *   character appears to the left of the tab stop position (until the available
              *   space is filled), the rest to the right. Since: 1.50
              */
-            "DECIMAL" = 3,
+            readonly "DECIMAL": 3
+        }
+        type TabAlign = TabAlignEnum[Exclude<keyof TabAlignEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * `PangoTabAlign` specifies where the text appears relative to the tab stop
+             * position.
+             */
+            TabAlign: TabAlignEnum
         }
         
-        namespace TextTransform {
-            const $gtype: GObject.GType<TextTransform>
-        }
-
-        /**
-         * An enumeration that affects how Pango treats characters during shaping.
-         * @since 1.50
-         */
-        enum TextTransform {
+        interface TextTransformEnum {
+            readonly $gtype: GObject.GType<TextTransform>
             /**
              * Leave text unchanged
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Display letters and numbers as lowercase
              */
-            "LOWERCASE" = 1,
+            readonly "LOWERCASE": 1
             /**
              * Display letters and numbers as uppercase
              */
-            "UPPERCASE" = 2,
+            readonly "UPPERCASE": 2
             /**
              * Display the first character of a word
              *   in titlecase
              */
-            "CAPITALIZE" = 3,
+            readonly "CAPITALIZE": 3
+        }
+        type TextTransform = TextTransformEnum[Exclude<keyof TextTransformEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An enumeration that affects how Pango treats characters during shaping.
+             * @since 1.50
+             */
+            TextTransform: TextTransformEnum
         }
         
-        namespace Underline {
-            const $gtype: GObject.GType<Underline>
-        }
-
-        /**
-         * The `PangoUnderline` enumeration is used to specify whether text
-         * should be underlined, and if so, the type of underlining.
-         */
-        enum Underline {
+        interface UnderlineEnum {
+            readonly $gtype: GObject.GType<Underline>
             /**
              * no underline should be drawn
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * a single underline should be drawn
              */
-            "SINGLE" = 1,
+            readonly "SINGLE": 1
             /**
              * a double underline should be drawn
              */
-            "DOUBLE" = 2,
+            readonly "DOUBLE": 2
             /**
              * a single underline should be drawn at a
              *   position beneath the ink extents of the text being
@@ -8079,7 +7047,7 @@ declare module "gi://Pango?version=1.0" {
              *   %PANGO_UNDERLINE_SINGLE should be used for extended
              *   portions of text.
              */
-            "LOW" = 3,
+            readonly "LOW": 3
             /**
              * an underline indicating an error should
              *   be drawn below. The exact style of rendering is up to the
@@ -8090,319 +7058,335 @@ declare module "gi://Pango?version=1.0" {
              *   may automatically be used. This type of underlining is
              *   available since Pango 1.4.
              */
-            "ERROR" = 4,
+            readonly "ERROR": 4
             /**
              * Like @PANGO_UNDERLINE_SINGLE, but
              *   drawn continuously across multiple runs. This type
              *   of underlining is available since Pango 1.46.
              */
-            "SINGLE_LINE" = 5,
+            readonly "SINGLE_LINE": 5
             /**
              * Like @PANGO_UNDERLINE_DOUBLE, but
              *   drawn continuously across multiple runs. This type
              *   of underlining is available since Pango 1.46.
              */
-            "DOUBLE_LINE" = 6,
+            readonly "DOUBLE_LINE": 6
             /**
              * Like @PANGO_UNDERLINE_ERROR, but
              *   drawn continuously across multiple runs. This type
              *   of underlining is available since Pango 1.46.
              */
-            "ERROR_LINE" = 7,
+            readonly "ERROR_LINE": 7
+        }
+        type Underline = UnderlineEnum[Exclude<keyof UnderlineEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The `PangoUnderline` enumeration is used to specify whether text
+             * should be underlined, and if so, the type of underlining.
+             */
+            Underline: UnderlineEnum
         }
         
-        namespace Variant {
-            const $gtype: GObject.GType<Variant>
-        }
-
-        /**
-         * An enumeration specifying capitalization variant of the font.
-         */
-        enum Variant {
+        interface VariantEnum {
+            readonly $gtype: GObject.GType<Variant>
             /**
              * A normal font.
              */
-            "NORMAL" = 0,
+            readonly "NORMAL": 0
             /**
              * A font with the lower case characters
              *   replaced by smaller variants of the capital characters.
              */
-            "SMALL_CAPS" = 1,
+            readonly "SMALL_CAPS": 1
             /**
              * A font with all characters
              *   replaced by smaller variants of the capital characters. Since: 1.50
              */
-            "ALL_SMALL_CAPS" = 2,
+            readonly "ALL_SMALL_CAPS": 2
             /**
              * A font with the lower case characters
              *   replaced by smaller variants of the capital characters.
              *   Petite Caps can be even smaller than Small Caps. Since: 1.50
              */
-            "PETITE_CAPS" = 3,
+            readonly "PETITE_CAPS": 3
             /**
              * A font with all characters
              *   replaced by smaller variants of the capital characters.
              *   Petite Caps can be even smaller than Small Caps. Since: 1.50
              */
-            "ALL_PETITE_CAPS" = 4,
+            readonly "ALL_PETITE_CAPS": 4
             /**
              * A font with the upper case characters
              *   replaced by smaller variants of the capital letters. Since: 1.50
              */
-            "UNICASE" = 5,
+            readonly "UNICASE": 5
             /**
              * A font with capital letters that
              *   are more suitable for all-uppercase titles. Since: 1.50
              */
-            "TITLE_CAPS" = 6,
+            readonly "TITLE_CAPS": 6
+        }
+        type Variant = VariantEnum[Exclude<keyof VariantEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An enumeration specifying capitalization variant of the font.
+             */
+            Variant: VariantEnum
         }
         
-        namespace Weight {
-            const $gtype: GObject.GType<Weight>
-        }
-
-        /**
-         * An enumeration specifying the weight (boldness) of a font.
-         *
-         * Weight is specified as a numeric value ranging from 100 to 1000.
-         * This enumeration simply provides some common, predefined values.
-         */
-        enum Weight {
+        interface WeightEnum {
+            readonly $gtype: GObject.GType<Weight>
             /**
              * the thin weight (= 100) Since: 1.24
              */
-            "THIN" = 100,
+            readonly "THIN": 100
             /**
              * the ultralight weight (= 200)
              */
-            "ULTRALIGHT" = 200,
+            readonly "ULTRALIGHT": 200
             /**
              * the light weight (= 300)
              */
-            "LIGHT" = 300,
+            readonly "LIGHT": 300
             /**
              * the semilight weight (= 350) Since: 1.36.7
              */
-            "SEMILIGHT" = 350,
+            readonly "SEMILIGHT": 350
             /**
              * the book weight (= 380) Since: 1.24)
              */
-            "BOOK" = 380,
+            readonly "BOOK": 380
             /**
              * the default weight (= 400)
              */
-            "NORMAL" = 400,
+            readonly "NORMAL": 400
             /**
              * the medium weight (= 500) Since: 1.24
              */
-            "MEDIUM" = 500,
+            readonly "MEDIUM": 500
             /**
              * the semibold weight (= 600)
              */
-            "SEMIBOLD" = 600,
+            readonly "SEMIBOLD": 600
             /**
              * the bold weight (= 700)
              */
-            "BOLD" = 700,
+            readonly "BOLD": 700
             /**
              * the ultrabold weight (= 800)
              */
-            "ULTRABOLD" = 800,
+            readonly "ULTRABOLD": 800
             /**
              * the heavy weight (= 900)
              */
-            "HEAVY" = 900,
+            readonly "HEAVY": 900
             /**
              * the ultraheavy weight (= 1000) Since: 1.24
              */
-            "ULTRAHEAVY" = 1000,
+            readonly "ULTRAHEAVY": 1000
+        }
+        type Weight = WeightEnum[Exclude<keyof WeightEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An enumeration specifying the weight (boldness) of a font.
+             *
+             * Weight is specified as a numeric value ranging from 100 to 1000.
+             * This enumeration simply provides some common, predefined values.
+             */
+            Weight: WeightEnum
         }
         
-        namespace WrapMode {
-            const $gtype: GObject.GType<WrapMode>
-        }
-
-        /**
-         * `PangoWrapMode` describes how to wrap the lines of a `PangoLayout`
-         * to the desired width.
-         *
-         * For @PANGO_WRAP_WORD, Pango uses break opportunities that are determined
-         * by the Unicode line breaking algorithm. For @PANGO_WRAP_CHAR, Pango allows
-         * breaking at grapheme boundaries that are determined by the Unicode text
-         * segmentation algorithm.
-         */
-        enum WrapMode {
+        interface WrapModeEnum {
+            readonly $gtype: GObject.GType<WrapMode>
             /**
              * wrap lines at word boundaries.
              */
-            "WORD" = 0,
+            readonly "WORD": 0
             /**
              * wrap lines at character boundaries.
              */
-            "CHAR" = 1,
+            readonly "CHAR": 1
             /**
              * wrap lines at word boundaries, but fall back to
              *   character boundaries if there is not enough space for a full word.
              */
-            "WORD_CHAR" = 2,
+            readonly "WORD_CHAR": 2
             /**
              * do not wrap.
              * @since 1.56
              */
-            "NONE" = 3,
+            readonly "NONE": 3
+        }
+        type WrapMode = WrapModeEnum[Exclude<keyof WrapModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * `PangoWrapMode` describes how to wrap the lines of a `PangoLayout`
+             * to the desired width.
+             *
+             * For @PANGO_WRAP_WORD, Pango uses break opportunities that are determined
+             * by the Unicode line breaking algorithm. For @PANGO_WRAP_CHAR, Pango allows
+             * breaking at grapheme boundaries that are determined by the Unicode text
+             * segmentation algorithm.
+             */
+            WrapMode: WrapModeEnum
         }
         
-        namespace FontMask {
-            const $gtype: GObject.GType<FontMask>
-        }
-
-        /**
-         * The bits in a `PangoFontMask` correspond to the set fields in a
-         * `PangoFontDescription`.
-         */
-        enum FontMask {
+        interface FontMaskBitfield {
+            readonly $gtype: GObject.GType<FontMask>
             /**
              * the font family is specified.
              */
-            "FAMILY" = 1,
+            readonly "FAMILY": 1
             /**
              * the font style is specified.
              */
-            "STYLE" = 2,
+            readonly "STYLE": 2
             /**
              * the font variant is specified.
              */
-            "VARIANT" = 4,
+            readonly "VARIANT": 4
             /**
              * the font weight is specified.
              */
-            "WEIGHT" = 8,
+            readonly "WEIGHT": 8
             /**
              * the font stretch is specified.
              */
-            "STRETCH" = 16,
+            readonly "STRETCH": 16
             /**
              * the font size is specified.
              */
-            "SIZE" = 32,
+            readonly "SIZE": 32
             /**
              * The font gravity is specified.
              * @since 1.16
              */
-            "GRAVITY" = 64,
+            readonly "GRAVITY": 64
             /**
              * OpenType font variations are specified.
              * @since 1.42
              */
-            "VARIATIONS" = 128,
+            readonly "VARIATIONS": 128
             /**
              * OpenType font features are specified.
              * @since 1.56
              */
-            "FEATURES" = 256,
+            readonly "FEATURES": 256
             /**
              * Font color is specified.
              * @since 1.57
              */
-            "COLOR" = 512,
+            readonly "COLOR": 512
+        }
+        type FontMask = number
+        interface $Exports {
+            /**
+             * The bits in a `PangoFontMask` correspond to the set fields in a
+             * `PangoFontDescription`.
+             */
+            FontMask: FontMaskBitfield
         }
         
-        namespace LayoutDeserializeFlags {
-            const $gtype: GObject.GType<LayoutDeserializeFlags>
-        }
-
-        /**
-         * Flags that influence the behavior of [func@Pango.Layout.deserialize].
-         *
-         * New members may be added to this enumeration over time.
-         * @since 1.50
-         */
-        enum LayoutDeserializeFlags {
+        interface LayoutDeserializeFlagsBitfield {
+            readonly $gtype: GObject.GType<LayoutDeserializeFlags>
             /**
              * Default behavior
              */
-            "DEFAULT" = 0,
+            readonly "DEFAULT": 0
             /**
              * Apply context information
              *   from the serialization to the `PangoContext`
              */
-            "CONTEXT" = 1,
+            readonly "CONTEXT": 1
+        }
+        type LayoutDeserializeFlags = number
+        interface $Exports {
+            /**
+             * Flags that influence the behavior of [func@Pango.Layout.deserialize].
+             *
+             * New members may be added to this enumeration over time.
+             * @since 1.50
+             */
+            LayoutDeserializeFlags: LayoutDeserializeFlagsBitfield
         }
         
-        namespace LayoutSerializeFlags {
-            const $gtype: GObject.GType<LayoutSerializeFlags>
-        }
-
-        /**
-         * Flags that influence the behavior of [method@Pango.Layout.serialize].
-         *
-         * New members may be added to this enumeration over time.
-         * @since 1.50
-         */
-        enum LayoutSerializeFlags {
+        interface LayoutSerializeFlagsBitfield {
+            readonly $gtype: GObject.GType<LayoutSerializeFlags>
             /**
              * Default behavior
              */
-            "DEFAULT" = 0,
+            readonly "DEFAULT": 0
             /**
              * Include context information
              */
-            "CONTEXT" = 1,
+            readonly "CONTEXT": 1
             /**
              * Include information about the formatted output
              */
-            "OUTPUT" = 2,
+            readonly "OUTPUT": 2
+        }
+        type LayoutSerializeFlags = number
+        interface $Exports {
+            /**
+             * Flags that influence the behavior of [method@Pango.Layout.serialize].
+             *
+             * New members may be added to this enumeration over time.
+             * @since 1.50
+             */
+            LayoutSerializeFlags: LayoutSerializeFlagsBitfield
         }
         
-        namespace ShapeFlags {
-            const $gtype: GObject.GType<ShapeFlags>
-        }
-
-        /**
-         * Flags influencing the shaping process.
-         *
-         * `PangoShapeFlags` can be passed to [func@Pango.shape_with_flags].
-         * @since 1.44
-         */
-        enum ShapeFlags {
+        interface ShapeFlagsBitfield {
+            readonly $gtype: GObject.GType<ShapeFlags>
             /**
              * Default value
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Round glyph positions and widths to whole device units
              *   This option should be set if the target renderer can't do subpixel positioning of glyphs
              */
-            "ROUND_POSITIONS" = 1,
+            readonly "ROUND_POSITIONS": 1
+        }
+        type ShapeFlags = number
+        interface $Exports {
+            /**
+             * Flags influencing the shaping process.
+             *
+             * `PangoShapeFlags` can be passed to [func@Pango.shape_with_flags].
+             * @since 1.44
+             */
+            ShapeFlags: ShapeFlagsBitfield
         }
         
-        namespace ShowFlags {
-            const $gtype: GObject.GType<ShowFlags>
-        }
-
-        /**
-         * These flags affect how Pango treats characters that are normally
-         * not visible in the output.
-         * @since 1.44
-         */
-        enum ShowFlags {
+        interface ShowFlagsBitfield {
+            readonly $gtype: GObject.GType<ShowFlags>
             /**
              * No special treatment for invisible characters
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Render spaces, tabs and newlines visibly
              */
-            "SPACES" = 1,
+            readonly "SPACES": 1
             /**
              * Render line breaks visibly
              */
-            "LINE_BREAKS" = 2,
+            readonly "LINE_BREAKS": 2
             /**
              * Render default-ignorable Unicode
              *   characters visibly
              */
-            "IGNORABLES" = 4,
+            readonly "IGNORABLES": 4
+        }
+        type ShowFlags = number
+        interface $Exports {
+            /**
+             * These flags affect how Pango treats characters that are normally
+             * not visible in the output.
+             * @since 1.44
+             */
+            ShowFlags: ShowFlagsBitfield
         }
         /**
          * Type of a function that can duplicate user data for an attribute.
@@ -8450,7 +7434,1278 @@ declare module "gi://Pango?version=1.0" {
          * See the [struct@Pango.GlyphItem] docs for details on the fields.
          */
         type LayoutRun = GlyphItem
+
+        interface $Exports {
+            __name__: "Pango"
+            __version: "1.0"
+            ANALYSIS_FLAG_CENTERED_BASELINE: 1
+            ANALYSIS_FLAG_IS_ELLIPSIS: 2
+            ANALYSIS_FLAG_NEED_HYPHEN: 4
+            ATTR_INDEX_FROM_TEXT_BEGINNING: 0
+            ATTR_INDEX_TO_TEXT_END: 4294967295
+            GLYPH_EMPTY: Glyph
+            GLYPH_INVALID_INPUT: Glyph
+            GLYPH_UNKNOWN_FLAG: Glyph
+            SCALE: 1024
+            VERSION_MAJOR: 1
+            VERSION_MICRO: 1
+            VERSION_MINOR: 57
+            VERSION_STRING: "1.57.1"
+            /**
+             * Create a new allow-breaks attribute.
+             *
+             * If breaks are disabled, the range will be kept in a
+             * single run, as far as possible.
+             * @since 1.44
+             * @param allow_breaks %TRUE if we line breaks are allowed
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_allow_breaks_new(allow_breaks: boolean): Attribute
+            /**
+             * Create a new background alpha attribute.
+             * @since 1.38
+             * @param alpha the alpha value, between 1 and 65536
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_background_alpha_new(alpha: number): Attribute
+            /**
+             * Create a new background color attribute.
+             * @param red the red value (ranging from 0 to 65535)
+             * @param green the green value
+             * @param blue the blue value
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_background_new(red: number, green: number, blue: number): Attribute
+            /**
+             * Create a new baseline displacement attribute.
+             *
+             * The effect of this attribute is to shift the baseline of a run,
+             * relative to the run of preceding run.
+             *
+             * <picture>
+             *   <source srcset="baseline-shift-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Baseline Shift" src="baseline-shift-light.png">
+             * </picture>
+             * @since 1.50
+             * @param shift either a `PangoBaselineShift` enumeration value or an absolute value (> 1024)
+              in Pango units, relative to the baseline of the previous run.
+              Positive values displace the text upwards.
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_baseline_shift_new(shift: number): Attribute
+            /**
+             * Apply customization from attributes to the breaks in @attrs.
+             *
+             * The line breaks are assumed to have been produced
+             * by [func@Pango.default_break] and [func@Pango.tailor_break].
+             * @since 1.50
+             * @param text text to break. Must be valid UTF-8
+             * @param length length of text in bytes (may be -1 if @text is nul-terminated)
+             * @param attr_list `PangoAttrList` to apply
+             * @param offset Byte offset of @text from the beginning of the paragraph
+             * @returns , array with one   `PangoLogAttr` per character in `text`, plus one extra, to be filled in
+             */
+            attr_break(text: string, length: number, attr_list: AttrList, offset: number): LogAttr[]
+            /**
+             * Create a new font fallback attribute.
+             *
+             * If fallback is disabled, characters will only be
+             * used from the closest matching font on the system.
+             * No fallback will be done to other fonts on the system
+             * that might contain the characters in the text.
+             * @since 1.4
+             * @param enable_fallback %TRUE if we should fall back on other fonts
+              for characters the active font is missing
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_fallback_new(enable_fallback: boolean): Attribute
+            /**
+             * Create a new font family attribute.
+             * @param family the family or comma-separated list of families
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_family_new(family: string): Attribute
+            /**
+             * Create a new font description attribute.
+             *
+             * This attribute allows setting family, style, weight, variant,
+             * stretch, and size simultaneously.
+             * @param desc the font description
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_font_desc_new(desc: FontDescription): Attribute
+            /**
+             * Create a new font features tag attribute.
+             *
+             * You can use this attribute to select OpenType font features like small-caps,
+             * alternative glyphs, ligatures, etc. for fonts that support them.
+             * @since 1.38
+             * @param features a string with OpenType font features, with the syntax of the [CSS
+            font-feature-settings property](https://www.w3.org/TR/css-fonts-4/#font-rend-desc)
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_font_features_new(features: string): Attribute
+            /**
+             * Create a new font scale attribute.
+             *
+             * The effect of this attribute is to change the font size of a run,
+             * relative to the size of preceding run.
+             * @since 1.50
+             * @param scale a `PangoFontScale` value, which indicates font size change relative
+              to the size of the previous run.
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_font_scale_new(scale: FontScale): Attribute
+            /**
+             * Create a new foreground alpha attribute.
+             * @since 1.38
+             * @param alpha the alpha value, between 1 and 65536
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_foreground_alpha_new(alpha: number): Attribute
+            /**
+             * Create a new foreground color attribute.
+             * @param red the red value (ranging from 0 to 65535)
+             * @param green the green value
+             * @param blue the blue value
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_foreground_new(red: number, green: number, blue: number): Attribute
+            /**
+             * Create a new gravity hint attribute.
+             * @since 1.16
+             * @param hint the gravity hint value
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_gravity_hint_new(hint: GravityHint): Attribute
+            /**
+             * Create a new gravity attribute.
+             * @since 1.16
+             * @param gravity the gravity value; should not be %PANGO_GRAVITY_AUTO
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_gravity_new(gravity: Gravity): Attribute
+            /**
+             * Create a new insert-hyphens attribute.
+             *
+             * Pango will insert hyphens when breaking lines in
+             * the middle of a word. This attribute can be used
+             * to suppress the hyphen.
+             * @since 1.44
+             * @param insert_hyphens %TRUE if hyphens should be inserted
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_insert_hyphens_new(insert_hyphens: boolean): Attribute
+            /**
+             * Create a new language tag attribute.
+             * @param language language tag
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_language_new(language: Language): Attribute
+            /**
+             * Create a new letter-spacing attribute.
+             * @since 1.6
+             * @param letter_spacing amount of extra space to add between
+              graphemes of the text, in Pango units
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_letter_spacing_new(letter_spacing: number): Attribute
+            /**
+             * Modify the height of logical line extents by a factor.
+             *
+             * This affects the values returned by
+             * [method@Pango.LayoutLine.get_extents],
+             * [method@Pango.LayoutLine.get_pixel_extents] and
+             * [method@Pango.LayoutIter.get_line_extents].
+             * @since 1.50
+             * @param factor the scaling factor to apply to the logical height
+             */
+            attr_line_height_new(factor: number): Attribute
+            /**
+             * Override the height of logical line extents to be @height.
+             *
+             * This affects the values returned by
+             * [method@Pango.LayoutLine.get_extents],
+             * [method@Pango.LayoutLine.get_pixel_extents] and
+             * [method@Pango.LayoutIter.get_line_extents].
+             * @since 1.50
+             * @param height the line height, in %PANGO_SCALE-ths of a point
+             */
+            attr_line_height_new_absolute(height: number): Attribute
+            /**
+             * Deserializes a `PangoAttrList` from a string.
+             *
+             * This is the counterpart to [method@Pango.AttrList.to_string].
+             * See that functions for details about the format.
+             * @since 1.50
+             * @param text a string
+             * @returns a new `PangoAttrList`
+             */
+            attr_list_from_string(text: string): AttrList | null
+            /**
+             * Create a new overline color attribute.
+             *
+             * This attribute modifies the color of overlines.
+             * If not set, overlines will use the foreground color.
+             * @since 1.46
+             * @param red the red value (ranging from 0 to 65535)
+             * @param green the green value
+             * @param blue the blue value
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_overline_color_new(red: number, green: number, blue: number): Attribute
+            /**
+             * Create a new overline-style attribute.
+             * @since 1.46
+             * @param overline the overline style
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_overline_new(overline: Overline): Attribute
+            /**
+             * Create a new baseline displacement attribute.
+             * @param rise the amount that the text should be displaced vertically,
+              in Pango units. Positive values displace the text upwards.
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_rise_new(rise: number): Attribute
+            /**
+             * Create a new font size scale attribute.
+             *
+             * The base font for the affected text will have
+             * its size multiplied by @scale_factor.
+             * @param scale_factor factor to scale the font
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_scale_new(scale_factor: number): Attribute
+            /**
+             * Marks the range of the attribute as a single sentence.
+             *
+             * Note that this may require adjustments to word and
+             * sentence classification around the range.
+             * @since 1.50
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_sentence_new(): Attribute
+            /**
+             * Create a new shape attribute.
+             *
+             * A shape is used to impose a particular ink and logical
+             * rectangle on the result of shaping a particular glyph.
+             * This might be used, for instance, for embedding a picture
+             * or a widget inside a `PangoLayout`.
+             * @param ink_rect ink rectangle to assign to each character
+             * @param logical_rect logical rectangle to assign to each character
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_shape_new(ink_rect: Rectangle, logical_rect: Rectangle): Attribute
+            /**
+             * Creates a new shape attribute.
+             *
+             * Like [func@Pango.AttrShape.new], but a user data pointer
+             * is also provided; this pointer can be accessed when later
+             * rendering the glyph.
+             * @since 1.8
+             * @param ink_rect ink rectangle to assign to each character
+             * @param logical_rect logical rectangle to assign to each character
+             * @param data user data pointer
+             * @param copy_func function to copy @data when the
+              attribute is copied. If %NULL, @data is simply copied
+              as a pointer
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_shape_new_with_data(ink_rect: Rectangle, logical_rect: Rectangle, data: never | null, copy_func: AttrDataCopyFunc | null): Attribute
+            /**
+             * Create a new attribute that influences how invisible
+             * characters are rendered.
+             * @since 1.44
+             * @param flags `PangoShowFlags` to apply
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_show_new(flags: ShowFlags): Attribute
+            /**
+             * Create a new font-size attribute in fractional points.
+             * @param size the font size, in %PANGO_SCALE-ths of a point
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_size_new(size: number): Attribute
+            /**
+             * Create a new font-size attribute in device units.
+             * @since 1.8
+             * @param size the font size, in %PANGO_SCALE-ths of a device unit
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_size_new_absolute(size: number): Attribute
+            /**
+             * Create a new font stretch attribute.
+             * @param stretch the stretch
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_stretch_new(stretch: Stretch): Attribute
+            /**
+             * Create a new strikethrough color attribute.
+             *
+             * This attribute modifies the color of strikethrough lines.
+             * If not set, strikethrough lines will use the foreground color.
+             * @since 1.8
+             * @param red the red value (ranging from 0 to 65535)
+             * @param green the green value
+             * @param blue the blue value
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_strikethrough_color_new(red: number, green: number, blue: number): Attribute
+            /**
+             * Create a new strike-through attribute.
+             * @param strikethrough %TRUE if the text should be struck-through
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_strikethrough_new(strikethrough: boolean): Attribute
+            /**
+             * Create a new font slant style attribute.
+             * @param style the slant style
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_style_new(style: Style): Attribute
+            /**
+             * Create a new attribute that influences how characters
+             * are transformed during shaping.
+             * @since 1.50
+             * @param transform `PangoTextTransform` to apply
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_text_transform_new(transform: TextTransform): Attribute
+            /**
+             * Fetches the attribute type name.
+             *
+             * The attribute type name is the string passed in
+             * when registering the type using
+             * [func@Pango.AttrType.register].
+             *
+             * The returned value is an interned string (see
+             * g_intern_string() for what that means) that should
+             * not be modified or freed.
+             * @since 1.22
+             * @param type an attribute type ID to fetch the name for
+             * @returns the type ID name (which   may be %NULL), or %NULL if `type` is a built-in Pango   attribute type or invalid.
+             */
+            attr_type_get_name(type: AttrType): string | null
+            /**
+             * Allocate a new attribute type ID.
+             *
+             * The attribute type name can be accessed later
+             * by using [func@Pango.AttrType.get_name].
+             * @param name an identifier for the type
+             * @returns the new type ID.
+             */
+            attr_type_register(name: string): AttrType
+            /**
+             * Create a new underline color attribute.
+             *
+             * This attribute modifies the color of underlines.
+             * If not set, underlines will use the foreground color.
+             * @since 1.8
+             * @param red the red value (ranging from 0 to 65535)
+             * @param green the green value
+             * @param blue the blue value
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_underline_color_new(red: number, green: number, blue: number): Attribute
+            /**
+             * Create a new underline-style attribute.
+             * @param underline the underline style
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_underline_new(underline: Underline): Attribute
+            /**
+             * Create a new font variant attribute (normal or small caps).
+             * @param variant the variant
+             * @returns the newly allocated `PangoAttribute`,   which should be freed with [method@Pango.Attribute.destroy].
+             */
+            attr_variant_new(variant: Variant): Attribute
+            /**
+             * Create a new font weight attribute.
+             * @param weight the weight
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_weight_new(weight: Weight): Attribute
+            /**
+             * Marks the range of the attribute as a single word.
+             *
+             * Note that this may require adjustments to word and
+             * sentence classification around the range.
+             * @since 1.50
+             * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
+             */
+            attr_word_new(): Attribute
+            /**
+             * Determines the bidirectional type of a character.
+             *
+             * The bidirectional type is specified in the Unicode Character Database.
+             *
+             * A simplified version of this function is available as [func@unichar_direction].
+             * @since 1.22
+             * @param ch a Unicode character
+             * @returns the bidirectional character type, as used in the Unicode bidirectional algorithm.
+             */
+            bidi_type_for_unichar(ch: string): BidiType
+            /**
+             * Determines possible line, word, and character breaks
+             * for a string of Unicode text with a single analysis.
+             *
+             * For most purposes you may want to use [func@Pango.get_log_attrs].
+             * @deprecated since 1.44 Use [func@Pango.default_break],   [func@Pango.tailor_break] and [func@Pango.attr_break].
+             * @param text the text to process. Must be valid UTF-8
+             * @param length length of @text in bytes (may be -1 if @text is nul-terminated)
+             * @param analysis `PangoAnalysis` structure for @text
+             * @returns , an array to   store character information in
+             */
+            break(text: string, length: number, analysis: Analysis): LogAttr[]
+            /**
+             * This is the default break algorithm.
+             *
+             * It applies rules from the [Unicode Line Breaking Algorithm](http://www.unicode.org/unicode/reports/tr14/)
+             * without language-specific tailoring, therefore the @analyis argument is unused
+             * and can be %NULL.
+             *
+             * See [func@Pango.tailor_break] for language-specific breaks.
+             *
+             * See [func@Pango.attr_break] for attribute-based customization.
+             * @param text text to break. Must be valid UTF-8
+             * @param length length of text in bytes (may be -1 if @text is nul-terminated)
+             * @param analysis a `PangoAnalysis` structure for the @text
+             * @returns , logical   attributes to fill in
+             */
+            default_break(text: string, length: number, analysis: Analysis | null): LogAttr[]
+            /**
+             * Converts extents from Pango units to device units.
+             *
+             * The conversion is done by dividing by the %PANGO_SCALE factor and
+             * performing rounding.
+             *
+             * The @inclusive rectangle is converted by flooring the x/y coordinates
+             * and extending width/height, such that the final rectangle completely
+             * includes the original rectangle.
+             *
+             * The @nearest rectangle is converted by rounding the coordinates
+             * of the rectangle to the nearest device unit (pixel).
+             *
+             * The rule to which argument to use is: if you want the resulting device-space
+             * rectangle to completely contain the original rectangle, pass it in as
+             * @inclusive. If you want two touching-but-not-overlapping rectangles stay
+             * touching-but-not-overlapping after rounding to device units, pass them in
+             * as @nearest.
+             * @since 1.16
+             * @returns , rectangle to round to pixels inclusively, rectangle to round to nearest pixels
+             */
+            extents_to_pixels(): [Rectangle, Rectangle]
+            /**
+             * Searches a string the first character that has a strong
+             * direction, according to the Unicode bidirectional algorithm.
+             * @since 1.4
+             * @param text the text to process. Must be valid UTF-8
+             * @param length length of @text in bytes (may be -1 if @text is nul-terminated)
+             * @returns The direction corresponding to the first strong character.   If no such character is found, then %PANGO_DIRECTION_NEUTRAL is returned.
+             */
+            find_base_dir(text: string, length: number): Direction
+            /**
+             * Locates a paragraph boundary in @text.
+             *
+             * A boundary is caused by delimiter characters, such as
+             * a newline, carriage return, carriage return-newline pair,
+             * or Unicode paragraph separator character.
+             *
+             * The index of the run of delimiters is returned in
+             * @paragraph_delimiter_index. The index of the start of the
+             * next paragraph (index after all delimiters) is stored n
+             * @next_paragraph_start.
+             *
+             * If no delimiters are found, both @paragraph_delimiter_index
+             * and @next_paragraph_start are filled with the length of @text
+             * (an index one off the end).
+             * @param text UTF-8 text
+             * @param length length of @text in bytes, or -1 if nul-terminated
+             * @returns , return location  for index of delimiter, return location for  start of next paragraph
+             */
+            find_paragraph_boundary(text: string, length: number): [number, number]
+            /**
+             * Creates a new font description from a string representation.
+             *
+             * The string must have the form
+             *
+             *     [FAMILY-LIST] [STYLE-OPTIONS] [SIZE] [VARIATIONS] [FEATURES]
+             *
+             * where FAMILY-LIST is a comma-separated list of families optionally
+             * terminated by a comma, STYLE_OPTIONS is a whitespace-separated list
+             * of words where each word describes one of style, variant, weight,
+             * stretch, or gravity, and SIZE is a decimal number (size in points)
+             * or optionally followed by the unit modifier "px" for absolute size.
+             *
+             * The following words are understood as styles:
+             * "Normal", "Roman", "Oblique", "Italic".
+             *
+             * The following words are understood as variants:
+             * "Small-Caps", "All-Small-Caps", "Petite-Caps", "All-Petite-Caps",
+             * "Unicase", "Title-Caps".
+             *
+             * The following words are understood as weights:
+             * "Thin", "Ultra-Light", "Extra-Light", "Light", "Semi-Light",
+             * "Demi-Light", "Book", "Regular", "Medium", "Semi-Bold", "Demi-Bold",
+             * "Bold", "Ultra-Bold", "Extra-Bold", "Heavy", "Black", "Ultra-Black",
+             * "Extra-Black".
+             *
+             * The following words are understood as stretch values:
+             * "Ultra-Condensed", "Extra-Condensed", "Condensed", "Semi-Condensed",
+             * "Semi-Expanded", "Expanded", "Extra-Expanded", "Ultra-Expanded".
+             *
+             * The following words are understood as gravity values:
+             * "Not-Rotated", "South", "Upside-Down", "North", "Rotated-Left",
+             * "East", "Rotated-Right", "West".
+             *
+             * The following words are understood as color values:
+             * "With-Color", "Without-Color".
+             *
+             * VARIATIONS is a comma-separated list of font variations
+             * of the form @‍axis1=value,axis2=value,...
+             *
+             * FEATURES is a comma-separated list of font features of the form
+             * \#‍feature1=value,feature2=value,...
+             * The =value part can be ommitted if the value is 1.
+             *
+             * Any one of the options may be absent. If FAMILY-LIST is absent, then
+             * the family_name field of the resulting font description will be
+             * initialized to %NULL. If STYLE-OPTIONS is missing, then all style
+             * options will be set to the default values. If SIZE is missing, the
+             * size in the resulting font description will be set to 0.
+             *
+             * A typical example:
+             *
+             *     Cantarell Italic Light 15 @‍wght=200 #‍tnum=1
+             * @param str string representation of a font description.
+             * @returns a new `PangoFontDescription`.
+             */
+            font_description_from_string(str: string): FontDescription
+            /**
+             * Computes a `PangoLogAttr` for each character in @text.
+             *
+             * The @attrs array must have one `PangoLogAttr` for
+             * each position in @text; if @text contains N characters,
+             * it has N+1 positions, including the last position at the
+             * end of the text. @text should be an entire paragraph;
+             * logical attributes can't be computed without context
+             * (for example you need to see spaces on either side of
+             * a word to know the word is a word).
+             * @param text text to process. Must be valid UTF-8
+             * @param length length in bytes of @text
+             * @param level embedding level, or -1 if unknown
+             * @param language language tag
+             * @returns , array with one   `PangoLogAttr` per character in `text`, plus one extra, to be filled in
+             */
+            get_log_attrs(text: string, length: number, level: number, language: Language): LogAttr[]
+            /**
+             * Returns the mirrored character of a Unicode character.
+             *
+             * Mirror characters are determined by the Unicode mirrored property.
+             * @deprecated since 1.30 Use [func@GLib.unichar_get_mirror_char] instead;   the docs for that function provide full details.
+             * @param ch a Unicode character
+             * @returns %TRUE if `ch` has a mirrored character and `mirrored_ch` is filled in, %FALSE otherwise, location to store the mirrored character
+             */
+            get_mirror_char(ch: string): [boolean, string]
+            /**
+             * Finds the gravity that best matches the rotation component
+             * in a `PangoMatrix`.
+             * @since 1.16
+             * @param matrix a `PangoMatrix`
+             * @returns the gravity of `matrix`, which will never be %PANGO_GRAVITY_AUTO, or %PANGO_GRAVITY_SOUTH if `matrix` is %NULL
+             */
+            gravity_get_for_matrix(matrix: Matrix | null): Gravity
+            /**
+             * Returns the gravity to use in laying out a `PangoItem`.
+             *
+             * The gravity is determined based on the script, base gravity, and hint.
+             *
+             * If @base_gravity is %PANGO_GRAVITY_AUTO, it is first replaced with the
+             * preferred gravity of @script.  To get the preferred gravity of a script,
+             * pass %PANGO_GRAVITY_AUTO and %PANGO_GRAVITY_HINT_STRONG in.
+             * @since 1.16
+             * @param script `PangoScript` to query
+             * @param base_gravity base gravity of the paragraph
+             * @param hint orientation hint
+             * @returns resolved gravity suitable to use for a run of text with `script`
+             */
+            gravity_get_for_script(script: Script, base_gravity: Gravity, hint: GravityHint): Gravity
+            /**
+             * Returns the gravity to use in laying out a single character
+             * or `PangoItem`.
+             *
+             * The gravity is determined based on the script, East Asian width,
+             * base gravity, and hint,
+             *
+             * This function is similar to [func@Pango.Gravity.get_for_script] except
+             * that this function makes a distinction between narrow/half-width and
+             * wide/full-width characters also. Wide/full-width characters always
+             * stand *upright*, that is, they always take the base gravity,
+             * whereas narrow/full-width characters are always rotated in vertical
+             * context.
+             *
+             * If @base_gravity is %PANGO_GRAVITY_AUTO, it is first replaced with the
+             * preferred gravity of @script.
+             * @since 1.26
+             * @param script `PangoScript` to query
+             * @param wide %TRUE for wide characters as returned by g_unichar_iswide()
+             * @param base_gravity base gravity of the paragraph
+             * @param hint orientation hint
+             * @returns resolved gravity suitable to use for a run of text with `script` and `wide`.
+             */
+            gravity_get_for_script_and_width(script: Script, wide: boolean, base_gravity: Gravity, hint: GravityHint): Gravity
+            /**
+             * Converts a `PangoGravity` value to its natural rotation in radians.
+             *
+             * Note that [method@Pango.Matrix.rotate] takes angle in degrees, not radians.
+             * So, to call [method@Pango.Matrix,rotate] with the output of this function
+             * you should multiply it by (180. / G_PI).
+             * @since 1.16
+             * @param gravity gravity to query, should not be %PANGO_GRAVITY_AUTO
+             * @returns the rotation value corresponding to `gravity`.
+             */
+            gravity_to_rotation(gravity: Gravity): number
+            /**
+             * Checks if a character that should not be normally rendered.
+             *
+             * This includes all Unicode characters with "ZERO WIDTH" in their name,
+             * as well as *bidi* formatting characters, and a few other ones.
+             *
+             * This is totally different from [func@GLib.unichar_iszerowidth] and is at best misnamed.
+             * @since 1.10
+             * @param ch a Unicode character
+             * @returns %TRUE if `ch` is a zero-width character, %FALSE otherwise
+             */
+            is_zero_width(ch: string): boolean
+            /**
+             * Breaks a piece of text into segments with consistent directional
+             * level and font.
+             *
+             * Each byte of @text will be contained in exactly one of the items in the
+             * returned list; the generated list of items will be in logical order (the
+             * start offsets of the items are ascending).
+             *
+             * @cached_iter should be an iterator over @attrs currently positioned
+             * at a range before or containing @start_index; @cached_iter will be
+             * advanced to the range covering the position just after
+             * @start_index + @length. (i.e. if itemizing in a loop, just keep passing
+             * in the same @cached_iter).
+             * @param context a structure holding information that affects
+              the itemization process.
+             * @param text the text to itemize. Must be valid UTF-8
+             * @param start_index first byte in @text to process
+             * @param length the number of bytes (not characters) to process
+              after @start_index. This must be >= 0.
+             * @param attrs the set of attributes that apply to @text.
+             * @param cached_iter Cached attribute iterator
+             * @returns a `GList` of   [struct@Pango.Item] structures. The items should be freed using   [method@Pango.Item.free] in combination with [func@GLib.List.free_full].
+             */
+            itemize(context: Context, text: string, start_index: number, length: number, attrs: AttrList, cached_iter: AttrIterator | null): Item[]
+            /**
+             * Like `pango_itemize()`, but with an explicitly specified base direction.
+             *
+             * The base direction is used when computing bidirectional levels.
+             * [func@itemize] gets the base direction from the `PangoContext`
+             * (see [method@Pango.Context.set_base_dir]).
+             * @since 1.4
+             * @param context a structure holding information that affects
+              the itemization process.
+             * @param base_dir base direction to use for bidirectional processing
+             * @param text the text to itemize.
+             * @param start_index first byte in @text to process
+             * @param length the number of bytes (not characters) to process
+              after @start_index. This must be >= 0.
+             * @param attrs the set of attributes that apply to @text.
+             * @param cached_iter Cached attribute iterator
+             * @returns a `GList` of   [struct@Pango.Item] structures. The items should be freed using   [method@Pango.Item.free] probably in combination with [func@GLib.List.free_full].
+             */
+            itemize_with_base_dir(context: Context, base_dir: Direction, text: string, start_index: number, length: number, attrs: AttrList, cached_iter: AttrIterator | null): Item[]
+            /**
+             * Convert a language tag to a `PangoLanguage`.
+             *
+             * The language tag must be in a RFC-3066 format. `PangoLanguage` pointers
+             * can be efficiently copied (copy the pointer) and compared with other
+             * language tags (compare the pointer.)
+             *
+             * This function first canonicalizes the string by converting it to
+             * lowercase, mapping '_' to '-', and stripping all characters other
+             * than letters and '-'.
+             *
+             * Use [func@Pango.Language.get_default] if you want to get the
+             * `PangoLanguage` for the current locale of the process.
+             * @param language a string representing a language tag
+             * @returns a `PangoLanguage`
+             */
+            language_from_string(language: string | null): Language | null
+            /**
+             * Returns the `PangoLanguage` for the current locale of the process.
+             *
+             * On Unix systems, this is the return value is derived from
+             * `setlocale (LC_CTYPE, NULL)`, and the user can
+             * affect this through the environment variables LC_ALL, LC_CTYPE or
+             * LANG (checked in that order). The locale string typically is in
+             * the form lang_COUNTRY, where lang is an ISO-639 language code, and
+             * COUNTRY is an ISO-3166 country code. For instance, sv_FI for
+             * Swedish as written in Finland or pt_BR for Portuguese as written in
+             * Brazil.
+             *
+             * On Windows, the C library does not use any such environment
+             * variables, and setting them won't affect the behavior of functions
+             * like ctime(). The user sets the locale through the Regional Options
+             * in the Control Panel. The C library (in the setlocale() function)
+             * does not use country and language codes, but country and language
+             * names spelled out in English.
+             * However, this function does check the above environment
+             * variables, and does return a Unix-style locale string based on
+             * either said environment variables or the thread's current locale.
+             *
+             * Your application should call `setlocale(LC_ALL, "")` for the user
+             * settings to take effect. GTK does this in its initialization
+             * functions automatically (by calling gtk_set_locale()).
+             * See the setlocale() manpage for more details.
+             *
+             * Note that the default language can change over the life of an application.
+             *
+             * Also note that this function will not do the right thing if you
+             * use per-thread locales with uselocale(). In that case, you should
+             * just call pango_language_from_string() yourself.
+             * @since 1.16
+             * @returns the default language as a `PangoLanguage`
+             */
+            language_get_default(): Language
+            /**
+             * Returns the list of languages that the user prefers.
+             *
+             * The list is specified by the `PANGO_LANGUAGE` or `LANGUAGE`
+             * environment variables, in order of preference. Note that this
+             * list does not necessarily include the language returned by
+             * [func@Pango.Language.get_default].
+             *
+             * When choosing language-specific resources, such as the sample
+             * text returned by [method@Pango.Language.get_sample_string],
+             * you should first try the default language, followed by the
+             * languages returned by this function.
+             * @since 1.48
+             * @returns a %NULL-terminated array   of `PangoLanguage`*
+             */
+            language_get_preferred(): Language[] | null
+            /**
+             */
+            layout_deserialize_error_quark(): GLib.Quark
+            /**
+             * Return the bidirectional embedding levels of the input paragraph.
+             *
+             * The bidirectional embedding levels are defined by the [Unicode Bidirectional
+             * Algorithm](http://www.unicode.org/reports/tr9/).
+             *
+             * If the input base direction is a weak direction, the direction of the
+             * characters in the text will determine the final resolved direction.
+             * @since 1.4
+             * @param text the text to itemize.
+             * @param length the number of bytes (not characters) to process, or -1
+              if @text is nul-terminated and the length should be calculated.
+             * @returns a newly allocated array of embedding   levels, one item per character (not byte), that should be freed using   [func@GLib.free]., input base direction, and output resolved direction.
+             */
+            log2vis_get_embedding_levels(text: string, length: number): [Uint8Array, Direction]
+            /**
+             * Finishes parsing markup.
+             *
+             * After feeding a Pango markup parser some data with [method@GLib.MarkupParseContext.parse],
+             * use this function to get the list of attributes and text out of the
+             * markup. This function will not free @context, use [method@GLib.MarkupParseContext.free]
+             * to do so.
+             * @throws {GLib.Error}
+             * @since 1.31.0
+             * @param context A valid parse context that was returned from [func@markup_parser_new]
+             * @returns %FALSE if `error` is set, otherwise %TRUE, address of return location for a `PangoAttrList`, address of return location for text with tags stripped, address of return location for accelerator char
+             */
+            markup_parser_finish(context: GLib.MarkupParseContext): [boolean, AttrList, string, string]
+            /**
+             * Incrementally parses marked-up text to create a plain-text string
+             * and an attribute list.
+             *
+             * See the [Pango Markup](pango_markup.html) docs for details about the
+             * supported markup.
+             *
+             * If @accel_marker is nonzero, the given character will mark the
+             * character following it as an accelerator. For example, @accel_marker
+             * might be an ampersand or underscore. All characters marked
+             * as an accelerator will receive a %PANGO_UNDERLINE_LOW attribute,
+             * and the first character so marked will be returned in @accel_char,
+             * when calling [func@markup_parser_finish]. Two @accel_marker characters
+             * following each other produce a single literal @accel_marker character.
+             *
+             * To feed markup to the parser, use [method@GLib.MarkupParseContext.parse]
+             * on the returned [struct@GLib.MarkupParseContext]. When done with feeding markup
+             * to the parser, use [func@markup_parser_finish] to get the data out
+             * of it, and then use [method@GLib.MarkupParseContext.free] to free it.
+             *
+             * This function is designed for applications that read Pango markup
+             * from streams. To simply parse a string containing Pango markup,
+             * the [func@Pango.parse_markup] API is recommended instead.
+             * @since 1.31.0
+             * @param accel_marker character that precedes an accelerator, or 0 for none
+             * @returns a `GMarkupParseContext` that should be destroyed with [method@GLib.MarkupParseContext.free].
+             */
+            markup_parser_new(accel_marker: string): GLib.MarkupParseContext
+            /**
+             * Parses an enum type and stores the result in @value.
+             *
+             * If @str does not match the nick name of any of the possible values
+             * for the enum and is not an integer, %FALSE is returned, a warning
+             * is issued if @warn is %TRUE, and a string representing the list of
+             * possible values is stored in @possible_values. The list is
+             * slash-separated, eg. "none/start/middle/end".
+             *
+             * If failed and @possible_values is not %NULL, returned string should
+             * be freed using g_free().
+             * @since 1.16
+             * @deprecated since 1.38
+             * @param type enum type to parse, eg. %PANGO_TYPE_ELLIPSIZE_MODE
+             * @param str string to parse
+             * @param warn if %TRUE, issue a g_warning() on bad input
+             * @returns %TRUE if `str` was successfully parsed, integer to store the result in, place to store list of possible   values on failure
+             */
+            parse_enum(type: (GObject.GType | { $gtype: GObject.GType }), str: string | null, warn: boolean): [boolean, number, string]
+            /**
+             * Parses marked-up text to create a plain-text string and an attribute list.
+             *
+             * See the [Pango Markup](pango_markup.html) docs for details about the
+             * supported markup.
+             *
+             * If @accel_marker is nonzero, the given character will mark the
+             * character following it as an accelerator. For example, @accel_marker
+             * might be an ampersand or underscore. All characters marked
+             * as an accelerator will receive a %PANGO_UNDERLINE_LOW attribute,
+             * and the first character so marked will be returned in @accel_char.
+             * Two @accel_marker characters following each other produce a single
+             * literal @accel_marker character.
+             *
+             * To parse a stream of pango markup incrementally, use [func@markup_parser_new].
+             *
+             * If any error happens, none of the output arguments are touched except
+             * for @error.
+             * @throws {GLib.Error}
+             * @param markup_text markup to parse (see the [Pango Markup](pango_markup.html) docs)
+             * @param length length of @markup_text, or -1 if nul-terminated
+             * @param accel_marker character that precedes an accelerator, or 0 for none
+             * @returns %FALSE if `error` is set, otherwise %TRUE, address of return location for a `PangoAttrList`, address of return location for text with tags stripped, address of return location for accelerator char
+             */
+            parse_markup(markup_text: string, length: number, accel_marker: string): [boolean, AttrList, string, string]
+            /**
+             * Parses a font stretch.
+             *
+             * The allowed values are
+             * "ultra_condensed", "extra_condensed", "condensed",
+             * "semi_condensed", "normal", "semi_expanded", "expanded",
+             * "extra_expanded" and "ultra_expanded". Case variations are
+             * ignored and the '_' characters may be omitted.
+             * @param str a string to parse.
+             * @param warn if %TRUE, issue a g_warning() on bad input.
+             * @returns %TRUE if `str` was successfully parsed., a `PangoStretch` to store the result in.
+             */
+            parse_stretch(str: string, warn: boolean): [boolean, Stretch]
+            /**
+             * Parses a font style.
+             *
+             * The allowed values are "normal", "italic" and "oblique", case
+             * variations being
+             * ignored.
+             * @param str a string to parse.
+             * @param warn if %TRUE, issue a g_warning() on bad input.
+             * @returns %TRUE if `str` was successfully parsed., a `PangoStyle` to store the result in.
+             */
+            parse_style(str: string, warn: boolean): [boolean, Style]
+            /**
+             * Parses a font variant.
+             *
+             * The allowed values are "normal", "small-caps", "all-small-caps",
+             * "petite-caps", "all-petite-caps", "unicase" and "title-caps",
+             * case variations being ignored.
+             * @param str a string to parse.
+             * @param warn if %TRUE, issue a g_warning() on bad input.
+             * @returns %TRUE if `str` was successfully parsed., a `PangoVariant` to store the result in.
+             */
+            parse_variant(str: string, warn: boolean): [boolean, Variant]
+            /**
+             * Parses a font weight.
+             *
+             * The allowed values are "heavy",
+             * "ultrabold", "bold", "normal", "light", "ultraleight"
+             * and integers. Case variations are ignored.
+             * @param str a string to parse.
+             * @param warn if %TRUE, issue a g_warning() on bad input.
+             * @returns %TRUE if `str` was successfully parsed., a `PangoWeight` to store the result in.
+             */
+            parse_weight(str: string, warn: boolean): [boolean, Weight]
+            /**
+             * Quantizes the thickness and position of a line to whole device pixels.
+             *
+             * This is typically used for underline or strikethrough. The purpose of
+             * this function is to avoid such lines looking blurry.
+             *
+             * Care is taken to make sure @thickness is at least one pixel when this
+             * function returns, but returned @position may become zero as a result
+             * of rounding.
+             * @since 1.12
+             * @returns , pointer to the thickness of a line, in Pango units, corresponding position
+             */
+            quantize_line_geometry(): [number, number]
+            /**
+             * Reads an entire line from a file into a buffer.
+             *
+             * Lines may be delimited with '\n', '\r', '\n\r', or '\r\n'. The delimiter
+             * is not written into the buffer. Text after a '#' character is treated as
+             * a comment and skipped. '\' can be used to escape a # character.
+             * '\' proceeding a line delimiter combines adjacent lines. A '\' proceeding
+             * any other character is ignored and written into the output buffer
+             * unmodified.
+             * @deprecated since 1.38
+             * @param stream a stdio stream
+             * @param str `GString` buffer into which to write the result
+             * @returns 0 if the stream was already at an %EOF character,   otherwise the number of lines read (this is useful for maintaining   a line number counter which doesn't combine lines with '\')
+             */
+            read_line(stream: never | null, str: GLib.String): number
+            /**
+             * Reorder items from logical order to visual order.
+             *
+             * The visual order is determined from the associated directional
+             * levels of the items. The original list is unmodified.
+             *
+             * (Please open a bug if you use this function.
+             *  It is not a particularly convenient interface, and the code
+             *  is duplicated elsewhere in Pango for that reason.)
+             * @param items a `GList` of `PangoItem`
+              in logical order.
+             * @returns a `GList`   of `PangoItem` structures in visual order.
+             */
+            reorder_items(items: Item[]): Item[]
+            /**
+             * Scans an integer.
+             *
+             * Leading white space is skipped.
+             * @deprecated since 1.38
+             * @returns %FALSE if a parse error occurred, in/out string position, an int into which to write the result
+             */
+            scan_int(): [boolean, string, number]
+            /**
+             * Scans a string into a `GString` buffer.
+             *
+             * The string may either be a sequence of non-white-space characters,
+             * or a quoted string with '"'. Instead a quoted string, '\"' represents
+             * a literal quote. Leading white space outside of quotes is skipped.
+             * @deprecated since 1.38
+             * @param out a `GString` into which to write the result
+             * @returns %FALSE if a parse error occurred, in/out string position
+             */
+            scan_string(out: GLib.String): [boolean, string]
+            /**
+             * Scans a word into a `GString` buffer.
+             *
+             * A word consists of [A-Za-z_] followed by zero or more
+             * [A-Za-z_0-9]. Leading white space is skipped.
+             * @deprecated since 1.38
+             * @param out a `GString` into which to write the result
+             * @returns %FALSE if a parse error occurred, in/out string position
+             */
+            scan_word(out: GLib.String): [boolean, string]
+            /**
+             * Looks up the script for a particular character.
+             *
+             * The script of a character is defined by
+             * [Unicode Standard Annex 24: Script names](http://www.unicode.org/reports/tr24/).
+             *
+             * No check is made for @ch being a valid Unicode character; if you pass
+             * in invalid character, the result is undefined.
+             *
+             * Note that while the return type of this function is declared
+             * as `PangoScript`, as of Pango 1.18, this function simply returns
+             * the return value of [func@GLib.unichar_get_script]. Callers must be
+             * prepared to handle unknown values.
+             * @since 1.4
+             * @deprecated since 1.44. Use g_unichar_get_script()
+             * @param ch a Unicode character
+             * @returns the `PangoScript` for the character.
+             */
+            script_for_unichar(ch: string): Script
+            /**
+             * Finds a language tag that is reasonably representative of @script.
+             *
+             * The language will usually be the most widely spoken or used language
+             * written in that script: for instance, the sample language for
+             * %PANGO_SCRIPT_CYRILLIC is ru (Russian), the sample language for
+             * %PANGO_SCRIPT_ARABIC is ar.
+             *
+             * For some scripts, no sample language will be returned because
+             * there is no language that is sufficiently representative. The
+             * best example of this is %PANGO_SCRIPT_HAN, where various different
+             * variants of written Chinese, Japanese, and Korean all use
+             * significantly different sets of Han characters and forms
+             * of shared characters. No sample language can be provided
+             * for many historical scripts as well.
+             *
+             * As of 1.18, this function checks the environment variables
+             * `PANGO_LANGUAGE` and `LANGUAGE` (checked in that order) first.
+             * If one of them is set, it is parsed as a list of language tags
+             * separated by colons or other separators. This function
+             * will return the first language in the parsed list that Pango
+             * believes may use @script for writing. This last predicate
+             * is tested using [method@Pango.Language.includes_script]. This can
+             * be used to control Pango's font selection for non-primary
+             * languages. For example, a `PANGO_LANGUAGE` enviroment variable
+             * set to "en:fa" makes Pango choose fonts suitable for Persian (fa)
+             * instead of Arabic (ar) when a segment of Arabic text is found
+             * in an otherwise non-Arabic text. The same trick can be used to
+             * choose a default language for %PANGO_SCRIPT_HAN when setting
+             * context language is not feasible.
+             * @since 1.4
+             * @param script a `PangoScript`
+             * @returns a `PangoLanguage` that is representative   of the script
+             */
+            script_get_sample_language(script: Script): Language | null
+            /**
+             * Convert the characters in @text into glyphs.
+             *
+             * Given a segment of text and the corresponding `PangoAnalysis` structure
+             * returned from [func@Pango.itemize], convert the characters into glyphs. You
+             * may also pass in only a substring of the item from [func@Pango.itemize].
+             *
+             * It is recommended that you use [func@Pango.shape_full] instead, since
+             * that API allows for shaping interaction happening across text item
+             * boundaries.
+             *
+             * Some aspects of hyphen insertion and text transformation (in particular,
+             * capitalization) require log attrs, and thus can only be handled by
+             * [func@Pango.shape_item].
+             *
+             * Note that the extra attributes in the @analyis that is returned from
+             * [func@Pango.itemize] have indices that are relative to the entire paragraph,
+             * so you need to subtract the item offset from their indices before
+             * calling [func@Pango.shape].
+             * @param text the text to process
+             * @param length the length (in bytes) of @text
+             * @param analysis `PangoAnalysis` structure from [func@Pango.itemize]
+             * @returns , glyph string in which to store results
+             */
+            shape(text: string, length: number, analysis: Analysis): GlyphString
+            /**
+             * Convert the characters in @text into glyphs.
+             *
+             * Given a segment of text and the corresponding `PangoAnalysis` structure
+             * returned from [func@Pango.itemize], convert the characters into glyphs.
+             * You may also pass in only a substring of the item from [func@Pango.itemize].
+             *
+             * This is similar to [func@Pango.shape], except it also can optionally take
+             * the full paragraph text as input, which will then be used to perform
+             * certain cross-item shaping interactions. If you have access to the broader
+             * text of which @item_text is part of, provide the broader text as
+             * @paragraph_text. If @paragraph_text is %NULL, item text is used instead.
+             *
+             * Some aspects of hyphen insertion and text transformation (in particular,
+             * capitalization) require log attrs, and thus can only be handled by
+             * [func@Pango.shape_item].
+             *
+             * Note that the extra attributes in the @analyis that is returned from
+             * [func@Pango.itemize] have indices that are relative to the entire paragraph,
+             * so you do not pass the full paragraph text as @paragraph_text, you need
+             * to subtract the item offset from their indices before calling
+             * [func@Pango.shape_full].
+             * @since 1.32
+             * @param item_text valid UTF-8 text to shape.
+             * @param item_length the length (in bytes) of @item_text. -1 means nul-terminated text.
+             * @param paragraph_text text of the paragraph (see details).
+             * @param paragraph_length the length (in bytes) of @paragraph_text. -1 means nul-terminated text.
+             * @param analysis `PangoAnalysis` structure from [func@Pango.itemize].
+             * @returns , glyph string in which to store results.
+             */
+            shape_full(item_text: string, item_length: number, paragraph_text: string | null, paragraph_length: number, analysis: Analysis): GlyphString
+            /**
+             * Convert the characters in @item into glyphs.
+             *
+             * This is similar to [func@Pango.shape_with_flags], except it takes a
+             * `PangoItem` instead of separate @item_text and @analysis arguments.
+             *
+             * It also takes @log_attrs, which are needed for implementing some aspects
+             * of hyphen insertion and text transforms (in particular, capitalization).
+             *
+             * Note that the extra attributes in the @analyis that is returned from
+             * [func@Pango.itemize] have indices that are relative to the entire paragraph,
+             * so you do not pass the full paragraph text as @paragraph_text, you need
+             * to subtract the item offset from their indices before calling
+             * [func@Pango.shape_with_flags].
+             * @since 1.50
+             * @param item `PangoItem` to shape
+             * @param paragraph_text text of the paragraph (see details).
+             * @param paragraph_length the length (in bytes) of @paragraph_text.
+                -1 means nul-terminated text.
+             * @param log_attrs array of `PangoLogAttr` for @item
+             * @param flags flags influencing the shaping process
+             * @returns , glyph string in which to store results
+             */
+            shape_item(item: Item, paragraph_text: string | null, paragraph_length: number, log_attrs: LogAttr | null, flags: ShapeFlags): GlyphString
+            /**
+             * Convert the characters in @text into glyphs.
+             *
+             * Given a segment of text and the corresponding `PangoAnalysis` structure
+             * returned from [func@Pango.itemize], convert the characters into glyphs.
+             * You may also pass in only a substring of the item from [func@Pango.itemize].
+             *
+             * This is similar to [func@Pango.shape_full], except it also takes flags
+             * that can influence the shaping process.
+             *
+             * Some aspects of hyphen insertion and text transformation (in particular,
+             * capitalization) require log attrs, and thus can only be handled by
+             * [func@Pango.shape_item].
+             *
+             * Note that the extra attributes in the @analyis that is returned from
+             * [func@Pango.itemize] have indices that are relative to the entire paragraph,
+             * so you do not pass the full paragraph text as @paragraph_text, you need
+             * to subtract the item offset from their indices before calling
+             * [func@Pango.shape_with_flags].
+             * @since 1.44
+             * @param item_text valid UTF-8 text to shape
+             * @param item_length the length (in bytes) of @item_text.
+                -1 means nul-terminated text.
+             * @param paragraph_text text of the paragraph (see details).
+             * @param paragraph_length the length (in bytes) of @paragraph_text.
+                -1 means nul-terminated text.
+             * @param analysis `PangoAnalysis` structure from [func@Pango.itemize]
+             * @param flags flags influencing the shaping process
+             * @returns , glyph string in which to store results
+             */
+            shape_with_flags(item_text: string, item_length: number, paragraph_text: string | null, paragraph_length: number, analysis: Analysis, flags: ShapeFlags): GlyphString
+            /**
+             * Skips 0 or more characters of white space.
+             * @deprecated since 1.38
+             * @returns %FALSE if skipping the white space leaves   the position at a '\0' character., in/out string position
+             */
+            skip_space(): [boolean, string]
+            /**
+             * Splits a %G_SEARCHPATH_SEPARATOR-separated list of files, stripping
+             * white space and substituting ~/ with $HOME/.
+             * @deprecated since 1.38
+             * @param str a %G_SEARCHPATH_SEPARATOR separated list of filenames
+             * @returns a list of   strings to be freed with g_strfreev()
+             */
+            split_file_list(str: string): string[]
+            /**
+             * Deserializes a `PangoTabArray` from a string.
+             *
+             * This is the counterpart to [method@Pango.TabArray.to_string].
+             * See that functions for details about the format.
+             * @since 1.50
+             * @param text a string
+             * @returns a new `PangoTabArray`
+             */
+            tab_array_from_string(text: string): TabArray | null
+            /**
+             * Apply language-specific tailoring to the breaks in @attrs.
+             *
+             * The line breaks are assumed to have been produced by [func@Pango.default_break].
+             *
+             * If @offset is not -1, it is used to apply attributes from @analysis that are
+             * relevant to line breaking.
+             *
+             * Note that it is better to pass -1 for @offset and use [func@Pango.attr_break]
+             * to apply attributes to the whole paragraph.
+             * @since 1.44
+             * @param text text to process. Must be valid UTF-8
+             * @param length length in bytes of @text
+             * @param analysis `PangoAnalysis` for @text
+             * @param offset Byte offset of @text from the beginning of the
+              paragraph, or -1 to ignore attributes from @analysis
+             * @returns , array with one   `PangoLogAttr` per character in `text`, plus one extra, to be filled in
+             */
+            tailor_break(text: string, length: number, analysis: Analysis, offset: number): LogAttr[]
+            /**
+             * Trims leading and trailing whitespace from a string.
+             * @deprecated since 1.38
+             * @param str a string
+             * @returns A newly-allocated string that must be freed with g_free()
+             */
+            trim_string(str: string): string
+            /**
+             * Determines the inherent direction of a character.
+             *
+             * The inherent direction is either `PANGO_DIRECTION_LTR`, `PANGO_DIRECTION_RTL`,
+             * or `PANGO_DIRECTION_NEUTRAL`.
+             *
+             * This function is useful to categorize characters into left-to-right
+             * letters, right-to-left letters, and everything else. If full Unicode
+             * bidirectional type of a character is needed, [func@Pango.BidiType.for_unichar]
+             * can be used instead.
+             * @param ch a Unicode character
+             * @returns the direction of the character.
+             */
+            unichar_direction(ch: string): Direction
+            /**
+             * Converts a floating-point number to Pango units.
+             *
+             * The conversion is done by multiplying @d by %PANGO_SCALE and
+             * rounding the result to nearest integer.
+             * @since 1.16
+             * @param d double floating-point value
+             * @returns the value in Pango units.
+             */
+            units_from_double(d: number): number
+            /**
+             * Converts a number in Pango units to floating-point.
+             *
+             * The conversion is done by dividing @i by %PANGO_SCALE.
+             * @since 1.16
+             * @param i value in Pango units
+             * @returns the double value.
+             */
+            units_to_double(i: number): number
+            /**
+             * Returns the encoded version of Pango available at run-time.
+             *
+             * This is similar to the macro %PANGO_VERSION except that the macro
+             * returns the encoded version available at compile-time. A version
+             * number can be encoded into an integer using PANGO_VERSION_ENCODE().
+             * @since 1.16
+             * @returns The encoded version of Pango library available at run time.
+             */
+            version(): number
+            /**
+             * Checks that the Pango library in use is compatible with the
+             * given version.
+             *
+             * Generally you would pass in the constants %PANGO_VERSION_MAJOR,
+             * %PANGO_VERSION_MINOR, %PANGO_VERSION_MICRO as the three arguments
+             * to this function; that produces a check that the library in use at
+             * run-time is compatible with the version of Pango the application or
+             * module was compiled against.
+             *
+             * Compatibility is defined by two things: first the version
+             * of the running library is newer than the version
+             * @required_major.required_minor.@required_micro. Second
+             * the running library must be binary compatible with the
+             * version @required_major.required_minor.@required_micro
+             * (same major version.)
+             *
+             * For compile-time version checking use PANGO_VERSION_CHECK().
+             * @since 1.16
+             * @param required_major the required major version
+             * @param required_minor the required minor version
+             * @param required_micro the required major version
+             * @returns %NULL if the Pango library is compatible   with the given version, or a string describing the version   mismatch.  The returned string is owned by Pango and should not   be modified or freed.
+             */
+            version_check(required_major: number, required_minor: number, required_micro: number): string | null
+            /**
+             * Returns the version of Pango available at run-time.
+             *
+             * This is similar to the macro %PANGO_VERSION_STRING except that the
+             * macro returns the version available at compile-time.
+             * @since 1.16
+             * @returns A string containing the version of Pango library available   at run time. The returned string is owned by Pango and should not   be modified or freed.
+             */
+            version_string(): string
+        }
     }
 
+    const Pango: Pango.$Exports
     export default Pango
 }

@@ -16,56 +16,7 @@ declare module "gi://Soup?version=3.0" {
 
     
 
-
     namespace Soup {
-        const __name__: "Soup"
-        const __version: "3.0"
-        
-
-        namespace SessionFeature {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         * Interface for miscellaneous [class@Session] features.
-         *
-         * [iface@SessionFeature] is the interface used by classes that extend
-         * the functionality of a [class@Session]. Some features like HTTP
-         * authentication handling are implemented internally via
-         * [iface@SessionFeature]s. Other features can be added to the session
-         * by the application. (Eg, [class@Logger], [class@CookieJar].)
-         *
-         * See [method@Session.add_feature], etc, to add a feature to a session.
-         */
-        interface SessionFeature extends SessionFeature.Interface {
-            readonly $signals: SessionFeature.SignalSignatures
-            readonly $readableProperties: SessionFeature.ReadableProperties
-            readonly $writableProperties: SessionFeature.WritableProperties
-            readonly $constructOnlyProperties: SessionFeature.ConstructOnlyProperties
-        }
-
-
-        interface SessionFeatureInterface {
-            readonly $gtype: GObject.GType<SessionFeature>
-            readonly prototype: SessionFeature
-
-            [Symbol.hasInstance](instance: unknown): instance is SessionFeature
-        }
-
-        const SessionFeature: SessionFeatureInterface
         
 
         namespace Auth {
@@ -94,16 +45,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * The abstract base class for handling authentication.
-         *
-         * Specific HTTP Authentication mechanisms are implemented by its subclasses,
-         * but applications never need to be aware of the specific subclasses being
-         * used.
-         *
-         * [class@Auth] objects store the authentication data associated with a given bit
-         * of web space. They are created automatically by [class@Session].
-         */
         interface Auth extends GObject.Object {
             readonly $signals: Auth.SignalSignatures
             readonly $readableProperties: Auth.ReadableProperties
@@ -319,6 +260,7 @@ declare module "gi://Soup?version=3.0" {
         interface AuthClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Auth>
             readonly prototype: Auth
+
             new (props?: Partial<GObject.ConstructorProps<Auth>>): Auth
             /**
              * Creates a new [class@Auth] of type @type with the information from
@@ -334,7 +276,19 @@ declare module "gi://Soup?version=3.0" {
             "new"(type: (GObject.GType | { $gtype: GObject.GType }), msg: Message, auth_header: string): Auth | null
         }
 
-        const Auth: AuthClass
+        interface $Exports {
+            /**
+             * The abstract base class for handling authentication.
+             *
+             * Specific HTTP Authentication mechanisms are implemented by its subclasses,
+             * but applications never need to be aware of the specific subclasses being
+             * used.
+             *
+             * [class@Auth] objects store the authentication data associated with a given bit
+             * of web space. They are created automatically by [class@Session].
+             */
+            Auth: AuthClass
+        }
         
 
         namespace AuthBasic {
@@ -351,13 +305,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * HTTP "Basic" authentication.
-         *
-         * [class@Session]s support this by default; if you want to disable
-         * support for it, call [method@Session.remove_feature_by_type],
-         * passing %SOUP_TYPE_AUTH_BASIC.
-         */
         interface AuthBasic extends Auth {
             readonly $signals: AuthBasic.SignalSignatures
             readonly $readableProperties: AuthBasic.ReadableProperties
@@ -368,10 +315,20 @@ declare module "gi://Soup?version=3.0" {
         interface AuthBasicClass extends Omit<AuthClass, "new"> {
             readonly $gtype: GObject.GType<AuthBasic>
             readonly prototype: AuthBasic
+
             new (props?: Partial<GObject.ConstructorProps<AuthBasic>>): AuthBasic
         }
 
-        const AuthBasic: AuthBasicClass
+        interface $Exports {
+            /**
+             * HTTP "Basic" authentication.
+             *
+             * [class@Session]s support this by default; if you want to disable
+             * support for it, call [method@Session.remove_feature_by_type],
+             * passing %SOUP_TYPE_AUTH_BASIC.
+             */
+            AuthBasic: AuthBasicClass
+        }
         
 
         namespace AuthDigest {
@@ -388,13 +345,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * HTTP "Digest" authentication.
-         *
-         * [class@Session]s support this by default; if you want to disable
-         * support for it, call [method@Session.remove_feature_by_type]
-         * passing %SOUP_TYPE_AUTH_DIGEST.
-         */
         interface AuthDigest extends Auth {
             readonly $signals: AuthDigest.SignalSignatures
             readonly $readableProperties: AuthDigest.ReadableProperties
@@ -405,10 +355,20 @@ declare module "gi://Soup?version=3.0" {
         interface AuthDigestClass extends Omit<AuthClass, "new"> {
             readonly $gtype: GObject.GType<AuthDigest>
             readonly prototype: AuthDigest
+
             new (props?: Partial<GObject.ConstructorProps<AuthDigest>>): AuthDigest
         }
 
-        const AuthDigest: AuthDigestClass
+        interface $Exports {
+            /**
+             * HTTP "Digest" authentication.
+             *
+             * [class@Session]s support this by default; if you want to disable
+             * support for it, call [method@Session.remove_feature_by_type]
+             * passing %SOUP_TYPE_AUTH_DIGEST.
+             */
+            AuthDigest: AuthDigestClass
+        }
         
 
         namespace AuthDomain {
@@ -429,33 +389,14 @@ declare module "gi://Soup?version=3.0" {
                 "filter-data": never
                 "generic-auth-callback": AuthDomainGenericAuthCallback
                 "generic-auth-data": never
-                "proxy": boolean
-                "realm": string
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "proxy": boolean
+                "realm": string
             }
         }
 
-        /**
-         * Server-side authentication.
-         *
-         * A [class@AuthDomain] manages authentication for all or part of a
-         * [class@Server]. To make a server require authentication, first create
-         * an appropriate subclass of [class@AuthDomain], and then add it to the
-         * server with [method@Server.add_auth_domain].
-         *
-         * In order for an auth domain to have any effect, you must add one or more
-         * paths to it (via [method@AuthDomain.add_path]). To require authentication for
-         * all ordinary requests, add the path `"/"`. (Note that this does not include
-         * the special `"*"` URI (eg, "OPTIONS *"), which must be added as a separate
-         * path if you want to cover it.)
-         *
-         * If you need greater control over which requests should and shouldn't be
-         * authenticated, add paths covering everything you *might* want authenticated,
-         * and then use a filter ([method@AuthDomain.set_filter] to bypass
-         * authentication for those requests that don't need it.
-         */
         interface AuthDomain extends GObject.Object {
             readonly $signals: AuthDomain.SignalSignatures
             readonly $readableProperties: AuthDomain.ReadableProperties
@@ -643,10 +584,32 @@ declare module "gi://Soup?version=3.0" {
         interface AuthDomainClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<AuthDomain>
             readonly prototype: AuthDomain
+
             new (props?: Partial<GObject.ConstructorProps<AuthDomain>>): AuthDomain
         }
 
-        const AuthDomain: AuthDomainClass
+        interface $Exports {
+            /**
+             * Server-side authentication.
+             *
+             * A [class@AuthDomain] manages authentication for all or part of a
+             * [class@Server]. To make a server require authentication, first create
+             * an appropriate subclass of [class@AuthDomain], and then add it to the
+             * server with [method@Server.add_auth_domain].
+             *
+             * In order for an auth domain to have any effect, you must add one or more
+             * paths to it (via [method@AuthDomain.add_path]). To require authentication for
+             * all ordinary requests, add the path `"/"`. (Note that this does not include
+             * the special `"*"` URI (eg, "OPTIONS *"), which must be added as a separate
+             * path if you want to cover it.)
+             *
+             * If you need greater control over which requests should and shouldn't be
+             * authenticated, add paths covering everything you *might* want authenticated,
+             * and then use a filter ([method@AuthDomain.set_filter] to bypass
+             * authentication for those requests that don't need it.
+             */
+            AuthDomain: AuthDomainClass
+        }
         
 
         namespace AuthDomainBasic {
@@ -667,12 +630,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * Server-side "Basic" authentication.
-         *
-         * [class@AuthDomainBasic] handles the server side of HTTP "Basic" (ie,
-         * cleartext password) authentication.
-         */
         interface AuthDomainBasic extends AuthDomain {
             readonly $signals: AuthDomainBasic.SignalSignatures
             readonly $readableProperties: AuthDomainBasic.ReadableProperties
@@ -708,10 +665,19 @@ declare module "gi://Soup?version=3.0" {
         interface AuthDomainBasicClass extends Omit<AuthDomainClass, "new"> {
             readonly $gtype: GObject.GType<AuthDomainBasic>
             readonly prototype: AuthDomainBasic
+
             new (props?: Partial<GObject.ConstructorProps<AuthDomainBasic>>): AuthDomainBasic
         }
 
-        const AuthDomainBasic: AuthDomainBasicClass
+        interface $Exports {
+            /**
+             * Server-side "Basic" authentication.
+             *
+             * [class@AuthDomainBasic] handles the server side of HTTP "Basic" (ie,
+             * cleartext password) authentication.
+             */
+            AuthDomainBasic: AuthDomainBasicClass
+        }
         
 
         namespace AuthDomainDigest {
@@ -732,12 +698,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * Server-side "Digest" authentication.
-         *
-         * [class@AuthDomainDigest] handles the server side of HTTP "Digest"
-         * authentication.
-         */
         interface AuthDomainDigest extends AuthDomain {
             readonly $signals: AuthDomainDigest.SignalSignatures
             readonly $readableProperties: AuthDomainDigest.ReadableProperties
@@ -773,6 +733,7 @@ declare module "gi://Soup?version=3.0" {
         interface AuthDomainDigestClass extends Omit<AuthDomainClass, "new"> {
             readonly $gtype: GObject.GType<AuthDomainDigest>
             readonly prototype: AuthDomainDigest
+
             new (props?: Partial<GObject.ConstructorProps<AuthDomainDigest>>): AuthDomainDigest
             /**
              * Encodes the username/realm/password triplet for Digest
@@ -798,7 +759,15 @@ declare module "gi://Soup?version=3.0" {
             encode_password(username: string, realm: string, password: string): string
         }
 
-        const AuthDomainDigest: AuthDomainDigestClass
+        interface $Exports {
+            /**
+             * Server-side "Digest" authentication.
+             *
+             * [class@AuthDomainDigest] handles the server side of HTTP "Digest"
+             * authentication.
+             */
+            AuthDomainDigest: AuthDomainDigestClass
+        }
         
 
         namespace AuthManager {
@@ -815,25 +784,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * HTTP client-side authentication handler.
-         *
-         * [class@AuthManager] is the [iface@SessionFeature] that handles HTTP
-         * authentication for a [class@Session].
-         *
-         * A [class@AuthManager] is added to the session by default, and normally
-         * you don't need to worry about it at all. However, if you want to
-         * disable HTTP authentication, you can remove the feature from the
-         * session with [method@Session.remove_feature_by_type] or disable it on
-         * individual requests with [method@Message.disable_feature].
-         *
-         * You can use this with [method@Session.remove_feature_by_type] or
-         * [method@Message.disable_feature].
-         *
-         * (Although this type has only been publicly visible since libsoup 2.42, it has
-         * always existed in the background, and you can use `g_type_from_name
-         * ("SoupAuthManager")` to get its [alias@GObject.Type] in earlier releases.)
-         */
         interface AuthManager extends GObject.Object, SessionFeature {
             readonly $signals: AuthManager.SignalSignatures
             readonly $readableProperties: AuthManager.ReadableProperties
@@ -863,10 +813,32 @@ declare module "gi://Soup?version=3.0" {
         interface AuthManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<AuthManager>
             readonly prototype: AuthManager
+
             new (props?: Partial<GObject.ConstructorProps<AuthManager>>): AuthManager
         }
 
-        const AuthManager: AuthManagerClass
+        interface $Exports {
+            /**
+             * HTTP client-side authentication handler.
+             *
+             * [class@AuthManager] is the [iface@SessionFeature] that handles HTTP
+             * authentication for a [class@Session].
+             *
+             * A [class@AuthManager] is added to the session by default, and normally
+             * you don't need to worry about it at all. However, if you want to
+             * disable HTTP authentication, you can remove the feature from the
+             * session with [method@Session.remove_feature_by_type] or disable it on
+             * individual requests with [method@Message.disable_feature].
+             *
+             * You can use this with [method@Session.remove_feature_by_type] or
+             * [method@Message.disable_feature].
+             *
+             * (Although this type has only been publicly visible since libsoup 2.42, it has
+             * always existed in the background, and you can use `g_type_from_name
+             * ("SoupAuthManager")` to get its [alias@GObject.Type] in earlier releases.)
+             */
+            AuthManager: AuthManagerClass
+        }
         
 
         namespace AuthNTLM {
@@ -883,13 +855,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * HTTP-based NTLM authentication.
-         *
-         * [class@Session]s do not support this type by default; if you want to
-         * enable support for it, call [method@Session.add_feature_by_type],
-         * passing %SOUP_TYPE_AUTH_NTLM.
-         */
         interface AuthNTLM extends Auth {
             readonly $signals: AuthNTLM.SignalSignatures
             readonly $readableProperties: AuthNTLM.ReadableProperties
@@ -900,10 +865,20 @@ declare module "gi://Soup?version=3.0" {
         interface AuthNTLMClass extends Omit<AuthClass, "new"> {
             readonly $gtype: GObject.GType<AuthNTLM>
             readonly prototype: AuthNTLM
+
             new (props?: Partial<GObject.ConstructorProps<AuthNTLM>>): AuthNTLM
         }
 
-        const AuthNTLM: AuthNTLMClass
+        interface $Exports {
+            /**
+             * HTTP-based NTLM authentication.
+             *
+             * [class@Session]s do not support this type by default; if you want to
+             * enable support for it, call [method@Session.add_feature_by_type],
+             * passing %SOUP_TYPE_AUTH_NTLM.
+             */
+            AuthNTLM: AuthNTLMClass
+        }
         
 
         namespace AuthNegotiate {
@@ -920,18 +895,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * HTTP-based GSS-Negotiate authentication, as defined by
-         * [RFC 4559](https://datatracker.ietf.org/doc/html/rfc4559).
-         *
-         * [class@Session]s do not support this type by default; if you want to
-         * enable support for it, call [method@Session.add_feature_by_type],
-         * passing %SOUP_TYPE_AUTH_NEGOTIATE.
-         *
-         * This auth type will only work if libsoup was compiled with GSSAPI
-         * support; you can check [func@AuthNegotiate.supported] to see if it
-         * was.
-         */
         interface AuthNegotiate extends Auth {
             readonly $signals: AuthNegotiate.SignalSignatures
             readonly $readableProperties: AuthNegotiate.ReadableProperties
@@ -942,6 +905,7 @@ declare module "gi://Soup?version=3.0" {
         interface AuthNegotiateClass extends Omit<AuthClass, "new"> {
             readonly $gtype: GObject.GType<AuthNegotiate>
             readonly prototype: AuthNegotiate
+
             new (props?: Partial<GObject.ConstructorProps<AuthNegotiate>>): AuthNegotiate
             /**
              * Indicates whether libsoup was built with GSSAPI support.
@@ -954,7 +918,21 @@ declare module "gi://Soup?version=3.0" {
             supported(): boolean
         }
 
-        const AuthNegotiate: AuthNegotiateClass
+        interface $Exports {
+            /**
+             * HTTP-based GSS-Negotiate authentication, as defined by
+             * [RFC 4559](https://datatracker.ietf.org/doc/html/rfc4559).
+             *
+             * [class@Session]s do not support this type by default; if you want to
+             * enable support for it, call [method@Session.add_feature_by_type],
+             * passing %SOUP_TYPE_AUTH_NEGOTIATE.
+             *
+             * This auth type will only work if libsoup was compiled with GSSAPI
+             * support; you can check [func@AuthNegotiate.supported] to see if it
+             * was.
+             */
+            AuthNegotiate: AuthNegotiateClass
+        }
         
 
         namespace Cache {
@@ -967,17 +945,14 @@ declare module "gi://Soup?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties, SessionFeature.WritableProperties {
-                "cache-dir": string
-                "cache-type": CacheType
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, SessionFeature.ConstructOnlyProperties {
+                "cache-dir": string
+                "cache-type": CacheType
             }
         }
 
-        /**
-         * File-based cache for HTTP resources.
-         */
         interface Cache extends GObject.Object, SessionFeature {
             readonly $signals: Cache.SignalSignatures
             readonly $readableProperties: Cache.ReadableProperties
@@ -1048,6 +1023,7 @@ declare module "gi://Soup?version=3.0" {
         interface CacheClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Cache>
             readonly prototype: Cache
+
             new (props?: Partial<GObject.ConstructorProps<Cache>>): Cache
             /**
              * Creates a new #SoupCache.
@@ -1061,7 +1037,12 @@ declare module "gi://Soup?version=3.0" {
             "new"(cache_dir: string | null, cache_type: CacheType): Cache
         }
 
-        const Cache: CacheClass
+        interface $Exports {
+            /**
+             * File-based cache for HTTP resources.
+             */
+            Cache: CacheClass
+        }
         
 
         namespace ContentDecoder {
@@ -1078,32 +1059,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * Handles decoding of HTTP messages.
-         *
-         * [class@ContentDecoder] handles adding the "Accept-Encoding" header on
-         * outgoing messages, and processing the "Content-Encoding" header on
-         * incoming ones. Currently it supports the "gzip", "deflate", and "br"
-         * content codings.
-         *
-         * A [class@ContentDecoder] will automatically be
-         * added to the session by default. (You can use
-         * [method@Session.remove_feature_by_type] if you don't
-         * want this.)
-         *
-         * If [class@ContentDecoder] successfully decodes the Content-Encoding,
-         * the message body will contain the decoded data; however, the message headers
-         * will be unchanged (and so "Content-Encoding" will still be present,
-         * "Content-Length" will describe the original encoded length, etc).
-         *
-         * If "Content-Encoding" contains any encoding types that
-         * [class@ContentDecoder] doesn't recognize, then none of the encodings
-         * will be decoded.
-         *
-         * (Note that currently there is no way to (automatically) use
-         * Content-Encoding when sending a request body, or to pick specific
-         * encoding types to support.)
-         */
         interface ContentDecoder extends GObject.Object, SessionFeature {
             readonly $signals: ContentDecoder.SignalSignatures
             readonly $readableProperties: ContentDecoder.ReadableProperties
@@ -1114,10 +1069,39 @@ declare module "gi://Soup?version=3.0" {
         interface ContentDecoderClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ContentDecoder>
             readonly prototype: ContentDecoder
+
             new (props?: Partial<GObject.ConstructorProps<ContentDecoder>>): ContentDecoder
         }
 
-        const ContentDecoder: ContentDecoderClass
+        interface $Exports {
+            /**
+             * Handles decoding of HTTP messages.
+             *
+             * [class@ContentDecoder] handles adding the "Accept-Encoding" header on
+             * outgoing messages, and processing the "Content-Encoding" header on
+             * incoming ones. Currently it supports the "gzip", "deflate", and "br"
+             * content codings.
+             *
+             * A [class@ContentDecoder] will automatically be
+             * added to the session by default. (You can use
+             * [method@Session.remove_feature_by_type] if you don't
+             * want this.)
+             *
+             * If [class@ContentDecoder] successfully decodes the Content-Encoding,
+             * the message body will contain the decoded data; however, the message headers
+             * will be unchanged (and so "Content-Encoding" will still be present,
+             * "Content-Length" will describe the original encoded length, etc).
+             *
+             * If "Content-Encoding" contains any encoding types that
+             * [class@ContentDecoder] doesn't recognize, then none of the encodings
+             * will be decoded.
+             *
+             * (Note that currently there is no way to (automatically) use
+             * Content-Encoding when sending a request body, or to pick specific
+             * encoding types to support.)
+             */
+            ContentDecoder: ContentDecoderClass
+        }
         
 
         namespace ContentSniffer {
@@ -1134,16 +1118,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * Sniffs the mime type of messages.
-         *
-         * A [class@ContentSniffer] tries to detect the actual content type of
-         * the files that are being downloaded by looking at some of the data
-         * before the [class@Message] emits its [signal@Message::got-headers] signal.
-         * [class@ContentSniffer] implements [iface@SessionFeature], so you can add
-         * content sniffing to a session with [method@Session.add_feature] or
-         * [method@Session.add_feature_by_type].
-         */
         interface ContentSniffer extends GObject.Object, SessionFeature {
             readonly $signals: ContentSniffer.SignalSignatures
             readonly $readableProperties: ContentSniffer.ReadableProperties
@@ -1158,12 +1132,13 @@ declare module "gi://Soup?version=3.0" {
              * @param buffer a buffer containing the start of @msg's response body
              * @returns the sniffed Content-Type of `buffer`; this will never be %NULL,   but may be `application/octet-stream`., return   location for Content-Type parameters (eg, "charset"), or %NULL
              */
-            sniff(msg: Message, buffer: GLib.Bytes): [string, Record<string, string> | null]
+            sniff(msg: Message, buffer: (GLib.Bytes | Uint8Array)): [string, Record<string, string> | null]
         }
 
         interface ContentSnifferClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ContentSniffer>
             readonly prototype: ContentSniffer
+
             new (props?: Partial<GObject.ConstructorProps<ContentSniffer>>): ContentSniffer
             /**
              * Creates a new [class@ContentSniffer].
@@ -1172,7 +1147,19 @@ declare module "gi://Soup?version=3.0" {
             "new"(): ContentSniffer
         }
 
-        const ContentSniffer: ContentSnifferClass
+        interface $Exports {
+            /**
+             * Sniffs the mime type of messages.
+             *
+             * A [class@ContentSniffer] tries to detect the actual content type of
+             * the files that are being downloaded by looking at some of the data
+             * before the [class@Message] emits its [signal@Message::got-headers] signal.
+             * [class@ContentSniffer] implements [iface@SessionFeature], so you can add
+             * content sniffing to a session with [method@Session.add_feature] or
+             * [method@Session.add_feature_by_type].
+             */
+            ContentSniffer: ContentSnifferClass
+        }
         
 
         namespace CookieJar {
@@ -1200,24 +1187,13 @@ declare module "gi://Soup?version=3.0" {
 
             interface WritableProperties extends GObject.Object.WritableProperties, SessionFeature.WritableProperties {
                 "accept-policy": CookieJarAcceptPolicy
-                "read-only": boolean
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, SessionFeature.ConstructOnlyProperties {
+                "read-only": boolean
             }
         }
 
-        /**
-         * Automatic cookie handling for SoupSession.
-         *
-         * A [class@CookieJar] stores [struct@Cookie]s and arrange for them to be sent with
-         * the appropriate [class@Message]s. [class@CookieJar] implements
-         * [iface@SessionFeature], so you can add a cookie jar to a session with
-         * [method@Session.add_feature] or [method@Session.add_feature_by_type].
-         *
-         * Note that the base [class@CookieJar] class does not support any form
-         * of long-term cookie persistence.
-         */
         interface CookieJar extends GObject.Object, SessionFeature {
             readonly $signals: CookieJar.SignalSignatures
             readonly $readableProperties: CookieJar.ReadableProperties
@@ -1410,6 +1386,7 @@ declare module "gi://Soup?version=3.0" {
         interface CookieJarClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<CookieJar>
             readonly prototype: CookieJar
+
             new (props?: Partial<GObject.ConstructorProps<CookieJar>>): CookieJar
             /**
              * Creates a new [class@CookieJar].
@@ -1421,7 +1398,20 @@ declare module "gi://Soup?version=3.0" {
             "new"(): CookieJar
         }
 
-        const CookieJar: CookieJarClass
+        interface $Exports {
+            /**
+             * Automatic cookie handling for SoupSession.
+             *
+             * A [class@CookieJar] stores [struct@Cookie]s and arrange for them to be sent with
+             * the appropriate [class@Message]s. [class@CookieJar] implements
+             * [iface@SessionFeature], so you can add a cookie jar to a session with
+             * [method@Session.add_feature] or [method@Session.add_feature_by_type].
+             *
+             * Note that the base [class@CookieJar] class does not support any form
+             * of long-term cookie persistence.
+             */
+            CookieJar: CookieJarClass
+        }
         
 
         namespace CookieJarDB {
@@ -1433,23 +1423,13 @@ declare module "gi://Soup?version=3.0" {
             }
 
             interface WritableProperties extends CookieJar.WritableProperties, SessionFeature.WritableProperties {
-                "filename": string
             }
 
             interface ConstructOnlyProperties extends CookieJar.ConstructOnlyProperties, SessionFeature.ConstructOnlyProperties {
+                "filename": string
             }
         }
 
-        /**
-         * Database-based Cookie Jar.
-         *
-         * [class@CookieJarDB] is a [class@CookieJar] that reads cookies from and writes
-         * them to a sqlite database in the new Mozilla format.
-         *
-         * (This is identical to `SoupCookieJarSqlite` in
-         * libsoup-gnome; it has just been moved into libsoup proper, and
-         * renamed to avoid conflicting.)
-         */
         interface CookieJarDB extends CookieJar, SessionFeature {
             readonly $signals: CookieJarDB.SignalSignatures
             readonly $readableProperties: CookieJarDB.ReadableProperties
@@ -1466,6 +1446,7 @@ declare module "gi://Soup?version=3.0" {
         interface CookieJarDBClass extends Omit<CookieJarClass, "new"> {
             readonly $gtype: GObject.GType<CookieJarDB>
             readonly prototype: CookieJarDB
+
             new (props?: Partial<GObject.ConstructorProps<CookieJarDB>>): CookieJarDB
             /**
              * Creates a [class@CookieJarDB].
@@ -1479,10 +1460,22 @@ declare module "gi://Soup?version=3.0" {
              * @param read_only %TRUE if @filename is read-only
              * @returns the new #SoupCookieJar
              */
-            "new"(filename: string, read_only: boolean): CookieJar
+            "new"(filename: string, read_only: boolean): CookieJarDB
         }
 
-        const CookieJarDB: CookieJarDBClass
+        interface $Exports {
+            /**
+             * Database-based Cookie Jar.
+             *
+             * [class@CookieJarDB] is a [class@CookieJar] that reads cookies from and writes
+             * them to a sqlite database in the new Mozilla format.
+             *
+             * (This is identical to `SoupCookieJarSqlite` in
+             * libsoup-gnome; it has just been moved into libsoup proper, and
+             * renamed to avoid conflicting.)
+             */
+            CookieJarDB: CookieJarDBClass
+        }
         
 
         namespace CookieJarText {
@@ -1494,19 +1487,13 @@ declare module "gi://Soup?version=3.0" {
             }
 
             interface WritableProperties extends CookieJar.WritableProperties, SessionFeature.WritableProperties {
-                "filename": string
             }
 
             interface ConstructOnlyProperties extends CookieJar.ConstructOnlyProperties, SessionFeature.ConstructOnlyProperties {
+                "filename": string
             }
         }
 
-        /**
-         * Text-file-based ("cookies.txt") Cookie Jar
-         *
-         * [class@CookieJarText] is a [class@CookieJar] that reads cookies from and writes
-         * them to a text file in format similar to Mozilla's "cookies.txt".
-         */
         interface CookieJarText extends CookieJar, SessionFeature {
             readonly $signals: CookieJarText.SignalSignatures
             readonly $readableProperties: CookieJarText.ReadableProperties
@@ -1523,6 +1510,7 @@ declare module "gi://Soup?version=3.0" {
         interface CookieJarTextClass extends Omit<CookieJarClass, "new"> {
             readonly $gtype: GObject.GType<CookieJarText>
             readonly prototype: CookieJarText
+
             new (props?: Partial<GObject.ConstructorProps<CookieJarText>>): CookieJarText
             /**
              * Creates a [class@CookieJarText].
@@ -1536,10 +1524,18 @@ declare module "gi://Soup?version=3.0" {
              * @param read_only %TRUE if @filename is read-only
              * @returns the new #SoupCookieJar
              */
-            "new"(filename: string, read_only: boolean): CookieJar
+            "new"(filename: string, read_only: boolean): CookieJarText
         }
 
-        const CookieJarText: CookieJarTextClass
+        interface $Exports {
+            /**
+             * Text-file-based ("cookies.txt") Cookie Jar
+             *
+             * [class@CookieJarText] is a [class@CookieJar] that reads cookies from and writes
+             * them to a text file in format similar to Mozilla's "cookies.txt".
+             */
+            CookieJarText: CookieJarTextClass
+        }
         
 
         namespace HSTSEnforcer {
@@ -1573,30 +1569,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * Automatic HTTP Strict Transport Security enforcing for [class@Session].
-         *
-         * A [class@HSTSEnforcer] stores HSTS policies and enforces them when
-         * required. [class@HSTSEnforcer] implements [iface@SessionFeature], so you
-         * can add an HSTS enforcer to a session with
-         * [method@Session.add_feature] or [method@Session.add_feature_by_type].
-         *
-         * [class@HSTSEnforcer] keeps track of all the HTTPS destinations that,
-         * when connected to, return the Strict-Transport-Security header with
-         * valid values. [class@HSTSEnforcer] will forget those destinations
-         * upon expiry or when the server requests it.
-         *
-         * When the [class@Session] the [class@HSTSEnforcer] is attached to queues or
-         * restarts a message, the [class@HSTSEnforcer] will rewrite the URI to HTTPS if
-         * the destination is a known HSTS host and is contacted over an insecure
-         * transport protocol (HTTP). Users of [class@HSTSEnforcer] are advised to listen
-         * to changes in the [property@Message:uri] property in order to be aware of
-         * changes in the message URI.
-         *
-         * Note that [class@HSTSEnforcer] does not support any form of long-term
-         * HSTS policy persistence. See [class@HSTSEnforcerDB] for a persistent
-         * enforcer.
-         */
         interface HSTSEnforcer extends GObject.Object, SessionFeature {
             readonly $signals: HSTSEnforcer.SignalSignatures
             readonly $readableProperties: HSTSEnforcer.ReadableProperties
@@ -1668,6 +1640,7 @@ declare module "gi://Soup?version=3.0" {
         interface HSTSEnforcerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<HSTSEnforcer>
             readonly prototype: HSTSEnforcer
+
             new (props?: Partial<GObject.ConstructorProps<HSTSEnforcer>>): HSTSEnforcer
             /**
              * Creates a new [class@HSTSEnforcer].
@@ -1679,7 +1652,33 @@ declare module "gi://Soup?version=3.0" {
             "new"(): HSTSEnforcer
         }
 
-        const HSTSEnforcer: HSTSEnforcerClass
+        interface $Exports {
+            /**
+             * Automatic HTTP Strict Transport Security enforcing for [class@Session].
+             *
+             * A [class@HSTSEnforcer] stores HSTS policies and enforces them when
+             * required. [class@HSTSEnforcer] implements [iface@SessionFeature], so you
+             * can add an HSTS enforcer to a session with
+             * [method@Session.add_feature] or [method@Session.add_feature_by_type].
+             *
+             * [class@HSTSEnforcer] keeps track of all the HTTPS destinations that,
+             * when connected to, return the Strict-Transport-Security header with
+             * valid values. [class@HSTSEnforcer] will forget those destinations
+             * upon expiry or when the server requests it.
+             *
+             * When the [class@Session] the [class@HSTSEnforcer] is attached to queues or
+             * restarts a message, the [class@HSTSEnforcer] will rewrite the URI to HTTPS if
+             * the destination is a known HSTS host and is contacted over an insecure
+             * transport protocol (HTTP). Users of [class@HSTSEnforcer] are advised to listen
+             * to changes in the [property@Message:uri] property in order to be aware of
+             * changes in the message URI.
+             *
+             * Note that [class@HSTSEnforcer] does not support any form of long-term
+             * HSTS policy persistence. See [class@HSTSEnforcerDB] for a persistent
+             * enforcer.
+             */
+            HSTSEnforcer: HSTSEnforcerClass
+        }
         
 
         namespace HSTSEnforcerDB {
@@ -1691,19 +1690,13 @@ declare module "gi://Soup?version=3.0" {
             }
 
             interface WritableProperties extends HSTSEnforcer.WritableProperties, SessionFeature.WritableProperties {
-                "filename": string
             }
 
             interface ConstructOnlyProperties extends HSTSEnforcer.ConstructOnlyProperties, SessionFeature.ConstructOnlyProperties {
+                "filename": string
             }
         }
 
-        /**
-         * Persistent HTTP Strict Transport Security enforcer.
-         *
-         * [class@HSTSEnforcerDB] is a [class@HSTSEnforcer] that uses a SQLite
-         * database as a backend for persistency.
-         */
         interface HSTSEnforcerDB extends HSTSEnforcer, SessionFeature {
             readonly $signals: HSTSEnforcerDB.SignalSignatures
             readonly $readableProperties: HSTSEnforcerDB.ReadableProperties
@@ -1720,6 +1713,7 @@ declare module "gi://Soup?version=3.0" {
         interface HSTSEnforcerDBClass extends Omit<HSTSEnforcerClass, "new"> {
             readonly $gtype: GObject.GType<HSTSEnforcerDB>
             readonly prototype: HSTSEnforcerDB
+
             new (props?: Partial<GObject.ConstructorProps<HSTSEnforcerDB>>): HSTSEnforcerDB
             /**
              * Creates a [class@HSTSEnforcerDB].
@@ -1733,10 +1727,18 @@ declare module "gi://Soup?version=3.0" {
              * @param filename the filename of the database to read/write from.
              * @returns the new #SoupHSTSEnforcer
              */
-            "new"(filename: string): HSTSEnforcer
+            "new"(filename: string): HSTSEnforcerDB
         }
 
-        const HSTSEnforcerDB: HSTSEnforcerDBClass
+        interface $Exports {
+            /**
+             * Persistent HTTP Strict Transport Security enforcer.
+             *
+             * [class@HSTSEnforcerDB] is a [class@HSTSEnforcer] that uses a SQLite
+             * database as a backend for persistency.
+             */
+            HSTSEnforcerDB: HSTSEnforcerDBClass
+        }
         
 
         namespace Logger {
@@ -1757,38 +1759,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         *  Content-Length: 0
-         * ```
-         *
-         * The `Soup-Debug-Timestamp` line gives the time (as a `time_t`) when the
-         * request was sent, or the response fully received.
-         *
-         * The `Soup-Debug` line gives further debugging information about the
-         * [class@Session], [class@Message], and [class@Gio.Socket] involved; the hex
-         * numbers are the addresses of the objects in question (which may be useful if
-         * you are running in a debugger). The decimal IDs are simply counters that
-         * uniquely identify objects across the lifetime of the [class@Logger]. In
-         * particular, this can be used to identify when multiple messages are sent
-         * across the same connection.
-         *
-         * Currently, the request half of the message is logged just before
-         * the first byte of the request gets written to the network (from the
-         * [signal@Message::starting] signal).
-         *
-         * The response is logged just after the last byte of the response body is read
-         * from the network (from the [signal@Message::got-body] or
-         * [signal@Message::got-informational] signal), which means that the
-         * [signal@Message::got-headers] signal, and anything triggered off it (such as
-         * [signal@Message::authenticate]) will be emitted *before* the response headers are
-         * actually logged.
-         *
-         * If the response doesn't happen to trigger the [signal@Message::got-body] nor
-         * [signal@Message::got-informational] signals due to, for example, a
-         * cancellation before receiving the last byte of the response body, the
-         * response will still be logged on the event of the [signal@Message::finished]
-         * signal.
-         */
         interface Logger extends GObject.Object, SessionFeature {
             readonly $signals: Logger.SignalSignatures
             readonly $readableProperties: Logger.ReadableProperties
@@ -1849,6 +1819,7 @@ declare module "gi://Soup?version=3.0" {
         interface LoggerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Logger>
             readonly prototype: Logger
+
             new (props?: Partial<GObject.ConstructorProps<Logger>>): Logger
             /**
              * Creates a new [class@Logger] with the given debug level.
@@ -1862,7 +1833,69 @@ declare module "gi://Soup?version=3.0" {
             "new"(level: LoggerLogLevel): Logger
         }
 
-        const Logger: LoggerClass
+        interface $Exports {
+            /**
+             * Debug logging support
+             *
+             * [class@Logger] watches a [class@Session] and logs the HTTP traffic that
+             * it generates, for debugging purposes. Many applications use an
+             * environment variable to determine whether or not to use
+             * [class@Logger], and to determine the amount of debugging output.
+             *
+             * To use [class@Logger], first create a logger with [ctor@Logger.new], optionally
+             * configure it with [method@Logger.set_request_filter],
+             * [method@Logger.set_response_filter], and [method@Logger.set_printer], and
+             * then attach it to a session (or multiple sessions) with
+             * [method@Session.add_feature].
+             *
+             * By default, the debugging output is sent to `stdout`, and looks something
+             * like:
+             *
+             * ```
+             * > POST /unauth HTTP/1.1
+             * > Soup-Debug-Timestamp: 1200171744
+             * > Soup-Debug: SoupSession 1 (0x612190), SoupMessage 1 (0x617000), GSocket 1 (0x612220)
+             * > Host: localhost
+             * > Content-Type: text/plain
+             * > Connection: close
+             *
+             * < HTTP/1.1 201 Created
+             * < Soup-Debug-Timestamp: 1200171744
+             * < Soup-Debug: SoupMessage 1 (0x617000)
+             * < Date: Sun, 12 Jan 2008 21:02:24 GMT
+             * < Content-Length: 0
+             * ```
+             *
+             * The `Soup-Debug-Timestamp` line gives the time (as a `time_t`) when the
+             * request was sent, or the response fully received.
+             *
+             * The `Soup-Debug` line gives further debugging information about the
+             * [class@Session], [class@Message], and [class@Gio.Socket] involved; the hex
+             * numbers are the addresses of the objects in question (which may be useful if
+             * you are running in a debugger). The decimal IDs are simply counters that
+             * uniquely identify objects across the lifetime of the [class@Logger]. In
+             * particular, this can be used to identify when multiple messages are sent
+             * across the same connection.
+             *
+             * Currently, the request half of the message is logged just before
+             * the first byte of the request gets written to the network (from the
+             * [signal@Message::starting] signal).
+             *
+             * The response is logged just after the last byte of the response body is read
+             * from the network (from the [signal@Message::got-body] or
+             * [signal@Message::got-informational] signal), which means that the
+             * [signal@Message::got-headers] signal, and anything triggered off it (such as
+             * [signal@Message::authenticate]) will be emitted *before* the response headers are
+             * actually logged.
+             *
+             * If the response doesn't happen to trigger the [signal@Message::got-body] nor
+             * [signal@Message::got-informational] signals due to, for example, a
+             * cancellation before receiving the last byte of the response body, the
+             * response will still be logged on the event of the [signal@Message::finished]
+             * signal.
+             */
+            Logger: LoggerClass
+        }
         
 
         namespace Message {
@@ -2090,30 +2123,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * Represents an HTTP message being sent or received.
-         *
-         * A [class@Message] represents an HTTP message that is being sent or
-         * received.
-         *
-         * You would create a [class@Message] with [ctor@Message.new] or
-         * [ctor@Message.new_from_uri], set up its fields appropriately, and send it.
-         *
-         * [property@Message:status-code] will normally be a [enum@Status] value, eg,
-         * %SOUP_STATUS_OK, though of course it might actually be an unknown status
-         * code. [property@Message:reason-phrase] is the actual text returned from the
-         * server, which may or may not correspond to the "standard" description of
-         * @status_code. At any rate, it is almost certainly not localized, and not very
-         * descriptive even if it is in the user's language; you should not use
-         * [property@Message:reason-phrase] in user-visible messages. Rather, you should
-         * look at [property@Message:status-code], and determine an end-user-appropriate
-         * message based on that and on what you were trying to do.
-         *
-         * Note that libsoup's terminology here does not quite match the HTTP
-         * specification: in RFC 2616, an "HTTP-message" is *either* a Request, *or* a
-         * Response. In libsoup, a [class@Message] combines both the request and the
-         * response.
-         */
         interface Message extends GObject.Object {
             readonly $signals: Message.SignalSignatures
             readonly $readableProperties: Message.ReadableProperties
@@ -2490,7 +2499,7 @@ declare module "gi://Soup?version=3.0" {
              * @param content_type MIME Content-Type of the body, or %NULL if unknown
              * @param bytes a #GBytes with the request body data
              */
-            set_request_body_from_bytes(content_type: string | null, bytes: GLib.Bytes | null): void
+            set_request_body_from_bytes(content_type: string | null, bytes: (GLib.Bytes | Uint8Array | null)): void
             /**
              * Sets @site_for_cookies as the policy URL for same-site cookies for @msg.
              *
@@ -2537,6 +2546,7 @@ declare module "gi://Soup?version=3.0" {
         interface MessageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Message>
             readonly prototype: Message
+
             new (props?: Partial<GObject.ConstructorProps<Message>>): Message
             /**
              * Creates a new empty [class@Message], which will connect to @uri.
@@ -2584,7 +2594,33 @@ declare module "gi://Soup?version=3.0" {
             new_options_ping(base_uri: GLib.Uri): Message
         }
 
-        const Message: MessageClass
+        interface $Exports {
+            /**
+             * Represents an HTTP message being sent or received.
+             *
+             * A [class@Message] represents an HTTP message that is being sent or
+             * received.
+             *
+             * You would create a [class@Message] with [ctor@Message.new] or
+             * [ctor@Message.new_from_uri], set up its fields appropriately, and send it.
+             *
+             * [property@Message:status-code] will normally be a [enum@Status] value, eg,
+             * %SOUP_STATUS_OK, though of course it might actually be an unknown status
+             * code. [property@Message:reason-phrase] is the actual text returned from the
+             * server, which may or may not correspond to the "standard" description of
+             * @status_code. At any rate, it is almost certainly not localized, and not very
+             * descriptive even if it is in the user's language; you should not use
+             * [property@Message:reason-phrase] in user-visible messages. Rather, you should
+             * look at [property@Message:status-code], and determine an end-user-appropriate
+             * message based on that and on what you were trying to do.
+             *
+             * Note that libsoup's terminology here does not quite match the HTTP
+             * specification: in RFC 2616, an "HTTP-message" is *either* a Request, *or* a
+             * Response. In libsoup, a [class@Message] combines both the request and the
+             * response.
+             */
+            Message: MessageClass
+        }
         
 
         namespace MultipartInputStream {
@@ -2596,26 +2632,13 @@ declare module "gi://Soup?version=3.0" {
             }
 
             interface WritableProperties extends Gio.FilterInputStream.WritableProperties, Gio.PollableInputStream.WritableProperties {
-                "message": Message
             }
 
             interface ConstructOnlyProperties extends Gio.FilterInputStream.ConstructOnlyProperties, Gio.PollableInputStream.ConstructOnlyProperties {
+                "message": Message
             }
         }
 
-        /**
-         * Handles streams of multipart messages.
-         *
-         * This adds support for the multipart responses. For handling the
-         * multiple parts the user needs to wrap the [class@Gio.InputStream] obtained by
-         * sending the request with a [class@MultipartInputStream] and use
-         * [method@MultipartInputStream.next_part] before reading. Responses
-         * which are not wrapped will be treated like non-multipart responses.
-         *
-         * Note that although [class@MultipartInputStream] is a [class@Gio.InputStream],
-         * you should not read directly from it, and the results are undefined
-         * if you do.
-         */
         interface MultipartInputStream extends Gio.FilterInputStream, Gio.PollableInputStream {
             readonly $signals: MultipartInputStream.SignalSignatures
             readonly $readableProperties: MultipartInputStream.ReadableProperties
@@ -2680,6 +2703,7 @@ declare module "gi://Soup?version=3.0" {
         interface MultipartInputStreamClass extends Omit<Gio.FilterInputStreamClass, "new"> {
             readonly $gtype: GObject.GType<MultipartInputStream>
             readonly prototype: MultipartInputStream
+
             new (props?: Partial<GObject.ConstructorProps<MultipartInputStream>>): MultipartInputStream
             /**
              * Creates a new [class@MultipartInputStream] that wraps the
@@ -2695,7 +2719,22 @@ declare module "gi://Soup?version=3.0" {
             "new"(msg: Message, base_stream: Gio.InputStream): MultipartInputStream
         }
 
-        const MultipartInputStream: MultipartInputStreamClass
+        interface $Exports {
+            /**
+             * Handles streams of multipart messages.
+             *
+             * This adds support for the multipart responses. For handling the
+             * multiple parts the user needs to wrap the [class@Gio.InputStream] obtained by
+             * sending the request with a [class@MultipartInputStream] and use
+             * [method@MultipartInputStream.next_part] before reading. Responses
+             * which are not wrapped will be treated like non-multipart responses.
+             *
+             * Note that although [class@MultipartInputStream] is a [class@Gio.InputStream],
+             * you should not read directly from it, and the results are undefined
+             * if you do.
+             */
+            MultipartInputStream: MultipartInputStreamClass
+        }
         
 
         namespace Server {
@@ -2760,7 +2799,6 @@ declare module "gi://Soup?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "raw-paths": boolean
                 "server-header": string
                 "tls-auth-mode": Gio.TlsAuthenticationMode
                 "tls-certificate": Gio.TlsCertificate | null
@@ -2768,97 +2806,10 @@ declare module "gi://Soup?version=3.0" {
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "raw-paths": boolean
             }
         }
 
-        /**
-         * [class@Server] provides a basic implementation of an HTTP server. The
-         * recommended usage of this server is for internal use, tasks like
-         * a mock server for tests, a private service for IPC, etc. It is not
-         * recommended to be exposed to untrusted clients as it may be vulnerable
-         * to denial of service attacks or other exploits.
-         *
-         * To begin, create a server using [ctor@Server.new]. Add at least one
-         * handler by calling [method@Server.add_handler] or
-         * [method@Server.add_early_handler]; the handler will be called to
-         * process any requests underneath the path you pass. (If you want all
-         * requests to go to the same handler, just pass "/" (or %NULL) for
-         * the path.)
-         *
-         * When a new connection is accepted (or a new request is started on
-         * an existing persistent connection), the [class@Server] will emit
-         * [signal@Server::request-started] and then begin processing the request
-         * as described below, but note that once the message is assigned a
-         * status-code, then callbacks after that point will be
-         * skipped. Note also that it is not defined when the callbacks happen
-         * relative to various [class@ServerMessage] signals.
-         *
-         * Once the headers have been read, [class@Server] will check if there is
-         * a [class@AuthDomain] `(qv)` covering the Request-URI; if so, and if the
-         * message does not contain suitable authorization, then the
-         * [class@AuthDomain] will set a status of %SOUP_STATUS_UNAUTHORIZED on
-         * the message.
-         *
-         * After checking for authorization, [class@Server] will look for "early"
-         * handlers (added with [method@Server.add_early_handler]) matching the
-         * Request-URI. If one is found, it will be run; in particular, this
-         * can be used to connect to signals to do a streaming read of the
-         * request body.
-         *
-         * (At this point, if the request headers contain `Expect:
-         * 100-continue`, and a status code has been set, then
-         * [class@Server] will skip the remaining steps and return the response.
-         * If the request headers contain `Expect:
-         * 100-continue` and no status code has been set,
-         * [class@Server] will return a %SOUP_STATUS_CONTINUE status before
-         * continuing.)
-         *
-         * The server will then read in the response body (if present). At
-         * this point, if there are no handlers at all defined for the
-         * Request-URI, then the server will return %SOUP_STATUS_NOT_FOUND to
-         * the client.
-         *
-         * Otherwise (assuming no previous step assigned a status to the
-         * message) any "normal" handlers (added with
-         * [method@Server.add_handler]) for the message's Request-URI will be
-         * run.
-         *
-         * Then, if the path has a WebSocket handler registered (and has
-         * not yet been assigned a status), [class@Server] will attempt to
-         * validate the WebSocket handshake, filling in the response and
-         * setting a status of %SOUP_STATUS_SWITCHING_PROTOCOLS or
-         * %SOUP_STATUS_BAD_REQUEST accordingly.
-         *
-         * If the message still has no status code at this point (and has not
-         * been paused with [method@ServerMessage.pause]), then it will be
-         * given a status of %SOUP_STATUS_INTERNAL_SERVER_ERROR (because at
-         * least one handler ran, but returned without assigning a status).
-         *
-         * Finally, the server will emit [signal@Server::request-finished] (or
-         * [signal@Server::request-aborted] if an I/O error occurred before
-         * handling was completed).
-         *
-         * If you want to handle the special "*" URI (eg, "OPTIONS *"), you
-         * must explicitly register a handler for "*"; the default handler
-         * will not be used for that case.
-         *
-         * If you want to process https connections in addition to (or instead
-         * of) http connections, you can set the [property@Server:tls-certificate]
-         * property.
-         *
-         * Once the server is set up, make one or more calls to
-         * [method@Server.listen], [method@Server.listen_local], or
-         * [method@Server.listen_all] to tell it where to listen for
-         * connections. (All ports on a [class@Server] use the same handlers; if
-         * you need to handle some ports differently, such as returning
-         * different data for http and https, you'll need to create multiple
-         * [class@Server]s, or else check the passed-in URI in the handler
-         * function.).
-         *
-         * [class@Server] will begin processing connections as soon as you return
-         * to (or start) the main loop for the current thread-default
-         * [struct@GLib.MainContext].
-         */
         interface Server extends GObject.Object {
             readonly $signals: Server.SignalSignatures
             readonly $readableProperties: Server.ReadableProperties
@@ -3272,10 +3223,101 @@ declare module "gi://Soup?version=3.0" {
         interface ServerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Server>
             readonly prototype: Server
+
             new (props?: Partial<GObject.ConstructorProps<Server>>): Server
         }
 
-        const Server: ServerClass
+        interface $Exports {
+            /**
+             * [class@Server] provides a basic implementation of an HTTP server. The
+             * recommended usage of this server is for internal use, tasks like
+             * a mock server for tests, a private service for IPC, etc. It is not
+             * recommended to be exposed to untrusted clients as it may be vulnerable
+             * to denial of service attacks or other exploits.
+             *
+             * To begin, create a server using [ctor@Server.new]. Add at least one
+             * handler by calling [method@Server.add_handler] or
+             * [method@Server.add_early_handler]; the handler will be called to
+             * process any requests underneath the path you pass. (If you want all
+             * requests to go to the same handler, just pass "/" (or %NULL) for
+             * the path.)
+             *
+             * When a new connection is accepted (or a new request is started on
+             * an existing persistent connection), the [class@Server] will emit
+             * [signal@Server::request-started] and then begin processing the request
+             * as described below, but note that once the message is assigned a
+             * status-code, then callbacks after that point will be
+             * skipped. Note also that it is not defined when the callbacks happen
+             * relative to various [class@ServerMessage] signals.
+             *
+             * Once the headers have been read, [class@Server] will check if there is
+             * a [class@AuthDomain] `(qv)` covering the Request-URI; if so, and if the
+             * message does not contain suitable authorization, then the
+             * [class@AuthDomain] will set a status of %SOUP_STATUS_UNAUTHORIZED on
+             * the message.
+             *
+             * After checking for authorization, [class@Server] will look for "early"
+             * handlers (added with [method@Server.add_early_handler]) matching the
+             * Request-URI. If one is found, it will be run; in particular, this
+             * can be used to connect to signals to do a streaming read of the
+             * request body.
+             *
+             * (At this point, if the request headers contain `Expect:
+             * 100-continue`, and a status code has been set, then
+             * [class@Server] will skip the remaining steps and return the response.
+             * If the request headers contain `Expect:
+             * 100-continue` and no status code has been set,
+             * [class@Server] will return a %SOUP_STATUS_CONTINUE status before
+             * continuing.)
+             *
+             * The server will then read in the response body (if present). At
+             * this point, if there are no handlers at all defined for the
+             * Request-URI, then the server will return %SOUP_STATUS_NOT_FOUND to
+             * the client.
+             *
+             * Otherwise (assuming no previous step assigned a status to the
+             * message) any "normal" handlers (added with
+             * [method@Server.add_handler]) for the message's Request-URI will be
+             * run.
+             *
+             * Then, if the path has a WebSocket handler registered (and has
+             * not yet been assigned a status), [class@Server] will attempt to
+             * validate the WebSocket handshake, filling in the response and
+             * setting a status of %SOUP_STATUS_SWITCHING_PROTOCOLS or
+             * %SOUP_STATUS_BAD_REQUEST accordingly.
+             *
+             * If the message still has no status code at this point (and has not
+             * been paused with [method@ServerMessage.pause]), then it will be
+             * given a status of %SOUP_STATUS_INTERNAL_SERVER_ERROR (because at
+             * least one handler ran, but returned without assigning a status).
+             *
+             * Finally, the server will emit [signal@Server::request-finished] (or
+             * [signal@Server::request-aborted] if an I/O error occurred before
+             * handling was completed).
+             *
+             * If you want to handle the special "*" URI (eg, "OPTIONS *"), you
+             * must explicitly register a handler for "*"; the default handler
+             * will not be used for that case.
+             *
+             * If you want to process https connections in addition to (or instead
+             * of) http connections, you can set the [property@Server:tls-certificate]
+             * property.
+             *
+             * Once the server is set up, make one or more calls to
+             * [method@Server.listen], [method@Server.listen_local], or
+             * [method@Server.listen_all] to tell it where to listen for
+             * connections. (All ports on a [class@Server] use the same handlers; if
+             * you need to handle some ports differently, such as returning
+             * different data for http and https, you'll need to create multiple
+             * [class@Server]s, or else check the passed-in URI in the handler
+             * function.).
+             *
+             * [class@Server] will begin processing connections as soon as you return
+             * to (or start) the main loop for the current thread-default
+             * [struct@GLib.MainContext].
+             */
+            Server: ServerClass
+        }
         
 
         namespace ServerMessage {
@@ -3314,7 +3356,7 @@ declare module "gi://Soup?version=3.0" {
                  * necessarily the specific HTTP 1.1 chunks sent by the other side.
                  * @param chunk the just-read chunk
                  */
-                "got-chunk"(chunk: GLib.Bytes): void
+                "got-chunk"(chunk: (GLib.Bytes | Uint8Array)): void
                 /**
                  * Emitted after receiving the Request-Line and request headers.
                  */
@@ -3366,20 +3408,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * An HTTP server request and response pair.
-         *
-         * A [class@ServerMessage] represents an HTTP message that is being sent or
-         * received on a [class@Server].
-         *
-         * [class@Server] will create [class@ServerMessage]s automatically for
-         * incoming requests, which your application will receive via handlers.
-         *
-         * Note that libsoup's terminology here does not quite match the HTTP
-         * specification: in RFC 2616, an "HTTP-message" is *either* a Request, *or* a
-         * Response. In libsoup, a [class@ServerMessage] combines both the request and the
-         * response.
-         */
         interface ServerMessage extends GObject.Object {
             readonly $signals: ServerMessage.SignalSignatures
             readonly $readableProperties: ServerMessage.ReadableProperties
@@ -3567,10 +3595,27 @@ declare module "gi://Soup?version=3.0" {
         interface ServerMessageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ServerMessage>
             readonly prototype: ServerMessage
+
             new (props?: Partial<GObject.ConstructorProps<ServerMessage>>): ServerMessage
         }
 
-        const ServerMessage: ServerMessageClass
+        interface $Exports {
+            /**
+             * An HTTP server request and response pair.
+             *
+             * A [class@ServerMessage] represents an HTTP message that is being sent or
+             * received on a [class@Server].
+             *
+             * [class@Server] will create [class@ServerMessage]s automatically for
+             * incoming requests, which your application will receive via handlers.
+             *
+             * Note that libsoup's terminology here does not quite match the HTTP
+             * specification: in RFC 2616, an "HTTP-message" is *either* a Request, *or* a
+             * Response. In libsoup, a [class@ServerMessage] combines both the request and the
+             * response.
+             */
+            ServerMessage: ServerMessageClass
+        }
         
 
         namespace Session {
@@ -3637,11 +3682,7 @@ declare module "gi://Soup?version=3.0" {
                 "accept-language": string | null
                 "accept-language-auto": boolean
                 "idle-timeout": number
-                "local-address": Gio.InetSocketAddress | null
-                "max-conns": number
-                "max-conns-per-host": number
                 "proxy-resolver": Gio.ProxyResolver | null
-                "remote-connectable": Gio.SocketConnectable | null
                 "timeout": number
                 "tls-database": Gio.TlsDatabase | null
                 "tls-interaction": Gio.TlsInteraction | null
@@ -3649,45 +3690,13 @@ declare module "gi://Soup?version=3.0" {
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "local-address": Gio.InetSocketAddress | null
+                "max-conns": number
+                "max-conns-per-host": number
+                "remote-connectable": Gio.SocketConnectable | null
             }
         }
 
-        /**
-         * Soup session state object.
-         *
-         * [class@Session] is the object that controls client-side HTTP. A
-         * [class@Session] encapsulates all of the state that libsoup is keeping
-         * on behalf of your program; cached HTTP connections, authentication
-         * information, etc. It also keeps track of various global options
-         * and features that you are using.
-         *
-         * Most applications will only need a single [class@Session]; the primary
-         * reason you might need multiple sessions is if you need to have
-         * multiple independent authentication contexts. (Eg, you are
-         * connecting to a server and authenticating as two different users at
-         * different times; the easiest way to ensure that each [class@Message]
-         * is sent with the authentication information you intended is to use
-         * one session for the first user, and a second session for the other
-         * user.)
-         *
-         * Additional [class@Session] functionality is provided by
-         * [iface@SessionFeature] objects, which can be added to a session with
-         * [method@Session.add_feature] or [method@Session.add_feature_by_type]
-         * For example, [class@Logger] provides support for
-         * logging HTTP traffic, [class@ContentDecoder] provides support for
-         * compressed response handling, and [class@ContentSniffer] provides
-         * support for HTML5-style response body content sniffing.
-         * Additionally, subtypes of [class@Auth] can be added
-         * as features, to add support for additional authentication types.
-         *
-         * All `SoupSession`s are created with a [class@AuthManager], and support
-         * for %SOUP_TYPE_AUTH_BASIC and %SOUP_TYPE_AUTH_DIGEST. Additionally,
-         * sessions using the plain [class@Session] class (rather than one of its deprecated
-         * subtypes) have a [class@ContentDecoder] by default.
-         *
-         * Note that all async methods will invoke their callbacks on the thread-default
-         * context at the time of the function call.
-         */
         interface Session extends GObject.Object {
             readonly $signals: Session.SignalSignatures
             readonly $readableProperties: Session.ReadableProperties
@@ -4247,6 +4256,7 @@ declare module "gi://Soup?version=3.0" {
         interface SessionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Session>
             readonly prototype: Session
+
             new (props?: Partial<GObject.ConstructorProps<Session>>): Session
             /**
              * Creates a [class@Session] with the default options.
@@ -4255,7 +4265,45 @@ declare module "gi://Soup?version=3.0" {
             "new"(): Session
         }
 
-        const Session: SessionClass
+        interface $Exports {
+            /**
+             * Soup session state object.
+             *
+             * [class@Session] is the object that controls client-side HTTP. A
+             * [class@Session] encapsulates all of the state that libsoup is keeping
+             * on behalf of your program; cached HTTP connections, authentication
+             * information, etc. It also keeps track of various global options
+             * and features that you are using.
+             *
+             * Most applications will only need a single [class@Session]; the primary
+             * reason you might need multiple sessions is if you need to have
+             * multiple independent authentication contexts. (Eg, you are
+             * connecting to a server and authenticating as two different users at
+             * different times; the easiest way to ensure that each [class@Message]
+             * is sent with the authentication information you intended is to use
+             * one session for the first user, and a second session for the other
+             * user.)
+             *
+             * Additional [class@Session] functionality is provided by
+             * [iface@SessionFeature] objects, which can be added to a session with
+             * [method@Session.add_feature] or [method@Session.add_feature_by_type]
+             * For example, [class@Logger] provides support for
+             * logging HTTP traffic, [class@ContentDecoder] provides support for
+             * compressed response handling, and [class@ContentSniffer] provides
+             * support for HTML5-style response body content sniffing.
+             * Additionally, subtypes of [class@Auth] can be added
+             * as features, to add support for additional authentication types.
+             *
+             * All `SoupSession`s are created with a [class@AuthManager], and support
+             * for %SOUP_TYPE_AUTH_BASIC and %SOUP_TYPE_AUTH_DIGEST. Additionally,
+             * sessions using the plain [class@Session] class (rather than one of its deprecated
+             * subtypes) have a [class@ContentDecoder] by default.
+             *
+             * Note that all async methods will invoke their callbacks on the thread-default
+             * context at the time of the function call.
+             */
+            Session: SessionClass
+        }
         
 
         namespace WebsocketConnection {
@@ -4291,7 +4339,7 @@ declare module "gi://Soup?version=3.0" {
                  * @param type the type of message contents
                  * @param message the message data
                  */
-                "message"(type: number, message: GLib.Bytes): void
+                "message"(type: number, message: (GLib.Bytes | Uint8Array)): void
                 /**
                  * Emitted when we receive a Pong frame (solicited or
                  * unsolicited) from the peer.
@@ -4301,7 +4349,7 @@ declare module "gi://Soup?version=3.0" {
                  * the length count.
                  * @param message the application data (if any)
                  */
-                "pong"(message: GLib.Bytes): void
+                "pong"(message: (GLib.Bytes | Uint8Array)): void
             }
 
             interface ReadableProperties extends GObject.Object.ReadableProperties {
@@ -4319,46 +4367,23 @@ declare module "gi://Soup?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "connection-type": WebsocketConnectionType
-                "extensions": never
-                "io-stream": Gio.IOStream
                 "keepalive-interval": number
                 "keepalive-pong-timeout": number
                 "max-incoming-payload-size": number
                 "max-total-message-size": number
-                "origin": string | null
-                "protocol": string | null
                 "state": WebsocketState
-                "uri": GLib.Uri
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "connection-type": WebsocketConnectionType
+                "extensions": never
+                "io-stream": Gio.IOStream
+                "origin": string | null
+                "protocol": string | null
+                "uri": GLib.Uri
             }
         }
 
-        /**
-         * The WebSocket Protocol
-         *
-         * Provides support for the [WebSocket](http://tools.ietf.org/html/rfc6455)
-         * protocol.
-         *
-         * To connect to a WebSocket server, create a [class@Session] and call
-         * [method@Session.websocket_connect_async]. To accept WebSocket
-         * connections, create a [class@Server] and add a handler to it with
-         * [method@Server.add_websocket_handler].
-         *
-         * (Lower-level support is available via
-         * [func@websocket_client_prepare_handshake] and
-         * [func@websocket_client_verify_handshake], for handling the client side of the
-         * WebSocket handshake, and [func@websocket_server_process_handshake] for
-         * handling the server side.)
-         *
-         * [class@WebsocketConnection] handles the details of WebSocket communication. You
-         * can use [method@WebsocketConnection.send_text] and
-         * [method@WebsocketConnection.send_binary] to send data, and the
-         * [signal@WebsocketConnection::message] signal to receive data.
-         * ([class@WebsocketConnection] currently only supports asynchronous I/O.)
-         */
         interface WebsocketConnection extends GObject.Object {
             readonly $signals: WebsocketConnection.SignalSignatures
             readonly $readableProperties: WebsocketConnection.ReadableProperties
@@ -4572,7 +4597,7 @@ declare module "gi://Soup?version=3.0" {
              * @param type the type of message contents
              * @param message the message data as #GBytes
              */
-            send_message(type: WebsocketDataType, message: GLib.Bytes): void
+            send_message(type: WebsocketDataType, message: (GLib.Bytes | Uint8Array)): void
             /**
              * Send a %NULL-terminated text (UTF-8) message to the peer.
              *
@@ -4621,6 +4646,7 @@ declare module "gi://Soup?version=3.0" {
         interface WebsocketConnectionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebsocketConnection>
             readonly prototype: WebsocketConnection
+
             new (props?: Partial<GObject.ConstructorProps<WebsocketConnection>>): WebsocketConnection
             /**
              * Creates a [class@WebsocketConnection] on @stream with the given active @extensions.
@@ -4638,7 +4664,32 @@ declare module "gi://Soup?version=3.0" {
             "new"(stream: Gio.IOStream, uri: GLib.Uri, type: WebsocketConnectionType, origin: string | null, protocol: string | null, extensions: WebsocketExtension[]): WebsocketConnection
         }
 
-        const WebsocketConnection: WebsocketConnectionClass
+        interface $Exports {
+            /**
+             * The WebSocket Protocol
+             *
+             * Provides support for the [WebSocket](http://tools.ietf.org/html/rfc6455)
+             * protocol.
+             *
+             * To connect to a WebSocket server, create a [class@Session] and call
+             * [method@Session.websocket_connect_async]. To accept WebSocket
+             * connections, create a [class@Server] and add a handler to it with
+             * [method@Server.add_websocket_handler].
+             *
+             * (Lower-level support is available via
+             * [func@websocket_client_prepare_handshake] and
+             * [func@websocket_client_verify_handshake], for handling the client side of the
+             * WebSocket handshake, and [func@websocket_server_process_handshake] for
+             * handling the server side.)
+             *
+             * [class@WebsocketConnection] handles the details of WebSocket communication. You
+             * can use [method@WebsocketConnection.send_text] and
+             * [method@WebsocketConnection.send_binary] to send data, and the
+             * [signal@WebsocketConnection::message] signal to receive data.
+             * ([class@WebsocketConnection] currently only supports asynchronous I/O.)
+             */
+            WebsocketConnection: WebsocketConnectionClass
+        }
         
 
         namespace WebsocketExtension {
@@ -4655,11 +4706,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * A WebSocket extension
-         *
-         * [class@WebsocketExtension] is the base class for WebSocket extension objects.
-         */
         interface WebsocketExtension extends GObject.Object {
             readonly $signals: WebsocketExtension.SignalSignatures
             readonly $readableProperties: WebsocketExtension.ReadableProperties
@@ -4701,7 +4747,7 @@ declare module "gi://Soup?version=3.0" {
              * @param payload the payload data
              * @returns the message payload data, or %NULL in case of error, the message header
              */
-            process_incoming_message(payload: GLib.Bytes): [GLib.Bytes, number]
+            process_incoming_message(payload: (GLib.Bytes | Uint8Array)): [GLib.Bytes, number]
             /**
              * Process a message before it's sent.
              *
@@ -4714,7 +4760,7 @@ declare module "gi://Soup?version=3.0" {
              * @param payload the payload data
              * @returns the message payload data, or %NULL in case of error, the message header
              */
-            process_outgoing_message(payload: GLib.Bytes): [GLib.Bytes, number]
+            process_outgoing_message(payload: (GLib.Bytes | Uint8Array)): [GLib.Bytes, number]
             /**
              * Configures @extension with the given @params.
              * @throws {GLib.Error}
@@ -4751,7 +4797,7 @@ declare module "gi://Soup?version=3.0" {
              * @param payload the payload data
              * @returns the message payload data, or %NULL in case of error, the message header
              */
-            vfunc_process_incoming_message(payload: GLib.Bytes): [GLib.Bytes, number]
+            vfunc_process_incoming_message(payload: (GLib.Bytes | Uint8Array)): [GLib.Bytes, number]
             /**
              * Process a message before it's sent.
              *
@@ -4764,16 +4810,24 @@ declare module "gi://Soup?version=3.0" {
              * @param payload the payload data
              * @returns the message payload data, or %NULL in case of error, the message header
              */
-            vfunc_process_outgoing_message(payload: GLib.Bytes): [GLib.Bytes, number]
+            vfunc_process_outgoing_message(payload: (GLib.Bytes | Uint8Array)): [GLib.Bytes, number]
         }
 
         interface WebsocketExtensionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebsocketExtension>
             readonly prototype: WebsocketExtension
+
             new (props?: Partial<GObject.ConstructorProps<WebsocketExtension>>): WebsocketExtension
         }
 
-        const WebsocketExtension: WebsocketExtensionClass
+        interface $Exports {
+            /**
+             * A WebSocket extension
+             *
+             * [class@WebsocketExtension] is the base class for WebSocket extension objects.
+             */
+            WebsocketExtension: WebsocketExtensionClass
+        }
         
 
         namespace WebsocketExtensionDeflate {
@@ -4790,13 +4844,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * A SoupWebsocketExtensionDeflate is a [class@WebsocketExtension]
-         * implementing permessage-deflate (RFC 7692).
-         *
-         * This extension is used by default in a [class@Session] when [class@WebsocketExtensionManager]
-         * feature is present, and always used by [class@Server].
-         */
         interface WebsocketExtensionDeflate extends WebsocketExtension {
             readonly $signals: WebsocketExtensionDeflate.SignalSignatures
             readonly $readableProperties: WebsocketExtensionDeflate.ReadableProperties
@@ -4807,10 +4854,20 @@ declare module "gi://Soup?version=3.0" {
         interface WebsocketExtensionDeflateClass extends Omit<WebsocketExtensionClass, "new"> {
             readonly $gtype: GObject.GType<WebsocketExtensionDeflate>
             readonly prototype: WebsocketExtensionDeflate
+
             new (props?: Partial<GObject.ConstructorProps<WebsocketExtensionDeflate>>): WebsocketExtensionDeflate
         }
 
-        const WebsocketExtensionDeflate: WebsocketExtensionDeflateClass
+        interface $Exports {
+            /**
+             * A SoupWebsocketExtensionDeflate is a [class@WebsocketExtension]
+             * implementing permessage-deflate (RFC 7692).
+             *
+             * This extension is used by default in a [class@Session] when [class@WebsocketExtensionManager]
+             * feature is present, and always used by [class@Server].
+             */
+            WebsocketExtensionDeflate: WebsocketExtensionDeflateClass
+        }
         
 
         namespace WebsocketExtensionManager {
@@ -4827,16 +4884,6 @@ declare module "gi://Soup?version=3.0" {
             }
         }
 
-        /**
-         * SoupWebsocketExtensionManager is the [iface@SessionFeature] that handles WebSockets
-         * extensions for a [class@Session].
-         *
-         * A [class@WebsocketExtensionManager] is added to the session by default, and normally
-         * you don't need to worry about it at all. However, if you want to
-         * disable WebSocket extensions, you can remove the feature from the
-         * session with [method@Session.remove_feature_by_type] or disable it on
-         * individual requests with [method@Message.disable_feature].
-         */
         interface WebsocketExtensionManager extends GObject.Object, SessionFeature {
             readonly $signals: WebsocketExtensionManager.SignalSignatures
             readonly $readableProperties: WebsocketExtensionManager.ReadableProperties
@@ -4847,48 +4894,74 @@ declare module "gi://Soup?version=3.0" {
         interface WebsocketExtensionManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebsocketExtensionManager>
             readonly prototype: WebsocketExtensionManager
+
             new (props?: Partial<GObject.ConstructorProps<WebsocketExtensionManager>>): WebsocketExtensionManager
         }
 
-        const WebsocketExtensionManager: WebsocketExtensionManagerClass
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Implements HTTP cookies, as described by
-         * [RFC 6265](http://tools.ietf.org/html/rfc6265.txt).
-         *
-         * To have a [class@Session] handle cookies for your appliction
-         * automatically, use a [class@CookieJar].
-         *
-         * @name and @value will be set for all cookies. If the cookie is
-         * generated from a string that appears to have no name, then @name
-         * will be the empty string.
-         *
-         * @domain and @path give the host or domain, and path within that
-         * host/domain, to restrict this cookie to. If @domain starts with
-         * ".", that indicates a domain (which matches the string after the
-         * ".", or any hostname that has @domain as a suffix). Otherwise, it
-         * is a hostname and must match exactly.
-         *
-         * @expires will be non-%NULL if the cookie uses either the original
-         * "expires" attribute, or the newer "max-age" attribute. If @expires
-         * is %NULL, it indicates that neither "expires" nor "max-age" was
-         * specified, and the cookie expires at the end of the session.
-         *
-         * If @http_only is set, the cookie should not be exposed to untrusted
-         * code (eg, javascript), so as to minimize the danger posed by
-         * cross-site scripting attacks.
-         */
-        abstract class Cookie {
-            static readonly $gtype: GObject.GType<Cookie>
+        interface $Exports {
+            /**
+             * SoupWebsocketExtensionManager is the [iface@SessionFeature] that handles WebSockets
+             * extensions for a [class@Session].
+             *
+             * A [class@WebsocketExtensionManager] is added to the session by default, and normally
+             * you don't need to worry about it at all. However, if you want to
+             * disable WebSocket extensions, you can remove the feature from the
+             * session with [method@Session.remove_feature_by_type] or disable it on
+             * individual requests with [method@Message.disable_feature].
+             */
+            WebsocketExtensionManager: WebsocketExtensionManagerClass
+        }
+        
 
-            
+        namespace SessionFeature {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface SessionFeature extends GObject.Object, SessionFeature.Interface {
+            readonly $signals: SessionFeature.SignalSignatures
+            readonly $readableProperties: SessionFeature.ReadableProperties
+            readonly $writableProperties: SessionFeature.WritableProperties
+            readonly $constructOnlyProperties: SessionFeature.ConstructOnlyProperties
+        }
+
+        interface SessionFeatureInterface {
+            readonly $gtype: GObject.GType<SessionFeature>
+            readonly prototype: SessionFeature
+            [Symbol.hasInstance](instance: unknown): instance is SessionFeature
+        }
+
+        interface $Exports {
+            /**
+             * Interface for miscellaneous [class@Session] features.
+             *
+             * [iface@SessionFeature] is the interface used by classes that extend
+             * the functionality of a [class@Session]. Some features like HTTP
+             * authentication handling are implemented internally via
+             * [iface@SessionFeature]s. Other features can be added to the session
+             * by the application. (Eg, [class@Logger], [class@CookieJar].)
+             *
+             * See [method@Session.add_feature], etc, to add a feature to a session.
+             */
+            SessionFeature: SessionFeatureInterface
+        }
+        
+
+        interface CookieStruct {
+            readonly $gtype: GObject.GType<Cookie>
+            [Symbol.hasInstance](instance: unknown): instance is Cookie
             /**
              * Creates a new [struct@Cookie] with the given attributes.
              *
@@ -4918,7 +4991,7 @@ declare module "gi://Soup?version=3.0" {
              * @param max_age max age of the cookie, or -1 for a session cookie
              * @returns a new #SoupCookie.
              */
-            static "new"(name: string, value: string, domain: string, path: string, max_age: number): Cookie
+            "new"(name: string, value: string, domain: string, path: string, max_age: number): Cookie
             /**
              * Parses @header and returns a [struct@Cookie].
              *
@@ -4937,7 +5010,10 @@ declare module "gi://Soup?version=3.0" {
              * @param origin origin of the cookie
              * @returns a new #SoupCookie, or %NULL if it could   not be parsed, or contained an illegal "domain" attribute for a   cookie originating from `origin`.
              */
-            static parse(header: string, origin: GLib.Uri | null): Cookie | null
+            parse(header: string, origin: GLib.Uri | null): Cookie | null
+        }
+
+        interface Cookie {
             /**
              * Tests if @cookie should be sent to @uri.
              *
@@ -5097,34 +5173,15 @@ declare module "gi://Soup?version=3.0" {
              */
             to_set_cookie_header(): string
         }
-        none
-        none
-        none
-        none
-        none
-        /**
-         * [struct@HSTSPolicy] implements HTTP policies, as described by
-         * [RFC 6797](http://tools.ietf.org/html/rfc6797).
-         *
-         * @domain represents the host that this policy applies to. The domain
-         * must be IDNA-canonicalized. [ctor@HSTSPolicy.new] and related methods
-         * will do this for you.
-         *
-         * @max_age contains the 'max-age' value from the Strict Transport
-         * Security header and indicates the time to live of this policy,
-         * in seconds.
-         *
-         * @expires will be non-%NULL if the policy has been set by the host and
-         * hence has an expiry time. If @expires is %NULL, it indicates that the
-         * policy is a permanent session policy set by the user agent.
-         *
-         * If @include_subdomains is %TRUE, the Strict Transport Security policy
-         * must also be enforced on subdomains of @domain.
-         */
-        abstract class HSTSPolicy {
-            static readonly $gtype: GObject.GType<HSTSPolicy>
 
-            
+        interface $Exports {
+            Cookie: CookieStruct
+        }
+        
+
+        interface HSTSPolicyStruct {
+            readonly $gtype: GObject.GType<HSTSPolicy>
+            [Symbol.hasInstance](instance: unknown): instance is HSTSPolicy
             /**
              * Creates a new [struct@HSTSPolicy] with the given attributes.
              *
@@ -5142,14 +5199,14 @@ declare module "gi://Soup?version=3.0" {
              * @param include_subdomains %TRUE if the policy applies on subdomains
              * @returns a new #SoupHSTSPolicy.
              */
-            static "new"(domain: string, max_age: number, include_subdomains: boolean): HSTSPolicy
+            "new"(domain: string, max_age: number, include_subdomains: boolean): HSTSPolicy
             /**
              * Parses @msg's first "Strict-Transport-Security" response header and
              * returns a [struct@HSTSPolicy].
              * @param msg a #SoupMessage
              * @returns a new #SoupHSTSPolicy, or %NULL if no valid   "Strict-Transport-Security" response header was found.
              */
-            static new_from_response(msg: Message): HSTSPolicy | null
+            new_from_response(msg: Message): HSTSPolicy | null
             /**
              * Full version of [ctor@HSTSPolicy.new], to use with an existing
              * expiration date.
@@ -5161,7 +5218,7 @@ declare module "gi://Soup?version=3.0" {
              * @param include_subdomains %TRUE if the policy applies on subdomains
              * @returns a new #SoupHSTSPolicy.
              */
-            static new_full(domain: string, max_age: number, expires: GLib.DateTime, include_subdomains: boolean): HSTSPolicy
+            new_full(domain: string, max_age: number, expires: GLib.DateTime, include_subdomains: boolean): HSTSPolicy
             /**
              * Creates a new session [struct@HSTSPolicy] with the given attributes.
              *
@@ -5180,7 +5237,10 @@ declare module "gi://Soup?version=3.0" {
              * @param include_subdomains %TRUE if the policy applies on sub domains
              * @returns a new #SoupHSTSPolicy.
              */
-            static new_session_policy(domain: string, include_subdomains: boolean): HSTSPolicy
+            new_session_policy(domain: string, include_subdomains: boolean): HSTSPolicy
+        }
+
+        interface HSTSPolicy {
             /**
              * Copies @policy.
              * @returns a copy of `policy`
@@ -5231,26 +5291,15 @@ declare module "gi://Soup?version=3.0" {
              */
             is_session_policy(): boolean
         }
-        none
-        /**
-         * [struct@MessageBody] represents the request or response body of a
-         * [class@Message].
-         *
-         * Note that while @length always reflects the full length of the
-         * message body, @data is normally %NULL, and will only be filled in
-         * after [method@MessageBody.flatten] is called. For client-side
-         * messages, this automatically happens for the response body after it
-         * has been fully read. Likewise, for server-side
-         * messages, the request body is automatically filled in after being
-         * read.
-         *
-         * As an added bonus, when @data is filled in, it is always terminated
-         * with a `\0` byte (which is not reflected in @length).
-         */
-        abstract class MessageBody {
-            static readonly $gtype: GObject.GType<MessageBody>
 
-            
+        interface $Exports {
+            HSTSPolicy: HSTSPolicyStruct
+        }
+        
+
+        interface MessageBodyStruct {
+            readonly $gtype: GObject.GType<MessageBody>
+            [Symbol.hasInstance](instance: unknown): instance is MessageBody
             /**
              * Creates a new [struct@MessageBody]
              *
@@ -5258,7 +5307,10 @@ declare module "gi://Soup?version=3.0" {
              * will not normally need to call it yourself.
              * @returns a new #SoupMessageBody.
              */
-            static "new"(): MessageBody
+            "new"(): MessageBody
+        }
+
+        interface MessageBody {
             /**
              * the data
              */
@@ -5277,17 +5329,16 @@ declare module "gi://Soup?version=3.0" {
              * Appends the data from @buffer to @body.
              * @param buffer a #GBytes
              */
-            append_bytes(buffer: GLib.Bytes): void
+            append_bytes(buffer: (GLib.Bytes | Uint8Array)): void
             /**
              * Appends @length bytes from @data to @body.
              *
              * This function is exactly equivalent to [method@MessageBody.append]
              * with %SOUP_MEMORY_TAKE as second argument; it exists mainly for
              * convenience and simplifying language bindings.
-             * @override
              * @param data data to append
              */
-            append_take(data: Uint8Array): void
+            append(data: Uint8Array): void
             /**
              * Tags @body as being complete.
              *
@@ -5343,7 +5394,7 @@ declare module "gi://Soup?version=3.0" {
              * use.
              * @param chunk a #GBytes received from the network
              */
-            got_chunk(chunk: GLib.Bytes): void
+            got_chunk(chunk: (GLib.Bytes | Uint8Array)): void
             /**
              * Atomically increments the reference count of @body by one.
              * @returns the passed in #SoupMessageBody
@@ -5389,16 +5440,17 @@ declare module "gi://Soup?version=3.0" {
              * documented here.
              * @param chunk a #GBytes returned from [method@MessageBody.get_chunk]
              */
-            wrote_chunk(chunk: GLib.Bytes): void
+            wrote_chunk(chunk: (GLib.Bytes | Uint8Array)): void
         }
-        none
-        /**
-         * The HTTP message headers associated with a request or response.
-         */
-        abstract class MessageHeaders {
-            static readonly $gtype: GObject.GType<MessageHeaders>
 
-            
+        interface $Exports {
+            MessageBody: MessageBodyStruct
+        }
+        
+
+        interface MessageHeadersStruct {
+            readonly $gtype: GObject.GType<MessageHeaders>
+            [Symbol.hasInstance](instance: unknown): instance is MessageHeaders
             /**
              * Creates a [struct@MessageHeaders].
              *
@@ -5408,7 +5460,10 @@ declare module "gi://Soup?version=3.0" {
              * @param type the type of headers
              * @returns a new #SoupMessageHeaders
              */
-            static "new"(type: MessageHeadersType): MessageHeaders
+            "new"(type: MessageHeadersType): MessageHeaders
+        }
+
+        interface MessageHeaders {
             /**
              * Appends a new header with name @name and value @value to @hdrs.
              *
@@ -5486,7 +5541,7 @@ declare module "gi://Soup?version=3.0" {
              * was specified as "*", then @total_length will be set to -1.
              * @returns %TRUE if `hdrs` contained a "Content-Range" header   containing a byte range which could be parsed, %FALSE otherwise., return value for the start of the range, return value for the end of the range, return value for the total length of the   resource, or %NULL if you don't care.
              */
-            get_content_range(): [boolean, number, number]
+            get_content_range(): [boolean, number, number, number]
             /**
              * Looks up the "Content-Type" header in @hdrs, parses it, and returns
              * its value in *@content_type and *@params.
@@ -5494,7 +5549,7 @@ declare module "gi://Soup?version=3.0" {
              * @params can be %NULL if you are only interested in the content type itself.
              * @returns a string with the value of the   "Content-Type" header or %NULL if `hdrs` does not contain that   header or it cannot be parsed (in which case *@params will be   unchanged).,    return location for the Content-Type parameters (eg, "charset"), or   %NULL
              */
-            get_content_type(): string | null
+            get_content_type(): [string | null, Record<string, string>]
             /**
              * Gets the message body encoding that @hdrs declare.
              *
@@ -5722,24 +5777,21 @@ declare module "gi://Soup?version=3.0" {
              */
             unref(): void
         }
-        /**
-         * An opaque type used to iterate over a [struct@MessageHeaders] structure
-         *
-         * After intializing the iterator with [func@MessageHeadersIter.init], call
-         * [func@MessageHeadersIter.next] to fetch data from it.
-         *
-         * You may not modify the headers while iterating over them.
-         */
-        abstract class MessageHeadersIter {
-            static readonly $gtype: GObject.GType<MessageHeadersIter>
 
-            
+        interface $Exports {
+            MessageHeaders: MessageHeadersStruct
+        }
+        
+
+        interface MessageHeadersIterStruct {
+            readonly $gtype: GObject.GType<MessageHeadersIter>
+            [Symbol.hasInstance](instance: unknown): instance is MessageHeadersIter
             /**
              * Initializes @iter for iterating @hdrs.
              * @param hdrs a #SoupMessageHeaders
              * @returns , a pointer to a #SoupMessageHeadersIter structure
              */
-            static init(hdrs: MessageHeaders): MessageHeadersIter
+            init(hdrs: MessageHeaders): MessageHeadersIter
             /**
              * Yields the next name/value pair in the [struct@MessageHeaders] being
              * iterated by @iter.
@@ -5749,28 +5801,23 @@ declare module "gi://Soup?version=3.0" {
              * will be unchanged.
              * @returns %TRUE if another name and value were returned, %FALSE   if the end of the headers has been reached., a #SoupMessageHeadersIter, pointer to a variable to return   the header name in, pointer to a variable to return   the header value in
              */
-            static next(): [boolean, MessageHeadersIter, string, string]
+            next(): [boolean, MessageHeadersIter, string, string]
         }
-        /**
-         * Contains metrics collected while loading a [class@Message] either from the
-         * network or the disk cache.
-         *
-         * Metrics are not collected by default for a [class@Message], you need to add the
-         * flag %SOUP_MESSAGE_COLLECT_METRICS to enable the feature.
-         *
-         * Temporal metrics are expressed as a monotonic time and always start with a
-         * fetch start event and finish with response end. All other events are optional.
-         * An event can be 0 because it hasn't happened yet, because it's optional or
-         * because the load failed before the event reached.
-         *
-         * Size metrics are expressed in bytes and are updated while the [class@Message] is
-         * being loaded. You can connect to different [class@Message] signals to get the
-         * final result of every value.
-         */
-        abstract class MessageMetrics {
-            static readonly $gtype: GObject.GType<MessageMetrics>
 
-            
+        interface MessageHeadersIter {
+        }
+
+        interface $Exports {
+            MessageHeadersIter: MessageHeadersIterStruct
+        }
+        
+
+        interface MessageMetricsStruct {
+            readonly $gtype: GObject.GType<MessageMetrics>
+            [Symbol.hasInstance](instance: unknown): instance is MessageMetrics
+        }
+
+        interface MessageMetrics {
             /**
              * Copies @metrics.
              * @returns a copy of `metrics`
@@ -5916,24 +5963,15 @@ declare module "gi://Soup?version=3.0" {
              */
             get_tls_start(): number
         }
-        /**
-         * Represents a multipart HTTP message body, parsed according to the
-         * syntax of RFC 2046.
-         *
-         * Of particular interest to HTTP are `multipart/byte-ranges` and
-         * `multipart/form-data`,
-         *
-         * Although the headers of a [struct@Multipart] body part will contain the
-         * full headers from that body part, libsoup does not interpret them
-         * according to MIME rules. For example, each body part is assumed to
-         * have "binary" Content-Transfer-Encoding, even if its headers
-         * explicitly state otherwise. In other words, don't try to use
-         * [struct@Multipart] for handling real MIME multiparts.
-         */
-        abstract class Multipart {
-            static readonly $gtype: GObject.GType<Multipart>
 
-            
+        interface $Exports {
+            MessageMetrics: MessageMetricsStruct
+        }
+        
+
+        interface MultipartStruct {
+            readonly $gtype: GObject.GType<Multipart>
+            [Symbol.hasInstance](instance: unknown): instance is Multipart
             /**
              * Creates a new empty [struct@Multipart] with a randomly-generated
              * boundary string.
@@ -5944,14 +5982,17 @@ declare module "gi://Soup?version=3.0" {
              * @param mime_type the MIME type of the multipart to create.
              * @returns a new empty #SoupMultipart of the given `mime_type`
              */
-            static "new"(mime_type: string): Multipart
+            "new"(mime_type: string): Multipart
             /**
              * Parses @headers and @body to form a new [struct@Multipart]
              * @param headers the headers of the HTTP message to parse
              * @param body the body of the HTTP message to parse
              * @returns a new #SoupMultipart (or %NULL if the   message couldn't be parsed or wasn't multipart).
              */
-            static new_from_message(headers: MessageHeaders, body: GLib.Bytes): Multipart | null
+            new_from_message(headers: MessageHeaders, body: (GLib.Bytes | Uint8Array)): Multipart | null
+        }
+
+        interface Multipart {
             /**
              * Adds a new MIME part containing @body to @multipart
              *
@@ -5961,7 +6002,7 @@ declare module "gi://Soup?version=3.0" {
              * @param content_type the MIME type of the file, or %NULL if not known
              * @param body the file data
              */
-            append_form_file(control_name: string, filename: string | null, content_type: string | null, body: GLib.Bytes): void
+            append_form_file(control_name: string, filename: string | null, content_type: string | null, body: (GLib.Bytes | Uint8Array)): void
             /**
              * Adds a new MIME part containing @data to @multipart.
              *
@@ -5979,7 +6020,7 @@ declare module "gi://Soup?version=3.0" {
              * @param headers the MIME part headers
              * @param body the MIME part body
              */
-            append_part(headers: MessageHeaders, body: GLib.Bytes): void
+            append_part(headers: MessageHeaders, body: (GLib.Bytes | Uint8Array)): void
             /**
              * Frees @multipart.
              */
@@ -6002,27 +6043,18 @@ declare module "gi://Soup?version=3.0" {
              */
             to_message(dest_headers: MessageHeaders): GLib.Bytes
         }
-        none
-        /**
-         * Represents a byte range as used in the Range header.
-         *
-         * If @end is non-negative, then @start and @end represent the bounds
-         * of of the range, counting from 0. (Eg, the first 500 bytes would be
-         * represented as @start = 0 and @end = 499.)
-         *
-         * If @end is -1 and @start is non-negative, then this represents a
-         * range starting at @start and ending with the last byte of the
-         * requested resource body. (Eg, all but the first 500 bytes would be
-         * @start = 500, and @end = -1.)
-         *
-         * If @end is -1 and @start is negative, then it represents a "suffix
-         * range", referring to the last -@start bytes of the resource body.
-         * (Eg, the last 500 bytes would be @start = -500 and @end = -1.)
-         */
-        abstract class Range {
-            static readonly $gtype: GObject.GType<Range>
 
-            
+        interface $Exports {
+            Multipart: MultipartStruct
+        }
+        
+
+        interface RangeStruct {
+            readonly $gtype: GObject.GType<Range>
+            [Symbol.hasInstance](instance: unknown): instance is Range
+        }
+
+        interface Range {
             /**
              * the start of the range
              */
@@ -6032,623 +6064,41 @@ declare module "gi://Soup?version=3.0" {
              */
             end: number
         }
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Like [func@CHECK_VERSION], but the check for soup_check_version is
-         * at runtime instead of compile time.
-         *
-         * This is useful for compiling against older versions of libsoup, but using
-         * features from newer versions.
-         * @param major the major version to check
-         * @param minor the minor version to check
-         * @param micro the micro version to check
-         * @returns %TRUE if the version of the libsoup currently loaded   is the same as or newer than the passed-in version.
-         */
-        function check_version(major: number, minor: number, micro: number): boolean
-        /**
-         * Parses @header and returns a [struct@Cookie].
-         *
-         * If @header contains multiple cookies, only the first one will be parsed.
-         *
-         * If @header does not have "path" or "domain" attributes, they will
-         * be defaulted from @origin. If @origin is %NULL, path will default
-         * to "/", but domain will be left as %NULL. Note that this is not a
-         * valid state for a [struct@Cookie], and you will need to fill in some
-         * appropriate string for the domain if you want to actually make use
-         * of the cookie.
-         *
-         * As of version 3.4.0 the default value of a cookie's same-site-policy
-         * is %SOUP_SAME_SITE_POLICY_LAX.
-         * @param header a cookie string (eg, the value of a Set-Cookie header)
-         * @param origin origin of the cookie
-         * @returns a new #SoupCookie, or %NULL if it could   not be parsed, or contained an illegal "domain" attribute for a   cookie originating from `origin`.
-         */
-        function cookie_parse(header: string, origin: GLib.Uri | null): Cookie | null
-        none
-        /**
-         * Parses @msg's Cookie request header and returns a [struct@GLib.SList] of
-         * `SoupCookie`s.
-         *
-         * As the "Cookie" header, unlike "Set-Cookie", only contains cookie names and
-         * values, none of the other [struct@Cookie] fields will be filled in. (Thus, you
-         * can't generally pass a cookie returned from this method directly to
-         * [func@cookies_to_response].)
-         * @param msg a #SoupMessage containing a "Cookie" request header
-         * @returns a #GSList of   `SoupCookie`s, which can be freed with [method@Cookie.free].
-         */
-        function cookies_from_request(msg: Message): Cookie[]
-        /**
-         * Parses @msg's Set-Cookie response headers and returns a [struct@GLib.SList]
-         * of `SoupCookie`s.
-         *
-         * Cookies that do not specify "path" or "domain" attributes will have their
-         * values defaulted from @msg.
-         * @param msg a #SoupMessage containing a "Set-Cookie" response header
-         * @returns a #GSList of   `SoupCookie`s, which can be freed with [method@Cookie.free].
-         */
-        function cookies_from_response(msg: Message): Cookie[]
-        /**
-         * Serializes a [struct@GLib.SList] of [struct@Cookie] into a string suitable for
-         * setting as the value of the "Cookie" header.
-         * @param cookies a #GSList of [struct@Cookie]
-         * @returns the serialization of `cookies`
-         */
-        function cookies_to_cookie_header(cookies: Cookie[]): string
-        /**
-         * Adds the name and value of each cookie in @cookies to @msg's
-         * "Cookie" request.
-         *
-         * If @msg already has a "Cookie" request header, these cookies will be appended
-         * to the cookies already present. Be careful that you do not append the same
-         * cookies twice, eg, when requeuing a message.
-         * @param cookies a #GSList of [struct@Cookie]
-         * @param msg a #SoupMessage
-         */
-        function cookies_to_request(cookies: Cookie[], msg: Message): void
-        /**
-         * Appends a "Set-Cookie" response header to @msg for each cookie in
-         * @cookies.
-         *
-         * This is in addition to any other "Set-Cookie" headers
-         * @msg may already have.
-         * @param cookies a #GSList of [struct@Cookie]
-         * @param msg a #SoupMessage
-         */
-        function cookies_to_response(cookies: Cookie[], msg: Message): void
-        /**
-         * Parses @date_string and tries to extract a date from it.
-         *
-         * This recognizes all of the "HTTP-date" formats from RFC 2616, RFC 2822 dates,
-         * and reasonable approximations thereof. (Eg, it is lenient about whitespace,
-         * leading "0"s, etc.)
-         * @param date_string The date as a string
-         * @returns a new #GDateTime, or %NULL if `date_string`   could not be parsed.
-         */
-        function date_time_new_from_http_string(date_string: string): GLib.DateTime | null
-        /**
-         * Converts @date to a string in the format described by @format.
-         * @param date a #GDateTime
-         * @param format the format to generate the date in
-         * @returns  `date` as a string or %NULL
-         */
-        function date_time_to_string(date: GLib.DateTime, format: DateFormat): string
-        /**
-         * Decodes @form.
-         *
-         * which is an urlencoded dataset as defined in the HTML 4.01 spec.
-         * @param encoded_form data of type "application/x-www-form-urlencoded"
-         * @returns a hash   table containing the name/value pairs from `encoded_form`, which you   can free with [func@GLib.HashTable.destroy].
-         */
-        function form_decode(encoded_form: string): Record<string, string>
-        /**
-         * Decodes the "multipart/form-data" request in @multipart.
-         *
-         * this is a convenience method for the case when you have a single file upload
-         * control in a form. (Or when you don't have any file upload controls, but are
-         * still using "multipart/form-data" anyway.) Pass the name of the file upload
-         * control in @file_control_name, and [func@form_decode_multipart] will extract
-         * the uploaded file data into @filename, @content_type, and @file. All of the
-         * other form control data will be returned (as strings, as with
-         * [func@form_decode] in the returned [struct@GLib.HashTable].
-         *
-         * You may pass %NULL for @filename, @content_type and/or @file if you do not
-         * care about those fields. [func@form_decode_multipart] may also
-         * return %NULL in those fields if the client did not provide that
-         * information. You must free the returned filename and content-type
-         * with [func@GLib.free], and the returned file data with [method@Glib.Bytes.unref].
-         *
-         * If you have a form with more than one file upload control, you will
-         * need to decode it manually, using [ctor@Multipart.new_from_message]
-         * and [method@Multipart.get_part].
-         * @param multipart a #SoupMultipart
-         * @param file_control_name the name of the HTML file upload control
-         * @returns    a hash table containing the name/value pairs (other than   `file_control_name`) from `msg`, which you can free with   [func@GLib.HashTable.destroy]. On error, it will return %NULL., return location for the name of the uploaded file, return location for the MIME type of the uploaded file, return location for the uploaded file data
-         */
-        function form_decode_multipart(multipart: Multipart, file_control_name: string | null): Record<string, string> | null
-        none
-        /**
-         * Encodes @form_data_set into a value of type
-         * "application/x-www-form-urlencoded".
-         *
-         * Encodes as defined in the HTML 4.01 spec. Unlike [func@form_encode_hash],
-         * this preserves the ordering of the form elements, which may be required in
-         * some situations.
-         *
-         * See also: [ctor@Message.new_from_encoded_form].
-         * @param form_data_set a datalist containing name/value pairs
-         * @returns the encoded form
-         */
-        function form_encode_datalist(form_data_set: GLib.Data): string
-        /**
-         * Encodes @form_data_set into a value of type
-         * "application/x-www-form-urlencoded".
-         *
-         * Encodes as defined in the HTML 4.01 spec.
-         *
-         * Note that the HTML spec states that "The control names/values are
-         * listed in the order they appear in the document." Since this method
-         * takes a hash table, it cannot enforce that; if you care about the
-         * ordering of the form fields, use [func@form_encode_datalist].
-         *
-         * See also: [ctor@Message.new_from_encoded_form].
-         * @param form_data_set a hash table containing
-          name/value pairs (as strings)
-         * @returns the encoded form
-         */
-        function form_encode_hash(form_data_set: Record<string, string>): string
-        none
-        /**
-         * Returns the major version number of the libsoup library.
-         *
-         * e.g. in libsoup version 2.42.0 this is 2.
-         *
-         * This function is in the library, so it represents the libsoup library
-         * your code is running against. Contrast with the #SOUP_MAJOR_VERSION
-         * macro, which represents the major version of the libsoup headers you
-         * have included when compiling your code.
-         * @returns the major version number of the libsoup library
-         */
-        function get_major_version(): number
-        /**
-         * Returns the micro version number of the libsoup library.
-         *
-         * e.g. in libsoup version 2.42.0 this is 0.
-         *
-         * This function is in the library, so it represents the libsoup library
-         * your code is running against. Contrast with the #SOUP_MICRO_VERSION
-         * macro, which represents the micro version of the libsoup headers you
-         * have included when compiling your code.
-         * @returns the micro version number of the libsoup library
-         */
-        function get_micro_version(): number
-        /**
-         * Returns the minor version number of the libsoup library.
-         *
-         * e.g. in libsoup version 2.42.0 this is 42.
-         *
-         * This function is in the library, so it represents the libsoup library
-         * your code is running against. Contrast with the #SOUP_MINOR_VERSION
-         * macro, which represents the minor version of the libsoup headers you
-         * have included when compiling your code.
-         * @returns the minor version number of the libsoup library
-         */
-        function get_minor_version(): number
-        /**
-         * Parses @header to see if it contains the token @token (matched
-         * case-insensitively).
-         *
-         * Note that this can't be used with lists that have qvalues.
-         * @param header An HTTP header suitable for parsing with
-          [func@header_parse_list]
-         * @param token a token
-         * @returns whether or not `header` contains `token`
-         */
-        function header_contains(header: string, token: string): boolean
-        /**
-         * Parses @header to see if it contains the token @token (matched
-         * case-sensitively).
-         *
-         * Note that this can't be used with lists that have qvalues.
-         * @since 3.8
-         * @param header An HTTP header suitable for parsing with
-          [func@header_parse_list]
-         * @param token a token
-         * @returns whether or not `header` contains `token`
-         */
-        function header_contains_case_sensitive(header: string, token: string): boolean
-        none
-        /**
-         * Frees @param_list.
-         * @param param_list a #GHashTable returned from
-          [func@header_parse_param_list] or [func@header_parse_semi_param_list]
-         */
-        function header_free_param_list(param_list: Record<string, string>): void
-        /**
-         * Appends something like `name=value` to @string, taking care to quote @value
-         * if needed, and if so, to escape any quotes or backslashes in @value.
-         *
-         * Alternatively, if @value is a non-ASCII UTF-8 string, it will be
-         * appended using RFC5987 syntax. Although in theory this is supposed
-         * to work anywhere in HTTP that uses this style of parameter, in
-         * reality, it can only be used portably with the Content-Disposition
-         * "filename" parameter.
-         *
-         * If @value is %NULL, this will just append @name to @string.
-         * @param string a #GString being used to construct an HTTP header value
-         * @param name a parameter name
-         * @param value a parameter value, or %NULL
-         */
-        function header_g_string_append_param(string: GLib.String, name: string, value: string | null): void
-        /**
-         * Appends something like `name="value"` to
-         * @string, taking care to escape any quotes or backslashes in @value.
-         *
-         * If @value is (non-ASCII) UTF-8, this will instead use RFC 5987
-         * encoding, just like [func@header_g_string_append_param].
-         * @param string a #GString being used to construct an HTTP header value
-         * @param name a parameter name
-         * @param value a parameter value
-         */
-        function header_g_string_append_param_quoted(string: GLib.String, name: string, value: string): void
-        /**
-         * Parses a header whose content is described by RFC2616 as `#something`.
-         *
-         * "something" does not itself contain commas, except as part of quoted-strings.
-         * @param header a header value
-         * @returns a #GSList of   list elements, as allocated strings
-         */
-        function header_parse_list(header: string): string[]
-        /**
-         * Parses a header which is a comma-delimited list of something like:
-         * `token [ "=" ( token | quoted-string ) ]`.
-         *
-         * Tokens that don't have an associated value will still be added to
-         * the resulting hash table, but with a %NULL value.
-         *
-         * This also handles RFC5987 encoding (which in HTTP is mostly used
-         * for giving UTF8-encoded filenames in the Content-Disposition
-         * header).
-         * @param header a header value
-         * @returns a   #GHashTable of list elements, which can be freed with   [func@header_free_param_list].
-         */
-        function header_parse_param_list(header: string): Record<string, string>
-        /**
-         * A strict version of [func@header_parse_param_list]
-         * that bails out if there are duplicate parameters.
-         *
-         * Note that this function will treat RFC5987-encoded
-         * parameters as duplicated if an ASCII version is also
-         * present. For header fields that might contain
-         * RFC5987-encoded parameters, use
-         * [func@header_parse_param_list] instead.
-         * @param header a header value
-         * @returns    a #GHashTable of list elements, which can be freed with   [func@header_free_param_list] or %NULL if there are duplicate   elements.
-         */
-        function header_parse_param_list_strict(header: string): Record<string, string> | null
-        /**
-         * Parses a header whose content is a list of items with optional
-         * "qvalue"s (eg, Accept, Accept-Charset, Accept-Encoding,
-         * Accept-Language, TE).
-         *
-         * If @unacceptable is not %NULL, then on return, it will contain the
-         * items with qvalue 0. Either way, those items will be removed from
-         * the main list.
-         * @param header a header value
-         * @returns a #GSList of   acceptable values (as allocated strings), highest-qvalue first., on   return, will contain a list of unacceptable values
-         */
-        function header_parse_quality_list(header: string): string[]
-        /**
-         * Parses a header which is a semicolon-delimited list of something
-         * like: `token [ "=" ( token | quoted-string ) ]`.
-         *
-         * Tokens that don't have an associated value will still be added to
-         * the resulting hash table, but with a %NULL value.
-         *
-         * This also handles RFC5987 encoding (which in HTTP is mostly used
-         * for giving UTF8-encoded filenames in the Content-Disposition
-         * header).
-         * @param header a header value
-         * @returns a   #GHashTable of list elements, which can be freed with   [func@header_free_param_list].
-         */
-        function header_parse_semi_param_list(header: string): Record<string, string>
-        /**
-         * A strict version of [func@header_parse_semi_param_list]
-         * that bails out if there are duplicate parameters.
-         *
-         * Note that this function will treat RFC5987-encoded
-         * parameters as duplicated if an ASCII version is also
-         * present. For header fields that might contain
-         * RFC5987-encoded parameters, use
-         * [func@header_parse_semi_param_list] instead.
-         * @param header a header value
-         * @returns    a #GHashTable of list elements, which can be freed with   [func@header_free_param_list] or %NULL if there are duplicate   elements.
-         */
-        function header_parse_semi_param_list_strict(header: string): Record<string, string> | null
-        /**
-         * Parses the headers of an HTTP request or response in @str and
-         * stores the results in @dest.
-         *
-         * Beware that @dest may be modified even on failure.
-         *
-         * This is a low-level method; normally you would use
-         * [func@headers_parse_request] or [func@headers_parse_response].
-         * @param str the header string (including the Request-Line or Status-Line,
-          but not the trailing blank line)
-         * @param len length of @str
-         * @param dest #SoupMessageHeaders to store the header values in
-         * @returns success or failure
-         */
-        function headers_parse(str: string, len: number, dest: MessageHeaders): boolean
-        /**
-         * Parses the headers of an HTTP request in @str and stores the
-         * results in @req_method, @req_path, @ver, and @req_headers.
-         *
-         * Beware that @req_headers may be modified even on failure.
-         * @param str the headers (up to, but not including, the trailing blank line)
-         * @param len length of @str
-         * @param req_headers #SoupMessageHeaders to store the header values in
-         * @returns %SOUP_STATUS_OK if the headers could be parsed, or an   HTTP error to be returned to the client if they could not be., if non-%NULL, will be filled in with the   request method, if non-%NULL, will be filled in with the   request path, if non-%NULL, will be filled in with the HTTP   version
-         */
-        function headers_parse_request(str: string, len: number, req_headers: MessageHeaders): number
-        /**
-         * Parses the headers of an HTTP response in @str and stores the
-         * results in @ver, @status_code, @reason_phrase, and @headers.
-         *
-         * Beware that @headers may be modified even on failure.
-         * @param str the headers (up to, but not including, the trailing blank line)
-         * @param len length of @str
-         * @param headers #SoupMessageHeaders to store the header values in
-         * @returns success or failure., if non-%NULL, will be filled in with the HTTP   version, if non-%NULL, will be filled in with   the status code, if non-%NULL, will be filled in with   the reason phrase
-         */
-        function headers_parse_response(str: string, len: number, headers: MessageHeaders): boolean
-        /**
-         * Parses the HTTP Status-Line string in @status_line into @ver,
-         * @status_code, and @reason_phrase.
-         *
-         * @status_line must be terminated by either "\0" or "\r\n".
-         * @param status_line an HTTP Status-Line
-         * @returns %TRUE if `status_line` was parsed successfully., if non-%NULL, will be filled in with the HTTP   version, if non-%NULL, will be filled in with   the status code, if non-%NULL, will be filled in with   the reason phrase
-         */
-        function headers_parse_status_line(status_line: string): boolean
-        /**
-         * Initializes @iter for iterating @hdrs.
-         * @param hdrs a #SoupMessageHeaders
-         * @returns , a pointer to a #SoupMessageHeadersIter structure
-         */
-        function message_headers_iter_init(hdrs: MessageHeaders): MessageHeadersIter
-        /**
-         * Yields the next name/value pair in the [struct@MessageHeaders] being
-         * iterated by @iter.
-         *
-         * If @iter has already yielded the last header, then
-         * [func@MessageHeadersIter.next] will return %FALSE and @name and @value
-         * will be unchanged.
-         * @returns %TRUE if another name and value were returned, %FALSE   if the end of the headers has been reached., a #SoupMessageHeadersIter, pointer to a variable to return   the header name in, pointer to a variable to return   the header value in
-         */
-        function message_headers_iter_next(): [boolean, MessageHeadersIter, string, string]
-        /**
-         * Registers error quark for SoupSession if needed.
-         * @returns Error quark for SoupSession.
-         */
-        function session_error_quark(): GLib.Quark
-        /**
-         * Looks up the stock HTTP description of @status_code.
-         *
-         * *There is no reason for you to ever use this
-         * function.* If you wanted the textual description for the
-         * [property@Message:status-code] of a given [class@Message], you should just
-         * look at the message's [property@Message:reason-phrase]. However, you
-         * should only do that for use in debugging messages; HTTP reason
-         * phrases are not localized, and are not generally very descriptive
-         * anyway, and so they should never be presented to the user directly.
-         * Instead, you should create you own error messages based on the
-         * status code, and on what you were trying to do.
-         * @param status_code an HTTP status code
-         * @returns the (terse, English) description of `status_code`
-         */
-        function status_get_phrase(status_code: number): string
-        /**
-         * Looks whether the @domain passed as argument is a public domain
-         * suffix (.org, .com, .co.uk, etc) or not.
-         *
-         * Prior to libsoup 2.46, this function required that @domain be in
-         * UTF-8 if it was an IDN. From 2.46 on, the name can be in either
-         * UTF-8 or ASCII format.
-         * @param domain a domain name
-         * @returns %TRUE if it is a public domain, %FALSE otherwise.
-         */
-        function tld_domain_is_public_suffix(domain: string): boolean
-        /**
-         * Registers error quark for soup_tld_get_base_domain() if needed.
-         * @returns Error quark for Soup TLD functions.
-         */
-        function tld_error_quark(): GLib.Quark
-        /**
-         * Finds the base domain for a given @hostname
-         *
-         * The base domain is composed by the top level domain (such as .org, .com,
-         * .co.uk, etc) plus the second level domain, for example for
-         * myhost.mydomain.com it will return mydomain.com.
-         *
-         * Note that %NULL will be returned for private URLs (those not ending
-         * with any well known TLD) because choosing a base domain for them
-         * would be totally arbitrary.
-         *
-         * Prior to libsoup 2.46, this function required that @hostname be in
-         * UTF-8 if it was an IDN. From 2.46 on, the name can be in either
-         * UTF-8 or ASCII format (and the return value will be in the same
-         * format).
-         * @throws {GLib.Error}
-         * @param hostname a hostname
-         * @returns a pointer to the start of the base domain in `hostname`. If   an error occurs, %NULL will be returned and `error` set.
-         */
-        function tld_get_base_domain(hostname: string): string
-        none
-        /**
-         * Decodes the given data URI and returns its contents and @content_type.
-         * @param uri a data URI, in string form
-         * @returns a #GBytes with the contents of `uri`,    or %NULL if `uri` is not a valid data URI, location to store content type
-         */
-        function uri_decode_data_uri(uri: string): [GLib.Bytes, string | null]
-        /**
-         * Tests whether or not @uri1 and @uri2 are equal in all parts.
-         * @param uri1 a #GUri
-         * @param uri2 another #GUri
-         * @returns %TRUE if equal otherwise %FALSE
-         */
-        function uri_equal(uri1: GLib.Uri, uri2: GLib.Uri): boolean
-        /**
-         * Adds the necessary headers to @msg to request a WebSocket
-         * handshake including supported WebSocket extensions.
-         *
-         * The message body and non-WebSocket-related headers are
-         * not modified.
-         *
-         * This is a low-level function; if you use
-         * [method@Session.websocket_connect_async] to create a WebSocket connection, it
-         * will call this for you.
-         * @param msg a #SoupMessage
-         * @param origin the "Origin" header to set
-         * @param protocols list of
-          protocols to offer
-         * @param supported_extensions list
-          of supported extension types
-         */
-        function websocket_client_prepare_handshake(msg: Message, origin: string | null, protocols: string[] | null, supported_extensions: GObject.TypeClass[] | null): void
-        /**
-         * Looks at the response status code and headers in @msg and
-         * determines if they contain a valid WebSocket handshake response
-         * (given the handshake request in @msg's request headers).
-         *
-         * If @supported_extensions is non-%NULL, extensions included in the
-         * response "Sec-WebSocket-Extensions" are verified too. Accepted
-         * extensions are returned in @accepted_extensions parameter if non-%NULL.
-         *
-         * This is a low-level function; if you use
-         * [method@Session.websocket_connect_async] to create a WebSocket
-         * connection, it will call this for you.
-         * @throws {GLib.Error}
-         * @param msg #SoupMessage containing both client and server sides of a
-          WebSocket handshake
-         * @param supported_extensions list
-          of supported extension types
-         * @returns %TRUE if `msg` contains a completed valid WebSocket   handshake, %FALSE and an error if not., a   #GList of [class@WebsocketExtension] objects
-         */
-        function websocket_client_verify_handshake(msg: Message, supported_extensions: GObject.TypeClass[] | null): boolean
-        /**
-         * Registers error quark for SoupWebsocket if needed.
-         * @returns Error quark for SoupWebsocket.
-         */
-        function websocket_error_quark(): GLib.Quark
-        /**
-         * Examines the method and request headers in @msg and determines
-         * whether @msg contains a valid handshake request.
-         *
-         * If @origin is non-%NULL, then only requests containing a matching
-         * "Origin" header will be accepted. If @protocols is non-%NULL, then
-         * only requests containing a compatible "Sec-WebSocket-Protocols"
-         * header will be accepted. If @supported_extensions is non-%NULL, then
-         * only requests containing valid supported extensions in
-         * "Sec-WebSocket-Extensions" header will be accepted.
-         *
-         * Normally [func@websocket_server_process_handshake]
-         * will take care of this for you, and if you use
-         * [method@Server.add_websocket_handler] to handle accepting WebSocket
-         * connections, it will call that for you. However, this function may
-         * be useful if you need to perform more complicated validation; eg,
-         * accepting multiple different Origins, or handling different protocols
-         * depending on the path.
-         * @throws {GLib.Error}
-         * @param msg #SoupServerMessage containing the client side of a WebSocket handshake
-         * @param origin expected Origin header
-         * @param protocols allowed WebSocket
-          protocols.
-         * @param supported_extensions list
-          of supported extension types
-         * @returns %TRUE if `msg` contained a valid WebSocket handshake,   %FALSE and an error if not.
-         */
-        function websocket_server_check_handshake(msg: ServerMessage, origin: string | null, protocols: string[] | null, supported_extensions: GObject.TypeClass[] | null): boolean
-        /**
-         * Examines the method and request headers in @msg and (assuming @msg
-         * contains a valid handshake request), fills in the handshake
-         * response.
-         *
-         * If @expected_origin is non-%NULL, then only requests containing a matching
-         * "Origin" header will be accepted. If @protocols is non-%NULL, then
-         * only requests containing a compatible "Sec-WebSocket-Protocols"
-         * header will be accepted. If @supported_extensions is non-%NULL, then
-         * only requests containing valid supported extensions in
-         * "Sec-WebSocket-Extensions" header will be accepted. The accepted extensions
-         * will be returned in @accepted_extensions parameter if non-%NULL.
-         *
-         * This is a low-level function; if you use
-         * [method@Server.add_websocket_handler] to handle accepting WebSocket
-         * connections, it will call this for you.
-         * @param msg #SoupServerMessage containing the client side of a WebSocket handshake
-         * @param expected_origin expected Origin header
-         * @param protocols allowed WebSocket
-          protocols.
-         * @param supported_extensions list
-          of supported extension types
-         * @returns %TRUE if `msg` contained a valid WebSocket handshake   request and was updated to contain a handshake response. %FALSE if not., a   #GList of [class@WebsocketExtension] objects
-         */
-        function websocket_server_process_handshake(msg: ServerMessage, expected_origin: string | null, protocols: string[] | null, supported_extensions: GObject.TypeClass[] | null): boolean
-        const COOKIE_MAX_AGE_ONE_DAY: 0
-        const COOKIE_MAX_AGE_ONE_HOUR: 3600
-        const COOKIE_MAX_AGE_ONE_WEEK: 0
-        const COOKIE_MAX_AGE_ONE_YEAR: 0
-        const FORM_MIME_TYPE_MULTIPART: "multipart/form-data"
-        const FORM_MIME_TYPE_URLENCODED: "application/x-www-form-urlencoded"
-        const HSTS_POLICY_MAX_AGE_PAST: 0
-        const HTTP_URI_FLAGS: 482
-        const MAJOR_VERSION: 3
-        const MICRO_VERSION: 0
-        const MINOR_VERSION: 7
-        const VERSION_MIN_REQUIRED: 2
-        
-        namespace CacheType {
-            const $gtype: GObject.GType<CacheType>
-        }
 
-        /**
-         * The type of cache; this affects what kinds of responses will be
-         * saved.
-         */
-        enum CacheType {
+        interface $Exports {
+            Range: RangeStruct
+        }
+        
+        interface CacheTypeEnum {
+            readonly $gtype: GObject.GType<CacheType>
             /**
              * a single-user cache
              */
-            "SINGLE_USER" = 0,
+            readonly "SINGLE_USER": 0
             /**
              * a shared cache
              */
-            "SHARED" = 1,
+            readonly "SHARED": 1
+        }
+        type CacheType = CacheTypeEnum[Exclude<keyof CacheTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of cache; this affects what kinds of responses will be
+             * saved.
+             */
+            CacheType: CacheTypeEnum
         }
         
-        namespace CookieJarAcceptPolicy {
-            const $gtype: GObject.GType<CookieJarAcceptPolicy>
-        }
-
-        /**
-         * The policy for accepting or rejecting cookies returned in
-         * responses.
-         */
-        enum CookieJarAcceptPolicy {
+        interface CookieJarAcceptPolicyEnum {
+            readonly $gtype: GObject.GType<CookieJarAcceptPolicy>
             /**
              * accept all cookies unconditionally.
              */
-            "ALWAYS" = 0,
+            readonly "ALWAYS": 0
             /**
              * reject all cookies unconditionally.
              */
-            "NEVER" = 1,
+            readonly "NEVER": 1
             /**
              * accept all cookies set by the main
              *   document loaded in the application using libsoup. An example of the most
@@ -6662,7 +6112,7 @@ declare module "gi://Soup?version=3.0" {
              *   message when this policy is in effect, cookies will be assumed to be third
              *   party by default.
              */
-            "NO_THIRD_PARTY" = 2,
+            readonly "NO_THIRD_PARTY": 2
             /**
              * accept all cookies set by
              *   the main document loaded in the application using libsoup, and from domains
@@ -6678,519 +6128,546 @@ declare module "gi://Soup?version=3.0" {
              *   message when this policy is in effect, cookies will be assumed to be third
              *   party by default.
              */
-            "GRANDFATHERED_THIRD_PARTY" = 3,
+            readonly "GRANDFATHERED_THIRD_PARTY": 3
+        }
+        type CookieJarAcceptPolicy = CookieJarAcceptPolicyEnum[Exclude<keyof CookieJarAcceptPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The policy for accepting or rejecting cookies returned in
+             * responses.
+             */
+            CookieJarAcceptPolicy: CookieJarAcceptPolicyEnum
         }
         
-        namespace DateFormat {
-            const $gtype: GObject.GType<DateFormat>
-        }
-
-        /**
-         * Date formats that [func@date_time_to_string] can use.
-         *
-         * @SOUP_DATE_HTTP and @SOUP_DATE_COOKIE always coerce the time to
-         * UTC.
-         *
-         * This enum may be extended with more values in future releases.
-         */
-        enum DateFormat {
+        interface DateFormatEnum {
+            readonly $gtype: GObject.GType<DateFormat>
             /**
              * RFC 1123 format, used by the HTTP "Date" header. Eg
              *   "Sun, 06 Nov 1994 08:49:37 GMT".
              */
-            "HTTP" = 1,
+            readonly "HTTP": 1
             /**
              * The format for the "Expires" timestamp in the
              *   Netscape cookie specification. Eg, "Sun, 06-Nov-1994 08:49:37 GMT".
              */
-            "COOKIE" = 2,
+            readonly "COOKIE": 2
+        }
+        type DateFormat = DateFormatEnum[Exclude<keyof DateFormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Date formats that [func@date_time_to_string] can use.
+             *
+             * @SOUP_DATE_HTTP and @SOUP_DATE_COOKIE always coerce the time to
+             * UTC.
+             *
+             * This enum may be extended with more values in future releases.
+             */
+            DateFormat: DateFormatEnum
         }
         
-        namespace Encoding {
-            const $gtype: GObject.GType<Encoding>
-        }
-
-        /**
-         * How a message body is encoded for transport
-         */
-        enum Encoding {
+        interface EncodingEnum {
+            readonly $gtype: GObject.GType<Encoding>
             /**
              * unknown / error
              */
-            "UNRECOGNIZED" = 0,
+            readonly "UNRECOGNIZED": 0
             /**
              * no body is present (which is not the same as a
              *   0-length body, and only occurs in certain places)
              */
-            "NONE" = 1,
+            readonly "NONE": 1
             /**
              * Content-Length encoding
              */
-            "CONTENT_LENGTH" = 2,
+            readonly "CONTENT_LENGTH": 2
             /**
              * Response body ends when the connection is closed
              */
-            "EOF" = 3,
+            readonly "EOF": 3
             /**
              * chunked encoding (currently only supported
              *   for response)
              */
-            "CHUNKED" = 4,
+            readonly "CHUNKED": 4
             /**
              * multipart/byteranges (Reserved for future
              *   use: NOT CURRENTLY IMPLEMENTED)
              */
-            "BYTERANGES" = 5,
+            readonly "BYTERANGES": 5
+        }
+        type Encoding = EncodingEnum[Exclude<keyof EncodingEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * How a message body is encoded for transport
+             */
+            Encoding: EncodingEnum
         }
         
-        namespace HTTPVersion {
-            const $gtype: GObject.GType<HTTPVersion>
-        }
-
-        /**
-         * Indicates the HTTP protocol version being used.
-         */
-        enum HTTPVersion {
+        interface HTTPVersionEnum {
+            readonly $gtype: GObject.GType<HTTPVersion>
             /**
              * HTTP 1.0 (RFC 1945)
              */
-            "HTTP_1_0" = 0,
+            readonly "HTTP_1_0": 0
             /**
              * HTTP 1.1 (RFC 2616)
              */
-            "HTTP_1_1" = 1,
+            readonly "HTTP_1_1": 1
             /**
              * HTTP 2.0 (RFC 7540)
              */
-            "HTTP_2_0" = 2,
+            readonly "HTTP_2_0": 2
+        }
+        type HTTPVersion = HTTPVersionEnum[Exclude<keyof HTTPVersionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Indicates the HTTP protocol version being used.
+             */
+            HTTPVersion: HTTPVersionEnum
         }
         
-        namespace LoggerLogLevel {
-            const $gtype: GObject.GType<LoggerLogLevel>
-        }
-
-        /**
-         * Describes the level of logging output to provide.
-         */
-        enum LoggerLogLevel {
+        interface LoggerLogLevelEnum {
+            readonly $gtype: GObject.GType<LoggerLogLevel>
             /**
              * No logging
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Log the Request-Line or Status-Line and
              *   the Soup-Debug pseudo-headers
              */
-            "MINIMAL" = 1,
+            readonly "MINIMAL": 1
             /**
              * Log the full request/response headers
              */
-            "HEADERS" = 2,
+            readonly "HEADERS": 2
             /**
              * Log the full headers and request/response bodies
              */
-            "BODY" = 3,
+            readonly "BODY": 3
+        }
+        type LoggerLogLevel = LoggerLogLevelEnum[Exclude<keyof LoggerLogLevelEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the level of logging output to provide.
+             */
+            LoggerLogLevel: LoggerLogLevelEnum
         }
         
-        namespace MemoryUse {
-            const $gtype: GObject.GType<MemoryUse>
-        }
-
-        /**
-         * The lifetime of the memory being passed.
-         */
-        enum MemoryUse {
+        interface MemoryUseEnum {
+            readonly $gtype: GObject.GType<MemoryUse>
             /**
              * The memory is statically allocated and
              *   constant; libsoup can use the passed-in buffer directly and not
              *   need to worry about it being modified or freed.
              */
-            "STATIC" = 0,
+            readonly "STATIC": 0
             /**
              * The caller has allocated the memory and libsoup
              *   will assume ownership of it and free it with [func@GLib.free].
              */
-            "TAKE" = 1,
+            readonly "TAKE": 1
             /**
              * The passed-in data belongs to the caller and
              *   libsoup will copy it into new memory leaving the caller free
              *   to reuse the original memory.
              */
-            "COPY" = 2,
+            readonly "COPY": 2
+        }
+        type MemoryUse = MemoryUseEnum[Exclude<keyof MemoryUseEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The lifetime of the memory being passed.
+             */
+            MemoryUse: MemoryUseEnum
         }
         
-        namespace MessageHeadersType {
-            const $gtype: GObject.GType<MessageHeadersType>
-        }
-
-        /**
-         * Value passed to [ctor@MessageHeaders.new] to set certain default
-         * behaviors.
-         */
-        enum MessageHeadersType {
+        interface MessageHeadersTypeEnum {
+            readonly $gtype: GObject.GType<MessageHeadersType>
             /**
              * request headers
              */
-            "REQUEST" = 0,
+            readonly "REQUEST": 0
             /**
              * response headers
              */
-            "RESPONSE" = 1,
+            readonly "RESPONSE": 1
             /**
              * multipart body part headers
              */
-            "MULTIPART" = 2,
+            readonly "MULTIPART": 2
+        }
+        type MessageHeadersType = MessageHeadersTypeEnum[Exclude<keyof MessageHeadersTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Value passed to [ctor@MessageHeaders.new] to set certain default
+             * behaviors.
+             */
+            MessageHeadersType: MessageHeadersTypeEnum
         }
         
-        namespace MessagePriority {
-            const $gtype: GObject.GType<MessagePriority>
-        }
-
-        /**
-         * Priorities that can be set on a [class@Message] to instruct the message queue
-         * to process it before any other message with lower priority.
-         */
-        enum MessagePriority {
+        interface MessagePriorityEnum {
+            readonly $gtype: GObject.GType<MessagePriority>
             /**
              * The lowest priority, the messages
              *   with this priority will be the last ones to be attended.
              */
-            "VERY_LOW" = 0,
+            readonly "VERY_LOW": 0
             /**
              * Use this for low priority messages, a
              *   [class@Message] with the default priority will be processed first.
              */
-            "LOW" = 1,
+            readonly "LOW": 1
             /**
              * The default priotity, this is the
              *   priority assigned to the [class@Message] by default.
              */
-            "NORMAL" = 2,
+            readonly "NORMAL": 2
             /**
              * High priority, a [class@Message] with
              *   this priority will be processed before the ones with the default
              *   priority.
              */
-            "HIGH" = 3,
+            readonly "HIGH": 3
             /**
              * The highest priority, use this
              *   for very urgent [class@Message] as they will be the first ones to be
              *   attended.
              */
-            "VERY_HIGH" = 4,
+            readonly "VERY_HIGH": 4
+        }
+        type MessagePriority = MessagePriorityEnum[Exclude<keyof MessagePriorityEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Priorities that can be set on a [class@Message] to instruct the message queue
+             * to process it before any other message with lower priority.
+             */
+            MessagePriority: MessagePriorityEnum
         }
         
-        namespace SameSitePolicy {
-            const $gtype: GObject.GType<SameSitePolicy>
-        }
-
-        /**
-         * Represents the same-site policies of a cookie.
-         */
-        enum SameSitePolicy {
+        interface SameSitePolicyEnum {
+            readonly $gtype: GObject.GType<SameSitePolicy>
             /**
              * The cookie is exposed with both cross-site and same-site requests
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * The cookie is withheld on cross-site requests but exposed on cross-site navigations
              */
-            "LAX" = 1,
+            readonly "LAX": 1
             /**
              * The cookie is only exposed for same-site requests
              */
-            "STRICT" = 2,
+            readonly "STRICT": 2
+        }
+        type SameSitePolicy = SameSitePolicyEnum[Exclude<keyof SameSitePolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Represents the same-site policies of a cookie.
+             */
+            SameSitePolicy: SameSitePolicyEnum
         }
         
-        abstract class SessionError extends GLib.Error {
-            static readonly $gtype: GObject.GType<SessionError>
+        interface SessionError extends GLib.Error {}
+
+        interface SessionErrorEnum {
+            readonly $gtype: GObject.GType<SessionError>
+
+            new(props: { message: string, code: number }): SessionError
             /**
              * the server's response could not
              *   be parsed
              */
-            static readonly "PARSING": 0
+            readonly "PARSING": 0
             /**
              * the server's response was in an
              *   unsupported format
              */
-            static readonly "ENCODING": 1
+            readonly "ENCODING": 1
             /**
              * the message has been redirected
              *   too many times
              */
-            static readonly "TOO_MANY_REDIRECTS": 2
+            readonly "TOO_MANY_REDIRECTS": 2
             /**
              * the message has been restarted
              *   too many times
              */
-            static readonly "TOO_MANY_RESTARTS": 3
+            readonly "TOO_MANY_RESTARTS": 3
             /**
              * failed to redirect message because
              *   Location header was missing or empty in response
              */
-            static readonly "REDIRECT_NO_LOCATION": 4
+            readonly "REDIRECT_NO_LOCATION": 4
             /**
              * failed to redirect message because
              *   Location header contains an invalid URI
              */
-            static readonly "REDIRECT_BAD_URI": 5
+            readonly "REDIRECT_BAD_URI": 5
             /**
              * the message is already in the
              *   session queue. Messages can only be reused after unqueued.
              */
-            static readonly "MESSAGE_ALREADY_IN_QUEUE": 6
-        }
-        /**
+            readonly "MESSAGE_ALREADY_IN_QUEUE": 6
+            /**
          * Registers error quark for SoupSession if needed.
          * @returns Error quark for SoupSession.
          */
-        function quark(): GLib.Quark
-        
-        namespace Status {
-            const $gtype: GObject.GType<Status>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * These represent the known HTTP status code values, plus various
-         * network and internal errors.
-         *
-         * Note that no libsoup functions take or return this type directly;
-         * any function that works with status codes will accept unrecognized
-         * status codes as well.
-         */
-        enum Status {
+        interface $Exports {
+            /**
+             * A [class@Session] error.
+             */
+            SessionError: SessionErrorEnum
+        }
+        
+        interface StatusEnum {
+            readonly $gtype: GObject.GType<Status>
             /**
              * No status available. (Eg, the message has not
              * been sent yet)
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * 100 Continue (HTTP)
              */
-            "CONTINUE" = 100,
+            readonly "CONTINUE": 100
             /**
              * 101 Switching Protocols (HTTP)
              */
-            "SWITCHING_PROTOCOLS" = 101,
+            readonly "SWITCHING_PROTOCOLS": 101
             /**
              * 102 Processing (WebDAV)
              */
-            "PROCESSING" = 102,
+            readonly "PROCESSING": 102
             /**
              * 200 Success (HTTP). Also used by many lower-level
              * soup routines to indicate success.
              */
-            "OK" = 200,
+            readonly "OK": 200
             /**
              * 201 Created (HTTP)
              */
-            "CREATED" = 201,
+            readonly "CREATED": 201
             /**
              * 202 Accepted (HTTP)
              */
-            "ACCEPTED" = 202,
+            readonly "ACCEPTED": 202
             /**
              * 203 Non-Authoritative Information
              * (HTTP)
              */
-            "NON_AUTHORITATIVE" = 203,
+            readonly "NON_AUTHORITATIVE": 203
             /**
              * 204 No Content (HTTP)
              */
-            "NO_CONTENT" = 204,
+            readonly "NO_CONTENT": 204
             /**
              * 205 Reset Content (HTTP)
              */
-            "RESET_CONTENT" = 205,
+            readonly "RESET_CONTENT": 205
             /**
              * 206 Partial Content (HTTP)
              */
-            "PARTIAL_CONTENT" = 206,
+            readonly "PARTIAL_CONTENT": 206
             /**
              * 207 Multi-Status (WebDAV)
              */
-            "MULTI_STATUS" = 207,
+            readonly "MULTI_STATUS": 207
             /**
              * 300 Multiple Choices (HTTP)
              */
-            "MULTIPLE_CHOICES" = 300,
+            readonly "MULTIPLE_CHOICES": 300
             /**
              * 301 Moved Permanently (HTTP)
              */
-            "MOVED_PERMANENTLY" = 301,
+            readonly "MOVED_PERMANENTLY": 301
             /**
              * 302 Found (HTTP)
              */
-            "FOUND" = 302,
+            readonly "FOUND": 302
             /**
              * 302 Moved Temporarily (old name,
              * RFC 2068)
              */
-            "MOVED_TEMPORARILY" = 302,
+            readonly "MOVED_TEMPORARILY": 302
             /**
              * 303 See Other (HTTP)
              */
-            "SEE_OTHER" = 303,
+            readonly "SEE_OTHER": 303
             /**
              * 304 Not Modified (HTTP)
              */
-            "NOT_MODIFIED" = 304,
+            readonly "NOT_MODIFIED": 304
             /**
              * 305 Use Proxy (HTTP)
              */
-            "USE_PROXY" = 305,
+            readonly "USE_PROXY": 305
             /**
              * 306 [Unused] (HTTP)
              */
-            "NOT_APPEARING_IN_THIS_PROTOCOL" = 306,
+            readonly "NOT_APPEARING_IN_THIS_PROTOCOL": 306
             /**
              * 307 Temporary Redirect (HTTP)
              */
-            "TEMPORARY_REDIRECT" = 307,
+            readonly "TEMPORARY_REDIRECT": 307
             /**
              * 308 Permanent Redirect (HTTP)
              */
-            "PERMANENT_REDIRECT" = 308,
+            readonly "PERMANENT_REDIRECT": 308
             /**
              * 400 Bad Request (HTTP)
              */
-            "BAD_REQUEST" = 400,
+            readonly "BAD_REQUEST": 400
             /**
              * 401 Unauthorized (HTTP)
              */
-            "UNAUTHORIZED" = 401,
+            readonly "UNAUTHORIZED": 401
             /**
              * 402 Payment Required (HTTP)
              */
-            "PAYMENT_REQUIRED" = 402,
+            readonly "PAYMENT_REQUIRED": 402
             /**
              * 403 Forbidden (HTTP)
              */
-            "FORBIDDEN" = 403,
+            readonly "FORBIDDEN": 403
             /**
              * 404 Not Found (HTTP)
              */
-            "NOT_FOUND" = 404,
+            readonly "NOT_FOUND": 404
             /**
              * 405 Method Not Allowed (HTTP)
              */
-            "METHOD_NOT_ALLOWED" = 405,
+            readonly "METHOD_NOT_ALLOWED": 405
             /**
              * 406 Not Acceptable (HTTP)
              */
-            "NOT_ACCEPTABLE" = 406,
+            readonly "NOT_ACCEPTABLE": 406
             /**
              * 407 Proxy Authentication
              * Required (HTTP)
              */
-            "PROXY_AUTHENTICATION_REQUIRED" = 407,
+            readonly "PROXY_AUTHENTICATION_REQUIRED": 407
             /**
              * shorter alias for
              * %SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED
              */
-            "PROXY_UNAUTHORIZED" = 407,
+            readonly "PROXY_UNAUTHORIZED": 407
             /**
              * 408 Request Timeout (HTTP)
              */
-            "REQUEST_TIMEOUT" = 408,
+            readonly "REQUEST_TIMEOUT": 408
             /**
              * 409 Conflict (HTTP)
              */
-            "CONFLICT" = 409,
+            readonly "CONFLICT": 409
             /**
              * 410 Gone (HTTP)
              */
-            "GONE" = 410,
+            readonly "GONE": 410
             /**
              * 411 Length Required (HTTP)
              */
-            "LENGTH_REQUIRED" = 411,
+            readonly "LENGTH_REQUIRED": 411
             /**
              * 412 Precondition Failed (HTTP)
              */
-            "PRECONDITION_FAILED" = 412,
+            readonly "PRECONDITION_FAILED": 412
             /**
              * 413 Request Entity Too Large
              * (HTTP)
              */
-            "REQUEST_ENTITY_TOO_LARGE" = 413,
+            readonly "REQUEST_ENTITY_TOO_LARGE": 413
             /**
              * 414 Request-URI Too Long (HTTP)
              */
-            "REQUEST_URI_TOO_LONG" = 414,
+            readonly "REQUEST_URI_TOO_LONG": 414
             /**
              * 415 Unsupported Media Type
              * (HTTP)
              */
-            "UNSUPPORTED_MEDIA_TYPE" = 415,
+            readonly "UNSUPPORTED_MEDIA_TYPE": 415
             /**
              * 416 Requested Range
              * Not Satisfiable (HTTP)
              */
-            "REQUESTED_RANGE_NOT_SATISFIABLE" = 416,
+            readonly "REQUESTED_RANGE_NOT_SATISFIABLE": 416
             /**
              * shorter alias for
              * %SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE
              */
-            "INVALID_RANGE" = 416,
+            readonly "INVALID_RANGE": 416
             /**
              * 417 Expectation Failed (HTTP)
              */
-            "EXPECTATION_FAILED" = 417,
+            readonly "EXPECTATION_FAILED": 417
             /**
              * 421 Misdirected Request
              */
-            "MISDIRECTED_REQUEST" = 421,
+            readonly "MISDIRECTED_REQUEST": 421
             /**
              * 422 Unprocessable Entity
              * (WebDAV)
              */
-            "UNPROCESSABLE_ENTITY" = 422,
+            readonly "UNPROCESSABLE_ENTITY": 422
             /**
              * 423 Locked (WebDAV)
              */
-            "LOCKED" = 423,
+            readonly "LOCKED": 423
             /**
              * 424 Failed Dependency (WebDAV)
              */
-            "FAILED_DEPENDENCY" = 424,
+            readonly "FAILED_DEPENDENCY": 424
             /**
              * 500 Internal Server Error
              * (HTTP)
              */
-            "INTERNAL_SERVER_ERROR" = 500,
+            readonly "INTERNAL_SERVER_ERROR": 500
             /**
              * 501 Not Implemented (HTTP)
              */
-            "NOT_IMPLEMENTED" = 501,
+            readonly "NOT_IMPLEMENTED": 501
             /**
              * 502 Bad Gateway (HTTP)
              */
-            "BAD_GATEWAY" = 502,
+            readonly "BAD_GATEWAY": 502
             /**
              * 503 Service Unavailable (HTTP)
              */
-            "SERVICE_UNAVAILABLE" = 503,
+            readonly "SERVICE_UNAVAILABLE": 503
             /**
              * 504 Gateway Timeout (HTTP)
              */
-            "GATEWAY_TIMEOUT" = 504,
+            readonly "GATEWAY_TIMEOUT": 504
             /**
              * 505 HTTP Version Not
              * Supported (HTTP)
              */
-            "HTTP_VERSION_NOT_SUPPORTED" = 505,
+            readonly "HTTP_VERSION_NOT_SUPPORTED": 505
             /**
              * 507 Insufficient Storage
              * (WebDAV)
              */
-            "INSUFFICIENT_STORAGE" = 507,
+            readonly "INSUFFICIENT_STORAGE": 507
             /**
              * 510 Not Extended (RFC 2774)
              */
-            "NOT_EXTENDED" = 510,
+            readonly "NOT_EXTENDED": 510
         }
-        /**
+        type Status = StatusEnum[Exclude<keyof StatusEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * These represent the known HTTP status code values, plus various
+             * network and internal errors.
+             *
+             * Note that no libsoup functions take or return this type directly;
+             * any function that works with status codes will accept unrecognized
+             * status codes as well.
+             */
+            Status: StatusEnum
+            /**
          * Looks up the stock HTTP description of @status_code.
          *
          * *There is no reason for you to ever use this
@@ -7205,313 +6682,339 @@ declare module "gi://Soup?version=3.0" {
          * @param status_code an HTTP status code
          * @returns the (terse, English) description of `status_code`
          */
-        function get_phrase(status_code: number): string
+        get_phrase: (status_code: number) => string
+        }
         
-        abstract class TLDError extends GLib.Error {
-            static readonly $gtype: GObject.GType<TLDError>
+        interface TLDError extends GLib.Error {}
+
+        interface TLDErrorEnum {
+            readonly $gtype: GObject.GType<TLDError>
+
+            new(props: { message: string, code: number }): TLDError
             /**
              * A hostname was syntactically
              *   invalid.
              */
-            static readonly "INVALID_HOSTNAME": 0
+            readonly "INVALID_HOSTNAME": 0
             /**
              * The passed-in "hostname" was
              *   actually an IP address (and thus has no base domain or
              *   public suffix).
              */
-            static readonly "IS_IP_ADDRESS": 1
+            readonly "IS_IP_ADDRESS": 1
             /**
-             * .
+             * The passed-in hostname
+             *   did not have enough components. Eg, calling
+             *   [func@tld_get_base_domain] on <literal>"co.uk"</literal>.
              */
-            static readonly "NOT_ENOUGH_DOMAINS": 2
+            readonly "NOT_ENOUGH_DOMAINS": 2
             /**
              * The passed-in hostname has
              *   no recognized public suffix.
              */
-            static readonly "NO_BASE_DOMAIN": 3
+            readonly "NO_BASE_DOMAIN": 3
             /**
              * The Public Suffix List was not
              *   available.
              */
-            static readonly "NO_PSL_DATA": 4
-        }
-        /**
+            readonly "NO_PSL_DATA": 4
+            /**
          * Registers error quark for soup_tld_get_base_domain() if needed.
          * @returns Error quark for Soup TLD functions.
          */
-        function quark(): GLib.Quark
-        
-        namespace URIComponent {
-            const $gtype: GObject.GType<URIComponent>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Enum values passed to [func@uri_copy] to indicate the components of
-         * the URI that should be updated with the given values.
-         */
-        enum URIComponent {
+        interface $Exports {
+            /**
+             * Error codes for %SOUP_TLD_ERROR.
+             */
+            TLDError: TLDErrorEnum
+        }
+        
+        interface URIComponentEnum {
+            readonly $gtype: GObject.GType<URIComponent>
             /**
              * no component
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * the URI scheme component
              */
-            "SCHEME" = 1,
+            readonly "SCHEME": 1
             /**
              * the URI user component
              */
-            "USER" = 2,
+            readonly "USER": 2
             /**
              * the URI password component
              */
-            "PASSWORD" = 3,
+            readonly "PASSWORD": 3
             /**
              * the URI authentication parameters component
              */
-            "AUTH_PARAMS" = 4,
+            readonly "AUTH_PARAMS": 4
             /**
              * the URI host component
              */
-            "HOST" = 5,
+            readonly "HOST": 5
             /**
              * the URI port component
              */
-            "PORT" = 6,
+            readonly "PORT": 6
             /**
              * the URI path component
              */
-            "PATH" = 7,
+            readonly "PATH": 7
             /**
              * the URI query component
              */
-            "QUERY" = 8,
+            readonly "QUERY": 8
             /**
              * the URI fragment component
              */
-            "FRAGMENT" = 9,
+            readonly "FRAGMENT": 9
+        }
+        type URIComponent = URIComponentEnum[Exclude<keyof URIComponentEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values passed to [func@uri_copy] to indicate the components of
+             * the URI that should be updated with the given values.
+             */
+            URIComponent: URIComponentEnum
         }
         
-        namespace WebsocketCloseCode {
-            const $gtype: GObject.GType<WebsocketCloseCode>
-        }
-
-        /**
-         * Pre-defined close codes that can be passed to
-         * [method@WebsocketConnection.close] or received from
-         * [method@WebsocketConnection.get_close_code].
-         *
-         * However, other codes are also allowed.
-         */
-        enum WebsocketCloseCode {
+        interface WebsocketCloseCodeEnum {
+            readonly $gtype: GObject.GType<WebsocketCloseCode>
             /**
              * a normal, non-error close
              */
-            "NORMAL" = 1000,
+            readonly "NORMAL": 1000
             /**
              * the client/server is going away
              */
-            "GOING_AWAY" = 1001,
+            readonly "GOING_AWAY": 1001
             /**
              * a protocol error occurred
              */
-            "PROTOCOL_ERROR" = 1002,
+            readonly "PROTOCOL_ERROR": 1002
             /**
              * the endpoint received data
              *   of a type that it does not support.
              */
-            "UNSUPPORTED_DATA" = 1003,
+            readonly "UNSUPPORTED_DATA": 1003
             /**
              * reserved value indicating that
              *   no close code was present; must not be sent.
              */
-            "NO_STATUS" = 1005,
+            readonly "NO_STATUS": 1005
             /**
              * reserved value indicating that
              *   the connection was closed abnormally; must not be sent.
              */
-            "ABNORMAL" = 1006,
+            readonly "ABNORMAL": 1006
             /**
              * the endpoint received data that
              *   was invalid (eg, non-UTF-8 data in a text message).
              */
-            "BAD_DATA" = 1007,
+            readonly "BAD_DATA": 1007
             /**
              * generic error code
              *   indicating some sort of policy violation.
              */
-            "POLICY_VIOLATION" = 1008,
+            readonly "POLICY_VIOLATION": 1008
             /**
              * the endpoint received a message
              *   that is too big to process.
              */
-            "TOO_BIG" = 1009,
+            readonly "TOO_BIG": 1009
             /**
              * the client is closing the
              *   connection because the server failed to negotiate a required
              *   extension.
              */
-            "NO_EXTENSION" = 1010,
+            readonly "NO_EXTENSION": 1010
             /**
              * the server is closing the
              *   connection because it was unable to fulfill the request.
              */
-            "SERVER_ERROR" = 1011,
+            readonly "SERVER_ERROR": 1011
             /**
              * reserved value indicating that
              *   the TLS handshake failed; must not be sent.
              */
-            "TLS_HANDSHAKE" = 1015,
+            readonly "TLS_HANDSHAKE": 1015
+        }
+        type WebsocketCloseCode = WebsocketCloseCodeEnum[Exclude<keyof WebsocketCloseCodeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Pre-defined close codes that can be passed to
+             * [method@WebsocketConnection.close] or received from
+             * [method@WebsocketConnection.get_close_code].
+             *
+             * However, other codes are also allowed.
+             */
+            WebsocketCloseCode: WebsocketCloseCodeEnum
         }
         
-        namespace WebsocketConnectionType {
-            const $gtype: GObject.GType<WebsocketConnectionType>
-        }
-
-        /**
-         * The type of a [class@WebsocketConnection].
-         */
-        enum WebsocketConnectionType {
+        interface WebsocketConnectionTypeEnum {
+            readonly $gtype: GObject.GType<WebsocketConnectionType>
             /**
              * unknown/invalid connection
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * a client-side connection
              */
-            "CLIENT" = 1,
+            readonly "CLIENT": 1
             /**
              * a server-side connection
              */
-            "SERVER" = 2,
+            readonly "SERVER": 2
+        }
+        type WebsocketConnectionType = WebsocketConnectionTypeEnum[Exclude<keyof WebsocketConnectionTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of a [class@WebsocketConnection].
+             */
+            WebsocketConnectionType: WebsocketConnectionTypeEnum
         }
         
-        namespace WebsocketDataType {
-            const $gtype: GObject.GType<WebsocketDataType>
-        }
-
-        /**
-         * The type of data contained in a [signal@WebsocketConnection::message] signal.
-         */
-        enum WebsocketDataType {
+        interface WebsocketDataTypeEnum {
+            readonly $gtype: GObject.GType<WebsocketDataType>
             /**
              * UTF-8 text
              */
-            "TEXT" = 1,
+            readonly "TEXT": 1
             /**
              * binary data
              */
-            "BINARY" = 2,
+            readonly "BINARY": 2
+        }
+        type WebsocketDataType = WebsocketDataTypeEnum[Exclude<keyof WebsocketDataTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of data contained in a [signal@WebsocketConnection::message] signal.
+             */
+            WebsocketDataType: WebsocketDataTypeEnum
         }
         
-        abstract class WebsocketError extends GLib.Error {
-            static readonly $gtype: GObject.GType<WebsocketError>
+        interface WebsocketError extends GLib.Error {}
+
+        interface WebsocketErrorEnum {
+            readonly $gtype: GObject.GType<WebsocketError>
+
+            new(props: { message: string, code: number }): WebsocketError
             /**
              * a generic error
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * attempted to handshake with a
              *   server that does not appear to understand WebSockets.
              */
-            static readonly "NOT_WEBSOCKET": 1
+            readonly "NOT_WEBSOCKET": 1
             /**
              * the WebSocket handshake failed
              *   because some detail was invalid (eg, incorrect accept key).
              */
-            static readonly "BAD_HANDSHAKE": 2
+            readonly "BAD_HANDSHAKE": 2
             /**
              * the WebSocket handshake failed
              *   because the "Origin" header was not an allowed value.
              */
-            static readonly "BAD_ORIGIN": 3
-        }
-        /**
+            readonly "BAD_ORIGIN": 3
+            /**
          * Registers error quark for SoupWebsocket if needed.
          * @returns Error quark for SoupWebsocket.
          */
-        function quark(): GLib.Quark
-        
-        namespace WebsocketState {
-            const $gtype: GObject.GType<WebsocketState>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The state of the WebSocket connection.
-         */
-        enum WebsocketState {
+        interface $Exports {
+            /**
+             * WebSocket-related errors.
+             */
+            WebsocketError: WebsocketErrorEnum
+        }
+        
+        interface WebsocketStateEnum {
+            readonly $gtype: GObject.GType<WebsocketState>
             /**
              * the connection is ready to send messages
              */
-            "OPEN" = 1,
+            readonly "OPEN": 1
             /**
              * the connection is in the process of
              *   closing down; messages may be received, but not sent
              */
-            "CLOSING" = 2,
+            readonly "CLOSING": 2
             /**
              * the connection is completely closed down
              */
-            "CLOSED" = 3,
+            readonly "CLOSED": 3
+        }
+        type WebsocketState = WebsocketStateEnum[Exclude<keyof WebsocketStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The state of the WebSocket connection.
+             */
+            WebsocketState: WebsocketStateEnum
         }
         
-        namespace Cacheability {
-            const $gtype: GObject.GType<Cacheability>
-        }
-
-        /**
-         * Indicates if a message should or shouldn't be cached.
-         */
-        enum Cacheability {
+        interface CacheabilityBitfield {
+            readonly $gtype: GObject.GType<Cacheability>
             /**
              * The message should be cached
              */
-            "CACHEABLE" = 1,
+            readonly "CACHEABLE": 1
             /**
              * The message shouldn't be cached
              */
-            "UNCACHEABLE" = 2,
+            readonly "UNCACHEABLE": 2
             /**
              * The messages cache should be invalidated
              */
-            "INVALIDATES" = 4,
+            readonly "INVALIDATES": 4
             /**
              * The messages cache should be updated
              */
-            "VALIDATES" = 8,
+            readonly "VALIDATES": 8
+        }
+        type Cacheability = number
+        interface $Exports {
+            /**
+             * Indicates if a message should or shouldn't be cached.
+             */
+            Cacheability: CacheabilityBitfield
         }
         
-        namespace Expectation {
-            const $gtype: GObject.GType<Expectation>
-        }
-
-        /**
-         * Represents the parsed value of the "Expect" header.
-         */
-        enum Expectation {
+        interface ExpectationBitfield {
+            readonly $gtype: GObject.GType<Expectation>
             /**
              * any unrecognized expectation
              */
-            "UNRECOGNIZED" = 1,
+            readonly "UNRECOGNIZED": 1
             /**
              * "100-continue"
              */
-            "CONTINUE" = 2,
+            readonly "CONTINUE": 2
+        }
+        type Expectation = number
+        interface $Exports {
+            /**
+             * Represents the parsed value of the "Expect" header.
+             */
+            Expectation: ExpectationBitfield
         }
         
-        namespace MessageFlags {
-            const $gtype: GObject.GType<MessageFlags>
-        }
-
-        /**
-         * Various flags that can be set on a [class@Message] to alter its behavior.
-         */
-        enum MessageFlags {
+        interface MessageFlagsBitfield {
+            readonly $gtype: GObject.GType<MessageFlags>
             /**
              * The session should not follow redirect
              *   (3xx) responses received by this message.
              */
-            "NO_REDIRECT" = 2,
+            readonly "NO_REDIRECT": 2
             /**
              * Requests that the message should be
              *   sent on a newly-created connection, not reusing an existing
@@ -7519,14 +7022,14 @@ declare module "gi://Soup?version=3.0" {
              *   [property@Message:method]s behave this way by default, unless
              *   #SOUP_MESSAGE_IDEMPOTENT is set.
              */
-            "NEW_CONNECTION" = 4,
+            readonly "NEW_CONNECTION": 4
             /**
              * The message is considered idempotent,
              *   regardless its [property@Message:method], and allows reuse of existing
              *   idle connections, instead of always requiring a new one, unless
              *   #SOUP_MESSAGE_NEW_CONNECTION is set.
              */
-            "IDEMPOTENT" = 8,
+            readonly "IDEMPOTENT": 8
             /**
              * The [class@AuthManager] should not use
              *   the credentials cache for this message, neither to use cached credentials
@@ -7536,40 +7039,48 @@ declare module "gi://Soup?version=3.0" {
              *   be emitted, if you want to disable authentication for a message use
              *   [method@Message.disable_feature] passing #SOUP_TYPE_AUTH_MANAGER instead.
              */
-            "DO_NOT_USE_AUTH_CACHE" = 16,
+            readonly "DO_NOT_USE_AUTH_CACHE": 16
             /**
              * Metrics will be collected for this message.
              */
-            "COLLECT_METRICS" = 32,
+            readonly "COLLECT_METRICS": 32
+        }
+        type MessageFlags = number
+        interface $Exports {
+            /**
+             * Various flags that can be set on a [class@Message] to alter its behavior.
+             */
+            MessageFlags: MessageFlagsBitfield
         }
         
-        namespace ServerListenOptions {
-            const $gtype: GObject.GType<ServerListenOptions>
-        }
-
-        /**
-         * Options to pass to [method@Server.listen], etc.
-         *
-         * %SOUP_SERVER_LISTEN_IPV4_ONLY and %SOUP_SERVER_LISTEN_IPV6_ONLY
-         * only make sense with [method@Server.listen_all] and
-         * [method@Server.listen_local], not plain [method@Server.listen] (which
-         * simply listens on whatever kind of socket you give it). And you
-         * cannot specify both of them in a single call.
-         */
-        enum ServerListenOptions {
+        interface ServerListenOptionsBitfield {
+            readonly $gtype: GObject.GType<ServerListenOptions>
             /**
              * Listen for https connections rather
              *   than plain http.
              */
-            "HTTPS" = 1,
+            readonly "HTTPS": 1
             /**
              * Only listen on IPv4 interfaces.
              */
-            "IPV4_ONLY" = 2,
+            readonly "IPV4_ONLY": 2
             /**
              * Only listen on IPv6 interfaces.
              */
-            "IPV6_ONLY" = 4,
+            readonly "IPV6_ONLY": 4
+        }
+        type ServerListenOptions = number
+        interface $Exports {
+            /**
+             * Options to pass to [method@Server.listen], etc.
+             *
+             * %SOUP_SERVER_LISTEN_IPV4_ONLY and %SOUP_SERVER_LISTEN_IPV6_ONLY
+             * only make sense with [method@Server.listen_all] and
+             * [method@Server.listen_local], not plain [method@Server.listen] (which
+             * simply listens on whatever kind of socket you give it). And you
+             * cannot specify both of them in a single call.
+             */
+            ServerListenOptions: ServerListenOptionsBitfield
         }
         /**
          * Callback used by [class@AuthDomainBasic] for authentication purposes.
@@ -7650,7 +7161,12 @@ declare module "gi://Soup?version=3.0" {
          */
         type LoggerFilter = (logger: Logger, msg: Message) => LoggerLogLevel
         /**
-         * ', or ' ', and @data is the single line
+         * The prototype for a custom printing callback.
+         *
+         * @level indicates what kind of information is being printed. Eg, it
+         * will be %SOUP_LOGGER_LOG_HEADERS if @data is header data.
+         *
+         * @direction is either '<', '>', or ' ', and @data is the single line
          * to print; the printer is expected to add a terminating newline.
          *
          * To get the effect of the default printer, you would do:
@@ -7712,7 +7228,580 @@ declare module "gi://Soup?version=3.0" {
          * @param connection the newly created WebSocket connection
          */
         type ServerWebsocketCallback = (server: Server, msg: ServerMessage, path: string, connection: WebsocketConnection) => void
+
+        interface $Exports {
+            __name__: "Soup"
+            __version: "3.0"
+            COOKIE_MAX_AGE_ONE_DAY: 0
+            COOKIE_MAX_AGE_ONE_HOUR: 3600
+            COOKIE_MAX_AGE_ONE_WEEK: 0
+            COOKIE_MAX_AGE_ONE_YEAR: 0
+            FORM_MIME_TYPE_MULTIPART: "multipart/form-data"
+            FORM_MIME_TYPE_URLENCODED: "application/x-www-form-urlencoded"
+            HSTS_POLICY_MAX_AGE_PAST: 0
+            HTTP_URI_FLAGS: 482
+            MAJOR_VERSION: 3
+            MICRO_VERSION: 0
+            MINOR_VERSION: 7
+            VERSION_MIN_REQUIRED: 2
+            /**
+             * Like [func@CHECK_VERSION], but the check for soup_check_version is
+             * at runtime instead of compile time.
+             *
+             * This is useful for compiling against older versions of libsoup, but using
+             * features from newer versions.
+             * @param major the major version to check
+             * @param minor the minor version to check
+             * @param micro the micro version to check
+             * @returns %TRUE if the version of the libsoup currently loaded   is the same as or newer than the passed-in version.
+             */
+            check_version(major: number, minor: number, micro: number): boolean
+            /**
+             * Parses @header and returns a [struct@Cookie].
+             *
+             * If @header contains multiple cookies, only the first one will be parsed.
+             *
+             * If @header does not have "path" or "domain" attributes, they will
+             * be defaulted from @origin. If @origin is %NULL, path will default
+             * to "/", but domain will be left as %NULL. Note that this is not a
+             * valid state for a [struct@Cookie], and you will need to fill in some
+             * appropriate string for the domain if you want to actually make use
+             * of the cookie.
+             *
+             * As of version 3.4.0 the default value of a cookie's same-site-policy
+             * is %SOUP_SAME_SITE_POLICY_LAX.
+             * @param header a cookie string (eg, the value of a Set-Cookie header)
+             * @param origin origin of the cookie
+             * @returns a new #SoupCookie, or %NULL if it could   not be parsed, or contained an illegal "domain" attribute for a   cookie originating from `origin`.
+             */
+            cookie_parse(header: string, origin: GLib.Uri | null): Cookie | null
+            /**
+             * Parses @msg's Cookie request header and returns a [struct@GLib.SList] of
+             * `SoupCookie`s.
+             *
+             * As the "Cookie" header, unlike "Set-Cookie", only contains cookie names and
+             * values, none of the other [struct@Cookie] fields will be filled in. (Thus, you
+             * can't generally pass a cookie returned from this method directly to
+             * [func@cookies_to_response].)
+             * @param msg a #SoupMessage containing a "Cookie" request header
+             * @returns a #GSList of   `SoupCookie`s, which can be freed with [method@Cookie.free].
+             */
+            cookies_from_request(msg: Message): Cookie[]
+            /**
+             * Parses @msg's Set-Cookie response headers and returns a [struct@GLib.SList]
+             * of `SoupCookie`s.
+             *
+             * Cookies that do not specify "path" or "domain" attributes will have their
+             * values defaulted from @msg.
+             * @param msg a #SoupMessage containing a "Set-Cookie" response header
+             * @returns a #GSList of   `SoupCookie`s, which can be freed with [method@Cookie.free].
+             */
+            cookies_from_response(msg: Message): Cookie[]
+            /**
+             * Serializes a [struct@GLib.SList] of [struct@Cookie] into a string suitable for
+             * setting as the value of the "Cookie" header.
+             * @param cookies a #GSList of [struct@Cookie]
+             * @returns the serialization of `cookies`
+             */
+            cookies_to_cookie_header(cookies: Cookie[]): string
+            /**
+             * Adds the name and value of each cookie in @cookies to @msg's
+             * "Cookie" request.
+             *
+             * If @msg already has a "Cookie" request header, these cookies will be appended
+             * to the cookies already present. Be careful that you do not append the same
+             * cookies twice, eg, when requeuing a message.
+             * @param cookies a #GSList of [struct@Cookie]
+             * @param msg a #SoupMessage
+             */
+            cookies_to_request(cookies: Cookie[], msg: Message): void
+            /**
+             * Appends a "Set-Cookie" response header to @msg for each cookie in
+             * @cookies.
+             *
+             * This is in addition to any other "Set-Cookie" headers
+             * @msg may already have.
+             * @param cookies a #GSList of [struct@Cookie]
+             * @param msg a #SoupMessage
+             */
+            cookies_to_response(cookies: Cookie[], msg: Message): void
+            /**
+             * Parses @date_string and tries to extract a date from it.
+             *
+             * This recognizes all of the "HTTP-date" formats from RFC 2616, RFC 2822 dates,
+             * and reasonable approximations thereof. (Eg, it is lenient about whitespace,
+             * leading "0"s, etc.)
+             * @param date_string The date as a string
+             * @returns a new #GDateTime, or %NULL if `date_string`   could not be parsed.
+             */
+            date_time_new_from_http_string(date_string: string): GLib.DateTime | null
+            /**
+             * Converts @date to a string in the format described by @format.
+             * @param date a #GDateTime
+             * @param format the format to generate the date in
+             * @returns  `date` as a string or %NULL
+             */
+            date_time_to_string(date: GLib.DateTime, format: DateFormat): string
+            /**
+             * Decodes @form.
+             *
+             * which is an urlencoded dataset as defined in the HTML 4.01 spec.
+             * @param encoded_form data of type "application/x-www-form-urlencoded"
+             * @returns a hash   table containing the name/value pairs from `encoded_form`, which you   can free with [func@GLib.HashTable.destroy].
+             */
+            form_decode(encoded_form: string): Record<string, string>
+            /**
+             * Decodes the "multipart/form-data" request in @multipart.
+             *
+             * this is a convenience method for the case when you have a single file upload
+             * control in a form. (Or when you don't have any file upload controls, but are
+             * still using "multipart/form-data" anyway.) Pass the name of the file upload
+             * control in @file_control_name, and [func@form_decode_multipart] will extract
+             * the uploaded file data into @filename, @content_type, and @file. All of the
+             * other form control data will be returned (as strings, as with
+             * [func@form_decode] in the returned [struct@GLib.HashTable].
+             *
+             * You may pass %NULL for @filename, @content_type and/or @file if you do not
+             * care about those fields. [func@form_decode_multipart] may also
+             * return %NULL in those fields if the client did not provide that
+             * information. You must free the returned filename and content-type
+             * with [func@GLib.free], and the returned file data with [method@Glib.Bytes.unref].
+             *
+             * If you have a form with more than one file upload control, you will
+             * need to decode it manually, using [ctor@Multipart.new_from_message]
+             * and [method@Multipart.get_part].
+             * @param multipart a #SoupMultipart
+             * @param file_control_name the name of the HTML file upload control
+             * @returns    a hash table containing the name/value pairs (other than   `file_control_name`) from `msg`, which you can free with   [func@GLib.HashTable.destroy]. On error, it will return %NULL., return location for the name of the uploaded file, return location for the MIME type of the uploaded file, return location for the uploaded file data
+             */
+            form_decode_multipart(multipart: Multipart, file_control_name: string | null): [Record<string, string> | null, string, string, GLib.Bytes]
+            /**
+             * Encodes @form_data_set into a value of type
+             * "application/x-www-form-urlencoded".
+             *
+             * Encodes as defined in the HTML 4.01 spec. Unlike [func@form_encode_hash],
+             * this preserves the ordering of the form elements, which may be required in
+             * some situations.
+             *
+             * See also: [ctor@Message.new_from_encoded_form].
+             * @param form_data_set a datalist containing name/value pairs
+             * @returns the encoded form
+             */
+            form_encode_datalist(form_data_set: GLib.Data): string
+            /**
+             * Encodes @form_data_set into a value of type
+             * "application/x-www-form-urlencoded".
+             *
+             * Encodes as defined in the HTML 4.01 spec.
+             *
+             * Note that the HTML spec states that "The control names/values are
+             * listed in the order they appear in the document." Since this method
+             * takes a hash table, it cannot enforce that; if you care about the
+             * ordering of the form fields, use [func@form_encode_datalist].
+             *
+             * See also: [ctor@Message.new_from_encoded_form].
+             * @param form_data_set a hash table containing
+              name/value pairs (as strings)
+             * @returns the encoded form
+             */
+            form_encode_hash(form_data_set: Record<string, string>): string
+            /**
+             * Returns the major version number of the libsoup library.
+             *
+             * e.g. in libsoup version 2.42.0 this is 2.
+             *
+             * This function is in the library, so it represents the libsoup library
+             * your code is running against. Contrast with the #SOUP_MAJOR_VERSION
+             * macro, which represents the major version of the libsoup headers you
+             * have included when compiling your code.
+             * @returns the major version number of the libsoup library
+             */
+            get_major_version(): number
+            /**
+             * Returns the micro version number of the libsoup library.
+             *
+             * e.g. in libsoup version 2.42.0 this is 0.
+             *
+             * This function is in the library, so it represents the libsoup library
+             * your code is running against. Contrast with the #SOUP_MICRO_VERSION
+             * macro, which represents the micro version of the libsoup headers you
+             * have included when compiling your code.
+             * @returns the micro version number of the libsoup library
+             */
+            get_micro_version(): number
+            /**
+             * Returns the minor version number of the libsoup library.
+             *
+             * e.g. in libsoup version 2.42.0 this is 42.
+             *
+             * This function is in the library, so it represents the libsoup library
+             * your code is running against. Contrast with the #SOUP_MINOR_VERSION
+             * macro, which represents the minor version of the libsoup headers you
+             * have included when compiling your code.
+             * @returns the minor version number of the libsoup library
+             */
+            get_minor_version(): number
+            /**
+             * Parses @header to see if it contains the token @token (matched
+             * case-insensitively).
+             *
+             * Note that this can't be used with lists that have qvalues.
+             * @param header An HTTP header suitable for parsing with
+              [func@header_parse_list]
+             * @param token a token
+             * @returns whether or not `header` contains `token`
+             */
+            header_contains(header: string, token: string): boolean
+            /**
+             * Parses @header to see if it contains the token @token (matched
+             * case-sensitively).
+             *
+             * Note that this can't be used with lists that have qvalues.
+             * @since 3.8
+             * @param header An HTTP header suitable for parsing with
+              [func@header_parse_list]
+             * @param token a token
+             * @returns whether or not `header` contains `token`
+             */
+            header_contains_case_sensitive(header: string, token: string): boolean
+            /**
+             * Frees @param_list.
+             * @param param_list a #GHashTable returned from
+              [func@header_parse_param_list] or [func@header_parse_semi_param_list]
+             */
+            header_free_param_list(param_list: Record<string, string>): void
+            /**
+             * Appends something like `name=value` to @string, taking care to quote @value
+             * if needed, and if so, to escape any quotes or backslashes in @value.
+             *
+             * Alternatively, if @value is a non-ASCII UTF-8 string, it will be
+             * appended using RFC5987 syntax. Although in theory this is supposed
+             * to work anywhere in HTTP that uses this style of parameter, in
+             * reality, it can only be used portably with the Content-Disposition
+             * "filename" parameter.
+             *
+             * If @value is %NULL, this will just append @name to @string.
+             * @param string a #GString being used to construct an HTTP header value
+             * @param name a parameter name
+             * @param value a parameter value, or %NULL
+             */
+            header_g_string_append_param(string: GLib.String, name: string, value: string | null): void
+            /**
+             * Appends something like `name="value"` to
+             * @string, taking care to escape any quotes or backslashes in @value.
+             *
+             * If @value is (non-ASCII) UTF-8, this will instead use RFC 5987
+             * encoding, just like [func@header_g_string_append_param].
+             * @param string a #GString being used to construct an HTTP header value
+             * @param name a parameter name
+             * @param value a parameter value
+             */
+            header_g_string_append_param_quoted(string: GLib.String, name: string, value: string): void
+            /**
+             * Parses a header whose content is described by RFC2616 as `#something`.
+             *
+             * "something" does not itself contain commas, except as part of quoted-strings.
+             * @param header a header value
+             * @returns a #GSList of   list elements, as allocated strings
+             */
+            header_parse_list(header: string): string[]
+            /**
+             * Parses a header which is a comma-delimited list of something like:
+             * `token [ "=" ( token | quoted-string ) ]`.
+             *
+             * Tokens that don't have an associated value will still be added to
+             * the resulting hash table, but with a %NULL value.
+             *
+             * This also handles RFC5987 encoding (which in HTTP is mostly used
+             * for giving UTF8-encoded filenames in the Content-Disposition
+             * header).
+             * @param header a header value
+             * @returns a   #GHashTable of list elements, which can be freed with   [func@header_free_param_list].
+             */
+            header_parse_param_list(header: string): Record<string, string>
+            /**
+             * A strict version of [func@header_parse_param_list]
+             * that bails out if there are duplicate parameters.
+             *
+             * Note that this function will treat RFC5987-encoded
+             * parameters as duplicated if an ASCII version is also
+             * present. For header fields that might contain
+             * RFC5987-encoded parameters, use
+             * [func@header_parse_param_list] instead.
+             * @param header a header value
+             * @returns    a #GHashTable of list elements, which can be freed with   [func@header_free_param_list] or %NULL if there are duplicate   elements.
+             */
+            header_parse_param_list_strict(header: string): Record<string, string> | null
+            /**
+             * Parses a header whose content is a list of items with optional
+             * "qvalue"s (eg, Accept, Accept-Charset, Accept-Encoding,
+             * Accept-Language, TE).
+             *
+             * If @unacceptable is not %NULL, then on return, it will contain the
+             * items with qvalue 0. Either way, those items will be removed from
+             * the main list.
+             * @param header a header value
+             * @returns a #GSList of   acceptable values (as allocated strings), highest-qvalue first., on   return, will contain a list of unacceptable values
+             */
+            header_parse_quality_list(header: string): [string[], string[]]
+            /**
+             * Parses a header which is a semicolon-delimited list of something
+             * like: `token [ "=" ( token | quoted-string ) ]`.
+             *
+             * Tokens that don't have an associated value will still be added to
+             * the resulting hash table, but with a %NULL value.
+             *
+             * This also handles RFC5987 encoding (which in HTTP is mostly used
+             * for giving UTF8-encoded filenames in the Content-Disposition
+             * header).
+             * @param header a header value
+             * @returns a   #GHashTable of list elements, which can be freed with   [func@header_free_param_list].
+             */
+            header_parse_semi_param_list(header: string): Record<string, string>
+            /**
+             * A strict version of [func@header_parse_semi_param_list]
+             * that bails out if there are duplicate parameters.
+             *
+             * Note that this function will treat RFC5987-encoded
+             * parameters as duplicated if an ASCII version is also
+             * present. For header fields that might contain
+             * RFC5987-encoded parameters, use
+             * [func@header_parse_semi_param_list] instead.
+             * @param header a header value
+             * @returns    a #GHashTable of list elements, which can be freed with   [func@header_free_param_list] or %NULL if there are duplicate   elements.
+             */
+            header_parse_semi_param_list_strict(header: string): Record<string, string> | null
+            /**
+             * Parses the headers of an HTTP request or response in @str and
+             * stores the results in @dest.
+             *
+             * Beware that @dest may be modified even on failure.
+             *
+             * This is a low-level method; normally you would use
+             * [func@headers_parse_request] or [func@headers_parse_response].
+             * @param str the header string (including the Request-Line or Status-Line,
+              but not the trailing blank line)
+             * @param len length of @str
+             * @param dest #SoupMessageHeaders to store the header values in
+             * @returns success or failure
+             */
+            headers_parse(str: string, len: number, dest: MessageHeaders): boolean
+            /**
+             * Parses the headers of an HTTP request in @str and stores the
+             * results in @req_method, @req_path, @ver, and @req_headers.
+             *
+             * Beware that @req_headers may be modified even on failure.
+             * @param str the headers (up to, but not including, the trailing blank line)
+             * @param len length of @str
+             * @param req_headers #SoupMessageHeaders to store the header values in
+             * @returns %SOUP_STATUS_OK if the headers could be parsed, or an   HTTP error to be returned to the client if they could not be., if non-%NULL, will be filled in with the   request method, if non-%NULL, will be filled in with the   request path, if non-%NULL, will be filled in with the HTTP   version
+             */
+            headers_parse_request(str: string, len: number, req_headers: MessageHeaders): [number, string, string, HTTPVersion]
+            /**
+             * Parses the headers of an HTTP response in @str and stores the
+             * results in @ver, @status_code, @reason_phrase, and @headers.
+             *
+             * Beware that @headers may be modified even on failure.
+             * @param str the headers (up to, but not including, the trailing blank line)
+             * @param len length of @str
+             * @param headers #SoupMessageHeaders to store the header values in
+             * @returns success or failure., if non-%NULL, will be filled in with the HTTP   version, if non-%NULL, will be filled in with   the status code, if non-%NULL, will be filled in with   the reason phrase
+             */
+            headers_parse_response(str: string, len: number, headers: MessageHeaders): [boolean, HTTPVersion, number, string]
+            /**
+             * Parses the HTTP Status-Line string in @status_line into @ver,
+             * @status_code, and @reason_phrase.
+             *
+             * @status_line must be terminated by either "\0" or "\r\n".
+             * @param status_line an HTTP Status-Line
+             * @returns %TRUE if `status_line` was parsed successfully., if non-%NULL, will be filled in with the HTTP   version, if non-%NULL, will be filled in with   the status code, if non-%NULL, will be filled in with   the reason phrase
+             */
+            headers_parse_status_line(status_line: string): [boolean, HTTPVersion, number, string]
+            /**
+             * Initializes @iter for iterating @hdrs.
+             * @param hdrs a #SoupMessageHeaders
+             * @returns , a pointer to a #SoupMessageHeadersIter structure
+             */
+            message_headers_iter_init(hdrs: MessageHeaders): MessageHeadersIter
+            /**
+             * Yields the next name/value pair in the [struct@MessageHeaders] being
+             * iterated by @iter.
+             *
+             * If @iter has already yielded the last header, then
+             * [func@MessageHeadersIter.next] will return %FALSE and @name and @value
+             * will be unchanged.
+             * @returns %TRUE if another name and value were returned, %FALSE   if the end of the headers has been reached., a #SoupMessageHeadersIter, pointer to a variable to return   the header name in, pointer to a variable to return   the header value in
+             */
+            message_headers_iter_next(): [boolean, MessageHeadersIter, string, string]
+            /**
+             * Registers error quark for SoupSession if needed.
+             * @returns Error quark for SoupSession.
+             */
+            session_error_quark(): GLib.Quark
+            /**
+             * Looks up the stock HTTP description of @status_code.
+             *
+             * *There is no reason for you to ever use this
+             * function.* If you wanted the textual description for the
+             * [property@Message:status-code] of a given [class@Message], you should just
+             * look at the message's [property@Message:reason-phrase]. However, you
+             * should only do that for use in debugging messages; HTTP reason
+             * phrases are not localized, and are not generally very descriptive
+             * anyway, and so they should never be presented to the user directly.
+             * Instead, you should create you own error messages based on the
+             * status code, and on what you were trying to do.
+             * @param status_code an HTTP status code
+             * @returns the (terse, English) description of `status_code`
+             */
+            status_get_phrase(status_code: number): string
+            /**
+             * Looks whether the @domain passed as argument is a public domain
+             * suffix (.org, .com, .co.uk, etc) or not.
+             *
+             * Prior to libsoup 2.46, this function required that @domain be in
+             * UTF-8 if it was an IDN. From 2.46 on, the name can be in either
+             * UTF-8 or ASCII format.
+             * @param domain a domain name
+             * @returns %TRUE if it is a public domain, %FALSE otherwise.
+             */
+            tld_domain_is_public_suffix(domain: string): boolean
+            /**
+             * Registers error quark for soup_tld_get_base_domain() if needed.
+             * @returns Error quark for Soup TLD functions.
+             */
+            tld_error_quark(): GLib.Quark
+            /**
+             * Finds the base domain for a given @hostname
+             *
+             * The base domain is composed by the top level domain (such as .org, .com,
+             * .co.uk, etc) plus the second level domain, for example for
+             * myhost.mydomain.com it will return mydomain.com.
+             *
+             * Note that %NULL will be returned for private URLs (those not ending
+             * with any well known TLD) because choosing a base domain for them
+             * would be totally arbitrary.
+             *
+             * Prior to libsoup 2.46, this function required that @hostname be in
+             * UTF-8 if it was an IDN. From 2.46 on, the name can be in either
+             * UTF-8 or ASCII format (and the return value will be in the same
+             * format).
+             * @throws {GLib.Error}
+             * @param hostname a hostname
+             * @returns a pointer to the start of the base domain in `hostname`. If   an error occurs, %NULL will be returned and `error` set.
+             */
+            tld_get_base_domain(hostname: string): string
+            /**
+             * Decodes the given data URI and returns its contents and @content_type.
+             * @param uri a data URI, in string form
+             * @returns a #GBytes with the contents of `uri`,    or %NULL if `uri` is not a valid data URI, location to store content type
+             */
+            uri_decode_data_uri(uri: string): [GLib.Bytes, string | null]
+            /**
+             * Tests whether or not @uri1 and @uri2 are equal in all parts.
+             * @param uri1 a #GUri
+             * @param uri2 another #GUri
+             * @returns %TRUE if equal otherwise %FALSE
+             */
+            uri_equal(uri1: GLib.Uri, uri2: GLib.Uri): boolean
+            /**
+             * Adds the necessary headers to @msg to request a WebSocket
+             * handshake including supported WebSocket extensions.
+             *
+             * The message body and non-WebSocket-related headers are
+             * not modified.
+             *
+             * This is a low-level function; if you use
+             * [method@Session.websocket_connect_async] to create a WebSocket connection, it
+             * will call this for you.
+             * @param msg a #SoupMessage
+             * @param origin the "Origin" header to set
+             * @param protocols list of
+              protocols to offer
+             * @param supported_extensions list
+              of supported extension types
+             */
+            websocket_client_prepare_handshake(msg: Message, origin: string | null, protocols: string[] | null, supported_extensions: GObject.TypeClass[] | null): void
+            /**
+             * Looks at the response status code and headers in @msg and
+             * determines if they contain a valid WebSocket handshake response
+             * (given the handshake request in @msg's request headers).
+             *
+             * If @supported_extensions is non-%NULL, extensions included in the
+             * response "Sec-WebSocket-Extensions" are verified too. Accepted
+             * extensions are returned in @accepted_extensions parameter if non-%NULL.
+             *
+             * This is a low-level function; if you use
+             * [method@Session.websocket_connect_async] to create a WebSocket
+             * connection, it will call this for you.
+             * @throws {GLib.Error}
+             * @param msg #SoupMessage containing both client and server sides of a
+              WebSocket handshake
+             * @param supported_extensions list
+              of supported extension types
+             * @returns %TRUE if `msg` contains a completed valid WebSocket   handshake, %FALSE and an error if not., a   #GList of [class@WebsocketExtension] objects
+             */
+            websocket_client_verify_handshake(msg: Message, supported_extensions: GObject.TypeClass[] | null): [boolean, WebsocketExtension[]]
+            /**
+             * Registers error quark for SoupWebsocket if needed.
+             * @returns Error quark for SoupWebsocket.
+             */
+            websocket_error_quark(): GLib.Quark
+            /**
+             * Examines the method and request headers in @msg and determines
+             * whether @msg contains a valid handshake request.
+             *
+             * If @origin is non-%NULL, then only requests containing a matching
+             * "Origin" header will be accepted. If @protocols is non-%NULL, then
+             * only requests containing a compatible "Sec-WebSocket-Protocols"
+             * header will be accepted. If @supported_extensions is non-%NULL, then
+             * only requests containing valid supported extensions in
+             * "Sec-WebSocket-Extensions" header will be accepted.
+             *
+             * Normally [func@websocket_server_process_handshake]
+             * will take care of this for you, and if you use
+             * [method@Server.add_websocket_handler] to handle accepting WebSocket
+             * connections, it will call that for you. However, this function may
+             * be useful if you need to perform more complicated validation; eg,
+             * accepting multiple different Origins, or handling different protocols
+             * depending on the path.
+             * @throws {GLib.Error}
+             * @param msg #SoupServerMessage containing the client side of a WebSocket handshake
+             * @param origin expected Origin header
+             * @param protocols allowed WebSocket
+              protocols.
+             * @param supported_extensions list
+              of supported extension types
+             * @returns %TRUE if `msg` contained a valid WebSocket handshake,   %FALSE and an error if not.
+             */
+            websocket_server_check_handshake(msg: ServerMessage, origin: string | null, protocols: string[] | null, supported_extensions: GObject.TypeClass[] | null): boolean
+            /**
+             * Examines the method and request headers in @msg and (assuming @msg
+             * contains a valid handshake request), fills in the handshake
+             * response.
+             *
+             * If @expected_origin is non-%NULL, then only requests containing a matching
+             * "Origin" header will be accepted. If @protocols is non-%NULL, then
+             * only requests containing a compatible "Sec-WebSocket-Protocols"
+             * header will be accepted. If @supported_extensions is non-%NULL, then
+             * only requests containing valid supported extensions in
+             * "Sec-WebSocket-Extensions" header will be accepted. The accepted extensions
+             * will be returned in @accepted_extensions parameter if non-%NULL.
+             *
+             * This is a low-level function; if you use
+             * [method@Server.add_websocket_handler] to handle accepting WebSocket
+             * connections, it will call this for you.
+             * @param msg #SoupServerMessage containing the client side of a WebSocket handshake
+             * @param expected_origin expected Origin header
+             * @param protocols allowed WebSocket
+              protocols.
+             * @param supported_extensions list
+              of supported extension types
+             * @returns %TRUE if `msg` contained a valid WebSocket handshake   request and was updated to contain a handshake response. %FALSE if not., a   #GList of [class@WebsocketExtension] objects
+             */
+            websocket_server_process_handshake(msg: ServerMessage, expected_origin: string | null, protocols: string[] | null, supported_extensions: GObject.TypeClass[] | null): [boolean, WebsocketExtension[]]
+        }
     }
 
+    const Soup: Soup.$Exports
     export default Soup
 }

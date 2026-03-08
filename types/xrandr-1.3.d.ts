@@ -12,60 +12,105 @@ declare module "gi://xrandr?version=1.3" {
 
     
 
-
     namespace xrandr {
-        const __name__: "xrandr"
-        const __version: "1.3"
-        /**
-         */
-        abstract class ScreenSize {
-            static readonly $gtype: GObject.GType<ScreenSize>
+        
 
-            
+        interface ScreenSizeStruct {
+            readonly $gtype: GObject.GType<ScreenSize>
+            [Symbol.hasInstance](instance: unknown): instance is ScreenSize
         }
-        /**
-         */
-        abstract class ScreenChangeNotifyEvent {
-            static readonly $gtype: GObject.GType<ScreenChangeNotifyEvent>
 
-            
+        interface ScreenSize {
         }
-        /**
-         */
-        abstract class NotifyEvent {
-            static readonly $gtype: GObject.GType<NotifyEvent>
 
-            
+        interface $Exports {
+            ScreenSize: ScreenSizeStruct
         }
-        /**
-         */
-        abstract class ScreenResources {
-            static readonly $gtype: GObject.GType<ScreenResources>
+        
 
-            
+        interface ScreenChangeNotifyEventStruct {
+            readonly $gtype: GObject.GType<ScreenChangeNotifyEvent>
+            [Symbol.hasInstance](instance: unknown): instance is ScreenChangeNotifyEvent
         }
-        /**
-         */
-        abstract class OutputChangeNotifyEvent {
-            static readonly $gtype: GObject.GType<OutputChangeNotifyEvent>
 
-            
+        interface ScreenChangeNotifyEvent {
         }
-        /**
-         */
-        abstract class CrtcChangeNotifyEvent {
-            static readonly $gtype: GObject.GType<CrtcChangeNotifyEvent>
 
-            
+        interface $Exports {
+            ScreenChangeNotifyEvent: ScreenChangeNotifyEventStruct
         }
-        /**
-         */
-        abstract class OutputPropertyNotifyEvent {
-            static readonly $gtype: GObject.GType<OutputPropertyNotifyEvent>
+        
 
-            
+        interface NotifyEventStruct {
+            readonly $gtype: GObject.GType<NotifyEvent>
+            [Symbol.hasInstance](instance: unknown): instance is NotifyEvent
+        }
+
+        interface NotifyEvent {
+        }
+
+        interface $Exports {
+            NotifyEvent: NotifyEventStruct
+        }
+        
+
+        interface ScreenResourcesStruct {
+            readonly $gtype: GObject.GType<ScreenResources>
+            [Symbol.hasInstance](instance: unknown): instance is ScreenResources
+        }
+
+        interface ScreenResources {
+        }
+
+        interface $Exports {
+            ScreenResources: ScreenResourcesStruct
+        }
+        
+
+        interface OutputChangeNotifyEventStruct {
+            readonly $gtype: GObject.GType<OutputChangeNotifyEvent>
+            [Symbol.hasInstance](instance: unknown): instance is OutputChangeNotifyEvent
+        }
+
+        interface OutputChangeNotifyEvent {
+        }
+
+        interface $Exports {
+            OutputChangeNotifyEvent: OutputChangeNotifyEventStruct
+        }
+        
+
+        interface CrtcChangeNotifyEventStruct {
+            readonly $gtype: GObject.GType<CrtcChangeNotifyEvent>
+            [Symbol.hasInstance](instance: unknown): instance is CrtcChangeNotifyEvent
+        }
+
+        interface CrtcChangeNotifyEvent {
+        }
+
+        interface $Exports {
+            CrtcChangeNotifyEvent: CrtcChangeNotifyEventStruct
+        }
+        
+
+        interface OutputPropertyNotifyEventStruct {
+            readonly $gtype: GObject.GType<OutputPropertyNotifyEvent>
+            [Symbol.hasInstance](instance: unknown): instance is OutputPropertyNotifyEvent
+        }
+
+        interface OutputPropertyNotifyEvent {
+        }
+
+        interface $Exports {
+            OutputPropertyNotifyEvent: OutputPropertyNotifyEventStruct
+        }
+
+        interface $Exports {
+            __name__: "xrandr"
+            __version: "1.3"
         }
     }
 
+    const xrandr: xrandr.$Exports
     export default xrandr
 }

@@ -20,10 +20,7 @@ declare module "gi://Rsvg?version=2.0" {
 
     
 
-
     namespace Rsvg {
-        const __name__: "Rsvg"
-        const __version: "2.0"
         
 
         namespace Handle {
@@ -51,7 +48,6 @@ declare module "gi://Rsvg?version=2.0" {
                 "dpi-y": number
                 "em": number
                 "ex": number
-                "flags": HandleFlags
                 "height": number
                 "metadata": string | null
                 "title": string | null
@@ -59,137 +55,10 @@ declare module "gi://Rsvg?version=2.0" {
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "flags": HandleFlags
             }
         }
 
-        /**
-         * `.
-         * This is so that malicious SVG files cannot include files that are in a directory above.
-         *
-         * The full set of rules for deciding which URLs may be loaded is as follows;
-         * they are applied in order.  A referenced URL will not be loaded as soon as
-         * one of these rules fails:
-         *
-         * 1. All `data:` URLs may be loaded.  These are sometimes used
-         *    to include raster image data, encoded as base-64, directly in an SVG file.
-         *
-         * 2. URLs with queries ("?") or fragment identifiers ("#") are not allowed.
-         *
-         * 3. All URL schemes other than data: in references require a base URL.  For
-         *    example, this means that if you load an SVG with
-         *    [ctor@Rsvg.Handle.new_from_data] without calling [method@Rsvg.Handle.set_base_uri],
-         *    then any referenced files will not be allowed (e.g. raster images to be
-         *    loaded from other files will not work).
-         *
-         * 4. If referenced URLs are absolute, rather than relative, then they must
-         *    have the same scheme as the base URL.  For example, if the base URL has a
-         *    `file` scheme, then all URL references inside the SVG must
-         *    also have the `file` scheme, or be relative references which
-         *    will be resolved against the base URL.
-         *
-         * 5. If referenced URLs have a `resource` scheme, that is,
-         *    if they are included into your binary program with GLib's resource
-         *    mechanism, they are allowed to be loaded (provided that the base URL is
-         *    also a `resource`, per the previous rule).
-         *
-         * 6. Otherwise, non-`file` schemes are not allowed.  For
-         *    example, librsvg will not load `http` resources, to keep
-         *    malicious SVG data from "phoning home".
-         *
-         * 7. URLs with a `file` scheme are rejected if they contain a hostname, as in
-         *    `file://hostname/some/directory/foo.svg`.  Windows UNC paths with a hostname are
-         *    also rejected.  This is to prevent documents from trying to access resources on
-         *    other machines.
-         *
-         * 8. A relative URL must resolve to the same directory as the base URL, or to
-         *    one of its subdirectories.  Librsvg will canonicalize filenames, by
-         *    removing ".." path components and resolving symbolic links, to decide whether
-         *    files meet these conditions.
-         *
-         * # Loading an SVG with GIO
-         *
-         * This is the easiest and most resource-efficient way of loading SVG data into
-         * an [class@Rsvg.Handle].
-         *
-         * If you have a `GFile` that stands for an SVG file, you can simply call
-         * [ctor@Rsvg.Handle.new_from_gfile_sync] to load an [class@Rsvg.Handle] from it.
-         *
-         * Alternatively, if you have a `GInputStream`, you can use
-         * [ctor@Rsvg.Handle.new_from_stream_sync].
-         *
-         * Both of those methods allow specifying a `GCancellable`, so the loading
-         * process can be cancelled from another thread.
-         *
-         * ## Loading an SVG from memory
-         *
-         * If you already have SVG data in a byte buffer in memory, you can create a
-         * memory input stream with [ctor@Gio.MemoryInputStream.new_from_data] and feed that
-         * to [ctor@Rsvg.Handle.new_from_stream_sync].
-         *
-         * Note that in this case, it is important that you specify the base_file for
-         * the in-memory SVG data.  Librsvg uses the base_file to resolve links to
-         * external content, like raster images.
-         *
-         * # Loading an SVG without GIO
-         *
-         * You can load an [class@Rsvg.Handle] from a simple filename or URI with
-         * [ctor@Rsvg.Handle.new_from_file].  Note that this is a blocking operation; there
-         * is no way to cancel it if loading a remote URI takes a long time.  Also, note that
-         * this method does not let you specify [flags@Rsvg.HandleFlags].
-         *
-         * Otherwise, loading an SVG without GIO is not recommended, since librsvg will
-         * need to buffer your entire data internally before actually being able to
-         * parse it.  The deprecated way of doing this is by creating a handle with
-         * [ctor@Rsvg.Handle.new] or [ctor@Rsvg.Handle.new_with_flags], and then using
-         * [method@Rsvg.Handle.write] and [method@Rsvg.Handle.close] to feed the handle with SVG data.
-         * Still, please try to use the GIO stream functions instead.
-         *
-         * # Resolution of the rendered image (dots per inch, or DPI)
-         *
-         * SVG images can contain dimensions like "`5cm`" or
-         * "`2pt`" that must be converted from physical units into
-         * device units.  To do this, librsvg needs to know the actual dots per inch
-         * (DPI) of your target device.  You can call [method@Rsvg.Handle.set_dpi] or
-         * [method@Rsvg.Handle.set_dpi_x_y] on an [class@Rsvg.Handle] to set the DPI before rendering
-         * it.
-         *
-         * For historical reasons, the default DPI is 90.  Current CSS assumes a default DPI of 96, so
-         * you may want to set the DPI of a [class@Rsvg.Handle] immediately after creating it with
-         * [method@Rsvg.Handle.set_dpi].
-         *
-         * # Rendering
-         *
-         * The preferred way to render a whole SVG document is to use
-         * [method@Rsvg.Handle.render_document].  Please see its documentation for
-         * details.
-         *
-         * # API ordering
-         *
-         * Due to the way the librsvg API evolved over time, an [class@Rsvg.Handle] object is available
-         * for use as soon as it is constructed.  However, not all of its methods can be
-         * called at any time.  For example, an [class@Rsvg.Handle] just constructed with [ctor@Rsvg.Handle.new]
-         * is not loaded yet, and it does not make sense to call [method@Rsvg.Handle.render_document] on it
-         * just at that point.
-         *
-         * The documentation for the available methods in [class@Rsvg.Handle] may mention that a particular
-         * method is only callable on a "fully loaded handle".  This means either:
-         *
-         * * The handle was loaded with [method@Rsvg.Handle.write] and [method@Rsvg.Handle.close], and
-         *   those functions returned no errors.
-         *
-         * * The handle was loaded with [method@Rsvg.Handle.read_stream_sync] and that function
-         *   returned no errors.
-         *
-         * Before librsvg 2.46, the library did not fully verify that a handle was in a
-         * fully loaded state for the methods that require it.  To preserve
-         * compatibility with old code which inadvertently called the API without
-         * checking for errors, or which called some methods outside of the expected
-         * order, librsvg will just emit a `g_critical()` message in those cases.
-         *
-         * New methods introduced in librsvg 2.46 and later will check for the correct
-         * ordering, and panic if they are called out of order.  This will abort
-         * the program as if it had a failed assertion.
-         */
         interface Handle extends GObject.Object {
             readonly $signals: Handle.SignalSignatures
             readonly $readableProperties: Handle.ReadableProperties
@@ -378,7 +247,7 @@ declare module "gi://Rsvg?version=2.0" {
             whole SVG.
              * @returns `TRUE` if the geometry could be obtained, or `FALSE` on error.  Errors are returned in the `error` argument.  API ordering: This function must be called on a fully-loaded `handle`.  See the section "[API ordering](class.Handle.html#api-ordering)" for details.  Panics: this function will panic if the `handle` is not fully-loaded., Place to store the ink rectangle of the element., Place to store the logical rectangle of the element.
              */
-            get_geometry_for_element(id: string | null): boolean
+            get_geometry_for_element(id: string | null): [boolean, Rectangle, Rectangle]
             /**
              * Computes the ink rectangle and logical rectangle of an SVG element, or the
              * whole SVG, as if the whole SVG were rendered to a specific viewport.
@@ -411,9 +280,47 @@ declare module "gi://Rsvg?version=2.0" {
              * @param viewport Viewport size at which the whole SVG would be fitted.
              * @returns `TRUE` if the geometry could be obtained, or `FALSE` on error.  Errors are returned in the `error` argument.  API ordering: This function must be called on a fully-loaded `handle`.  See the section "[API ordering](class.Handle.html#api-ordering)" for details.  Panics: this function will panic if the `handle` is not fully-loaded., Place to store the ink rectangle of the element., Place to store the logical rectangle of the element.
              */
-            get_geometry_for_layer(id: string | null, viewport: Rectangle): boolean
+            get_geometry_for_layer(id: string | null, viewport: Rectangle): [boolean, Rectangle, Rectangle]
             /**
+             * In simple terms, queries the `width`, `height`, and `viewBox` attributes in an SVG document.
              *
+             * If you are calling this function to compute a scaling factor to render the SVG,
+             * consider simply using [method@Rsvg.Handle.render_document] instead; it will do the
+             * scaling computations automatically.
+             *
+             * Before librsvg 2.54.0, the `out_has_width` and `out_has_height` arguments would be set to true or false
+             * depending on whether the SVG document actually had `width` and `height` attributes, respectively.
+             *
+             * However, since librsvg 2.54.0, `width` and `height` are now [geometry
+             * properties](https://www.w3.org/TR/SVG2/geometry.html) per the SVG2 specification; they
+             * are not plain attributes.  SVG2 made it so that the initial value of those properties
+             * is `auto`, which is equivalent to specifing a value of `100%`.  In this sense, even SVG
+             * documents which lack `width` or `height` attributes semantically have to make them
+             * default to `100%`.  This is why since librsvg 2.54.0, `out_has_width` and
+             * `out_has_heigth` are always returned as `TRUE`, since with SVG2 all documents *have* a
+             * default width and height of `100%`.
+             *
+             * As an example, the following SVG element has a `width` of 100 pixels and a `height` of 400 pixels, but no `viewBox`.  This
+             * function will return those sizes in `out_width` and `out_height`, and set `out_has_viewbox` to `FALSE`.
+             *
+             * ```
+             * <svg xmlns="http://www.w3.org/2000/svg" width="100" height="400">
+             * ```
+             *
+             * Conversely, the following element has a `viewBox`, but no `width` or `height`.  This function will
+             * set `out_has_viewbox` to `TRUE`, and it will also set `out_has_width` and `out_has_height` to `TRUE` but
+             * return both length values as `100%`.
+             *
+             * ```
+             * <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 400">
+             * ```
+             *
+             * Note that the `RsvgLength` return values have `RsvgUnits` in them; you should
+             * not assume that they are always in pixels.  For example, the following SVG element
+             * will return width and height values whose `units` fields are `RSVG_UNIT_MM`.
+             *
+             * ```
+             * <svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm">
              * ```
              *
              * API ordering: This function must be called on a fully-loaded @handle.  See
@@ -423,9 +330,52 @@ declare module "gi://Rsvg?version=2.0" {
              * @since 2.46
              * @returns , Will be set to `TRUE`; see below., Will be set to the computed value of the `width` property in the toplevel SVG., Will be set to `TRUE`; see below., Will be set to the computed value of the `height` property in the toplevel SVG., Will be set to `TRUE` if the toplevel SVG has a `viewBox` attribute, Will be set to the value of the `viewBox` attribute in the toplevel SVG
              */
-            get_intrinsic_dimensions(): void
+            get_intrinsic_dimensions(): [boolean, Length, boolean, Length, boolean, Rectangle]
             /**
+             * Converts an SVG document's intrinsic dimensions to pixels, and returns the result.
              *
+             * This function is able to extract the size in pixels from an SVG document if the
+             * document has both `width` and `height` attributes
+             * with physical units (px, in, cm, mm, pt, pc) or font-based units (em, ex).  For
+             * physical units, the dimensions are normalized to pixels using the dots-per-inch (DPI)
+             * value set previously with [method@Rsvg.Handle.set_dpi].  For font-based units, this function
+             * uses the computed value of the `font-size` property for the toplevel
+             * `<svg>` element.  In those cases, this function returns `TRUE`.
+             *
+             * For historical reasons, the default DPI is 90.  Current CSS assumes a default DPI of 96, so
+             * you may want to set the DPI of a [class@Rsvg.Handle] immediately after creating it with
+             * [method@Rsvg.Handle.set_dpi].
+             *
+             * This function is not able to extract the size in pixels directly from the intrinsic
+             * dimensions of the SVG document if the `width` or
+             * `height` are in percentage units (or if they do not exist, in which
+             * case the SVG spec mandates that they default to 100%), as these require a
+             * <firstterm>viewport</firstterm> to be resolved to a final size.  In this case, the
+             * function returns `FALSE`.
+             *
+             * For example, the following document fragment has intrinsic dimensions that will resolve
+             * to 20x30 pixels.
+             *
+             * ```
+             * <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30"/>
+             * ```
+             *
+             * Similarly, if the DPI is set to 96, this document will resolve to 192×288 pixels (i.e. 96×2 × 96×3).
+             *
+             * ```
+             * <svg xmlns="http://www.w3.org/2000/svg" width="2in" height="3in"/>
+             * ```
+             *
+             * The dimensions of the following documents cannot be resolved to pixels directly, and
+             * this function would return `FALSE` for them:
+             *
+             * ```
+             * <!-- Needs a viewport against which to compute the percentages. -->
+             * <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"/>
+             *
+             * <!-- Does not have intrinsic width/height, just a 1:2 aspect ratio which
+             *      needs to be fitted within a viewport. -->
+             * <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200"/>
              * ```
              *
              * Instead of querying an SVG document's size, applications are encouraged to render SVG
@@ -434,7 +384,7 @@ declare module "gi://Rsvg?version=2.0" {
              * @since 2.52
              * @returns `TRUE` if the dimensions could be converted directly to pixels; in this case `out_width` and `out_height` will be set accordingly.  Note that the dimensions are floating-point numbers, so your application can know the exact size of an SVG document. To get integer dimensions, you should use `ceil()` to round up to the nearest integer (just using `round()`, may may chop off pixels with fractional coverage).  If the dimensions cannot be converted to pixels, returns `FALSE` and puts 0.0 in both `out_width` and `out_height`., Will be set to the computed width; you should round this up to get integer pixels., Will be set to the computed height; you should round this up to get integer pixels.
              */
-            get_intrinsic_size_in_pixels(): boolean
+            get_intrinsic_size_in_pixels(): [boolean, number, number]
             /**
              * @since 2.9
              * @deprecated since 2.36. Librsvg does not read the metadata/desc/title elements; this function always returns `NULL`.
@@ -540,7 +490,12 @@ declare module "gi://Rsvg?version=2.0" {
              */
             internal_set_testing(testing: boolean): void
             /**
-             * ` which reference external resources will be
+             * Reads @stream and writes the data from it to @handle.
+             *
+             * Before calling this function, you may need to call [method@Rsvg.Handle.set_base_uri]
+             * or [method@Rsvg.Handle.set_base_gfile] to set the "base file" for resolving
+             * references to external resources.  SVG elements like
+             * `<image>` which reference external resources will be
              * resolved relative to the location you specify with those functions.
              *
              * If @cancellable is not `NULL`, then the operation can be cancelled by
@@ -765,13 +720,23 @@ declare module "gi://Rsvg?version=2.0" {
              */
             set_cancellable_for_rendering(cancellable: Gio.Cancellable | null): void
             /**
-             * = 0 to this function.
+             * Sets the DPI at which the @handle will be rendered. Common values are
+             * 75, 90, and 300 DPI.
+             *
+             * Passing a number <= 0 to @dpi will reset the DPI to whatever the default
+             * value happens to be, but since [id@rsvg_set_default_dpi] is deprecated, please
+             * do not pass values <= 0 to this function.
              * @since 2.8
              * @param dpi Dots Per Inch (i.e. as Pixels Per Inch)
              */
             set_dpi(dpi: number): void
             /**
-             * = 0 to this function.
+             * Sets the DPI at which the @handle will be rendered. Common values are
+             * 75, 90, and 300 DPI.
+             *
+             * Passing a number <= 0 to @dpi will reset the DPI to whatever the default
+             * value happens to be, but since [id@rsvg_set_default_dpi_x_y] is deprecated,
+             * please do not pass values <= 0 to this function.
              * @since 2.8
              * @param dpi_x Dots Per Inch (i.e. Pixels Per Inch)
              * @param dpi_y Dots Per Inch (i.e. Pixels Per Inch)
@@ -813,7 +778,14 @@ declare module "gi://Rsvg?version=2.0" {
              */
             set_stylesheet(css: Uint8Array): boolean
             /**
-             * ` which reference external resources will be
+             * Loads the next @count bytes of the image.  You can call this function multiple
+             * times until the whole document is consumed; then you must call [method@Rsvg.Handle.close]
+             * to actually parse the document.
+             *
+             * Before calling this function for the first time, you may need to call
+             * [method@Rsvg.Handle.set_base_uri] or [method@Rsvg.Handle.set_base_gfile] to set the "base
+             * file" for resolving references to external resources.  SVG elements like
+             * `<image>` which reference external resources will be
              * resolved relative to the location you specify with those functions.
              * @throws {GLib.Error}
              * @deprecated since 2.46. Use [method@Rsvg.Handle.read_stream_sync] or the constructor functions [ctor@Rsvg.Handle.new_from_gfile_sync] or [ctor@Rsvg.Handle.new_from_stream_sync].  This function is deprecated because it will accumulate data from the `buf` in memory until [method@Rsvg.Handle.close] gets called.  To avoid a big temporary buffer, use the suggested functions, which take a `GFile` or a `GInputStream` and do not require a temporary buffer.
@@ -826,6 +798,7 @@ declare module "gi://Rsvg?version=2.0" {
         interface HandleClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Handle>
             readonly prototype: Handle
+
             new (props?: Partial<GObject.ConstructorProps<Handle>>): Handle
             /**
              * Returns a new rsvg handle.  Must be freed with [method@GObject.Object.unref].  This
@@ -874,7 +847,10 @@ declare module "gi://Rsvg?version=2.0" {
              */
             new_from_file(filename: string): Handle
             /**
-             * ` which reference external
+             * Creates a new [class@Rsvg.Handle] for @file.
+             *
+             * This function sets the "base file" of the handle to be @file itself, so SVG
+             * elements like `<image>` which reference external
              * resources will be resolved relative to the location of @file.
              *
              * If @cancellable is not `NULL`, then the operation can be cancelled by
@@ -890,7 +866,10 @@ declare module "gi://Rsvg?version=2.0" {
              */
             new_from_gfile_sync(file: Gio.File, flags: HandleFlags, cancellable: Gio.Cancellable | null): Handle
             /**
-             * ` which reference
+             * Creates a new [class@Rsvg.Handle] for @stream.
+             *
+             * This function sets the "base file" of the handle to be @base_file if
+             * provided.  SVG elements like `<image>` which reference
              * external resources will be resolved relative to the location of @base_file.
              *
              * If @cancellable is not `NULL`, then the operation can be cancelled by
@@ -917,17 +896,186 @@ declare module "gi://Rsvg?version=2.0" {
             new_with_flags(flags: HandleFlags): Handle
         }
 
-        const Handle: HandleClass
-        /**
-         * Dimensions of an SVG image from [method@Rsvg.Handle.get_dimensions], or an
-         * individual element from [method@Rsvg.Handle.get_dimensions_sub].  Please see
-         * the deprecation documentation for those functions.
-         * @deprecated since 2.46. Use [method@Rsvg.Handle.get_intrinsic_size_in_pixels] or [method@Rsvg.Handle.get_geometry_for_layer] instead.
-         */
-        abstract class DimensionData {
-            static readonly $gtype: GObject.GType<DimensionData>
+        interface $Exports {
+            /**
+             * [class@Rsvg.Handle] loads an SVG document into memory.
+             *
+             * This is the main entry point into the librsvg library.  An [class@Rsvg.Handle] is an
+             * object that represents SVG data in memory.  Your program creates an
+             * [class@Rsvg.Handle] from an SVG file, or from a memory buffer that contains SVG data,
+             * or in the most general form, from a `GInputStream` that will provide SVG data.
+             *
+             * Librsvg can load SVG images and render them to Cairo surfaces,
+             * using a mixture of SVG's [static mode] and [secure static mode].
+             * Librsvg does not do animation nor scripting, and can load
+             * references to external data only in some situations; see below.
+             *
+             * Librsvg supports reading [SVG 1.1](https://www.w3.org/TR/SVG11/) data, and is gradually
+             * adding support for features in [SVG 2](https://www.w3.org/TR/SVG2/).  Librsvg also
+             * supports SVGZ files, which are just an SVG stream compressed with the GZIP algorithm.
+             *
+             * [static mode]: https://www.w3.org/TR/SVG2/conform.html#static-mode
+             * [secure static mode]: https://www.w3.org/TR/SVG2/conform.html#secure-static-mode
+             *
+             * # The "base file" and resolving references to external files
+             *
+             * When you load an SVG, librsvg needs to know the location of the "base file"
+             * for it.  This is so that librsvg can determine the location of referenced
+             * entities.  For example, say you have an SVG in `/foo/bar/foo.svg`
+             * and that it has an image element like this:
+             *
+             * ```
+             * <image href="resources/foo.png" .../>
+             * ```
+             *
+             * In this case, librsvg needs to know the location of the toplevel
+             * `/foo/bar/foo.svg` so that it can generate the appropriate
+             * reference to `/foo/bar/resources/foo.png`.
+             *
+             * ## Security and locations of referenced files
+             *
+             * When processing an SVG, librsvg will only load referenced files if they are
+             * in the same directory as the base file, or in a subdirectory of it.  That is,
+             * if the base file is `/foo/bar/baz.svg`, then librsvg will
+             * only try to load referenced files (from SVG's
+             * `<image>` element, for example, or from content
+             * included through XML entities) if those files are in `/foo/bar/<anything>` or in `/foo/bar/<anything>\/.../<anything>`.
+             * This is so that malicious SVG files cannot include files that are in a directory above.
+             *
+             * The full set of rules for deciding which URLs may be loaded is as follows;
+             * they are applied in order.  A referenced URL will not be loaded as soon as
+             * one of these rules fails:
+             *
+             * 1. All `data:` URLs may be loaded.  These are sometimes used
+             *    to include raster image data, encoded as base-64, directly in an SVG file.
+             *
+             * 2. URLs with queries ("?") or fragment identifiers ("#") are not allowed.
+             *
+             * 3. All URL schemes other than data: in references require a base URL.  For
+             *    example, this means that if you load an SVG with
+             *    [ctor@Rsvg.Handle.new_from_data] without calling [method@Rsvg.Handle.set_base_uri],
+             *    then any referenced files will not be allowed (e.g. raster images to be
+             *    loaded from other files will not work).
+             *
+             * 4. If referenced URLs are absolute, rather than relative, then they must
+             *    have the same scheme as the base URL.  For example, if the base URL has a
+             *    `file` scheme, then all URL references inside the SVG must
+             *    also have the `file` scheme, or be relative references which
+             *    will be resolved against the base URL.
+             *
+             * 5. If referenced URLs have a `resource` scheme, that is,
+             *    if they are included into your binary program with GLib's resource
+             *    mechanism, they are allowed to be loaded (provided that the base URL is
+             *    also a `resource`, per the previous rule).
+             *
+             * 6. Otherwise, non-`file` schemes are not allowed.  For
+             *    example, librsvg will not load `http` resources, to keep
+             *    malicious SVG data from "phoning home".
+             *
+             * 7. URLs with a `file` scheme are rejected if they contain a hostname, as in
+             *    `file://hostname/some/directory/foo.svg`.  Windows UNC paths with a hostname are
+             *    also rejected.  This is to prevent documents from trying to access resources on
+             *    other machines.
+             *
+             * 8. A relative URL must resolve to the same directory as the base URL, or to
+             *    one of its subdirectories.  Librsvg will canonicalize filenames, by
+             *    removing ".." path components and resolving symbolic links, to decide whether
+             *    files meet these conditions.
+             *
+             * # Loading an SVG with GIO
+             *
+             * This is the easiest and most resource-efficient way of loading SVG data into
+             * an [class@Rsvg.Handle].
+             *
+             * If you have a `GFile` that stands for an SVG file, you can simply call
+             * [ctor@Rsvg.Handle.new_from_gfile_sync] to load an [class@Rsvg.Handle] from it.
+             *
+             * Alternatively, if you have a `GInputStream`, you can use
+             * [ctor@Rsvg.Handle.new_from_stream_sync].
+             *
+             * Both of those methods allow specifying a `GCancellable`, so the loading
+             * process can be cancelled from another thread.
+             *
+             * ## Loading an SVG from memory
+             *
+             * If you already have SVG data in a byte buffer in memory, you can create a
+             * memory input stream with [ctor@Gio.MemoryInputStream.new_from_data] and feed that
+             * to [ctor@Rsvg.Handle.new_from_stream_sync].
+             *
+             * Note that in this case, it is important that you specify the base_file for
+             * the in-memory SVG data.  Librsvg uses the base_file to resolve links to
+             * external content, like raster images.
+             *
+             * # Loading an SVG without GIO
+             *
+             * You can load an [class@Rsvg.Handle] from a simple filename or URI with
+             * [ctor@Rsvg.Handle.new_from_file].  Note that this is a blocking operation; there
+             * is no way to cancel it if loading a remote URI takes a long time.  Also, note that
+             * this method does not let you specify [flags@Rsvg.HandleFlags].
+             *
+             * Otherwise, loading an SVG without GIO is not recommended, since librsvg will
+             * need to buffer your entire data internally before actually being able to
+             * parse it.  The deprecated way of doing this is by creating a handle with
+             * [ctor@Rsvg.Handle.new] or [ctor@Rsvg.Handle.new_with_flags], and then using
+             * [method@Rsvg.Handle.write] and [method@Rsvg.Handle.close] to feed the handle with SVG data.
+             * Still, please try to use the GIO stream functions instead.
+             *
+             * # Resolution of the rendered image (dots per inch, or DPI)
+             *
+             * SVG images can contain dimensions like "`5cm`" or
+             * "`2pt`" that must be converted from physical units into
+             * device units.  To do this, librsvg needs to know the actual dots per inch
+             * (DPI) of your target device.  You can call [method@Rsvg.Handle.set_dpi] or
+             * [method@Rsvg.Handle.set_dpi_x_y] on an [class@Rsvg.Handle] to set the DPI before rendering
+             * it.
+             *
+             * For historical reasons, the default DPI is 90.  Current CSS assumes a default DPI of 96, so
+             * you may want to set the DPI of a [class@Rsvg.Handle] immediately after creating it with
+             * [method@Rsvg.Handle.set_dpi].
+             *
+             * # Rendering
+             *
+             * The preferred way to render a whole SVG document is to use
+             * [method@Rsvg.Handle.render_document].  Please see its documentation for
+             * details.
+             *
+             * # API ordering
+             *
+             * Due to the way the librsvg API evolved over time, an [class@Rsvg.Handle] object is available
+             * for use as soon as it is constructed.  However, not all of its methods can be
+             * called at any time.  For example, an [class@Rsvg.Handle] just constructed with [ctor@Rsvg.Handle.new]
+             * is not loaded yet, and it does not make sense to call [method@Rsvg.Handle.render_document] on it
+             * just at that point.
+             *
+             * The documentation for the available methods in [class@Rsvg.Handle] may mention that a particular
+             * method is only callable on a "fully loaded handle".  This means either:
+             *
+             * * The handle was loaded with [method@Rsvg.Handle.write] and [method@Rsvg.Handle.close], and
+             *   those functions returned no errors.
+             *
+             * * The handle was loaded with [method@Rsvg.Handle.read_stream_sync] and that function
+             *   returned no errors.
+             *
+             * Before librsvg 2.46, the library did not fully verify that a handle was in a
+             * fully loaded state for the methods that require it.  To preserve
+             * compatibility with old code which inadvertently called the API without
+             * checking for errors, or which called some methods outside of the expected
+             * order, librsvg will just emit a `g_critical()` message in those cases.
+             *
+             * New methods introduced in librsvg 2.46 and later will check for the correct
+             * ordering, and panic if they are called out of order.  This will abort
+             * the program as if it had a failed assertion.
+             */
+            Handle: HandleClass
+        }
+        
 
-            
+        interface DimensionDataStruct {
+            readonly $gtype: GObject.GType<DimensionData>
+            [Symbol.hasInstance](instance: unknown): instance is DimensionData
+        }
+
+        interface DimensionData {
             /**
              * SVG's width, in pixels
              */
@@ -945,22 +1093,18 @@ declare module "gi://Rsvg?version=2.0" {
              */
             ex: number
         }
-        none
-        /**
-         * ` element.
-         *
-         * This is equivalent to [CSS lengths](https://www.w3.org/TR/CSS21/syndata.html#length-units).
-         *
-         * It is up to the calling application to convert lengths in non-pixel units
-         * (i.e. those where the @unit field is not `RSVG_UNIT_PX`) into something
-         * meaningful to the application.  For example, if your application knows the
-         * dots-per-inch (DPI) it is using, it can convert lengths with @unit in
-         * `RSVG_UNIT_IN` or other physical units.
-         */
-        abstract class Length {
-            static readonly $gtype: GObject.GType<Length>
 
-            
+        interface $Exports {
+            DimensionData: DimensionDataStruct
+        }
+        
+
+        interface LengthStruct {
+            readonly $gtype: GObject.GType<Length>
+            [Symbol.hasInstance](instance: unknown): instance is Length
+        }
+
+        interface Length {
             /**
              * numeric part of the length
              */
@@ -970,15 +1114,18 @@ declare module "gi://Rsvg?version=2.0" {
              */
             unit: Unit
         }
-        /**
-         * Position of an SVG fragment from [method@Rsvg.Handle.get_position_sub].  Please
-         * the deprecation documentation for that function.
-         * @deprecated since 2.46. Use [method@Rsvg.Handle.get_geometry_for_layer] instead.
-         */
-        abstract class PositionData {
-            static readonly $gtype: GObject.GType<PositionData>
 
-            
+        interface $Exports {
+            Length: LengthStruct
+        }
+        
+
+        interface PositionDataStruct {
+            readonly $gtype: GObject.GType<PositionData>
+            [Symbol.hasInstance](instance: unknown): instance is PositionData
+        }
+
+        interface PositionData {
             /**
              * position on the x axis
              */
@@ -988,14 +1135,18 @@ declare module "gi://Rsvg?version=2.0" {
              */
             y: number
         }
-        /**
-         * A data structure for holding a rectangle.
-         * @since 2.46
-         */
-        abstract class Rectangle {
-            static readonly $gtype: GObject.GType<Rectangle>
 
-            
+        interface $Exports {
+            PositionData: PositionDataStruct
+        }
+        
+
+        interface RectangleStruct {
+            readonly $gtype: GObject.GType<Rectangle>
+            [Symbol.hasInstance](instance: unknown): instance is Rectangle
+        }
+
+        interface Rectangle {
             /**
              * X coordinate of the left side of the rectangle
              */
@@ -1013,211 +1164,105 @@ declare module "gi://Rsvg?version=2.0" {
              */
             height: number
         }
-        /**
-         * This function does nothing.
-         * @since 2.36
-         * @deprecated since 2.46 No-op. This function should not be called from normal programs.
-         */
-        function cleanup(): void
-        /**
-         * The error domain for RSVG
-         * @returns The error domain
-         */
-        function error_quark(): GLib.Quark
-        /**
-         * This function does nothing.
-         * @since 2.9
-         * @deprecated since 2.36 There is no need to initialize librsvg.
-         */
-        function init(): void
-        /**
-         * Loads a new `GdkPixbuf` from @filename and returns it.  The caller must
-         * assume the reference to the reurned pixbuf. If an error occurred, @error is
-         * set and `NULL` is returned.
-         * @throws {GLib.Error}
-         * @deprecated Use [ctor@Rsvg.Handle.new_from_file] and [method@Rsvg.Handle.render_document] instead.
-         * @param filename A file name
-         * @returns A pixbuf, or %NULL on error.
-         */
-        function pixbuf_from_file(filename: string): GdkPixbuf.Pixbuf | null
-        /**
-         * Loads a new `GdkPixbuf` from @filename and returns it.  This pixbuf is uniformly
-         * scaled so that the it fits into a rectangle of size `max_width * max_height`. The
-         * caller must assume the reference to the returned pixbuf. If an error occurred,
-         * @error is set and `NULL` is returned.
-         * @throws {GLib.Error}
-         * @deprecated Use [ctor@Rsvg.Handle.new_from_file] and [method@Rsvg.Handle.render_document] instead.
-         * @param filename A file name
-         * @param max_width The requested max width
-         * @param max_height The requested max height
-         * @returns A pixbuf, or %NULL on error.
-         */
-        function pixbuf_from_file_at_max_size(filename: string, max_width: number, max_height: number): GdkPixbuf.Pixbuf | null
-        /**
-         * Loads a new `GdkPixbuf` from @filename and returns it.  This pixbuf is scaled
-         * from the size indicated to the new size indicated by @width and @height.  If
-         * both of these are -1, then the default size of the image being loaded is
-         * used.  The caller must assume the reference to the returned pixbuf. If an
-         * error occurred, @error is set and `NULL` is returned.
-         * @throws {GLib.Error}
-         * @deprecated Use [ctor@Rsvg.Handle.new_from_file] and [method@Rsvg.Handle.render_document] instead.
-         * @param filename A file name
-         * @param width The new width, or -1
-         * @param height The new height, or -1
-         * @returns A pixbuf, or %NULL on error.
-         */
-        function pixbuf_from_file_at_size(filename: string, width: number, height: number): GdkPixbuf.Pixbuf | null
-        /**
-         * Loads a new `GdkPixbuf` from @filename and returns it.  This pixbuf is scaled
-         * from the size indicated by the file by a factor of @x_zoom and @y_zoom.  The
-         * caller must assume the reference to the returned pixbuf. If an error
-         * occurred, @error is set and `NULL` is returned.
-         * @throws {GLib.Error}
-         * @deprecated Use [ctor@Rsvg.Handle.new_from_file] and [method@Rsvg.Handle.render_document] instead.
-         * @param filename A file name
-         * @param x_zoom The horizontal zoom factor
-         * @param y_zoom The vertical zoom factor
-         * @returns A pixbuf, or %NULL on error.
-         */
-        function pixbuf_from_file_at_zoom(filename: string, x_zoom: number, y_zoom: number): GdkPixbuf.Pixbuf | null
-        /**
-         * Loads a new `GdkPixbuf` from @filename and returns it.  This pixbuf is scaled
-         * from the size indicated by the file by a factor of @x_zoom and @y_zoom. If the
-         * resulting pixbuf would be larger than max_width/max_heigh it is uniformly scaled
-         * down to fit in that rectangle. The caller must assume the reference to the
-         * returned pixbuf. If an error occurred, @error is set and `NULL` is returned.
-         * @throws {GLib.Error}
-         * @deprecated Use [ctor@Rsvg.Handle.new_from_file] and [method@Rsvg.Handle.render_document] instead.
-         * @param filename A file name
-         * @param x_zoom The horizontal zoom factor
-         * @param y_zoom The vertical zoom factor
-         * @param max_width The requested max width
-         * @param max_height The requested max height
-         * @returns A pixbuf, or %NULL on error.
-         */
-        function pixbuf_from_file_at_zoom_with_max(filename: string, x_zoom: number, y_zoom: number, max_width: number, max_height: number): GdkPixbuf.Pixbuf | null
-        /**
-         * Do not use this function.  Create an [class@Rsvg.Handle] and call
-         * [method@Rsvg.Handle.set_dpi] on it instead.
-         * @since 2.8
-         * @deprecated since 2.42.3 This function used to set a global default DPI.  However, it only worked if it was called before any [class@Rsvg.Handle] objects had been created; it would not work after that.  To avoid global mutable state, please use [method@Rsvg.Handle.set_dpi] instead.
-         * @param dpi Dots Per Inch (aka Pixels Per Inch)
-         */
-        function set_default_dpi(dpi: number): void
-        /**
-         * Do not use this function.  Create an [class@Rsvg.Handle] and call
-         * [method@Rsvg.Handle.set_dpi_x_y] on it instead.
-         * @since 2.8
-         * @deprecated since 2.42.3 This function used to set a global default DPI.  However, it only worked if it was called before any [class@Rsvg.Handle] objects had been created; it would not work after that.  To avoid global mutable state, please use [method@Rsvg.Handle.set_dpi] instead.
-         * @param dpi_x Dots Per Inch (aka Pixels Per Inch)
-         * @param dpi_y Dots Per Inch (aka Pixels Per Inch)
-         */
-        function set_default_dpi_x_y(dpi_x: number, dpi_y: number): void
-        /**
-         * This function does nothing.
-         * @since 2.9
-         * @deprecated since 2.36 There is no need to de-initialize librsvg.
-         */
-        function term(): void
-        const HAVE_CSS: true
-        const HAVE_PIXBUF: 1
-        const HAVE_SVGZ: true
-        const MAJOR_VERSION: 2
-        const MICRO_VERSION: 0
-        const MINOR_VERSION: 62
-        const VERSION: "2.62.0"
+
+        interface $Exports {
+            Rectangle: RectangleStruct
+        }
         
-        abstract class Error extends GLib.Error {
-            static readonly $gtype: GObject.GType<Error>
+        interface Error extends GLib.Error {}
+
+        interface ErrorEnum {
+            readonly $gtype: GObject.GType<Error>
+
+            new(props: { message: string, code: number }): Error
             /**
              * the request failed
              */
-            static readonly "FAILED": 0
-        }
-        /**
+            readonly "FAILED": 0
+            /**
          * The error domain for RSVG
          * @returns The error domain
          */
-        function quark(): GLib.Quark
-        
-        namespace Unit {
-            const $gtype: GObject.GType<Unit>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Units for the `RsvgLength` struct.  These have the same meaning as [CSS length
-         * units](https://www.w3.org/TR/CSS21/syndata.html#length-units).
-         *
-         * If you test for the values of this enum, please note that librsvg may add other units in the future
-         * as its support for CSS improves.  Please make your code handle unknown units gracefully (e.g. with
-         * a `default` case in a `switch()` statement).
-         */
-        enum Unit {
+        interface $Exports {
             /**
-             *  means 100%.
+             * An enumeration representing possible errors
              */
-            "PERCENT" = 0,
+            Error: ErrorEnum
+        }
+        
+        interface UnitEnum {
+            readonly $gtype: GObject.GType<Unit>
+            /**
+             * percentage values; where <literal>1.0</literal> means 100%.
+             */
+            readonly "PERCENT": 0
             /**
              * pixels
              */
-            "PX" = 1,
+            readonly "PX": 1
             /**
              * em, or the current font size
              */
-            "EM" = 2,
+            readonly "EM": 2
             /**
              * x-height of the current font
              */
-            "EX" = 3,
+            readonly "EX": 3
             /**
              * inches
              */
-            "IN" = 4,
+            readonly "IN": 4
             /**
              * centimeters
              */
-            "CM" = 5,
+            readonly "CM": 5
             /**
              * millimeters
              */
-            "MM" = 6,
+            readonly "MM": 6
             /**
              * points, or 1/72 inch
              */
-            "PT" = 7,
+            readonly "PT": 7
             /**
              * picas, or 1/6 inch (12 points)
              */
-            "PC" = 8,
+            readonly "PC": 8
             /**
              * advance measure of a '0' character (depends on the text orientation)
              * @since 2.58
              */
-            "CH" = 9,
+            readonly "CH": 9
+        }
+        type Unit = UnitEnum[Exclude<keyof UnitEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Units for the `RsvgLength` struct.  These have the same meaning as [CSS length
+             * units](https://www.w3.org/TR/CSS21/syndata.html#length-units).
+             *
+             * If you test for the values of this enum, please note that librsvg may add other units in the future
+             * as its support for CSS improves.  Please make your code handle unknown units gracefully (e.g. with
+             * a `default` case in a `switch()` statement).
+             */
+            Unit: UnitEnum
         }
         
-        namespace HandleFlags {
-            const $gtype: GObject.GType<HandleFlags>
-        }
-
-        /**
-         * Configuration flags for an [class@Rsvg.Handle].  Note that not all of [class@Rsvg.Handle]'s
-         * constructors let you specify flags.  For this reason, [ctor@Rsvg.Handle.new_from_gfile_sync]
-         * and [ctor@Rsvg.Handle.new_from_stream_sync] are the preferred ways to create a handle.
-         * @since 2.40.3
-         */
-        enum HandleFlags {
+        interface HandleFlagsBitfield {
+            readonly $gtype: GObject.GType<HandleFlags>
             /**
              * No flags are set.
              */
-            "FLAGS_NONE" = 0,
+            readonly "FLAGS_NONE": 0
             /**
              * Disable safety limits in the XML parser.  Libxml2 has
              * [several limits](https://gitlab.gnome.org/GNOME/libxml2/blob/master/include/libxml/parserInternals.h)
              * designed to keep malicious XML content from consuming too much memory while parsing.
              * For security reasons, this should only be used for trusted input!  Since: 2.40.3
              */
-            "FLAG_UNLIMITED" = 1,
+            readonly "FLAG_UNLIMITED": 1
             /**
              * Use this if the Cairo surface to which you are
              * rendering is a PDF, PostScript, SVG, or Win32 Printing surface.  This will make librsvg
@@ -1227,7 +1272,17 @@ declare module "gi://Rsvg?version=2.0" {
              * documentation](https://www.cairographics.org/manual/cairo-cairo-surface-t.html#cairo-surface-set-mime-data)
              * for details.
              */
-            "FLAG_KEEP_IMAGE_DATA" = 2,
+            readonly "FLAG_KEEP_IMAGE_DATA": 2
+        }
+        type HandleFlags = number
+        interface $Exports {
+            /**
+             * Configuration flags for an [class@Rsvg.Handle].  Note that not all of [class@Rsvg.Handle]'s
+             * constructors let you specify flags.  For this reason, [ctor@Rsvg.Handle.new_from_gfile_sync]
+             * and [ctor@Rsvg.Handle.new_from_stream_sync] are the preferred ways to create a handle.
+             * @since 2.40.3
+             */
+            HandleFlags: HandleFlagsBitfield
         }
         /**
          * Function to let a user of the library specify the SVG's dimensions
@@ -1238,7 +1293,126 @@ declare module "gi://Rsvg?version=2.0" {
          * @returns , the width of the SVG, the height of the SVG
          */
         type SizeFunc = () => [number, number]
+
+        interface $Exports {
+            __name__: "Rsvg"
+            __version: "2.0"
+            HAVE_CSS: true
+            HAVE_PIXBUF: 1
+            HAVE_SVGZ: true
+            MAJOR_VERSION: 2
+            MICRO_VERSION: 0
+            MINOR_VERSION: 62
+            VERSION: "2.62.0"
+            /**
+             * This function does nothing.
+             * @since 2.36
+             * @deprecated since 2.46 No-op. This function should not be called from normal programs.
+             */
+            cleanup(): void
+            /**
+             * The error domain for RSVG
+             * @returns The error domain
+             */
+            error_quark(): GLib.Quark
+            /**
+             * This function does nothing.
+             * @since 2.9
+             * @deprecated since 2.36 There is no need to initialize librsvg.
+             */
+            init(): void
+            /**
+             * Loads a new `GdkPixbuf` from @filename and returns it.  The caller must
+             * assume the reference to the reurned pixbuf. If an error occurred, @error is
+             * set and `NULL` is returned.
+             * @throws {GLib.Error}
+             * @deprecated Use [ctor@Rsvg.Handle.new_from_file] and [method@Rsvg.Handle.render_document] instead.
+             * @param filename A file name
+             * @returns A pixbuf, or %NULL on error.
+             */
+            pixbuf_from_file(filename: string): GdkPixbuf.Pixbuf | null
+            /**
+             * Loads a new `GdkPixbuf` from @filename and returns it.  This pixbuf is uniformly
+             * scaled so that the it fits into a rectangle of size `max_width * max_height`. The
+             * caller must assume the reference to the returned pixbuf. If an error occurred,
+             * @error is set and `NULL` is returned.
+             * @throws {GLib.Error}
+             * @deprecated Use [ctor@Rsvg.Handle.new_from_file] and [method@Rsvg.Handle.render_document] instead.
+             * @param filename A file name
+             * @param max_width The requested max width
+             * @param max_height The requested max height
+             * @returns A pixbuf, or %NULL on error.
+             */
+            pixbuf_from_file_at_max_size(filename: string, max_width: number, max_height: number): GdkPixbuf.Pixbuf | null
+            /**
+             * Loads a new `GdkPixbuf` from @filename and returns it.  This pixbuf is scaled
+             * from the size indicated to the new size indicated by @width and @height.  If
+             * both of these are -1, then the default size of the image being loaded is
+             * used.  The caller must assume the reference to the returned pixbuf. If an
+             * error occurred, @error is set and `NULL` is returned.
+             * @throws {GLib.Error}
+             * @deprecated Use [ctor@Rsvg.Handle.new_from_file] and [method@Rsvg.Handle.render_document] instead.
+             * @param filename A file name
+             * @param width The new width, or -1
+             * @param height The new height, or -1
+             * @returns A pixbuf, or %NULL on error.
+             */
+            pixbuf_from_file_at_size(filename: string, width: number, height: number): GdkPixbuf.Pixbuf | null
+            /**
+             * Loads a new `GdkPixbuf` from @filename and returns it.  This pixbuf is scaled
+             * from the size indicated by the file by a factor of @x_zoom and @y_zoom.  The
+             * caller must assume the reference to the returned pixbuf. If an error
+             * occurred, @error is set and `NULL` is returned.
+             * @throws {GLib.Error}
+             * @deprecated Use [ctor@Rsvg.Handle.new_from_file] and [method@Rsvg.Handle.render_document] instead.
+             * @param filename A file name
+             * @param x_zoom The horizontal zoom factor
+             * @param y_zoom The vertical zoom factor
+             * @returns A pixbuf, or %NULL on error.
+             */
+            pixbuf_from_file_at_zoom(filename: string, x_zoom: number, y_zoom: number): GdkPixbuf.Pixbuf | null
+            /**
+             * Loads a new `GdkPixbuf` from @filename and returns it.  This pixbuf is scaled
+             * from the size indicated by the file by a factor of @x_zoom and @y_zoom. If the
+             * resulting pixbuf would be larger than max_width/max_heigh it is uniformly scaled
+             * down to fit in that rectangle. The caller must assume the reference to the
+             * returned pixbuf. If an error occurred, @error is set and `NULL` is returned.
+             * @throws {GLib.Error}
+             * @deprecated Use [ctor@Rsvg.Handle.new_from_file] and [method@Rsvg.Handle.render_document] instead.
+             * @param filename A file name
+             * @param x_zoom The horizontal zoom factor
+             * @param y_zoom The vertical zoom factor
+             * @param max_width The requested max width
+             * @param max_height The requested max height
+             * @returns A pixbuf, or %NULL on error.
+             */
+            pixbuf_from_file_at_zoom_with_max(filename: string, x_zoom: number, y_zoom: number, max_width: number, max_height: number): GdkPixbuf.Pixbuf | null
+            /**
+             * Do not use this function.  Create an [class@Rsvg.Handle] and call
+             * [method@Rsvg.Handle.set_dpi] on it instead.
+             * @since 2.8
+             * @deprecated since 2.42.3 This function used to set a global default DPI.  However, it only worked if it was called before any [class@Rsvg.Handle] objects had been created; it would not work after that.  To avoid global mutable state, please use [method@Rsvg.Handle.set_dpi] instead.
+             * @param dpi Dots Per Inch (aka Pixels Per Inch)
+             */
+            set_default_dpi(dpi: number): void
+            /**
+             * Do not use this function.  Create an [class@Rsvg.Handle] and call
+             * [method@Rsvg.Handle.set_dpi_x_y] on it instead.
+             * @since 2.8
+             * @deprecated since 2.42.3 This function used to set a global default DPI.  However, it only worked if it was called before any [class@Rsvg.Handle] objects had been created; it would not work after that.  To avoid global mutable state, please use [method@Rsvg.Handle.set_dpi] instead.
+             * @param dpi_x Dots Per Inch (aka Pixels Per Inch)
+             * @param dpi_y Dots Per Inch (aka Pixels Per Inch)
+             */
+            set_default_dpi_x_y(dpi_x: number, dpi_y: number): void
+            /**
+             * This function does nothing.
+             * @since 2.9
+             * @deprecated since 2.36 There is no need to de-initialize librsvg.
+             */
+            term(): void
+        }
     }
 
+    const Rsvg: Rsvg.$Exports
     export default Rsvg
 }

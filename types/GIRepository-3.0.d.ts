@@ -16,10 +16,7 @@ declare module "gi://GIRepository?version=3.0" {
 
     
 
-
     namespace GIRepository {
-        const __name__: "GIRepository"
-        const __version: "3.0"
         
 
         namespace ArgInfo {
@@ -36,12 +33,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIArgInfo` represents an argument of a callable.
-         *
-         * An argument is always part of a [class@GIRepository.CallableInfo].
-         * @since 2.80
-         */
         interface ArgInfo extends BaseInfo {
             readonly $signals: ArgInfo.SignalSignatures
             readonly $readableProperties: ArgInfo.ReadableProperties
@@ -53,14 +44,14 @@ declare module "gi://GIRepository?version=3.0" {
              * @since 2.80
              * @returns `TRUE` if the argument has a user data argument, return location for the closure index
              */
-            get_closure_index(): boolean
+            get_closure_index(): [boolean, number]
             /**
              * Obtains the index of the [type@GLib.DestroyNotify] argument. This is only
              * valid for arguments which are callbacks.
              * @since 2.80
              * @returns `TRUE` if the argument has a [type@GLib.DestroyNotify] argument, return location for the destroy index
              */
-            get_destroy_index(): boolean
+            get_destroy_index(): [boolean, number]
             /**
              * Obtain the direction of the argument. Check [type@GIRepository.Direction]
              * for possible direction values.
@@ -154,10 +145,19 @@ declare module "gi://GIRepository?version=3.0" {
         interface ArgInfoClass extends Omit<BaseInfoClass, "new"> {
             readonly $gtype: GObject.GType<ArgInfo>
             readonly prototype: ArgInfo
+
             new (props?: Partial<GObject.ConstructorProps<ArgInfo>>): ArgInfo
         }
 
-        const ArgInfo: ArgInfoClass
+        interface $Exports {
+            /**
+             * `GIArgInfo` represents an argument of a callable.
+             *
+             * An argument is always part of a [class@GIRepository.CallableInfo].
+             * @since 2.80
+             */
+            ArgInfo: ArgInfoClass
+        }
         
 
         namespace BaseInfo {
@@ -174,37 +174,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIBaseInfo` is the common base struct of all other Info structs
-         * accessible through the [class@GIRepository.Repository] API.
-         *
-         * All info structures can be cast to a `GIBaseInfo`, for instance:
-         *
-         * ```c
-         *    GIFunctionInfo *function_info = …;
-         *    GIBaseInfo *info = (GIBaseInfo *) function_info;
-         * ```
-         *
-         * Most [class@GIRepository.Repository] APIs returning a `GIBaseInfo` are
-         * actually creating a new struct; in other words,
-         * [method@GIRepository.BaseInfo.unref] has to be called when done accessing the
-         * data.
-         *
-         * `GIBaseInfo` structuress are normally accessed by calling either
-         * [method@GIRepository.Repository.find_by_name],
-         * [method@GIRepository.Repository.find_by_gtype] or
-         * [method@GIRepository.get_info].
-         *
-         * ```c
-         * GIBaseInfo *button_info =
-         *   gi_repository_find_by_name (NULL, "Gtk", "Button");
-         *
-         * // use button_info…
-         *
-         * gi_base_info_unref (button_info);
-         * ```
-         * @since 2.80
-         */
         interface BaseInfo  {
             readonly $signals: BaseInfo.SignalSignatures
             readonly $readableProperties: BaseInfo.ReadableProperties
@@ -281,7 +250,25 @@ declare module "gi://GIRepository?version=3.0" {
              */
             is_deprecated(): boolean
             /**
-             * value))
+             * Iterate over all attributes associated with this node.
+             *
+             * The iterator structure is typically stack allocated, and must have its first
+             * member initialized to `NULL`.  Attributes are arbitrary namespaced key–value
+             * pairs which can be attached to almost any item.  They are intended for use
+             * by software higher in the toolchain than bindings, and are distinct from
+             * normal GIR annotations.
+             *
+             * Both the @name and @value should be treated as constants
+             * and must not be freed.
+             *
+             * ```c
+             * void
+             * print_attributes (GIBaseInfo *info)
+             * {
+             *   GIAttributeIter iter = GI_ATTRIBUTE_ITER_INIT;
+             *   const char *name;
+             *   const char *value;
+             *   while (gi_base_info_iterate_attributes (info, &iter, &name, &value))
              *     {
              *       g_print ("attribute name: %s value: %s", name, value);
              *     }
@@ -311,10 +298,44 @@ declare module "gi://GIRepository?version=3.0" {
         interface BaseInfoClass {
             readonly $gtype: GObject.GType<BaseInfo>
             readonly prototype: BaseInfo
+
             new (props?: Partial<GObject.ConstructorProps<BaseInfo>>): BaseInfo
         }
 
-        const BaseInfo: BaseInfoClass
+        interface $Exports {
+            /**
+             * `GIBaseInfo` is the common base struct of all other Info structs
+             * accessible through the [class@GIRepository.Repository] API.
+             *
+             * All info structures can be cast to a `GIBaseInfo`, for instance:
+             *
+             * ```c
+             *    GIFunctionInfo *function_info = …;
+             *    GIBaseInfo *info = (GIBaseInfo *) function_info;
+             * ```
+             *
+             * Most [class@GIRepository.Repository] APIs returning a `GIBaseInfo` are
+             * actually creating a new struct; in other words,
+             * [method@GIRepository.BaseInfo.unref] has to be called when done accessing the
+             * data.
+             *
+             * `GIBaseInfo` structuress are normally accessed by calling either
+             * [method@GIRepository.Repository.find_by_name],
+             * [method@GIRepository.Repository.find_by_gtype] or
+             * [method@GIRepository.get_info].
+             *
+             * ```c
+             * GIBaseInfo *button_info =
+             *   gi_repository_find_by_name (NULL, "Gtk", "Button");
+             *
+             * // use button_info…
+             *
+             * gi_base_info_unref (button_info);
+             * ```
+             * @since 2.80
+             */
+            BaseInfo: BaseInfoClass
+        }
         
 
         namespace CallableInfo {
@@ -331,19 +352,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GICallableInfo` represents an entity which is callable.
-         *
-         * Examples of callable are:
-         *
-         *  - functions ([class@GIRepository.FunctionInfo])
-         *  - virtual functions ([class@GIRepository.VFuncInfo])
-         *  - callbacks ([class@GIRepository.CallbackInfo]).
-         *
-         * A callable has a list of arguments ([class@GIRepository.ArgInfo]), a return
-         * type, direction and a flag which decides if it returns `NULL`.
-         * @since 2.80
-         */
         interface CallableInfo extends BaseInfo {
             readonly $signals: CallableInfo.SignalSignatures
             readonly $readableProperties: CallableInfo.ReadableProperties
@@ -517,10 +525,26 @@ declare module "gi://GIRepository?version=3.0" {
         interface CallableInfoClass extends Omit<BaseInfoClass, "new"> {
             readonly $gtype: GObject.GType<CallableInfo>
             readonly prototype: CallableInfo
+
             new (props?: Partial<GObject.ConstructorProps<CallableInfo>>): CallableInfo
         }
 
-        const CallableInfo: CallableInfoClass
+        interface $Exports {
+            /**
+             * `GICallableInfo` represents an entity which is callable.
+             *
+             * Examples of callable are:
+             *
+             *  - functions ([class@GIRepository.FunctionInfo])
+             *  - virtual functions ([class@GIRepository.VFuncInfo])
+             *  - callbacks ([class@GIRepository.CallbackInfo]).
+             *
+             * A callable has a list of arguments ([class@GIRepository.ArgInfo]), a return
+             * type, direction and a flag which decides if it returns `NULL`.
+             * @since 2.80
+             */
+            CallableInfo: CallableInfoClass
+        }
         
 
         namespace CallbackInfo {
@@ -537,10 +561,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GICallbackInfo` represents a callback.
-         * @since 2.80
-         */
         interface CallbackInfo extends CallableInfo {
             readonly $signals: CallbackInfo.SignalSignatures
             readonly $readableProperties: CallbackInfo.ReadableProperties
@@ -551,10 +571,17 @@ declare module "gi://GIRepository?version=3.0" {
         interface CallbackInfoClass extends Omit<CallableInfoClass, "new"> {
             readonly $gtype: GObject.GType<CallbackInfo>
             readonly prototype: CallbackInfo
+
             new (props?: Partial<GObject.ConstructorProps<CallbackInfo>>): CallbackInfo
         }
 
-        const CallbackInfo: CallbackInfoClass
+        interface $Exports {
+            /**
+             * `GICallbackInfo` represents a callback.
+             * @since 2.80
+             */
+            CallbackInfo: CallbackInfoClass
+        }
         
 
         namespace ConstantInfo {
@@ -571,14 +598,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIConstantInfo` represents a constant.
-         *
-         * A constant has a type associated – which can be obtained by calling
-         * [method@GIRepository.ConstantInfo.get_type_info] – and a value – which can be
-         * obtained by calling [method@GIRepository.ConstantInfo.get_value].
-         * @since 2.80
-         */
         interface ConstantInfo extends BaseInfo {
             readonly $signals: ConstantInfo.SignalSignatures
             readonly $readableProperties: ConstantInfo.ReadableProperties
@@ -595,10 +614,21 @@ declare module "gi://GIRepository?version=3.0" {
         interface ConstantInfoClass extends Omit<BaseInfoClass, "new"> {
             readonly $gtype: GObject.GType<ConstantInfo>
             readonly prototype: ConstantInfo
+
             new (props?: Partial<GObject.ConstructorProps<ConstantInfo>>): ConstantInfo
         }
 
-        const ConstantInfo: ConstantInfoClass
+        interface $Exports {
+            /**
+             * `GIConstantInfo` represents a constant.
+             *
+             * A constant has a type associated – which can be obtained by calling
+             * [method@GIRepository.ConstantInfo.get_type_info] – and a value – which can be
+             * obtained by calling [method@GIRepository.ConstantInfo.get_value].
+             * @since 2.80
+             */
+            ConstantInfo: ConstantInfoClass
+        }
         
 
         namespace EnumInfo {
@@ -615,16 +645,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * A `GIEnumInfo` represents an enumeration.
-         *
-         * The `GIEnumInfo` contains a set of values (each a
-         * [class@GIRepository.ValueInfo]) and a type.
-         *
-         * The [class@GIRepository.ValueInfo] for a value is fetched by calling
-         * [method@GIRepository.EnumInfo.get_value] on a `GIEnumInfo`.
-         * @since 2.80
-         */
         interface EnumInfo extends RegisteredTypeInfo {
             readonly $signals: EnumInfo.SignalSignatures
             readonly $readableProperties: EnumInfo.ReadableProperties
@@ -679,10 +699,23 @@ declare module "gi://GIRepository?version=3.0" {
         interface EnumInfoClass extends Omit<RegisteredTypeInfoClass, "new"> {
             readonly $gtype: GObject.GType<EnumInfo>
             readonly prototype: EnumInfo
+
             new (props?: Partial<GObject.ConstructorProps<EnumInfo>>): EnumInfo
         }
 
-        const EnumInfo: EnumInfoClass
+        interface $Exports {
+            /**
+             * A `GIEnumInfo` represents an enumeration.
+             *
+             * The `GIEnumInfo` contains a set of values (each a
+             * [class@GIRepository.ValueInfo]) and a type.
+             *
+             * The [class@GIRepository.ValueInfo] for a value is fetched by calling
+             * [method@GIRepository.EnumInfo.get_value] on a `GIEnumInfo`.
+             * @since 2.80
+             */
+            EnumInfo: EnumInfoClass
+        }
         
 
         namespace FieldInfo {
@@ -699,21 +732,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * A `GIFieldInfo` struct represents a field of a struct, union, or object.
-         *
-         * The `GIFieldInfo` is fetched by calling
-         * [method@GIRepository.StructInfo.get_field],
-         * [method@GIRepository.UnionInfo.get_field] or
-         * [method@GIRepository.ObjectInfo.get_field].
-         *
-         * A field has a size, type and a struct offset associated and a set of flags,
-         * which are currently `GI_FIELD_IS_READABLE` or `GI_FIELD_IS_WRITABLE`.
-         *
-         * See also: [type@GIRepository.StructInfo], [type@GIRepository.UnionInfo],
-         * [type@GIRepository.ObjectInfo]
-         * @since 2.80
-         */
         interface FieldInfo extends BaseInfo {
             readonly $signals: FieldInfo.SignalSignatures
             readonly $readableProperties: FieldInfo.ReadableProperties
@@ -751,10 +769,28 @@ declare module "gi://GIRepository?version=3.0" {
         interface FieldInfoClass extends Omit<BaseInfoClass, "new"> {
             readonly $gtype: GObject.GType<FieldInfo>
             readonly prototype: FieldInfo
+
             new (props?: Partial<GObject.ConstructorProps<FieldInfo>>): FieldInfo
         }
 
-        const FieldInfo: FieldInfoClass
+        interface $Exports {
+            /**
+             * A `GIFieldInfo` struct represents a field of a struct, union, or object.
+             *
+             * The `GIFieldInfo` is fetched by calling
+             * [method@GIRepository.StructInfo.get_field],
+             * [method@GIRepository.UnionInfo.get_field] or
+             * [method@GIRepository.ObjectInfo.get_field].
+             *
+             * A field has a size, type and a struct offset associated and a set of flags,
+             * which are currently `GI_FIELD_IS_READABLE` or `GI_FIELD_IS_WRITABLE`.
+             *
+             * See also: [type@GIRepository.StructInfo], [type@GIRepository.UnionInfo],
+             * [type@GIRepository.ObjectInfo]
+             * @since 2.80
+             */
+            FieldInfo: FieldInfoClass
+        }
         
 
         namespace FlagsInfo {
@@ -771,17 +807,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * A `GIFlagsInfo` represents an enumeration which defines flag values
-         * (independently set bits).
-         *
-         * The `GIFlagsInfo` contains a set of values (each a
-         * [class@GIRepository.ValueInfo]) and a type.
-         *
-         * The [class@GIRepository.ValueInfo] for a value is fetched by calling
-         * [method@GIRepository.EnumInfo.get_value] on a `GIFlagsInfo`.
-         * @since 2.80
-         */
         interface FlagsInfo extends EnumInfo {
             readonly $signals: FlagsInfo.SignalSignatures
             readonly $readableProperties: FlagsInfo.ReadableProperties
@@ -792,10 +817,24 @@ declare module "gi://GIRepository?version=3.0" {
         interface FlagsInfoClass extends Omit<EnumInfoClass, "new"> {
             readonly $gtype: GObject.GType<FlagsInfo>
             readonly prototype: FlagsInfo
+
             new (props?: Partial<GObject.ConstructorProps<FlagsInfo>>): FlagsInfo
         }
 
-        const FlagsInfo: FlagsInfoClass
+        interface $Exports {
+            /**
+             * A `GIFlagsInfo` represents an enumeration which defines flag values
+             * (independently set bits).
+             *
+             * The `GIFlagsInfo` contains a set of values (each a
+             * [class@GIRepository.ValueInfo]) and a type.
+             *
+             * The [class@GIRepository.ValueInfo] for a value is fetched by calling
+             * [method@GIRepository.EnumInfo.get_value] on a `GIFlagsInfo`.
+             * @since 2.80
+             */
+            FlagsInfo: FlagsInfoClass
+        }
         
 
         namespace FunctionInfo {
@@ -812,16 +851,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIFunctionInfo` represents a function, method or constructor.
-         *
-         * To find out what kind of entity a `GIFunctionInfo` represents, call
-         * [method@GIRepository.FunctionInfo.get_flags].
-         *
-         * See also [class@GIRepository.CallableInfo] for information on how to retrieve
-         * arguments and other metadata.
-         * @since 2.80
-         */
         interface FunctionInfo extends CallableInfo {
             readonly $signals: FunctionInfo.SignalSignatures
             readonly $readableProperties: FunctionInfo.ReadableProperties
@@ -866,10 +895,23 @@ declare module "gi://GIRepository?version=3.0" {
         interface FunctionInfoClass extends Omit<CallableInfoClass, "new"> {
             readonly $gtype: GObject.GType<FunctionInfo>
             readonly prototype: FunctionInfo
+
             new (props?: Partial<GObject.ConstructorProps<FunctionInfo>>): FunctionInfo
         }
 
-        const FunctionInfo: FunctionInfoClass
+        interface $Exports {
+            /**
+             * `GIFunctionInfo` represents a function, method or constructor.
+             *
+             * To find out what kind of entity a `GIFunctionInfo` represents, call
+             * [method@GIRepository.FunctionInfo.get_flags].
+             *
+             * See also [class@GIRepository.CallableInfo] for information on how to retrieve
+             * arguments and other metadata.
+             * @since 2.80
+             */
+            FunctionInfo: FunctionInfoClass
+        }
         
 
         namespace InterfaceInfo {
@@ -886,13 +928,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIInterfaceInfo` represents a `GInterface` type.
-         *
-         * A `GInterface` has methods, fields, properties, signals,
-         * interfaces, constants, virtual functions and prerequisites.
-         * @since 2.80
-         */
         interface InterfaceInfo extends RegisteredTypeInfo {
             readonly $signals: InterfaceInfo.SignalSignatures
             readonly $readableProperties: InterfaceInfo.ReadableProperties
@@ -1018,10 +1053,20 @@ declare module "gi://GIRepository?version=3.0" {
         interface InterfaceInfoClass extends Omit<RegisteredTypeInfoClass, "new"> {
             readonly $gtype: GObject.GType<InterfaceInfo>
             readonly prototype: InterfaceInfo
+
             new (props?: Partial<GObject.ConstructorProps<InterfaceInfo>>): InterfaceInfo
         }
 
-        const InterfaceInfo: InterfaceInfoClass
+        interface $Exports {
+            /**
+             * `GIInterfaceInfo` represents a `GInterface` type.
+             *
+             * A `GInterface` has methods, fields, properties, signals,
+             * interfaces, constants, virtual functions and prerequisites.
+             * @since 2.80
+             */
+            InterfaceInfo: InterfaceInfoClass
+        }
         
 
         namespace ObjectInfo {
@@ -1038,19 +1083,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIObjectInfo` represents a classed type.
-         *
-         * Classed types in [type@GObject.Type] inherit from
-         * [type@GObject.TypeInstance]; the most common type is [class@GObject.Object].
-         *
-         * A `GIObjectInfo` doesn’t represent a specific instance of a classed type,
-         * instead this represent the object type (i.e. the class).
-         *
-         * A `GIObjectInfo` has methods, fields, properties, signals, interfaces,
-         * constants and virtual functions.
-         * @since 2.80
-         */
         interface ObjectInfo extends RegisteredTypeInfo {
             readonly $signals: ObjectInfo.SignalSignatures
             readonly $readableProperties: ObjectInfo.ReadableProperties
@@ -1077,7 +1109,7 @@ declare module "gi://GIRepository?version=3.0" {
              * @param name name of method to obtain
              * @returns The [class@GIRepository.FunctionInfo],   or `NULL` if none was found. Free the struct by calling   [method@GIRepository.BaseInfo.unref] when done., The   [class@GIRepository.ObjectInfo] or [class@GIRepository.InterfaceInfo] which   declares the method, or `NULL` to ignore. If no method is found, this will   return `NULL`.
              */
-            find_method_using_interfaces(name: string): FunctionInfo | null
+            find_method_using_interfaces(name: string): [FunctionInfo | null, BaseInfo | null]
             /**
              * Obtain a signal of the object type given a @name.
              *
@@ -1119,7 +1151,7 @@ declare module "gi://GIRepository?version=3.0" {
              * @param name name of vfunc to obtain
              * @returns The [class@GIRepository.VFuncInfo],   or `NULL` if none was found. Free the struct by calling   [method@GIRepository.BaseInfo.unref] when done., The   [class@GIRepository.ObjectInfo] or [class@GIRepository.InterfaceInfo] which   declares the vfunc, or `NULL` to ignore. If no vfunc is found, this will   return `NULL`.
              */
-            find_vfunc_using_interfaces(name: string): VFuncInfo | null
+            find_vfunc_using_interfaces(name: string): [VFuncInfo | null, BaseInfo | null]
             /**
              * Obtain if the object type is an abstract type, i.e. if it cannot be
              * instantiated.
@@ -1310,10 +1342,26 @@ declare module "gi://GIRepository?version=3.0" {
         interface ObjectInfoClass extends Omit<RegisteredTypeInfoClass, "new"> {
             readonly $gtype: GObject.GType<ObjectInfo>
             readonly prototype: ObjectInfo
+
             new (props?: Partial<GObject.ConstructorProps<ObjectInfo>>): ObjectInfo
         }
 
-        const ObjectInfo: ObjectInfoClass
+        interface $Exports {
+            /**
+             * `GIObjectInfo` represents a classed type.
+             *
+             * Classed types in [type@GObject.Type] inherit from
+             * [type@GObject.TypeInstance]; the most common type is [class@GObject.Object].
+             *
+             * A `GIObjectInfo` doesn’t represent a specific instance of a classed type,
+             * instead this represent the object type (i.e. the class).
+             *
+             * A `GIObjectInfo` has methods, fields, properties, signals, interfaces,
+             * constants and virtual functions.
+             * @since 2.80
+             */
+            ObjectInfo: ObjectInfoClass
+        }
         
 
         namespace PropertyInfo {
@@ -1330,13 +1378,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIPropertyInfo` represents a property in a [class@GObject.Object].
-         *
-         * A property belongs to either a [class@GIRepository.ObjectInfo] or a
-         * [class@GIRepository.InterfaceInfo].
-         * @since 2.80
-         */
         interface PropertyInfo extends BaseInfo {
             readonly $signals: PropertyInfo.SignalSignatures
             readonly $readableProperties: PropertyInfo.ReadableProperties
@@ -1387,10 +1428,20 @@ declare module "gi://GIRepository?version=3.0" {
         interface PropertyInfoClass extends Omit<BaseInfoClass, "new"> {
             readonly $gtype: GObject.GType<PropertyInfo>
             readonly prototype: PropertyInfo
+
             new (props?: Partial<GObject.ConstructorProps<PropertyInfo>>): PropertyInfo
         }
 
-        const PropertyInfo: PropertyInfoClass
+        interface $Exports {
+            /**
+             * `GIPropertyInfo` represents a property in a [class@GObject.Object].
+             *
+             * A property belongs to either a [class@GIRepository.ObjectInfo] or a
+             * [class@GIRepository.InterfaceInfo].
+             * @since 2.80
+             */
+            PropertyInfo: PropertyInfoClass
+        }
         
 
         namespace RegisteredTypeInfo {
@@ -1407,28 +1458,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIRegisteredTypeInfo` represents an entity with a [type@GObject.Type]
-         * associated.
-         *
-         * Could be either a [class@GIRepository.EnumInfo],
-         * [class@GIRepository.InterfaceInfo], [class@GIRepository.ObjectInfo],
-         * [class@GIRepository.StructInfo] or a [class@GIRepository.UnionInfo].
-         *
-         * A registered type info struct has a name and a type function.
-         *
-         * To get the name call [method@GIRepository.RegisteredTypeInfo.get_type_name].
-         * Most users want to call [method@GIRepository.RegisteredTypeInfo.get_g_type]
-         * and don’t worry about the rest of the details.
-         *
-         * If the registered type is a subtype of `G_TYPE_BOXED`,
-         * [method@GIRepository.RegisteredTypeInfo.is_boxed] will return true, and
-         * [method@GIRepository.RegisteredTypeInfo.get_type_name] is guaranteed to
-         * return a non-`NULL` value. This is relevant for the
-         * [class@GIRepository.StructInfo] and [class@GIRepository.UnionInfo]
-         * subclasses.
-         * @since 2.80
-         */
         interface RegisteredTypeInfo extends BaseInfo {
             readonly $signals: RegisteredTypeInfo.SignalSignatures
             readonly $readableProperties: RegisteredTypeInfo.ReadableProperties
@@ -1490,10 +1519,35 @@ declare module "gi://GIRepository?version=3.0" {
         interface RegisteredTypeInfoClass extends Omit<BaseInfoClass, "new"> {
             readonly $gtype: GObject.GType<RegisteredTypeInfo>
             readonly prototype: RegisteredTypeInfo
+
             new (props?: Partial<GObject.ConstructorProps<RegisteredTypeInfo>>): RegisteredTypeInfo
         }
 
-        const RegisteredTypeInfo: RegisteredTypeInfoClass
+        interface $Exports {
+            /**
+             * `GIRegisteredTypeInfo` represents an entity with a [type@GObject.Type]
+             * associated.
+             *
+             * Could be either a [class@GIRepository.EnumInfo],
+             * [class@GIRepository.InterfaceInfo], [class@GIRepository.ObjectInfo],
+             * [class@GIRepository.StructInfo] or a [class@GIRepository.UnionInfo].
+             *
+             * A registered type info struct has a name and a type function.
+             *
+             * To get the name call [method@GIRepository.RegisteredTypeInfo.get_type_name].
+             * Most users want to call [method@GIRepository.RegisteredTypeInfo.get_g_type]
+             * and don’t worry about the rest of the details.
+             *
+             * If the registered type is a subtype of `G_TYPE_BOXED`,
+             * [method@GIRepository.RegisteredTypeInfo.is_boxed] will return true, and
+             * [method@GIRepository.RegisteredTypeInfo.get_type_name] is guaranteed to
+             * return a non-`NULL` value. This is relevant for the
+             * [class@GIRepository.StructInfo] and [class@GIRepository.UnionInfo]
+             * subclasses.
+             * @since 2.80
+             */
+            RegisteredTypeInfo: RegisteredTypeInfoClass
+        }
         
 
         namespace Repository {
@@ -1510,50 +1564,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIRepository` is used to manage repositories of namespaces. Namespaces
-         * are represented on disk by type libraries (`.typelib` files).
-         *
-         * The individual pieces of API within a type library are represented by
-         * subclasses of [class@GIRepository.BaseInfo]. These can be found using
-         * methods like [method@GIRepository.Repository.find_by_name] or
-         * [method@GIRepository.Repository.get_info].
-         *
-         * You are responsible for ensuring that the lifetime of the
-         * [class@GIRepository.Repository] exceeds that of the lifetime of any of its
-         * [class@GIRepository.BaseInfo]s. This cannot be guaranteed by using internal
-         * references within libgirepository as that would affect performance.
-         *
-         * ### Discovery of type libraries
-         *
-         * `GIRepository` will typically look for a `girepository-1.0` directory
-         * under the library directory used when compiling gobject-introspection. On a
-         * standard Linux system this will end up being `/usr/lib/girepository-1.0`.
-         *
-         * It is possible to control the search paths programmatically, using
-         * [method@GIRepository.Repository.prepend_search_path]. It is also possible to
-         * modify the search paths by using the `GI_TYPELIB_PATH` environment variable.
-         * The environment variable takes precedence over the default search path
-         * and the [method@GIRepository.Repository.prepend_search_path] calls.
-         *
-         * ### Namespace ordering
-         *
-         * In situations where namespaces may be searched in order, or returned in a
-         * list, the namespaces will be returned in alphabetical order, with all fully
-         * loaded namespaces being returned before any lazily loaded ones (those loaded
-         * with `GI_REPOSITORY_LOAD_FLAG_LAZY`). This allows for deterministic and
-         * reproducible results.
-         *
-         * Similarly, if a symbol (such as a `GType` or error domain) is being searched
-         * for in the set of loaded namespaces, the namespaces will be searched in that
-         * order. In particular, this means that a symbol which exists in two namespaces
-         * will always be returned from the alphabetically-higher namespace. This should
-         * only happen in the case of `Gio` and `GioUnix`/`GioWin32`, which all refer to
-         * the same `.so` file and expose overlapping sets of symbols. Symbols should
-         * always end up being resolved to `GioUnix` or `GioWin32` if they are platform
-         * dependent, rather than `Gio` itself.
-         * @since 2.80
-         */
         interface Repository extends GObject.Object {
             readonly $signals: Repository.SignalSignatures
             readonly $readableProperties: Repository.ReadableProperties
@@ -1759,10 +1769,14 @@ declare module "gi://GIRepository?version=3.0" {
              */
             get_shared_libraries(namespace_: string): string[] | null
             /**
-             * `.
+             * If namespace @namespace_ is loaded, return the full path to the
+             * .typelib file it was loaded from.
+             *
+             * If the typelib for namespace @namespace_ was included in a shared library,
+             * return the special string `<builtin>`.
              * @since 2.80
              * @param namespace_ GI namespace to use, e.g. `Gtk`
-             * @returns `) if   successful, `NULL` if namespace is not loaded
+             * @returns Filesystem path (or `<builtin>`) if   successful, `NULL` if namespace is not loaded
              */
             get_typelib_path(namespace_: string): string | null
             /**
@@ -1866,6 +1880,7 @@ declare module "gi://GIRepository?version=3.0" {
         interface RepositoryClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Repository>
             readonly prototype: Repository
+
             new (props?: Partial<GObject.ConstructorProps<Repository>>): Repository
             /**
              * Create a new [class@GIRepository.Repository].
@@ -1917,7 +1932,53 @@ declare module "gi://GIRepository?version=3.0" {
             get_option_group(): GLib.OptionGroup
         }
 
-        const Repository: RepositoryClass
+        interface $Exports {
+            /**
+             * `GIRepository` is used to manage repositories of namespaces. Namespaces
+             * are represented on disk by type libraries (`.typelib` files).
+             *
+             * The individual pieces of API within a type library are represented by
+             * subclasses of [class@GIRepository.BaseInfo]. These can be found using
+             * methods like [method@GIRepository.Repository.find_by_name] or
+             * [method@GIRepository.Repository.get_info].
+             *
+             * You are responsible for ensuring that the lifetime of the
+             * [class@GIRepository.Repository] exceeds that of the lifetime of any of its
+             * [class@GIRepository.BaseInfo]s. This cannot be guaranteed by using internal
+             * references within libgirepository as that would affect performance.
+             *
+             * ### Discovery of type libraries
+             *
+             * `GIRepository` will typically look for a `girepository-1.0` directory
+             * under the library directory used when compiling gobject-introspection. On a
+             * standard Linux system this will end up being `/usr/lib/girepository-1.0`.
+             *
+             * It is possible to control the search paths programmatically, using
+             * [method@GIRepository.Repository.prepend_search_path]. It is also possible to
+             * modify the search paths by using the `GI_TYPELIB_PATH` environment variable.
+             * The environment variable takes precedence over the default search path
+             * and the [method@GIRepository.Repository.prepend_search_path] calls.
+             *
+             * ### Namespace ordering
+             *
+             * In situations where namespaces may be searched in order, or returned in a
+             * list, the namespaces will be returned in alphabetical order, with all fully
+             * loaded namespaces being returned before any lazily loaded ones (those loaded
+             * with `GI_REPOSITORY_LOAD_FLAG_LAZY`). This allows for deterministic and
+             * reproducible results.
+             *
+             * Similarly, if a symbol (such as a `GType` or error domain) is being searched
+             * for in the set of loaded namespaces, the namespaces will be searched in that
+             * order. In particular, this means that a symbol which exists in two namespaces
+             * will always be returned from the alphabetically-higher namespace. This should
+             * only happen in the case of `Gio` and `GioUnix`/`GioWin32`, which all refer to
+             * the same `.so` file and expose overlapping sets of symbols. Symbols should
+             * always end up being resolved to `GioUnix` or `GioWin32` if they are platform
+             * dependent, rather than `Gio` itself.
+             * @since 2.80
+             */
+            Repository: RepositoryClass
+        }
         
 
         namespace SignalInfo {
@@ -1934,16 +1995,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GISignalInfo` represents a signal.
-         *
-         * It’s a sub-struct of [class@GIRepository.CallableInfo] and contains a set of
-         * flags and a class closure.
-         *
-         * See [class@GIRepository.CallableInfo] for information on how to retrieve
-         * arguments and other metadata from the signal.
-         * @since 2.80
-         */
         interface SignalInfo extends CallableInfo {
             readonly $signals: SignalInfo.SignalSignatures
             readonly $readableProperties: SignalInfo.ReadableProperties
@@ -1979,10 +2030,23 @@ declare module "gi://GIRepository?version=3.0" {
         interface SignalInfoClass extends Omit<CallableInfoClass, "new"> {
             readonly $gtype: GObject.GType<SignalInfo>
             readonly prototype: SignalInfo
+
             new (props?: Partial<GObject.ConstructorProps<SignalInfo>>): SignalInfo
         }
 
-        const SignalInfo: SignalInfoClass
+        interface $Exports {
+            /**
+             * `GISignalInfo` represents a signal.
+             *
+             * It’s a sub-struct of [class@GIRepository.CallableInfo] and contains a set of
+             * flags and a class closure.
+             *
+             * See [class@GIRepository.CallableInfo] for information on how to retrieve
+             * arguments and other metadata from the signal.
+             * @since 2.80
+             */
+            SignalInfo: SignalInfoClass
+        }
         
 
         namespace StructInfo {
@@ -1999,12 +2063,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIStructInfo` represents a generic C structure type.
-         *
-         * A structure has methods and fields.
-         * @since 2.80
-         */
         interface StructInfo extends RegisteredTypeInfo {
             readonly $signals: StructInfo.SignalSignatures
             readonly $readableProperties: StructInfo.ReadableProperties
@@ -2096,10 +2154,19 @@ declare module "gi://GIRepository?version=3.0" {
         interface StructInfoClass extends Omit<RegisteredTypeInfoClass, "new"> {
             readonly $gtype: GObject.GType<StructInfo>
             readonly prototype: StructInfo
+
             new (props?: Partial<GObject.ConstructorProps<StructInfo>>): StructInfo
         }
 
-        const StructInfo: StructInfoClass
+        interface $Exports {
+            /**
+             * `GIStructInfo` represents a generic C structure type.
+             *
+             * A structure has methods and fields.
+             * @since 2.80
+             */
+            StructInfo: StructInfoClass
+        }
         
 
         namespace TypeInfo {
@@ -2116,24 +2183,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GITypeInfo` represents a type, including information about direction and
-         * transfer.
-         *
-         * You can retrieve a type info from an argument (see
-         * [class@GIRepository.ArgInfo]), a function’s return value (see
-         * [class@GIRepository.FunctionInfo]), a field (see
-         * [class@GIRepository.FieldInfo]), a property (see
-         * [class@GIRepository.PropertyInfo]), a constant (see
-         * [class@GIRepository.ConstantInfo]) or for a union discriminator (see
-         * [class@GIRepository.UnionInfo]).
-         *
-         * A type can either be a of a basic type which is a standard C primitive
-         * type or an interface type. For interface types you need to call
-         * [method@GIRepository.TypeInfo.get_interface] to get a reference to the base
-         * info for that interface.
-         * @since 2.80
-         */
         interface TypeInfo extends BaseInfo {
             readonly $signals: TypeInfo.SignalSignatures
             readonly $readableProperties: TypeInfo.ReadableProperties
@@ -2168,7 +2217,7 @@ declare module "gi://GIRepository?version=3.0" {
              * @since 2.80
              * @returns `TRUE` if the type is an array and has a fixed size, return location for the array size
              */
-            get_array_fixed_size(): boolean
+            get_array_fixed_size(): [boolean, number]
             /**
              * Obtain the position of the argument which gives the array length of the type.
              *
@@ -2177,7 +2226,7 @@ declare module "gi://GIRepository?version=3.0" {
              * @since 2.80
              * @returns `TRUE` if the type is an array and has a length argument, return location for the length argument
              */
-            get_array_length_index(): boolean
+            get_array_length_index(): [boolean, number]
             /**
              * Obtain the array type for this type.
              *
@@ -2272,10 +2321,31 @@ declare module "gi://GIRepository?version=3.0" {
         interface TypeInfoClass extends Omit<BaseInfoClass, "new"> {
             readonly $gtype: GObject.GType<TypeInfo>
             readonly prototype: TypeInfo
+
             new (props?: Partial<GObject.ConstructorProps<TypeInfo>>): TypeInfo
         }
 
-        const TypeInfo: TypeInfoClass
+        interface $Exports {
+            /**
+             * `GITypeInfo` represents a type, including information about direction and
+             * transfer.
+             *
+             * You can retrieve a type info from an argument (see
+             * [class@GIRepository.ArgInfo]), a function’s return value (see
+             * [class@GIRepository.FunctionInfo]), a field (see
+             * [class@GIRepository.FieldInfo]), a property (see
+             * [class@GIRepository.PropertyInfo]), a constant (see
+             * [class@GIRepository.ConstantInfo]) or for a union discriminator (see
+             * [class@GIRepository.UnionInfo]).
+             *
+             * A type can either be a of a basic type which is a standard C primitive
+             * type or an interface type. For interface types you need to call
+             * [method@GIRepository.TypeInfo.get_interface] to get a reference to the base
+             * info for that interface.
+             * @since 2.80
+             */
+            TypeInfo: TypeInfoClass
+        }
         
 
         namespace UnionInfo {
@@ -2292,14 +2362,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIUnionInfo` represents a union type.
-         *
-         * A union has methods and fields.  Unions can optionally have a
-         * discriminator, which is a field deciding what type of real union
-         * fields is valid for specified instance.
-         * @since 2.80
-         */
         interface UnionInfo extends RegisteredTypeInfo {
             readonly $signals: UnionInfo.SignalSignatures
             readonly $readableProperties: UnionInfo.ReadableProperties
@@ -2342,7 +2404,7 @@ declare module "gi://GIRepository?version=3.0" {
              * @since 2.80
              * @returns `TRUE` if the union is discriminated, return location for the offset, in bytes, of   the discriminator
              */
-            get_discriminator_offset(): boolean
+            get_discriminator_offset(): [boolean, number]
             /**
              * Obtain the type information of the union discriminator.
              * @since 2.80
@@ -2398,10 +2460,21 @@ declare module "gi://GIRepository?version=3.0" {
         interface UnionInfoClass extends Omit<RegisteredTypeInfoClass, "new"> {
             readonly $gtype: GObject.GType<UnionInfo>
             readonly prototype: UnionInfo
+
             new (props?: Partial<GObject.ConstructorProps<UnionInfo>>): UnionInfo
         }
 
-        const UnionInfo: UnionInfoClass
+        interface $Exports {
+            /**
+             * `GIUnionInfo` represents a union type.
+             *
+             * A union has methods and fields.  Unions can optionally have a
+             * discriminator, which is a field deciding what type of real union
+             * fields is valid for specified instance.
+             * @since 2.80
+             */
+            UnionInfo: UnionInfoClass
+        }
         
 
         namespace UnresolvedInfo {
@@ -2418,10 +2491,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIUnresolvedInfo` represents an unresolved symbol.
-         * @since 2.80
-         */
         interface UnresolvedInfo extends BaseInfo {
             readonly $signals: UnresolvedInfo.SignalSignatures
             readonly $readableProperties: UnresolvedInfo.ReadableProperties
@@ -2432,10 +2501,17 @@ declare module "gi://GIRepository?version=3.0" {
         interface UnresolvedInfoClass extends Omit<BaseInfoClass, "new"> {
             readonly $gtype: GObject.GType<UnresolvedInfo>
             readonly prototype: UnresolvedInfo
+
             new (props?: Partial<GObject.ConstructorProps<UnresolvedInfo>>): UnresolvedInfo
         }
 
-        const UnresolvedInfo: UnresolvedInfoClass
+        interface $Exports {
+            /**
+             * `GIUnresolvedInfo` represents an unresolved symbol.
+             * @since 2.80
+             */
+            UnresolvedInfo: UnresolvedInfoClass
+        }
         
 
         namespace VFuncInfo {
@@ -2452,13 +2528,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * `GIVFuncInfo` represents a virtual function.
-         *
-         * A virtual function is a callable object that belongs to either a
-         * [type@GIRepository.ObjectInfo] or a [type@GIRepository.InterfaceInfo].
-         * @since 2.80
-         */
         interface VFuncInfo extends CallableInfo {
             readonly $signals: VFuncInfo.SignalSignatures
             readonly $readableProperties: VFuncInfo.ReadableProperties
@@ -2513,10 +2582,20 @@ declare module "gi://GIRepository?version=3.0" {
         interface VFuncInfoClass extends Omit<CallableInfoClass, "new"> {
             readonly $gtype: GObject.GType<VFuncInfo>
             readonly prototype: VFuncInfo
+
             new (props?: Partial<GObject.ConstructorProps<VFuncInfo>>): VFuncInfo
         }
 
-        const VFuncInfo: VFuncInfoClass
+        interface $Exports {
+            /**
+             * `GIVFuncInfo` represents a virtual function.
+             *
+             * A virtual function is a callable object that belongs to either a
+             * [type@GIRepository.ObjectInfo] or a [type@GIRepository.InterfaceInfo].
+             * @since 2.80
+             */
+            VFuncInfo: VFuncInfoClass
+        }
         
 
         namespace ValueInfo {
@@ -2533,13 +2612,6 @@ declare module "gi://GIRepository?version=3.0" {
             }
         }
 
-        /**
-         * A `GIValueInfo` represents a value in an enumeration.
-         *
-         * The `GIValueInfo` is fetched by calling
-         * [method@GIRepository.EnumInfo.get_value] on a [class@GIRepository.EnumInfo].
-         * @since 2.80
-         */
         interface ValueInfo extends BaseInfo {
             readonly $signals: ValueInfo.SignalSignatures
             readonly $readableProperties: ValueInfo.ReadableProperties
@@ -2556,38 +2628,51 @@ declare module "gi://GIRepository?version=3.0" {
         interface ValueInfoClass extends Omit<BaseInfoClass, "new"> {
             readonly $gtype: GObject.GType<ValueInfo>
             readonly prototype: ValueInfo
+
             new (props?: Partial<GObject.ConstructorProps<ValueInfo>>): ValueInfo
         }
 
-        const ValueInfo: ValueInfoClass
-        /**
-         * An opaque structure used to iterate over attributes
-         * in a [class@GIRepository.BaseInfo] struct.
-         * @since 2.80
-         */
-        abstract class AttributeIter {
-            static readonly $gtype: GObject.GType<AttributeIter>
-
-            
+        interface $Exports {
+            /**
+             * A `GIValueInfo` represents a value in an enumeration.
+             *
+             * The `GIValueInfo` is fetched by calling
+             * [method@GIRepository.EnumInfo.get_value] on a [class@GIRepository.EnumInfo].
+             * @since 2.80
+             */
+            ValueInfo: ValueInfoClass
         }
-        none
-        /**
-         */
-        abstract class BaseInfoStack {
-            static readonly $gtype: GObject.GType<BaseInfoStack>
+        
 
-            
+        interface AttributeIterStruct {
+            readonly $gtype: GObject.GType<AttributeIter>
+            [Symbol.hasInstance](instance: unknown): instance is AttributeIter
         }
-        none
-        /**
-         * `GITypelib` represents a loaded `.typelib` file, which contains a description
-         * of a single module’s API.
-         * @since 2.80
-         */
-        abstract class Typelib {
-            static readonly $gtype: GObject.GType<Typelib>
 
-            
+        interface AttributeIter {
+        }
+
+        interface $Exports {
+            AttributeIter: AttributeIterStruct
+        }
+        
+
+        interface BaseInfoStackStruct {
+            readonly $gtype: GObject.GType<BaseInfoStack>
+            [Symbol.hasInstance](instance: unknown): instance is BaseInfoStack
+        }
+
+        interface BaseInfoStack {
+        }
+
+        interface $Exports {
+            BaseInfoStack: BaseInfoStackStruct
+        }
+        
+
+        interface TypelibStruct {
+            readonly $gtype: GObject.GType<Typelib>
+            [Symbol.hasInstance](instance: unknown): instance is Typelib
             /**
              * Creates a new [type@GIRepository.Typelib] from a [type@GLib.Bytes].
              *
@@ -2598,7 +2683,10 @@ declare module "gi://GIRepository?version=3.0" {
              * @param bytes memory chunk containing the typelib
              * @returns the new [type@GIRepository.Typelib]
              */
-            static new_from_bytes(bytes: GLib.Bytes): Typelib
+            new_from_bytes(bytes: (GLib.Bytes | Uint8Array)): Typelib
+        }
+
+        interface Typelib {
             /**
              * Get the name of the namespace represented by @typelib.
              * @since 2.80
@@ -2626,75 +2714,18 @@ declare module "gi://GIRepository?version=3.0" {
              */
             unref(): void
         }
-        none
-        /**
-         * Get the error quark which represents [type@GIRepository.InvokeError].
-         * @since 2.80
-         * @returns error quark
-         */
-        function invoke_error_quark(): GLib.Quark
-        /**
-         * Convert a data pointer from a GLib data structure to a
-         * [type@GIRepository.Argument].
-         *
-         * GLib data structures, such as [type@GLib.List], [type@GLib.SList], and
-         * [type@GLib.HashTable], all store data pointers.
-         *
-         * In the case where the list or hash table is storing single types rather than
-         * structs, these data pointers may have values stuffed into them via macros
-         * such as `GPOINTER_TO_INT`.
-         *
-         * Use this function to ensure that all values are correctly extracted from
-         * stuffed pointers, regardless of the machine’s architecture or endianness.
-         *
-         * This function fills in the appropriate field of @arg with the value extracted
-         * from @hash_pointer, depending on @storage_type.
-         * @since 2.80
-         * @param storage_type a [type@GIRepository.TypeTag] obtained from
-          [method@GIRepository.TypeInfo.get_storage_type]
-         * @param hash_pointer a pointer, such as a [struct@GLib.HashTable] data pointer
-         * @returns , a [type@GIRepository.Argument]   to fill in
-         */
-        function type_tag_argument_from_hash_pointer(storage_type: TypeTag, hash_pointer: never | null): Argument
-        /**
-         * Convert a [type@GIRepository.Argument] to data pointer for use in a GLib
-         * data structure.
-         *
-         * GLib data structures, such as [type@GLib.List], [type@GLib.SList], and
-         * [type@GLib.HashTable], all store data pointers.
-         *
-         * In the case where the list or hash table is storing single types rather than
-         * structs, these data pointers may have values stuffed into them via macros
-         * such as `GPOINTER_TO_INT`.
-         *
-         * Use this function to ensure that all values are correctly stuffed into
-         * pointers, regardless of the machine’s architecture or endianness.
-         *
-         * This function returns a pointer stuffed with the appropriate field of @arg,
-         * depending on @storage_type.
-         * @since 2.80
-         * @param storage_type a [type@GIRepository.TypeTag] obtained from
-          [method@GIRepository.TypeInfo.get_storage_type]
-         * @param arg a [type@GIRepository.Argument] with the value to stuff into a pointer
-         * @returns A stuffed pointer, that can be stored in a [struct@GLib.HashTable],   for example
-         */
-        function type_tag_hash_pointer_from_argument(storage_type: TypeTag, arg: Argument): never | null
-        /**
-         * Obtain a string representation of @type
-         * @since 2.80
-         * @param type the type_tag
-         * @returns the string
-         */
-        function type_tag_to_string(type: TypeTag): string
-        const TYPE_TAG_N_TYPES: 22
-        /**
-         * Stores an argument of varying type.
-         * @since 2.80
-         */
-        abstract class Argument {
-            static readonly $gtype: GObject.GType<Argument>
 
-            
+        interface $Exports {
+            Typelib: TypelibStruct
+        }
+        
+
+        interface ArgumentStruct {
+            readonly $gtype: GObject.GType<Argument>
+            [Symbol.hasInstance](instance: unknown): instance is Argument
+        }
+
+        interface Argument {
             /**
              * boolean value
              */
@@ -2780,174 +2811,175 @@ declare module "gi://GIRepository?version=3.0" {
              */
             v_pointer: never
         }
-        
-        namespace ArrayType {
-            const $gtype: GObject.GType<ArrayType>
-        }
 
-        /**
-         * The type of array in a [class@GIRepository.TypeInfo].
-         * @since 2.80
-         */
-        enum ArrayType {
+        interface $Exports {
+            Argument: ArgumentStruct
+        }
+        
+        interface ArrayTypeEnum {
+            readonly $gtype: GObject.GType<ArrayType>
             /**
              * a C array, `char[]` for instance
              */
-            "C" = 0,
+            readonly "C": 0
             /**
              * a [type@GLib.Array] array
              */
-            "ARRAY" = 1,
+            readonly "ARRAY": 1
             /**
              * a [type@GLib.PtrArray] array
              */
-            "PTR_ARRAY" = 2,
+            readonly "PTR_ARRAY": 2
             /**
              * a [type@GLib.ByteArray] array
              */
-            "BYTE_ARRAY" = 3,
+            readonly "BYTE_ARRAY": 3
+        }
+        type ArrayType = ArrayTypeEnum[Exclude<keyof ArrayTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of array in a [class@GIRepository.TypeInfo].
+             * @since 2.80
+             */
+            ArrayType: ArrayTypeEnum
         }
         
-        namespace Direction {
-            const $gtype: GObject.GType<Direction>
-        }
-
-        /**
-         * The direction of a [class@GIRepository.ArgInfo].
-         * @since 2.80
-         */
-        enum Direction {
+        interface DirectionEnum {
+            readonly $gtype: GObject.GType<Direction>
             /**
              * ‘in’ argument.
              */
-            "IN" = 0,
+            readonly "IN": 0
             /**
              * ‘out’ argument.
              */
-            "OUT" = 1,
+            readonly "OUT": 1
             /**
              * ‘in and out’ argument.
              */
-            "INOUT" = 2,
+            readonly "INOUT": 2
+        }
+        type Direction = DirectionEnum[Exclude<keyof DirectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The direction of a [class@GIRepository.ArgInfo].
+             * @since 2.80
+             */
+            Direction: DirectionEnum
         }
         
-        abstract class InvokeError extends GLib.Error {
-            static readonly $gtype: GObject.GType<InvokeError>
+        interface InvokeError extends GLib.Error {}
+
+        interface InvokeErrorEnum {
+            readonly $gtype: GObject.GType<InvokeError>
+
+            new(props: { message: string, code: number }): InvokeError
             /**
              * invocation failed, unknown error.
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * symbol couldn’t be found in any of the
              *   libraries associated with the typelib of the function.
              */
-            static readonly "SYMBOL_NOT_FOUND": 1
+            readonly "SYMBOL_NOT_FOUND": 1
             /**
              * the arguments provided didn’t match
              *   the expected arguments for the function’s type signature.
              */
-            static readonly "ARGUMENT_MISMATCH": 2
-        }
-        
-        namespace RepositoryError {
-            const $gtype: GObject.GType<RepositoryError>
+            readonly "ARGUMENT_MISMATCH": 2
         }
 
-        /**
-         * An error code used with `GI_REPOSITORY_ERROR` in a [type@GLib.Error]
-         * returned from a [class@GIRepository.Repository] routine.
-         * @since 2.80
-         */
-        enum RepositoryError {
+        interface $Exports {
+            /**
+             * An error occurring while invoking a function via
+             * [method@GIRepository.FunctionInfo.invoke].
+             * @since 2.80
+             */
+            InvokeError: InvokeErrorEnum
+        }
+        
+        interface RepositoryErrorEnum {
+            readonly $gtype: GObject.GType<RepositoryError>
             /**
              * the typelib could not be found.
              */
-            "TYPELIB_NOT_FOUND" = 0,
+            readonly "TYPELIB_NOT_FOUND": 0
             /**
              * the namespace does not match the
              *   requested namespace.
              */
-            "NAMESPACE_MISMATCH" = 1,
+            readonly "NAMESPACE_MISMATCH": 1
             /**
              * the version of the
              *   typelib does not match the requested version.
              */
-            "NAMESPACE_VERSION_CONFLICT" = 2,
+            readonly "NAMESPACE_VERSION_CONFLICT": 2
             /**
              * the library used by the typelib
              *   could not be found.
              */
-            "LIBRARY_NOT_FOUND" = 3,
+            readonly "LIBRARY_NOT_FOUND": 3
+        }
+        type RepositoryError = RepositoryErrorEnum[Exclude<keyof RepositoryErrorEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An error code used with `GI_REPOSITORY_ERROR` in a [type@GLib.Error]
+             * returned from a [class@GIRepository.Repository] routine.
+             * @since 2.80
+             */
+            RepositoryError: RepositoryErrorEnum
         }
         
-        namespace ScopeType {
-            const $gtype: GObject.GType<ScopeType>
-        }
-
-        /**
-         * Scope type of a [class@GIRepository.ArgInfo] representing callback,
-         * determines how the callback is invoked and is used to decided when the invoke
-         * structs can be freed.
-         * @since 2.80
-         */
-        enum ScopeType {
+        interface ScopeTypeEnum {
+            readonly $gtype: GObject.GType<ScopeType>
             /**
              * The argument is not of callback type.
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * The callback and associated `user_data` is only
              *   used during the call to this function.
              */
-            "CALL" = 1,
+            readonly "CALL": 1
             /**
              * The callback and associated `user_data` is
              *   only used until the callback is invoked, and the callback.
              *   is invoked always exactly once.
              */
-            "ASYNC" = 2,
+            readonly "ASYNC": 2
             /**
              * The callback and associated
              *   `user_data` is used until the caller is notified via the
              *   [type@GLib.DestroyNotify].
              */
-            "NOTIFIED" = 3,
+            readonly "NOTIFIED": 3
             /**
              * The callback and associated `user_data` is
              *   used until the process terminates
              */
-            "FOREVER" = 4,
+            readonly "FOREVER": 4
+        }
+        type ScopeType = ScopeTypeEnum[Exclude<keyof ScopeTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Scope type of a [class@GIRepository.ArgInfo] representing callback,
+             * determines how the callback is invoked and is used to decided when the invoke
+             * structs can be freed.
+             * @since 2.80
+             */
+            ScopeType: ScopeTypeEnum
         }
         
-        namespace Transfer {
-            const $gtype: GObject.GType<Transfer>
-        }
-
-        /**
-         * `GITransfer` specifies who’s responsible for freeing the resources after an
-         * ownership transfer is complete.
-         *
-         * The transfer is the exchange of data between two parts, from the callee to
-         * the caller.
-         *
-         * The callee is either a function/method/signal or an object/interface where a
-         * property is defined. The caller is the side accessing a property or calling a
-         * function.
-         *
-         * In the case of a containing type such as a list, an array or a hash table the
-         * container itself is specified differently from the items within the
-         * container. Each container is freed differently, check the documentation for
-         * the types themselves for information on how to free them.
-         * @since 2.80
-         */
-        enum Transfer {
+        interface TransferEnum {
+            readonly $gtype: GObject.GType<Transfer>
             /**
              * Transfer nothing from the callee (function or the type
              *   instance the property belongs to) to the caller. The callee retains the
              *   ownership of the transfer and the caller doesn’t need to do anything to
              *   free up the resources of this transfer.
              */
-            "NOTHING" = 0,
+            readonly "NOTHING": 0
             /**
              * Transfer the container (list, array, hash table) from
              *   the callee to the caller. The callee retains the ownership of the
@@ -2955,227 +2987,315 @@ declare module "gi://GIRepository?version=3.0" {
              *   container resources ([func@GLib.List.free],
              *   [func@GLib.HashTable.destroy], etc) of this transfer.
              */
-            "CONTAINER" = 1,
+            readonly "CONTAINER": 1
             /**
              * Transfer everything, e.g. the container and its
              *   contents from the callee to the caller. This is the case when the callee
              *   creates a copy of all the data it returns. The caller is responsible for
              *   cleaning up the container and item resources of this transfer.
              */
-            "EVERYTHING" = 2,
+            readonly "EVERYTHING": 2
+        }
+        type Transfer = TransferEnum[Exclude<keyof TransferEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * `GITransfer` specifies who’s responsible for freeing the resources after an
+             * ownership transfer is complete.
+             *
+             * The transfer is the exchange of data between two parts, from the callee to
+             * the caller.
+             *
+             * The callee is either a function/method/signal or an object/interface where a
+             * property is defined. The caller is the side accessing a property or calling a
+             * function.
+             *
+             * In the case of a containing type such as a list, an array or a hash table the
+             * container itself is specified differently from the items within the
+             * container. Each container is freed differently, check the documentation for
+             * the types themselves for information on how to free them.
+             * @since 2.80
+             */
+            Transfer: TransferEnum
         }
         
-        namespace TypeTag {
-            const $gtype: GObject.GType<TypeTag>
-        }
-
-        /**
-         * The type tag of a [class@GIRepository.TypeInfo].
-         * @since 2.80
-         */
-        enum TypeTag {
+        interface TypeTagEnum {
+            readonly $gtype: GObject.GType<TypeTag>
             /**
              * void
              */
-            "VOID" = 0,
+            readonly "VOID": 0
             /**
              * boolean
              */
-            "BOOLEAN" = 1,
+            readonly "BOOLEAN": 1
             /**
              * 8-bit signed integer
              */
-            "INT8" = 2,
+            readonly "INT8": 2
             /**
              * 8-bit unsigned integer
              */
-            "UINT8" = 3,
+            readonly "UINT8": 3
             /**
              * 16-bit signed integer
              */
-            "INT16" = 4,
+            readonly "INT16": 4
             /**
              * 16-bit unsigned integer
              */
-            "UINT16" = 5,
+            readonly "UINT16": 5
             /**
              * 32-bit signed integer
              */
-            "INT32" = 6,
+            readonly "INT32": 6
             /**
              * 32-bit unsigned integer
              */
-            "UINT32" = 7,
+            readonly "UINT32": 7
             /**
              * 64-bit signed integer
              */
-            "INT64" = 8,
+            readonly "INT64": 8
             /**
              * 64-bit unsigned integer
              */
-            "UINT64" = 9,
+            readonly "UINT64": 9
             /**
              * float
              */
-            "FLOAT" = 10,
+            readonly "FLOAT": 10
             /**
              * double floating point
              */
-            "DOUBLE" = 11,
+            readonly "DOUBLE": 11
             /**
              * a [type@GObject.Type]
              */
-            "GTYPE" = 12,
+            readonly "GTYPE": 12
             /**
              * a UTF-8 encoded string
              */
-            "UTF8" = 13,
+            readonly "UTF8": 13
             /**
              * a filename, encoded in the same encoding
              *   as the native filesystem is using.
              */
-            "FILENAME" = 14,
+            readonly "FILENAME": 14
             /**
              * an array
              */
-            "ARRAY" = 15,
+            readonly "ARRAY": 15
             /**
              * an extended interface object
              */
-            "INTERFACE" = 16,
+            readonly "INTERFACE": 16
             /**
              * a [type@GLib.List]
              */
-            "GLIST" = 17,
+            readonly "GLIST": 17
             /**
              * a [type@GLib.SList]
              */
-            "GSLIST" = 18,
+            readonly "GSLIST": 18
             /**
              * a [type@GLib.HashTable]
              */
-            "GHASH" = 19,
+            readonly "GHASH": 19
             /**
              * a [type@GLib.Error]
              */
-            "ERROR" = 20,
+            readonly "ERROR": 20
             /**
              * Unicode character
              */
-            "UNICHAR" = 21,
+            readonly "UNICHAR": 21
+        }
+        type TypeTag = TypeTagEnum[Exclude<keyof TypeTagEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type tag of a [class@GIRepository.TypeInfo].
+             * @since 2.80
+             */
+            TypeTag: TypeTagEnum
         }
         
-        namespace FieldInfoFlags {
-            const $gtype: GObject.GType<FieldInfoFlags>
-        }
-
-        /**
-         * Flags for a [class@GIRepository.FieldInfo].
-         * @since 2.80
-         */
-        enum FieldInfoFlags {
+        interface FieldInfoFlagsBitfield {
+            readonly $gtype: GObject.GType<FieldInfoFlags>
             /**
              * no flags set (since: 2.86)
              */
-            "INFO_FLAGS_NONE" = 0,
+            readonly "INFO_FLAGS_NONE": 0
             /**
              * field is readable.
              */
-            "IS_READABLE" = 1,
+            readonly "IS_READABLE": 1
             /**
              * field is writable.
              */
-            "IS_WRITABLE" = 2,
+            readonly "IS_WRITABLE": 2
+        }
+        type FieldInfoFlags = number
+        interface $Exports {
+            /**
+             * Flags for a [class@GIRepository.FieldInfo].
+             * @since 2.80
+             */
+            FieldInfoFlags: FieldInfoFlagsBitfield
         }
         
-        namespace FunctionInfoFlags {
-            const $gtype: GObject.GType<FunctionInfoFlags>
-        }
-
-        /**
-         * Flags for a [class@GIRepository.FunctionInfo] struct.
-         * @since 2.80
-         */
-        enum FunctionInfoFlags {
+        interface FunctionInfoFlagsBitfield {
+            readonly $gtype: GObject.GType<FunctionInfoFlags>
             /**
              * no flags set (since: 2.86)
              */
-            "INFO_FLAGS_NONE" = 0,
+            readonly "INFO_FLAGS_NONE": 0
             /**
              * is a method.
              */
-            "IS_METHOD" = 1,
+            readonly "IS_METHOD": 1
             /**
              * is a constructor.
              */
-            "IS_CONSTRUCTOR" = 2,
+            readonly "IS_CONSTRUCTOR": 2
             /**
              * is a getter of a [class@GIRepository.PropertyInfo].
              */
-            "IS_GETTER" = 4,
+            readonly "IS_GETTER": 4
             /**
              * is a setter of a [class@GIRepository.PropertyInfo].
              */
-            "IS_SETTER" = 8,
+            readonly "IS_SETTER": 8
             /**
              * represents a virtual function.
              */
-            "WRAPS_VFUNC" = 16,
+            readonly "WRAPS_VFUNC": 16
             /**
              */
-            "IS_ASYNC" = 32,
+            readonly "IS_ASYNC": 32
+        }
+        type FunctionInfoFlags = number
+        interface $Exports {
+            /**
+             * Flags for a [class@GIRepository.FunctionInfo] struct.
+             * @since 2.80
+             */
+            FunctionInfoFlags: FunctionInfoFlagsBitfield
         }
         
-        namespace RepositoryLoadFlags {
-            const $gtype: GObject.GType<RepositoryLoadFlags>
-        }
-
-        /**
-         * Flags that control how a typelib is loaded.
-         * @since 2.80
-         */
-        enum RepositoryLoadFlags {
+        interface RepositoryLoadFlagsBitfield {
+            readonly $gtype: GObject.GType<RepositoryLoadFlags>
             /**
              * No flags set.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Lazily load the typelib.
              */
-            "LAZY" = 1,
+            readonly "LAZY": 1
+        }
+        type RepositoryLoadFlags = number
+        interface $Exports {
+            /**
+             * Flags that control how a typelib is loaded.
+             * @since 2.80
+             */
+            RepositoryLoadFlags: RepositoryLoadFlagsBitfield
         }
         
-        namespace VFuncInfoFlags {
-            const $gtype: GObject.GType<VFuncInfoFlags>
-        }
-
-        /**
-         * Flags of a [class@GIRepository.VFuncInfo] struct.
-         * @since 2.80
-         */
-        enum VFuncInfoFlags {
+        interface VFuncInfoFlagsBitfield {
+            readonly $gtype: GObject.GType<VFuncInfoFlags>
             /**
              * no flags set (since: 2.86)
              */
-            "INFO_FLAGS_NONE" = 0,
+            readonly "INFO_FLAGS_NONE": 0
             /**
              * chains up to the parent type
              */
-            "MUST_CHAIN_UP" = 1,
+            readonly "MUST_CHAIN_UP": 1
             /**
              * overrides
              */
-            "MUST_OVERRIDE" = 2,
+            readonly "MUST_OVERRIDE": 2
             /**
              * does not override
              */
-            "MUST_NOT_OVERRIDE" = 4,
+            readonly "MUST_NOT_OVERRIDE": 4
         }
-        none
-        none
-        none
-        none
+        type VFuncInfoFlags = number
+        interface $Exports {
+            /**
+             * Flags of a [class@GIRepository.VFuncInfo] struct.
+             * @since 2.80
+             */
+            VFuncInfoFlags: VFuncInfoFlagsBitfield
+        }
+
+        interface $Exports {
+            __name__: "GIRepository"
+            __version: "3.0"
+            TYPE_TAG_N_TYPES: 22
+            /**
+             * Get the error quark which represents [type@GIRepository.InvokeError].
+             * @since 2.80
+             * @returns error quark
+             */
+            invoke_error_quark(): GLib.Quark
+            /**
+             * Convert a data pointer from a GLib data structure to a
+             * [type@GIRepository.Argument].
+             *
+             * GLib data structures, such as [type@GLib.List], [type@GLib.SList], and
+             * [type@GLib.HashTable], all store data pointers.
+             *
+             * In the case where the list or hash table is storing single types rather than
+             * structs, these data pointers may have values stuffed into them via macros
+             * such as `GPOINTER_TO_INT`.
+             *
+             * Use this function to ensure that all values are correctly extracted from
+             * stuffed pointers, regardless of the machine’s architecture or endianness.
+             *
+             * This function fills in the appropriate field of @arg with the value extracted
+             * from @hash_pointer, depending on @storage_type.
+             * @since 2.80
+             * @param storage_type a [type@GIRepository.TypeTag] obtained from
+              [method@GIRepository.TypeInfo.get_storage_type]
+             * @param hash_pointer a pointer, such as a [struct@GLib.HashTable] data pointer
+             * @returns , a [type@GIRepository.Argument]   to fill in
+             */
+            type_tag_argument_from_hash_pointer(storage_type: TypeTag, hash_pointer: never | null): Argument
+            /**
+             * Convert a [type@GIRepository.Argument] to data pointer for use in a GLib
+             * data structure.
+             *
+             * GLib data structures, such as [type@GLib.List], [type@GLib.SList], and
+             * [type@GLib.HashTable], all store data pointers.
+             *
+             * In the case where the list or hash table is storing single types rather than
+             * structs, these data pointers may have values stuffed into them via macros
+             * such as `GPOINTER_TO_INT`.
+             *
+             * Use this function to ensure that all values are correctly stuffed into
+             * pointers, regardless of the machine’s architecture or endianness.
+             *
+             * This function returns a pointer stuffed with the appropriate field of @arg,
+             * depending on @storage_type.
+             * @since 2.80
+             * @param storage_type a [type@GIRepository.TypeTag] obtained from
+              [method@GIRepository.TypeInfo.get_storage_type]
+             * @param arg a [type@GIRepository.Argument] with the value to stuff into a pointer
+             * @returns A stuffed pointer, that can be stored in a [struct@GLib.HashTable],   for example
+             */
+            type_tag_hash_pointer_from_argument(storage_type: TypeTag, arg: Argument): never | null
+            /**
+             * Obtain a string representation of @type
+             * @since 2.80
+             * @param type the type_tag
+             * @returns the string
+             */
+            type_tag_to_string(type: TypeTag): string
+        }
     }
 
+    const GIRepository: GIRepository.$Exports
     export default GIRepository
 }

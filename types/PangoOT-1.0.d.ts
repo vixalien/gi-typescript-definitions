@@ -28,10 +28,7 @@ declare module "gi://PangoOT?version=1.0" {
 
     
 
-
     namespace PangoOT {
-        const __name__: "PangoOT"
-        const __version: "1.0"
         
 
         namespace Info {
@@ -48,8 +45,6 @@ declare module "gi://PangoOT?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Info extends GObject.Object {
             readonly $signals: Info.SignalSignatures
             readonly $readableProperties: Info.ReadableProperties
@@ -74,7 +69,7 @@ declare module "gi://PangoOT?version=1.0" {
               or %PANGO_OT_DEFAULT_LANGUAGE to use the default language of the script
              * @returns %TRUE if the feature was found, location to store the index of   the feature
              */
-            find_feature(table_type: TableType, feature_tag: Tag, script_index: number, language_index: number): boolean
+            find_feature(table_type: TableType, feature_tag: Tag, script_index: number, language_index: number): [boolean, number]
             /**
              * Finds the index of a language and its required feature index.
              *
@@ -90,7 +85,7 @@ declare module "gi://PangoOT?version=1.0" {
              * @param language_tag the tag of the language to find
              * @returns %TRUE if the language was found, location to store the index of the language, location to store the   required feature index of the language
              */
-            find_language(table_type: TableType, script_index: number, language_tag: Tag): boolean
+            find_language(table_type: TableType, script_index: number, language_tag: Tag): [boolean, number, number]
             /**
              * Finds the index of a script.
              *
@@ -106,7 +101,7 @@ declare module "gi://PangoOT?version=1.0" {
              * @param script_tag the tag of the script to find
              * @returns %TRUE if the script was found, location to store the index of the script
              */
-            find_script(table_type: TableType, script_tag: Tag): boolean
+            find_script(table_type: TableType, script_tag: Tag): [boolean, number]
             /**
              * Obtains the list of features for the given language of the given script.
              * @param table_type the table type to obtain information about
@@ -137,6 +132,7 @@ declare module "gi://PangoOT?version=1.0" {
         interface InfoClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Info>
             readonly prototype: Info
+
             new (props?: Partial<GObject.ConstructorProps<Info>>): Info
             /**
              * Returns the `PangoOTInfo` structure for the given FreeType font face.
@@ -147,7 +143,11 @@ declare module "gi://PangoOT?version=1.0" {
             get(face: freetype2.Face): Info
         }
 
-        const Info: InfoClass
+        interface $Exports {
+            /**
+             */
+            Info: InfoClass
+        }
         
 
         namespace Ruleset {
@@ -164,19 +164,6 @@ declare module "gi://PangoOT?version=1.0" {
             }
         }
 
-        /**
-         * The `PangoOTRuleset` structure holds a set of features selected
-         * from the tables in an OpenType font.
-         *
-         * A feature is an operation such as adjusting glyph positioning
-         * that should be applied to a text feature such as a certain
-         * type of accent.
-         *
-         * A `PangoOTRuleset` is created with [ctor@PangoOT.Ruleset.new],
-         * features are added to it with [method@PangoOT.Ruleset.add_feature],
-         * then it is applied to a `PangoGlyphString` with
-         * [method@PangoOT.Ruleset.position].
-         */
         interface Ruleset extends GObject.Object {
             readonly $signals: Ruleset.SignalSignatures
             readonly $readableProperties: Ruleset.ReadableProperties
@@ -196,7 +183,7 @@ declare module "gi://PangoOT?version=1.0" {
              * @since 1.18
              * @returns Total number of features in the `ruleset`, location to store number of GSUB features, location to store number of GPOS features
              */
-            get_feature_count(): number
+            get_feature_count(): [number, number, number]
             /**
              * This is a convenience function that first tries to find the feature
              * using [method@PangoOT.Info.find_feature] and the ruleset script and
@@ -245,6 +232,7 @@ declare module "gi://PangoOT?version=1.0" {
         interface RulesetClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Ruleset>
             readonly prototype: Ruleset
+
             new (props?: Partial<GObject.ConstructorProps<Ruleset>>): Ruleset
             /**
              * Creates a new `PangoOTRuleset` for the given OpenType info.
@@ -325,20 +313,37 @@ declare module "gi://PangoOT?version=1.0" {
             get_for_description(info: Info, desc: RulesetDescription): Ruleset
         }
 
-        const Ruleset: RulesetClass
-        /**
-         */
-        abstract class Buffer {
-            static readonly $gtype: GObject.GType<Buffer>
+        interface $Exports {
+            /**
+             * The `PangoOTRuleset` structure holds a set of features selected
+             * from the tables in an OpenType font.
+             *
+             * A feature is an operation such as adjusting glyph positioning
+             * that should be applied to a text feature such as a certain
+             * type of accent.
+             *
+             * A `PangoOTRuleset` is created with [ctor@PangoOT.Ruleset.new],
+             * features are added to it with [method@PangoOT.Ruleset.add_feature],
+             * then it is applied to a `PangoGlyphString` with
+             * [method@PangoOT.Ruleset.position].
+             */
+            Ruleset: RulesetClass
+        }
+        
 
-            
+        interface BufferStruct {
+            readonly $gtype: GObject.GType<Buffer>
+            [Symbol.hasInstance](instance: unknown): instance is Buffer
             /**
              * Creates a new `PangoOTBuffer` for the given OpenType font.
              * @since 1.4
              * @param font a `PangoFcFont`
              * @returns the newly allocated `PangoOTBuffer`, which should   be freed with [method@PangoOT.Buffer.destroy].
              */
-            static "new"(font: PangoFc.Font): Buffer
+            "new"(font: PangoFc.Font): Buffer
+        }
+
+        interface Buffer {
             /**
              * Appends a glyph to a `PangoOTBuffer`, with @properties identifying which
              * features should be applied on this glyph.
@@ -368,7 +373,7 @@ declare module "gi://PangoOT?version=1.0" {
              * @since 1.4
              * @returns , location to   store the array of glyphs
              */
-            get_glyphs(): void
+            get_glyphs(): Glyph[]
             /**
              * Exports the glyphs in a `PangoOTBuffer` into a `PangoGlyphString`.
              *
@@ -400,16 +405,18 @@ declare module "gi://PangoOT?version=1.0" {
              */
             set_zero_width_marks(zero_width_marks: boolean): void
         }
-        /**
-         * The `PangoOTFeatureMap` typedef is used to represent an OpenType
-         * feature with the property bit associated with it.  The feature tag is
-         * represented as a char array instead of a `PangoOTTag` for convenience.
-         * @since 1.18
-         */
-        abstract class FeatureMap {
-            static readonly $gtype: GObject.GType<FeatureMap>
 
-            
+        interface $Exports {
+            Buffer: BufferStruct
+        }
+        
+
+        interface FeatureMapStruct {
+            readonly $gtype: GObject.GType<FeatureMap>
+            [Symbol.hasInstance](instance: unknown): instance is FeatureMap
+        }
+
+        interface FeatureMap {
             /**
              * feature tag in represented as four-letter ASCII string.
              */
@@ -420,15 +427,18 @@ declare module "gi://PangoOT?version=1.0" {
              */
             property_bit: number
         }
-        /**
-         * The `PangoOTGlyph` structure represents a single glyph together with
-         * information used for OpenType layout processing of the glyph.
-         * It contains the following fields.
-         */
-        abstract class Glyph {
-            static readonly $gtype: GObject.GType<Glyph>
 
-            
+        interface $Exports {
+            FeatureMap: FeatureMapStruct
+        }
+        
+
+        interface GlyphStruct {
+            readonly $gtype: GObject.GType<Glyph>
+            [Symbol.hasInstance](instance: unknown): instance is Glyph
+        }
+
+        interface Glyph {
             /**
              * the glyph itself.
              */
@@ -455,19 +465,18 @@ declare module "gi://PangoOT?version=1.0" {
              */
             internal: number
         }
-        /**
-         * The `PangoOTRuleset` structure holds all the information needed
-         * to build a complete `PangoOTRuleset` from an OpenType font.
-         * The main use of this struct is to act as the key for a per-font
-         * hash of rulesets.  The user populates a ruleset description and
-         * gets the ruleset using pango_ot_ruleset_get_for_description()
-         * or create a new one using pango_ot_ruleset_new_from_description().
-         * @since 1.18
-         */
-        abstract class RulesetDescription {
-            static readonly $gtype: GObject.GType<RulesetDescription>
 
-            
+        interface $Exports {
+            Glyph: GlyphStruct
+        }
+        
+
+        interface RulesetDescriptionStruct {
+            readonly $gtype: GObject.GType<RulesetDescription>
+            [Symbol.hasInstance](instance: unknown): instance is RulesetDescription
+        }
+
+        interface RulesetDescription {
             /**
              * a `PangoScript`
              */
@@ -542,76 +551,30 @@ declare module "gi://PangoOT?version=1.0" {
              */
             hash(): number
         }
-        /**
-         * Finds the OpenType language-system tag best describing @language.
-         * @since 1.18
-         * @param language A `PangoLanguage`
-         * @returns `PangoOTTag` best matching `language` or %PANGO_OT_TAG_DEFAULT_LANGUAGE if none found or if `language` is %NULL.
-         */
-        function tag_from_language(language: Pango.Language | null): Tag
-        /**
-         * Finds the OpenType script tag corresponding to @script.
-         *
-         * The %PANGO_SCRIPT_COMMON, %PANGO_SCRIPT_INHERITED, and
-         * %PANGO_SCRIPT_UNKNOWN scripts are mapped to the OpenType
-         * 'DFLT' script tag that is also defined as
-         * %PANGO_OT_TAG_DEFAULT_SCRIPT.
-         *
-         * Note that multiple `PangoScript` values may map to the same
-         * OpenType script tag.  In particular, %PANGO_SCRIPT_HIRAGANA
-         * and %PANGO_SCRIPT_KATAKANA both map to the OT tag 'kana'.
-         * @since 1.18
-         * @param script A `PangoScript`
-         * @returns `PangoOTTag` corresponding to `script` or %PANGO_OT_TAG_DEFAULT_SCRIPT if none found.
-         */
-        function tag_from_script(script: Pango.Script): Tag
-        /**
-         * Finds a `PangoLanguage` corresponding to @language_tag.
-         * @since 1.18
-         * @param language_tag A `PangoOTTag` OpenType language-system tag
-         * @returns `PangoLanguage` best matching `language_tag` or `PangoLanguage` corresponding to the string "xx" if none found.
-         */
-        function tag_to_language(language_tag: Tag): Pango.Language
-        /**
-         * Finds the `PangoScript` corresponding to @script_tag.
-         *
-         * The 'DFLT' script tag is mapped to %PANGO_SCRIPT_COMMON.
-         *
-         * Note that an OpenType script tag may correspond to multiple
-         * `PangoScript` values.  In such cases, the `PangoScript` value
-         * with the smallest value is returned.
-         * In particular, %PANGO_SCRIPT_HIRAGANA
-         * and %PANGO_SCRIPT_KATAKANA both map to the OT tag 'kana'.
-         * This function will return %PANGO_SCRIPT_HIRAGANA for
-         * 'kana'.
-         * @since 1.18
-         * @param script_tag A `PangoOTTag` OpenType script tag
-         * @returns `PangoScript` corresponding to `script_tag` or %PANGO_SCRIPT_UNKNOWN if none found.
-         */
-        function tag_to_script(script_tag: Tag): Pango.Script
-        const ALL_GLYPHS: 65535
-        const DEFAULT_LANGUAGE: 65535
-        const NO_FEATURE: 65535
-        const NO_SCRIPT: 65535
-        
-        namespace TableType {
-            const $gtype: GObject.GType<TableType>
-        }
 
-        /**
-         * The PangoOTTableType enumeration values are used to
-         * identify the various OpenType tables in the
-         * pango_ot_info_… functions.
-         */
-        enum TableType {
+        interface $Exports {
+            RulesetDescription: RulesetDescriptionStruct
+        }
+        
+        interface TableTypeEnum {
+            readonly $gtype: GObject.GType<TableType>
             /**
              * The GSUB table.
              */
-            "GSUB" = 0,
+            readonly "GSUB": 0
             /**
              * The GPOS table.
              */
-            "GPOS" = 1,
+            readonly "GPOS": 1
+        }
+        type TableType = TableTypeEnum[Exclude<keyof TableTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The PangoOTTableType enumeration values are used to
+             * identify the various OpenType tables in the
+             * pango_ot_info_… functions.
+             */
+            TableType: TableTypeEnum
         }
         /**
          * The `PangoOTTag` typedef is used to represent TrueType and OpenType
@@ -619,7 +582,64 @@ declare module "gi://PangoOT?version=1.0" {
          * or PANGO_OT_TAG_MAKE_FROM_STRING() macros to create PangoOTTags manually.
          */
         type Tag = number
+
+        interface $Exports {
+            __name__: "PangoOT"
+            __version: "1.0"
+            ALL_GLYPHS: 65535
+            DEFAULT_LANGUAGE: 65535
+            NO_FEATURE: 65535
+            NO_SCRIPT: 65535
+            /**
+             * Finds the OpenType language-system tag best describing @language.
+             * @since 1.18
+             * @param language A `PangoLanguage`
+             * @returns `PangoOTTag` best matching `language` or %PANGO_OT_TAG_DEFAULT_LANGUAGE if none found or if `language` is %NULL.
+             */
+            tag_from_language(language: Pango.Language | null): Tag
+            /**
+             * Finds the OpenType script tag corresponding to @script.
+             *
+             * The %PANGO_SCRIPT_COMMON, %PANGO_SCRIPT_INHERITED, and
+             * %PANGO_SCRIPT_UNKNOWN scripts are mapped to the OpenType
+             * 'DFLT' script tag that is also defined as
+             * %PANGO_OT_TAG_DEFAULT_SCRIPT.
+             *
+             * Note that multiple `PangoScript` values may map to the same
+             * OpenType script tag.  In particular, %PANGO_SCRIPT_HIRAGANA
+             * and %PANGO_SCRIPT_KATAKANA both map to the OT tag 'kana'.
+             * @since 1.18
+             * @param script A `PangoScript`
+             * @returns `PangoOTTag` corresponding to `script` or %PANGO_OT_TAG_DEFAULT_SCRIPT if none found.
+             */
+            tag_from_script(script: Pango.Script): Tag
+            /**
+             * Finds a `PangoLanguage` corresponding to @language_tag.
+             * @since 1.18
+             * @param language_tag A `PangoOTTag` OpenType language-system tag
+             * @returns `PangoLanguage` best matching `language_tag` or `PangoLanguage` corresponding to the string "xx" if none found.
+             */
+            tag_to_language(language_tag: Tag): Pango.Language
+            /**
+             * Finds the `PangoScript` corresponding to @script_tag.
+             *
+             * The 'DFLT' script tag is mapped to %PANGO_SCRIPT_COMMON.
+             *
+             * Note that an OpenType script tag may correspond to multiple
+             * `PangoScript` values.  In such cases, the `PangoScript` value
+             * with the smallest value is returned.
+             * In particular, %PANGO_SCRIPT_HIRAGANA
+             * and %PANGO_SCRIPT_KATAKANA both map to the OT tag 'kana'.
+             * This function will return %PANGO_SCRIPT_HIRAGANA for
+             * 'kana'.
+             * @since 1.18
+             * @param script_tag A `PangoOTTag` OpenType script tag
+             * @returns `PangoScript` corresponding to `script_tag` or %PANGO_SCRIPT_UNKNOWN if none found.
+             */
+            tag_to_script(script_tag: Tag): Pango.Script
+        }
     }
 
+    const PangoOT: PangoOT.$Exports
     export default PangoOT
 }

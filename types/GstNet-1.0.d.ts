@@ -18,10 +18,7 @@ declare module "gi://GstNet?version=1.0" {
 
     
 
-
     namespace GstNet {
-        const __name__: "GstNet"
-        const __version: "1.0"
         
 
         namespace NetClientClock {
@@ -41,7 +38,6 @@ declare module "gi://GstNet?version=1.0" {
 
             interface WritableProperties extends Gst.SystemClock.WritableProperties {
                 "address": string
-                "base-time": number
                 "bus": Gst.Bus
                 "internal-clock": Gst.Clock
                 "minimum-update-interval": number
@@ -51,33 +47,10 @@ declare module "gi://GstNet?version=1.0" {
             }
 
             interface ConstructOnlyProperties extends Gst.SystemClock.ConstructOnlyProperties {
+                "base-time": number
             }
         }
 
-        /**
-         * #GstNetClientClock implements a custom #GstClock that synchronizes its time
-         * to a remote time provider such as #GstNetTimeProvider. #GstNtpClock
-         * implements a #GstClock that synchronizes its time to a remote NTPv4 server.
-         *
-         * A new clock is created with gst_net_client_clock_new() or
-         * gst_ntp_clock_new(), which takes the address and port of the remote time
-         * provider along with a name and an initial time.
-         *
-         * This clock will poll the time provider and will update its calibration
-         * parameters based on the local and remote observations.
-         *
-         * The "round-trip" property limits the maximum round trip packets can take.
-         *
-         * Various parameters of the clock can be configured with the parent #GstClock
-         * "timeout", "window-size" and "window-threshold" object properties.
-         *
-         * A #GstNetClientClock and #GstNtpClock is typically set on a #GstPipeline with
-         * gst_pipeline_use_clock().
-         *
-         * If you set a #GstBus on the clock via the "bus" object property, it will
-         * send @GST_MESSAGE_ELEMENT messages with an attached #GstStructure containing
-         * statistics about clock accuracy and network traffic.
-         */
         interface NetClientClock extends Gst.SystemClock {
             readonly $signals: NetClientClock.SignalSignatures
             readonly $readableProperties: NetClientClock.ReadableProperties
@@ -126,6 +99,7 @@ declare module "gi://GstNet?version=1.0" {
         interface NetClientClockClass extends Omit<Gst.SystemClockClass, "new"> {
             readonly $gtype: GObject.GType<NetClientClock>
             readonly prototype: NetClientClock
+
             new (props?: Partial<GObject.ConstructorProps<NetClientClock>>): NetClientClock
             /**
              * Create a new #GstNetClientClock that will report the time
@@ -137,10 +111,36 @@ declare module "gi://GstNet?version=1.0" {
              * @param base_time initial time of the clock
              * @returns a new #GstClock that receives a time from the remote clock.
              */
-            "new"(name: string | null, remote_address: string, remote_port: number, base_time: Gst.ClockTime): Gst.Clock
+            "new"(name: string | null, remote_address: string, remote_port: number, base_time: Gst.ClockTime): NetClientClock
         }
 
-        const NetClientClock: NetClientClockClass
+        interface $Exports {
+            /**
+             * #GstNetClientClock implements a custom #GstClock that synchronizes its time
+             * to a remote time provider such as #GstNetTimeProvider. #GstNtpClock
+             * implements a #GstClock that synchronizes its time to a remote NTPv4 server.
+             *
+             * A new clock is created with gst_net_client_clock_new() or
+             * gst_ntp_clock_new(), which takes the address and port of the remote time
+             * provider along with a name and an initial time.
+             *
+             * This clock will poll the time provider and will update its calibration
+             * parameters based on the local and remote observations.
+             *
+             * The "round-trip" property limits the maximum round trip packets can take.
+             *
+             * Various parameters of the clock can be configured with the parent #GstClock
+             * "timeout", "window-size" and "window-threshold" object properties.
+             *
+             * A #GstNetClientClock and #GstNtpClock is typically set on a #GstPipeline with
+             * gst_pipeline_use_clock().
+             *
+             * If you set a #GstBus on the clock via the "bus" object property, it will
+             * send @GST_MESSAGE_ELEMENT messages with an attached #GstStructure containing
+             * statistics about clock accuracy and network traffic.
+             */
+            NetClientClock: NetClientClockClass
+        }
         
 
         namespace NetTimeProvider {
@@ -157,27 +157,16 @@ declare module "gi://GstNet?version=1.0" {
 
             interface WritableProperties extends Gst.Object.WritableProperties, Gio.Initable.WritableProperties {
                 "active": boolean
-                "address": string
-                "clock": Gst.Clock
-                "port": number
                 "qos-dscp": number
             }
 
             interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
+                "address": string
+                "clock": Gst.Clock
+                "port": number
             }
         }
 
-        /**
-         * This object exposes the time of a #GstClock on the network.
-         *
-         * A #GstNetTimeProvider is created with gst_net_time_provider_new() which
-         * takes a #GstClock, an address and a port number as arguments.
-         *
-         * After creating the object, a client clock such as #GstNetClientClock can
-         * query the exposed clock over the network for its values.
-         *
-         * The #GstNetTimeProvider typically wraps the clock used by a #GstPipeline.
-         */
         interface NetTimeProvider extends Gst.Object, Gio.Initable {
             readonly $signals: NetTimeProvider.SignalSignatures
             readonly $readableProperties: NetTimeProvider.ReadableProperties
@@ -212,6 +201,7 @@ declare module "gi://GstNet?version=1.0" {
         interface NetTimeProviderClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<NetTimeProvider>
             readonly prototype: NetTimeProvider
+
             new (props?: Partial<GObject.ConstructorProps<NetTimeProvider>>): NetTimeProvider
             /**
              * Allows network clients to get the current time of @clock.
@@ -224,7 +214,20 @@ declare module "gi://GstNet?version=1.0" {
             "new"(clock: Gst.Clock, address: string | null, port: number): NetTimeProvider | null
         }
 
-        const NetTimeProvider: NetTimeProviderClass
+        interface $Exports {
+            /**
+             * This object exposes the time of a #GstClock on the network.
+             *
+             * A #GstNetTimeProvider is created with gst_net_time_provider_new() which
+             * takes a #GstClock, an address and a port number as arguments.
+             *
+             * After creating the object, a client clock such as #GstNetClientClock can
+             * query the exposed clock over the network for its values.
+             *
+             * The #GstNetTimeProvider typically wraps the clock used by a #GstPipeline.
+             */
+            NetTimeProvider: NetTimeProviderClass
+        }
         
 
         namespace NtpClock {
@@ -241,8 +244,6 @@ declare module "gi://GstNet?version=1.0" {
             }
         }
 
-        /**
-         */
         interface NtpClock extends NetClientClock {
             readonly $signals: NtpClock.SignalSignatures
             readonly $readableProperties: NtpClock.ReadableProperties
@@ -253,6 +254,7 @@ declare module "gi://GstNet?version=1.0" {
         interface NtpClockClass extends Omit<NetClientClockClass, "new"> {
             readonly $gtype: GObject.GType<NtpClock>
             readonly prototype: NtpClock
+
             new (props?: Partial<GObject.ConstructorProps<NtpClock>>): NtpClock
             /**
              * Create a new #GstNtpClock that will report the time provided by
@@ -264,10 +266,14 @@ declare module "gi://GstNet?version=1.0" {
              * @param base_time initial time of the clock
              * @returns a new #GstClock that receives a time from the remote clock.
              */
-            "new"(name: string | null, remote_address: string, remote_port: number, base_time: Gst.ClockTime): Gst.Clock
+            "new"(name: string | null, remote_address: string, remote_port: number, base_time: Gst.ClockTime): NtpClock
         }
 
-        const NtpClock: NtpClockClass
+        interface $Exports {
+            /**
+             */
+            NtpClock: NtpClockClass
+        }
         
 
         namespace PtpClock {
@@ -282,34 +288,16 @@ declare module "gi://GstNet?version=1.0" {
             }
 
             interface WritableProperties extends Gst.SystemClock.WritableProperties {
-                "domain": number
                 "grandmaster-clock-id": number
                 "internal-clock": Gst.Clock
                 "master-clock-id": number
             }
 
             interface ConstructOnlyProperties extends Gst.SystemClock.ConstructOnlyProperties {
+                "domain": number
             }
         }
 
-        /**
-         *  1024 and thus requires special
-         * privileges. Once this helper process is started, the main process will
-         * synchronize to all PTP domains that are detected on the selected
-         * interfaces.
-         *
-         * gst_ptp_clock_new() then allows to create a GstClock that provides the PTP
-         * time from a master clock inside a specific PTP domain. This clock will only
-         * return valid timestamps once the timestamps in the PTP domain are known. To
-         * check this, you can use gst_clock_wait_for_sync(), the GstClock::synced
-         * signal and gst_clock_is_synced().
-         *
-         * To gather statistics about the PTP clock synchronization,
-         * gst_ptp_statistics_callback_add() can be used. This gives the application
-         * the possibility to collect all kinds of statistics from the clock
-         * synchronization.
-         * @since 1.6
-         */
         interface PtpClock extends Gst.SystemClock {
             readonly $signals: PtpClock.SignalSignatures
             readonly $readableProperties: PtpClock.ReadableProperties
@@ -339,6 +327,7 @@ declare module "gi://GstNet?version=1.0" {
         interface PtpClockClass extends Omit<Gst.SystemClockClass, "new"> {
             readonly $gtype: GObject.GType<PtpClock>
             readonly prototype: PtpClock
+
             new (props?: Partial<GObject.ConstructorProps<PtpClock>>): PtpClock
             /**
              * Creates a new PTP clock instance that exports the PTP time of the master
@@ -357,22 +346,47 @@ declare module "gi://GstNet?version=1.0" {
              * @param domain PTP domain
              * @returns A new #GstClock
              */
-            "new"(name: string | null, domain: number): Gst.Clock | null
+            "new"(name: string | null, domain: number): PtpClock | null
         }
 
-        const PtpClock: PtpClockClass
-        /**
-         * #GstNetAddressMeta can be used to store a network address (a #GSocketAddress)
-         * in a #GstBuffer so that it network elements can track the to and from address
-         * of the buffer.
-         */
-        abstract class NetAddressMeta {
-            static readonly $gtype: GObject.GType<NetAddressMeta>
+        interface $Exports {
+            /**
+             * GstPtpClock implements a PTP (IEEE1588:2008) ordinary clock in slave-only
+             * mode, that allows a GStreamer pipeline to synchronize to a PTP network
+             * clock in some specific domain.
+             *
+             * The PTP subsystem can be initialized with gst_ptp_init(), which then starts
+             * a helper process to do the actual communication via the PTP ports. This is
+             * required as PTP listens on ports < 1024 and thus requires special
+             * privileges. Once this helper process is started, the main process will
+             * synchronize to all PTP domains that are detected on the selected
+             * interfaces.
+             *
+             * gst_ptp_clock_new() then allows to create a GstClock that provides the PTP
+             * time from a master clock inside a specific PTP domain. This clock will only
+             * return valid timestamps once the timestamps in the PTP domain are known. To
+             * check this, you can use gst_clock_wait_for_sync(), the GstClock::synced
+             * signal and gst_clock_is_synced().
+             *
+             * To gather statistics about the PTP clock synchronization,
+             * gst_ptp_statistics_callback_add() can be used. This gives the application
+             * the possibility to collect all kinds of statistics from the clock
+             * synchronization.
+             * @since 1.6
+             */
+            PtpClock: PtpClockClass
+        }
+        
 
-            
+        interface NetAddressMetaStruct {
+            readonly $gtype: GObject.GType<NetAddressMeta>
+            [Symbol.hasInstance](instance: unknown): instance is NetAddressMeta
             /**
              */
-            static get_info(): Gst.MetaInfo
+            get_info(): Gst.MetaInfo
+        }
+
+        interface NetAddressMeta {
             /**
              * the parent type
              */
@@ -382,28 +396,34 @@ declare module "gi://GstNet?version=1.0" {
              */
             addr: Gio.SocketAddress
         }
-        none
-        /**
-         */
-        abstract class NetClientClockPrivate {
-            static readonly $gtype: GObject.GType<NetClientClockPrivate>
 
-            
+        interface $Exports {
+            NetAddressMeta: NetAddressMetaStruct
         }
-        /**
-         * #GstNetControlMessageMeta can be used to store control messages (ancillary
-         * data) which was received with or is to be sent alongside the buffer data.
-         * When used with socket sinks and sources which understand this meta it allows
-         * sending and receiving ancillary data such as unix credentials (See
-         * #GUnixCredentialsMessage) and Unix file descriptions (See #GUnixFDMessage).
-         */
-        abstract class NetControlMessageMeta {
-            static readonly $gtype: GObject.GType<NetControlMessageMeta>
+        
 
-            
+        interface NetClientClockPrivateStruct {
+            readonly $gtype: GObject.GType<NetClientClockPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is NetClientClockPrivate
+        }
+
+        interface NetClientClockPrivate {
+        }
+
+        interface $Exports {
+            NetClientClockPrivate: NetClientClockPrivateStruct
+        }
+        
+
+        interface NetControlMessageMetaStruct {
+            readonly $gtype: GObject.GType<NetControlMessageMeta>
+            [Symbol.hasInstance](instance: unknown): instance is NetControlMessageMeta
             /**
              */
-            static get_info(): Gst.MetaInfo
+            get_info(): Gst.MetaInfo
+        }
+
+        interface NetControlMessageMeta {
             /**
              * the parent type
              */
@@ -413,14 +433,15 @@ declare module "gi://GstNet?version=1.0" {
              */
             message: Gio.SocketControlMessage
         }
-        /**
-         * Various functions for receiving, sending an serializing #GstNetTimePacket
-         * structures.
-         */
-        abstract class NetTimePacket {
-            static readonly $gtype: GObject.GType<NetTimePacket>
 
-            
+        interface $Exports {
+            NetControlMessageMeta: NetControlMessageMetaStruct
+        }
+        
+
+        interface NetTimePacketStruct {
+            readonly $gtype: GObject.GType<NetTimePacket>
+            [Symbol.hasInstance](instance: unknown): instance is NetTimePacket
             /**
              * Creates a new #GstNetTimePacket from a buffer received over the network. The
              * caller is responsible for ensuring that @buffer is at least
@@ -433,7 +454,7 @@ declare module "gi://GstNet?version=1.0" {
              * @param buffer a buffer from which to construct the packet, or NULL
              * @returns The new #GstNetTimePacket.
              */
-            static "new"(buffer: Uint8Array | null): NetTimePacket
+            "new"(buffer: Uint8Array | null): NetTimePacket
             /**
              * Receives a #GstNetTimePacket over a socket. Handles interrupted system
              * calls, but otherwise returns NULL on error.
@@ -441,7 +462,10 @@ declare module "gi://GstNet?version=1.0" {
              * @param socket socket to receive the time packet on
              * @returns a new #GstNetTimePacket, or NULL on error. Free    with gst_net_time_packet_free() when done., address of variable to return sender address
              */
-            static receive(socket: Gio.Socket): NetTimePacket
+            receive(socket: Gio.Socket): [NetTimePacket, Gio.SocketAddress]
+        }
+
+        interface NetTimePacket {
             /**
              * the local time when this packet was sent
              */
@@ -480,149 +504,36 @@ declare module "gi://GstNet?version=1.0" {
              */
             serialize(): Uint8Array
         }
-        none
-        /**
-         */
-        abstract class NetTimeProviderPrivate {
-            static readonly $gtype: GObject.GType<NetTimeProviderPrivate>
 
-            
+        interface $Exports {
+            NetTimePacket: NetTimePacketStruct
         }
-        none
-        none
-        /**
-         */
-        abstract class PtpClockPrivate {
-            static readonly $gtype: GObject.GType<PtpClockPrivate>
+        
 
-            
+        interface NetTimeProviderPrivateStruct {
+            readonly $gtype: GObject.GType<NetTimeProviderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is NetTimeProviderPrivate
         }
-        /**
-         * Attaches @addr as metadata in a #GstNetAddressMeta to @buffer.
-         * @param buffer a #GstBuffer
-         * @param addr a @GSocketAddress to connect to @buffer
-         * @returns a #GstNetAddressMeta connected to `buffer`
-         */
-        function buffer_add_net_address_meta(buffer: Gst.Buffer, addr: Gio.SocketAddress): NetAddressMeta
-        /**
-         * Attaches @message as metadata in a #GstNetControlMessageMeta to @buffer.
-         * @param buffer a #GstBuffer
-         * @param message a @GSocketControlMessage to attach to @buffer
-         * @returns a #GstNetControlMessageMeta connected to `buffer`
-         */
-        function buffer_add_net_control_message_meta(buffer: Gst.Buffer, message: Gio.SocketControlMessage): NetControlMessageMeta
-        /**
-         * Find the #GstNetAddressMeta on @buffer.
-         * @param buffer a #GstBuffer
-         * @returns the #GstNetAddressMeta or %NULL when there is no such metadata on `buffer`.
-         */
-        function buffer_get_net_address_meta(buffer: Gst.Buffer): NetAddressMeta | null
-        /**
-         */
-        function net_address_meta_api_get_type(): GObject.GType
-        /**
-         */
-        function net_address_meta_get_info(): Gst.MetaInfo
-        /**
-         */
-        function net_control_message_meta_api_get_type(): GObject.GType
-        /**
-         */
-        function net_control_message_meta_get_info(): Gst.MetaInfo
-        /**
-         * Receives a #GstNetTimePacket over a socket. Handles interrupted system
-         * calls, but otherwise returns NULL on error.
-         * @throws {GLib.Error}
-         * @param socket socket to receive the time packet on
-         * @returns a new #GstNetTimePacket, or NULL on error. Free    with gst_net_time_packet_free() when done., address of variable to return sender address
-         */
-        function net_time_packet_receive(socket: Gio.Socket): NetTimePacket
-        /**
-         * Configures IP_TOS value of socket, i.e. sets QoS DSCP.
-         * @since 1.18
-         * @param socket Socket to configure
-         * @param qos_dscp QoS DSCP value
-         * @returns TRUE if successful, FALSE in case an error occurred.
-         */
-        function net_utils_set_socket_tos(socket: Gio.Socket, qos_dscp: number): boolean
-        /**
-         * Deinitialize the GStreamer PTP subsystem and stop the PTP clock. If there
-         * are any remaining GstPtpClock instances, they won't be further synchronized
-         * to the PTP network clock.
-         * @since 1.6
-         */
-        function ptp_deinit(): void
-        /**
-         * Initialize the GStreamer PTP subsystem and create a PTP ordinary clock in
-         * slave-only mode for all domains on the given @interfaces with the
-         * given @clock_id.
-         *
-         * If @clock_id is %GST_PTP_CLOCK_ID_NONE, a clock id is automatically
-         * generated from the MAC address of the first network interface.
-         *
-         * This function is automatically called by gst_ptp_clock_new() with default
-         * parameters if it wasn't called before.
-         * @since 1.6
-         * @param clock_id PTP clock id of this process' clock or %GST_PTP_CLOCK_ID_NONE
-         * @param interfaces network interfaces to run the clock on
-         * @returns %TRUE if the GStreamer PTP clock subsystem could be initialized.
-         */
-        function ptp_init(clock_id: number, interfaces: string[] | null): boolean
-        /**
-         * Initialize the GStreamer PTP subsystem and create a PTP ordinary clock in
-         * slave-only mode according to the @config.
-         *
-         * @config is a #GstStructure with the following optional fields:
-         * * #guint64 `clock-id`: The clock ID to use for the local clock. If the
-         *     clock-id is not provided or %GST_PTP_CLOCK_ID_NONE is provided, a clock
-         *     id is automatically generated from the MAC address of the first network
-         *     interface.
-         * * #GStrv `interfaces`: The interface names to listen on for PTP packets. If
-         *     none are provided then all compatible interfaces will be used.
-         * * #guint `ttl`: The TTL to use for multicast packets sent out by GStreamer.
-         *     This defaults to 1, i.e. packets will not leave the local network.
-         *
-         * This function is automatically called by gst_ptp_clock_new() with default
-         * parameters if it wasn't called before.
-         * @since 1.24
-         * @param config Configuration for initializing the GStreamer PTP subsystem
-         * @returns %TRUE if the GStreamer PTP clock subsystem could be initialized.
-         */
-        function ptp_init_full(config: Gst.Structure): boolean
-        /**
-         * Check if the GStreamer PTP clock subsystem is initialized.
-         * @since 1.6
-         * @returns %TRUE if the GStreamer PTP clock subsystem is initialized.
-         */
-        function ptp_is_initialized(): boolean
-        /**
-         * Check if PTP clocks are generally supported on this system, and if previous
-         * initializations did not fail.
-         * @since 1.6
-         * @returns %TRUE if PTP clocks are generally supported on this system, and previous initializations did not fail.
-         */
-        function ptp_is_supported(): boolean
-        /**
-         * Installs a new statistics callback for gathering PTP statistics. See
-         * GstPtpStatisticsCallback for a list of statistics that are provided.
-         * @since 1.6
-         * @param callback GstPtpStatisticsCallback to call
-         * @returns Id for the callback that can be passed to gst_ptp_statistics_callback_remove()
-         */
-        function ptp_statistics_callback_add(callback: PtpStatisticsCallback): number
-        /**
-         * Removes a PTP statistics callback that was previously added with
-         * gst_ptp_statistics_callback_add().
-         * @since 1.6
-         * @param id Callback id to remove
-         */
-        function ptp_statistics_callback_remove(id: number): void
-        const NET_TIME_PACKET_SIZE: 16
-        const PTP_CLOCK_ID_NONE: 18446744073709551615
-        const PTP_STATISTICS_BEST_MASTER_CLOCK_SELECTED: "GstPtpStatisticsBestMasterClockSelected"
-        const PTP_STATISTICS_NEW_DOMAIN_FOUND: "GstPtpStatisticsNewDomainFound"
-        const PTP_STATISTICS_PATH_DELAY_MEASURED: "GstPtpStatisticsPathDelayMeasured"
-        const PTP_STATISTICS_TIME_UPDATED: "GstPtpStatisticsTimeUpdated"
+
+        interface NetTimeProviderPrivate {
+        }
+
+        interface $Exports {
+            NetTimeProviderPrivate: NetTimeProviderPrivateStruct
+        }
+        
+
+        interface PtpClockPrivateStruct {
+            readonly $gtype: GObject.GType<PtpClockPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is PtpClockPrivate
+        }
+
+        interface PtpClockPrivate {
+        }
+
+        interface $Exports {
+            PtpClockPrivate: PtpClockPrivateStruct
+        }
         /**
          * The statistics can be the following structures:
          *
@@ -664,7 +575,139 @@ declare module "gi://GstNet?version=1.0" {
          * @param stats New statistics
          */
         type PtpStatisticsCallback = (domain: number, stats: Gst.Structure) => boolean
+
+        interface $Exports {
+            __name__: "GstNet"
+            __version: "1.0"
+            NET_TIME_PACKET_SIZE: 16
+            PTP_CLOCK_ID_NONE: 18446744073709551615
+            PTP_STATISTICS_BEST_MASTER_CLOCK_SELECTED: "GstPtpStatisticsBestMasterClockSelected"
+            PTP_STATISTICS_NEW_DOMAIN_FOUND: "GstPtpStatisticsNewDomainFound"
+            PTP_STATISTICS_PATH_DELAY_MEASURED: "GstPtpStatisticsPathDelayMeasured"
+            PTP_STATISTICS_TIME_UPDATED: "GstPtpStatisticsTimeUpdated"
+            /**
+             * Attaches @addr as metadata in a #GstNetAddressMeta to @buffer.
+             * @param buffer a #GstBuffer
+             * @param addr a @GSocketAddress to connect to @buffer
+             * @returns a #GstNetAddressMeta connected to `buffer`
+             */
+            buffer_add_net_address_meta(buffer: Gst.Buffer, addr: Gio.SocketAddress): NetAddressMeta
+            /**
+             * Attaches @message as metadata in a #GstNetControlMessageMeta to @buffer.
+             * @param buffer a #GstBuffer
+             * @param message a @GSocketControlMessage to attach to @buffer
+             * @returns a #GstNetControlMessageMeta connected to `buffer`
+             */
+            buffer_add_net_control_message_meta(buffer: Gst.Buffer, message: Gio.SocketControlMessage): NetControlMessageMeta
+            /**
+             * Find the #GstNetAddressMeta on @buffer.
+             * @param buffer a #GstBuffer
+             * @returns the #GstNetAddressMeta or %NULL when there is no such metadata on `buffer`.
+             */
+            buffer_get_net_address_meta(buffer: Gst.Buffer): NetAddressMeta | null
+            /**
+             */
+            net_address_meta_api_get_type(): GObject.GType
+            /**
+             */
+            net_address_meta_get_info(): Gst.MetaInfo
+            /**
+             */
+            net_control_message_meta_api_get_type(): GObject.GType
+            /**
+             */
+            net_control_message_meta_get_info(): Gst.MetaInfo
+            /**
+             * Receives a #GstNetTimePacket over a socket. Handles interrupted system
+             * calls, but otherwise returns NULL on error.
+             * @throws {GLib.Error}
+             * @param socket socket to receive the time packet on
+             * @returns a new #GstNetTimePacket, or NULL on error. Free    with gst_net_time_packet_free() when done., address of variable to return sender address
+             */
+            net_time_packet_receive(socket: Gio.Socket): [NetTimePacket, Gio.SocketAddress]
+            /**
+             * Configures IP_TOS value of socket, i.e. sets QoS DSCP.
+             * @since 1.18
+             * @param socket Socket to configure
+             * @param qos_dscp QoS DSCP value
+             * @returns TRUE if successful, FALSE in case an error occurred.
+             */
+            net_utils_set_socket_tos(socket: Gio.Socket, qos_dscp: number): boolean
+            /**
+             * Deinitialize the GStreamer PTP subsystem and stop the PTP clock. If there
+             * are any remaining GstPtpClock instances, they won't be further synchronized
+             * to the PTP network clock.
+             * @since 1.6
+             */
+            ptp_deinit(): void
+            /**
+             * Initialize the GStreamer PTP subsystem and create a PTP ordinary clock in
+             * slave-only mode for all domains on the given @interfaces with the
+             * given @clock_id.
+             *
+             * If @clock_id is %GST_PTP_CLOCK_ID_NONE, a clock id is automatically
+             * generated from the MAC address of the first network interface.
+             *
+             * This function is automatically called by gst_ptp_clock_new() with default
+             * parameters if it wasn't called before.
+             * @since 1.6
+             * @param clock_id PTP clock id of this process' clock or %GST_PTP_CLOCK_ID_NONE
+             * @param interfaces network interfaces to run the clock on
+             * @returns %TRUE if the GStreamer PTP clock subsystem could be initialized.
+             */
+            ptp_init(clock_id: number, interfaces: string[] | null): boolean
+            /**
+             * Initialize the GStreamer PTP subsystem and create a PTP ordinary clock in
+             * slave-only mode according to the @config.
+             *
+             * @config is a #GstStructure with the following optional fields:
+             * * #guint64 `clock-id`: The clock ID to use for the local clock. If the
+             *     clock-id is not provided or %GST_PTP_CLOCK_ID_NONE is provided, a clock
+             *     id is automatically generated from the MAC address of the first network
+             *     interface.
+             * * #GStrv `interfaces`: The interface names to listen on for PTP packets. If
+             *     none are provided then all compatible interfaces will be used.
+             * * #guint `ttl`: The TTL to use for multicast packets sent out by GStreamer.
+             *     This defaults to 1, i.e. packets will not leave the local network.
+             *
+             * This function is automatically called by gst_ptp_clock_new() with default
+             * parameters if it wasn't called before.
+             * @since 1.24
+             * @param config Configuration for initializing the GStreamer PTP subsystem
+             * @returns %TRUE if the GStreamer PTP clock subsystem could be initialized.
+             */
+            ptp_init_full(config: Gst.Structure): boolean
+            /**
+             * Check if the GStreamer PTP clock subsystem is initialized.
+             * @since 1.6
+             * @returns %TRUE if the GStreamer PTP clock subsystem is initialized.
+             */
+            ptp_is_initialized(): boolean
+            /**
+             * Check if PTP clocks are generally supported on this system, and if previous
+             * initializations did not fail.
+             * @since 1.6
+             * @returns %TRUE if PTP clocks are generally supported on this system, and previous initializations did not fail.
+             */
+            ptp_is_supported(): boolean
+            /**
+             * Installs a new statistics callback for gathering PTP statistics. See
+             * GstPtpStatisticsCallback for a list of statistics that are provided.
+             * @since 1.6
+             * @param callback GstPtpStatisticsCallback to call
+             * @returns Id for the callback that can be passed to gst_ptp_statistics_callback_remove()
+             */
+            ptp_statistics_callback_add(callback: PtpStatisticsCallback): number
+            /**
+             * Removes a PTP statistics callback that was previously added with
+             * gst_ptp_statistics_callback_add().
+             * @since 1.6
+             * @param id Callback id to remove
+             */
+            ptp_statistics_callback_remove(id: number): void
+        }
     }
 
+    const GstNet: GstNet.$Exports
     export default GstNet
 }

@@ -26,48 +26,7 @@ declare module "gi://GstPlay?version=1.0" {
 
     
 
-
     namespace GstPlay {
-        const __name__: "GstPlay"
-        const __version: "1.0"
-        
-
-        namespace PlayVideoRenderer {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         * @since 1.20
-         */
-        interface PlayVideoRenderer extends PlayVideoRenderer.Interface {
-            readonly $signals: PlayVideoRenderer.SignalSignatures
-            readonly $readableProperties: PlayVideoRenderer.ReadableProperties
-            readonly $writableProperties: PlayVideoRenderer.WritableProperties
-            readonly $constructOnlyProperties: PlayVideoRenderer.ConstructOnlyProperties
-        }
-
-
-        interface PlayVideoRendererInterface {
-            readonly $gtype: GObject.GType<PlayVideoRenderer>
-            readonly prototype: PlayVideoRenderer
-
-            [Symbol.hasInstance](instance: unknown): instance is PlayVideoRenderer
-        }
-
-        const PlayVideoRenderer: PlayVideoRendererInterface
         
 
         namespace Play {
@@ -118,42 +77,6 @@ declare module "gi://GstPlay?version=1.0" {
             }
         }
 
-        /**
-         * The goal of the GstPlay library is to ease the integration of multimedia
-         * playback features in applications. Thus, if you need to build a media player
-         * from the ground-up, GstPlay provides the features you will most likely need.
-         *
-         * An example player is available in gst-examples/playback/player/gst-play/.
-         *
-         * Internally the GstPlay makes use of the `playbin3` element. The legacy
-         * `playbin2` can be selected if the `GST_PLAY_USE_PLAYBIN3=0` environment
-         * variable has been set.
-         *
-         * **Important note**: If your application relies on the GstBus to get
-         * notifications from GstPlay, you need to add some explicit clean-up code in
-         * order to prevent the GstPlay object from leaking. See below for the details.
-         * If you use the GstPlaySignalAdapter, no special clean-up is required.
-         *
-         * When the GstPlaySignalAdapter is not used, the GstBus owned by GstPlay should
-         * be set to flushing state before any attempt to drop the last reference of the
-         * GstPlay object. An example in C:
-         *
-         * ```c
-         * ...
-         * GstBus *bus = gst_play_get_message_bus (player);
-         * gst_bus_set_flushing (bus, TRUE);
-         * gst_object_unref (bus);
-         * gst_object_unref (player);
-         * ```
-         *
-         * The messages managed by the player contain a reference to itself, and if the
-         * bus watch is just removed together with dropping the player then the bus will
-         * simply keep them around forever (and the bus never goes away because the
-         * player has a strong reference to it, so there's a reference cycle as long as
-         * there are messages). Setting the bus to flushing state forces it to get rid
-         * of its queued messages, thus breaking any possible reference cycle.
-         * @since 1.20
-         */
         interface Play extends Gst.Object {
             readonly $signals: Play.SignalSignatures
             readonly $readableProperties: Play.ReadableProperties
@@ -295,7 +218,8 @@ declare module "gi://GstPlay?version=1.0" {
              */
             get_media_info(): PlayMediaInfo | null
             /**
-             * s of
+             * GstPlay API exposes a #GstBus instance which purpose is to provide data
+             * structures representing play-internal events in form of #GstMessage<!-- -->s of
              * type GST_MESSAGE_APPLICATION.
              *
              * Each message carries a "play-message" field of type #GstPlayMessage.
@@ -572,6 +496,7 @@ declare module "gi://GstPlay?version=1.0" {
         interface PlayClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Play>
             readonly prototype: Play
+
             new (props?: Partial<GObject.ConstructorProps<Play>>): Play
             /**
              * Creates a new #GstPlay instance.
@@ -693,7 +618,45 @@ declare module "gi://GstPlay?version=1.0" {
             visualizations_get(): PlayVisualization[]
         }
 
-        const Play: PlayClass
+        interface $Exports {
+            /**
+             * The goal of the GstPlay library is to ease the integration of multimedia
+             * playback features in applications. Thus, if you need to build a media player
+             * from the ground-up, GstPlay provides the features you will most likely need.
+             *
+             * An example player is available in gst-examples/playback/player/gst-play/.
+             *
+             * Internally the GstPlay makes use of the `playbin3` element. The legacy
+             * `playbin2` can be selected if the `GST_PLAY_USE_PLAYBIN3=0` environment
+             * variable has been set.
+             *
+             * **Important note**: If your application relies on the GstBus to get
+             * notifications from GstPlay, you need to add some explicit clean-up code in
+             * order to prevent the GstPlay object from leaking. See below for the details.
+             * If you use the GstPlaySignalAdapter, no special clean-up is required.
+             *
+             * When the GstPlaySignalAdapter is not used, the GstBus owned by GstPlay should
+             * be set to flushing state before any attempt to drop the last reference of the
+             * GstPlay object. An example in C:
+             *
+             * ```c
+             * ...
+             * GstBus *bus = gst_play_get_message_bus (player);
+             * gst_bus_set_flushing (bus, TRUE);
+             * gst_object_unref (bus);
+             * gst_object_unref (player);
+             * ```
+             *
+             * The messages managed by the player contain a reference to itself, and if the
+             * bus watch is just removed together with dropping the player then the bus will
+             * simply keep them around forever (and the bus never goes away because the
+             * player has a strong reference to it, so there's a reference cycle as long as
+             * there are messages). Setting the bus to flushing state forces it to get rid
+             * of its queued messages, thus breaking any possible reference cycle.
+             * @since 1.20
+             */
+            Play: PlayClass
+        }
         
 
         namespace PlayAudioInfo {
@@ -710,10 +673,6 @@ declare module "gi://GstPlay?version=1.0" {
             }
         }
 
-        /**
-         * #GstPlayStreamInfo specific to audio streams.
-         * @since 1.20
-         */
         interface PlayAudioInfo extends PlayStreamInfo {
             readonly $signals: PlayAudioInfo.SignalSignatures
             readonly $readableProperties: PlayAudioInfo.ReadableProperties
@@ -749,10 +708,17 @@ declare module "gi://GstPlay?version=1.0" {
         interface PlayAudioInfoClass extends Omit<PlayStreamInfoClass, "new"> {
             readonly $gtype: GObject.GType<PlayAudioInfo>
             readonly prototype: PlayAudioInfo
+
             new (props?: Partial<GObject.ConstructorProps<PlayAudioInfo>>): PlayAudioInfo
         }
 
-        const PlayAudioInfo: PlayAudioInfoClass
+        interface $Exports {
+            /**
+             * #GstPlayStreamInfo specific to audio streams.
+             * @since 1.20
+             */
+            PlayAudioInfo: PlayAudioInfoClass
+        }
         
 
         namespace PlayMediaInfo {
@@ -769,10 +735,6 @@ declare module "gi://GstPlay?version=1.0" {
             }
         }
 
-        /**
-         * Structure containing the media information of a URI.
-         * @since 1.20
-         */
         interface PlayMediaInfo extends GObject.Object {
             readonly $signals: PlayMediaInfo.SignalSignatures
             readonly $readableProperties: PlayMediaInfo.ReadableProperties
@@ -865,10 +827,17 @@ declare module "gi://GstPlay?version=1.0" {
         interface PlayMediaInfoClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PlayMediaInfo>
             readonly prototype: PlayMediaInfo
+
             new (props?: Partial<GObject.ConstructorProps<PlayMediaInfo>>): PlayMediaInfo
         }
 
-        const PlayMediaInfo: PlayMediaInfoClass
+        interface $Exports {
+            /**
+             * Structure containing the media information of a URI.
+             * @since 1.20
+             */
+            PlayMediaInfo: PlayMediaInfoClass
+        }
         
 
         namespace PlaySignalAdapter {
@@ -943,9 +912,6 @@ declare module "gi://GstPlay?version=1.0" {
             }
         }
 
-        /**
-         * @since 1.20
-         */
         interface PlaySignalAdapter extends GObject.Object {
             readonly $signals: PlaySignalAdapter.SignalSignatures
             readonly $readableProperties: PlaySignalAdapter.ReadableProperties
@@ -965,6 +931,7 @@ declare module "gi://GstPlay?version=1.0" {
         interface PlaySignalAdapterClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PlaySignalAdapter>
             readonly prototype: PlaySignalAdapter
+
             new (props?: Partial<GObject.ConstructorProps<PlaySignalAdapter>>): PlaySignalAdapter
             /**
              * A bus-watching #GSource will be created and attached to the the
@@ -997,7 +964,12 @@ declare module "gi://GstPlay?version=1.0" {
             new_with_main_context(play: Play, context: GLib.MainContext): PlaySignalAdapter
         }
 
-        const PlaySignalAdapter: PlaySignalAdapterClass
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            PlaySignalAdapter: PlaySignalAdapterClass
+        }
         
 
         namespace PlayStreamInfo {
@@ -1014,12 +986,6 @@ declare module "gi://GstPlay?version=1.0" {
             }
         }
 
-        /**
-         * Base structure for information concerning a media stream. Depending on
-         * the stream type, one can find more media-specific information in
-         * #GstPlayVideoInfo, #GstPlayAudioInfo, #GstPlaySubtitleInfo.
-         * @since 1.20
-         */
         interface PlayStreamInfo extends GObject.Object {
             readonly $signals: PlayStreamInfo.SignalSignatures
             readonly $readableProperties: PlayStreamInfo.ReadableProperties
@@ -1067,10 +1033,19 @@ declare module "gi://GstPlay?version=1.0" {
         interface PlayStreamInfoClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PlayStreamInfo>
             readonly prototype: PlayStreamInfo
+
             new (props?: Partial<GObject.ConstructorProps<PlayStreamInfo>>): PlayStreamInfo
         }
 
-        const PlayStreamInfo: PlayStreamInfoClass
+        interface $Exports {
+            /**
+             * Base structure for information concerning a media stream. Depending on
+             * the stream type, one can find more media-specific information in
+             * #GstPlayVideoInfo, #GstPlayAudioInfo, #GstPlaySubtitleInfo.
+             * @since 1.20
+             */
+            PlayStreamInfo: PlayStreamInfoClass
+        }
         
 
         namespace PlaySubtitleInfo {
@@ -1087,10 +1062,6 @@ declare module "gi://GstPlay?version=1.0" {
             }
         }
 
-        /**
-         * #GstPlayStreamInfo specific to subtitle streams.
-         * @since 1.20
-         */
         interface PlaySubtitleInfo extends PlayStreamInfo {
             readonly $signals: PlaySubtitleInfo.SignalSignatures
             readonly $readableProperties: PlaySubtitleInfo.ReadableProperties
@@ -1106,10 +1077,17 @@ declare module "gi://GstPlay?version=1.0" {
         interface PlaySubtitleInfoClass extends Omit<PlayStreamInfoClass, "new"> {
             readonly $gtype: GObject.GType<PlaySubtitleInfo>
             readonly prototype: PlaySubtitleInfo
+
             new (props?: Partial<GObject.ConstructorProps<PlaySubtitleInfo>>): PlaySubtitleInfo
         }
 
-        const PlaySubtitleInfo: PlaySubtitleInfoClass
+        interface $Exports {
+            /**
+             * #GstPlayStreamInfo specific to subtitle streams.
+             * @since 1.20
+             */
+            PlaySubtitleInfo: PlaySubtitleInfoClass
+        }
         
 
         namespace PlayVideoInfo {
@@ -1126,10 +1104,6 @@ declare module "gi://GstPlay?version=1.0" {
             }
         }
 
-        /**
-         * #GstPlayStreamInfo specific to video streams.
-         * @since 1.20
-         */
         interface PlayVideoInfo extends PlayStreamInfo {
             readonly $signals: PlayVideoInfo.SignalSignatures
             readonly $readableProperties: PlayVideoInfo.ReadableProperties
@@ -1171,10 +1145,17 @@ declare module "gi://GstPlay?version=1.0" {
         interface PlayVideoInfoClass extends Omit<PlayStreamInfoClass, "new"> {
             readonly $gtype: GObject.GType<PlayVideoInfo>
             readonly prototype: PlayVideoInfo
+
             new (props?: Partial<GObject.ConstructorProps<PlayVideoInfo>>): PlayVideoInfo
         }
 
-        const PlayVideoInfo: PlayVideoInfoClass
+        interface $Exports {
+            /**
+             * #GstPlayStreamInfo specific to video streams.
+             * @since 1.20
+             */
+            PlayVideoInfo: PlayVideoInfoClass
+        }
         
 
         namespace PlayVideoOverlayVideoRenderer {
@@ -1195,9 +1176,6 @@ declare module "gi://GstPlay?version=1.0" {
             }
         }
 
-        /**
-         * @since 1.20
-         */
         interface PlayVideoOverlayVideoRenderer extends GObject.Object, PlayVideoRenderer {
             readonly $signals: PlayVideoOverlayVideoRenderer.SignalSignatures
             readonly $readableProperties: PlayVideoOverlayVideoRenderer.ReadableProperties
@@ -1223,7 +1201,7 @@ declare module "gi://GstPlay?version=1.0" {
              * @since 1.20
              * @returns , the horizontal offset of the render area inside the window, the vertical offset of the render area inside the window, the width of the render area inside the window, the height of the render area inside the window
              */
-            get_render_rectangle(): void
+            get_render_rectangle(): [number, number, number, number]
             /**
              * @since 1.20
              * @returns The currently set, platform specific window handle
@@ -1259,6 +1237,7 @@ declare module "gi://GstPlay?version=1.0" {
         interface PlayVideoOverlayVideoRendererClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PlayVideoOverlayVideoRenderer>
             readonly prototype: PlayVideoOverlayVideoRenderer
+
             new (props?: Partial<GObject.ConstructorProps<PlayVideoOverlayVideoRenderer>>): PlayVideoOverlayVideoRenderer
             /**
              * @since 1.20
@@ -1273,24 +1252,58 @@ declare module "gi://GstPlay?version=1.0" {
             new_with_sink(window_handle: never | null, video_sink: Gst.Element): PlayVideoRenderer
         }
 
-        const PlayVideoOverlayVideoRenderer: PlayVideoOverlayVideoRendererClass
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * A #GstPlayVisualization descriptor.
-         * @since 1.20
-         */
-        abstract class PlayVisualization {
-            static readonly $gtype: GObject.GType<PlayVisualization>
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            PlayVideoOverlayVideoRenderer: PlayVideoOverlayVideoRendererClass
+        }
+        
 
-            
+        namespace PlayVideoRenderer {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface PlayVideoRenderer extends GObject.Object, PlayVideoRenderer.Interface {
+            readonly $signals: PlayVideoRenderer.SignalSignatures
+            readonly $readableProperties: PlayVideoRenderer.ReadableProperties
+            readonly $writableProperties: PlayVideoRenderer.WritableProperties
+            readonly $constructOnlyProperties: PlayVideoRenderer.ConstructOnlyProperties
+        }
+
+        interface PlayVideoRendererInterface {
+            readonly $gtype: GObject.GType<PlayVideoRenderer>
+            readonly prototype: PlayVideoRenderer
+            [Symbol.hasInstance](instance: unknown): instance is PlayVideoRenderer
+        }
+
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            PlayVideoRenderer: PlayVideoRendererInterface
+        }
+        
+
+        interface PlayVisualizationStruct {
+            readonly $gtype: GObject.GType<PlayVisualization>
+            [Symbol.hasInstance](instance: unknown): instance is PlayVisualization
+        }
+
+        interface PlayVisualization {
             /**
              * name of the visualization.
              */
@@ -1312,360 +1325,188 @@ declare module "gi://GstPlay?version=1.0" {
              */
             free(): void
         }
-        /**
-         * Gets a string representing the given color balance type.
-         * @since 1.20
-         * @param type a #GstPlayColorBalanceType
-         * @returns a string with the name of the color   balance type.
-         */
-        function play_color_balance_type_get_name(type: PlayColorBalanceType): string
-        /**
-         * Gets a string representing the given error.
-         * @since 1.20
-         * @param error a #GstPlayError
-         * @returns a string with the given error.
-         */
-        function play_error_get_name(error: PlayError): string
-        /**
-         * @since 1.20
-         */
-        function play_error_quark(): GLib.Quark
-        /**
-         * @since 1.20
-         * @param message_type a #GstPlayMessage
-         * @returns a string with the name of the message.
-         */
-        function play_message_get_name(message_type: PlayMessage): string
-        /**
-         * Reads the stream ID the play message @msg applies to, if any.
-         * @since 1.26
-         * @param msg A #GstMessage
-         * @returns The stream ID this message applies to
-         */
-        function play_message_get_stream_id(msg: Gst.Message): string | null
-        /**
-         * Reads the URI the play message @msg applies to.
-         * @since 1.26
-         * @param msg A #GstMessage
-         * @returns The URI this message applies to
-         */
-        function play_message_get_uri(msg: Gst.Message): string
-        /**
-         * Parse the given buffering @msg and extract the corresponding value
-         * @since 1.26
-         * @param msg A #GstMessage
-         * @returns , the resulting buffering percent
-         */
-        function play_message_parse_buffering(msg: Gst.Message): void
-        /**
-         * Parse the given buffering @msg and extract the corresponding value
-         * @since 1.20
-         * @deprecated since 1.26 Use gst_play_message_parse_buffering().
-         * @param msg A #GstMessage
-         * @returns , the resulting buffering percent
-         */
-        function play_message_parse_buffering_percent(msg: Gst.Message): void
-        /**
-         * Parse the given duration-changed @msg and extract the corresponding #GstClockTime
-         * @since 1.26
-         * @param msg A #GstMessage
-         * @returns , the resulting duration
-         */
-        function play_message_parse_duration_changed(msg: Gst.Message): void
-        /**
-         * Parse the given duration-changed @msg and extract the corresponding #GstClockTime
-         * @since 1.20
-         * @deprecated since 1.26 Use gst_play_message_parse_duration_changed().
-         * @param msg A #GstMessage
-         * @returns , the resulting duration
-         */
-        function play_message_parse_duration_updated(msg: Gst.Message): void
-        /**
-         * Parse the given error @msg and extract the corresponding #GError.
-         *
-         * Since 1.26 the details will always contain the URI this refers to in an
-         * "uri" field of type string, and (if known) the string "stream-id" it is
-         * referring to.
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting error, A #GstStructure containing additional details about the error
-         */
-        function play_message_parse_error(msg: Gst.Message): void
-        /**
-         * Parses missing plugin descriptions and installer details from a
-         * GST_PLAY_ERROR_MISSING_PLUGIN error message.
-         *
-         * Both arrays will have the same length, and strings at the same index
-         * correspond to each other.
-         *
-         * The installer details can be passed to gst_install_plugins_sync() or
-         * gst_install_plugins_async().
-         * @since 1.26
-         * @param msg A #GstMessage
-         * @returns %TRUE if the message contained a missing-plugin error., a %NULL-terminated array of descriptions, a %NULL-terminated array of installer details
-         */
-        function play_message_parse_error_missing_plugin(msg: Gst.Message): boolean
-        /**
-         * Parse the given media-info-updated @msg and extract the corresponding media information
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting media info
-         */
-        function play_message_parse_media_info_updated(msg: Gst.Message): void
-        /**
-         * Parse the given mute-changed @msg and extract the corresponding audio muted state
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting audio muted state
-         */
-        function play_message_parse_muted_changed(msg: Gst.Message): void
-        /**
-         * Parse the given position-updated @msg and extract the corresponding #GstClockTime
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting position
-         */
-        function play_message_parse_position_updated(msg: Gst.Message): void
-        /**
-         * Parse the given seek-done @msg and extract the corresponding #GstClockTime
-         * @since 1.26
-         * @param msg A #GstMessage
-         * @returns , the resulting position
-         */
-        function play_message_parse_seek_done(msg: Gst.Message): void
-        /**
-         * Parse the given state-changed @msg and extract the corresponding #GstPlayState
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting play state
-         */
-        function play_message_parse_state_changed(msg: Gst.Message): void
-        /**
-         * Parse the given @msg and extract its #GstPlayMessage type.
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting message type
-         */
-        function play_message_parse_type(msg: Gst.Message): void
-        /**
-         * Parse the given uri-loaded @msg and extract the corresponding value
-         * @since 1.26
-         * @param msg A #GstMessage
-         * @returns , the resulting URI
-         */
-        function play_message_parse_uri_loaded(msg: Gst.Message): void
-        /**
-         * Parse the given video-dimensions-changed @msg and extract the corresponding video dimensions
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting video width, the resulting video height
-         */
-        function play_message_parse_video_dimensions_changed(msg: Gst.Message): void
-        /**
-         * Parse the given volume-changed @msg and extract the corresponding audio volume
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting audio volume
-         */
-        function play_message_parse_volume_changed(msg: Gst.Message): void
-        /**
-         * Parse the given warning @msg and extract the corresponding #GError.
-         *
-         * Since 1.26 the details will always contain the URI this refers to in an
-         * "uri" field of type string, and (if known) the string "stream-id" it is
-         * referring to.
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting warning, A #GstStructure containing additional details about the warning
-         */
-        function play_message_parse_warning(msg: Gst.Message): void
-        /**
-         * Parses missing plugin descriptions and installer details from a
-         * GST_PLAY_ERROR_MISSING_PLUGIN warning message.
-         *
-         * Both arrays will have the same length, and strings at the same index
-         * correspond to each other.
-         *
-         * The installer details can be passed to gst_install_plugins_sync() or
-         * gst_install_plugins_async().
-         * @since 1.26
-         * @param msg A #GstMessage
-         * @returns %TRUE if the message contained a missing-plugin error., a %NULL-terminated array of descriptions, a %NULL-terminated array of installer details
-         */
-        function play_message_parse_warning_missing_plugin(msg: Gst.Message): boolean
-        /**
-         * Gets a string representing the given state.
-         * @since 1.20
-         * @param state a #GstPlayState
-         * @returns a string with the name of the state.
-         */
-        function play_state_get_name(state: PlayState): string
-        
-        namespace PlayColorBalanceType {
-            const $gtype: GObject.GType<PlayColorBalanceType>
-        }
 
-        /**
-         * @since 1.20
-         */
-        enum PlayColorBalanceType {
+        interface $Exports {
+            PlayVisualization: PlayVisualizationStruct
+        }
+        
+        interface PlayColorBalanceTypeEnum {
+            readonly $gtype: GObject.GType<PlayColorBalanceType>
             /**
              * hue or color balance.
              */
-            "HUE" = 3,
+            readonly "HUE": 3
             /**
              * brightness or black level.
              */
-            "BRIGHTNESS" = 0,
+            readonly "BRIGHTNESS": 0
             /**
              * color saturation or chroma
              * gain.
              */
-            "SATURATION" = 2,
+            readonly "SATURATION": 2
             /**
              * contrast or luma gain.
              */
-            "CONTRAST" = 1,
+            readonly "CONTRAST": 1
         }
-        /**
+        type PlayColorBalanceType = PlayColorBalanceTypeEnum[Exclude<keyof PlayColorBalanceTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            PlayColorBalanceType: PlayColorBalanceTypeEnum
+            /**
          * Gets a string representing the given color balance type.
          * @since 1.20
          * @param type a #GstPlayColorBalanceType
          * @returns a string with the name of the color   balance type.
          */
-        function get_name(type: PlayColorBalanceType): string
+        get_name: (type: PlayColorBalanceType) => string
+        }
         
-        abstract class PlayError extends GLib.Error {
-            static readonly $gtype: GObject.GType<PlayError>
+        interface PlayError extends GLib.Error {}
+
+        interface PlayErrorEnum {
+            readonly $gtype: GObject.GType<PlayError>
+
+            new(props: { message: string, code: number }): PlayError
             /**
              * generic error.
              */
-            static readonly "FAILED": 0
-        }
-        /**
+            readonly "FAILED": 0
+            /**
          * Gets a string representing the given error.
          * @since 1.20
          * @param error a #GstPlayError
          * @returns a string with the given error.
          */
-        function get_name(error: PlayError): string
-        /**
+        get_name: (error: PlayError) => string
+            /**
          * @since 1.20
          */
-        function quark(): GLib.Quark
-        
-        namespace PlayMessage {
-            const $gtype: GObject.GType<PlayMessage>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * @since 1.20
-         */
-        enum PlayMessage {
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            PlayError: PlayErrorEnum
+        }
+        
+        interface PlayMessageEnum {
+            readonly $gtype: GObject.GType<PlayMessage>
             /**
              * Source element was initalized for set URI
              */
-            "URI_LOADED" = 0,
+            readonly "URI_LOADED": 0
             /**
              * Sink position changed
              */
-            "POSITION_UPDATED" = 1,
+            readonly "POSITION_UPDATED": 1
             /**
              * Duration of stream changed
              */
-            "DURATION_CHANGED" = 2,
+            readonly "DURATION_CHANGED": 2
             /**
              * State changed, see #GstPlayState
              */
-            "STATE_CHANGED" = 3,
+            readonly "STATE_CHANGED": 3
             /**
              * Pipeline is in buffering state, message contains the percentage value of the decoding buffer
              */
-            "BUFFERING" = 4,
+            readonly "BUFFERING": 4
             /**
              * Sink has received EOS
              */
-            "END_OF_STREAM" = 5,
+            readonly "END_OF_STREAM": 5
             /**
              * Message contains an error
              */
-            "ERROR" = 6,
+            readonly "ERROR": 6
             /**
              * Message contains an error
              */
-            "WARNING" = 7,
+            readonly "WARNING": 7
             /**
              * Video sink received format in different dimensions than before
              */
-            "VIDEO_DIMENSIONS_CHANGED" = 8,
+            readonly "VIDEO_DIMENSIONS_CHANGED": 8
             /**
              * A media-info property has changed, message contains current #GstPlayMediaInfo
              */
-            "MEDIA_INFO_UPDATED" = 9,
+            readonly "MEDIA_INFO_UPDATED": 9
             /**
              * The volume of the audio ouput has changed
              */
-            "VOLUME_CHANGED" = 10,
+            readonly "VOLUME_CHANGED": 10
             /**
              * Audio muting flag has been toggled
              */
-            "MUTE_CHANGED" = 11,
+            readonly "MUTE_CHANGED": 11
             /**
              * Any pending seeking operation has been completed
              */
-            "SEEK_DONE" = 12,
+            readonly "SEEK_DONE": 12
         }
-        /**
+        type PlayMessage = PlayMessageEnum[Exclude<keyof PlayMessageEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            PlayMessage: PlayMessageEnum
+            /**
          * @since 1.20
          * @param message_type a #GstPlayMessage
          * @returns a string with the name of the message.
          */
-        function get_name(message_type: PlayMessage): string
-        /**
+        get_name: (message_type: PlayMessage) => string
+            /**
          * Reads the stream ID the play message @msg applies to, if any.
          * @since 1.26
          * @param msg A #GstMessage
          * @returns The stream ID this message applies to
          */
-        function get_stream_id(msg: Gst.Message): string | null
-        /**
+        get_stream_id: (msg: Gst.Message) => string | null
+            /**
          * Reads the URI the play message @msg applies to.
          * @since 1.26
          * @param msg A #GstMessage
          * @returns The URI this message applies to
          */
-        function get_uri(msg: Gst.Message): string
-        /**
+        get_uri: (msg: Gst.Message) => string
+            /**
          * Parse the given buffering @msg and extract the corresponding value
          * @since 1.26
          * @param msg A #GstMessage
          * @returns , the resulting buffering percent
          */
-        function parse_buffering(msg: Gst.Message): void
-        /**
+        parse_buffering: (msg: Gst.Message) => number
+            /**
          * Parse the given buffering @msg and extract the corresponding value
          * @since 1.20
          * @deprecated since 1.26 Use gst_play_message_parse_buffering().
          * @param msg A #GstMessage
          * @returns , the resulting buffering percent
          */
-        function parse_buffering_percent(msg: Gst.Message): void
-        /**
+        parse_buffering_percent: (msg: Gst.Message) => number
+            /**
          * Parse the given duration-changed @msg and extract the corresponding #GstClockTime
          * @since 1.26
          * @param msg A #GstMessage
          * @returns , the resulting duration
          */
-        function parse_duration_changed(msg: Gst.Message): void
-        /**
+        parse_duration_changed: (msg: Gst.Message) => Gst.ClockTime
+            /**
          * Parse the given duration-changed @msg and extract the corresponding #GstClockTime
          * @since 1.20
          * @deprecated since 1.26 Use gst_play_message_parse_duration_changed().
          * @param msg A #GstMessage
          * @returns , the resulting duration
          */
-        function parse_duration_updated(msg: Gst.Message): void
-        /**
+        parse_duration_updated: (msg: Gst.Message) => Gst.ClockTime
+            /**
          * Parse the given error @msg and extract the corresponding #GError.
          *
          * Since 1.26 the details will always contain the URI this refers to in an
@@ -1675,8 +1516,8 @@ declare module "gi://GstPlay?version=1.0" {
          * @param msg A #GstMessage
          * @returns , the resulting error, A #GstStructure containing additional details about the error
          */
-        function parse_error(msg: Gst.Message): void
-        /**
+        parse_error: (msg: Gst.Message) => [GLib.Error, Gst.Structure | null]
+            /**
          * Parses missing plugin descriptions and installer details from a
          * GST_PLAY_ERROR_MISSING_PLUGIN error message.
          *
@@ -1689,71 +1530,71 @@ declare module "gi://GstPlay?version=1.0" {
          * @param msg A #GstMessage
          * @returns %TRUE if the message contained a missing-plugin error., a %NULL-terminated array of descriptions, a %NULL-terminated array of installer details
          */
-        function parse_error_missing_plugin(msg: Gst.Message): boolean
-        /**
+        parse_error_missing_plugin: (msg: Gst.Message) => [boolean, string[], string[]]
+            /**
          * Parse the given media-info-updated @msg and extract the corresponding media information
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting media info
          */
-        function parse_media_info_updated(msg: Gst.Message): void
-        /**
+        parse_media_info_updated: (msg: Gst.Message) => PlayMediaInfo
+            /**
          * Parse the given mute-changed @msg and extract the corresponding audio muted state
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting audio muted state
          */
-        function parse_muted_changed(msg: Gst.Message): void
-        /**
+        parse_muted_changed: (msg: Gst.Message) => boolean
+            /**
          * Parse the given position-updated @msg and extract the corresponding #GstClockTime
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting position
          */
-        function parse_position_updated(msg: Gst.Message): void
-        /**
+        parse_position_updated: (msg: Gst.Message) => Gst.ClockTime
+            /**
          * Parse the given seek-done @msg and extract the corresponding #GstClockTime
          * @since 1.26
          * @param msg A #GstMessage
          * @returns , the resulting position
          */
-        function parse_seek_done(msg: Gst.Message): void
-        /**
+        parse_seek_done: (msg: Gst.Message) => Gst.ClockTime
+            /**
          * Parse the given state-changed @msg and extract the corresponding #GstPlayState
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting play state
          */
-        function parse_state_changed(msg: Gst.Message): void
-        /**
+        parse_state_changed: (msg: Gst.Message) => PlayState
+            /**
          * Parse the given @msg and extract its #GstPlayMessage type.
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting message type
          */
-        function parse_type(msg: Gst.Message): void
-        /**
+        parse_type: (msg: Gst.Message) => PlayMessage
+            /**
          * Parse the given uri-loaded @msg and extract the corresponding value
          * @since 1.26
          * @param msg A #GstMessage
          * @returns , the resulting URI
          */
-        function parse_uri_loaded(msg: Gst.Message): void
-        /**
+        parse_uri_loaded: (msg: Gst.Message) => string
+            /**
          * Parse the given video-dimensions-changed @msg and extract the corresponding video dimensions
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting video width, the resulting video height
          */
-        function parse_video_dimensions_changed(msg: Gst.Message): void
-        /**
+        parse_video_dimensions_changed: (msg: Gst.Message) => [number, number]
+            /**
          * Parse the given volume-changed @msg and extract the corresponding audio volume
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting audio volume
          */
-        function parse_volume_changed(msg: Gst.Message): void
-        /**
+        parse_volume_changed: (msg: Gst.Message) => number
+            /**
          * Parse the given warning @msg and extract the corresponding #GError.
          *
          * Since 1.26 the details will always contain the URI this refers to in an
@@ -1763,8 +1604,8 @@ declare module "gi://GstPlay?version=1.0" {
          * @param msg A #GstMessage
          * @returns , the resulting warning, A #GstStructure containing additional details about the warning
          */
-        function parse_warning(msg: Gst.Message): void
-        /**
+        parse_warning: (msg: Gst.Message) => [GLib.Error, Gst.Structure | null]
+            /**
          * Parses missing plugin descriptions and installer details from a
          * GST_PLAY_ERROR_MISSING_PLUGIN warning message.
          *
@@ -1777,72 +1618,269 @@ declare module "gi://GstPlay?version=1.0" {
          * @param msg A #GstMessage
          * @returns %TRUE if the message contained a missing-plugin error., a %NULL-terminated array of descriptions, a %NULL-terminated array of installer details
          */
-        function parse_warning_missing_plugin(msg: Gst.Message): boolean
-        
-        namespace PlaySnapshotFormat {
-            const $gtype: GObject.GType<PlaySnapshotFormat>
+        parse_warning_missing_plugin: (msg: Gst.Message) => [boolean, string[], string[]]
         }
-
-        /**
-         * @since 1.20
-         */
-        enum PlaySnapshotFormat {
+        
+        interface PlaySnapshotFormatEnum {
+            readonly $gtype: GObject.GType<PlaySnapshotFormat>
             /**
              * raw native format.
              */
-            "RAW_NATIVE" = 0,
+            readonly "RAW_NATIVE": 0
             /**
              * raw xRGB format.
              */
-            "RAW_XRGB" = 1,
+            readonly "RAW_XRGB": 1
             /**
              * raw BGRx format.
              */
-            "RAW_BGRX" = 2,
+            readonly "RAW_BGRX": 2
             /**
              * jpeg format.
              */
-            "JPG" = 3,
+            readonly "JPG": 3
             /**
              * png format.
              */
-            "PNG" = 4,
+            readonly "PNG": 4
+        }
+        type PlaySnapshotFormat = PlaySnapshotFormatEnum[Exclude<keyof PlaySnapshotFormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            PlaySnapshotFormat: PlaySnapshotFormatEnum
         }
         
-        namespace PlayState {
-            const $gtype: GObject.GType<PlayState>
-        }
-
-        /**
-         * @since 1.20
-         */
-        enum PlayState {
+        interface PlayStateEnum {
+            readonly $gtype: GObject.GType<PlayState>
             /**
              * the play is stopped.
              */
-            "STOPPED" = 0,
+            readonly "STOPPED": 0
             /**
              * the play is buffering.
              */
-            "BUFFERING" = 1,
+            readonly "BUFFERING": 1
             /**
              * the play is paused.
              */
-            "PAUSED" = 2,
+            readonly "PAUSED": 2
             /**
              * the play is currently playing a
              * stream.
              */
-            "PLAYING" = 3,
+            readonly "PLAYING": 3
         }
-        /**
+        type PlayState = PlayStateEnum[Exclude<keyof PlayStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            PlayState: PlayStateEnum
+            /**
          * Gets a string representing the given state.
          * @since 1.20
          * @param state a #GstPlayState
          * @returns a string with the name of the state.
          */
-        function get_name(state: PlayState): string
+        get_name: (state: PlayState) => string
+        }
+
+        interface $Exports {
+            __name__: "GstPlay"
+            __version: "1.0"
+            /**
+             * Gets a string representing the given color balance type.
+             * @since 1.20
+             * @param type a #GstPlayColorBalanceType
+             * @returns a string with the name of the color   balance type.
+             */
+            play_color_balance_type_get_name(type: PlayColorBalanceType): string
+            /**
+             * Gets a string representing the given error.
+             * @since 1.20
+             * @param error a #GstPlayError
+             * @returns a string with the given error.
+             */
+            play_error_get_name(error: PlayError): string
+            /**
+             * @since 1.20
+             */
+            play_error_quark(): GLib.Quark
+            /**
+             * @since 1.20
+             * @param message_type a #GstPlayMessage
+             * @returns a string with the name of the message.
+             */
+            play_message_get_name(message_type: PlayMessage): string
+            /**
+             * Reads the stream ID the play message @msg applies to, if any.
+             * @since 1.26
+             * @param msg A #GstMessage
+             * @returns The stream ID this message applies to
+             */
+            play_message_get_stream_id(msg: Gst.Message): string | null
+            /**
+             * Reads the URI the play message @msg applies to.
+             * @since 1.26
+             * @param msg A #GstMessage
+             * @returns The URI this message applies to
+             */
+            play_message_get_uri(msg: Gst.Message): string
+            /**
+             * Parse the given buffering @msg and extract the corresponding value
+             * @since 1.26
+             * @param msg A #GstMessage
+             * @returns , the resulting buffering percent
+             */
+            play_message_parse_buffering(msg: Gst.Message): number
+            /**
+             * Parse the given buffering @msg and extract the corresponding value
+             * @since 1.20
+             * @deprecated since 1.26 Use gst_play_message_parse_buffering().
+             * @param msg A #GstMessage
+             * @returns , the resulting buffering percent
+             */
+            play_message_parse_buffering_percent(msg: Gst.Message): number
+            /**
+             * Parse the given duration-changed @msg and extract the corresponding #GstClockTime
+             * @since 1.26
+             * @param msg A #GstMessage
+             * @returns , the resulting duration
+             */
+            play_message_parse_duration_changed(msg: Gst.Message): Gst.ClockTime
+            /**
+             * Parse the given duration-changed @msg and extract the corresponding #GstClockTime
+             * @since 1.20
+             * @deprecated since 1.26 Use gst_play_message_parse_duration_changed().
+             * @param msg A #GstMessage
+             * @returns , the resulting duration
+             */
+            play_message_parse_duration_updated(msg: Gst.Message): Gst.ClockTime
+            /**
+             * Parse the given error @msg and extract the corresponding #GError.
+             *
+             * Since 1.26 the details will always contain the URI this refers to in an
+             * "uri" field of type string, and (if known) the string "stream-id" it is
+             * referring to.
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting error, A #GstStructure containing additional details about the error
+             */
+            play_message_parse_error(msg: Gst.Message): [GLib.Error, Gst.Structure | null]
+            /**
+             * Parses missing plugin descriptions and installer details from a
+             * GST_PLAY_ERROR_MISSING_PLUGIN error message.
+             *
+             * Both arrays will have the same length, and strings at the same index
+             * correspond to each other.
+             *
+             * The installer details can be passed to gst_install_plugins_sync() or
+             * gst_install_plugins_async().
+             * @since 1.26
+             * @param msg A #GstMessage
+             * @returns %TRUE if the message contained a missing-plugin error., a %NULL-terminated array of descriptions, a %NULL-terminated array of installer details
+             */
+            play_message_parse_error_missing_plugin(msg: Gst.Message): [boolean, string[], string[]]
+            /**
+             * Parse the given media-info-updated @msg and extract the corresponding media information
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting media info
+             */
+            play_message_parse_media_info_updated(msg: Gst.Message): PlayMediaInfo
+            /**
+             * Parse the given mute-changed @msg and extract the corresponding audio muted state
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting audio muted state
+             */
+            play_message_parse_muted_changed(msg: Gst.Message): boolean
+            /**
+             * Parse the given position-updated @msg and extract the corresponding #GstClockTime
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting position
+             */
+            play_message_parse_position_updated(msg: Gst.Message): Gst.ClockTime
+            /**
+             * Parse the given seek-done @msg and extract the corresponding #GstClockTime
+             * @since 1.26
+             * @param msg A #GstMessage
+             * @returns , the resulting position
+             */
+            play_message_parse_seek_done(msg: Gst.Message): Gst.ClockTime
+            /**
+             * Parse the given state-changed @msg and extract the corresponding #GstPlayState
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting play state
+             */
+            play_message_parse_state_changed(msg: Gst.Message): PlayState
+            /**
+             * Parse the given @msg and extract its #GstPlayMessage type.
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting message type
+             */
+            play_message_parse_type(msg: Gst.Message): PlayMessage
+            /**
+             * Parse the given uri-loaded @msg and extract the corresponding value
+             * @since 1.26
+             * @param msg A #GstMessage
+             * @returns , the resulting URI
+             */
+            play_message_parse_uri_loaded(msg: Gst.Message): string
+            /**
+             * Parse the given video-dimensions-changed @msg and extract the corresponding video dimensions
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting video width, the resulting video height
+             */
+            play_message_parse_video_dimensions_changed(msg: Gst.Message): [number, number]
+            /**
+             * Parse the given volume-changed @msg and extract the corresponding audio volume
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting audio volume
+             */
+            play_message_parse_volume_changed(msg: Gst.Message): number
+            /**
+             * Parse the given warning @msg and extract the corresponding #GError.
+             *
+             * Since 1.26 the details will always contain the URI this refers to in an
+             * "uri" field of type string, and (if known) the string "stream-id" it is
+             * referring to.
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting warning, A #GstStructure containing additional details about the warning
+             */
+            play_message_parse_warning(msg: Gst.Message): [GLib.Error, Gst.Structure | null]
+            /**
+             * Parses missing plugin descriptions and installer details from a
+             * GST_PLAY_ERROR_MISSING_PLUGIN warning message.
+             *
+             * Both arrays will have the same length, and strings at the same index
+             * correspond to each other.
+             *
+             * The installer details can be passed to gst_install_plugins_sync() or
+             * gst_install_plugins_async().
+             * @since 1.26
+             * @param msg A #GstMessage
+             * @returns %TRUE if the message contained a missing-plugin error., a %NULL-terminated array of descriptions, a %NULL-terminated array of installer details
+             */
+            play_message_parse_warning_missing_plugin(msg: Gst.Message): [boolean, string[], string[]]
+            /**
+             * Gets a string representing the given state.
+             * @since 1.20
+             * @param state a #GstPlayState
+             * @returns a string with the name of the state.
+             */
+            play_state_get_name(state: PlayState): string
+        }
     }
 
+    const GstPlay: GstPlay.$Exports
     export default GstPlay
 }

@@ -28,10 +28,6616 @@ declare module "gi://Gdk?version=4.0" {
 
     
 
-
     namespace Gdk {
-        const __name__: "Gdk"
-        const __version: "4.0"
+        
+
+        namespace AppLaunchContext {
+            interface SignalSignatures extends Gio.AppLaunchContext.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Gio.AppLaunchContext.ReadableProperties {
+                "display": Display
+            }
+
+            interface WritableProperties extends Gio.AppLaunchContext.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Gio.AppLaunchContext.ConstructOnlyProperties {
+                "display": Display
+            }
+        }
+
+        interface AppLaunchContext extends Gio.AppLaunchContext {
+            readonly $signals: AppLaunchContext.SignalSignatures
+            readonly $readableProperties: AppLaunchContext.ReadableProperties
+            readonly $writableProperties: AppLaunchContext.WritableProperties
+            readonly $constructOnlyProperties: AppLaunchContext.ConstructOnlyProperties
+            /**
+             * The display that the `GdkAppLaunchContext` is on.
+             */
+            get display(): Display
+            set display(value: Display)
+            /**
+             * Gets the `GdkDisplay` that @context is for.
+             * @returns the display of `context`
+             */
+            get_display(): Display
+            /**
+             * Sets the workspace on which applications will be launched.
+             *
+             * This only works when running under a window manager that
+             * supports multiple workspaces, as described in the
+             * [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec).
+             * Specifically this sets the `_NET_WM_DESKTOP` property described
+             * in that spec.
+             *
+             * This only works when using the X11 backend.
+             *
+             * When the workspace is not specified or @desktop is set to -1,
+             * it is up to the window manager to pick one, typically it will
+             * be the current workspace.
+             * @param desktop the number of a workspace, or -1
+             */
+            set_desktop(desktop: number): void
+            /**
+             * Sets the icon for applications that are launched with this
+             * context.
+             *
+             * Window Managers can use this information when displaying startup
+             * notification.
+             *
+             * See also [method@Gdk.AppLaunchContext.set_icon_name].
+             * @param icon a `GIcon`
+             */
+            set_icon(icon: Gio.Icon | null): void
+            /**
+             * Sets the icon for applications that are launched with this context.
+             *
+             * The @icon_name will be interpreted in the same way as the Icon field
+             * in desktop files. See also [method@Gdk.AppLaunchContext.set_icon].
+             *
+             * If both @icon and @icon_name are set, the @icon_name takes priority.
+             * If neither @icon or @icon_name is set, the icon is taken from either
+             * the file that is passed to launched application or from the `GAppInfo`
+             * for the launched application itself.
+             * @param icon_name an icon name
+             */
+            set_icon_name(icon_name: string | null): void
+            /**
+             * Sets the timestamp of @context.
+             *
+             * The timestamp should ideally be taken from the event that
+             * triggered the launch.
+             *
+             * Window managers can use this information to avoid moving the
+             * focus to the newly launched application when the user is busy
+             * typing in another window. This is also known as 'focus stealing
+             * prevention'.
+             * @param timestamp a timestamp
+             */
+            set_timestamp(timestamp: number): void
+        }
+
+        interface AppLaunchContextClass extends Omit<Gio.AppLaunchContextClass, "new"> {
+            readonly $gtype: GObject.GType<AppLaunchContext>
+            readonly prototype: AppLaunchContext
+
+            new (props?: Partial<GObject.ConstructorProps<AppLaunchContext>>): AppLaunchContext
+        }
+
+        interface $Exports {
+            /**
+             * Handles launching an application in a graphical context.
+             *
+             * It is an implementation of `GAppLaunchContext` that provides startup
+             * notification and allows to launch applications on a specific workspace.
+             *
+             * ## Launching an application
+             *
+             * ```c
+             * GdkAppLaunchContext *context;
+             *
+             * context = gdk_display_get_app_launch_context (display);
+             *
+             * gdk_app_launch_context_set_timestamp (gdk_event_get_time (event));
+             *
+             * if (!g_app_info_launch_default_for_uri ("http://www.gtk.org", context, &error))
+             *   g_warning ("Launching failed: %s\n", error->message);
+             *
+             * g_object_unref (context);
+             * ```
+             */
+            AppLaunchContext: AppLaunchContextClass
+        }
+        
+
+        namespace ButtonEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface ButtonEvent extends Event {
+            readonly $signals: ButtonEvent.SignalSignatures
+            readonly $readableProperties: ButtonEvent.ReadableProperties
+            readonly $writableProperties: ButtonEvent.WritableProperties
+            readonly $constructOnlyProperties: ButtonEvent.ConstructOnlyProperties
+            /**
+             * Extract the button number from a button event.
+             * @returns the button of `event`
+             */
+            get_button(): number
+        }
+
+        interface ButtonEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<ButtonEvent>
+            readonly prototype: ButtonEvent
+
+            new (props?: Partial<GObject.ConstructorProps<ButtonEvent>>): ButtonEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to a button on a pointer device.
+             */
+            ButtonEvent: ButtonEventClass
+        }
+        
+
+        namespace CairoContext {
+            interface SignalSignatures extends DrawContext.SignalSignatures {
+            }
+
+            interface ReadableProperties extends DrawContext.ReadableProperties {
+            }
+
+            interface WritableProperties extends DrawContext.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends DrawContext.ConstructOnlyProperties {
+            }
+        }
+
+        interface CairoContext extends DrawContext {
+            readonly $signals: CairoContext.SignalSignatures
+            readonly $readableProperties: CairoContext.ReadableProperties
+            readonly $writableProperties: CairoContext.WritableProperties
+            readonly $constructOnlyProperties: CairoContext.ConstructOnlyProperties
+            /**
+             * Retrieves a Cairo context to be used to draw on the `GdkSurface`
+             * of @context.
+             *
+             * A call to [method@Gdk.DrawContext.begin_frame] with this
+             * @context must have been done or this function will return %NULL.
+             *
+             * The returned context is guaranteed to be valid until
+             * [method@Gdk.DrawContext.end_frame] is called.
+             * @deprecated since 4.18 Drawing content with Cairo should be done via   Cairo rendernodes, not by using renderers.
+             * @returns a Cairo context   to draw on `GdkSurface
+             */
+            cairo_create(): cairo.Context | null
+        }
+
+        interface CairoContextClass extends Omit<DrawContextClass, "new"> {
+            readonly $gtype: GObject.GType<CairoContext>
+            readonly prototype: CairoContext
+
+            new (props?: Partial<GObject.ConstructorProps<CairoContext>>): CairoContext
+        }
+
+        interface $Exports {
+            /**
+             * Represents the platform-specific draw context.
+             *
+             * `GdkCairoContext`s are created for a surface using
+             * [method@Gdk.Surface.create_cairo_context], and the context
+             * can then be used to draw on that surface.
+             */
+            CairoContext: CairoContextClass
+        }
+        
+
+        namespace CicpParams {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "color-primaries": number
+                "matrix-coefficients": number
+                "range": CicpRange
+                "transfer-function": number
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "color-primaries": number
+                "matrix-coefficients": number
+                "range": CicpRange
+                "transfer-function": number
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+        }
+
+        interface CicpParams extends GObject.Object {
+            readonly $signals: CicpParams.SignalSignatures
+            readonly $readableProperties: CicpParams.ReadableProperties
+            readonly $writableProperties: CicpParams.WritableProperties
+            readonly $constructOnlyProperties: CicpParams.ConstructOnlyProperties
+            /**
+             * The color primaries to use.
+             *
+             * Supported values:
+             *
+             * - 1: BT.709 / sRGB
+             * - 2: unspecified
+             * - 5: PAL
+             * - 6,7: BT.601 / NTSC
+             * - 9: BT.2020
+             * - 12: Display P3
+             * @since 4.16
+             * @default 2
+             */
+            get colorPrimaries(): number
+            set colorPrimaries(value: number)
+            /**
+             * The matrix coefficients (for YUV to RGB conversion).
+             *
+             * Supported values:
+             *
+             * - 0: RGB
+             * - 1: BT.709
+             * - 2: unspecified
+             * - 5,6: BT.601
+             * - 9: BT.2020
+             * @since 4.16
+             * @default 2
+             */
+            get matrixCoefficients(): number
+            set matrixCoefficients(value: number)
+            /**
+             * Whether the data is using the full range of values.
+             *
+             * The range of the data.
+             * @since 4.16
+             * @default GDK_CICP_RANGE_NARROW
+             */
+            get range(): CicpRange
+            set range(value: CicpRange)
+            /**
+             * The transfer function to use.
+             *
+             * Supported values:
+             *
+             * - 1,6,14,15: BT.709, BT.601, BT.2020
+             * - 2: unspecified
+             * - 4: gamma 2.2
+             * - 5: gamma 2.8
+             * - 8: linear
+             * - 13: sRGB
+             * - 16: BT.2100 PQ
+             * - 18: BT.2100 HLG
+             * @since 4.16
+             * @default 2
+             */
+            get transferFunction(): number
+            set transferFunction(value: number)
+            /**
+             * Creates a new `GdkColorState` object for the cicp parameters in @self.
+             *
+             * Note that this may fail if the cicp parameters in @self are not
+             * supported by GTK. In that case, `NULL` is returned, and @error is set
+             * with an error message that can be presented to the user.
+             * @throws {GLib.Error}
+             * @since 4.16
+             * @returns A newly allocated `GdkColorState`
+             */
+            build_color_state(): ColorState
+            /**
+             * Returns the value of the color-primaries property
+             * of @self.
+             * @since 4.16
+             * @returns the color-primaries value
+             */
+            get_color_primaries(): number
+            /**
+             * Gets the matrix-coefficients property of @self.
+             * @since 4.16
+             * @returns the matrix-coefficients value
+             */
+            get_matrix_coefficients(): number
+            /**
+             * Gets the range property of @self.
+             * @since 4.16
+             * @returns the range value
+             */
+            get_range(): CicpRange
+            /**
+             * Gets the transfer-function property of @self.
+             * @since 4.16
+             * @returns the transfer-function value
+             */
+            get_transfer_function(): number
+            /**
+             * Sets the color-primaries property of @self.
+             * @since 4.16
+             * @param color_primaries the new color primaries value
+             */
+            set_color_primaries(color_primaries: number): void
+            /**
+             * @self a `GdkCicpParams`
+             * Sets the matrix-coefficients property of @self.
+             * @since 4.16
+             * @param matrix_coefficients the new matrix-coefficients value
+             */
+            set_matrix_coefficients(matrix_coefficients: number): void
+            /**
+             * Sets the range property of @self
+             * @since 4.16
+             * @param range the range value
+             */
+            set_range(range: CicpRange): void
+            /**
+             * Sets the transfer-function property of @self.
+             * @since 4.16
+             * @param transfer_function the new transfer-function value
+             */
+            set_transfer_function(transfer_function: number): void
+        }
+
+        interface CicpParamsClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<CicpParams>
+            readonly prototype: CicpParams
+
+            new (props?: Partial<GObject.ConstructorProps<CicpParams>>): CicpParams
+            /**
+             * Creates a new `GdkCicpParams` object.
+             *
+             * The initial values of the properties are the values for "undefined"
+             * and need to be set before a color state object can be built.
+             * @since 4.16
+             * @returns a new `GdkCicpParams`
+             */
+            "new"(): CicpParams
+        }
+
+        interface $Exports {
+            /**
+             * Contains the parameters that define a colorstate with cicp parameters.
+             *
+             * Cicp parameters are specified in the ITU-T H.273
+             * [specification](https://www.itu.int/rec/T-REC-H.273/en).
+             *
+             * See the documentation of individual properties for supported values.
+             *
+             * The 'unspecified' value (2) is not treated in any special way, and
+             * must be replaced by a different value before creating a color state.
+             *
+             * `GdkCicpParams` can be used as a builder object to construct a color
+             * state from Cicp data with [method@Gdk.CicpParams.build_color_state].
+             * The function will return an error if the given parameters are not
+             * supported.
+             *
+             * You can obtain a `GdkCicpParams` object from a color state with
+             * [method@Gdk.ColorState.create_cicp_params]. This can be used to
+             * create a variant of a color state, by changing just one of the cicp
+             * parameters, or just to obtain information about the color state.
+             * @since 4.16
+             */
+            CicpParams: CicpParamsClass
+        }
+        
+
+        namespace Clipboard {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Emitted when the clipboard changes ownership.
+                 */
+                "changed"(): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "content": ContentProvider | null
+                "display": Display
+                "formats": ContentFormats
+                "local": boolean
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "content": ContentProvider | null
+                "formats": ContentFormats
+                "local": boolean
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "display": Display
+            }
+        }
+
+        interface Clipboard extends GObject.Object {
+            readonly $signals: Clipboard.SignalSignatures
+            readonly $readableProperties: Clipboard.ReadableProperties
+            readonly $writableProperties: Clipboard.WritableProperties
+            readonly $constructOnlyProperties: Clipboard.ConstructOnlyProperties
+            /**
+             * The `GdkContentProvider` or %NULL if the clipboard is empty or contents are
+             * provided otherwise.
+             */
+            get content(): ContentProvider | null
+            set content(value: ContentProvider | null)
+            /**
+             * The `GdkDisplay` that the clipboard belongs to.
+             */
+            get display(): Display
+            set display(value: Display)
+            /**
+             * The possible formats that the clipboard can provide its data in.
+             */
+            get formats(): ContentFormats
+            set formats(value: ContentFormats)
+            /**
+             * %TRUE if the contents of the clipboard are owned by this process.
+             * @default TRUE
+             */
+            get local(): boolean
+            set local(value: boolean)
+            /**
+             * Returns the `GdkContentProvider` currently set on @clipboard.
+             *
+             * If the @clipboard is empty or its contents are not owned by the
+             * current process, %NULL will be returned.
+             * @returns The content of a clipboard   if the clipboard does not maintain any content
+             */
+            get_content(): ContentProvider | null
+            /**
+             * Gets the `GdkDisplay` that the clipboard was created for.
+             * @returns a `GdkDisplay`
+             */
+            get_display(): Display
+            /**
+             * Gets the formats that the clipboard can provide its current contents in.
+             * @returns The formats of the clipboard
+             */
+            get_formats(): ContentFormats
+            /**
+             * Returns if the clipboard is local.
+             *
+             * A clipboard is considered local if it was last claimed
+             * by the running application.
+             *
+             * Note that [method@Gdk.Clipboard.get_content] may return %NULL
+             * even on a local clipboard. In this case the clipboard is empty.
+             * @returns %TRUE if the clipboard is local
+             */
+            is_local(): boolean
+            /**
+             * Asynchronously requests an input stream to read the @clipboard's
+             * contents from.
+             *
+             * The clipboard will choose the most suitable mime type from the given list
+             * to fulfill the request, preferring the ones listed first.
+             * @param mime_types a %NULL-terminated array of mime types to choose from
+             * @param io_priority the I/O priority of the request
+             * @param cancellable optional `GCancellable` object
+             * @param callback callback to call when the request is satisfied
+             */
+            read_async(mime_types: string[], io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an asynchronous clipboard read.
+             *
+             * See [method@Gdk.Clipboard.read_async].
+             * @throws {GLib.Error}
+             * @param result a `GAsyncResult`
+             * @returns a `GInputStream`, location to store   the chosen mime type
+             */
+            read_finish(result: Gio.AsyncResult): [Gio.InputStream | null, string]
+            /**
+             * Asynchronously request the @clipboard contents converted to a string.
+             *
+             * This is a simple wrapper around [method@Gdk.Clipboard.read_value_async].
+             * Use that function or [method@Gdk.Clipboard.read_async] directly if you
+             * need more control over the operation.
+             * @param cancellable optional `GCancellable` object
+             * @param callback callback to call when the request is satisfied
+             */
+            read_text_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an asynchronous clipboard read.
+             *
+             * See [method@Gdk.Clipboard.read_text_async].
+             * @throws {GLib.Error}
+             * @param result a `GAsyncResult`
+             * @returns a new string
+             */
+            read_text_finish(result: Gio.AsyncResult): string | null
+            /**
+             * Asynchronously request the @clipboard contents converted to a `GdkPixbuf`.
+             *
+             * This is a simple wrapper around [method@Gdk.Clipboard.read_value_async].
+             * Use that function or [method@Gdk.Clipboard.read_async] directly if you
+             * need more control over the operation.
+             * @param cancellable optional `GCancellable` object, %NULL to ignore.
+             * @param callback callback to call when the request is satisfied
+             */
+            read_texture_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an asynchronous clipboard read.
+             *
+             * See [method@Gdk.Clipboard.read_texture_async].
+             * @throws {GLib.Error}
+             * @param result a `GAsyncResult`
+             * @returns a new `GdkTexture`
+             */
+            read_texture_finish(result: Gio.AsyncResult): Texture | null
+            /**
+             * Asynchronously request the @clipboard contents converted to the given
+             * @type.
+             *
+             * For local clipboard contents that are available in the given `GType`,
+             * the value will be copied directly. Otherwise, GDK will try to use
+             * [func@content_deserialize_async] to convert the clipboard's data.
+             * @param type a `GType` to read
+             * @param io_priority the I/O priority of the request
+             * @param cancellable optional `GCancellable` object
+             * @param callback callback to call when the request is satisfied
+             */
+            read_value_async(type: (GObject.GType | { $gtype: GObject.GType }), io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an asynchronous clipboard read.
+             *
+             * See [method@Gdk.Clipboard.read_value_async].
+             * @throws {GLib.Error}
+             * @param result a `GAsyncResult`
+             * @returns a `GValue` containing the result.
+             */
+            read_value_finish(result: Gio.AsyncResult): GObject.Value
+            /**
+             * Sets a new content provider on @clipboard.
+             *
+             * The clipboard will claim the `GdkDisplay`'s resources and advertise
+             * these new contents to other applications.
+             *
+             * In the rare case of a failure, this function will return %FALSE. The
+             * clipboard will then continue reporting its old contents and ignore
+             * @provider.
+             *
+             * If the contents are read by either an external application or the
+             * @clipboard's read functions, @clipboard will select the best format to
+             * transfer the contents and then request that format from @provider.
+             * @param provider the new contents of @clipboard
+              or %NULL to clear the clipboard
+             * @returns %TRUE if setting the clipboard succeeded
+             */
+            set_content(provider: ContentProvider | null): boolean
+            /**
+             * Sets the @clipboard to contain the given @value.
+             * @param value a `GValue` to set
+             */
+            set(value: (GObject.Value | unknown)): void
+            /**
+             * Asynchronously instructs the @clipboard to store its contents remotely.
+             *
+             * If the clipboard is not local, this function does nothing but report success.
+             *
+             * The purpose of this call is to preserve clipboard contents beyond the
+             * lifetime of an application, so this function is typically called on
+             * exit. Depending on the platform, the functionality may not be available
+             * unless a "clipboard manager" is running.
+             *
+             * This function is called automatically when a
+             * [GtkApplication](../gtk4/class.Application.html)
+             * is shut down, so you likely don't need to call it.
+             * @param io_priority the I/O priority of the request
+             * @param cancellable optional `GCancellable` object
+             * @param callback callback to call when the request is satisfied
+             */
+            store_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an asynchronous clipboard store.
+             *
+             * See [method@Gdk.Clipboard.store_async].
+             * @throws {GLib.Error}
+             * @param result a `GAsyncResult`
+             * @returns %TRUE if storing was successful.
+             */
+            store_finish(result: Gio.AsyncResult): boolean
+        }
+
+        interface ClipboardClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<Clipboard>
+            readonly prototype: Clipboard
+
+            new (props?: Partial<GObject.ConstructorProps<Clipboard>>): Clipboard
+        }
+
+        interface $Exports {
+            /**
+             * Represents data shared between applications or inside an application.
+             *
+             * To get a `GdkClipboard` object, use [method@Gdk.Display.get_clipboard] or
+             * [method@Gdk.Display.get_primary_clipboard]. You can find out about the data
+             * that is currently available in a clipboard using
+             * [method@Gdk.Clipboard.get_formats].
+             *
+             * To make text or image data available in a clipboard, use
+             * [method@Gdk.Clipboard.set_text] or [method@Gdk.Clipboard.set_texture].
+             * For other data, you can use [method@Gdk.Clipboard.set_content], which
+             * takes a [class@Gdk.ContentProvider] object.
+             *
+             * To read textual or image data from a clipboard, use
+             * [method@Gdk.Clipboard.read_text_async] or
+             * [method@Gdk.Clipboard.read_texture_async]. For other data, use
+             * [method@Gdk.Clipboard.read_async], which provides a `GInputStream` object.
+             */
+            Clipboard: ClipboardClass
+        }
+        
+
+        namespace ContentDeserializer {
+            interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.AsyncResult.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties, Gio.AsyncResult.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties, Gio.AsyncResult.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.AsyncResult.ConstructOnlyProperties {
+            }
+        }
+
+        interface ContentDeserializer extends GObject.Object, Gio.AsyncResult {
+            readonly $signals: ContentDeserializer.SignalSignatures
+            readonly $readableProperties: ContentDeserializer.ReadableProperties
+            readonly $writableProperties: ContentDeserializer.WritableProperties
+            readonly $constructOnlyProperties: ContentDeserializer.ConstructOnlyProperties
+            /**
+             * Gets the cancellable for the current operation.
+             *
+             * This is the `GCancellable` that was passed to [func@Gdk.content_deserialize_async].
+             * @returns the cancellable for the current operation
+             */
+            get_cancellable(): Gio.Cancellable | null
+            /**
+             * Gets the `GType` to create an instance of.
+             * @returns the `GType` for the current operation
+             */
+            get_gtype(): GObject.GType
+            /**
+             * Gets the input stream for the current operation.
+             *
+             * This is the stream that was passed to [func@Gdk.content_deserialize_async].
+             * @returns the input stream for the current operation
+             */
+            get_input_stream(): Gio.InputStream
+            /**
+             * Gets the mime type to deserialize from.
+             * @returns the mime type for the current operation
+             */
+            get_mime_type(): string
+            /**
+             * Gets the I/O priority for the current operation.
+             *
+             * This is the priority that was passed to [func@Gdk.content_deserialize_async].
+             * @returns the I/O priority for the current operation
+             */
+            get_priority(): number
+            /**
+             * Gets the data that was associated with the current operation.
+             *
+             * See [method@Gdk.ContentDeserializer.set_task_data].
+             * @returns the task data for `deserializer`
+             */
+            get_task_data(): never | null
+            /**
+             * Gets the user data that was passed when the deserializer was registered.
+             * @returns the user data for this deserializer
+             */
+            get_user_data(): never | null
+            /**
+             * Gets the `GValue` to store the deserialized object in.
+             * @returns the `GValue` for the current operation
+             */
+            get_value(): GObject.Value
+            /**
+             * Indicate that the deserialization has ended with an error.
+             *
+             * This function consumes @error.
+             * @param error a `GError`
+             */
+            return_error(error: GLib.Error): void
+            /**
+             * Indicate that the deserialization has been successfully completed.
+             */
+            return_success(): void
+            /**
+             * Associate data with the current deserialization operation.
+             * @param data data to associate with this operation
+             * @param notify destroy notify for @data
+             */
+            set_task_data(data: never | null, notify: GLib.DestroyNotify): void
+        }
+
+        interface ContentDeserializerClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<ContentDeserializer>
+            readonly prototype: ContentDeserializer
+
+            new (props?: Partial<GObject.ConstructorProps<ContentDeserializer>>): ContentDeserializer
+        }
+
+        interface $Exports {
+            /**
+             * Deserializes content received via inter-application data transfers.
+             *
+             * The `GdkContentDeserializer` transforms serialized content that is
+             * identified by a mime type into an object identified by a GType.
+             *
+             * GTK provides serializers and deserializers for common data types
+             * such as text, colors, images or file lists. To register your own
+             * deserialization functions, use [func@content_register_deserializer].
+             *
+             * Also see [class@Gdk.ContentSerializer].
+             */
+            ContentDeserializer: ContentDeserializerClass
+        }
+        
+
+        namespace ContentProvider {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Emitted whenever the content provided by this provider has changed.
+                 */
+                "content-changed"(): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "formats": ContentFormats
+                "storable-formats": ContentFormats
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "formats": ContentFormats
+                "storable-formats": ContentFormats
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+        }
+
+        interface ContentProvider extends GObject.Object {
+            readonly $signals: ContentProvider.SignalSignatures
+            readonly $readableProperties: ContentProvider.ReadableProperties
+            readonly $writableProperties: ContentProvider.WritableProperties
+            readonly $constructOnlyProperties: ContentProvider.ConstructOnlyProperties
+            /**
+             * The possible formats that the provider can provide its data in.
+             */
+            get formats(): ContentFormats
+            set formats(value: ContentFormats)
+            /**
+             * The subset of formats that clipboard managers should store this provider's data in.
+             */
+            get storableFormats(): ContentFormats
+            set storableFormats(value: ContentFormats)
+            /**
+             * Emits the ::content-changed signal.
+             */
+            content_changed(): void
+            /**
+             * Gets the contents of @provider stored in @value.
+             *
+             * The @value will have been initialized to the `GType` the value should be
+             * provided in. This given `GType` does not need to be listed in the formats
+             * returned by [method@Gdk.ContentProvider.ref_formats]. However, if the
+             * given `GType` is not supported, this operation can fail and
+             * `G_IO_ERROR_NOT_SUPPORTED` will be reported.
+             * @throws {GLib.Error}
+             * @returns %TRUE if the value was set successfully. Otherwise   `error` will be set to describe the failure., the `GValue` to fill
+             */
+            get_value(): [boolean, unknown]
+            /**
+             * Gets the formats that the provider can provide its current contents in.
+             * @returns The formats of the provider
+             */
+            ref_formats(): ContentFormats
+            /**
+             * Gets the formats that the provider suggests other applications to store
+             * the data in.
+             *
+             * An example of such an application would be a clipboard manager.
+             *
+             * This can be assumed to be a subset of [method@Gdk.ContentProvider.ref_formats].
+             * @returns The storable formats of the provider
+             */
+            ref_storable_formats(): ContentFormats
+            /**
+             * Asynchronously writes the contents of @provider to @stream in the given
+             * @mime_type.
+             *
+             * The given mime type does not need to be listed in the formats returned by
+             * [method@Gdk.ContentProvider.ref_formats]. However, if the given `GType` is
+             * not supported, `G_IO_ERROR_NOT_SUPPORTED` will be reported.
+             *
+             * The given @stream will not be closed.
+             * @param mime_type the mime type to provide the data in
+             * @param stream the `GOutputStream` to write to
+             * @param io_priority I/O priority of the request.
+             * @param cancellable optional `GCancellable` object, %NULL to ignore.
+             * @param callback callback to call when the request is satisfied
+             */
+            write_mime_type_async(mime_type: string, stream: Gio.OutputStream, io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an asynchronous write operation.
+             *
+             * See [method@Gdk.ContentProvider.write_mime_type_async].
+             * @throws {GLib.Error}
+             * @param result a `GAsyncResult`
+             * @returns %TRUE if the operation was completed successfully. Otherwise   `error` will be set to describe the failure.
+             */
+            write_mime_type_finish(result: Gio.AsyncResult): boolean
+            /**
+             * @param clipboard
+             */
+            vfunc_attach_clipboard(clipboard: Clipboard): void
+            /**
+             * Emits the ::content-changed signal.
+             */
+            vfunc_content_changed(): void
+            /**
+             * @param clipboard
+             */
+            vfunc_detach_clipboard(clipboard: Clipboard): void
+            /**
+             * Gets the contents of @provider stored in @value.
+             *
+             * The @value will have been initialized to the `GType` the value should be
+             * provided in. This given `GType` does not need to be listed in the formats
+             * returned by [method@Gdk.ContentProvider.ref_formats]. However, if the
+             * given `GType` is not supported, this operation can fail and
+             * `G_IO_ERROR_NOT_SUPPORTED` will be reported.
+             * @throws {GLib.Error}
+             * @returns %TRUE if the value was set successfully. Otherwise   `error` will be set to describe the failure., the `GValue` to fill
+             */
+            vfunc_get_value(): [boolean, unknown]
+            /**
+             * Gets the formats that the provider can provide its current contents in.
+             * @returns The formats of the provider
+             */
+            vfunc_ref_formats(): ContentFormats
+            /**
+             * Gets the formats that the provider suggests other applications to store
+             * the data in.
+             *
+             * An example of such an application would be a clipboard manager.
+             *
+             * This can be assumed to be a subset of [method@Gdk.ContentProvider.ref_formats].
+             * @returns The storable formats of the provider
+             */
+            vfunc_ref_storable_formats(): ContentFormats
+            /**
+             * Asynchronously writes the contents of @provider to @stream in the given
+             * @mime_type.
+             *
+             * The given mime type does not need to be listed in the formats returned by
+             * [method@Gdk.ContentProvider.ref_formats]. However, if the given `GType` is
+             * not supported, `G_IO_ERROR_NOT_SUPPORTED` will be reported.
+             *
+             * The given @stream will not be closed.
+             * @param mime_type the mime type to provide the data in
+             * @param stream the `GOutputStream` to write to
+             * @param io_priority I/O priority of the request.
+             * @param cancellable optional `GCancellable` object, %NULL to ignore.
+             * @param callback callback to call when the request is satisfied
+             */
+            vfunc_write_mime_type_async(mime_type: string, stream: Gio.OutputStream, io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an asynchronous write operation.
+             *
+             * See [method@Gdk.ContentProvider.write_mime_type_async].
+             * @throws {GLib.Error}
+             * @param result a `GAsyncResult`
+             * @returns %TRUE if the operation was completed successfully. Otherwise   `error` will be set to describe the failure.
+             */
+            vfunc_write_mime_type_finish(result: Gio.AsyncResult): boolean
+        }
+
+        interface ContentProviderClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<ContentProvider>
+            readonly prototype: ContentProvider
+
+            new (props?: Partial<GObject.ConstructorProps<ContentProvider>>): ContentProvider
+            /**
+             * Create a content provider that provides the given @bytes as data for
+             * the given @mime_type.
+             * @param mime_type the mime type
+             * @param bytes a `GBytes` with the data for @mime_type
+             * @returns a new `GdkContentProvider`
+             */
+            new_for_bytes(mime_type: string, bytes: (GLib.Bytes | Uint8Array)): ContentProvider
+            /**
+             * Create a content provider that provides the given @value.
+             * @param value a `GValue`
+             * @returns a new `GdkContentProvider`
+             */
+            new_for_value(value: (GObject.Value | unknown)): ContentProvider
+            /**
+             * Creates a content provider that represents all the given @providers.
+             *
+             * Whenever data needs to be written, the union provider will try the given
+             * @providers in the given order and the first one supporting a format will
+             * be chosen to provide it.
+             *
+             * This allows an easy way to support providing data in different formats.
+             * For example, an image may be provided by its file and by the image
+             * contents with a call such as
+             * ```c
+             * gdk_content_provider_new_union ((GdkContentProvider *[2]) {
+             *                                   gdk_content_provider_new_typed (G_TYPE_FILE, file),
+             *                                   gdk_content_provider_new_typed (GDK_TYPE_TEXTURE, texture)
+             *                                 }, 2);
+             * ```
+             * @param providers 
+              The `GdkContentProvider`s to present the union of
+             * @returns a new `GdkContentProvider`
+             */
+            new_union(providers: ContentProvider[] | null): ContentProvider
+        }
+
+        interface $Exports {
+            /**
+             * Provides content for the clipboard or for drag-and-drop operations
+             * in a number of formats.
+             *
+             * To create a `GdkContentProvider`, use [ctor@Gdk.ContentProvider.new_for_value]
+             * or [ctor@Gdk.ContentProvider.new_for_bytes].
+             *
+             * GDK knows how to handle common text and image formats out-of-the-box. See
+             * [class@Gdk.ContentSerializer] and [class@Gdk.ContentDeserializer] if you want
+             * to add support for application-specific data formats.
+             */
+            ContentProvider: ContentProviderClass
+        }
+        
+
+        namespace ContentSerializer {
+            interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.AsyncResult.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties, Gio.AsyncResult.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties, Gio.AsyncResult.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.AsyncResult.ConstructOnlyProperties {
+            }
+        }
+
+        interface ContentSerializer extends GObject.Object, Gio.AsyncResult {
+            readonly $signals: ContentSerializer.SignalSignatures
+            readonly $readableProperties: ContentSerializer.ReadableProperties
+            readonly $writableProperties: ContentSerializer.WritableProperties
+            readonly $constructOnlyProperties: ContentSerializer.ConstructOnlyProperties
+            /**
+             * Gets the cancellable for the current operation.
+             *
+             * This is the `GCancellable` that was passed to [func@content_serialize_async].
+             * @returns the cancellable for the current operation
+             */
+            get_cancellable(): Gio.Cancellable | null
+            /**
+             * Gets the `GType` to of the object to serialize.
+             * @returns the `GType` for the current operation
+             */
+            get_gtype(): GObject.GType
+            /**
+             * Gets the mime type to serialize to.
+             * @returns the mime type for the current operation
+             */
+            get_mime_type(): string
+            /**
+             * Gets the output stream for the current operation.
+             *
+             * This is the stream that was passed to [func@content_serialize_async].
+             * @returns the output stream for the current operation
+             */
+            get_output_stream(): Gio.OutputStream
+            /**
+             * Gets the I/O priority for the current operation.
+             *
+             * This is the priority that was passed to [func@content_serialize_async].
+             * @returns the I/O priority for the current operation
+             */
+            get_priority(): number
+            /**
+             * Gets the data that was associated with the current operation.
+             *
+             * See [method@Gdk.ContentSerializer.set_task_data].
+             * @returns the task data for `serializer`
+             */
+            get_task_data(): never | null
+            /**
+             * Gets the user data that was passed when the serializer was registered.
+             * @returns the user data for this serializer
+             */
+            get_user_data(): never | null
+            /**
+             * Gets the `GValue` to read the object to serialize from.
+             * @returns the `GValue` for the current operation
+             */
+            get_value(): GObject.Value
+            /**
+             * Indicate that the serialization has ended with an error.
+             *
+             * This function consumes @error.
+             * @param error a `GError`
+             */
+            return_error(error: GLib.Error): void
+            /**
+             * Indicate that the serialization has been successfully completed.
+             */
+            return_success(): void
+            /**
+             * Associate data with the current serialization operation.
+             * @param data data to associate with this operation
+             * @param notify destroy notify for @data
+             */
+            set_task_data(data: never | null, notify: GLib.DestroyNotify): void
+        }
+
+        interface ContentSerializerClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<ContentSerializer>
+            readonly prototype: ContentSerializer
+
+            new (props?: Partial<GObject.ConstructorProps<ContentSerializer>>): ContentSerializer
+        }
+
+        interface $Exports {
+            /**
+             * Serializes content for inter-application data transfers.
+             *
+             * The `GdkContentSerializer` transforms an object that is identified
+             * by a GType into a serialized form (i.e. a byte stream) that is
+             * identified by a mime type.
+             *
+             * GTK provides serializers and deserializers for common data types
+             * such as text, colors, images or file lists. To register your own
+             * serialization functions, use [func@Gdk.content_register_serializer].
+             *
+             * Also see [class@Gdk.ContentDeserializer].
+             */
+            ContentSerializer: ContentSerializerClass
+        }
+        
+
+        namespace CrossingEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface CrossingEvent extends Event {
+            readonly $signals: CrossingEvent.SignalSignatures
+            readonly $readableProperties: CrossingEvent.ReadableProperties
+            readonly $writableProperties: CrossingEvent.WritableProperties
+            readonly $constructOnlyProperties: CrossingEvent.ConstructOnlyProperties
+            /**
+             * Extracts the notify detail from a crossing event.
+             * @returns the notify detail of `event`
+             */
+            get_detail(): NotifyType
+            /**
+             * Checks if the @event surface is the focus surface.
+             * @returns %TRUE if the surface is the focus surface
+             */
+            get_focus(): boolean
+            /**
+             * Extracts the crossing mode from a crossing event.
+             * @returns the mode of `event`
+             */
+            get_mode(): CrossingMode
+        }
+
+        interface CrossingEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<CrossingEvent>
+            readonly prototype: CrossingEvent
+
+            new (props?: Partial<GObject.ConstructorProps<CrossingEvent>>): CrossingEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event caused by a pointing device moving between surfaces.
+             */
+            CrossingEvent: CrossingEventClass
+        }
+        
+
+        namespace Cursor {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "fallback": Cursor | null
+                "hotspot-x": number
+                "hotspot-y": number
+                "name": string | null
+                "texture": Texture | null
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "fallback": Cursor | null
+                "hotspot-x": number
+                "hotspot-y": number
+                "name": string | null
+                "texture": Texture | null
+            }
+        }
+
+        interface Cursor extends GObject.Object {
+            readonly $signals: Cursor.SignalSignatures
+            readonly $readableProperties: Cursor.ReadableProperties
+            readonly $writableProperties: Cursor.WritableProperties
+            readonly $constructOnlyProperties: Cursor.ConstructOnlyProperties
+            /**
+             * Cursor to fall back to if this cursor cannot be displayed.
+             */
+            get fallback(): Cursor | null
+            set fallback(value: Cursor | null)
+            /**
+             * X position of the cursor hotspot in the cursor image.
+             * @default 0
+             */
+            get hotspotX(): number
+            set hotspotX(value: number)
+            /**
+             * Y position of the cursor hotspot in the cursor image.
+             * @default 0
+             */
+            get hotspotY(): number
+            set hotspotY(value: number)
+            /**
+             * Name of this this cursor.
+             *
+             * The name will be %NULL if the cursor was created from a texture.
+             * @default NULL
+             */
+            get name(): string | null
+            set name(value: string | null)
+            /**
+             * The texture displayed by this cursor.
+             *
+             * The texture will be %NULL if the cursor was created from a name.
+             */
+            get texture(): Texture | null
+            set texture(value: Texture | null)
+            /**
+             * Returns the fallback for this @cursor.
+             *
+             * The fallback will be used if this cursor is not available on a given
+             * `GdkDisplay`. For named cursors, this can happen when using nonstandard
+             * names or when using an incomplete cursor theme. For textured cursors,
+             * this can happen when the texture is too large or when the `GdkDisplay`
+             * it is used on does not support textured cursors.
+             * @returns the fallback of the cursor or %NULL   to use the default cursor as fallback
+             */
+            get_fallback(): Cursor | null
+            /**
+             * Returns the horizontal offset of the hotspot.
+             *
+             * The hotspot indicates the pixel that will be directly above the cursor.
+             *
+             * Note that named cursors may have a nonzero hotspot, but this function
+             * will only return the hotspot position for cursors created with
+             * [ctor@Gdk.Cursor.new_from_texture].
+             * @returns the horizontal offset of the hotspot or 0 for named cursors
+             */
+            get_hotspot_x(): number
+            /**
+             * Returns the vertical offset of the hotspot.
+             *
+             * The hotspot indicates the pixel that will be directly above the cursor.
+             *
+             * Note that named cursors may have a nonzero hotspot, but this function
+             * will only return the hotspot position for cursors created with
+             * [ctor@Gdk.Cursor.new_from_texture].
+             * @returns the vertical offset of the hotspot or 0 for named cursors
+             */
+            get_hotspot_y(): number
+            /**
+             * Returns the name of the cursor.
+             *
+             * If the cursor is not a named cursor, %NULL will be returned.
+             * @returns the name of the cursor or %NULL   if it is not a named cursor
+             */
+            get_name(): string | null
+            /**
+             * Returns the texture for the cursor.
+             *
+             * If the cursor is a named cursor, %NULL will be returned.
+             * @returns the texture for cursor or %NULL   if it is a named cursor
+             */
+            get_texture(): Texture | null
+        }
+
+        interface CursorClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<Cursor>
+            readonly prototype: Cursor
+
+            new (props?: Partial<GObject.ConstructorProps<Cursor>>): Cursor
+            /**
+             * Creates a new callback-based cursor object.
+             *
+             * Cursors of this kind produce textures for the cursor
+             * image on demand, when the @callback is called.
+             * @since 4.16
+             * @param callback the `GdkCursorGetTextureCallback`
+             * @param fallback the `GdkCursor` to fall back to when
+              this one cannot be supported
+             * @returns a new `GdkCursor`
+             */
+            new_from_callback(callback: CursorGetTextureCallback, fallback: Cursor | null): Cursor | null
+            /**
+             * Creates a new cursor by looking up @name in the current cursor
+             * theme.
+             *
+             * A recommended set of cursor names that will work across different
+             * platforms can be found in the CSS specification:
+             *
+             * | | | |
+             * | --- | --- | --- |
+             * |                               | "none"          | No cursor |
+             * | ![](default_cursor.png)       | "default"       | The default cursor |
+             * | ![](help_cursor.png)          | "help"          | Help is available |
+             * | ![](pointer_cursor.png)       | "pointer"       | Indicates a link or interactive element |
+             * | ![](context_menu_cursor.png)  |"context-menu"   | A context menu is available |
+             * | ![](progress_cursor.png)      | "progress"      | Progress indicator |
+             * | ![](wait_cursor.png)          | "wait"          | Busy cursor |
+             * | ![](cell_cursor.png)          | "cell"          | Cell(s) may be selected |
+             * | ![](crosshair_cursor.png)     | "crosshair"     | Simple crosshair |
+             * | ![](text_cursor.png)          | "text"          | Text may be selected |
+             * | ![](vertical_text_cursor.png) | "vertical-text" | Vertical text may be selected |
+             * | ![](alias_cursor.png)         | "alias"         | DND: Something will be linked |
+             * | ![](copy_cursor.png)          | "copy"          | DND: Something will be copied |
+             * | ![](move_cursor.png)          | "move"          | DND: Something will be moved |
+             * | ![](dnd_ask_cursor.png)       | "dnd-ask"       | DND: User can choose action to be carried out |
+             * | ![](no_drop_cursor.png)       | "no-drop"       | DND: Can't drop here |
+             * | ![](not_allowed_cursor.png)   | "not-allowed"   | DND: Action will not be carried out |
+             * | ![](grab_cursor.png)          | "grab"          | DND: Something can be grabbed |
+             * | ![](grabbing_cursor.png)      | "grabbing"      | DND: Something is being grabbed |
+             * | ![](n_resize_cursor.png)      | "n-resize"      | Resizing: Move north border |
+             * | ![](e_resize_cursor.png)      | "e-resize"      | Resizing: Move east border |
+             * | ![](s_resize_cursor.png)      | "s-resize"      | Resizing: Move south border |
+             * | ![](w_resize_cursor.png)      | "w-resize"      | Resizing: Move west border |
+             * | ![](ne_resize_cursor.png)     | "ne-resize"     | Resizing: Move north-east corner |
+             * | ![](nw_resize_cursor.png)     | "nw-resize"     | Resizing: Move north-west corner |
+             * | ![](sw_resize_cursor.png)     | "sw-resize"     | Resizing: Move south-west corner |
+             * | ![](se_resize_cursor.png)     | "se-resize"     | Resizing: Move south-east corner |
+             * | ![](col_resize_cursor.png)    | "col-resize"    | Resizing: Move an item or border horizontally |
+             * | ![](row_resize_cursor.png)    | "row-resize"    | Resizing: Move an item or border vertically |
+             * | ![](ew_resize_cursor.png)     | "ew-resize"     | Moving: Something can be moved horizontally |
+             * | ![](ns_resize_cursor.png)     | "ns-resize"     | Moving: Something can be moved vertically |
+             * | ![](nesw_resize_cursor.png)   | "nesw-resize"   | Moving: Something can be moved diagonally, north-east to south-west |
+             * | ![](nwse_resize_cursor.png)   | "nwse-resize"   | Moving: something can be moved diagonally, north-west to south-east |
+             * | ![](all_resize_cursor.png)    | "all-resize"    | Moving: Something can be moved in any direction |
+             * | ![](all_scroll_cursor.png)    | "all-scroll"    | Can scroll in any direction |
+             * | ![](zoom_in_cursor.png)       | "zoom-in"       | Zoom in |
+             * | ![](zoom_out_cursor.png)      | "zoom-out"      | Zoom out |
+             * @param name the name of the cursor
+             * @param fallback %NULL or the `GdkCursor` to fall back to when
+              this one cannot be supported
+             * @returns a new `GdkCursor`, or %NULL if there is no   cursor with the given name
+             */
+            new_from_name(name: string, fallback: Cursor | null): Cursor | null
+            /**
+             * Creates a new cursor from a `GdkTexture`.
+             * @param texture the texture providing the pixel data
+             * @param hotspot_x the horizontal offset of the “hotspot” of the cursor
+             * @param hotspot_y the vertical offset of the “hotspot” of the cursor
+             * @param fallback the `GdkCursor` to fall back to when
+              this one cannot be supported
+             * @returns a new `GdkCursor`
+             */
+            new_from_texture(texture: Texture, hotspot_x: number, hotspot_y: number, fallback: Cursor | null): Cursor
+        }
+
+        interface $Exports {
+            /**
+             * Used to create and destroy cursors.
+             *
+             * Cursors are immutable objects, so once you created them, there is no way
+             * to modify them later. You should create a new cursor when you want to change
+             * something about it.
+             *
+             * Cursors by themselves are not very interesting: they must be bound to a
+             * window for users to see them. This is done with [method@Gdk.Surface.set_cursor]
+             * or [method@Gdk.Surface.set_device_cursor]. Applications will typically
+             * use higher-level GTK functions such as [gtk_widget_set_cursor()](../gtk4/method.Widget.set_cursor.html)
+             * instead.
+             *
+             * Cursors are not bound to a given [class@Gdk.Display], so they can be shared.
+             * However, the appearance of cursors may vary when used on different
+             * platforms.
+             *
+             * ## Named and texture cursors
+             *
+             * There are multiple ways to create cursors. The platform's own cursors
+             * can be created with [ctor@Gdk.Cursor.new_from_name]. That function lists
+             * the commonly available names that are shared with the CSS specification.
+             * Other names may be available, depending on the platform in use. On some
+             * platforms, what images are used for named cursors may be influenced by
+             * the cursor theme.
+             *
+             * Another option to create a cursor is to use [ctor@Gdk.Cursor.new_from_texture]
+             * and provide an image to use for the cursor.
+             *
+             * To ease work with unsupported cursors, a fallback cursor can be provided.
+             * If a [class@Gdk.Surface] cannot use a cursor because of the reasons mentioned
+             * above, it will try the fallback cursor. Fallback cursors can themselves have
+             * fallback cursors again, so it is possible to provide a chain of progressively
+             * easier to support cursors. If none of the provided cursors can be supported,
+             * the default cursor will be the ultimate fallback.
+             */
+            Cursor: CursorClass
+        }
+        
+
+        namespace DNDEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface DNDEvent extends Event {
+            readonly $signals: DNDEvent.SignalSignatures
+            readonly $readableProperties: DNDEvent.ReadableProperties
+            readonly $writableProperties: DNDEvent.WritableProperties
+            readonly $constructOnlyProperties: DNDEvent.ConstructOnlyProperties
+            /**
+             * Gets the `GdkDrop` object from a DND event.
+             * @returns the drop
+             */
+            get_drop(): Drop | null
+        }
+
+        interface DNDEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<DNDEvent>
+            readonly prototype: DNDEvent
+
+            new (props?: Partial<GObject.ConstructorProps<DNDEvent>>): DNDEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to drag and drop operations.
+             */
+            DNDEvent: DNDEventClass
+        }
+        
+
+        namespace DeleteEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface DeleteEvent extends Event {
+            readonly $signals: DeleteEvent.SignalSignatures
+            readonly $readableProperties: DeleteEvent.ReadableProperties
+            readonly $writableProperties: DeleteEvent.WritableProperties
+            readonly $constructOnlyProperties: DeleteEvent.ConstructOnlyProperties
+        }
+
+        interface DeleteEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<DeleteEvent>
+            readonly prototype: DeleteEvent
+
+            new (props?: Partial<GObject.ConstructorProps<DeleteEvent>>): DeleteEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to closing a top-level surface.
+             */
+            DeleteEvent: DeleteEventClass
+        }
+        
+
+        namespace Device {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Emitted either when the number of either axes or keys changes.
+                 *
+                 * On X11 this will normally happen when the physical device
+                 * routing events through the logical device changes (for
+                 * example, user switches from the USB mouse to a tablet); in
+                 * that case the logical device will change to reflect the axes
+                 * and keys on the new physical device.
+                 */
+                "changed"(): void
+                /**
+                 * Emitted on pen/eraser devices whenever tools enter or leave proximity.
+                 * @param tool The new current tool
+                 */
+                "tool-changed"(tool: DeviceTool): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "active-layout-index": number
+                "caps-lock-state": boolean
+                "direction": Pango.Direction
+                "display": Display
+                "has-bidi-layouts": boolean
+                "has-cursor": boolean
+                "layout-names": string[] | null
+                "modifier-state": ModifierType
+                "n-axes": number
+                "name": string
+                "num-lock-state": boolean
+                "num-touches": number
+                "product-id": string | null
+                "scroll-lock-state": boolean
+                "seat": Seat
+                "source": InputSource
+                "tool": DeviceTool | null
+                "vendor-id": string | null
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "active-layout-index": number
+                "caps-lock-state": boolean
+                "direction": Pango.Direction
+                "has-bidi-layouts": boolean
+                "layout-names": string[] | null
+                "modifier-state": ModifierType
+                "n-axes": number
+                "num-lock-state": boolean
+                "scroll-lock-state": boolean
+                "seat": Seat
+                "tool": DeviceTool | null
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "display": Display
+                "has-cursor": boolean
+                "name": string
+                "num-touches": number
+                "product-id": string | null
+                "source": InputSource
+                "vendor-id": string | null
+            }
+        }
+
+        interface Device extends GObject.Object {
+            readonly $signals: Device.SignalSignatures
+            readonly $readableProperties: Device.ReadableProperties
+            readonly $writableProperties: Device.WritableProperties
+            readonly $constructOnlyProperties: Device.ConstructOnlyProperties
+            /**
+             * The index of the keyboard active layout of a `GdkDevice`.
+             *
+             * Will be -1 if there is no valid active layout.
+             *
+             * This is only relevant for keyboard devices.
+             * @since 4.18
+             * @default 0
+             */
+            get activeLayoutIndex(): number
+            set activeLayoutIndex(value: number)
+            /**
+             * Whether Caps Lock is on.
+             *
+             * This is only relevant for keyboard devices.
+             * @default FALSE
+             */
+            get capsLockState(): boolean
+            set capsLockState(value: boolean)
+            /**
+             * The direction of the current layout.
+             *
+             * This is only relevant for keyboard devices.
+             * @default PANGO_DIRECTION_NEUTRAL
+             */
+            get direction(): Pango.Direction
+            set direction(value: Pango.Direction)
+            /**
+             * The `GdkDisplay` the `GdkDevice` pertains to.
+             */
+            get display(): Display
+            set display(value: Display)
+            /**
+             * Whether the device has both right-to-left and left-to-right layouts.
+             *
+             * This is only relevant for keyboard devices.
+             * @default FALSE
+             */
+            get hasBidiLayouts(): boolean
+            set hasBidiLayouts(value: boolean)
+            /**
+             * Whether the device is represented by a cursor on the screen.
+             * @default FALSE
+             */
+            get hasCursor(): boolean
+            set hasCursor(value: boolean)
+            /**
+             * The names of the keyboard layouts of a `GdkDevice`.
+             *
+             * This is only relevant for keyboard devices.
+             * @since 4.18
+             */
+            get layoutNames(): string[] | null
+            set layoutNames(value: string[] | null)
+            /**
+             * The current modifier state of the device.
+             *
+             * This is only relevant for keyboard devices.
+             * @default GDK_NO_MODIFIER_MASK
+             */
+            get modifierState(): ModifierType
+            set modifierState(value: ModifierType)
+            /**
+             * Number of axes in the device.
+             * @default 0
+             */
+            get nAxes(): number
+            set nAxes(value: number)
+            /**
+             * The device name.
+             * @default NULL
+             */
+            get name(): string
+            set name(value: string)
+            /**
+             * Whether Num Lock is on.
+             *
+             * This is only relevant for keyboard devices.
+             * @default FALSE
+             */
+            get numLockState(): boolean
+            set numLockState(value: boolean)
+            /**
+             * The maximal number of concurrent touches on a touch device.
+             *
+             * Will be 0 if the device is not a touch device or if the number
+             * of touches is unknown.
+             * @default 0
+             */
+            get numTouches(): number
+            set numTouches(value: number)
+            /**
+             * Product ID of this device.
+             *
+             * See [method@Gdk.Device.get_product_id].
+             * @default NULL
+             */
+            get productId(): string | null
+            set productId(value: string | null)
+            /**
+             * Whether Scroll Lock is on.
+             *
+             * This is only relevant for keyboard devices.
+             * @default FALSE
+             */
+            get scrollLockState(): boolean
+            set scrollLockState(value: boolean)
+            /**
+             * `GdkSeat` of this device.
+             */
+            get seat(): Seat
+            set seat(value: Seat)
+            /**
+             * Source type for the device.
+             * @default GDK_SOURCE_MOUSE
+             */
+            get source(): InputSource
+            set source(value: InputSource)
+            /**
+             * The `GdkDeviceTool` that is currently used with this device.
+             */
+            get tool(): DeviceTool | null
+            set tool(value: DeviceTool | null)
+            /**
+             * Vendor ID of this device.
+             *
+             * See [method@Gdk.Device.get_vendor_id].
+             * @default NULL
+             */
+            get vendorId(): string | null
+            set vendorId(value: string | null)
+            /**
+             * Retrieves the index of the active layout of the keyboard.
+             *
+             * If there is no valid active layout for the `GdkDevice`, this function will
+             * return -1;
+             *
+             * This is only relevant for keyboard devices.
+             * @since 4.18
+             * @returns The layout index of the active layout or -1.
+             */
+            get_active_layout_index(): number
+            /**
+             * Retrieves whether the Caps Lock modifier of the keyboard is locked.
+             *
+             * This is only relevant for keyboard devices.
+             * @returns %TRUE if Caps Lock is on for `device`
+             */
+            get_caps_lock_state(): boolean
+            /**
+             * Retrieves the current tool for @device.
+             * @returns the `GdkDeviceTool`
+             */
+            get_device_tool(): DeviceTool | null
+            /**
+             * Returns the direction of effective layout of the keyboard.
+             *
+             * This is only relevant for keyboard devices.
+             *
+             * The direction of a layout is the direction of the majority
+             * of its symbols. See [func@Pango.unichar_direction].
+             * @returns %PANGO_DIRECTION_LTR or %PANGO_DIRECTION_RTL   if it can determine the direction. %PANGO_DIRECTION_NEUTRAL   otherwise
+             */
+            get_direction(): Pango.Direction
+            /**
+             * Returns the `GdkDisplay` to which @device pertains.
+             * @returns a `GdkDisplay`
+             */
+            get_display(): Display
+            /**
+             * Determines whether the pointer follows device motion.
+             *
+             * This is not meaningful for keyboard devices, which
+             * don't have a pointer.
+             * @returns %TRUE if the pointer follows device motion
+             */
+            get_has_cursor(): boolean
+            /**
+             * Retrieves the names of the layouts of the keyboard.
+             *
+             * This is only relevant for keyboard devices.
+             * @since 4.18
+             * @returns    %NULL-terminated array of strings of layouts,
+             */
+            get_layout_names(): string[] | null
+            /**
+             * Retrieves the current modifier state of the keyboard.
+             *
+             * This is only relevant for keyboard devices.
+             * @returns the current modifier state
+             */
+            get_modifier_state(): ModifierType
+            /**
+             * The name of the device, suitable for showing in a user interface.
+             * @returns a name
+             */
+            get_name(): string
+            /**
+             * Retrieves whether the Num Lock modifier of the keyboard is locked.
+             *
+             * This is only relevant for keyboard devices.
+             * @returns %TRUE if Num Lock is on for `device`
+             */
+            get_num_lock_state(): boolean
+            /**
+             * Retrieves the number of touch points associated to @device.
+             * @returns the number of touch points
+             */
+            get_num_touches(): number
+            /**
+             * Returns the product ID of this device.
+             *
+             * This ID is retrieved from the device, and does not change.
+             * See [method@Gdk.Device.get_vendor_id] for more information.
+             * @returns the product ID
+             */
+            get_product_id(): string | null
+            /**
+             * Retrieves whether the Scroll Lock modifier of the keyboard is locked.
+             *
+             * This is only relevant for keyboard devices.
+             * @returns %TRUE if Scroll Lock is on for `device`
+             */
+            get_scroll_lock_state(): boolean
+            /**
+             * Returns the `GdkSeat` the device belongs to.
+             * @returns a `GdkSeat`
+             */
+            get_seat(): Seat
+            /**
+             * Determines the type of the device.
+             * @returns a `GdkInputSource`
+             */
+            get_source(): InputSource
+            /**
+             * Obtains the surface underneath @device, returning the location of the
+             * device in @win_x and @win_y.
+             *
+             * Returns %NULL if the surface tree under @device is not known to GDK
+             * (for example, belongs to another application).
+             * @returns the `GdkSurface` under the   device position, return location for the X coordinate   of the device location relative to the surface origin, return location for the Y coordinate   of the device location relative to the surface origin
+             */
+            get_surface_at_position(): [Surface | null, number, number]
+            /**
+             * Returns the timestamp of the last activity for this device.
+             *
+             * In practice, this means the timestamp of the last event that was
+             * received from the OS for this device. (GTK may occasionally produce
+             * events for a device that are not received from the OS, and will not
+             * update the timestamp).
+             * @since 4.2
+             * @returns the timestamp of the last activity for this device
+             */
+            get_timestamp(): number
+            /**
+             * Returns the vendor ID of this device.
+             *
+             * This ID is retrieved from the device, and does not change.
+             *
+             * This function, together with [method@Gdk.Device.get_product_id],
+             * can be used to eg. compose `GSettings` paths to store settings
+             * for this device.
+             *
+             * ```c
+             *  static GSettings *
+             *  get_device_settings (GdkDevice *device)
+             *  {
+             *    const char *vendor, *product;
+             *    GSettings *settings;
+             *    GdkDevice *device;
+             *    char *path;
+             *
+             *    vendor = gdk_device_get_vendor_id (device);
+             *    product = gdk_device_get_product_id (device);
+             *
+             *    path = g_strdup_printf ("/org/example/app/devices/%s:%s/", vendor, product);
+             *    settings = g_settings_new_with_path (DEVICE_SCHEMA, path);
+             *    g_free (path);
+             *
+             *    return settings;
+             *  }
+             * ```
+             * @returns the vendor ID
+             */
+            get_vendor_id(): string | null
+            /**
+             * Determines if layouts for both right-to-left and
+             * left-to-right languages are in use on the keyboard.
+             *
+             * This is only relevant for keyboard devices.
+             * @returns %TRUE if there are layouts with both directions, %FALSE otherwise
+             */
+            has_bidi_layouts(): boolean
+        }
+
+        interface DeviceClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<Device>
+            readonly prototype: Device
+
+            new (props?: Partial<GObject.ConstructorProps<Device>>): Device
+        }
+
+        interface $Exports {
+            /**
+             * Represents an input device, such as a keyboard, mouse or touchpad.
+             *
+             * See the [class@Gdk.Seat] documentation for more information
+             * about the various kinds of devices, and their relationships.
+             */
+            Device: DeviceClass
+        }
+        
+
+        namespace DeviceTool {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "axes": AxisFlags
+                "hardware-id": number
+                "serial": number
+                "tool-type": DeviceToolType
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "axes": AxisFlags
+                "hardware-id": number
+                "serial": number
+                "tool-type": DeviceToolType
+            }
+        }
+
+        interface DeviceTool extends GObject.Object {
+            readonly $signals: DeviceTool.SignalSignatures
+            readonly $readableProperties: DeviceTool.ReadableProperties
+            readonly $writableProperties: DeviceTool.WritableProperties
+            readonly $constructOnlyProperties: DeviceTool.ConstructOnlyProperties
+            /**
+             * The axes of the tool.
+             * @default 0
+             */
+            get axes(): AxisFlags
+            set axes(value: AxisFlags)
+            /**
+             * The hardware ID of the tool.
+             * @default 0
+             */
+            get hardwareId(): number
+            set hardwareId(value: number)
+            /**
+             * The serial number of the tool.
+             * @default 0
+             */
+            get serial(): number
+            set serial(value: number)
+            /**
+             * The type of the tool.
+             * @default GDK_DEVICE_TOOL_TYPE_UNKNOWN
+             */
+            get toolType(): DeviceToolType
+            set toolType(value: DeviceToolType)
+            /**
+             * Gets the axes of the tool.
+             * @returns the axes of `tool`
+             */
+            get_axes(): AxisFlags
+            /**
+             * Gets the hardware ID of this tool, or 0 if it's not known.
+             *
+             * When non-zero, the identifier is unique for the given tool model,
+             * meaning that two identical tools will share the same @hardware_id,
+             * but will have different serial numbers (see
+             * [method@Gdk.DeviceTool.get_serial]).
+             *
+             * This is a more concrete (and device specific) method to identify
+             * a `GdkDeviceTool` than [method@Gdk.DeviceTool.get_tool_type],
+             * as a tablet may support multiple devices with the same
+             * `GdkDeviceToolType`, but different hardware identifiers.
+             * @returns The hardware identifier of this tool.
+             */
+            get_hardware_id(): number
+            /**
+             * Gets the serial number of this tool.
+             *
+             * This value can be used to identify a physical tool
+             * (eg. a tablet pen) across program executions.
+             * @returns The serial ID for this tool
+             */
+            get_serial(): number
+            /**
+             * Gets the `GdkDeviceToolType` of the tool.
+             * @returns The physical type for this tool. This can be used to   figure out what sort of pen is being used, such as an airbrush   or a pencil.
+             */
+            get_tool_type(): DeviceToolType
+        }
+
+        interface DeviceToolClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<DeviceTool>
+            readonly prototype: DeviceTool
+
+            new (props?: Partial<GObject.ConstructorProps<DeviceTool>>): DeviceTool
+        }
+
+        interface $Exports {
+            /**
+             * A physical tool associated to a `GdkDevice`.
+             */
+            DeviceTool: DeviceToolClass
+        }
+        
+
+        namespace Display {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Emitted when the connection to the windowing system for @display is closed.
+                 * @param is_error %TRUE if the display was closed due to an error
+                 */
+                "closed"(is_error: boolean): void
+                /**
+                 * Emitted when the connection to the windowing system for @display is opened.
+                 */
+                "opened"(): void
+                /**
+                 * Emitted whenever a new seat is made known to the windowing system.
+                 * @param seat the seat that was just added
+                 */
+                "seat-added"(seat: Seat): void
+                /**
+                 * Emitted whenever a seat is removed by the windowing system.
+                 * @param seat the seat that was just removed
+                 */
+                "seat-removed"(seat: Seat): void
+                /**
+                 * Emitted whenever a setting changes its value.
+                 * @param setting the name of the setting that changed
+                 */
+                "setting-changed"(setting: string): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "composited": boolean
+                "dmabuf-formats": DmabufFormats
+                "input-shapes": boolean
+                "rgba": boolean
+                "shadow-width": boolean
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "composited": boolean
+                "dmabuf-formats": DmabufFormats
+                "input-shapes": boolean
+                "rgba": boolean
+                "shadow-width": boolean
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+        }
+
+        interface Display extends GObject.Object {
+            readonly $signals: Display.SignalSignatures
+            readonly $readableProperties: Display.ReadableProperties
+            readonly $writableProperties: Display.WritableProperties
+            readonly $constructOnlyProperties: Display.ConstructOnlyProperties
+            /**
+             * %TRUE if the display properly composites the alpha channel.
+             * @default TRUE
+             */
+            get composited(): boolean
+            set composited(value: boolean)
+            /**
+             * The dma-buf formats that are supported on this display
+             * @since 4.14
+             */
+            get dmabufFormats(): DmabufFormats
+            set dmabufFormats(value: DmabufFormats)
+            /**
+             * %TRUE if the display supports input shapes.
+             * @default TRUE
+             */
+            get inputShapes(): boolean
+            set inputShapes(value: boolean)
+            /**
+             * %TRUE if the display supports an alpha channel.
+             * @default TRUE
+             */
+            get rgba(): boolean
+            set rgba(value: boolean)
+            /**
+             * %TRUE if the display supports extensible frames.
+             * @since 4.14
+             * @default TRUE
+             */
+            get shadowWidth(): boolean
+            set shadowWidth(value: boolean)
+            /**
+             * Emits a short beep on @display
+             */
+            beep(): void
+            /**
+             * Closes the connection to the windowing system for the given display.
+             *
+             * This cleans up associated resources.
+             */
+            close(): void
+            /**
+             * Creates a new `GdkGLContext` for the `GdkDisplay`.
+             *
+             * The context is disconnected from any particular surface or surface
+             * and cannot be used to draw to any surface. It can only be used to
+             * draw to non-surface framebuffers like textures.
+             *
+             * If the creation of the `GdkGLContext` failed, @error will be set.
+             * Before using the returned `GdkGLContext`, you will need to
+             * call [method@Gdk.GLContext.make_current] or [method@Gdk.GLContext.realize].
+             * @throws {GLib.Error}
+             * @since 4.6
+             * @returns the newly created `GdkGLContext`
+             */
+            create_gl_context(): GLContext
+            /**
+             * Returns %TRUE if there is an ongoing grab on @device for @display.
+             * @param device a `GdkDevice`
+             * @returns %TRUE if there is a grab in effect for `device`.
+             */
+            device_is_grabbed(device: Device): boolean
+            /**
+             * Flushes any requests queued for the windowing system.
+             *
+             * This happens automatically when the main loop blocks waiting for new events,
+             * but if your application is drawing without returning control to the main loop,
+             * you may need to call this function explicitly. A common case where this function
+             * needs to be called is when an application is executing drawing commands
+             * from a thread other than the thread where the main loop is running.
+             *
+             * This is most useful for X11. On windowing systems where requests are
+             * handled synchronously, this function will do nothing.
+             */
+            flush(): void
+            /**
+             * Returns a `GdkAppLaunchContext` suitable for launching
+             * applications on the given display.
+             * @returns a new `GdkAppLaunchContext` for `display`
+             */
+            get_app_launch_context(): AppLaunchContext
+            /**
+             * Gets the clipboard used for copy/paste operations.
+             * @returns the display's clipboard
+             */
+            get_clipboard(): Clipboard
+            /**
+             * Returns the default `GdkSeat` for this display.
+             *
+             * Note that a display may not have a seat. In this case,
+             * this function will return %NULL.
+             * @returns the default seat.
+             */
+            get_default_seat(): Seat | null
+            /**
+             * Returns the dma-buf formats that are supported on this display.
+             *
+             * GTK may use OpenGL or Vulkan to support some formats.
+             * Calling this function will then initialize them if they aren't yet.
+             *
+             * The formats returned by this function can be used for negotiating
+             * buffer formats with producers such as v4l, pipewire or GStreamer.
+             *
+             * To learn more about dma-bufs, see [class@Gdk.DmabufTextureBuilder].
+             *
+             * This function is threadsafe. It can be called from any thread.
+             * @since 4.14
+             * @returns a `GdkDmabufFormats` object
+             */
+            get_dmabuf_formats(): DmabufFormats
+            /**
+             * Gets the monitor in which the largest area of @surface
+             * resides.
+             * @param surface a `GdkSurface`
+             * @returns the monitor with the largest   overlap with `surface`
+             */
+            get_monitor_at_surface(surface: Surface): Monitor | null
+            /**
+             * Gets the list of monitors associated with this display.
+             *
+             * Subsequent calls to this function will always return the
+             * same list for the same display.
+             *
+             * You can listen to the GListModel::items-changed signal on
+             * this list to monitor changes to the monitor of this display.
+             * @returns a `GListModel` of `GdkMonitor`
+             */
+            get_monitors(): Gio.ListModel
+            /**
+             * Gets the name of the display.
+             * @returns a string representing the display name. This string is owned   by GDK and should not be modified or freed.
+             */
+            get_name(): string
+            /**
+             * Gets the clipboard used for the primary selection.
+             *
+             * On backends where the primary clipboard is not supported natively,
+             * GDK emulates this clipboard locally.
+             * @returns the primary clipboard
+             */
+            get_primary_clipboard(): Clipboard
+            /**
+             * Retrieves a desktop-wide setting such as double-click time
+             * for the @display.
+             * @param name the name of the setting
+             * @param value location to store the value of the setting
+             * @returns %TRUE if the setting existed and a value was stored   in `value`, %FALSE otherwise
+             */
+            get_setting(name: string, value: (GObject.Value | unknown)): boolean
+            /**
+             * Gets the startup notification ID for a Wayland display, or %NULL
+             * if no ID has been defined.
+             * @deprecated since 4.10
+             * @returns the startup notification ID for `display`
+             */
+            get_startup_notification_id(): string | null
+            /**
+             * Finds out if the display has been closed.
+             * @returns %TRUE if the display is closed.
+             */
+            is_closed(): boolean
+            /**
+             * Returns whether surfaces can reasonably be expected to have
+             * their alpha channel drawn correctly on the screen.
+             *
+             * Check [method@Gdk.Display.is_rgba] for whether the display
+             * supports an alpha channel.
+             *
+             * On X11 this function returns whether a compositing manager is
+             * compositing on @display.
+             *
+             * On modern displays, this value is always %TRUE.
+             * @returns Whether surfaces with RGBA visuals can reasonably   be expected to have their alpha channels drawn correctly   on the screen.
+             */
+            is_composited(): boolean
+            /**
+             * Returns whether surfaces on this @display are created with an
+             * alpha channel.
+             *
+             * Even if a %TRUE is returned, it is possible that the
+             * surface’s alpha channel won’t be honored when displaying the
+             * surface on the screen: in particular, for X an appropriate
+             * windowing manager and compositing manager must be running to
+             * provide appropriate display. Use [method@Gdk.Display.is_composited]
+             * to check if that is the case.
+             *
+             * On modern displays, this value is always %TRUE.
+             * @returns %TRUE if surfaces are created with an alpha channel or   %FALSE if the display does not support this functionality.
+             */
+            is_rgba(): boolean
+            /**
+             * Returns the list of seats known to @display.
+             * @returns the   list of seats known to the `GdkDisplay`
+             */
+            list_seats(): Seat[]
+            /**
+             * Returns the keyvals bound to @keycode.
+             *
+             * The Nth `GdkKeymapKey` in @keys is bound to the Nth keyval in @keyvals.
+             *
+             * When a keycode is pressed by the user, the keyval from
+             * this list of entries is selected by considering the effective
+             * keyboard group and level.
+             *
+             * Free the returned arrays with g_free().
+             * @param keycode a keycode
+             * @returns %TRUE if there were any entries, return   location for array of `GdkKeymapKey`, return   location for array of keyvals
+             */
+            map_keycode(keycode: number): [boolean, KeymapKey[], number[]]
+            /**
+             * Obtains a list of keycode/group/level combinations that will
+             * generate @keyval.
+             *
+             * Groups and levels are two kinds of keyboard mode; in general, the level
+             * determines whether the top or bottom symbol on a key is used, and the
+             * group determines whether the left or right symbol is used.
+             *
+             * On US keyboards, the shift key changes the keyboard level, and there
+             * are no groups. A group switch key might convert a keyboard between
+             * Hebrew to English modes, for example.
+             *
+             * `GdkEventKey` contains a %group field that indicates the active
+             * keyboard group. The level is computed from the modifier mask.
+             *
+             * The returned array should be freed with g_free().
+             * @param keyval a keyval, such as %GDK_KEY_a, %GDK_KEY_Up, %GDK_KEY_Return, etc.
+             * @returns %TRUE if keys were found and returned, return location   for an array of `GdkKeymapKey`
+             */
+            map_keyval(keyval: number): [boolean, KeymapKey[]]
+            /**
+             * Indicates to the GUI environment that the application has
+             * finished loading, using a given identifier.
+             *
+             * GTK will call this function automatically for [GtkWindow](../gtk4/class.Window.html)
+             * with custom startup-notification identifier unless
+             * [gtk_window_set_auto_startup_notification()](../gtk4/method.Window.set_auto_startup_notification.html)
+             * is called to disable that feature.
+             * @deprecated since 4.10 Using [method@Gdk.Toplevel.set_startup_id] is sufficient
+             * @param startup_id a startup-notification identifier, for which
+              notification process should be completed
+             */
+            notify_startup_complete(startup_id: string): void
+            /**
+             * Checks that OpenGL is available for @self and ensures that it is
+             * properly initialized.
+             * When this fails, an @error will be set describing the error and this
+             * function returns %FALSE.
+             *
+             * Note that even if this function succeeds, creating a `GdkGLContext`
+             * may still fail.
+             *
+             * This function is idempotent. Calling it multiple times will just
+             * return the same value or error.
+             *
+             * You never need to call this function, GDK will call it automatically
+             * as needed. But you can use it as a check when setting up code that
+             * might make use of OpenGL.
+             * @throws {GLib.Error}
+             * @since 4.4
+             * @returns %TRUE if the display supports OpenGL
+             */
+            prepare_gl(): boolean
+            /**
+             * Adds the given event to the event queue for @display.
+             * @deprecated since 4.10 This function is only useful in very special situations and should not be used by applications.
+             * @param event a `GdkEvent`
+             */
+            put_event(event: Event): void
+            /**
+             * Returns %TRUE if the display supports input shapes.
+             *
+             * This means that [method@Gdk.Surface.set_input_region] can
+             * be used to modify the input shape of surfaces on @display.
+             *
+             * On modern displays, this value is always %TRUE.
+             * @returns %TRUE if surfaces with modified input shape are supported
+             */
+            supports_input_shapes(): boolean
+            /**
+             * Returns whether it's possible for a surface to draw outside of the window area.
+             *
+             * If %TRUE is returned the application decides if it wants to draw shadows.
+             * If %FALSE is returned, the compositor decides if it wants to draw shadows.
+             * @since 4.14
+             * @returns %TRUE if surfaces can draw shadows or   %FALSE if the display does not support this functionality.
+             */
+            supports_shadow_width(): boolean
+            /**
+             * Flushes any requests queued for the windowing system and waits until all
+             * requests have been handled.
+             *
+             * This is often used for making sure that the display is synchronized
+             * with the current state of the program. Calling [method@Gdk.Display.sync]
+             * before [method@GdkX11.Display.error_trap_pop] makes sure that any errors
+             * generated from earlier requests are handled before the error trap is removed.
+             *
+             * This is most useful for X11. On windowing systems where requests are
+             * handled synchronously, this function will do nothing.
+             */
+            sync(): void
+            /**
+             * Translates the contents of a `GdkEventKey` into a keyval, effective group,
+             * and level.
+             *
+             * Modifiers that affected the translation and are thus unavailable for
+             * application use are returned in @consumed_modifiers.
+             *
+             * The @effective_group is the group that was actually used for the
+             * translation; some keys such as Enter are not affected by the active
+             * keyboard group. The @level is derived from @state.
+             *
+             * @consumed_modifiers gives modifiers that should be masked out
+             * from @state when comparing this key press to a keyboard shortcut.
+             * For instance, on a US keyboard, the `plus` symbol is shifted, so
+             * when comparing a key press to a `<Control>plus` accelerator `<Shift>`
+             * should be masked out.
+             *
+             * This function should rarely be needed, since `GdkEventKey` already
+             * contains the translated keyval. It is exported for the benefit of
+             * virtualized test environments.
+             * @param keycode a keycode
+             * @param state a modifier state
+             * @param group active keyboard group
+             * @returns %TRUE if there was a keyval bound to keycode/state/group., return location for keyval, return location for effective group, return location for level, return location for modifiers that were used   to determine the group or level
+             */
+            translate_key(keycode: number, state: ModifierType, group: number): [boolean, number, number, number, ModifierType]
+        }
+
+        interface DisplayClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<Display>
+            readonly prototype: Display
+
+            new (props?: Partial<GObject.ConstructorProps<Display>>): Display
+            /**
+             * Gets the default `GdkDisplay`.
+             *
+             * This is a convenience function for:
+             *
+             *     gdk_display_manager_get_default_display (gdk_display_manager_get ())
+             * @returns a `GdkDisplay`, or %NULL if   there is no default display
+             */
+            get_default(): Display | null
+            /**
+             * Opens a display.
+             *
+             * If opening the display fails, `NULL` is returned.
+             * @param display_name the name of the display to open
+             * @returns a `GdkDisplay`
+             */
+            open(display_name: string | null): Display | null
+        }
+
+        interface $Exports {
+            /**
+             * A representation of a workstation.
+             *
+             * Their purpose are two-fold:
+             *
+             * - To manage and provide information about input devices (pointers, keyboards, etc)
+             * - To manage and provide information about output devices (monitors, projectors, etc)
+             *
+             * Most of the input device handling has been factored out into separate
+             * [class@Gdk.Seat] objects. Every display has a one or more seats, which
+             * can be accessed with [method@Gdk.Display.get_default_seat] and
+             * [method@Gdk.Display.list_seats].
+             *
+             * Output devices are represented by [class@Gdk.Monitor] objects, which can
+             * be accessed with [method@Gdk.Display.get_monitor_at_surface] and similar APIs.
+             */
+            Display: DisplayClass
+        }
+        
+
+        namespace DisplayManager {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Emitted when a display is opened.
+                 * @param display the opened display
+                 */
+                "display-opened"(display: Display): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "default-display": Display | null
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "default-display": Display | null
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+        }
+
+        interface DisplayManager extends GObject.Object {
+            readonly $signals: DisplayManager.SignalSignatures
+            readonly $readableProperties: DisplayManager.ReadableProperties
+            readonly $writableProperties: DisplayManager.WritableProperties
+            readonly $constructOnlyProperties: DisplayManager.ConstructOnlyProperties
+            /**
+             * The default display.
+             */
+            get defaultDisplay(): Display | null
+            set defaultDisplay(value: Display | null)
+            /**
+             * Gets the default `GdkDisplay`.
+             * @returns a `GdkDisplay`
+             */
+            get_default_display(): Display | null
+            /**
+             * List all currently open displays.
+             * @returns a newly   allocated `GSList` of `GdkDisplay` objects
+             */
+            list_displays(): Display[]
+            /**
+             * Opens a display.
+             * @param name the name of the display to open
+             * @returns a `GdkDisplay`, or %NULL   if the display could not be opened
+             */
+            open_display(name: string | null): Display | null
+            /**
+             * Sets @display as the default display.
+             * @param display a `GdkDisplay`
+             */
+            set_default_display(display: Display): void
+        }
+
+        interface DisplayManagerClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<DisplayManager>
+            readonly prototype: DisplayManager
+
+            new (props?: Partial<GObject.ConstructorProps<DisplayManager>>): DisplayManager
+            /**
+             * Gets the singleton `GdkDisplayManager` object.
+             *
+             * When called for the first time, this function consults the
+             * `GDK_BACKEND` environment variable to find out which of the
+             * supported GDK backends to use (in case GDK has been compiled
+             * with multiple backends).
+             *
+             * Applications can use [func@set_allowed_backends] to limit what
+             * backends will be used.
+             * @returns The global `GdkDisplayManager` singleton
+             */
+            get(): DisplayManager
+        }
+
+        interface $Exports {
+            /**
+             * Offers notification when displays appear or disappear.
+             *
+             * `GdkDisplayManager` is a singleton object.
+             *
+             * You can use [func@Gdk.DisplayManager.get] to obtain the `GdkDisplayManager`
+             * singleton, but that should be rarely necessary. Typically, initializing
+             * GTK opens a display that you can work with without ever accessing the
+             * `GdkDisplayManager`.
+             *
+             * The GDK library can be built with support for multiple backends.
+             * The `GdkDisplayManager` object determines which backend is used
+             * at runtime.
+             *
+             * In the rare case that you need to influence which of the backends
+             * is being used, you can use [func@Gdk.set_allowed_backends]. Note
+             * that you need to call this function before initializing GTK.
+             *
+             * ## Backend-specific code
+             *
+             * When writing backend-specific code that is supposed to work with
+             * multiple GDK backends, you have to consider both compile time and
+             * runtime. At compile time, use the `GDK_WINDOWING_X11`, `GDK_WINDOWING_WIN32`
+             * macros, etc. to find out which backends are present in the GDK library
+             * you are building your application against. At runtime, use type-check
+             * macros like GDK_IS_X11_DISPLAY() to find out which backend is in use:
+             *
+             * ```c
+             * #ifdef GDK_WINDOWING_X11
+             *   if (GDK_IS_X11_DISPLAY (display))
+             *     {
+             *       // make X11-specific calls here
+             *     }
+             *   else
+             * #endif
+             * #ifdef GDK_WINDOWING_MACOS
+             *   if (GDK_IS_MACOS_DISPLAY (display))
+             *     {
+             *       // make Quartz-specific calls here
+             *     }
+             *   else
+             * #endif
+             *   g_error ("Unsupported GDK backend");
+             * ```
+             */
+            DisplayManager: DisplayManagerClass
+        }
+        
+
+        namespace DmabufTexture {
+            interface SignalSignatures extends Texture.SignalSignatures, Paintable.SignalSignatures, Gio.Icon.SignalSignatures, Gio.LoadableIcon.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Texture.ReadableProperties, Paintable.ReadableProperties, Gio.Icon.ReadableProperties, Gio.LoadableIcon.ReadableProperties {
+            }
+
+            interface WritableProperties extends Texture.WritableProperties, Paintable.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Texture.ConstructOnlyProperties, Paintable.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
+            }
+        }
+
+        interface DmabufTexture extends Texture, Paintable, Gio.Icon, Gio.LoadableIcon {
+            readonly $signals: DmabufTexture.SignalSignatures
+            readonly $readableProperties: DmabufTexture.ReadableProperties
+            readonly $writableProperties: DmabufTexture.WritableProperties
+            readonly $constructOnlyProperties: DmabufTexture.ConstructOnlyProperties
+        }
+
+        interface DmabufTextureClass extends Omit<TextureClass, "new"> {
+            readonly $gtype: GObject.GType<DmabufTexture>
+            readonly prototype: DmabufTexture
+
+            new (props?: Partial<GObject.ConstructorProps<DmabufTexture>>): DmabufTexture
+        }
+
+        interface $Exports {
+            /**
+             * A `GdkTexture` representing a DMA buffer.
+             *
+             * To create a `GdkDmabufTexture`, use the auxiliary
+             * [class@Gdk.DmabufTextureBuilder] object.
+             *
+             * Dma-buf textures can only be created on Linux.
+             * @since 4.14
+             */
+            DmabufTexture: DmabufTextureClass
+        }
+        
+
+        namespace DmabufTextureBuilder {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "color-state": ColorState | null
+                "display": Display
+                "fourcc": number
+                "height": number
+                "modifier": number
+                "n-planes": number
+                "premultiplied": boolean
+                "update-region": cairo.Region | null
+                "update-texture": Texture | null
+                "width": number
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "color-state": ColorState | null
+                "display": Display
+                "fourcc": number
+                "height": number
+                "modifier": number
+                "n-planes": number
+                "premultiplied": boolean
+                "update-region": cairo.Region | null
+                "update-texture": Texture | null
+                "width": number
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+        }
+
+        interface DmabufTextureBuilder extends GObject.Object {
+            readonly $signals: DmabufTextureBuilder.SignalSignatures
+            readonly $readableProperties: DmabufTextureBuilder.ReadableProperties
+            readonly $writableProperties: DmabufTextureBuilder.WritableProperties
+            readonly $constructOnlyProperties: DmabufTextureBuilder.ConstructOnlyProperties
+            /**
+             * The color state of the texture.
+             * @since 4.16
+             */
+            get colorState(): ColorState | null
+            set colorState(value: ColorState | null)
+            /**
+             * The display that this texture will be used on.
+             * @since 4.14
+             */
+            get display(): Display
+            set display(value: Display)
+            /**
+             * The format of the texture, as a fourcc value.
+             * @since 4.14
+             * @default 0
+             */
+            get fourcc(): number
+            set fourcc(value: number)
+            /**
+             * The height of the texture.
+             * @since 4.14
+             * @default 0
+             */
+            get height(): number
+            set height(value: number)
+            /**
+             * The modifier.
+             * @since 4.14
+             * @default 0
+             */
+            get modifier(): number
+            set modifier(value: number)
+            /**
+             * The number of planes of the texture.
+             *
+             * Note that you can set properties for other planes,
+             * but they will be ignored when constructing the texture.
+             * @since 4.14
+             * @default 1
+             */
+            get nPlanes(): number
+            set nPlanes(value: number)
+            /**
+             * Whether the alpha channel is premultiplied into the others.
+             *
+             * Only relevant if the format has alpha.
+             * @since 4.14
+             * @default TRUE
+             */
+            get premultiplied(): boolean
+            set premultiplied(value: boolean)
+            /**
+             * The update region for [property@Gdk.DmabufTextureBuilder:update-texture].
+             * @since 4.14
+             */
+            get updateRegion(): cairo.Region | null
+            set updateRegion(value: cairo.Region | null)
+            /**
+             * The texture [property@Gdk.DmabufTextureBuilder:update-region] is an update for.
+             * @since 4.14
+             */
+            get updateTexture(): Texture | null
+            set updateTexture(value: Texture | null)
+            /**
+             * The width of the texture.
+             * @since 4.14
+             * @default 0
+             */
+            get width(): number
+            set width(value: number)
+            /**
+             * Builds a new `GdkTexture` with the values set up in the builder.
+             *
+             * It is a programming error to call this function if any mandatory property has not been set.
+             *
+             * Not all formats defined in the `drm_fourcc.h` header are supported. You can use
+             * [method@Gdk.Display.get_dmabuf_formats] to get a list of supported formats. If the
+             * format is not supported by GTK, %NULL will be returned and @error will be set.
+             *
+             * The `destroy` function gets called when the returned texture gets released.
+             *
+             * It is the responsibility of the caller to keep the file descriptors for the planes
+             * open until the created texture is no longer used, and close them afterwards (possibly
+             * using the @destroy notify).
+             *
+             * It is possible to call this function multiple times to create multiple textures,
+             * possibly with changing properties in between.
+             * @throws {GLib.Error}
+             * @since 4.14
+             * @param destroy destroy function to be called when the texture is
+              released
+             * @param data user data to pass to the destroy function
+             * @returns a newly built `GdkTexture` or `NULL`   if the format is not supported
+             */
+            build(destroy: GLib.DestroyNotify | null, data: never | null): Texture | null
+            /**
+             * Gets the color state previously set via gdk_dmabuf_texture_builder_set_color_state().
+             * @since 4.16
+             * @returns the color state
+             */
+            get_color_state(): ColorState | null
+            /**
+             * Returns the display that this texture builder is
+             * associated with.
+             * @since 4.14
+             * @returns the display
+             */
+            get_display(): Display
+            /**
+             * Gets the file descriptor for a plane.
+             * @since 4.14
+             * @param plane the plane to get the fd for
+             * @returns the file descriptor
+             */
+            get_fd(plane: number): number
+            /**
+             * Gets the format previously set via gdk_dmabuf_texture_builder_set_fourcc()
+             * or 0 if the format wasn't set.
+             *
+             * The format is specified as a fourcc code.
+             * @since 4.14
+             * @returns The format
+             */
+            get_fourcc(): number
+            /**
+             * Gets the height previously set via gdk_dmabuf_texture_builder_set_height() or
+             * 0 if the height wasn't set.
+             * @since 4.14
+             * @returns The height
+             */
+            get_height(): number
+            /**
+             * Gets the modifier value.
+             * @since 4.14
+             * @returns the modifier
+             */
+            get_modifier(): number
+            /**
+             * Gets the number of planes.
+             * @since 4.14
+             * @returns The number of planes
+             */
+            get_n_planes(): number
+            /**
+             * Gets the offset value for a plane.
+             * @since 4.14
+             * @param plane the plane to get the offset for
+             * @returns the offset
+             */
+            get_offset(plane: number): number
+            /**
+             * Whether the data is premultiplied.
+             * @since 4.14
+             * @returns whether the data is premultiplied
+             */
+            get_premultiplied(): boolean
+            /**
+             * Gets the stride value for a plane.
+             * @since 4.14
+             * @param plane the plane to get the stride for
+             * @returns the stride
+             */
+            get_stride(plane: number): number
+            /**
+             * Gets the region previously set via gdk_dmabuf_texture_builder_set_update_region() or
+             * %NULL if none was set.
+             * @since 4.14
+             * @returns The region
+             */
+            get_update_region(): cairo.Region | null
+            /**
+             * Gets the texture previously set via gdk_dmabuf_texture_builder_set_update_texture() or
+             * %NULL if none was set.
+             * @since 4.14
+             * @returns The texture
+             */
+            get_update_texture(): Texture | null
+            /**
+             * Gets the width previously set via gdk_dmabuf_texture_builder_set_width() or
+             * 0 if the width wasn't set.
+             * @since 4.14
+             * @returns The width
+             */
+            get_width(): number
+            /**
+             * Sets the color state for the texture.
+             *
+             * By default, the colorstate is `NULL`. In that case, GTK will choose the
+             * correct colorstate based on the format.
+             * If you don't know what colorstates are, this is probably the right thing.
+             * @since 4.16
+             * @param color_state a `GdkColorState` or `NULL` to unset the colorstate.
+             */
+            set_color_state(color_state: ColorState | null): void
+            /**
+             * Sets the display that this texture builder is
+             * associated with.
+             *
+             * The display is used to determine the supported
+             * dma-buf formats.
+             * @since 4.14
+             * @param display the display
+             */
+            set_display(display: Display): void
+            /**
+             * Sets the file descriptor for a plane.
+             * @since 4.14
+             * @param plane the plane to set the fd for
+             * @param fd the file descriptor
+             */
+            set_fd(plane: number, fd: number): void
+            /**
+             * Sets the format of the texture.
+             *
+             * The format is specified as a fourcc code.
+             *
+             * The format must be set before calling [method@Gdk.DmabufTextureBuilder.build].
+             * @since 4.14
+             * @param fourcc the texture's format or 0 to unset
+             */
+            set_fourcc(fourcc: number): void
+            /**
+             * Sets the height of the texture.
+             *
+             * The height must be set before calling [method@Gdk.DmabufTextureBuilder.build].
+             * @since 4.14
+             * @param height the texture's height or 0 to unset
+             */
+            set_height(height: number): void
+            /**
+             * Sets the modifier.
+             * @since 4.14
+             * @param modifier the modifier value
+             */
+            set_modifier(modifier: number): void
+            /**
+             * Sets the number of planes of the texture.
+             * @since 4.14
+             * @param n_planes the number of planes
+             */
+            set_n_planes(n_planes: number): void
+            /**
+             * Sets the offset for a plane.
+             * @since 4.14
+             * @param plane the plane to set the offset for
+             * @param offset the offset value
+             */
+            set_offset(plane: number, offset: number): void
+            /**
+             * Sets whether the data is premultiplied.
+             *
+             * Unless otherwise specified, all formats including alpha channels are assumed
+             * to be premultiplied.
+             * @since 4.14
+             * @param premultiplied whether the data is premultiplied
+             */
+            set_premultiplied(premultiplied: boolean): void
+            /**
+             * Sets the stride for a plane.
+             *
+             * The stride must be set for all planes before calling [method@Gdk.DmabufTextureBuilder.build].
+             * @since 4.14
+             * @param plane the plane to set the stride for
+             * @param stride the stride value
+             */
+            set_stride(plane: number, stride: number): void
+            /**
+             * Sets the region to be updated by this texture. Together with
+             * [property@Gdk.DmabufTextureBuilder:update-texture] this describes an
+             * update of a previous texture.
+             *
+             * When rendering animations of large textures, it is possible that
+             * consecutive textures are only updating contents in parts of the texture.
+             * It is then possible to describe this update via these two properties,
+             * so that GTK can avoid rerendering parts that did not change.
+             *
+             * An example would be a screen recording where only the mouse pointer moves.
+             * @since 4.14
+             * @param region the region to update
+             */
+            set_update_region(region: cairo.Region | null): void
+            /**
+             * Sets the texture to be updated by this texture. See
+             * [method@Gdk.DmabufTextureBuilder.set_update_region] for an explanation.
+             * @since 4.14
+             * @param texture the texture to update
+             */
+            set_update_texture(texture: Texture | null): void
+            /**
+             * Sets the width of the texture.
+             *
+             * The width must be set before calling [method@Gdk.DmabufTextureBuilder.build].
+             * @since 4.14
+             * @param width The texture's width or 0 to unset
+             */
+            set_width(width: number): void
+        }
+
+        interface DmabufTextureBuilderClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<DmabufTextureBuilder>
+            readonly prototype: DmabufTextureBuilder
+
+            new (props?: Partial<GObject.ConstructorProps<DmabufTextureBuilder>>): DmabufTextureBuilder
+            /**
+             * Creates a new texture builder.
+             * @since 4.14
+             * @returns the new `GdkTextureBuilder`
+             */
+            "new"(): DmabufTextureBuilder
+        }
+
+        interface $Exports {
+            /**
+             * Constructs [class@Gdk.Texture] objects from DMA buffers.
+             *
+             * DMA buffers are commonly called **_dma-bufs_**.
+             *
+             * DMA buffers are a feature of the Linux kernel to enable efficient buffer and
+             * memory sharing between hardware such as codecs, GPUs, displays, cameras and the
+             * kernel drivers controlling them. For example, a decoder may want its output to
+             * be directly shared with the display server for rendering without a copy.
+             *
+             * Any device driver which participates in DMA buffer sharing, can do so as either
+             * the exporter or importer of buffers (or both).
+             *
+             * The memory that is shared via DMA buffers is usually stored in non-system memory
+             * (maybe in device's local memory or something else not directly accessible by the
+             * CPU), and accessing this memory from the CPU may have higher-than-usual overhead.
+             *
+             * In particular for graphics data, it is not uncommon that data consists of multiple
+             * separate blocks of memory, for example one block for each of the red, green and
+             * blue channels. These blocks are called **_planes_**. DMA buffers can have up to
+             * four planes. Even if the memory is a single block, the data can be organized in
+             * multiple planes, by specifying offsets from the beginning of the data.
+             *
+             * DMA buffers are exposed to user-space as file descriptors allowing to pass them
+             * between processes. If a DMA buffer has multiple planes, there is one file
+             * descriptor per plane.
+             *
+             * The format of the data (for graphics data, essentially its colorspace) is described
+             * by a 32-bit integer. These format identifiers are defined in the header file `drm_fourcc.h`
+             * and commonly referred to as **_fourcc_** values, since they are identified by 4 ASCII
+             * characters. Additionally, each DMA buffer has a **_modifier_**, which is a 64-bit integer
+             * that describes driver-specific details of the memory layout, such as tiling or compression.
+             *
+             * For historical reasons, some producers of dma-bufs don't provide an explicit modifier, but
+             * instead return `DMA_FORMAT_MOD_INVALID` to indicate that their modifier is **_implicit_**.
+             * GTK tries to accommodate this situation by accepting `DMA_FORMAT_MOD_INVALID` as modifier.
+             *
+             * The operation of `GdkDmabufTextureBuilder` is quite simple: Create a texture builder,
+             * set all the necessary properties, and then call [method@Gdk.DmabufTextureBuilder.build]
+             * to create the new texture.
+             *
+             * The required properties for a dma-buf texture are
+             *
+             *  * The width and height in pixels
+             *
+             *  * The `fourcc` code and `modifier` which identify the format and memory layout of the dma-buf
+             *
+             *  * The file descriptor, offset and stride for each of the planes
+             *
+             * `GdkDmabufTextureBuilder` can be used for quick one-shot construction of
+             * textures as well as kept around and reused to construct multiple textures.
+             *
+             * For further information, see
+             *
+             * * The Linux kernel [documentation](https://docs.kernel.org/driver-api/dma-buf.html)
+             *
+             * * The header file [drm_fourcc.h](https://gitlab.freedesktop.org/mesa/drm/-/blob/main/include/drm/drm_fourcc.h)
+             * @since 4.14
+             */
+            DmabufTextureBuilder: DmabufTextureBuilderClass
+        }
+        
+
+        namespace Drag {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Emitted when the drag operation is cancelled.
+                 * @param reason The reason the drag was cancelled
+                 */
+                "cancel"(reason: DragCancelReason): void
+                /**
+                 * Emitted when the destination side has finished reading all data.
+                 *
+                 * The drag object can now free all miscellaneous data.
+                 */
+                "dnd-finished"(): void
+                /**
+                 * Emitted when the drop operation is performed on an accepting client.
+                 */
+                "drop-performed"(): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "actions": DragAction
+                "content": ContentProvider
+                "device": Device
+                "display": Display
+                "formats": ContentFormats
+                "selected-action": DragAction
+                "surface": Surface
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "actions": DragAction
+                "display": Display
+                "selected-action": DragAction
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "content": ContentProvider
+                "device": Device
+                "formats": ContentFormats
+                "surface": Surface
+            }
+        }
+
+        interface Drag extends GObject.Object {
+            readonly $signals: Drag.SignalSignatures
+            readonly $readableProperties: Drag.ReadableProperties
+            readonly $writableProperties: Drag.WritableProperties
+            readonly $constructOnlyProperties: Drag.ConstructOnlyProperties
+            /**
+             * The possible actions of this drag.
+             * @default GDK_ACTION_NONE
+             */
+            get actions(): DragAction
+            set actions(value: DragAction)
+            /**
+             * The `GdkContentProvider`.
+             */
+            get content(): ContentProvider
+            set content(value: ContentProvider)
+            /**
+             * The `GdkDevice` that is performing the drag.
+             */
+            get device(): Device
+            set device(value: Device)
+            /**
+             * The `GdkDisplay` that the drag belongs to.
+             */
+            get display(): Display
+            set display(value: Display)
+            /**
+             * The possible formats that the drag can provide its data in.
+             */
+            get formats(): ContentFormats
+            set formats(value: ContentFormats)
+            /**
+             * The currently selected action of the drag.
+             * @default GDK_ACTION_NONE
+             */
+            get selectedAction(): DragAction
+            set selectedAction(value: DragAction)
+            /**
+             * The surface where the drag originates.
+             */
+            get surface(): Surface
+            set surface(value: Surface)
+            /**
+             * Informs GDK that the drop ended.
+             *
+             * Passing %FALSE for @success may trigger a drag cancellation
+             * animation.
+             *
+             * This function is called by the drag source, and should be the
+             * last call before dropping the reference to the @drag.
+             *
+             * The `GdkDrag` will only take the first [method@Gdk.Drag.drop_done]
+             * call as effective, if this function is called multiple times,
+             * all subsequent calls will be ignored.
+             * @param success whether the drag was ultimatively successful
+             */
+            drop_done(success: boolean): void
+            /**
+             * Determines the bitmask of possible actions proposed by the source.
+             * @returns the `GdkDragAction` flags
+             */
+            get_actions(): DragAction
+            /**
+             * Returns the `GdkContentProvider` associated to the `GdkDrag` object.
+             * @returns The `GdkContentProvider` associated to `drag`.
+             */
+            get_content(): ContentProvider
+            /**
+             * Returns the `GdkDevice` associated to the `GdkDrag` object.
+             * @returns The `GdkDevice` associated to `drag`.
+             */
+            get_device(): Device
+            /**
+             * Gets the `GdkDisplay` that the drag object was created for.
+             * @returns a `GdkDisplay`
+             */
+            get_display(): Display
+            /**
+             * Returns the surface on which the drag icon should be rendered
+             * during the drag operation.
+             *
+             * Note that the surface may not be available until the drag operation
+             * has begun. GDK will move the surface in accordance with the ongoing
+             * drag operation. The surface is owned by @drag and will be destroyed
+             * when the drag operation is over.
+             * @returns the drag surface
+             */
+            get_drag_surface(): Surface | null
+            /**
+             * Retrieves the formats supported by this `GdkDrag` object.
+             * @returns a `GdkContentFormats`
+             */
+            get_formats(): ContentFormats
+            /**
+             * Determines the action chosen by the drag destination.
+             * @returns a `GdkDragAction` value
+             */
+            get_selected_action(): DragAction
+            /**
+             * Returns the `GdkSurface` where the drag originates.
+             * @returns The `GdkSurface` where the drag originates
+             */
+            get_surface(): Surface
+            /**
+             * Sets the position of the drag surface that will be kept
+             * under the cursor hotspot.
+             *
+             * Initially, the hotspot is at the top left corner of the drag surface.
+             * @param hot_x x coordinate of the drag surface hotspot
+             * @param hot_y y coordinate of the drag surface hotspot
+             */
+            set_hotspot(hot_x: number, hot_y: number): void
+        }
+
+        interface DragClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<Drag>
+            readonly prototype: Drag
+
+            new (props?: Partial<GObject.ConstructorProps<Drag>>): Drag
+            /**
+             * Starts a drag and creates a new drag context for it.
+             *
+             * This function is called by the drag source. After this call, you
+             * probably want to set up the drag icon using the surface returned
+             * by [method@Gdk.Drag.get_drag_surface].
+             *
+             * This function returns a reference to the [class@Gdk.Drag] object,
+             * but GTK keeps its own reference as well, as long as the DND operation
+             * is going on.
+             *
+             * Note: if @actions include %GDK_ACTION_MOVE, you need to listen for
+             * the [signal@Gdk.Drag::dnd-finished] signal and delete the data at
+             * the source if [method@Gdk.Drag.get_selected_action] returns
+             * %GDK_ACTION_MOVE.
+             * @param surface the source surface for this drag
+             * @param device the device that controls this drag
+             * @param content the offered content
+             * @param actions the actions supported by this drag
+             * @param dx the x offset to @device's position where the drag nominally started
+             * @param dy the y offset to @device's position where the drag nominally started
+             * @returns a newly created `GdkDrag`
+             */
+            begin(surface: Surface, device: Device, content: ContentProvider, actions: DragAction, dx: number, dy: number): Drag | null
+        }
+
+        interface $Exports {
+            /**
+             * Represents the source of an ongoing DND operation.
+             *
+             * A `GdkDrag` is created when a drag is started, and stays alive for duration of
+             * the DND operation. After a drag has been started with [func@Gdk.Drag.begin],
+             * the caller gets informed about the status of the ongoing drag operation
+             * with signals on the `GdkDrag` object.
+             *
+             * GTK provides a higher level abstraction based on top of these functions,
+             * and so they are not normally needed in GTK applications. See the
+             * "Drag and Drop" section of the GTK documentation for more information.
+             */
+            Drag: DragClass
+        }
+        
+
+        namespace DrawContext {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "display": Display | null
+                "surface": Surface | null
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "display": Display | null
+                "surface": Surface | null
+            }
+        }
+
+        interface DrawContext extends GObject.Object {
+            readonly $signals: DrawContext.SignalSignatures
+            readonly $readableProperties: DrawContext.ReadableProperties
+            readonly $writableProperties: DrawContext.WritableProperties
+            readonly $constructOnlyProperties: DrawContext.ConstructOnlyProperties
+            /**
+             * The `GdkDisplay` used to create the `GdkDrawContext`.
+             */
+            get display(): Display | null
+            set display(value: Display | null)
+            /**
+             * The `GdkSurface` the context is bound to.
+             */
+            get surface(): Surface | null
+            set surface(value: Surface | null)
+            /**
+             * Indicates that you are beginning the process of redrawing @region
+             * on the @context's surface.
+             *
+             * Calling this function begins a drawing operation using @context on the
+             * surface that @context was created from. The actual requirements and
+             * guarantees for the drawing operation vary for different implementations
+             * of drawing, so a [class@Gdk.CairoContext] and a [class@Gdk.GLContext]
+             * need to be treated differently.
+             *
+             * A call to this function is a requirement for drawing and must be
+             * followed by a call to [method@Gdk.DrawContext.end_frame], which will
+             * complete the drawing operation and ensure the contents become visible
+             * on screen.
+             *
+             * Note that the @region passed to this function is the minimum region that
+             * needs to be drawn and depending on implementation, windowing system and
+             * hardware in use, it might be necessary to draw a larger region. Drawing
+             * implementation must use [method@Gdk.DrawContext.get_frame_region] to
+             * query the region that must be drawn.
+             *
+             * When using GTK, the widget system automatically places calls to
+             * gdk_draw_context_begin_frame() and gdk_draw_context_end_frame() via the
+             * use of [GskRenderer](../gsk4/class.Renderer.html)s, so application code
+             * does not need to call these functions explicitly.
+             * @deprecated since 4.16 Drawing directly to the surface is no longer recommended.   Use `GskRenderNode` and `GskRenderer`.
+             * @param region minimum region that should be drawn
+             */
+            begin_frame(region: cairo.Region): void
+            /**
+             * Ends a drawing operation started with gdk_draw_context_begin_frame().
+             *
+             * This makes the drawing available on screen.
+             * See [method@Gdk.DrawContext.begin_frame] for more details about drawing.
+             *
+             * When using a [class@Gdk.GLContext], this function may call `glFlush()`
+             * implicitly before returning; it is not recommended to call `glFlush()`
+             * explicitly before calling this function.
+             * @deprecated since 4.16 Drawing directly to the surface is no longer recommended.   Use `GskRenderNode` and `GskRenderer`.
+             */
+            end_frame(): void
+            /**
+             * Retrieves the `GdkDisplay` the @context is created for
+             * @returns the `GdkDisplay`
+             */
+            get_display(): Display | null
+            /**
+             * Retrieves the region that is currently being repainted.
+             *
+             * After a call to [method@Gdk.DrawContext.begin_frame] this function will
+             * return a union of the region passed to that function and the area of the
+             * surface that the @context determined needs to be repainted.
+             *
+             * If @context is not in between calls to [method@Gdk.DrawContext.begin_frame]
+             * and [method@Gdk.DrawContext.end_frame], %NULL will be returned.
+             * @deprecated since 4.16 Drawing directly to the surface is no longer recommended.   Use `GskRenderNode` and `GskRenderer`.
+             * @returns a Cairo region
+             */
+            get_frame_region(): cairo.Region | null
+            /**
+             * Retrieves the surface that @context is bound to.
+             * @returns a `GdkSurface`
+             */
+            get_surface(): Surface | null
+            /**
+             * Returns %TRUE if @context is in the process of drawing to its surface.
+             *
+             * This is the case between calls to [method@Gdk.DrawContext.begin_frame]
+             * and [method@Gdk.DrawContext.end_frame]. In this situation, drawing commands
+             * may be effecting the contents of the @context's surface.
+             * @deprecated since 4.16 Drawing directly to the surface is no longer recommended.   Use `GskRenderNode` and `GskRenderer`.
+             * @returns %TRUE if the context is between [method@Gdk.DrawContext.begin_frame]   and [method@Gdk.DrawContext.end_frame] calls.
+             */
+            is_in_frame(): boolean
+        }
+
+        interface DrawContextClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<DrawContext>
+            readonly prototype: DrawContext
+
+            new (props?: Partial<GObject.ConstructorProps<DrawContext>>): DrawContext
+        }
+
+        interface $Exports {
+            /**
+             * Base class for objects implementing different rendering methods.
+             *
+             * `GdkDrawContext` is the base object used by contexts implementing different
+             * rendering methods, such as [class@Gdk.CairoContext] or [class@Gdk.GLContext].
+             * It provides shared functionality between those contexts.
+             *
+             * You will always interact with one of those subclasses.
+             *
+             * A `GdkDrawContext` is always associated with a single toplevel surface.
+             */
+            DrawContext: DrawContextClass
+        }
+        
+
+        namespace Drop {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "actions": DragAction
+                "device": Device
+                "display": Display
+                "drag": Drag | null
+                "formats": ContentFormats
+                "surface": Surface
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "display": Display
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "actions": DragAction
+                "device": Device
+                "drag": Drag | null
+                "formats": ContentFormats
+                "surface": Surface
+            }
+        }
+
+        interface Drop extends GObject.Object {
+            readonly $signals: Drop.SignalSignatures
+            readonly $readableProperties: Drop.ReadableProperties
+            readonly $writableProperties: Drop.WritableProperties
+            readonly $constructOnlyProperties: Drop.ConstructOnlyProperties
+            /**
+             * The possible actions for this drop
+             * @default GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK
+             */
+            get actions(): DragAction
+            set actions(value: DragAction)
+            /**
+             * The `GdkDevice` performing the drop
+             */
+            get device(): Device
+            set device(value: Device)
+            /**
+             * The `GdkDisplay` that the drop belongs to.
+             */
+            get display(): Display
+            set display(value: Display)
+            /**
+             * The `GdkDrag` that initiated this drop
+             */
+            get drag(): Drag | null
+            set drag(value: Drag | null)
+            /**
+             * The possible formats that the drop can provide its data in.
+             */
+            get formats(): ContentFormats
+            set formats(value: ContentFormats)
+            /**
+             * The `GdkSurface` the drop happens on
+             */
+            get surface(): Surface
+            set surface(value: Surface)
+            /**
+             * Ends the drag operation after a drop.
+             *
+             * The @action must be a single action selected from the actions
+             * available via [method@Gdk.Drop.get_actions].
+             * @param action the action performed by the destination or `GDK_ACTION_NONE` if the
+              drop failed
+             */
+            finish(action: DragAction): void
+            /**
+             * Returns the possible actions for this `GdkDrop`.
+             *
+             * If this value contains multiple actions - i.e.
+             * [func@Gdk.DragAction.is_unique] returns false for the result -
+             * [method@Gdk.Drop.finish] must choose the action to use when
+             * accepting the drop. This will only happen if you passed
+             * `GDK_ACTION_ASK` as one of the possible actions in
+             * [method@Gdk.Drop.status]. `GDK_ACTION_ASK` itself will not
+             * be included in the actions returned by this function.
+             *
+             * This value may change over the lifetime of the [class@Gdk.Drop]
+             * both as a response to source side actions as well as to calls to
+             * [method@Gdk.Drop.status] or [method@Gdk.Drop.finish]. The source
+             * side will not change this value anymore once a drop has started.
+             * @returns The possible `GdkDragActions`
+             */
+            get_actions(): DragAction
+            /**
+             * Returns the `GdkDevice` performing the drop.
+             * @returns The `GdkDevice` performing the drop.
+             */
+            get_device(): Device
+            /**
+             * Gets the `GdkDisplay` that @self was created for.
+             * @returns a `GdkDisplay`
+             */
+            get_display(): Display
+            /**
+             * If this is an in-app drag-and-drop operation, returns the `GdkDrag`
+             * that corresponds to this drop.
+             *
+             * If it is not, `NULL` is returned.
+             * @returns the corresponding `GdkDrag`
+             */
+            get_drag(): Drag | null
+            /**
+             * Returns the `GdkContentFormats` that the drop offers the data
+             * to be read in.
+             * @returns The possible `GdkContentFormats`
+             */
+            get_formats(): ContentFormats
+            /**
+             * Returns the `GdkSurface` performing the drop.
+             * @returns The `GdkSurface` performing the drop.
+             */
+            get_surface(): Surface
+            /**
+             * Asynchronously read the dropped data from a `GdkDrop`
+             * in a format that complies with one of the mime types.
+             * @param mime_types 
+              pointer to an array of mime types
+             * @param io_priority the I/O priority for the read operation
+             * @param cancellable optional `GCancellable` object
+             * @param callback a `GAsyncReadyCallback` to call when
+              the request is satisfied
+             */
+            read_async(mime_types: string[], io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an async drop read operation.
+             *
+             * Note that you must not use blocking read calls on the returned stream
+             * in the GTK thread, since some platforms might require communication with
+             * GTK to complete the data transfer. You can use async APIs such as
+             * g_input_stream_read_bytes_async().
+             *
+             * See [method@Gdk.Drop.read_async].
+             * @throws {GLib.Error}
+             * @param result a `GAsyncResult`
+             * @returns the `GInputStream`, return location for the used mime type
+             */
+            read_finish(result: Gio.AsyncResult): [Gio.InputStream | null, string]
+            /**
+             * Asynchronously request the drag operation's contents converted
+             * to the given @type.
+             *
+             * For local drag-and-drop operations that are available in the given
+             * `GType`, the value will be copied directly. Otherwise, GDK will
+             * try to use [func@Gdk.content_deserialize_async] to convert the data.
+             * @param type a `GType` to read
+             * @param io_priority the I/O priority of the request.
+             * @param cancellable optional `GCancellable` object, %NULL to ignore.
+             * @param callback callback to call when the request is satisfied
+             */
+            read_value_async(type: (GObject.GType | { $gtype: GObject.GType }), io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes an async drop read.
+             *
+             * See [method@Gdk.Drop.read_value_async].
+             * @throws {GLib.Error}
+             * @param result a `GAsyncResult`
+             * @returns a `GValue` containing the result.
+             */
+            read_value_finish(result: Gio.AsyncResult): GObject.Value
+            /**
+             * Selects all actions that are potentially supported by the destination.
+             *
+             * When calling this function, do not restrict the passed in actions to
+             * the ones provided by [method@Gdk.Drop.get_actions]. Those actions may
+             * change in the future, even depending on the actions you provide here.
+             *
+             * The @preferred action is a hint to the drag-and-drop mechanism about which
+             * action to use when multiple actions are possible.
+             *
+             * This function should be called by drag destinations in response to
+             * `GDK_DRAG_ENTER` or `GDK_DRAG_MOTION` events. If the destination does
+             * not yet know the exact actions it supports, it should set any possible
+             * actions first and then later call this function again.
+             * @param actions Supported actions of the destination, or `GDK_ACTION_NONE` to
+               indicate that a drop will not be accepted
+             * @param preferred A unique action that's a member of @actions indicating the
+               preferred action
+             */
+            status(actions: DragAction, preferred: DragAction): void
+        }
+
+        interface DropClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<Drop>
+            readonly prototype: Drop
+
+            new (props?: Partial<GObject.ConstructorProps<Drop>>): Drop
+        }
+
+        interface $Exports {
+            /**
+             * Represents the target of an ongoing DND operation.
+             *
+             * Possible drop sites get informed about the status of the ongoing drag
+             * operation with events of type `GDK_DRAG_ENTER`, `GDK_DRAG_LEAVE`,
+             * `GDK_DRAG_MOTION` and `GDK_DROP_START`. The `GdkDrop` object can be obtained
+             * from these [class@Gdk.Event] types using [method@Gdk.DNDEvent.get_drop].
+             *
+             * The actual data transfer is initiated from the target side via an async
+             * read, using one of the `GdkDrop` methods for this purpose:
+             * [method@Gdk.Drop.read_async] or [method@Gdk.Drop.read_value_async].
+             *
+             * GTK provides a higher level abstraction based on top of these functions,
+             * and so they are not normally needed in GTK applications. See the
+             * "Drag and Drop" section of the GTK documentation for more information.
+             */
+            Drop: DropClass
+        }
+        
+
+        namespace Event {
+            interface SignalSignatures  {
+            }
+
+            interface ReadableProperties  {
+            }
+
+            interface WritableProperties  {
+            }
+
+            interface ConstructOnlyProperties  {
+            }
+        }
+
+        interface Event  {
+            readonly $signals: Event.SignalSignatures
+            readonly $readableProperties: Event.ReadableProperties
+            readonly $writableProperties: Event.WritableProperties
+            readonly $constructOnlyProperties: Event.ConstructOnlyProperties
+            /**
+             * Returns the relative angle from @event1 to @event2.
+             *
+             * The relative angle is the angle between the X axis and the line
+             * through both events' positions. The rotation direction for positive
+             * angles is from the positive X axis towards the positive Y axis.
+             *
+             * This assumes that both events have X/Y information.
+             * If not, this function returns %FALSE.
+             * @param event2 second `GdkEvent`
+             * @returns %TRUE if the angle could be calculated., return location for the relative angle between both events
+             */
+            _get_angle(event2: Event): [boolean, number]
+            /**
+             * Returns the point halfway between the events' positions.
+             *
+             * This assumes that both events have X/Y information.
+             * If not, this function returns %FALSE.
+             * @param event2 second `GdkEvent`
+             * @returns %TRUE if the center could be calculated., return location for the X coordinate of the center, return location for the Y coordinate of the center
+             */
+            _get_center(event2: Event): [boolean, number, number]
+            /**
+             * Returns the distance between the event locations.
+             *
+             * This assumes that both events have X/Y information.
+             * If not, this function returns %FALSE.
+             * @param event2 second `GdkEvent`
+             * @returns %TRUE if the distance could be calculated., return location for the distance
+             */
+            _get_distance(event2: Event): [boolean, number]
+            /**
+             * Extracts all axis values from an event.
+             *
+             * To find out which axes are used, use [method@Gdk.DeviceTool.get_axes]
+             * on the device tool returned by [method@Gdk.Event.get_device_tool].
+             * @returns %TRUE on success, otherwise %FALSE, the array of values for all axes
+             */
+            get_axes(): [boolean, number[]]
+            /**
+             * Extract the axis value for a particular axis use from
+             * an event structure.
+             *
+             * To find out which axes are used, use [method@Gdk.DeviceTool.get_axes]
+             * on the device tool returned by [method@Gdk.Event.get_device_tool].
+             * @param axis_use the axis use to look for
+             * @returns %TRUE if the specified axis was found, otherwise %FALSE, location to store the value found
+             */
+            get_axis(axis_use: AxisUse): [boolean, number]
+            /**
+             * Returns the device of an event.
+             * @returns a `GdkDevice`
+             */
+            get_device(): Device | null
+            /**
+             * Returns a `GdkDeviceTool` representing the tool that
+             * caused the event.
+             *
+             * If the was not generated by a device that supports
+             * different tools (such as a tablet), this function will
+             * return %NULL.
+             *
+             * Note: the `GdkDeviceTool` will be constant during
+             * the application lifetime, if settings must be stored
+             * persistently across runs, see [method@Gdk.DeviceTool.get_serial].
+             * @returns The current device tool
+             */
+            get_device_tool(): DeviceTool | null
+            /**
+             * Retrieves the display associated to the @event.
+             * @returns a `GdkDisplay`
+             */
+            get_display(): Display | null
+            /**
+             * Returns the event sequence to which the event belongs.
+             *
+             * Related touch events are connected in a sequence. Other
+             * events typically don't have event sequence information.
+             * @returns the event sequence that the event belongs to
+             */
+            get_event_sequence(): EventSequence
+            /**
+             * Retrieves the type of the event.
+             * @returns a `GdkEvent`Type
+             */
+            get_event_type(): EventType
+            /**
+             * Retrieves the history of the device that @event is for, as a list of
+             * time and coordinates.
+             *
+             * The history includes positions that are not delivered as separate events
+             * to the application because they occurred in the same frame as @event.
+             *
+             * Note that only motion and scroll events record history, and motion
+             * events do it only if one of the mouse buttons is down, or the device
+             * has a tool.
+             * @returns an   array of time and coordinates
+             */
+            get_history(): TimeCoord[] | null
+            /**
+             * Returns the modifier state field of an event.
+             * @returns the modifier state of `event`
+             */
+            get_modifier_state(): ModifierType
+            /**
+             * Returns whether this event is an 'emulated' pointer event.
+             *
+             * Emulated pointer events typically originate from a touch events.
+             * @returns %TRUE if this event is emulated
+             */
+            get_pointer_emulated(): boolean
+            /**
+             * Extract the event surface relative x/y coordinates from an event.
+             *
+             * This position is in [surface coordinates](coordinates.html).
+             * @returns whether the positions were set, location to put event surface x coordinate, location to put event surface y coordinate
+             */
+            get_position(): [boolean, number, number]
+            /**
+             * Returns the seat that originated the event.
+             * @returns a `GdkSeat`.
+             */
+            get_seat(): Seat | null
+            /**
+             * Extracts the surface associated with an event.
+             * @returns The `GdkSurface` associated with the event
+             */
+            get_surface(): Surface | null
+            /**
+             * Returns the timestamp of @event.
+             *
+             * Not all events have timestamps. In that case, this function
+             * returns %GDK_CURRENT_TIME.
+             * @returns timestamp field from `event`
+             */
+            get_time(): number
+            /**
+             * Increase the ref count of @event.
+             * @returns  `event`
+             */
+            ref(): Event
+            /**
+             * Returns whether a `GdkEvent` should trigger a context menu,
+             * according to platform conventions.
+             *
+             * The right mouse button typically triggers context menus.
+             * On macOS, Control+left mouse button also triggers.
+             *
+             * This function should always be used instead of simply checking for
+             *
+             * ```c
+             * event->button == GDK_BUTTON_SECONDARY
+             * ```
+             * @returns %TRUE if the event should trigger a context menu.
+             */
+            triggers_context_menu(): boolean
+            /**
+             * Decrease the ref count of @event.
+             *
+             * If the last reference is dropped, the structure is freed.
+             */
+            unref(): void
+        }
+
+        interface EventClass {
+            readonly $gtype: GObject.GType<Event>
+            readonly prototype: Event
+
+            new (props?: Partial<GObject.ConstructorProps<Event>>): Event
+        }
+
+        interface $Exports {
+            /**
+             * Represents windowing system events.
+             *
+             * In GTK applications the events are handled automatically by toplevel
+             * widgets and passed on to the event controllers of appropriate widgets,
+             * so using `GdkEvent` and its related API is rarely needed.
+             *
+             * `GdkEvent` structs are immutable.
+             */
+            Event: EventClass
+        }
+        
+
+        namespace FocusEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface FocusEvent extends Event {
+            readonly $signals: FocusEvent.SignalSignatures
+            readonly $readableProperties: FocusEvent.ReadableProperties
+            readonly $writableProperties: FocusEvent.WritableProperties
+            readonly $constructOnlyProperties: FocusEvent.ConstructOnlyProperties
+            /**
+             * Extracts whether this event is about focus entering or
+             * leaving the surface.
+             * @returns %TRUE of the focus is entering
+             */
+            get_in(): boolean
+        }
+
+        interface FocusEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<FocusEvent>
+            readonly prototype: FocusEvent
+
+            new (props?: Partial<GObject.ConstructorProps<FocusEvent>>): FocusEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to a keyboard focus change.
+             */
+            FocusEvent: FocusEventClass
+        }
+        
+
+        namespace FrameClock {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * This signal ends processing of the frame.
+                 *
+                 * Applications should generally not handle this signal.
+                 */
+                "after-paint"(): void
+                /**
+                 * Begins processing of the frame.
+                 *
+                 * Applications should generally not handle this signal.
+                 */
+                "before-paint"(): void
+                /**
+                 * Used to flush pending motion events that are being batched up and
+                 * compressed together.
+                 *
+                 * Applications should not handle this signal.
+                 */
+                "flush-events"(): void
+                /**
+                 * Emitted as the second step of toolkit and application processing
+                 * of the frame.
+                 *
+                 * Any work to update sizes and positions of application elements
+                 * should be performed. GTK normally handles this internally.
+                 */
+                "layout"(): void
+                /**
+                 * Emitted as the third step of toolkit and application processing
+                 * of the frame.
+                 *
+                 * The frame is repainted. GDK normally handles this internally and
+                 * emits [signal@Gdk.Surface::render] signals which are turned into
+                 * [GtkWidget::snapshot](../gtk4/signal.Widget.snapshot.html) signals
+                 * by GTK.
+                 */
+                "paint"(): void
+                /**
+                 * Emitted after processing of the frame is finished.
+                 *
+                 * This signal is handled internally by GTK to resume normal
+                 * event processing. Applications should not handle this signal.
+                 */
+                "resume-events"(): void
+                /**
+                 * Emitted as the first step of toolkit and application processing
+                 * of the frame.
+                 *
+                 * Animations should be updated using [method@Gdk.FrameClock.get_frame_time].
+                 * Applications can connect directly to this signal, or use
+                 * [gtk_widget_add_tick_callback()](../gtk4/method.Widget.add_tick_callback.html)
+                 * as a more convenient interface.
+                 */
+                "update"(): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+        }
+
+        interface FrameClock extends GObject.Object {
+            readonly $signals: FrameClock.SignalSignatures
+            readonly $readableProperties: FrameClock.ReadableProperties
+            readonly $writableProperties: FrameClock.WritableProperties
+            readonly $constructOnlyProperties: FrameClock.ConstructOnlyProperties
+            /**
+             * Starts updates for an animation.
+             *
+             * Until a matching call to [method@Gdk.FrameClock.end_updating] is made,
+             * the frame clock will continually request a new frame with the
+             * %GDK_FRAME_CLOCK_PHASE_UPDATE phase. This function may be called multiple
+             * times and frames will be requested until gdk_frame_clock_end_updating()
+             * is called the same number of times.
+             */
+            begin_updating(): void
+            /**
+             * Stops updates for an animation.
+             *
+             * See the documentation for [method@Gdk.FrameClock.begin_updating].
+             */
+            end_updating(): void
+            /**
+             * Gets the frame timings for the current frame.
+             * @returns the `GdkFrameTimings` for the   frame currently being processed, or even no frame is being   processed, for the previous frame. Before any frames have been   processed, returns %NULL.
+             */
+            get_current_timings(): FrameTimings | null
+            /**
+             * Calculates the current frames-per-second, based on the
+             * frame timings of @frame_clock.
+             * @returns the current fps, as a `double`
+             */
+            get_fps(): number
+            /**
+             * `GdkFrameClock` maintains a 64-bit counter that increments for
+             * each frame drawn.
+             * @returns inside frame processing, the value of the frame counter   for the current frame. Outside of frame processing, the frame   counter for the last frame.
+             */
+            get_frame_counter(): number
+            /**
+             * Gets the time that should currently be used for animations.
+             *
+             * Inside the processing of a frame, it’s the time used to compute the
+             * animation position of everything in a frame. Outside of a frame, it's
+             * the time of the conceptual “previous frame,” which may be either
+             * the actual previous frame time, or if that’s too old, an updated
+             * time.
+             * @returns a timestamp in microseconds, in the timescale of  of g_get_monotonic_time().
+             */
+            get_frame_time(): number
+            /**
+             * Returns the frame counter for the oldest frame available in history.
+             *
+             * `GdkFrameClock` internally keeps a history of `GdkFrameTimings`
+             * objects for recent frames that can be retrieved with
+             * [method@Gdk.FrameClock.get_timings]. The set of stored frames
+             * is the set from the counter values given by
+             * [method@Gdk.FrameClock.get_history_start] and
+             * [method@Gdk.FrameClock.get_frame_counter], inclusive.
+             * @returns the frame counter value for the oldest frame  that is available in the internal frame history of the  `GdkFrameClock`
+             */
+            get_history_start(): number
+            /**
+             * Predicts a presentation time, based on history.
+             *
+             * Using the frame history stored in the frame clock, finds the last
+             * known presentation time and refresh interval, and assuming that
+             * presentation times are separated by the refresh interval,
+             * predicts a presentation time that is a multiple of the refresh
+             * interval after the last presentation time, and later than @base_time.
+             * @param base_time base time for determining a presentaton time
+             * @returns , a location to store the   determined refresh interval, or %NULL. A default refresh interval of   1/60th of a second will be stored if no history is present., a location to store the next   candidate presentation time after the given base time.   0 will be will be stored if no history is present.
+             */
+            get_refresh_info(base_time: number): [number, number]
+            /**
+             * Retrieves a `GdkFrameTimings` object holding timing information
+             * for the current frame or a recent frame.
+             *
+             * The `GdkFrameTimings` object may not yet be complete: see
+             * [method@Gdk.FrameTimings.get_complete] and
+             * [method@Gdk.FrameClock.get_history_start].
+             * @param frame_counter the frame counter value identifying the frame to
+             be received
+             * @returns the `GdkFrameTimings` object   for the specified frame, or %NULL if it is not available
+             */
+            get_timings(frame_counter: number): FrameTimings | null
+            /**
+             * Asks the frame clock to run a particular phase.
+             *
+             * The signal corresponding the requested phase will be emitted the next
+             * time the frame clock processes. Multiple calls to
+             * gdk_frame_clock_request_phase() will be combined together
+             * and only one frame processed. If you are displaying animated
+             * content and want to continually request the
+             * %GDK_FRAME_CLOCK_PHASE_UPDATE phase for a period of time,
+             * you should use [method@Gdk.FrameClock.begin_updating] instead,
+             * since this allows GTK to adjust system parameters to get maximally
+             * smooth animations.
+             * @param phase the phase that is requested
+             */
+            request_phase(phase: FrameClockPhase): void
+        }
+
+        interface FrameClockClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<FrameClock>
+            readonly prototype: FrameClock
+
+            new (props?: Partial<GObject.ConstructorProps<FrameClock>>): FrameClock
+        }
+
+        interface $Exports {
+            /**
+             * Tells the application when to update and repaint a surface.
+             *
+             * This may be synced to the vertical refresh rate of the monitor, for example.
+             * Even when the frame clock uses a simple timer rather than a hardware-based
+             * vertical sync, the frame clock helps because it ensures everything paints at
+             * the same time (reducing the total number of frames).
+             *
+             * The frame clock can also automatically stop painting when it knows the frames
+             * will not be visible, or scale back animation framerates.
+             *
+             * `GdkFrameClock` is designed to be compatible with an OpenGL-based implementation
+             * or with mozRequestAnimationFrame in Firefox, for example.
+             *
+             * A frame clock is idle until someone requests a frame with
+             * [method@Gdk.FrameClock.request_phase]. At some later point that makes sense
+             * for the synchronization being implemented, the clock will process a frame and
+             * emit signals for each phase that has been requested. (See the signals of the
+             * `GdkFrameClock` class for documentation of the phases.
+             * %GDK_FRAME_CLOCK_PHASE_UPDATE and the [signal@Gdk.FrameClock::update] signal
+             * are most interesting for application writers, and are used to update the
+             * animations, using the frame time given by [method@Gdk.FrameClock.get_frame_time].
+             *
+             * The frame time is reported in microseconds and generally in the same
+             * timescale as g_get_monotonic_time(), however, it is not the same
+             * as g_get_monotonic_time(). The frame time does not advance during
+             * the time a frame is being painted, and outside of a frame, an attempt
+             * is made so that all calls to [method@Gdk.FrameClock.get_frame_time] that
+             * are called at a “similar” time get the same value. This means that
+             * if different animations are timed by looking at the difference in
+             * time between an initial value from [method@Gdk.FrameClock.get_frame_time]
+             * and the value inside the [signal@Gdk.FrameClock::update] signal of the clock,
+             * they will stay exactly synchronized.
+             */
+            FrameClock: FrameClockClass
+        }
+        
+
+        namespace GLContext {
+            interface SignalSignatures extends DrawContext.SignalSignatures {
+            }
+
+            interface ReadableProperties extends DrawContext.ReadableProperties {
+                "allowed-apis": GLAPI
+                "api": GLAPI
+                "shared-context": GLContext | null
+            }
+
+            interface WritableProperties extends DrawContext.WritableProperties {
+                "allowed-apis": GLAPI
+                "api": GLAPI
+            }
+
+            interface ConstructOnlyProperties extends DrawContext.ConstructOnlyProperties {
+                "shared-context": GLContext | null
+            }
+        }
+
+        interface GLContext extends DrawContext {
+            readonly $signals: GLContext.SignalSignatures
+            readonly $readableProperties: GLContext.ReadableProperties
+            readonly $writableProperties: GLContext.WritableProperties
+            readonly $constructOnlyProperties: GLContext.ConstructOnlyProperties
+            /**
+             * The allowed APIs.
+             * @since 4.6
+             * @default GDK_GL_API_GL | GDK_GL_API_GLES
+             */
+            get allowedApis(): GLAPI
+            set allowedApis(value: GLAPI)
+            /**
+             * The API currently in use.
+             * @since 4.6
+             * @default 0
+             */
+            get api(): GLAPI
+            set api(value: GLAPI)
+            /**
+             * Always %NULL
+             *
+             * As many contexts can share data now and no single shared context exists
+             * anymore, this function has been deprecated and now always returns %NULL.
+             * @deprecated since 4.4 Use [method@Gdk.GLContext.is_shared] to check if contexts   can be shared.
+             */
+            get sharedContext(): GLContext | null
+            set sharedContext(value: GLContext | null)
+            /**
+             * Gets the allowed APIs set via gdk_gl_context_set_allowed_apis().
+             * @since 4.6
+             * @returns the allowed APIs
+             */
+            get_allowed_apis(): GLAPI
+            /**
+             * Gets the API currently in use.
+             *
+             * If the renderer has not been realized yet, 0 is returned.
+             * @since 4.6
+             * @returns the currently used API
+             */
+            get_api(): GLAPI
+            /**
+             * Retrieves whether the context is doing extra validations and runtime checking.
+             *
+             * See [method@Gdk.GLContext.set_debug_enabled].
+             * @returns %TRUE if debugging is enabled
+             */
+            get_debug_enabled(): boolean
+            /**
+             * Retrieves the display the @context is created for
+             * @returns a `GdkDisplay`
+             */
+            get_display(): Display | null
+            /**
+             * Retrieves whether the context is forward-compatible.
+             *
+             * See [method@Gdk.GLContext.set_forward_compatible].
+             * @returns %TRUE if the context should be forward-compatible
+             */
+            get_forward_compatible(): boolean
+            /**
+             * Retrieves required OpenGL version set as a requirement for the @context
+             * realization. It will not change even if a greater OpenGL version is supported
+             * and used after the @context is realized. See
+             * [method@Gdk.GLContext.get_version] for the real version in use.
+             *
+             * See [method@Gdk.GLContext.set_required_version].
+             * @returns , return location for the major version to request, return location for the minor version to request
+             */
+            get_required_version(): [number | null, number | null]
+            /**
+             * Used to retrieves the `GdkGLContext` that this @context share data with.
+             *
+             * As many contexts can share data now and no single shared context exists
+             * anymore, this function has been deprecated and now always returns %NULL.
+             * @deprecated since 4.4 Use [method@Gdk.GLContext.is_shared] to check if contexts   can be shared.
+             * @returns %NULL
+             */
+            get_shared_context(): GLContext | null
+            /**
+             * Retrieves the surface used by the @context.
+             * @returns a `GdkSurface`
+             */
+            get_surface(): Surface | null
+            /**
+             * Checks whether the @context is using an OpenGL or OpenGL ES profile.
+             * @returns %TRUE if the `GdkGLContext` is using an OpenGL ES profile; %FALSE if other profile is in use of if the `context` has not yet been realized.
+             */
+            get_use_es(): boolean
+            /**
+             * Retrieves the OpenGL version of the @context.
+             *
+             * The @context must be realized prior to calling this function.
+             * @returns , return location for the major version, return location for the minor version
+             */
+            get_version(): [number, number]
+            /**
+             * Whether the `GdkGLContext` is in legacy mode or not.
+             *
+             * The `GdkGLContext` must be realized before calling this function.
+             *
+             * When realizing a GL context, GDK will try to use the OpenGL 3.2 core
+             * profile; this profile removes all the OpenGL API that was deprecated
+             * prior to the 3.2 version of the specification. If the realization is
+             * successful, this function will return %FALSE.
+             *
+             * If the underlying OpenGL implementation does not support core profiles,
+             * GDK will fall back to a pre-3.2 compatibility profile, and this function
+             * will return %TRUE.
+             *
+             * You can use the value returned by this function to decide which kind
+             * of OpenGL API to use, or whether to do extension discovery, or what
+             * kind of shader programs to load.
+             * @returns %TRUE if the GL context is in legacy mode
+             */
+            is_legacy(): boolean
+            /**
+             * Checks if the two GL contexts can share resources.
+             *
+             * When they can, the texture IDs from @other can be used in @self. This
+             * is particularly useful when passing `GdkGLTexture` objects between
+             * different contexts.
+             *
+             * Contexts created for the same display with the same properties will
+             * always be compatible, even if they are created for different surfaces.
+             * For other contexts it depends on the GL backend.
+             *
+             * Both contexts must be realized for this check to succeed. If either one
+             * is not, this function will return %FALSE.
+             * @since 4.4
+             * @param other the `GdkGLContext` that should be compatible with @self
+             * @returns %TRUE if the two GL contexts are compatible.
+             */
+            is_shared(other: GLContext): boolean
+            /**
+             * Makes the @context the current one.
+             */
+            make_current(): void
+            /**
+             * Realizes the given `GdkGLContext`.
+             *
+             * It is safe to call this function on a realized `GdkGLContext`.
+             * @throws {GLib.Error}
+             * @returns %TRUE if the context is realized
+             */
+            realize(): boolean
+            /**
+             * Sets the allowed APIs. When gdk_gl_context_realize() is called, only the
+             * allowed APIs will be tried. If you set this to 0, realizing will always fail.
+             *
+             * If you set it on a realized context, the property will not have any effect.
+             * It is only relevant during gdk_gl_context_realize().
+             *
+             * By default, all APIs are allowed.
+             * @since 4.6
+             * @param apis the allowed APIs
+             */
+            set_allowed_apis(apis: GLAPI): void
+            /**
+             * Sets whether the `GdkGLContext` should perform extra validations and
+             * runtime checking.
+             *
+             * This is useful during development, but has additional overhead.
+             *
+             * The `GdkGLContext` must not be realized or made current prior to
+             * calling this function.
+             * @param enabled whether to enable debugging in the context
+             */
+            set_debug_enabled(enabled: boolean): void
+            /**
+             * Sets whether the `GdkGLContext` should be forward-compatible.
+             *
+             * Forward-compatible contexts must not support OpenGL functionality that
+             * has been marked as deprecated in the requested version; non-forward
+             * compatible contexts, on the other hand, must support both deprecated and
+             * non deprecated functionality.
+             *
+             * The `GdkGLContext` must not be realized or made current prior to calling
+             * this function.
+             * @param compatible whether the context should be forward-compatible
+             */
+            set_forward_compatible(compatible: boolean): void
+            /**
+             * Sets the major and minor version of OpenGL to request.
+             *
+             * Setting @major and @minor to zero will use the default values.
+             *
+             * Setting @major and @minor lower than the minimum versions required
+             * by GTK will result in the context choosing the minimum version.
+             *
+             * The @context must not be realized or made current prior to calling
+             * this function.
+             * @param major the major version to request
+             * @param minor the minor version to request
+             */
+            set_required_version(major: number, minor: number): void
+            /**
+             * Requests that GDK create an OpenGL ES context instead of an OpenGL one.
+             *
+             * Not all platforms support OpenGL ES.
+             *
+             * The @context must not have been realized.
+             *
+             * By default, GDK will attempt to automatically detect whether the
+             * underlying GL implementation is OpenGL or OpenGL ES once the @context
+             * is realized.
+             *
+             * You should check the return value of [method@Gdk.GLContext.get_use_es]
+             * after calling [method@Gdk.GLContext.realize] to decide whether to use
+             * the OpenGL or OpenGL ES API, extensions, or shaders.
+             * @param use_es whether the context should use OpenGL ES instead of OpenGL,
+              or -1 to allow auto-detection
+             */
+            set_use_es(use_es: number): void
+        }
+
+        interface GLContextClass extends Omit<DrawContextClass, "new"> {
+            readonly $gtype: GObject.GType<GLContext>
+            readonly prototype: GLContext
+
+            new (props?: Partial<GObject.ConstructorProps<GLContext>>): GLContext
+            /**
+             * Clears the current `GdkGLContext`.
+             *
+             * Any OpenGL call after this function returns will be ignored
+             * until [method@Gdk.GLContext.make_current] is called.
+             */
+            clear_current(): void
+            /**
+             * Retrieves the current `GdkGLContext`.
+             * @returns the current `GdkGLContext`
+             */
+            get_current(): GLContext | null
+        }
+
+        interface $Exports {
+            /**
+             * Represents a platform-specific OpenGL draw context.
+             *
+             * `GdkGLContext`s are created for a surface using
+             * [method@Gdk.Surface.create_gl_context], and the context will match
+             * the characteristics of the surface.
+             *
+             * A `GdkGLContext` is not tied to any particular normal framebuffer.
+             * For instance, it cannot draw to the surface back buffer. The GDK
+             * repaint system is in full control of the painting to that. Instead,
+             * you can create render buffers or textures and use [func@cairo_draw_from_gl]
+             * in the draw function of your widget to draw them. Then GDK will handle
+             * the integration of your rendering with that of other widgets.
+             *
+             * Support for `GdkGLContext` is platform-specific and context creation
+             * can fail, returning %NULL context.
+             *
+             * A `GdkGLContext` has to be made "current" in order to start using
+             * it, otherwise any OpenGL call will be ignored.
+             *
+             * ## Creating a new OpenGL context
+             *
+             * In order to create a new `GdkGLContext` instance you need a `GdkSurface`,
+             * which you typically get during the realize call of a widget.
+             *
+             * A `GdkGLContext` is not realized until either [method@Gdk.GLContext.make_current]
+             * or [method@Gdk.GLContext.realize] is called. It is possible to specify
+             * details of the GL context like the OpenGL version to be used, or whether
+             * the GL context should have extra state validation enabled after calling
+             * [method@Gdk.Surface.create_gl_context] by calling [method@Gdk.GLContext.realize].
+             * If the realization fails you have the option to change the settings of
+             * the `GdkGLContext` and try again.
+             *
+             * ## Using a GdkGLContext
+             *
+             * You will need to make the `GdkGLContext` the current context before issuing
+             * OpenGL calls; the system sends OpenGL commands to whichever context is current.
+             * It is possible to have multiple contexts, so you always need to ensure that
+             * the one which you want to draw with is the current one before issuing commands:
+             *
+             * ```c
+             * gdk_gl_context_make_current (context);
+             * ```
+             *
+             * You can now perform your drawing using OpenGL commands.
+             *
+             * You can check which `GdkGLContext` is the current one by using
+             * [func@Gdk.GLContext.get_current]; you can also unset any `GdkGLContext`
+             * that is currently set by calling [func@Gdk.GLContext.clear_current].
+             */
+            GLContext: GLContextClass
+        }
+        
+
+        namespace GLTexture {
+            interface SignalSignatures extends Texture.SignalSignatures, Paintable.SignalSignatures, Gio.Icon.SignalSignatures, Gio.LoadableIcon.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Texture.ReadableProperties, Paintable.ReadableProperties, Gio.Icon.ReadableProperties, Gio.LoadableIcon.ReadableProperties {
+            }
+
+            interface WritableProperties extends Texture.WritableProperties, Paintable.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Texture.ConstructOnlyProperties, Paintable.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
+            }
+        }
+
+        interface GLTexture extends Texture, Paintable, Gio.Icon, Gio.LoadableIcon {
+            readonly $signals: GLTexture.SignalSignatures
+            readonly $readableProperties: GLTexture.ReadableProperties
+            readonly $writableProperties: GLTexture.WritableProperties
+            readonly $constructOnlyProperties: GLTexture.ConstructOnlyProperties
+            /**
+             * Releases the GL resources held by a `GdkGLTexture`.
+             *
+             * The texture contents are still available via the
+             * [method@Gdk.Texture.download] function, after this
+             * function has been called.
+             */
+            release(): void
+        }
+
+        interface GLTextureClass extends Omit<TextureClass, "new"> {
+            readonly $gtype: GObject.GType<GLTexture>
+            readonly prototype: GLTexture
+
+            new (props?: Partial<GObject.ConstructorProps<GLTexture>>): GLTexture
+            /**
+             * Creates a new texture for an existing GL texture.
+             *
+             * Note that the GL texture must not be modified until @destroy is called,
+             * which will happen when the GdkTexture object is finalized, or due to
+             * an explicit call of [method@Gdk.GLTexture.release].
+             * @deprecated since 4.12 [class@Gdk.GLTextureBuilder] supersedes this function   and provides extended functionality for creating GL textures.
+             * @param context a `GdkGLContext`
+             * @param id the ID of a texture that was created with @context
+             * @param width the nominal width of the texture
+             * @param height the nominal height of the texture
+             * @param destroy a destroy notify that will be called when the GL resources
+              are released
+             * @param data data that gets passed to @destroy
+             * @returns A newly-created   `GdkTexture`
+             */
+            "new"(context: GLContext, id: number, width: number, height: number, destroy: GLib.DestroyNotify, data: never | null): GLTexture
+        }
+
+        interface $Exports {
+            /**
+             * A `GdkTexture` representing a GL texture object.
+             */
+            GLTexture: GLTextureClass
+        }
+        
+
+        namespace GLTextureBuilder {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "color-state": ColorState
+                "context": GLContext | null
+                "format": MemoryFormat
+                "has-mipmap": boolean
+                "height": number
+                "id": number
+                "sync": never | null
+                "update-region": cairo.Region | null
+                "update-texture": Texture | null
+                "width": number
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "color-state": ColorState
+                "context": GLContext | null
+                "format": MemoryFormat
+                "has-mipmap": boolean
+                "height": number
+                "id": number
+                "sync": never | null
+                "update-region": cairo.Region | null
+                "update-texture": Texture | null
+                "width": number
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+        }
+
+        interface GLTextureBuilder extends GObject.Object {
+            readonly $signals: GLTextureBuilder.SignalSignatures
+            readonly $readableProperties: GLTextureBuilder.ReadableProperties
+            readonly $writableProperties: GLTextureBuilder.WritableProperties
+            readonly $constructOnlyProperties: GLTextureBuilder.ConstructOnlyProperties
+            /**
+             * The color state of the texture.
+             * @since 4.16
+             */
+            get colorState(): ColorState
+            set colorState(value: ColorState)
+            /**
+             * The context owning the texture.
+             * @since 4.12
+             */
+            get context(): GLContext | null
+            set context(value: GLContext | null)
+            /**
+             * The format when downloading the texture.
+             * @since 4.12
+             * @default GDK_MEMORY_R8G8B8A8_PREMULTIPLIED
+             */
+            get format(): MemoryFormat
+            set format(value: MemoryFormat)
+            /**
+             * If the texture has a mipmap.
+             * @since 4.12
+             * @default FALSE
+             */
+            get hasMipmap(): boolean
+            set hasMipmap(value: boolean)
+            /**
+             * The height of the texture.
+             * @since 4.12
+             * @default 0
+             */
+            get height(): number
+            set height(value: number)
+            /**
+             * The texture ID to use.
+             * @since 4.12
+             * @default 0
+             */
+            get id(): number
+            set id(value: number)
+            /**
+             * An optional `GLSync` object.
+             *
+             * If this is set, GTK will wait on it before using the texture.
+             * @since 4.12
+             */
+            get sync(): never | null
+            set sync(value: never | null)
+            /**
+             * The update region for [property@Gdk.GLTextureBuilder:update-texture].
+             * @since 4.12
+             */
+            get updateRegion(): cairo.Region | null
+            set updateRegion(value: cairo.Region | null)
+            /**
+             * The texture [property@Gdk.GLTextureBuilder:update-region] is an update for.
+             * @since 4.12
+             */
+            get updateTexture(): Texture | null
+            set updateTexture(value: Texture | null)
+            /**
+             * The width of the texture.
+             * @since 4.12
+             * @default 0
+             */
+            get width(): number
+            set width(value: number)
+            /**
+             * Builds a new `GdkTexture` with the values set up in the builder.
+             *
+             * The `destroy` function gets called when the returned texture gets released;
+             * either when the texture is finalized or by an explicit call to
+             * [method@Gdk.GLTexture.release]. It should release all GL resources associated
+             * with the texture, such as the [property@Gdk.GLTextureBuilder:id] and the
+             * [property@Gdk.GLTextureBuilder:sync].
+             *
+             * Note that it is a programming error to call this function if any mandatory
+             * property has not been set.
+             *
+             * It is possible to call this function multiple times to create multiple textures,
+             * possibly with changing properties in between.
+             * @since 4.12
+             * @param destroy destroy function to be called when the texture is
+              released
+             * @param data user data to pass to the destroy function
+             * @returns a newly built `GdkTexture`
+             */
+            build(destroy: GLib.DestroyNotify | null, data: never | null): Texture
+            /**
+             * Gets the color state previously set via gdk_gl_texture_builder_set_color_state().
+             * @since 4.16
+             * @returns the color state
+             */
+            get_color_state(): ColorState
+            /**
+             * Gets the context previously set via gdk_gl_texture_builder_set_context() or
+             * %NULL if none was set.
+             * @since 4.12
+             * @returns The context
+             */
+            get_context(): GLContext | null
+            /**
+             * Gets the format previously set via gdk_gl_texture_builder_set_format().
+             * @since 4.12
+             * @returns The format
+             */
+            get_format(): MemoryFormat
+            /**
+             * Gets whether the texture has a mipmap.
+             * @since 4.12
+             * @returns Whether the texture has a mipmap
+             */
+            get_has_mipmap(): boolean
+            /**
+             * Gets the height previously set via gdk_gl_texture_builder_set_height() or
+             * 0 if the height wasn't set.
+             * @since 4.12
+             * @returns The height
+             */
+            get_height(): number
+            /**
+             * Gets the texture id previously set via gdk_gl_texture_builder_set_id() or
+             * 0 if the id wasn't set.
+             * @since 4.12
+             * @returns The id
+             */
+            get_id(): number
+            /**
+             * Gets the `GLsync` previously set via gdk_gl_texture_builder_set_sync().
+             * @since 4.12
+             * @returns the `GLSync`
+             */
+            get_sync(): never | null
+            /**
+             * Gets the region previously set via gdk_gl_texture_builder_set_update_region() or
+             * %NULL if none was set.
+             * @since 4.12
+             * @returns The region
+             */
+            get_update_region(): cairo.Region | null
+            /**
+             * Gets the texture previously set via gdk_gl_texture_builder_set_update_texture() or
+             * %NULL if none was set.
+             * @since 4.12
+             * @returns The texture
+             */
+            get_update_texture(): Texture | null
+            /**
+             * Gets the width previously set via gdk_gl_texture_builder_set_width() or
+             * 0 if the width wasn't set.
+             * @since 4.12
+             * @returns The width
+             */
+            get_width(): number
+            /**
+             * Sets the color state for the texture.
+             *
+             * By default, the sRGB colorstate is used. If you don't know what
+             * colorstates are, this is probably the right thing.
+             * @since 4.16
+             * @param color_state a `GdkColorState`
+             */
+            set_color_state(color_state: ColorState): void
+            /**
+             * Sets the context to be used for the texture. This is the context that owns
+             * the texture.
+             *
+             * The context must be set before calling [method@Gdk.GLTextureBuilder.build].
+             * @since 4.12
+             * @param context The context the texture belongs to or %NULL to unset
+             */
+            set_context(context: GLContext | null): void
+            /**
+             * Sets the format of the texture. The default is `GDK_MEMORY_R8G8B8A8_PREMULTIPLIED`.
+             *
+             * The format is the preferred format the texture data should be downloaded to. The
+             * format must be supported by the GL version of [property@Gdk.GLTextureBuilder:context].
+             *
+             * GDK's texture download code assumes that the format corresponds to the storage
+             * parameters of the GL texture in an obvious way. For example, a format of
+             * `GDK_MEMORY_R16G16B16A16_PREMULTIPLIED` is expected to be stored as `GL_RGBA16`
+             * texture, and `GDK_MEMORY_G8A8` is expected to be stored as `GL_RG8` texture.
+             *
+             * Setting the right format is particularly useful when using high bit depth textures
+             * to preserve the bit depth, to set the correct value for unpremultiplied textures
+             * and to make sure opaque textures are treated as such.
+             *
+             * Non-RGBA textures need to have swizzling parameters set up properly to be usable
+             * in GSK's shaders.
+             * @since 4.12
+             * @param format The texture's format
+             */
+            set_format(format: MemoryFormat): void
+            /**
+             * Sets whether the texture has a mipmap. This allows the renderer and other users of the
+             * generated texture to use a higher quality downscaling.
+             *
+             * Typically, the `glGenerateMipmap` function is used to generate a mimap.
+             * @since 4.12
+             * @param has_mipmap Whether the texture has a mipmap
+             */
+            set_has_mipmap(has_mipmap: boolean): void
+            /**
+             * Sets the height of the texture.
+             *
+             * The height must be set before calling [method@Gdk.GLTextureBuilder.build].
+             * @since 4.12
+             * @param height The texture's height or 0 to unset
+             */
+            set_height(height: number): void
+            /**
+             * Sets the texture id of the texture. The texture id must remain unmodified
+             * until the texture was finalized. See [method@Gdk.GLTextureBuilder.build]
+             * for a longer discussion.
+             *
+             * The id must be set before calling [method@Gdk.GLTextureBuilder.build].
+             * @since 4.12
+             * @param id The texture id to be used for creating the texture
+             */
+            set_id(id: number): void
+            /**
+             * Sets the GLSync object to use for the texture.
+             *
+             * GTK will wait on this object before using the created `GdkTexture`.
+             *
+             * The `destroy` function that is passed to [method@Gdk.GLTextureBuilder.build]
+             * is responsible for freeing the sync object when it is no longer needed.
+             * The texture builder does not destroy it and it is the callers
+             * responsibility to make sure it doesn't leak.
+             * @since 4.12
+             * @param sync the GLSync object
+             */
+            set_sync(sync: never | null): void
+            /**
+             * Sets the region to be updated by this texture. Together with
+             * [property@Gdk.GLTextureBuilder:update-texture] this describes an
+             * update of a previous texture.
+             *
+             * When rendering animations of large textures, it is possible that
+             * consecutive textures are only updating contents in parts of the texture.
+             * It is then possible to describe this update via these two properties,
+             * so that GTK can avoid rerendering parts that did not change.
+             *
+             * An example would be a screen recording where only the mouse pointer moves.
+             * @since 4.12
+             * @param region the region to update
+             */
+            set_update_region(region: cairo.Region | null): void
+            /**
+             * Sets the texture to be updated by this texture. See
+             * [method@Gdk.GLTextureBuilder.set_update_region] for an explanation.
+             * @since 4.12
+             * @param texture the texture to update
+             */
+            set_update_texture(texture: Texture | null): void
+            /**
+             * Sets the width of the texture.
+             *
+             * The width must be set before calling [method@Gdk.GLTextureBuilder.build].
+             * @since 4.12
+             * @param width The texture's width or 0 to unset
+             */
+            set_width(width: number): void
+        }
+
+        interface GLTextureBuilderClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<GLTextureBuilder>
+            readonly prototype: GLTextureBuilder
+
+            new (props?: Partial<GObject.ConstructorProps<GLTextureBuilder>>): GLTextureBuilder
+            /**
+             * Creates a new texture builder.
+             * @since 4.12
+             * @returns the new `GdkTextureBuilder`
+             */
+            "new"(): GLTextureBuilder
+        }
+
+        interface $Exports {
+            /**
+             * Constructs [class@Gdk.Texture] objects from GL textures.
+             *
+             * The operation is quite simple: Create a texture builder, set all the necessary
+             * properties - keep in mind that the properties [property@Gdk.GLTextureBuilder:context],
+             * [property@Gdk.GLTextureBuilder:id], [property@Gdk.GLTextureBuilder:width], and
+             * [property@Gdk.GLTextureBuilder:height] are mandatory - and then call
+             * [method@Gdk.GLTextureBuilder.build] to create the new texture.
+             *
+             * `GdkGLTextureBuilder` can be used for quick one-shot construction of
+             * textures as well as kept around and reused to construct multiple textures.
+             * @since 4.12
+             */
+            GLTextureBuilder: GLTextureBuilderClass
+        }
+        
+
+        namespace GrabBrokenEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface GrabBrokenEvent extends Event {
+            readonly $signals: GrabBrokenEvent.SignalSignatures
+            readonly $readableProperties: GrabBrokenEvent.ReadableProperties
+            readonly $writableProperties: GrabBrokenEvent.WritableProperties
+            readonly $constructOnlyProperties: GrabBrokenEvent.ConstructOnlyProperties
+            /**
+             * Extracts the grab surface from a grab broken event.
+             * @returns the grab surface of `event`
+             */
+            get_grab_surface(): Surface
+            /**
+             * Checks whether the grab broken event is for an implicit grab.
+             * @returns %TRUE if the an implicit grab was broken
+             */
+            get_implicit(): boolean
+        }
+
+        interface GrabBrokenEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<GrabBrokenEvent>
+            readonly prototype: GrabBrokenEvent
+
+            new (props?: Partial<GObject.ConstructorProps<GrabBrokenEvent>>): GrabBrokenEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to a broken windowing system grab.
+             */
+            GrabBrokenEvent: GrabBrokenEventClass
+        }
+        
+
+        namespace KeyEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface KeyEvent extends Event {
+            readonly $signals: KeyEvent.SignalSignatures
+            readonly $readableProperties: KeyEvent.ReadableProperties
+            readonly $writableProperties: KeyEvent.WritableProperties
+            readonly $constructOnlyProperties: KeyEvent.ConstructOnlyProperties
+            /**
+             * Extracts the consumed modifiers from a key event.
+             * @returns the consumed modifiers or `event`
+             */
+            get_consumed_modifiers(): ModifierType
+            /**
+             * Extracts the keycode from a key event.
+             * @returns the keycode of `event`
+             */
+            get_keycode(): number
+            /**
+             * Extracts the keyval from a key event.
+             * @returns the keyval of `event`
+             */
+            get_keyval(): number
+            /**
+             * Extracts the layout from a key event.
+             * @returns the layout of `event`
+             */
+            get_layout(): number
+            /**
+             * Extracts the shift level from a key event.
+             * @returns the shift level of `event`
+             */
+            get_level(): number
+            /**
+             * Gets a keyval and modifier combination that will match
+             * the event.
+             *
+             * See [method@Gdk.KeyEvent.matches].
+             * @returns %TRUE on success, return location for a keyval, return location for modifiers
+             */
+            get_match(): [boolean, number, ModifierType]
+            /**
+             * Extracts whether the key event is for a modifier key.
+             * @returns %TRUE if the `event` is for a modifier key
+             */
+            is_modifier(): boolean
+            /**
+             * Matches a key event against a keyval and modifiers.
+             *
+             * This is typically used to trigger keyboard shortcuts such as Ctrl-C.
+             *
+             * Partial matches are possible where the combination matches
+             * if the currently active group is ignored.
+             *
+             * Note that we ignore Caps Lock for matching.
+             * @param keyval the keyval to match
+             * @param modifiers the modifiers to match
+             * @returns a `GdkKeyMatch` value describing whether `event` matches
+             */
+            matches(keyval: number, modifiers: ModifierType): KeyMatch
+        }
+
+        interface KeyEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<KeyEvent>
+            readonly prototype: KeyEvent
+
+            new (props?: Partial<GObject.ConstructorProps<KeyEvent>>): KeyEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to a key-based device.
+             */
+            KeyEvent: KeyEventClass
+        }
+        
+
+        namespace MemoryTexture {
+            interface SignalSignatures extends Texture.SignalSignatures, Paintable.SignalSignatures, Gio.Icon.SignalSignatures, Gio.LoadableIcon.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Texture.ReadableProperties, Paintable.ReadableProperties, Gio.Icon.ReadableProperties, Gio.LoadableIcon.ReadableProperties {
+            }
+
+            interface WritableProperties extends Texture.WritableProperties, Paintable.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Texture.ConstructOnlyProperties, Paintable.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
+            }
+        }
+
+        interface MemoryTexture extends Texture, Paintable, Gio.Icon, Gio.LoadableIcon {
+            readonly $signals: MemoryTexture.SignalSignatures
+            readonly $readableProperties: MemoryTexture.ReadableProperties
+            readonly $writableProperties: MemoryTexture.WritableProperties
+            readonly $constructOnlyProperties: MemoryTexture.ConstructOnlyProperties
+        }
+
+        interface MemoryTextureClass extends Omit<TextureClass, "new"> {
+            readonly $gtype: GObject.GType<MemoryTexture>
+            readonly prototype: MemoryTexture
+
+            new (props?: Partial<GObject.ConstructorProps<MemoryTexture>>): MemoryTexture
+            /**
+             * Creates a new texture for a blob of image data.
+             *
+             * The `GBytes` must contain @stride × @height pixels
+             * in the given format.
+             * @param width the width of the texture
+             * @param height the height of the texture
+             * @param format the format of the data
+             * @param bytes the `GBytes` containing the pixel data
+             * @param stride rowstride for the data
+             * @returns A newly-created `GdkTexture`
+             */
+            "new"(width: number, height: number, format: MemoryFormat, bytes: (GLib.Bytes | Uint8Array), stride: number): MemoryTexture
+        }
+
+        interface $Exports {
+            /**
+             * A `GdkTexture` representing image data in memory.
+             */
+            MemoryTexture: MemoryTextureClass
+        }
+        
+
+        namespace MemoryTextureBuilder {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "bytes": GLib.Bytes | null
+                "color-state": ColorState
+                "format": MemoryFormat
+                "height": number
+                "stride": number
+                "update-region": cairo.Region | null
+                "update-texture": Texture | null
+                "width": number
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "bytes": GLib.Bytes | null
+                "color-state": ColorState
+                "format": MemoryFormat
+                "height": number
+                "stride": number
+                "update-region": cairo.Region | null
+                "update-texture": Texture | null
+                "width": number
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+        }
+
+        interface MemoryTextureBuilder extends GObject.Object {
+            readonly $signals: MemoryTextureBuilder.SignalSignatures
+            readonly $readableProperties: MemoryTextureBuilder.ReadableProperties
+            readonly $writableProperties: MemoryTextureBuilder.WritableProperties
+            readonly $constructOnlyProperties: MemoryTextureBuilder.ConstructOnlyProperties
+            /**
+             * The bytes holding the data.
+             * @since 4.16
+             */
+            get bytes(): GLib.Bytes | null
+            set bytes(value: GLib.Bytes | null)
+            /**
+             * The colorstate describing the data.
+             * @since 4.16
+             */
+            get colorState(): ColorState
+            set colorState(value: ColorState)
+            /**
+             * The format of the data.
+             * @since 4.16
+             * @default GDK_MEMORY_R8G8B8A8_PREMULTIPLIED
+             */
+            get format(): MemoryFormat
+            set format(value: MemoryFormat)
+            /**
+             * The height of the texture.
+             * @since 4.16
+             * @default 0
+             */
+            get height(): number
+            set height(value: number)
+            /**
+             * The rowstride of the texture.
+             *
+             * The rowstride is the number of bytes between the first pixel
+             * in a row of image data, and the first pixel in the next row.
+             * @since 4.16
+             * @default 0
+             */
+            get stride(): number
+            set stride(value: number)
+            /**
+             * The update region for [property@Gdk.MemoryTextureBuilder:update-texture].
+             * @since 4.16
+             */
+            get updateRegion(): cairo.Region | null
+            set updateRegion(value: cairo.Region | null)
+            /**
+             * The texture [property@Gdk.MemoryTextureBuilder:update-region] is an update for.
+             * @since 4.16
+             */
+            get updateTexture(): Texture | null
+            set updateTexture(value: Texture | null)
+            /**
+             * The width of the texture.
+             * @since 4.16
+             * @default 0
+             */
+            get width(): number
+            set width(value: number)
+            /**
+             * Builds a new `GdkTexture` with the values set up in the builder.
+             *
+             * Note that it is a programming error to call this function if any mandatory
+             * property has not been set.
+             *
+             * It is possible to call this function multiple times to create multiple textures,
+             * possibly with changing properties in between.
+             * @since 4.16
+             * @returns a newly built `GdkTexture`
+             */
+            build(): Texture
+            /**
+             * Gets the bytes previously set via gdk_memory_texture_builder_set_bytes()
+             * or %NULL if none was set.
+             * @since 4.16
+             * @returns The bytes
+             */
+            get_bytes(): GLib.Bytes | null
+            /**
+             * Gets the colorstate previously set via gdk_memory_texture_builder_set_color_state().
+             * @since 4.16
+             * @returns The colorstate
+             */
+            get_color_state(): ColorState
+            /**
+             * Gets the format previously set via gdk_memory_texture_builder_set_format().
+             * @since 4.16
+             * @returns The format
+             */
+            get_format(): MemoryFormat
+            /**
+             * Gets the height previously set via gdk_memory_texture_builder_set_height()
+             * or 0 if the height wasn't set.
+             * @since 4.16
+             * @returns The height
+             */
+            get_height(): number
+            /**
+             * Gets the offset previously set via gdk_memory_texture_builder_set_offset().
+             * @since 4.20
+             * @param plane a plane
+             * @returns The offset associated to a `plane`
+             */
+            get_offset(plane: number): number
+            /**
+             * Gets the stride previously set via gdk_memory_texture_builder_set_stride().
+             * @since 4.16
+             * @returns the stride
+             */
+            get_stride(): number
+            /**
+             * Gets the stride previously set via gdk_memory_texture_builder_set_stride_for_plane().
+             * @since 4.20
+             * @param plane a plane
+             * @returns The stride associated to a `plane`
+             */
+            get_stride_for_plane(plane: number): number
+            /**
+             * Gets the region previously set via gdk_memory_texture_builder_set_update_region()
+             * or %NULL if none was set.
+             * @since 4.16
+             * @returns The update region
+             */
+            get_update_region(): cairo.Region | null
+            /**
+             * Gets the texture previously set via gdk_memory_texture_builder_set_update_texture()
+             * or %NULL if none was set.
+             * @since 4.16
+             * @returns The update texture
+             */
+            get_update_texture(): Texture | null
+            /**
+             * Gets the width previously set via gdk_memory_texture_builder_set_width()
+             * or 0 if the width wasn't set.
+             * @since 4.16
+             * @returns The width
+             */
+            get_width(): number
+            /**
+             * Sets the data to be shown but the texture.
+             *
+             * The bytes must be set before calling [method@Gdk.MemoryTextureBuilder.build].
+             * @since 4.16
+             * @param bytes The bytes the texture shows or %NULL to unset
+             */
+            set_bytes(bytes: (GLib.Bytes | Uint8Array | null)): void
+            /**
+             * Sets the colorstate describing the data.
+             *
+             * By default, the sRGB colorstate is used. If you don't know
+             * what colorstates are, this is probably the right thing.
+             * @since 4.16
+             * @param color_state The colorstate describing the data
+             */
+            set_color_state(color_state: ColorState): void
+            /**
+             * Sets the format of the bytes.
+             *
+             * The default is `GDK_MEMORY_R8G8B8A8_PREMULTIPLIED`.
+             * @since 4.16
+             * @param format The texture's format
+             */
+            set_format(format: MemoryFormat): void
+            /**
+             * Sets the height of the texture.
+             *
+             * The height must be set before calling [method@Gdk.MemoryTextureBuilder.build]
+             * and conform to size requirements of the provided format.
+             * @since 4.16
+             * @param height The texture's height or 0 to unset
+             */
+            set_height(height: number): void
+            /**
+             * Sets the offset of the texture for @plane.
+             * @since 4.20
+             * @param plane a plane
+             * @param offset the texture's offset for @plane
+             */
+            set_offset(plane: number, offset: number): void
+            /**
+             * Sets the rowstride of the bytes used.
+             *
+             * The rowstride must be set before calling [method@Gdk.MemoryTextureBuilder.build].
+             * @since 4.16
+             * @param stride the stride or 0 to unset
+             */
+            set_stride(stride: number): void
+            /**
+             * Sets the stride of the texture for @plane.
+             * @since 4.20
+             * @param plane a plane
+             * @param stride the texture's stride for @plane
+             */
+            set_stride_for_plane(plane: number, stride: number): void
+            /**
+             * Sets the region to be updated by this texture.
+             *
+             * Together with [property@Gdk.MemoryTextureBuilder:update-texture],
+             * this describes an update of a previous texture.
+             *
+             * When rendering animations of large textures, it is possible that
+             * consecutive textures are only updating contents in parts of the texture.
+             * It is then possible to describe this update via these two properties,
+             * so that GTK can avoid rerendering parts that did not change.
+             *
+             * An example would be a screen recording where only the mouse pointer moves.
+             * @since 4.16
+             * @param region the region to update
+             */
+            set_update_region(region: cairo.Region | null): void
+            /**
+             * Sets the texture to be updated by this texture.
+             *
+             * See [method@Gdk.MemoryTextureBuilder.set_update_region] for an explanation.
+             * @since 4.16
+             * @param texture the texture to update
+             */
+            set_update_texture(texture: Texture | null): void
+            /**
+             * Sets the width of the texture.
+             *
+             * The width must be set before calling [method@Gdk.MemoryTextureBuilder.build]
+             * and conform to size requirements of the provided format.
+             * @since 4.16
+             * @param width The texture's width or 0 to unset
+             */
+            set_width(width: number): void
+        }
+
+        interface MemoryTextureBuilderClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<MemoryTextureBuilder>
+            readonly prototype: MemoryTextureBuilder
+
+            new (props?: Partial<GObject.ConstructorProps<MemoryTextureBuilder>>): MemoryTextureBuilder
+            /**
+             * Creates a new texture builder.
+             * @since 4.16
+             * @returns the new `GdkTextureBuilder`
+             */
+            "new"(): MemoryTextureBuilder
+        }
+
+        interface $Exports {
+            /**
+             * Constructs [class@Gdk.Texture] objects from system memory provided
+             * via [struct@GLib.Bytes].
+             *
+             * The operation is quite simple: Create a texture builder, set all the necessary
+             * properties - keep in mind that the properties [property@Gdk.MemoryTextureBuilder:bytes],
+             * [property@Gdk.MemoryTextureBuilder:stride], [property@Gdk.MemoryTextureBuilder:width],
+             * and [property@Gdk.MemoryTextureBuilder:height] are mandatory - and then call
+             * [method@Gdk.MemoryTextureBuilder.build] to create the new texture.
+             *
+             * `GdkMemoryTextureBuilder` can be used for quick one-shot construction of
+             * textures as well as kept around and reused to construct multiple textures.
+             * @since 4.16
+             */
+            MemoryTextureBuilder: MemoryTextureBuilderClass
+        }
+        
+
+        namespace Monitor {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Emitted when the output represented by @monitor gets disconnected.
+                 */
+                "invalidate"(): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "connector": string | null
+                "description": string | null
+                "display": Display
+                "geometry": Rectangle
+                "height-mm": number
+                "manufacturer": string | null
+                "model": string | null
+                "refresh-rate": number
+                "scale": number
+                "scale-factor": number
+                "subpixel-layout": SubpixelLayout
+                "valid": boolean
+                "width-mm": number
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "connector": string | null
+                "description": string | null
+                "geometry": Rectangle
+                "height-mm": number
+                "manufacturer": string | null
+                "model": string | null
+                "refresh-rate": number
+                "scale": number
+                "scale-factor": number
+                "subpixel-layout": SubpixelLayout
+                "valid": boolean
+                "width-mm": number
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "display": Display
+            }
+        }
+
+        interface Monitor extends GObject.Object {
+            readonly $signals: Monitor.SignalSignatures
+            readonly $readableProperties: Monitor.ReadableProperties
+            readonly $writableProperties: Monitor.WritableProperties
+            readonly $constructOnlyProperties: Monitor.ConstructOnlyProperties
+            /**
+             * The connector name.
+             * @default NULL
+             */
+            get connector(): string | null
+            set connector(value: string | null)
+            /**
+             * A short description of the monitor, meant for display to the user.
+             * @since 4.10
+             * @default NULL
+             */
+            get description(): string | null
+            set description(value: string | null)
+            /**
+             * The `GdkDisplay` of the monitor.
+             */
+            get display(): Display
+            set display(value: Display)
+            /**
+             * The geometry of the monitor.
+             */
+            get geometry(): Rectangle
+            set geometry(value: Rectangle)
+            /**
+             * The height of the monitor, in millimeters.
+             * @default 0
+             */
+            get heightMm(): number
+            set heightMm(value: number)
+            /**
+             * The manufacturer name.
+             * @default NULL
+             */
+            get manufacturer(): string | null
+            set manufacturer(value: string | null)
+            /**
+             * The model name.
+             * @default NULL
+             */
+            get model(): string | null
+            set model(value: string | null)
+            /**
+             * The refresh rate, in milli-Hertz.
+             * @default 0
+             */
+            get refreshRate(): number
+            set refreshRate(value: number)
+            /**
+             * The scale of the monitor.
+             * @since 4.14
+             * @default 1.000000
+             */
+            get scale(): number
+            set scale(value: number)
+            /**
+             * The scale factor.
+             *
+             * The scale factor is the next larger integer,
+             * compared to [property@Gdk.Surface:scale].
+             * @default 1
+             */
+            get scaleFactor(): number
+            set scaleFactor(value: number)
+            /**
+             * The subpixel layout.
+             * @default GDK_SUBPIXEL_LAYOUT_UNKNOWN
+             */
+            get subpixelLayout(): SubpixelLayout
+            set subpixelLayout(value: SubpixelLayout)
+            /**
+             * Whether the object is still valid.
+             * @default TRUE
+             */
+            get valid(): boolean
+            set valid(value: boolean)
+            /**
+             * The width of the monitor, in millimeters.
+             * @default 0
+             */
+            get widthMm(): number
+            set widthMm(value: number)
+            /**
+             * Gets the name of the monitor's connector, if available.
+             *
+             * These are strings such as "eDP-1", or "HDMI-2". They depend
+             * on software and hardware configuration, and should not be
+             * relied on as stable identifiers of a specific monitor.
+             * @returns the name of the connector
+             */
+            get_connector(): string | null
+            /**
+             * Gets a string describing the monitor, if available.
+             *
+             * This can be used to identify a monitor in the UI.
+             * @since 4.10
+             * @returns the monitor description
+             */
+            get_description(): string | null
+            /**
+             * Gets the display that this monitor belongs to.
+             * @returns the display
+             */
+            get_display(): Display
+            /**
+             * Retrieves the size and position of the monitor within the
+             * display coordinate space.
+             *
+             * The returned geometry is in  ”application pixels”, not in
+             * ”device pixels” (see [method@Gdk.Monitor.get_scale]).
+             * @returns , a `GdkRectangle` to be filled with the monitor geometry
+             */
+            get_geometry(): Rectangle
+            /**
+             * Gets the height in millimeters of the monitor.
+             * @returns the physical height of the monitor
+             */
+            get_height_mm(): number
+            /**
+             * Gets the name or PNP ID of the monitor's manufacturer.
+             *
+             * Note that this value might also vary depending on actual
+             * display backend.
+             *
+             * The PNP ID registry is located at
+             * [https://uefi.org/pnp_id_list](https://uefi.org/pnp_id_list).
+             * @returns the name of the manufacturer
+             */
+            get_manufacturer(): string | null
+            /**
+             * Gets the string identifying the monitor model, if available.
+             * @returns the monitor model
+             */
+            get_model(): string | null
+            /**
+             * Gets the refresh rate of the monitor, if available.
+             *
+             * The value is in milli-Hertz, so a refresh rate of 60Hz
+             * is returned as 60000.
+             * @returns the refresh rate in milli-Hertz, or 0
+             */
+            get_refresh_rate(): number
+            /**
+             * Gets the internal scale factor that maps from monitor coordinates
+             * to device pixels.
+             *
+             * This can be used if you want to create pixel based data for a
+             * particular monitor, but most of the time you’re drawing to a surface
+             * where it is better to use [method@Gdk.Surface.get_scale] instead.
+             * @since 4.14
+             * @returns the scale
+             */
+            get_scale(): number
+            /**
+             * Gets the internal scale factor that maps from monitor coordinates
+             * to device pixels.
+             *
+             * On traditional systems this is 1, but on very high density outputs
+             * it can be a higher value (often 2).
+             *
+             * This can be used if you want to create pixel based data for a
+             * particular monitor, but most of the time you’re drawing to a surface
+             * where it is better to use [method@Gdk.Surface.get_scale_factor] instead.
+             * @returns the scale factor
+             */
+            get_scale_factor(): number
+            /**
+             * Gets information about the layout of red, green and blue
+             * primaries for pixels.
+             * @returns the subpixel layout
+             */
+            get_subpixel_layout(): SubpixelLayout
+            /**
+             * Gets the width in millimeters of the monitor.
+             * @returns the physical width of the monitor
+             */
+            get_width_mm(): number
+            /**
+             * Returns %TRUE if the @monitor object corresponds to a
+             * physical monitor.
+             *
+             * The @monitor becomes invalid when the physical monitor
+             * is unplugged or removed.
+             * @returns %TRUE if the object corresponds to a physical monitor
+             */
+            is_valid(): boolean
+        }
+
+        interface MonitorClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<Monitor>
+            readonly prototype: Monitor
+
+            new (props?: Partial<GObject.ConstructorProps<Monitor>>): Monitor
+        }
+
+        interface $Exports {
+            /**
+             * Represents the individual outputs that are associated with a `GdkDisplay`.
+             *
+             * `GdkDisplay` keeps a `GListModel` to enumerate and monitor
+             * monitors with [method@Gdk.Display.get_monitors]. You can use
+             * [method@Gdk.Display.get_monitor_at_surface] to find a particular
+             * monitor.
+             */
+            Monitor: MonitorClass
+        }
+        
+
+        namespace MotionEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface MotionEvent extends Event {
+            readonly $signals: MotionEvent.SignalSignatures
+            readonly $readableProperties: MotionEvent.ReadableProperties
+            readonly $writableProperties: MotionEvent.WritableProperties
+            readonly $constructOnlyProperties: MotionEvent.ConstructOnlyProperties
+        }
+
+        interface MotionEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<MotionEvent>
+            readonly prototype: MotionEvent
+
+            new (props?: Partial<GObject.ConstructorProps<MotionEvent>>): MotionEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to a pointer or touch device motion.
+             */
+            MotionEvent: MotionEventClass
+        }
+        
+
+        namespace PadEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface PadEvent extends Event {
+            readonly $signals: PadEvent.SignalSignatures
+            readonly $readableProperties: PadEvent.ReadableProperties
+            readonly $writableProperties: PadEvent.WritableProperties
+            readonly $constructOnlyProperties: PadEvent.ConstructOnlyProperties
+            /**
+             * Extracts the information from a pad strip or ring event.
+             * @returns , Return location for the axis index, Return location for the axis value
+             */
+            get_axis_value(): [number, number]
+            /**
+             * Extracts information about the pressed button from
+             * a pad event.
+             * @returns the button of `event`
+             */
+            get_button(): number
+            /**
+             * Extracts group and mode information from a pad event.
+             * @returns , return location for the group, return location for the mode
+             */
+            get_group_mode(): [number, number]
+        }
+
+        interface PadEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<PadEvent>
+            readonly prototype: PadEvent
+
+            new (props?: Partial<GObject.ConstructorProps<PadEvent>>): PadEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to a pad-based device.
+             */
+            PadEvent: PadEventClass
+        }
+        
+
+        namespace ProximityEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface ProximityEvent extends Event {
+            readonly $signals: ProximityEvent.SignalSignatures
+            readonly $readableProperties: ProximityEvent.ReadableProperties
+            readonly $writableProperties: ProximityEvent.WritableProperties
+            readonly $constructOnlyProperties: ProximityEvent.ConstructOnlyProperties
+        }
+
+        interface ProximityEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<ProximityEvent>
+            readonly prototype: ProximityEvent
+
+            new (props?: Partial<GObject.ConstructorProps<ProximityEvent>>): ProximityEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to the proximity of a tool to a device.
+             */
+            ProximityEvent: ProximityEventClass
+        }
+        
+
+        namespace ScrollEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface ScrollEvent extends Event {
+            readonly $signals: ScrollEvent.SignalSignatures
+            readonly $readableProperties: ScrollEvent.ReadableProperties
+            readonly $writableProperties: ScrollEvent.WritableProperties
+            readonly $constructOnlyProperties: ScrollEvent.ConstructOnlyProperties
+            /**
+             * Extracts the scroll deltas of a scroll event.
+             *
+             * The deltas will be zero unless the scroll direction
+             * is %GDK_SCROLL_SMOOTH.
+             *
+             * For the representation unit of these deltas, see
+             * [method@Gdk.ScrollEvent.get_unit].
+             * @returns , return location for x scroll delta, return location for y scroll delta
+             */
+            get_deltas(): [number, number]
+            /**
+             * Extracts the direction of a scroll event.
+             * @returns the scroll direction of `event`
+             */
+            get_direction(): ScrollDirection
+            /**
+             * Extracts the scroll direction relative to the physical motion.
+             * @since 4.20
+             * @returns the relative scroll direction.
+             */
+            get_relative_direction(): ScrollRelativeDirection
+            /**
+             * Extracts the scroll delta unit of a scroll event.
+             *
+             * The unit will always be %GDK_SCROLL_UNIT_WHEEL if the scroll direction is not
+             * %GDK_SCROLL_SMOOTH.
+             * @since 4.8
+             * @returns the scroll unit.
+             */
+            get_unit(): ScrollUnit
+            /**
+             * Check whether a scroll event is a stop scroll event.
+             *
+             * Scroll sequences with smooth scroll information may provide
+             * a stop scroll event once the interaction with the device finishes,
+             * e.g. by lifting a finger. This stop scroll event is the signal
+             * that a widget may trigger kinetic scrolling based on the current
+             * velocity.
+             *
+             * Stop scroll events always have a delta of 0/0.
+             * @returns %TRUE if the event is a scroll stop event
+             */
+            is_stop(): boolean
+        }
+
+        interface ScrollEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<ScrollEvent>
+            readonly prototype: ScrollEvent
+
+            new (props?: Partial<GObject.ConstructorProps<ScrollEvent>>): ScrollEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to a scrolling motion.
+             */
+            ScrollEvent: ScrollEventClass
+        }
+        
+
+        namespace Seat {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Emitted when a new input device is related to this seat.
+                 * @param device the newly added `GdkDevice`.
+                 */
+                "device-added"(device: Device): void
+                /**
+                 * Emitted when an input device is removed (e.g. unplugged).
+                 * @param device the just removed `GdkDevice`.
+                 */
+                "device-removed"(device: Device): void
+                /**
+                 * Emitted whenever a new tool is made known to the seat.
+                 *
+                 * The tool may later be assigned to a device (i.e. on
+                 * proximity with a tablet). The device will emit the
+                 * [signal@Gdk.Device::tool-changed] signal accordingly.
+                 *
+                 * A same tool may be used by several devices.
+                 * @param tool the new `GdkDeviceTool` known to the seat
+                 */
+                "tool-added"(tool: DeviceTool): void
+                /**
+                 * Emitted whenever a tool is no longer known to this @seat.
+                 * @param tool the just removed `GdkDeviceTool`
+                 */
+                "tool-removed"(tool: DeviceTool): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "display": Display
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "display": Display
+            }
+        }
+
+        interface Seat extends GObject.Object {
+            readonly $signals: Seat.SignalSignatures
+            readonly $readableProperties: Seat.ReadableProperties
+            readonly $writableProperties: Seat.WritableProperties
+            readonly $constructOnlyProperties: Seat.ConstructOnlyProperties
+            /**
+             * `GdkDisplay` of this seat.
+             */
+            get display(): Display
+            set display(value: Display)
+            /**
+             * Returns the capabilities this `GdkSeat` currently has.
+             * @returns the seat capabilities
+             */
+            get_capabilities(): SeatCapabilities
+            /**
+             * Returns the devices that match the given capabilities.
+             * @param capabilities capabilities to get devices for
+             * @returns A list   of `GdkDevices`. The list must be freed with g_list_free(),   the elements are owned by GTK and must not be freed.
+             */
+            get_devices(capabilities: SeatCapabilities): Device[]
+            /**
+             * Returns the `GdkDisplay` this seat belongs to.
+             * @returns a `GdkDisplay`. This object   is owned by GTK and must not be freed.
+             */
+            get_display(): Display
+            /**
+             * Returns the device that routes keyboard events.
+             * @returns a `GdkDevice` with keyboard   capabilities. This object is owned by GTK and must not be freed.
+             */
+            get_keyboard(): Device | null
+            /**
+             * Returns the device that routes pointer events.
+             * @returns a `GdkDevice` with pointer   capabilities. This object is owned by GTK and must not be freed.
+             */
+            get_pointer(): Device | null
+            /**
+             * Returns all `GdkDeviceTools` that are known to the application.
+             * @returns    A list of tools. Free with g_list_free().
+             */
+            get_tools(): DeviceTool[]
+        }
+
+        interface SeatClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<Seat>
+            readonly prototype: Seat
+
+            new (props?: Partial<GObject.ConstructorProps<Seat>>): Seat
+        }
+
+        interface $Exports {
+            /**
+             * Represents a collection of input devices that belong to a user.
+             */
+            Seat: SeatClass
+        }
+        
+
+        namespace Snapshot {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+        }
+
+        interface Snapshot extends GObject.Object {
+            readonly $signals: Snapshot.SignalSignatures
+            readonly $readableProperties: Snapshot.ReadableProperties
+            readonly $writableProperties: Snapshot.WritableProperties
+            readonly $constructOnlyProperties: Snapshot.ConstructOnlyProperties
+        }
+
+        interface SnapshotClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<Snapshot>
+            readonly prototype: Snapshot
+
+            new (props?: Partial<GObject.ConstructorProps<Snapshot>>): Snapshot
+        }
+
+        interface $Exports {
+            /**
+             * Base type for snapshot operations.
+             *
+             * The subclass of `GdkSnapshot` used by GTK is [GtkSnapshot](../gtk4/class.Snapshot.html).
+             */
+            Snapshot: SnapshotClass
+        }
+        
+
+        namespace Surface {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Emitted when @surface starts being present on the monitor.
+                 * @param monitor the monitor
+                 */
+                "enter-monitor"(monitor: Monitor): void
+                /**
+                 * Emitted when GDK receives an input event for @surface.
+                 * @param event an input event
+                 * @returns %TRUE to indicate that the event has been handled
+                 */
+                "event"(event: Event): boolean
+                /**
+                 * Emitted when the size of @surface is changed, or when relayout should
+                 * be performed.
+                 *
+                 * Surface size is reported in ”application pixels”, not
+                 * ”device pixels” (see gdk_surface_get_scale_factor()).
+                 * @param width the current width
+                 * @param height the current height
+                 */
+                "layout"(width: number, height: number): void
+                /**
+                 * Emitted when @surface stops being present on the monitor.
+                 * @param monitor the monitor
+                 */
+                "leave-monitor"(monitor: Monitor): void
+                /**
+                 * Emitted when part of the surface needs to be redrawn.
+                 * @param region the region that needs to be redrawn
+                 * @returns %TRUE to indicate that the signal has been handled
+                 */
+                "render"(region: cairo.Region): boolean
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "cursor": Cursor | null
+                "display": Display
+                "frame-clock": FrameClock
+                "height": number
+                "mapped": boolean
+                "scale": number
+                "scale-factor": number
+                "width": number
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "cursor": Cursor | null
+                "height": number
+                "mapped": boolean
+                "scale": number
+                "scale-factor": number
+                "width": number
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "display": Display
+                "frame-clock": FrameClock
+            }
+        }
+
+        interface Surface extends GObject.Object {
+            readonly $signals: Surface.SignalSignatures
+            readonly $readableProperties: Surface.ReadableProperties
+            readonly $writableProperties: Surface.WritableProperties
+            readonly $constructOnlyProperties: Surface.ConstructOnlyProperties
+            /**
+             * The mouse pointer for the `GdkSurface`.
+             */
+            get cursor(): Cursor | null
+            set cursor(value: Cursor | null)
+            /**
+             * The `GdkDisplay` connection of the surface.
+             */
+            get display(): Display
+            set display(value: Display)
+            /**
+             * The `GdkFrameClock` of the surface.
+             */
+            get frameClock(): FrameClock
+            set frameClock(value: FrameClock)
+            /**
+             * The height of the surface, in pixels.
+             * @default 0
+             */
+            get height(): number
+            set height(value: number)
+            /**
+             * Whether the surface is mapped.
+             * @default FALSE
+             */
+            get mapped(): boolean
+            set mapped(value: boolean)
+            /**
+             * The scale of the surface.
+             * @since 4.12
+             * @default 1.000000
+             */
+            get scale(): number
+            set scale(value: number)
+            /**
+             * The scale factor of the surface.
+             *
+             * The scale factor is the next larger integer,
+             * compared to [property@Gdk.Surface:scale].
+             * @default 1
+             */
+            get scaleFactor(): number
+            set scaleFactor(value: number)
+            /**
+             * The width of the surface in pixels.
+             * @default 0
+             */
+            get width(): number
+            set width(value: number)
+            /**
+             * Emits a short beep associated to @surface.
+             *
+             * If the display of @surface does not support per-surface beeps,
+             * emits a short beep on the display just as [method@Gdk.Display.beep].
+             */
+            beep(): void
+            /**
+             * Creates a new `GdkCairoContext` for rendering on @surface.
+             * @deprecated since 4.18 Drawing content with Cairo should be done via   Cairo rendernodes, not by using the Cairo renderer.
+             * @returns the newly created `GdkCairoContext`
+             */
+            create_cairo_context(): CairoContext
+            /**
+             * Creates a new `GdkGLContext` for the `GdkSurface`.
+             *
+             * The context is disconnected from any particular surface or surface.
+             * If the creation of the `GdkGLContext` failed, @error will be set.
+             * Before using the returned `GdkGLContext`, you will need to
+             * call [method@Gdk.GLContext.make_current] or [method@Gdk.GLContext.realize].
+             * @throws {GLib.Error}
+             * @returns the newly created `GdkGLContext`
+             */
+            create_gl_context(): GLContext
+            /**
+             * Create a new Cairo surface that is as compatible as possible with the
+             * given @surface.
+             *
+             * For example the new surface will have the same fallback resolution
+             * and font options as @surface. Generally, the new surface will also
+             * use the same backend as @surface, unless that is not possible for
+             * some reason. The type of the returned surface may be examined with
+             * cairo_surface_get_type().
+             *
+             * Initially the surface contents are all 0 (transparent if contents
+             * have transparency, black otherwise.)
+             *
+             * This function always returns a valid pointer, but it will return a
+             * pointer to a “nil” surface if @other is already in an error state
+             * or any other error occurs.
+             * @deprecated since 4.12 Create a suitable cairo image surface yourself
+             * @param content the content for the new surface
+             * @param width width of the new surface
+             * @param height height of the new surface
+             * @returns a pointer to the newly allocated surface. The caller   owns the surface and should call cairo_surface_destroy() when done   with it.
+             */
+            create_similar_surface(content: cairo.Content, width: number, height: number): cairo.Surface
+            /**
+             * Sets an error and returns %NULL.
+             * @throws {GLib.Error}
+             * @deprecated since 4.14 GTK does not expose any Vulkan internals. This   function is a leftover that was accidentally exposed.
+             * @returns %NULL
+             */
+            create_vulkan_context(): VulkanContext
+            /**
+             * Destroys the window system resources associated with @surface and
+             * decrements @surface's reference count.
+             *
+             * The window system resources for all children of @surface are also
+             * destroyed, but the children’s reference counts are not decremented.
+             *
+             * Note that a surface will not be destroyed automatically when its
+             * reference count reaches zero. You must call this function yourself
+             * before that happens.
+             */
+            destroy(): void
+            /**
+             * Retrieves a `GdkCursor` pointer for the cursor currently set on the
+             * `GdkSurface`.
+             *
+             * If the return value is %NULL then there is no custom cursor set on
+             * the surface, and it is using the cursor for its parent surface.
+             *
+             * Use [method@Gdk.Surface.set_cursor] to unset the cursor of the surface.
+             * @returns a `GdkCursor`
+             */
+            get_cursor(): Cursor | null
+            /**
+             * Retrieves a `GdkCursor` pointer for the @device currently set on the
+             * specified `GdkSurface`.
+             *
+             * If the return value is %NULL then there is no custom cursor set on the
+             * specified surface, and it is using the cursor for its parent surface.
+             *
+             * Use [method@Gdk.Surface.set_cursor] to unset the cursor of the surface.
+             * @param device a pointer `GdkDevice`
+             * @returns a `GdkCursor`
+             */
+            get_device_cursor(device: Device): Cursor | null
+            /**
+             * Obtains the current device position and modifier state.
+             *
+             * The position is given in coordinates relative to the upper
+             * left corner of @surface.
+             * @param device pointer `GdkDevice` to query to
+             * @returns %TRUE if the device is over the surface, return location for the X coordinate of `device`, return location for the Y coordinate of `device`, return location for the modifier mask
+             */
+            get_device_position(device: Device): [boolean, number, number, ModifierType]
+            /**
+             * Gets the `GdkDisplay` associated with a `GdkSurface`.
+             * @returns the `GdkDisplay` associated with `surface`
+             */
+            get_display(): Display
+            /**
+             * Gets the frame clock for the surface.
+             *
+             * The frame clock for a surface never changes unless the surface is
+             * reparented to a new toplevel surface.
+             * @returns the frame clock
+             */
+            get_frame_clock(): FrameClock
+            /**
+             * Returns the height of the given @surface.
+             *
+             * Surface size is reported in ”application pixels”, not
+             * ”device pixels” (see [method@Gdk.Surface.get_scale_factor]).
+             * @returns The height of `surface`
+             */
+            get_height(): number
+            /**
+             * Checks whether the surface has been mapped.
+             *
+             * A surface is mapped with [method@Gdk.Toplevel.present]
+             * or [method@Gdk.Popup.present].
+             * @returns %TRUE if the surface is mapped
+             */
+            get_mapped(): boolean
+            /**
+             * Returns the internal scale that maps from surface coordinates
+             * to the actual device pixels.
+             *
+             * When the scale is bigger than 1, the windowing system prefers to get
+             * buffers with a resolution that is bigger than the surface size (e.g.
+             * to show the surface on a high-resolution display, or in a magnifier).
+             *
+             * Compare with [method@Gdk.Surface.get_scale_factor], which returns the
+             * next larger integer.
+             *
+             * The scale may change during the lifetime of the surface.
+             * @since 4.12
+             * @returns the scale
+             */
+            get_scale(): number
+            /**
+             * Returns the internal scale factor that maps from surface coordinates
+             * to the actual device pixels.
+             *
+             * On traditional systems this is 1, but on very high density outputs
+             * this can be a higher value (often 2). A higher value means that drawing
+             * is automatically scaled up to a higher resolution, so any code doing
+             * drawing will automatically look nicer. However, if you are supplying
+             * pixel-based data the scale value can be used to determine whether to
+             * use a pixel resource with higher resolution data.
+             *
+             * The scale factor may change during the lifetime of the surface.
+             * @returns the scale factor
+             */
+            get_scale_factor(): number
+            /**
+             * Returns the width of the given @surface.
+             *
+             * Surface size is reported in ”application pixels”, not
+             * ”device pixels” (see [method@Gdk.Surface.get_scale_factor]).
+             * @returns The width of `surface`
+             */
+            get_width(): number
+            /**
+             * Hide the surface.
+             *
+             * For toplevel surfaces, withdraws them, so they will no longer be
+             * known to the window manager; for all surfaces, unmaps them, so
+             * they won’t be displayed. Normally done automatically as
+             * part of [gtk_widget_hide()](../gtk4/method.Widget.hide.html).
+             */
+            hide(): void
+            /**
+             * Check to see if a surface is destroyed.
+             * @returns %TRUE if the surface is destroyed
+             */
+            is_destroyed(): boolean
+            /**
+             * Forces a [signal@Gdk.Surface::render] signal emission for @surface
+             * to be scheduled.
+             *
+             * This function is useful for implementations that track invalid
+             * regions on their own.
+             */
+            queue_render(): void
+            /**
+             * Request a layout phase from the surface's frame clock.
+             *
+             * See [method@Gdk.FrameClock.request_phase].
+             */
+            request_layout(): void
+            /**
+             * Sets the default mouse pointer for a `GdkSurface`.
+             *
+             * Passing %NULL for the @cursor argument means that @surface will use
+             * the cursor of its parent surface. Most surfaces should use this default.
+             * Note that @cursor must be for the same display as @surface.
+             *
+             * Use [ctor@Gdk.Cursor.new_from_name] or [ctor@Gdk.Cursor.new_from_texture]
+             * to create the cursor. To make the cursor invisible, use %GDK_BLANK_CURSOR.
+             * @param cursor a `GdkCursor`
+             */
+            set_cursor(cursor: Cursor | null): void
+            /**
+             * Sets a specific `GdkCursor` for a given device when it gets inside @surface.
+             *
+             * Passing %NULL for the @cursor argument means that @surface will use the
+             * cursor of its parent surface. Most surfaces should use this default.
+             *
+             * Use [ctor@Gdk.Cursor.new_from_name] or [ctor@Gdk.Cursor.new_from_texture]
+             * to create the cursor. To make the cursor invisible, use %GDK_BLANK_CURSOR.
+             * @param device a pointer `GdkDevice`
+             * @param cursor a `GdkCursor`
+             */
+            set_device_cursor(device: Device, cursor: Cursor): void
+            /**
+             * Apply the region to the surface for the purpose of event
+             * handling.
+             *
+             * Mouse events which happen while the pointer position corresponds
+             * to an unset bit in the mask will be passed on the surface below
+             * @surface.
+             *
+             * An input region is typically used with RGBA surfaces. The alpha
+             * channel of the surface defines which pixels are invisible and
+             * allows for nicely antialiased borders, and the input region
+             * controls where the surface is “clickable”.
+             *
+             * Use [method@Gdk.Display.supports_input_shapes] to find out if
+             * a particular backend supports input regions.
+             * @param region region of surface to be reactive,
+              or %NULL to make the entire surface reactive
+             */
+            set_input_region(region: cairo.Region | null): void
+            /**
+             * Marks a region of the `GdkSurface` as opaque.
+             *
+             * For optimisation purposes, compositing window managers may
+             * like to not draw obscured regions of surfaces, or turn off blending
+             * during for these regions. With RGB windows with no transparency,
+             * this is just the shape of the window, but with ARGB32 windows, the
+             * compositor does not know what regions of the window are transparent
+             * or not.
+             *
+             * This function only works for toplevel surfaces.
+             *
+             * GTK will update this property automatically if the @surface background
+             * is opaque, as we know where the opaque regions are. If your surface
+             * background is not opaque, please update this property in your
+             * [GtkWidgetClass.css_changed](../gtk4/vfunc.Widget.css_changed.html) handler.
+             * @deprecated since 4.16 GDK can figure out the opaque parts of a window itself   by inspecting the contents that are drawn.
+             * @param region a region, or %NULL to make the entire
+              surface opaque
+             */
+            set_opaque_region(region: cairo.Region | null): void
+            /**
+             * Translates coordinates between two surfaces.
+             *
+             * Note that this only works if @to and @from are popups or
+             * transient-for to the same toplevel (directly or indirectly).
+             * @param to the target surface
+             * @returns %TRUE if the coordinates were successfully translated, coordinates to translate, coordinates to translate
+             */
+            translate_coordinates(to: Surface): [boolean, number, number]
+        }
+
+        interface SurfaceClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<Surface>
+            readonly prototype: Surface
+
+            new (props?: Partial<GObject.ConstructorProps<Surface>>): Surface
+            /**
+             * Create a new popup surface.
+             *
+             * The surface will be attached to @parent and can be positioned
+             * relative to it using [method@Gdk.Popup.present].
+             * @param parent the parent surface to attach the surface to
+             * @param autohide whether to hide the surface on outside clicks
+             * @returns a new `GdkSurface`
+             */
+            new_popup(parent: Surface, autohide: boolean): Surface
+            /**
+             * Creates a new toplevel surface.
+             * @param display the display to create the surface on
+             * @returns the new `GdkSurface`
+             */
+            new_toplevel(display: Display): Surface
+        }
+
+        interface $Exports {
+            /**
+             * Represents a rectangular region on the screen.
+             *
+             * It’s a low-level object, used to implement high-level objects
+             * such as [GtkWindow](../gtk4/class.Window.html).
+             *
+             * The surfaces you see in practice are either [iface@Gdk.Toplevel] or
+             * [iface@Gdk.Popup], and those interfaces provide much of the required
+             * API to interact with these surfaces. Other, more specialized surface
+             * types exist, but you will rarely interact with them directly.
+             */
+            Surface: SurfaceClass
+        }
+        
+
+        namespace Texture {
+            interface SignalSignatures extends GObject.Object.SignalSignatures, Paintable.SignalSignatures, Gio.Icon.SignalSignatures, Gio.LoadableIcon.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties, Paintable.ReadableProperties, Gio.Icon.ReadableProperties, Gio.LoadableIcon.ReadableProperties {
+                "color-state": ColorState
+                "height": number
+                "width": number
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties, Paintable.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Paintable.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
+                "color-state": ColorState
+                "height": number
+                "width": number
+            }
+        }
+
+        interface Texture extends GObject.Object, Paintable, Gio.Icon, Gio.LoadableIcon {
+            readonly $signals: Texture.SignalSignatures
+            readonly $readableProperties: Texture.ReadableProperties
+            readonly $writableProperties: Texture.WritableProperties
+            readonly $constructOnlyProperties: Texture.ConstructOnlyProperties
+            /**
+             * The color state of the texture.
+             * @since 4.16
+             */
+            get colorState(): ColorState
+            set colorState(value: ColorState)
+            /**
+             * The height of the texture, in pixels.
+             * @default 1
+             */
+            get height(): number
+            set height(value: number)
+            /**
+             * The width of the texture, in pixels.
+             * @default 1
+             */
+            get width(): number
+            set width(value: number)
+            /**
+             * Downloads the @texture into local memory.
+             *
+             * This may be an expensive operation, as the actual texture data
+             * may reside on a GPU or on a remote display server.
+             *
+             * The data format of the downloaded data is equivalent to
+             * %CAIRO_FORMAT_ARGB32, so every downloaded pixel requires
+             * 4 bytes of memory.
+             *
+             * Downloading a texture into a Cairo image surface:
+             * ```c
+             * surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+             *                                       gdk_texture_get_width (texture),
+             *                                       gdk_texture_get_height (texture));
+             * gdk_texture_download (texture,
+             *                       cairo_image_surface_get_data (surface),
+             *                       cairo_image_surface_get_stride (surface));
+             * cairo_surface_mark_dirty (surface);
+             * ```
+             *
+             * For more flexible download capabilities, see
+             * [struct@Gdk.TextureDownloader].
+             * @param data pointer to enough memory to be filled with the
+              downloaded data of @texture
+             * @param stride rowstride in bytes
+             */
+            download(data: Uint8Array, stride: number): void
+            /**
+             * Returns the color state associated with the texture.
+             * @since 4.16
+             * @returns the color state of the `GdkTexture`
+             */
+            get_color_state(): ColorState
+            /**
+             * Gets the memory format most closely associated with the data of
+             * the texture.
+             *
+             * Note that it may not be an exact match for texture data
+             * stored on the GPU or with compression.
+             *
+             * The format can give an indication about the bit depth and opacity
+             * of the texture and is useful to determine the best format for
+             * downloading the texture.
+             * @since 4.10
+             * @returns the preferred format for the texture's data
+             */
+            get_format(): MemoryFormat
+            /**
+             * Returns the height of the @texture, in pixels.
+             * @returns the height of the `GdkTexture`
+             */
+            get_height(): number
+            /**
+             * Returns the width of @texture, in pixels.
+             * @returns the width of the `GdkTexture`
+             */
+            get_width(): number
+            /**
+             * Store the given @texture to the @filename as a PNG file.
+             *
+             * This is a utility function intended for debugging and testing.
+             * If you want more control over formats, proper error handling or
+             * want to store to a [iface@Gio.File] or other location, you might
+             * want to use [method@Gdk.Texture.save_to_png_bytes] or look into
+             * the libglycin library.
+             * @param filename the filename to store to
+             * @returns %TRUE if saving succeeded, %FALSE on failure.
+             */
+            save_to_png(filename: string): boolean
+            /**
+             * Store the given @texture in memory as a PNG file.
+             *
+             * Use [ctor@Gdk.Texture.new_from_bytes] to read it back.
+             *
+             * If you want to serialize a texture, this is a convenient and
+             * portable way to do that.
+             *
+             * If you need more control over the generated image, such as
+             * attaching metadata, you should look into an image handling
+             * library such as the libglycin library.
+             *
+             * If you are dealing with high dynamic range float data, you
+             * might also want to consider [method@Gdk.Texture.save_to_tiff_bytes]
+             * instead.
+             * @since 4.6
+             * @returns a newly allocated `GBytes` containing PNG data
+             */
+            save_to_png_bytes(): GLib.Bytes
+            /**
+             * Store the given @texture to the @filename as a TIFF file.
+             *
+             * GTK will attempt to store data without loss.
+             * @since 4.6
+             * @param filename the filename to store to
+             * @returns %TRUE if saving succeeded, %FALSE on failure.
+             */
+            save_to_tiff(filename: string): boolean
+            /**
+             * Store the given @texture in memory as a TIFF file.
+             *
+             * Use [ctor@Gdk.Texture.new_from_bytes] to read it back.
+             *
+             * This function is intended to store a representation of the
+             * texture's data that is as accurate as possible. This is
+             * particularly relevant when working with high dynamic range
+             * images and floating-point texture data.
+             *
+             * If that is not your concern and you are interested in a
+             * smaller size and a more portable format, you might want to
+             * use [method@Gdk.Texture.save_to_png_bytes].
+             * @since 4.6
+             * @returns a newly allocated `GBytes` containing TIFF data
+             */
+            save_to_tiff_bytes(): GLib.Bytes
+        }
+
+        interface TextureClass extends Omit<GObject.ObjectClass, "new"> {
+            readonly $gtype: GObject.GType<Texture>
+            readonly prototype: Texture
+
+            new (props?: Partial<GObject.ConstructorProps<Texture>>): Texture
+            /**
+             * Creates a new texture object representing the `GdkPixbuf`.
+             *
+             * This function is threadsafe, so that you can e.g. use GTask
+             * and [method@Gio.Task.run_in_thread] to avoid blocking the main
+             * thread while loading a big image.
+             * @deprecated since 4.20 Use e.g. libglycin, which can load many image   formats into a `GdkTexture`
+             * @param pixbuf a `GdkPixbuf`
+             * @returns a new `GdkTexture`
+             */
+            new_for_pixbuf(pixbuf: GdkPixbuf.Pixbuf): Texture
+            /**
+             * Creates a new texture by loading an image from memory,
+             *
+             * The file format is detected automatically. The supported formats
+             * are PNG, JPEG and TIFF, though more formats might be available.
+             *
+             * If `NULL` is returned, then @error will be set.
+             *
+             * This function is threadsafe, so that you can e.g. use GTask
+             * and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
+             * while loading a big image.
+             *
+             * ::: warning
+             *     Note that this function should not be used with untrusted data.
+             *     Use a proper image loading framework such as libglycin, which can
+             *     load many image formats into a `GdkTexture`.
+             * @throws {GLib.Error}
+             * @since 4.6
+             * @param bytes a `GBytes` containing the data to load
+             * @returns A newly-created `GdkTexture`
+             */
+            new_from_bytes(bytes: (GLib.Bytes | Uint8Array)): Texture
+            /**
+             * Creates a new texture by loading an image from a file.
+             *
+             * The file format is detected automatically. The supported formats
+             * are PNG, JPEG and TIFF, though more formats might be available.
+             *
+             * If `NULL` is returned, then @error will be set.
+             *
+             * This function is threadsafe, so that you can e.g. use GTask
+             * and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
+             * while loading a big image.
+             *
+             * ::: warning
+             *     Note that this function should not be used with untrusted data.
+             *     Use a proper image loading framework such as libglycin, which can
+             *     load many image formats into a `GdkTexture`.
+             * @throws {GLib.Error}
+             * @param file `GFile` to load
+             * @returns A newly-created `GdkTexture`
+             */
+            new_from_file(file: Gio.File): Texture
+            /**
+             * Creates a new texture by loading an image from a file.
+             *
+             * The file format is detected automatically. The supported formats
+             * are PNG, JPEG and TIFF, though more formats might be available.
+             *
+             * If `NULL` is returned, then @error will be set.
+             *
+             * This function is threadsafe, so that you can e.g. use GTask
+             * and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
+             * while loading a big image.
+             *
+             * ::: warning
+             *     Note that this function should not be used with untrusted data.
+             *     Use a proper image loading framework such as libglycin, which can
+             *     load many image formats into a `GdkTexture`.
+             * @throws {GLib.Error}
+             * @since 4.6
+             * @param path the filename to load
+             * @returns A newly-created `GdkTexture`
+             */
+            new_from_filename(path: string): Texture
+            /**
+             * Creates a new texture by loading an image from a resource.
+             *
+             * The file format is detected automatically. The supported formats
+             * are PNG, JPEG and TIFF, though more formats might be available.
+             *
+             * It is a fatal error if @resource_path does not specify a valid
+             * image resource and the program will abort if that happens.
+             * If you are unsure about the validity of a resource, use
+             * [ctor@Gdk.Texture.new_from_file] to load it.
+             *
+             * This function is threadsafe, so that you can e.g. use GTask
+             * and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
+             * while loading a big image.
+             * @param resource_path the path of the resource file
+             * @returns A newly-created `GdkTexture`
+             */
+            new_from_resource(resource_path: string): Texture
+        }
+
+        interface $Exports {
+            /**
+             * Refers to pixel data in various forms.
+             *
+             * It is primarily meant for pixel data that will not change over
+             * multiple frames, and will be used for a long time.
+             *
+             * There are various ways to create `GdkTexture` objects from a
+             * [class@GdkPixbuf.Pixbuf], or from bytes stored in memory, a file, or a
+             * [struct@Gio.Resource].
+             *
+             * The ownership of the pixel data is transferred to the `GdkTexture`
+             * instance; you can only make a copy of it, via [method@Gdk.Texture.download].
+             *
+             * `GdkTexture` is an immutable object: That means you cannot change
+             * anything about it other than increasing the reference count via
+             * [method@GObject.Object.ref], and consequently, it is a threadsafe object.
+             *
+             * GDK provides a number of threadsafe texture loading functions:
+             * [ctor@Gdk.Texture.new_from_resource],
+             * [ctor@Gdk.Texture.new_from_bytes],
+             * [ctor@Gdk.Texture.new_from_file],
+             * [ctor@Gdk.Texture.new_from_filename],
+             * [ctor@Gdk.Texture.new_for_pixbuf]. Note that these are meant for loading
+             * icons and resources that are shipped with the toolkit or application. It
+             * is recommended that you use a dedicated image loading framework such as
+             * [glycin](https://lib.rs/crates/glycin), if you need to load untrusted image
+             * data.
+             */
+            Texture: TextureClass
+        }
+        
+
+        namespace TouchEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface TouchEvent extends Event {
+            readonly $signals: TouchEvent.SignalSignatures
+            readonly $readableProperties: TouchEvent.ReadableProperties
+            readonly $writableProperties: TouchEvent.WritableProperties
+            readonly $constructOnlyProperties: TouchEvent.ConstructOnlyProperties
+            /**
+             * Extracts whether a touch event is emulating a pointer event.
+             * @returns %TRUE if `event` is emulating
+             */
+            get_emulating_pointer(): boolean
+        }
+
+        interface TouchEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<TouchEvent>
+            readonly prototype: TouchEvent
+
+            new (props?: Partial<GObject.ConstructorProps<TouchEvent>>): TouchEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to a touch-based device.
+             */
+            TouchEvent: TouchEventClass
+        }
+        
+
+        namespace TouchpadEvent {
+            interface SignalSignatures extends Event.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Event.ReadableProperties {
+            }
+
+            interface WritableProperties extends Event.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
+            }
+        }
+
+        interface TouchpadEvent extends Event {
+            readonly $signals: TouchpadEvent.SignalSignatures
+            readonly $readableProperties: TouchpadEvent.ReadableProperties
+            readonly $writableProperties: TouchpadEvent.WritableProperties
+            readonly $constructOnlyProperties: TouchpadEvent.ConstructOnlyProperties
+            /**
+             * Extracts delta information from a touchpad event.
+             * @returns , return location for x, return location for y
+             */
+            get_deltas(): [number, number]
+            /**
+             * Extracts the touchpad gesture phase from a touchpad event.
+             * @returns the gesture phase of `event`
+             */
+            get_gesture_phase(): TouchpadGesturePhase
+            /**
+             * Extracts the number of fingers from a touchpad event.
+             * @returns the number of fingers for `event`
+             */
+            get_n_fingers(): number
+            /**
+             * Extracts the angle delta from a touchpad pinch event.
+             * @returns the angle delta of `event`
+             */
+            get_pinch_angle_delta(): number
+            /**
+             * Extracts the scale from a touchpad pinch event.
+             * @returns the scale of `event`
+             */
+            get_pinch_scale(): number
+        }
+
+        interface TouchpadEventClass extends Omit<EventClass, "new"> {
+            readonly $gtype: GObject.GType<TouchpadEvent>
+            readonly prototype: TouchpadEvent
+
+            new (props?: Partial<GObject.ConstructorProps<TouchpadEvent>>): TouchpadEvent
+        }
+
+        interface $Exports {
+            /**
+             * An event related to a gesture on a touchpad device.
+             *
+             * Unlike touchscreens, where the windowing system sends basic
+             * sequences of begin, update, end events, and leaves gesture
+             * recognition to the clients, touchpad gestures are typically
+             * processed by the system, resulting in these events.
+             */
+            TouchpadEvent: TouchpadEventClass
+        }
+        
+
+        namespace VulkanContext {
+            interface SignalSignatures extends DrawContext.SignalSignatures {
+                /**
+                 * Emitted when the images managed by this context have changed.
+                 *
+                 * Usually this means that the swapchain had to be recreated,
+                 * for example in response to a change of the surface size.
+                 */
+                "images-updated"(): void
+            }
+
+            interface ReadableProperties extends DrawContext.ReadableProperties {
+            }
+
+            interface WritableProperties extends DrawContext.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends DrawContext.ConstructOnlyProperties {
+            }
+        }
+
+        interface VulkanContext extends DrawContext {
+            readonly $signals: VulkanContext.SignalSignatures
+            readonly $readableProperties: VulkanContext.ReadableProperties
+            readonly $writableProperties: VulkanContext.WritableProperties
+            readonly $constructOnlyProperties: VulkanContext.ConstructOnlyProperties
+        }
+
+        interface VulkanContextClass extends Omit<DrawContextClass, "new"> {
+            readonly $gtype: GObject.GType<VulkanContext>
+            readonly prototype: VulkanContext
+
+            new (props?: Partial<GObject.ConstructorProps<VulkanContext>>): VulkanContext
+        }
+
+        interface $Exports {
+            /**
+             * Represents the platform-specific Vulkan draw context.
+             *
+             * `GdkVulkanContext`s are created for a surface using
+             * [method@Gdk.Surface.create_vulkan_context], and the context will match
+             * the characteristics of the surface.
+             *
+             * Support for `GdkVulkanContext` is platform-specific and context creation
+             * can fail, returning %NULL context.
+             * @deprecated since 4.14 GTK does not expose any Vulkan internals. This   struct is a leftover that was accidentally exposed.
+             */
+            VulkanContext: VulkanContextClass
+        }
         
 
         namespace DevicePad {
@@ -51,24 +6657,6 @@ declare module "gi://Gdk?version=4.0" {
             }
         }
 
-        /**
-         * An interface for tablet pad devices.
-         *
-         * It allows querying the features provided by the pad device.
-         *
-         * Tablet pads may contain one or more groups, each containing a subset
-         * of the buttons/rings/strips available. [method@Gdk.DevicePad.get_n_groups]
-         * can be used to obtain the number of groups, [method@Gdk.DevicePad.get_n_features]
-         * and [method@Gdk.DevicePad.get_feature_group] can be combined to find out
-         * the number of buttons/rings/strips the device has, and how are they grouped.
-         *
-         * Each of those groups have different modes, which may be used to map each
-         * individual pad feature to multiple actions. Only one mode is effective
-         * (current) for each given group, different groups may have different
-         * current modes. The number of available modes in a group can be found
-         * out through [method@Gdk.DevicePad.get_group_n_modes], and the current mode
-         * for a given group will be notified through events of type `GDK_PAD_GROUP_MODE`.
-         */
         interface DevicePad extends Device, DevicePad.Interface {
             readonly $signals: DevicePad.SignalSignatures
             readonly $readableProperties: DevicePad.ReadableProperties
@@ -106,15 +6694,33 @@ declare module "gi://Gdk?version=4.0" {
             get_n_groups(): number
         }
 
-
         interface DevicePadInterface {
             readonly $gtype: GObject.GType<DevicePad>
             readonly prototype: DevicePad
-
             [Symbol.hasInstance](instance: unknown): instance is DevicePad
         }
 
-        const DevicePad: DevicePadInterface
+        interface $Exports {
+            /**
+             * An interface for tablet pad devices.
+             *
+             * It allows querying the features provided by the pad device.
+             *
+             * Tablet pads may contain one or more groups, each containing a subset
+             * of the buttons/rings/strips available. [method@Gdk.DevicePad.get_n_groups]
+             * can be used to obtain the number of groups, [method@Gdk.DevicePad.get_n_features]
+             * and [method@Gdk.DevicePad.get_feature_group] can be combined to find out
+             * the number of buttons/rings/strips the device has, and how are they grouped.
+             *
+             * Each of those groups have different modes, which may be used to map each
+             * individual pad feature to multiple actions. Only one mode is effective
+             * (current) for each given group, different groups may have different
+             * current modes. The number of available modes in a group can be found
+             * out through [method@Gdk.DevicePad.get_group_n_modes], and the current mode
+             * for a given group will be notified through events of type `GDK_PAD_GROUP_MODE`.
+             */
+            DevicePad: DevicePadInterface
+        }
         
 
         namespace DragSurface {
@@ -152,9 +6758,6 @@ declare module "gi://Gdk?version=4.0" {
             }
         }
 
-        /**
-         * A surface that is used during DND.
-         */
         interface DragSurface extends Surface, DragSurface.Interface {
             readonly $signals: DragSurface.SignalSignatures
             readonly $readableProperties: DragSurface.ReadableProperties
@@ -169,19 +6772,22 @@ declare module "gi://Gdk?version=4.0" {
             present(width: number, height: number): boolean
         }
 
-
         interface DragSurfaceInterface {
             readonly $gtype: GObject.GType<DragSurface>
             readonly prototype: DragSurface
-
             [Symbol.hasInstance](instance: unknown): instance is DragSurface
         }
 
-        const DragSurface: DragSurfaceInterface
+        interface $Exports {
+            /**
+             * A surface that is used during DND.
+             */
+            DragSurface: DragSurfaceInterface
+        }
         
 
         namespace Paintable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Emitted when the contents of the @paintable change.
                  *
@@ -204,16 +6810,16 @@ declare module "gi://Gdk?version=4.0" {
                 "invalidate-size"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets an immutable paintable for the current contents displayed by @paintable.
                  *
@@ -296,53 +6902,7 @@ declare module "gi://Gdk?version=4.0" {
             }
         }
 
-        /**
-         * An interface for content that can be painted.
-         *
-         * The content of a `GdkPaintable` can be painted anywhere at any size
-         * without requiring any sort of layout. The interface is inspired by
-         * similar concepts elsewhere, such as
-         * [ClutterContent](https://developer.gnome.org/clutter/stable/ClutterContent.html),
-         * [HTML/CSS Paint Sources](https://www.w3.org/TR/css-images-4/#paint-source),
-         * or [SVG Paint Servers](https://www.w3.org/TR/SVG2/pservers.html).
-         *
-         * A `GdkPaintable` can be snapshot at any time and size using
-         * [method@Gdk.Paintable.snapshot]. How the paintable interprets that size and
-         * if it scales or centers itself into the given rectangle is implementation
-         * defined, though if you are implementing a `GdkPaintable` and don't know what
-         * to do, it is suggested that you scale your paintable ignoring any potential
-         * aspect ratio.
-         *
-         * The contents that a `GdkPaintable` produces may depend on the [class@Gdk.Snapshot]
-         * passed to it. For example, paintables may decide to use more detailed images
-         * on higher resolution screens or when OpenGL is available. A `GdkPaintable`
-         * will however always produce the same output for the same snapshot.
-         *
-         * A `GdkPaintable` may change its contents, meaning that it will now produce
-         * a different output with the same snapshot. Once that happens, it will call
-         * [method@Gdk.Paintable.invalidate_contents] which will emit the
-         * [signal@Gdk.Paintable::invalidate-contents] signal. If a paintable is known
-         * to never change its contents, it will set the %GDK_PAINTABLE_STATIC_CONTENTS
-         * flag. If a consumer cannot deal with changing contents, it may call
-         * [method@Gdk.Paintable.get_current_image] which will return a static
-         * paintable and use that.
-         *
-         * A paintable can report an intrinsic (or preferred) size or aspect ratio it
-         * wishes to be rendered at, though it doesn't have to. Consumers of the interface
-         * can use this information to layout thepaintable appropriately. Just like the
-         * contents, the size of a paintable can change. A paintable will indicate this
-         * by calling [method@Gdk.Paintable.invalidate_size] which will emit the
-         * [signal@Gdk.Paintable::invalidate-size] signal. And just like for contents,
-         * if a paintable is known to never change its size, it will set the
-         * %GDK_PAINTABLE_STATIC_SIZE flag.
-         *
-         * Besides API for applications, there are some functions that are only
-         * useful for implementing subclasses and should not be used by applications:
-         * [method@Gdk.Paintable.invalidate_contents],
-         * [method@Gdk.Paintable.invalidate_size],
-         * [func@Gdk.Paintable.new_empty].
-         */
-        interface Paintable extends Paintable.Interface {
+        interface Paintable extends GObject.Object, Paintable.Interface {
             readonly $signals: Paintable.SignalSignatures
             readonly $readableProperties: Paintable.ReadableProperties
             readonly $writableProperties: Paintable.WritableProperties
@@ -476,10 +7036,10 @@ declare module "gi://Gdk?version=4.0" {
             snapshot(snapshot: Snapshot, width: number, height: number): void
         }
 
-
         interface PaintableInterface {
             readonly $gtype: GObject.GType<Paintable>
             readonly prototype: Paintable
+            [Symbol.hasInstance](instance: unknown): instance is Paintable
             /**
              * Returns a paintable that has the given intrinsic size and draws nothing.
              *
@@ -493,11 +7053,57 @@ declare module "gi://Gdk?version=4.0" {
              * @returns a `GdkPaintable`
              */
             new_empty(intrinsic_width: number, intrinsic_height: number): Paintable
-
-            [Symbol.hasInstance](instance: unknown): instance is Paintable
         }
 
-        const Paintable: PaintableInterface
+        interface $Exports {
+            /**
+             * An interface for content that can be painted.
+             *
+             * The content of a `GdkPaintable` can be painted anywhere at any size
+             * without requiring any sort of layout. The interface is inspired by
+             * similar concepts elsewhere, such as
+             * [ClutterContent](https://developer.gnome.org/clutter/stable/ClutterContent.html),
+             * [HTML/CSS Paint Sources](https://www.w3.org/TR/css-images-4/#paint-source),
+             * or [SVG Paint Servers](https://www.w3.org/TR/SVG2/pservers.html).
+             *
+             * A `GdkPaintable` can be snapshot at any time and size using
+             * [method@Gdk.Paintable.snapshot]. How the paintable interprets that size and
+             * if it scales or centers itself into the given rectangle is implementation
+             * defined, though if you are implementing a `GdkPaintable` and don't know what
+             * to do, it is suggested that you scale your paintable ignoring any potential
+             * aspect ratio.
+             *
+             * The contents that a `GdkPaintable` produces may depend on the [class@Gdk.Snapshot]
+             * passed to it. For example, paintables may decide to use more detailed images
+             * on higher resolution screens or when OpenGL is available. A `GdkPaintable`
+             * will however always produce the same output for the same snapshot.
+             *
+             * A `GdkPaintable` may change its contents, meaning that it will now produce
+             * a different output with the same snapshot. Once that happens, it will call
+             * [method@Gdk.Paintable.invalidate_contents] which will emit the
+             * [signal@Gdk.Paintable::invalidate-contents] signal. If a paintable is known
+             * to never change its contents, it will set the %GDK_PAINTABLE_STATIC_CONTENTS
+             * flag. If a consumer cannot deal with changing contents, it may call
+             * [method@Gdk.Paintable.get_current_image] which will return a static
+             * paintable and use that.
+             *
+             * A paintable can report an intrinsic (or preferred) size or aspect ratio it
+             * wishes to be rendered at, though it doesn't have to. Consumers of the interface
+             * can use this information to layout thepaintable appropriately. Just like the
+             * contents, the size of a paintable can change. A paintable will indicate this
+             * by calling [method@Gdk.Paintable.invalidate_size] which will emit the
+             * [signal@Gdk.Paintable::invalidate-size] signal. And just like for contents,
+             * if a paintable is known to never change its size, it will set the
+             * %GDK_PAINTABLE_STATIC_SIZE flag.
+             *
+             * Besides API for applications, there are some functions that are only
+             * useful for implementing subclasses and should not be used by applications:
+             * [method@Gdk.Paintable.invalidate_contents],
+             * [method@Gdk.Paintable.invalidate_size],
+             * [func@Gdk.Paintable.new_empty].
+             */
+            Paintable: PaintableInterface
+        }
         
 
         namespace Popup {
@@ -510,26 +7116,17 @@ declare module "gi://Gdk?version=4.0" {
             }
 
             interface WritableProperties extends Surface.WritableProperties {
-                "autohide": boolean
-                "parent": Surface | null
             }
 
             interface ConstructOnlyProperties extends Surface.ConstructOnlyProperties {
+                "autohide": boolean
+                "parent": Surface | null
             }
 
             interface Interface extends Surface {
             }
         }
 
-        /**
-         * A surface that is attached to another surface.
-         *
-         * The `GdkPopup` is positioned relative to its parent surface.
-         *
-         * `GdkPopup`s are typically used to implement menus and similar popups.
-         * They can be modal, which is indicated by the [property@Gdk.Popup:autohide]
-         * property.
-         */
         interface Popup extends Surface, Popup.Interface {
             readonly $signals: Popup.SignalSignatures
             readonly $readableProperties: Popup.ReadableProperties
@@ -606,15 +7203,24 @@ declare module "gi://Gdk?version=4.0" {
             present(width: number, height: number, layout: PopupLayout): boolean
         }
 
-
         interface PopupInterface {
             readonly $gtype: GObject.GType<Popup>
             readonly prototype: Popup
-
             [Symbol.hasInstance](instance: unknown): instance is Popup
         }
 
-        const Popup: PopupInterface
+        interface $Exports {
+            /**
+             * A surface that is attached to another surface.
+             *
+             * The `GdkPopup` is positioned relative to its parent surface.
+             *
+             * `GdkPopup`s are typically used to implement menus and similar popups.
+             * They can be modal, which is indicated by the [property@Gdk.Popup:autohide]
+             * property.
+             */
+            Popup: PopupInterface
+        }
         
 
         namespace Toplevel {
@@ -675,13 +7281,6 @@ declare module "gi://Gdk?version=4.0" {
             }
         }
 
-        /**
-         * A freestanding toplevel surface.
-         *
-         * The `GdkToplevel` interface provides useful APIs for interacting with
-         * the windowing system, such as controlling maximization and size of the
-         * surface, setting icons and transient parents for dialogs.
-         */
         interface Toplevel extends Surface, Toplevel.Interface {
             readonly $signals: Toplevel.SignalSignatures
             readonly $readableProperties: Toplevel.ReadableProperties
@@ -993,6476 +7592,27 @@ declare module "gi://Gdk?version=4.0" {
             titlebar_gesture(gesture: TitlebarGesture): boolean
         }
 
-
         interface ToplevelInterface {
             readonly $gtype: GObject.GType<Toplevel>
             readonly prototype: Toplevel
-
             [Symbol.hasInstance](instance: unknown): instance is Toplevel
         }
 
-        const Toplevel: ToplevelInterface
+        interface $Exports {
+            /**
+             * A freestanding toplevel surface.
+             *
+             * The `GdkToplevel` interface provides useful APIs for interacting with
+             * the windowing system, such as controlling maximization and size of the
+             * surface, setting icons and transient parents for dialogs.
+             */
+            Toplevel: ToplevelInterface
+        }
         
 
-        namespace AppLaunchContext {
-            interface SignalSignatures extends Gio.AppLaunchContext.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gio.AppLaunchContext.ReadableProperties {
-                "display": Display
-            }
-
-            interface WritableProperties extends Gio.AppLaunchContext.WritableProperties {
-                "display": Display
-            }
-
-            interface ConstructOnlyProperties extends Gio.AppLaunchContext.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * message);
-         *
-         * g_object_unref (context);
-         * ```
-         */
-        interface AppLaunchContext extends Gio.AppLaunchContext {
-            readonly $signals: AppLaunchContext.SignalSignatures
-            readonly $readableProperties: AppLaunchContext.ReadableProperties
-            readonly $writableProperties: AppLaunchContext.WritableProperties
-            readonly $constructOnlyProperties: AppLaunchContext.ConstructOnlyProperties
-            /**
-             * The display that the `GdkAppLaunchContext` is on.
-             */
-            get display(): Display
-            set display(value: Display)
-            /**
-             * Gets the `GdkDisplay` that @context is for.
-             * @returns the display of `context`
-             */
-            get_display(): Display
-            /**
-             * Sets the workspace on which applications will be launched.
-             *
-             * This only works when running under a window manager that
-             * supports multiple workspaces, as described in the
-             * [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec).
-             * Specifically this sets the `_NET_WM_DESKTOP` property described
-             * in that spec.
-             *
-             * This only works when using the X11 backend.
-             *
-             * When the workspace is not specified or @desktop is set to -1,
-             * it is up to the window manager to pick one, typically it will
-             * be the current workspace.
-             * @param desktop the number of a workspace, or -1
-             */
-            set_desktop(desktop: number): void
-            /**
-             * Sets the icon for applications that are launched with this
-             * context.
-             *
-             * Window Managers can use this information when displaying startup
-             * notification.
-             *
-             * See also [method@Gdk.AppLaunchContext.set_icon_name].
-             * @param icon a `GIcon`
-             */
-            set_icon(icon: Gio.Icon | null): void
-            /**
-             * Sets the icon for applications that are launched with this context.
-             *
-             * The @icon_name will be interpreted in the same way as the Icon field
-             * in desktop files. See also [method@Gdk.AppLaunchContext.set_icon].
-             *
-             * If both @icon and @icon_name are set, the @icon_name takes priority.
-             * If neither @icon or @icon_name is set, the icon is taken from either
-             * the file that is passed to launched application or from the `GAppInfo`
-             * for the launched application itself.
-             * @param icon_name an icon name
-             */
-            set_icon_name(icon_name: string | null): void
-            /**
-             * Sets the timestamp of @context.
-             *
-             * The timestamp should ideally be taken from the event that
-             * triggered the launch.
-             *
-             * Window managers can use this information to avoid moving the
-             * focus to the newly launched application when the user is busy
-             * typing in another window. This is also known as 'focus stealing
-             * prevention'.
-             * @param timestamp a timestamp
-             */
-            set_timestamp(timestamp: number): void
-        }
-
-        interface AppLaunchContextClass extends Omit<Gio.AppLaunchContextClass, "new"> {
-            readonly $gtype: GObject.GType<AppLaunchContext>
-            readonly prototype: AppLaunchContext
-            new (props?: Partial<GObject.ConstructorProps<AppLaunchContext>>): AppLaunchContext
-        }
-
-        const AppLaunchContext: AppLaunchContextClass
-        
-
-        namespace ButtonEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to a button on a pointer device.
-         */
-        interface ButtonEvent extends Event {
-            readonly $signals: ButtonEvent.SignalSignatures
-            readonly $readableProperties: ButtonEvent.ReadableProperties
-            readonly $writableProperties: ButtonEvent.WritableProperties
-            readonly $constructOnlyProperties: ButtonEvent.ConstructOnlyProperties
-            /**
-             * Extract the button number from a button event.
-             * @returns the button of `event`
-             */
-            get_button(): number
-        }
-
-        interface ButtonEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<ButtonEvent>
-            readonly prototype: ButtonEvent
-            new (props?: Partial<GObject.ConstructorProps<ButtonEvent>>): ButtonEvent
-        }
-
-        const ButtonEvent: ButtonEventClass
-        
-
-        namespace CairoContext {
-            interface SignalSignatures extends DrawContext.SignalSignatures {
-            }
-
-            interface ReadableProperties extends DrawContext.ReadableProperties {
-            }
-
-            interface WritableProperties extends DrawContext.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends DrawContext.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Represents the platform-specific draw context.
-         *
-         * `GdkCairoContext`s are created for a surface using
-         * [method@Gdk.Surface.create_cairo_context], and the context
-         * can then be used to draw on that surface.
-         */
-        interface CairoContext extends DrawContext {
-            readonly $signals: CairoContext.SignalSignatures
-            readonly $readableProperties: CairoContext.ReadableProperties
-            readonly $writableProperties: CairoContext.WritableProperties
-            readonly $constructOnlyProperties: CairoContext.ConstructOnlyProperties
-            /**
-             * Retrieves a Cairo context to be used to draw on the `GdkSurface`
-             * of @context.
-             *
-             * A call to [method@Gdk.DrawContext.begin_frame] with this
-             * @context must have been done or this function will return %NULL.
-             *
-             * The returned context is guaranteed to be valid until
-             * [method@Gdk.DrawContext.end_frame] is called.
-             * @deprecated since 4.18 Drawing content with Cairo should be done via   Cairo rendernodes, not by using renderers.
-             * @returns a Cairo context   to draw on `GdkSurface
-             */
-            cairo_create(): cairo.Context | null
-        }
-
-        interface CairoContextClass extends Omit<DrawContextClass, "new"> {
-            readonly $gtype: GObject.GType<CairoContext>
-            readonly prototype: CairoContext
-            new (props?: Partial<GObject.ConstructorProps<CairoContext>>): CairoContext
-        }
-
-        const CairoContext: CairoContextClass
-        
-
-        namespace CicpParams {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "color-primaries": number
-                "matrix-coefficients": number
-                "range": CicpRange
-                "transfer-function": number
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "color-primaries": number
-                "matrix-coefficients": number
-                "range": CicpRange
-                "transfer-function": number
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Contains the parameters that define a colorstate with cicp parameters.
-         *
-         * Cicp parameters are specified in the ITU-T H.273
-         * [specification](https://www.itu.int/rec/T-REC-H.273/en).
-         *
-         * See the documentation of individual properties for supported values.
-         *
-         * The 'unspecified' value (2) is not treated in any special way, and
-         * must be replaced by a different value before creating a color state.
-         *
-         * `GdkCicpParams` can be used as a builder object to construct a color
-         * state from Cicp data with [method@Gdk.CicpParams.build_color_state].
-         * The function will return an error if the given parameters are not
-         * supported.
-         *
-         * You can obtain a `GdkCicpParams` object from a color state with
-         * [method@Gdk.ColorState.create_cicp_params]. This can be used to
-         * create a variant of a color state, by changing just one of the cicp
-         * parameters, or just to obtain information about the color state.
-         * @since 4.16
-         */
-        interface CicpParams extends GObject.Object {
-            readonly $signals: CicpParams.SignalSignatures
-            readonly $readableProperties: CicpParams.ReadableProperties
-            readonly $writableProperties: CicpParams.WritableProperties
-            readonly $constructOnlyProperties: CicpParams.ConstructOnlyProperties
-            /**
-             * The color primaries to use.
-             *
-             * Supported values:
-             *
-             * - 1: BT.709 / sRGB
-             * - 2: unspecified
-             * - 5: PAL
-             * - 6,7: BT.601 / NTSC
-             * - 9: BT.2020
-             * - 12: Display P3
-             * @since 4.16
-             * @default 2
-             */
-            get colorPrimaries(): number
-            set colorPrimaries(value: number)
-            /**
-             * The matrix coefficients (for YUV to RGB conversion).
-             *
-             * Supported values:
-             *
-             * - 0: RGB
-             * - 1: BT.709
-             * - 2: unspecified
-             * - 5,6: BT.601
-             * - 9: BT.2020
-             * @since 4.16
-             * @default 2
-             */
-            get matrixCoefficients(): number
-            set matrixCoefficients(value: number)
-            /**
-             * Whether the data is using the full range of values.
-             *
-             * The range of the data.
-             * @since 4.16
-             * @default GDK_CICP_RANGE_NARROW
-             */
-            get range(): CicpRange
-            set range(value: CicpRange)
-            /**
-             * The transfer function to use.
-             *
-             * Supported values:
-             *
-             * - 1,6,14,15: BT.709, BT.601, BT.2020
-             * - 2: unspecified
-             * - 4: gamma 2.2
-             * - 5: gamma 2.8
-             * - 8: linear
-             * - 13: sRGB
-             * - 16: BT.2100 PQ
-             * - 18: BT.2100 HLG
-             * @since 4.16
-             * @default 2
-             */
-            get transferFunction(): number
-            set transferFunction(value: number)
-            /**
-             * Creates a new `GdkColorState` object for the cicp parameters in @self.
-             *
-             * Note that this may fail if the cicp parameters in @self are not
-             * supported by GTK. In that case, `NULL` is returned, and @error is set
-             * with an error message that can be presented to the user.
-             * @throws {GLib.Error}
-             * @since 4.16
-             * @returns A newly allocated `GdkColorState`
-             */
-            build_color_state(): ColorState
-            /**
-             * Returns the value of the color-primaries property
-             * of @self.
-             * @since 4.16
-             * @returns the color-primaries value
-             */
-            get_color_primaries(): number
-            /**
-             * Gets the matrix-coefficients property of @self.
-             * @since 4.16
-             * @returns the matrix-coefficients value
-             */
-            get_matrix_coefficients(): number
-            /**
-             * Gets the range property of @self.
-             * @since 4.16
-             * @returns the range value
-             */
-            get_range(): CicpRange
-            /**
-             * Gets the transfer-function property of @self.
-             * @since 4.16
-             * @returns the transfer-function value
-             */
-            get_transfer_function(): number
-            /**
-             * Sets the color-primaries property of @self.
-             * @since 4.16
-             * @param color_primaries the new color primaries value
-             */
-            set_color_primaries(color_primaries: number): void
-            /**
-             * @self a `GdkCicpParams`
-             * Sets the matrix-coefficients property of @self.
-             * @since 4.16
-             * @param matrix_coefficients the new matrix-coefficients value
-             */
-            set_matrix_coefficients(matrix_coefficients: number): void
-            /**
-             * Sets the range property of @self
-             * @since 4.16
-             * @param range the range value
-             */
-            set_range(range: CicpRange): void
-            /**
-             * Sets the transfer-function property of @self.
-             * @since 4.16
-             * @param transfer_function the new transfer-function value
-             */
-            set_transfer_function(transfer_function: number): void
-        }
-
-        interface CicpParamsClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<CicpParams>
-            readonly prototype: CicpParams
-            new (props?: Partial<GObject.ConstructorProps<CicpParams>>): CicpParams
-            /**
-             * Creates a new `GdkCicpParams` object.
-             *
-             * The initial values of the properties are the values for "undefined"
-             * and need to be set before a color state object can be built.
-             * @since 4.16
-             * @returns a new `GdkCicpParams`
-             */
-            "new"(): CicpParams
-        }
-
-        const CicpParams: CicpParamsClass
-        
-
-        namespace Clipboard {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * Emitted when the clipboard changes ownership.
-                 */
-                "changed"(): void
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "content": ContentProvider | null
-                "display": Display
-                "formats": ContentFormats
-                "local": boolean
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "content": ContentProvider | null
-                "display": Display
-                "formats": ContentFormats
-                "local": boolean
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Represents data shared between applications or inside an application.
-         *
-         * To get a `GdkClipboard` object, use [method@Gdk.Display.get_clipboard] or
-         * [method@Gdk.Display.get_primary_clipboard]. You can find out about the data
-         * that is currently available in a clipboard using
-         * [method@Gdk.Clipboard.get_formats].
-         *
-         * To make text or image data available in a clipboard, use
-         * [method@Gdk.Clipboard.set_text] or [method@Gdk.Clipboard.set_texture].
-         * For other data, you can use [method@Gdk.Clipboard.set_content], which
-         * takes a [class@Gdk.ContentProvider] object.
-         *
-         * To read textual or image data from a clipboard, use
-         * [method@Gdk.Clipboard.read_text_async] or
-         * [method@Gdk.Clipboard.read_texture_async]. For other data, use
-         * [method@Gdk.Clipboard.read_async], which provides a `GInputStream` object.
-         */
-        interface Clipboard extends GObject.Object {
-            readonly $signals: Clipboard.SignalSignatures
-            readonly $readableProperties: Clipboard.ReadableProperties
-            readonly $writableProperties: Clipboard.WritableProperties
-            readonly $constructOnlyProperties: Clipboard.ConstructOnlyProperties
-            /**
-             * The `GdkContentProvider` or %NULL if the clipboard is empty or contents are
-             * provided otherwise.
-             */
-            get content(): ContentProvider | null
-            set content(value: ContentProvider | null)
-            /**
-             * The `GdkDisplay` that the clipboard belongs to.
-             */
-            get display(): Display
-            set display(value: Display)
-            /**
-             * The possible formats that the clipboard can provide its data in.
-             */
-            get formats(): ContentFormats
-            set formats(value: ContentFormats)
-            /**
-             * %TRUE if the contents of the clipboard are owned by this process.
-             * @default TRUE
-             */
-            get local(): boolean
-            set local(value: boolean)
-            /**
-             * Returns the `GdkContentProvider` currently set on @clipboard.
-             *
-             * If the @clipboard is empty or its contents are not owned by the
-             * current process, %NULL will be returned.
-             * @returns The content of a clipboard   if the clipboard does not maintain any content
-             */
-            get_content(): ContentProvider | null
-            /**
-             * Gets the `GdkDisplay` that the clipboard was created for.
-             * @returns a `GdkDisplay`
-             */
-            get_display(): Display
-            /**
-             * Gets the formats that the clipboard can provide its current contents in.
-             * @returns The formats of the clipboard
-             */
-            get_formats(): ContentFormats
-            /**
-             * Returns if the clipboard is local.
-             *
-             * A clipboard is considered local if it was last claimed
-             * by the running application.
-             *
-             * Note that [method@Gdk.Clipboard.get_content] may return %NULL
-             * even on a local clipboard. In this case the clipboard is empty.
-             * @returns %TRUE if the clipboard is local
-             */
-            is_local(): boolean
-            /**
-             * Asynchronously requests an input stream to read the @clipboard's
-             * contents from.
-             *
-             * The clipboard will choose the most suitable mime type from the given list
-             * to fulfill the request, preferring the ones listed first.
-             * @param mime_types a %NULL-terminated array of mime types to choose from
-             * @param io_priority the I/O priority of the request
-             * @param cancellable optional `GCancellable` object
-             * @param callback callback to call when the request is satisfied
-             */
-            read_async(mime_types: string[], io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an asynchronous clipboard read.
-             *
-             * See [method@Gdk.Clipboard.read_async].
-             * @throws {GLib.Error}
-             * @param result a `GAsyncResult`
-             * @returns a `GInputStream`, location to store   the chosen mime type
-             */
-            read_finish(result: Gio.AsyncResult): Gio.InputStream | null
-            /**
-             * Asynchronously request the @clipboard contents converted to a string.
-             *
-             * This is a simple wrapper around [method@Gdk.Clipboard.read_value_async].
-             * Use that function or [method@Gdk.Clipboard.read_async] directly if you
-             * need more control over the operation.
-             * @param cancellable optional `GCancellable` object
-             * @param callback callback to call when the request is satisfied
-             */
-            read_text_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an asynchronous clipboard read.
-             *
-             * See [method@Gdk.Clipboard.read_text_async].
-             * @throws {GLib.Error}
-             * @param result a `GAsyncResult`
-             * @returns a new string
-             */
-            read_text_finish(result: Gio.AsyncResult): string | null
-            /**
-             * Asynchronously request the @clipboard contents converted to a `GdkPixbuf`.
-             *
-             * This is a simple wrapper around [method@Gdk.Clipboard.read_value_async].
-             * Use that function or [method@Gdk.Clipboard.read_async] directly if you
-             * need more control over the operation.
-             * @param cancellable optional `GCancellable` object, %NULL to ignore.
-             * @param callback callback to call when the request is satisfied
-             */
-            read_texture_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an asynchronous clipboard read.
-             *
-             * See [method@Gdk.Clipboard.read_texture_async].
-             * @throws {GLib.Error}
-             * @param result a `GAsyncResult`
-             * @returns a new `GdkTexture`
-             */
-            read_texture_finish(result: Gio.AsyncResult): Texture | null
-            /**
-             * Asynchronously request the @clipboard contents converted to the given
-             * @type.
-             *
-             * For local clipboard contents that are available in the given `GType`,
-             * the value will be copied directly. Otherwise, GDK will try to use
-             * [func@content_deserialize_async] to convert the clipboard's data.
-             * @param type a `GType` to read
-             * @param io_priority the I/O priority of the request
-             * @param cancellable optional `GCancellable` object
-             * @param callback callback to call when the request is satisfied
-             */
-            read_value_async(type: (GObject.GType | { $gtype: GObject.GType }), io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an asynchronous clipboard read.
-             *
-             * See [method@Gdk.Clipboard.read_value_async].
-             * @throws {GLib.Error}
-             * @param result a `GAsyncResult`
-             * @returns a `GValue` containing the result.
-             */
-            read_value_finish(result: Gio.AsyncResult): GObject.Value
-            /**
-             * Sets a new content provider on @clipboard.
-             *
-             * The clipboard will claim the `GdkDisplay`'s resources and advertise
-             * these new contents to other applications.
-             *
-             * In the rare case of a failure, this function will return %FALSE. The
-             * clipboard will then continue reporting its old contents and ignore
-             * @provider.
-             *
-             * If the contents are read by either an external application or the
-             * @clipboard's read functions, @clipboard will select the best format to
-             * transfer the contents and then request that format from @provider.
-             * @param provider the new contents of @clipboard
-              or %NULL to clear the clipboard
-             * @returns %TRUE if setting the clipboard succeeded
-             */
-            set_content(provider: ContentProvider | null): boolean
-            /**
-             * Sets the @clipboard to contain the given @value.
-             * @override
-             * @param value a `GValue` to set
-             */
-            set_value(value: GObject.Value): void
-            /**
-             * Asynchronously instructs the @clipboard to store its contents remotely.
-             *
-             * If the clipboard is not local, this function does nothing but report success.
-             *
-             * The purpose of this call is to preserve clipboard contents beyond the
-             * lifetime of an application, so this function is typically called on
-             * exit. Depending on the platform, the functionality may not be available
-             * unless a "clipboard manager" is running.
-             *
-             * This function is called automatically when a
-             * [GtkApplication](../gtk4/class.Application.html)
-             * is shut down, so you likely don't need to call it.
-             * @param io_priority the I/O priority of the request
-             * @param cancellable optional `GCancellable` object
-             * @param callback callback to call when the request is satisfied
-             */
-            store_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an asynchronous clipboard store.
-             *
-             * See [method@Gdk.Clipboard.store_async].
-             * @throws {GLib.Error}
-             * @param result a `GAsyncResult`
-             * @returns %TRUE if storing was successful.
-             */
-            store_finish(result: Gio.AsyncResult): boolean
-        }
-
-        interface ClipboardClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Clipboard>
-            readonly prototype: Clipboard
-            new (props?: Partial<GObject.ConstructorProps<Clipboard>>): Clipboard
-        }
-
-        const Clipboard: ClipboardClass
-        
-
-        namespace ContentDeserializer {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.AsyncResult.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Gio.AsyncResult.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, Gio.AsyncResult.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.AsyncResult.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Deserializes content received via inter-application data transfers.
-         *
-         * The `GdkContentDeserializer` transforms serialized content that is
-         * identified by a mime type into an object identified by a GType.
-         *
-         * GTK provides serializers and deserializers for common data types
-         * such as text, colors, images or file lists. To register your own
-         * deserialization functions, use [func@content_register_deserializer].
-         *
-         * Also see [class@Gdk.ContentSerializer].
-         */
-        interface ContentDeserializer extends GObject.Object, Gio.AsyncResult {
-            readonly $signals: ContentDeserializer.SignalSignatures
-            readonly $readableProperties: ContentDeserializer.ReadableProperties
-            readonly $writableProperties: ContentDeserializer.WritableProperties
-            readonly $constructOnlyProperties: ContentDeserializer.ConstructOnlyProperties
-            /**
-             * Gets the cancellable for the current operation.
-             *
-             * This is the `GCancellable` that was passed to [func@Gdk.content_deserialize_async].
-             * @returns the cancellable for the current operation
-             */
-            get_cancellable(): Gio.Cancellable | null
-            /**
-             * Gets the `GType` to create an instance of.
-             * @returns the `GType` for the current operation
-             */
-            get_gtype(): GObject.GType
-            /**
-             * Gets the input stream for the current operation.
-             *
-             * This is the stream that was passed to [func@Gdk.content_deserialize_async].
-             * @returns the input stream for the current operation
-             */
-            get_input_stream(): Gio.InputStream
-            /**
-             * Gets the mime type to deserialize from.
-             * @returns the mime type for the current operation
-             */
-            get_mime_type(): string
-            /**
-             * Gets the I/O priority for the current operation.
-             *
-             * This is the priority that was passed to [func@Gdk.content_deserialize_async].
-             * @returns the I/O priority for the current operation
-             */
-            get_priority(): number
-            /**
-             * Gets the data that was associated with the current operation.
-             *
-             * See [method@Gdk.ContentDeserializer.set_task_data].
-             * @returns the task data for `deserializer`
-             */
-            get_task_data(): never | null
-            /**
-             * Gets the user data that was passed when the deserializer was registered.
-             * @returns the user data for this deserializer
-             */
-            get_user_data(): never | null
-            /**
-             * Gets the `GValue` to store the deserialized object in.
-             * @returns the `GValue` for the current operation
-             */
-            get_value(): GObject.Value
-            /**
-             * Indicate that the deserialization has ended with an error.
-             *
-             * This function consumes @error.
-             * @param error a `GError`
-             */
-            return_error(error: GLib.Error): void
-            /**
-             * Indicate that the deserialization has been successfully completed.
-             */
-            return_success(): void
-            /**
-             * Associate data with the current deserialization operation.
-             * @param data data to associate with this operation
-             * @param notify destroy notify for @data
-             */
-            set_task_data(data: never | null, notify: GLib.DestroyNotify): void
-        }
-
-        interface ContentDeserializerClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<ContentDeserializer>
-            readonly prototype: ContentDeserializer
-            new (props?: Partial<GObject.ConstructorProps<ContentDeserializer>>): ContentDeserializer
-        }
-
-        const ContentDeserializer: ContentDeserializerClass
-        
-
-        namespace ContentProvider {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * Emitted whenever the content provided by this provider has changed.
-                 */
-                "content-changed"(): void
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "formats": ContentFormats
-                "storable-formats": ContentFormats
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "formats": ContentFormats
-                "storable-formats": ContentFormats
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Provides content for the clipboard or for drag-and-drop operations
-         * in a number of formats.
-         *
-         * To create a `GdkContentProvider`, use [ctor@Gdk.ContentProvider.new_for_value]
-         * or [ctor@Gdk.ContentProvider.new_for_bytes].
-         *
-         * GDK knows how to handle common text and image formats out-of-the-box. See
-         * [class@Gdk.ContentSerializer] and [class@Gdk.ContentDeserializer] if you want
-         * to add support for application-specific data formats.
-         */
-        interface ContentProvider extends GObject.Object {
-            readonly $signals: ContentProvider.SignalSignatures
-            readonly $readableProperties: ContentProvider.ReadableProperties
-            readonly $writableProperties: ContentProvider.WritableProperties
-            readonly $constructOnlyProperties: ContentProvider.ConstructOnlyProperties
-            /**
-             * The possible formats that the provider can provide its data in.
-             */
-            get formats(): ContentFormats
-            set formats(value: ContentFormats)
-            /**
-             * The subset of formats that clipboard managers should store this provider's data in.
-             */
-            get storableFormats(): ContentFormats
-            set storableFormats(value: ContentFormats)
-            /**
-             * Emits the ::content-changed signal.
-             */
-            content_changed(): void
-            /**
-             * Gets the contents of @provider stored in @value.
-             *
-             * The @value will have been initialized to the `GType` the value should be
-             * provided in. This given `GType` does not need to be listed in the formats
-             * returned by [method@Gdk.ContentProvider.ref_formats]. However, if the
-             * given `GType` is not supported, this operation can fail and
-             * `G_IO_ERROR_NOT_SUPPORTED` will be reported.
-             * @throws {GLib.Error}
-             * @returns %TRUE if the value was set successfully. Otherwise   `error` will be set to describe the failure., the `GValue` to fill
-             */
-            get_value(): [boolean, GObject.Value]
-            /**
-             * Gets the formats that the provider can provide its current contents in.
-             * @returns The formats of the provider
-             */
-            ref_formats(): ContentFormats
-            /**
-             * Gets the formats that the provider suggests other applications to store
-             * the data in.
-             *
-             * An example of such an application would be a clipboard manager.
-             *
-             * This can be assumed to be a subset of [method@Gdk.ContentProvider.ref_formats].
-             * @returns The storable formats of the provider
-             */
-            ref_storable_formats(): ContentFormats
-            /**
-             * Asynchronously writes the contents of @provider to @stream in the given
-             * @mime_type.
-             *
-             * The given mime type does not need to be listed in the formats returned by
-             * [method@Gdk.ContentProvider.ref_formats]. However, if the given `GType` is
-             * not supported, `G_IO_ERROR_NOT_SUPPORTED` will be reported.
-             *
-             * The given @stream will not be closed.
-             * @param mime_type the mime type to provide the data in
-             * @param stream the `GOutputStream` to write to
-             * @param io_priority I/O priority of the request.
-             * @param cancellable optional `GCancellable` object, %NULL to ignore.
-             * @param callback callback to call when the request is satisfied
-             */
-            write_mime_type_async(mime_type: string, stream: Gio.OutputStream, io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an asynchronous write operation.
-             *
-             * See [method@Gdk.ContentProvider.write_mime_type_async].
-             * @throws {GLib.Error}
-             * @param result a `GAsyncResult`
-             * @returns %TRUE if the operation was completed successfully. Otherwise   `error` will be set to describe the failure.
-             */
-            write_mime_type_finish(result: Gio.AsyncResult): boolean
-            /**
-             * @param clipboard
-             */
-            vfunc_attach_clipboard(clipboard: Clipboard): void
-            /**
-             * Emits the ::content-changed signal.
-             */
-            vfunc_content_changed(): void
-            /**
-             * @param clipboard
-             */
-            vfunc_detach_clipboard(clipboard: Clipboard): void
-            /**
-             * Gets the contents of @provider stored in @value.
-             *
-             * The @value will have been initialized to the `GType` the value should be
-             * provided in. This given `GType` does not need to be listed in the formats
-             * returned by [method@Gdk.ContentProvider.ref_formats]. However, if the
-             * given `GType` is not supported, this operation can fail and
-             * `G_IO_ERROR_NOT_SUPPORTED` will be reported.
-             * @throws {GLib.Error}
-             * @returns %TRUE if the value was set successfully. Otherwise   `error` will be set to describe the failure., the `GValue` to fill
-             */
-            vfunc_get_value(): [boolean, GObject.Value]
-            /**
-             * Gets the formats that the provider can provide its current contents in.
-             * @returns The formats of the provider
-             */
-            vfunc_ref_formats(): ContentFormats
-            /**
-             * Gets the formats that the provider suggests other applications to store
-             * the data in.
-             *
-             * An example of such an application would be a clipboard manager.
-             *
-             * This can be assumed to be a subset of [method@Gdk.ContentProvider.ref_formats].
-             * @returns The storable formats of the provider
-             */
-            vfunc_ref_storable_formats(): ContentFormats
-            /**
-             * Asynchronously writes the contents of @provider to @stream in the given
-             * @mime_type.
-             *
-             * The given mime type does not need to be listed in the formats returned by
-             * [method@Gdk.ContentProvider.ref_formats]. However, if the given `GType` is
-             * not supported, `G_IO_ERROR_NOT_SUPPORTED` will be reported.
-             *
-             * The given @stream will not be closed.
-             * @param mime_type the mime type to provide the data in
-             * @param stream the `GOutputStream` to write to
-             * @param io_priority I/O priority of the request.
-             * @param cancellable optional `GCancellable` object, %NULL to ignore.
-             * @param callback callback to call when the request is satisfied
-             */
-            vfunc_write_mime_type_async(mime_type: string, stream: Gio.OutputStream, io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an asynchronous write operation.
-             *
-             * See [method@Gdk.ContentProvider.write_mime_type_async].
-             * @throws {GLib.Error}
-             * @param result a `GAsyncResult`
-             * @returns %TRUE if the operation was completed successfully. Otherwise   `error` will be set to describe the failure.
-             */
-            vfunc_write_mime_type_finish(result: Gio.AsyncResult): boolean
-        }
-
-        interface ContentProviderClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<ContentProvider>
-            readonly prototype: ContentProvider
-            new (props?: Partial<GObject.ConstructorProps<ContentProvider>>): ContentProvider
-            /**
-             * Create a content provider that provides the given @bytes as data for
-             * the given @mime_type.
-             * @param mime_type the mime type
-             * @param bytes a `GBytes` with the data for @mime_type
-             * @returns a new `GdkContentProvider`
-             */
-            new_for_bytes(mime_type: string, bytes: GLib.Bytes): ContentProvider
-            /**
-             * Create a content provider that provides the given @value.
-             * @param value a `GValue`
-             * @returns a new `GdkContentProvider`
-             */
-            new_for_value(value: GObject.Value): ContentProvider
-            /**
-             * Creates a content provider that represents all the given @providers.
-             *
-             * Whenever data needs to be written, the union provider will try the given
-             * @providers in the given order and the first one supporting a format will
-             * be chosen to provide it.
-             *
-             * This allows an easy way to support providing data in different formats.
-             * For example, an image may be provided by its file and by the image
-             * contents with a call such as
-             * ```c
-             * gdk_content_provider_new_union ((GdkContentProvider *[2]) {
-             *                                   gdk_content_provider_new_typed (G_TYPE_FILE, file),
-             *                                   gdk_content_provider_new_typed (GDK_TYPE_TEXTURE, texture)
-             *                                 }, 2);
-             * ```
-             * @param providers 
-              The `GdkContentProvider`s to present the union of
-             * @returns a new `GdkContentProvider`
-             */
-            new_union(providers: ContentProvider[] | null): ContentProvider
-        }
-
-        const ContentProvider: ContentProviderClass
-        
-
-        namespace ContentSerializer {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.AsyncResult.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Gio.AsyncResult.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, Gio.AsyncResult.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.AsyncResult.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Serializes content for inter-application data transfers.
-         *
-         * The `GdkContentSerializer` transforms an object that is identified
-         * by a GType into a serialized form (i.e. a byte stream) that is
-         * identified by a mime type.
-         *
-         * GTK provides serializers and deserializers for common data types
-         * such as text, colors, images or file lists. To register your own
-         * serialization functions, use [func@Gdk.content_register_serializer].
-         *
-         * Also see [class@Gdk.ContentDeserializer].
-         */
-        interface ContentSerializer extends GObject.Object, Gio.AsyncResult {
-            readonly $signals: ContentSerializer.SignalSignatures
-            readonly $readableProperties: ContentSerializer.ReadableProperties
-            readonly $writableProperties: ContentSerializer.WritableProperties
-            readonly $constructOnlyProperties: ContentSerializer.ConstructOnlyProperties
-            /**
-             * Gets the cancellable for the current operation.
-             *
-             * This is the `GCancellable` that was passed to [func@content_serialize_async].
-             * @returns the cancellable for the current operation
-             */
-            get_cancellable(): Gio.Cancellable | null
-            /**
-             * Gets the `GType` to of the object to serialize.
-             * @returns the `GType` for the current operation
-             */
-            get_gtype(): GObject.GType
-            /**
-             * Gets the mime type to serialize to.
-             * @returns the mime type for the current operation
-             */
-            get_mime_type(): string
-            /**
-             * Gets the output stream for the current operation.
-             *
-             * This is the stream that was passed to [func@content_serialize_async].
-             * @returns the output stream for the current operation
-             */
-            get_output_stream(): Gio.OutputStream
-            /**
-             * Gets the I/O priority for the current operation.
-             *
-             * This is the priority that was passed to [func@content_serialize_async].
-             * @returns the I/O priority for the current operation
-             */
-            get_priority(): number
-            /**
-             * Gets the data that was associated with the current operation.
-             *
-             * See [method@Gdk.ContentSerializer.set_task_data].
-             * @returns the task data for `serializer`
-             */
-            get_task_data(): never | null
-            /**
-             * Gets the user data that was passed when the serializer was registered.
-             * @returns the user data for this serializer
-             */
-            get_user_data(): never | null
-            /**
-             * Gets the `GValue` to read the object to serialize from.
-             * @returns the `GValue` for the current operation
-             */
-            get_value(): GObject.Value
-            /**
-             * Indicate that the serialization has ended with an error.
-             *
-             * This function consumes @error.
-             * @param error a `GError`
-             */
-            return_error(error: GLib.Error): void
-            /**
-             * Indicate that the serialization has been successfully completed.
-             */
-            return_success(): void
-            /**
-             * Associate data with the current serialization operation.
-             * @param data data to associate with this operation
-             * @param notify destroy notify for @data
-             */
-            set_task_data(data: never | null, notify: GLib.DestroyNotify): void
-        }
-
-        interface ContentSerializerClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<ContentSerializer>
-            readonly prototype: ContentSerializer
-            new (props?: Partial<GObject.ConstructorProps<ContentSerializer>>): ContentSerializer
-        }
-
-        const ContentSerializer: ContentSerializerClass
-        
-
-        namespace CrossingEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event caused by a pointing device moving between surfaces.
-         */
-        interface CrossingEvent extends Event {
-            readonly $signals: CrossingEvent.SignalSignatures
-            readonly $readableProperties: CrossingEvent.ReadableProperties
-            readonly $writableProperties: CrossingEvent.WritableProperties
-            readonly $constructOnlyProperties: CrossingEvent.ConstructOnlyProperties
-            /**
-             * Extracts the notify detail from a crossing event.
-             * @returns the notify detail of `event`
-             */
-            get_detail(): NotifyType
-            /**
-             * Checks if the @event surface is the focus surface.
-             * @returns %TRUE if the surface is the focus surface
-             */
-            get_focus(): boolean
-            /**
-             * Extracts the crossing mode from a crossing event.
-             * @returns the mode of `event`
-             */
-            get_mode(): CrossingMode
-        }
-
-        interface CrossingEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<CrossingEvent>
-            readonly prototype: CrossingEvent
-            new (props?: Partial<GObject.ConstructorProps<CrossingEvent>>): CrossingEvent
-        }
-
-        const CrossingEvent: CrossingEventClass
-        
-
-        namespace Cursor {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "fallback": Cursor | null
-                "hotspot-x": number
-                "hotspot-y": number
-                "name": string | null
-                "texture": Texture | null
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "fallback": Cursor | null
-                "hotspot-x": number
-                "hotspot-y": number
-                "name": string | null
-                "texture": Texture | null
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Used to create and destroy cursors.
-         *
-         * Cursors are immutable objects, so once you created them, there is no way
-         * to modify them later. You should create a new cursor when you want to change
-         * something about it.
-         *
-         * Cursors by themselves are not very interesting: they must be bound to a
-         * window for users to see them. This is done with [method@Gdk.Surface.set_cursor]
-         * or [method@Gdk.Surface.set_device_cursor]. Applications will typically
-         * use higher-level GTK functions such as [gtk_widget_set_cursor()](../gtk4/method.Widget.set_cursor.html)
-         * instead.
-         *
-         * Cursors are not bound to a given [class@Gdk.Display], so they can be shared.
-         * However, the appearance of cursors may vary when used on different
-         * platforms.
-         *
-         * ## Named and texture cursors
-         *
-         * There are multiple ways to create cursors. The platform's own cursors
-         * can be created with [ctor@Gdk.Cursor.new_from_name]. That function lists
-         * the commonly available names that are shared with the CSS specification.
-         * Other names may be available, depending on the platform in use. On some
-         * platforms, what images are used for named cursors may be influenced by
-         * the cursor theme.
-         *
-         * Another option to create a cursor is to use [ctor@Gdk.Cursor.new_from_texture]
-         * and provide an image to use for the cursor.
-         *
-         * To ease work with unsupported cursors, a fallback cursor can be provided.
-         * If a [class@Gdk.Surface] cannot use a cursor because of the reasons mentioned
-         * above, it will try the fallback cursor. Fallback cursors can themselves have
-         * fallback cursors again, so it is possible to provide a chain of progressively
-         * easier to support cursors. If none of the provided cursors can be supported,
-         * the default cursor will be the ultimate fallback.
-         */
-        interface Cursor extends GObject.Object {
-            readonly $signals: Cursor.SignalSignatures
-            readonly $readableProperties: Cursor.ReadableProperties
-            readonly $writableProperties: Cursor.WritableProperties
-            readonly $constructOnlyProperties: Cursor.ConstructOnlyProperties
-            /**
-             * Cursor to fall back to if this cursor cannot be displayed.
-             */
-            get fallback(): Cursor | null
-            set fallback(value: Cursor | null)
-            /**
-             * X position of the cursor hotspot in the cursor image.
-             * @default 0
-             */
-            get hotspotX(): number
-            set hotspotX(value: number)
-            /**
-             * Y position of the cursor hotspot in the cursor image.
-             * @default 0
-             */
-            get hotspotY(): number
-            set hotspotY(value: number)
-            /**
-             * Name of this this cursor.
-             *
-             * The name will be %NULL if the cursor was created from a texture.
-             * @default NULL
-             */
-            get name(): string | null
-            set name(value: string | null)
-            /**
-             * The texture displayed by this cursor.
-             *
-             * The texture will be %NULL if the cursor was created from a name.
-             */
-            get texture(): Texture | null
-            set texture(value: Texture | null)
-            /**
-             * Returns the fallback for this @cursor.
-             *
-             * The fallback will be used if this cursor is not available on a given
-             * `GdkDisplay`. For named cursors, this can happen when using nonstandard
-             * names or when using an incomplete cursor theme. For textured cursors,
-             * this can happen when the texture is too large or when the `GdkDisplay`
-             * it is used on does not support textured cursors.
-             * @returns the fallback of the cursor or %NULL   to use the default cursor as fallback
-             */
-            get_fallback(): Cursor | null
-            /**
-             * Returns the horizontal offset of the hotspot.
-             *
-             * The hotspot indicates the pixel that will be directly above the cursor.
-             *
-             * Note that named cursors may have a nonzero hotspot, but this function
-             * will only return the hotspot position for cursors created with
-             * [ctor@Gdk.Cursor.new_from_texture].
-             * @returns the horizontal offset of the hotspot or 0 for named cursors
-             */
-            get_hotspot_x(): number
-            /**
-             * Returns the vertical offset of the hotspot.
-             *
-             * The hotspot indicates the pixel that will be directly above the cursor.
-             *
-             * Note that named cursors may have a nonzero hotspot, but this function
-             * will only return the hotspot position for cursors created with
-             * [ctor@Gdk.Cursor.new_from_texture].
-             * @returns the vertical offset of the hotspot or 0 for named cursors
-             */
-            get_hotspot_y(): number
-            /**
-             * Returns the name of the cursor.
-             *
-             * If the cursor is not a named cursor, %NULL will be returned.
-             * @returns the name of the cursor or %NULL   if it is not a named cursor
-             */
-            get_name(): string | null
-            /**
-             * Returns the texture for the cursor.
-             *
-             * If the cursor is a named cursor, %NULL will be returned.
-             * @returns the texture for cursor or %NULL   if it is a named cursor
-             */
-            get_texture(): Texture | null
-        }
-
-        interface CursorClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Cursor>
-            readonly prototype: Cursor
-            new (props?: Partial<GObject.ConstructorProps<Cursor>>): Cursor
-            /**
-             * Creates a new callback-based cursor object.
-             *
-             * Cursors of this kind produce textures for the cursor
-             * image on demand, when the @callback is called.
-             * @since 4.16
-             * @param callback the `GdkCursorGetTextureCallback`
-             * @param fallback the `GdkCursor` to fall back to when
-              this one cannot be supported
-             * @returns a new `GdkCursor`
-             */
-            new_from_callback(callback: CursorGetTextureCallback, fallback: Cursor | null): Cursor | null
-            /**
-             * Creates a new cursor by looking up @name in the current cursor
-             * theme.
-             *
-             * A recommended set of cursor names that will work across different
-             * platforms can be found in the CSS specification:
-             *
-             * | | | |
-             * | --- | --- | --- |
-             * |                               | "none"          | No cursor |
-             * | ![](default_cursor.png)       | "default"       | The default cursor |
-             * | ![](help_cursor.png)          | "help"          | Help is available |
-             * | ![](pointer_cursor.png)       | "pointer"       | Indicates a link or interactive element |
-             * | ![](context_menu_cursor.png)  |"context-menu"   | A context menu is available |
-             * | ![](progress_cursor.png)      | "progress"      | Progress indicator |
-             * | ![](wait_cursor.png)          | "wait"          | Busy cursor |
-             * | ![](cell_cursor.png)          | "cell"          | Cell(s) may be selected |
-             * | ![](crosshair_cursor.png)     | "crosshair"     | Simple crosshair |
-             * | ![](text_cursor.png)          | "text"          | Text may be selected |
-             * | ![](vertical_text_cursor.png) | "vertical-text" | Vertical text may be selected |
-             * | ![](alias_cursor.png)         | "alias"         | DND: Something will be linked |
-             * | ![](copy_cursor.png)          | "copy"          | DND: Something will be copied |
-             * | ![](move_cursor.png)          | "move"          | DND: Something will be moved |
-             * | ![](dnd_ask_cursor.png)       | "dnd-ask"       | DND: User can choose action to be carried out |
-             * | ![](no_drop_cursor.png)       | "no-drop"       | DND: Can't drop here |
-             * | ![](not_allowed_cursor.png)   | "not-allowed"   | DND: Action will not be carried out |
-             * | ![](grab_cursor.png)          | "grab"          | DND: Something can be grabbed |
-             * | ![](grabbing_cursor.png)      | "grabbing"      | DND: Something is being grabbed |
-             * | ![](n_resize_cursor.png)      | "n-resize"      | Resizing: Move north border |
-             * | ![](e_resize_cursor.png)      | "e-resize"      | Resizing: Move east border |
-             * | ![](s_resize_cursor.png)      | "s-resize"      | Resizing: Move south border |
-             * | ![](w_resize_cursor.png)      | "w-resize"      | Resizing: Move west border |
-             * | ![](ne_resize_cursor.png)     | "ne-resize"     | Resizing: Move north-east corner |
-             * | ![](nw_resize_cursor.png)     | "nw-resize"     | Resizing: Move north-west corner |
-             * | ![](sw_resize_cursor.png)     | "sw-resize"     | Resizing: Move south-west corner |
-             * | ![](se_resize_cursor.png)     | "se-resize"     | Resizing: Move south-east corner |
-             * | ![](col_resize_cursor.png)    | "col-resize"    | Resizing: Move an item or border horizontally |
-             * | ![](row_resize_cursor.png)    | "row-resize"    | Resizing: Move an item or border vertically |
-             * | ![](ew_resize_cursor.png)     | "ew-resize"     | Moving: Something can be moved horizontally |
-             * | ![](ns_resize_cursor.png)     | "ns-resize"     | Moving: Something can be moved vertically |
-             * | ![](nesw_resize_cursor.png)   | "nesw-resize"   | Moving: Something can be moved diagonally, north-east to south-west |
-             * | ![](nwse_resize_cursor.png)   | "nwse-resize"   | Moving: something can be moved diagonally, north-west to south-east |
-             * | ![](all_resize_cursor.png)    | "all-resize"    | Moving: Something can be moved in any direction |
-             * | ![](all_scroll_cursor.png)    | "all-scroll"    | Can scroll in any direction |
-             * | ![](zoom_in_cursor.png)       | "zoom-in"       | Zoom in |
-             * | ![](zoom_out_cursor.png)      | "zoom-out"      | Zoom out |
-             * @param name the name of the cursor
-             * @param fallback %NULL or the `GdkCursor` to fall back to when
-              this one cannot be supported
-             * @returns a new `GdkCursor`, or %NULL if there is no   cursor with the given name
-             */
-            new_from_name(name: string, fallback: Cursor | null): Cursor | null
-            /**
-             * Creates a new cursor from a `GdkTexture`.
-             * @param texture the texture providing the pixel data
-             * @param hotspot_x the horizontal offset of the “hotspot” of the cursor
-             * @param hotspot_y the vertical offset of the “hotspot” of the cursor
-             * @param fallback the `GdkCursor` to fall back to when
-              this one cannot be supported
-             * @returns a new `GdkCursor`
-             */
-            new_from_texture(texture: Texture, hotspot_x: number, hotspot_y: number, fallback: Cursor | null): Cursor
-        }
-
-        const Cursor: CursorClass
-        
-
-        namespace DNDEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to drag and drop operations.
-         */
-        interface DNDEvent extends Event {
-            readonly $signals: DNDEvent.SignalSignatures
-            readonly $readableProperties: DNDEvent.ReadableProperties
-            readonly $writableProperties: DNDEvent.WritableProperties
-            readonly $constructOnlyProperties: DNDEvent.ConstructOnlyProperties
-            /**
-             * Gets the `GdkDrop` object from a DND event.
-             * @returns the drop
-             */
-            get_drop(): Drop | null
-        }
-
-        interface DNDEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<DNDEvent>
-            readonly prototype: DNDEvent
-            new (props?: Partial<GObject.ConstructorProps<DNDEvent>>): DNDEvent
-        }
-
-        const DNDEvent: DNDEventClass
-        
-
-        namespace DeleteEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to closing a top-level surface.
-         */
-        interface DeleteEvent extends Event {
-            readonly $signals: DeleteEvent.SignalSignatures
-            readonly $readableProperties: DeleteEvent.ReadableProperties
-            readonly $writableProperties: DeleteEvent.WritableProperties
-            readonly $constructOnlyProperties: DeleteEvent.ConstructOnlyProperties
-        }
-
-        interface DeleteEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<DeleteEvent>
-            readonly prototype: DeleteEvent
-            new (props?: Partial<GObject.ConstructorProps<DeleteEvent>>): DeleteEvent
-        }
-
-        const DeleteEvent: DeleteEventClass
-        
-
-        namespace Device {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * Emitted either when the number of either axes or keys changes.
-                 *
-                 * On X11 this will normally happen when the physical device
-                 * routing events through the logical device changes (for
-                 * example, user switches from the USB mouse to a tablet); in
-                 * that case the logical device will change to reflect the axes
-                 * and keys on the new physical device.
-                 */
-                "changed"(): void
-                /**
-                 * Emitted on pen/eraser devices whenever tools enter or leave proximity.
-                 * @param tool The new current tool
-                 */
-                "tool-changed"(tool: DeviceTool): void
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "active-layout-index": number
-                "caps-lock-state": boolean
-                "direction": Pango.Direction
-                "display": Display
-                "has-bidi-layouts": boolean
-                "has-cursor": boolean
-                "layout-names": string[] | null
-                "modifier-state": ModifierType
-                "n-axes": number
-                "name": string
-                "num-lock-state": boolean
-                "num-touches": number
-                "product-id": string | null
-                "scroll-lock-state": boolean
-                "seat": Seat
-                "source": InputSource
-                "tool": DeviceTool | null
-                "vendor-id": string | null
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "active-layout-index": number
-                "caps-lock-state": boolean
-                "direction": Pango.Direction
-                "display": Display
-                "has-bidi-layouts": boolean
-                "has-cursor": boolean
-                "layout-names": string[] | null
-                "modifier-state": ModifierType
-                "n-axes": number
-                "name": string
-                "num-lock-state": boolean
-                "num-touches": number
-                "product-id": string | null
-                "scroll-lock-state": boolean
-                "seat": Seat
-                "source": InputSource
-                "tool": DeviceTool | null
-                "vendor-id": string | null
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Represents an input device, such as a keyboard, mouse or touchpad.
-         *
-         * See the [class@Gdk.Seat] documentation for more information
-         * about the various kinds of devices, and their relationships.
-         */
-        interface Device extends GObject.Object {
-            readonly $signals: Device.SignalSignatures
-            readonly $readableProperties: Device.ReadableProperties
-            readonly $writableProperties: Device.WritableProperties
-            readonly $constructOnlyProperties: Device.ConstructOnlyProperties
-            /**
-             * The index of the keyboard active layout of a `GdkDevice`.
-             *
-             * Will be -1 if there is no valid active layout.
-             *
-             * This is only relevant for keyboard devices.
-             * @since 4.18
-             * @default 0
-             */
-            get activeLayoutIndex(): number
-            set activeLayoutIndex(value: number)
-            /**
-             * Whether Caps Lock is on.
-             *
-             * This is only relevant for keyboard devices.
-             * @default FALSE
-             */
-            get capsLockState(): boolean
-            set capsLockState(value: boolean)
-            /**
-             * The direction of the current layout.
-             *
-             * This is only relevant for keyboard devices.
-             * @default PANGO_DIRECTION_NEUTRAL
-             */
-            get direction(): Pango.Direction
-            set direction(value: Pango.Direction)
-            /**
-             * The `GdkDisplay` the `GdkDevice` pertains to.
-             */
-            get display(): Display
-            set display(value: Display)
-            /**
-             * Whether the device has both right-to-left and left-to-right layouts.
-             *
-             * This is only relevant for keyboard devices.
-             * @default FALSE
-             */
-            get hasBidiLayouts(): boolean
-            set hasBidiLayouts(value: boolean)
-            /**
-             * Whether the device is represented by a cursor on the screen.
-             * @default FALSE
-             */
-            get hasCursor(): boolean
-            set hasCursor(value: boolean)
-            /**
-             * The names of the keyboard layouts of a `GdkDevice`.
-             *
-             * This is only relevant for keyboard devices.
-             * @since 4.18
-             */
-            get layoutNames(): string[] | null
-            set layoutNames(value: string[] | null)
-            /**
-             * The current modifier state of the device.
-             *
-             * This is only relevant for keyboard devices.
-             * @default GDK_NO_MODIFIER_MASK
-             */
-            get modifierState(): ModifierType
-            set modifierState(value: ModifierType)
-            /**
-             * Number of axes in the device.
-             * @default 0
-             */
-            get nAxes(): number
-            set nAxes(value: number)
-            /**
-             * The device name.
-             * @default NULL
-             */
-            get name(): string
-            set name(value: string)
-            /**
-             * Whether Num Lock is on.
-             *
-             * This is only relevant for keyboard devices.
-             * @default FALSE
-             */
-            get numLockState(): boolean
-            set numLockState(value: boolean)
-            /**
-             * The maximal number of concurrent touches on a touch device.
-             *
-             * Will be 0 if the device is not a touch device or if the number
-             * of touches is unknown.
-             * @default 0
-             */
-            get numTouches(): number
-            set numTouches(value: number)
-            /**
-             * Product ID of this device.
-             *
-             * See [method@Gdk.Device.get_product_id].
-             * @default NULL
-             */
-            get productId(): string | null
-            set productId(value: string | null)
-            /**
-             * Whether Scroll Lock is on.
-             *
-             * This is only relevant for keyboard devices.
-             * @default FALSE
-             */
-            get scrollLockState(): boolean
-            set scrollLockState(value: boolean)
-            /**
-             * `GdkSeat` of this device.
-             */
-            get seat(): Seat
-            set seat(value: Seat)
-            /**
-             * Source type for the device.
-             * @default GDK_SOURCE_MOUSE
-             */
-            get source(): InputSource
-            set source(value: InputSource)
-            /**
-             * The `GdkDeviceTool` that is currently used with this device.
-             */
-            get tool(): DeviceTool | null
-            set tool(value: DeviceTool | null)
-            /**
-             * Vendor ID of this device.
-             *
-             * See [method@Gdk.Device.get_vendor_id].
-             * @default NULL
-             */
-            get vendorId(): string | null
-            set vendorId(value: string | null)
-            /**
-             * Retrieves the index of the active layout of the keyboard.
-             *
-             * If there is no valid active layout for the `GdkDevice`, this function will
-             * return -1;
-             *
-             * This is only relevant for keyboard devices.
-             * @since 4.18
-             * @returns The layout index of the active layout or -1.
-             */
-            get_active_layout_index(): number
-            /**
-             * Retrieves whether the Caps Lock modifier of the keyboard is locked.
-             *
-             * This is only relevant for keyboard devices.
-             * @returns %TRUE if Caps Lock is on for `device`
-             */
-            get_caps_lock_state(): boolean
-            /**
-             * Retrieves the current tool for @device.
-             * @returns the `GdkDeviceTool`
-             */
-            get_device_tool(): DeviceTool | null
-            /**
-             * Returns the direction of effective layout of the keyboard.
-             *
-             * This is only relevant for keyboard devices.
-             *
-             * The direction of a layout is the direction of the majority
-             * of its symbols. See [func@Pango.unichar_direction].
-             * @returns %PANGO_DIRECTION_LTR or %PANGO_DIRECTION_RTL   if it can determine the direction. %PANGO_DIRECTION_NEUTRAL   otherwise
-             */
-            get_direction(): Pango.Direction
-            /**
-             * Returns the `GdkDisplay` to which @device pertains.
-             * @returns a `GdkDisplay`
-             */
-            get_display(): Display
-            /**
-             * Determines whether the pointer follows device motion.
-             *
-             * This is not meaningful for keyboard devices, which
-             * don't have a pointer.
-             * @returns %TRUE if the pointer follows device motion
-             */
-            get_has_cursor(): boolean
-            /**
-             * Retrieves the names of the layouts of the keyboard.
-             *
-             * This is only relevant for keyboard devices.
-             * @since 4.18
-             * @returns    %NULL-terminated array of strings of layouts,
-             */
-            get_layout_names(): string[] | null
-            /**
-             * Retrieves the current modifier state of the keyboard.
-             *
-             * This is only relevant for keyboard devices.
-             * @returns the current modifier state
-             */
-            get_modifier_state(): ModifierType
-            /**
-             * The name of the device, suitable for showing in a user interface.
-             * @returns a name
-             */
-            get_name(): string
-            /**
-             * Retrieves whether the Num Lock modifier of the keyboard is locked.
-             *
-             * This is only relevant for keyboard devices.
-             * @returns %TRUE if Num Lock is on for `device`
-             */
-            get_num_lock_state(): boolean
-            /**
-             * Retrieves the number of touch points associated to @device.
-             * @returns the number of touch points
-             */
-            get_num_touches(): number
-            /**
-             * Returns the product ID of this device.
-             *
-             * This ID is retrieved from the device, and does not change.
-             * See [method@Gdk.Device.get_vendor_id] for more information.
-             * @returns the product ID
-             */
-            get_product_id(): string | null
-            /**
-             * Retrieves whether the Scroll Lock modifier of the keyboard is locked.
-             *
-             * This is only relevant for keyboard devices.
-             * @returns %TRUE if Scroll Lock is on for `device`
-             */
-            get_scroll_lock_state(): boolean
-            /**
-             * Returns the `GdkSeat` the device belongs to.
-             * @returns a `GdkSeat`
-             */
-            get_seat(): Seat
-            /**
-             * Determines the type of the device.
-             * @returns a `GdkInputSource`
-             */
-            get_source(): InputSource
-            /**
-             * Obtains the surface underneath @device, returning the location of the
-             * device in @win_x and @win_y.
-             *
-             * Returns %NULL if the surface tree under @device is not known to GDK
-             * (for example, belongs to another application).
-             * @returns the `GdkSurface` under the   device position, return location for the X coordinate   of the device location relative to the surface origin, return location for the Y coordinate   of the device location relative to the surface origin
-             */
-            get_surface_at_position(): Surface | null
-            /**
-             * Returns the timestamp of the last activity for this device.
-             *
-             * In practice, this means the timestamp of the last event that was
-             * received from the OS for this device. (GTK may occasionally produce
-             * events for a device that are not received from the OS, and will not
-             * update the timestamp).
-             * @since 4.2
-             * @returns the timestamp of the last activity for this device
-             */
-            get_timestamp(): number
-            /**
-             * Returns the vendor ID of this device.
-             *
-             * This ID is retrieved from the device, and does not change.
-             *
-             * This function, together with [method@Gdk.Device.get_product_id],
-             * can be used to eg. compose `GSettings` paths to store settings
-             * for this device.
-             *
-             * ```c
-             *  static GSettings *
-             *  get_device_settings (GdkDevice *device)
-             *  {
-             *    const char *vendor, *product;
-             *    GSettings *settings;
-             *    GdkDevice *device;
-             *    char *path;
-             *
-             *    vendor = gdk_device_get_vendor_id (device);
-             *    product = gdk_device_get_product_id (device);
-             *
-             *    path = g_strdup_printf ("/org/example/app/devices/%s:%s/", vendor, product);
-             *    settings = g_settings_new_with_path (DEVICE_SCHEMA, path);
-             *    g_free (path);
-             *
-             *    return settings;
-             *  }
-             * ```
-             * @returns the vendor ID
-             */
-            get_vendor_id(): string | null
-            /**
-             * Determines if layouts for both right-to-left and
-             * left-to-right languages are in use on the keyboard.
-             *
-             * This is only relevant for keyboard devices.
-             * @returns %TRUE if there are layouts with both directions, %FALSE otherwise
-             */
-            has_bidi_layouts(): boolean
-        }
-
-        interface DeviceClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Device>
-            readonly prototype: Device
-            new (props?: Partial<GObject.ConstructorProps<Device>>): Device
-        }
-
-        const Device: DeviceClass
-        
-
-        namespace DeviceTool {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "axes": AxisFlags
-                "hardware-id": number
-                "serial": number
-                "tool-type": DeviceToolType
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "axes": AxisFlags
-                "hardware-id": number
-                "serial": number
-                "tool-type": DeviceToolType
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * A physical tool associated to a `GdkDevice`.
-         */
-        interface DeviceTool extends GObject.Object {
-            readonly $signals: DeviceTool.SignalSignatures
-            readonly $readableProperties: DeviceTool.ReadableProperties
-            readonly $writableProperties: DeviceTool.WritableProperties
-            readonly $constructOnlyProperties: DeviceTool.ConstructOnlyProperties
-            /**
-             * The axes of the tool.
-             * @default 0
-             */
-            get axes(): AxisFlags
-            set axes(value: AxisFlags)
-            /**
-             * The hardware ID of the tool.
-             * @default 0
-             */
-            get hardwareId(): number
-            set hardwareId(value: number)
-            /**
-             * The serial number of the tool.
-             * @default 0
-             */
-            get serial(): number
-            set serial(value: number)
-            /**
-             * The type of the tool.
-             * @default GDK_DEVICE_TOOL_TYPE_UNKNOWN
-             */
-            get toolType(): DeviceToolType
-            set toolType(value: DeviceToolType)
-            /**
-             * Gets the axes of the tool.
-             * @returns the axes of `tool`
-             */
-            get_axes(): AxisFlags
-            /**
-             * Gets the hardware ID of this tool, or 0 if it's not known.
-             *
-             * When non-zero, the identifier is unique for the given tool model,
-             * meaning that two identical tools will share the same @hardware_id,
-             * but will have different serial numbers (see
-             * [method@Gdk.DeviceTool.get_serial]).
-             *
-             * This is a more concrete (and device specific) method to identify
-             * a `GdkDeviceTool` than [method@Gdk.DeviceTool.get_tool_type],
-             * as a tablet may support multiple devices with the same
-             * `GdkDeviceToolType`, but different hardware identifiers.
-             * @returns The hardware identifier of this tool.
-             */
-            get_hardware_id(): number
-            /**
-             * Gets the serial number of this tool.
-             *
-             * This value can be used to identify a physical tool
-             * (eg. a tablet pen) across program executions.
-             * @returns The serial ID for this tool
-             */
-            get_serial(): number
-            /**
-             * Gets the `GdkDeviceToolType` of the tool.
-             * @returns The physical type for this tool. This can be used to   figure out what sort of pen is being used, such as an airbrush   or a pencil.
-             */
-            get_tool_type(): DeviceToolType
-        }
-
-        interface DeviceToolClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<DeviceTool>
-            readonly prototype: DeviceTool
-            new (props?: Partial<GObject.ConstructorProps<DeviceTool>>): DeviceTool
-        }
-
-        const DeviceTool: DeviceToolClass
-        
-
-        namespace Display {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * Emitted when the connection to the windowing system for @display is closed.
-                 * @param is_error %TRUE if the display was closed due to an error
-                 */
-                "closed"(is_error: boolean): void
-                /**
-                 * Emitted when the connection to the windowing system for @display is opened.
-                 */
-                "opened"(): void
-                /**
-                 * Emitted whenever a new seat is made known to the windowing system.
-                 * @param seat the seat that was just added
-                 */
-                "seat-added"(seat: Seat): void
-                /**
-                 * Emitted whenever a seat is removed by the windowing system.
-                 * @param seat the seat that was just removed
-                 */
-                "seat-removed"(seat: Seat): void
-                /**
-                 * Emitted whenever a setting changes its value.
-                 * @param setting the name of the setting that changed
-                 */
-                "setting-changed"(setting: string): void
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "composited": boolean
-                "dmabuf-formats": DmabufFormats
-                "input-shapes": boolean
-                "rgba": boolean
-                "shadow-width": boolean
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "composited": boolean
-                "dmabuf-formats": DmabufFormats
-                "input-shapes": boolean
-                "rgba": boolean
-                "shadow-width": boolean
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * A representation of a workstation.
-         *
-         * Their purpose are two-fold:
-         *
-         * - To manage and provide information about input devices (pointers, keyboards, etc)
-         * - To manage and provide information about output devices (monitors, projectors, etc)
-         *
-         * Most of the input device handling has been factored out into separate
-         * [class@Gdk.Seat] objects. Every display has a one or more seats, which
-         * can be accessed with [method@Gdk.Display.get_default_seat] and
-         * [method@Gdk.Display.list_seats].
-         *
-         * Output devices are represented by [class@Gdk.Monitor] objects, which can
-         * be accessed with [method@Gdk.Display.get_monitor_at_surface] and similar APIs.
-         */
-        interface Display extends GObject.Object {
-            readonly $signals: Display.SignalSignatures
-            readonly $readableProperties: Display.ReadableProperties
-            readonly $writableProperties: Display.WritableProperties
-            readonly $constructOnlyProperties: Display.ConstructOnlyProperties
-            /**
-             * %TRUE if the display properly composites the alpha channel.
-             * @default TRUE
-             */
-            get composited(): boolean
-            set composited(value: boolean)
-            /**
-             * The dma-buf formats that are supported on this display
-             * @since 4.14
-             */
-            get dmabufFormats(): DmabufFormats
-            set dmabufFormats(value: DmabufFormats)
-            /**
-             * %TRUE if the display supports input shapes.
-             * @default TRUE
-             */
-            get inputShapes(): boolean
-            set inputShapes(value: boolean)
-            /**
-             * %TRUE if the display supports an alpha channel.
-             * @default TRUE
-             */
-            get rgba(): boolean
-            set rgba(value: boolean)
-            /**
-             * %TRUE if the display supports extensible frames.
-             * @since 4.14
-             * @default TRUE
-             */
-            get shadowWidth(): boolean
-            set shadowWidth(value: boolean)
-            /**
-             * Emits a short beep on @display
-             */
-            beep(): void
-            /**
-             * Closes the connection to the windowing system for the given display.
-             *
-             * This cleans up associated resources.
-             */
-            close(): void
-            /**
-             * Creates a new `GdkGLContext` for the `GdkDisplay`.
-             *
-             * The context is disconnected from any particular surface or surface
-             * and cannot be used to draw to any surface. It can only be used to
-             * draw to non-surface framebuffers like textures.
-             *
-             * If the creation of the `GdkGLContext` failed, @error will be set.
-             * Before using the returned `GdkGLContext`, you will need to
-             * call [method@Gdk.GLContext.make_current] or [method@Gdk.GLContext.realize].
-             * @throws {GLib.Error}
-             * @since 4.6
-             * @returns the newly created `GdkGLContext`
-             */
-            create_gl_context(): GLContext
-            /**
-             * Returns %TRUE if there is an ongoing grab on @device for @display.
-             * @param device a `GdkDevice`
-             * @returns %TRUE if there is a grab in effect for `device`.
-             */
-            device_is_grabbed(device: Device): boolean
-            /**
-             * Flushes any requests queued for the windowing system.
-             *
-             * This happens automatically when the main loop blocks waiting for new events,
-             * but if your application is drawing without returning control to the main loop,
-             * you may need to call this function explicitly. A common case where this function
-             * needs to be called is when an application is executing drawing commands
-             * from a thread other than the thread where the main loop is running.
-             *
-             * This is most useful for X11. On windowing systems where requests are
-             * handled synchronously, this function will do nothing.
-             */
-            flush(): void
-            /**
-             * Returns a `GdkAppLaunchContext` suitable for launching
-             * applications on the given display.
-             * @returns a new `GdkAppLaunchContext` for `display`
-             */
-            get_app_launch_context(): AppLaunchContext
-            /**
-             * Gets the clipboard used for copy/paste operations.
-             * @returns the display's clipboard
-             */
-            get_clipboard(): Clipboard
-            /**
-             * Returns the default `GdkSeat` for this display.
-             *
-             * Note that a display may not have a seat. In this case,
-             * this function will return %NULL.
-             * @returns the default seat.
-             */
-            get_default_seat(): Seat | null
-            /**
-             * Returns the dma-buf formats that are supported on this display.
-             *
-             * GTK may use OpenGL or Vulkan to support some formats.
-             * Calling this function will then initialize them if they aren't yet.
-             *
-             * The formats returned by this function can be used for negotiating
-             * buffer formats with producers such as v4l, pipewire or GStreamer.
-             *
-             * To learn more about dma-bufs, see [class@Gdk.DmabufTextureBuilder].
-             *
-             * This function is threadsafe. It can be called from any thread.
-             * @since 4.14
-             * @returns a `GdkDmabufFormats` object
-             */
-            get_dmabuf_formats(): DmabufFormats
-            /**
-             * Gets the monitor in which the largest area of @surface
-             * resides.
-             * @param surface a `GdkSurface`
-             * @returns the monitor with the largest   overlap with `surface`
-             */
-            get_monitor_at_surface(surface: Surface): Monitor | null
-            /**
-             * Gets the list of monitors associated with this display.
-             *
-             * Subsequent calls to this function will always return the
-             * same list for the same display.
-             *
-             * You can listen to the GListModel::items-changed signal on
-             * this list to monitor changes to the monitor of this display.
-             * @returns a `GListModel` of `GdkMonitor`
-             */
-            get_monitors(): Gio.ListModel
-            /**
-             * Gets the name of the display.
-             * @returns a string representing the display name. This string is owned   by GDK and should not be modified or freed.
-             */
-            get_name(): string
-            /**
-             * Gets the clipboard used for the primary selection.
-             *
-             * On backends where the primary clipboard is not supported natively,
-             * GDK emulates this clipboard locally.
-             * @returns the primary clipboard
-             */
-            get_primary_clipboard(): Clipboard
-            /**
-             * Retrieves a desktop-wide setting such as double-click time
-             * for the @display.
-             * @param name the name of the setting
-             * @param value location to store the value of the setting
-             * @returns %TRUE if the setting existed and a value was stored   in `value`, %FALSE otherwise
-             */
-            get_setting(name: string, value: GObject.Value): boolean
-            /**
-             * Gets the startup notification ID for a Wayland display, or %NULL
-             * if no ID has been defined.
-             * @deprecated since 4.10
-             * @returns the startup notification ID for `display`
-             */
-            get_startup_notification_id(): string | null
-            /**
-             * Finds out if the display has been closed.
-             * @returns %TRUE if the display is closed.
-             */
-            is_closed(): boolean
-            /**
-             * Returns whether surfaces can reasonably be expected to have
-             * their alpha channel drawn correctly on the screen.
-             *
-             * Check [method@Gdk.Display.is_rgba] for whether the display
-             * supports an alpha channel.
-             *
-             * On X11 this function returns whether a compositing manager is
-             * compositing on @display.
-             *
-             * On modern displays, this value is always %TRUE.
-             * @returns Whether surfaces with RGBA visuals can reasonably   be expected to have their alpha channels drawn correctly   on the screen.
-             */
-            is_composited(): boolean
-            /**
-             * Returns whether surfaces on this @display are created with an
-             * alpha channel.
-             *
-             * Even if a %TRUE is returned, it is possible that the
-             * surface’s alpha channel won’t be honored when displaying the
-             * surface on the screen: in particular, for X an appropriate
-             * windowing manager and compositing manager must be running to
-             * provide appropriate display. Use [method@Gdk.Display.is_composited]
-             * to check if that is the case.
-             *
-             * On modern displays, this value is always %TRUE.
-             * @returns %TRUE if surfaces are created with an alpha channel or   %FALSE if the display does not support this functionality.
-             */
-            is_rgba(): boolean
-            /**
-             * Returns the list of seats known to @display.
-             * @returns the   list of seats known to the `GdkDisplay`
-             */
-            list_seats(): Seat[]
-            /**
-             * Returns the keyvals bound to @keycode.
-             *
-             * The Nth `GdkKeymapKey` in @keys is bound to the Nth keyval in @keyvals.
-             *
-             * When a keycode is pressed by the user, the keyval from
-             * this list of entries is selected by considering the effective
-             * keyboard group and level.
-             *
-             * Free the returned arrays with g_free().
-             * @param keycode a keycode
-             * @returns %TRUE if there were any entries, return   location for array of `GdkKeymapKey`, return   location for array of keyvals
-             */
-            map_keycode(keycode: number): boolean
-            /**
-             * Obtains a list of keycode/group/level combinations that will
-             * generate @keyval.
-             *
-             * Groups and levels are two kinds of keyboard mode; in general, the level
-             * determines whether the top or bottom symbol on a key is used, and the
-             * group determines whether the left or right symbol is used.
-             *
-             * On US keyboards, the shift key changes the keyboard level, and there
-             * are no groups. A group switch key might convert a keyboard between
-             * Hebrew to English modes, for example.
-             *
-             * `GdkEventKey` contains a %group field that indicates the active
-             * keyboard group. The level is computed from the modifier mask.
-             *
-             * The returned array should be freed with g_free().
-             * @param keyval a keyval, such as %GDK_KEY_a, %GDK_KEY_Up, %GDK_KEY_Return, etc.
-             * @returns %TRUE if keys were found and returned, return location   for an array of `GdkKeymapKey`
-             */
-            map_keyval(keyval: number): [boolean, KeymapKey[]]
-            /**
-             * Indicates to the GUI environment that the application has
-             * finished loading, using a given identifier.
-             *
-             * GTK will call this function automatically for [GtkWindow](../gtk4/class.Window.html)
-             * with custom startup-notification identifier unless
-             * [gtk_window_set_auto_startup_notification()](../gtk4/method.Window.set_auto_startup_notification.html)
-             * is called to disable that feature.
-             * @deprecated since 4.10 Using [method@Gdk.Toplevel.set_startup_id] is sufficient
-             * @param startup_id a startup-notification identifier, for which
-              notification process should be completed
-             */
-            notify_startup_complete(startup_id: string): void
-            /**
-             * Checks that OpenGL is available for @self and ensures that it is
-             * properly initialized.
-             * When this fails, an @error will be set describing the error and this
-             * function returns %FALSE.
-             *
-             * Note that even if this function succeeds, creating a `GdkGLContext`
-             * may still fail.
-             *
-             * This function is idempotent. Calling it multiple times will just
-             * return the same value or error.
-             *
-             * You never need to call this function, GDK will call it automatically
-             * as needed. But you can use it as a check when setting up code that
-             * might make use of OpenGL.
-             * @throws {GLib.Error}
-             * @since 4.4
-             * @returns %TRUE if the display supports OpenGL
-             */
-            prepare_gl(): boolean
-            /**
-             * Adds the given event to the event queue for @display.
-             * @deprecated since 4.10 This function is only useful in very special situations and should not be used by applications.
-             * @param event a `GdkEvent`
-             */
-            put_event(event: Event): void
-            /**
-             * Returns %TRUE if the display supports input shapes.
-             *
-             * This means that [method@Gdk.Surface.set_input_region] can
-             * be used to modify the input shape of surfaces on @display.
-             *
-             * On modern displays, this value is always %TRUE.
-             * @returns %TRUE if surfaces with modified input shape are supported
-             */
-            supports_input_shapes(): boolean
-            /**
-             * Returns whether it's possible for a surface to draw outside of the window area.
-             *
-             * If %TRUE is returned the application decides if it wants to draw shadows.
-             * If %FALSE is returned, the compositor decides if it wants to draw shadows.
-             * @since 4.14
-             * @returns %TRUE if surfaces can draw shadows or   %FALSE if the display does not support this functionality.
-             */
-            supports_shadow_width(): boolean
-            /**
-             * Flushes any requests queued for the windowing system and waits until all
-             * requests have been handled.
-             *
-             * This is often used for making sure that the display is synchronized
-             * with the current state of the program. Calling [method@Gdk.Display.sync]
-             * before [method@GdkX11.Display.error_trap_pop] makes sure that any errors
-             * generated from earlier requests are handled before the error trap is removed.
-             *
-             * This is most useful for X11. On windowing systems where requests are
-             * handled synchronously, this function will do nothing.
-             */
-            sync(): void
-            /**
-             * `
-             * should be masked out.
-             *
-             * This function should rarely be needed, since `GdkEventKey` already
-             * contains the translated keyval. It is exported for the benefit of
-             * virtualized test environments.
-             * @param keycode a keycode
-             * @param state a modifier state
-             * @param group active keyboard group
-             * @returns %TRUE if there was a keyval bound to keycode/state/group., return location for keyval, return location for effective group, return location for level, return location for modifiers that were used   to determine the group or level
-             */
-            translate_key(keycode: number, state: ModifierType, group: number): boolean
-        }
-
-        interface DisplayClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Display>
-            readonly prototype: Display
-            new (props?: Partial<GObject.ConstructorProps<Display>>): Display
-            /**
-             * Gets the default `GdkDisplay`.
-             *
-             * This is a convenience function for:
-             *
-             *     gdk_display_manager_get_default_display (gdk_display_manager_get ())
-             * @returns a `GdkDisplay`, or %NULL if   there is no default display
-             */
-            get_default(): Display | null
-            /**
-             * Opens a display.
-             *
-             * If opening the display fails, `NULL` is returned.
-             * @param display_name the name of the display to open
-             * @returns a `GdkDisplay`
-             */
-            open(display_name: string | null): Display | null
-        }
-
-        const Display: DisplayClass
-        
-
-        namespace DisplayManager {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * Emitted when a display is opened.
-                 * @param display the opened display
-                 */
-                "display-opened"(display: Display): void
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "default-display": Display | null
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "default-display": Display | null
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Offers notification when displays appear or disappear.
-         *
-         * `GdkDisplayManager` is a singleton object.
-         *
-         * You can use [func@Gdk.DisplayManager.get] to obtain the `GdkDisplayManager`
-         * singleton, but that should be rarely necessary. Typically, initializing
-         * GTK opens a display that you can work with without ever accessing the
-         * `GdkDisplayManager`.
-         *
-         * The GDK library can be built with support for multiple backends.
-         * The `GdkDisplayManager` object determines which backend is used
-         * at runtime.
-         *
-         * In the rare case that you need to influence which of the backends
-         * is being used, you can use [func@Gdk.set_allowed_backends]. Note
-         * that you need to call this function before initializing GTK.
-         *
-         * ## Backend-specific code
-         *
-         * When writing backend-specific code that is supposed to work with
-         * multiple GDK backends, you have to consider both compile time and
-         * runtime. At compile time, use the `GDK_WINDOWING_X11`, `GDK_WINDOWING_WIN32`
-         * macros, etc. to find out which backends are present in the GDK library
-         * you are building your application against. At runtime, use type-check
-         * macros like GDK_IS_X11_DISPLAY() to find out which backend is in use:
-         *
-         * ```c
-         * #ifdef GDK_WINDOWING_X11
-         *   if (GDK_IS_X11_DISPLAY (display))
-         *     {
-         *       // make X11-specific calls here
-         *     }
-         *   else
-         * #endif
-         * #ifdef GDK_WINDOWING_MACOS
-         *   if (GDK_IS_MACOS_DISPLAY (display))
-         *     {
-         *       // make Quartz-specific calls here
-         *     }
-         *   else
-         * #endif
-         *   g_error ("Unsupported GDK backend");
-         * ```
-         */
-        interface DisplayManager extends GObject.Object {
-            readonly $signals: DisplayManager.SignalSignatures
-            readonly $readableProperties: DisplayManager.ReadableProperties
-            readonly $writableProperties: DisplayManager.WritableProperties
-            readonly $constructOnlyProperties: DisplayManager.ConstructOnlyProperties
-            /**
-             * The default display.
-             */
-            get defaultDisplay(): Display | null
-            set defaultDisplay(value: Display | null)
-            /**
-             * Gets the default `GdkDisplay`.
-             * @returns a `GdkDisplay`
-             */
-            get_default_display(): Display | null
-            /**
-             * List all currently open displays.
-             * @returns a newly   allocated `GSList` of `GdkDisplay` objects
-             */
-            list_displays(): Display[]
-            /**
-             * Opens a display.
-             * @param name the name of the display to open
-             * @returns a `GdkDisplay`, or %NULL   if the display could not be opened
-             */
-            open_display(name: string | null): Display | null
-            /**
-             * Sets @display as the default display.
-             * @param display a `GdkDisplay`
-             */
-            set_default_display(display: Display): void
-        }
-
-        interface DisplayManagerClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<DisplayManager>
-            readonly prototype: DisplayManager
-            new (props?: Partial<GObject.ConstructorProps<DisplayManager>>): DisplayManager
-            /**
-             * Gets the singleton `GdkDisplayManager` object.
-             *
-             * When called for the first time, this function consults the
-             * `GDK_BACKEND` environment variable to find out which of the
-             * supported GDK backends to use (in case GDK has been compiled
-             * with multiple backends).
-             *
-             * Applications can use [func@set_allowed_backends] to limit what
-             * backends will be used.
-             * @returns The global `GdkDisplayManager` singleton
-             */
-            get(): DisplayManager
-        }
-
-        const DisplayManager: DisplayManagerClass
-        
-
-        namespace DmabufTexture {
-            interface SignalSignatures extends Texture.SignalSignatures, Paintable.SignalSignatures, Gio.Icon.SignalSignatures, Gio.LoadableIcon.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Texture.ReadableProperties, Paintable.ReadableProperties, Gio.Icon.ReadableProperties, Gio.LoadableIcon.ReadableProperties {
-            }
-
-            interface WritableProperties extends Texture.WritableProperties, Paintable.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Texture.ConstructOnlyProperties, Paintable.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * A `GdkTexture` representing a DMA buffer.
-         *
-         * To create a `GdkDmabufTexture`, use the auxiliary
-         * [class@Gdk.DmabufTextureBuilder] object.
-         *
-         * Dma-buf textures can only be created on Linux.
-         * @since 4.14
-         */
-        interface DmabufTexture extends Texture, Paintable, Gio.Icon, Gio.LoadableIcon {
-            readonly $signals: DmabufTexture.SignalSignatures
-            readonly $readableProperties: DmabufTexture.ReadableProperties
-            readonly $writableProperties: DmabufTexture.WritableProperties
-            readonly $constructOnlyProperties: DmabufTexture.ConstructOnlyProperties
-        }
-
-        interface DmabufTextureClass extends Omit<TextureClass, "new"> {
-            readonly $gtype: GObject.GType<DmabufTexture>
-            readonly prototype: DmabufTexture
-            new (props?: Partial<GObject.ConstructorProps<DmabufTexture>>): DmabufTexture
-        }
-
-        const DmabufTexture: DmabufTextureClass
-        
-
-        namespace DmabufTextureBuilder {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "color-state": ColorState | null
-                "display": Display
-                "fourcc": number
-                "height": number
-                "modifier": number
-                "n-planes": number
-                "premultiplied": boolean
-                "update-region": cairo.Region | null
-                "update-texture": Texture | null
-                "width": number
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "color-state": ColorState | null
-                "display": Display
-                "fourcc": number
-                "height": number
-                "modifier": number
-                "n-planes": number
-                "premultiplied": boolean
-                "update-region": cairo.Region | null
-                "update-texture": Texture | null
-                "width": number
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Constructs [class@Gdk.Texture] objects from DMA buffers.
-         *
-         * DMA buffers are commonly called **_dma-bufs_**.
-         *
-         * DMA buffers are a feature of the Linux kernel to enable efficient buffer and
-         * memory sharing between hardware such as codecs, GPUs, displays, cameras and the
-         * kernel drivers controlling them. For example, a decoder may want its output to
-         * be directly shared with the display server for rendering without a copy.
-         *
-         * Any device driver which participates in DMA buffer sharing, can do so as either
-         * the exporter or importer of buffers (or both).
-         *
-         * The memory that is shared via DMA buffers is usually stored in non-system memory
-         * (maybe in device's local memory or something else not directly accessible by the
-         * CPU), and accessing this memory from the CPU may have higher-than-usual overhead.
-         *
-         * In particular for graphics data, it is not uncommon that data consists of multiple
-         * separate blocks of memory, for example one block for each of the red, green and
-         * blue channels. These blocks are called **_planes_**. DMA buffers can have up to
-         * four planes. Even if the memory is a single block, the data can be organized in
-         * multiple planes, by specifying offsets from the beginning of the data.
-         *
-         * DMA buffers are exposed to user-space as file descriptors allowing to pass them
-         * between processes. If a DMA buffer has multiple planes, there is one file
-         * descriptor per plane.
-         *
-         * The format of the data (for graphics data, essentially its colorspace) is described
-         * by a 32-bit integer. These format identifiers are defined in the header file `drm_fourcc.h`
-         * and commonly referred to as **_fourcc_** values, since they are identified by 4 ASCII
-         * characters. Additionally, each DMA buffer has a **_modifier_**, which is a 64-bit integer
-         * that describes driver-specific details of the memory layout, such as tiling or compression.
-         *
-         * For historical reasons, some producers of dma-bufs don't provide an explicit modifier, but
-         * instead return `DMA_FORMAT_MOD_INVALID` to indicate that their modifier is **_implicit_**.
-         * GTK tries to accommodate this situation by accepting `DMA_FORMAT_MOD_INVALID` as modifier.
-         *
-         * The operation of `GdkDmabufTextureBuilder` is quite simple: Create a texture builder,
-         * set all the necessary properties, and then call [method@Gdk.DmabufTextureBuilder.build]
-         * to create the new texture.
-         *
-         * The required properties for a dma-buf texture are
-         *
-         *  * The width and height in pixels
-         *
-         *  * The `fourcc` code and `modifier` which identify the format and memory layout of the dma-buf
-         *
-         *  * The file descriptor, offset and stride for each of the planes
-         *
-         * `GdkDmabufTextureBuilder` can be used for quick one-shot construction of
-         * textures as well as kept around and reused to construct multiple textures.
-         *
-         * For further information, see
-         *
-         * * The Linux kernel [documentation](https://docs.kernel.org/driver-api/dma-buf.html)
-         *
-         * * The header file [drm_fourcc.h](https://gitlab.freedesktop.org/mesa/drm/-/blob/main/include/drm/drm_fourcc.h)
-         * @since 4.14
-         */
-        interface DmabufTextureBuilder extends GObject.Object {
-            readonly $signals: DmabufTextureBuilder.SignalSignatures
-            readonly $readableProperties: DmabufTextureBuilder.ReadableProperties
-            readonly $writableProperties: DmabufTextureBuilder.WritableProperties
-            readonly $constructOnlyProperties: DmabufTextureBuilder.ConstructOnlyProperties
-            /**
-             * The color state of the texture.
-             * @since 4.16
-             */
-            get colorState(): ColorState | null
-            set colorState(value: ColorState | null)
-            /**
-             * The display that this texture will be used on.
-             * @since 4.14
-             */
-            get display(): Display
-            set display(value: Display)
-            /**
-             * The format of the texture, as a fourcc value.
-             * @since 4.14
-             * @default 0
-             */
-            get fourcc(): number
-            set fourcc(value: number)
-            /**
-             * The height of the texture.
-             * @since 4.14
-             * @default 0
-             */
-            get height(): number
-            set height(value: number)
-            /**
-             * The modifier.
-             * @since 4.14
-             * @default 0
-             */
-            get modifier(): number
-            set modifier(value: number)
-            /**
-             * The number of planes of the texture.
-             *
-             * Note that you can set properties for other planes,
-             * but they will be ignored when constructing the texture.
-             * @since 4.14
-             * @default 1
-             */
-            get nPlanes(): number
-            set nPlanes(value: number)
-            /**
-             * Whether the alpha channel is premultiplied into the others.
-             *
-             * Only relevant if the format has alpha.
-             * @since 4.14
-             * @default TRUE
-             */
-            get premultiplied(): boolean
-            set premultiplied(value: boolean)
-            /**
-             * The update region for [property@Gdk.DmabufTextureBuilder:update-texture].
-             * @since 4.14
-             */
-            get updateRegion(): cairo.Region | null
-            set updateRegion(value: cairo.Region | null)
-            /**
-             * The texture [property@Gdk.DmabufTextureBuilder:update-region] is an update for.
-             * @since 4.14
-             */
-            get updateTexture(): Texture | null
-            set updateTexture(value: Texture | null)
-            /**
-             * The width of the texture.
-             * @since 4.14
-             * @default 0
-             */
-            get width(): number
-            set width(value: number)
-            /**
-             * Builds a new `GdkTexture` with the values set up in the builder.
-             *
-             * It is a programming error to call this function if any mandatory property has not been set.
-             *
-             * Not all formats defined in the `drm_fourcc.h` header are supported. You can use
-             * [method@Gdk.Display.get_dmabuf_formats] to get a list of supported formats. If the
-             * format is not supported by GTK, %NULL will be returned and @error will be set.
-             *
-             * The `destroy` function gets called when the returned texture gets released.
-             *
-             * It is the responsibility of the caller to keep the file descriptors for the planes
-             * open until the created texture is no longer used, and close them afterwards (possibly
-             * using the @destroy notify).
-             *
-             * It is possible to call this function multiple times to create multiple textures,
-             * possibly with changing properties in between.
-             * @throws {GLib.Error}
-             * @since 4.14
-             * @param destroy destroy function to be called when the texture is
-              released
-             * @param data user data to pass to the destroy function
-             * @returns a newly built `GdkTexture` or `NULL`   if the format is not supported
-             */
-            build(destroy: GLib.DestroyNotify | null, data: never | null): Texture | null
-            /**
-             * Gets the color state previously set via gdk_dmabuf_texture_builder_set_color_state().
-             * @since 4.16
-             * @returns the color state
-             */
-            get_color_state(): ColorState | null
-            /**
-             * Returns the display that this texture builder is
-             * associated with.
-             * @since 4.14
-             * @returns the display
-             */
-            get_display(): Display
-            /**
-             * Gets the file descriptor for a plane.
-             * @since 4.14
-             * @param plane the plane to get the fd for
-             * @returns the file descriptor
-             */
-            get_fd(plane: number): number
-            /**
-             * Gets the format previously set via gdk_dmabuf_texture_builder_set_fourcc()
-             * or 0 if the format wasn't set.
-             *
-             * The format is specified as a fourcc code.
-             * @since 4.14
-             * @returns The format
-             */
-            get_fourcc(): number
-            /**
-             * Gets the height previously set via gdk_dmabuf_texture_builder_set_height() or
-             * 0 if the height wasn't set.
-             * @since 4.14
-             * @returns The height
-             */
-            get_height(): number
-            /**
-             * Gets the modifier value.
-             * @since 4.14
-             * @returns the modifier
-             */
-            get_modifier(): number
-            /**
-             * Gets the number of planes.
-             * @since 4.14
-             * @returns The number of planes
-             */
-            get_n_planes(): number
-            /**
-             * Gets the offset value for a plane.
-             * @since 4.14
-             * @param plane the plane to get the offset for
-             * @returns the offset
-             */
-            get_offset(plane: number): number
-            /**
-             * Whether the data is premultiplied.
-             * @since 4.14
-             * @returns whether the data is premultiplied
-             */
-            get_premultiplied(): boolean
-            /**
-             * Gets the stride value for a plane.
-             * @since 4.14
-             * @param plane the plane to get the stride for
-             * @returns the stride
-             */
-            get_stride(plane: number): number
-            /**
-             * Gets the region previously set via gdk_dmabuf_texture_builder_set_update_region() or
-             * %NULL if none was set.
-             * @since 4.14
-             * @returns The region
-             */
-            get_update_region(): cairo.Region | null
-            /**
-             * Gets the texture previously set via gdk_dmabuf_texture_builder_set_update_texture() or
-             * %NULL if none was set.
-             * @since 4.14
-             * @returns The texture
-             */
-            get_update_texture(): Texture | null
-            /**
-             * Gets the width previously set via gdk_dmabuf_texture_builder_set_width() or
-             * 0 if the width wasn't set.
-             * @since 4.14
-             * @returns The width
-             */
-            get_width(): number
-            /**
-             * Sets the color state for the texture.
-             *
-             * By default, the colorstate is `NULL`. In that case, GTK will choose the
-             * correct colorstate based on the format.
-             * If you don't know what colorstates are, this is probably the right thing.
-             * @since 4.16
-             * @param color_state a `GdkColorState` or `NULL` to unset the colorstate.
-             */
-            set_color_state(color_state: ColorState | null): void
-            /**
-             * Sets the display that this texture builder is
-             * associated with.
-             *
-             * The display is used to determine the supported
-             * dma-buf formats.
-             * @since 4.14
-             * @param display the display
-             */
-            set_display(display: Display): void
-            /**
-             * Sets the file descriptor for a plane.
-             * @since 4.14
-             * @param plane the plane to set the fd for
-             * @param fd the file descriptor
-             */
-            set_fd(plane: number, fd: number): void
-            /**
-             * Sets the format of the texture.
-             *
-             * The format is specified as a fourcc code.
-             *
-             * The format must be set before calling [method@Gdk.DmabufTextureBuilder.build].
-             * @since 4.14
-             * @param fourcc the texture's format or 0 to unset
-             */
-            set_fourcc(fourcc: number): void
-            /**
-             * Sets the height of the texture.
-             *
-             * The height must be set before calling [method@Gdk.DmabufTextureBuilder.build].
-             * @since 4.14
-             * @param height the texture's height or 0 to unset
-             */
-            set_height(height: number): void
-            /**
-             * Sets the modifier.
-             * @since 4.14
-             * @param modifier the modifier value
-             */
-            set_modifier(modifier: number): void
-            /**
-             * Sets the number of planes of the texture.
-             * @since 4.14
-             * @param n_planes the number of planes
-             */
-            set_n_planes(n_planes: number): void
-            /**
-             * Sets the offset for a plane.
-             * @since 4.14
-             * @param plane the plane to set the offset for
-             * @param offset the offset value
-             */
-            set_offset(plane: number, offset: number): void
-            /**
-             * Sets whether the data is premultiplied.
-             *
-             * Unless otherwise specified, all formats including alpha channels are assumed
-             * to be premultiplied.
-             * @since 4.14
-             * @param premultiplied whether the data is premultiplied
-             */
-            set_premultiplied(premultiplied: boolean): void
-            /**
-             * Sets the stride for a plane.
-             *
-             * The stride must be set for all planes before calling [method@Gdk.DmabufTextureBuilder.build].
-             * @since 4.14
-             * @param plane the plane to set the stride for
-             * @param stride the stride value
-             */
-            set_stride(plane: number, stride: number): void
-            /**
-             * Sets the region to be updated by this texture. Together with
-             * [property@Gdk.DmabufTextureBuilder:update-texture] this describes an
-             * update of a previous texture.
-             *
-             * When rendering animations of large textures, it is possible that
-             * consecutive textures are only updating contents in parts of the texture.
-             * It is then possible to describe this update via these two properties,
-             * so that GTK can avoid rerendering parts that did not change.
-             *
-             * An example would be a screen recording where only the mouse pointer moves.
-             * @since 4.14
-             * @param region the region to update
-             */
-            set_update_region(region: cairo.Region | null): void
-            /**
-             * Sets the texture to be updated by this texture. See
-             * [method@Gdk.DmabufTextureBuilder.set_update_region] for an explanation.
-             * @since 4.14
-             * @param texture the texture to update
-             */
-            set_update_texture(texture: Texture | null): void
-            /**
-             * Sets the width of the texture.
-             *
-             * The width must be set before calling [method@Gdk.DmabufTextureBuilder.build].
-             * @since 4.14
-             * @param width The texture's width or 0 to unset
-             */
-            set_width(width: number): void
-        }
-
-        interface DmabufTextureBuilderClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<DmabufTextureBuilder>
-            readonly prototype: DmabufTextureBuilder
-            new (props?: Partial<GObject.ConstructorProps<DmabufTextureBuilder>>): DmabufTextureBuilder
-            /**
-             * Creates a new texture builder.
-             * @since 4.14
-             * @returns the new `GdkTextureBuilder`
-             */
-            "new"(): DmabufTextureBuilder
-        }
-
-        const DmabufTextureBuilder: DmabufTextureBuilderClass
-        
-
-        namespace Drag {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * Emitted when the drag operation is cancelled.
-                 * @param reason The reason the drag was cancelled
-                 */
-                "cancel"(reason: DragCancelReason): void
-                /**
-                 * Emitted when the destination side has finished reading all data.
-                 *
-                 * The drag object can now free all miscellaneous data.
-                 */
-                "dnd-finished"(): void
-                /**
-                 * Emitted when the drop operation is performed on an accepting client.
-                 */
-                "drop-performed"(): void
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "actions": DragAction
-                "content": ContentProvider
-                "device": Device
-                "display": Display
-                "formats": ContentFormats
-                "selected-action": DragAction
-                "surface": Surface
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "actions": DragAction
-                "content": ContentProvider
-                "device": Device
-                "display": Display
-                "formats": ContentFormats
-                "selected-action": DragAction
-                "surface": Surface
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Represents the source of an ongoing DND operation.
-         *
-         * A `GdkDrag` is created when a drag is started, and stays alive for duration of
-         * the DND operation. After a drag has been started with [func@Gdk.Drag.begin],
-         * the caller gets informed about the status of the ongoing drag operation
-         * with signals on the `GdkDrag` object.
-         *
-         * GTK provides a higher level abstraction based on top of these functions,
-         * and so they are not normally needed in GTK applications. See the
-         * "Drag and Drop" section of the GTK documentation for more information.
-         */
-        interface Drag extends GObject.Object {
-            readonly $signals: Drag.SignalSignatures
-            readonly $readableProperties: Drag.ReadableProperties
-            readonly $writableProperties: Drag.WritableProperties
-            readonly $constructOnlyProperties: Drag.ConstructOnlyProperties
-            /**
-             * The possible actions of this drag.
-             * @default GDK_ACTION_NONE
-             */
-            get actions(): DragAction
-            set actions(value: DragAction)
-            /**
-             * The `GdkContentProvider`.
-             */
-            get content(): ContentProvider
-            set content(value: ContentProvider)
-            /**
-             * The `GdkDevice` that is performing the drag.
-             */
-            get device(): Device
-            set device(value: Device)
-            /**
-             * The `GdkDisplay` that the drag belongs to.
-             */
-            get display(): Display
-            set display(value: Display)
-            /**
-             * The possible formats that the drag can provide its data in.
-             */
-            get formats(): ContentFormats
-            set formats(value: ContentFormats)
-            /**
-             * The currently selected action of the drag.
-             * @default GDK_ACTION_NONE
-             */
-            get selectedAction(): DragAction
-            set selectedAction(value: DragAction)
-            /**
-             * The surface where the drag originates.
-             */
-            get surface(): Surface
-            set surface(value: Surface)
-            /**
-             * Informs GDK that the drop ended.
-             *
-             * Passing %FALSE for @success may trigger a drag cancellation
-             * animation.
-             *
-             * This function is called by the drag source, and should be the
-             * last call before dropping the reference to the @drag.
-             *
-             * The `GdkDrag` will only take the first [method@Gdk.Drag.drop_done]
-             * call as effective, if this function is called multiple times,
-             * all subsequent calls will be ignored.
-             * @param success whether the drag was ultimatively successful
-             */
-            drop_done(success: boolean): void
-            /**
-             * Determines the bitmask of possible actions proposed by the source.
-             * @returns the `GdkDragAction` flags
-             */
-            get_actions(): DragAction
-            /**
-             * Returns the `GdkContentProvider` associated to the `GdkDrag` object.
-             * @returns The `GdkContentProvider` associated to `drag`.
-             */
-            get_content(): ContentProvider
-            /**
-             * Returns the `GdkDevice` associated to the `GdkDrag` object.
-             * @returns The `GdkDevice` associated to `drag`.
-             */
-            get_device(): Device
-            /**
-             * Gets the `GdkDisplay` that the drag object was created for.
-             * @returns a `GdkDisplay`
-             */
-            get_display(): Display
-            /**
-             * Returns the surface on which the drag icon should be rendered
-             * during the drag operation.
-             *
-             * Note that the surface may not be available until the drag operation
-             * has begun. GDK will move the surface in accordance with the ongoing
-             * drag operation. The surface is owned by @drag and will be destroyed
-             * when the drag operation is over.
-             * @returns the drag surface
-             */
-            get_drag_surface(): Surface | null
-            /**
-             * Retrieves the formats supported by this `GdkDrag` object.
-             * @returns a `GdkContentFormats`
-             */
-            get_formats(): ContentFormats
-            /**
-             * Determines the action chosen by the drag destination.
-             * @returns a `GdkDragAction` value
-             */
-            get_selected_action(): DragAction
-            /**
-             * Returns the `GdkSurface` where the drag originates.
-             * @returns The `GdkSurface` where the drag originates
-             */
-            get_surface(): Surface
-            /**
-             * Sets the position of the drag surface that will be kept
-             * under the cursor hotspot.
-             *
-             * Initially, the hotspot is at the top left corner of the drag surface.
-             * @param hot_x x coordinate of the drag surface hotspot
-             * @param hot_y y coordinate of the drag surface hotspot
-             */
-            set_hotspot(hot_x: number, hot_y: number): void
-        }
-
-        interface DragClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Drag>
-            readonly prototype: Drag
-            new (props?: Partial<GObject.ConstructorProps<Drag>>): Drag
-            /**
-             * Starts a drag and creates a new drag context for it.
-             *
-             * This function is called by the drag source. After this call, you
-             * probably want to set up the drag icon using the surface returned
-             * by [method@Gdk.Drag.get_drag_surface].
-             *
-             * This function returns a reference to the [class@Gdk.Drag] object,
-             * but GTK keeps its own reference as well, as long as the DND operation
-             * is going on.
-             *
-             * Note: if @actions include %GDK_ACTION_MOVE, you need to listen for
-             * the [signal@Gdk.Drag::dnd-finished] signal and delete the data at
-             * the source if [method@Gdk.Drag.get_selected_action] returns
-             * %GDK_ACTION_MOVE.
-             * @param surface the source surface for this drag
-             * @param device the device that controls this drag
-             * @param content the offered content
-             * @param actions the actions supported by this drag
-             * @param dx the x offset to @device's position where the drag nominally started
-             * @param dy the y offset to @device's position where the drag nominally started
-             * @returns a newly created `GdkDrag`
-             */
-            begin(surface: Surface, device: Device, content: ContentProvider, actions: DragAction, dx: number, dy: number): Drag | null
-        }
-
-        const Drag: DragClass
-        
-
-        namespace DrawContext {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "display": Display | null
-                "surface": Surface | null
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "display": Display | null
-                "surface": Surface | null
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Base class for objects implementing different rendering methods.
-         *
-         * `GdkDrawContext` is the base object used by contexts implementing different
-         * rendering methods, such as [class@Gdk.CairoContext] or [class@Gdk.GLContext].
-         * It provides shared functionality between those contexts.
-         *
-         * You will always interact with one of those subclasses.
-         *
-         * A `GdkDrawContext` is always associated with a single toplevel surface.
-         */
-        interface DrawContext extends GObject.Object {
-            readonly $signals: DrawContext.SignalSignatures
-            readonly $readableProperties: DrawContext.ReadableProperties
-            readonly $writableProperties: DrawContext.WritableProperties
-            readonly $constructOnlyProperties: DrawContext.ConstructOnlyProperties
-            /**
-             * The `GdkDisplay` used to create the `GdkDrawContext`.
-             */
-            get display(): Display | null
-            set display(value: Display | null)
-            /**
-             * The `GdkSurface` the context is bound to.
-             */
-            get surface(): Surface | null
-            set surface(value: Surface | null)
-            /**
-             * Indicates that you are beginning the process of redrawing @region
-             * on the @context's surface.
-             *
-             * Calling this function begins a drawing operation using @context on the
-             * surface that @context was created from. The actual requirements and
-             * guarantees for the drawing operation vary for different implementations
-             * of drawing, so a [class@Gdk.CairoContext] and a [class@Gdk.GLContext]
-             * need to be treated differently.
-             *
-             * A call to this function is a requirement for drawing and must be
-             * followed by a call to [method@Gdk.DrawContext.end_frame], which will
-             * complete the drawing operation and ensure the contents become visible
-             * on screen.
-             *
-             * Note that the @region passed to this function is the minimum region that
-             * needs to be drawn and depending on implementation, windowing system and
-             * hardware in use, it might be necessary to draw a larger region. Drawing
-             * implementation must use [method@Gdk.DrawContext.get_frame_region] to
-             * query the region that must be drawn.
-             *
-             * When using GTK, the widget system automatically places calls to
-             * gdk_draw_context_begin_frame() and gdk_draw_context_end_frame() via the
-             * use of [GskRenderer](../gsk4/class.Renderer.html)s, so application code
-             * does not need to call these functions explicitly.
-             * @deprecated since 4.16 Drawing directly to the surface is no longer recommended.   Use `GskRenderNode` and `GskRenderer`.
-             * @param region minimum region that should be drawn
-             */
-            begin_frame(region: cairo.Region): void
-            /**
-             * Ends a drawing operation started with gdk_draw_context_begin_frame().
-             *
-             * This makes the drawing available on screen.
-             * See [method@Gdk.DrawContext.begin_frame] for more details about drawing.
-             *
-             * When using a [class@Gdk.GLContext], this function may call `glFlush()`
-             * implicitly before returning; it is not recommended to call `glFlush()`
-             * explicitly before calling this function.
-             * @deprecated since 4.16 Drawing directly to the surface is no longer recommended.   Use `GskRenderNode` and `GskRenderer`.
-             */
-            end_frame(): void
-            /**
-             * Retrieves the `GdkDisplay` the @context is created for
-             * @returns the `GdkDisplay`
-             */
-            get_display(): Display | null
-            /**
-             * Retrieves the region that is currently being repainted.
-             *
-             * After a call to [method@Gdk.DrawContext.begin_frame] this function will
-             * return a union of the region passed to that function and the area of the
-             * surface that the @context determined needs to be repainted.
-             *
-             * If @context is not in between calls to [method@Gdk.DrawContext.begin_frame]
-             * and [method@Gdk.DrawContext.end_frame], %NULL will be returned.
-             * @deprecated since 4.16 Drawing directly to the surface is no longer recommended.   Use `GskRenderNode` and `GskRenderer`.
-             * @returns a Cairo region
-             */
-            get_frame_region(): cairo.Region | null
-            /**
-             * Retrieves the surface that @context is bound to.
-             * @returns a `GdkSurface`
-             */
-            get_surface(): Surface | null
-            /**
-             * Returns %TRUE if @context is in the process of drawing to its surface.
-             *
-             * This is the case between calls to [method@Gdk.DrawContext.begin_frame]
-             * and [method@Gdk.DrawContext.end_frame]. In this situation, drawing commands
-             * may be effecting the contents of the @context's surface.
-             * @deprecated since 4.16 Drawing directly to the surface is no longer recommended.   Use `GskRenderNode` and `GskRenderer`.
-             * @returns %TRUE if the context is between [method@Gdk.DrawContext.begin_frame]   and [method@Gdk.DrawContext.end_frame] calls.
-             */
-            is_in_frame(): boolean
-        }
-
-        interface DrawContextClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<DrawContext>
-            readonly prototype: DrawContext
-            new (props?: Partial<GObject.ConstructorProps<DrawContext>>): DrawContext
-        }
-
-        const DrawContext: DrawContextClass
-        
-
-        namespace Drop {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "actions": DragAction
-                "device": Device
-                "display": Display
-                "drag": Drag | null
-                "formats": ContentFormats
-                "surface": Surface
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "actions": DragAction
-                "device": Device
-                "display": Display
-                "drag": Drag | null
-                "formats": ContentFormats
-                "surface": Surface
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Represents the target of an ongoing DND operation.
-         *
-         * Possible drop sites get informed about the status of the ongoing drag
-         * operation with events of type `GDK_DRAG_ENTER`, `GDK_DRAG_LEAVE`,
-         * `GDK_DRAG_MOTION` and `GDK_DROP_START`. The `GdkDrop` object can be obtained
-         * from these [class@Gdk.Event] types using [method@Gdk.DNDEvent.get_drop].
-         *
-         * The actual data transfer is initiated from the target side via an async
-         * read, using one of the `GdkDrop` methods for this purpose:
-         * [method@Gdk.Drop.read_async] or [method@Gdk.Drop.read_value_async].
-         *
-         * GTK provides a higher level abstraction based on top of these functions,
-         * and so they are not normally needed in GTK applications. See the
-         * "Drag and Drop" section of the GTK documentation for more information.
-         */
-        interface Drop extends GObject.Object {
-            readonly $signals: Drop.SignalSignatures
-            readonly $readableProperties: Drop.ReadableProperties
-            readonly $writableProperties: Drop.WritableProperties
-            readonly $constructOnlyProperties: Drop.ConstructOnlyProperties
-            /**
-             * The possible actions for this drop
-             * @default GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK
-             */
-            get actions(): DragAction
-            set actions(value: DragAction)
-            /**
-             * The `GdkDevice` performing the drop
-             */
-            get device(): Device
-            set device(value: Device)
-            /**
-             * The `GdkDisplay` that the drop belongs to.
-             */
-            get display(): Display
-            set display(value: Display)
-            /**
-             * The `GdkDrag` that initiated this drop
-             */
-            get drag(): Drag | null
-            set drag(value: Drag | null)
-            /**
-             * The possible formats that the drop can provide its data in.
-             */
-            get formats(): ContentFormats
-            set formats(value: ContentFormats)
-            /**
-             * The `GdkSurface` the drop happens on
-             */
-            get surface(): Surface
-            set surface(value: Surface)
-            /**
-             * Ends the drag operation after a drop.
-             *
-             * The @action must be a single action selected from the actions
-             * available via [method@Gdk.Drop.get_actions].
-             * @param action the action performed by the destination or `GDK_ACTION_NONE` if the
-              drop failed
-             */
-            finish(action: DragAction): void
-            /**
-             * Returns the possible actions for this `GdkDrop`.
-             *
-             * If this value contains multiple actions - i.e.
-             * [func@Gdk.DragAction.is_unique] returns false for the result -
-             * [method@Gdk.Drop.finish] must choose the action to use when
-             * accepting the drop. This will only happen if you passed
-             * `GDK_ACTION_ASK` as one of the possible actions in
-             * [method@Gdk.Drop.status]. `GDK_ACTION_ASK` itself will not
-             * be included in the actions returned by this function.
-             *
-             * This value may change over the lifetime of the [class@Gdk.Drop]
-             * both as a response to source side actions as well as to calls to
-             * [method@Gdk.Drop.status] or [method@Gdk.Drop.finish]. The source
-             * side will not change this value anymore once a drop has started.
-             * @returns The possible `GdkDragActions`
-             */
-            get_actions(): DragAction
-            /**
-             * Returns the `GdkDevice` performing the drop.
-             * @returns The `GdkDevice` performing the drop.
-             */
-            get_device(): Device
-            /**
-             * Gets the `GdkDisplay` that @self was created for.
-             * @returns a `GdkDisplay`
-             */
-            get_display(): Display
-            /**
-             * If this is an in-app drag-and-drop operation, returns the `GdkDrag`
-             * that corresponds to this drop.
-             *
-             * If it is not, `NULL` is returned.
-             * @returns the corresponding `GdkDrag`
-             */
-            get_drag(): Drag | null
-            /**
-             * Returns the `GdkContentFormats` that the drop offers the data
-             * to be read in.
-             * @returns The possible `GdkContentFormats`
-             */
-            get_formats(): ContentFormats
-            /**
-             * Returns the `GdkSurface` performing the drop.
-             * @returns The `GdkSurface` performing the drop.
-             */
-            get_surface(): Surface
-            /**
-             * Asynchronously read the dropped data from a `GdkDrop`
-             * in a format that complies with one of the mime types.
-             * @param mime_types 
-              pointer to an array of mime types
-             * @param io_priority the I/O priority for the read operation
-             * @param cancellable optional `GCancellable` object
-             * @param callback a `GAsyncReadyCallback` to call when
-              the request is satisfied
-             */
-            read_async(mime_types: string[], io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an async drop read operation.
-             *
-             * Note that you must not use blocking read calls on the returned stream
-             * in the GTK thread, since some platforms might require communication with
-             * GTK to complete the data transfer. You can use async APIs such as
-             * g_input_stream_read_bytes_async().
-             *
-             * See [method@Gdk.Drop.read_async].
-             * @throws {GLib.Error}
-             * @param result a `GAsyncResult`
-             * @returns the `GInputStream`, return location for the used mime type
-             */
-            read_finish(result: Gio.AsyncResult): [Gio.InputStream | null, string]
-            /**
-             * Asynchronously request the drag operation's contents converted
-             * to the given @type.
-             *
-             * For local drag-and-drop operations that are available in the given
-             * `GType`, the value will be copied directly. Otherwise, GDK will
-             * try to use [func@Gdk.content_deserialize_async] to convert the data.
-             * @param type a `GType` to read
-             * @param io_priority the I/O priority of the request.
-             * @param cancellable optional `GCancellable` object, %NULL to ignore.
-             * @param callback callback to call when the request is satisfied
-             */
-            read_value_async(type: (GObject.GType | { $gtype: GObject.GType }), io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an async drop read.
-             *
-             * See [method@Gdk.Drop.read_value_async].
-             * @throws {GLib.Error}
-             * @param result a `GAsyncResult`
-             * @returns a `GValue` containing the result.
-             */
-            read_value_finish(result: Gio.AsyncResult): GObject.Value
-            /**
-             * Selects all actions that are potentially supported by the destination.
-             *
-             * When calling this function, do not restrict the passed in actions to
-             * the ones provided by [method@Gdk.Drop.get_actions]. Those actions may
-             * change in the future, even depending on the actions you provide here.
-             *
-             * The @preferred action is a hint to the drag-and-drop mechanism about which
-             * action to use when multiple actions are possible.
-             *
-             * This function should be called by drag destinations in response to
-             * `GDK_DRAG_ENTER` or `GDK_DRAG_MOTION` events. If the destination does
-             * not yet know the exact actions it supports, it should set any possible
-             * actions first and then later call this function again.
-             * @param actions Supported actions of the destination, or `GDK_ACTION_NONE` to
-               indicate that a drop will not be accepted
-             * @param preferred A unique action that's a member of @actions indicating the
-               preferred action
-             */
-            status(actions: DragAction, preferred: DragAction): void
-        }
-
-        interface DropClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Drop>
-            readonly prototype: Drop
-            new (props?: Partial<GObject.ConstructorProps<Drop>>): Drop
-        }
-
-        const Drop: DropClass
-        
-
-        namespace Event {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-        }
-
-        /**
-         * Represents windowing system events.
-         *
-         * In GTK applications the events are handled automatically by toplevel
-         * widgets and passed on to the event controllers of appropriate widgets,
-         * so using `GdkEvent` and its related API is rarely needed.
-         *
-         * `GdkEvent` structs are immutable.
-         */
-        interface Event  {
-            readonly $signals: Event.SignalSignatures
-            readonly $readableProperties: Event.ReadableProperties
-            readonly $writableProperties: Event.WritableProperties
-            readonly $constructOnlyProperties: Event.ConstructOnlyProperties
-            /**
-             * Returns the relative angle from @event1 to @event2.
-             *
-             * The relative angle is the angle between the X axis and the line
-             * through both events' positions. The rotation direction for positive
-             * angles is from the positive X axis towards the positive Y axis.
-             *
-             * This assumes that both events have X/Y information.
-             * If not, this function returns %FALSE.
-             * @param event2 second `GdkEvent`
-             * @returns %TRUE if the angle could be calculated., return location for the relative angle between both events
-             */
-            _get_angle(event2: Event): [boolean, number]
-            /**
-             * Returns the point halfway between the events' positions.
-             *
-             * This assumes that both events have X/Y information.
-             * If not, this function returns %FALSE.
-             * @param event2 second `GdkEvent`
-             * @returns %TRUE if the center could be calculated., return location for the X coordinate of the center, return location for the Y coordinate of the center
-             */
-            _get_center(event2: Event): [boolean, number, number]
-            /**
-             * Returns the distance between the event locations.
-             *
-             * This assumes that both events have X/Y information.
-             * If not, this function returns %FALSE.
-             * @param event2 second `GdkEvent`
-             * @returns %TRUE if the distance could be calculated., return location for the distance
-             */
-            _get_distance(event2: Event): [boolean, number]
-            /**
-             * Extracts all axis values from an event.
-             *
-             * To find out which axes are used, use [method@Gdk.DeviceTool.get_axes]
-             * on the device tool returned by [method@Gdk.Event.get_device_tool].
-             * @returns %TRUE on success, otherwise %FALSE, the array of values for all axes
-             */
-            get_axes(): [boolean, number[]]
-            /**
-             * Extract the axis value for a particular axis use from
-             * an event structure.
-             *
-             * To find out which axes are used, use [method@Gdk.DeviceTool.get_axes]
-             * on the device tool returned by [method@Gdk.Event.get_device_tool].
-             * @param axis_use the axis use to look for
-             * @returns %TRUE if the specified axis was found, otherwise %FALSE, location to store the value found
-             */
-            get_axis(axis_use: AxisUse): [boolean, number]
-            /**
-             * Returns the device of an event.
-             * @returns a `GdkDevice`
-             */
-            get_device(): Device | null
-            /**
-             * Returns a `GdkDeviceTool` representing the tool that
-             * caused the event.
-             *
-             * If the was not generated by a device that supports
-             * different tools (such as a tablet), this function will
-             * return %NULL.
-             *
-             * Note: the `GdkDeviceTool` will be constant during
-             * the application lifetime, if settings must be stored
-             * persistently across runs, see [method@Gdk.DeviceTool.get_serial].
-             * @returns The current device tool
-             */
-            get_device_tool(): DeviceTool | null
-            /**
-             * Retrieves the display associated to the @event.
-             * @returns a `GdkDisplay`
-             */
-            get_display(): Display | null
-            /**
-             * Returns the event sequence to which the event belongs.
-             *
-             * Related touch events are connected in a sequence. Other
-             * events typically don't have event sequence information.
-             * @returns the event sequence that the event belongs to
-             */
-            get_event_sequence(): EventSequence
-            /**
-             * Retrieves the type of the event.
-             * @returns a `GdkEvent`Type
-             */
-            get_event_type(): EventType
-            /**
-             * Retrieves the history of the device that @event is for, as a list of
-             * time and coordinates.
-             *
-             * The history includes positions that are not delivered as separate events
-             * to the application because they occurred in the same frame as @event.
-             *
-             * Note that only motion and scroll events record history, and motion
-             * events do it only if one of the mouse buttons is down, or the device
-             * has a tool.
-             * @returns an   array of time and coordinates
-             */
-            get_history(): TimeCoord[] | null
-            /**
-             * Returns the modifier state field of an event.
-             * @returns the modifier state of `event`
-             */
-            get_modifier_state(): ModifierType
-            /**
-             * Returns whether this event is an 'emulated' pointer event.
-             *
-             * Emulated pointer events typically originate from a touch events.
-             * @returns %TRUE if this event is emulated
-             */
-            get_pointer_emulated(): boolean
-            /**
-             * Extract the event surface relative x/y coordinates from an event.
-             *
-             * This position is in [surface coordinates](coordinates.html).
-             * @returns whether the positions were set, location to put event surface x coordinate, location to put event surface y coordinate
-             */
-            get_position(): [boolean, number, number]
-            /**
-             * Returns the seat that originated the event.
-             * @returns a `GdkSeat`.
-             */
-            get_seat(): Seat | null
-            /**
-             * Extracts the surface associated with an event.
-             * @returns The `GdkSurface` associated with the event
-             */
-            get_surface(): Surface | null
-            /**
-             * Returns the timestamp of @event.
-             *
-             * Not all events have timestamps. In that case, this function
-             * returns %GDK_CURRENT_TIME.
-             * @returns timestamp field from `event`
-             */
-            get_time(): number
-            /**
-             * Increase the ref count of @event.
-             * @returns  `event`
-             */
-            ref(): Event
-            /**
-             * button == GDK_BUTTON_SECONDARY
-             * ```
-             * @returns %TRUE if the event should trigger a context menu.
-             */
-            triggers_context_menu(): boolean
-            /**
-             * Decrease the ref count of @event.
-             *
-             * If the last reference is dropped, the structure is freed.
-             */
-            unref(): void
-        }
-
-        interface EventClass {
-            readonly $gtype: GObject.GType<Event>
-            readonly prototype: Event
-            new (props?: Partial<GObject.ConstructorProps<Event>>): Event
-        }
-
-        const Event: EventClass
-        
-
-        namespace FocusEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to a keyboard focus change.
-         */
-        interface FocusEvent extends Event {
-            readonly $signals: FocusEvent.SignalSignatures
-            readonly $readableProperties: FocusEvent.ReadableProperties
-            readonly $writableProperties: FocusEvent.WritableProperties
-            readonly $constructOnlyProperties: FocusEvent.ConstructOnlyProperties
-            /**
-             * Extracts whether this event is about focus entering or
-             * leaving the surface.
-             * @returns %TRUE of the focus is entering
-             */
-            get_in(): boolean
-        }
-
-        interface FocusEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<FocusEvent>
-            readonly prototype: FocusEvent
-            new (props?: Partial<GObject.ConstructorProps<FocusEvent>>): FocusEvent
-        }
-
-        const FocusEvent: FocusEventClass
-        
-
-        namespace FrameClock {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * This signal ends processing of the frame.
-                 *
-                 * Applications should generally not handle this signal.
-                 */
-                "after-paint"(): void
-                /**
-                 * Begins processing of the frame.
-                 *
-                 * Applications should generally not handle this signal.
-                 */
-                "before-paint"(): void
-                /**
-                 * Used to flush pending motion events that are being batched up and
-                 * compressed together.
-                 *
-                 * Applications should not handle this signal.
-                 */
-                "flush-events"(): void
-                /**
-                 * Emitted as the second step of toolkit and application processing
-                 * of the frame.
-                 *
-                 * Any work to update sizes and positions of application elements
-                 * should be performed. GTK normally handles this internally.
-                 */
-                "layout"(): void
-                /**
-                 * Emitted as the third step of toolkit and application processing
-                 * of the frame.
-                 *
-                 * The frame is repainted. GDK normally handles this internally and
-                 * emits [signal@Gdk.Surface::render] signals which are turned into
-                 * [GtkWidget::snapshot](../gtk4/signal.Widget.snapshot.html) signals
-                 * by GTK.
-                 */
-                "paint"(): void
-                /**
-                 * Emitted after processing of the frame is finished.
-                 *
-                 * This signal is handled internally by GTK to resume normal
-                 * event processing. Applications should not handle this signal.
-                 */
-                "resume-events"(): void
-                /**
-                 * Emitted as the first step of toolkit and application processing
-                 * of the frame.
-                 *
-                 * Animations should be updated using [method@Gdk.FrameClock.get_frame_time].
-                 * Applications can connect directly to this signal, or use
-                 * [gtk_widget_add_tick_callback()](../gtk4/method.Widget.add_tick_callback.html)
-                 * as a more convenient interface.
-                 */
-                "update"(): void
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Tells the application when to update and repaint a surface.
-         *
-         * This may be synced to the vertical refresh rate of the monitor, for example.
-         * Even when the frame clock uses a simple timer rather than a hardware-based
-         * vertical sync, the frame clock helps because it ensures everything paints at
-         * the same time (reducing the total number of frames).
-         *
-         * The frame clock can also automatically stop painting when it knows the frames
-         * will not be visible, or scale back animation framerates.
-         *
-         * `GdkFrameClock` is designed to be compatible with an OpenGL-based implementation
-         * or with mozRequestAnimationFrame in Firefox, for example.
-         *
-         * A frame clock is idle until someone requests a frame with
-         * [method@Gdk.FrameClock.request_phase]. At some later point that makes sense
-         * for the synchronization being implemented, the clock will process a frame and
-         * emit signals for each phase that has been requested. (See the signals of the
-         * `GdkFrameClock` class for documentation of the phases.
-         * %GDK_FRAME_CLOCK_PHASE_UPDATE and the [signal@Gdk.FrameClock::update] signal
-         * are most interesting for application writers, and are used to update the
-         * animations, using the frame time given by [method@Gdk.FrameClock.get_frame_time].
-         *
-         * The frame time is reported in microseconds and generally in the same
-         * timescale as g_get_monotonic_time(), however, it is not the same
-         * as g_get_monotonic_time(). The frame time does not advance during
-         * the time a frame is being painted, and outside of a frame, an attempt
-         * is made so that all calls to [method@Gdk.FrameClock.get_frame_time] that
-         * are called at a “similar” time get the same value. This means that
-         * if different animations are timed by looking at the difference in
-         * time between an initial value from [method@Gdk.FrameClock.get_frame_time]
-         * and the value inside the [signal@Gdk.FrameClock::update] signal of the clock,
-         * they will stay exactly synchronized.
-         */
-        interface FrameClock extends GObject.Object {
-            readonly $signals: FrameClock.SignalSignatures
-            readonly $readableProperties: FrameClock.ReadableProperties
-            readonly $writableProperties: FrameClock.WritableProperties
-            readonly $constructOnlyProperties: FrameClock.ConstructOnlyProperties
-            /**
-             * Starts updates for an animation.
-             *
-             * Until a matching call to [method@Gdk.FrameClock.end_updating] is made,
-             * the frame clock will continually request a new frame with the
-             * %GDK_FRAME_CLOCK_PHASE_UPDATE phase. This function may be called multiple
-             * times and frames will be requested until gdk_frame_clock_end_updating()
-             * is called the same number of times.
-             */
-            begin_updating(): void
-            /**
-             * Stops updates for an animation.
-             *
-             * See the documentation for [method@Gdk.FrameClock.begin_updating].
-             */
-            end_updating(): void
-            /**
-             * Gets the frame timings for the current frame.
-             * @returns the `GdkFrameTimings` for the   frame currently being processed, or even no frame is being   processed, for the previous frame. Before any frames have been   processed, returns %NULL.
-             */
-            get_current_timings(): FrameTimings | null
-            /**
-             * Calculates the current frames-per-second, based on the
-             * frame timings of @frame_clock.
-             * @returns the current fps, as a `double`
-             */
-            get_fps(): number
-            /**
-             * `GdkFrameClock` maintains a 64-bit counter that increments for
-             * each frame drawn.
-             * @returns inside frame processing, the value of the frame counter   for the current frame. Outside of frame processing, the frame   counter for the last frame.
-             */
-            get_frame_counter(): number
-            /**
-             * Gets the time that should currently be used for animations.
-             *
-             * Inside the processing of a frame, it’s the time used to compute the
-             * animation position of everything in a frame. Outside of a frame, it's
-             * the time of the conceptual “previous frame,” which may be either
-             * the actual previous frame time, or if that’s too old, an updated
-             * time.
-             * @returns a timestamp in microseconds, in the timescale of  of g_get_monotonic_time().
-             */
-            get_frame_time(): number
-            /**
-             * Returns the frame counter for the oldest frame available in history.
-             *
-             * `GdkFrameClock` internally keeps a history of `GdkFrameTimings`
-             * objects for recent frames that can be retrieved with
-             * [method@Gdk.FrameClock.get_timings]. The set of stored frames
-             * is the set from the counter values given by
-             * [method@Gdk.FrameClock.get_history_start] and
-             * [method@Gdk.FrameClock.get_frame_counter], inclusive.
-             * @returns the frame counter value for the oldest frame  that is available in the internal frame history of the  `GdkFrameClock`
-             */
-            get_history_start(): number
-            /**
-             * Predicts a presentation time, based on history.
-             *
-             * Using the frame history stored in the frame clock, finds the last
-             * known presentation time and refresh interval, and assuming that
-             * presentation times are separated by the refresh interval,
-             * predicts a presentation time that is a multiple of the refresh
-             * interval after the last presentation time, and later than @base_time.
-             * @param base_time base time for determining a presentaton time
-             * @returns , a location to store the   determined refresh interval, or %NULL. A default refresh interval of   1/60th of a second will be stored if no history is present., a location to store the next   candidate presentation time after the given base time.   0 will be will be stored if no history is present.
-             */
-            get_refresh_info(base_time: number): number
-            /**
-             * Retrieves a `GdkFrameTimings` object holding timing information
-             * for the current frame or a recent frame.
-             *
-             * The `GdkFrameTimings` object may not yet be complete: see
-             * [method@Gdk.FrameTimings.get_complete] and
-             * [method@Gdk.FrameClock.get_history_start].
-             * @param frame_counter the frame counter value identifying the frame to
-             be received
-             * @returns the `GdkFrameTimings` object   for the specified frame, or %NULL if it is not available
-             */
-            get_timings(frame_counter: number): FrameTimings | null
-            /**
-             * Asks the frame clock to run a particular phase.
-             *
-             * The signal corresponding the requested phase will be emitted the next
-             * time the frame clock processes. Multiple calls to
-             * gdk_frame_clock_request_phase() will be combined together
-             * and only one frame processed. If you are displaying animated
-             * content and want to continually request the
-             * %GDK_FRAME_CLOCK_PHASE_UPDATE phase for a period of time,
-             * you should use [method@Gdk.FrameClock.begin_updating] instead,
-             * since this allows GTK to adjust system parameters to get maximally
-             * smooth animations.
-             * @param phase the phase that is requested
-             */
-            request_phase(phase: FrameClockPhase): void
-        }
-
-        interface FrameClockClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<FrameClock>
-            readonly prototype: FrameClock
-            new (props?: Partial<GObject.ConstructorProps<FrameClock>>): FrameClock
-        }
-
-        const FrameClock: FrameClockClass
-        
-
-        namespace GLContext {
-            interface SignalSignatures extends DrawContext.SignalSignatures {
-            }
-
-            interface ReadableProperties extends DrawContext.ReadableProperties {
-                "allowed-apis": GLAPI
-                "api": GLAPI
-                "shared-context": GLContext | null
-            }
-
-            interface WritableProperties extends DrawContext.WritableProperties {
-                "allowed-apis": GLAPI
-                "api": GLAPI
-                "shared-context": GLContext | null
-            }
-
-            interface ConstructOnlyProperties extends DrawContext.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Represents a platform-specific OpenGL draw context.
-         *
-         * `GdkGLContext`s are created for a surface using
-         * [method@Gdk.Surface.create_gl_context], and the context will match
-         * the characteristics of the surface.
-         *
-         * A `GdkGLContext` is not tied to any particular normal framebuffer.
-         * For instance, it cannot draw to the surface back buffer. The GDK
-         * repaint system is in full control of the painting to that. Instead,
-         * you can create render buffers or textures and use [func@cairo_draw_from_gl]
-         * in the draw function of your widget to draw them. Then GDK will handle
-         * the integration of your rendering with that of other widgets.
-         *
-         * Support for `GdkGLContext` is platform-specific and context creation
-         * can fail, returning %NULL context.
-         *
-         * A `GdkGLContext` has to be made "current" in order to start using
-         * it, otherwise any OpenGL call will be ignored.
-         *
-         * ## Creating a new OpenGL context
-         *
-         * In order to create a new `GdkGLContext` instance you need a `GdkSurface`,
-         * which you typically get during the realize call of a widget.
-         *
-         * A `GdkGLContext` is not realized until either [method@Gdk.GLContext.make_current]
-         * or [method@Gdk.GLContext.realize] is called. It is possible to specify
-         * details of the GL context like the OpenGL version to be used, or whether
-         * the GL context should have extra state validation enabled after calling
-         * [method@Gdk.Surface.create_gl_context] by calling [method@Gdk.GLContext.realize].
-         * If the realization fails you have the option to change the settings of
-         * the `GdkGLContext` and try again.
-         *
-         * ## Using a GdkGLContext
-         *
-         * You will need to make the `GdkGLContext` the current context before issuing
-         * OpenGL calls; the system sends OpenGL commands to whichever context is current.
-         * It is possible to have multiple contexts, so you always need to ensure that
-         * the one which you want to draw with is the current one before issuing commands:
-         *
-         * ```c
-         * gdk_gl_context_make_current (context);
-         * ```
-         *
-         * You can now perform your drawing using OpenGL commands.
-         *
-         * You can check which `GdkGLContext` is the current one by using
-         * [func@Gdk.GLContext.get_current]; you can also unset any `GdkGLContext`
-         * that is currently set by calling [func@Gdk.GLContext.clear_current].
-         */
-        interface GLContext extends DrawContext {
-            readonly $signals: GLContext.SignalSignatures
-            readonly $readableProperties: GLContext.ReadableProperties
-            readonly $writableProperties: GLContext.WritableProperties
-            readonly $constructOnlyProperties: GLContext.ConstructOnlyProperties
-            /**
-             * The allowed APIs.
-             * @since 4.6
-             * @default GDK_GL_API_GL | GDK_GL_API_GLES
-             */
-            get allowedApis(): GLAPI
-            set allowedApis(value: GLAPI)
-            /**
-             * The API currently in use.
-             * @since 4.6
-             * @default 0
-             */
-            get api(): GLAPI
-            set api(value: GLAPI)
-            /**
-             * Always %NULL
-             *
-             * As many contexts can share data now and no single shared context exists
-             * anymore, this function has been deprecated and now always returns %NULL.
-             * @deprecated since 4.4 Use [method@Gdk.GLContext.is_shared] to check if contexts   can be shared.
-             */
-            get sharedContext(): GLContext | null
-            set sharedContext(value: GLContext | null)
-            /**
-             * Gets the allowed APIs set via gdk_gl_context_set_allowed_apis().
-             * @since 4.6
-             * @returns the allowed APIs
-             */
-            get_allowed_apis(): GLAPI
-            /**
-             * Gets the API currently in use.
-             *
-             * If the renderer has not been realized yet, 0 is returned.
-             * @since 4.6
-             * @returns the currently used API
-             */
-            get_api(): GLAPI
-            /**
-             * Retrieves whether the context is doing extra validations and runtime checking.
-             *
-             * See [method@Gdk.GLContext.set_debug_enabled].
-             * @returns %TRUE if debugging is enabled
-             */
-            get_debug_enabled(): boolean
-            /**
-             * Retrieves the display the @context is created for
-             * @returns a `GdkDisplay`
-             */
-            get_display(): Display | null
-            /**
-             * Retrieves whether the context is forward-compatible.
-             *
-             * See [method@Gdk.GLContext.set_forward_compatible].
-             * @returns %TRUE if the context should be forward-compatible
-             */
-            get_forward_compatible(): boolean
-            /**
-             * Retrieves required OpenGL version set as a requirement for the @context
-             * realization. It will not change even if a greater OpenGL version is supported
-             * and used after the @context is realized. See
-             * [method@Gdk.GLContext.get_version] for the real version in use.
-             *
-             * See [method@Gdk.GLContext.set_required_version].
-             * @returns , return location for the major version to request, return location for the minor version to request
-             */
-            get_required_version(): [number | null, number | null]
-            /**
-             * Used to retrieves the `GdkGLContext` that this @context share data with.
-             *
-             * As many contexts can share data now and no single shared context exists
-             * anymore, this function has been deprecated and now always returns %NULL.
-             * @deprecated since 4.4 Use [method@Gdk.GLContext.is_shared] to check if contexts   can be shared.
-             * @returns %NULL
-             */
-            get_shared_context(): GLContext | null
-            /**
-             * Retrieves the surface used by the @context.
-             * @returns a `GdkSurface`
-             */
-            get_surface(): Surface | null
-            /**
-             * Checks whether the @context is using an OpenGL or OpenGL ES profile.
-             * @returns %TRUE if the `GdkGLContext` is using an OpenGL ES profile; %FALSE if other profile is in use of if the `context` has not yet been realized.
-             */
-            get_use_es(): boolean
-            /**
-             * Retrieves the OpenGL version of the @context.
-             *
-             * The @context must be realized prior to calling this function.
-             * @returns , return location for the major version, return location for the minor version
-             */
-            get_version(): [number, number]
-            /**
-             * Whether the `GdkGLContext` is in legacy mode or not.
-             *
-             * The `GdkGLContext` must be realized before calling this function.
-             *
-             * When realizing a GL context, GDK will try to use the OpenGL 3.2 core
-             * profile; this profile removes all the OpenGL API that was deprecated
-             * prior to the 3.2 version of the specification. If the realization is
-             * successful, this function will return %FALSE.
-             *
-             * If the underlying OpenGL implementation does not support core profiles,
-             * GDK will fall back to a pre-3.2 compatibility profile, and this function
-             * will return %TRUE.
-             *
-             * You can use the value returned by this function to decide which kind
-             * of OpenGL API to use, or whether to do extension discovery, or what
-             * kind of shader programs to load.
-             * @returns %TRUE if the GL context is in legacy mode
-             */
-            is_legacy(): boolean
-            /**
-             * Checks if the two GL contexts can share resources.
-             *
-             * When they can, the texture IDs from @other can be used in @self. This
-             * is particularly useful when passing `GdkGLTexture` objects between
-             * different contexts.
-             *
-             * Contexts created for the same display with the same properties will
-             * always be compatible, even if they are created for different surfaces.
-             * For other contexts it depends on the GL backend.
-             *
-             * Both contexts must be realized for this check to succeed. If either one
-             * is not, this function will return %FALSE.
-             * @since 4.4
-             * @param other the `GdkGLContext` that should be compatible with @self
-             * @returns %TRUE if the two GL contexts are compatible.
-             */
-            is_shared(other: GLContext): boolean
-            /**
-             * Makes the @context the current one.
-             */
-            make_current(): void
-            /**
-             * Realizes the given `GdkGLContext`.
-             *
-             * It is safe to call this function on a realized `GdkGLContext`.
-             * @throws {GLib.Error}
-             * @returns %TRUE if the context is realized
-             */
-            realize(): boolean
-            /**
-             * Sets the allowed APIs. When gdk_gl_context_realize() is called, only the
-             * allowed APIs will be tried. If you set this to 0, realizing will always fail.
-             *
-             * If you set it on a realized context, the property will not have any effect.
-             * It is only relevant during gdk_gl_context_realize().
-             *
-             * By default, all APIs are allowed.
-             * @since 4.6
-             * @param apis the allowed APIs
-             */
-            set_allowed_apis(apis: GLAPI): void
-            /**
-             * Sets whether the `GdkGLContext` should perform extra validations and
-             * runtime checking.
-             *
-             * This is useful during development, but has additional overhead.
-             *
-             * The `GdkGLContext` must not be realized or made current prior to
-             * calling this function.
-             * @param enabled whether to enable debugging in the context
-             */
-            set_debug_enabled(enabled: boolean): void
-            /**
-             * Sets whether the `GdkGLContext` should be forward-compatible.
-             *
-             * Forward-compatible contexts must not support OpenGL functionality that
-             * has been marked as deprecated in the requested version; non-forward
-             * compatible contexts, on the other hand, must support both deprecated and
-             * non deprecated functionality.
-             *
-             * The `GdkGLContext` must not be realized or made current prior to calling
-             * this function.
-             * @param compatible whether the context should be forward-compatible
-             */
-            set_forward_compatible(compatible: boolean): void
-            /**
-             * Sets the major and minor version of OpenGL to request.
-             *
-             * Setting @major and @minor to zero will use the default values.
-             *
-             * Setting @major and @minor lower than the minimum versions required
-             * by GTK will result in the context choosing the minimum version.
-             *
-             * The @context must not be realized or made current prior to calling
-             * this function.
-             * @param major the major version to request
-             * @param minor the minor version to request
-             */
-            set_required_version(major: number, minor: number): void
-            /**
-             * Requests that GDK create an OpenGL ES context instead of an OpenGL one.
-             *
-             * Not all platforms support OpenGL ES.
-             *
-             * The @context must not have been realized.
-             *
-             * By default, GDK will attempt to automatically detect whether the
-             * underlying GL implementation is OpenGL or OpenGL ES once the @context
-             * is realized.
-             *
-             * You should check the return value of [method@Gdk.GLContext.get_use_es]
-             * after calling [method@Gdk.GLContext.realize] to decide whether to use
-             * the OpenGL or OpenGL ES API, extensions, or shaders.
-             * @param use_es whether the context should use OpenGL ES instead of OpenGL,
-              or -1 to allow auto-detection
-             */
-            set_use_es(use_es: number): void
-        }
-
-        interface GLContextClass extends Omit<DrawContextClass, "new"> {
-            readonly $gtype: GObject.GType<GLContext>
-            readonly prototype: GLContext
-            new (props?: Partial<GObject.ConstructorProps<GLContext>>): GLContext
-            /**
-             * Clears the current `GdkGLContext`.
-             *
-             * Any OpenGL call after this function returns will be ignored
-             * until [method@Gdk.GLContext.make_current] is called.
-             */
-            clear_current(): void
-            /**
-             * Retrieves the current `GdkGLContext`.
-             * @returns the current `GdkGLContext`
-             */
-            get_current(): GLContext | null
-        }
-
-        const GLContext: GLContextClass
-        
-
-        namespace GLTexture {
-            interface SignalSignatures extends Texture.SignalSignatures, Paintable.SignalSignatures, Gio.Icon.SignalSignatures, Gio.LoadableIcon.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Texture.ReadableProperties, Paintable.ReadableProperties, Gio.Icon.ReadableProperties, Gio.LoadableIcon.ReadableProperties {
-            }
-
-            interface WritableProperties extends Texture.WritableProperties, Paintable.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Texture.ConstructOnlyProperties, Paintable.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * A `GdkTexture` representing a GL texture object.
-         */
-        interface GLTexture extends Texture, Paintable, Gio.Icon, Gio.LoadableIcon {
-            readonly $signals: GLTexture.SignalSignatures
-            readonly $readableProperties: GLTexture.ReadableProperties
-            readonly $writableProperties: GLTexture.WritableProperties
-            readonly $constructOnlyProperties: GLTexture.ConstructOnlyProperties
-            /**
-             * Releases the GL resources held by a `GdkGLTexture`.
-             *
-             * The texture contents are still available via the
-             * [method@Gdk.Texture.download] function, after this
-             * function has been called.
-             */
-            release(): void
-        }
-
-        interface GLTextureClass extends Omit<TextureClass, "new"> {
-            readonly $gtype: GObject.GType<GLTexture>
-            readonly prototype: GLTexture
-            new (props?: Partial<GObject.ConstructorProps<GLTexture>>): GLTexture
-            /**
-             * Creates a new texture for an existing GL texture.
-             *
-             * Note that the GL texture must not be modified until @destroy is called,
-             * which will happen when the GdkTexture object is finalized, or due to
-             * an explicit call of [method@Gdk.GLTexture.release].
-             * @deprecated since 4.12 [class@Gdk.GLTextureBuilder] supersedes this function   and provides extended functionality for creating GL textures.
-             * @param context a `GdkGLContext`
-             * @param id the ID of a texture that was created with @context
-             * @param width the nominal width of the texture
-             * @param height the nominal height of the texture
-             * @param destroy a destroy notify that will be called when the GL resources
-              are released
-             * @param data data that gets passed to @destroy
-             * @returns A newly-created   `GdkTexture`
-             */
-            "new"(context: GLContext, id: number, width: number, height: number, destroy: GLib.DestroyNotify, data: never | null): GLTexture
-        }
-
-        const GLTexture: GLTextureClass
-        
-
-        namespace GLTextureBuilder {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "color-state": ColorState
-                "context": GLContext | null
-                "format": MemoryFormat
-                "has-mipmap": boolean
-                "height": number
-                "id": number
-                "sync": never | null
-                "update-region": cairo.Region | null
-                "update-texture": Texture | null
-                "width": number
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "color-state": ColorState
-                "context": GLContext | null
-                "format": MemoryFormat
-                "has-mipmap": boolean
-                "height": number
-                "id": number
-                "sync": never | null
-                "update-region": cairo.Region | null
-                "update-texture": Texture | null
-                "width": number
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Constructs [class@Gdk.Texture] objects from GL textures.
-         *
-         * The operation is quite simple: Create a texture builder, set all the necessary
-         * properties - keep in mind that the properties [property@Gdk.GLTextureBuilder:context],
-         * [property@Gdk.GLTextureBuilder:id], [property@Gdk.GLTextureBuilder:width], and
-         * [property@Gdk.GLTextureBuilder:height] are mandatory - and then call
-         * [method@Gdk.GLTextureBuilder.build] to create the new texture.
-         *
-         * `GdkGLTextureBuilder` can be used for quick one-shot construction of
-         * textures as well as kept around and reused to construct multiple textures.
-         * @since 4.12
-         */
-        interface GLTextureBuilder extends GObject.Object {
-            readonly $signals: GLTextureBuilder.SignalSignatures
-            readonly $readableProperties: GLTextureBuilder.ReadableProperties
-            readonly $writableProperties: GLTextureBuilder.WritableProperties
-            readonly $constructOnlyProperties: GLTextureBuilder.ConstructOnlyProperties
-            /**
-             * The color state of the texture.
-             * @since 4.16
-             */
-            get colorState(): ColorState
-            set colorState(value: ColorState)
-            /**
-             * The context owning the texture.
-             * @since 4.12
-             */
-            get context(): GLContext | null
-            set context(value: GLContext | null)
-            /**
-             * The format when downloading the texture.
-             * @since 4.12
-             * @default GDK_MEMORY_R8G8B8A8_PREMULTIPLIED
-             */
-            get format(): MemoryFormat
-            set format(value: MemoryFormat)
-            /**
-             * If the texture has a mipmap.
-             * @since 4.12
-             * @default FALSE
-             */
-            get hasMipmap(): boolean
-            set hasMipmap(value: boolean)
-            /**
-             * The height of the texture.
-             * @since 4.12
-             * @default 0
-             */
-            get height(): number
-            set height(value: number)
-            /**
-             * The texture ID to use.
-             * @since 4.12
-             * @default 0
-             */
-            get id(): number
-            set id(value: number)
-            /**
-             * An optional `GLSync` object.
-             *
-             * If this is set, GTK will wait on it before using the texture.
-             * @since 4.12
-             */
-            get sync(): never | null
-            set sync(value: never | null)
-            /**
-             * The update region for [property@Gdk.GLTextureBuilder:update-texture].
-             * @since 4.12
-             */
-            get updateRegion(): cairo.Region | null
-            set updateRegion(value: cairo.Region | null)
-            /**
-             * The texture [property@Gdk.GLTextureBuilder:update-region] is an update for.
-             * @since 4.12
-             */
-            get updateTexture(): Texture | null
-            set updateTexture(value: Texture | null)
-            /**
-             * The width of the texture.
-             * @since 4.12
-             * @default 0
-             */
-            get width(): number
-            set width(value: number)
-            /**
-             * Builds a new `GdkTexture` with the values set up in the builder.
-             *
-             * The `destroy` function gets called when the returned texture gets released;
-             * either when the texture is finalized or by an explicit call to
-             * [method@Gdk.GLTexture.release]. It should release all GL resources associated
-             * with the texture, such as the [property@Gdk.GLTextureBuilder:id] and the
-             * [property@Gdk.GLTextureBuilder:sync].
-             *
-             * Note that it is a programming error to call this function if any mandatory
-             * property has not been set.
-             *
-             * It is possible to call this function multiple times to create multiple textures,
-             * possibly with changing properties in between.
-             * @since 4.12
-             * @param destroy destroy function to be called when the texture is
-              released
-             * @param data user data to pass to the destroy function
-             * @returns a newly built `GdkTexture`
-             */
-            build(destroy: GLib.DestroyNotify | null, data: never | null): Texture
-            /**
-             * Gets the color state previously set via gdk_gl_texture_builder_set_color_state().
-             * @since 4.16
-             * @returns the color state
-             */
-            get_color_state(): ColorState
-            /**
-             * Gets the context previously set via gdk_gl_texture_builder_set_context() or
-             * %NULL if none was set.
-             * @since 4.12
-             * @returns The context
-             */
-            get_context(): GLContext | null
-            /**
-             * Gets the format previously set via gdk_gl_texture_builder_set_format().
-             * @since 4.12
-             * @returns The format
-             */
-            get_format(): MemoryFormat
-            /**
-             * Gets whether the texture has a mipmap.
-             * @since 4.12
-             * @returns Whether the texture has a mipmap
-             */
-            get_has_mipmap(): boolean
-            /**
-             * Gets the height previously set via gdk_gl_texture_builder_set_height() or
-             * 0 if the height wasn't set.
-             * @since 4.12
-             * @returns The height
-             */
-            get_height(): number
-            /**
-             * Gets the texture id previously set via gdk_gl_texture_builder_set_id() or
-             * 0 if the id wasn't set.
-             * @since 4.12
-             * @returns The id
-             */
-            get_id(): number
-            /**
-             * Gets the `GLsync` previously set via gdk_gl_texture_builder_set_sync().
-             * @since 4.12
-             * @returns the `GLSync`
-             */
-            get_sync(): never | null
-            /**
-             * Gets the region previously set via gdk_gl_texture_builder_set_update_region() or
-             * %NULL if none was set.
-             * @since 4.12
-             * @returns The region
-             */
-            get_update_region(): cairo.Region | null
-            /**
-             * Gets the texture previously set via gdk_gl_texture_builder_set_update_texture() or
-             * %NULL if none was set.
-             * @since 4.12
-             * @returns The texture
-             */
-            get_update_texture(): Texture | null
-            /**
-             * Gets the width previously set via gdk_gl_texture_builder_set_width() or
-             * 0 if the width wasn't set.
-             * @since 4.12
-             * @returns The width
-             */
-            get_width(): number
-            /**
-             * Sets the color state for the texture.
-             *
-             * By default, the sRGB colorstate is used. If you don't know what
-             * colorstates are, this is probably the right thing.
-             * @since 4.16
-             * @param color_state a `GdkColorState`
-             */
-            set_color_state(color_state: ColorState): void
-            /**
-             * Sets the context to be used for the texture. This is the context that owns
-             * the texture.
-             *
-             * The context must be set before calling [method@Gdk.GLTextureBuilder.build].
-             * @since 4.12
-             * @param context The context the texture belongs to or %NULL to unset
-             */
-            set_context(context: GLContext | null): void
-            /**
-             * Sets the format of the texture. The default is `GDK_MEMORY_R8G8B8A8_PREMULTIPLIED`.
-             *
-             * The format is the preferred format the texture data should be downloaded to. The
-             * format must be supported by the GL version of [property@Gdk.GLTextureBuilder:context].
-             *
-             * GDK's texture download code assumes that the format corresponds to the storage
-             * parameters of the GL texture in an obvious way. For example, a format of
-             * `GDK_MEMORY_R16G16B16A16_PREMULTIPLIED` is expected to be stored as `GL_RGBA16`
-             * texture, and `GDK_MEMORY_G8A8` is expected to be stored as `GL_RG8` texture.
-             *
-             * Setting the right format is particularly useful when using high bit depth textures
-             * to preserve the bit depth, to set the correct value for unpremultiplied textures
-             * and to make sure opaque textures are treated as such.
-             *
-             * Non-RGBA textures need to have swizzling parameters set up properly to be usable
-             * in GSK's shaders.
-             * @since 4.12
-             * @param format The texture's format
-             */
-            set_format(format: MemoryFormat): void
-            /**
-             * Sets whether the texture has a mipmap. This allows the renderer and other users of the
-             * generated texture to use a higher quality downscaling.
-             *
-             * Typically, the `glGenerateMipmap` function is used to generate a mimap.
-             * @since 4.12
-             * @param has_mipmap Whether the texture has a mipmap
-             */
-            set_has_mipmap(has_mipmap: boolean): void
-            /**
-             * Sets the height of the texture.
-             *
-             * The height must be set before calling [method@Gdk.GLTextureBuilder.build].
-             * @since 4.12
-             * @param height The texture's height or 0 to unset
-             */
-            set_height(height: number): void
-            /**
-             * Sets the texture id of the texture. The texture id must remain unmodified
-             * until the texture was finalized. See [method@Gdk.GLTextureBuilder.build]
-             * for a longer discussion.
-             *
-             * The id must be set before calling [method@Gdk.GLTextureBuilder.build].
-             * @since 4.12
-             * @param id The texture id to be used for creating the texture
-             */
-            set_id(id: number): void
-            /**
-             * Sets the GLSync object to use for the texture.
-             *
-             * GTK will wait on this object before using the created `GdkTexture`.
-             *
-             * The `destroy` function that is passed to [method@Gdk.GLTextureBuilder.build]
-             * is responsible for freeing the sync object when it is no longer needed.
-             * The texture builder does not destroy it and it is the callers
-             * responsibility to make sure it doesn't leak.
-             * @since 4.12
-             * @param sync the GLSync object
-             */
-            set_sync(sync: never | null): void
-            /**
-             * Sets the region to be updated by this texture. Together with
-             * [property@Gdk.GLTextureBuilder:update-texture] this describes an
-             * update of a previous texture.
-             *
-             * When rendering animations of large textures, it is possible that
-             * consecutive textures are only updating contents in parts of the texture.
-             * It is then possible to describe this update via these two properties,
-             * so that GTK can avoid rerendering parts that did not change.
-             *
-             * An example would be a screen recording where only the mouse pointer moves.
-             * @since 4.12
-             * @param region the region to update
-             */
-            set_update_region(region: cairo.Region | null): void
-            /**
-             * Sets the texture to be updated by this texture. See
-             * [method@Gdk.GLTextureBuilder.set_update_region] for an explanation.
-             * @since 4.12
-             * @param texture the texture to update
-             */
-            set_update_texture(texture: Texture | null): void
-            /**
-             * Sets the width of the texture.
-             *
-             * The width must be set before calling [method@Gdk.GLTextureBuilder.build].
-             * @since 4.12
-             * @param width The texture's width or 0 to unset
-             */
-            set_width(width: number): void
-        }
-
-        interface GLTextureBuilderClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<GLTextureBuilder>
-            readonly prototype: GLTextureBuilder
-            new (props?: Partial<GObject.ConstructorProps<GLTextureBuilder>>): GLTextureBuilder
-            /**
-             * Creates a new texture builder.
-             * @since 4.12
-             * @returns the new `GdkTextureBuilder`
-             */
-            "new"(): GLTextureBuilder
-        }
-
-        const GLTextureBuilder: GLTextureBuilderClass
-        
-
-        namespace GrabBrokenEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to a broken windowing system grab.
-         */
-        interface GrabBrokenEvent extends Event {
-            readonly $signals: GrabBrokenEvent.SignalSignatures
-            readonly $readableProperties: GrabBrokenEvent.ReadableProperties
-            readonly $writableProperties: GrabBrokenEvent.WritableProperties
-            readonly $constructOnlyProperties: GrabBrokenEvent.ConstructOnlyProperties
-            /**
-             * Extracts the grab surface from a grab broken event.
-             * @returns the grab surface of `event`
-             */
-            get_grab_surface(): Surface
-            /**
-             * Checks whether the grab broken event is for an implicit grab.
-             * @returns %TRUE if the an implicit grab was broken
-             */
-            get_implicit(): boolean
-        }
-
-        interface GrabBrokenEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<GrabBrokenEvent>
-            readonly prototype: GrabBrokenEvent
-            new (props?: Partial<GObject.ConstructorProps<GrabBrokenEvent>>): GrabBrokenEvent
-        }
-
-        const GrabBrokenEvent: GrabBrokenEventClass
-        
-
-        namespace KeyEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to a key-based device.
-         */
-        interface KeyEvent extends Event {
-            readonly $signals: KeyEvent.SignalSignatures
-            readonly $readableProperties: KeyEvent.ReadableProperties
-            readonly $writableProperties: KeyEvent.WritableProperties
-            readonly $constructOnlyProperties: KeyEvent.ConstructOnlyProperties
-            /**
-             * Extracts the consumed modifiers from a key event.
-             * @returns the consumed modifiers or `event`
-             */
-            get_consumed_modifiers(): ModifierType
-            /**
-             * Extracts the keycode from a key event.
-             * @returns the keycode of `event`
-             */
-            get_keycode(): number
-            /**
-             * Extracts the keyval from a key event.
-             * @returns the keyval of `event`
-             */
-            get_keyval(): number
-            /**
-             * Extracts the layout from a key event.
-             * @returns the layout of `event`
-             */
-            get_layout(): number
-            /**
-             * Extracts the shift level from a key event.
-             * @returns the shift level of `event`
-             */
-            get_level(): number
-            /**
-             * Gets a keyval and modifier combination that will match
-             * the event.
-             *
-             * See [method@Gdk.KeyEvent.matches].
-             * @returns %TRUE on success, return location for a keyval, return location for modifiers
-             */
-            get_match(): [boolean, number, ModifierType]
-            /**
-             * Extracts whether the key event is for a modifier key.
-             * @returns %TRUE if the `event` is for a modifier key
-             */
-            is_modifier(): boolean
-            /**
-             * Matches a key event against a keyval and modifiers.
-             *
-             * This is typically used to trigger keyboard shortcuts such as Ctrl-C.
-             *
-             * Partial matches are possible where the combination matches
-             * if the currently active group is ignored.
-             *
-             * Note that we ignore Caps Lock for matching.
-             * @param keyval the keyval to match
-             * @param modifiers the modifiers to match
-             * @returns a `GdkKeyMatch` value describing whether `event` matches
-             */
-            matches(keyval: number, modifiers: ModifierType): KeyMatch
-        }
-
-        interface KeyEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<KeyEvent>
-            readonly prototype: KeyEvent
-            new (props?: Partial<GObject.ConstructorProps<KeyEvent>>): KeyEvent
-        }
-
-        const KeyEvent: KeyEventClass
-        
-
-        namespace MemoryTexture {
-            interface SignalSignatures extends Texture.SignalSignatures, Paintable.SignalSignatures, Gio.Icon.SignalSignatures, Gio.LoadableIcon.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Texture.ReadableProperties, Paintable.ReadableProperties, Gio.Icon.ReadableProperties, Gio.LoadableIcon.ReadableProperties {
-            }
-
-            interface WritableProperties extends Texture.WritableProperties, Paintable.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Texture.ConstructOnlyProperties, Paintable.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * A `GdkTexture` representing image data in memory.
-         */
-        interface MemoryTexture extends Texture, Paintable, Gio.Icon, Gio.LoadableIcon {
-            readonly $signals: MemoryTexture.SignalSignatures
-            readonly $readableProperties: MemoryTexture.ReadableProperties
-            readonly $writableProperties: MemoryTexture.WritableProperties
-            readonly $constructOnlyProperties: MemoryTexture.ConstructOnlyProperties
-        }
-
-        interface MemoryTextureClass extends Omit<TextureClass, "new"> {
-            readonly $gtype: GObject.GType<MemoryTexture>
-            readonly prototype: MemoryTexture
-            new (props?: Partial<GObject.ConstructorProps<MemoryTexture>>): MemoryTexture
-            /**
-             * Creates a new texture for a blob of image data.
-             *
-             * The `GBytes` must contain @stride × @height pixels
-             * in the given format.
-             * @param width the width of the texture
-             * @param height the height of the texture
-             * @param format the format of the data
-             * @param bytes the `GBytes` containing the pixel data
-             * @param stride rowstride for the data
-             * @returns A newly-created `GdkTexture`
-             */
-            "new"(width: number, height: number, format: MemoryFormat, bytes: GLib.Bytes, stride: number): MemoryTexture
-        }
-
-        const MemoryTexture: MemoryTextureClass
-        
-
-        namespace MemoryTextureBuilder {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "bytes": GLib.Bytes | null
-                "color-state": ColorState
-                "format": MemoryFormat
-                "height": number
-                "stride": number
-                "update-region": cairo.Region | null
-                "update-texture": Texture | null
-                "width": number
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "bytes": GLib.Bytes | null
-                "color-state": ColorState
-                "format": MemoryFormat
-                "height": number
-                "stride": number
-                "update-region": cairo.Region | null
-                "update-texture": Texture | null
-                "width": number
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Constructs [class@Gdk.Texture] objects from system memory provided
-         * via [struct@GLib.Bytes].
-         *
-         * The operation is quite simple: Create a texture builder, set all the necessary
-         * properties - keep in mind that the properties [property@Gdk.MemoryTextureBuilder:bytes],
-         * [property@Gdk.MemoryTextureBuilder:stride], [property@Gdk.MemoryTextureBuilder:width],
-         * and [property@Gdk.MemoryTextureBuilder:height] are mandatory - and then call
-         * [method@Gdk.MemoryTextureBuilder.build] to create the new texture.
-         *
-         * `GdkMemoryTextureBuilder` can be used for quick one-shot construction of
-         * textures as well as kept around and reused to construct multiple textures.
-         * @since 4.16
-         */
-        interface MemoryTextureBuilder extends GObject.Object {
-            readonly $signals: MemoryTextureBuilder.SignalSignatures
-            readonly $readableProperties: MemoryTextureBuilder.ReadableProperties
-            readonly $writableProperties: MemoryTextureBuilder.WritableProperties
-            readonly $constructOnlyProperties: MemoryTextureBuilder.ConstructOnlyProperties
-            /**
-             * The bytes holding the data.
-             * @since 4.16
-             */
-            get bytes(): GLib.Bytes | null
-            set bytes(value: GLib.Bytes | null)
-            /**
-             * The colorstate describing the data.
-             * @since 4.16
-             */
-            get colorState(): ColorState
-            set colorState(value: ColorState)
-            /**
-             * The format of the data.
-             * @since 4.16
-             * @default GDK_MEMORY_R8G8B8A8_PREMULTIPLIED
-             */
-            get format(): MemoryFormat
-            set format(value: MemoryFormat)
-            /**
-             * The height of the texture.
-             * @since 4.16
-             * @default 0
-             */
-            get height(): number
-            set height(value: number)
-            /**
-             * The rowstride of the texture.
-             *
-             * The rowstride is the number of bytes between the first pixel
-             * in a row of image data, and the first pixel in the next row.
-             * @since 4.16
-             * @default 0
-             */
-            get stride(): number
-            set stride(value: number)
-            /**
-             * The update region for [property@Gdk.MemoryTextureBuilder:update-texture].
-             * @since 4.16
-             */
-            get updateRegion(): cairo.Region | null
-            set updateRegion(value: cairo.Region | null)
-            /**
-             * The texture [property@Gdk.MemoryTextureBuilder:update-region] is an update for.
-             * @since 4.16
-             */
-            get updateTexture(): Texture | null
-            set updateTexture(value: Texture | null)
-            /**
-             * The width of the texture.
-             * @since 4.16
-             * @default 0
-             */
-            get width(): number
-            set width(value: number)
-            /**
-             * Builds a new `GdkTexture` with the values set up in the builder.
-             *
-             * Note that it is a programming error to call this function if any mandatory
-             * property has not been set.
-             *
-             * It is possible to call this function multiple times to create multiple textures,
-             * possibly with changing properties in between.
-             * @since 4.16
-             * @returns a newly built `GdkTexture`
-             */
-            build(): Texture
-            /**
-             * Gets the bytes previously set via gdk_memory_texture_builder_set_bytes()
-             * or %NULL if none was set.
-             * @since 4.16
-             * @returns The bytes
-             */
-            get_bytes(): GLib.Bytes | null
-            /**
-             * Gets the colorstate previously set via gdk_memory_texture_builder_set_color_state().
-             * @since 4.16
-             * @returns The colorstate
-             */
-            get_color_state(): ColorState
-            /**
-             * Gets the format previously set via gdk_memory_texture_builder_set_format().
-             * @since 4.16
-             * @returns The format
-             */
-            get_format(): MemoryFormat
-            /**
-             * Gets the height previously set via gdk_memory_texture_builder_set_height()
-             * or 0 if the height wasn't set.
-             * @since 4.16
-             * @returns The height
-             */
-            get_height(): number
-            /**
-             * Gets the offset previously set via gdk_memory_texture_builder_set_offset().
-             * @since 4.20
-             * @param plane a plane
-             * @returns The offset associated to a `plane`
-             */
-            get_offset(plane: number): number
-            /**
-             * Gets the stride previously set via gdk_memory_texture_builder_set_stride().
-             * @since 4.16
-             * @returns the stride
-             */
-            get_stride(): number
-            /**
-             * Gets the stride previously set via gdk_memory_texture_builder_set_stride_for_plane().
-             * @since 4.20
-             * @param plane a plane
-             * @returns The stride associated to a `plane`
-             */
-            get_stride_for_plane(plane: number): number
-            /**
-             * Gets the region previously set via gdk_memory_texture_builder_set_update_region()
-             * or %NULL if none was set.
-             * @since 4.16
-             * @returns The update region
-             */
-            get_update_region(): cairo.Region | null
-            /**
-             * Gets the texture previously set via gdk_memory_texture_builder_set_update_texture()
-             * or %NULL if none was set.
-             * @since 4.16
-             * @returns The update texture
-             */
-            get_update_texture(): Texture | null
-            /**
-             * Gets the width previously set via gdk_memory_texture_builder_set_width()
-             * or 0 if the width wasn't set.
-             * @since 4.16
-             * @returns The width
-             */
-            get_width(): number
-            /**
-             * Sets the data to be shown but the texture.
-             *
-             * The bytes must be set before calling [method@Gdk.MemoryTextureBuilder.build].
-             * @since 4.16
-             * @param bytes The bytes the texture shows or %NULL to unset
-             */
-            set_bytes(bytes: GLib.Bytes | null): void
-            /**
-             * Sets the colorstate describing the data.
-             *
-             * By default, the sRGB colorstate is used. If you don't know
-             * what colorstates are, this is probably the right thing.
-             * @since 4.16
-             * @param color_state The colorstate describing the data
-             */
-            set_color_state(color_state: ColorState): void
-            /**
-             * Sets the format of the bytes.
-             *
-             * The default is `GDK_MEMORY_R8G8B8A8_PREMULTIPLIED`.
-             * @since 4.16
-             * @param format The texture's format
-             */
-            set_format(format: MemoryFormat): void
-            /**
-             * Sets the height of the texture.
-             *
-             * The height must be set before calling [method@Gdk.MemoryTextureBuilder.build]
-             * and conform to size requirements of the provided format.
-             * @since 4.16
-             * @param height The texture's height or 0 to unset
-             */
-            set_height(height: number): void
-            /**
-             * Sets the offset of the texture for @plane.
-             * @since 4.20
-             * @param plane a plane
-             * @param offset the texture's offset for @plane
-             */
-            set_offset(plane: number, offset: number): void
-            /**
-             * Sets the rowstride of the bytes used.
-             *
-             * The rowstride must be set before calling [method@Gdk.MemoryTextureBuilder.build].
-             * @since 4.16
-             * @param stride the stride or 0 to unset
-             */
-            set_stride(stride: number): void
-            /**
-             * Sets the stride of the texture for @plane.
-             * @since 4.20
-             * @param plane a plane
-             * @param stride the texture's stride for @plane
-             */
-            set_stride_for_plane(plane: number, stride: number): void
-            /**
-             * Sets the region to be updated by this texture.
-             *
-             * Together with [property@Gdk.MemoryTextureBuilder:update-texture],
-             * this describes an update of a previous texture.
-             *
-             * When rendering animations of large textures, it is possible that
-             * consecutive textures are only updating contents in parts of the texture.
-             * It is then possible to describe this update via these two properties,
-             * so that GTK can avoid rerendering parts that did not change.
-             *
-             * An example would be a screen recording where only the mouse pointer moves.
-             * @since 4.16
-             * @param region the region to update
-             */
-            set_update_region(region: cairo.Region | null): void
-            /**
-             * Sets the texture to be updated by this texture.
-             *
-             * See [method@Gdk.MemoryTextureBuilder.set_update_region] for an explanation.
-             * @since 4.16
-             * @param texture the texture to update
-             */
-            set_update_texture(texture: Texture | null): void
-            /**
-             * Sets the width of the texture.
-             *
-             * The width must be set before calling [method@Gdk.MemoryTextureBuilder.build]
-             * and conform to size requirements of the provided format.
-             * @since 4.16
-             * @param width The texture's width or 0 to unset
-             */
-            set_width(width: number): void
-        }
-
-        interface MemoryTextureBuilderClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<MemoryTextureBuilder>
-            readonly prototype: MemoryTextureBuilder
-            new (props?: Partial<GObject.ConstructorProps<MemoryTextureBuilder>>): MemoryTextureBuilder
-            /**
-             * Creates a new texture builder.
-             * @since 4.16
-             * @returns the new `GdkTextureBuilder`
-             */
-            "new"(): MemoryTextureBuilder
-        }
-
-        const MemoryTextureBuilder: MemoryTextureBuilderClass
-        
-
-        namespace Monitor {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * Emitted when the output represented by @monitor gets disconnected.
-                 */
-                "invalidate"(): void
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "connector": string | null
-                "description": string | null
-                "display": Display
-                "geometry": Rectangle
-                "height-mm": number
-                "manufacturer": string | null
-                "model": string | null
-                "refresh-rate": number
-                "scale": number
-                "scale-factor": number
-                "subpixel-layout": SubpixelLayout
-                "valid": boolean
-                "width-mm": number
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "connector": string | null
-                "description": string | null
-                "display": Display
-                "geometry": Rectangle
-                "height-mm": number
-                "manufacturer": string | null
-                "model": string | null
-                "refresh-rate": number
-                "scale": number
-                "scale-factor": number
-                "subpixel-layout": SubpixelLayout
-                "valid": boolean
-                "width-mm": number
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Represents the individual outputs that are associated with a `GdkDisplay`.
-         *
-         * `GdkDisplay` keeps a `GListModel` to enumerate and monitor
-         * monitors with [method@Gdk.Display.get_monitors]. You can use
-         * [method@Gdk.Display.get_monitor_at_surface] to find a particular
-         * monitor.
-         */
-        interface Monitor extends GObject.Object {
-            readonly $signals: Monitor.SignalSignatures
-            readonly $readableProperties: Monitor.ReadableProperties
-            readonly $writableProperties: Monitor.WritableProperties
-            readonly $constructOnlyProperties: Monitor.ConstructOnlyProperties
-            /**
-             * The connector name.
-             * @default NULL
-             */
-            get connector(): string | null
-            set connector(value: string | null)
-            /**
-             * A short description of the monitor, meant for display to the user.
-             * @since 4.10
-             * @default NULL
-             */
-            get description(): string | null
-            set description(value: string | null)
-            /**
-             * The `GdkDisplay` of the monitor.
-             */
-            get display(): Display
-            set display(value: Display)
-            /**
-             * The geometry of the monitor.
-             */
-            get geometry(): Rectangle
-            set geometry(value: Rectangle)
-            /**
-             * The height of the monitor, in millimeters.
-             * @default 0
-             */
-            get heightMm(): number
-            set heightMm(value: number)
-            /**
-             * The manufacturer name.
-             * @default NULL
-             */
-            get manufacturer(): string | null
-            set manufacturer(value: string | null)
-            /**
-             * The model name.
-             * @default NULL
-             */
-            get model(): string | null
-            set model(value: string | null)
-            /**
-             * The refresh rate, in milli-Hertz.
-             * @default 0
-             */
-            get refreshRate(): number
-            set refreshRate(value: number)
-            /**
-             * The scale of the monitor.
-             * @since 4.14
-             * @default 1.000000
-             */
-            get scale(): number
-            set scale(value: number)
-            /**
-             * The scale factor.
-             *
-             * The scale factor is the next larger integer,
-             * compared to [property@Gdk.Surface:scale].
-             * @default 1
-             */
-            get scaleFactor(): number
-            set scaleFactor(value: number)
-            /**
-             * The subpixel layout.
-             * @default GDK_SUBPIXEL_LAYOUT_UNKNOWN
-             */
-            get subpixelLayout(): SubpixelLayout
-            set subpixelLayout(value: SubpixelLayout)
-            /**
-             * Whether the object is still valid.
-             * @default TRUE
-             */
-            get valid(): boolean
-            set valid(value: boolean)
-            /**
-             * The width of the monitor, in millimeters.
-             * @default 0
-             */
-            get widthMm(): number
-            set widthMm(value: number)
-            /**
-             * Gets the name of the monitor's connector, if available.
-             *
-             * These are strings such as "eDP-1", or "HDMI-2". They depend
-             * on software and hardware configuration, and should not be
-             * relied on as stable identifiers of a specific monitor.
-             * @returns the name of the connector
-             */
-            get_connector(): string | null
-            /**
-             * Gets a string describing the monitor, if available.
-             *
-             * This can be used to identify a monitor in the UI.
-             * @since 4.10
-             * @returns the monitor description
-             */
-            get_description(): string | null
-            /**
-             * Gets the display that this monitor belongs to.
-             * @returns the display
-             */
-            get_display(): Display
-            /**
-             * Retrieves the size and position of the monitor within the
-             * display coordinate space.
-             *
-             * The returned geometry is in  ”application pixels”, not in
-             * ”device pixels” (see [method@Gdk.Monitor.get_scale]).
-             * @returns , a `GdkRectangle` to be filled with the monitor geometry
-             */
-            get_geometry(): Rectangle
-            /**
-             * Gets the height in millimeters of the monitor.
-             * @returns the physical height of the monitor
-             */
-            get_height_mm(): number
-            /**
-             * Gets the name or PNP ID of the monitor's manufacturer.
-             *
-             * Note that this value might also vary depending on actual
-             * display backend.
-             *
-             * The PNP ID registry is located at
-             * [https://uefi.org/pnp_id_list](https://uefi.org/pnp_id_list).
-             * @returns the name of the manufacturer
-             */
-            get_manufacturer(): string | null
-            /**
-             * Gets the string identifying the monitor model, if available.
-             * @returns the monitor model
-             */
-            get_model(): string | null
-            /**
-             * Gets the refresh rate of the monitor, if available.
-             *
-             * The value is in milli-Hertz, so a refresh rate of 60Hz
-             * is returned as 60000.
-             * @returns the refresh rate in milli-Hertz, or 0
-             */
-            get_refresh_rate(): number
-            /**
-             * Gets the internal scale factor that maps from monitor coordinates
-             * to device pixels.
-             *
-             * This can be used if you want to create pixel based data for a
-             * particular monitor, but most of the time you’re drawing to a surface
-             * where it is better to use [method@Gdk.Surface.get_scale] instead.
-             * @since 4.14
-             * @returns the scale
-             */
-            get_scale(): number
-            /**
-             * Gets the internal scale factor that maps from monitor coordinates
-             * to device pixels.
-             *
-             * On traditional systems this is 1, but on very high density outputs
-             * it can be a higher value (often 2).
-             *
-             * This can be used if you want to create pixel based data for a
-             * particular monitor, but most of the time you’re drawing to a surface
-             * where it is better to use [method@Gdk.Surface.get_scale_factor] instead.
-             * @returns the scale factor
-             */
-            get_scale_factor(): number
-            /**
-             * Gets information about the layout of red, green and blue
-             * primaries for pixels.
-             * @returns the subpixel layout
-             */
-            get_subpixel_layout(): SubpixelLayout
-            /**
-             * Gets the width in millimeters of the monitor.
-             * @returns the physical width of the monitor
-             */
-            get_width_mm(): number
-            /**
-             * Returns %TRUE if the @monitor object corresponds to a
-             * physical monitor.
-             *
-             * The @monitor becomes invalid when the physical monitor
-             * is unplugged or removed.
-             * @returns %TRUE if the object corresponds to a physical monitor
-             */
-            is_valid(): boolean
-        }
-
-        interface MonitorClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Monitor>
-            readonly prototype: Monitor
-            new (props?: Partial<GObject.ConstructorProps<Monitor>>): Monitor
-        }
-
-        const Monitor: MonitorClass
-        
-
-        namespace MotionEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to a pointer or touch device motion.
-         */
-        interface MotionEvent extends Event {
-            readonly $signals: MotionEvent.SignalSignatures
-            readonly $readableProperties: MotionEvent.ReadableProperties
-            readonly $writableProperties: MotionEvent.WritableProperties
-            readonly $constructOnlyProperties: MotionEvent.ConstructOnlyProperties
-        }
-
-        interface MotionEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<MotionEvent>
-            readonly prototype: MotionEvent
-            new (props?: Partial<GObject.ConstructorProps<MotionEvent>>): MotionEvent
-        }
-
-        const MotionEvent: MotionEventClass
-        
-
-        namespace PadEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to a pad-based device.
-         */
-        interface PadEvent extends Event {
-            readonly $signals: PadEvent.SignalSignatures
-            readonly $readableProperties: PadEvent.ReadableProperties
-            readonly $writableProperties: PadEvent.WritableProperties
-            readonly $constructOnlyProperties: PadEvent.ConstructOnlyProperties
-            /**
-             * Extracts the information from a pad strip or ring event.
-             * @returns , Return location for the axis index, Return location for the axis value
-             */
-            get_axis_value(): [number, number]
-            /**
-             * Extracts information about the pressed button from
-             * a pad event.
-             * @returns the button of `event`
-             */
-            get_button(): number
-            /**
-             * Extracts group and mode information from a pad event.
-             * @returns , return location for the group, return location for the mode
-             */
-            get_group_mode(): [number, number]
-        }
-
-        interface PadEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<PadEvent>
-            readonly prototype: PadEvent
-            new (props?: Partial<GObject.ConstructorProps<PadEvent>>): PadEvent
-        }
-
-        const PadEvent: PadEventClass
-        
-
-        namespace ProximityEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to the proximity of a tool to a device.
-         */
-        interface ProximityEvent extends Event {
-            readonly $signals: ProximityEvent.SignalSignatures
-            readonly $readableProperties: ProximityEvent.ReadableProperties
-            readonly $writableProperties: ProximityEvent.WritableProperties
-            readonly $constructOnlyProperties: ProximityEvent.ConstructOnlyProperties
-        }
-
-        interface ProximityEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<ProximityEvent>
-            readonly prototype: ProximityEvent
-            new (props?: Partial<GObject.ConstructorProps<ProximityEvent>>): ProximityEvent
-        }
-
-        const ProximityEvent: ProximityEventClass
-        
-
-        namespace ScrollEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to a scrolling motion.
-         */
-        interface ScrollEvent extends Event {
-            readonly $signals: ScrollEvent.SignalSignatures
-            readonly $readableProperties: ScrollEvent.ReadableProperties
-            readonly $writableProperties: ScrollEvent.WritableProperties
-            readonly $constructOnlyProperties: ScrollEvent.ConstructOnlyProperties
-            /**
-             * Extracts the scroll deltas of a scroll event.
-             *
-             * The deltas will be zero unless the scroll direction
-             * is %GDK_SCROLL_SMOOTH.
-             *
-             * For the representation unit of these deltas, see
-             * [method@Gdk.ScrollEvent.get_unit].
-             * @returns , return location for x scroll delta, return location for y scroll delta
-             */
-            get_deltas(): [number, number]
-            /**
-             * Extracts the direction of a scroll event.
-             * @returns the scroll direction of `event`
-             */
-            get_direction(): ScrollDirection
-            /**
-             * Extracts the scroll direction relative to the physical motion.
-             * @since 4.20
-             * @returns the relative scroll direction.
-             */
-            get_relative_direction(): ScrollRelativeDirection
-            /**
-             * Extracts the scroll delta unit of a scroll event.
-             *
-             * The unit will always be %GDK_SCROLL_UNIT_WHEEL if the scroll direction is not
-             * %GDK_SCROLL_SMOOTH.
-             * @since 4.8
-             * @returns the scroll unit.
-             */
-            get_unit(): ScrollUnit
-            /**
-             * Check whether a scroll event is a stop scroll event.
-             *
-             * Scroll sequences with smooth scroll information may provide
-             * a stop scroll event once the interaction with the device finishes,
-             * e.g. by lifting a finger. This stop scroll event is the signal
-             * that a widget may trigger kinetic scrolling based on the current
-             * velocity.
-             *
-             * Stop scroll events always have a delta of 0/0.
-             * @returns %TRUE if the event is a scroll stop event
-             */
-            is_stop(): boolean
-        }
-
-        interface ScrollEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<ScrollEvent>
-            readonly prototype: ScrollEvent
-            new (props?: Partial<GObject.ConstructorProps<ScrollEvent>>): ScrollEvent
-        }
-
-        const ScrollEvent: ScrollEventClass
-        
-
-        namespace Seat {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * Emitted when a new input device is related to this seat.
-                 * @param device the newly added `GdkDevice`.
-                 */
-                "device-added"(device: Device): void
-                /**
-                 * Emitted when an input device is removed (e.g. unplugged).
-                 * @param device the just removed `GdkDevice`.
-                 */
-                "device-removed"(device: Device): void
-                /**
-                 * Emitted whenever a new tool is made known to the seat.
-                 *
-                 * The tool may later be assigned to a device (i.e. on
-                 * proximity with a tablet). The device will emit the
-                 * [signal@Gdk.Device::tool-changed] signal accordingly.
-                 *
-                 * A same tool may be used by several devices.
-                 * @param tool the new `GdkDeviceTool` known to the seat
-                 */
-                "tool-added"(tool: DeviceTool): void
-                /**
-                 * Emitted whenever a tool is no longer known to this @seat.
-                 * @param tool the just removed `GdkDeviceTool`
-                 */
-                "tool-removed"(tool: DeviceTool): void
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "display": Display
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "display": Display
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Represents a collection of input devices that belong to a user.
-         */
-        interface Seat extends GObject.Object {
-            readonly $signals: Seat.SignalSignatures
-            readonly $readableProperties: Seat.ReadableProperties
-            readonly $writableProperties: Seat.WritableProperties
-            readonly $constructOnlyProperties: Seat.ConstructOnlyProperties
-            /**
-             * `GdkDisplay` of this seat.
-             */
-            get display(): Display
-            set display(value: Display)
-            /**
-             * Returns the capabilities this `GdkSeat` currently has.
-             * @returns the seat capabilities
-             */
-            get_capabilities(): SeatCapabilities
-            /**
-             * Returns the devices that match the given capabilities.
-             * @param capabilities capabilities to get devices for
-             * @returns A list   of `GdkDevices`. The list must be freed with g_list_free(),   the elements are owned by GTK and must not be freed.
-             */
-            get_devices(capabilities: SeatCapabilities): Device[]
-            /**
-             * Returns the `GdkDisplay` this seat belongs to.
-             * @returns a `GdkDisplay`. This object   is owned by GTK and must not be freed.
-             */
-            get_display(): Display
-            /**
-             * Returns the device that routes keyboard events.
-             * @returns a `GdkDevice` with keyboard   capabilities. This object is owned by GTK and must not be freed.
-             */
-            get_keyboard(): Device | null
-            /**
-             * Returns the device that routes pointer events.
-             * @returns a `GdkDevice` with pointer   capabilities. This object is owned by GTK and must not be freed.
-             */
-            get_pointer(): Device | null
-            /**
-             * Returns all `GdkDeviceTools` that are known to the application.
-             * @returns    A list of tools. Free with g_list_free().
-             */
-            get_tools(): DeviceTool[]
-        }
-
-        interface SeatClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Seat>
-            readonly prototype: Seat
-            new (props?: Partial<GObject.ConstructorProps<Seat>>): Seat
-        }
-
-        const Seat: SeatClass
-        
-
-        namespace Snapshot {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Base type for snapshot operations.
-         *
-         * The subclass of `GdkSnapshot` used by GTK is [GtkSnapshot](../gtk4/class.Snapshot.html).
-         */
-        interface Snapshot extends GObject.Object {
-            readonly $signals: Snapshot.SignalSignatures
-            readonly $readableProperties: Snapshot.ReadableProperties
-            readonly $writableProperties: Snapshot.WritableProperties
-            readonly $constructOnlyProperties: Snapshot.ConstructOnlyProperties
-        }
-
-        interface SnapshotClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Snapshot>
-            readonly prototype: Snapshot
-            new (props?: Partial<GObject.ConstructorProps<Snapshot>>): Snapshot
-        }
-
-        const Snapshot: SnapshotClass
-        
-
-        namespace Surface {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * Emitted when @surface starts being present on the monitor.
-                 * @param monitor the monitor
-                 */
-                "enter-monitor"(monitor: Monitor): void
-                /**
-                 * Emitted when GDK receives an input event for @surface.
-                 * @param event an input event
-                 * @returns %TRUE to indicate that the event has been handled
-                 */
-                "event"(event: Event): boolean
-                /**
-                 * Emitted when the size of @surface is changed, or when relayout should
-                 * be performed.
-                 *
-                 * Surface size is reported in ”application pixels”, not
-                 * ”device pixels” (see gdk_surface_get_scale_factor()).
-                 * @param width the current width
-                 * @param height the current height
-                 */
-                "layout"(width: number, height: number): void
-                /**
-                 * Emitted when @surface stops being present on the monitor.
-                 * @param monitor the monitor
-                 */
-                "leave-monitor"(monitor: Monitor): void
-                /**
-                 * Emitted when part of the surface needs to be redrawn.
-                 * @param region the region that needs to be redrawn
-                 * @returns %TRUE to indicate that the signal has been handled
-                 */
-                "render"(region: cairo.Region): boolean
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "cursor": Cursor | null
-                "display": Display
-                "frame-clock": FrameClock
-                "height": number
-                "mapped": boolean
-                "scale": number
-                "scale-factor": number
-                "width": number
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "cursor": Cursor | null
-                "display": Display
-                "frame-clock": FrameClock
-                "height": number
-                "mapped": boolean
-                "scale": number
-                "scale-factor": number
-                "width": number
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Represents a rectangular region on the screen.
-         *
-         * It’s a low-level object, used to implement high-level objects
-         * such as [GtkWindow](../gtk4/class.Window.html).
-         *
-         * The surfaces you see in practice are either [iface@Gdk.Toplevel] or
-         * [iface@Gdk.Popup], and those interfaces provide much of the required
-         * API to interact with these surfaces. Other, more specialized surface
-         * types exist, but you will rarely interact with them directly.
-         */
-        interface Surface extends GObject.Object {
-            readonly $signals: Surface.SignalSignatures
-            readonly $readableProperties: Surface.ReadableProperties
-            readonly $writableProperties: Surface.WritableProperties
-            readonly $constructOnlyProperties: Surface.ConstructOnlyProperties
-            /**
-             * The mouse pointer for the `GdkSurface`.
-             */
-            get cursor(): Cursor | null
-            set cursor(value: Cursor | null)
-            /**
-             * The `GdkDisplay` connection of the surface.
-             */
-            get display(): Display
-            set display(value: Display)
-            /**
-             * The `GdkFrameClock` of the surface.
-             */
-            get frameClock(): FrameClock
-            set frameClock(value: FrameClock)
-            /**
-             * The height of the surface, in pixels.
-             * @default 0
-             */
-            get height(): number
-            set height(value: number)
-            /**
-             * Whether the surface is mapped.
-             * @default FALSE
-             */
-            get mapped(): boolean
-            set mapped(value: boolean)
-            /**
-             * The scale of the surface.
-             * @since 4.12
-             * @default 1.000000
-             */
-            get scale(): number
-            set scale(value: number)
-            /**
-             * The scale factor of the surface.
-             *
-             * The scale factor is the next larger integer,
-             * compared to [property@Gdk.Surface:scale].
-             * @default 1
-             */
-            get scaleFactor(): number
-            set scaleFactor(value: number)
-            /**
-             * The width of the surface in pixels.
-             * @default 0
-             */
-            get width(): number
-            set width(value: number)
-            /**
-             * Emits a short beep associated to @surface.
-             *
-             * If the display of @surface does not support per-surface beeps,
-             * emits a short beep on the display just as [method@Gdk.Display.beep].
-             */
-            beep(): void
-            /**
-             * Creates a new `GdkCairoContext` for rendering on @surface.
-             * @deprecated since 4.18 Drawing content with Cairo should be done via   Cairo rendernodes, not by using the Cairo renderer.
-             * @returns the newly created `GdkCairoContext`
-             */
-            create_cairo_context(): CairoContext
-            /**
-             * Creates a new `GdkGLContext` for the `GdkSurface`.
-             *
-             * The context is disconnected from any particular surface or surface.
-             * If the creation of the `GdkGLContext` failed, @error will be set.
-             * Before using the returned `GdkGLContext`, you will need to
-             * call [method@Gdk.GLContext.make_current] or [method@Gdk.GLContext.realize].
-             * @throws {GLib.Error}
-             * @returns the newly created `GdkGLContext`
-             */
-            create_gl_context(): GLContext
-            /**
-             * Create a new Cairo surface that is as compatible as possible with the
-             * given @surface.
-             *
-             * For example the new surface will have the same fallback resolution
-             * and font options as @surface. Generally, the new surface will also
-             * use the same backend as @surface, unless that is not possible for
-             * some reason. The type of the returned surface may be examined with
-             * cairo_surface_get_type().
-             *
-             * Initially the surface contents are all 0 (transparent if contents
-             * have transparency, black otherwise.)
-             *
-             * This function always returns a valid pointer, but it will return a
-             * pointer to a “nil” surface if @other is already in an error state
-             * or any other error occurs.
-             * @deprecated since 4.12 Create a suitable cairo image surface yourself
-             * @param content the content for the new surface
-             * @param width width of the new surface
-             * @param height height of the new surface
-             * @returns a pointer to the newly allocated surface. The caller   owns the surface and should call cairo_surface_destroy() when done   with it.
-             */
-            create_similar_surface(content: cairo.Content, width: number, height: number): cairo.Surface
-            /**
-             * Sets an error and returns %NULL.
-             * @throws {GLib.Error}
-             * @deprecated since 4.14 GTK does not expose any Vulkan internals. This   function is a leftover that was accidentally exposed.
-             * @returns %NULL
-             */
-            create_vulkan_context(): VulkanContext
-            /**
-             * Destroys the window system resources associated with @surface and
-             * decrements @surface's reference count.
-             *
-             * The window system resources for all children of @surface are also
-             * destroyed, but the children’s reference counts are not decremented.
-             *
-             * Note that a surface will not be destroyed automatically when its
-             * reference count reaches zero. You must call this function yourself
-             * before that happens.
-             */
-            destroy(): void
-            /**
-             * Retrieves a `GdkCursor` pointer for the cursor currently set on the
-             * `GdkSurface`.
-             *
-             * If the return value is %NULL then there is no custom cursor set on
-             * the surface, and it is using the cursor for its parent surface.
-             *
-             * Use [method@Gdk.Surface.set_cursor] to unset the cursor of the surface.
-             * @returns a `GdkCursor`
-             */
-            get_cursor(): Cursor | null
-            /**
-             * Retrieves a `GdkCursor` pointer for the @device currently set on the
-             * specified `GdkSurface`.
-             *
-             * If the return value is %NULL then there is no custom cursor set on the
-             * specified surface, and it is using the cursor for its parent surface.
-             *
-             * Use [method@Gdk.Surface.set_cursor] to unset the cursor of the surface.
-             * @param device a pointer `GdkDevice`
-             * @returns a `GdkCursor`
-             */
-            get_device_cursor(device: Device): Cursor | null
-            /**
-             * Obtains the current device position and modifier state.
-             *
-             * The position is given in coordinates relative to the upper
-             * left corner of @surface.
-             * @param device pointer `GdkDevice` to query to
-             * @returns %TRUE if the device is over the surface, return location for the X coordinate of `device`, return location for the Y coordinate of `device`, return location for the modifier mask
-             */
-            get_device_position(device: Device): boolean
-            /**
-             * Gets the `GdkDisplay` associated with a `GdkSurface`.
-             * @returns the `GdkDisplay` associated with `surface`
-             */
-            get_display(): Display
-            /**
-             * Gets the frame clock for the surface.
-             *
-             * The frame clock for a surface never changes unless the surface is
-             * reparented to a new toplevel surface.
-             * @returns the frame clock
-             */
-            get_frame_clock(): FrameClock
-            /**
-             * Returns the height of the given @surface.
-             *
-             * Surface size is reported in ”application pixels”, not
-             * ”device pixels” (see [method@Gdk.Surface.get_scale_factor]).
-             * @returns The height of `surface`
-             */
-            get_height(): number
-            /**
-             * Checks whether the surface has been mapped.
-             *
-             * A surface is mapped with [method@Gdk.Toplevel.present]
-             * or [method@Gdk.Popup.present].
-             * @returns %TRUE if the surface is mapped
-             */
-            get_mapped(): boolean
-            /**
-             * Returns the internal scale that maps from surface coordinates
-             * to the actual device pixels.
-             *
-             * When the scale is bigger than 1, the windowing system prefers to get
-             * buffers with a resolution that is bigger than the surface size (e.g.
-             * to show the surface on a high-resolution display, or in a magnifier).
-             *
-             * Compare with [method@Gdk.Surface.get_scale_factor], which returns the
-             * next larger integer.
-             *
-             * The scale may change during the lifetime of the surface.
-             * @since 4.12
-             * @returns the scale
-             */
-            get_scale(): number
-            /**
-             * Returns the internal scale factor that maps from surface coordinates
-             * to the actual device pixels.
-             *
-             * On traditional systems this is 1, but on very high density outputs
-             * this can be a higher value (often 2). A higher value means that drawing
-             * is automatically scaled up to a higher resolution, so any code doing
-             * drawing will automatically look nicer. However, if you are supplying
-             * pixel-based data the scale value can be used to determine whether to
-             * use a pixel resource with higher resolution data.
-             *
-             * The scale factor may change during the lifetime of the surface.
-             * @returns the scale factor
-             */
-            get_scale_factor(): number
-            /**
-             * Returns the width of the given @surface.
-             *
-             * Surface size is reported in ”application pixels”, not
-             * ”device pixels” (see [method@Gdk.Surface.get_scale_factor]).
-             * @returns The width of `surface`
-             */
-            get_width(): number
-            /**
-             * Hide the surface.
-             *
-             * For toplevel surfaces, withdraws them, so they will no longer be
-             * known to the window manager; for all surfaces, unmaps them, so
-             * they won’t be displayed. Normally done automatically as
-             * part of [gtk_widget_hide()](../gtk4/method.Widget.hide.html).
-             */
-            hide(): void
-            /**
-             * Check to see if a surface is destroyed.
-             * @returns %TRUE if the surface is destroyed
-             */
-            is_destroyed(): boolean
-            /**
-             * Forces a [signal@Gdk.Surface::render] signal emission for @surface
-             * to be scheduled.
-             *
-             * This function is useful for implementations that track invalid
-             * regions on their own.
-             */
-            queue_render(): void
-            /**
-             * Request a layout phase from the surface's frame clock.
-             *
-             * See [method@Gdk.FrameClock.request_phase].
-             */
-            request_layout(): void
-            /**
-             * Sets the default mouse pointer for a `GdkSurface`.
-             *
-             * Passing %NULL for the @cursor argument means that @surface will use
-             * the cursor of its parent surface. Most surfaces should use this default.
-             * Note that @cursor must be for the same display as @surface.
-             *
-             * Use [ctor@Gdk.Cursor.new_from_name] or [ctor@Gdk.Cursor.new_from_texture]
-             * to create the cursor. To make the cursor invisible, use %GDK_BLANK_CURSOR.
-             * @param cursor a `GdkCursor`
-             */
-            set_cursor(cursor: Cursor | null): void
-            /**
-             * Sets a specific `GdkCursor` for a given device when it gets inside @surface.
-             *
-             * Passing %NULL for the @cursor argument means that @surface will use the
-             * cursor of its parent surface. Most surfaces should use this default.
-             *
-             * Use [ctor@Gdk.Cursor.new_from_name] or [ctor@Gdk.Cursor.new_from_texture]
-             * to create the cursor. To make the cursor invisible, use %GDK_BLANK_CURSOR.
-             * @param device a pointer `GdkDevice`
-             * @param cursor a `GdkCursor`
-             */
-            set_device_cursor(device: Device, cursor: Cursor): void
-            /**
-             * Apply the region to the surface for the purpose of event
-             * handling.
-             *
-             * Mouse events which happen while the pointer position corresponds
-             * to an unset bit in the mask will be passed on the surface below
-             * @surface.
-             *
-             * An input region is typically used with RGBA surfaces. The alpha
-             * channel of the surface defines which pixels are invisible and
-             * allows for nicely antialiased borders, and the input region
-             * controls where the surface is “clickable”.
-             *
-             * Use [method@Gdk.Display.supports_input_shapes] to find out if
-             * a particular backend supports input regions.
-             * @param region region of surface to be reactive,
-              or %NULL to make the entire surface reactive
-             */
-            set_input_region(region: cairo.Region | null): void
-            /**
-             * Marks a region of the `GdkSurface` as opaque.
-             *
-             * For optimisation purposes, compositing window managers may
-             * like to not draw obscured regions of surfaces, or turn off blending
-             * during for these regions. With RGB windows with no transparency,
-             * this is just the shape of the window, but with ARGB32 windows, the
-             * compositor does not know what regions of the window are transparent
-             * or not.
-             *
-             * This function only works for toplevel surfaces.
-             *
-             * GTK will update this property automatically if the @surface background
-             * is opaque, as we know where the opaque regions are. If your surface
-             * background is not opaque, please update this property in your
-             * [GtkWidgetClass.css_changed](../gtk4/vfunc.Widget.css_changed.html) handler.
-             * @deprecated since 4.16 GDK can figure out the opaque parts of a window itself   by inspecting the contents that are drawn.
-             * @param region a region, or %NULL to make the entire
-              surface opaque
-             */
-            set_opaque_region(region: cairo.Region | null): void
-            /**
-             * Translates coordinates between two surfaces.
-             *
-             * Note that this only works if @to and @from are popups or
-             * transient-for to the same toplevel (directly or indirectly).
-             * @param to the target surface
-             * @returns %TRUE if the coordinates were successfully translated, coordinates to translate, coordinates to translate
-             */
-            translate_coordinates(to: Surface): [boolean, number, number]
-        }
-
-        interface SurfaceClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Surface>
-            readonly prototype: Surface
-            new (props?: Partial<GObject.ConstructorProps<Surface>>): Surface
-            /**
-             * Create a new popup surface.
-             *
-             * The surface will be attached to @parent and can be positioned
-             * relative to it using [method@Gdk.Popup.present].
-             * @param parent the parent surface to attach the surface to
-             * @param autohide whether to hide the surface on outside clicks
-             * @returns a new `GdkSurface`
-             */
-            new_popup(parent: Surface, autohide: boolean): Surface
-            /**
-             * Creates a new toplevel surface.
-             * @param display the display to create the surface on
-             * @returns the new `GdkSurface`
-             */
-            new_toplevel(display: Display): Surface
-        }
-
-        const Surface: SurfaceClass
-        
-
-        namespace Texture {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Paintable.SignalSignatures, Gio.Icon.SignalSignatures, Gio.LoadableIcon.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Paintable.ReadableProperties, Gio.Icon.ReadableProperties, Gio.LoadableIcon.ReadableProperties {
-                "color-state": ColorState
-                "height": number
-                "width": number
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, Paintable.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
-                "color-state": ColorState
-                "height": number
-                "width": number
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Paintable.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Refers to pixel data in various forms.
-         *
-         * It is primarily meant for pixel data that will not change over
-         * multiple frames, and will be used for a long time.
-         *
-         * There are various ways to create `GdkTexture` objects from a
-         * [class@GdkPixbuf.Pixbuf], or from bytes stored in memory, a file, or a
-         * [struct@Gio.Resource].
-         *
-         * The ownership of the pixel data is transferred to the `GdkTexture`
-         * instance; you can only make a copy of it, via [method@Gdk.Texture.download].
-         *
-         * `GdkTexture` is an immutable object: That means you cannot change
-         * anything about it other than increasing the reference count via
-         * [method@GObject.Object.ref], and consequently, it is a threadsafe object.
-         *
-         * GDK provides a number of threadsafe texture loading functions:
-         * [ctor@Gdk.Texture.new_from_resource],
-         * [ctor@Gdk.Texture.new_from_bytes],
-         * [ctor@Gdk.Texture.new_from_file],
-         * [ctor@Gdk.Texture.new_from_filename],
-         * [ctor@Gdk.Texture.new_for_pixbuf]. Note that these are meant for loading
-         * icons and resources that are shipped with the toolkit or application. It
-         * is recommended that you use a dedicated image loading framework such as
-         * [glycin](https://lib.rs/crates/glycin), if you need to load untrusted image
-         * data.
-         */
-        interface Texture extends GObject.Object, Paintable, Gio.Icon, Gio.LoadableIcon {
-            readonly $signals: Texture.SignalSignatures
-            readonly $readableProperties: Texture.ReadableProperties
-            readonly $writableProperties: Texture.WritableProperties
-            readonly $constructOnlyProperties: Texture.ConstructOnlyProperties
-            /**
-             * The color state of the texture.
-             * @since 4.16
-             */
-            get colorState(): ColorState
-            set colorState(value: ColorState)
-            /**
-             * The height of the texture, in pixels.
-             * @default 1
-             */
-            get height(): number
-            set height(value: number)
-            /**
-             * The width of the texture, in pixels.
-             * @default 1
-             */
-            get width(): number
-            set width(value: number)
-            /**
-             * Downloads the @texture into local memory.
-             *
-             * This may be an expensive operation, as the actual texture data
-             * may reside on a GPU or on a remote display server.
-             *
-             * The data format of the downloaded data is equivalent to
-             * %CAIRO_FORMAT_ARGB32, so every downloaded pixel requires
-             * 4 bytes of memory.
-             *
-             * Downloading a texture into a Cairo image surface:
-             * ```c
-             * surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
-             *                                       gdk_texture_get_width (texture),
-             *                                       gdk_texture_get_height (texture));
-             * gdk_texture_download (texture,
-             *                       cairo_image_surface_get_data (surface),
-             *                       cairo_image_surface_get_stride (surface));
-             * cairo_surface_mark_dirty (surface);
-             * ```
-             *
-             * For more flexible download capabilities, see
-             * [struct@Gdk.TextureDownloader].
-             * @param data pointer to enough memory to be filled with the
-              downloaded data of @texture
-             * @param stride rowstride in bytes
-             */
-            download(data: Uint8Array, stride: number): void
-            /**
-             * Returns the color state associated with the texture.
-             * @since 4.16
-             * @returns the color state of the `GdkTexture`
-             */
-            get_color_state(): ColorState
-            /**
-             * Gets the memory format most closely associated with the data of
-             * the texture.
-             *
-             * Note that it may not be an exact match for texture data
-             * stored on the GPU or with compression.
-             *
-             * The format can give an indication about the bit depth and opacity
-             * of the texture and is useful to determine the best format for
-             * downloading the texture.
-             * @since 4.10
-             * @returns the preferred format for the texture's data
-             */
-            get_format(): MemoryFormat
-            /**
-             * Returns the height of the @texture, in pixels.
-             * @returns the height of the `GdkTexture`
-             */
-            get_height(): number
-            /**
-             * Returns the width of @texture, in pixels.
-             * @returns the width of the `GdkTexture`
-             */
-            get_width(): number
-            /**
-             * Store the given @texture to the @filename as a PNG file.
-             *
-             * This is a utility function intended for debugging and testing.
-             * If you want more control over formats, proper error handling or
-             * want to store to a [iface@Gio.File] or other location, you might
-             * want to use [method@Gdk.Texture.save_to_png_bytes] or look into
-             * the libglycin library.
-             * @param filename the filename to store to
-             * @returns %TRUE if saving succeeded, %FALSE on failure.
-             */
-            save_to_png(filename: string): boolean
-            /**
-             * Store the given @texture in memory as a PNG file.
-             *
-             * Use [ctor@Gdk.Texture.new_from_bytes] to read it back.
-             *
-             * If you want to serialize a texture, this is a convenient and
-             * portable way to do that.
-             *
-             * If you need more control over the generated image, such as
-             * attaching metadata, you should look into an image handling
-             * library such as the libglycin library.
-             *
-             * If you are dealing with high dynamic range float data, you
-             * might also want to consider [method@Gdk.Texture.save_to_tiff_bytes]
-             * instead.
-             * @since 4.6
-             * @returns a newly allocated `GBytes` containing PNG data
-             */
-            save_to_png_bytes(): GLib.Bytes
-            /**
-             * Store the given @texture to the @filename as a TIFF file.
-             *
-             * GTK will attempt to store data without loss.
-             * @since 4.6
-             * @param filename the filename to store to
-             * @returns %TRUE if saving succeeded, %FALSE on failure.
-             */
-            save_to_tiff(filename: string): boolean
-            /**
-             * Store the given @texture in memory as a TIFF file.
-             *
-             * Use [ctor@Gdk.Texture.new_from_bytes] to read it back.
-             *
-             * This function is intended to store a representation of the
-             * texture's data that is as accurate as possible. This is
-             * particularly relevant when working with high dynamic range
-             * images and floating-point texture data.
-             *
-             * If that is not your concern and you are interested in a
-             * smaller size and a more portable format, you might want to
-             * use [method@Gdk.Texture.save_to_png_bytes].
-             * @since 4.6
-             * @returns a newly allocated `GBytes` containing TIFF data
-             */
-            save_to_tiff_bytes(): GLib.Bytes
-        }
-
-        interface TextureClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Texture>
-            readonly prototype: Texture
-            new (props?: Partial<GObject.ConstructorProps<Texture>>): Texture
-            /**
-             * Creates a new texture object representing the `GdkPixbuf`.
-             *
-             * This function is threadsafe, so that you can e.g. use GTask
-             * and [method@Gio.Task.run_in_thread] to avoid blocking the main
-             * thread while loading a big image.
-             * @deprecated since 4.20 Use e.g. libglycin, which can load many image   formats into a `GdkTexture`
-             * @param pixbuf a `GdkPixbuf`
-             * @returns a new `GdkTexture`
-             */
-            new_for_pixbuf(pixbuf: GdkPixbuf.Pixbuf): Texture
-            /**
-             * Creates a new texture by loading an image from memory,
-             *
-             * The file format is detected automatically. The supported formats
-             * are PNG, JPEG and TIFF, though more formats might be available.
-             *
-             * If `NULL` is returned, then @error will be set.
-             *
-             * This function is threadsafe, so that you can e.g. use GTask
-             * and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
-             * while loading a big image.
-             *
-             * ::: warning
-             *     Note that this function should not be used with untrusted data.
-             *     Use a proper image loading framework such as libglycin, which can
-             *     load many image formats into a `GdkTexture`.
-             * @throws {GLib.Error}
-             * @since 4.6
-             * @param bytes a `GBytes` containing the data to load
-             * @returns A newly-created `GdkTexture`
-             */
-            new_from_bytes(bytes: GLib.Bytes): Texture
-            /**
-             * Creates a new texture by loading an image from a file.
-             *
-             * The file format is detected automatically. The supported formats
-             * are PNG, JPEG and TIFF, though more formats might be available.
-             *
-             * If `NULL` is returned, then @error will be set.
-             *
-             * This function is threadsafe, so that you can e.g. use GTask
-             * and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
-             * while loading a big image.
-             *
-             * ::: warning
-             *     Note that this function should not be used with untrusted data.
-             *     Use a proper image loading framework such as libglycin, which can
-             *     load many image formats into a `GdkTexture`.
-             * @throws {GLib.Error}
-             * @param file `GFile` to load
-             * @returns A newly-created `GdkTexture`
-             */
-            new_from_file(file: Gio.File): Texture
-            /**
-             * Creates a new texture by loading an image from a file.
-             *
-             * The file format is detected automatically. The supported formats
-             * are PNG, JPEG and TIFF, though more formats might be available.
-             *
-             * If `NULL` is returned, then @error will be set.
-             *
-             * This function is threadsafe, so that you can e.g. use GTask
-             * and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
-             * while loading a big image.
-             *
-             * ::: warning
-             *     Note that this function should not be used with untrusted data.
-             *     Use a proper image loading framework such as libglycin, which can
-             *     load many image formats into a `GdkTexture`.
-             * @throws {GLib.Error}
-             * @since 4.6
-             * @param path the filename to load
-             * @returns A newly-created `GdkTexture`
-             */
-            new_from_filename(path: string): Texture
-            /**
-             * Creates a new texture by loading an image from a resource.
-             *
-             * The file format is detected automatically. The supported formats
-             * are PNG, JPEG and TIFF, though more formats might be available.
-             *
-             * It is a fatal error if @resource_path does not specify a valid
-             * image resource and the program will abort if that happens.
-             * If you are unsure about the validity of a resource, use
-             * [ctor@Gdk.Texture.new_from_file] to load it.
-             *
-             * This function is threadsafe, so that you can e.g. use GTask
-             * and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
-             * while loading a big image.
-             * @param resource_path the path of the resource file
-             * @returns A newly-created `GdkTexture`
-             */
-            new_from_resource(resource_path: string): Texture
-        }
-
-        const Texture: TextureClass
-        
-
-        namespace TouchEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to a touch-based device.
-         */
-        interface TouchEvent extends Event {
-            readonly $signals: TouchEvent.SignalSignatures
-            readonly $readableProperties: TouchEvent.ReadableProperties
-            readonly $writableProperties: TouchEvent.WritableProperties
-            readonly $constructOnlyProperties: TouchEvent.ConstructOnlyProperties
-            /**
-             * Extracts whether a touch event is emulating a pointer event.
-             * @returns %TRUE if `event` is emulating
-             */
-            get_emulating_pointer(): boolean
-        }
-
-        interface TouchEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<TouchEvent>
-            readonly prototype: TouchEvent
-            new (props?: Partial<GObject.ConstructorProps<TouchEvent>>): TouchEvent
-        }
-
-        const TouchEvent: TouchEventClass
-        
-
-        namespace TouchpadEvent {
-            interface SignalSignatures extends Event.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Event.ReadableProperties {
-            }
-
-            interface WritableProperties extends Event.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Event.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * An event related to a gesture on a touchpad device.
-         *
-         * Unlike touchscreens, where the windowing system sends basic
-         * sequences of begin, update, end events, and leaves gesture
-         * recognition to the clients, touchpad gestures are typically
-         * processed by the system, resulting in these events.
-         */
-        interface TouchpadEvent extends Event {
-            readonly $signals: TouchpadEvent.SignalSignatures
-            readonly $readableProperties: TouchpadEvent.ReadableProperties
-            readonly $writableProperties: TouchpadEvent.WritableProperties
-            readonly $constructOnlyProperties: TouchpadEvent.ConstructOnlyProperties
-            /**
-             * Extracts delta information from a touchpad event.
-             * @returns , return location for x, return location for y
-             */
-            get_deltas(): [number, number]
-            /**
-             * Extracts the touchpad gesture phase from a touchpad event.
-             * @returns the gesture phase of `event`
-             */
-            get_gesture_phase(): TouchpadGesturePhase
-            /**
-             * Extracts the number of fingers from a touchpad event.
-             * @returns the number of fingers for `event`
-             */
-            get_n_fingers(): number
-            /**
-             * Extracts the angle delta from a touchpad pinch event.
-             * @returns the angle delta of `event`
-             */
-            get_pinch_angle_delta(): number
-            /**
-             * Extracts the scale from a touchpad pinch event.
-             * @returns the scale of `event`
-             */
-            get_pinch_scale(): number
-        }
-
-        interface TouchpadEventClass extends Omit<EventClass, "new"> {
-            readonly $gtype: GObject.GType<TouchpadEvent>
-            readonly prototype: TouchpadEvent
-            new (props?: Partial<GObject.ConstructorProps<TouchpadEvent>>): TouchpadEvent
-        }
-
-        const TouchpadEvent: TouchpadEventClass
-        
-
-        namespace VulkanContext {
-            interface SignalSignatures extends DrawContext.SignalSignatures {
-                /**
-                 * Emitted when the images managed by this context have changed.
-                 *
-                 * Usually this means that the swapchain had to be recreated,
-                 * for example in response to a change of the surface size.
-                 */
-                "images-updated"(): void
-            }
-
-            interface ReadableProperties extends DrawContext.ReadableProperties {
-            }
-
-            interface WritableProperties extends DrawContext.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends DrawContext.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * Represents the platform-specific Vulkan draw context.
-         *
-         * `GdkVulkanContext`s are created for a surface using
-         * [method@Gdk.Surface.create_vulkan_context], and the context will match
-         * the characteristics of the surface.
-         *
-         * Support for `GdkVulkanContext` is platform-specific and context creation
-         * can fail, returning %NULL context.
-         * @deprecated since 4.14 GTK does not expose any Vulkan internals. This   struct is a leftover that was accidentally exposed.
-         */
-        interface VulkanContext extends DrawContext {
-            readonly $signals: VulkanContext.SignalSignatures
-            readonly $readableProperties: VulkanContext.ReadableProperties
-            readonly $writableProperties: VulkanContext.WritableProperties
-            readonly $constructOnlyProperties: VulkanContext.ConstructOnlyProperties
-        }
-
-        interface VulkanContextClass extends Omit<DrawContextClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanContext>
-            readonly prototype: VulkanContext
-            new (props?: Partial<GObject.ConstructorProps<VulkanContext>>): VulkanContext
-        }
-
-        const VulkanContext: VulkanContextClass
-        none
-        /**
-         * Provides information to interpret colors and pixels in a variety of ways.
-         *
-         * They are also known as
-         * [*color spaces*](https://en.wikipedia.org/wiki/Color_space).
-         *
-         * Crucially, GTK knows how to convert colors from one color
-         * state to another.
-         *
-         * `GdkColorState` objects are immutable and therefore threadsafe.
-         * @since 4.16
-         */
-        abstract class ColorState {
-            static readonly $gtype: GObject.GType<ColorState>
-
-            
+        interface ColorStateStruct {
+            readonly $gtype: GObject.GType<ColorState>
+            [Symbol.hasInstance](instance: unknown): instance is ColorState
             /**
              * Returns the color state object representing the oklab color space.
              *
@@ -7470,7 +7620,7 @@ declare module "gi://Gdk?version=4.0" {
              * @since 4.18
              * @returns the color state object for oklab
              */
-            static get_oklab(): ColorState
+            get_oklab(): ColorState
             /**
              * Returns the color state object representing the oklch color space.
              *
@@ -7479,7 +7629,7 @@ declare module "gi://Gdk?version=4.0" {
              * @since 4.18
              * @returns the color state object for oklch
              */
-            static get_oklch(): ColorState
+            get_oklch(): ColorState
             /**
              * Returns the color state object representing the linear rec2100 color space.
              *
@@ -7493,7 +7643,7 @@ declare module "gi://Gdk?version=4.0" {
              * @since 4.16
              * @returns the color state object for linearized rec2100
              */
-            static get_rec2100_linear(): ColorState
+            get_rec2100_linear(): ColorState
             /**
              * Returns the color state object representing the rec2100-pq color space.
              *
@@ -7507,7 +7657,7 @@ declare module "gi://Gdk?version=4.0" {
              * @since 4.16
              * @returns the color state object for rec2100-pq
              */
-            static get_rec2100_pq(): ColorState
+            get_rec2100_pq(): ColorState
             /**
              * Returns the color state object representing the sRGB color space.
              *
@@ -7521,7 +7671,7 @@ declare module "gi://Gdk?version=4.0" {
              * @since 4.16
              * @returns the color state object for sRGB
              */
-            static get_srgb(): ColorState
+            get_srgb(): ColorState
             /**
              * Returns the color state object representing the linearized sRGB color space.
              *
@@ -7534,7 +7684,10 @@ declare module "gi://Gdk?version=4.0" {
              * @since 4.16
              * @returns the color state object for linearized sRGB
              */
-            static get_srgb_linear(): ColorState
+            get_srgb_linear(): ColorState
+        }
+
+        interface ColorState {
             /**
              * Create a [class@Gdk.CicpParams] representing the colorstate.
              *
@@ -7581,43 +7734,15 @@ declare module "gi://Gdk?version=4.0" {
              */
             unref(): void
         }
-        /**
-         * Used to advertise and negotiate the format of content.
-         *
-         * You will encounter `GdkContentFormats` when interacting with objects
-         * controlling operations that pass data between different widgets, window
-         * or application, like [class@Gdk.Drag], [class@Gdk.Drop],
-         * [class@Gdk.Clipboard] or [class@Gdk.ContentProvider].
-         *
-         * GDK supports content in 2 forms: `GType` and mime type.
-         * Using `GTypes` is meant only for in-process content transfers. Mime types
-         * are meant to be used for data passing both in-process and out-of-process.
-         * The details of how data is passed is described in the documentation of
-         * the actual implementations. To transform between the two forms,
-         * [class@Gdk.ContentSerializer] and [class@Gdk.ContentDeserializer] are used.
-         *
-         * A `GdkContentFormats` describes a set of possible formats content can be
-         * exchanged in. It is assumed that this set is ordered. `GTypes` are more
-         * important than mime types. Order between different `GTypes` or mime types
-         * is the order they were added in, most important first. Functions that
-         * care about order, such as [method@Gdk.ContentFormats.union], will describe
-         * in their documentation how they interpret that order, though in general the
-         * order of the first argument is considered the primary order of the result,
-         * followed by the order of further arguments.
-         *
-         * For debugging purposes, the function [method@Gdk.ContentFormats.to_string]
-         * exists. It will print a comma-separated list of formats from most important
-         * to least important.
-         *
-         * `GdkContentFormats` is an immutable struct. After creation, you cannot change
-         * the types it represents. Instead, new `GdkContentFormats` have to be created.
-         * The [struct@Gdk.ContentFormatsBuilder] structure is meant to help in this
-         * endeavor.
-         */
-        abstract class ContentFormats {
-            static readonly $gtype: GObject.GType<ContentFormats>
 
-            
+        interface $Exports {
+            ColorState: ColorStateStruct
+        }
+        
+
+        interface ContentFormatsStruct {
+            readonly $gtype: GObject.GType<ContentFormats>
+            [Symbol.hasInstance](instance: unknown): instance is ContentFormats
             /**
              * Creates a new `GdkContentFormats` from an array of mime types.
              *
@@ -7628,13 +7753,13 @@ declare module "gi://Gdk?version=4.0" {
               array of mime types
              * @returns the new `GdkContentFormats`.
              */
-            static "new"(mime_types: string[] | null): ContentFormats
+            "new"(mime_types: string[] | null): ContentFormats
             /**
              * Creates a new `GdkContentFormats` for a given `GType`.
              * @param type a `GType`
              * @returns a new `GdkContentFormats`
              */
-            static new_for_gtype(type: (GObject.GType | { $gtype: GObject.GType })): ContentFormats
+            new_for_gtype(type: (GObject.GType | { $gtype: GObject.GType })): ContentFormats
             /**
              * Parses the given @string into `GdkContentFormats` and
              * returns the formats.
@@ -7648,7 +7773,10 @@ declare module "gi://Gdk?version=4.0" {
              * @param string the string to parse
              * @returns the content formats if `string` is valid
              */
-            static parse(string: string): ContentFormats | null
+            parse(string: string): ContentFormats | null
+        }
+
+        interface ContentFormats {
             /**
              * Checks if a given `GType` is part of the given @formats.
              * @param type the `GType` to search for
@@ -7768,13 +7896,15 @@ declare module "gi://Gdk?version=4.0" {
              */
             unref(): void
         }
-        /**
-         * Creates `GdkContentFormats` objects.
-         */
-        abstract class ContentFormatsBuilder {
-            static readonly $gtype: GObject.GType<ContentFormatsBuilder>
 
-            
+        interface $Exports {
+            ContentFormats: ContentFormatsStruct
+        }
+        
+
+        interface ContentFormatsBuilderStruct {
+            readonly $gtype: GObject.GType<ContentFormatsBuilder>
+            [Symbol.hasInstance](instance: unknown): instance is ContentFormatsBuilder
             /**
              * Create a new `GdkContentFormatsBuilder` object.
              *
@@ -7782,7 +7912,10 @@ declare module "gi://Gdk?version=4.0" {
              * Use addition functions to add types to it.
              * @returns a new `GdkContentFormatsBuilder`
              */
-            static "new"(): ContentFormatsBuilder
+            "new"(): ContentFormatsBuilder
+        }
+
+        interface ContentFormatsBuilder {
             /**
              * Appends all formats from @formats to @builder, skipping those that
              * already exist.
@@ -7823,34 +7956,18 @@ declare module "gi://Gdk?version=4.0" {
              */
             unref(): void
         }
-        none
-        none
-        /**
-         * Provides information about supported DMA buffer formats.
-         *
-         * You can query whether a given format is supported with
-         * [method@Gdk.DmabufFormats.contains] and you can iterate
-         * over the list of all supported formats with
-         * [method@Gdk.DmabufFormats.get_n_formats] and
-         * [method@Gdk.DmabufFormats.get_format].
-         *
-         * The list of supported formats is sorted by preference,
-         * with the best formats coming first.
-         *
-         * The list may contains (format, modifier) pairs where the modifier
-         * is `DMA_FORMAT_MOD_INVALID`, indicating that **_implicit modifiers_**
-         * may be used with this format.
-         *
-         * See [class@Gdk.DmabufTextureBuilder] for more information
-         * about DMA buffers.
-         *
-         * Note that DMA buffers only exist on Linux.
-         * @since 4.14
-         */
-        abstract class DmabufFormats {
-            static readonly $gtype: GObject.GType<DmabufFormats>
 
-            
+        interface $Exports {
+            ContentFormatsBuilder: ContentFormatsBuilderStruct
+        }
+        
+
+        interface DmabufFormatsStruct {
+            readonly $gtype: GObject.GType<DmabufFormats>
+            [Symbol.hasInstance](instance: unknown): instance is DmabufFormats
+        }
+
+        interface DmabufFormats {
             /**
              * Returns whether a given format is contained in @formats.
              * @since 4.14
@@ -7901,17 +8018,18 @@ declare module "gi://Gdk?version=4.0" {
              */
             unref(): void
         }
-        none
-        none
-        none
-        /**
-         * Contains information that is useful to compute the size of a drag surface.
-         * @since 4.12
-         */
-        abstract class DragSurfaceSize {
-            static readonly $gtype: GObject.GType<DragSurfaceSize>
 
-            
+        interface $Exports {
+            DmabufFormats: DmabufFormatsStruct
+        }
+        
+
+        interface DragSurfaceSizeStruct {
+            readonly $gtype: GObject.GType<DragSurfaceSize>
+            [Symbol.hasInstance](instance: unknown): instance is DragSurfaceSize
+        }
+
+        interface DragSurfaceSize {
             /**
              * Sets the size the drag surface prefers to be resized to.
              * @since 4.12
@@ -7920,22 +8038,28 @@ declare module "gi://Gdk?version=4.0" {
              */
             set_size(width: number, height: number): void
         }
-        /**
-         * An opaque type representing a sequence of related events.
-         */
-        abstract class EventSequence {
-            static readonly $gtype: GObject.GType<EventSequence>
 
-            
+        interface $Exports {
+            DragSurfaceSize: DragSurfaceSizeStruct
         }
-        /**
-         * An opaque type representing a list of files.
-         * @since 4.6
-         */
-        abstract class FileList {
-            static readonly $gtype: GObject.GType<FileList>
+        
 
-            
+        interface EventSequenceStruct {
+            readonly $gtype: GObject.GType<EventSequence>
+            [Symbol.hasInstance](instance: unknown): instance is EventSequence
+        }
+
+        interface EventSequence {
+        }
+
+        interface $Exports {
+            EventSequence: EventSequenceStruct
+        }
+        
+
+        interface FileListStruct {
+            readonly $gtype: GObject.GType<FileList>
+            [Symbol.hasInstance](instance: unknown): instance is FileList
             /**
              * Creates a new `GdkFileList` for the given array of files.
              *
@@ -7944,7 +8068,7 @@ declare module "gi://Gdk?version=4.0" {
              * @param files the files to add to the list
              * @returns the newly create files list
              */
-            static new_from_array(files: Gio.File[]): FileList
+            new_from_array(files: Gio.File[]): FileList
             /**
              * Creates a new files list container from a singly linked list of
              * `GFile` instances.
@@ -7954,7 +8078,10 @@ declare module "gi://Gdk?version=4.0" {
              * @param files a list of files
              * @returns the newly created files list
              */
-            static new_from_list(files: Gio.File[]): FileList
+            new_from_list(files: Gio.File[]): FileList
+        }
+
+        interface FileList {
             /**
              * Retrieves the list of files inside a `GdkFileList`.
              *
@@ -7964,27 +8091,31 @@ declare module "gi://Gdk?version=4.0" {
              */
             get_files(): Gio.File[]
         }
-        none
-        /**
-         */
-        abstract class FrameClockPrivate {
-            static readonly $gtype: GObject.GType<FrameClockPrivate>
 
-            
+        interface $Exports {
+            FileList: FileListStruct
         }
-        /**
-         * Holds timing information for a single frame of the application’s displays.
-         *
-         * To retrieve `GdkFrameTimings` objects, use [method@Gdk.FrameClock.get_timings]
-         * or [method@Gdk.FrameClock.get_current_timings]. The information in
-         * `GdkFrameTimings` is useful for precise synchronization of video with
-         * the event or audio streams, and for measuring quality metrics for the
-         * application’s display, such as latency and jitter.
-         */
-        abstract class FrameTimings {
-            static readonly $gtype: GObject.GType<FrameTimings>
+        
 
-            
+        interface FrameClockPrivateStruct {
+            readonly $gtype: GObject.GType<FrameClockPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is FrameClockPrivate
+        }
+
+        interface FrameClockPrivate {
+        }
+
+        interface $Exports {
+            FrameClockPrivate: FrameClockPrivateStruct
+        }
+        
+
+        interface FrameTimingsStruct {
+            readonly $gtype: GObject.GType<FrameTimings>
+            [Symbol.hasInstance](instance: unknown): instance is FrameTimings
+        }
+
+        interface FrameTimings {
             /**
              * Returns whether @timings are complete.
              *
@@ -8060,15 +8191,18 @@ declare module "gi://Gdk?version=4.0" {
              */
             unref(): void
         }
-        none
-        none
-        /**
-         * Represents a hardware key that can be mapped to a keyval.
-         */
-        abstract class KeymapKey {
-            static readonly $gtype: GObject.GType<KeymapKey>
 
-            
+        interface $Exports {
+            FrameTimings: FrameTimingsStruct
+        }
+        
+
+        interface KeymapKeyStruct {
+            readonly $gtype: GObject.GType<KeymapKey>
+            [Symbol.hasInstance](instance: unknown): instance is KeymapKey
+        }
+
+        interface KeymapKey {
             /**
              * the hardware keycode. This is an identifying number for a
              *   physical key.
@@ -8091,50 +8225,15 @@ declare module "gi://Gdk?version=4.0" {
              */
             level: number
         }
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Contains information that is necessary position a [iface@Gdk.Popup]
-         * relative to its parent.
-         *
-         * The positioning requires a negotiation with the windowing system,
-         * since it depends on external constraints, such as the position of
-         * the parent surface, and the screen dimensions.
-         *
-         * The basic ingredients are a rectangle on the parent surface,
-         * and the anchor on both that rectangle and the popup. The anchors
-         * specify a side or corner to place next to each other.
-         *
-         * ![Popup anchors](popup-anchors.png)
-         *
-         * For cases where placing the anchors next to each other would make
-         * the popup extend offscreen, the layout includes some hints for how
-         * to resolve this problem. The hints may suggest to flip the anchor
-         * position to the other side, or to 'slide' the popup along a side,
-         * or to resize it.
-         *
-         * ![Flipping popups](popup-flip.png)
-         *
-         * ![Sliding popups](popup-slide.png)
-         *
-         * These hints may be combined.
-         *
-         * Ultimatively, it is up to the windowing system to determine the position
-         * and size of the popup. You can learn about the result by calling
-         * [method@Gdk.Popup.get_position_x], [method@Gdk.Popup.get_position_y],
-         * [method@Gdk.Popup.get_rect_anchor] and [method@Gdk.Popup.get_surface_anchor]
-         * after the popup has been presented. This can be used to adjust the rendering.
-         * For example, [GtkPopover](../gtk4/class.Popover.html) changes its arrow position
-         * accordingly. But you have to be careful avoid changing the size of the popover,
-         * or it has to be presented again.
-         */
-        abstract class PopupLayout {
-            static readonly $gtype: GObject.GType<PopupLayout>
 
-            
+        interface $Exports {
+            KeymapKey: KeymapKeyStruct
+        }
+        
+
+        interface PopupLayoutStruct {
+            readonly $gtype: GObject.GType<PopupLayout>
+            [Symbol.hasInstance](instance: unknown): instance is PopupLayout
             /**
              * Create a popup layout description.
              *
@@ -8153,7 +8252,10 @@ declare module "gi://Gdk?version=4.0" {
              * @param surface_anchor the point on @surface to align with @rect's anchor point
              * @returns newly created instance of `GdkPopupLayout`
              */
-            static "new"(anchor_rect: Rectangle, rect_anchor: Gravity, surface_anchor: Gravity): PopupLayout
+            "new"(anchor_rect: Rectangle, rect_anchor: Gravity, surface_anchor: Gravity): PopupLayout
+        }
+
+        interface PopupLayout {
             /**
              * Makes a copy of @layout.
              * @returns a copy of `layout`.
@@ -8251,20 +8353,18 @@ declare module "gi://Gdk?version=4.0" {
              */
             unref(): void
         }
-        /**
-         * Represents a color, in a way that is compatible with cairo’s notion of color.
-         *
-         * `GdkRGBA` is a convenient way to pass colors around. It’s based on
-         * cairo’s way to deal with colors and mirrors its behavior. All values
-         * are in the range from 0.0 to 1.0 inclusive. So the color
-         * (0.0, 0.0, 0.0, 0.0) represents transparent black and
-         * (1.0, 1.0, 1.0, 1.0) is opaque white. Other values will
-         * be clamped to this range when drawing.
-         */
-        abstract class RGBA {
-            static readonly $gtype: GObject.GType<RGBA>
 
-            
+        interface $Exports {
+            PopupLayout: PopupLayoutStruct
+        }
+        
+
+        interface RGBAStruct {
+            readonly $gtype: GObject.GType<RGBA>
+            [Symbol.hasInstance](instance: unknown): instance is RGBA
+        }
+
+        interface RGBA {
             /**
              * The intensity of the red channel from 0.0 to 1.0 inclusive
              */
@@ -8369,27 +8469,18 @@ declare module "gi://Gdk?version=4.0" {
              */
             to_string(): string
         }
-        /**
-         * Represents a rectangle.
-         *
-         * `GdkRectangle` is identical to `cairo_rectangle_t`. Together with Cairo’s
-         * `cairo_region_t` data type, these are the central types for representing
-         * sets of pixels.
-         *
-         * The intersection of two rectangles can be computed with
-         * [method@Gdk.Rectangle.intersect]; to find the union of two rectangles use
-         * [method@Gdk.Rectangle.union].
-         *
-         * The `cairo_region_t` type provided by Cairo is usually used for managing
-         * non-rectangular clipping of graphical operations.
-         *
-         * The Graphene library has a number of other data types for regions and
-         * volumes in 2D and 3D.
-         */
-        abstract class Rectangle {
-            static readonly $gtype: GObject.GType<Rectangle>
 
-            
+        interface $Exports {
+            RGBA: RGBAStruct
+        }
+        
+
+        interface RectangleStruct {
+            readonly $gtype: GObject.GType<Rectangle>
+            [Symbol.hasInstance](instance: unknown): instance is Rectangle
+        }
+
+        interface Rectangle {
             /**
              * the x coordinate of the top left corner
              */
@@ -8430,7 +8521,7 @@ declare module "gi://Gdk?version=4.0" {
              * @param src2 a `GdkRectangle`
              * @returns %TRUE if the rectangles intersect., return location for the   intersection of `src1` and `src2`
              */
-            intersect(src2: Rectangle): boolean
+            intersect(src2: Rectangle): [boolean, Rectangle]
             /**
              * Calculates the union of two rectangles.
              *
@@ -8445,25 +8536,15 @@ declare module "gi://Gdk?version=4.0" {
              */
             union(src2: Rectangle): Rectangle
         }
-        none
-        none
-        none
-        /**
-         * Used to download the contents of a [class@Gdk.Texture].
-         *
-         * It is intended to be created as a short-term object for a single download,
-         * but can be used for multiple downloads of different textures or with different
-         * settings.
-         *
-         * `GdkTextureDownloader` can be used to convert data between different formats.
-         * Create a `GdkTexture` for the existing format and then download it in a
-         * different format.
-         * @since 4.10
-         */
-        abstract class TextureDownloader {
-            static readonly $gtype: GObject.GType<TextureDownloader>
 
-            
+        interface $Exports {
+            Rectangle: RectangleStruct
+        }
+        
+
+        interface TextureDownloaderStruct {
+            readonly $gtype: GObject.GType<TextureDownloader>
+            [Symbol.hasInstance](instance: unknown): instance is TextureDownloader
             /**
              * Creates a new texture downloader for @texture.
              *
@@ -8473,7 +8554,10 @@ declare module "gi://Gdk?version=4.0" {
              * @param texture texture to download
              * @returns A new texture downloader
              */
-            static "new"(texture: Texture): TextureDownloader
+            "new"(texture: Texture): TextureDownloader
+        }
+
+        interface TextureDownloader {
             /**
              * Creates a copy of the downloader.
              *
@@ -8564,18 +8648,18 @@ declare module "gi://Gdk?version=4.0" {
              */
             set_texture(texture: Texture): void
         }
-        /**
-         * Stores a single event in a motion history.
-         *
-         * To check whether an axis is present, check whether the corresponding
-         * flag from the [flags@Gdk.AxisFlags] enumeration is set in the @flags
-         * To access individual axis values, use the values of the values of
-         * the [enum@Gdk.AxisUse] enumerations as indices.
-         */
-        abstract class TimeCoord {
-            static readonly $gtype: GObject.GType<TimeCoord>
 
-            
+        interface $Exports {
+            TextureDownloader: TextureDownloaderStruct
+        }
+        
+
+        interface TimeCoordStruct {
+            readonly $gtype: GObject.GType<TimeCoord>
+            [Symbol.hasInstance](instance: unknown): instance is TimeCoord
+        }
+
+        interface TimeCoord {
             /**
              * The timestamp for this event
              */
@@ -8589,22 +8673,15 @@ declare module "gi://Gdk?version=4.0" {
              */
             axes: number[]
         }
-        none
-        /**
-         * Contains information that is necessary to present a sovereign
-         * window on screen.
-         *
-         * The `GdkToplevelLayout` struct is necessary for using
-         * [method@Gdk.Toplevel.present].
-         *
-         * Toplevel surfaces are sovereign windows that can be presented
-         * to the user in various states (maximized, on all workspaces,
-         * etc).
-         */
-        abstract class ToplevelLayout {
-            static readonly $gtype: GObject.GType<ToplevelLayout>
 
-            
+        interface $Exports {
+            TimeCoord: TimeCoordStruct
+        }
+        
+
+        interface ToplevelLayoutStruct {
+            readonly $gtype: GObject.GType<ToplevelLayout>
+            [Symbol.hasInstance](instance: unknown): instance is ToplevelLayout
             /**
              * Create a toplevel layout description.
              *
@@ -8615,7 +8692,10 @@ declare module "gi://Gdk?version=4.0" {
              * ”device pixels” (see [method@Gdk.Surface.get_scale]).
              * @returns newly created instance of `GdkToplevelLayout`
              */
-            static "new"(): ToplevelLayout
+            "new"(): ToplevelLayout
+        }
+
+        interface ToplevelLayout {
             /**
              * Create a new `GdkToplevelLayout` and copy the contents of @layout into it.
              * @returns a copy of `layout`.
@@ -8682,13 +8762,18 @@ declare module "gi://Gdk?version=4.0" {
              */
             unref(): void
         }
-        /**
-         * Contains information that is useful to compute the size of a toplevel.
-         */
-        abstract class ToplevelSize {
-            static readonly $gtype: GObject.GType<ToplevelSize>
 
-            
+        interface $Exports {
+            ToplevelLayout: ToplevelLayoutStruct
+        }
+        
+
+        interface ToplevelSizeStruct {
+            readonly $gtype: GObject.GType<ToplevelSize>
+            [Symbol.hasInstance](instance: unknown): instance is ToplevelSize
+        }
+
+        interface ToplevelSize {
             /**
              * Retrieves the bounds the toplevel is placed within.
              *
@@ -8741,3679 +8826,802 @@ declare module "gi://Gdk?version=4.0" {
              */
             set_size(width: number, height: number): void
         }
-        /**
-         * Draws GL content onto a cairo context.
-         *
-         * It takes a render buffer ID (@source_type == GL_RENDERBUFFER) or a texture
-         * id (@source_type == GL_TEXTURE) and draws it onto @cr with an OVER operation,
-         * respecting the current clip. The top left corner of the rectangle specified
-         * by @x, @y, @width and @height will be drawn at the current (0,0) position of
-         * the `cairo_t`.
-         *
-         * This will work for *all* `cairo_t`, as long as @surface is realized, but the
-         * fallback implementation that reads back the pixels from the buffer may be
-         * used in the general case. In the case of direct drawing to a surface with
-         * no special effects applied to @cr it will however use a more efficient
-         * approach.
-         *
-         * For GL_RENDERBUFFER the code will always fall back to software for buffers
-         * with alpha components, so make sure you use GL_TEXTURE if using alpha.
-         *
-         * Calling this may change the current GL context.
-         * @deprecated since 4.6 The function is overly complex and produces broken output   in various combinations of arguments. If you want to draw with GL textures   in GTK, use [ctor@Gdk.GLTexture.new]; if you want to use that texture in   Cairo, use [method@Gdk.Texture.download] to download the data into a Cairo   image surface.
-         * @param cr a cairo context
-         * @param surface The surface we're rendering for (not necessarily into)
-         * @param source The GL ID of the source buffer
-         * @param source_type The type of the @source
-         * @param buffer_scale The scale-factor that the @source buffer is allocated for
-         * @param x The source x position in @source to start copying from in GL coordinates
-         * @param y The source y position in @source to start copying from in GL coordinates
-         * @param width The width of the region to draw
-         * @param height The height of the region to draw
-         */
-        function cairo_draw_from_gl(cr: cairo.Context, surface: Surface, source: number, source_type: number, buffer_scale: number, x: number, y: number, width: number, height: number): void
-        /**
-         * Adds the given rectangle to the current path of @cr.
-         * @param cr a cairo context
-         * @param rectangle a `GdkRectangle`
-         */
-        function cairo_rectangle(cr: cairo.Context, rectangle: Rectangle): void
-        /**
-         * Adds the given region to the current path of @cr.
-         * @param cr a cairo context
-         * @param region a `cairo_region_t`
-         */
-        function cairo_region(cr: cairo.Context, region: cairo.Region): void
-        /**
-         * Creates region that covers the area where the given
-         * @surface is more than 50% opaque.
-         *
-         * This function takes into account device offsets that might be
-         * set with cairo_surface_set_device_offset().
-         * @param surface a cairo surface
-         * @returns A `cairo_region_t`
-         */
-        function cairo_region_create_from_surface(surface: cairo.Surface): cairo.Region
-        /**
-         * Sets the given pixbuf as the source pattern for @cr.
-         *
-         * The pattern has an extend mode of %CAIRO_EXTEND_NONE and is aligned
-         * so that the origin of @pixbuf is @pixbuf_x, @pixbuf_y.
-         * @deprecated since 4.20 Use cairo_set_source_surface() and gdk_texture_download()
-         * @param cr a cairo context
-         * @param pixbuf a `GdkPixbuf`
-         * @param pixbuf_x X coordinate of location to place upper left corner of @pixbuf
-         * @param pixbuf_y Y coordinate of location to place upper left corner of @pixbuf
-         */
-        function cairo_set_source_pixbuf(cr: cairo.Context, pixbuf: GdkPixbuf.Pixbuf, pixbuf_x: number, pixbuf_y: number): void
-        /**
-         * Sets the specified `GdkRGBA` as the source color of @cr.
-         * @param cr a cairo context
-         * @param rgba a `GdkRGBA`
-         */
-        function cairo_set_source_rgba(cr: cairo.Context, rgba: RGBA): void
-        /**
-         * Returns the color state object representing the oklab color space.
-         *
-         * This is a perceptually uniform color state.
-         * @since 4.18
-         * @returns the color state object for oklab
-         */
-        function color_state_get_oklab(): ColorState
-        /**
-         * Returns the color state object representing the oklch color space.
-         *
-         * This is the polar variant of oklab, in which the hue is encoded as
-         * a polar coordinate.
-         * @since 4.18
-         * @returns the color state object for oklch
-         */
-        function color_state_get_oklch(): ColorState
-        /**
-         * Returns the color state object representing the linear rec2100 color space.
-         *
-         * This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and a linear
-         * transfer function.
-         *
-         * It is equivalent to the [Cicp](class.CicpParams.html) tuple 9/8/0/1.
-         *
-         * See e.g. [the CSS HDR Module](https://drafts.csswg.org/css-color-hdr/#valdef-color-rec2100-linear)
-         * for details about this colorstate.
-         * @since 4.16
-         * @returns the color state object for linearized rec2100
-         */
-        function color_state_get_rec2100_linear(): ColorState
-        /**
-         * Returns the color state object representing the rec2100-pq color space.
-         *
-         * This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and the transfer
-         * function defined by SMPTE ST 2084 and BT.2100-2.
-         *
-         * It is equivalent to the [Cicp](class.CicpParams.html) tuple 9/16/0/1.
-         *
-         * See e.g. [the CSS HDR Module](https://drafts.csswg.org/css-color-hdr/#valdef-color-rec2100-pq)
-         * for details about this colorstate.
-         * @since 4.16
-         * @returns the color state object for rec2100-pq
-         */
-        function color_state_get_rec2100_pq(): ColorState
-        /**
-         * Returns the color state object representing the sRGB color space.
-         *
-         * This color state uses the primaries defined by BT.709-6 and the transfer function
-         * defined by IEC 61966-2-1.
-         *
-         * It is equivalent to the [Cicp](class.CicpParams.html) tuple 1/13/0/1.
-         *
-         * See e.g. [the CSS Color Module](https://www.w3.org/TR/css-color-4/#predefined-sRGB)
-         * for details about this colorstate.
-         * @since 4.16
-         * @returns the color state object for sRGB
-         */
-        function color_state_get_srgb(): ColorState
-        /**
-         * Returns the color state object representing the linearized sRGB color space.
-         *
-         * This color state uses the primaries defined by BT.709-6 and a linear transfer function.
-         *
-         * It is equivalent to the [Cicp](class.CicpParams.html) tuple 1/8/0/1.
-         *
-         * See e.g. [the CSS Color Module](https://www.w3.org/TR/css-color-4/#predefined-sRGB-linear)
-         * for details about this colorstate.
-         * @since 4.16
-         * @returns the color state object for linearized sRGB
-         */
-        function color_state_get_srgb_linear(): ColorState
-        /**
-         * Reads content from the given input stream and deserialize it, asynchronously.
-         *
-         * The default I/O priority is `G_PRIORITY_DEFAULT` (i.e. 0), and lower numbers
-         * indicate a higher priority.
-         * @param stream a `GInputStream` to read the serialized content from
-         * @param mime_type the mime type to deserialize from
-         * @param type the GType to deserialize from
-         * @param io_priority the I/O priority of the operation
-         * @param cancellable optional `GCancellable` object
-         * @param callback callback to call when the operation is done
-         */
-        function content_deserialize_async(stream: Gio.InputStream, mime_type: string, type: (GObject.GType | { $gtype: GObject.GType }), io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-        /**
-         * Finishes a content deserialization operation.
-         * @throws {GLib.Error}
-         * @param result the `GAsyncResult`
-         * @returns %TRUE if the operation was successful. In this case,   `value` is set. %FALSE if an error occurred. In this case,   `error` is set, return location for the result of the operation
-         */
-        function content_deserialize_finish(result: Gio.AsyncResult): [boolean, GObject.Value]
-        /**
-         * Parses the given @string into `GdkContentFormats` and
-         * returns the formats.
-         *
-         * Strings printed via [method@Gdk.ContentFormats.to_string]
-         * can be read in again successfully using this function.
-         *
-         * If @string does not describe valid content formats, %NULL
-         * is returned.
-         * @since 4.4
-         * @param string the string to parse
-         * @returns the content formats if `string` is valid
-         */
-        function content_formats_parse(string: string): ContentFormats | null
-        /**
-         * Registers a function to deserialize object of a given type.
-         *
-         * Since 4.20, when looking up a deserializer to use, GTK will
-         * use the last registered deserializer for a given mime type,
-         * so applications can override the built-in deserializers.
-         * @param mime_type the mime type which the function can deserialize from
-         * @param type the type of objects that the function creates
-         * @param deserialize the callback
-         */
-        function content_register_deserializer(mime_type: string, type: (GObject.GType | { $gtype: GObject.GType }), deserialize: ContentDeserializeFunc): void
-        /**
-         * Registers a function to serialize objects of a given type.
-         *
-         * Since 4.20, when looking up a serializer to use, GTK will
-         * use the last registered serializer for a given mime type,
-         * so applications can override the built-in serializers.
-         * @param type the type of objects that the function can serialize
-         * @param mime_type the mime type to serialize to
-         * @param serialize the callback
-         */
-        function content_register_serializer(type: (GObject.GType | { $gtype: GObject.GType }), mime_type: string, serialize: ContentSerializeFunc): void
-        /**
-         * Serialize content and write it to the given output stream, asynchronously.
-         *
-         * The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
-         * indicate a higher priority.
-         * @param stream a `GOutputStream` to write the serialized content to
-         * @param mime_type the mime type to serialize to
-         * @param value the content to serialize
-         * @param io_priority the I/O priority of the operation
-         * @param cancellable optional `GCancellable` object
-         * @param callback callback to call when the operation is done
-         */
-        function content_serialize_async(stream: Gio.OutputStream, mime_type: string, value: GObject.Value, io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-        /**
-         * Finishes a content serialization operation.
-         * @throws {GLib.Error}
-         * @param result the `GAsyncResult`
-         * @returns %TRUE if the operation was successful, %FALSE if an   error occurred. In this case, `error` is set
-         */
-        function content_serialize_finish(result: Gio.AsyncResult): boolean
-        /**
-         * Registers an error quark for [class@Gdk.DmabufTexture] errors.
-         * @returns the error quark
-         */
-        function dmabuf_error_quark(): GLib.Quark
-        /**
-         * Checks if @action represents a single action or includes
-         * multiple actions.
-         *
-         * When @action is `GDK_ACTION_NONE` - ie no action was given, `TRUE`
-         * is returned.
-         * @param action a `GdkDragAction`
-         * @returns %TRUE if exactly one action was given
-         */
-        function drag_action_is_unique(action: DragAction): boolean
-        /**
-         * Returns the relative angle from @event1 to @event2.
-         *
-         * The relative angle is the angle between the X axis and the line
-         * through both events' positions. The rotation direction for positive
-         * angles is from the positive X axis towards the positive Y axis.
-         *
-         * This assumes that both events have X/Y information.
-         * If not, this function returns %FALSE.
-         * @param event1 first `GdkEvent`
-         * @param event2 second `GdkEvent`
-         * @returns %TRUE if the angle could be calculated., return location for the relative angle between both events
-         */
-        function events_get_angle(event1: Event, event2: Event): [boolean, number]
-        /**
-         * Returns the point halfway between the events' positions.
-         *
-         * This assumes that both events have X/Y information.
-         * If not, this function returns %FALSE.
-         * @param event1 first `GdkEvent`
-         * @param event2 second `GdkEvent`
-         * @returns %TRUE if the center could be calculated., return location for the X coordinate of the center, return location for the Y coordinate of the center
-         */
-        function events_get_center(event1: Event, event2: Event): [boolean, number, number]
-        /**
-         * Returns the distance between the event locations.
-         *
-         * This assumes that both events have X/Y information.
-         * If not, this function returns %FALSE.
-         * @param event1 first `GdkEvent`
-         * @param event2 second `GdkEvent`
-         * @returns %TRUE if the distance could be calculated., return location for the distance
-         */
-        function events_get_distance(event1: Event, event2: Event): [boolean, number]
-        /**
-         * Registers an error quark for [class@Gdk.GLContext] errors.
-         * @returns the error quark
-         */
-        function gl_error_quark(): GLib.Quark
-        /**
-         * Canonicalizes the given mime type and interns the result.
-         *
-         * If @string is not a valid mime type, %NULL is returned instead.
-         * See RFC 2048 for the syntax if mime types.
-         * @param string string of a potential mime type
-         * @returns An interned string for the canonicalized   mime type or %NULL if the string wasn't a valid mime type
-         */
-        function intern_mime_type(string: string): string | null
-        /**
-         * Obtains the upper- and lower-case versions of the keyval @symbol.
-         *
-         * Examples of keyvals are `GDK_KEY_a`, `GDK_KEY_Enter`, `GDK_KEY_F1`, etc.
-         * @param symbol a keyval
-         * @returns , return location for lowercase version of `symbol`, return location for uppercase version of `symbol`
-         */
-        function keyval_convert_case(symbol: number): [number, number]
-        /**
-         * Converts a key name to a key value.
-         *
-         * The names are the same as those in the
-         * `gdk/gdkkeysyms.h` header file
-         * but without the leading “GDK_KEY_”.
-         * @param keyval_name a key name
-         * @returns the corresponding key value, or `GDK_KEY_VoidSymbol`   if the key name is not a valid key
-         */
-        function keyval_from_name(keyval_name: string): number
-        /**
-         * Returns true if the given key value is in lower case.
-         * @param keyval a key value.
-         * @returns true if `keyval` is in lower case, or if `keyval` is not   subject to case conversion.
-         */
-        function keyval_is_lower(keyval: number): boolean
-        /**
-         * Returns true if the given key value is in upper case.
-         * @param keyval a key value.
-         * @returns true if `keyval` is in upper case, or if `keyval` is not subject to  case conversion.
-         */
-        function keyval_is_upper(keyval: number): boolean
-        /**
-         * Converts a key value into a symbolic name.
-         *
-         * The names are the same as those in the
-         * `gdk/gdkkeysyms.h` header file
-         * but without the leading “GDK_KEY_”.
-         * @param keyval a key value
-         * @returns a string containing the name   of the key
-         */
-        function keyval_name(keyval: number): string | null
-        /**
-         * Converts a key value to lower case, if applicable.
-         * @param keyval a key value.
-         * @returns the lower case form of `keyval`, or `keyval` itself if it is already  in lower case or it is not subject to case conversion.
-         */
-        function keyval_to_lower(keyval: number): number
-        /**
-         * Converts from a GDK key symbol to the corresponding Unicode
-         * character.
-         *
-         * Note that the conversion does not take the current locale
-         * into consideration, which might be expected for particular
-         * keyvals, such as `GDK_KEY_KP_Decimal`.
-         * @param keyval a GDK key symbol
-         * @returns the corresponding unicode character, or 0 if there   is no corresponding character.
-         */
-        function keyval_to_unicode(keyval: number): number
-        /**
-         * Converts a key value to upper case, if applicable.
-         * @param keyval a key value.
-         * @returns the upper case form of `keyval`, or `keyval` itself if it is already   in upper case or it is not subject to case conversion.
-         */
-        function keyval_to_upper(keyval: number): number
-        /**
-         * Returns a paintable that has the given intrinsic size and draws nothing.
-         *
-         * This is often useful for implementing the
-         * [vfunc@Gdk.Paintable.get_current_image] virtual function
-         * when the paintable is in an incomplete state (like a
-         * [GtkMediaStream](../gtk4/class.MediaStream.html) before receiving
-         * the first frame).
-         * @param intrinsic_width The intrinsic width to report. Can be 0 for no width.
-         * @param intrinsic_height The intrinsic height to report. Can be 0 for no height.
-         * @returns a `GdkPaintable`
-         */
-        function paintable_new_empty(intrinsic_width: number, intrinsic_height: number): Paintable
-        none
-        none
-        /**
-         * Transfers image data from a `cairo_surface_t` and converts it
-         * to a `GdkPixbuf`.
-         *
-         * This allows you to efficiently read individual pixels from cairo surfaces.
-         *
-         * This function will create an RGB pixbuf with 8 bits per channel.
-         * The pixbuf will contain an alpha channel if the @surface contains one.
-         * @deprecated since 4.12 Use [class@Gdk.Texture] and subclasses instead   cairo surfaces and pixbufs
-         * @param surface surface to copy from
-         * @param src_x Source X coordinate within @surface
-         * @param src_y Source Y coordinate within @surface
-         * @param width Width in pixels of region to get
-         * @param height Height in pixels of region to get
-         * @returns A newly-created pixbuf with a   reference count of 1
-         */
-        function pixbuf_get_from_surface(surface: cairo.Surface, src_x: number, src_y: number, width: number, height: number): GdkPixbuf.Pixbuf | null
-        /**
-         * Creates a new pixbuf from @texture.
-         *
-         * This should generally not be used in newly written code as later
-         * stages will almost certainly convert the pixbuf back into a texture
-         * to draw it on screen.
-         * @deprecated since 4.12 Use [class@Gdk.Texture] and subclasses instead   cairo surfaces and pixbufs
-         * @param texture a `GdkTexture`
-         * @returns a new `GdkPixbuf`
-         */
-        function pixbuf_get_from_texture(texture: Texture): GdkPixbuf.Pixbuf | null
-        /**
-         * Sets a list of backends that GDK should try to use.
-         *
-         * This can be useful if your application does not
-         * work with certain GDK backends.
-         *
-         * By default, GDK tries all included backends.
-         *
-         * For example:
-         *
-         * ```c
-         * gdk_set_allowed_backends ("wayland,macos,*");
-         * ```
-         *
-         * instructs GDK to try the Wayland backend first, followed by the
-         * MacOs backend, and then all others.
-         *
-         * If the `GDK_BACKEND` environment variable is set, it determines
-         * what backends are tried in what order, while still respecting the
-         * set of allowed backends that are specified by this function.
-         *
-         * The possible backend names are:
-         *
-         *   - `broadway`
-         *   - `macos`
-         *   - `wayland`.
-         *   - `win32`
-         *   - `x11`
-         *
-         * You can also include a `*` in the list to try all remaining backends.
-         *
-         * This call must happen prior to functions that open a display, such
-         * as [func@Gdk.Display.open], `gtk_init()`, or `gtk_init_check()`
-         * in order to take effect.
-         * @param backends a comma-separated list of backends
-         */
-        function set_allowed_backends(backends: string): void
-        /**
-         * Registers an error quark for [class@Gdk.Texture] errors.
-         * @returns the error quark
-         */
-        function texture_error_quark(): GLib.Quark
-        /**
-         * Converts from a Unicode character to a key symbol.
-         * @param wc a Unicode character
-         * @returns the corresponding GDK key symbol, if one exists,   or, if there is no corresponding symbol, `wc | 0x01000000`
-         */
-        function unicode_to_keyval(wc: number): number
-        /**
-         * Registers an error quark for [class@Gdk.VulkanContext] errors.
-         * @returns the error quark
-         */
-        function vulkan_error_quark(): GLib.Quark
-        const ACTION_ALL: 7
-        const BUTTON_MIDDLE: 2
-        const BUTTON_PRIMARY: 1
-        const BUTTON_SECONDARY: 3
-        const CURRENT_TIME: 0
-        const EVENT_PROPAGATE: false
-        const EVENT_STOP: true
-        const KEY_0: 48
-        const KEY_1: 49
-        const KEY_10ChannelsDown: 268964281
-        const KEY_10ChannelsUp: 268964280
-        const KEY_2: 50
-        const KEY_3: 51
-        const KEY_3270_AltCursor: 64784
-        const KEY_3270_Attn: 64782
-        const KEY_3270_BackTab: 64773
-        const KEY_3270_ChangeScreen: 64793
-        const KEY_3270_Copy: 64789
-        const KEY_3270_CursorBlink: 64783
-        const KEY_3270_CursorSelect: 64796
-        const KEY_3270_DeleteWord: 64794
-        const KEY_3270_Duplicate: 64769
-        const KEY_3270_Enter: 64798
-        const KEY_3270_EraseEOF: 64774
-        const KEY_3270_EraseInput: 64775
-        const KEY_3270_ExSelect: 64795
-        const KEY_3270_FieldMark: 64770
-        const KEY_3270_Ident: 64787
-        const KEY_3270_Jump: 64786
-        const KEY_3270_KeyClick: 64785
-        const KEY_3270_Left2: 64772
-        const KEY_3270_PA1: 64778
-        const KEY_3270_PA2: 64779
-        const KEY_3270_PA3: 64780
-        const KEY_3270_Play: 64790
-        const KEY_3270_PrintScreen: 64797
-        const KEY_3270_Quit: 64777
-        const KEY_3270_Record: 64792
-        const KEY_3270_Reset: 64776
-        const KEY_3270_Right2: 64771
-        const KEY_3270_Rule: 64788
-        const KEY_3270_Setup: 64791
-        const KEY_3270_Test: 64781
-        const KEY_3DMode: 268964463
-        const KEY_4: 52
-        const KEY_5: 53
-        const KEY_6: 54
-        const KEY_7: 55
-        const KEY_8: 56
-        const KEY_9: 57
-        const KEY_A: 65
-        const KEY_AE: 198
-        const KEY_ALSToggle: 268964400
-        const KEY_Aacute: 193
-        const KEY_Abelowdot: 16785056
-        const KEY_Abreve: 451
-        const KEY_Abreveacute: 16785070
-        const KEY_Abrevebelowdot: 16785078
-        const KEY_Abrevegrave: 16785072
-        const KEY_Abrevehook: 16785074
-        const KEY_Abrevetilde: 16785076
-        const KEY_AccessX_Enable: 65136
-        const KEY_AccessX_Feedback_Enable: 65137
-        const KEY_Accessibility: 268964430
-        const KEY_Acircumflex: 194
-        const KEY_Acircumflexacute: 16785060
-        const KEY_Acircumflexbelowdot: 16785068
-        const KEY_Acircumflexgrave: 16785062
-        const KEY_Acircumflexhook: 16785064
-        const KEY_Acircumflextilde: 16785066
-        const KEY_AddFavorite: 269025081
-        const KEY_Addressbook: 268964269
-        const KEY_Adiaeresis: 196
-        const KEY_Agrave: 192
-        const KEY_Ahook: 16785058
-        const KEY_Alt_L: 65513
-        const KEY_Alt_R: 65514
-        const KEY_Amacron: 960
-        const KEY_Aogonek: 417
-        const KEY_AppSelect: 268964420
-        const KEY_ApplicationLeft: 269025104
-        const KEY_ApplicationRight: 269025105
-        const KEY_Arabic_0: 16778848
-        const KEY_Arabic_1: 16778849
-        const KEY_Arabic_2: 16778850
-        const KEY_Arabic_3: 16778851
-        const KEY_Arabic_4: 16778852
-        const KEY_Arabic_5: 16778853
-        const KEY_Arabic_6: 16778854
-        const KEY_Arabic_7: 16778855
-        const KEY_Arabic_8: 16778856
-        const KEY_Arabic_9: 16778857
-        const KEY_Arabic_ain: 1497
-        const KEY_Arabic_alef: 1479
-        const KEY_Arabic_alefmaksura: 1513
-        const KEY_Arabic_beh: 1480
-        const KEY_Arabic_comma: 1452
-        const KEY_Arabic_dad: 1494
-        const KEY_Arabic_dal: 1487
-        const KEY_Arabic_damma: 1519
-        const KEY_Arabic_dammatan: 1516
-        const KEY_Arabic_ddal: 16778888
-        const KEY_Arabic_farsi_yeh: 16778956
-        const KEY_Arabic_fatha: 1518
-        const KEY_Arabic_fathatan: 1515
-        const KEY_Arabic_feh: 1505
-        const KEY_Arabic_fullstop: 16778964
-        const KEY_Arabic_gaf: 16778927
-        const KEY_Arabic_ghain: 1498
-        const KEY_Arabic_ha: 1511
-        const KEY_Arabic_hah: 1485
-        const KEY_Arabic_hamza: 1473
-        const KEY_Arabic_hamza_above: 16778836
-        const KEY_Arabic_hamza_below: 16778837
-        const KEY_Arabic_hamzaonalef: 1475
-        const KEY_Arabic_hamzaonwaw: 1476
-        const KEY_Arabic_hamzaonyeh: 1478
-        const KEY_Arabic_hamzaunderalef: 1477
-        const KEY_Arabic_heh: 1511
-        const KEY_Arabic_heh_doachashmee: 16778942
-        const KEY_Arabic_heh_goal: 16778945
-        const KEY_Arabic_jeem: 1484
-        const KEY_Arabic_jeh: 16778904
-        const KEY_Arabic_kaf: 1507
-        const KEY_Arabic_kasra: 1520
-        const KEY_Arabic_kasratan: 1517
-        const KEY_Arabic_keheh: 16778921
-        const KEY_Arabic_khah: 1486
-        const KEY_Arabic_lam: 1508
-        const KEY_Arabic_madda_above: 16778835
-        const KEY_Arabic_maddaonalef: 1474
-        const KEY_Arabic_meem: 1509
-        const KEY_Arabic_noon: 1510
-        const KEY_Arabic_noon_ghunna: 16778938
-        const KEY_Arabic_peh: 16778878
-        const KEY_Arabic_percent: 16778858
-        const KEY_Arabic_qaf: 1506
-        const KEY_Arabic_question_mark: 1471
-        const KEY_Arabic_ra: 1489
-        const KEY_Arabic_rreh: 16778897
-        const KEY_Arabic_sad: 1493
-        const KEY_Arabic_seen: 1491
-        const KEY_Arabic_semicolon: 1467
-        const KEY_Arabic_shadda: 1521
-        const KEY_Arabic_sheen: 1492
-        const KEY_Arabic_sukun: 1522
-        const KEY_Arabic_superscript_alef: 16778864
-        const KEY_Arabic_switch: 65406
-        const KEY_Arabic_tah: 1495
-        const KEY_Arabic_tatweel: 1504
-        const KEY_Arabic_tcheh: 16778886
-        const KEY_Arabic_teh: 1482
-        const KEY_Arabic_tehmarbuta: 1481
-        const KEY_Arabic_thal: 1488
-        const KEY_Arabic_theh: 1483
-        const KEY_Arabic_tteh: 16778873
-        const KEY_Arabic_veh: 16778916
-        const KEY_Arabic_waw: 1512
-        const KEY_Arabic_yeh: 1514
-        const KEY_Arabic_yeh_baree: 16778962
-        const KEY_Arabic_zah: 1496
-        const KEY_Arabic_zain: 1490
-        const KEY_Aring: 197
-        const KEY_Armenian_AT: 16778552
-        const KEY_Armenian_AYB: 16778545
-        const KEY_Armenian_BEN: 16778546
-        const KEY_Armenian_CHA: 16778569
-        const KEY_Armenian_DA: 16778548
-        const KEY_Armenian_DZA: 16778561
-        const KEY_Armenian_E: 16778551
-        const KEY_Armenian_FE: 16778582
-        const KEY_Armenian_GHAT: 16778562
-        const KEY_Armenian_GIM: 16778547
-        const KEY_Armenian_HI: 16778565
-        const KEY_Armenian_HO: 16778560
-        const KEY_Armenian_INI: 16778555
-        const KEY_Armenian_JE: 16778571
-        const KEY_Armenian_KE: 16778580
-        const KEY_Armenian_KEN: 16778559
-        const KEY_Armenian_KHE: 16778557
-        const KEY_Armenian_LYUN: 16778556
-        const KEY_Armenian_MEN: 16778564
-        const KEY_Armenian_NU: 16778566
-        const KEY_Armenian_O: 16778581
-        const KEY_Armenian_PE: 16778570
-        const KEY_Armenian_PYUR: 16778579
-        const KEY_Armenian_RA: 16778572
-        const KEY_Armenian_RE: 16778576
-        const KEY_Armenian_SE: 16778573
-        const KEY_Armenian_SHA: 16778567
-        const KEY_Armenian_TCHE: 16778563
-        const KEY_Armenian_TO: 16778553
-        const KEY_Armenian_TSA: 16778558
-        const KEY_Armenian_TSO: 16778577
-        const KEY_Armenian_TYUN: 16778575
-        const KEY_Armenian_VEV: 16778574
-        const KEY_Armenian_VO: 16778568
-        const KEY_Armenian_VYUN: 16778578
-        const KEY_Armenian_YECH: 16778549
-        const KEY_Armenian_ZA: 16778550
-        const KEY_Armenian_ZHE: 16778554
-        const KEY_Armenian_accent: 16778587
-        const KEY_Armenian_amanak: 16778588
-        const KEY_Armenian_apostrophe: 16778586
-        const KEY_Armenian_at: 16778600
-        const KEY_Armenian_ayb: 16778593
-        const KEY_Armenian_ben: 16778594
-        const KEY_Armenian_but: 16778589
-        const KEY_Armenian_cha: 16778617
-        const KEY_Armenian_da: 16778596
-        const KEY_Armenian_dza: 16778609
-        const KEY_Armenian_e: 16778599
-        const KEY_Armenian_exclam: 16778588
-        const KEY_Armenian_fe: 16778630
-        const KEY_Armenian_full_stop: 16778633
-        const KEY_Armenian_ghat: 16778610
-        const KEY_Armenian_gim: 16778595
-        const KEY_Armenian_hi: 16778613
-        const KEY_Armenian_ho: 16778608
-        const KEY_Armenian_hyphen: 16778634
-        const KEY_Armenian_ini: 16778603
-        const KEY_Armenian_je: 16778619
-        const KEY_Armenian_ke: 16778628
-        const KEY_Armenian_ken: 16778607
-        const KEY_Armenian_khe: 16778605
-        const KEY_Armenian_ligature_ew: 16778631
-        const KEY_Armenian_lyun: 16778604
-        const KEY_Armenian_men: 16778612
-        const KEY_Armenian_nu: 16778614
-        const KEY_Armenian_o: 16778629
-        const KEY_Armenian_paruyk: 16778590
-        const KEY_Armenian_pe: 16778618
-        const KEY_Armenian_pyur: 16778627
-        const KEY_Armenian_question: 16778590
-        const KEY_Armenian_ra: 16778620
-        const KEY_Armenian_re: 16778624
-        const KEY_Armenian_se: 16778621
-        const KEY_Armenian_separation_mark: 16778589
-        const KEY_Armenian_sha: 16778615
-        const KEY_Armenian_shesht: 16778587
-        const KEY_Armenian_tche: 16778611
-        const KEY_Armenian_to: 16778601
-        const KEY_Armenian_tsa: 16778606
-        const KEY_Armenian_tso: 16778625
-        const KEY_Armenian_tyun: 16778623
-        const KEY_Armenian_verjaket: 16778633
-        const KEY_Armenian_vev: 16778622
-        const KEY_Armenian_vo: 16778616
-        const KEY_Armenian_vyun: 16778626
-        const KEY_Armenian_yech: 16778597
-        const KEY_Armenian_yentamna: 16778634
-        const KEY_Armenian_za: 16778598
-        const KEY_Armenian_zhe: 16778602
-        const KEY_AspectRatio: 268964215
-        const KEY_Assistant: 268964423
-        const KEY_Atilde: 195
-        const KEY_AttendantOff: 268964380
-        const KEY_AttendantOn: 268964379
-        const KEY_AttendantToggle: 268964381
-        const KEY_AudibleBell_Enable: 65146
-        const KEY_Audio: 268964232
-        const KEY_AudioCycleTrack: 269025179
-        const KEY_AudioDesc: 268964462
-        const KEY_AudioForward: 269025175
-        const KEY_AudioLowerVolume: 269025041
-        const KEY_AudioMedia: 269025074
-        const KEY_AudioMicMute: 269025202
-        const KEY_AudioMute: 269025042
-        const KEY_AudioNext: 269025047
-        const KEY_AudioPause: 269025073
-        const KEY_AudioPlay: 269025044
-        const KEY_AudioPreset: 269025206
-        const KEY_AudioPrev: 269025046
-        const KEY_AudioRaiseVolume: 269025043
-        const KEY_AudioRandomPlay: 269025177
-        const KEY_AudioRecord: 269025052
-        const KEY_AudioRepeat: 269025176
-        const KEY_AudioRewind: 269025086
-        const KEY_AudioStop: 269025045
-        const KEY_AutopilotEngageToggle: 268964477
-        const KEY_Away: 269025165
-        const KEY_B: 66
-        const KEY_Babovedot: 16784898
-        const KEY_Back: 269025062
-        const KEY_BackForward: 269025087
-        const KEY_BackSpace: 65288
-        const KEY_Battery: 269025171
-        const KEY_Begin: 65368
-        const KEY_Blue: 269025190
-        const KEY_Bluetooth: 269025172
-        const KEY_Book: 269025106
-        const KEY_BounceKeys_Enable: 65140
-        const KEY_Break: 65387
-        const KEY_BrightnessAdjust: 269025083
-        const KEY_BrightnessAuto: 268964084
-        const KEY_BrightnessMax: 268964433
-        const KEY_BrightnessMin: 268964432
-        const KEY_Buttonconfig: 268964416
-        const KEY_Byelorussian_SHORTU: 1726
-        const KEY_Byelorussian_shortu: 1710
-        const KEY_C: 67
-        const KEY_CD: 269025107
-        const KEY_CH: 65186
-        const KEY_C_H: 65189
-        const KEY_C_h: 65188
-        const KEY_Cabovedot: 709
-        const KEY_Cacute: 454
-        const KEY_Calculator: 269025053
-        const KEY_Calendar: 269025056
-        const KEY_CameraAccessDisable: 268964428
-        const KEY_CameraAccessEnable: 268964427
-        const KEY_CameraAccessToggle: 268964429
-        const KEY_CameraDown: 268964376
-        const KEY_CameraFocus: 268964368
-        const KEY_CameraLeft: 268964377
-        const KEY_CameraRight: 268964378
-        const KEY_CameraUp: 268964375
-        const KEY_CameraZoomIn: 268964373
-        const KEY_CameraZoomOut: 268964374
-        const KEY_Cancel: 65385
-        const KEY_Caps_Lock: 65509
-        const KEY_Ccaron: 456
-        const KEY_Ccedilla: 199
-        const KEY_Ccircumflex: 710
-        const KEY_Ch: 65185
-        const KEY_ChannelDown: 268964243
-        const KEY_ChannelUp: 268964242
-        const KEY_Clear: 65291
-        const KEY_ClearGrab: 269024801
-        const KEY_ClearvuSonar: 268964486
-        const KEY_Close: 269025110
-        const KEY_Codeinput: 65335
-        const KEY_ColonSign: 16785569
-        const KEY_Community: 269025085
-        const KEY_ContextMenu: 268964278
-        const KEY_ContrastAdjust: 269025058
-        const KEY_ControlPanel: 268964419
-        const KEY_Control_L: 65507
-        const KEY_Control_R: 65508
-        const KEY_Copy: 269025111
-        const KEY_CruzeiroSign: 16785570
-        const KEY_Cut: 269025112
-        const KEY_CycleAngle: 269025180
-        const KEY_Cyrillic_A: 1761
-        const KEY_Cyrillic_BE: 1762
-        const KEY_Cyrillic_CHE: 1790
-        const KEY_Cyrillic_CHE_descender: 16778422
-        const KEY_Cyrillic_CHE_vertstroke: 16778424
-        const KEY_Cyrillic_DE: 1764
-        const KEY_Cyrillic_DZHE: 1727
-        const KEY_Cyrillic_E: 1788
-        const KEY_Cyrillic_EF: 1766
-        const KEY_Cyrillic_EL: 1772
-        const KEY_Cyrillic_EM: 1773
-        const KEY_Cyrillic_EN: 1774
-        const KEY_Cyrillic_EN_descender: 16778402
-        const KEY_Cyrillic_ER: 1778
-        const KEY_Cyrillic_ES: 1779
-        const KEY_Cyrillic_GHE: 1767
-        const KEY_Cyrillic_GHE_bar: 16778386
-        const KEY_Cyrillic_HA: 1768
-        const KEY_Cyrillic_HARDSIGN: 1791
-        const KEY_Cyrillic_HA_descender: 16778418
-        const KEY_Cyrillic_I: 1769
-        const KEY_Cyrillic_IE: 1765
-        const KEY_Cyrillic_IO: 1715
-        const KEY_Cyrillic_I_macron: 16778466
-        const KEY_Cyrillic_JE: 1720
-        const KEY_Cyrillic_KA: 1771
-        const KEY_Cyrillic_KA_descender: 16778394
-        const KEY_Cyrillic_KA_vertstroke: 16778396
-        const KEY_Cyrillic_LJE: 1721
-        const KEY_Cyrillic_NJE: 1722
-        const KEY_Cyrillic_O: 1775
-        const KEY_Cyrillic_O_bar: 16778472
-        const KEY_Cyrillic_PE: 1776
-        const KEY_Cyrillic_SCHWA: 16778456
-        const KEY_Cyrillic_SHA: 1787
-        const KEY_Cyrillic_SHCHA: 1789
-        const KEY_Cyrillic_SHHA: 16778426
-        const KEY_Cyrillic_SHORTI: 1770
-        const KEY_Cyrillic_SOFTSIGN: 1784
-        const KEY_Cyrillic_TE: 1780
-        const KEY_Cyrillic_TSE: 1763
-        const KEY_Cyrillic_U: 1781
-        const KEY_Cyrillic_U_macron: 16778478
-        const KEY_Cyrillic_U_straight: 16778414
-        const KEY_Cyrillic_U_straight_bar: 16778416
-        const KEY_Cyrillic_VE: 1783
-        const KEY_Cyrillic_YA: 1777
-        const KEY_Cyrillic_YERU: 1785
-        const KEY_Cyrillic_YU: 1760
-        const KEY_Cyrillic_ZE: 1786
-        const KEY_Cyrillic_ZHE: 1782
-        const KEY_Cyrillic_ZHE_descender: 16778390
-        const KEY_Cyrillic_a: 1729
-        const KEY_Cyrillic_be: 1730
-        const KEY_Cyrillic_che: 1758
-        const KEY_Cyrillic_che_descender: 16778423
-        const KEY_Cyrillic_che_vertstroke: 16778425
-        const KEY_Cyrillic_de: 1732
-        const KEY_Cyrillic_dzhe: 1711
-        const KEY_Cyrillic_e: 1756
-        const KEY_Cyrillic_ef: 1734
-        const KEY_Cyrillic_el: 1740
-        const KEY_Cyrillic_em: 1741
-        const KEY_Cyrillic_en: 1742
-        const KEY_Cyrillic_en_descender: 16778403
-        const KEY_Cyrillic_er: 1746
-        const KEY_Cyrillic_es: 1747
-        const KEY_Cyrillic_ghe: 1735
-        const KEY_Cyrillic_ghe_bar: 16778387
-        const KEY_Cyrillic_ha: 1736
-        const KEY_Cyrillic_ha_descender: 16778419
-        const KEY_Cyrillic_hardsign: 1759
-        const KEY_Cyrillic_i: 1737
-        const KEY_Cyrillic_i_macron: 16778467
-        const KEY_Cyrillic_ie: 1733
-        const KEY_Cyrillic_io: 1699
-        const KEY_Cyrillic_je: 1704
-        const KEY_Cyrillic_ka: 1739
-        const KEY_Cyrillic_ka_descender: 16778395
-        const KEY_Cyrillic_ka_vertstroke: 16778397
-        const KEY_Cyrillic_lje: 1705
-        const KEY_Cyrillic_nje: 1706
-        const KEY_Cyrillic_o: 1743
-        const KEY_Cyrillic_o_bar: 16778473
-        const KEY_Cyrillic_pe: 1744
-        const KEY_Cyrillic_schwa: 16778457
-        const KEY_Cyrillic_sha: 1755
-        const KEY_Cyrillic_shcha: 1757
-        const KEY_Cyrillic_shha: 16778427
-        const KEY_Cyrillic_shorti: 1738
-        const KEY_Cyrillic_softsign: 1752
-        const KEY_Cyrillic_te: 1748
-        const KEY_Cyrillic_tse: 1731
-        const KEY_Cyrillic_u: 1749
-        const KEY_Cyrillic_u_macron: 16778479
-        const KEY_Cyrillic_u_straight: 16778415
-        const KEY_Cyrillic_u_straight_bar: 16778417
-        const KEY_Cyrillic_ve: 1751
-        const KEY_Cyrillic_ya: 1745
-        const KEY_Cyrillic_yeru: 1753
-        const KEY_Cyrillic_yu: 1728
-        const KEY_Cyrillic_ze: 1754
-        const KEY_Cyrillic_zhe: 1750
-        const KEY_Cyrillic_zhe_descender: 16778391
-        const KEY_D: 68
-        const KEY_DOS: 269025114
-        const KEY_DVD: 268964229
-        const KEY_Dabovedot: 16784906
-        const KEY_Data: 268964471
-        const KEY_Database: 268964266
-        const KEY_Dcaron: 463
-        const KEY_Delete: 65535
-        const KEY_Dictate: 268964426
-        const KEY_Display: 269025113
-        const KEY_DisplayOff: 268964085
-        const KEY_DisplayToggle: 268964271
-        const KEY_DoNotDisturb: 268964431
-        const KEY_Documents: 269025115
-        const KEY_DongSign: 16785579
-        const KEY_Down: 65364
-        const KEY_Dstroke: 464
-        const KEY_DualRangeRadar: 268964483
-        const KEY_E: 69
-        const KEY_ENG: 957
-        const KEY_ETH: 208
-        const KEY_EZH: 16777655
-        const KEY_Eabovedot: 972
-        const KEY_Eacute: 201
-        const KEY_Ebelowdot: 16785080
-        const KEY_Ecaron: 460
-        const KEY_Ecircumflex: 202
-        const KEY_Ecircumflexacute: 16785086
-        const KEY_Ecircumflexbelowdot: 16785094
-        const KEY_Ecircumflexgrave: 16785088
-        const KEY_Ecircumflexhook: 16785090
-        const KEY_Ecircumflextilde: 16785092
-        const KEY_EcuSign: 16785568
-        const KEY_Ediaeresis: 203
-        const KEY_Editor: 268964262
-        const KEY_Egrave: 200
-        const KEY_Ehook: 16785082
-        const KEY_Eisu_Shift: 65327
-        const KEY_Eisu_toggle: 65328
-        const KEY_Eject: 269025068
-        const KEY_Emacron: 938
-        const KEY_EmojiPicker: 268964425
-        const KEY_End: 65367
-        const KEY_Eogonek: 458
-        const KEY_Escape: 65307
-        const KEY_Eth: 208
-        const KEY_Etilde: 16785084
-        const KEY_EuroSign: 8364
-        const KEY_Excel: 269025116
-        const KEY_Execute: 65378
-        const KEY_Explorer: 269025117
-        const KEY_F: 70
-        const KEY_F1: 65470
-        const KEY_F10: 65479
-        const KEY_F11: 65480
-        const KEY_F12: 65481
-        const KEY_F13: 65482
-        const KEY_F14: 65483
-        const KEY_F15: 65484
-        const KEY_F16: 65485
-        const KEY_F17: 65486
-        const KEY_F18: 65487
-        const KEY_F19: 65488
-        const KEY_F2: 65471
-        const KEY_F20: 65489
-        const KEY_F21: 65490
-        const KEY_F22: 65491
-        const KEY_F23: 65492
-        const KEY_F24: 65493
-        const KEY_F25: 65494
-        const KEY_F26: 65495
-        const KEY_F27: 65496
-        const KEY_F28: 65497
-        const KEY_F29: 65498
-        const KEY_F3: 65472
-        const KEY_F30: 65499
-        const KEY_F31: 65500
-        const KEY_F32: 65501
-        const KEY_F33: 65502
-        const KEY_F34: 65503
-        const KEY_F35: 65504
-        const KEY_F4: 65473
-        const KEY_F5: 65474
-        const KEY_F6: 65475
-        const KEY_F7: 65476
-        const KEY_F8: 65477
-        const KEY_F9: 65478
-        const KEY_FFrancSign: 16785571
-        const KEY_Fabovedot: 16784926
-        const KEY_Farsi_0: 16778992
-        const KEY_Farsi_1: 16778993
-        const KEY_Farsi_2: 16778994
-        const KEY_Farsi_3: 16778995
-        const KEY_Farsi_4: 16778996
-        const KEY_Farsi_5: 16778997
-        const KEY_Farsi_6: 16778998
-        const KEY_Farsi_7: 16778999
-        const KEY_Farsi_8: 16779000
-        const KEY_Farsi_9: 16779001
-        const KEY_Farsi_yeh: 16778956
-        const KEY_FastReverse: 268964469
-        const KEY_Favorites: 269025072
-        const KEY_Finance: 269025084
-        const KEY_Find: 65384
-        const KEY_First_Virtual_Screen: 65232
-        const KEY_FishingChart: 268964481
-        const KEY_Fn: 268964304
-        const KEY_FnRightShift: 268964325
-        const KEY_Fn_Esc: 268964305
-        const KEY_Forward: 269025063
-        const KEY_FrameBack: 269025181
-        const KEY_FrameForward: 269025182
-        const KEY_FullScreen: 269025208
-        const KEY_G: 71
-        const KEY_Gabovedot: 725
-        const KEY_Game: 269025118
-        const KEY_Gbreve: 683
-        const KEY_Gcaron: 16777702
-        const KEY_Gcedilla: 939
-        const KEY_Gcircumflex: 728
-        const KEY_Georgian_an: 16781520
-        const KEY_Georgian_ban: 16781521
-        const KEY_Georgian_can: 16781546
-        const KEY_Georgian_char: 16781549
-        const KEY_Georgian_chin: 16781545
-        const KEY_Georgian_cil: 16781548
-        const KEY_Georgian_don: 16781523
-        const KEY_Georgian_en: 16781524
-        const KEY_Georgian_fi: 16781558
-        const KEY_Georgian_gan: 16781522
-        const KEY_Georgian_ghan: 16781542
-        const KEY_Georgian_hae: 16781552
-        const KEY_Georgian_har: 16781556
-        const KEY_Georgian_he: 16781553
-        const KEY_Georgian_hie: 16781554
-        const KEY_Georgian_hoe: 16781557
-        const KEY_Georgian_in: 16781528
-        const KEY_Georgian_jhan: 16781551
-        const KEY_Georgian_jil: 16781547
-        const KEY_Georgian_kan: 16781529
-        const KEY_Georgian_khar: 16781541
-        const KEY_Georgian_las: 16781530
-        const KEY_Georgian_man: 16781531
-        const KEY_Georgian_nar: 16781532
-        const KEY_Georgian_on: 16781533
-        const KEY_Georgian_par: 16781534
-        const KEY_Georgian_phar: 16781540
-        const KEY_Georgian_qar: 16781543
-        const KEY_Georgian_rae: 16781536
-        const KEY_Georgian_san: 16781537
-        const KEY_Georgian_shin: 16781544
-        const KEY_Georgian_tan: 16781527
-        const KEY_Georgian_tar: 16781538
-        const KEY_Georgian_un: 16781539
-        const KEY_Georgian_vin: 16781525
-        const KEY_Georgian_we: 16781555
-        const KEY_Georgian_xan: 16781550
-        const KEY_Georgian_zen: 16781526
-        const KEY_Georgian_zhar: 16781535
-        const KEY_Go: 269025119
-        const KEY_GraphicsEditor: 268964264
-        const KEY_Greek_ALPHA: 1985
-        const KEY_Greek_ALPHAaccent: 1953
-        const KEY_Greek_BETA: 1986
-        const KEY_Greek_CHI: 2007
-        const KEY_Greek_DELTA: 1988
-        const KEY_Greek_EPSILON: 1989
-        const KEY_Greek_EPSILONaccent: 1954
-        const KEY_Greek_ETA: 1991
-        const KEY_Greek_ETAaccent: 1955
-        const KEY_Greek_GAMMA: 1987
-        const KEY_Greek_IOTA: 1993
-        const KEY_Greek_IOTAaccent: 1956
-        const KEY_Greek_IOTAdiaeresis: 1957
-        const KEY_Greek_IOTAdieresis: 1957
-        const KEY_Greek_KAPPA: 1994
-        const KEY_Greek_LAMBDA: 1995
-        const KEY_Greek_LAMDA: 1995
-        const KEY_Greek_MU: 1996
-        const KEY_Greek_NU: 1997
-        const KEY_Greek_OMEGA: 2009
-        const KEY_Greek_OMEGAaccent: 1963
-        const KEY_Greek_OMICRON: 1999
-        const KEY_Greek_OMICRONaccent: 1959
-        const KEY_Greek_PHI: 2006
-        const KEY_Greek_PI: 2000
-        const KEY_Greek_PSI: 2008
-        const KEY_Greek_RHO: 2001
-        const KEY_Greek_SIGMA: 2002
-        const KEY_Greek_TAU: 2004
-        const KEY_Greek_THETA: 1992
-        const KEY_Greek_UPSILON: 2005
-        const KEY_Greek_UPSILONaccent: 1960
-        const KEY_Greek_UPSILONdieresis: 1961
-        const KEY_Greek_XI: 1998
-        const KEY_Greek_ZETA: 1990
-        const KEY_Greek_accentdieresis: 1966
-        const KEY_Greek_alpha: 2017
-        const KEY_Greek_alphaaccent: 1969
-        const KEY_Greek_beta: 2018
-        const KEY_Greek_chi: 2039
-        const KEY_Greek_delta: 2020
-        const KEY_Greek_epsilon: 2021
-        const KEY_Greek_epsilonaccent: 1970
-        const KEY_Greek_eta: 2023
-        const KEY_Greek_etaaccent: 1971
-        const KEY_Greek_finalsmallsigma: 2035
-        const KEY_Greek_gamma: 2019
-        const KEY_Greek_horizbar: 1967
-        const KEY_Greek_iota: 2025
-        const KEY_Greek_iotaaccent: 1972
-        const KEY_Greek_iotaaccentdieresis: 1974
-        const KEY_Greek_iotadieresis: 1973
-        const KEY_Greek_kappa: 2026
-        const KEY_Greek_lambda: 2027
-        const KEY_Greek_lamda: 2027
-        const KEY_Greek_mu: 2028
-        const KEY_Greek_nu: 2029
-        const KEY_Greek_omega: 2041
-        const KEY_Greek_omegaaccent: 1979
-        const KEY_Greek_omicron: 2031
-        const KEY_Greek_omicronaccent: 1975
-        const KEY_Greek_phi: 2038
-        const KEY_Greek_pi: 2032
-        const KEY_Greek_psi: 2040
-        const KEY_Greek_rho: 2033
-        const KEY_Greek_sigma: 2034
-        const KEY_Greek_switch: 65406
-        const KEY_Greek_tau: 2036
-        const KEY_Greek_theta: 2024
-        const KEY_Greek_upsilon: 2037
-        const KEY_Greek_upsilonaccent: 1976
-        const KEY_Greek_upsilonaccentdieresis: 1978
-        const KEY_Greek_upsilondieresis: 1977
-        const KEY_Greek_xi: 2030
-        const KEY_Greek_zeta: 2022
-        const KEY_Green: 269025188
-        const KEY_H: 72
-        const KEY_Hangul: 65329
-        const KEY_Hangul_A: 3775
-        const KEY_Hangul_AE: 3776
-        const KEY_Hangul_AraeA: 3830
-        const KEY_Hangul_AraeAE: 3831
-        const KEY_Hangul_Banja: 65337
-        const KEY_Hangul_Cieuc: 3770
-        const KEY_Hangul_Codeinput: 65335
-        const KEY_Hangul_Dikeud: 3751
-        const KEY_Hangul_E: 3780
-        const KEY_Hangul_EO: 3779
-        const KEY_Hangul_EU: 3793
-        const KEY_Hangul_End: 65331
-        const KEY_Hangul_Hanja: 65332
-        const KEY_Hangul_Hieuh: 3774
-        const KEY_Hangul_I: 3795
-        const KEY_Hangul_Ieung: 3767
-        const KEY_Hangul_J_Cieuc: 3818
-        const KEY_Hangul_J_Dikeud: 3802
-        const KEY_Hangul_J_Hieuh: 3822
-        const KEY_Hangul_J_Ieung: 3816
-        const KEY_Hangul_J_Jieuj: 3817
-        const KEY_Hangul_J_Khieuq: 3819
-        const KEY_Hangul_J_Kiyeog: 3796
-        const KEY_Hangul_J_KiyeogSios: 3798
-        const KEY_Hangul_J_KkogjiDalrinIeung: 3833
-        const KEY_Hangul_J_Mieum: 3811
-        const KEY_Hangul_J_Nieun: 3799
-        const KEY_Hangul_J_NieunHieuh: 3801
-        const KEY_Hangul_J_NieunJieuj: 3800
-        const KEY_Hangul_J_PanSios: 3832
-        const KEY_Hangul_J_Phieuf: 3821
-        const KEY_Hangul_J_Pieub: 3812
-        const KEY_Hangul_J_PieubSios: 3813
-        const KEY_Hangul_J_Rieul: 3803
-        const KEY_Hangul_J_RieulHieuh: 3810
-        const KEY_Hangul_J_RieulKiyeog: 3804
-        const KEY_Hangul_J_RieulMieum: 3805
-        const KEY_Hangul_J_RieulPhieuf: 3809
-        const KEY_Hangul_J_RieulPieub: 3806
-        const KEY_Hangul_J_RieulSios: 3807
-        const KEY_Hangul_J_RieulTieut: 3808
-        const KEY_Hangul_J_Sios: 3814
-        const KEY_Hangul_J_SsangKiyeog: 3797
-        const KEY_Hangul_J_SsangSios: 3815
-        const KEY_Hangul_J_Tieut: 3820
-        const KEY_Hangul_J_YeorinHieuh: 3834
-        const KEY_Hangul_Jamo: 65333
-        const KEY_Hangul_Jeonja: 65336
-        const KEY_Hangul_Jieuj: 3768
-        const KEY_Hangul_Khieuq: 3771
-        const KEY_Hangul_Kiyeog: 3745
-        const KEY_Hangul_KiyeogSios: 3747
-        const KEY_Hangul_KkogjiDalrinIeung: 3827
-        const KEY_Hangul_Mieum: 3761
-        const KEY_Hangul_MultipleCandidate: 65341
-        const KEY_Hangul_Nieun: 3748
-        const KEY_Hangul_NieunHieuh: 3750
-        const KEY_Hangul_NieunJieuj: 3749
-        const KEY_Hangul_O: 3783
-        const KEY_Hangul_OE: 3786
-        const KEY_Hangul_PanSios: 3826
-        const KEY_Hangul_Phieuf: 3773
-        const KEY_Hangul_Pieub: 3762
-        const KEY_Hangul_PieubSios: 3764
-        const KEY_Hangul_PostHanja: 65339
-        const KEY_Hangul_PreHanja: 65338
-        const KEY_Hangul_PreviousCandidate: 65342
-        const KEY_Hangul_Rieul: 3753
-        const KEY_Hangul_RieulHieuh: 3760
-        const KEY_Hangul_RieulKiyeog: 3754
-        const KEY_Hangul_RieulMieum: 3755
-        const KEY_Hangul_RieulPhieuf: 3759
-        const KEY_Hangul_RieulPieub: 3756
-        const KEY_Hangul_RieulSios: 3757
-        const KEY_Hangul_RieulTieut: 3758
-        const KEY_Hangul_RieulYeorinHieuh: 3823
-        const KEY_Hangul_Romaja: 65334
-        const KEY_Hangul_SingleCandidate: 65340
-        const KEY_Hangul_Sios: 3765
-        const KEY_Hangul_Special: 65343
-        const KEY_Hangul_SsangDikeud: 3752
-        const KEY_Hangul_SsangJieuj: 3769
-        const KEY_Hangul_SsangKiyeog: 3746
-        const KEY_Hangul_SsangPieub: 3763
-        const KEY_Hangul_SsangSios: 3766
-        const KEY_Hangul_Start: 65330
-        const KEY_Hangul_SunkyeongeumMieum: 3824
-        const KEY_Hangul_SunkyeongeumPhieuf: 3828
-        const KEY_Hangul_SunkyeongeumPieub: 3825
-        const KEY_Hangul_Tieut: 3772
-        const KEY_Hangul_U: 3788
-        const KEY_Hangul_WA: 3784
-        const KEY_Hangul_WAE: 3785
-        const KEY_Hangul_WE: 3790
-        const KEY_Hangul_WEO: 3789
-        const KEY_Hangul_WI: 3791
-        const KEY_Hangul_YA: 3777
-        const KEY_Hangul_YAE: 3778
-        const KEY_Hangul_YE: 3782
-        const KEY_Hangul_YEO: 3781
-        const KEY_Hangul_YI: 3794
-        const KEY_Hangul_YO: 3787
-        const KEY_Hangul_YU: 3792
-        const KEY_Hangul_YeorinHieuh: 3829
-        const KEY_Hangul_switch: 65406
-        const KEY_HangupPhone: 268964286
-        const KEY_Hankaku: 65321
-        const KEY_Hcircumflex: 678
-        const KEY_Hebrew_switch: 65406
-        const KEY_Help: 65386
-        const KEY_Henkan: 65315
-        const KEY_Henkan_Mode: 65315
-        const KEY_Hibernate: 269025192
-        const KEY_Hiragana: 65317
-        const KEY_Hiragana_Katakana: 65319
-        const KEY_History: 269025079
-        const KEY_Home: 65360
-        const KEY_HomePage: 269025048
-        const KEY_HotLinks: 269025082
-        const KEY_Hstroke: 673
-        const KEY_Hyper_L: 65517
-        const KEY_Hyper_R: 65518
-        const KEY_I: 73
-        const KEY_ISO_Center_Object: 65075
-        const KEY_ISO_Continuous_Underline: 65072
-        const KEY_ISO_Discontinuous_Underline: 65073
-        const KEY_ISO_Emphasize: 65074
-        const KEY_ISO_Enter: 65076
-        const KEY_ISO_Fast_Cursor_Down: 65071
-        const KEY_ISO_Fast_Cursor_Left: 65068
-        const KEY_ISO_Fast_Cursor_Right: 65069
-        const KEY_ISO_Fast_Cursor_Up: 65070
-        const KEY_ISO_First_Group: 65036
-        const KEY_ISO_First_Group_Lock: 65037
-        const KEY_ISO_Group_Latch: 65030
-        const KEY_ISO_Group_Lock: 65031
-        const KEY_ISO_Group_Shift: 65406
-        const KEY_ISO_Last_Group: 65038
-        const KEY_ISO_Last_Group_Lock: 65039
-        const KEY_ISO_Left_Tab: 65056
-        const KEY_ISO_Level2_Latch: 65026
-        const KEY_ISO_Level3_Latch: 65028
-        const KEY_ISO_Level3_Lock: 65029
-        const KEY_ISO_Level3_Shift: 65027
-        const KEY_ISO_Level5_Latch: 65042
-        const KEY_ISO_Level5_Lock: 65043
-        const KEY_ISO_Level5_Shift: 65041
-        const KEY_ISO_Lock: 65025
-        const KEY_ISO_Move_Line_Down: 65058
-        const KEY_ISO_Move_Line_Up: 65057
-        const KEY_ISO_Next_Group: 65032
-        const KEY_ISO_Next_Group_Lock: 65033
-        const KEY_ISO_Partial_Line_Down: 65060
-        const KEY_ISO_Partial_Line_Up: 65059
-        const KEY_ISO_Partial_Space_Left: 65061
-        const KEY_ISO_Partial_Space_Right: 65062
-        const KEY_ISO_Prev_Group: 65034
-        const KEY_ISO_Prev_Group_Lock: 65035
-        const KEY_ISO_Release_Both_Margins: 65067
-        const KEY_ISO_Release_Margin_Left: 65065
-        const KEY_ISO_Release_Margin_Right: 65066
-        const KEY_ISO_Set_Margin_Left: 65063
-        const KEY_ISO_Set_Margin_Right: 65064
-        const KEY_Iabovedot: 681
-        const KEY_Iacute: 205
-        const KEY_Ibelowdot: 16785098
-        const KEY_Ibreve: 16777516
-        const KEY_Icircumflex: 206
-        const KEY_Idiaeresis: 207
-        const KEY_Igrave: 204
-        const KEY_Ihook: 16785096
-        const KEY_Imacron: 975
-        const KEY_Images: 268964282
-        const KEY_Info: 268964198
-        const KEY_Insert: 65379
-        const KEY_Iogonek: 967
-        const KEY_Itilde: 933
-        const KEY_J: 74
-        const KEY_Jcircumflex: 684
-        const KEY_Journal: 268964418
-        const KEY_K: 75
-        const KEY_KP_0: 65456
-        const KEY_KP_1: 65457
-        const KEY_KP_2: 65458
-        const KEY_KP_3: 65459
-        const KEY_KP_4: 65460
-        const KEY_KP_5: 65461
-        const KEY_KP_6: 65462
-        const KEY_KP_7: 65463
-        const KEY_KP_8: 65464
-        const KEY_KP_9: 65465
-        const KEY_KP_Add: 65451
-        const KEY_KP_Begin: 65437
-        const KEY_KP_Decimal: 65454
-        const KEY_KP_Delete: 65439
-        const KEY_KP_Divide: 65455
-        const KEY_KP_Down: 65433
-        const KEY_KP_End: 65436
-        const KEY_KP_Enter: 65421
-        const KEY_KP_Equal: 65469
-        const KEY_KP_F1: 65425
-        const KEY_KP_F2: 65426
-        const KEY_KP_F3: 65427
-        const KEY_KP_F4: 65428
-        const KEY_KP_Home: 65429
-        const KEY_KP_Insert: 65438
-        const KEY_KP_Left: 65430
-        const KEY_KP_Multiply: 65450
-        const KEY_KP_Next: 65435
-        const KEY_KP_Page_Down: 65435
-        const KEY_KP_Page_Up: 65434
-        const KEY_KP_Prior: 65434
-        const KEY_KP_Right: 65432
-        const KEY_KP_Separator: 65452
-        const KEY_KP_Space: 65408
-        const KEY_KP_Subtract: 65453
-        const KEY_KP_Tab: 65417
-        const KEY_KP_Up: 65431
-        const KEY_Kana_Lock: 65325
-        const KEY_Kana_Shift: 65326
-        const KEY_Kanji: 65313
-        const KEY_Kanji_Bangou: 65335
-        const KEY_Katakana: 65318
-        const KEY_KbdBrightnessDown: 269025030
-        const KEY_KbdBrightnessUp: 269025029
-        const KEY_KbdInputAssistAccept: 268964452
-        const KEY_KbdInputAssistCancel: 268964453
-        const KEY_KbdInputAssistNext: 268964449
-        const KEY_KbdInputAssistNextgroup: 268964451
-        const KEY_KbdInputAssistPrev: 268964448
-        const KEY_KbdInputAssistPrevgroup: 268964450
-        const KEY_KbdLcdMenu1: 268964536
-        const KEY_KbdLcdMenu2: 268964537
-        const KEY_KbdLcdMenu3: 268964538
-        const KEY_KbdLcdMenu4: 268964539
-        const KEY_KbdLcdMenu5: 268964540
-        const KEY_KbdLightOnOff: 269025028
-        const KEY_Kcedilla: 979
-        const KEY_Keyboard: 269025203
-        const KEY_Korean_Won: 3839
-        const KEY_L: 76
-        const KEY_L1: 65480
-        const KEY_L10: 65489
-        const KEY_L2: 65481
-        const KEY_L3: 65482
-        const KEY_L4: 65483
-        const KEY_L5: 65484
-        const KEY_L6: 65485
-        const KEY_L7: 65486
-        const KEY_L8: 65487
-        const KEY_L9: 65488
-        const KEY_Lacute: 453
-        const KEY_Last_Virtual_Screen: 65236
-        const KEY_Launch0: 269025088
-        const KEY_Launch1: 269025089
-        const KEY_Launch2: 269025090
-        const KEY_Launch3: 269025091
-        const KEY_Launch4: 269025092
-        const KEY_Launch5: 269025093
-        const KEY_Launch6: 269025094
-        const KEY_Launch7: 269025095
-        const KEY_Launch8: 269025096
-        const KEY_Launch9: 269025097
-        const KEY_LaunchA: 269025098
-        const KEY_LaunchB: 269025099
-        const KEY_LaunchC: 269025100
-        const KEY_LaunchD: 269025101
-        const KEY_LaunchE: 269025102
-        const KEY_LaunchF: 269025103
-        const KEY_Lbelowdot: 16784950
-        const KEY_Lcaron: 421
-        const KEY_Lcedilla: 934
-        const KEY_Left: 65361
-        const KEY_LeftDown: 268964457
-        const KEY_LeftUp: 268964456
-        const KEY_LightBulb: 269025077
-        const KEY_LightsToggle: 268964382
-        const KEY_Linefeed: 65290
-        const KEY_LiraSign: 16785572
-        const KEY_LogGrabInfo: 269024805
-        const KEY_LogOff: 269025121
-        const KEY_LogWindowTree: 269024804
-        const KEY_Lstroke: 419
-        const KEY_M: 77
-        const KEY_Mabovedot: 16784960
-        const KEY_Macedonia_DSE: 1717
-        const KEY_Macedonia_GJE: 1714
-        const KEY_Macedonia_KJE: 1724
-        const KEY_Macedonia_dse: 1701
-        const KEY_Macedonia_gje: 1698
-        const KEY_Macedonia_kje: 1708
-        const KEY_Macro1: 268964496
-        const KEY_Macro10: 268964505
-        const KEY_Macro11: 268964506
-        const KEY_Macro12: 268964507
-        const KEY_Macro13: 268964508
-        const KEY_Macro14: 268964509
-        const KEY_Macro15: 268964510
-        const KEY_Macro16: 268964511
-        const KEY_Macro17: 268964512
-        const KEY_Macro18: 268964513
-        const KEY_Macro19: 268964514
-        const KEY_Macro2: 268964497
-        const KEY_Macro20: 268964515
-        const KEY_Macro21: 268964516
-        const KEY_Macro22: 268964517
-        const KEY_Macro23: 268964518
-        const KEY_Macro24: 268964519
-        const KEY_Macro25: 268964520
-        const KEY_Macro26: 268964521
-        const KEY_Macro27: 268964522
-        const KEY_Macro28: 268964523
-        const KEY_Macro29: 268964524
-        const KEY_Macro3: 268964498
-        const KEY_Macro30: 268964525
-        const KEY_Macro4: 268964499
-        const KEY_Macro5: 268964500
-        const KEY_Macro6: 268964501
-        const KEY_Macro7: 268964502
-        const KEY_Macro8: 268964503
-        const KEY_Macro9: 268964504
-        const KEY_MacroPreset1: 268964531
-        const KEY_MacroPreset2: 268964532
-        const KEY_MacroPreset3: 268964533
-        const KEY_MacroPresetCycle: 268964530
-        const KEY_MacroRecordStart: 268964528
-        const KEY_MacroRecordStop: 268964529
-        const KEY_Mae_Koho: 65342
-        const KEY_Mail: 269025049
-        const KEY_MailForward: 269025168
-        const KEY_MarkWaypoint: 268964478
-        const KEY_Market: 269025122
-        const KEY_Massyo: 65324
-        const KEY_MediaRepeat: 268964279
-        const KEY_MediaTopMenu: 268964459
-        const KEY_Meeting: 269025123
-        const KEY_Memo: 269025054
-        const KEY_Menu: 65383
-        const KEY_MenuKB: 269025125
-        const KEY_MenuPB: 269025126
-        const KEY_Messenger: 269025166
-        const KEY_Meta_L: 65511
-        const KEY_Meta_R: 65512
-        const KEY_MillSign: 16785573
-        const KEY_ModeLock: 269025025
-        const KEY_Mode_switch: 65406
-        const KEY_MonBrightnessCycle: 269025031
-        const KEY_MonBrightnessDown: 269025027
-        const KEY_MonBrightnessUp: 269025026
-        const KEY_MouseKeys_Accel_Enable: 65143
-        const KEY_MouseKeys_Enable: 65142
-        const KEY_Muhenkan: 65314
-        const KEY_Multi_key: 65312
-        const KEY_MultipleCandidate: 65341
-        const KEY_Music: 269025170
-        const KEY_MyComputer: 269025075
-        const KEY_MySites: 269025127
-        const KEY_N: 78
-        const KEY_Nacute: 465
-        const KEY_NairaSign: 16785574
-        const KEY_NavChart: 268964480
-        const KEY_NavInfo: 268964488
-        const KEY_Ncaron: 466
-        const KEY_Ncedilla: 977
-        const KEY_New: 269025128
-        const KEY_NewSheqelSign: 16785578
-        const KEY_News: 269025129
-        const KEY_Next: 65366
-        const KEY_NextElement: 268964475
-        const KEY_NextFavorite: 268964464
-        const KEY_Next_VMode: 269024802
-        const KEY_Next_Virtual_Screen: 65234
-        const KEY_NotificationCenter: 268964284
-        const KEY_Ntilde: 209
-        const KEY_Num_Lock: 65407
-        const KEY_Numeric0: 268964352
-        const KEY_Numeric1: 268964353
-        const KEY_Numeric11: 268964460
-        const KEY_Numeric12: 268964461
-        const KEY_Numeric2: 268964354
-        const KEY_Numeric3: 268964355
-        const KEY_Numeric4: 268964356
-        const KEY_Numeric5: 268964357
-        const KEY_Numeric6: 268964358
-        const KEY_Numeric7: 268964359
-        const KEY_Numeric8: 268964360
-        const KEY_Numeric9: 268964361
-        const KEY_NumericA: 268964364
-        const KEY_NumericB: 268964365
-        const KEY_NumericC: 268964366
-        const KEY_NumericD: 268964367
-        const KEY_NumericPound: 268964363
-        const KEY_NumericStar: 268964362
-        const KEY_O: 79
-        const KEY_OE: 5052
-        const KEY_Oacute: 211
-        const KEY_Obarred: 16777631
-        const KEY_Obelowdot: 16785100
-        const KEY_Ocaron: 16777681
-        const KEY_Ocircumflex: 212
-        const KEY_Ocircumflexacute: 16785104
-        const KEY_Ocircumflexbelowdot: 16785112
-        const KEY_Ocircumflexgrave: 16785106
-        const KEY_Ocircumflexhook: 16785108
-        const KEY_Ocircumflextilde: 16785110
-        const KEY_Odiaeresis: 214
-        const KEY_Odoubleacute: 469
-        const KEY_OfficeHome: 269025130
-        const KEY_Ograve: 210
-        const KEY_Ohook: 16785102
-        const KEY_Ohorn: 16777632
-        const KEY_Ohornacute: 16785114
-        const KEY_Ohornbelowdot: 16785122
-        const KEY_Ohorngrave: 16785116
-        const KEY_Ohornhook: 16785118
-        const KEY_Ohorntilde: 16785120
-        const KEY_Omacron: 978
-        const KEY_OnScreenKeyboard: 268964472
-        const KEY_Ooblique: 216
-        const KEY_Open: 269025131
-        const KEY_OpenURL: 269025080
-        const KEY_Option: 269025132
-        const KEY_Oslash: 216
-        const KEY_Otilde: 213
-        const KEY_Overlay1_Enable: 65144
-        const KEY_Overlay2_Enable: 65145
-        const KEY_P: 80
-        const KEY_Pabovedot: 16784982
-        const KEY_Page_Down: 65366
-        const KEY_Page_Up: 65365
-        const KEY_Paste: 269025133
-        const KEY_Pause: 65299
-        const KEY_PauseRecord: 268964466
-        const KEY_PesetaSign: 16785575
-        const KEY_Phone: 269025134
-        const KEY_PickupPhone: 268964285
-        const KEY_Pictures: 269025169
-        const KEY_Pointer_Accelerate: 65274
-        const KEY_Pointer_Button1: 65257
-        const KEY_Pointer_Button2: 65258
-        const KEY_Pointer_Button3: 65259
-        const KEY_Pointer_Button4: 65260
-        const KEY_Pointer_Button5: 65261
-        const KEY_Pointer_Button_Dflt: 65256
-        const KEY_Pointer_DblClick1: 65263
-        const KEY_Pointer_DblClick2: 65264
-        const KEY_Pointer_DblClick3: 65265
-        const KEY_Pointer_DblClick4: 65266
-        const KEY_Pointer_DblClick5: 65267
-        const KEY_Pointer_DblClick_Dflt: 65262
-        const KEY_Pointer_DfltBtnNext: 65275
-        const KEY_Pointer_DfltBtnPrev: 65276
-        const KEY_Pointer_Down: 65251
-        const KEY_Pointer_DownLeft: 65254
-        const KEY_Pointer_DownRight: 65255
-        const KEY_Pointer_Drag1: 65269
-        const KEY_Pointer_Drag2: 65270
-        const KEY_Pointer_Drag3: 65271
-        const KEY_Pointer_Drag4: 65272
-        const KEY_Pointer_Drag5: 65277
-        const KEY_Pointer_Drag_Dflt: 65268
-        const KEY_Pointer_EnableKeys: 65273
-        const KEY_Pointer_Left: 65248
-        const KEY_Pointer_Right: 65249
-        const KEY_Pointer_Up: 65250
-        const KEY_Pointer_UpLeft: 65252
-        const KEY_Pointer_UpRight: 65253
-        const KEY_PowerDown: 269025057
-        const KEY_PowerOff: 269025066
-        const KEY_Presentation: 268964265
-        const KEY_Prev_VMode: 269024803
-        const KEY_Prev_Virtual_Screen: 65233
-        const KEY_PreviousCandidate: 65342
-        const KEY_PreviousElement: 268964476
-        const KEY_Print: 65377
-        const KEY_Prior: 65365
-        const KEY_PrivacyScreenToggle: 268964473
-        const KEY_Q: 81
-        const KEY_R: 82
-        const KEY_R1: 65490
-        const KEY_R10: 65499
-        const KEY_R11: 65500
-        const KEY_R12: 65501
-        const KEY_R13: 65502
-        const KEY_R14: 65503
-        const KEY_R15: 65504
-        const KEY_R2: 65491
-        const KEY_R3: 65492
-        const KEY_R4: 65493
-        const KEY_R5: 65494
-        const KEY_R6: 65495
-        const KEY_R7: 65496
-        const KEY_R8: 65497
-        const KEY_R9: 65498
-        const KEY_RFKill: 269025205
-        const KEY_Racute: 448
-        const KEY_RadarOverlay: 268964484
-        const KEY_Rcaron: 472
-        const KEY_Rcedilla: 931
-        const KEY_Red: 269025187
-        const KEY_Redo: 65382
-        const KEY_Refresh: 269025065
-        const KEY_RefreshRateToggle: 268964402
-        const KEY_Reload: 269025139
-        const KEY_RepeatKeys_Enable: 65138
-        const KEY_Reply: 269025138
-        const KEY_Return: 65293
-        const KEY_Right: 65363
-        const KEY_RightDown: 268964455
-        const KEY_RightUp: 268964454
-        const KEY_RockerDown: 269025060
-        const KEY_RockerEnter: 269025061
-        const KEY_RockerUp: 269025059
-        const KEY_Romaji: 65316
-        const KEY_RootMenu: 268964458
-        const KEY_RotateWindows: 269025140
-        const KEY_RotationKB: 269025142
-        const KEY_RotationLockToggle: 269025207
-        const KEY_RotationPB: 269025141
-        const KEY_RupeeSign: 16785576
-        const KEY_S: 83
-        const KEY_SCHWA: 16777615
-        const KEY_Sabovedot: 16784992
-        const KEY_Sacute: 422
-        const KEY_Save: 269025143
-        const KEY_Scaron: 425
-        const KEY_Scedilla: 426
-        const KEY_Scircumflex: 734
-        const KEY_ScreenSaver: 269025069
-        const KEY_Screensaver: 268964421
-        const KEY_ScrollClick: 269025146
-        const KEY_ScrollDown: 269025145
-        const KEY_ScrollUp: 269025144
-        const KEY_Scroll_Lock: 65300
-        const KEY_Search: 269025051
-        const KEY_Select: 65376
-        const KEY_SelectButton: 269025184
-        const KEY_SelectiveScreenshot: 268964474
-        const KEY_Send: 269025147
-        const KEY_Serbian_DJE: 1713
-        const KEY_Serbian_DZE: 1727
-        const KEY_Serbian_JE: 1720
-        const KEY_Serbian_LJE: 1721
-        const KEY_Serbian_NJE: 1722
-        const KEY_Serbian_TSHE: 1723
-        const KEY_Serbian_dje: 1697
-        const KEY_Serbian_dze: 1711
-        const KEY_Serbian_je: 1704
-        const KEY_Serbian_lje: 1705
-        const KEY_Serbian_nje: 1706
-        const KEY_Serbian_tshe: 1707
-        const KEY_Shift_L: 65505
-        const KEY_Shift_Lock: 65510
-        const KEY_Shift_R: 65506
-        const KEY_Shop: 269025078
-        const KEY_SidevuSonar: 268964487
-        const KEY_SingleCandidate: 65340
-        const KEY_SingleRangeRadar: 268964482
-        const KEY_Sinh_a: 16780677
-        const KEY_Sinh_aa: 16780678
-        const KEY_Sinh_aa2: 16780751
-        const KEY_Sinh_ae: 16780679
-        const KEY_Sinh_ae2: 16780752
-        const KEY_Sinh_aee: 16780680
-        const KEY_Sinh_aee2: 16780753
-        const KEY_Sinh_ai: 16780691
-        const KEY_Sinh_ai2: 16780763
-        const KEY_Sinh_al: 16780746
-        const KEY_Sinh_au: 16780694
-        const KEY_Sinh_au2: 16780766
-        const KEY_Sinh_ba: 16780726
-        const KEY_Sinh_bha: 16780727
-        const KEY_Sinh_ca: 16780704
-        const KEY_Sinh_cha: 16780705
-        const KEY_Sinh_dda: 16780713
-        const KEY_Sinh_ddha: 16780714
-        const KEY_Sinh_dha: 16780719
-        const KEY_Sinh_dhha: 16780720
-        const KEY_Sinh_e: 16780689
-        const KEY_Sinh_e2: 16780761
-        const KEY_Sinh_ee: 16780690
-        const KEY_Sinh_ee2: 16780762
-        const KEY_Sinh_fa: 16780742
-        const KEY_Sinh_ga: 16780700
-        const KEY_Sinh_gha: 16780701
-        const KEY_Sinh_h2: 16780675
-        const KEY_Sinh_ha: 16780740
-        const KEY_Sinh_i: 16780681
-        const KEY_Sinh_i2: 16780754
-        const KEY_Sinh_ii: 16780682
-        const KEY_Sinh_ii2: 16780755
-        const KEY_Sinh_ja: 16780706
-        const KEY_Sinh_jha: 16780707
-        const KEY_Sinh_jnya: 16780709
-        const KEY_Sinh_ka: 16780698
-        const KEY_Sinh_kha: 16780699
-        const KEY_Sinh_kunddaliya: 16780788
-        const KEY_Sinh_la: 16780733
-        const KEY_Sinh_lla: 16780741
-        const KEY_Sinh_lu: 16780687
-        const KEY_Sinh_lu2: 16780767
-        const KEY_Sinh_luu: 16780688
-        const KEY_Sinh_luu2: 16780787
-        const KEY_Sinh_ma: 16780728
-        const KEY_Sinh_mba: 16780729
-        const KEY_Sinh_na: 16780721
-        const KEY_Sinh_ndda: 16780716
-        const KEY_Sinh_ndha: 16780723
-        const KEY_Sinh_ng: 16780674
-        const KEY_Sinh_ng2: 16780702
-        const KEY_Sinh_nga: 16780703
-        const KEY_Sinh_nja: 16780710
-        const KEY_Sinh_nna: 16780715
-        const KEY_Sinh_nya: 16780708
-        const KEY_Sinh_o: 16780692
-        const KEY_Sinh_o2: 16780764
-        const KEY_Sinh_oo: 16780693
-        const KEY_Sinh_oo2: 16780765
-        const KEY_Sinh_pa: 16780724
-        const KEY_Sinh_pha: 16780725
-        const KEY_Sinh_ra: 16780731
-        const KEY_Sinh_ri: 16780685
-        const KEY_Sinh_rii: 16780686
-        const KEY_Sinh_ru2: 16780760
-        const KEY_Sinh_ruu2: 16780786
-        const KEY_Sinh_sa: 16780739
-        const KEY_Sinh_sha: 16780737
-        const KEY_Sinh_ssha: 16780738
-        const KEY_Sinh_tha: 16780717
-        const KEY_Sinh_thha: 16780718
-        const KEY_Sinh_tta: 16780711
-        const KEY_Sinh_ttha: 16780712
-        const KEY_Sinh_u: 16780683
-        const KEY_Sinh_u2: 16780756
-        const KEY_Sinh_uu: 16780684
-        const KEY_Sinh_uu2: 16780758
-        const KEY_Sinh_va: 16780736
-        const KEY_Sinh_ya: 16780730
-        const KEY_Sleep: 269025071
-        const KEY_SlowKeys_Enable: 65139
-        const KEY_SlowReverse: 268964470
-        const KEY_Sos: 268964479
-        const KEY_Spell: 269025148
-        const KEY_SpellCheck: 268964272
-        const KEY_SplitScreen: 269025149
-        const KEY_Standby: 269025040
-        const KEY_Start: 269025050
-        const KEY_StickyKeys_Enable: 65141
-        const KEY_Stop: 269025064
-        const KEY_StopRecord: 268964465
-        const KEY_Subtitle: 269025178
-        const KEY_Super_L: 65515
-        const KEY_Super_R: 65516
-        const KEY_Support: 269025150
-        const KEY_Suspend: 269025191
-        const KEY_Switch_VT_1: 269024769
-        const KEY_Switch_VT_10: 269024778
-        const KEY_Switch_VT_11: 269024779
-        const KEY_Switch_VT_12: 269024780
-        const KEY_Switch_VT_2: 269024770
-        const KEY_Switch_VT_3: 269024771
-        const KEY_Switch_VT_4: 269024772
-        const KEY_Switch_VT_5: 269024773
-        const KEY_Switch_VT_6: 269024774
-        const KEY_Switch_VT_7: 269024775
-        const KEY_Switch_VT_8: 269024776
-        const KEY_Switch_VT_9: 269024777
-        const KEY_Sys_Req: 65301
-        const KEY_T: 84
-        const KEY_THORN: 222
-        const KEY_Tab: 65289
-        const KEY_Tabovedot: 16785002
-        const KEY_TaskPane: 269025151
-        const KEY_Taskmanager: 268964417
-        const KEY_Tcaron: 427
-        const KEY_Tcedilla: 478
-        const KEY_Terminal: 269025152
-        const KEY_Terminate_Server: 65237
-        const KEY_Thai_baht: 3551
-        const KEY_Thai_bobaimai: 3514
-        const KEY_Thai_chochan: 3496
-        const KEY_Thai_chochang: 3498
-        const KEY_Thai_choching: 3497
-        const KEY_Thai_chochoe: 3500
-        const KEY_Thai_dochada: 3502
-        const KEY_Thai_dodek: 3508
-        const KEY_Thai_fofa: 3517
-        const KEY_Thai_fofan: 3519
-        const KEY_Thai_hohip: 3531
-        const KEY_Thai_honokhuk: 3534
-        const KEY_Thai_khokhai: 3490
-        const KEY_Thai_khokhon: 3493
-        const KEY_Thai_khokhuat: 3491
-        const KEY_Thai_khokhwai: 3492
-        const KEY_Thai_khorakhang: 3494
-        const KEY_Thai_kokai: 3489
-        const KEY_Thai_lakkhangyao: 3557
-        const KEY_Thai_lekchet: 3575
-        const KEY_Thai_lekha: 3573
-        const KEY_Thai_lekhok: 3574
-        const KEY_Thai_lekkao: 3577
-        const KEY_Thai_leknung: 3569
-        const KEY_Thai_lekpaet: 3576
-        const KEY_Thai_leksam: 3571
-        const KEY_Thai_leksi: 3572
-        const KEY_Thai_leksong: 3570
-        const KEY_Thai_leksun: 3568
-        const KEY_Thai_lochula: 3532
-        const KEY_Thai_loling: 3525
-        const KEY_Thai_lu: 3526
-        const KEY_Thai_maichattawa: 3563
-        const KEY_Thai_maiek: 3560
-        const KEY_Thai_maihanakat: 3537
-        const KEY_Thai_maihanakat_maitho: 3550
-        const KEY_Thai_maitaikhu: 3559
-        const KEY_Thai_maitho: 3561
-        const KEY_Thai_maitri: 3562
-        const KEY_Thai_maiyamok: 3558
-        const KEY_Thai_moma: 3521
-        const KEY_Thai_ngongu: 3495
-        const KEY_Thai_nikhahit: 3565
-        const KEY_Thai_nonen: 3507
-        const KEY_Thai_nonu: 3513
-        const KEY_Thai_oang: 3533
-        const KEY_Thai_paiyannoi: 3535
-        const KEY_Thai_phinthu: 3546
-        const KEY_Thai_phophan: 3518
-        const KEY_Thai_phophung: 3516
-        const KEY_Thai_phosamphao: 3520
-        const KEY_Thai_popla: 3515
-        const KEY_Thai_rorua: 3523
-        const KEY_Thai_ru: 3524
-        const KEY_Thai_saraa: 3536
-        const KEY_Thai_saraaa: 3538
-        const KEY_Thai_saraae: 3553
-        const KEY_Thai_saraaimaimalai: 3556
-        const KEY_Thai_saraaimaimuan: 3555
-        const KEY_Thai_saraam: 3539
-        const KEY_Thai_sarae: 3552
-        const KEY_Thai_sarai: 3540
-        const KEY_Thai_saraii: 3541
-        const KEY_Thai_sarao: 3554
-        const KEY_Thai_sarau: 3544
-        const KEY_Thai_saraue: 3542
-        const KEY_Thai_sarauee: 3543
-        const KEY_Thai_sarauu: 3545
-        const KEY_Thai_sorusi: 3529
-        const KEY_Thai_sosala: 3528
-        const KEY_Thai_soso: 3499
-        const KEY_Thai_sosua: 3530
-        const KEY_Thai_thanthakhat: 3564
-        const KEY_Thai_thonangmontho: 3505
-        const KEY_Thai_thophuthao: 3506
-        const KEY_Thai_thothahan: 3511
-        const KEY_Thai_thothan: 3504
-        const KEY_Thai_thothong: 3512
-        const KEY_Thai_thothung: 3510
-        const KEY_Thai_topatak: 3503
-        const KEY_Thai_totao: 3509
-        const KEY_Thai_wowaen: 3527
-        const KEY_Thai_yoyak: 3522
-        const KEY_Thai_yoying: 3501
-        const KEY_Thorn: 222
-        const KEY_Time: 269025183
-        const KEY_ToDoList: 269025055
-        const KEY_Tools: 269025153
-        const KEY_TopMenu: 269025186
-        const KEY_TouchpadOff: 269025201
-        const KEY_TouchpadOn: 269025200
-        const KEY_TouchpadToggle: 269025193
-        const KEY_Touroku: 65323
-        const KEY_TraditionalSonar: 268964485
-        const KEY_Travel: 269025154
-        const KEY_Tslash: 940
-        const KEY_U: 85
-        const KEY_UWB: 269025174
-        const KEY_Uacute: 218
-        const KEY_Ubelowdot: 16785124
-        const KEY_Ubreve: 733
-        const KEY_Ucircumflex: 219
-        const KEY_Udiaeresis: 220
-        const KEY_Udoubleacute: 475
-        const KEY_Ugrave: 217
-        const KEY_Uhook: 16785126
-        const KEY_Uhorn: 16777647
-        const KEY_Uhornacute: 16785128
-        const KEY_Uhornbelowdot: 16785136
-        const KEY_Uhorngrave: 16785130
-        const KEY_Uhornhook: 16785132
-        const KEY_Uhorntilde: 16785134
-        const KEY_Ukrainian_GHE_WITH_UPTURN: 1725
-        const KEY_Ukrainian_I: 1718
-        const KEY_Ukrainian_IE: 1716
-        const KEY_Ukrainian_YI: 1719
-        const KEY_Ukrainian_ghe_with_upturn: 1709
-        const KEY_Ukrainian_i: 1702
-        const KEY_Ukrainian_ie: 1700
-        const KEY_Ukrainian_yi: 1703
-        const KEY_Ukranian_I: 1718
-        const KEY_Ukranian_JE: 1716
-        const KEY_Ukranian_YI: 1719
-        const KEY_Ukranian_i: 1702
-        const KEY_Ukranian_je: 1700
-        const KEY_Ukranian_yi: 1703
-        const KEY_Umacron: 990
-        const KEY_Undo: 65381
-        const KEY_Ungrab: 269024800
-        const KEY_Unmute: 268964468
-        const KEY_Uogonek: 985
-        const KEY_Up: 65362
-        const KEY_Uring: 473
-        const KEY_User1KB: 269025157
-        const KEY_User2KB: 269025158
-        const KEY_UserPB: 269025156
-        const KEY_Utilde: 989
-        const KEY_V: 86
-        const KEY_VOD: 268964467
-        const KEY_VendorHome: 269025076
-        const KEY_Video: 269025159
-        const KEY_VideoPhone: 268964256
-        const KEY_View: 269025185
-        const KEY_VoiceCommand: 268964422
-        const KEY_Voicemail: 268964268
-        const KEY_VoidSymbol: 16777215
-        const KEY_W: 87
-        const KEY_WLAN: 269025173
-        const KEY_WPSButton: 268964369
-        const KEY_WWAN: 269025204
-        const KEY_WWW: 269025070
-        const KEY_Wacute: 16785026
-        const KEY_WakeUp: 269025067
-        const KEY_Wcircumflex: 16777588
-        const KEY_Wdiaeresis: 16785028
-        const KEY_WebCam: 269025167
-        const KEY_Wgrave: 16785024
-        const KEY_WheelButton: 269025160
-        const KEY_WindowClear: 269025109
-        const KEY_WonSign: 16785577
-        const KEY_Word: 269025161
-        const KEY_X: 88
-        const KEY_Xabovedot: 16785034
-        const KEY_Xfer: 269025162
-        const KEY_Y: 89
-        const KEY_Yacute: 221
-        const KEY_Ybelowdot: 16785140
-        const KEY_Ycircumflex: 16777590
-        const KEY_Ydiaeresis: 5054
-        const KEY_Yellow: 269025189
-        const KEY_Ygrave: 16785138
-        const KEY_Yhook: 16785142
-        const KEY_Ytilde: 16785144
-        const KEY_Z: 90
-        const KEY_Zabovedot: 431
-        const KEY_Zacute: 428
-        const KEY_Zcaron: 430
-        const KEY_Zen_Koho: 65341
-        const KEY_Zenkaku: 65320
-        const KEY_Zenkaku_Hankaku: 65322
-        const KEY_ZoomIn: 269025163
-        const KEY_ZoomOut: 269025164
-        const KEY_ZoomReset: 268964260
-        const KEY_Zstroke: 16777653
-        const KEY_a: 97
-        const KEY_aacute: 225
-        const KEY_abelowdot: 16785057
-        const KEY_abovedot: 511
-        const KEY_abreve: 483
-        const KEY_abreveacute: 16785071
-        const KEY_abrevebelowdot: 16785079
-        const KEY_abrevegrave: 16785073
-        const KEY_abrevehook: 16785075
-        const KEY_abrevetilde: 16785077
-        const KEY_acircumflex: 226
-        const KEY_acircumflexacute: 16785061
-        const KEY_acircumflexbelowdot: 16785069
-        const KEY_acircumflexgrave: 16785063
-        const KEY_acircumflexhook: 16785065
-        const KEY_acircumflextilde: 16785067
-        const KEY_acute: 180
-        const KEY_adiaeresis: 228
-        const KEY_ae: 230
-        const KEY_agrave: 224
-        const KEY_ahook: 16785059
-        const KEY_amacron: 992
-        const KEY_ampersand: 38
-        const KEY_aogonek: 433
-        const KEY_apostrophe: 39
-        const KEY_approxeq: 16785992
-        const KEY_approximate: 2248
-        const KEY_aring: 229
-        const KEY_asciicircum: 94
-        const KEY_asciitilde: 126
-        const KEY_asterisk: 42
-        const KEY_at: 64
-        const KEY_atilde: 227
-        const KEY_b: 98
-        const KEY_babovedot: 16784899
-        const KEY_backslash: 92
-        const KEY_ballotcross: 2804
-        const KEY_bar: 124
-        const KEY_because: 16785973
-        const KEY_blank: 2527
-        const KEY_botintegral: 2213
-        const KEY_botleftparens: 2220
-        const KEY_botleftsqbracket: 2216
-        const KEY_botleftsummation: 2226
-        const KEY_botrightparens: 2222
-        const KEY_botrightsqbracket: 2218
-        const KEY_botrightsummation: 2230
-        const KEY_bott: 2550
-        const KEY_botvertsummationconnector: 2228
-        const KEY_braceleft: 123
-        const KEY_braceright: 125
-        const KEY_bracketleft: 91
-        const KEY_bracketright: 93
-        const KEY_braille_blank: 16787456
-        const KEY_braille_dot_1: 65521
-        const KEY_braille_dot_10: 65530
-        const KEY_braille_dot_2: 65522
-        const KEY_braille_dot_3: 65523
-        const KEY_braille_dot_4: 65524
-        const KEY_braille_dot_5: 65525
-        const KEY_braille_dot_6: 65526
-        const KEY_braille_dot_7: 65527
-        const KEY_braille_dot_8: 65528
-        const KEY_braille_dot_9: 65529
-        const KEY_braille_dots_1: 16787457
-        const KEY_braille_dots_12: 16787459
-        const KEY_braille_dots_123: 16787463
-        const KEY_braille_dots_1234: 16787471
-        const KEY_braille_dots_12345: 16787487
-        const KEY_braille_dots_123456: 16787519
-        const KEY_braille_dots_1234567: 16787583
-        const KEY_braille_dots_12345678: 16787711
-        const KEY_braille_dots_1234568: 16787647
-        const KEY_braille_dots_123457: 16787551
-        const KEY_braille_dots_1234578: 16787679
-        const KEY_braille_dots_123458: 16787615
-        const KEY_braille_dots_12346: 16787503
-        const KEY_braille_dots_123467: 16787567
-        const KEY_braille_dots_1234678: 16787695
-        const KEY_braille_dots_123468: 16787631
-        const KEY_braille_dots_12347: 16787535
-        const KEY_braille_dots_123478: 16787663
-        const KEY_braille_dots_12348: 16787599
-        const KEY_braille_dots_1235: 16787479
-        const KEY_braille_dots_12356: 16787511
-        const KEY_braille_dots_123567: 16787575
-        const KEY_braille_dots_1235678: 16787703
-        const KEY_braille_dots_123568: 16787639
-        const KEY_braille_dots_12357: 16787543
-        const KEY_braille_dots_123578: 16787671
-        const KEY_braille_dots_12358: 16787607
-        const KEY_braille_dots_1236: 16787495
-        const KEY_braille_dots_12367: 16787559
-        const KEY_braille_dots_123678: 16787687
-        const KEY_braille_dots_12368: 16787623
-        const KEY_braille_dots_1237: 16787527
-        const KEY_braille_dots_12378: 16787655
-        const KEY_braille_dots_1238: 16787591
-        const KEY_braille_dots_124: 16787467
-        const KEY_braille_dots_1245: 16787483
-        const KEY_braille_dots_12456: 16787515
-        const KEY_braille_dots_124567: 16787579
-        const KEY_braille_dots_1245678: 16787707
-        const KEY_braille_dots_124568: 16787643
-        const KEY_braille_dots_12457: 16787547
-        const KEY_braille_dots_124578: 16787675
-        const KEY_braille_dots_12458: 16787611
-        const KEY_braille_dots_1246: 16787499
-        const KEY_braille_dots_12467: 16787563
-        const KEY_braille_dots_124678: 16787691
-        const KEY_braille_dots_12468: 16787627
-        const KEY_braille_dots_1247: 16787531
-        const KEY_braille_dots_12478: 16787659
-        const KEY_braille_dots_1248: 16787595
-        const KEY_braille_dots_125: 16787475
-        const KEY_braille_dots_1256: 16787507
-        const KEY_braille_dots_12567: 16787571
-        const KEY_braille_dots_125678: 16787699
-        const KEY_braille_dots_12568: 16787635
-        const KEY_braille_dots_1257: 16787539
-        const KEY_braille_dots_12578: 16787667
-        const KEY_braille_dots_1258: 16787603
-        const KEY_braille_dots_126: 16787491
-        const KEY_braille_dots_1267: 16787555
-        const KEY_braille_dots_12678: 16787683
-        const KEY_braille_dots_1268: 16787619
-        const KEY_braille_dots_127: 16787523
-        const KEY_braille_dots_1278: 16787651
-        const KEY_braille_dots_128: 16787587
-        const KEY_braille_dots_13: 16787461
-        const KEY_braille_dots_134: 16787469
-        const KEY_braille_dots_1345: 16787485
-        const KEY_braille_dots_13456: 16787517
-        const KEY_braille_dots_134567: 16787581
-        const KEY_braille_dots_1345678: 16787709
-        const KEY_braille_dots_134568: 16787645
-        const KEY_braille_dots_13457: 16787549
-        const KEY_braille_dots_134578: 16787677
-        const KEY_braille_dots_13458: 16787613
-        const KEY_braille_dots_1346: 16787501
-        const KEY_braille_dots_13467: 16787565
-        const KEY_braille_dots_134678: 16787693
-        const KEY_braille_dots_13468: 16787629
-        const KEY_braille_dots_1347: 16787533
-        const KEY_braille_dots_13478: 16787661
-        const KEY_braille_dots_1348: 16787597
-        const KEY_braille_dots_135: 16787477
-        const KEY_braille_dots_1356: 16787509
-        const KEY_braille_dots_13567: 16787573
-        const KEY_braille_dots_135678: 16787701
-        const KEY_braille_dots_13568: 16787637
-        const KEY_braille_dots_1357: 16787541
-        const KEY_braille_dots_13578: 16787669
-        const KEY_braille_dots_1358: 16787605
-        const KEY_braille_dots_136: 16787493
-        const KEY_braille_dots_1367: 16787557
-        const KEY_braille_dots_13678: 16787685
-        const KEY_braille_dots_1368: 16787621
-        const KEY_braille_dots_137: 16787525
-        const KEY_braille_dots_1378: 16787653
-        const KEY_braille_dots_138: 16787589
-        const KEY_braille_dots_14: 16787465
-        const KEY_braille_dots_145: 16787481
-        const KEY_braille_dots_1456: 16787513
-        const KEY_braille_dots_14567: 16787577
-        const KEY_braille_dots_145678: 16787705
-        const KEY_braille_dots_14568: 16787641
-        const KEY_braille_dots_1457: 16787545
-        const KEY_braille_dots_14578: 16787673
-        const KEY_braille_dots_1458: 16787609
-        const KEY_braille_dots_146: 16787497
-        const KEY_braille_dots_1467: 16787561
-        const KEY_braille_dots_14678: 16787689
-        const KEY_braille_dots_1468: 16787625
-        const KEY_braille_dots_147: 16787529
-        const KEY_braille_dots_1478: 16787657
-        const KEY_braille_dots_148: 16787593
-        const KEY_braille_dots_15: 16787473
-        const KEY_braille_dots_156: 16787505
-        const KEY_braille_dots_1567: 16787569
-        const KEY_braille_dots_15678: 16787697
-        const KEY_braille_dots_1568: 16787633
-        const KEY_braille_dots_157: 16787537
-        const KEY_braille_dots_1578: 16787665
-        const KEY_braille_dots_158: 16787601
-        const KEY_braille_dots_16: 16787489
-        const KEY_braille_dots_167: 16787553
-        const KEY_braille_dots_1678: 16787681
-        const KEY_braille_dots_168: 16787617
-        const KEY_braille_dots_17: 16787521
-        const KEY_braille_dots_178: 16787649
-        const KEY_braille_dots_18: 16787585
-        const KEY_braille_dots_2: 16787458
-        const KEY_braille_dots_23: 16787462
-        const KEY_braille_dots_234: 16787470
-        const KEY_braille_dots_2345: 16787486
-        const KEY_braille_dots_23456: 16787518
-        const KEY_braille_dots_234567: 16787582
-        const KEY_braille_dots_2345678: 16787710
-        const KEY_braille_dots_234568: 16787646
-        const KEY_braille_dots_23457: 16787550
-        const KEY_braille_dots_234578: 16787678
-        const KEY_braille_dots_23458: 16787614
-        const KEY_braille_dots_2346: 16787502
-        const KEY_braille_dots_23467: 16787566
-        const KEY_braille_dots_234678: 16787694
-        const KEY_braille_dots_23468: 16787630
-        const KEY_braille_dots_2347: 16787534
-        const KEY_braille_dots_23478: 16787662
-        const KEY_braille_dots_2348: 16787598
-        const KEY_braille_dots_235: 16787478
-        const KEY_braille_dots_2356: 16787510
-        const KEY_braille_dots_23567: 16787574
-        const KEY_braille_dots_235678: 16787702
-        const KEY_braille_dots_23568: 16787638
-        const KEY_braille_dots_2357: 16787542
-        const KEY_braille_dots_23578: 16787670
-        const KEY_braille_dots_2358: 16787606
-        const KEY_braille_dots_236: 16787494
-        const KEY_braille_dots_2367: 16787558
-        const KEY_braille_dots_23678: 16787686
-        const KEY_braille_dots_2368: 16787622
-        const KEY_braille_dots_237: 16787526
-        const KEY_braille_dots_2378: 16787654
-        const KEY_braille_dots_238: 16787590
-        const KEY_braille_dots_24: 16787466
-        const KEY_braille_dots_245: 16787482
-        const KEY_braille_dots_2456: 16787514
-        const KEY_braille_dots_24567: 16787578
-        const KEY_braille_dots_245678: 16787706
-        const KEY_braille_dots_24568: 16787642
-        const KEY_braille_dots_2457: 16787546
-        const KEY_braille_dots_24578: 16787674
-        const KEY_braille_dots_2458: 16787610
-        const KEY_braille_dots_246: 16787498
-        const KEY_braille_dots_2467: 16787562
-        const KEY_braille_dots_24678: 16787690
-        const KEY_braille_dots_2468: 16787626
-        const KEY_braille_dots_247: 16787530
-        const KEY_braille_dots_2478: 16787658
-        const KEY_braille_dots_248: 16787594
-        const KEY_braille_dots_25: 16787474
-        const KEY_braille_dots_256: 16787506
-        const KEY_braille_dots_2567: 16787570
-        const KEY_braille_dots_25678: 16787698
-        const KEY_braille_dots_2568: 16787634
-        const KEY_braille_dots_257: 16787538
-        const KEY_braille_dots_2578: 16787666
-        const KEY_braille_dots_258: 16787602
-        const KEY_braille_dots_26: 16787490
-        const KEY_braille_dots_267: 16787554
-        const KEY_braille_dots_2678: 16787682
-        const KEY_braille_dots_268: 16787618
-        const KEY_braille_dots_27: 16787522
-        const KEY_braille_dots_278: 16787650
-        const KEY_braille_dots_28: 16787586
-        const KEY_braille_dots_3: 16787460
-        const KEY_braille_dots_34: 16787468
-        const KEY_braille_dots_345: 16787484
-        const KEY_braille_dots_3456: 16787516
-        const KEY_braille_dots_34567: 16787580
-        const KEY_braille_dots_345678: 16787708
-        const KEY_braille_dots_34568: 16787644
-        const KEY_braille_dots_3457: 16787548
-        const KEY_braille_dots_34578: 16787676
-        const KEY_braille_dots_3458: 16787612
-        const KEY_braille_dots_346: 16787500
-        const KEY_braille_dots_3467: 16787564
-        const KEY_braille_dots_34678: 16787692
-        const KEY_braille_dots_3468: 16787628
-        const KEY_braille_dots_347: 16787532
-        const KEY_braille_dots_3478: 16787660
-        const KEY_braille_dots_348: 16787596
-        const KEY_braille_dots_35: 16787476
-        const KEY_braille_dots_356: 16787508
-        const KEY_braille_dots_3567: 16787572
-        const KEY_braille_dots_35678: 16787700
-        const KEY_braille_dots_3568: 16787636
-        const KEY_braille_dots_357: 16787540
-        const KEY_braille_dots_3578: 16787668
-        const KEY_braille_dots_358: 16787604
-        const KEY_braille_dots_36: 16787492
-        const KEY_braille_dots_367: 16787556
-        const KEY_braille_dots_3678: 16787684
-        const KEY_braille_dots_368: 16787620
-        const KEY_braille_dots_37: 16787524
-        const KEY_braille_dots_378: 16787652
-        const KEY_braille_dots_38: 16787588
-        const KEY_braille_dots_4: 16787464
-        const KEY_braille_dots_45: 16787480
-        const KEY_braille_dots_456: 16787512
-        const KEY_braille_dots_4567: 16787576
-        const KEY_braille_dots_45678: 16787704
-        const KEY_braille_dots_4568: 16787640
-        const KEY_braille_dots_457: 16787544
-        const KEY_braille_dots_4578: 16787672
-        const KEY_braille_dots_458: 16787608
-        const KEY_braille_dots_46: 16787496
-        const KEY_braille_dots_467: 16787560
-        const KEY_braille_dots_4678: 16787688
-        const KEY_braille_dots_468: 16787624
-        const KEY_braille_dots_47: 16787528
-        const KEY_braille_dots_478: 16787656
-        const KEY_braille_dots_48: 16787592
-        const KEY_braille_dots_5: 16787472
-        const KEY_braille_dots_56: 16787504
-        const KEY_braille_dots_567: 16787568
-        const KEY_braille_dots_5678: 16787696
-        const KEY_braille_dots_568: 16787632
-        const KEY_braille_dots_57: 16787536
-        const KEY_braille_dots_578: 16787664
-        const KEY_braille_dots_58: 16787600
-        const KEY_braille_dots_6: 16787488
-        const KEY_braille_dots_67: 16787552
-        const KEY_braille_dots_678: 16787680
-        const KEY_braille_dots_68: 16787616
-        const KEY_braille_dots_7: 16787520
-        const KEY_braille_dots_78: 16787648
-        const KEY_braille_dots_8: 16787584
-        const KEY_breve: 418
-        const KEY_brokenbar: 166
-        const KEY_c: 99
-        const KEY_c_h: 65187
-        const KEY_cabovedot: 741
-        const KEY_cacute: 486
-        const KEY_careof: 2744
-        const KEY_caret: 2812
-        const KEY_caron: 439
-        const KEY_ccaron: 488
-        const KEY_ccedilla: 231
-        const KEY_ccircumflex: 742
-        const KEY_cedilla: 184
-        const KEY_cent: 162
-        const KEY_ch: 65184
-        const KEY_checkerboard: 2529
-        const KEY_checkmark: 2803
-        const KEY_circle: 3023
-        const KEY_club: 2796
-        const KEY_colon: 58
-        const KEY_combining_acute: 16777985
-        const KEY_combining_belowdot: 16778019
-        const KEY_combining_grave: 16777984
-        const KEY_combining_hook: 16777993
-        const KEY_combining_tilde: 16777987
-        const KEY_comma: 44
-        const KEY_containsas: 16785931
-        const KEY_copyright: 169
-        const KEY_cr: 2532
-        const KEY_crossinglines: 2542
-        const KEY_cuberoot: 16785947
-        const KEY_currency: 164
-        const KEY_cursor: 2815
-        const KEY_d: 100
-        const KEY_dabovedot: 16784907
-        const KEY_dagger: 2801
-        const KEY_dcaron: 495
-        const KEY_dead_A: 65153
-        const KEY_dead_E: 65155
-        const KEY_dead_I: 65157
-        const KEY_dead_O: 65159
-        const KEY_dead_SCHWA: 65163
-        const KEY_dead_U: 65161
-        const KEY_dead_a: 65152
-        const KEY_dead_abovecomma: 65124
-        const KEY_dead_abovedot: 65110
-        const KEY_dead_abovereversedcomma: 65125
-        const KEY_dead_abovering: 65112
-        const KEY_dead_aboveverticalline: 65169
-        const KEY_dead_acute: 65105
-        const KEY_dead_belowbreve: 65131
-        const KEY_dead_belowcircumflex: 65129
-        const KEY_dead_belowcomma: 65134
-        const KEY_dead_belowdiaeresis: 65132
-        const KEY_dead_belowdot: 65120
-        const KEY_dead_belowmacron: 65128
-        const KEY_dead_belowring: 65127
-        const KEY_dead_belowtilde: 65130
-        const KEY_dead_belowverticalline: 65170
-        const KEY_dead_breve: 65109
-        const KEY_dead_capital_schwa: 65163
-        const KEY_dead_caron: 65114
-        const KEY_dead_cedilla: 65115
-        const KEY_dead_circumflex: 65106
-        const KEY_dead_currency: 65135
-        const KEY_dead_dasia: 65125
-        const KEY_dead_diaeresis: 65111
-        const KEY_dead_doubleacute: 65113
-        const KEY_dead_doublegrave: 65126
-        const KEY_dead_e: 65154
-        const KEY_dead_grave: 65104
-        const KEY_dead_greek: 65164
-        const KEY_dead_hamza: 65165
-        const KEY_dead_hook: 65121
-        const KEY_dead_horn: 65122
-        const KEY_dead_i: 65156
-        const KEY_dead_invertedbreve: 65133
-        const KEY_dead_iota: 65117
-        const KEY_dead_longsolidusoverlay: 65171
-        const KEY_dead_lowline: 65168
-        const KEY_dead_macron: 65108
-        const KEY_dead_o: 65158
-        const KEY_dead_ogonek: 65116
-        const KEY_dead_perispomeni: 65107
-        const KEY_dead_psili: 65124
-        const KEY_dead_schwa: 65162
-        const KEY_dead_semivoiced_sound: 65119
-        const KEY_dead_small_schwa: 65162
-        const KEY_dead_stroke: 65123
-        const KEY_dead_tilde: 65107
-        const KEY_dead_u: 65160
-        const KEY_dead_voiced_sound: 65118
-        const KEY_decimalpoint: 2749
-        const KEY_degree: 176
-        const KEY_diaeresis: 168
-        const KEY_diamond: 2797
-        const KEY_digitspace: 2725
-        const KEY_dintegral: 16785964
-        const KEY_division: 247
-        const KEY_dollar: 36
-        const KEY_doubbaselinedot: 2735
-        const KEY_doubleacute: 445
-        const KEY_doubledagger: 2802
-        const KEY_doublelowquotemark: 2814
-        const KEY_downarrow: 2302
-        const KEY_downcaret: 2984
-        const KEY_downshoe: 3030
-        const KEY_downstile: 3012
-        const KEY_downtack: 3010
-        const KEY_dstroke: 496
-        const KEY_e: 101
-        const KEY_eabovedot: 1004
-        const KEY_eacute: 233
-        const KEY_ebelowdot: 16785081
-        const KEY_ecaron: 492
-        const KEY_ecircumflex: 234
-        const KEY_ecircumflexacute: 16785087
-        const KEY_ecircumflexbelowdot: 16785095
-        const KEY_ecircumflexgrave: 16785089
-        const KEY_ecircumflexhook: 16785091
-        const KEY_ecircumflextilde: 16785093
-        const KEY_ediaeresis: 235
-        const KEY_egrave: 232
-        const KEY_ehook: 16785083
-        const KEY_eightsubscript: 16785544
-        const KEY_eightsuperior: 16785528
-        const KEY_elementof: 16785928
-        const KEY_ellipsis: 2734
-        const KEY_em3space: 2723
-        const KEY_em4space: 2724
-        const KEY_emacron: 954
-        const KEY_emdash: 2729
-        const KEY_emfilledcircle: 2782
-        const KEY_emfilledrect: 2783
-        const KEY_emopencircle: 2766
-        const KEY_emopenrectangle: 2767
-        const KEY_emptyset: 16785925
-        const KEY_emspace: 2721
-        const KEY_endash: 2730
-        const KEY_enfilledcircbullet: 2790
-        const KEY_enfilledsqbullet: 2791
-        const KEY_eng: 959
-        const KEY_enopencircbullet: 2784
-        const KEY_enopensquarebullet: 2785
-        const KEY_enspace: 2722
-        const KEY_eogonek: 490
-        const KEY_equal: 61
-        const KEY_eth: 240
-        const KEY_etilde: 16785085
-        const KEY_exclam: 33
-        const KEY_exclamdown: 161
-        const KEY_ezh: 16777874
-        const KEY_f: 102
-        const KEY_fabovedot: 16784927
-        const KEY_femalesymbol: 2808
-        const KEY_ff: 2531
-        const KEY_figdash: 2747
-        const KEY_filledlefttribullet: 2780
-        const KEY_filledrectbullet: 2779
-        const KEY_filledrighttribullet: 2781
-        const KEY_filledtribulletdown: 2793
-        const KEY_filledtribulletup: 2792
-        const KEY_fiveeighths: 2757
-        const KEY_fivesixths: 2743
-        const KEY_fivesubscript: 16785541
-        const KEY_fivesuperior: 16785525
-        const KEY_fourfifths: 2741
-        const KEY_foursubscript: 16785540
-        const KEY_foursuperior: 16785524
-        const KEY_fourthroot: 16785948
-        const KEY_function: 2294
-        const KEY_g: 103
-        const KEY_gabovedot: 757
-        const KEY_gbreve: 699
-        const KEY_gcaron: 16777703
-        const KEY_gcedilla: 955
-        const KEY_gcircumflex: 760
-        const KEY_grave: 96
-        const KEY_greater: 62
-        const KEY_greaterthanequal: 2238
-        const KEY_guillemetleft: 171
-        const KEY_guillemetright: 187
-        const KEY_guillemotleft: 171
-        const KEY_guillemotright: 187
-        const KEY_h: 104
-        const KEY_hairspace: 2728
-        const KEY_hcircumflex: 694
-        const KEY_heart: 2798
-        const KEY_hebrew_aleph: 3296
-        const KEY_hebrew_ayin: 3314
-        const KEY_hebrew_bet: 3297
-        const KEY_hebrew_beth: 3297
-        const KEY_hebrew_chet: 3303
-        const KEY_hebrew_dalet: 3299
-        const KEY_hebrew_daleth: 3299
-        const KEY_hebrew_doublelowline: 3295
-        const KEY_hebrew_finalkaph: 3306
-        const KEY_hebrew_finalmem: 3309
-        const KEY_hebrew_finalnun: 3311
-        const KEY_hebrew_finalpe: 3315
-        const KEY_hebrew_finalzade: 3317
-        const KEY_hebrew_finalzadi: 3317
-        const KEY_hebrew_gimel: 3298
-        const KEY_hebrew_gimmel: 3298
-        const KEY_hebrew_he: 3300
-        const KEY_hebrew_het: 3303
-        const KEY_hebrew_kaph: 3307
-        const KEY_hebrew_kuf: 3319
-        const KEY_hebrew_lamed: 3308
-        const KEY_hebrew_mem: 3310
-        const KEY_hebrew_nun: 3312
-        const KEY_hebrew_pe: 3316
-        const KEY_hebrew_qoph: 3319
-        const KEY_hebrew_resh: 3320
-        const KEY_hebrew_samech: 3313
-        const KEY_hebrew_samekh: 3313
-        const KEY_hebrew_shin: 3321
-        const KEY_hebrew_taf: 3322
-        const KEY_hebrew_taw: 3322
-        const KEY_hebrew_tet: 3304
-        const KEY_hebrew_teth: 3304
-        const KEY_hebrew_waw: 3301
-        const KEY_hebrew_yod: 3305
-        const KEY_hebrew_zade: 3318
-        const KEY_hebrew_zadi: 3318
-        const KEY_hebrew_zain: 3302
-        const KEY_hebrew_zayin: 3302
-        const KEY_hexagram: 2778
-        const KEY_horizconnector: 2211
-        const KEY_horizlinescan1: 2543
-        const KEY_horizlinescan3: 2544
-        const KEY_horizlinescan5: 2545
-        const KEY_horizlinescan7: 2546
-        const KEY_horizlinescan9: 2547
-        const KEY_hstroke: 689
-        const KEY_ht: 2530
-        const KEY_hyphen: 173
-        const KEY_i: 105
-        const KEY_iTouch: 269025120
-        const KEY_iacute: 237
-        const KEY_ibelowdot: 16785099
-        const KEY_ibreve: 16777517
-        const KEY_icircumflex: 238
-        const KEY_identical: 2255
-        const KEY_idiaeresis: 239
-        const KEY_idotless: 697
-        const KEY_ifonlyif: 2253
-        const KEY_igrave: 236
-        const KEY_ihook: 16785097
-        const KEY_imacron: 1007
-        const KEY_implies: 2254
-        const KEY_includedin: 2266
-        const KEY_includes: 2267
-        const KEY_infinity: 2242
-        const KEY_integral: 2239
-        const KEY_intersection: 2268
-        const KEY_iogonek: 999
-        const KEY_itilde: 949
-        const KEY_j: 106
-        const KEY_jcircumflex: 700
-        const KEY_jot: 3018
-        const KEY_k: 107
-        const KEY_kana_A: 1201
-        const KEY_kana_CHI: 1217
-        const KEY_kana_E: 1204
-        const KEY_kana_FU: 1228
-        const KEY_kana_HA: 1226
-        const KEY_kana_HE: 1229
-        const KEY_kana_HI: 1227
-        const KEY_kana_HO: 1230
-        const KEY_kana_HU: 1228
-        const KEY_kana_I: 1202
-        const KEY_kana_KA: 1206
-        const KEY_kana_KE: 1209
-        const KEY_kana_KI: 1207
-        const KEY_kana_KO: 1210
-        const KEY_kana_KU: 1208
-        const KEY_kana_MA: 1231
-        const KEY_kana_ME: 1234
-        const KEY_kana_MI: 1232
-        const KEY_kana_MO: 1235
-        const KEY_kana_MU: 1233
-        const KEY_kana_N: 1245
-        const KEY_kana_NA: 1221
-        const KEY_kana_NE: 1224
-        const KEY_kana_NI: 1222
-        const KEY_kana_NO: 1225
-        const KEY_kana_NU: 1223
-        const KEY_kana_O: 1205
-        const KEY_kana_RA: 1239
-        const KEY_kana_RE: 1242
-        const KEY_kana_RI: 1240
-        const KEY_kana_RO: 1243
-        const KEY_kana_RU: 1241
-        const KEY_kana_SA: 1211
-        const KEY_kana_SE: 1214
-        const KEY_kana_SHI: 1212
-        const KEY_kana_SO: 1215
-        const KEY_kana_SU: 1213
-        const KEY_kana_TA: 1216
-        const KEY_kana_TE: 1219
-        const KEY_kana_TI: 1217
-        const KEY_kana_TO: 1220
-        const KEY_kana_TSU: 1218
-        const KEY_kana_TU: 1218
-        const KEY_kana_U: 1203
-        const KEY_kana_WA: 1244
-        const KEY_kana_WO: 1190
-        const KEY_kana_YA: 1236
-        const KEY_kana_YO: 1238
-        const KEY_kana_YU: 1237
-        const KEY_kana_a: 1191
-        const KEY_kana_closingbracket: 1187
-        const KEY_kana_comma: 1188
-        const KEY_kana_conjunctive: 1189
-        const KEY_kana_e: 1194
-        const KEY_kana_fullstop: 1185
-        const KEY_kana_i: 1192
-        const KEY_kana_middledot: 1189
-        const KEY_kana_o: 1195
-        const KEY_kana_openingbracket: 1186
-        const KEY_kana_switch: 65406
-        const KEY_kana_tsu: 1199
-        const KEY_kana_tu: 1199
-        const KEY_kana_u: 1193
-        const KEY_kana_ya: 1196
-        const KEY_kana_yo: 1198
-        const KEY_kana_yu: 1197
-        const KEY_kappa: 930
-        const KEY_kcedilla: 1011
-        const KEY_kra: 930
-        const KEY_l: 108
-        const KEY_lacute: 485
-        const KEY_latincross: 2777
-        const KEY_lbelowdot: 16784951
-        const KEY_lcaron: 437
-        const KEY_lcedilla: 950
-        const KEY_leftanglebracket: 2748
-        const KEY_leftarrow: 2299
-        const KEY_leftcaret: 2979
-        const KEY_leftdoublequotemark: 2770
-        const KEY_leftmiddlecurlybrace: 2223
-        const KEY_leftopentriangle: 2764
-        const KEY_leftpointer: 2794
-        const KEY_leftradical: 2209
-        const KEY_leftshoe: 3034
-        const KEY_leftsinglequotemark: 2768
-        const KEY_leftt: 2548
-        const KEY_lefttack: 3036
-        const KEY_less: 60
-        const KEY_lessthanequal: 2236
-        const KEY_lf: 2533
-        const KEY_logicaland: 2270
-        const KEY_logicalor: 2271
-        const KEY_lowleftcorner: 2541
-        const KEY_lowrightcorner: 2538
-        const KEY_lstroke: 435
-        const KEY_m: 109
-        const KEY_mabovedot: 16784961
-        const KEY_macron: 175
-        const KEY_malesymbol: 2807
-        const KEY_maltesecross: 2800
-        const KEY_marker: 2751
-        const KEY_masculine: 186
-        const KEY_minus: 45
-        const KEY_minutes: 2774
-        const KEY_mu: 181
-        const KEY_multiply: 215
-        const KEY_musicalflat: 2806
-        const KEY_musicalsharp: 2805
-        const KEY_n: 110
-        const KEY_nabla: 2245
-        const KEY_nacute: 497
-        const KEY_ncaron: 498
-        const KEY_ncedilla: 1009
-        const KEY_ninesubscript: 16785545
-        const KEY_ninesuperior: 16785529
-        const KEY_nl: 2536
-        const KEY_nobreakspace: 160
-        const KEY_notapproxeq: 16785991
-        const KEY_notelementof: 16785929
-        const KEY_notequal: 2237
-        const KEY_notidentical: 16786018
-        const KEY_notsign: 172
-        const KEY_ntilde: 241
-        const KEY_numbersign: 35
-        const KEY_numerosign: 1712
-        const KEY_o: 111
-        const KEY_oacute: 243
-        const KEY_obarred: 16777845
-        const KEY_obelowdot: 16785101
-        const KEY_ocaron: 16777682
-        const KEY_ocircumflex: 244
-        const KEY_ocircumflexacute: 16785105
-        const KEY_ocircumflexbelowdot: 16785113
-        const KEY_ocircumflexgrave: 16785107
-        const KEY_ocircumflexhook: 16785109
-        const KEY_ocircumflextilde: 16785111
-        const KEY_odiaeresis: 246
-        const KEY_odoubleacute: 501
-        const KEY_oe: 5053
-        const KEY_ogonek: 434
-        const KEY_ograve: 242
-        const KEY_ohook: 16785103
-        const KEY_ohorn: 16777633
-        const KEY_ohornacute: 16785115
-        const KEY_ohornbelowdot: 16785123
-        const KEY_ohorngrave: 16785117
-        const KEY_ohornhook: 16785119
-        const KEY_ohorntilde: 16785121
-        const KEY_omacron: 1010
-        const KEY_oneeighth: 2755
-        const KEY_onefifth: 2738
-        const KEY_onehalf: 189
-        const KEY_onequarter: 188
-        const KEY_onesixth: 2742
-        const KEY_onesubscript: 16785537
-        const KEY_onesuperior: 185
-        const KEY_onethird: 2736
-        const KEY_ooblique: 248
-        const KEY_openrectbullet: 2786
-        const KEY_openstar: 2789
-        const KEY_opentribulletdown: 2788
-        const KEY_opentribulletup: 2787
-        const KEY_ordfeminine: 170
-        const KEY_ordmasculine: 186
-        const KEY_oslash: 248
-        const KEY_otilde: 245
-        const KEY_overbar: 3008
-        const KEY_overline: 1150
-        const KEY_p: 112
-        const KEY_pabovedot: 16784983
-        const KEY_paragraph: 182
-        const KEY_parenleft: 40
-        const KEY_parenright: 41
-        const KEY_partdifferential: 16785922
-        const KEY_partialderivative: 2287
-        const KEY_percent: 37
-        const KEY_period: 46
-        const KEY_periodcentered: 183
-        const KEY_permille: 2773
-        const KEY_phonographcopyright: 2811
-        const KEY_plus: 43
-        const KEY_plusminus: 177
-        const KEY_prescription: 2772
-        const KEY_prolongedsound: 1200
-        const KEY_punctspace: 2726
-        const KEY_q: 113
-        const KEY_quad: 3020
-        const KEY_question: 63
-        const KEY_questiondown: 191
-        const KEY_quotedbl: 34
-        const KEY_quoteleft: 96
-        const KEY_quoteright: 39
-        const KEY_r: 114
-        const KEY_racute: 480
-        const KEY_radical: 2262
-        const KEY_rcaron: 504
-        const KEY_rcedilla: 947
-        const KEY_registered: 174
-        const KEY_rightanglebracket: 2750
-        const KEY_rightarrow: 2301
-        const KEY_rightcaret: 2982
-        const KEY_rightdoublequotemark: 2771
-        const KEY_rightmiddlecurlybrace: 2224
-        const KEY_rightmiddlesummation: 2231
-        const KEY_rightopentriangle: 2765
-        const KEY_rightpointer: 2795
-        const KEY_rightshoe: 3032
-        const KEY_rightsinglequotemark: 2769
-        const KEY_rightt: 2549
-        const KEY_righttack: 3068
-        const KEY_s: 115
-        const KEY_sabovedot: 16784993
-        const KEY_sacute: 438
-        const KEY_scaron: 441
-        const KEY_scedilla: 442
-        const KEY_schwa: 16777817
-        const KEY_scircumflex: 766
-        const KEY_script_switch: 65406
-        const KEY_seconds: 2775
-        const KEY_section: 167
-        const KEY_semicolon: 59
-        const KEY_semivoicedsound: 1247
-        const KEY_seveneighths: 2758
-        const KEY_sevensubscript: 16785543
-        const KEY_sevensuperior: 16785527
-        const KEY_signaturemark: 2762
-        const KEY_signifblank: 2732
-        const KEY_similarequal: 2249
-        const KEY_singlelowquotemark: 2813
-        const KEY_sixsubscript: 16785542
-        const KEY_sixsuperior: 16785526
-        const KEY_slash: 47
-        const KEY_soliddiamond: 2528
-        const KEY_space: 32
-        const KEY_squareroot: 16785946
-        const KEY_ssharp: 223
-        const KEY_sterling: 163
-        const KEY_stricteq: 16786019
-        const KEY_t: 116
-        const KEY_tabovedot: 16785003
-        const KEY_tcaron: 443
-        const KEY_tcedilla: 510
-        const KEY_telephone: 2809
-        const KEY_telephonerecorder: 2810
-        const KEY_therefore: 2240
-        const KEY_thinspace: 2727
-        const KEY_thorn: 254
-        const KEY_threeeighths: 2756
-        const KEY_threefifths: 2740
-        const KEY_threequarters: 190
-        const KEY_threesubscript: 16785539
-        const KEY_threesuperior: 179
-        const KEY_tintegral: 16785965
-        const KEY_topintegral: 2212
-        const KEY_topleftparens: 2219
-        const KEY_topleftradical: 2210
-        const KEY_topleftsqbracket: 2215
-        const KEY_topleftsummation: 2225
-        const KEY_toprightparens: 2221
-        const KEY_toprightsqbracket: 2217
-        const KEY_toprightsummation: 2229
-        const KEY_topt: 2551
-        const KEY_topvertsummationconnector: 2227
-        const KEY_trademark: 2761
-        const KEY_trademarkincircle: 2763
-        const KEY_tslash: 956
-        const KEY_twofifths: 2739
-        const KEY_twosubscript: 16785538
-        const KEY_twosuperior: 178
-        const KEY_twothirds: 2737
-        const KEY_u: 117
-        const KEY_uacute: 250
-        const KEY_ubelowdot: 16785125
-        const KEY_ubreve: 765
-        const KEY_ucircumflex: 251
-        const KEY_udiaeresis: 252
-        const KEY_udoubleacute: 507
-        const KEY_ugrave: 249
-        const KEY_uhook: 16785127
-        const KEY_uhorn: 16777648
-        const KEY_uhornacute: 16785129
-        const KEY_uhornbelowdot: 16785137
-        const KEY_uhorngrave: 16785131
-        const KEY_uhornhook: 16785133
-        const KEY_uhorntilde: 16785135
-        const KEY_umacron: 1022
-        const KEY_underbar: 3014
-        const KEY_underscore: 95
-        const KEY_union: 2269
-        const KEY_uogonek: 1017
-        const KEY_uparrow: 2300
-        const KEY_upcaret: 2985
-        const KEY_upleftcorner: 2540
-        const KEY_uprightcorner: 2539
-        const KEY_upshoe: 3011
-        const KEY_upstile: 3027
-        const KEY_uptack: 3022
-        const KEY_uring: 505
-        const KEY_utilde: 1021
-        const KEY_v: 118
-        const KEY_variation: 2241
-        const KEY_vertbar: 2552
-        const KEY_vertconnector: 2214
-        const KEY_voicedsound: 1246
-        const KEY_vt: 2537
-        const KEY_w: 119
-        const KEY_wacute: 16785027
-        const KEY_wcircumflex: 16777589
-        const KEY_wdiaeresis: 16785029
-        const KEY_wgrave: 16785025
-        const KEY_x: 120
-        const KEY_xabovedot: 16785035
-        const KEY_y: 121
-        const KEY_yacute: 253
-        const KEY_ybelowdot: 16785141
-        const KEY_ycircumflex: 16777591
-        const KEY_ydiaeresis: 255
-        const KEY_yen: 165
-        const KEY_ygrave: 16785139
-        const KEY_yhook: 16785143
-        const KEY_ytilde: 16785145
-        const KEY_z: 122
-        const KEY_zabovedot: 447
-        const KEY_zacute: 444
-        const KEY_zcaron: 446
-        const KEY_zerosubscript: 16785536
-        const KEY_zerosuperior: 16785520
-        const KEY_zstroke: 16777654
-        const MODIFIER_MASK: 469769999
-        const PRIORITY_REDRAW: 120
-        
-        namespace AxisUse {
-            const $gtype: GObject.GType<AxisUse>
-        }
 
-        /**
-         * Defines how device axes are interpreted by GTK.
-         *
-         * Note that the X and Y axes are not really needed; pointer devices
-         * report their location via the x/y members of events regardless. Whether
-         * X and Y are present as axes depends on the GDK backend.
-         */
-        enum AxisUse {
+        interface $Exports {
+            ToplevelSize: ToplevelSizeStruct
+        }
+        
+        interface AxisUseEnum {
+            readonly $gtype: GObject.GType<AxisUse>
             /**
              * the axis is ignored.
              */
-            "IGNORE" = 0,
+            readonly "IGNORE": 0
             /**
              * the axis is used as the x axis.
              */
-            "X" = 1,
+            readonly "X": 1
             /**
              * the axis is used as the y axis.
              */
-            "Y" = 2,
+            readonly "Y": 2
             /**
              * the axis is used as the scroll x delta
              */
-            "DELTA_X" = 3,
+            readonly "DELTA_X": 3
             /**
              * the axis is used as the scroll y delta
              */
-            "DELTA_Y" = 4,
+            readonly "DELTA_Y": 4
             /**
              * the axis is used for pressure information.
              */
-            "PRESSURE" = 5,
+            readonly "PRESSURE": 5
             /**
              * the axis is used for x tilt information.
              */
-            "XTILT" = 6,
+            readonly "XTILT": 6
             /**
              * the axis is used for y tilt information.
              */
-            "YTILT" = 7,
+            readonly "YTILT": 7
             /**
              * the axis is used for wheel information.
              */
-            "WHEEL" = 8,
+            readonly "WHEEL": 8
             /**
              * the axis is used for pen/tablet distance information
              */
-            "DISTANCE" = 9,
+            readonly "DISTANCE": 9
             /**
              * the axis is used for pen rotation information
              */
-            "ROTATION" = 10,
+            readonly "ROTATION": 10
             /**
              * the axis is used for pen slider information
              */
-            "SLIDER" = 11,
+            readonly "SLIDER": 11
             /**
              * a constant equal to the numerically highest axis value.
              */
-            "LAST" = 12,
+            readonly "LAST": 12
+        }
+        type AxisUse = AxisUseEnum[Exclude<keyof AxisUseEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Defines how device axes are interpreted by GTK.
+             *
+             * Note that the X and Y axes are not really needed; pointer devices
+             * report their location via the x/y members of events regardless. Whether
+             * X and Y are present as axes depends on the GDK backend.
+             */
+            AxisUse: AxisUseEnum
         }
         
-        namespace CicpRange {
-            const $gtype: GObject.GType<CicpRange>
-        }
-
-        /**
-         * The values of this enumeration describe whether image data uses
-         * the full range of 8-bit values.
-         *
-         * In digital broadcasting, it is common to reserve the lowest and
-         * highest values. Typically the allowed values for the narrow range
-         * are 16-235 for Y and 16-240 for u,v (when dealing with YUV data).
-         * @since 4.16
-         */
-        enum CicpRange {
+        interface CicpRangeEnum {
+            readonly $gtype: GObject.GType<CicpRange>
             /**
              * The values use the range of 16-235 (for Y) and 16-240 for u and v.
              */
-            "NARROW" = 0,
+            readonly "NARROW": 0
             /**
              * The values use the full range.
              */
-            "FULL" = 1,
+            readonly "FULL": 1
+        }
+        type CicpRange = CicpRangeEnum[Exclude<keyof CicpRangeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The values of this enumeration describe whether image data uses
+             * the full range of 8-bit values.
+             *
+             * In digital broadcasting, it is common to reserve the lowest and
+             * highest values. Typically the allowed values for the narrow range
+             * are 16-235 for Y and 16-240 for u,v (when dealing with YUV data).
+             * @since 4.16
+             */
+            CicpRange: CicpRangeEnum
         }
         
-        namespace ColorChannel {
-            const $gtype: GObject.GType<ColorChannel>
-        }
-
-        /**
-         * Enumerates the color channels of RGBA values as used in
-         * `GdkColor` and OpenGL/Vulkan shaders.
-         *
-         * Note that this is not the order of pixel values in Cairo
-         * and `GdkMemoryFormat` can have many different orders.
-         * @since 4.22
-         */
-        enum ColorChannel {
+        interface ColorChannelEnum {
+            readonly $gtype: GObject.GType<ColorChannel>
             /**
              * The red color channel, aka 0
              */
-            "RED" = 0,
+            readonly "RED": 0
             /**
              * The green color channel, aka 1
              */
-            "GREEN" = 1,
+            readonly "GREEN": 1
             /**
              * The blue color channel, aka 2
              */
-            "BLUE" = 2,
+            readonly "BLUE": 2
             /**
              * The alpha color channel, aka 3
              */
-            "ALPHA" = 3,
+            readonly "ALPHA": 3
+        }
+        type ColorChannel = ColorChannelEnum[Exclude<keyof ColorChannelEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumerates the color channels of RGBA values as used in
+             * `GdkColor` and OpenGL/Vulkan shaders.
+             *
+             * Note that this is not the order of pixel values in Cairo
+             * and `GdkMemoryFormat` can have many different orders.
+             * @since 4.22
+             */
+            ColorChannel: ColorChannelEnum
         }
         
-        namespace CrossingMode {
-            const $gtype: GObject.GType<CrossingMode>
-        }
-
-        /**
-         * Specifies the crossing mode for enter and leave events.
-         */
-        enum CrossingMode {
+        interface CrossingModeEnum {
+            readonly $gtype: GObject.GType<CrossingMode>
             /**
              * crossing because of pointer motion.
              */
-            "NORMAL" = 0,
+            readonly "NORMAL": 0
             /**
              * crossing because a grab is activated.
              */
-            "GRAB" = 1,
+            readonly "GRAB": 1
             /**
              * crossing because a grab is deactivated.
              */
-            "UNGRAB" = 2,
+            readonly "UNGRAB": 2
             /**
              * crossing because a GTK grab is activated.
              */
-            "GTK_GRAB" = 3,
+            readonly "GTK_GRAB": 3
             /**
              * crossing because a GTK grab is deactivated.
              */
-            "GTK_UNGRAB" = 4,
+            readonly "GTK_UNGRAB": 4
             /**
              * crossing because a GTK widget changed
              *   state (e.g. sensitivity).
              */
-            "STATE_CHANGED" = 5,
+            readonly "STATE_CHANGED": 5
             /**
              * crossing because a touch sequence has begun,
              *   this event is synthetic as the pointer might have not left the surface.
              */
-            "TOUCH_BEGIN" = 6,
+            readonly "TOUCH_BEGIN": 6
             /**
              * crossing because a touch sequence has ended,
              *   this event is synthetic as the pointer might have not left the surface.
              */
-            "TOUCH_END" = 7,
+            readonly "TOUCH_END": 7
             /**
              * crossing because of a device switch (i.e.
              *   a mouse taking control of the pointer after a touch device), this event
              *   is synthetic as the pointer didn’t leave the surface.
              */
-            "DEVICE_SWITCH" = 8,
+            readonly "DEVICE_SWITCH": 8
+        }
+        type CrossingMode = CrossingModeEnum[Exclude<keyof CrossingModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the crossing mode for enter and leave events.
+             */
+            CrossingMode: CrossingModeEnum
         }
         
-        namespace DevicePadFeature {
-            const $gtype: GObject.GType<DevicePadFeature>
-        }
-
-        /**
-         * A pad feature.
-         */
-        enum DevicePadFeature {
+        interface DevicePadFeatureEnum {
+            readonly $gtype: GObject.GType<DevicePadFeature>
             /**
              * a button
              */
-            "BUTTON" = 0,
+            readonly "BUTTON": 0
             /**
              * a ring-shaped interactive area
              */
-            "RING" = 1,
+            readonly "RING": 1
             /**
              * a straight interactive area
              */
-            "STRIP" = 2,
+            readonly "STRIP": 2
+        }
+        type DevicePadFeature = DevicePadFeatureEnum[Exclude<keyof DevicePadFeatureEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * A pad feature.
+             */
+            DevicePadFeature: DevicePadFeatureEnum
         }
         
-        namespace DeviceToolType {
-            const $gtype: GObject.GType<DeviceToolType>
-        }
-
-        /**
-         * Indicates the specific type of tool being used being a tablet. Such as an
-         * airbrush, pencil, etc.
-         */
-        enum DeviceToolType {
+        interface DeviceToolTypeEnum {
+            readonly $gtype: GObject.GType<DeviceToolType>
             /**
              * Tool is of an unknown type.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Tool is a standard tablet stylus.
              */
-            "PEN" = 1,
+            readonly "PEN": 1
             /**
              * Tool is standard tablet eraser.
              */
-            "ERASER" = 2,
+            readonly "ERASER": 2
             /**
              * Tool is a brush stylus.
              */
-            "BRUSH" = 3,
+            readonly "BRUSH": 3
             /**
              * Tool is a pencil stylus.
              */
-            "PENCIL" = 4,
+            readonly "PENCIL": 4
             /**
              * Tool is an airbrush stylus.
              */
-            "AIRBRUSH" = 5,
+            readonly "AIRBRUSH": 5
             /**
              * Tool is a mouse.
              */
-            "MOUSE" = 6,
+            readonly "MOUSE": 6
             /**
              * Tool is a lens cursor.
              */
-            "LENS" = 7,
+            readonly "LENS": 7
+        }
+        type DeviceToolType = DeviceToolTypeEnum[Exclude<keyof DeviceToolTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Indicates the specific type of tool being used being a tablet. Such as an
+             * airbrush, pencil, etc.
+             */
+            DeviceToolType: DeviceToolTypeEnum
         }
         
-        abstract class DmabufError extends GLib.Error {
-            static readonly $gtype: GObject.GType<DmabufError>
+        interface DmabufError extends GLib.Error {}
+
+        interface DmabufErrorEnum {
+            readonly $gtype: GObject.GType<DmabufError>
+
+            new(props: { message: string, code: number }): DmabufError
             /**
              * Dmabuf support is not available, because the OS
              *   is not Linux, or it was explicitly disabled at compile- or runtime
              */
-            static readonly "NOT_AVAILABLE": 0
+            readonly "NOT_AVAILABLE": 0
             /**
              * The requested format is not supported
              */
-            static readonly "UNSUPPORTED_FORMAT": 1
+            readonly "UNSUPPORTED_FORMAT": 1
             /**
              * GTK failed to create the resource for other
              *   reasons
              */
-            static readonly "CREATION_FAILED": 2
-        }
-        /**
+            readonly "CREATION_FAILED": 2
+            /**
          * Registers an error quark for [class@Gdk.DmabufTexture] errors.
          * @returns the error quark
          */
-        function quark(): GLib.Quark
-        
-        namespace DragCancelReason {
-            const $gtype: GObject.GType<DragCancelReason>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Used in `GdkDrag` to the reason of a cancelled DND operation.
-         */
-        enum DragCancelReason {
+        interface $Exports {
+            /**
+             * Error enumeration for `GdkDmabufTexture`.
+             * @since 4.14
+             */
+            DmabufError: DmabufErrorEnum
+        }
+        
+        interface DragCancelReasonEnum {
+            readonly $gtype: GObject.GType<DragCancelReason>
             /**
              * There is no suitable drop target.
              */
-            "NO_TARGET" = 0,
+            readonly "NO_TARGET": 0
             /**
              * Drag cancelled by the user
              */
-            "USER_CANCELLED" = 1,
+            readonly "USER_CANCELLED": 1
             /**
              * Unspecified error.
              */
-            "ERROR" = 2,
+            readonly "ERROR": 2
+        }
+        type DragCancelReason = DragCancelReasonEnum[Exclude<keyof DragCancelReasonEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Used in `GdkDrag` to the reason of a cancelled DND operation.
+             */
+            DragCancelReason: DragCancelReasonEnum
         }
         
-        namespace EventType {
-            const $gtype: GObject.GType<EventType>
-        }
-
-        /**
-         * Specifies the type of the event.
-         */
-        enum EventType {
+        interface EventTypeEnum {
+            readonly $gtype: GObject.GType<EventType>
             /**
              * the window manager has requested that the toplevel surface be
              *   hidden or destroyed, usually when the user clicks on a special icon in the
              *   title bar.
              */
-            "DELETE" = 0,
+            readonly "DELETE": 0
             /**
              * the pointer (usually a mouse) has moved.
              */
-            "MOTION_NOTIFY" = 1,
+            readonly "MOTION_NOTIFY": 1
             /**
              * a mouse button has been pressed.
              */
-            "BUTTON_PRESS" = 2,
+            readonly "BUTTON_PRESS": 2
             /**
              * a mouse button has been released.
              */
-            "BUTTON_RELEASE" = 3,
+            readonly "BUTTON_RELEASE": 3
             /**
              * a key has been pressed.
              */
-            "KEY_PRESS" = 4,
+            readonly "KEY_PRESS": 4
             /**
              * a key has been released.
              */
-            "KEY_RELEASE" = 5,
+            readonly "KEY_RELEASE": 5
             /**
              * the pointer has entered the surface.
              */
-            "ENTER_NOTIFY" = 6,
+            readonly "ENTER_NOTIFY": 6
             /**
              * the pointer has left the surface.
              */
-            "LEAVE_NOTIFY" = 7,
+            readonly "LEAVE_NOTIFY": 7
             /**
              * the keyboard focus has entered or left the surface.
              */
-            "FOCUS_CHANGE" = 8,
+            readonly "FOCUS_CHANGE": 8
             /**
              * an input device has moved into contact with a sensing
              *   surface (e.g. a touchscreen or graphics tablet).
              */
-            "PROXIMITY_IN" = 9,
+            readonly "PROXIMITY_IN": 9
             /**
              * an input device has moved out of contact with a sensing
              *   surface.
              */
-            "PROXIMITY_OUT" = 10,
+            readonly "PROXIMITY_OUT": 10
             /**
              * the mouse has entered the surface while a drag is in progress.
              */
-            "DRAG_ENTER" = 11,
+            readonly "DRAG_ENTER": 11
             /**
              * the mouse has left the surface while a drag is in progress.
              */
-            "DRAG_LEAVE" = 12,
+            readonly "DRAG_LEAVE": 12
             /**
              * the mouse has moved in the surface while a drag is in
              *   progress.
              */
-            "DRAG_MOTION" = 13,
+            readonly "DRAG_MOTION": 13
             /**
              * a drop operation onto the surface has started.
              */
-            "DROP_START" = 14,
+            readonly "DROP_START": 14
             /**
              * the scroll wheel was turned
              */
-            "SCROLL" = 15,
+            readonly "SCROLL": 15
             /**
              * a pointer or keyboard grab was broken.
              */
-            "GRAB_BROKEN" = 16,
+            readonly "GRAB_BROKEN": 16
             /**
              * A new touch event sequence has just started.
              */
-            "TOUCH_BEGIN" = 17,
+            readonly "TOUCH_BEGIN": 17
             /**
              * A touch event sequence has been updated.
              */
-            "TOUCH_UPDATE" = 18,
+            readonly "TOUCH_UPDATE": 18
             /**
              * A touch event sequence has finished.
              */
-            "TOUCH_END" = 19,
+            readonly "TOUCH_END": 19
             /**
              * A touch event sequence has been canceled.
              */
-            "TOUCH_CANCEL" = 20,
+            readonly "TOUCH_CANCEL": 20
             /**
              * A touchpad swipe gesture event, the current state
              *   is determined by its phase field.
              */
-            "TOUCHPAD_SWIPE" = 21,
+            readonly "TOUCHPAD_SWIPE": 21
             /**
              * A touchpad pinch gesture event, the current state
              *   is determined by its phase field.
              */
-            "TOUCHPAD_PINCH" = 22,
+            readonly "TOUCHPAD_PINCH": 22
             /**
              * A tablet pad button press event.
              */
-            "PAD_BUTTON_PRESS" = 23,
+            readonly "PAD_BUTTON_PRESS": 23
             /**
              * A tablet pad button release event.
              */
-            "PAD_BUTTON_RELEASE" = 24,
+            readonly "PAD_BUTTON_RELEASE": 24
             /**
              * A tablet pad axis event from a "ring".
              */
-            "PAD_RING" = 25,
+            readonly "PAD_RING": 25
             /**
              * A tablet pad axis event from a "strip".
              */
-            "PAD_STRIP" = 26,
+            readonly "PAD_STRIP": 26
             /**
              * A tablet pad group mode change.
              */
-            "PAD_GROUP_MODE" = 27,
+            readonly "PAD_GROUP_MODE": 27
             /**
              * A touchpad hold gesture event, the current state is determined by its phase
              * field.
              * @since 4.6
              */
-            "TOUCHPAD_HOLD" = 28,
+            readonly "TOUCHPAD_HOLD": 28
             /**
              * A tablet pad axis event from a "dial".
              */
-            "PAD_DIAL" = 29,
+            readonly "PAD_DIAL": 29
             /**
              * marks the end of the GdkEventType enumeration.
              */
-            "EVENT_LAST" = 30,
+            readonly "EVENT_LAST": 30
+        }
+        type EventType = EventTypeEnum[Exclude<keyof EventTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the type of the event.
+             */
+            EventType: EventTypeEnum
         }
         
-        namespace FullscreenMode {
-            const $gtype: GObject.GType<FullscreenMode>
-        }
-
-        /**
-         * Indicates which monitor a surface should span over when in fullscreen mode.
-         */
-        enum FullscreenMode {
+        interface FullscreenModeEnum {
+            readonly $gtype: GObject.GType<FullscreenMode>
             /**
              * Fullscreen on current monitor only.
              */
-            "CURRENT_MONITOR" = 0,
+            readonly "CURRENT_MONITOR": 0
             /**
              * Span across all monitors when fullscreen.
              */
-            "ALL_MONITORS" = 1,
+            readonly "ALL_MONITORS": 1
+        }
+        type FullscreenMode = FullscreenModeEnum[Exclude<keyof FullscreenModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Indicates which monitor a surface should span over when in fullscreen mode.
+             */
+            FullscreenMode: FullscreenModeEnum
         }
         
-        abstract class GLError extends GLib.Error {
-            static readonly $gtype: GObject.GType<GLError>
+        interface GLError extends GLib.Error {}
+
+        interface GLErrorEnum {
+            readonly $gtype: GObject.GType<GLError>
+
+            new(props: { message: string, code: number }): GLError
             /**
              * OpenGL support is not available
              */
-            static readonly "NOT_AVAILABLE": 0
+            readonly "NOT_AVAILABLE": 0
             /**
              * The requested visual format is not supported
              */
-            static readonly "UNSUPPORTED_FORMAT": 1
+            readonly "UNSUPPORTED_FORMAT": 1
             /**
              * The requested profile is not supported
              */
-            static readonly "UNSUPPORTED_PROFILE": 2
+            readonly "UNSUPPORTED_PROFILE": 2
             /**
              * The shader compilation failed
              */
-            static readonly "COMPILATION_FAILED": 3
+            readonly "COMPILATION_FAILED": 3
             /**
              * The shader linking failed
              */
-            static readonly "LINK_FAILED": 4
-        }
-        /**
+            readonly "LINK_FAILED": 4
+            /**
          * Registers an error quark for [class@Gdk.GLContext] errors.
          * @returns the error quark
          */
-        function quark(): GLib.Quark
-        
-        namespace Gravity {
-            const $gtype: GObject.GType<Gravity>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Defines the reference point of a surface and is used in `GdkPopupLayout`.
-         */
-        enum Gravity {
+        interface $Exports {
+            /**
+             * Error enumeration for `GdkGLContext`.
+             */
+            GLError: GLErrorEnum
+        }
+        
+        interface GravityEnum {
+            readonly $gtype: GObject.GType<Gravity>
             /**
              * the reference point is at the top left corner.
              */
-            "NORTH_WEST" = 1,
+            readonly "NORTH_WEST": 1
             /**
              * the reference point is in the middle of the top edge.
              */
-            "NORTH" = 2,
+            readonly "NORTH": 2
             /**
              * the reference point is at the top right corner.
              */
-            "NORTH_EAST" = 3,
+            readonly "NORTH_EAST": 3
             /**
              * the reference point is at the middle of the left edge.
              */
-            "WEST" = 4,
+            readonly "WEST": 4
             /**
              * the reference point is at the center of the surface.
              */
-            "CENTER" = 5,
+            readonly "CENTER": 5
             /**
              * the reference point is at the middle of the right edge.
              */
-            "EAST" = 6,
+            readonly "EAST": 6
             /**
              * the reference point is at the lower left corner.
              */
-            "SOUTH_WEST" = 7,
+            readonly "SOUTH_WEST": 7
             /**
              * the reference point is at the middle of the lower edge.
              */
-            "SOUTH" = 8,
+            readonly "SOUTH": 8
             /**
              * the reference point is at the lower right corner.
              */
-            "SOUTH_EAST" = 9,
+            readonly "SOUTH_EAST": 9
             /**
              * the reference point is at the top left corner of the
              *  surface itself, ignoring window manager decorations.
              */
-            "STATIC" = 10,
+            readonly "STATIC": 10
+        }
+        type Gravity = GravityEnum[Exclude<keyof GravityEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Defines the reference point of a surface and is used in `GdkPopupLayout`.
+             */
+            Gravity: GravityEnum
         }
         
-        namespace InputSource {
-            const $gtype: GObject.GType<InputSource>
-        }
-
-        /**
-         * An enumeration describing the type of an input device in general terms.
-         */
-        enum InputSource {
+        interface InputSourceEnum {
+            readonly $gtype: GObject.GType<InputSource>
             /**
              * the device is a mouse. (This will be reported for the core
              *   pointer, even if it is something else, such as a trackball.)
              */
-            "MOUSE" = 0,
+            readonly "MOUSE": 0
             /**
              * the device is a stylus of a graphics tablet or similar device.
              */
-            "PEN" = 1,
+            readonly "PEN": 1
             /**
              * the device is a keyboard.
              */
-            "KEYBOARD" = 2,
+            readonly "KEYBOARD": 2
             /**
              * the device is a direct-input touch device, such
              *   as a touchscreen or tablet
              */
-            "TOUCHSCREEN" = 3,
+            readonly "TOUCHSCREEN": 3
             /**
              * the device is an indirect touch device, such
              *   as a touchpad
              */
-            "TOUCHPAD" = 4,
+            readonly "TOUCHPAD": 4
             /**
              * the device is a trackpoint
              */
-            "TRACKPOINT" = 5,
+            readonly "TRACKPOINT": 5
             /**
              * the device is a "pad", a collection of buttons,
              *   rings and strips found in drawing tablets
              */
-            "TABLET_PAD" = 6,
+            readonly "TABLET_PAD": 6
+        }
+        type InputSource = InputSourceEnum[Exclude<keyof InputSourceEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An enumeration describing the type of an input device in general terms.
+             */
+            InputSource: InputSourceEnum
         }
         
-        namespace KeyMatch {
-            const $gtype: GObject.GType<KeyMatch>
-        }
-
-        /**
-         * Describes how well an event matches a given keyval and modifiers.
-         *
-         * `GdkKeyMatch` values are returned by [method@Gdk.KeyEvent.matches].
-         */
-        enum KeyMatch {
+        interface KeyMatchEnum {
+            readonly $gtype: GObject.GType<KeyMatch>
             /**
              * The key event does not match
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * The key event matches if keyboard state
              *   (specifically, the currently active group) is ignored
              */
-            "PARTIAL" = 1,
+            readonly "PARTIAL": 1
             /**
              * The key event matches
              */
-            "EXACT" = 2,
+            readonly "EXACT": 2
+        }
+        type KeyMatch = KeyMatchEnum[Exclude<keyof KeyMatchEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes how well an event matches a given keyval and modifiers.
+             *
+             * `GdkKeyMatch` values are returned by [method@Gdk.KeyEvent.matches].
+             */
+            KeyMatch: KeyMatchEnum
         }
         
-        namespace MemoryFormat {
-            const $gtype: GObject.GType<MemoryFormat>
-        }
-
-        /**
-         * Describes formats that image data can have in memory.
-         *
-         * It describes formats by listing the contents of the memory passed to it.
-         * So `GDK_MEMORY_A8R8G8B8` will be 1 byte (8 bits) of alpha, followed by a
-         * byte each of red, green and blue. It is not endian-dependent, so
-         * `CAIRO_FORMAT_ARGB32` is represented by different `GdkMemoryFormats`
-         * on architectures with different endiannesses.
-         *
-         * Its naming is modelled after
-         * [VkFormat](https://www.khronos.org/registry/vulkan/specs/1.0/html/vkspec.html#VkFormat)
-         * for details).
-         */
-        enum MemoryFormat {
+        interface MemoryFormatEnum {
+            readonly $gtype: GObject.GType<MemoryFormat>
             /**
              * 4 bytes; for blue, green, red, alpha.
              *   The color values are premultiplied with the alpha value.
              */
-            "B8G8R8A8_PREMULTIPLIED" = 0,
+            readonly "B8G8R8A8_PREMULTIPLIED": 0
             /**
              * 4 bytes; for alpha, red, green, blue.
              *   The color values are premultiplied with the alpha value.
              */
-            "A8R8G8B8_PREMULTIPLIED" = 1,
+            readonly "A8R8G8B8_PREMULTIPLIED": 1
             /**
              * 4 bytes; for red, green, blue, alpha
              *   The color values are premultiplied with the alpha value.
              */
-            "R8G8B8A8_PREMULTIPLIED" = 2,
+            readonly "R8G8B8A8_PREMULTIPLIED": 2
             /**
              * 4 bytes; for blue, green, red, alpha.
              */
-            "B8G8R8A8" = 3,
+            readonly "B8G8R8A8": 3
             /**
              * 4 bytes; for alpha, red, green, blue.
              */
-            "A8R8G8B8" = 4,
+            readonly "A8R8G8B8": 4
             /**
              * 4 bytes; for red, green, blue, alpha.
              */
-            "R8G8B8A8" = 5,
+            readonly "R8G8B8A8": 5
             /**
              * 4 bytes; for alpha, blue, green, red.
              */
-            "A8B8G8R8" = 6,
+            readonly "A8B8G8R8": 6
             /**
              * 3 bytes; for red, green, blue. The data is opaque.
              */
-            "R8G8B8" = 7,
+            readonly "R8G8B8": 7
             /**
              * 3 bytes; for blue, green, red. The data is opaque.
              */
-            "B8G8R8" = 8,
+            readonly "B8G8R8": 8
             /**
              * 3 guint16 values; for red, green, blue.
              * @since 4.6
              */
-            "R16G16B16" = 9,
+            readonly "R16G16B16": 9
             /**
              * 4 guint16 values; for red, green, blue, alpha. The color values are
              * premultiplied with the alpha value.
              * @since 4.6
              */
-            "R16G16B16A16_PREMULTIPLIED" = 10,
+            readonly "R16G16B16A16_PREMULTIPLIED": 10
             /**
              * 4 guint16 values; for red, green, blue, alpha.
              * @since 4.6
              */
-            "R16G16B16A16" = 11,
+            readonly "R16G16B16A16": 11
             /**
              * 3 half-float values; for red, green, blue. The data is opaque.
              * @since 4.6
              */
-            "R16G16B16_FLOAT" = 12,
+            readonly "R16G16B16_FLOAT": 12
             /**
              * 4 half-float values; for red, green, blue and alpha. The color values are
              * premultiplied with the alpha value.
              * @since 4.6
              */
-            "R16G16B16A16_FLOAT_PREMULTIPLIED" = 13,
+            readonly "R16G16B16A16_FLOAT_PREMULTIPLIED": 13
             /**
              * 4 half-float values; for red, green, blue and alpha.
              * @since 4.6
              */
-            "R16G16B16A16_FLOAT" = 14,
+            readonly "R16G16B16A16_FLOAT": 14
             /**
              * 3 float values; for red, green, blue.
              */
-            "R32G32B32_FLOAT" = 15,
+            readonly "R32G32B32_FLOAT": 15
             /**
              * 4 float values; for red, green, blue and alpha. The color values are
              * premultiplied with the alpha value.
              * @since 4.6
              */
-            "R32G32B32A32_FLOAT_PREMULTIPLIED" = 16,
+            readonly "R32G32B32A32_FLOAT_PREMULTIPLIED": 16
             /**
              * 4 float values; for red, green, blue and alpha.
              * @since 4.6
              */
-            "R32G32B32A32_FLOAT" = 17,
+            readonly "R32G32B32A32_FLOAT": 17
             /**
              * 2 bytes; for grayscale, alpha. The color values are premultiplied with the
              * alpha value.
              * @since 4.12
              */
-            "G8A8_PREMULTIPLIED" = 18,
+            readonly "G8A8_PREMULTIPLIED": 18
             /**
              * 2 bytes; for grayscale, alpha.
              * @since 4.12
              */
-            "G8A8" = 19,
+            readonly "G8A8": 19
             /**
              * One byte; for grayscale. The data is opaque.
              * @since 4.12
              */
-            "G8" = 20,
+            readonly "G8": 20
             /**
              * 2 guint16 values; for grayscale, alpha. The color values are premultiplied
              * with the alpha value.
              * @since 4.12
              */
-            "G16A16_PREMULTIPLIED" = 21,
+            readonly "G16A16_PREMULTIPLIED": 21
             /**
              * 2 guint16 values; for grayscale, alpha.
              * @since 4.12
              */
-            "G16A16" = 22,
+            readonly "G16A16": 22
             /**
              * One guint16 value; for grayscale. The data is opaque.
              * @since 4.12
              */
-            "G16" = 23,
+            readonly "G16": 23
             /**
              * One byte; for alpha.
              * @since 4.12
              */
-            "A8" = 24,
+            readonly "A8": 24
             /**
              * One guint16 value; for alpha.
              * @since 4.12
              */
-            "A16" = 25,
+            readonly "A16": 25
             /**
              * One half-float value; for alpha.
              * @since 4.12
              */
-            "A16_FLOAT" = 26,
+            readonly "A16_FLOAT": 26
             /**
              * One float value; for alpha.
              * @since 4.12
              */
-            "A32_FLOAT" = 27,
+            readonly "A32_FLOAT": 27
             /**
              * 4 bytes; for alpha, blue, green, red, The color values are premultiplied with
              * the alpha value.
              * @since 4.14
              */
-            "A8B8G8R8_PREMULTIPLIED" = 28,
+            readonly "A8B8G8R8_PREMULTIPLIED": 28
             /**
              * 4 bytes; for blue, green, red, unused.
              * @since 4.14
              */
-            "B8G8R8X8" = 29,
+            readonly "B8G8R8X8": 29
             /**
              * 4 bytes; for unused, red, green, blue.
              * @since 4.14
              */
-            "X8R8G8B8" = 30,
+            readonly "X8R8G8B8": 30
             /**
              * 4 bytes; for red, green, blue, unused.
              * @since 4.14
              */
-            "R8G8B8X8" = 31,
+            readonly "R8G8B8X8": 31
             /**
              * 4 bytes; for unused, blue, green, red.
              * @since 4.14
              */
-            "X8B8G8R8" = 32,
+            readonly "X8B8G8R8": 32
             /**
              * Multiplane format with 2 planes.
              *
@@ -12425,7 +9633,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "NV12".
              * @since 4.20
              */
-            "G8_B8R8_420" = 33,
+            readonly "G8_B8R8_420": 33
             /**
              * Multiplane format with 2 planes.
              *
@@ -12437,7 +9645,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "NV21".
              * @since 4.20
              */
-            "G8_R8B8_420" = 34,
+            readonly "G8_R8B8_420": 34
             /**
              * Multiplane format with 2 planes.
              *
@@ -12449,7 +9657,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "NV16".
              * @since 4.20
              */
-            "G8_B8R8_422" = 35,
+            readonly "G8_B8R8_422": 35
             /**
              * Multiplane format with 2 planes.
              *
@@ -12461,7 +9669,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "NV61".
              * @since 4.20
              */
-            "G8_R8B8_422" = 36,
+            readonly "G8_R8B8_422": 36
             /**
              * Multiplane format with 2 planes.
              *
@@ -12473,7 +9681,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "NV24".
              * @since 4.20
              */
-            "G8_B8R8_444" = 37,
+            readonly "G8_B8R8_444": 37
             /**
              * Multiplane format with 2 planes.
              *
@@ -12485,7 +9693,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "NV42".
              * @since 4.20
              */
-            "G8_R8B8_444" = 38,
+            readonly "G8_R8B8_444": 38
             /**
              * Multiplane format with 2 planes.
              *
@@ -12499,7 +9707,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "P010".
              * @since 4.20
              */
-            "G10X6_B10X6R10X6_420" = 39,
+            readonly "G10X6_B10X6R10X6_420": 39
             /**
              * Multiplane format with 2 planes.
              *
@@ -12513,7 +9721,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "P012".
              * @since 4.20
              */
-            "G12X4_B12X4R12X4_420" = 40,
+            readonly "G12X4_B12X4R12X4_420": 40
             /**
              * Multiplane format with 2 planes.
              *
@@ -12527,7 +9735,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "P016".
              * @since 4.20
              */
-            "G16_B16R16_420" = 41,
+            readonly "G16_B16R16_420": 41
             /**
              * Multiplane format with 3 planes.
              *
@@ -12547,7 +9755,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YUV410".
              * @since 4.20
              */
-            "G8_B8_R8_410" = 42,
+            readonly "G8_B8_R8_410": 42
             /**
              * Multiplane format with 3 planes.
              *
@@ -12567,7 +9775,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YVU410".
              * @since 4.20
              */
-            "G8_R8_B8_410" = 43,
+            readonly "G8_R8_B8_410": 43
             /**
              * Multiplane format with 3 planes.
              *
@@ -12587,7 +9795,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YUV411".
              * @since 4.20
              */
-            "G8_B8_R8_411" = 44,
+            readonly "G8_B8_R8_411": 44
             /**
              * Multiplane format with 3 planes.
              *
@@ -12607,7 +9815,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YVU411".
              * @since 4.20
              */
-            "G8_R8_B8_411" = 45,
+            readonly "G8_R8_B8_411": 45
             /**
              * Multiplane format with 3 planes.
              *
@@ -12627,7 +9835,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YUV420".
              * @since 4.20
              */
-            "G8_B8_R8_420" = 46,
+            readonly "G8_B8_R8_420": 46
             /**
              * Multiplane format with 3 planes.
              *
@@ -12647,7 +9855,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YVU420".
              * @since 4.20
              */
-            "G8_R8_B8_420" = 47,
+            readonly "G8_R8_B8_420": 47
             /**
              * Multiplane format with 3 planes.
              *
@@ -12665,7 +9873,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YUV422".
              * @since 4.20
              */
-            "G8_B8_R8_422" = 48,
+            readonly "G8_B8_R8_422": 48
             /**
              * Multiplane format with 3 planes.
              *
@@ -12683,7 +9891,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YVU422".
              * @since 4.20
              */
-            "G8_R8_B8_422" = 49,
+            readonly "G8_R8_B8_422": 49
             /**
              * Multiplane format with 3 planes.
              *
@@ -12701,7 +9909,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YUV444".
              * @since 4.20
              */
-            "G8_B8_R8_444" = 50,
+            readonly "G8_B8_R8_444": 50
             /**
              * Multiplane format with 3 planes.
              *
@@ -12719,7 +9927,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YVU444".
              * @since 4.20
              */
-            "G8_R8_B8_444" = 51,
+            readonly "G8_R8_B8_444": 51
             /**
              * Packed format with subsampled channels.
              *
@@ -12732,7 +9940,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YUYV".
              * @since 4.20
              */
-            "G8B8G8R8_422" = 52,
+            readonly "G8B8G8R8_422": 52
             /**
              * Packed format with subsampled channels.
              *
@@ -12745,7 +9953,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "YVYU".
              * @since 4.20
              */
-            "G8R8G8B8_422" = 53,
+            readonly "G8R8G8B8_422": 53
             /**
              * Packed format with subsampled channels.
              *
@@ -12758,7 +9966,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "VYUY".
              * @since 4.20
              */
-            "R8G8B8G8_422" = 54,
+            readonly "R8G8B8G8_422": 54
             /**
              * Packed format with subsampled channels.
              *
@@ -12771,7 +9979,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "UYVY".
              * @since 4.20
              */
-            "B8G8R8G8_422" = 55,
+            readonly "B8G8R8G8_422": 55
             /**
              * Multiplane format with 3 planes.
              *
@@ -12794,7 +10002,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "S010".
              * @since 4.20
              */
-            "X6G10_X6B10_X6R10_420" = 56,
+            readonly "X6G10_X6B10_X6R10_420": 56
             /**
              * Multiplane format with 3 planes.
              *
@@ -12815,7 +10023,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "S210".
              * @since 4.20
              */
-            "X6G10_X6B10_X6R10_422" = 57,
+            readonly "X6G10_X6B10_X6R10_422": 57
             /**
              * Multiplane format with 3 planes.
              *
@@ -12836,7 +10044,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "S410".
              * @since 4.20
              */
-            "X6G10_X6B10_X6R10_444" = 58,
+            readonly "X6G10_X6B10_X6R10_444": 58
             /**
              * Multiplane format with 3 planes.
              *
@@ -12859,7 +10067,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "S012".
              * @since 4.20
              */
-            "X4G12_X4B12_X4R12_420" = 59,
+            readonly "X4G12_X4B12_X4R12_420": 59
             /**
              * Multiplane format with 3 planes.
              *
@@ -12880,7 +10088,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "S212".
              * @since 4.20
              */
-            "X4G12_X4B12_X4R12_422" = 60,
+            readonly "X4G12_X4B12_X4R12_422": 60
             /**
              * Multiplane format with 3 planes.
              *
@@ -12901,7 +10109,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "S412".
              * @since 4.20
              */
-            "X4G12_X4B12_X4R12_444" = 61,
+            readonly "X4G12_X4B12_X4R12_444": 61
             /**
              * Multiplane format with 3 planes.
              *
@@ -12921,7 +10129,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "S016".
              * @since 4.20
              */
-            "G16_B16_R16_420" = 62,
+            readonly "G16_B16_R16_420": 62
             /**
              * Multiplane format with 3 planes.
              *
@@ -12939,7 +10147,7 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "S216".
              * @since 4.20
              */
-            "G16_B16_R16_422" = 63,
+            readonly "G16_B16_R16_422": 63
             /**
              * Multiplane format with 3 planes.
              *
@@ -12957,487 +10165,537 @@ declare module "gi://Gdk?version=4.0" {
              * Commonly known by the fourcc "S416".
              * @since 4.20
              */
-            "G16_B16_R16_444" = 64,
+            readonly "G16_B16_R16_444": 64
             /**
              * The number of formats. This value will change as
              *   more formats get added, so do not rely on its concrete integer.
              */
-            "N_FORMATS" = 65,
+            readonly "N_FORMATS": 65
+        }
+        type MemoryFormat = MemoryFormatEnum[Exclude<keyof MemoryFormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes formats that image data can have in memory.
+             *
+             * It describes formats by listing the contents of the memory passed to it.
+             * So `GDK_MEMORY_A8R8G8B8` will be 1 byte (8 bits) of alpha, followed by a
+             * byte each of red, green and blue. It is not endian-dependent, so
+             * `CAIRO_FORMAT_ARGB32` is represented by different `GdkMemoryFormats`
+             * on architectures with different endiannesses.
+             *
+             * Its naming is modelled after
+             * [VkFormat](https://www.khronos.org/registry/vulkan/specs/1.0/html/vkspec.html#VkFormat)
+             * for details).
+             */
+            MemoryFormat: MemoryFormatEnum
         }
         
-        namespace NotifyType {
-            const $gtype: GObject.GType<NotifyType>
-        }
-
-        /**
-         * Specifies the kind of crossing for enter and leave events.
-         *
-         * See the X11 protocol specification of LeaveNotify for
-         * full details of crossing event generation.
-         */
-        enum NotifyType {
+        interface NotifyTypeEnum {
+            readonly $gtype: GObject.GType<NotifyType>
             /**
              * the surface is entered from an ancestor or
              *   left towards an ancestor.
              */
-            "ANCESTOR" = 0,
+            readonly "ANCESTOR": 0
             /**
              * the pointer moves between an ancestor and an
              *   inferior of the surface.
              */
-            "VIRTUAL" = 1,
+            readonly "VIRTUAL": 1
             /**
              * the surface is entered from an inferior or
              *   left towards an inferior.
              */
-            "INFERIOR" = 2,
+            readonly "INFERIOR": 2
             /**
              * the surface is entered from or left towards
              *   a surface which is neither an ancestor nor an inferior.
              */
-            "NONLINEAR" = 3,
+            readonly "NONLINEAR": 3
             /**
              * the pointer moves between two surfaces
              *   which are not ancestors of each other and the surface is part of
              *   the ancestor chain between one of these surfaces and their least
              *   common ancestor.
              */
-            "NONLINEAR_VIRTUAL" = 4,
+            readonly "NONLINEAR_VIRTUAL": 4
             /**
              * an unknown type of enter/leave event occurred.
              */
-            "UNKNOWN" = 5,
+            readonly "UNKNOWN": 5
+        }
+        type NotifyType = NotifyTypeEnum[Exclude<keyof NotifyTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the kind of crossing for enter and leave events.
+             *
+             * See the X11 protocol specification of LeaveNotify for
+             * full details of crossing event generation.
+             */
+            NotifyType: NotifyTypeEnum
         }
         
-        namespace ScrollDirection {
-            const $gtype: GObject.GType<ScrollDirection>
-        }
-
-        /**
-         * Specifies the direction for scroll events.
-         */
-        enum ScrollDirection {
+        interface ScrollDirectionEnum {
+            readonly $gtype: GObject.GType<ScrollDirection>
             /**
              * the surface is scrolled up.
              */
-            "UP" = 0,
+            readonly "UP": 0
             /**
              * the surface is scrolled down.
              */
-            "DOWN" = 1,
+            readonly "DOWN": 1
             /**
              * the surface is scrolled to the left.
              */
-            "LEFT" = 2,
+            readonly "LEFT": 2
             /**
              * the surface is scrolled to the right.
              */
-            "RIGHT" = 3,
+            readonly "RIGHT": 3
             /**
              * the scrolling is determined by the delta values
              *   in scroll events. See gdk_scroll_event_get_deltas()
              */
-            "SMOOTH" = 4,
+            readonly "SMOOTH": 4
+        }
+        type ScrollDirection = ScrollDirectionEnum[Exclude<keyof ScrollDirectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the direction for scroll events.
+             */
+            ScrollDirection: ScrollDirectionEnum
         }
         
-        namespace ScrollRelativeDirection {
-            const $gtype: GObject.GType<ScrollRelativeDirection>
-        }
-
-        /**
-         * Used in scroll events, to announce the direction relative
-         * to physical motion.
-         * @since 4.20
-         */
-        enum ScrollRelativeDirection {
+        interface ScrollRelativeDirectionEnum {
+            readonly $gtype: GObject.GType<ScrollRelativeDirection>
             /**
              * Physical motion and event motion are the same
              */
-            "IDENTICAL" = 0,
+            readonly "IDENTICAL": 0
             /**
              * Physical motion is inverted relative to event motion
              */
-            "INVERTED" = 1,
+            readonly "INVERTED": 1
             /**
              * Relative motion is unknown on this device or backend
              */
-            "UNKNOWN" = 2,
+            readonly "UNKNOWN": 2
+        }
+        type ScrollRelativeDirection = ScrollRelativeDirectionEnum[Exclude<keyof ScrollRelativeDirectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Used in scroll events, to announce the direction relative
+             * to physical motion.
+             * @since 4.20
+             */
+            ScrollRelativeDirection: ScrollRelativeDirectionEnum
         }
         
-        namespace ScrollUnit {
-            const $gtype: GObject.GType<ScrollUnit>
-        }
-
-        /**
-         * Specifies the unit of scroll deltas.
-         *
-         * When you get %GDK_SCROLL_UNIT_WHEEL, a delta of 1.0 means 1 wheel detent
-         * click in the south direction, 2.0 means 2 wheel detent clicks in the south
-         * direction... This is the same logic for negative values but in the north
-         * direction.
-         *
-         * If you get %GDK_SCROLL_UNIT_SURFACE, are managing a scrollable view and get a
-         * value of 123, you have to scroll 123 surface logical pixels right if it's
-         * @delta_x or down if it's @delta_y. This is the same logic for negative values
-         * but you have to scroll left instead of right if it's @delta_x and up instead
-         * of down if it's @delta_y.
-         *
-         * 1 surface logical pixel is equal to 1 real screen pixel multiplied by the
-         * final scale factor of your graphical interface (the product of the desktop
-         * scale factor and eventually a custom scale factor in your app).
-         * @since 4.8
-         */
-        enum ScrollUnit {
+        interface ScrollUnitEnum {
+            readonly $gtype: GObject.GType<ScrollUnit>
             /**
              * The delta is in number of wheel clicks.
              */
-            "WHEEL" = 0,
+            readonly "WHEEL": 0
             /**
              * The delta is in surface pixels to scroll directly
              *   on screen.
              */
-            "SURFACE" = 1,
+            readonly "SURFACE": 1
+        }
+        type ScrollUnit = ScrollUnitEnum[Exclude<keyof ScrollUnitEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the unit of scroll deltas.
+             *
+             * When you get %GDK_SCROLL_UNIT_WHEEL, a delta of 1.0 means 1 wheel detent
+             * click in the south direction, 2.0 means 2 wheel detent clicks in the south
+             * direction... This is the same logic for negative values but in the north
+             * direction.
+             *
+             * If you get %GDK_SCROLL_UNIT_SURFACE, are managing a scrollable view and get a
+             * value of 123, you have to scroll 123 surface logical pixels right if it's
+             * @delta_x or down if it's @delta_y. This is the same logic for negative values
+             * but you have to scroll left instead of right if it's @delta_x and up instead
+             * of down if it's @delta_y.
+             *
+             * 1 surface logical pixel is equal to 1 real screen pixel multiplied by the
+             * final scale factor of your graphical interface (the product of the desktop
+             * scale factor and eventually a custom scale factor in your app).
+             * @since 4.8
+             */
+            ScrollUnit: ScrollUnitEnum
         }
         
-        namespace SubpixelLayout {
-            const $gtype: GObject.GType<SubpixelLayout>
-        }
-
-        /**
-         * This enumeration describes how the red, green and blue components
-         * of physical pixels on an output device are laid out.
-         */
-        enum SubpixelLayout {
+        interface SubpixelLayoutEnum {
+            readonly $gtype: GObject.GType<SubpixelLayout>
             /**
              * The layout is not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Not organized in this way
              */
-            "NONE" = 1,
+            readonly "NONE": 1
             /**
              * The layout is horizontal, the order is RGB
              */
-            "HORIZONTAL_RGB" = 2,
+            readonly "HORIZONTAL_RGB": 2
             /**
              * The layout is horizontal, the order is BGR
              */
-            "HORIZONTAL_BGR" = 3,
+            readonly "HORIZONTAL_BGR": 3
             /**
              * The layout is vertical, the order is RGB
              */
-            "VERTICAL_RGB" = 4,
+            readonly "VERTICAL_RGB": 4
             /**
              * The layout is vertical, the order is BGR
              */
-            "VERTICAL_BGR" = 5,
+            readonly "VERTICAL_BGR": 5
+        }
+        type SubpixelLayout = SubpixelLayoutEnum[Exclude<keyof SubpixelLayoutEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * This enumeration describes how the red, green and blue components
+             * of physical pixels on an output device are laid out.
+             */
+            SubpixelLayout: SubpixelLayoutEnum
         }
         
-        namespace SurfaceEdge {
-            const $gtype: GObject.GType<SurfaceEdge>
-        }
-
-        /**
-         * Determines a surface edge or corner.
-         */
-        enum SurfaceEdge {
+        interface SurfaceEdgeEnum {
+            readonly $gtype: GObject.GType<SurfaceEdge>
             /**
              * the top left corner.
              */
-            "NORTH_WEST" = 0,
+            readonly "NORTH_WEST": 0
             /**
              * the top edge.
              */
-            "NORTH" = 1,
+            readonly "NORTH": 1
             /**
              * the top right corner.
              */
-            "NORTH_EAST" = 2,
+            readonly "NORTH_EAST": 2
             /**
              * the left edge.
              */
-            "WEST" = 3,
+            readonly "WEST": 3
             /**
              * the right edge.
              */
-            "EAST" = 4,
+            readonly "EAST": 4
             /**
              * the lower left corner.
              */
-            "SOUTH_WEST" = 5,
+            readonly "SOUTH_WEST": 5
             /**
              * the lower edge.
              */
-            "SOUTH" = 6,
+            readonly "SOUTH": 6
             /**
              * the lower right corner.
              */
-            "SOUTH_EAST" = 7,
+            readonly "SOUTH_EAST": 7
+        }
+        type SurfaceEdge = SurfaceEdgeEnum[Exclude<keyof SurfaceEdgeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Determines a surface edge or corner.
+             */
+            SurfaceEdge: SurfaceEdgeEnum
         }
         
-        abstract class TextureError extends GLib.Error {
-            static readonly $gtype: GObject.GType<TextureError>
+        interface TextureError extends GLib.Error {}
+
+        interface TextureErrorEnum {
+            readonly $gtype: GObject.GType<TextureError>
+
+            new(props: { message: string, code: number }): TextureError
             /**
              * Not enough memory to handle this image
              */
-            static readonly "TOO_LARGE": 0
+            readonly "TOO_LARGE": 0
             /**
              * The image data appears corrupted
              */
-            static readonly "CORRUPT_IMAGE": 1
+            readonly "CORRUPT_IMAGE": 1
             /**
              * The image contains features
              *   that cannot be loaded
              */
-            static readonly "UNSUPPORTED_CONTENT": 2
+            readonly "UNSUPPORTED_CONTENT": 2
             /**
              * The image format is not supported
              */
-            static readonly "UNSUPPORTED_FORMAT": 3
-        }
-        /**
+            readonly "UNSUPPORTED_FORMAT": 3
+            /**
          * Registers an error quark for [class@Gdk.Texture] errors.
          * @returns the error quark
          */
-        function quark(): GLib.Quark
-        
-        namespace TitlebarGesture {
-            const $gtype: GObject.GType<TitlebarGesture>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The kind of title bar gesture to emit with
-         * [method@Gdk.Toplevel.titlebar_gesture].
-         * @since 4.4
-         */
-        enum TitlebarGesture {
+        interface $Exports {
+            /**
+             * Possible errors that can be returned by `GdkTexture` constructors.
+             * @since 4.6
+             */
+            TextureError: TextureErrorEnum
+        }
+        
+        interface TitlebarGestureEnum {
+            readonly $gtype: GObject.GType<TitlebarGesture>
             /**
              * double click gesture
              */
-            "DOUBLE_CLICK" = 1,
+            readonly "DOUBLE_CLICK": 1
             /**
              * right click gesture
              */
-            "RIGHT_CLICK" = 2,
+            readonly "RIGHT_CLICK": 2
             /**
              * middle click gesture
              */
-            "MIDDLE_CLICK" = 3,
+            readonly "MIDDLE_CLICK": 3
+        }
+        type TitlebarGesture = TitlebarGestureEnum[Exclude<keyof TitlebarGestureEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The kind of title bar gesture to emit with
+             * [method@Gdk.Toplevel.titlebar_gesture].
+             * @since 4.4
+             */
+            TitlebarGesture: TitlebarGestureEnum
         }
         
-        namespace TouchpadGesturePhase {
-            const $gtype: GObject.GType<TouchpadGesturePhase>
-        }
-
-        /**
-         * Specifies the current state of a touchpad gesture.
-         *
-         * All gestures are guaranteed to begin with an event with phase
-         * %GDK_TOUCHPAD_GESTURE_PHASE_BEGIN, followed by 0 or several events
-         * with phase %GDK_TOUCHPAD_GESTURE_PHASE_UPDATE.
-         *
-         * A finished gesture may have 2 possible outcomes, an event with phase
-         * %GDK_TOUCHPAD_GESTURE_PHASE_END will be emitted when the gesture is
-         * considered successful, this should be used as the hint to perform any
-         * permanent changes.
-         *
-         * Cancelled gestures may be so for a variety of reasons, due to hardware
-         * or the compositor, or due to the gesture recognition layers hinting the
-         * gesture did not finish resolutely (eg. a 3rd finger being added during
-         * a pinch gesture). In these cases, the last event will report the phase
-         * %GDK_TOUCHPAD_GESTURE_PHASE_CANCEL, this should be used as a hint
-         * to undo any visible/permanent changes that were done throughout the
-         * progress of the gesture.
-         */
-        enum TouchpadGesturePhase {
+        interface TouchpadGesturePhaseEnum {
+            readonly $gtype: GObject.GType<TouchpadGesturePhase>
             /**
              * The gesture has begun.
              */
-            "BEGIN" = 0,
+            readonly "BEGIN": 0
             /**
              * The gesture has been updated.
              */
-            "UPDATE" = 1,
+            readonly "UPDATE": 1
             /**
              * The gesture was finished, changes
              *   should be permanently applied.
              */
-            "END" = 2,
+            readonly "END": 2
             /**
              * The gesture was cancelled, all
              *   changes should be undone.
              */
-            "CANCEL" = 3,
+            readonly "CANCEL": 3
+        }
+        type TouchpadGesturePhase = TouchpadGesturePhaseEnum[Exclude<keyof TouchpadGesturePhaseEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the current state of a touchpad gesture.
+             *
+             * All gestures are guaranteed to begin with an event with phase
+             * %GDK_TOUCHPAD_GESTURE_PHASE_BEGIN, followed by 0 or several events
+             * with phase %GDK_TOUCHPAD_GESTURE_PHASE_UPDATE.
+             *
+             * A finished gesture may have 2 possible outcomes, an event with phase
+             * %GDK_TOUCHPAD_GESTURE_PHASE_END will be emitted when the gesture is
+             * considered successful, this should be used as the hint to perform any
+             * permanent changes.
+             *
+             * Cancelled gestures may be so for a variety of reasons, due to hardware
+             * or the compositor, or due to the gesture recognition layers hinting the
+             * gesture did not finish resolutely (eg. a 3rd finger being added during
+             * a pinch gesture). In these cases, the last event will report the phase
+             * %GDK_TOUCHPAD_GESTURE_PHASE_CANCEL, this should be used as a hint
+             * to undo any visible/permanent changes that were done throughout the
+             * progress of the gesture.
+             */
+            TouchpadGesturePhase: TouchpadGesturePhaseEnum
         }
         
-        abstract class VulkanError extends GLib.Error {
-            static readonly $gtype: GObject.GType<VulkanError>
+        interface VulkanError extends GLib.Error {}
+
+        interface VulkanErrorEnum {
+            readonly $gtype: GObject.GType<VulkanError>
+
+            new(props: { message: string, code: number }): VulkanError
             /**
              * Vulkan is not supported on this backend or has not been
              *   compiled in.
              */
-            static readonly "UNSUPPORTED": 0
+            readonly "UNSUPPORTED": 0
             /**
              * Vulkan support is not available on this Surface
              */
-            static readonly "NOT_AVAILABLE": 1
-        }
-        /**
+            readonly "NOT_AVAILABLE": 1
+            /**
          * Registers an error quark for [class@Gdk.VulkanContext] errors.
          * @returns the error quark
          */
-        function quark(): GLib.Quark
-        
-        namespace AnchorHints {
-            const $gtype: GObject.GType<AnchorHints>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Positioning hints for aligning a surface relative to a rectangle.
-         *
-         * These hints determine how the surface should be positioned in the case that
-         * the surface would fall off-screen if placed in its ideal position.
-         *
-         * For example, %GDK_ANCHOR_FLIP_X will replace %GDK_GRAVITY_NORTH_WEST with
-         * %GDK_GRAVITY_NORTH_EAST and vice versa if the surface extends beyond the left
-         * or right edges of the monitor.
-         *
-         * If %GDK_ANCHOR_SLIDE_X is set, the surface can be shifted horizontally to fit
-         * on-screen. If %GDK_ANCHOR_RESIZE_X is set, the surface can be shrunken
-         * horizontally to fit.
-         *
-         * In general, when multiple flags are set, flipping should take precedence over
-         * sliding, which should take precedence over resizing.
-         */
-        enum AnchorHints {
+        interface $Exports {
+            /**
+             * Error enumeration for `GdkVulkanContext`.
+             */
+            VulkanError: VulkanErrorEnum
+        }
+        
+        interface AnchorHintsBitfield {
+            readonly $gtype: GObject.GType<AnchorHints>
             /**
              * allow flipping anchors horizontally
              */
-            "FLIP_X" = 1,
+            readonly "FLIP_X": 1
             /**
              * allow flipping anchors vertically
              */
-            "FLIP_Y" = 2,
+            readonly "FLIP_Y": 2
             /**
              * allow sliding surface horizontally
              */
-            "SLIDE_X" = 4,
+            readonly "SLIDE_X": 4
             /**
              * allow sliding surface vertically
              */
-            "SLIDE_Y" = 8,
+            readonly "SLIDE_Y": 8
             /**
              * allow resizing surface horizontally
              */
-            "RESIZE_X" = 16,
+            readonly "RESIZE_X": 16
             /**
              * allow resizing surface vertically
              */
-            "RESIZE_Y" = 32,
+            readonly "RESIZE_Y": 32
             /**
              * allow flipping anchors on both axes
              */
-            "FLIP" = 3,
+            readonly "FLIP": 3
             /**
              * allow sliding surface on both axes
              */
-            "SLIDE" = 12,
+            readonly "SLIDE": 12
             /**
              * allow resizing surface on both axes
              */
-            "RESIZE" = 48,
+            readonly "RESIZE": 48
+        }
+        type AnchorHints = number
+        interface $Exports {
+            /**
+             * Positioning hints for aligning a surface relative to a rectangle.
+             *
+             * These hints determine how the surface should be positioned in the case that
+             * the surface would fall off-screen if placed in its ideal position.
+             *
+             * For example, %GDK_ANCHOR_FLIP_X will replace %GDK_GRAVITY_NORTH_WEST with
+             * %GDK_GRAVITY_NORTH_EAST and vice versa if the surface extends beyond the left
+             * or right edges of the monitor.
+             *
+             * If %GDK_ANCHOR_SLIDE_X is set, the surface can be shifted horizontally to fit
+             * on-screen. If %GDK_ANCHOR_RESIZE_X is set, the surface can be shrunken
+             * horizontally to fit.
+             *
+             * In general, when multiple flags are set, flipping should take precedence over
+             * sliding, which should take precedence over resizing.
+             */
+            AnchorHints: AnchorHintsBitfield
         }
         
-        namespace AxisFlags {
-            const $gtype: GObject.GType<AxisFlags>
-        }
-
-        /**
-         * Flags describing the current capabilities of a device/tool.
-         */
-        enum AxisFlags {
+        interface AxisFlagsBitfield {
+            readonly $gtype: GObject.GType<AxisFlags>
             /**
              * X axis is present
              */
-            "X" = 2,
+            readonly "X": 2
             /**
              * Y axis is present
              */
-            "Y" = 4,
+            readonly "Y": 4
             /**
              * Scroll X delta axis is present
              */
-            "DELTA_X" = 8,
+            readonly "DELTA_X": 8
             /**
              * Scroll Y delta axis is present
              */
-            "DELTA_Y" = 16,
+            readonly "DELTA_Y": 16
             /**
              * Pressure axis is present
              */
-            "PRESSURE" = 32,
+            readonly "PRESSURE": 32
             /**
              * X tilt axis is present
              */
-            "XTILT" = 64,
+            readonly "XTILT": 64
             /**
              * Y tilt axis is present
              */
-            "YTILT" = 128,
+            readonly "YTILT": 128
             /**
              * Wheel axis is present
              */
-            "WHEEL" = 256,
+            readonly "WHEEL": 256
             /**
              * Distance axis is present
              */
-            "DISTANCE" = 512,
+            readonly "DISTANCE": 512
             /**
              * Z-axis rotation is present
              */
-            "ROTATION" = 1024,
+            readonly "ROTATION": 1024
             /**
              * Slider axis is present
              */
-            "SLIDER" = 2048,
+            readonly "SLIDER": 2048
+        }
+        type AxisFlags = number
+        interface $Exports {
+            /**
+             * Flags describing the current capabilities of a device/tool.
+             */
+            AxisFlags: AxisFlagsBitfield
         }
         
-        namespace DragAction {
-            const $gtype: GObject.GType<DragAction>
-        }
-
-        /**
-         * Used in `GdkDrop` and `GdkDrag` to indicate the actions that the
-         * destination can and should do with the dropped data.
-         */
-        enum DragAction {
+        interface DragActionBitfield {
+            readonly $gtype: GObject.GType<DragAction>
             /**
              * No action.
              * @since 4.20
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Copy the data.
              */
-            "COPY" = 1,
+            readonly "COPY": 1
             /**
              * Move the data, i.e. first copy it, then delete
              *   it from the source using the DELETE target of the X selection protocol.
              */
-            "MOVE" = 2,
+            readonly "MOVE": 2
             /**
              * Add a link to the data. Note that this is only
              *   useful if source and destination agree on what it means, and is not
              *   supported on all platforms.
              */
-            "LINK" = 4,
+            readonly "LINK": 4
             /**
              * Ask the user what to do with the data.
              */
-            "ASK" = 8,
+            readonly "ASK": 8
         }
-        /**
+        type DragAction = number
+        interface $Exports {
+            /**
+             * Used in `GdkDrop` and `GdkDrag` to indicate the actions that the
+             * destination can and should do with the dropped data.
+             */
+            DragAction: DragActionBitfield
+            /**
          * Checks if @action represents a single action or includes
          * multiple actions.
          *
@@ -13446,347 +10704,358 @@ declare module "gi://Gdk?version=4.0" {
          * @param action a `GdkDragAction`
          * @returns %TRUE if exactly one action was given
          */
-        function is_unique(action: DragAction): boolean
-        
-        namespace FrameClockPhase {
-            const $gtype: GObject.GType<FrameClockPhase>
+        is_unique: (action: DragAction) => boolean
         }
-
-        /**
-         * Used to represent the different paint clock phases that can be requested.
-         *
-         * The elements of the enumeration correspond to the signals of `GdkFrameClock`.
-         */
-        enum FrameClockPhase {
+        
+        interface FrameClockPhaseBitfield {
+            readonly $gtype: GObject.GType<FrameClockPhase>
             /**
              * no phase
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * corresponds to GdkFrameClock::flush-events. Should not be handled by applications.
              */
-            "FLUSH_EVENTS" = 1,
+            readonly "FLUSH_EVENTS": 1
             /**
              * corresponds to GdkFrameClock::before-paint. Should not be handled by applications.
              */
-            "BEFORE_PAINT" = 2,
+            readonly "BEFORE_PAINT": 2
             /**
              * corresponds to GdkFrameClock::update.
              */
-            "UPDATE" = 4,
+            readonly "UPDATE": 4
             /**
              * corresponds to GdkFrameClock::layout. Should not be handled by applications.
              */
-            "LAYOUT" = 8,
+            readonly "LAYOUT": 8
             /**
              * corresponds to GdkFrameClock::paint.
              */
-            "PAINT" = 16,
+            readonly "PAINT": 16
             /**
              * corresponds to GdkFrameClock::resume-events. Should not be handled by applications.
              */
-            "RESUME_EVENTS" = 32,
+            readonly "RESUME_EVENTS": 32
             /**
              * corresponds to GdkFrameClock::after-paint. Should not be handled by applications.
              */
-            "AFTER_PAINT" = 64,
+            readonly "AFTER_PAINT": 64
+        }
+        type FrameClockPhase = number
+        interface $Exports {
+            /**
+             * Used to represent the different paint clock phases that can be requested.
+             *
+             * The elements of the enumeration correspond to the signals of `GdkFrameClock`.
+             */
+            FrameClockPhase: FrameClockPhaseBitfield
         }
         
-        namespace GLAPI {
-            const $gtype: GObject.GType<GLAPI>
-        }
-
-        /**
-         * The list of the different APIs that GdkGLContext can potentially support.
-         * @since 4.6
-         */
-        enum GLAPI {
+        interface GLAPIBitfield {
+            readonly $gtype: GObject.GType<GLAPI>
             /**
              * The OpenGL API
              */
-            "GL" = 1,
+            readonly "GL": 1
             /**
              * The OpenGL ES API
              */
-            "GLES" = 2,
+            readonly "GLES": 2
+        }
+        type GLAPI = number
+        interface $Exports {
+            /**
+             * The list of the different APIs that GdkGLContext can potentially support.
+             * @since 4.6
+             */
+            GLAPI: GLAPIBitfield
         }
         
-        namespace ModifierType {
-            const $gtype: GObject.GType<ModifierType>
-        }
-
-        /**
-         * Flags to indicate the state of modifier keys and mouse buttons
-         * in events.
-         *
-         * Typical modifier keys are Shift, Control, Meta, Super, Hyper, Alt, Compose,
-         * Apple, CapsLock or ShiftLock.
-         *
-         * Note that GDK may add internal values to events which include values outside
-         * of this enumeration. Your code should preserve and ignore them. You can use
-         * %GDK_MODIFIER_MASK to remove all private values.
-         */
-        enum ModifierType {
+        interface ModifierTypeBitfield {
+            readonly $gtype: GObject.GType<ModifierType>
             /**
              * No modifier.
              * @since 4.14
              */
-            "NO_MODIFIER_MASK" = 0,
+            readonly "NO_MODIFIER_MASK": 0
             /**
              * the Shift key.
              */
-            "SHIFT_MASK" = 1,
+            readonly "SHIFT_MASK": 1
             /**
-             * ).
+             * a Lock key (depending on the Windowing System configuration,
+             *    this may either be <kbd>CapsLock</kbd> or <kbd>ShiftLock</kbd>).
              */
-            "LOCK_MASK" = 2,
+            readonly "LOCK_MASK": 2
             /**
              * the Control key.
              */
-            "CONTROL_MASK" = 4,
+            readonly "CONTROL_MASK": 4
             /**
-             *  key).
+             * the fourth modifier key (it depends on the Windowing System
+             *    configuration which key is interpreted as this modifier, but normally it
+             *    is the <kbd>Alt</kbd> key).
              */
-            "ALT_MASK" = 8,
+            readonly "ALT_MASK": 8
             /**
              * the first mouse button.
              */
-            "BUTTON1_MASK" = 256,
+            readonly "BUTTON1_MASK": 256
             /**
              * the second mouse button.
              */
-            "BUTTON2_MASK" = 512,
+            readonly "BUTTON2_MASK": 512
             /**
              * the third mouse button.
              */
-            "BUTTON3_MASK" = 1024,
+            readonly "BUTTON3_MASK": 1024
             /**
              * the fourth mouse button.
              */
-            "BUTTON4_MASK" = 2048,
+            readonly "BUTTON4_MASK": 2048
             /**
              * the fifth mouse button.
              */
-            "BUTTON5_MASK" = 4096,
+            readonly "BUTTON5_MASK": 4096
             /**
              * the Super modifier.
              */
-            "SUPER_MASK" = 67108864,
+            readonly "SUPER_MASK": 67108864
             /**
              * the Hyper modifier.
              */
-            "HYPER_MASK" = 134217728,
+            readonly "HYPER_MASK": 134217728
             /**
              * the Meta modifier. Maps to Command on macOS.
              */
-            "META_MASK" = 268435456,
+            readonly "META_MASK": 268435456
+        }
+        type ModifierType = number
+        interface $Exports {
+            /**
+             * Flags to indicate the state of modifier keys and mouse buttons
+             * in events.
+             *
+             * Typical modifier keys are Shift, Control, Meta, Super, Hyper, Alt, Compose,
+             * Apple, CapsLock or ShiftLock.
+             *
+             * Note that GDK may add internal values to events which include values outside
+             * of this enumeration. Your code should preserve and ignore them. You can use
+             * %GDK_MODIFIER_MASK to remove all private values.
+             */
+            ModifierType: ModifierTypeBitfield
         }
         
-        namespace PaintableFlags {
-            const $gtype: GObject.GType<PaintableFlags>
-        }
-
-        /**
-         * Flags about a paintable object.
-         *
-         * Implementations use these for optimizations such as caching.
-         */
-        enum PaintableFlags {
+        interface PaintableFlagsBitfield {
+            readonly $gtype: GObject.GType<PaintableFlags>
             /**
              * The size is immutable.
              *   The [signal@Gdk.Paintable::invalidate-size] signal will never be
              *   emitted.
              */
-            "STATIC_SIZE" = 1,
+            readonly "STATIC_SIZE": 1
             /**
              * The content is immutable.
              *   The [signal@Gdk.Paintable::invalidate-contents] signal will never be
              *   emitted.
              */
-            "STATIC_CONTENTS" = 2,
+            readonly "STATIC_CONTENTS": 2
+        }
+        type PaintableFlags = number
+        interface $Exports {
+            /**
+             * Flags about a paintable object.
+             *
+             * Implementations use these for optimizations such as caching.
+             */
+            PaintableFlags: PaintableFlagsBitfield
         }
         
-        namespace SeatCapabilities {
-            const $gtype: GObject.GType<SeatCapabilities>
-        }
-
-        /**
-         * Flags describing the seat capabilities.
-         */
-        enum SeatCapabilities {
+        interface SeatCapabilitiesBitfield {
+            readonly $gtype: GObject.GType<SeatCapabilities>
             /**
              * No input capabilities
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * The seat has a pointer (e.g. mouse)
              */
-            "POINTER" = 1,
+            readonly "POINTER": 1
             /**
              * The seat has touchscreen(s) attached
              */
-            "TOUCH" = 2,
+            readonly "TOUCH": 2
             /**
              * The seat has drawing tablet(s) attached
              */
-            "TABLET_STYLUS" = 4,
+            readonly "TABLET_STYLUS": 4
             /**
              * The seat has keyboard(s) attached
              */
-            "KEYBOARD" = 8,
+            readonly "KEYBOARD": 8
             /**
              * The seat has drawing tablet pad(s) attached
              */
-            "TABLET_PAD" = 16,
+            readonly "TABLET_PAD": 16
             /**
              * The union of all pointing capabilities
              */
-            "ALL_POINTING" = 7,
+            readonly "ALL_POINTING": 7
             /**
              * The union of all capabilities
              */
-            "ALL" = 31,
+            readonly "ALL": 31
+        }
+        type SeatCapabilities = number
+        interface $Exports {
+            /**
+             * Flags describing the seat capabilities.
+             */
+            SeatCapabilities: SeatCapabilitiesBitfield
         }
         
-        namespace ToplevelCapabilities {
-            const $gtype: GObject.GType<ToplevelCapabilities>
-        }
-
-        /**
-         * Reflects what features a `GdkToplevel` supports.
-         * @since 4.20
-         */
-        enum ToplevelCapabilities {
+        interface ToplevelCapabilitiesBitfield {
+            readonly $gtype: GObject.GType<ToplevelCapabilities>
             /**
              * Whether tiled window states are supported.
              * @since 4.20
              */
-            "EDGE_CONSTRAINTS" = 1,
+            readonly "EDGE_CONSTRAINTS": 1
             /**
              * Whether inhibiting system shortcuts is supported.
              * See [method@Gdk.Toplevel.inhibit_system_shortcuts].
              * @since 4.20
              */
-            "INHIBIT_SHORTCUTS" = 2,
+            readonly "INHIBIT_SHORTCUTS": 2
             /**
              * Whether titlebar gestures are supported.
              * See [method@Gdk.Toplevel.titlebar_gesture].
              * @since 4.20
              */
-            "TITLEBAR_GESTURES" = 4,
+            readonly "TITLEBAR_GESTURES": 4
             /**
              * Whether showing the window menu is supported.
              * See [method@Gdk.Toplevel.show_window_menu].
              * @since 4.20
              */
-            "WINDOW_MENU" = 8,
+            readonly "WINDOW_MENU": 8
             /**
              * Whether the toplevel can be maximized.
              * @since 4.20
              */
-            "MAXIMIZE" = 16,
+            readonly "MAXIMIZE": 16
             /**
              * Whether the toplevel can be made fullscreen.
              * @since 4.20
              */
-            "FULLSCREEN" = 32,
+            readonly "FULLSCREEN": 32
             /**
              * Whether the toplevel can be minimized.
              * See [method@Gdk.Toplevel.minimize].
              * @since 4.20
              */
-            "MINIMIZE" = 64,
+            readonly "MINIMIZE": 64
             /**
              * Whether the toplevel can be lowered.
              * See [method@Gdk.Toplevel.lower].
              * @since 4.20
              */
-            "LOWER" = 128,
+            readonly "LOWER": 128
+        }
+        type ToplevelCapabilities = number
+        interface $Exports {
+            /**
+             * Reflects what features a `GdkToplevel` supports.
+             * @since 4.20
+             */
+            ToplevelCapabilities: ToplevelCapabilitiesBitfield
         }
         
-        namespace ToplevelState {
-            const $gtype: GObject.GType<ToplevelState>
-        }
-
-        /**
-         * Specifies the state of a toplevel surface.
-         *
-         * On platforms that support information about individual edges, the
-         * %GDK_TOPLEVEL_STATE_TILED state will be set whenever any of the individual
-         * tiled states is set. On platforms that lack that support, the tiled state
-         * will give an indication of tiledness without any of the per-edge states
-         * being set.
-         */
-        enum ToplevelState {
+        interface ToplevelStateBitfield {
+            readonly $gtype: GObject.GType<ToplevelState>
             /**
              * the surface is minimized
              */
-            "MINIMIZED" = 1,
+            readonly "MINIMIZED": 1
             /**
              * the surface is maximized
              */
-            "MAXIMIZED" = 2,
+            readonly "MAXIMIZED": 2
             /**
              * the surface is sticky
              */
-            "STICKY" = 4,
+            readonly "STICKY": 4
             /**
              * the surface is maximized without decorations
              */
-            "FULLSCREEN" = 8,
+            readonly "FULLSCREEN": 8
             /**
              * the surface is kept above other surfaces
              */
-            "ABOVE" = 16,
+            readonly "ABOVE": 16
             /**
              * the surface is kept below other surfaces
              */
-            "BELOW" = 32,
+            readonly "BELOW": 32
             /**
              * the surface is presented as focused (with active decorations)
              */
-            "FOCUSED" = 64,
+            readonly "FOCUSED": 64
             /**
              * the surface is in a tiled state
              */
-            "TILED" = 128,
+            readonly "TILED": 128
             /**
              * whether the top edge is tiled
              */
-            "TOP_TILED" = 256,
+            readonly "TOP_TILED": 256
             /**
              * whether the top edge is resizable
              */
-            "TOP_RESIZABLE" = 512,
+            readonly "TOP_RESIZABLE": 512
             /**
              * whether the right edge is tiled
              */
-            "RIGHT_TILED" = 1024,
+            readonly "RIGHT_TILED": 1024
             /**
              * whether the right edge is resizable
              */
-            "RIGHT_RESIZABLE" = 2048,
+            readonly "RIGHT_RESIZABLE": 2048
             /**
              * whether the bottom edge is tiled
              */
-            "BOTTOM_TILED" = 4096,
+            readonly "BOTTOM_TILED": 4096
             /**
              * whether the bottom edge is resizable
              */
-            "BOTTOM_RESIZABLE" = 8192,
+            readonly "BOTTOM_RESIZABLE": 8192
             /**
              * whether the left edge is tiled
              */
-            "LEFT_TILED" = 16384,
+            readonly "LEFT_TILED": 16384
             /**
              * whether the left edge is resizable
              */
-            "LEFT_RESIZABLE" = 32768,
+            readonly "LEFT_RESIZABLE": 32768
             /**
              * The surface is not visible to the user.
              * @since 4.12
              */
-            "SUSPENDED" = 65536,
+            readonly "SUSPENDED": 65536
+        }
+        type ToplevelState = number
+        interface $Exports {
+            /**
+             * Specifies the state of a toplevel surface.
+             *
+             * On platforms that support information about individual edges, the
+             * %GDK_TOPLEVEL_STATE_TILED state will be set whenever any of the individual
+             * tiled states is set. On platforms that lack that support, the tiled state
+             * will give an indication of tiledness without any of the per-edge states
+             * being set.
+             */
+            ToplevelState: ToplevelStateBitfield
         }
         /**
          * The type of a function that can be registered with gdk_content_register_deserializer().
@@ -13826,7 +11095,2911 @@ declare module "gi://Gdk?version=4.0" {
          * @returns the cursor image, or   `NULL` if none could be produced., return location for the actual cursor width,   in application pixels, return location for the actual cursor height,   in application pixels, return location for the hotspot X position,   in application pixels, return location for the hotspot Y position,   in application pixels
          */
         type CursorGetTextureCallback = (cursor: Cursor, cursor_size: number, scale: number, data: never | null) => [Texture | null, number, number, number, number]
+
+        interface $Exports {
+            __name__: "Gdk"
+            __version: "4.0"
+            ACTION_ALL: 7
+            BUTTON_MIDDLE: 2
+            BUTTON_PRIMARY: 1
+            BUTTON_SECONDARY: 3
+            CURRENT_TIME: 0
+            EVENT_PROPAGATE: false
+            EVENT_STOP: true
+            KEY_0: 48
+            KEY_1: 49
+            KEY_10ChannelsDown: 268964281
+            KEY_10ChannelsUp: 268964280
+            KEY_2: 50
+            KEY_3: 51
+            KEY_3270_AltCursor: 64784
+            KEY_3270_Attn: 64782
+            KEY_3270_BackTab: 64773
+            KEY_3270_ChangeScreen: 64793
+            KEY_3270_Copy: 64789
+            KEY_3270_CursorBlink: 64783
+            KEY_3270_CursorSelect: 64796
+            KEY_3270_DeleteWord: 64794
+            KEY_3270_Duplicate: 64769
+            KEY_3270_Enter: 64798
+            KEY_3270_EraseEOF: 64774
+            KEY_3270_EraseInput: 64775
+            KEY_3270_ExSelect: 64795
+            KEY_3270_FieldMark: 64770
+            KEY_3270_Ident: 64787
+            KEY_3270_Jump: 64786
+            KEY_3270_KeyClick: 64785
+            KEY_3270_Left2: 64772
+            KEY_3270_PA1: 64778
+            KEY_3270_PA2: 64779
+            KEY_3270_PA3: 64780
+            KEY_3270_Play: 64790
+            KEY_3270_PrintScreen: 64797
+            KEY_3270_Quit: 64777
+            KEY_3270_Record: 64792
+            KEY_3270_Reset: 64776
+            KEY_3270_Right2: 64771
+            KEY_3270_Rule: 64788
+            KEY_3270_Setup: 64791
+            KEY_3270_Test: 64781
+            KEY_3DMode: 268964463
+            KEY_4: 52
+            KEY_5: 53
+            KEY_6: 54
+            KEY_7: 55
+            KEY_8: 56
+            KEY_9: 57
+            KEY_A: 65
+            KEY_AE: 198
+            KEY_ALSToggle: 268964400
+            KEY_Aacute: 193
+            KEY_Abelowdot: 16785056
+            KEY_Abreve: 451
+            KEY_Abreveacute: 16785070
+            KEY_Abrevebelowdot: 16785078
+            KEY_Abrevegrave: 16785072
+            KEY_Abrevehook: 16785074
+            KEY_Abrevetilde: 16785076
+            KEY_AccessX_Enable: 65136
+            KEY_AccessX_Feedback_Enable: 65137
+            KEY_Accessibility: 268964430
+            KEY_Acircumflex: 194
+            KEY_Acircumflexacute: 16785060
+            KEY_Acircumflexbelowdot: 16785068
+            KEY_Acircumflexgrave: 16785062
+            KEY_Acircumflexhook: 16785064
+            KEY_Acircumflextilde: 16785066
+            KEY_AddFavorite: 269025081
+            KEY_Addressbook: 268964269
+            KEY_Adiaeresis: 196
+            KEY_Agrave: 192
+            KEY_Ahook: 16785058
+            KEY_Alt_L: 65513
+            KEY_Alt_R: 65514
+            KEY_Amacron: 960
+            KEY_Aogonek: 417
+            KEY_AppSelect: 268964420
+            KEY_ApplicationLeft: 269025104
+            KEY_ApplicationRight: 269025105
+            KEY_Arabic_0: 16778848
+            KEY_Arabic_1: 16778849
+            KEY_Arabic_2: 16778850
+            KEY_Arabic_3: 16778851
+            KEY_Arabic_4: 16778852
+            KEY_Arabic_5: 16778853
+            KEY_Arabic_6: 16778854
+            KEY_Arabic_7: 16778855
+            KEY_Arabic_8: 16778856
+            KEY_Arabic_9: 16778857
+            KEY_Arabic_ain: 1497
+            KEY_Arabic_alef: 1479
+            KEY_Arabic_alefmaksura: 1513
+            KEY_Arabic_beh: 1480
+            KEY_Arabic_comma: 1452
+            KEY_Arabic_dad: 1494
+            KEY_Arabic_dal: 1487
+            KEY_Arabic_damma: 1519
+            KEY_Arabic_dammatan: 1516
+            KEY_Arabic_ddal: 16778888
+            KEY_Arabic_farsi_yeh: 16778956
+            KEY_Arabic_fatha: 1518
+            KEY_Arabic_fathatan: 1515
+            KEY_Arabic_feh: 1505
+            KEY_Arabic_fullstop: 16778964
+            KEY_Arabic_gaf: 16778927
+            KEY_Arabic_ghain: 1498
+            KEY_Arabic_ha: 1511
+            KEY_Arabic_hah: 1485
+            KEY_Arabic_hamza: 1473
+            KEY_Arabic_hamza_above: 16778836
+            KEY_Arabic_hamza_below: 16778837
+            KEY_Arabic_hamzaonalef: 1475
+            KEY_Arabic_hamzaonwaw: 1476
+            KEY_Arabic_hamzaonyeh: 1478
+            KEY_Arabic_hamzaunderalef: 1477
+            KEY_Arabic_heh: 1511
+            KEY_Arabic_heh_doachashmee: 16778942
+            KEY_Arabic_heh_goal: 16778945
+            KEY_Arabic_jeem: 1484
+            KEY_Arabic_jeh: 16778904
+            KEY_Arabic_kaf: 1507
+            KEY_Arabic_kasra: 1520
+            KEY_Arabic_kasratan: 1517
+            KEY_Arabic_keheh: 16778921
+            KEY_Arabic_khah: 1486
+            KEY_Arabic_lam: 1508
+            KEY_Arabic_madda_above: 16778835
+            KEY_Arabic_maddaonalef: 1474
+            KEY_Arabic_meem: 1509
+            KEY_Arabic_noon: 1510
+            KEY_Arabic_noon_ghunna: 16778938
+            KEY_Arabic_peh: 16778878
+            KEY_Arabic_percent: 16778858
+            KEY_Arabic_qaf: 1506
+            KEY_Arabic_question_mark: 1471
+            KEY_Arabic_ra: 1489
+            KEY_Arabic_rreh: 16778897
+            KEY_Arabic_sad: 1493
+            KEY_Arabic_seen: 1491
+            KEY_Arabic_semicolon: 1467
+            KEY_Arabic_shadda: 1521
+            KEY_Arabic_sheen: 1492
+            KEY_Arabic_sukun: 1522
+            KEY_Arabic_superscript_alef: 16778864
+            KEY_Arabic_switch: 65406
+            KEY_Arabic_tah: 1495
+            KEY_Arabic_tatweel: 1504
+            KEY_Arabic_tcheh: 16778886
+            KEY_Arabic_teh: 1482
+            KEY_Arabic_tehmarbuta: 1481
+            KEY_Arabic_thal: 1488
+            KEY_Arabic_theh: 1483
+            KEY_Arabic_tteh: 16778873
+            KEY_Arabic_veh: 16778916
+            KEY_Arabic_waw: 1512
+            KEY_Arabic_yeh: 1514
+            KEY_Arabic_yeh_baree: 16778962
+            KEY_Arabic_zah: 1496
+            KEY_Arabic_zain: 1490
+            KEY_Aring: 197
+            KEY_Armenian_AT: 16778552
+            KEY_Armenian_AYB: 16778545
+            KEY_Armenian_BEN: 16778546
+            KEY_Armenian_CHA: 16778569
+            KEY_Armenian_DA: 16778548
+            KEY_Armenian_DZA: 16778561
+            KEY_Armenian_E: 16778551
+            KEY_Armenian_FE: 16778582
+            KEY_Armenian_GHAT: 16778562
+            KEY_Armenian_GIM: 16778547
+            KEY_Armenian_HI: 16778565
+            KEY_Armenian_HO: 16778560
+            KEY_Armenian_INI: 16778555
+            KEY_Armenian_JE: 16778571
+            KEY_Armenian_KE: 16778580
+            KEY_Armenian_KEN: 16778559
+            KEY_Armenian_KHE: 16778557
+            KEY_Armenian_LYUN: 16778556
+            KEY_Armenian_MEN: 16778564
+            KEY_Armenian_NU: 16778566
+            KEY_Armenian_O: 16778581
+            KEY_Armenian_PE: 16778570
+            KEY_Armenian_PYUR: 16778579
+            KEY_Armenian_RA: 16778572
+            KEY_Armenian_RE: 16778576
+            KEY_Armenian_SE: 16778573
+            KEY_Armenian_SHA: 16778567
+            KEY_Armenian_TCHE: 16778563
+            KEY_Armenian_TO: 16778553
+            KEY_Armenian_TSA: 16778558
+            KEY_Armenian_TSO: 16778577
+            KEY_Armenian_TYUN: 16778575
+            KEY_Armenian_VEV: 16778574
+            KEY_Armenian_VO: 16778568
+            KEY_Armenian_VYUN: 16778578
+            KEY_Armenian_YECH: 16778549
+            KEY_Armenian_ZA: 16778550
+            KEY_Armenian_ZHE: 16778554
+            KEY_Armenian_accent: 16778587
+            KEY_Armenian_amanak: 16778588
+            KEY_Armenian_apostrophe: 16778586
+            KEY_Armenian_at: 16778600
+            KEY_Armenian_ayb: 16778593
+            KEY_Armenian_ben: 16778594
+            KEY_Armenian_but: 16778589
+            KEY_Armenian_cha: 16778617
+            KEY_Armenian_da: 16778596
+            KEY_Armenian_dza: 16778609
+            KEY_Armenian_e: 16778599
+            KEY_Armenian_exclam: 16778588
+            KEY_Armenian_fe: 16778630
+            KEY_Armenian_full_stop: 16778633
+            KEY_Armenian_ghat: 16778610
+            KEY_Armenian_gim: 16778595
+            KEY_Armenian_hi: 16778613
+            KEY_Armenian_ho: 16778608
+            KEY_Armenian_hyphen: 16778634
+            KEY_Armenian_ini: 16778603
+            KEY_Armenian_je: 16778619
+            KEY_Armenian_ke: 16778628
+            KEY_Armenian_ken: 16778607
+            KEY_Armenian_khe: 16778605
+            KEY_Armenian_ligature_ew: 16778631
+            KEY_Armenian_lyun: 16778604
+            KEY_Armenian_men: 16778612
+            KEY_Armenian_nu: 16778614
+            KEY_Armenian_o: 16778629
+            KEY_Armenian_paruyk: 16778590
+            KEY_Armenian_pe: 16778618
+            KEY_Armenian_pyur: 16778627
+            KEY_Armenian_question: 16778590
+            KEY_Armenian_ra: 16778620
+            KEY_Armenian_re: 16778624
+            KEY_Armenian_se: 16778621
+            KEY_Armenian_separation_mark: 16778589
+            KEY_Armenian_sha: 16778615
+            KEY_Armenian_shesht: 16778587
+            KEY_Armenian_tche: 16778611
+            KEY_Armenian_to: 16778601
+            KEY_Armenian_tsa: 16778606
+            KEY_Armenian_tso: 16778625
+            KEY_Armenian_tyun: 16778623
+            KEY_Armenian_verjaket: 16778633
+            KEY_Armenian_vev: 16778622
+            KEY_Armenian_vo: 16778616
+            KEY_Armenian_vyun: 16778626
+            KEY_Armenian_yech: 16778597
+            KEY_Armenian_yentamna: 16778634
+            KEY_Armenian_za: 16778598
+            KEY_Armenian_zhe: 16778602
+            KEY_AspectRatio: 268964215
+            KEY_Assistant: 268964423
+            KEY_Atilde: 195
+            KEY_AttendantOff: 268964380
+            KEY_AttendantOn: 268964379
+            KEY_AttendantToggle: 268964381
+            KEY_AudibleBell_Enable: 65146
+            KEY_Audio: 268964232
+            KEY_AudioCycleTrack: 269025179
+            KEY_AudioDesc: 268964462
+            KEY_AudioForward: 269025175
+            KEY_AudioLowerVolume: 269025041
+            KEY_AudioMedia: 269025074
+            KEY_AudioMicMute: 269025202
+            KEY_AudioMute: 269025042
+            KEY_AudioNext: 269025047
+            KEY_AudioPause: 269025073
+            KEY_AudioPlay: 269025044
+            KEY_AudioPreset: 269025206
+            KEY_AudioPrev: 269025046
+            KEY_AudioRaiseVolume: 269025043
+            KEY_AudioRandomPlay: 269025177
+            KEY_AudioRecord: 269025052
+            KEY_AudioRepeat: 269025176
+            KEY_AudioRewind: 269025086
+            KEY_AudioStop: 269025045
+            KEY_AutopilotEngageToggle: 268964477
+            KEY_Away: 269025165
+            KEY_B: 66
+            KEY_Babovedot: 16784898
+            KEY_Back: 269025062
+            KEY_BackForward: 269025087
+            KEY_BackSpace: 65288
+            KEY_Battery: 269025171
+            KEY_Begin: 65368
+            KEY_Blue: 269025190
+            KEY_Bluetooth: 269025172
+            KEY_Book: 269025106
+            KEY_BounceKeys_Enable: 65140
+            KEY_Break: 65387
+            KEY_BrightnessAdjust: 269025083
+            KEY_BrightnessAuto: 268964084
+            KEY_BrightnessMax: 268964433
+            KEY_BrightnessMin: 268964432
+            KEY_Buttonconfig: 268964416
+            KEY_Byelorussian_SHORTU: 1726
+            KEY_Byelorussian_shortu: 1710
+            KEY_C: 67
+            KEY_CD: 269025107
+            KEY_CH: 65186
+            KEY_C_H: 65189
+            KEY_C_h: 65188
+            KEY_Cabovedot: 709
+            KEY_Cacute: 454
+            KEY_Calculator: 269025053
+            KEY_Calendar: 269025056
+            KEY_CameraAccessDisable: 268964428
+            KEY_CameraAccessEnable: 268964427
+            KEY_CameraAccessToggle: 268964429
+            KEY_CameraDown: 268964376
+            KEY_CameraFocus: 268964368
+            KEY_CameraLeft: 268964377
+            KEY_CameraRight: 268964378
+            KEY_CameraUp: 268964375
+            KEY_CameraZoomIn: 268964373
+            KEY_CameraZoomOut: 268964374
+            KEY_Cancel: 65385
+            KEY_Caps_Lock: 65509
+            KEY_Ccaron: 456
+            KEY_Ccedilla: 199
+            KEY_Ccircumflex: 710
+            KEY_Ch: 65185
+            KEY_ChannelDown: 268964243
+            KEY_ChannelUp: 268964242
+            KEY_Clear: 65291
+            KEY_ClearGrab: 269024801
+            KEY_ClearvuSonar: 268964486
+            KEY_Close: 269025110
+            KEY_Codeinput: 65335
+            KEY_ColonSign: 16785569
+            KEY_Community: 269025085
+            KEY_ContextMenu: 268964278
+            KEY_ContrastAdjust: 269025058
+            KEY_ControlPanel: 268964419
+            KEY_Control_L: 65507
+            KEY_Control_R: 65508
+            KEY_Copy: 269025111
+            KEY_CruzeiroSign: 16785570
+            KEY_Cut: 269025112
+            KEY_CycleAngle: 269025180
+            KEY_Cyrillic_A: 1761
+            KEY_Cyrillic_BE: 1762
+            KEY_Cyrillic_CHE: 1790
+            KEY_Cyrillic_CHE_descender: 16778422
+            KEY_Cyrillic_CHE_vertstroke: 16778424
+            KEY_Cyrillic_DE: 1764
+            KEY_Cyrillic_DZHE: 1727
+            KEY_Cyrillic_E: 1788
+            KEY_Cyrillic_EF: 1766
+            KEY_Cyrillic_EL: 1772
+            KEY_Cyrillic_EM: 1773
+            KEY_Cyrillic_EN: 1774
+            KEY_Cyrillic_EN_descender: 16778402
+            KEY_Cyrillic_ER: 1778
+            KEY_Cyrillic_ES: 1779
+            KEY_Cyrillic_GHE: 1767
+            KEY_Cyrillic_GHE_bar: 16778386
+            KEY_Cyrillic_HA: 1768
+            KEY_Cyrillic_HARDSIGN: 1791
+            KEY_Cyrillic_HA_descender: 16778418
+            KEY_Cyrillic_I: 1769
+            KEY_Cyrillic_IE: 1765
+            KEY_Cyrillic_IO: 1715
+            KEY_Cyrillic_I_macron: 16778466
+            KEY_Cyrillic_JE: 1720
+            KEY_Cyrillic_KA: 1771
+            KEY_Cyrillic_KA_descender: 16778394
+            KEY_Cyrillic_KA_vertstroke: 16778396
+            KEY_Cyrillic_LJE: 1721
+            KEY_Cyrillic_NJE: 1722
+            KEY_Cyrillic_O: 1775
+            KEY_Cyrillic_O_bar: 16778472
+            KEY_Cyrillic_PE: 1776
+            KEY_Cyrillic_SCHWA: 16778456
+            KEY_Cyrillic_SHA: 1787
+            KEY_Cyrillic_SHCHA: 1789
+            KEY_Cyrillic_SHHA: 16778426
+            KEY_Cyrillic_SHORTI: 1770
+            KEY_Cyrillic_SOFTSIGN: 1784
+            KEY_Cyrillic_TE: 1780
+            KEY_Cyrillic_TSE: 1763
+            KEY_Cyrillic_U: 1781
+            KEY_Cyrillic_U_macron: 16778478
+            KEY_Cyrillic_U_straight: 16778414
+            KEY_Cyrillic_U_straight_bar: 16778416
+            KEY_Cyrillic_VE: 1783
+            KEY_Cyrillic_YA: 1777
+            KEY_Cyrillic_YERU: 1785
+            KEY_Cyrillic_YU: 1760
+            KEY_Cyrillic_ZE: 1786
+            KEY_Cyrillic_ZHE: 1782
+            KEY_Cyrillic_ZHE_descender: 16778390
+            KEY_Cyrillic_a: 1729
+            KEY_Cyrillic_be: 1730
+            KEY_Cyrillic_che: 1758
+            KEY_Cyrillic_che_descender: 16778423
+            KEY_Cyrillic_che_vertstroke: 16778425
+            KEY_Cyrillic_de: 1732
+            KEY_Cyrillic_dzhe: 1711
+            KEY_Cyrillic_e: 1756
+            KEY_Cyrillic_ef: 1734
+            KEY_Cyrillic_el: 1740
+            KEY_Cyrillic_em: 1741
+            KEY_Cyrillic_en: 1742
+            KEY_Cyrillic_en_descender: 16778403
+            KEY_Cyrillic_er: 1746
+            KEY_Cyrillic_es: 1747
+            KEY_Cyrillic_ghe: 1735
+            KEY_Cyrillic_ghe_bar: 16778387
+            KEY_Cyrillic_ha: 1736
+            KEY_Cyrillic_ha_descender: 16778419
+            KEY_Cyrillic_hardsign: 1759
+            KEY_Cyrillic_i: 1737
+            KEY_Cyrillic_i_macron: 16778467
+            KEY_Cyrillic_ie: 1733
+            KEY_Cyrillic_io: 1699
+            KEY_Cyrillic_je: 1704
+            KEY_Cyrillic_ka: 1739
+            KEY_Cyrillic_ka_descender: 16778395
+            KEY_Cyrillic_ka_vertstroke: 16778397
+            KEY_Cyrillic_lje: 1705
+            KEY_Cyrillic_nje: 1706
+            KEY_Cyrillic_o: 1743
+            KEY_Cyrillic_o_bar: 16778473
+            KEY_Cyrillic_pe: 1744
+            KEY_Cyrillic_schwa: 16778457
+            KEY_Cyrillic_sha: 1755
+            KEY_Cyrillic_shcha: 1757
+            KEY_Cyrillic_shha: 16778427
+            KEY_Cyrillic_shorti: 1738
+            KEY_Cyrillic_softsign: 1752
+            KEY_Cyrillic_te: 1748
+            KEY_Cyrillic_tse: 1731
+            KEY_Cyrillic_u: 1749
+            KEY_Cyrillic_u_macron: 16778479
+            KEY_Cyrillic_u_straight: 16778415
+            KEY_Cyrillic_u_straight_bar: 16778417
+            KEY_Cyrillic_ve: 1751
+            KEY_Cyrillic_ya: 1745
+            KEY_Cyrillic_yeru: 1753
+            KEY_Cyrillic_yu: 1728
+            KEY_Cyrillic_ze: 1754
+            KEY_Cyrillic_zhe: 1750
+            KEY_Cyrillic_zhe_descender: 16778391
+            KEY_D: 68
+            KEY_DOS: 269025114
+            KEY_DVD: 268964229
+            KEY_Dabovedot: 16784906
+            KEY_Data: 268964471
+            KEY_Database: 268964266
+            KEY_Dcaron: 463
+            KEY_Delete: 65535
+            KEY_Dictate: 268964426
+            KEY_Display: 269025113
+            KEY_DisplayOff: 268964085
+            KEY_DisplayToggle: 268964271
+            KEY_DoNotDisturb: 268964431
+            KEY_Documents: 269025115
+            KEY_DongSign: 16785579
+            KEY_Down: 65364
+            KEY_Dstroke: 464
+            KEY_DualRangeRadar: 268964483
+            KEY_E: 69
+            KEY_ENG: 957
+            KEY_ETH: 208
+            KEY_EZH: 16777655
+            KEY_Eabovedot: 972
+            KEY_Eacute: 201
+            KEY_Ebelowdot: 16785080
+            KEY_Ecaron: 460
+            KEY_Ecircumflex: 202
+            KEY_Ecircumflexacute: 16785086
+            KEY_Ecircumflexbelowdot: 16785094
+            KEY_Ecircumflexgrave: 16785088
+            KEY_Ecircumflexhook: 16785090
+            KEY_Ecircumflextilde: 16785092
+            KEY_EcuSign: 16785568
+            KEY_Ediaeresis: 203
+            KEY_Editor: 268964262
+            KEY_Egrave: 200
+            KEY_Ehook: 16785082
+            KEY_Eisu_Shift: 65327
+            KEY_Eisu_toggle: 65328
+            KEY_Eject: 269025068
+            KEY_Emacron: 938
+            KEY_EmojiPicker: 268964425
+            KEY_End: 65367
+            KEY_Eogonek: 458
+            KEY_Escape: 65307
+            KEY_Eth: 208
+            KEY_Etilde: 16785084
+            KEY_EuroSign: 8364
+            KEY_Excel: 269025116
+            KEY_Execute: 65378
+            KEY_Explorer: 269025117
+            KEY_F: 70
+            KEY_F1: 65470
+            KEY_F10: 65479
+            KEY_F11: 65480
+            KEY_F12: 65481
+            KEY_F13: 65482
+            KEY_F14: 65483
+            KEY_F15: 65484
+            KEY_F16: 65485
+            KEY_F17: 65486
+            KEY_F18: 65487
+            KEY_F19: 65488
+            KEY_F2: 65471
+            KEY_F20: 65489
+            KEY_F21: 65490
+            KEY_F22: 65491
+            KEY_F23: 65492
+            KEY_F24: 65493
+            KEY_F25: 65494
+            KEY_F26: 65495
+            KEY_F27: 65496
+            KEY_F28: 65497
+            KEY_F29: 65498
+            KEY_F3: 65472
+            KEY_F30: 65499
+            KEY_F31: 65500
+            KEY_F32: 65501
+            KEY_F33: 65502
+            KEY_F34: 65503
+            KEY_F35: 65504
+            KEY_F4: 65473
+            KEY_F5: 65474
+            KEY_F6: 65475
+            KEY_F7: 65476
+            KEY_F8: 65477
+            KEY_F9: 65478
+            KEY_FFrancSign: 16785571
+            KEY_Fabovedot: 16784926
+            KEY_Farsi_0: 16778992
+            KEY_Farsi_1: 16778993
+            KEY_Farsi_2: 16778994
+            KEY_Farsi_3: 16778995
+            KEY_Farsi_4: 16778996
+            KEY_Farsi_5: 16778997
+            KEY_Farsi_6: 16778998
+            KEY_Farsi_7: 16778999
+            KEY_Farsi_8: 16779000
+            KEY_Farsi_9: 16779001
+            KEY_Farsi_yeh: 16778956
+            KEY_FastReverse: 268964469
+            KEY_Favorites: 269025072
+            KEY_Finance: 269025084
+            KEY_Find: 65384
+            KEY_First_Virtual_Screen: 65232
+            KEY_FishingChart: 268964481
+            KEY_Fn: 268964304
+            KEY_FnRightShift: 268964325
+            KEY_Fn_Esc: 268964305
+            KEY_Forward: 269025063
+            KEY_FrameBack: 269025181
+            KEY_FrameForward: 269025182
+            KEY_FullScreen: 269025208
+            KEY_G: 71
+            KEY_Gabovedot: 725
+            KEY_Game: 269025118
+            KEY_Gbreve: 683
+            KEY_Gcaron: 16777702
+            KEY_Gcedilla: 939
+            KEY_Gcircumflex: 728
+            KEY_Georgian_an: 16781520
+            KEY_Georgian_ban: 16781521
+            KEY_Georgian_can: 16781546
+            KEY_Georgian_char: 16781549
+            KEY_Georgian_chin: 16781545
+            KEY_Georgian_cil: 16781548
+            KEY_Georgian_don: 16781523
+            KEY_Georgian_en: 16781524
+            KEY_Georgian_fi: 16781558
+            KEY_Georgian_gan: 16781522
+            KEY_Georgian_ghan: 16781542
+            KEY_Georgian_hae: 16781552
+            KEY_Georgian_har: 16781556
+            KEY_Georgian_he: 16781553
+            KEY_Georgian_hie: 16781554
+            KEY_Georgian_hoe: 16781557
+            KEY_Georgian_in: 16781528
+            KEY_Georgian_jhan: 16781551
+            KEY_Georgian_jil: 16781547
+            KEY_Georgian_kan: 16781529
+            KEY_Georgian_khar: 16781541
+            KEY_Georgian_las: 16781530
+            KEY_Georgian_man: 16781531
+            KEY_Georgian_nar: 16781532
+            KEY_Georgian_on: 16781533
+            KEY_Georgian_par: 16781534
+            KEY_Georgian_phar: 16781540
+            KEY_Georgian_qar: 16781543
+            KEY_Georgian_rae: 16781536
+            KEY_Georgian_san: 16781537
+            KEY_Georgian_shin: 16781544
+            KEY_Georgian_tan: 16781527
+            KEY_Georgian_tar: 16781538
+            KEY_Georgian_un: 16781539
+            KEY_Georgian_vin: 16781525
+            KEY_Georgian_we: 16781555
+            KEY_Georgian_xan: 16781550
+            KEY_Georgian_zen: 16781526
+            KEY_Georgian_zhar: 16781535
+            KEY_Go: 269025119
+            KEY_GraphicsEditor: 268964264
+            KEY_Greek_ALPHA: 1985
+            KEY_Greek_ALPHAaccent: 1953
+            KEY_Greek_BETA: 1986
+            KEY_Greek_CHI: 2007
+            KEY_Greek_DELTA: 1988
+            KEY_Greek_EPSILON: 1989
+            KEY_Greek_EPSILONaccent: 1954
+            KEY_Greek_ETA: 1991
+            KEY_Greek_ETAaccent: 1955
+            KEY_Greek_GAMMA: 1987
+            KEY_Greek_IOTA: 1993
+            KEY_Greek_IOTAaccent: 1956
+            KEY_Greek_IOTAdiaeresis: 1957
+            KEY_Greek_IOTAdieresis: 1957
+            KEY_Greek_KAPPA: 1994
+            KEY_Greek_LAMBDA: 1995
+            KEY_Greek_LAMDA: 1995
+            KEY_Greek_MU: 1996
+            KEY_Greek_NU: 1997
+            KEY_Greek_OMEGA: 2009
+            KEY_Greek_OMEGAaccent: 1963
+            KEY_Greek_OMICRON: 1999
+            KEY_Greek_OMICRONaccent: 1959
+            KEY_Greek_PHI: 2006
+            KEY_Greek_PI: 2000
+            KEY_Greek_PSI: 2008
+            KEY_Greek_RHO: 2001
+            KEY_Greek_SIGMA: 2002
+            KEY_Greek_TAU: 2004
+            KEY_Greek_THETA: 1992
+            KEY_Greek_UPSILON: 2005
+            KEY_Greek_UPSILONaccent: 1960
+            KEY_Greek_UPSILONdieresis: 1961
+            KEY_Greek_XI: 1998
+            KEY_Greek_ZETA: 1990
+            KEY_Greek_accentdieresis: 1966
+            KEY_Greek_alpha: 2017
+            KEY_Greek_alphaaccent: 1969
+            KEY_Greek_beta: 2018
+            KEY_Greek_chi: 2039
+            KEY_Greek_delta: 2020
+            KEY_Greek_epsilon: 2021
+            KEY_Greek_epsilonaccent: 1970
+            KEY_Greek_eta: 2023
+            KEY_Greek_etaaccent: 1971
+            KEY_Greek_finalsmallsigma: 2035
+            KEY_Greek_gamma: 2019
+            KEY_Greek_horizbar: 1967
+            KEY_Greek_iota: 2025
+            KEY_Greek_iotaaccent: 1972
+            KEY_Greek_iotaaccentdieresis: 1974
+            KEY_Greek_iotadieresis: 1973
+            KEY_Greek_kappa: 2026
+            KEY_Greek_lambda: 2027
+            KEY_Greek_lamda: 2027
+            KEY_Greek_mu: 2028
+            KEY_Greek_nu: 2029
+            KEY_Greek_omega: 2041
+            KEY_Greek_omegaaccent: 1979
+            KEY_Greek_omicron: 2031
+            KEY_Greek_omicronaccent: 1975
+            KEY_Greek_phi: 2038
+            KEY_Greek_pi: 2032
+            KEY_Greek_psi: 2040
+            KEY_Greek_rho: 2033
+            KEY_Greek_sigma: 2034
+            KEY_Greek_switch: 65406
+            KEY_Greek_tau: 2036
+            KEY_Greek_theta: 2024
+            KEY_Greek_upsilon: 2037
+            KEY_Greek_upsilonaccent: 1976
+            KEY_Greek_upsilonaccentdieresis: 1978
+            KEY_Greek_upsilondieresis: 1977
+            KEY_Greek_xi: 2030
+            KEY_Greek_zeta: 2022
+            KEY_Green: 269025188
+            KEY_H: 72
+            KEY_Hangul: 65329
+            KEY_Hangul_A: 3775
+            KEY_Hangul_AE: 3776
+            KEY_Hangul_AraeA: 3830
+            KEY_Hangul_AraeAE: 3831
+            KEY_Hangul_Banja: 65337
+            KEY_Hangul_Cieuc: 3770
+            KEY_Hangul_Codeinput: 65335
+            KEY_Hangul_Dikeud: 3751
+            KEY_Hangul_E: 3780
+            KEY_Hangul_EO: 3779
+            KEY_Hangul_EU: 3793
+            KEY_Hangul_End: 65331
+            KEY_Hangul_Hanja: 65332
+            KEY_Hangul_Hieuh: 3774
+            KEY_Hangul_I: 3795
+            KEY_Hangul_Ieung: 3767
+            KEY_Hangul_J_Cieuc: 3818
+            KEY_Hangul_J_Dikeud: 3802
+            KEY_Hangul_J_Hieuh: 3822
+            KEY_Hangul_J_Ieung: 3816
+            KEY_Hangul_J_Jieuj: 3817
+            KEY_Hangul_J_Khieuq: 3819
+            KEY_Hangul_J_Kiyeog: 3796
+            KEY_Hangul_J_KiyeogSios: 3798
+            KEY_Hangul_J_KkogjiDalrinIeung: 3833
+            KEY_Hangul_J_Mieum: 3811
+            KEY_Hangul_J_Nieun: 3799
+            KEY_Hangul_J_NieunHieuh: 3801
+            KEY_Hangul_J_NieunJieuj: 3800
+            KEY_Hangul_J_PanSios: 3832
+            KEY_Hangul_J_Phieuf: 3821
+            KEY_Hangul_J_Pieub: 3812
+            KEY_Hangul_J_PieubSios: 3813
+            KEY_Hangul_J_Rieul: 3803
+            KEY_Hangul_J_RieulHieuh: 3810
+            KEY_Hangul_J_RieulKiyeog: 3804
+            KEY_Hangul_J_RieulMieum: 3805
+            KEY_Hangul_J_RieulPhieuf: 3809
+            KEY_Hangul_J_RieulPieub: 3806
+            KEY_Hangul_J_RieulSios: 3807
+            KEY_Hangul_J_RieulTieut: 3808
+            KEY_Hangul_J_Sios: 3814
+            KEY_Hangul_J_SsangKiyeog: 3797
+            KEY_Hangul_J_SsangSios: 3815
+            KEY_Hangul_J_Tieut: 3820
+            KEY_Hangul_J_YeorinHieuh: 3834
+            KEY_Hangul_Jamo: 65333
+            KEY_Hangul_Jeonja: 65336
+            KEY_Hangul_Jieuj: 3768
+            KEY_Hangul_Khieuq: 3771
+            KEY_Hangul_Kiyeog: 3745
+            KEY_Hangul_KiyeogSios: 3747
+            KEY_Hangul_KkogjiDalrinIeung: 3827
+            KEY_Hangul_Mieum: 3761
+            KEY_Hangul_MultipleCandidate: 65341
+            KEY_Hangul_Nieun: 3748
+            KEY_Hangul_NieunHieuh: 3750
+            KEY_Hangul_NieunJieuj: 3749
+            KEY_Hangul_O: 3783
+            KEY_Hangul_OE: 3786
+            KEY_Hangul_PanSios: 3826
+            KEY_Hangul_Phieuf: 3773
+            KEY_Hangul_Pieub: 3762
+            KEY_Hangul_PieubSios: 3764
+            KEY_Hangul_PostHanja: 65339
+            KEY_Hangul_PreHanja: 65338
+            KEY_Hangul_PreviousCandidate: 65342
+            KEY_Hangul_Rieul: 3753
+            KEY_Hangul_RieulHieuh: 3760
+            KEY_Hangul_RieulKiyeog: 3754
+            KEY_Hangul_RieulMieum: 3755
+            KEY_Hangul_RieulPhieuf: 3759
+            KEY_Hangul_RieulPieub: 3756
+            KEY_Hangul_RieulSios: 3757
+            KEY_Hangul_RieulTieut: 3758
+            KEY_Hangul_RieulYeorinHieuh: 3823
+            KEY_Hangul_Romaja: 65334
+            KEY_Hangul_SingleCandidate: 65340
+            KEY_Hangul_Sios: 3765
+            KEY_Hangul_Special: 65343
+            KEY_Hangul_SsangDikeud: 3752
+            KEY_Hangul_SsangJieuj: 3769
+            KEY_Hangul_SsangKiyeog: 3746
+            KEY_Hangul_SsangPieub: 3763
+            KEY_Hangul_SsangSios: 3766
+            KEY_Hangul_Start: 65330
+            KEY_Hangul_SunkyeongeumMieum: 3824
+            KEY_Hangul_SunkyeongeumPhieuf: 3828
+            KEY_Hangul_SunkyeongeumPieub: 3825
+            KEY_Hangul_Tieut: 3772
+            KEY_Hangul_U: 3788
+            KEY_Hangul_WA: 3784
+            KEY_Hangul_WAE: 3785
+            KEY_Hangul_WE: 3790
+            KEY_Hangul_WEO: 3789
+            KEY_Hangul_WI: 3791
+            KEY_Hangul_YA: 3777
+            KEY_Hangul_YAE: 3778
+            KEY_Hangul_YE: 3782
+            KEY_Hangul_YEO: 3781
+            KEY_Hangul_YI: 3794
+            KEY_Hangul_YO: 3787
+            KEY_Hangul_YU: 3792
+            KEY_Hangul_YeorinHieuh: 3829
+            KEY_Hangul_switch: 65406
+            KEY_HangupPhone: 268964286
+            KEY_Hankaku: 65321
+            KEY_Hcircumflex: 678
+            KEY_Hebrew_switch: 65406
+            KEY_Help: 65386
+            KEY_Henkan: 65315
+            KEY_Henkan_Mode: 65315
+            KEY_Hibernate: 269025192
+            KEY_Hiragana: 65317
+            KEY_Hiragana_Katakana: 65319
+            KEY_History: 269025079
+            KEY_Home: 65360
+            KEY_HomePage: 269025048
+            KEY_HotLinks: 269025082
+            KEY_Hstroke: 673
+            KEY_Hyper_L: 65517
+            KEY_Hyper_R: 65518
+            KEY_I: 73
+            KEY_ISO_Center_Object: 65075
+            KEY_ISO_Continuous_Underline: 65072
+            KEY_ISO_Discontinuous_Underline: 65073
+            KEY_ISO_Emphasize: 65074
+            KEY_ISO_Enter: 65076
+            KEY_ISO_Fast_Cursor_Down: 65071
+            KEY_ISO_Fast_Cursor_Left: 65068
+            KEY_ISO_Fast_Cursor_Right: 65069
+            KEY_ISO_Fast_Cursor_Up: 65070
+            KEY_ISO_First_Group: 65036
+            KEY_ISO_First_Group_Lock: 65037
+            KEY_ISO_Group_Latch: 65030
+            KEY_ISO_Group_Lock: 65031
+            KEY_ISO_Group_Shift: 65406
+            KEY_ISO_Last_Group: 65038
+            KEY_ISO_Last_Group_Lock: 65039
+            KEY_ISO_Left_Tab: 65056
+            KEY_ISO_Level2_Latch: 65026
+            KEY_ISO_Level3_Latch: 65028
+            KEY_ISO_Level3_Lock: 65029
+            KEY_ISO_Level3_Shift: 65027
+            KEY_ISO_Level5_Latch: 65042
+            KEY_ISO_Level5_Lock: 65043
+            KEY_ISO_Level5_Shift: 65041
+            KEY_ISO_Lock: 65025
+            KEY_ISO_Move_Line_Down: 65058
+            KEY_ISO_Move_Line_Up: 65057
+            KEY_ISO_Next_Group: 65032
+            KEY_ISO_Next_Group_Lock: 65033
+            KEY_ISO_Partial_Line_Down: 65060
+            KEY_ISO_Partial_Line_Up: 65059
+            KEY_ISO_Partial_Space_Left: 65061
+            KEY_ISO_Partial_Space_Right: 65062
+            KEY_ISO_Prev_Group: 65034
+            KEY_ISO_Prev_Group_Lock: 65035
+            KEY_ISO_Release_Both_Margins: 65067
+            KEY_ISO_Release_Margin_Left: 65065
+            KEY_ISO_Release_Margin_Right: 65066
+            KEY_ISO_Set_Margin_Left: 65063
+            KEY_ISO_Set_Margin_Right: 65064
+            KEY_Iabovedot: 681
+            KEY_Iacute: 205
+            KEY_Ibelowdot: 16785098
+            KEY_Ibreve: 16777516
+            KEY_Icircumflex: 206
+            KEY_Idiaeresis: 207
+            KEY_Igrave: 204
+            KEY_Ihook: 16785096
+            KEY_Imacron: 975
+            KEY_Images: 268964282
+            KEY_Info: 268964198
+            KEY_Insert: 65379
+            KEY_Iogonek: 967
+            KEY_Itilde: 933
+            KEY_J: 74
+            KEY_Jcircumflex: 684
+            KEY_Journal: 268964418
+            KEY_K: 75
+            KEY_KP_0: 65456
+            KEY_KP_1: 65457
+            KEY_KP_2: 65458
+            KEY_KP_3: 65459
+            KEY_KP_4: 65460
+            KEY_KP_5: 65461
+            KEY_KP_6: 65462
+            KEY_KP_7: 65463
+            KEY_KP_8: 65464
+            KEY_KP_9: 65465
+            KEY_KP_Add: 65451
+            KEY_KP_Begin: 65437
+            KEY_KP_Decimal: 65454
+            KEY_KP_Delete: 65439
+            KEY_KP_Divide: 65455
+            KEY_KP_Down: 65433
+            KEY_KP_End: 65436
+            KEY_KP_Enter: 65421
+            KEY_KP_Equal: 65469
+            KEY_KP_F1: 65425
+            KEY_KP_F2: 65426
+            KEY_KP_F3: 65427
+            KEY_KP_F4: 65428
+            KEY_KP_Home: 65429
+            KEY_KP_Insert: 65438
+            KEY_KP_Left: 65430
+            KEY_KP_Multiply: 65450
+            KEY_KP_Next: 65435
+            KEY_KP_Page_Down: 65435
+            KEY_KP_Page_Up: 65434
+            KEY_KP_Prior: 65434
+            KEY_KP_Right: 65432
+            KEY_KP_Separator: 65452
+            KEY_KP_Space: 65408
+            KEY_KP_Subtract: 65453
+            KEY_KP_Tab: 65417
+            KEY_KP_Up: 65431
+            KEY_Kana_Lock: 65325
+            KEY_Kana_Shift: 65326
+            KEY_Kanji: 65313
+            KEY_Kanji_Bangou: 65335
+            KEY_Katakana: 65318
+            KEY_KbdBrightnessDown: 269025030
+            KEY_KbdBrightnessUp: 269025029
+            KEY_KbdInputAssistAccept: 268964452
+            KEY_KbdInputAssistCancel: 268964453
+            KEY_KbdInputAssistNext: 268964449
+            KEY_KbdInputAssistNextgroup: 268964451
+            KEY_KbdInputAssistPrev: 268964448
+            KEY_KbdInputAssistPrevgroup: 268964450
+            KEY_KbdLcdMenu1: 268964536
+            KEY_KbdLcdMenu2: 268964537
+            KEY_KbdLcdMenu3: 268964538
+            KEY_KbdLcdMenu4: 268964539
+            KEY_KbdLcdMenu5: 268964540
+            KEY_KbdLightOnOff: 269025028
+            KEY_Kcedilla: 979
+            KEY_Keyboard: 269025203
+            KEY_Korean_Won: 3839
+            KEY_L: 76
+            KEY_L1: 65480
+            KEY_L10: 65489
+            KEY_L2: 65481
+            KEY_L3: 65482
+            KEY_L4: 65483
+            KEY_L5: 65484
+            KEY_L6: 65485
+            KEY_L7: 65486
+            KEY_L8: 65487
+            KEY_L9: 65488
+            KEY_Lacute: 453
+            KEY_Last_Virtual_Screen: 65236
+            KEY_Launch0: 269025088
+            KEY_Launch1: 269025089
+            KEY_Launch2: 269025090
+            KEY_Launch3: 269025091
+            KEY_Launch4: 269025092
+            KEY_Launch5: 269025093
+            KEY_Launch6: 269025094
+            KEY_Launch7: 269025095
+            KEY_Launch8: 269025096
+            KEY_Launch9: 269025097
+            KEY_LaunchA: 269025098
+            KEY_LaunchB: 269025099
+            KEY_LaunchC: 269025100
+            KEY_LaunchD: 269025101
+            KEY_LaunchE: 269025102
+            KEY_LaunchF: 269025103
+            KEY_Lbelowdot: 16784950
+            KEY_Lcaron: 421
+            KEY_Lcedilla: 934
+            KEY_Left: 65361
+            KEY_LeftDown: 268964457
+            KEY_LeftUp: 268964456
+            KEY_LightBulb: 269025077
+            KEY_LightsToggle: 268964382
+            KEY_Linefeed: 65290
+            KEY_LiraSign: 16785572
+            KEY_LogGrabInfo: 269024805
+            KEY_LogOff: 269025121
+            KEY_LogWindowTree: 269024804
+            KEY_Lstroke: 419
+            KEY_M: 77
+            KEY_Mabovedot: 16784960
+            KEY_Macedonia_DSE: 1717
+            KEY_Macedonia_GJE: 1714
+            KEY_Macedonia_KJE: 1724
+            KEY_Macedonia_dse: 1701
+            KEY_Macedonia_gje: 1698
+            KEY_Macedonia_kje: 1708
+            KEY_Macro1: 268964496
+            KEY_Macro10: 268964505
+            KEY_Macro11: 268964506
+            KEY_Macro12: 268964507
+            KEY_Macro13: 268964508
+            KEY_Macro14: 268964509
+            KEY_Macro15: 268964510
+            KEY_Macro16: 268964511
+            KEY_Macro17: 268964512
+            KEY_Macro18: 268964513
+            KEY_Macro19: 268964514
+            KEY_Macro2: 268964497
+            KEY_Macro20: 268964515
+            KEY_Macro21: 268964516
+            KEY_Macro22: 268964517
+            KEY_Macro23: 268964518
+            KEY_Macro24: 268964519
+            KEY_Macro25: 268964520
+            KEY_Macro26: 268964521
+            KEY_Macro27: 268964522
+            KEY_Macro28: 268964523
+            KEY_Macro29: 268964524
+            KEY_Macro3: 268964498
+            KEY_Macro30: 268964525
+            KEY_Macro4: 268964499
+            KEY_Macro5: 268964500
+            KEY_Macro6: 268964501
+            KEY_Macro7: 268964502
+            KEY_Macro8: 268964503
+            KEY_Macro9: 268964504
+            KEY_MacroPreset1: 268964531
+            KEY_MacroPreset2: 268964532
+            KEY_MacroPreset3: 268964533
+            KEY_MacroPresetCycle: 268964530
+            KEY_MacroRecordStart: 268964528
+            KEY_MacroRecordStop: 268964529
+            KEY_Mae_Koho: 65342
+            KEY_Mail: 269025049
+            KEY_MailForward: 269025168
+            KEY_MarkWaypoint: 268964478
+            KEY_Market: 269025122
+            KEY_Massyo: 65324
+            KEY_MediaRepeat: 268964279
+            KEY_MediaTopMenu: 268964459
+            KEY_Meeting: 269025123
+            KEY_Memo: 269025054
+            KEY_Menu: 65383
+            KEY_MenuKB: 269025125
+            KEY_MenuPB: 269025126
+            KEY_Messenger: 269025166
+            KEY_Meta_L: 65511
+            KEY_Meta_R: 65512
+            KEY_MillSign: 16785573
+            KEY_ModeLock: 269025025
+            KEY_Mode_switch: 65406
+            KEY_MonBrightnessCycle: 269025031
+            KEY_MonBrightnessDown: 269025027
+            KEY_MonBrightnessUp: 269025026
+            KEY_MouseKeys_Accel_Enable: 65143
+            KEY_MouseKeys_Enable: 65142
+            KEY_Muhenkan: 65314
+            KEY_Multi_key: 65312
+            KEY_MultipleCandidate: 65341
+            KEY_Music: 269025170
+            KEY_MyComputer: 269025075
+            KEY_MySites: 269025127
+            KEY_N: 78
+            KEY_Nacute: 465
+            KEY_NairaSign: 16785574
+            KEY_NavChart: 268964480
+            KEY_NavInfo: 268964488
+            KEY_Ncaron: 466
+            KEY_Ncedilla: 977
+            KEY_New: 269025128
+            KEY_NewSheqelSign: 16785578
+            KEY_News: 269025129
+            KEY_Next: 65366
+            KEY_NextElement: 268964475
+            KEY_NextFavorite: 268964464
+            KEY_Next_VMode: 269024802
+            KEY_Next_Virtual_Screen: 65234
+            KEY_NotificationCenter: 268964284
+            KEY_Ntilde: 209
+            KEY_Num_Lock: 65407
+            KEY_Numeric0: 268964352
+            KEY_Numeric1: 268964353
+            KEY_Numeric11: 268964460
+            KEY_Numeric12: 268964461
+            KEY_Numeric2: 268964354
+            KEY_Numeric3: 268964355
+            KEY_Numeric4: 268964356
+            KEY_Numeric5: 268964357
+            KEY_Numeric6: 268964358
+            KEY_Numeric7: 268964359
+            KEY_Numeric8: 268964360
+            KEY_Numeric9: 268964361
+            KEY_NumericA: 268964364
+            KEY_NumericB: 268964365
+            KEY_NumericC: 268964366
+            KEY_NumericD: 268964367
+            KEY_NumericPound: 268964363
+            KEY_NumericStar: 268964362
+            KEY_O: 79
+            KEY_OE: 5052
+            KEY_Oacute: 211
+            KEY_Obarred: 16777631
+            KEY_Obelowdot: 16785100
+            KEY_Ocaron: 16777681
+            KEY_Ocircumflex: 212
+            KEY_Ocircumflexacute: 16785104
+            KEY_Ocircumflexbelowdot: 16785112
+            KEY_Ocircumflexgrave: 16785106
+            KEY_Ocircumflexhook: 16785108
+            KEY_Ocircumflextilde: 16785110
+            KEY_Odiaeresis: 214
+            KEY_Odoubleacute: 469
+            KEY_OfficeHome: 269025130
+            KEY_Ograve: 210
+            KEY_Ohook: 16785102
+            KEY_Ohorn: 16777632
+            KEY_Ohornacute: 16785114
+            KEY_Ohornbelowdot: 16785122
+            KEY_Ohorngrave: 16785116
+            KEY_Ohornhook: 16785118
+            KEY_Ohorntilde: 16785120
+            KEY_Omacron: 978
+            KEY_OnScreenKeyboard: 268964472
+            KEY_Ooblique: 216
+            KEY_Open: 269025131
+            KEY_OpenURL: 269025080
+            KEY_Option: 269025132
+            KEY_Oslash: 216
+            KEY_Otilde: 213
+            KEY_Overlay1_Enable: 65144
+            KEY_Overlay2_Enable: 65145
+            KEY_P: 80
+            KEY_Pabovedot: 16784982
+            KEY_Page_Down: 65366
+            KEY_Page_Up: 65365
+            KEY_Paste: 269025133
+            KEY_Pause: 65299
+            KEY_PauseRecord: 268964466
+            KEY_PesetaSign: 16785575
+            KEY_Phone: 269025134
+            KEY_PickupPhone: 268964285
+            KEY_Pictures: 269025169
+            KEY_Pointer_Accelerate: 65274
+            KEY_Pointer_Button1: 65257
+            KEY_Pointer_Button2: 65258
+            KEY_Pointer_Button3: 65259
+            KEY_Pointer_Button4: 65260
+            KEY_Pointer_Button5: 65261
+            KEY_Pointer_Button_Dflt: 65256
+            KEY_Pointer_DblClick1: 65263
+            KEY_Pointer_DblClick2: 65264
+            KEY_Pointer_DblClick3: 65265
+            KEY_Pointer_DblClick4: 65266
+            KEY_Pointer_DblClick5: 65267
+            KEY_Pointer_DblClick_Dflt: 65262
+            KEY_Pointer_DfltBtnNext: 65275
+            KEY_Pointer_DfltBtnPrev: 65276
+            KEY_Pointer_Down: 65251
+            KEY_Pointer_DownLeft: 65254
+            KEY_Pointer_DownRight: 65255
+            KEY_Pointer_Drag1: 65269
+            KEY_Pointer_Drag2: 65270
+            KEY_Pointer_Drag3: 65271
+            KEY_Pointer_Drag4: 65272
+            KEY_Pointer_Drag5: 65277
+            KEY_Pointer_Drag_Dflt: 65268
+            KEY_Pointer_EnableKeys: 65273
+            KEY_Pointer_Left: 65248
+            KEY_Pointer_Right: 65249
+            KEY_Pointer_Up: 65250
+            KEY_Pointer_UpLeft: 65252
+            KEY_Pointer_UpRight: 65253
+            KEY_PowerDown: 269025057
+            KEY_PowerOff: 269025066
+            KEY_Presentation: 268964265
+            KEY_Prev_VMode: 269024803
+            KEY_Prev_Virtual_Screen: 65233
+            KEY_PreviousCandidate: 65342
+            KEY_PreviousElement: 268964476
+            KEY_Print: 65377
+            KEY_Prior: 65365
+            KEY_PrivacyScreenToggle: 268964473
+            KEY_Q: 81
+            KEY_R: 82
+            KEY_R1: 65490
+            KEY_R10: 65499
+            KEY_R11: 65500
+            KEY_R12: 65501
+            KEY_R13: 65502
+            KEY_R14: 65503
+            KEY_R15: 65504
+            KEY_R2: 65491
+            KEY_R3: 65492
+            KEY_R4: 65493
+            KEY_R5: 65494
+            KEY_R6: 65495
+            KEY_R7: 65496
+            KEY_R8: 65497
+            KEY_R9: 65498
+            KEY_RFKill: 269025205
+            KEY_Racute: 448
+            KEY_RadarOverlay: 268964484
+            KEY_Rcaron: 472
+            KEY_Rcedilla: 931
+            KEY_Red: 269025187
+            KEY_Redo: 65382
+            KEY_Refresh: 269025065
+            KEY_RefreshRateToggle: 268964402
+            KEY_Reload: 269025139
+            KEY_RepeatKeys_Enable: 65138
+            KEY_Reply: 269025138
+            KEY_Return: 65293
+            KEY_Right: 65363
+            KEY_RightDown: 268964455
+            KEY_RightUp: 268964454
+            KEY_RockerDown: 269025060
+            KEY_RockerEnter: 269025061
+            KEY_RockerUp: 269025059
+            KEY_Romaji: 65316
+            KEY_RootMenu: 268964458
+            KEY_RotateWindows: 269025140
+            KEY_RotationKB: 269025142
+            KEY_RotationLockToggle: 269025207
+            KEY_RotationPB: 269025141
+            KEY_RupeeSign: 16785576
+            KEY_S: 83
+            KEY_SCHWA: 16777615
+            KEY_Sabovedot: 16784992
+            KEY_Sacute: 422
+            KEY_Save: 269025143
+            KEY_Scaron: 425
+            KEY_Scedilla: 426
+            KEY_Scircumflex: 734
+            KEY_ScreenSaver: 269025069
+            KEY_Screensaver: 268964421
+            KEY_ScrollClick: 269025146
+            KEY_ScrollDown: 269025145
+            KEY_ScrollUp: 269025144
+            KEY_Scroll_Lock: 65300
+            KEY_Search: 269025051
+            KEY_Select: 65376
+            KEY_SelectButton: 269025184
+            KEY_SelectiveScreenshot: 268964474
+            KEY_Send: 269025147
+            KEY_Serbian_DJE: 1713
+            KEY_Serbian_DZE: 1727
+            KEY_Serbian_JE: 1720
+            KEY_Serbian_LJE: 1721
+            KEY_Serbian_NJE: 1722
+            KEY_Serbian_TSHE: 1723
+            KEY_Serbian_dje: 1697
+            KEY_Serbian_dze: 1711
+            KEY_Serbian_je: 1704
+            KEY_Serbian_lje: 1705
+            KEY_Serbian_nje: 1706
+            KEY_Serbian_tshe: 1707
+            KEY_Shift_L: 65505
+            KEY_Shift_Lock: 65510
+            KEY_Shift_R: 65506
+            KEY_Shop: 269025078
+            KEY_SidevuSonar: 268964487
+            KEY_SingleCandidate: 65340
+            KEY_SingleRangeRadar: 268964482
+            KEY_Sinh_a: 16780677
+            KEY_Sinh_aa: 16780678
+            KEY_Sinh_aa2: 16780751
+            KEY_Sinh_ae: 16780679
+            KEY_Sinh_ae2: 16780752
+            KEY_Sinh_aee: 16780680
+            KEY_Sinh_aee2: 16780753
+            KEY_Sinh_ai: 16780691
+            KEY_Sinh_ai2: 16780763
+            KEY_Sinh_al: 16780746
+            KEY_Sinh_au: 16780694
+            KEY_Sinh_au2: 16780766
+            KEY_Sinh_ba: 16780726
+            KEY_Sinh_bha: 16780727
+            KEY_Sinh_ca: 16780704
+            KEY_Sinh_cha: 16780705
+            KEY_Sinh_dda: 16780713
+            KEY_Sinh_ddha: 16780714
+            KEY_Sinh_dha: 16780719
+            KEY_Sinh_dhha: 16780720
+            KEY_Sinh_e: 16780689
+            KEY_Sinh_e2: 16780761
+            KEY_Sinh_ee: 16780690
+            KEY_Sinh_ee2: 16780762
+            KEY_Sinh_fa: 16780742
+            KEY_Sinh_ga: 16780700
+            KEY_Sinh_gha: 16780701
+            KEY_Sinh_h2: 16780675
+            KEY_Sinh_ha: 16780740
+            KEY_Sinh_i: 16780681
+            KEY_Sinh_i2: 16780754
+            KEY_Sinh_ii: 16780682
+            KEY_Sinh_ii2: 16780755
+            KEY_Sinh_ja: 16780706
+            KEY_Sinh_jha: 16780707
+            KEY_Sinh_jnya: 16780709
+            KEY_Sinh_ka: 16780698
+            KEY_Sinh_kha: 16780699
+            KEY_Sinh_kunddaliya: 16780788
+            KEY_Sinh_la: 16780733
+            KEY_Sinh_lla: 16780741
+            KEY_Sinh_lu: 16780687
+            KEY_Sinh_lu2: 16780767
+            KEY_Sinh_luu: 16780688
+            KEY_Sinh_luu2: 16780787
+            KEY_Sinh_ma: 16780728
+            KEY_Sinh_mba: 16780729
+            KEY_Sinh_na: 16780721
+            KEY_Sinh_ndda: 16780716
+            KEY_Sinh_ndha: 16780723
+            KEY_Sinh_ng: 16780674
+            KEY_Sinh_ng2: 16780702
+            KEY_Sinh_nga: 16780703
+            KEY_Sinh_nja: 16780710
+            KEY_Sinh_nna: 16780715
+            KEY_Sinh_nya: 16780708
+            KEY_Sinh_o: 16780692
+            KEY_Sinh_o2: 16780764
+            KEY_Sinh_oo: 16780693
+            KEY_Sinh_oo2: 16780765
+            KEY_Sinh_pa: 16780724
+            KEY_Sinh_pha: 16780725
+            KEY_Sinh_ra: 16780731
+            KEY_Sinh_ri: 16780685
+            KEY_Sinh_rii: 16780686
+            KEY_Sinh_ru2: 16780760
+            KEY_Sinh_ruu2: 16780786
+            KEY_Sinh_sa: 16780739
+            KEY_Sinh_sha: 16780737
+            KEY_Sinh_ssha: 16780738
+            KEY_Sinh_tha: 16780717
+            KEY_Sinh_thha: 16780718
+            KEY_Sinh_tta: 16780711
+            KEY_Sinh_ttha: 16780712
+            KEY_Sinh_u: 16780683
+            KEY_Sinh_u2: 16780756
+            KEY_Sinh_uu: 16780684
+            KEY_Sinh_uu2: 16780758
+            KEY_Sinh_va: 16780736
+            KEY_Sinh_ya: 16780730
+            KEY_Sleep: 269025071
+            KEY_SlowKeys_Enable: 65139
+            KEY_SlowReverse: 268964470
+            KEY_Sos: 268964479
+            KEY_Spell: 269025148
+            KEY_SpellCheck: 268964272
+            KEY_SplitScreen: 269025149
+            KEY_Standby: 269025040
+            KEY_Start: 269025050
+            KEY_StickyKeys_Enable: 65141
+            KEY_Stop: 269025064
+            KEY_StopRecord: 268964465
+            KEY_Subtitle: 269025178
+            KEY_Super_L: 65515
+            KEY_Super_R: 65516
+            KEY_Support: 269025150
+            KEY_Suspend: 269025191
+            KEY_Switch_VT_1: 269024769
+            KEY_Switch_VT_10: 269024778
+            KEY_Switch_VT_11: 269024779
+            KEY_Switch_VT_12: 269024780
+            KEY_Switch_VT_2: 269024770
+            KEY_Switch_VT_3: 269024771
+            KEY_Switch_VT_4: 269024772
+            KEY_Switch_VT_5: 269024773
+            KEY_Switch_VT_6: 269024774
+            KEY_Switch_VT_7: 269024775
+            KEY_Switch_VT_8: 269024776
+            KEY_Switch_VT_9: 269024777
+            KEY_Sys_Req: 65301
+            KEY_T: 84
+            KEY_THORN: 222
+            KEY_Tab: 65289
+            KEY_Tabovedot: 16785002
+            KEY_TaskPane: 269025151
+            KEY_Taskmanager: 268964417
+            KEY_Tcaron: 427
+            KEY_Tcedilla: 478
+            KEY_Terminal: 269025152
+            KEY_Terminate_Server: 65237
+            KEY_Thai_baht: 3551
+            KEY_Thai_bobaimai: 3514
+            KEY_Thai_chochan: 3496
+            KEY_Thai_chochang: 3498
+            KEY_Thai_choching: 3497
+            KEY_Thai_chochoe: 3500
+            KEY_Thai_dochada: 3502
+            KEY_Thai_dodek: 3508
+            KEY_Thai_fofa: 3517
+            KEY_Thai_fofan: 3519
+            KEY_Thai_hohip: 3531
+            KEY_Thai_honokhuk: 3534
+            KEY_Thai_khokhai: 3490
+            KEY_Thai_khokhon: 3493
+            KEY_Thai_khokhuat: 3491
+            KEY_Thai_khokhwai: 3492
+            KEY_Thai_khorakhang: 3494
+            KEY_Thai_kokai: 3489
+            KEY_Thai_lakkhangyao: 3557
+            KEY_Thai_lekchet: 3575
+            KEY_Thai_lekha: 3573
+            KEY_Thai_lekhok: 3574
+            KEY_Thai_lekkao: 3577
+            KEY_Thai_leknung: 3569
+            KEY_Thai_lekpaet: 3576
+            KEY_Thai_leksam: 3571
+            KEY_Thai_leksi: 3572
+            KEY_Thai_leksong: 3570
+            KEY_Thai_leksun: 3568
+            KEY_Thai_lochula: 3532
+            KEY_Thai_loling: 3525
+            KEY_Thai_lu: 3526
+            KEY_Thai_maichattawa: 3563
+            KEY_Thai_maiek: 3560
+            KEY_Thai_maihanakat: 3537
+            KEY_Thai_maihanakat_maitho: 3550
+            KEY_Thai_maitaikhu: 3559
+            KEY_Thai_maitho: 3561
+            KEY_Thai_maitri: 3562
+            KEY_Thai_maiyamok: 3558
+            KEY_Thai_moma: 3521
+            KEY_Thai_ngongu: 3495
+            KEY_Thai_nikhahit: 3565
+            KEY_Thai_nonen: 3507
+            KEY_Thai_nonu: 3513
+            KEY_Thai_oang: 3533
+            KEY_Thai_paiyannoi: 3535
+            KEY_Thai_phinthu: 3546
+            KEY_Thai_phophan: 3518
+            KEY_Thai_phophung: 3516
+            KEY_Thai_phosamphao: 3520
+            KEY_Thai_popla: 3515
+            KEY_Thai_rorua: 3523
+            KEY_Thai_ru: 3524
+            KEY_Thai_saraa: 3536
+            KEY_Thai_saraaa: 3538
+            KEY_Thai_saraae: 3553
+            KEY_Thai_saraaimaimalai: 3556
+            KEY_Thai_saraaimaimuan: 3555
+            KEY_Thai_saraam: 3539
+            KEY_Thai_sarae: 3552
+            KEY_Thai_sarai: 3540
+            KEY_Thai_saraii: 3541
+            KEY_Thai_sarao: 3554
+            KEY_Thai_sarau: 3544
+            KEY_Thai_saraue: 3542
+            KEY_Thai_sarauee: 3543
+            KEY_Thai_sarauu: 3545
+            KEY_Thai_sorusi: 3529
+            KEY_Thai_sosala: 3528
+            KEY_Thai_soso: 3499
+            KEY_Thai_sosua: 3530
+            KEY_Thai_thanthakhat: 3564
+            KEY_Thai_thonangmontho: 3505
+            KEY_Thai_thophuthao: 3506
+            KEY_Thai_thothahan: 3511
+            KEY_Thai_thothan: 3504
+            KEY_Thai_thothong: 3512
+            KEY_Thai_thothung: 3510
+            KEY_Thai_topatak: 3503
+            KEY_Thai_totao: 3509
+            KEY_Thai_wowaen: 3527
+            KEY_Thai_yoyak: 3522
+            KEY_Thai_yoying: 3501
+            KEY_Thorn: 222
+            KEY_Time: 269025183
+            KEY_ToDoList: 269025055
+            KEY_Tools: 269025153
+            KEY_TopMenu: 269025186
+            KEY_TouchpadOff: 269025201
+            KEY_TouchpadOn: 269025200
+            KEY_TouchpadToggle: 269025193
+            KEY_Touroku: 65323
+            KEY_TraditionalSonar: 268964485
+            KEY_Travel: 269025154
+            KEY_Tslash: 940
+            KEY_U: 85
+            KEY_UWB: 269025174
+            KEY_Uacute: 218
+            KEY_Ubelowdot: 16785124
+            KEY_Ubreve: 733
+            KEY_Ucircumflex: 219
+            KEY_Udiaeresis: 220
+            KEY_Udoubleacute: 475
+            KEY_Ugrave: 217
+            KEY_Uhook: 16785126
+            KEY_Uhorn: 16777647
+            KEY_Uhornacute: 16785128
+            KEY_Uhornbelowdot: 16785136
+            KEY_Uhorngrave: 16785130
+            KEY_Uhornhook: 16785132
+            KEY_Uhorntilde: 16785134
+            KEY_Ukrainian_GHE_WITH_UPTURN: 1725
+            KEY_Ukrainian_I: 1718
+            KEY_Ukrainian_IE: 1716
+            KEY_Ukrainian_YI: 1719
+            KEY_Ukrainian_ghe_with_upturn: 1709
+            KEY_Ukrainian_i: 1702
+            KEY_Ukrainian_ie: 1700
+            KEY_Ukrainian_yi: 1703
+            KEY_Ukranian_I: 1718
+            KEY_Ukranian_JE: 1716
+            KEY_Ukranian_YI: 1719
+            KEY_Ukranian_i: 1702
+            KEY_Ukranian_je: 1700
+            KEY_Ukranian_yi: 1703
+            KEY_Umacron: 990
+            KEY_Undo: 65381
+            KEY_Ungrab: 269024800
+            KEY_Unmute: 268964468
+            KEY_Uogonek: 985
+            KEY_Up: 65362
+            KEY_Uring: 473
+            KEY_User1KB: 269025157
+            KEY_User2KB: 269025158
+            KEY_UserPB: 269025156
+            KEY_Utilde: 989
+            KEY_V: 86
+            KEY_VOD: 268964467
+            KEY_VendorHome: 269025076
+            KEY_Video: 269025159
+            KEY_VideoPhone: 268964256
+            KEY_View: 269025185
+            KEY_VoiceCommand: 268964422
+            KEY_Voicemail: 268964268
+            KEY_VoidSymbol: 16777215
+            KEY_W: 87
+            KEY_WLAN: 269025173
+            KEY_WPSButton: 268964369
+            KEY_WWAN: 269025204
+            KEY_WWW: 269025070
+            KEY_Wacute: 16785026
+            KEY_WakeUp: 269025067
+            KEY_Wcircumflex: 16777588
+            KEY_Wdiaeresis: 16785028
+            KEY_WebCam: 269025167
+            KEY_Wgrave: 16785024
+            KEY_WheelButton: 269025160
+            KEY_WindowClear: 269025109
+            KEY_WonSign: 16785577
+            KEY_Word: 269025161
+            KEY_X: 88
+            KEY_Xabovedot: 16785034
+            KEY_Xfer: 269025162
+            KEY_Y: 89
+            KEY_Yacute: 221
+            KEY_Ybelowdot: 16785140
+            KEY_Ycircumflex: 16777590
+            KEY_Ydiaeresis: 5054
+            KEY_Yellow: 269025189
+            KEY_Ygrave: 16785138
+            KEY_Yhook: 16785142
+            KEY_Ytilde: 16785144
+            KEY_Z: 90
+            KEY_Zabovedot: 431
+            KEY_Zacute: 428
+            KEY_Zcaron: 430
+            KEY_Zen_Koho: 65341
+            KEY_Zenkaku: 65320
+            KEY_Zenkaku_Hankaku: 65322
+            KEY_ZoomIn: 269025163
+            KEY_ZoomOut: 269025164
+            KEY_ZoomReset: 268964260
+            KEY_Zstroke: 16777653
+            KEY_a: 97
+            KEY_aacute: 225
+            KEY_abelowdot: 16785057
+            KEY_abovedot: 511
+            KEY_abreve: 483
+            KEY_abreveacute: 16785071
+            KEY_abrevebelowdot: 16785079
+            KEY_abrevegrave: 16785073
+            KEY_abrevehook: 16785075
+            KEY_abrevetilde: 16785077
+            KEY_acircumflex: 226
+            KEY_acircumflexacute: 16785061
+            KEY_acircumflexbelowdot: 16785069
+            KEY_acircumflexgrave: 16785063
+            KEY_acircumflexhook: 16785065
+            KEY_acircumflextilde: 16785067
+            KEY_acute: 180
+            KEY_adiaeresis: 228
+            KEY_ae: 230
+            KEY_agrave: 224
+            KEY_ahook: 16785059
+            KEY_amacron: 992
+            KEY_ampersand: 38
+            KEY_aogonek: 433
+            KEY_apostrophe: 39
+            KEY_approxeq: 16785992
+            KEY_approximate: 2248
+            KEY_aring: 229
+            KEY_asciicircum: 94
+            KEY_asciitilde: 126
+            KEY_asterisk: 42
+            KEY_at: 64
+            KEY_atilde: 227
+            KEY_b: 98
+            KEY_babovedot: 16784899
+            KEY_backslash: 92
+            KEY_ballotcross: 2804
+            KEY_bar: 124
+            KEY_because: 16785973
+            KEY_blank: 2527
+            KEY_botintegral: 2213
+            KEY_botleftparens: 2220
+            KEY_botleftsqbracket: 2216
+            KEY_botleftsummation: 2226
+            KEY_botrightparens: 2222
+            KEY_botrightsqbracket: 2218
+            KEY_botrightsummation: 2230
+            KEY_bott: 2550
+            KEY_botvertsummationconnector: 2228
+            KEY_braceleft: 123
+            KEY_braceright: 125
+            KEY_bracketleft: 91
+            KEY_bracketright: 93
+            KEY_braille_blank: 16787456
+            KEY_braille_dot_1: 65521
+            KEY_braille_dot_10: 65530
+            KEY_braille_dot_2: 65522
+            KEY_braille_dot_3: 65523
+            KEY_braille_dot_4: 65524
+            KEY_braille_dot_5: 65525
+            KEY_braille_dot_6: 65526
+            KEY_braille_dot_7: 65527
+            KEY_braille_dot_8: 65528
+            KEY_braille_dot_9: 65529
+            KEY_braille_dots_1: 16787457
+            KEY_braille_dots_12: 16787459
+            KEY_braille_dots_123: 16787463
+            KEY_braille_dots_1234: 16787471
+            KEY_braille_dots_12345: 16787487
+            KEY_braille_dots_123456: 16787519
+            KEY_braille_dots_1234567: 16787583
+            KEY_braille_dots_12345678: 16787711
+            KEY_braille_dots_1234568: 16787647
+            KEY_braille_dots_123457: 16787551
+            KEY_braille_dots_1234578: 16787679
+            KEY_braille_dots_123458: 16787615
+            KEY_braille_dots_12346: 16787503
+            KEY_braille_dots_123467: 16787567
+            KEY_braille_dots_1234678: 16787695
+            KEY_braille_dots_123468: 16787631
+            KEY_braille_dots_12347: 16787535
+            KEY_braille_dots_123478: 16787663
+            KEY_braille_dots_12348: 16787599
+            KEY_braille_dots_1235: 16787479
+            KEY_braille_dots_12356: 16787511
+            KEY_braille_dots_123567: 16787575
+            KEY_braille_dots_1235678: 16787703
+            KEY_braille_dots_123568: 16787639
+            KEY_braille_dots_12357: 16787543
+            KEY_braille_dots_123578: 16787671
+            KEY_braille_dots_12358: 16787607
+            KEY_braille_dots_1236: 16787495
+            KEY_braille_dots_12367: 16787559
+            KEY_braille_dots_123678: 16787687
+            KEY_braille_dots_12368: 16787623
+            KEY_braille_dots_1237: 16787527
+            KEY_braille_dots_12378: 16787655
+            KEY_braille_dots_1238: 16787591
+            KEY_braille_dots_124: 16787467
+            KEY_braille_dots_1245: 16787483
+            KEY_braille_dots_12456: 16787515
+            KEY_braille_dots_124567: 16787579
+            KEY_braille_dots_1245678: 16787707
+            KEY_braille_dots_124568: 16787643
+            KEY_braille_dots_12457: 16787547
+            KEY_braille_dots_124578: 16787675
+            KEY_braille_dots_12458: 16787611
+            KEY_braille_dots_1246: 16787499
+            KEY_braille_dots_12467: 16787563
+            KEY_braille_dots_124678: 16787691
+            KEY_braille_dots_12468: 16787627
+            KEY_braille_dots_1247: 16787531
+            KEY_braille_dots_12478: 16787659
+            KEY_braille_dots_1248: 16787595
+            KEY_braille_dots_125: 16787475
+            KEY_braille_dots_1256: 16787507
+            KEY_braille_dots_12567: 16787571
+            KEY_braille_dots_125678: 16787699
+            KEY_braille_dots_12568: 16787635
+            KEY_braille_dots_1257: 16787539
+            KEY_braille_dots_12578: 16787667
+            KEY_braille_dots_1258: 16787603
+            KEY_braille_dots_126: 16787491
+            KEY_braille_dots_1267: 16787555
+            KEY_braille_dots_12678: 16787683
+            KEY_braille_dots_1268: 16787619
+            KEY_braille_dots_127: 16787523
+            KEY_braille_dots_1278: 16787651
+            KEY_braille_dots_128: 16787587
+            KEY_braille_dots_13: 16787461
+            KEY_braille_dots_134: 16787469
+            KEY_braille_dots_1345: 16787485
+            KEY_braille_dots_13456: 16787517
+            KEY_braille_dots_134567: 16787581
+            KEY_braille_dots_1345678: 16787709
+            KEY_braille_dots_134568: 16787645
+            KEY_braille_dots_13457: 16787549
+            KEY_braille_dots_134578: 16787677
+            KEY_braille_dots_13458: 16787613
+            KEY_braille_dots_1346: 16787501
+            KEY_braille_dots_13467: 16787565
+            KEY_braille_dots_134678: 16787693
+            KEY_braille_dots_13468: 16787629
+            KEY_braille_dots_1347: 16787533
+            KEY_braille_dots_13478: 16787661
+            KEY_braille_dots_1348: 16787597
+            KEY_braille_dots_135: 16787477
+            KEY_braille_dots_1356: 16787509
+            KEY_braille_dots_13567: 16787573
+            KEY_braille_dots_135678: 16787701
+            KEY_braille_dots_13568: 16787637
+            KEY_braille_dots_1357: 16787541
+            KEY_braille_dots_13578: 16787669
+            KEY_braille_dots_1358: 16787605
+            KEY_braille_dots_136: 16787493
+            KEY_braille_dots_1367: 16787557
+            KEY_braille_dots_13678: 16787685
+            KEY_braille_dots_1368: 16787621
+            KEY_braille_dots_137: 16787525
+            KEY_braille_dots_1378: 16787653
+            KEY_braille_dots_138: 16787589
+            KEY_braille_dots_14: 16787465
+            KEY_braille_dots_145: 16787481
+            KEY_braille_dots_1456: 16787513
+            KEY_braille_dots_14567: 16787577
+            KEY_braille_dots_145678: 16787705
+            KEY_braille_dots_14568: 16787641
+            KEY_braille_dots_1457: 16787545
+            KEY_braille_dots_14578: 16787673
+            KEY_braille_dots_1458: 16787609
+            KEY_braille_dots_146: 16787497
+            KEY_braille_dots_1467: 16787561
+            KEY_braille_dots_14678: 16787689
+            KEY_braille_dots_1468: 16787625
+            KEY_braille_dots_147: 16787529
+            KEY_braille_dots_1478: 16787657
+            KEY_braille_dots_148: 16787593
+            KEY_braille_dots_15: 16787473
+            KEY_braille_dots_156: 16787505
+            KEY_braille_dots_1567: 16787569
+            KEY_braille_dots_15678: 16787697
+            KEY_braille_dots_1568: 16787633
+            KEY_braille_dots_157: 16787537
+            KEY_braille_dots_1578: 16787665
+            KEY_braille_dots_158: 16787601
+            KEY_braille_dots_16: 16787489
+            KEY_braille_dots_167: 16787553
+            KEY_braille_dots_1678: 16787681
+            KEY_braille_dots_168: 16787617
+            KEY_braille_dots_17: 16787521
+            KEY_braille_dots_178: 16787649
+            KEY_braille_dots_18: 16787585
+            KEY_braille_dots_2: 16787458
+            KEY_braille_dots_23: 16787462
+            KEY_braille_dots_234: 16787470
+            KEY_braille_dots_2345: 16787486
+            KEY_braille_dots_23456: 16787518
+            KEY_braille_dots_234567: 16787582
+            KEY_braille_dots_2345678: 16787710
+            KEY_braille_dots_234568: 16787646
+            KEY_braille_dots_23457: 16787550
+            KEY_braille_dots_234578: 16787678
+            KEY_braille_dots_23458: 16787614
+            KEY_braille_dots_2346: 16787502
+            KEY_braille_dots_23467: 16787566
+            KEY_braille_dots_234678: 16787694
+            KEY_braille_dots_23468: 16787630
+            KEY_braille_dots_2347: 16787534
+            KEY_braille_dots_23478: 16787662
+            KEY_braille_dots_2348: 16787598
+            KEY_braille_dots_235: 16787478
+            KEY_braille_dots_2356: 16787510
+            KEY_braille_dots_23567: 16787574
+            KEY_braille_dots_235678: 16787702
+            KEY_braille_dots_23568: 16787638
+            KEY_braille_dots_2357: 16787542
+            KEY_braille_dots_23578: 16787670
+            KEY_braille_dots_2358: 16787606
+            KEY_braille_dots_236: 16787494
+            KEY_braille_dots_2367: 16787558
+            KEY_braille_dots_23678: 16787686
+            KEY_braille_dots_2368: 16787622
+            KEY_braille_dots_237: 16787526
+            KEY_braille_dots_2378: 16787654
+            KEY_braille_dots_238: 16787590
+            KEY_braille_dots_24: 16787466
+            KEY_braille_dots_245: 16787482
+            KEY_braille_dots_2456: 16787514
+            KEY_braille_dots_24567: 16787578
+            KEY_braille_dots_245678: 16787706
+            KEY_braille_dots_24568: 16787642
+            KEY_braille_dots_2457: 16787546
+            KEY_braille_dots_24578: 16787674
+            KEY_braille_dots_2458: 16787610
+            KEY_braille_dots_246: 16787498
+            KEY_braille_dots_2467: 16787562
+            KEY_braille_dots_24678: 16787690
+            KEY_braille_dots_2468: 16787626
+            KEY_braille_dots_247: 16787530
+            KEY_braille_dots_2478: 16787658
+            KEY_braille_dots_248: 16787594
+            KEY_braille_dots_25: 16787474
+            KEY_braille_dots_256: 16787506
+            KEY_braille_dots_2567: 16787570
+            KEY_braille_dots_25678: 16787698
+            KEY_braille_dots_2568: 16787634
+            KEY_braille_dots_257: 16787538
+            KEY_braille_dots_2578: 16787666
+            KEY_braille_dots_258: 16787602
+            KEY_braille_dots_26: 16787490
+            KEY_braille_dots_267: 16787554
+            KEY_braille_dots_2678: 16787682
+            KEY_braille_dots_268: 16787618
+            KEY_braille_dots_27: 16787522
+            KEY_braille_dots_278: 16787650
+            KEY_braille_dots_28: 16787586
+            KEY_braille_dots_3: 16787460
+            KEY_braille_dots_34: 16787468
+            KEY_braille_dots_345: 16787484
+            KEY_braille_dots_3456: 16787516
+            KEY_braille_dots_34567: 16787580
+            KEY_braille_dots_345678: 16787708
+            KEY_braille_dots_34568: 16787644
+            KEY_braille_dots_3457: 16787548
+            KEY_braille_dots_34578: 16787676
+            KEY_braille_dots_3458: 16787612
+            KEY_braille_dots_346: 16787500
+            KEY_braille_dots_3467: 16787564
+            KEY_braille_dots_34678: 16787692
+            KEY_braille_dots_3468: 16787628
+            KEY_braille_dots_347: 16787532
+            KEY_braille_dots_3478: 16787660
+            KEY_braille_dots_348: 16787596
+            KEY_braille_dots_35: 16787476
+            KEY_braille_dots_356: 16787508
+            KEY_braille_dots_3567: 16787572
+            KEY_braille_dots_35678: 16787700
+            KEY_braille_dots_3568: 16787636
+            KEY_braille_dots_357: 16787540
+            KEY_braille_dots_3578: 16787668
+            KEY_braille_dots_358: 16787604
+            KEY_braille_dots_36: 16787492
+            KEY_braille_dots_367: 16787556
+            KEY_braille_dots_3678: 16787684
+            KEY_braille_dots_368: 16787620
+            KEY_braille_dots_37: 16787524
+            KEY_braille_dots_378: 16787652
+            KEY_braille_dots_38: 16787588
+            KEY_braille_dots_4: 16787464
+            KEY_braille_dots_45: 16787480
+            KEY_braille_dots_456: 16787512
+            KEY_braille_dots_4567: 16787576
+            KEY_braille_dots_45678: 16787704
+            KEY_braille_dots_4568: 16787640
+            KEY_braille_dots_457: 16787544
+            KEY_braille_dots_4578: 16787672
+            KEY_braille_dots_458: 16787608
+            KEY_braille_dots_46: 16787496
+            KEY_braille_dots_467: 16787560
+            KEY_braille_dots_4678: 16787688
+            KEY_braille_dots_468: 16787624
+            KEY_braille_dots_47: 16787528
+            KEY_braille_dots_478: 16787656
+            KEY_braille_dots_48: 16787592
+            KEY_braille_dots_5: 16787472
+            KEY_braille_dots_56: 16787504
+            KEY_braille_dots_567: 16787568
+            KEY_braille_dots_5678: 16787696
+            KEY_braille_dots_568: 16787632
+            KEY_braille_dots_57: 16787536
+            KEY_braille_dots_578: 16787664
+            KEY_braille_dots_58: 16787600
+            KEY_braille_dots_6: 16787488
+            KEY_braille_dots_67: 16787552
+            KEY_braille_dots_678: 16787680
+            KEY_braille_dots_68: 16787616
+            KEY_braille_dots_7: 16787520
+            KEY_braille_dots_78: 16787648
+            KEY_braille_dots_8: 16787584
+            KEY_breve: 418
+            KEY_brokenbar: 166
+            KEY_c: 99
+            KEY_c_h: 65187
+            KEY_cabovedot: 741
+            KEY_cacute: 486
+            KEY_careof: 2744
+            KEY_caret: 2812
+            KEY_caron: 439
+            KEY_ccaron: 488
+            KEY_ccedilla: 231
+            KEY_ccircumflex: 742
+            KEY_cedilla: 184
+            KEY_cent: 162
+            KEY_ch: 65184
+            KEY_checkerboard: 2529
+            KEY_checkmark: 2803
+            KEY_circle: 3023
+            KEY_club: 2796
+            KEY_colon: 58
+            KEY_combining_acute: 16777985
+            KEY_combining_belowdot: 16778019
+            KEY_combining_grave: 16777984
+            KEY_combining_hook: 16777993
+            KEY_combining_tilde: 16777987
+            KEY_comma: 44
+            KEY_containsas: 16785931
+            KEY_copyright: 169
+            KEY_cr: 2532
+            KEY_crossinglines: 2542
+            KEY_cuberoot: 16785947
+            KEY_currency: 164
+            KEY_cursor: 2815
+            KEY_d: 100
+            KEY_dabovedot: 16784907
+            KEY_dagger: 2801
+            KEY_dcaron: 495
+            KEY_dead_A: 65153
+            KEY_dead_E: 65155
+            KEY_dead_I: 65157
+            KEY_dead_O: 65159
+            KEY_dead_SCHWA: 65163
+            KEY_dead_U: 65161
+            KEY_dead_a: 65152
+            KEY_dead_abovecomma: 65124
+            KEY_dead_abovedot: 65110
+            KEY_dead_abovereversedcomma: 65125
+            KEY_dead_abovering: 65112
+            KEY_dead_aboveverticalline: 65169
+            KEY_dead_acute: 65105
+            KEY_dead_belowbreve: 65131
+            KEY_dead_belowcircumflex: 65129
+            KEY_dead_belowcomma: 65134
+            KEY_dead_belowdiaeresis: 65132
+            KEY_dead_belowdot: 65120
+            KEY_dead_belowmacron: 65128
+            KEY_dead_belowring: 65127
+            KEY_dead_belowtilde: 65130
+            KEY_dead_belowverticalline: 65170
+            KEY_dead_breve: 65109
+            KEY_dead_capital_schwa: 65163
+            KEY_dead_caron: 65114
+            KEY_dead_cedilla: 65115
+            KEY_dead_circumflex: 65106
+            KEY_dead_currency: 65135
+            KEY_dead_dasia: 65125
+            KEY_dead_diaeresis: 65111
+            KEY_dead_doubleacute: 65113
+            KEY_dead_doublegrave: 65126
+            KEY_dead_e: 65154
+            KEY_dead_grave: 65104
+            KEY_dead_greek: 65164
+            KEY_dead_hamza: 65165
+            KEY_dead_hook: 65121
+            KEY_dead_horn: 65122
+            KEY_dead_i: 65156
+            KEY_dead_invertedbreve: 65133
+            KEY_dead_iota: 65117
+            KEY_dead_longsolidusoverlay: 65171
+            KEY_dead_lowline: 65168
+            KEY_dead_macron: 65108
+            KEY_dead_o: 65158
+            KEY_dead_ogonek: 65116
+            KEY_dead_perispomeni: 65107
+            KEY_dead_psili: 65124
+            KEY_dead_schwa: 65162
+            KEY_dead_semivoiced_sound: 65119
+            KEY_dead_small_schwa: 65162
+            KEY_dead_stroke: 65123
+            KEY_dead_tilde: 65107
+            KEY_dead_u: 65160
+            KEY_dead_voiced_sound: 65118
+            KEY_decimalpoint: 2749
+            KEY_degree: 176
+            KEY_diaeresis: 168
+            KEY_diamond: 2797
+            KEY_digitspace: 2725
+            KEY_dintegral: 16785964
+            KEY_division: 247
+            KEY_dollar: 36
+            KEY_doubbaselinedot: 2735
+            KEY_doubleacute: 445
+            KEY_doubledagger: 2802
+            KEY_doublelowquotemark: 2814
+            KEY_downarrow: 2302
+            KEY_downcaret: 2984
+            KEY_downshoe: 3030
+            KEY_downstile: 3012
+            KEY_downtack: 3010
+            KEY_dstroke: 496
+            KEY_e: 101
+            KEY_eabovedot: 1004
+            KEY_eacute: 233
+            KEY_ebelowdot: 16785081
+            KEY_ecaron: 492
+            KEY_ecircumflex: 234
+            KEY_ecircumflexacute: 16785087
+            KEY_ecircumflexbelowdot: 16785095
+            KEY_ecircumflexgrave: 16785089
+            KEY_ecircumflexhook: 16785091
+            KEY_ecircumflextilde: 16785093
+            KEY_ediaeresis: 235
+            KEY_egrave: 232
+            KEY_ehook: 16785083
+            KEY_eightsubscript: 16785544
+            KEY_eightsuperior: 16785528
+            KEY_elementof: 16785928
+            KEY_ellipsis: 2734
+            KEY_em3space: 2723
+            KEY_em4space: 2724
+            KEY_emacron: 954
+            KEY_emdash: 2729
+            KEY_emfilledcircle: 2782
+            KEY_emfilledrect: 2783
+            KEY_emopencircle: 2766
+            KEY_emopenrectangle: 2767
+            KEY_emptyset: 16785925
+            KEY_emspace: 2721
+            KEY_endash: 2730
+            KEY_enfilledcircbullet: 2790
+            KEY_enfilledsqbullet: 2791
+            KEY_eng: 959
+            KEY_enopencircbullet: 2784
+            KEY_enopensquarebullet: 2785
+            KEY_enspace: 2722
+            KEY_eogonek: 490
+            KEY_equal: 61
+            KEY_eth: 240
+            KEY_etilde: 16785085
+            KEY_exclam: 33
+            KEY_exclamdown: 161
+            KEY_ezh: 16777874
+            KEY_f: 102
+            KEY_fabovedot: 16784927
+            KEY_femalesymbol: 2808
+            KEY_ff: 2531
+            KEY_figdash: 2747
+            KEY_filledlefttribullet: 2780
+            KEY_filledrectbullet: 2779
+            KEY_filledrighttribullet: 2781
+            KEY_filledtribulletdown: 2793
+            KEY_filledtribulletup: 2792
+            KEY_fiveeighths: 2757
+            KEY_fivesixths: 2743
+            KEY_fivesubscript: 16785541
+            KEY_fivesuperior: 16785525
+            KEY_fourfifths: 2741
+            KEY_foursubscript: 16785540
+            KEY_foursuperior: 16785524
+            KEY_fourthroot: 16785948
+            KEY_function: 2294
+            KEY_g: 103
+            KEY_gabovedot: 757
+            KEY_gbreve: 699
+            KEY_gcaron: 16777703
+            KEY_gcedilla: 955
+            KEY_gcircumflex: 760
+            KEY_grave: 96
+            KEY_greater: 62
+            KEY_greaterthanequal: 2238
+            KEY_guillemetleft: 171
+            KEY_guillemetright: 187
+            KEY_guillemotleft: 171
+            KEY_guillemotright: 187
+            KEY_h: 104
+            KEY_hairspace: 2728
+            KEY_hcircumflex: 694
+            KEY_heart: 2798
+            KEY_hebrew_aleph: 3296
+            KEY_hebrew_ayin: 3314
+            KEY_hebrew_bet: 3297
+            KEY_hebrew_beth: 3297
+            KEY_hebrew_chet: 3303
+            KEY_hebrew_dalet: 3299
+            KEY_hebrew_daleth: 3299
+            KEY_hebrew_doublelowline: 3295
+            KEY_hebrew_finalkaph: 3306
+            KEY_hebrew_finalmem: 3309
+            KEY_hebrew_finalnun: 3311
+            KEY_hebrew_finalpe: 3315
+            KEY_hebrew_finalzade: 3317
+            KEY_hebrew_finalzadi: 3317
+            KEY_hebrew_gimel: 3298
+            KEY_hebrew_gimmel: 3298
+            KEY_hebrew_he: 3300
+            KEY_hebrew_het: 3303
+            KEY_hebrew_kaph: 3307
+            KEY_hebrew_kuf: 3319
+            KEY_hebrew_lamed: 3308
+            KEY_hebrew_mem: 3310
+            KEY_hebrew_nun: 3312
+            KEY_hebrew_pe: 3316
+            KEY_hebrew_qoph: 3319
+            KEY_hebrew_resh: 3320
+            KEY_hebrew_samech: 3313
+            KEY_hebrew_samekh: 3313
+            KEY_hebrew_shin: 3321
+            KEY_hebrew_taf: 3322
+            KEY_hebrew_taw: 3322
+            KEY_hebrew_tet: 3304
+            KEY_hebrew_teth: 3304
+            KEY_hebrew_waw: 3301
+            KEY_hebrew_yod: 3305
+            KEY_hebrew_zade: 3318
+            KEY_hebrew_zadi: 3318
+            KEY_hebrew_zain: 3302
+            KEY_hebrew_zayin: 3302
+            KEY_hexagram: 2778
+            KEY_horizconnector: 2211
+            KEY_horizlinescan1: 2543
+            KEY_horizlinescan3: 2544
+            KEY_horizlinescan5: 2545
+            KEY_horizlinescan7: 2546
+            KEY_horizlinescan9: 2547
+            KEY_hstroke: 689
+            KEY_ht: 2530
+            KEY_hyphen: 173
+            KEY_i: 105
+            KEY_iTouch: 269025120
+            KEY_iacute: 237
+            KEY_ibelowdot: 16785099
+            KEY_ibreve: 16777517
+            KEY_icircumflex: 238
+            KEY_identical: 2255
+            KEY_idiaeresis: 239
+            KEY_idotless: 697
+            KEY_ifonlyif: 2253
+            KEY_igrave: 236
+            KEY_ihook: 16785097
+            KEY_imacron: 1007
+            KEY_implies: 2254
+            KEY_includedin: 2266
+            KEY_includes: 2267
+            KEY_infinity: 2242
+            KEY_integral: 2239
+            KEY_intersection: 2268
+            KEY_iogonek: 999
+            KEY_itilde: 949
+            KEY_j: 106
+            KEY_jcircumflex: 700
+            KEY_jot: 3018
+            KEY_k: 107
+            KEY_kana_A: 1201
+            KEY_kana_CHI: 1217
+            KEY_kana_E: 1204
+            KEY_kana_FU: 1228
+            KEY_kana_HA: 1226
+            KEY_kana_HE: 1229
+            KEY_kana_HI: 1227
+            KEY_kana_HO: 1230
+            KEY_kana_HU: 1228
+            KEY_kana_I: 1202
+            KEY_kana_KA: 1206
+            KEY_kana_KE: 1209
+            KEY_kana_KI: 1207
+            KEY_kana_KO: 1210
+            KEY_kana_KU: 1208
+            KEY_kana_MA: 1231
+            KEY_kana_ME: 1234
+            KEY_kana_MI: 1232
+            KEY_kana_MO: 1235
+            KEY_kana_MU: 1233
+            KEY_kana_N: 1245
+            KEY_kana_NA: 1221
+            KEY_kana_NE: 1224
+            KEY_kana_NI: 1222
+            KEY_kana_NO: 1225
+            KEY_kana_NU: 1223
+            KEY_kana_O: 1205
+            KEY_kana_RA: 1239
+            KEY_kana_RE: 1242
+            KEY_kana_RI: 1240
+            KEY_kana_RO: 1243
+            KEY_kana_RU: 1241
+            KEY_kana_SA: 1211
+            KEY_kana_SE: 1214
+            KEY_kana_SHI: 1212
+            KEY_kana_SO: 1215
+            KEY_kana_SU: 1213
+            KEY_kana_TA: 1216
+            KEY_kana_TE: 1219
+            KEY_kana_TI: 1217
+            KEY_kana_TO: 1220
+            KEY_kana_TSU: 1218
+            KEY_kana_TU: 1218
+            KEY_kana_U: 1203
+            KEY_kana_WA: 1244
+            KEY_kana_WO: 1190
+            KEY_kana_YA: 1236
+            KEY_kana_YO: 1238
+            KEY_kana_YU: 1237
+            KEY_kana_a: 1191
+            KEY_kana_closingbracket: 1187
+            KEY_kana_comma: 1188
+            KEY_kana_conjunctive: 1189
+            KEY_kana_e: 1194
+            KEY_kana_fullstop: 1185
+            KEY_kana_i: 1192
+            KEY_kana_middledot: 1189
+            KEY_kana_o: 1195
+            KEY_kana_openingbracket: 1186
+            KEY_kana_switch: 65406
+            KEY_kana_tsu: 1199
+            KEY_kana_tu: 1199
+            KEY_kana_u: 1193
+            KEY_kana_ya: 1196
+            KEY_kana_yo: 1198
+            KEY_kana_yu: 1197
+            KEY_kappa: 930
+            KEY_kcedilla: 1011
+            KEY_kra: 930
+            KEY_l: 108
+            KEY_lacute: 485
+            KEY_latincross: 2777
+            KEY_lbelowdot: 16784951
+            KEY_lcaron: 437
+            KEY_lcedilla: 950
+            KEY_leftanglebracket: 2748
+            KEY_leftarrow: 2299
+            KEY_leftcaret: 2979
+            KEY_leftdoublequotemark: 2770
+            KEY_leftmiddlecurlybrace: 2223
+            KEY_leftopentriangle: 2764
+            KEY_leftpointer: 2794
+            KEY_leftradical: 2209
+            KEY_leftshoe: 3034
+            KEY_leftsinglequotemark: 2768
+            KEY_leftt: 2548
+            KEY_lefttack: 3036
+            KEY_less: 60
+            KEY_lessthanequal: 2236
+            KEY_lf: 2533
+            KEY_logicaland: 2270
+            KEY_logicalor: 2271
+            KEY_lowleftcorner: 2541
+            KEY_lowrightcorner: 2538
+            KEY_lstroke: 435
+            KEY_m: 109
+            KEY_mabovedot: 16784961
+            KEY_macron: 175
+            KEY_malesymbol: 2807
+            KEY_maltesecross: 2800
+            KEY_marker: 2751
+            KEY_masculine: 186
+            KEY_minus: 45
+            KEY_minutes: 2774
+            KEY_mu: 181
+            KEY_multiply: 215
+            KEY_musicalflat: 2806
+            KEY_musicalsharp: 2805
+            KEY_n: 110
+            KEY_nabla: 2245
+            KEY_nacute: 497
+            KEY_ncaron: 498
+            KEY_ncedilla: 1009
+            KEY_ninesubscript: 16785545
+            KEY_ninesuperior: 16785529
+            KEY_nl: 2536
+            KEY_nobreakspace: 160
+            KEY_notapproxeq: 16785991
+            KEY_notelementof: 16785929
+            KEY_notequal: 2237
+            KEY_notidentical: 16786018
+            KEY_notsign: 172
+            KEY_ntilde: 241
+            KEY_numbersign: 35
+            KEY_numerosign: 1712
+            KEY_o: 111
+            KEY_oacute: 243
+            KEY_obarred: 16777845
+            KEY_obelowdot: 16785101
+            KEY_ocaron: 16777682
+            KEY_ocircumflex: 244
+            KEY_ocircumflexacute: 16785105
+            KEY_ocircumflexbelowdot: 16785113
+            KEY_ocircumflexgrave: 16785107
+            KEY_ocircumflexhook: 16785109
+            KEY_ocircumflextilde: 16785111
+            KEY_odiaeresis: 246
+            KEY_odoubleacute: 501
+            KEY_oe: 5053
+            KEY_ogonek: 434
+            KEY_ograve: 242
+            KEY_ohook: 16785103
+            KEY_ohorn: 16777633
+            KEY_ohornacute: 16785115
+            KEY_ohornbelowdot: 16785123
+            KEY_ohorngrave: 16785117
+            KEY_ohornhook: 16785119
+            KEY_ohorntilde: 16785121
+            KEY_omacron: 1010
+            KEY_oneeighth: 2755
+            KEY_onefifth: 2738
+            KEY_onehalf: 189
+            KEY_onequarter: 188
+            KEY_onesixth: 2742
+            KEY_onesubscript: 16785537
+            KEY_onesuperior: 185
+            KEY_onethird: 2736
+            KEY_ooblique: 248
+            KEY_openrectbullet: 2786
+            KEY_openstar: 2789
+            KEY_opentribulletdown: 2788
+            KEY_opentribulletup: 2787
+            KEY_ordfeminine: 170
+            KEY_ordmasculine: 186
+            KEY_oslash: 248
+            KEY_otilde: 245
+            KEY_overbar: 3008
+            KEY_overline: 1150
+            KEY_p: 112
+            KEY_pabovedot: 16784983
+            KEY_paragraph: 182
+            KEY_parenleft: 40
+            KEY_parenright: 41
+            KEY_partdifferential: 16785922
+            KEY_partialderivative: 2287
+            KEY_percent: 37
+            KEY_period: 46
+            KEY_periodcentered: 183
+            KEY_permille: 2773
+            KEY_phonographcopyright: 2811
+            KEY_plus: 43
+            KEY_plusminus: 177
+            KEY_prescription: 2772
+            KEY_prolongedsound: 1200
+            KEY_punctspace: 2726
+            KEY_q: 113
+            KEY_quad: 3020
+            KEY_question: 63
+            KEY_questiondown: 191
+            KEY_quotedbl: 34
+            KEY_quoteleft: 96
+            KEY_quoteright: 39
+            KEY_r: 114
+            KEY_racute: 480
+            KEY_radical: 2262
+            KEY_rcaron: 504
+            KEY_rcedilla: 947
+            KEY_registered: 174
+            KEY_rightanglebracket: 2750
+            KEY_rightarrow: 2301
+            KEY_rightcaret: 2982
+            KEY_rightdoublequotemark: 2771
+            KEY_rightmiddlecurlybrace: 2224
+            KEY_rightmiddlesummation: 2231
+            KEY_rightopentriangle: 2765
+            KEY_rightpointer: 2795
+            KEY_rightshoe: 3032
+            KEY_rightsinglequotemark: 2769
+            KEY_rightt: 2549
+            KEY_righttack: 3068
+            KEY_s: 115
+            KEY_sabovedot: 16784993
+            KEY_sacute: 438
+            KEY_scaron: 441
+            KEY_scedilla: 442
+            KEY_schwa: 16777817
+            KEY_scircumflex: 766
+            KEY_script_switch: 65406
+            KEY_seconds: 2775
+            KEY_section: 167
+            KEY_semicolon: 59
+            KEY_semivoicedsound: 1247
+            KEY_seveneighths: 2758
+            KEY_sevensubscript: 16785543
+            KEY_sevensuperior: 16785527
+            KEY_signaturemark: 2762
+            KEY_signifblank: 2732
+            KEY_similarequal: 2249
+            KEY_singlelowquotemark: 2813
+            KEY_sixsubscript: 16785542
+            KEY_sixsuperior: 16785526
+            KEY_slash: 47
+            KEY_soliddiamond: 2528
+            KEY_space: 32
+            KEY_squareroot: 16785946
+            KEY_ssharp: 223
+            KEY_sterling: 163
+            KEY_stricteq: 16786019
+            KEY_t: 116
+            KEY_tabovedot: 16785003
+            KEY_tcaron: 443
+            KEY_tcedilla: 510
+            KEY_telephone: 2809
+            KEY_telephonerecorder: 2810
+            KEY_therefore: 2240
+            KEY_thinspace: 2727
+            KEY_thorn: 254
+            KEY_threeeighths: 2756
+            KEY_threefifths: 2740
+            KEY_threequarters: 190
+            KEY_threesubscript: 16785539
+            KEY_threesuperior: 179
+            KEY_tintegral: 16785965
+            KEY_topintegral: 2212
+            KEY_topleftparens: 2219
+            KEY_topleftradical: 2210
+            KEY_topleftsqbracket: 2215
+            KEY_topleftsummation: 2225
+            KEY_toprightparens: 2221
+            KEY_toprightsqbracket: 2217
+            KEY_toprightsummation: 2229
+            KEY_topt: 2551
+            KEY_topvertsummationconnector: 2227
+            KEY_trademark: 2761
+            KEY_trademarkincircle: 2763
+            KEY_tslash: 956
+            KEY_twofifths: 2739
+            KEY_twosubscript: 16785538
+            KEY_twosuperior: 178
+            KEY_twothirds: 2737
+            KEY_u: 117
+            KEY_uacute: 250
+            KEY_ubelowdot: 16785125
+            KEY_ubreve: 765
+            KEY_ucircumflex: 251
+            KEY_udiaeresis: 252
+            KEY_udoubleacute: 507
+            KEY_ugrave: 249
+            KEY_uhook: 16785127
+            KEY_uhorn: 16777648
+            KEY_uhornacute: 16785129
+            KEY_uhornbelowdot: 16785137
+            KEY_uhorngrave: 16785131
+            KEY_uhornhook: 16785133
+            KEY_uhorntilde: 16785135
+            KEY_umacron: 1022
+            KEY_underbar: 3014
+            KEY_underscore: 95
+            KEY_union: 2269
+            KEY_uogonek: 1017
+            KEY_uparrow: 2300
+            KEY_upcaret: 2985
+            KEY_upleftcorner: 2540
+            KEY_uprightcorner: 2539
+            KEY_upshoe: 3011
+            KEY_upstile: 3027
+            KEY_uptack: 3022
+            KEY_uring: 505
+            KEY_utilde: 1021
+            KEY_v: 118
+            KEY_variation: 2241
+            KEY_vertbar: 2552
+            KEY_vertconnector: 2214
+            KEY_voicedsound: 1246
+            KEY_vt: 2537
+            KEY_w: 119
+            KEY_wacute: 16785027
+            KEY_wcircumflex: 16777589
+            KEY_wdiaeresis: 16785029
+            KEY_wgrave: 16785025
+            KEY_x: 120
+            KEY_xabovedot: 16785035
+            KEY_y: 121
+            KEY_yacute: 253
+            KEY_ybelowdot: 16785141
+            KEY_ycircumflex: 16777591
+            KEY_ydiaeresis: 255
+            KEY_yen: 165
+            KEY_ygrave: 16785139
+            KEY_yhook: 16785143
+            KEY_ytilde: 16785145
+            KEY_z: 122
+            KEY_zabovedot: 447
+            KEY_zacute: 444
+            KEY_zcaron: 446
+            KEY_zerosubscript: 16785536
+            KEY_zerosuperior: 16785520
+            KEY_zstroke: 16777654
+            MODIFIER_MASK: 469769999
+            PRIORITY_REDRAW: 120
+            /**
+             * Draws GL content onto a cairo context.
+             *
+             * It takes a render buffer ID (@source_type == GL_RENDERBUFFER) or a texture
+             * id (@source_type == GL_TEXTURE) and draws it onto @cr with an OVER operation,
+             * respecting the current clip. The top left corner of the rectangle specified
+             * by @x, @y, @width and @height will be drawn at the current (0,0) position of
+             * the `cairo_t`.
+             *
+             * This will work for *all* `cairo_t`, as long as @surface is realized, but the
+             * fallback implementation that reads back the pixels from the buffer may be
+             * used in the general case. In the case of direct drawing to a surface with
+             * no special effects applied to @cr it will however use a more efficient
+             * approach.
+             *
+             * For GL_RENDERBUFFER the code will always fall back to software for buffers
+             * with alpha components, so make sure you use GL_TEXTURE if using alpha.
+             *
+             * Calling this may change the current GL context.
+             * @deprecated since 4.6 The function is overly complex and produces broken output   in various combinations of arguments. If you want to draw with GL textures   in GTK, use [ctor@Gdk.GLTexture.new]; if you want to use that texture in   Cairo, use [method@Gdk.Texture.download] to download the data into a Cairo   image surface.
+             * @param cr a cairo context
+             * @param surface The surface we're rendering for (not necessarily into)
+             * @param source The GL ID of the source buffer
+             * @param source_type The type of the @source
+             * @param buffer_scale The scale-factor that the @source buffer is allocated for
+             * @param x The source x position in @source to start copying from in GL coordinates
+             * @param y The source y position in @source to start copying from in GL coordinates
+             * @param width The width of the region to draw
+             * @param height The height of the region to draw
+             */
+            cairo_draw_from_gl(cr: cairo.Context, surface: Surface, source: number, source_type: number, buffer_scale: number, x: number, y: number, width: number, height: number): void
+            /**
+             * Adds the given rectangle to the current path of @cr.
+             * @param cr a cairo context
+             * @param rectangle a `GdkRectangle`
+             */
+            cairo_rectangle(cr: cairo.Context, rectangle: Rectangle): void
+            /**
+             * Adds the given region to the current path of @cr.
+             * @param cr a cairo context
+             * @param region a `cairo_region_t`
+             */
+            cairo_region(cr: cairo.Context, region: cairo.Region): void
+            /**
+             * Creates region that covers the area where the given
+             * @surface is more than 50% opaque.
+             *
+             * This function takes into account device offsets that might be
+             * set with cairo_surface_set_device_offset().
+             * @param surface a cairo surface
+             * @returns A `cairo_region_t`
+             */
+            cairo_region_create_from_surface(surface: cairo.Surface): cairo.Region
+            /**
+             * Sets the given pixbuf as the source pattern for @cr.
+             *
+             * The pattern has an extend mode of %CAIRO_EXTEND_NONE and is aligned
+             * so that the origin of @pixbuf is @pixbuf_x, @pixbuf_y.
+             * @deprecated since 4.20 Use cairo_set_source_surface() and gdk_texture_download()
+             * @param cr a cairo context
+             * @param pixbuf a `GdkPixbuf`
+             * @param pixbuf_x X coordinate of location to place upper left corner of @pixbuf
+             * @param pixbuf_y Y coordinate of location to place upper left corner of @pixbuf
+             */
+            cairo_set_source_pixbuf(cr: cairo.Context, pixbuf: GdkPixbuf.Pixbuf, pixbuf_x: number, pixbuf_y: number): void
+            /**
+             * Sets the specified `GdkRGBA` as the source color of @cr.
+             * @param cr a cairo context
+             * @param rgba a `GdkRGBA`
+             */
+            cairo_set_source_rgba(cr: cairo.Context, rgba: RGBA): void
+            /**
+             * Returns the color state object representing the oklab color space.
+             *
+             * This is a perceptually uniform color state.
+             * @since 4.18
+             * @returns the color state object for oklab
+             */
+            color_state_get_oklab(): ColorState
+            /**
+             * Returns the color state object representing the oklch color space.
+             *
+             * This is the polar variant of oklab, in which the hue is encoded as
+             * a polar coordinate.
+             * @since 4.18
+             * @returns the color state object for oklch
+             */
+            color_state_get_oklch(): ColorState
+            /**
+             * Returns the color state object representing the linear rec2100 color space.
+             *
+             * This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and a linear
+             * transfer function.
+             *
+             * It is equivalent to the [Cicp](class.CicpParams.html) tuple 9/8/0/1.
+             *
+             * See e.g. [the CSS HDR Module](https://drafts.csswg.org/css-color-hdr/#valdef-color-rec2100-linear)
+             * for details about this colorstate.
+             * @since 4.16
+             * @returns the color state object for linearized rec2100
+             */
+            color_state_get_rec2100_linear(): ColorState
+            /**
+             * Returns the color state object representing the rec2100-pq color space.
+             *
+             * This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and the transfer
+             * function defined by SMPTE ST 2084 and BT.2100-2.
+             *
+             * It is equivalent to the [Cicp](class.CicpParams.html) tuple 9/16/0/1.
+             *
+             * See e.g. [the CSS HDR Module](https://drafts.csswg.org/css-color-hdr/#valdef-color-rec2100-pq)
+             * for details about this colorstate.
+             * @since 4.16
+             * @returns the color state object for rec2100-pq
+             */
+            color_state_get_rec2100_pq(): ColorState
+            /**
+             * Returns the color state object representing the sRGB color space.
+             *
+             * This color state uses the primaries defined by BT.709-6 and the transfer function
+             * defined by IEC 61966-2-1.
+             *
+             * It is equivalent to the [Cicp](class.CicpParams.html) tuple 1/13/0/1.
+             *
+             * See e.g. [the CSS Color Module](https://www.w3.org/TR/css-color-4/#predefined-sRGB)
+             * for details about this colorstate.
+             * @since 4.16
+             * @returns the color state object for sRGB
+             */
+            color_state_get_srgb(): ColorState
+            /**
+             * Returns the color state object representing the linearized sRGB color space.
+             *
+             * This color state uses the primaries defined by BT.709-6 and a linear transfer function.
+             *
+             * It is equivalent to the [Cicp](class.CicpParams.html) tuple 1/8/0/1.
+             *
+             * See e.g. [the CSS Color Module](https://www.w3.org/TR/css-color-4/#predefined-sRGB-linear)
+             * for details about this colorstate.
+             * @since 4.16
+             * @returns the color state object for linearized sRGB
+             */
+            color_state_get_srgb_linear(): ColorState
+            /**
+             * Reads content from the given input stream and deserialize it, asynchronously.
+             *
+             * The default I/O priority is `G_PRIORITY_DEFAULT` (i.e. 0), and lower numbers
+             * indicate a higher priority.
+             * @param stream a `GInputStream` to read the serialized content from
+             * @param mime_type the mime type to deserialize from
+             * @param type the GType to deserialize from
+             * @param io_priority the I/O priority of the operation
+             * @param cancellable optional `GCancellable` object
+             * @param callback callback to call when the operation is done
+             */
+            content_deserialize_async(stream: Gio.InputStream, mime_type: string, type: (GObject.GType | { $gtype: GObject.GType }), io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes a content deserialization operation.
+             * @throws {GLib.Error}
+             * @param result the `GAsyncResult`
+             * @returns %TRUE if the operation was successful. In this case,   `value` is set. %FALSE if an error occurred. In this case,   `error` is set, return location for the result of the operation
+             */
+            content_deserialize_finish(result: Gio.AsyncResult): [boolean, unknown]
+            /**
+             * Parses the given @string into `GdkContentFormats` and
+             * returns the formats.
+             *
+             * Strings printed via [method@Gdk.ContentFormats.to_string]
+             * can be read in again successfully using this function.
+             *
+             * If @string does not describe valid content formats, %NULL
+             * is returned.
+             * @since 4.4
+             * @param string the string to parse
+             * @returns the content formats if `string` is valid
+             */
+            content_formats_parse(string: string): ContentFormats | null
+            /**
+             * Registers a function to deserialize object of a given type.
+             *
+             * Since 4.20, when looking up a deserializer to use, GTK will
+             * use the last registered deserializer for a given mime type,
+             * so applications can override the built-in deserializers.
+             * @param mime_type the mime type which the function can deserialize from
+             * @param type the type of objects that the function creates
+             * @param deserialize the callback
+             */
+            content_register_deserializer(mime_type: string, type: (GObject.GType | { $gtype: GObject.GType }), deserialize: ContentDeserializeFunc): void
+            /**
+             * Registers a function to serialize objects of a given type.
+             *
+             * Since 4.20, when looking up a serializer to use, GTK will
+             * use the last registered serializer for a given mime type,
+             * so applications can override the built-in serializers.
+             * @param type the type of objects that the function can serialize
+             * @param mime_type the mime type to serialize to
+             * @param serialize the callback
+             */
+            content_register_serializer(type: (GObject.GType | { $gtype: GObject.GType }), mime_type: string, serialize: ContentSerializeFunc): void
+            /**
+             * Serialize content and write it to the given output stream, asynchronously.
+             *
+             * The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
+             * indicate a higher priority.
+             * @param stream a `GOutputStream` to write the serialized content to
+             * @param mime_type the mime type to serialize to
+             * @param value the content to serialize
+             * @param io_priority the I/O priority of the operation
+             * @param cancellable optional `GCancellable` object
+             * @param callback callback to call when the operation is done
+             */
+            content_serialize_async(stream: Gio.OutputStream, mime_type: string, value: (GObject.Value | unknown), io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes a content serialization operation.
+             * @throws {GLib.Error}
+             * @param result the `GAsyncResult`
+             * @returns %TRUE if the operation was successful, %FALSE if an   error occurred. In this case, `error` is set
+             */
+            content_serialize_finish(result: Gio.AsyncResult): boolean
+            /**
+             * Registers an error quark for [class@Gdk.DmabufTexture] errors.
+             * @returns the error quark
+             */
+            dmabuf_error_quark(): GLib.Quark
+            /**
+             * Checks if @action represents a single action or includes
+             * multiple actions.
+             *
+             * When @action is `GDK_ACTION_NONE` - ie no action was given, `TRUE`
+             * is returned.
+             * @param action a `GdkDragAction`
+             * @returns %TRUE if exactly one action was given
+             */
+            drag_action_is_unique(action: DragAction): boolean
+            /**
+             * Returns the relative angle from @event1 to @event2.
+             *
+             * The relative angle is the angle between the X axis and the line
+             * through both events' positions. The rotation direction for positive
+             * angles is from the positive X axis towards the positive Y axis.
+             *
+             * This assumes that both events have X/Y information.
+             * If not, this function returns %FALSE.
+             * @param event1 first `GdkEvent`
+             * @param event2 second `GdkEvent`
+             * @returns %TRUE if the angle could be calculated., return location for the relative angle between both events
+             */
+            events_get_angle(event1: Event, event2: Event): [boolean, number]
+            /**
+             * Returns the point halfway between the events' positions.
+             *
+             * This assumes that both events have X/Y information.
+             * If not, this function returns %FALSE.
+             * @param event1 first `GdkEvent`
+             * @param event2 second `GdkEvent`
+             * @returns %TRUE if the center could be calculated., return location for the X coordinate of the center, return location for the Y coordinate of the center
+             */
+            events_get_center(event1: Event, event2: Event): [boolean, number, number]
+            /**
+             * Returns the distance between the event locations.
+             *
+             * This assumes that both events have X/Y information.
+             * If not, this function returns %FALSE.
+             * @param event1 first `GdkEvent`
+             * @param event2 second `GdkEvent`
+             * @returns %TRUE if the distance could be calculated., return location for the distance
+             */
+            events_get_distance(event1: Event, event2: Event): [boolean, number]
+            /**
+             * Registers an error quark for [class@Gdk.GLContext] errors.
+             * @returns the error quark
+             */
+            gl_error_quark(): GLib.Quark
+            /**
+             * Canonicalizes the given mime type and interns the result.
+             *
+             * If @string is not a valid mime type, %NULL is returned instead.
+             * See RFC 2048 for the syntax if mime types.
+             * @param string string of a potential mime type
+             * @returns An interned string for the canonicalized   mime type or %NULL if the string wasn't a valid mime type
+             */
+            intern_mime_type(string: string): string | null
+            /**
+             * Obtains the upper- and lower-case versions of the keyval @symbol.
+             *
+             * Examples of keyvals are `GDK_KEY_a`, `GDK_KEY_Enter`, `GDK_KEY_F1`, etc.
+             * @param symbol a keyval
+             * @returns , return location for lowercase version of `symbol`, return location for uppercase version of `symbol`
+             */
+            keyval_convert_case(symbol: number): [number, number]
+            /**
+             * Converts a key name to a key value.
+             *
+             * The names are the same as those in the
+             * `gdk/gdkkeysyms.h` header file
+             * but without the leading “GDK_KEY_”.
+             * @param keyval_name a key name
+             * @returns the corresponding key value, or `GDK_KEY_VoidSymbol`   if the key name is not a valid key
+             */
+            keyval_from_name(keyval_name: string): number
+            /**
+             * Returns true if the given key value is in lower case.
+             * @param keyval a key value.
+             * @returns true if `keyval` is in lower case, or if `keyval` is not   subject to case conversion.
+             */
+            keyval_is_lower(keyval: number): boolean
+            /**
+             * Returns true if the given key value is in upper case.
+             * @param keyval a key value.
+             * @returns true if `keyval` is in upper case, or if `keyval` is not subject to  case conversion.
+             */
+            keyval_is_upper(keyval: number): boolean
+            /**
+             * Converts a key value into a symbolic name.
+             *
+             * The names are the same as those in the
+             * `gdk/gdkkeysyms.h` header file
+             * but without the leading “GDK_KEY_”.
+             * @param keyval a key value
+             * @returns a string containing the name   of the key
+             */
+            keyval_name(keyval: number): string | null
+            /**
+             * Converts a key value to lower case, if applicable.
+             * @param keyval a key value.
+             * @returns the lower case form of `keyval`, or `keyval` itself if it is already  in lower case or it is not subject to case conversion.
+             */
+            keyval_to_lower(keyval: number): number
+            /**
+             * Converts from a GDK key symbol to the corresponding Unicode
+             * character.
+             *
+             * Note that the conversion does not take the current locale
+             * into consideration, which might be expected for particular
+             * keyvals, such as `GDK_KEY_KP_Decimal`.
+             * @param keyval a GDK key symbol
+             * @returns the corresponding unicode character, or 0 if there   is no corresponding character.
+             */
+            keyval_to_unicode(keyval: number): number
+            /**
+             * Converts a key value to upper case, if applicable.
+             * @param keyval a key value.
+             * @returns the upper case form of `keyval`, or `keyval` itself if it is already   in upper case or it is not subject to case conversion.
+             */
+            keyval_to_upper(keyval: number): number
+            /**
+             * Returns a paintable that has the given intrinsic size and draws nothing.
+             *
+             * This is often useful for implementing the
+             * [vfunc@Gdk.Paintable.get_current_image] virtual function
+             * when the paintable is in an incomplete state (like a
+             * [GtkMediaStream](../gtk4/class.MediaStream.html) before receiving
+             * the first frame).
+             * @param intrinsic_width The intrinsic width to report. Can be 0 for no width.
+             * @param intrinsic_height The intrinsic height to report. Can be 0 for no height.
+             * @returns a `GdkPaintable`
+             */
+            paintable_new_empty(intrinsic_width: number, intrinsic_height: number): Paintable
+            /**
+             * Transfers image data from a `cairo_surface_t` and converts it
+             * to a `GdkPixbuf`.
+             *
+             * This allows you to efficiently read individual pixels from cairo surfaces.
+             *
+             * This function will create an RGB pixbuf with 8 bits per channel.
+             * The pixbuf will contain an alpha channel if the @surface contains one.
+             * @deprecated since 4.12 Use [class@Gdk.Texture] and subclasses instead   cairo surfaces and pixbufs
+             * @param surface surface to copy from
+             * @param src_x Source X coordinate within @surface
+             * @param src_y Source Y coordinate within @surface
+             * @param width Width in pixels of region to get
+             * @param height Height in pixels of region to get
+             * @returns A newly-created pixbuf with a   reference count of 1
+             */
+            pixbuf_get_from_surface(surface: cairo.Surface, src_x: number, src_y: number, width: number, height: number): GdkPixbuf.Pixbuf | null
+            /**
+             * Creates a new pixbuf from @texture.
+             *
+             * This should generally not be used in newly written code as later
+             * stages will almost certainly convert the pixbuf back into a texture
+             * to draw it on screen.
+             * @deprecated since 4.12 Use [class@Gdk.Texture] and subclasses instead   cairo surfaces and pixbufs
+             * @param texture a `GdkTexture`
+             * @returns a new `GdkPixbuf`
+             */
+            pixbuf_get_from_texture(texture: Texture): GdkPixbuf.Pixbuf | null
+            /**
+             * Sets a list of backends that GDK should try to use.
+             *
+             * This can be useful if your application does not
+             * work with certain GDK backends.
+             *
+             * By default, GDK tries all included backends.
+             *
+             * For example:
+             *
+             * ```c
+             * gdk_set_allowed_backends ("wayland,macos,*");
+             * ```
+             *
+             * instructs GDK to try the Wayland backend first, followed by the
+             * MacOs backend, and then all others.
+             *
+             * If the `GDK_BACKEND` environment variable is set, it determines
+             * what backends are tried in what order, while still respecting the
+             * set of allowed backends that are specified by this function.
+             *
+             * The possible backend names are:
+             *
+             *   - `broadway`
+             *   - `macos`
+             *   - `wayland`.
+             *   - `win32`
+             *   - `x11`
+             *
+             * You can also include a `*` in the list to try all remaining backends.
+             *
+             * This call must happen prior to functions that open a display, such
+             * as [func@Gdk.Display.open], `gtk_init()`, or `gtk_init_check()`
+             * in order to take effect.
+             * @param backends a comma-separated list of backends
+             */
+            set_allowed_backends(backends: string): void
+            /**
+             * Registers an error quark for [class@Gdk.Texture] errors.
+             * @returns the error quark
+             */
+            texture_error_quark(): GLib.Quark
+            /**
+             * Converts from a Unicode character to a key symbol.
+             * @param wc a Unicode character
+             * @returns the corresponding GDK key symbol, if one exists,   or, if there is no corresponding symbol, `wc | 0x01000000`
+             */
+            unicode_to_keyval(wc: number): number
+            /**
+             * Registers an error quark for [class@Gdk.VulkanContext] errors.
+             * @returns the error quark
+             */
+            vulkan_error_quark(): GLib.Quark
+        }
     }
 
+    const Gdk: Gdk.$Exports
     export default Gdk
 }

@@ -22,10 +22,7 @@ declare module "gi://GstGLEGL?version=1.0" {
 
     
 
-
     namespace GstGLEGL {
-        const __name__: "GstGLEGL"
-        const __version: "1.0"
         
 
         namespace GLDisplayEGL {
@@ -42,10 +39,6 @@ declare module "gi://GstGLEGL?version=1.0" {
             }
         }
 
-        /**
-         * the contents of a #GstGLDisplayEGL are private and should only be accessed
-         * through the provided API
-         */
         interface GLDisplayEGL extends GstGL.GLDisplay {
             readonly $signals: GLDisplayEGL.SignalSignatures
             readonly $readableProperties: GLDisplayEGL.ReadableProperties
@@ -76,6 +69,7 @@ declare module "gi://GstGLEGL?version=1.0" {
         interface GLDisplayEGLClass extends Omit<GstGL.GLDisplayClass, "new"> {
             readonly $gtype: GObject.GType<GLDisplayEGL>
             readonly prototype: GLDisplayEGL
+
             new (props?: Partial<GObject.ConstructorProps<GLDisplayEGL>>): GLDisplayEGL
             /**
              * Create a new #GstGLDisplayEGL using the default EGL_DEFAULT_DISPLAY.
@@ -124,7 +118,13 @@ declare module "gi://GstGLEGL?version=1.0" {
             get_from_native(type: GstGL.GLDisplayType, display: never): never | null
         }
 
-        const GLDisplayEGL: GLDisplayEGLClass
+        interface $Exports {
+            /**
+             * the contents of a #GstGLDisplayEGL are private and should only be accessed
+             * through the provided API
+             */
+            GLDisplayEGL: GLDisplayEGLClass
+        }
         
 
         namespace GLDisplayEGLDevice {
@@ -141,11 +141,6 @@ declare module "gi://GstGLEGL?version=1.0" {
             }
         }
 
-        /**
-         * the contents of a #GstGLDisplayEGLDevice are private and should only be accessed
-         * through the provided API
-         * @since 1.18
-         */
         interface GLDisplayEGLDevice extends GstGL.GLDisplay {
             readonly $signals: GLDisplayEGLDevice.SignalSignatures
             readonly $readableProperties: GLDisplayEGLDevice.ReadableProperties
@@ -156,6 +151,7 @@ declare module "gi://GstGLEGL?version=1.0" {
         interface GLDisplayEGLDeviceClass extends Omit<GstGL.GLDisplayClass, "new"> {
             readonly $gtype: GObject.GType<GLDisplayEGLDevice>
             readonly prototype: GLDisplayEGLDevice
+
             new (props?: Partial<GObject.ConstructorProps<GLDisplayEGLDevice>>): GLDisplayEGLDevice
             /**
              * Create a new #GstGLDisplayEGLDevice with an EGLDevice supported device
@@ -174,7 +170,14 @@ declare module "gi://GstGLEGL?version=1.0" {
             new_with_egl_device(device: never | null): GLDisplayEGLDevice
         }
 
-        const GLDisplayEGLDevice: GLDisplayEGLDeviceClass
+        interface $Exports {
+            /**
+             * the contents of a #GstGLDisplayEGLDevice are private and should only be accessed
+             * through the provided API
+             * @since 1.18
+             */
+            GLDisplayEGLDevice: GLDisplayEGLDeviceClass
+        }
         
 
         namespace GLMemoryEGLAllocator {
@@ -191,9 +194,6 @@ declare module "gi://GstGLEGL?version=1.0" {
             }
         }
 
-        /**
-         * Opaque #GstGLMemoryEGLAllocator struct
-         */
         interface GLMemoryEGLAllocator extends GstGL.GLMemoryAllocator {
             readonly $signals: GLMemoryEGLAllocator.SignalSignatures
             readonly $readableProperties: GLMemoryEGLAllocator.ReadableProperties
@@ -204,21 +204,21 @@ declare module "gi://GstGLEGL?version=1.0" {
         interface GLMemoryEGLAllocatorClass extends Omit<GstGL.GLMemoryAllocatorClass, "new"> {
             readonly $gtype: GObject.GType<GLMemoryEGLAllocator>
             readonly prototype: GLMemoryEGLAllocator
+
             new (props?: Partial<GObject.ConstructorProps<GLMemoryEGLAllocator>>): GLMemoryEGLAllocator
         }
 
-        const GLMemoryEGLAllocator: GLMemoryEGLAllocatorClass
-        /**
-         * #GstEGLImage represents and holds an `EGLImage` handle.
-         *
-         * A #GstEGLImage can be created from a dmabuf with gst_egl_image_from_dmabuf(),
-         * or gst_egl_image_from_dmabuf_direct(), or #GstGLMemoryEGL provides a
-         * #GstAllocator to allocate `EGLImage`'s bound to and OpenGL texture.
-         */
-        abstract class EGLImage {
-            static readonly $gtype: GObject.GType<EGLImage>
+        interface $Exports {
+            /**
+             * Opaque #GstGLMemoryEGLAllocator struct
+             */
+            GLMemoryEGLAllocator: GLMemoryEGLAllocatorClass
+        }
+        
 
-            
+        interface EGLImageStruct {
+            readonly $gtype: GObject.GType<EGLImage>
+            [Symbol.hasInstance](instance: unknown): instance is EGLImage
             /**
              * @param context a #GstGLContext (must be an EGL context)
              * @param image the image to wrap
@@ -226,7 +226,7 @@ declare module "gi://GstGLEGL?version=1.0" {
              * @param user_data_destroy called when @user_data is no longer needed
              * @returns a new #GstEGLImage wrapping `image`
              */
-            static new_wrapped(context: GstGL.GLContext, image: never | null, format: GstGL.GLFormat, user_data_destroy: EGLImageDestroyNotify): EGLImage
+            new_wrapped(context: GstGL.GLContext, image: never | null, format: GstGL.GLFormat, user_data_destroy: EGLImageDestroyNotify): EGLImage
             /**
              * Checks if the given @context can emulate @format using a limited subset of
              * RGB texture formats. Such @format is then suitable for importing using
@@ -237,7 +237,7 @@ declare module "gi://GstGLEGL?version=1.0" {
              * @param format a #GstVideoFormat
              * @returns #TRUE if `format` can be emulated
              */
-            static can_emulate(context: GstGL.GLContext, format: GstVideo.VideoFormat): boolean
+            can_emulate(context: GstGL.GLContext, format: GstVideo.VideoFormat): boolean
             /**
              * Creates an EGL image that imports the dmabuf FD. The dmabuf data
              * is passed as RGBA data. Shaders later take this "RGBA" data and
@@ -253,7 +253,7 @@ declare module "gi://GstGLEGL?version=1.0" {
              * @param offset the byte-offset in the data
              * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
              */
-            static from_dmabuf(context: GstGL.GLContext, dmabuf: number, in_info: GstVideo.VideoInfo, plane: number, offset: number): EGLImage | null
+            from_dmabuf(context: GstGL.GLContext, dmabuf: number, in_info: GstVideo.VideoInfo, plane: number, offset: number): EGLImage | null
             /**
              * Creates an EGL image that imports the dmabuf FD. The dmabuf data
              * is passed directly as the format described in in_info. This is
@@ -270,7 +270,7 @@ declare module "gi://GstGLEGL?version=1.0" {
              * @param in_info the #GstVideoInfo
              * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
              */
-            static from_dmabuf_direct(context: GstGL.GLContext, fd: number, offset: number, in_info: GstVideo.VideoInfo): EGLImage | null
+            from_dmabuf_direct(context: GstGL.GLContext, fd: number, offset: number, in_info: GstVideo.VideoInfo): EGLImage | null
             /**
              * Creates an EGL image that imports the dmabuf FD. The dmabuf data
              * is passed directly as the format described in @in_info. This is
@@ -289,7 +289,7 @@ declare module "gi://GstGLEGL?version=1.0" {
              * @param target GL texture target this GstEGLImage is intended for
              * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
              */
-            static from_dmabuf_direct_target(context: GstGL.GLContext, fd: number, offset: number, in_info: GstVideo.VideoInfo, target: GstGL.GLTextureTarget): EGLImage | null
+            from_dmabuf_direct_target(context: GstGL.GLContext, fd: number, offset: number, in_info: GstVideo.VideoInfo, target: GstGL.GLTextureTarget): EGLImage | null
             /**
              * Creates an EGL image that imports the dmabuf FD. The dmabuf data is passed
              * directly as the format described in @in_info. This is useful if the hardware
@@ -306,14 +306,17 @@ declare module "gi://GstGLEGL?version=1.0" {
              * @param target GL texture target this GstEGLImage is intended for
              * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
              */
-            static from_dmabuf_direct_target_with_dma_drm(context: GstGL.GLContext, n_planes: number, fd: number, offset: number, in_info_dma: GstVideo.VideoInfoDmaDrm, target: GstGL.GLTextureTarget): EGLImage | null
+            from_dmabuf_direct_target_with_dma_drm(context: GstGL.GLContext, n_planes: number, fd: number, offset: number, in_info_dma: GstVideo.VideoInfoDmaDrm, target: GstGL.GLTextureTarget): EGLImage | null
             /**
              * @param context a #GstGLContext (must be an EGL context)
              * @param gl_mem a #GstGLMemory
              * @param attribs additional attributes to add to the `eglCreateImage`() call.
              * @returns a #GstEGLImage wrapping `gl_mem` or %NULL on failure
              */
-            static from_texture(context: GstGL.GLContext, gl_mem: GstGL.GLMemory, attribs: never): EGLImage | null
+            from_texture(context: GstGL.GLContext, gl_mem: GstGL.GLMemory, attribs: never): EGLImage | null
+        }
+
+        interface EGLImage {
             /**
              * @param fd
              * @param stride
@@ -325,22 +328,24 @@ declare module "gi://GstGLEGL?version=1.0" {
              */
             get_image(): never | null
         }
-        none
-        none
-        /**
-         * #GstGLMemoryEGL is created or wrapped through gst_gl_base_memory_alloc()
-         * with #GstGLVideoAllocationParams.
-         */
-        abstract class GLMemoryEGL {
-            static readonly $gtype: GObject.GType<GLMemoryEGL>
 
-            
+        interface $Exports {
+            EGLImage: EGLImageStruct
+        }
+        
+
+        interface GLMemoryEGLStruct {
+            readonly $gtype: GObject.GType<GLMemoryEGL>
+            [Symbol.hasInstance](instance: unknown): instance is GLMemoryEGL
             /**
              * Initializes the GL Memory allocator. It is safe to call this function
              * multiple times.  This must be called before any other GstGLMemoryEGL operation.
              * @since 1.10
              */
-            static init_once(): void
+            init_once(): void
+        }
+
+        interface GLMemoryEGL {
             /**
              * @since 1.10
              * @returns The EGLDisplay `mem` is associated with
@@ -352,113 +357,10 @@ declare module "gi://GstGLEGL?version=1.0" {
              */
             get_image(): never | null
         }
-        none
-        /**
-         * @param err an EGL error code
-         * @returns the short string representation of `err`
-         */
-        function egl_get_error_string(err: number): string
-        /**
-         * Checks if the given @context can emulate @format using a limited subset of
-         * RGB texture formats. Such @format is then suitable for importing using
-         * gst_egl_image_from_dmabuf() even when GL supports the video format as
-         * external-only or not at all.
-         * @since 1.26
-         * @param context a #GstGLContext (must be an EGL context)
-         * @param format a #GstVideoFormat
-         * @returns #TRUE if `format` can be emulated
-         */
-        function egl_image_can_emulate(context: GstGL.GLContext, format: GstVideo.VideoFormat): boolean
-        /**
-         * Creates an EGL image that imports the dmabuf FD. The dmabuf data
-         * is passed as RGBA data. Shaders later take this "RGBA" data and
-         * convert it from its true format (described by in_info) to actual
-         * RGBA output. For example, with I420, three EGL images are created,
-         * one for each @plane, each EGL image with a single-channel R format.
-         * With NV12, two EGL images are created, one with R format, one
-         * with RG format etc.
-         * @param context a #GstGLContext (must be an EGL context)
-         * @param dmabuf the DMA-Buf file descriptor
-         * @param in_info the #GstVideoInfo in @dmabuf
-         * @param plane the plane in @in_info to create and #GstEGLImage for
-         * @param offset the byte-offset in the data
-         * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
-         */
-        function egl_image_from_dmabuf(context: GstGL.GLContext, dmabuf: number, in_info: GstVideo.VideoInfo, plane: number, offset: number): EGLImage | null
-        /**
-         * Creates an EGL image that imports the dmabuf FD. The dmabuf data
-         * is passed directly as the format described in in_info. This is
-         * useful if the hardware is capable of performing color space conversions
-         * internally. The appropriate DRM format is picked, and the EGL image
-         * is created with this DRM format.
-         *
-         * Another notable difference to gst_egl_image_from_dmabuf()
-         * is that this function creates one EGL image for all planes, not one for
-         * a single plane.
-         * @param context a #GstGLContext (must be an EGL context)
-         * @param fd Array of DMABuf file descriptors
-         * @param offset Array of offsets, relative to the DMABuf
-         * @param in_info the #GstVideoInfo
-         * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
-         */
-        function egl_image_from_dmabuf_direct(context: GstGL.GLContext, fd: number, offset: number, in_info: GstVideo.VideoInfo): EGLImage | null
-        /**
-         * Creates an EGL image that imports the dmabuf FD. The dmabuf data
-         * is passed directly as the format described in @in_info. This is
-         * useful if the hardware is capable of performing color space conversions
-         * internally. The appropriate DRM format is picked, and the EGL image
-         * is created with this DRM format.
-         *
-         * Another notable difference to gst_egl_image_from_dmabuf()
-         * is that this function creates one EGL image for all planes, not one for
-         * a single plane.
-         * @since 1.18
-         * @param context a #GstGLContext (must be an EGL context)
-         * @param fd Array of DMABuf file descriptors
-         * @param offset Array of offsets, relative to the DMABuf
-         * @param in_info the #GstVideoInfo
-         * @param target GL texture target this GstEGLImage is intended for
-         * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
-         */
-        function egl_image_from_dmabuf_direct_target(context: GstGL.GLContext, fd: number, offset: number, in_info: GstVideo.VideoInfo, target: GstGL.GLTextureTarget): EGLImage | null
-        /**
-         * Creates an EGL image that imports the dmabuf FD. The dmabuf data is passed
-         * directly as the format described in @in_info. This is useful if the hardware
-         * is capable of performing color space conversions internally.
-         *
-         * Another notable difference to gst_egl_image_from_dmabuf() is that this
-         * function creates one EGL image for all planes, not one for a single plane.
-         * @since 1.24
-         * @param context a #GstGLContext (must be an EGL context)
-         * @param n_planes number of planes (obtained from a #GstVideoMeta)
-         * @param fd Array of DMABuf file descriptors
-         * @param offset Array of offsets, relative to the DMABuf
-         * @param in_info_dma the #GstVideoInfoDmaDrm
-         * @param target GL texture target this GstEGLImage is intended for
-         * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
-         */
-        function egl_image_from_dmabuf_direct_target_with_dma_drm(context: GstGL.GLContext, n_planes: number, fd: number, offset: number, in_info_dma: GstVideo.VideoInfoDmaDrm, target: GstGL.GLTextureTarget): EGLImage | null
-        /**
-         * @param context a #GstGLContext (must be an EGL context)
-         * @param gl_mem a #GstGLMemory
-         * @param attribs additional attributes to add to the `eglCreateImage`() call.
-         * @returns a #GstEGLImage wrapping `gl_mem` or %NULL on failure
-         */
-        function egl_image_from_texture(context: GstGL.GLContext, gl_mem: GstGL.GLMemory, attribs: never): EGLImage | null
-        /**
-         * Initializes the GL Memory allocator. It is safe to call this function
-         * multiple times.  This must be called before any other GstGLMemoryEGL operation.
-         * @since 1.10
-         */
-        function gl_memory_egl_init_once(): void
-        /**
-         * @since 1.10
-         * @param mem a #GstMemory to test
-         * @returns whether `mem` is a #GstGLMemoryEGL
-         */
-        function is_gl_memory_egl(mem: Gst.Memory): boolean
-        const GL_DISPLAY_EGL_NAME: "gst.gl.display.egl"
-        const GL_MEMORY_EGL_ALLOCATOR_NAME: "GLMemoryEGL"
+
+        interface $Exports {
+            GLMemoryEGL: GLMemoryEGLStruct
+        }
         /**
          * Function to be called when the GstEGLImage is destroyed. It should free
          * the associated `EGLImage` if necessary
@@ -466,7 +368,119 @@ declare module "gi://GstGLEGL?version=1.0" {
          * @param data user data passed to gst_egl_image_new_wrapped()
          */
         type EGLImageDestroyNotify = (image: EGLImage, data: never | null) => void
+
+        interface $Exports {
+            __name__: "GstGLEGL"
+            __version: "1.0"
+            GL_DISPLAY_EGL_NAME: "gst.gl.display.egl"
+            GL_MEMORY_EGL_ALLOCATOR_NAME: "GLMemoryEGL"
+            /**
+             * @param err an EGL error code
+             * @returns the short string representation of `err`
+             */
+            egl_get_error_string(err: number): string
+            /**
+             * Checks if the given @context can emulate @format using a limited subset of
+             * RGB texture formats. Such @format is then suitable for importing using
+             * gst_egl_image_from_dmabuf() even when GL supports the video format as
+             * external-only or not at all.
+             * @since 1.26
+             * @param context a #GstGLContext (must be an EGL context)
+             * @param format a #GstVideoFormat
+             * @returns #TRUE if `format` can be emulated
+             */
+            egl_image_can_emulate(context: GstGL.GLContext, format: GstVideo.VideoFormat): boolean
+            /**
+             * Creates an EGL image that imports the dmabuf FD. The dmabuf data
+             * is passed as RGBA data. Shaders later take this "RGBA" data and
+             * convert it from its true format (described by in_info) to actual
+             * RGBA output. For example, with I420, three EGL images are created,
+             * one for each @plane, each EGL image with a single-channel R format.
+             * With NV12, two EGL images are created, one with R format, one
+             * with RG format etc.
+             * @param context a #GstGLContext (must be an EGL context)
+             * @param dmabuf the DMA-Buf file descriptor
+             * @param in_info the #GstVideoInfo in @dmabuf
+             * @param plane the plane in @in_info to create and #GstEGLImage for
+             * @param offset the byte-offset in the data
+             * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
+             */
+            egl_image_from_dmabuf(context: GstGL.GLContext, dmabuf: number, in_info: GstVideo.VideoInfo, plane: number, offset: number): EGLImage | null
+            /**
+             * Creates an EGL image that imports the dmabuf FD. The dmabuf data
+             * is passed directly as the format described in in_info. This is
+             * useful if the hardware is capable of performing color space conversions
+             * internally. The appropriate DRM format is picked, and the EGL image
+             * is created with this DRM format.
+             *
+             * Another notable difference to gst_egl_image_from_dmabuf()
+             * is that this function creates one EGL image for all planes, not one for
+             * a single plane.
+             * @param context a #GstGLContext (must be an EGL context)
+             * @param fd Array of DMABuf file descriptors
+             * @param offset Array of offsets, relative to the DMABuf
+             * @param in_info the #GstVideoInfo
+             * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
+             */
+            egl_image_from_dmabuf_direct(context: GstGL.GLContext, fd: number, offset: number, in_info: GstVideo.VideoInfo): EGLImage | null
+            /**
+             * Creates an EGL image that imports the dmabuf FD. The dmabuf data
+             * is passed directly as the format described in @in_info. This is
+             * useful if the hardware is capable of performing color space conversions
+             * internally. The appropriate DRM format is picked, and the EGL image
+             * is created with this DRM format.
+             *
+             * Another notable difference to gst_egl_image_from_dmabuf()
+             * is that this function creates one EGL image for all planes, not one for
+             * a single plane.
+             * @since 1.18
+             * @param context a #GstGLContext (must be an EGL context)
+             * @param fd Array of DMABuf file descriptors
+             * @param offset Array of offsets, relative to the DMABuf
+             * @param in_info the #GstVideoInfo
+             * @param target GL texture target this GstEGLImage is intended for
+             * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
+             */
+            egl_image_from_dmabuf_direct_target(context: GstGL.GLContext, fd: number, offset: number, in_info: GstVideo.VideoInfo, target: GstGL.GLTextureTarget): EGLImage | null
+            /**
+             * Creates an EGL image that imports the dmabuf FD. The dmabuf data is passed
+             * directly as the format described in @in_info. This is useful if the hardware
+             * is capable of performing color space conversions internally.
+             *
+             * Another notable difference to gst_egl_image_from_dmabuf() is that this
+             * function creates one EGL image for all planes, not one for a single plane.
+             * @since 1.24
+             * @param context a #GstGLContext (must be an EGL context)
+             * @param n_planes number of planes (obtained from a #GstVideoMeta)
+             * @param fd Array of DMABuf file descriptors
+             * @param offset Array of offsets, relative to the DMABuf
+             * @param in_info_dma the #GstVideoInfoDmaDrm
+             * @param target GL texture target this GstEGLImage is intended for
+             * @returns a #GstEGLImage wrapping `dmabuf` or %NULL on failure
+             */
+            egl_image_from_dmabuf_direct_target_with_dma_drm(context: GstGL.GLContext, n_planes: number, fd: number, offset: number, in_info_dma: GstVideo.VideoInfoDmaDrm, target: GstGL.GLTextureTarget): EGLImage | null
+            /**
+             * @param context a #GstGLContext (must be an EGL context)
+             * @param gl_mem a #GstGLMemory
+             * @param attribs additional attributes to add to the `eglCreateImage`() call.
+             * @returns a #GstEGLImage wrapping `gl_mem` or %NULL on failure
+             */
+            egl_image_from_texture(context: GstGL.GLContext, gl_mem: GstGL.GLMemory, attribs: never): EGLImage | null
+            /**
+             * Initializes the GL Memory allocator. It is safe to call this function
+             * multiple times.  This must be called before any other GstGLMemoryEGL operation.
+             * @since 1.10
+             */
+            gl_memory_egl_init_once(): void
+            /**
+             * @since 1.10
+             * @param mem a #GstMemory to test
+             * @returns whether `mem` is a #GstGLMemoryEGL
+             */
+            is_gl_memory_egl(mem: Gst.Memory): boolean
+        }
     }
 
+    const GstGLEGL: GstGLEGL.$Exports
     export default GstGLEGL
 }

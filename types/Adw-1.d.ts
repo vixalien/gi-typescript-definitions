@@ -36,132 +36,7 @@ declare module "gi://Adw?version=1" {
 
     
 
-
     namespace Adw {
-        const __name__: "Adw"
-        const __version: "1"
-        
-
-        namespace Swipeable {
-            interface SignalSignatures extends Gtk.Widget.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gtk.Widget.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gtk.Widget.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gtk.Widget {
-                /**
-                 * Gets the progress @self will snap back to after the gesture is canceled.
-                 * @returns the cancel progress, unitless
-                 */
-                vfunc_get_cancel_progress(): number
-                /**
-                 * Gets the swipe distance of @self.
-                 *
-                 * This corresponds to how many pixels 1 unit represents.
-                 * @returns the swipe distance in pixels
-                 */
-                vfunc_get_distance(): number
-                /**
-                 * Gets the current progress of @self.
-                 * @returns the current progress, unitless
-                 */
-                vfunc_get_progress(): number
-                /**
-                 * Gets the snap points of @self.
-                 *
-                 * Each snap point represents a progress value that is considered acceptable to
-                 * end the swipe on.
-                 * @returns the snap points
-                 */
-                vfunc_get_snap_points(): number[]
-                /**
-                 * Gets the area @self can start a swipe from for the given direction and
-                 * gesture type.
-                 *
-                 * This can be used to restrict swipes to only be possible from a certain area,
-                 * for example, to only allow edge swipes, or to have a draggable element and
-                 * ignore swipes elsewhere.
-                 *
-                 * If not implemented, the default implementation returns the allocation of
-                 * @self, allowing swipes from anywhere.
-                 * @param navigation_direction the direction of the swipe
-                 * @param is_drag whether the swipe is caused by a dragging gesture
-                 * @returns , a pointer to a rectangle to store the swipe area
-                 */
-                vfunc_get_swipe_area(navigation_direction: NavigationDirection, is_drag: boolean): Gdk.Rectangle
-            }
-        }
-
-        /**
-         * An interface for swipeable widgets.
-         *
-         * The `AdwSwipeable` interface is implemented by all swipeable widgets.
-         *
-         * See [class@SwipeTracker] for details about implementing it.
-         */
-        interface Swipeable extends Gtk.Widget, Swipeable.Interface {
-            readonly $signals: Swipeable.SignalSignatures
-            readonly $readableProperties: Swipeable.ReadableProperties
-            readonly $writableProperties: Swipeable.WritableProperties
-            readonly $constructOnlyProperties: Swipeable.ConstructOnlyProperties
-            /**
-             * Gets the progress @self will snap back to after the gesture is canceled.
-             * @returns the cancel progress, unitless
-             */
-            get_cancel_progress(): number
-            /**
-             * Gets the swipe distance of @self.
-             *
-             * This corresponds to how many pixels 1 unit represents.
-             * @returns the swipe distance in pixels
-             */
-            get_distance(): number
-            /**
-             * Gets the current progress of @self.
-             * @returns the current progress, unitless
-             */
-            get_progress(): number
-            /**
-             * Gets the snap points of @self.
-             *
-             * Each snap point represents a progress value that is considered acceptable to
-             * end the swipe on.
-             * @returns the snap points
-             */
-            get_snap_points(): number[]
-            /**
-             * Gets the area @self can start a swipe from for the given direction and
-             * gesture type.
-             *
-             * This can be used to restrict swipes to only be possible from a certain area,
-             * for example, to only allow edge swipes, or to have a draggable element and
-             * ignore swipes elsewhere.
-             *
-             * If not implemented, the default implementation returns the allocation of
-             * @self, allowing swipes from anywhere.
-             * @param navigation_direction the direction of the swipe
-             * @param is_drag whether the swipe is caused by a dragging gesture
-             * @returns , a pointer to a rectangle to store the swipe area
-             */
-            get_swipe_area(navigation_direction: NavigationDirection, is_drag: boolean): Gdk.Rectangle
-        }
-
-
-        interface SwipeableInterface {
-            readonly $gtype: GObject.GType<Swipeable>
-            readonly prototype: Swipeable
-
-            [Symbol.hasInstance](instance: unknown): instance is Swipeable
-        }
-
-        const Swipeable: SwipeableInterface
         
 
         namespace AboutDialog {
@@ -203,7 +78,6 @@ declare module "gi://Adw?version=1" {
             }
 
             interface WritableProperties extends Dialog.WritableProperties, Gtk.Accessible.WritableProperties, Gtk.Buildable.WritableProperties, Gtk.ConstraintTarget.WritableProperties, Gtk.ShortcutManager.WritableProperties {
-                "appdata-resource-path": string | null
                 "application-icon": string
                 "application-name": string
                 "artists": string[] | null
@@ -227,74 +101,10 @@ declare module "gi://Adw?version=1" {
             }
 
             interface ConstructOnlyProperties extends Dialog.ConstructOnlyProperties, Gtk.Accessible.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties, Gtk.ConstraintTarget.ConstructOnlyProperties, Gtk.ShortcutManager.ConstructOnlyProperties {
+                "appdata-resource-path": string | null
             }
         }
 
-        /**
-         *
-         *
-         * ## Legal
-         *
-         * The Legal page displays the copyright and licensing information for the
-         * application and other modules.
-         *
-         * The copyright string is set with the [property@AboutDialog:copyright]
-         * property and should be a short string of one or two lines, for example:
-         * `© 2022 Example`.
-         *
-         * Licensing information can be quickly set from a list of known licenses with
-         * the [property@AboutDialog:license-type] property. If the application's
-         * license is not in the list, [property@AboutDialog:license] can be used
-         * instead.
-         *
-         * To add information about other modules, such as application dependencies or
-         * data, use [method@AboutDialog.add_legal_section].
-         *
-         * ## Other applications
-         *
-         * `AdwAboutDialog` can show links to your other apps at the end of the main
-         * page. To add them, use [method@AboutDialog.add_other_app].
-         *
-         * ## Constructing
-         *
-         * To make constructing an `AdwAboutDialog` as convenient as possible, you can
-         * use the function [func@show_about_dialog] which constructs and shows a
-         * dialog.
-         *
-         * ```c
-         * static void
-         * show_about (GtkApplication *app)
-         * {
-         *   const char *developers[] = {
-         *     "Angela Avery",
-         *     NULL
-         *   };
-         *
-         *   const char *designers[] = {
-         *     "GNOME Design Team",
-         *     NULL
-         *   };
-         *
-         *   adw_show_about_dialog (GTK_WIDGET (gtk_application_get_active_window (app)),
-         *                          "application-name", _("Example"),
-         *                          "application-icon", "org.example.App",
-         *                          "version", "1.2.3",
-         *                          "copyright", "© 2022 Angela Avery",
-         *                          "issue-url", "https://gitlab.gnome.org/example/example/-/issues/",
-         *                          "license-type", GTK_LICENSE_GPL_3_0,
-         *                          "developers", developers,
-         *                          "designers", designers,
-         *                          "translator-credits", _("translator-credits"),
-         *                          NULL);
-         * }
-         * ```
-         *
-         * ## CSS nodes
-         *
-         * `AdwAboutDialog` has a main CSS node with the name `dialog` and the
-         * style class `.about`.
-         * @since 1.5
-         */
         interface AboutDialog extends Dialog, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.ShortcutManager {
             readonly $signals: AboutDialog.SignalSignatures
             readonly $readableProperties: AboutDialog.ReadableProperties
@@ -531,7 +341,21 @@ declare module "gi://Adw?version=1" {
             get licenseType(): Gtk.License
             set licenseType(value: Gtk.License)
             /**
-             * `) text styles are supported. The emphasis is rendered in italic,
+             * The release notes of the application.
+             *
+             * Release notes are displayed on the the What's New page.
+             *
+             * Release notes are formatted the same way as
+             * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+             *
+             * The supported formatting options are:
+             *
+             * * Paragraph (`<p>`)
+             * * Ordered list (`<ol>`), with list items (`<li>`)
+             * * Unordered list (`<ul>`), with list items (`<li>`)
+             *
+             * Within paragraphs and list items, emphasis (`<em>`) and inline code
+             * (`<code>`) text styles are supported. The emphasis is rendered in italic,
              * while inline code is shown in a monospaced font.
              *
              * Any text outside paragraphs or list items is ignored.
@@ -1083,7 +907,21 @@ declare module "gi://Adw?version=1" {
              */
             set_license_type(license_type: Gtk.License): void
             /**
-             * `) text styles are supported. The emphasis is rendered in italic,
+             * Sets the release notes for @self.
+             *
+             * Release notes are displayed on the the What's New page.
+             *
+             * Release notes are formatted the same way as
+             * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+             *
+             * The supported formatting options are:
+             *
+             * * Paragraph (`<p>`)
+             * * Ordered list (`<ol>`), with list items (`<li>`)
+             * * Unordered list (`<ul>`), with list items (`<li>`)
+             *
+             * Within paragraphs and list items, emphasis (`<em>`) and inline code
+             * (`<code>`) text styles are supported. The emphasis is rendered in italic,
              * while inline code is shown in a monospaced font.
              *
              * Any text outside paragraphs or list items is ignored.
@@ -1173,15 +1011,29 @@ declare module "gi://Adw?version=1" {
         interface AboutDialogClass extends Omit<DialogClass, "new"> {
             readonly $gtype: GObject.GType<AboutDialog>
             readonly prototype: AboutDialog
+
             new (props?: Partial<GObject.ConstructorProps<AboutDialog>>): AboutDialog
             /**
              * Creates a new `AdwAboutDialog`.
              * @since 1.5
              * @returns the newly created `AdwAboutDialog`
              */
-            "new"(): Dialog
+            "new"(): AboutDialog
             /**
-             * `.
+             * Creates a new `AdwAboutDialog` using AppStream metadata.
+             *
+             * This automatically sets the following properties with the following AppStream
+             * values:
+             *
+             * * [property@AboutDialog:application-icon] is set from the `<id>`
+             * * [property@AboutDialog:application-name] is set from the `<name>`
+             * * [property@AboutDialog:developer-name] is set from the `<name>` within
+             *      `<developer>`
+             * * [property@AboutDialog:version] is set from the version of the latest release
+             * * [property@AboutDialog:website] is set from the `<url type="homepage">`
+             * * [property@AboutDialog:support-url] is set from the `<url type="help">`
+             * * [property@AboutDialog:issue-url] is set from the `<url type="bugtracker">`
+             * * [property@AboutDialog:license-type] is set from the `<project_license>`.
              *     If the license type retrieved from AppStream is not listed in
              *     [enum@Gtk.License], it will be set to [enum@Gtk.License.custom].
              *
@@ -1194,10 +1046,185 @@ declare module "gi://Adw?version=1" {
              * @param release_notes_version The version to retrieve release notes for
              * @returns the newly created `AdwAboutDialog`
              */
-            new_from_appdata(resource_path: string, release_notes_version: string | null): Dialog
+            new_from_appdata(resource_path: string, release_notes_version: string | null): AboutDialog
         }
 
-        const AboutDialog: AboutDialogClass
+        interface $Exports {
+            /**
+             * A dialog showing information about the application.
+             *
+             * <picture>
+             *   <source srcset="about-dialog-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="about-dialog.png" alt="about-dialog">
+             * </picture>
+             *
+             * an about dialog is typically opened when the user activates the `About …`
+             * item in the application's primary menu. All parts of the dialog are optional.
+             *
+             * ## Main page
+             *
+             * `AdwAboutDialog` prominently displays the application's icon, name, developer
+             * name and version. They can be set with the [property@AboutDialog:application-icon],
+             * [property@AboutDialog:application-name],
+             * [property@AboutDialog:developer-name] and [property@AboutDialog:version]
+             * respectively.
+             *
+             * ## What's New
+             *
+             * `AdwAboutDialog` provides a way for applications to display their release
+             * notes, set with the [property@AboutDialog:release-notes] property.
+             *
+             * Release notes are formatted the same way as
+             * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+             *
+             * The supported formatting options are:
+             *
+             * * Paragraph (`<p>`)
+             * * Ordered list (`<ol>`), with list items (`<li>`)
+             * * Unordered list (`<ul>`), with list items (`<li>`)
+             *
+             * Within paragraphs and list items, emphasis (`<em>`) and inline code
+             * (`<code>`) text styles are supported. The emphasis is rendered in italic,
+             * while inline code is shown in a monospaced font.
+             *
+             * Any text outside paragraphs or list items is ignored.
+             *
+             * Nested lists are not supported.
+             *
+             * Only one version can be shown at a time. By default, the displayed version
+             * number matches [property@AboutDialog:version]. Use
+             * [property@AboutDialog:release-notes-version] to override it.
+             *
+             * ## Details
+             *
+             * The Details page displays the application comments and links.
+             *
+             * The comments can be set with the [property@AboutDialog:comments] property.
+             * Unlike [property@Gtk.AboutDialog:comments], this string can be long and
+             * detailed. It can also contain links and Pango markup.
+             *
+             * To set the application website, use [property@AboutDialog:website].
+             * To add extra links below the website, use [method@AboutDialog.add_link].
+             *
+             * If the Details page doesn't have any other content besides website, the
+             * website will be displayed on the main page instead.
+             *
+             * ## Troubleshooting
+             *
+             * `AdwAboutDialog` displays the following two links on the main page:
+             *
+             * * Support Questions, set with the [property@AboutDialog:support-url] property,
+             * * Report an Issue, set with the [property@AboutDialog:issue-url] property.
+             *
+             * Additionally, applications can provide debugging information. It will be
+             * shown separately on the Troubleshooting page. Use the
+             * [property@AboutDialog:debug-info] property to specify it.
+             *
+             * It's intended to be attached to issue reports when reporting issues against
+             * the application. As such, it cannot contain markup or links.
+             *
+             * `AdwAboutDialog` provides a quick way to save debug information to a file.
+             * When saving, [property@AboutDialog:debug-info-filename] would be used as
+             * the suggested filename.
+             *
+             * ## Credits and Acknowledgements
+             *
+             * The Credits page has the following default sections:
+             *
+             * * Developers, set with the [property@AboutDialog:developers] property,
+             * * Designers, set with the [property@AboutDialog:designers] property,
+             * * Artists, set with the [property@AboutDialog:artists] property,
+             * * Documenters, set with the [property@AboutDialog:documenters] property,
+             * * Translators, set with the [property@AboutDialog:translator-credits] property.
+             *
+             * When setting translator credits, use the strings `"translator-credits"` or
+             * `"translator_credits"` and mark them as translatable.
+             *
+             * The default sections that don't contain any names won't be displayed.
+             *
+             * The Credits page can also contain an arbitrary number of extra sections below
+             * the default ones. Use [method@AboutDialog.add_credit_section] to add them.
+             *
+             * The Acknowledgements page can be used to acknowledge additional people and
+             * organizations for their non-development contributions. Use
+             * [method@AboutDialog.add_acknowledgement_section] to add sections to it. For
+             * example, it can be used to list backers in a crowdfunded project or to give
+             * special thanks.
+             *
+             * Each of the people or organizations can have an email address or a website
+             * specified. To add a email address, use a string like
+             * `Edgar Allan Poe <edgar@poe.com>`. To specify a website with a title, use a
+             * string like `The GNOME Project https://www.gnome.org`:
+             *
+             * <picture>
+             *   <source srcset="about-dialog-credits-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="about-dialog-credits.png" alt="about-dialog-credits">
+             * </picture>
+             *
+             * ## Legal
+             *
+             * The Legal page displays the copyright and licensing information for the
+             * application and other modules.
+             *
+             * The copyright string is set with the [property@AboutDialog:copyright]
+             * property and should be a short string of one or two lines, for example:
+             * `© 2022 Example`.
+             *
+             * Licensing information can be quickly set from a list of known licenses with
+             * the [property@AboutDialog:license-type] property. If the application's
+             * license is not in the list, [property@AboutDialog:license] can be used
+             * instead.
+             *
+             * To add information about other modules, such as application dependencies or
+             * data, use [method@AboutDialog.add_legal_section].
+             *
+             * ## Other applications
+             *
+             * `AdwAboutDialog` can show links to your other apps at the end of the main
+             * page. To add them, use [method@AboutDialog.add_other_app].
+             *
+             * ## Constructing
+             *
+             * To make constructing an `AdwAboutDialog` as convenient as possible, you can
+             * use the function [func@show_about_dialog] which constructs and shows a
+             * dialog.
+             *
+             * ```c
+             * static void
+             * show_about (GtkApplication *app)
+             * {
+             *   const char *developers[] = {
+             *     "Angela Avery",
+             *     NULL
+             *   };
+             *
+             *   const char *designers[] = {
+             *     "GNOME Design Team",
+             *     NULL
+             *   };
+             *
+             *   adw_show_about_dialog (GTK_WIDGET (gtk_application_get_active_window (app)),
+             *                          "application-name", _("Example"),
+             *                          "application-icon", "org.example.App",
+             *                          "version", "1.2.3",
+             *                          "copyright", "© 2022 Angela Avery",
+             *                          "issue-url", "https://gitlab.gnome.org/example/example/-/issues/",
+             *                          "license-type", GTK_LICENSE_GPL_3_0,
+             *                          "developers", developers,
+             *                          "designers", designers,
+             *                          "translator-credits", _("translator-credits"),
+             *                          NULL);
+             * }
+             * ```
+             *
+             * ## CSS nodes
+             *
+             * `AdwAboutDialog` has a main CSS node with the name `dialog` and the
+             * style class `.about`.
+             * @since 1.5
+             */
+            AboutDialog: AboutDialogClass
+        }
         
 
         namespace AboutWindow {
@@ -1265,67 +1292,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * ## Legal
-         *
-         * The Legal page displays the copyright and licensing information for the
-         * application and other modules.
-         *
-         * The copyright string is set with the [property@AboutWindow:copyright]
-         * property and should be a short string of one or two lines, for example:
-         * `© 2022 Example`.
-         *
-         * Licensing information can be quickly set from a list of known licenses with
-         * the [property@AboutWindow:license-type] property. If the application's
-         * license is not in the list, [property@AboutWindow:license] can be used
-         * instead.
-         *
-         * To add information about other modules, such as application dependencies or
-         * data, use [method@AboutWindow.add_legal_section].
-         *
-         * ## Constructing
-         *
-         * To make constructing an `AdwAboutWindow` as convenient as possible, you can
-         * use the function [func@show_about_window] which constructs and shows a
-         * window.
-         *
-         * ```c
-         * static void
-         * show_about (GtkApplication *app)
-         * {
-         *   const char *developers[] = {
-         *     "Angela Avery",
-         *     NULL
-         *   };
-         *
-         *   const char *designers[] = {
-         *     "GNOME Design Team",
-         *     NULL
-         *   };
-         *
-         *   adw_show_about_window (gtk_application_get_active_window (app),
-         *                          "application-name", _("Example"),
-         *                          "application-icon", "org.example.App",
-         *                          "version", "1.2.3",
-         *                          "copyright", "© 2022 Angela Avery",
-         *                          "issue-url", "https://gitlab.gnome.org/example/example/-/issues/",
-         *                          "license-type", GTK_LICENSE_GPL_3_0,
-         *                          "developers", developers,
-         *                          "designers", designers,
-         *                          "translator-credits", _("translator-credits"),
-         *                          NULL);
-         * }
-         * ```
-         *
-         * ## CSS nodes
-         *
-         * `AdwAboutWindow` has a main CSS node with the name `window` and the
-         * style class `.about`.
-         * @since 1.2
-         * @deprecated since 1.6 Use [class@AboutDialog].
-         */
         interface AboutWindow extends Window, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Native, Gtk.Root, Gtk.ShortcutManager {
             readonly $signals: AboutWindow.SignalSignatures
             readonly $readableProperties: AboutWindow.ReadableProperties
@@ -1562,7 +1528,21 @@ declare module "gi://Adw?version=1" {
             get licenseType(): Gtk.License
             set licenseType(value: Gtk.License)
             /**
-             * `) text styles are supported. The emphasis is rendered in italic,
+             * The release notes of the application.
+             *
+             * Release notes are displayed on the the What's New page.
+             *
+             * Release notes are formatted the same way as
+             * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+             *
+             * The supported formatting options are:
+             *
+             * * Paragraph (`<p>`)
+             * * Ordered list (`<ol>`), with list items (`<li>`)
+             * * Unordered list (`<ul>`), with list items (`<li>`)
+             *
+             * Within paragraphs and list items, emphasis (`<em>`) and inline code
+             * (`<code>`) text styles are supported. The emphasis is rendered in italic,
              * while inline code is shown in a monospaced font.
              *
              * Any text outside paragraphs or list items is ignored.
@@ -2127,7 +2107,21 @@ declare module "gi://Adw?version=1" {
              */
             set_license_type(license_type: Gtk.License): void
             /**
-             * `) text styles are supported. The emphasis is rendered in italic,
+             * Sets the release notes for @self.
+             *
+             * Release notes are displayed on the the What's New page.
+             *
+             * Release notes are formatted the same way as
+             * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+             *
+             * The supported formatting options are:
+             *
+             * * Paragraph (`<p>`)
+             * * Ordered list (`<ol>`), with list items (`<li>`)
+             * * Unordered list (`<ul>`), with list items (`<li>`)
+             *
+             * Within paragraphs and list items, emphasis (`<em>`) and inline code
+             * (`<code>`) text styles are supported. The emphasis is rendered in italic,
              * while inline code is shown in a monospaced font.
              *
              * Any text outside paragraphs or list items is ignored.
@@ -2223,6 +2217,7 @@ declare module "gi://Adw?version=1" {
         interface AboutWindowClass extends Omit<WindowClass, "new"> {
             readonly $gtype: GObject.GType<AboutWindow>
             readonly prototype: AboutWindow
+
             new (props?: Partial<GObject.ConstructorProps<AboutWindow>>): AboutWindow
             /**
              * Creates a new `AdwAboutWindow`.
@@ -2230,9 +2225,22 @@ declare module "gi://Adw?version=1" {
              * @deprecated since 1.6 Use [class@AboutDialog].
              * @returns the newly created `AdwAboutWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): AboutWindow
             /**
-             * `.
+             * Creates a new `AdwAboutWindow` using AppStream metadata.
+             *
+             * This automatically sets the following properties with the following AppStream
+             * values:
+             *
+             * * [property@AboutWindow:application-icon] is set from the `<id>`
+             * * [property@AboutWindow:application-name] is set from the `<name>`
+             * * [property@AboutWindow:developer-name] is set from the `<name>` within
+             *      `<developer>`
+             * * [property@AboutWindow:version] is set from the version of the latest release
+             * * [property@AboutWindow:website] is set from the `<url type="homepage">`
+             * * [property@AboutWindow:support-url] is set from the `<url type="help">`
+             * * [property@AboutWindow:issue-url] is set from the `<url type="bugtracker">`
+             * * [property@AboutWindow:license-type] is set from the `<project_license>`.
              *     If the license type retrieved from AppStream is not listed in
              *     [enum@Gtk.License], it will be set to [enum@Gtk.License.custom].
              *
@@ -2246,10 +2254,181 @@ declare module "gi://Adw?version=1" {
              * @param release_notes_version The version to retrieve release notes for
              * @returns the newly created `AdwAboutWindow`
              */
-            new_from_appdata(resource_path: string, release_notes_version: string | null): Gtk.Widget
+            new_from_appdata(resource_path: string, release_notes_version: string | null): AboutWindow
         }
 
-        const AboutWindow: AboutWindowClass
+        interface $Exports {
+            /**
+             * A window showing information about the application.
+             *
+             * <picture>
+             *   <source srcset="about-window-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="about-window.png" alt="about-window">
+             * </picture>
+             *
+             * An about window is typically opened when the user activates the `About …`
+             * item in the application's primary menu. All parts of the window are optional.
+             *
+             * ## Main page
+             *
+             * `AdwAboutWindow` prominently displays the application's icon, name, developer
+             * name and version. They can be set with the [property@AboutWindow:application-icon],
+             * [property@AboutWindow:application-name],
+             * [property@AboutWindow:developer-name] and [property@AboutWindow:version]
+             * respectively.
+             *
+             * ## What's New
+             *
+             * `AdwAboutWindow` provides a way for applications to display their release
+             * notes, set with the [property@AboutWindow:release-notes] property.
+             *
+             * Release notes are formatted the same way as
+             * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+             *
+             * The supported formatting options are:
+             *
+             * * Paragraph (`<p>`)
+             * * Ordered list (`<ol>`), with list items (`<li>`)
+             * * Unordered list (`<ul>`), with list items (`<li>`)
+             *
+             * Within paragraphs and list items, emphasis (`<em>`) and inline code
+             * (`<code>`) text styles are supported. The emphasis is rendered in italic,
+             * while inline code is shown in a monospaced font.
+             *
+             * Any text outside paragraphs or list items is ignored.
+             *
+             * Nested lists are not supported.
+             *
+             * Only one version can be shown at a time. By default, the displayed version
+             * number matches [property@AboutWindow:version]. Use
+             * [property@AboutWindow:release-notes-version] to override it.
+             *
+             * ## Details
+             *
+             * The Details page displays the application comments and links.
+             *
+             * The comments can be set with the [property@AboutWindow:comments] property.
+             * Unlike [property@Gtk.AboutDialog:comments], this string can be long and
+             * detailed. It can also contain links and Pango markup.
+             *
+             * To set the application website, use [property@AboutWindow:website].
+             * To add extra links below the website, use [method@AboutWindow.add_link].
+             *
+             * If the Details page doesn't have any other content besides website, the
+             * website will be displayed on the main page instead.
+             *
+             * ## Troubleshooting
+             *
+             * `AdwAboutWindow` displays the following two links on the main page:
+             *
+             * * Support Questions, set with the [property@AboutWindow:support-url] property,
+             * * Report an Issue, set with the [property@AboutWindow:issue-url] property.
+             *
+             * Additionally, applications can provide debugging information. It will be
+             * shown separately on the Troubleshooting page. Use the
+             * [property@AboutWindow:debug-info] property to specify it.
+             *
+             * It's intended to be attached to issue reports when reporting issues against
+             * the application. As such, it cannot contain markup or links.
+             *
+             * `AdwAboutWindow` provides a quick way to save debug information to a file.
+             * When saving, [property@AboutWindow:debug-info-filename] would be used as
+             * the suggested filename.
+             *
+             * ## Credits and Acknowledgements
+             *
+             * The Credits page has the following default sections:
+             *
+             * * Developers, set with the [property@AboutWindow:developers] property,
+             * * Designers, set with the [property@AboutWindow:designers] property,
+             * * Artists, set with the [property@AboutWindow:artists] property,
+             * * Documenters, set with the [property@AboutWindow:documenters] property,
+             * * Translators, set with the [property@AboutWindow:translator-credits] property.
+             *
+             * When setting translator credits, use the strings `"translator-credits"` or
+             * `"translator_credits"` and mark them as translatable.
+             *
+             * The default sections that don't contain any names won't be displayed.
+             *
+             * The Credits page can also contain an arbitrary number of extra sections below
+             * the default ones. Use [method@AboutWindow.add_credit_section] to add them.
+             *
+             * The Acknowledgements page can be used to acknowledge additional people and
+             * organizations for their non-development contributions. Use
+             * [method@AboutWindow.add_acknowledgement_section] to add sections to it. For
+             * example, it can be used to list backers in a crowdfunded project or to give
+             * special thanks.
+             *
+             * Each of the people or organizations can have an email address or a website
+             * specified. To add a email address, use a string like
+             * `Edgar Allan Poe <edgar@poe.com>`. To specify a website with a title, use a
+             * string like `The GNOME Project https://www.gnome.org`:
+             *
+             * <picture>
+             *   <source srcset="about-window-credits-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="about-window-credits.png" alt="about-window-credits">
+             * </picture>
+             *
+             * ## Legal
+             *
+             * The Legal page displays the copyright and licensing information for the
+             * application and other modules.
+             *
+             * The copyright string is set with the [property@AboutWindow:copyright]
+             * property and should be a short string of one or two lines, for example:
+             * `© 2022 Example`.
+             *
+             * Licensing information can be quickly set from a list of known licenses with
+             * the [property@AboutWindow:license-type] property. If the application's
+             * license is not in the list, [property@AboutWindow:license] can be used
+             * instead.
+             *
+             * To add information about other modules, such as application dependencies or
+             * data, use [method@AboutWindow.add_legal_section].
+             *
+             * ## Constructing
+             *
+             * To make constructing an `AdwAboutWindow` as convenient as possible, you can
+             * use the function [func@show_about_window] which constructs and shows a
+             * window.
+             *
+             * ```c
+             * static void
+             * show_about (GtkApplication *app)
+             * {
+             *   const char *developers[] = {
+             *     "Angela Avery",
+             *     NULL
+             *   };
+             *
+             *   const char *designers[] = {
+             *     "GNOME Design Team",
+             *     NULL
+             *   };
+             *
+             *   adw_show_about_window (gtk_application_get_active_window (app),
+             *                          "application-name", _("Example"),
+             *                          "application-icon", "org.example.App",
+             *                          "version", "1.2.3",
+             *                          "copyright", "© 2022 Angela Avery",
+             *                          "issue-url", "https://gitlab.gnome.org/example/example/-/issues/",
+             *                          "license-type", GTK_LICENSE_GPL_3_0,
+             *                          "developers", developers,
+             *                          "designers", designers,
+             *                          "translator-credits", _("translator-credits"),
+             *                          NULL);
+             * }
+             * ```
+             *
+             * ## CSS nodes
+             *
+             * `AdwAboutWindow` has a main CSS node with the name `window` and the
+             * style class `.about`.
+             * @since 1.2
+             * @deprecated since 1.6 Use [class@AboutDialog].
+             */
+            AboutWindow: AboutWindowClass
+        }
         
 
         namespace ActionRow {
@@ -2282,12 +2461,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * When used together with the `.monospace` style class, only the subtitle
-         * becomes monospace, not the title or any extra widgets.
-         */
         interface ActionRow extends PreferencesRow, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ActionRow.SignalSignatures
             readonly $readableProperties: ActionRow.ReadableProperties
@@ -2458,21 +2631,79 @@ declare module "gi://Adw?version=1" {
         interface ActionRowClass extends Omit<PreferencesRowClass, "new"> {
             readonly $gtype: GObject.GType<ActionRow>
             readonly prototype: ActionRow
+
             new (props?: Partial<GObject.ConstructorProps<ActionRow>>): ActionRow
             /**
              * Creates a new `AdwActionRow`.
              * @returns the newly created `AdwActionRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ActionRow
         }
 
-        const ActionRow: ActionRowClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.ListBoxRow] used to present actions.
+             *
+             * <picture>
+             *   <source srcset="action-row-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="action-row.png" alt="action-row">
+             * </picture>
+             *
+             * The `AdwActionRow` widget can have a title, a subtitle and an icon. The row
+             * can receive additional widgets at its end, or prefix widgets at its start.
+             *
+             * It is convenient to present a preference and its related actions.
+             *
+             * `AdwActionRow` is unactivatable by default, giving it an activatable widget
+             * will automatically make it activatable, but unsetting it won't change the
+             * row's activatability.
+             *
+             * ## AdwActionRow as GtkBuildable
+             *
+             * The `AdwActionRow` implementation of the [iface@Gtk.Buildable] interface
+             * supports adding a child at its end by specifying “suffix” or omitting the
+             * “type” attribute of a <child> element.
+             *
+             * It also supports adding a child as a prefix widget by specifying “prefix” as
+             * the “type” attribute of a <child> element.
+             *
+             * ## CSS nodes
+             *
+             * `AdwActionRow` has a main CSS node with name `row`.
+             *
+             * It contains the subnode `box.header` for its main horizontal box, and
+             * `box.title` for the vertical box containing the title and subtitle labels.
+             *
+             * It contains subnodes `label.title` and `label.subtitle` representing
+             * respectively the title label and subtitle label.
+             *
+             * ## Style classes
+             *
+             * `AdwActionRow` can use the [`.property`](style-classes.html#property-rows)
+             * style class to emphasize the row subtitle instead of the row title, which is
+             * useful for displaying read-only properties.
+             *
+             * <picture>
+             *   <source srcset="property-row-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="property-row.png" alt="property-row">
+             * </picture>
+             *
+             * When used together with the `.monospace` style class, only the subtitle
+             * becomes monospace, not the title or any extra widgets.
+             */
+            ActionRow: ActionRowClass
+        }
         
 
         namespace AlertDialog {
             interface SignalSignatures extends Dialog.SignalSignatures, Gtk.Accessible.SignalSignatures, Gtk.Buildable.SignalSignatures, Gtk.ConstraintTarget.SignalSignatures, Gtk.ShortcutManager.SignalSignatures {
                 /**
-                 *  or with a system
+                 * This signal is emitted when the dialog is closed.
+                 *
+                 * @response will be set to the response ID of the button that had been
+                 * activated.
+                 *
+                 * if the dialog was closed by pressing <kbd>Escape</kbd> or with a system
                  * action, @response will be set to the value of
                  * [property@AlertDialog:close-response].
                  * @since 1.5
@@ -2507,11 +2738,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         * @since 1.5
-         */
         interface AlertDialog extends Dialog, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.ShortcutManager {
             readonly $signals: AlertDialog.SignalSignatures
             readonly $readableProperties: AlertDialog.ReadableProperties
@@ -2533,7 +2759,10 @@ declare module "gi://Adw?version=1" {
             get bodyUseMarkup(): boolean
             set bodyUseMarkup(value: boolean)
             /**
-             *  or with a system action.
+             * The ID of the close response.
+             *
+             * It will be passed to [signal@AlertDialog::response] if the dialog is
+             * closed by pressing <kbd>Escape</kbd> or with a system action.
              *
              * It doesn't have to correspond to any of the responses in the dialog.
              *
@@ -2745,7 +2974,10 @@ declare module "gi://Adw?version=1" {
              */
             set_body_use_markup(use_markup: boolean): void
             /**
-             *  or with a system action.
+             * Sets the ID of the close response of @self.
+             *
+             * It will be passed to [signal@AlertDialog::response] if the dialog is closed
+             * by pressing <kbd>Escape</kbd> or with a system action.
              *
              * It doesn't have to correspond to any of the responses in the dialog.
              *
@@ -2811,7 +3043,12 @@ declare module "gi://Adw?version=1" {
              */
             set_prefer_wide_layout(prefer_wide_layout: boolean): void
             /**
+             * Sets the appearance for @response.
              *
+             * <picture>
+             *   <source srcset="alert-dialog-appearance-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="alert-dialog-appearance.png" alt="alert-dialog-appearance">
+             * </picture>
              *
              * Use [enum@Adw.ResponseAppearance.suggested] to mark important responses such
              * as the affirmative action, like the Save button in the example.
@@ -2864,6 +3101,7 @@ declare module "gi://Adw?version=1" {
         interface AlertDialogClass extends Omit<DialogClass, "new"> {
             readonly $gtype: GObject.GType<AlertDialog>
             readonly prototype: AlertDialog
+
             new (props?: Partial<GObject.ConstructorProps<AlertDialog>>): AlertDialog
             /**
              * Creates a new `AdwAlertDialog`.
@@ -2885,10 +3123,145 @@ declare module "gi://Adw?version=1" {
              * @param body the body text
              * @returns the newly created `AdwAlertDialog`
              */
-            "new"(heading: string | null, body: string | null): Dialog
+            "new"(heading: string | null, body: string | null): AlertDialog
         }
 
-        const AlertDialog: AlertDialogClass
+        interface $Exports {
+            /**
+             * A dialog presenting a message or a question.
+             *
+             * <picture>
+             *   <source srcset="alert-dialog-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="alert-dialog.png" alt="alert-dialog">
+             * </picture>
+             *
+             * Alert dialogs have a heading, a body, an optional child widget, and one or
+             * multiple responses, each presented as a button.
+             *
+             * Each response has a unique string ID, and a button label. Additionally, each
+             * response can be enabled or disabled, and can have a suggested or destructive
+             * appearance.
+             *
+             * When one of the responses is activated, or the dialog is closed, the
+             * [signal@AlertDialog::response] signal will be emitted. This signal is
+             * detailed, and the detail, as well as the `response` parameter will be set to
+             * the ID of the activated response, or to the value of the
+             * [property@AlertDialog:close-response] property if the dialog had been closed
+             * without activating any of the responses.
+             *
+             * Response buttons can be presented horizontally or vertically depending on
+             * available space.
+             *
+             * When a response is activated, `AdwAlertDialog` is closed automatically.
+             *
+             * An example of using an alert dialog:
+             *
+             * ```c
+             * AdwDialog *dialog;
+             *
+             * dialog = adw_alert_dialog_new (_("Replace File?"), NULL);
+             *
+             * adw_alert_dialog_format_body (ADW_ALERT_DIALOG (dialog),
+             *                               _("A file named “%s” already exists. Do you want to replace it?"),
+             *                               filename);
+             *
+             * adw_alert_dialog_add_responses (ADW_ALERT_DIALOG (dialog),
+             *                                 "cancel",  _("_Cancel"),
+             *                                 "replace", _("_Replace"),
+             *                                 NULL);
+             *
+             * adw_alert_dialog_set_response_appearance (ADW_ALERT_DIALOG (dialog),
+             *                                           "replace",
+             *                                           ADW_RESPONSE_DESTRUCTIVE);
+             *
+             * adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "cancel");
+             * adw_alert_dialog_set_close_response (ADW_ALERT_DIALOG (dialog), "cancel");
+             *
+             * g_signal_connect (dialog, "response", G_CALLBACK (response_cb), self);
+             *
+             * adw_dialog_present (dialog, parent);
+             * ```
+             *
+             * ## Async API
+             *
+             * `AdwAlertDialog` can also be used via the [method@AlertDialog.choose] method.
+             * This API follows the GIO async pattern, for example:
+             *
+             * ```c
+             * static void
+             * dialog_cb (AdwAlertDialog *dialog,
+             *            GAsyncResult   *result,
+             *            MyWindow       *self)
+             * {
+             *   const char *response = adw_alert_dialog_choose_finish (dialog, result);
+             *
+             *   // ...
+             * }
+             *
+             * static void
+             * show_dialog (MyWindow *self)
+             * {
+             *   AdwDialog *dialog;
+             *
+             *   dialog = adw_alert_dialog_new (_("Replace File?"), NULL);
+             *
+             *   adw_alert_dialog_format_body (ADW_ALERT_DIALOG (dialog),
+             *                                 _("A file named “%s” already exists. Do you want to replace it?"),
+             *                                 filename);
+             *
+             *   adw_alert_dialog_add_responses (ADW_ALERT_DIALOG (dialog),
+             *                                   "cancel",  _("_Cancel"),
+             *                                   "replace", _("_Replace"),
+             *                                   NULL);
+             *
+             *   adw_alert_dialog_set_response_appearance (ADW_ALERT_DIALOG (dialog),
+             *                                             "replace",
+             *                                             ADW_RESPONSE_DESTRUCTIVE);
+             *
+             *   adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "cancel");
+             *   adw_alert_dialog_set_close_response (ADW_ALERT_DIALOG (dialog), "cancel");
+             *
+             *   adw_alert_dialog_choose (ADW_ALERT_DIALOG (dialog), GTK_WIDGET (self),
+             *                            NULL, (GAsyncReadyCallback) dialog_cb, self);
+             * }
+             * ```
+             *
+             * ## AdwAlertDialog as GtkBuildable
+             *
+             * `AdwAlertDialog` supports adding responses in UI definitions by via the
+             * `<responses>` element that may contain multiple `<response>` elements, each
+             * representing a response.
+             *
+             * Each of the `<response>` elements must have the `id` attribute specifying the
+             * response ID. The contents of the element are used as the response label.
+             *
+             * Response labels can be translated with the usual `translatable`, `context`
+             * and `comments` attributes.
+             *
+             * The `<response>` elements can also have `enabled` and/or `appearance`
+             * attributes. See [method@AlertDialog.set_response_enabled] and
+             * [method@AlertDialog.set_response_appearance] for details.
+             *
+             * Example of an `AdwAlertDialog` UI definition:
+             *
+             * ```xml
+             * <object class="AdwAlertDialog" id="dialog">
+             *   <property name="heading" translatable="yes">Save Changes?</property>
+             *   <property name="body" translatable="yes">Open documents contain unsaved changes. Changes which are not saved will be permanently lost.</property>
+             *   <property name="default-response">save</property>
+             *   <property name="close-response">cancel</property>
+             *   <signal name="response" handler="response_cb"/>
+             *   <responses>
+             *     <response id="cancel" translatable="yes">_Cancel</response>
+             *     <response id="discard" translatable="yes" appearance="destructive">_Discard</response>
+             *     <response id="save" translatable="yes" appearance="suggested" enabled="false">_Save</response>
+             *   </responses>
+             * </object>
+             * ```
+             * @since 1.5
+             */
+            AlertDialog: AlertDialogClass
+        }
         
 
         namespace Animation {
@@ -2913,60 +3286,13 @@ declare module "gi://Adw?version=1" {
                 "state": AnimationState
                 "target": AnimationTarget
                 "value": number
-                "widget": Gtk.Widget
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "widget": Gtk.Widget
             }
         }
 
-        /**
-         * A base class for animations.
-         *
-         * `AdwAnimation` represents an animation on a widget. It has a target that
-         * provides a value to animate, and a state indicating whether the
-         * animation hasn't been started yet, is playing, paused or finished.
-         *
-         * Currently there are two concrete animation types:
-         * [class@TimedAnimation] and [class@SpringAnimation].
-         *
-         * `AdwAnimation` will automatically skip the animation if
-         * [property@Animation:widget] is unmapped, or if
-         * [property@Gtk.Settings:gtk-enable-animations] is `FALSE`.
-         *
-         * The [signal@Animation::done] signal can be used to perform an action after
-         * the animation ends, for example hiding a widget after animating its
-         * [property@Gtk.Widget:opacity] to 0.
-         *
-         * `AdwAnimation` will be kept alive while the animation is playing. As such,
-         * it's safe to create an animation, start it and immediately unref it:
-         * A fire-and-forget animation:
-         *
-         * ```c
-         * static void
-         * animation_cb (double    value,
-         *               MyObject *self)
-         * {
-         *   // Do something with @value
-         * }
-         *
-         * static void
-         * my_object_animate (MyObject *self)
-         * {
-         *   AdwAnimationTarget *target =
-         *     adw_callback_animation_target_new ((AdwAnimationTargetFunc) animation_cb,
-         *                                        self, NULL);
-         *   g_autoptr (AdwAnimation) animation =
-         *     adw_timed_animation_new (widget, 0, 1, 250, target);
-         *
-         *   adw_animation_play (animation);
-         * }
-         * ```
-         *
-         * If there's a chance the previous animation for the same target hasn't yet
-         * finished, the previous animation should be stopped first, or the existing
-         * `AdwAnimation` object can be reused.
-         */
         interface Animation extends GObject.Object {
             readonly $signals: Animation.SignalSignatures
             readonly $readableProperties: Animation.ReadableProperties
@@ -3131,10 +3457,60 @@ declare module "gi://Adw?version=1" {
         interface AnimationClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Animation>
             readonly prototype: Animation
+
             new (props?: Partial<GObject.ConstructorProps<Animation>>): Animation
         }
 
-        const Animation: AnimationClass
+        interface $Exports {
+            /**
+             * A base class for animations.
+             *
+             * `AdwAnimation` represents an animation on a widget. It has a target that
+             * provides a value to animate, and a state indicating whether the
+             * animation hasn't been started yet, is playing, paused or finished.
+             *
+             * Currently there are two concrete animation types:
+             * [class@TimedAnimation] and [class@SpringAnimation].
+             *
+             * `AdwAnimation` will automatically skip the animation if
+             * [property@Animation:widget] is unmapped, or if
+             * [property@Gtk.Settings:gtk-enable-animations] is `FALSE`.
+             *
+             * The [signal@Animation::done] signal can be used to perform an action after
+             * the animation ends, for example hiding a widget after animating its
+             * [property@Gtk.Widget:opacity] to 0.
+             *
+             * `AdwAnimation` will be kept alive while the animation is playing. As such,
+             * it's safe to create an animation, start it and immediately unref it:
+             * A fire-and-forget animation:
+             *
+             * ```c
+             * static void
+             * animation_cb (double    value,
+             *               MyObject *self)
+             * {
+             *   // Do something with @value
+             * }
+             *
+             * static void
+             * my_object_animate (MyObject *self)
+             * {
+             *   AdwAnimationTarget *target =
+             *     adw_callback_animation_target_new ((AdwAnimationTargetFunc) animation_cb,
+             *                                        self, NULL);
+             *   g_autoptr (AdwAnimation) animation =
+             *     adw_timed_animation_new (widget, 0, 1, 250, target);
+             *
+             *   adw_animation_play (animation);
+             * }
+             * ```
+             *
+             * If there's a chance the previous animation for the same target hasn't yet
+             * finished, the previous animation should be stopped first, or the existing
+             * `AdwAnimation` object can be reused.
+             */
+            Animation: AnimationClass
+        }
         
 
         namespace AnimationTarget {
@@ -3151,9 +3527,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * Represents a value [class@Animation] can animate.
-         */
         interface AnimationTarget extends GObject.Object {
             readonly $signals: AnimationTarget.SignalSignatures
             readonly $readableProperties: AnimationTarget.ReadableProperties
@@ -3164,10 +3537,16 @@ declare module "gi://Adw?version=1" {
         interface AnimationTargetClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<AnimationTarget>
             readonly prototype: AnimationTarget
+
             new (props?: Partial<GObject.ConstructorProps<AnimationTarget>>): AnimationTarget
         }
 
-        const AnimationTarget: AnimationTargetClass
+        interface $Exports {
+            /**
+             * Represents a value [class@Animation] can animate.
+             */
+            AnimationTarget: AnimationTargetClass
+        }
         
 
         namespace Application {
@@ -3186,34 +3565,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *  accelerator for it.
-         *
-         * ### Stylesheet
-         *
-         * If there's a resource located at `style.css`, `AdwApplication` will load
-         * styles from it. This can be used to add custom styles to the application.
-         *
-         * #### Additional styles (deprecated)
-         *
-         * `AdwApplication` will also load the following stylesheets conditionally:
-         *
-         * - `style-dark.css` when [property@StyleManager:dark] is `TRUE`.
-         *
-         * - `style-hc.css` when the system high contrast preference is enabled.
-         *
-         * - `style-hc-dark.css` when the system high contrast preference is enabled and
-         *   [property@StyleManager:dark] is `TRUE`.
-         *
-         * :::warning
-         *     These resources are deprecated since 1.9.
-         *
-         *     Use `style.css` with the following media queries instead:
-         *
-         *     - `prefers-color-scheme: dark` for styles used only for dark appearance.
-         *     - `prefers-contrast: more` for styles used only when the system high
-         *       contrast preference is enabled.
-         */
         interface Application extends Gtk.Application, Gio.ActionGroup, Gio.ActionMap {
             readonly $signals: Application.SignalSignatures
             readonly $readableProperties: Application.ReadableProperties
@@ -3240,6 +3591,7 @@ declare module "gi://Adw?version=1" {
         interface ApplicationClass extends Omit<Gtk.ApplicationClass, "new"> {
             readonly $gtype: GObject.GType<Application>
             readonly prototype: Application
+
             new (props?: Partial<GObject.ConstructorProps<Application>>): Application
             /**
              * Creates a new `AdwApplication`.
@@ -3256,7 +3608,56 @@ declare module "gi://Adw?version=1" {
             "new"(application_id: string | null, flags: Gio.ApplicationFlags): Application
         }
 
-        const Application: ApplicationClass
+        interface $Exports {
+            /**
+             * A base class for Adwaita applications.
+             *
+             * `AdwApplication` handles library initialization by calling [func@init] in the
+             * default [signal@Gio.Application::startup] signal handler, in turn chaining up
+             * as required by [class@Gtk.Application]. Therefore, any subclass of
+             * `AdwApplication` should always chain up its `startup` handler before using
+             * any Adwaita or GTK API.
+             *
+             * ## Automatic Resources
+             *
+             * `AdwApplication` will automatically load certain resources located in the
+             * application's resource base path (see
+             * [method@Gio.Application.set_resource_base_path], if they're present.
+             *
+             * ### Shortcuts Dialog
+             *
+             * If there's a resource located at `shortcuts-dialog.ui` which defines an
+             * [class@ShortcutsDialog] with the ID `shortcuts_dialog`, `AdwApplication`
+             * will set up an `app.shortcuts` action that creates and presents this dialog,
+             * as well as a <kbd>Ctrl</kbd><kbd>?</kbd> accelerator for it.
+             *
+             * ### Stylesheet
+             *
+             * If there's a resource located at `style.css`, `AdwApplication` will load
+             * styles from it. This can be used to add custom styles to the application.
+             *
+             * #### Additional styles (deprecated)
+             *
+             * `AdwApplication` will also load the following stylesheets conditionally:
+             *
+             * - `style-dark.css` when [property@StyleManager:dark] is `TRUE`.
+             *
+             * - `style-hc.css` when the system high contrast preference is enabled.
+             *
+             * - `style-hc-dark.css` when the system high contrast preference is enabled and
+             *   [property@StyleManager:dark] is `TRUE`.
+             *
+             * :::warning
+             *     These resources are deprecated since 1.9.
+             *
+             *     Use `style.css` with the following media queries instead:
+             *
+             *     - `prefers-color-scheme: dark` for styles used only for dark appearance.
+             *     - `prefers-contrast: more` for styles used only when the system high
+             *       contrast preference is enabled.
+             */
+            Application: ApplicationClass
+        }
         
 
         namespace ApplicationWindow {
@@ -3283,13 +3684,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * Using [property@Gtk.Application:menubar] is not supported and may result in
-         * visual glitches.
-         */
         interface ApplicationWindow extends Gtk.ApplicationWindow, Gio.ActionGroup, Gio.ActionMap, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Native, Gtk.Root, Gtk.ShortcutManager {
             readonly $signals: ApplicationWindow.SignalSignatures
             readonly $readableProperties: ApplicationWindow.ReadableProperties
@@ -3400,16 +3794,52 @@ declare module "gi://Adw?version=1" {
         interface ApplicationWindowClass extends Omit<Gtk.ApplicationWindowClass, "new"> {
             readonly $gtype: GObject.GType<ApplicationWindow>
             readonly prototype: ApplicationWindow
+
             new (props?: Partial<GObject.ConstructorProps<ApplicationWindow>>): ApplicationWindow
             /**
              * Creates a new `AdwApplicationWindow` for @app.
              * @param app an application instance
              * @returns the newly created `AdwApplicationWindow`
              */
-            "new"(app: Gtk.Application): Gtk.Widget
+            "new"(app: Gtk.Application): ApplicationWindow
         }
 
-        const ApplicationWindow: ApplicationWindowClass
+        interface $Exports {
+            /**
+             * A freeform application window.
+             *
+             * <picture>
+             *   <source srcset="application-window-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="application-window.png" alt="application-window">
+             * </picture>
+             *
+             * `AdwApplicationWindow` is a [class@Gtk.ApplicationWindow] subclass providing
+             * the same features as [class@Window].
+             *
+             * See [class@Window] for details.
+             *
+             * Example of an `AdwApplicationWindow` UI definition:
+             *
+             * ```xml
+             * <object class="AdwApplicationWindow">
+             *   <property name="content">
+             *     <object class="AdwToolbarView">
+             *       <child type="top">
+             *         <object class="AdwHeaderBar"/>
+             *       </child>
+             *       <property name="content">
+             *         <!-- ... -->
+             *       </property>
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * Using [property@Gtk.Application:menubar] is not supported and may result in
+             * visual glitches.
+             */
+            ApplicationWindow: ApplicationWindowClass
+        }
         
 
         namespace Avatar {
@@ -3436,30 +3866,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * `AdwAvatar` is a widget that shows a round avatar.
-         *
-         * `AdwAvatar` generates an avatar with the initials of  the
-         * [property@Avatar:text] on top of a colored background.
-         *
-         * The color is picked based on the hash of the [property@Avatar:text].
-         *
-         * If [property@Avatar:show-initials] is set to `FALSE`,
-         * [property@Avatar:icon-name] or `adw-avatar-default-symbolic` is shown instead
-         * of the initials.
-         *
-         * Use [property@Avatar:custom-image] to set a custom image.
-         *
-         * ## CSS nodes
-         *
-         * `AdwAvatar` has a single CSS node with name `avatar`.
-         *
-         * ## Accessibility
-         *
-         * `AdwAvatar` uses the [enum@Gtk.AccessibleRole.img] role.
-         */
         interface Avatar extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: Avatar.SignalSignatures
             readonly $readableProperties: Avatar.ReadableProperties
@@ -3574,6 +3980,7 @@ declare module "gi://Adw?version=1" {
         interface AvatarClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Avatar>
             readonly prototype: Avatar
+
             new (props?: Partial<GObject.ConstructorProps<Avatar>>): Avatar
             /**
              * Creates a new `AdwAvatar`.
@@ -3582,10 +3989,41 @@ declare module "gi://Adw?version=1" {
              * @param show_initials whether to use initials instead of an icon as fallback
              * @returns the newly created `AdwAvatar`
              */
-            "new"(size: number, text: string | null, show_initials: boolean): Gtk.Widget
+            "new"(size: number, text: string | null, show_initials: boolean): Avatar
         }
 
-        const Avatar: AvatarClass
+        interface $Exports {
+            /**
+             * A widget displaying an image, with a generated fallback.
+             *
+             * <picture>
+             *   <source srcset="avatar-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="avatar.png" alt="avatar">
+             * </picture>
+             *
+             * `AdwAvatar` is a widget that shows a round avatar.
+             *
+             * `AdwAvatar` generates an avatar with the initials of  the
+             * [property@Avatar:text] on top of a colored background.
+             *
+             * The color is picked based on the hash of the [property@Avatar:text].
+             *
+             * If [property@Avatar:show-initials] is set to `FALSE`,
+             * [property@Avatar:icon-name] or `adw-avatar-default-symbolic` is shown instead
+             * of the initials.
+             *
+             * Use [property@Avatar:custom-image] to set a custom image.
+             *
+             * ## CSS nodes
+             *
+             * `AdwAvatar` has a single CSS node with name `avatar`.
+             *
+             * ## Accessibility
+             *
+             * `AdwAvatar` uses the [enum@Gtk.AccessibleRole.img] role.
+             */
+            Avatar: AvatarClass
+        }
         
 
         namespace Banner {
@@ -3619,14 +4057,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * ## CSS nodes
-         *
-         * `AdwBanner` has a main CSS node with the name `banner`.
-         * @since 1.3
-         */
         interface Banner extends Gtk.Widget, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: Banner.SignalSignatures
             readonly $readableProperties: Banner.ReadableProperties
@@ -3644,7 +4074,16 @@ declare module "gi://Adw?version=1" {
             get buttonLabel(): string | null
             set buttonLabel(value: string | null)
             /**
-             * >
+             * The style class to use for the banner button.
+             *
+             * When set to [enum@Adw.BannerButtonStyle.default], the button is grey.
+             * When set to [enum@Adw.BannerButtonStyle.suggested], the button uses the
+             * [`.suggested-action`](style-classes.html#suggested-action) appearance.
+             *
+             * <picture>
+             *   <source srcset="banner-suggested-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="banner-suggested.png" alt="banner with suggested button style">
+             * </picture>
              * @since 1.7
              * @default ADW_BANNER_BUTTON_DEFAULT
              */
@@ -3716,7 +4155,16 @@ declare module "gi://Adw?version=1" {
              */
             set_button_label(label: string | null): void
             /**
-             * >
+             * Sets the style class to use for the banner button.
+             *
+             * When set to [enum@Adw.BannerButtonStyle.default], the button is grey.
+             * When set to [enum@Adw.BannerButtonStyle.suggested], the button uses the
+             * [`.suggested-action`](style-classes.html#suggested-action) appearance.
+             *
+             * <picture>
+             *   <source srcset="banner-suggested-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="banner-suggested.png" alt="banner with suggested button style">
+             * </picture>
              * @since 1.7
              * @param style a button style
              */
@@ -3748,6 +4196,7 @@ declare module "gi://Adw?version=1" {
         interface BannerClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Banner>
             readonly prototype: Banner
+
             new (props?: Partial<GObject.ConstructorProps<Banner>>): Banner
             /**
              * Creates a new `AdwBanner`.
@@ -3755,10 +4204,43 @@ declare module "gi://Adw?version=1" {
              * @param title the banner title
              * @returns the newly created `AdwBanner`
              */
-            "new"(title: string): Gtk.Widget
+            "new"(title: string): Banner
         }
 
-        const Banner: BannerClass
+        interface $Exports {
+            /**
+             * A bar with contextual information.
+             *
+             * <picture>
+             *   <source srcset="banner-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="banner.png" alt="banner">
+             * </picture>
+             *
+             * Banners are hidden by default, use [property@Banner:revealed] to show them.
+             *
+             * Banners have a title, set with [property@Banner:title]. Titles can be marked
+             * up with Pango markup, use [property@Banner:use-markup] to enable it.
+             *
+             * The title will be shown centered or left-aligned depending on available
+             * space.
+             *
+             * Banners can optionally have a button with text on it, set through
+             * [property@Banner:button-label]. The button can be used with a `GAction`,
+             * or with the [signal@Banner::button-clicked] signal. The button can have
+             * different styles, a gray style and a suggested style.
+             *
+             * <picture>
+             *   <source srcset="banner-suggested-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="banner-suggested.png" alt="banner with suggested button style">
+             * </picture>
+             *
+             * ## CSS nodes
+             *
+             * `AdwBanner` has a main CSS node with the name `banner`.
+             * @since 1.3
+             */
+            Banner: BannerClass
+        }
         
 
         namespace Bin {
@@ -3777,15 +4259,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * The `AdwBin` widget has only one child, set with the [property@Bin:child]
-         * property.
-         *
-         * It is useful for deriving subclasses, since it provides common code needed
-         * for handling a single child widget.
-         */
         interface Bin extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: Bin.SignalSignatures
             readonly $readableProperties: Bin.ReadableProperties
@@ -3811,15 +4284,32 @@ declare module "gi://Adw?version=1" {
         interface BinClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Bin>
             readonly prototype: Bin
+
             new (props?: Partial<GObject.ConstructorProps<Bin>>): Bin
             /**
              * Creates a new `AdwBin`.
              * @returns the new created `AdwBin`
              */
-            "new"(): Gtk.Widget
+            "new"(): Bin
         }
 
-        const Bin: BinClass
+        interface $Exports {
+            /**
+             * A widget with one child.
+             *
+             * <picture>
+             *   <source srcset="bin-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="bin.png" alt="bin">
+             * </picture>
+             *
+             * The `AdwBin` widget has only one child, set with the [property@Bin:child]
+             * property.
+             *
+             * It is useful for deriving subclasses, since it provides common code needed
+             * for handling a single child widget.
+             */
+            Bin: BinClass
+        }
         
 
         namespace BottomSheet {
@@ -3868,12 +4358,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * ` element, and the bottom bar by specifying
-         * “bottom-bar”. Specifying “content” or omitting the child type results in
-         * setting the content child.
-         * @since 1.6
-         */
         interface BottomSheet extends Gtk.Widget, Swipeable, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: BottomSheet.SignalSignatures
             readonly $readableProperties: BottomSheet.ReadableProperties
@@ -3914,7 +4398,10 @@ declare module "gi://Adw?version=1" {
             get bottomBarHeight(): number
             set bottomBarHeight(value: number)
             /**
-             *  or clicking the content dimming (when modal).
+             * Whether the bottom sheet can be closed by user.
+             *
+             * It can be closed via the close button, swiping down, pressing
+             * <kbd>Escape</kbd> or clicking the content dimming (when modal).
              *
              * Bottom sheet can still be closed using [property@BottomSheet:open].
              * @since 1.6
@@ -4123,7 +4610,10 @@ declare module "gi://Adw?version=1" {
              */
             set_bottom_bar(bottom_bar: Gtk.Widget | null): void
             /**
-             *  or clicking the content dimming (when modal).
+             * Sets whether the bottom sheet can be closed by user.
+             *
+             * It can be closed via the close button, swiping down, pressing
+             * <kbd>Escape</kbd> or clicking the content dimming (when modal).
              *
              * Bottom sheet can still be closed using [property@BottomSheet:open].
              * @since 1.6
@@ -4214,16 +4704,94 @@ declare module "gi://Adw?version=1" {
         interface BottomSheetClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<BottomSheet>
             readonly prototype: BottomSheet
+
             new (props?: Partial<GObject.ConstructorProps<BottomSheet>>): BottomSheet
             /**
              * Creates a new `AdwBottomSheet`.
              * @since 1.6
              * @returns the new created `AdwBottomSheet`
              */
-            "new"(): Gtk.Widget
+            "new"(): BottomSheet
         }
 
-        const BottomSheet: BottomSheetClass
+        interface $Exports {
+            /**
+             * A bottom sheet with an optional bottom bar.
+             *
+             * <picture>
+             *   <source srcset="bottom-sheet-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="bottom-sheet.png" alt="bottom-sheet">
+             * </picture>
+             *
+             * `AdwBottomSheet` has three child widgets. [property@BottomSheet:content] is
+             * shown persistently. [property@BottomSheet:sheet] is displayed above it when
+             * it's open, and [property@BottomSheet:bottom-bar] is displayed when it's not.
+             *
+             * Bottom sheet and bottom bar are attached to the bottom edge of the widget.
+             * They take the full width by default, but can only take a portion of it if
+             * [property@BottomSheet:full-width] is set to `FALSE`. In this case,
+             * [property@BottomSheet:align] determines where along the bottom edge they are
+             * placed.
+             *
+             * Bottom bar can be hidden using the [property@BottomSheet:reveal-bottom-bar]
+             * property.
+             *
+             * `AdwBottomSheet` can be useful for applications such as music players, that
+             * want to have a persistent bottom bar that expands into a bottom sheet when
+             * clicked. It's meant for cases where a bottom sheet is tightly integrated into
+             * the UI. For more transient bottom sheets, see [class@Dialog].
+             *
+             * To open or close the bottom sheet, use the [property@BottomSheet:open]
+             * property.
+             *
+             * By default, the bottom sheet has an overlaid drag handle. It can be disabled
+             * by setting [property@BottomSheet:show-drag-handle] to `FALSE`. Note that the
+             * handle also controls whether the sheet can be dragged using a pointer.
+             *
+             * Bottom sheets are modal by default, meaning that the content is dimmed and
+             * cannot be accessed while the sheet is open. Set [property@BottomSheet:modal]
+             * to `FALSE` if this behavior is unwanted.
+             *
+             * To disable user interactions for opening or closing the bottom sheet (such as
+             * swipes or clicking the bottom bar or close button), set
+             * [property@BottomSheet:can-open] or [property@BottomSheet:can-close] to
+             * `FALSE`.
+             *
+             * In some cases, particularly when using a full-width bottom bar, it may be
+             * necessary to shift [property@BottomSheet:content] upwards. Use the
+             * [property@BottomSheet:bottom-bar-height] and
+             * [property@BottomSheet:sheet-height] for that.
+             *
+             * `AdwBottomSheet` is not adaptive, and for larger window sizes applications
+             * may want to replace it with another UI, such as a sidebar. This can be done
+             * using [class@MultiLayoutView].
+             *
+             * ## Sizing
+             *
+             * Unlike [class@Dialog] presented as a bottom sheet, `AdwBottomSheet` just
+             * follows the content's natural size, and it's up to the applications to make
+             * sure their content provides one. For example, when using
+             * [class@Gtk.ScrolledWindow], make sure to set
+             * [property@Gtk.ScrolledWindow:propagate-natural-height] to `TRUE`.
+             *
+             * ## Header Bar Integration
+             *
+             * When placed inside an `AdwBottomSheet`, [class@HeaderBar] will not show the
+             * title when [property@BottomSheet:show-drag-handle] is `TRUE`, regardless of
+             * [property@HeaderBar:show-title]. This only applies to the default title,
+             * titles set with [property@HeaderBar:title-widget] will still be shown.
+             *
+             * ## `AdwBottomSheet` as `GtkBuildable`:
+             *
+             * The `AdwBottomSheet` implementation of the [iface@Gtk.Buildable] interface
+             * supports setting the sheet widget by specifying “sheet” as the “type”
+             * attribute of a `<child>` element, and the bottom bar by specifying
+             * “bottom-bar”. Specifying “content” or omitting the child type results in
+             * setting the content child.
+             * @since 1.6
+             */
+            BottomSheet: BottomSheetClass
+        }
         
 
         namespace Breakpoint {
@@ -4256,11 +4824,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         * @since 1.4
-         */
         interface Breakpoint extends GObject.Object, Gtk.Buildable {
             readonly $signals: Breakpoint.SignalSignatures
             readonly $readableProperties: Breakpoint.ReadableProperties
@@ -4273,7 +4836,33 @@ declare module "gi://Adw?version=1" {
             get condition(): BreakpointCondition | null
             set condition(value: BreakpointCondition | null)
             /**
-             * button, _("_Back"));
+             * Adds a setter to @self.
+             *
+             * The setter will automatically set @property on @object to @value when
+             * applying the breakpoint, and set it back to its original value upon
+             * unapplying it.
+             *
+             * ::: note
+             *     Setting properties to their original values does not work for properties
+             *     that have irreversible side effects. For example, changing
+             *     [property@Gtk.Button:label] while [property@Gtk.Button:icon-name] is set
+             *     will reset the icon. However, resetting the label will not set
+             *     `icon-name` to its original value.
+             *
+             * Use the [signal@Breakpoint::apply] and [signal@Breakpoint::unapply] signals
+             * for those properties instead, as follows:
+             *
+             * ```c
+             * static void
+             * breakpoint_apply_cb (MyWidget *self)
+             * {
+             *   gtk_button_set_icon_name (self->button, "go-previous-symbolic");
+             * }
+             *
+             * static void
+             * breakpoint_apply_cb (MyWidget *self)
+             * {
+             *   gtk_button_set_label (self->button, _("_Back"));
              * }
              *
              * // ...
@@ -4297,13 +4886,12 @@ declare module "gi://Adw?version=1" {
              * See [method@Breakpoint.add_setter].
              *
              * This function is meant to be used by language bindings.
-             * @override
              * @since 1.4
              * @param objects setter target object
              * @param names setter target properties
              * @param values setter values
              */
-            add_settersv(objects: GObject.Object[], names: string[], values: GObject.Value[]): void
+            add_setters(objects: GObject.Object[], names: string[], values: GObject.Value[]): void
             /**
              * Gets the condition for @self.
              * @since 1.4
@@ -4321,6 +4909,7 @@ declare module "gi://Adw?version=1" {
         interface BreakpointClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Breakpoint>
             readonly prototype: Breakpoint
+
             new (props?: Partial<GObject.ConstructorProps<Breakpoint>>): Breakpoint
             /**
              * Creates a new `AdwBreakpoint` with @condition.
@@ -4331,7 +4920,58 @@ declare module "gi://Adw?version=1" {
             "new"(condition: BreakpointCondition): Breakpoint
         }
 
-        const Breakpoint: BreakpointClass
+        interface $Exports {
+            /**
+             * Describes a breakpoint for [class@Window] or [class@Dialog].
+             *
+             * Breakpoints are used to create adaptive UI, allowing to change the layout
+             * depending on available size.
+             *
+             * Breakpoint is a size threshold, specified by its condition, as well as one or
+             * more setters.
+             *
+             * Each setter has a target object, a property and a value. When a breakpoint
+             * is applied, each setter sets the target property on their target object to
+             * the specified value, and reset it back to the original value when it's
+             * unapplied.
+             *
+             * For more complicated scenarios, [signal@Breakpoint::apply] and
+             * [signal@Breakpoint::unapply] can be used instead.
+             *
+             * Breakpoints can be used within [class@Window], [class@ApplicationWindow],
+             * [class@Dialog] or [class@BreakpointBin].
+             *
+             * ## `AdwBreakpoint` as `GtkBuildable`:
+             *
+             * `AdwBreakpoint` supports specifying its condition via the `<condition>`
+             * element. The contents of the element must be a string in a format accepted by
+             * [func@BreakpointCondition.parse].
+             *
+             * It also supports adding setters via the `<setter>` element. Each `<setter>`
+             * element must have the `object` attribute specifying the target object, and
+             * the `property` attribute specifying the property name. The contents of the
+             * element are used as the setter value.
+             *
+             * For `G_TYPE_OBJECT` and `G_TYPE_BOXED` derived properties, empty contents are
+             * treated as `NULL`.
+             *
+             * Setter values can be translated with the usual `translatable`, `context` and
+             * `comments` attributes.
+             *
+             * Example of an `AdwBreakpoint` UI definition:
+             *
+             * ```xml
+             * <object class="AdwBreakpoint">
+             *   <condition>max-width: 400px</condition>
+             *   <setter object="button" property="visible">True</setter>
+             *   <setter object="box" property="orientation">vertical</setter>
+             *   <setter object="page" property="title" translatable="yes">Example</setter>
+             * </object>
+             * ```
+             * @since 1.4
+             */
+            Breakpoint: BreakpointClass
+        }
         
 
         namespace BreakpointBin {
@@ -4352,13 +4992,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * See [class@Breakpoint] documentation for details.
-         * @since 1.4
-         */
         interface BreakpointBin extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: BreakpointBin.SignalSignatures
             readonly $readableProperties: BreakpointBin.ReadableProperties
@@ -4411,16 +5044,133 @@ declare module "gi://Adw?version=1" {
         interface BreakpointBinClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<BreakpointBin>
             readonly prototype: BreakpointBin
+
             new (props?: Partial<GObject.ConstructorProps<BreakpointBin>>): BreakpointBin
             /**
              * Creates a new `AdwBreakpointBin`.
              * @since 1.4
              * @returns the newly created `AdwBreakpointBin`
              */
-            "new"(): Gtk.Widget
+            "new"(): BreakpointBin
         }
 
-        const BreakpointBin: BreakpointBinClass
+        interface $Exports {
+            /**
+             * A widget that changes layout based on available size.
+             *
+             * <picture>
+             *   <source srcset="breakpoint-bin-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="breakpoint-bin.png" alt="breakpoint-bin">
+             * </picture>
+             *
+             * `AdwBreakpointBin` provides a way to use breakpoints without [class@Window],
+             * [class@ApplicationWindow] or [class@Dialog]. It can be useful for limiting
+             * breakpoints to a single page and similar purposes. Most applications
+             * shouldn't need it.
+             *
+             * `AdwBreakpointBin` is similar to [class@Bin]. It has one child, set via the
+             * [property@BreakpointBin:child] property.
+             *
+             * When `AdwBreakpointBin` is resized, its child widget can rearrange its layout
+             * at specific thresholds.
+             *
+             * The thresholds and layout changes are defined via [class@Breakpoint] objects.
+             * They can be added using [method@BreakpointBin.add_breakpoint].
+             *
+             * Each breakpoint has a condition, specifying the bin's size and/or aspect
+             * ratio, and setters that automatically set object properties when that
+             * happens. The [signal@Breakpoint::apply] and [signal@Breakpoint::unapply] can
+             * be used instead for more complex scenarios.
+             *
+             * Breakpoints are only allowed to modify widgets inside the `AdwBreakpointBin`,
+             * but not on the `AdwBreakpointBin` itself or any other widgets.
+             *
+             * If multiple breakpoints can be used for the current size, the last one is
+             * always picked. The current breakpoint can be tracked using the
+             * [property@BreakpointBin:current-breakpoint] property.
+             *
+             * If none of the breakpoints can be used, that property will be set to `NULL`,
+             * and the original property values will be used instead.
+             *
+             * ## Minimum Size
+             *
+             * Adding a breakpoint to `AdwBreakpointBin` will result in it having no minimum
+             * size. The [property@Gtk.Widget:width-request] and
+             * [property@Gtk.Widget:height-request] properties must always be set when using
+             * breakpoints, indicating the smallest size you want to support.
+             *
+             * The minimum size and breakpoint conditions must be carefully selected so that
+             * the child widget completely fits. If it doesn't, it will overflow and a
+             * warning message will be printed.
+             *
+             * When choosing minimum size, consider translations and text scale factor
+             * changes. Make sure to leave enough space for text labels, and enable
+             * ellipsizing or wrapping if they might not fit.
+             *
+             * For [class@Gtk.Label] this can be done via [property@Gtk.Label:ellipsize], or
+             * via [property@Gtk.Label:wrap] together with [property@Gtk.Label:wrap-mode].
+             *
+             * For buttons, use [property@Gtk.Button:can-shrink],
+             * [property@Gtk.MenuButton:can-shrink], [property@Adw.SplitButton:can-shrink],
+             * or [property@Adw.ButtonContent:can-shrink].
+             *
+             * ## Example
+             *
+             * ```c
+             * GtkWidget *bin, *child;
+             * AdwBreakpoint *breakpoint;
+             *
+             * bin = adw_breakpoint_bin_new ();
+             * gtk_widget_set_size_request (bin, 150, 150);
+             *
+             * child = gtk_label_new ("Wide");
+             * gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
+             * gtk_widget_add_css_class (child, "title-1");
+             * adw_breakpoint_bin_set_child (ADW_BREAKPOINT_BIN (bin), child);
+             *
+             * breakpoint = adw_breakpoint_new (adw_breakpoint_condition_parse ("max-width: 200px"));
+             * adw_breakpoint_add_setters (breakpoint,
+             *                             G_OBJECT (child), "label", "Narrow",
+             *                             NULL);
+             * adw_breakpoint_bin_add_breakpoint (ADW_BREAKPOINT_BIN (bin), breakpoint);
+             * ```
+             *
+             * The bin has a single label inside it, displaying "Wide". When the bin's width
+             * is smaller than or equal to 200px, it changes to "Narrow".
+             *
+             * ## `AdwBreakpointBin` as `GtkBuildable`
+             *
+             * `AdwBreakpointBin` allows adding `AdwBreakpoint` objects as children.
+             *
+             * Example of an `AdwBreakpointBin` UI definition:
+             *
+             * ```xml
+             * <object class="AdwBreakpointBin">
+             *   <property name="width-request">150</property>
+             *   <property name="height-request">150</property>
+             *   <property name="child">
+             *     <object class="GtkLabel" id="child">
+             *       <property name="label">Wide</property>
+             *       <property name="ellipsize">end</property>
+             *       <style>
+             *         <class name="title-1"/>
+             *       </style>
+             *     </object>
+             *   </property>
+             *   <child>
+             *     <object class="AdwBreakpoint">
+             *       <condition>max-width: 200px</condition>
+             *       <setter object="child" property="label">Narrow</setter>
+             *     </object>
+             *   </child>
+             * </object>
+             * ```
+             *
+             * See [class@Breakpoint] documentation for details.
+             * @since 1.4
+             */
+            BreakpointBin: BreakpointBinClass
+        }
         
 
         namespace ButtonContent {
@@ -4445,33 +5195,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * `AdwButtonContent` handles style classes and connecting the mnemonic to the
-         * button automatically.
-         *
-         * ## CSS nodes
-         *
-         * ```
-         * buttoncontent
-         * ╰── box
-         *     ├── image
-         *     ╰── label
-         * ```
-         *
-         * `AdwButtonContent`'s CSS node is called `buttoncontent`. It contains a `box`
-         * subnode that serves as a container for the  `image` and `label` nodes.
-         *
-         * When inside a `GtkButton` or `AdwSplitButton`, the button will receive the
-         * `.image-text-button` style class. When inside a `GtkMenuButton`, the
-         * internal `GtkButton` will receive it instead.
-         *
-         * ## Accessibility
-         *
-         * `AdwButtonContent` uses the [enum@Gtk.AccessibleRole.group] role.
-         */
         interface ButtonContent extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ButtonContent.SignalSignatures
             readonly $readableProperties: ButtonContent.ReadableProperties
@@ -4567,15 +5290,67 @@ declare module "gi://Adw?version=1" {
         interface ButtonContentClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<ButtonContent>
             readonly prototype: ButtonContent
+
             new (props?: Partial<GObject.ConstructorProps<ButtonContent>>): ButtonContent
             /**
              * Creates a new `AdwButtonContent`.
              * @returns the new created `AdwButtonContent`
              */
-            "new"(): Gtk.Widget
+            "new"(): ButtonContent
         }
 
-        const ButtonContent: ButtonContentClass
+        interface $Exports {
+            /**
+             * A helper widget for creating buttons.
+             *
+             * <picture>
+             *   <source srcset="button-content-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="button-content.png" alt="button-content">
+             * </picture>
+             *
+             * `AdwButtonContent` is a box-like widget with an icon and a label.
+             *
+             * It's intended to be used as a direct child of [class@Gtk.Button],
+             * [class@Gtk.MenuButton] or [class@SplitButton], when they need to have both an
+             * icon and a label, as follows:
+             *
+             * ```xml
+             * <object class="GtkButton">
+             *   <property name="child">
+             *     <object class="AdwButtonContent">
+             *       <property name="icon-name">document-open-symbolic</property>
+             *       <property name="label" translatable="yes">_Open</property>
+             *       <property name="use-underline">True</property>
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * `AdwButtonContent` handles style classes and connecting the mnemonic to the
+             * button automatically.
+             *
+             * ## CSS nodes
+             *
+             * ```
+             * buttoncontent
+             * ╰── box
+             *     ├── image
+             *     ╰── label
+             * ```
+             *
+             * `AdwButtonContent`'s CSS node is called `buttoncontent`. It contains a `box`
+             * subnode that serves as a container for the  `image` and `label` nodes.
+             *
+             * When inside a `GtkButton` or `AdwSplitButton`, the button will receive the
+             * `.image-text-button` style class. When inside a `GtkMenuButton`, the
+             * internal `GtkButton` will receive it instead.
+             *
+             * ## Accessibility
+             *
+             * `AdwButtonContent` uses the [enum@Gtk.AccessibleRole.group] role.
+             */
+            ButtonContent: ButtonContentClass
+        }
         
 
         namespace ButtonRow {
@@ -4601,10 +5376,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * >
-         * @since 1.6
-         */
         interface ButtonRow extends PreferencesRow, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ButtonRow.SignalSignatures
             readonly $readableProperties: ButtonRow.ReadableProperties
@@ -4651,16 +5422,66 @@ declare module "gi://Adw?version=1" {
         interface ButtonRowClass extends Omit<PreferencesRowClass, "new"> {
             readonly $gtype: GObject.GType<ButtonRow>
             readonly prototype: ButtonRow
+
             new (props?: Partial<GObject.ConstructorProps<ButtonRow>>): ButtonRow
             /**
              * Creates a new `AdwButtonRow`.
              * @since 1.6
              * @returns the newly created `AdwButtonRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ButtonRow
         }
 
-        const ButtonRow: ButtonRowClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.ListBoxRow] that looks like a button.
+             *
+             * <picture>
+             *   <source srcset="button-rows-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="button-rows.png" alt="button-rows">
+             * </picture>
+             *
+             * The `AdwButtonRow` widget has a title and two icons: before and after the
+             * title.
+             *
+             * It is convenient for presenting actions like "Delete" at the end of a boxed
+             * list.
+             *
+             * `AdwButtonRow` is always activatable.
+             *
+             * ## CSS nodes
+             *
+             * `AdwButtonRow` has a main CSS node with name `row` and the style class
+             * `.button`.
+             *
+             * It contains the subnode `box` for its main horizontal box, which contains the
+             * nodes: `image.icon.start` for the start icon, `label.title` for the title,
+             * and `image.icon.end` for the end icon.
+             *
+             * ## Style classes
+             *
+             * The [`.suggested-action`](style-classes.html#suggested-action) style class
+             * makes `AdwButtonRow` use accent color for its background. It should be used
+             * very sparingly to denote important buttons.
+             *
+             * <picture>
+             *   <source srcset="button-row-suggested-action-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="button-row-suggested-action.png" alt="button-row-suggested-action">
+             * </picture>
+             *
+             * The [`.destructive-action`](style-classes.html#destructive-action) style
+             * makes the row use destructive colors. It can be used to draw attention to the
+             * potentially damaging consequences of using it. This style acts as a warning
+             * to the user.
+             *
+             * <picture>
+             *   <source srcset="button-row-destructive-action-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="button-row-destructive-action.png" alt="button-row-destructive-action">
+             * </picture>
+             * @since 1.6
+             */
+            ButtonRow: ButtonRowClass
+        }
         
 
         namespace CallbackAnimationTarget {
@@ -4677,10 +5498,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * An [class@AnimationTarget] that calls a given callback during the
-         * animation.
-         */
         interface CallbackAnimationTarget extends AnimationTarget {
             readonly $signals: CallbackAnimationTarget.SignalSignatures
             readonly $readableProperties: CallbackAnimationTarget.ReadableProperties
@@ -4691,6 +5508,7 @@ declare module "gi://Adw?version=1" {
         interface CallbackAnimationTargetClass extends Omit<AnimationTargetClass, "new"> {
             readonly $gtype: GObject.GType<CallbackAnimationTarget>
             readonly prototype: CallbackAnimationTarget
+
             new (props?: Partial<GObject.ConstructorProps<CallbackAnimationTarget>>): CallbackAnimationTarget
             /**
              * Creates a new `AdwAnimationTarget` that calls the given @callback during
@@ -4698,10 +5516,16 @@ declare module "gi://Adw?version=1" {
              * @param callback the callback to call
              * @returns the newly created callback target
              */
-            "new"(callback: AnimationTargetFunc): AnimationTarget
+            "new"(callback: AnimationTargetFunc): CallbackAnimationTarget
         }
 
-        const CallbackAnimationTarget: CallbackAnimationTargetClass
+        interface $Exports {
+            /**
+             * An [class@AnimationTarget] that calls a given callback during the
+             * animation.
+             */
+            CallbackAnimationTarget: CallbackAnimationTargetClass
+        }
         
 
         namespace Carousel {
@@ -4747,19 +5571,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * The `AdwCarousel` widget can be used to display a set of pages with
-         * swipe-based navigation between them.
-         *
-         * [class@CarouselIndicatorDots] and [class@CarouselIndicatorLines] can be used
-         * to provide page indicators for `AdwCarousel`.
-         *
-         * ## CSS nodes
-         *
-         * `AdwCarousel` has a single CSS node with name `carousel`.
-         */
         interface Carousel extends Gtk.Widget, Swipeable, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
             readonly $signals: Carousel.SignalSignatures
             readonly $readableProperties: Carousel.ReadableProperties
@@ -4989,15 +5800,36 @@ declare module "gi://Adw?version=1" {
         interface CarouselClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Carousel>
             readonly prototype: Carousel
+
             new (props?: Partial<GObject.ConstructorProps<Carousel>>): Carousel
             /**
              * Creates a new `AdwCarousel`.
              * @returns the newly created `AdwCarousel`
              */
-            "new"(): Gtk.Widget
+            "new"(): Carousel
         }
 
-        const Carousel: CarouselClass
+        interface $Exports {
+            /**
+             * A paginated scrolling widget.
+             *
+             * <picture>
+             *   <source srcset="carousel-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="carousel.png" alt="carousel">
+             * </picture>
+             *
+             * The `AdwCarousel` widget can be used to display a set of pages with
+             * swipe-based navigation between them.
+             *
+             * [class@CarouselIndicatorDots] and [class@CarouselIndicatorLines] can be used
+             * to provide page indicators for `AdwCarousel`.
+             *
+             * ## CSS nodes
+             *
+             * `AdwCarousel` has a single CSS node with name `carousel`.
+             */
+            Carousel: CarouselClass
+        }
         
 
         namespace CarouselIndicatorDots {
@@ -5016,21 +5848,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * The `AdwCarouselIndicatorDots` widget shows a set of dots for each page of a
-         * given [class@Carousel]. The dot representing the carousel's active page is
-         * larger and more opaque than the others, the transition to the active and
-         * inactive state is gradual to match the carousel's position.
-         *
-         * See also [class@CarouselIndicatorLines].
-         *
-         * ## CSS nodes
-         *
-         * `AdwCarouselIndicatorDots` has a single CSS node with name
-         * `carouselindicatordots`.
-         */
         interface CarouselIndicatorDots extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
             readonly $signals: CarouselIndicatorDots.SignalSignatures
             readonly $readableProperties: CarouselIndicatorDots.ReadableProperties
@@ -5056,15 +5873,38 @@ declare module "gi://Adw?version=1" {
         interface CarouselIndicatorDotsClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<CarouselIndicatorDots>
             readonly prototype: CarouselIndicatorDots
+
             new (props?: Partial<GObject.ConstructorProps<CarouselIndicatorDots>>): CarouselIndicatorDots
             /**
              * Creates a new `AdwCarouselIndicatorDots`.
              * @returns the newly created `AdwCarouselIndicatorDots`
              */
-            "new"(): Gtk.Widget
+            "new"(): CarouselIndicatorDots
         }
 
-        const CarouselIndicatorDots: CarouselIndicatorDotsClass
+        interface $Exports {
+            /**
+             * A dots indicator for [class@Carousel].
+             *
+             * <picture>
+             *   <source srcset="carousel-indicator-dots-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="carousel-indicator-dots.png" alt="carousel-indicator-dots">
+             * </picture>
+             *
+             * The `AdwCarouselIndicatorDots` widget shows a set of dots for each page of a
+             * given [class@Carousel]. The dot representing the carousel's active page is
+             * larger and more opaque than the others, the transition to the active and
+             * inactive state is gradual to match the carousel's position.
+             *
+             * See also [class@CarouselIndicatorLines].
+             *
+             * ## CSS nodes
+             *
+             * `AdwCarouselIndicatorDots` has a single CSS node with name
+             * `carouselindicatordots`.
+             */
+            CarouselIndicatorDots: CarouselIndicatorDotsClass
+        }
         
 
         namespace CarouselIndicatorLines {
@@ -5083,20 +5923,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * The `AdwCarouselIndicatorLines` widget shows a set of lines for each page of
-         * a given [class@Carousel]. The carousel's active page is shown as another line
-         * that moves between them to match the carousel's position.
-         *
-         * See also [class@CarouselIndicatorDots].
-         *
-         * ## CSS nodes
-         *
-         * `AdwCarouselIndicatorLines` has a single CSS node with name
-         * `carouselindicatorlines`.
-         */
         interface CarouselIndicatorLines extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
             readonly $signals: CarouselIndicatorLines.SignalSignatures
             readonly $readableProperties: CarouselIndicatorLines.ReadableProperties
@@ -5122,15 +5948,37 @@ declare module "gi://Adw?version=1" {
         interface CarouselIndicatorLinesClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<CarouselIndicatorLines>
             readonly prototype: CarouselIndicatorLines
+
             new (props?: Partial<GObject.ConstructorProps<CarouselIndicatorLines>>): CarouselIndicatorLines
             /**
              * Creates a new `AdwCarouselIndicatorLines`.
              * @returns the newly created `AdwCarouselIndicatorLines`
              */
-            "new"(): Gtk.Widget
+            "new"(): CarouselIndicatorLines
         }
 
-        const CarouselIndicatorLines: CarouselIndicatorLinesClass
+        interface $Exports {
+            /**
+             * A lines indicator for [class@Carousel].
+             *
+             * <picture>
+             *   <source srcset="carousel-indicator-lines-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="carousel-indicator-lines.png" alt="carousel-indicator-lines">
+             * </picture>
+             *
+             * The `AdwCarouselIndicatorLines` widget shows a set of lines for each page of
+             * a given [class@Carousel]. The carousel's active page is shown as another line
+             * that moves between them to match the carousel's position.
+             *
+             * See also [class@CarouselIndicatorDots].
+             *
+             * ## CSS nodes
+             *
+             * `AdwCarouselIndicatorLines` has a single CSS node with name
+             * `carouselindicatorlines`.
+             */
+            CarouselIndicatorLines: CarouselIndicatorLinesClass
+        }
         
 
         namespace Clamp {
@@ -5155,26 +6003,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * The `AdwClamp` widget constrains the size of the widget it contains to a
-         * given maximum size. It will constrain the width if it is horizontal, or the
-         * height if it is vertical. The expansion of the child from its minimum to its
-         * maximum size is eased out for a smooth transition.
-         *
-         * If the child requires more than the requested maximum size, it will be
-         * allocated the minimum size it can fit in instead.
-         *
-         * `AdwClamp` can scale with the text scale factor, use the
-         * [property@Clamp:unit] property to enable that behavior.
-         *
-         * See also: [class@ClampLayout], [class@ClampScrollable].
-         *
-         * ## CSS nodes
-         *
-         * `AdwClamp` has a single CSS node with name `clamp`.
-         */
         interface Clamp extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
             readonly $signals: Clamp.SignalSignatures
             readonly $readableProperties: Clamp.ReadableProperties
@@ -5285,15 +6113,47 @@ declare module "gi://Adw?version=1" {
         interface ClampClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Clamp>
             readonly prototype: Clamp
+
             new (props?: Partial<GObject.ConstructorProps<Clamp>>): Clamp
             /**
              * Creates a new `AdwClamp`.
              * @returns the newly created `AdwClamp`
              */
-            "new"(): Gtk.Widget
+            "new"(): Clamp
         }
 
-        const Clamp: ClampClass
+        interface $Exports {
+            /**
+             * A widget constraining its child to a given size.
+             *
+             * <picture>
+             *   <source srcset="clamp-wide-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="clamp-wide.png" alt="clamp-wide">
+             * </picture>
+             * <picture>
+             *   <source srcset="clamp-narrow-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="clamp-narrow.png" alt="clamp-narrow">
+             * </picture>
+             *
+             * The `AdwClamp` widget constrains the size of the widget it contains to a
+             * given maximum size. It will constrain the width if it is horizontal, or the
+             * height if it is vertical. The expansion of the child from its minimum to its
+             * maximum size is eased out for a smooth transition.
+             *
+             * If the child requires more than the requested maximum size, it will be
+             * allocated the minimum size it can fit in instead.
+             *
+             * `AdwClamp` can scale with the text scale factor, use the
+             * [property@Clamp:unit] property to enable that behavior.
+             *
+             * See also: [class@ClampLayout], [class@ClampScrollable].
+             *
+             * ## CSS nodes
+             *
+             * `AdwClamp` has a single CSS node with name `clamp`.
+             */
+            Clamp: ClampClass
+        }
         
 
         namespace ClampLayout {
@@ -5316,22 +6176,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * `AdwClampLayout` constraints the size of the widgets it contains to a given
-         * maximum size. It will constrain the width if it is horizontal, or the height
-         * if it is vertical. The expansion of the children from their minimum to their
-         * maximum size is eased out for a smooth transition.
-         *
-         * If a child requires more than the requested maximum size, it will be
-         * allocated the minimum size it can fit in instead.
-         *
-         * `AdwClampLayout` can scale with the text scale factor, use the
-         * [property@ClampLayout:unit] property to enable that behavior.
-         *
-         * See also: [class@Clamp], [class@ClampScrollable].
-         */
         interface ClampLayout extends Gtk.LayoutManager, Gtk.Orientable {
             readonly $signals: ClampLayout.SignalSignatures
             readonly $readableProperties: ClampLayout.ReadableProperties
@@ -5428,15 +6272,43 @@ declare module "gi://Adw?version=1" {
         interface ClampLayoutClass extends Omit<Gtk.LayoutManagerClass, "new"> {
             readonly $gtype: GObject.GType<ClampLayout>
             readonly prototype: ClampLayout
+
             new (props?: Partial<GObject.ConstructorProps<ClampLayout>>): ClampLayout
             /**
              * Creates a new `AdwClampLayout`.
              * @returns the newly created `AdwClampLayout`
              */
-            "new"(): Gtk.LayoutManager
+            "new"(): ClampLayout
         }
 
-        const ClampLayout: ClampLayoutClass
+        interface $Exports {
+            /**
+             * A layout manager constraining its children to a given size.
+             *
+             * <picture>
+             *   <source srcset="clamp-wide-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="clamp-wide.png" alt="clamp-wide">
+             * </picture>
+             * <picture>
+             *   <source srcset="clamp-narrow-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="clamp-narrow.png" alt="clamp-narrow">
+             * </picture>
+             *
+             * `AdwClampLayout` constraints the size of the widgets it contains to a given
+             * maximum size. It will constrain the width if it is horizontal, or the height
+             * if it is vertical. The expansion of the children from their minimum to their
+             * maximum size is eased out for a smooth transition.
+             *
+             * If a child requires more than the requested maximum size, it will be
+             * allocated the minimum size it can fit in instead.
+             *
+             * `AdwClampLayout` can scale with the text scale factor, use the
+             * [property@ClampLayout:unit] property to enable that behavior.
+             *
+             * See also: [class@Clamp], [class@ClampScrollable].
+             */
+            ClampLayout: ClampLayoutClass
+        }
         
 
         namespace ClampScrollable {
@@ -5461,17 +6333,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * A scrollable [class@Clamp].
-         *
-         * `AdwClampScrollable` is a variant of [class@Clamp] that implements the
-         * [iface@Gtk.Scrollable] interface.
-         *
-         * The primary use case for `AdwClampScrollable` is clamping
-         * [class@Gtk.ListView].
-         *
-         * See also: [class@ClampLayout].
-         */
         interface ClampScrollable extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable, Gtk.Scrollable {
             readonly $signals: ClampScrollable.SignalSignatures
             readonly $readableProperties: ClampScrollable.ReadableProperties
@@ -5582,15 +6443,29 @@ declare module "gi://Adw?version=1" {
         interface ClampScrollableClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<ClampScrollable>
             readonly prototype: ClampScrollable
+
             new (props?: Partial<GObject.ConstructorProps<ClampScrollable>>): ClampScrollable
             /**
              * Creates a new `AdwClampScrollable`.
              * @returns the newly created `AdwClampScrollable`
              */
-            "new"(): Gtk.Widget
+            "new"(): ClampScrollable
         }
 
-        const ClampScrollable: ClampScrollableClass
+        interface $Exports {
+            /**
+             * A scrollable [class@Clamp].
+             *
+             * `AdwClampScrollable` is a variant of [class@Clamp] that implements the
+             * [iface@Gtk.Scrollable] interface.
+             *
+             * The primary use case for `AdwClampScrollable` is clamping
+             * [class@Gtk.ListView].
+             *
+             * See also: [class@ClampLayout].
+             */
+            ClampScrollable: ClampScrollableClass
+        }
         
 
         namespace ComboRow {
@@ -5627,31 +6502,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * The [property@ComboRow:selected] and [property@ComboRow:selected-item]
-         * properties can be used to keep track of the selected item and react to their
-         * changes.
-         *
-         * `AdwComboRow` mirrors [class@Gtk.DropDown], see that widget for details.
-         *
-         * `AdwComboRow` is [property@Gtk.ListBoxRow:activatable] if a model is set.
-         *
-         * ## CSS nodes
-         *
-         * `AdwComboRow` has a main CSS node with name `row` and the `.combo` style
-         * class.
-         *
-         * Its popover has the node named `popover` with the `.menu` style class, it
-         * contains a [class@Gtk.ScrolledWindow], which in turn contains a
-         * [class@Gtk.ListView], both are accessible via their regular nodes.
-         *
-         * ## Accessibility
-         *
-         * `AdwComboRow` uses the [enum@Gtk.AccessibleRole.combo-box] role.
-         */
         interface ComboRow extends ActionRow, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ComboRow.SignalSignatures
             readonly $readableProperties: ComboRow.ReadableProperties
@@ -5877,15 +6727,67 @@ declare module "gi://Adw?version=1" {
         interface ComboRowClass extends Omit<ActionRowClass, "new"> {
             readonly $gtype: GObject.GType<ComboRow>
             readonly prototype: ComboRow
+
             new (props?: Partial<GObject.ConstructorProps<ComboRow>>): ComboRow
             /**
              * Creates a new `AdwComboRow`.
              * @returns the newly created `AdwComboRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ComboRow
         }
 
-        const ComboRow: ComboRowClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.ListBoxRow] used to choose from a list of items.
+             *
+             * <picture>
+             *   <source srcset="combo-row-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="combo-row.png" alt="combo-row">
+             * </picture>
+             *
+             * The `AdwComboRow` widget allows the user to choose from a list of valid
+             * choices. The row displays the selected choice. When activated, the row
+             * displays a popover which allows the user to make a new choice.
+             *
+             * Example of an `AdwComboRow` UI definition:
+             * ```xml
+             * <object class="AdwComboRow">
+             *   <property name="title" translatable="yes">Combo Row</property>
+             *   <property name="model">
+             *     <object class="GtkStringList">
+             *       <items>
+             *         <item translatable="yes">Foo</item>
+             *         <item translatable="yes">Bar</item>
+             *         <item translatable="yes">Baz</item>
+             *       </items>
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * The [property@ComboRow:selected] and [property@ComboRow:selected-item]
+             * properties can be used to keep track of the selected item and react to their
+             * changes.
+             *
+             * `AdwComboRow` mirrors [class@Gtk.DropDown], see that widget for details.
+             *
+             * `AdwComboRow` is [property@Gtk.ListBoxRow:activatable] if a model is set.
+             *
+             * ## CSS nodes
+             *
+             * `AdwComboRow` has a main CSS node with name `row` and the `.combo` style
+             * class.
+             *
+             * Its popover has the node named `popover` with the `.menu` style class, it
+             * contains a [class@Gtk.ScrolledWindow], which in turn contains a
+             * [class@Gtk.ListView], both are accessible via their regular nodes.
+             *
+             * ## Accessibility
+             *
+             * `AdwComboRow` uses the [enum@Gtk.AccessibleRole.combo-box] role.
+             */
+            ComboRow: ComboRowClass
+        }
         
 
         namespace Dialog {
@@ -5934,57 +6836,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * `AdwDialog` is similar to a window, but is shown within another window. It
-         * can be used with [class@Window] and [class@ApplicationWindow], use
-         * [method@Dialog.present] to show it.
-         *
-         * `AdwDialog` is not resizable. Use the [property@Dialog:content-width] and
-         * [property@Dialog:content-height] properties to set its size, or set
-         * [property@Dialog:follows-content-size] to `TRUE` to make the dialog track the
-         * content's size as it changes. `AdwDialog` can never be larger than its parent
-         * window.
-         *
-         * `AdwDialog` can be presented as a centered floating window or a bottom sheet.
-         * By default it's automatic depending on the available size.
-         * [property@Dialog:presentation-mode] can be used to change that.
-         *
-         * `AdwDialog` can be closed via [method@Dialog.close].
-         *
-         * When presented as a bottom sheet, `AdwDialog` can also be closed via swiping
-         * it down.
-         *
-         * The [property@Dialog:can-close] can be used to prevent closing. In that case,
-         * [signal@Dialog::close-attempt] gets emitted instead.
-         *
-         * Use [method@Dialog.force_close] to close the dialog even when `can-close` is set to
-         * `FALSE`.
-         *
-         * `AdwDialog` is transient and doesn't integrate with the window below it, for
-         * example it's not possible to collapse it into a bottom bar. See
-         * [class@BottomSheet] for persistent and more tightly integrated bottom sheets.
-         *
-         * ## Header Bar Integration
-         *
-         * When placed inside an `AdwDialog`, [class@HeaderBar] will display the dialog
-         * title instead of window title. It will also adjust the decoration layout to
-         * ensure it always has a close button and nothing else. Set
-         * [property@HeaderBar:show-start-title-buttons] and
-         * [property@HeaderBar:show-end-title-buttons] to `FALSE` to remove it if it's
-         * unwanted.
-         *
-         * ## Breakpoints
-         *
-         * `AdwDialog` can be used with [class@Breakpoint] the same way as
-         * [class@BreakpointBin]. Refer to that widget's documentation for details.
-         *
-         * Like `AdwBreakpointBin`, if breakpoints are used, `AdwDialog` doesn't have a
-         * minimum size, and [property@Gtk.Widget:width-request] and
-         * [property@Gtk.Widget:height-request] properties must be set manually.
-         * @since 1.5
-         */
         interface Dialog extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.ShortcutManager {
             readonly $signals: Dialog.SignalSignatures
             readonly $readableProperties: Dialog.ReadableProperties
@@ -6286,6 +7137,7 @@ declare module "gi://Adw?version=1" {
         interface DialogClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Dialog>
             readonly prototype: Dialog
+
             new (props?: Partial<GObject.ConstructorProps<Dialog>>): Dialog
             /**
              * Creates a new `AdwDialog`.
@@ -6295,7 +7147,69 @@ declare module "gi://Adw?version=1" {
             "new"(): Dialog
         }
 
-        const Dialog: DialogClass
+        interface $Exports {
+            /**
+             * An adaptive dialog container.
+             *
+             * <picture>
+             *   <source srcset="dialog-floating-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="dialog-floating.png" alt="dialog-floating">
+             * </picture>
+             * <picture>
+             *   <source srcset="dialog-bottom-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="dialog-bottom.png" alt="dialog-bottom">
+             * </picture>
+             *
+             * `AdwDialog` is similar to a window, but is shown within another window. It
+             * can be used with [class@Window] and [class@ApplicationWindow], use
+             * [method@Dialog.present] to show it.
+             *
+             * `AdwDialog` is not resizable. Use the [property@Dialog:content-width] and
+             * [property@Dialog:content-height] properties to set its size, or set
+             * [property@Dialog:follows-content-size] to `TRUE` to make the dialog track the
+             * content's size as it changes. `AdwDialog` can never be larger than its parent
+             * window.
+             *
+             * `AdwDialog` can be presented as a centered floating window or a bottom sheet.
+             * By default it's automatic depending on the available size.
+             * [property@Dialog:presentation-mode] can be used to change that.
+             *
+             * `AdwDialog` can be closed via [method@Dialog.close].
+             *
+             * When presented as a bottom sheet, `AdwDialog` can also be closed via swiping
+             * it down.
+             *
+             * The [property@Dialog:can-close] can be used to prevent closing. In that case,
+             * [signal@Dialog::close-attempt] gets emitted instead.
+             *
+             * Use [method@Dialog.force_close] to close the dialog even when `can-close` is set to
+             * `FALSE`.
+             *
+             * `AdwDialog` is transient and doesn't integrate with the window below it, for
+             * example it's not possible to collapse it into a bottom bar. See
+             * [class@BottomSheet] for persistent and more tightly integrated bottom sheets.
+             *
+             * ## Header Bar Integration
+             *
+             * When placed inside an `AdwDialog`, [class@HeaderBar] will display the dialog
+             * title instead of window title. It will also adjust the decoration layout to
+             * ensure it always has a close button and nothing else. Set
+             * [property@HeaderBar:show-start-title-buttons] and
+             * [property@HeaderBar:show-end-title-buttons] to `FALSE` to remove it if it's
+             * unwanted.
+             *
+             * ## Breakpoints
+             *
+             * `AdwDialog` can be used with [class@Breakpoint] the same way as
+             * [class@BreakpointBin]. Refer to that widget's documentation for details.
+             *
+             * Like `AdwBreakpointBin`, if breakpoints are used, `AdwDialog` doesn't have a
+             * minimum size, and [property@Gtk.Widget:width-request] and
+             * [property@Gtk.Widget:height-request] properties must be set manually.
+             * @since 1.5
+             */
+            Dialog: DialogClass
+        }
         
 
         namespace EntryRow {
@@ -6340,15 +7254,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *  element.
-         *
-         * ## CSS nodes
-         *
-         * `AdwEntryRow` has a single CSS node with name `row` and the `.entry` style
-         * class.
-         * @since 1.2
-         */
         interface EntryRow extends PreferencesRow, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Editable {
             readonly $signals: EntryRow.SignalSignatures
             readonly $readableProperties: EntryRow.ReadableProperties
@@ -6407,7 +7312,10 @@ declare module "gi://Adw?version=1" {
             get maxLength(): number
             set maxLength(value: number)
             /**
-             *  key will hide the button and
+             * Whether to show the apply button.
+             *
+             * When set to `TRUE`, typing text in the entry will reveal an apply button.
+             * Clicking it or pressing the <kbd>Enter</kbd> key will hide the button and
              * emit the [signal@EntryRow::apply] signal.
              *
              * This is useful if changing the entry contents can trigger an expensive
@@ -6547,7 +7455,10 @@ declare module "gi://Adw?version=1" {
              */
             set_max_length(max_length: number): void
             /**
-             *  key will hide the button and
+             * Sets whether @self can show the apply button.
+             *
+             * When set to `TRUE`, typing text in the entry will reveal an apply button.
+             * Clicking it or pressing the <kbd>Enter</kbd> key will hide the button and
              * emit the [signal@EntryRow::apply] signal.
              *
              * This is useful if changing the entry contents can trigger an expensive
@@ -6562,16 +7473,56 @@ declare module "gi://Adw?version=1" {
         interface EntryRowClass extends Omit<PreferencesRowClass, "new"> {
             readonly $gtype: GObject.GType<EntryRow>
             readonly prototype: EntryRow
+
             new (props?: Partial<GObject.ConstructorProps<EntryRow>>): EntryRow
             /**
              * Creates a new `AdwEntryRow`.
              * @since 1.2
              * @returns the newly created `AdwEntryRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): EntryRow
         }
 
-        const EntryRow: EntryRowClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.ListBoxRow] with an embedded text entry.
+             *
+             * <picture>
+             *   <source srcset="entry-row-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="entry-row.png" alt="entry-row">
+             * </picture>
+             *
+             * `AdwEntryRow` has a title that doubles as placeholder text. It shows an icon
+             * indicating that it's editable and can receive additional widgets before or
+             * after the editable part.
+             *
+             * If [property@EntryRow:show-apply-button] is set to `TRUE`, `AdwEntryRow` can
+             * show an apply button when editing its contents. This can be useful if
+             * changing its contents can result in an expensive operation, such as network
+             * activity.
+             *
+             * `AdwEntryRow` provides only minimal API and should be used with the
+             * [iface@Gtk.Editable] API.
+             *
+             * See also [class@PasswordEntryRow].
+             *
+             * ## AdwEntryRow as GtkBuildable
+             *
+             * The `AdwEntryRow` implementation of the [iface@Gtk.Buildable] interface
+             * supports adding a child at its end by specifying “suffix” or omitting the
+             * “type” attribute of a <child> element.
+             *
+             * It also supports adding a child as a prefix widget by specifying “prefix” as
+             * the “type” attribute of a <child> element.
+             *
+             * ## CSS nodes
+             *
+             * `AdwEntryRow` has a single CSS node with name `row` and the `.entry` style
+             * class.
+             * @since 1.2
+             */
+            EntryRow: EntryRowClass
+        }
         
 
         namespace EnumListItem {
@@ -6594,9 +7545,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * `AdwEnumListItem` is the type of items in a [class@EnumListModel].
-         */
         interface EnumListItem extends GObject.Object {
             readonly $signals: EnumListItem.SignalSignatures
             readonly $readableProperties: EnumListItem.ReadableProperties
@@ -6640,10 +7588,16 @@ declare module "gi://Adw?version=1" {
         interface EnumListItemClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<EnumListItem>
             readonly prototype: EnumListItem
+
             new (props?: Partial<GObject.ConstructorProps<EnumListItem>>): EnumListItem
         }
 
-        const EnumListItem: EnumListItemClass
+        interface $Exports {
+            /**
+             * `AdwEnumListItem` is the type of items in a [class@EnumListModel].
+             */
+            EnumListItem: EnumListItemClass
+        }
         
 
         namespace EnumListModel {
@@ -6657,20 +7611,15 @@ declare module "gi://Adw?version=1" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties, Gio.ListModel.WritableProperties {
-                "enum-type": GObject.GType
                 "item-type": GObject.GType
                 "n-items": number
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.ListModel.ConstructOnlyProperties {
+                "enum-type": GObject.GType
             }
         }
 
-        /**
-         * A [iface@Gio.ListModel] representing values of a given enum.
-         *
-         * `AdwEnumListModel` contains objects of type [class@EnumListItem].
-         */
         interface EnumListModel extends GObject.Object, Gio.ListModel {
             readonly $signals: EnumListModel.SignalSignatures
             readonly $readableProperties: EnumListModel.ReadableProperties
@@ -6712,6 +7661,7 @@ declare module "gi://Adw?version=1" {
         interface EnumListModelClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<EnumListModel>
             readonly prototype: EnumListModel
+
             new (props?: Partial<GObject.ConstructorProps<EnumListModel>>): EnumListModel
             /**
              * Creates a new `AdwEnumListModel` for @enum_type.
@@ -6721,7 +7671,14 @@ declare module "gi://Adw?version=1" {
             "new"(enum_type: (GObject.GType | { $gtype: GObject.GType })): EnumListModel
         }
 
-        const EnumListModel: EnumListModelClass
+        interface $Exports {
+            /**
+             * A [iface@Gio.ListModel] representing values of a given enum.
+             *
+             * `AdwEnumListModel` contains objects of type [class@EnumListItem].
+             */
+            EnumListModel: EnumListModelClass
+        }
         
 
         namespace ExpanderRow {
@@ -6752,27 +7709,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *  element.
-         *
-         * ## CSS nodes
-         *
-         * `AdwExpanderRow` has a main CSS node with name `row` and the `.expander`
-         * style class. It has the `.empty` style class when it contains no children.
-         *
-         * It contains the subnodes `row.header` for its main embedded row,
-         * `list.nested` for the list it can expand, and `image.expander-row-arrow` for
-         * its arrow.
-         *
-         * ## Style classes
-         *
-         * `AdwExpanderRow` can use the [`.`](style-classes.html#property-rows)
-         * style class to emphasize the row subtitle instead of the row title, which is
-         * useful for displaying read-only properties.
-         *
-         * When used together with the `.monospace` style class, only the subtitle
-         * becomes monospace, not the title or any extra widgets.
-         */
         interface ExpanderRow extends PreferencesRow, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ExpanderRow.SignalSignatures
             readonly $readableProperties: ExpanderRow.ReadableProperties
@@ -6950,15 +7886,57 @@ declare module "gi://Adw?version=1" {
         interface ExpanderRowClass extends Omit<PreferencesRowClass, "new"> {
             readonly $gtype: GObject.GType<ExpanderRow>
             readonly prototype: ExpanderRow
+
             new (props?: Partial<GObject.ConstructorProps<ExpanderRow>>): ExpanderRow
             /**
              * Creates a new `AdwExpanderRow`.
              * @returns the newly created `AdwExpanderRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ExpanderRow
         }
 
-        const ExpanderRow: ExpanderRowClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.ListBoxRow] used to reveal widgets.
+             *
+             * <picture>
+             *   <source srcset="expander-row-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="expander-row.png" alt="expander-row">
+             * </picture>
+             *
+             * The `AdwExpanderRow` widget allows the user to reveal or hide widgets below
+             * it. It also allows the user to enable the expansion of the row, allowing to
+             * disable all that the row contains.
+             *
+             * ## AdwExpanderRow as GtkBuildable
+             *
+             * The `AdwExpanderRow` implementation of the [iface@Gtk.Buildable] interface
+             * supports adding a child as an suffix widget by specifying “suffix” as the
+             * “type” attribute of a <child> element.
+             *
+             * It also supports adding it as a prefix widget by specifying “prefix” as the
+             * “type” attribute of a <child> element.
+             *
+             * ## CSS nodes
+             *
+             * `AdwExpanderRow` has a main CSS node with name `row` and the `.expander`
+             * style class. It has the `.empty` style class when it contains no children.
+             *
+             * It contains the subnodes `row.header` for its main embedded row,
+             * `list.nested` for the list it can expand, and `image.expander-row-arrow` for
+             * its arrow.
+             *
+             * ## Style classes
+             *
+             * `AdwExpanderRow` can use the [`.`](style-classes.html#property-rows)
+             * style class to emphasize the row subtitle instead of the row title, which is
+             * useful for displaying read-only properties.
+             *
+             * When used together with the `.monospace` style class, only the subtitle
+             * becomes monospace, not the title or any extra widgets.
+             */
+            ExpanderRow: ExpanderRowClass
+        }
         
 
         namespace Flap {
@@ -7007,16 +7985,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * ` element, and separator by specifying “separator”. Specifying
-         * “content” child type or omitting it results in setting the content child.
-         *
-         * ## CSS nodes
-         *
-         * `AdwFlap` has a single CSS node with name `flap`. The node will get the style
-         * classes `.folded` when it is folded, and `.unfolded` when it's not.
-         * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
-         */
         interface Flap extends Gtk.Widget, Swipeable, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
             readonly $signals: Flap.SignalSignatures
             readonly $readableProperties: Flap.ReadableProperties
@@ -7097,7 +8065,10 @@ declare module "gi://Adw?version=1" {
             get locked(): boolean
             set locked(value: boolean)
             /**
-             *  key, will close the flap. If `FALSE`, clicks
+             * Whether the flap is modal.
+             *
+             * If `TRUE`, clicking the content widget while flap is revealed, as well as
+             * pressing the <kbd>Esc</kbd> key, will close the flap. If `FALSE`, clicks
              * are passed through to the content widget.
              * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
              * @default TRUE
@@ -7339,7 +8310,10 @@ declare module "gi://Adw?version=1" {
              */
             set_locked(locked: boolean): void
             /**
-             *  key, will close the flap. If `FALSE`, clicks are
+             * Sets whether @self is modal.
+             *
+             * If `TRUE`, clicking the content widget while flap is revealed, as well as
+             * pressing the <kbd>Esc</kbd> key, will close the flap. If `FALSE`, clicks are
              * passed through to the content widget.
              * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
              * @param modal whether @self is modal
@@ -7407,16 +8381,79 @@ declare module "gi://Adw?version=1" {
         interface FlapClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Flap>
             readonly prototype: Flap
+
             new (props?: Partial<GObject.ConstructorProps<Flap>>): Flap
             /**
              * Creates a new `AdwFlap`.
              * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
              * @returns the newly created `AdwFlap`
              */
-            "new"(): Gtk.Widget
+            "new"(): Flap
         }
 
-        const Flap: FlapClass
+        interface $Exports {
+            /**
+             * An adaptive container acting like a box or an overlay.
+             *
+             * <picture>
+             *   <source srcset="flap-wide-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="flap-wide.png" alt="flap-wide">
+             * </picture>
+             * <picture>
+             *   <source srcset="flap-narrow-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="flap-narrow.png" alt="flap-narrow">
+             * </picture>
+             *
+             * The `AdwFlap` widget can display its children like a [class@Gtk.Box] does or
+             * like a [class@Gtk.Overlay] does, according to the
+             * [property@Flap:fold-policy] value.
+             *
+             * `AdwFlap` has at most three children: [property@Flap:content],
+             * [property@Flap:flap] and [property@Flap:separator]. Content is the primary
+             * child, flap is displayed next to it when unfolded, or overlays it when
+             * folded. Flap can be shown or hidden by changing the
+             * [property@Flap:reveal-flap] value, as well as via swipe gestures if
+             * [property@Flap:swipe-to-open] and/or [property@Flap:swipe-to-close] are set
+             * to `TRUE`.
+             *
+             * Optionally, a separator can be provided, which would be displayed between
+             * the content and the flap when there's no shadow to separate them, depending
+             * on the transition type.
+             *
+             * [property@Flap:flap] is transparent by default; add the
+             * [`.background`](style-classes.html#background) style class to it if this is
+             * unwanted.
+             *
+             * If [property@Flap:modal] is set to `TRUE`, content becomes completely
+             * inaccessible when the flap is revealed while folded.
+             *
+             * The position of the flap and separator children relative to the content is
+             * determined by orientation, as well as the [property@Flap:flap-position]
+             * value.
+             *
+             * Folding the flap will automatically hide the flap widget, and unfolding it
+             * will automatically reveal it. If this behavior is not desired, the
+             * [property@Flap:locked] property can be used to override it.
+             *
+             * Common use cases include sidebars, header bars that need to be able to
+             * overlap the window content (for example, in fullscreen mode) and bottom
+             * sheets.
+             *
+             * ## AdwFlap as GtkBuildable
+             *
+             * The `AdwFlap` implementation of the [iface@Gtk.Buildable] interface supports
+             * setting the flap child by specifying “flap” as the “type” attribute of a
+             * `<child>` element, and separator by specifying “separator”. Specifying
+             * “content” child type or omitting it results in setting the content child.
+             *
+             * ## CSS nodes
+             *
+             * `AdwFlap` has a single CSS node with name `flap`. The node will get the style
+             * classes `.folded` when it is folded, and `.unfolded` when it's not.
+             * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+             */
+            Flap: FlapClass
+        }
         
 
         namespace HeaderBar {
@@ -7447,97 +8484,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * `AdwHeaderBar` is similar to [class@Gtk.HeaderBar], but provides additional
-         * features compared to it. Refer to `GtkHeaderBar` for details. It is typically
-         * used as a top bar within [class@ToolbarView].
-         *
-         * ## Dialog Integration
-         *
-         * When placed inside an [class@Dialog], `AdwHeaderBar` will display the dialog
-         * title instead of window title. It will also adjust the decoration layout to
-         * ensure it always has a close button and nothing else. Set
-         * [property@HeaderBar:show-start-title-buttons] and
-         * [property@HeaderBar:show-end-title-buttons] to `FALSE` to remove it if it's
-         * unwanted.
-         *
-         * ## Navigation View Integration
-         *
-         * When placed inside an [class@NavigationPage], `AdwHeaderBar` will display the
-         * page title instead of window title.
-         *
-         * When used together with [class@NavigationView] or [class@NavigationSplitView],
-         * it will also display a back button that can be used to go back to the previous
-         * page. The button also has a context menu, allowing to pop multiple pages at
-         * once, potentially across multiple navigation views.
-         *
-         * Set [property@HeaderBar:show-back-button] to `FALSE` to disable this behavior
-         * in rare scenarios where it's unwanted.
-         *
-         * ## Split View Integration
-         *
-         * When placed inside [class@NavigationSplitView] or [class@OverlaySplitView],
-         * `AdwHeaderBar` will automatically hide the title buttons other than at the
-         * edges of the window.
-         *
-         * ## Bottom Sheet Integration
-         *
-         * When played inside [class@BottomSheet], `AdwHeaderBar` will not show the title
-         * unless [property@BottomSheet:show-drag-handle] is set to `FALSE`, regardless
-         * of [property@HeaderBar:show-title]. This only applies to the default title,
-         * titles set with [property@HeaderBar:title-widget] will still be shown.
-         *
-         * ## Centering Policy
-         *
-         * [property@HeaderBar:centering-policy] allows to enforce strict centering of
-         * the title widget. This can be useful for entries inside [class@Clamp].
-         *
-         * ## Title Buttons
-         *
-         * Unlike `GtkHeaderBar`, `AdwHeaderBar` allows to toggle title button
-         * visibility for each side individually, using the
-         * [property@HeaderBar:show-start-title-buttons] and
-         * [property@HeaderBar:show-end-title-buttons] properties.
-         *
-         * ## CSS nodes
-         *
-         * ```
-         * headerbar
-         * ╰── windowhandle
-         *     ╰── box
-         *         ├── widget
-         *         │   ╰── box.start
-         *         │       ├── windowcontrols.start
-         *         │       ├── widget
-         *         │       │   ╰── [button.back]
-         *         │       ╰── [other children]
-         *         ├── widget
-         *         │   ╰── [Title Widget]
-         *         ╰── widget
-         *             ╰── box.end
-         *                 ├── [other children]
-         *                 ╰── windowcontrols.end
-         * ```
-         *
-         * `AdwHeaderBar`'s CSS node is called `headerbar`. It contains a `windowhandle`
-         * subnode, which contains a `box` subnode, which contains three `widget`
-         * subnodes at the start, center and end of the header bar. The start and end
-         * subnodes contain a `box` subnode with the `.start` and `.end` style classes
-         * respectively, and the center node contains a node that represents the title.
-         *
-         * Each of the boxes contains a `windowcontrols` subnode, see
-         * [class@Gtk.WindowControls] for details, as well as other children.
-         *
-         * When [property@HeaderBar:show-back-button] is `TRUE`, the start box also
-         * contains a node with the name `widget` that contains a node with the name
-         * `button` and `.back` style class.
-         *
-         * ## Accessibility
-         *
-         * `AdwHeaderBar` uses the [enum@Gtk.AccessibleRole.group] role.
-         */
         interface HeaderBar extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: HeaderBar.SignalSignatures
             readonly $readableProperties: HeaderBar.ReadableProperties
@@ -7610,7 +8556,21 @@ declare module "gi://Adw?version=1" {
             get showTitle(): boolean
             set showTitle(value: boolean)
             /**
+             * The title widget to display.
              *
+             * When set to `NULL`, the header bar will display the title of the window it
+             * is contained in.
+             *
+             * To use a different title, use [class@WindowTitle]:
+             *
+             * ```xml
+             * <object class="AdwHeaderBar">
+             *   <property name="title-widget">
+             *     <object class="AdwWindowTitle">
+             *       <property name="title" translatable="yes">Title</property>
+             *     </object>
+             *   </property>
+             * </object>
              * ```
              */
             get titleWidget(): Gtk.Widget | null
@@ -7729,7 +8689,21 @@ declare module "gi://Adw?version=1" {
              */
             set_show_title(show_title: boolean): void
             /**
+             * Sets the title widget for @self.
              *
+             * When set to `NULL`, the header bar will display the title of the window it
+             * is contained in.
+             *
+             * To use a different title, use [class@WindowTitle]:
+             *
+             * ```xml
+             * <object class="AdwHeaderBar">
+             *   <property name="title-widget">
+             *     <object class="AdwWindowTitle">
+             *       <property name="title" translatable="yes">Title</property>
+             *     </object>
+             *   </property>
+             * </object>
              * ```
              * @param title_widget a widget to use for a title
              */
@@ -7739,15 +8713,114 @@ declare module "gi://Adw?version=1" {
         interface HeaderBarClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<HeaderBar>
             readonly prototype: HeaderBar
+
             new (props?: Partial<GObject.ConstructorProps<HeaderBar>>): HeaderBar
             /**
              * Creates a new `AdwHeaderBar`.
              * @returns the newly created `AdwHeaderBar`.
              */
-            "new"(): Gtk.Widget
+            "new"(): HeaderBar
         }
 
-        const HeaderBar: HeaderBarClass
+        interface $Exports {
+            /**
+             * A title bar widget.
+             *
+             * <picture>
+             *   <source srcset="header-bar-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="header-bar.png" alt="header-bar">
+             * </picture>
+             *
+             * `AdwHeaderBar` is similar to [class@Gtk.HeaderBar], but provides additional
+             * features compared to it. Refer to `GtkHeaderBar` for details. It is typically
+             * used as a top bar within [class@ToolbarView].
+             *
+             * ## Dialog Integration
+             *
+             * When placed inside an [class@Dialog], `AdwHeaderBar` will display the dialog
+             * title instead of window title. It will also adjust the decoration layout to
+             * ensure it always has a close button and nothing else. Set
+             * [property@HeaderBar:show-start-title-buttons] and
+             * [property@HeaderBar:show-end-title-buttons] to `FALSE` to remove it if it's
+             * unwanted.
+             *
+             * ## Navigation View Integration
+             *
+             * When placed inside an [class@NavigationPage], `AdwHeaderBar` will display the
+             * page title instead of window title.
+             *
+             * When used together with [class@NavigationView] or [class@NavigationSplitView],
+             * it will also display a back button that can be used to go back to the previous
+             * page. The button also has a context menu, allowing to pop multiple pages at
+             * once, potentially across multiple navigation views.
+             *
+             * Set [property@HeaderBar:show-back-button] to `FALSE` to disable this behavior
+             * in rare scenarios where it's unwanted.
+             *
+             * ## Split View Integration
+             *
+             * When placed inside [class@NavigationSplitView] or [class@OverlaySplitView],
+             * `AdwHeaderBar` will automatically hide the title buttons other than at the
+             * edges of the window.
+             *
+             * ## Bottom Sheet Integration
+             *
+             * When played inside [class@BottomSheet], `AdwHeaderBar` will not show the title
+             * unless [property@BottomSheet:show-drag-handle] is set to `FALSE`, regardless
+             * of [property@HeaderBar:show-title]. This only applies to the default title,
+             * titles set with [property@HeaderBar:title-widget] will still be shown.
+             *
+             * ## Centering Policy
+             *
+             * [property@HeaderBar:centering-policy] allows to enforce strict centering of
+             * the title widget. This can be useful for entries inside [class@Clamp].
+             *
+             * ## Title Buttons
+             *
+             * Unlike `GtkHeaderBar`, `AdwHeaderBar` allows to toggle title button
+             * visibility for each side individually, using the
+             * [property@HeaderBar:show-start-title-buttons] and
+             * [property@HeaderBar:show-end-title-buttons] properties.
+             *
+             * ## CSS nodes
+             *
+             * ```
+             * headerbar
+             * ╰── windowhandle
+             *     ╰── box
+             *         ├── widget
+             *         │   ╰── box.start
+             *         │       ├── windowcontrols.start
+             *         │       ├── widget
+             *         │       │   ╰── [button.back]
+             *         │       ╰── [other children]
+             *         ├── widget
+             *         │   ╰── [Title Widget]
+             *         ╰── widget
+             *             ╰── box.end
+             *                 ├── [other children]
+             *                 ╰── windowcontrols.end
+             * ```
+             *
+             * `AdwHeaderBar`'s CSS node is called `headerbar`. It contains a `windowhandle`
+             * subnode, which contains a `box` subnode, which contains three `widget`
+             * subnodes at the start, center and end of the header bar. The start and end
+             * subnodes contain a `box` subnode with the `.start` and `.end` style classes
+             * respectively, and the center node contains a node that represents the title.
+             *
+             * Each of the boxes contains a `windowcontrols` subnode, see
+             * [class@Gtk.WindowControls] for details, as well as other children.
+             *
+             * When [property@HeaderBar:show-back-button] is `TRUE`, the start box also
+             * contains a node with the name `widget` that contains a node with the name
+             * `button` and `.back` style class.
+             *
+             * ## Accessibility
+             *
+             * `AdwHeaderBar` uses the [enum@Gtk.AccessibleRole.group] role.
+             */
+            HeaderBar: HeaderBarClass
+        }
         
 
         namespace InlineViewSwitcher {
@@ -7772,18 +8845,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * ## Accessibility
-         *
-         * The internal toggle group uses the [enum@Gtk.AccessibleRole.tab-list] role.
-         * Its toggles use the [enum@Gtk.AccessibleRole.tab] role.
-         *
-         * See also: [class@ViewSwitcher], [class@ViewSwitcherBar],
-         * [class@ViewSwitcherSidebar].
-         * @since 1.7
-         */
         interface InlineViewSwitcher extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
             readonly $signals: InlineViewSwitcher.SignalSignatures
             readonly $readableProperties: InlineViewSwitcher.ReadableProperties
@@ -7801,7 +8862,14 @@ declare module "gi://Adw?version=1" {
             get canShrink(): boolean
             set canShrink(value: boolean)
             /**
-             * >
+             * The display mode.
+             *
+             * Determines what the toggles display: a label, an icon or both.
+             *
+             * <picture>
+             *   <source srcset="inline-view-switcher-display-modes-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="inline-view-switcher-display-modes.png" alt="inline-view-switcher-display-modes">
+             * </picture>
              * @since 1.7
              * @default ADW_INLINE_VIEW_SWITCHER_LABELS
              */
@@ -7857,7 +8925,14 @@ declare module "gi://Adw?version=1" {
              */
             set_can_shrink(can_shrink: boolean): void
             /**
-             * >
+             * Sets the display mode of @self.
+             *
+             * Determines what the toggles display: a label, an icon or both.
+             *
+             * <picture>
+             *   <source srcset="inline-view-switcher-display-modes-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="inline-view-switcher-display-modes.png" alt="inline-view-switcher-display-modes">
+             * </picture>
              * @since 1.7
              * @param mode the display mode
              */
@@ -7879,16 +8954,62 @@ declare module "gi://Adw?version=1" {
         interface InlineViewSwitcherClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<InlineViewSwitcher>
             readonly prototype: InlineViewSwitcher
+
             new (props?: Partial<GObject.ConstructorProps<InlineViewSwitcher>>): InlineViewSwitcher
             /**
              * Creates a new `AdwInlineViewSwitcher`.
              * @since 1.7
              * @returns the newly created `AdwInlineViewSwitcher`
              */
-            "new"(): Gtk.Widget
+            "new"(): InlineViewSwitcher
         }
 
-        const InlineViewSwitcher: InlineViewSwitcherClass
+        interface $Exports {
+            /**
+             * A view switcher that uses a toggle group.
+             *
+             * <picture>
+             *   <source srcset="inline-view-switcher-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="inline-view-switcher.png" alt="inline-view-switcher">
+             * </picture>
+             *
+             * A view switcher showing pages of an [class@ViewStack] within an
+             * [class@ToggleGroup], similar to [class@ViewSwitcher].
+             *
+             * The toggles can display either an icon, a label or both. Use the
+             * [property@InlineViewSwitcher:display-mode] to control this.
+             *
+             * <picture>
+             *   <source srcset="inline-view-switcher-display-modes-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="inline-view-switcher-display-modes.png" alt="inline-view-switcher-display-modes">
+             * </picture>
+             *
+             * ## CSS nodes
+             *
+             * `AdwInlineViewSwitcher` has a single CSS node with the name
+             * `inline-view-switcher`.
+             *
+             * ## Style classes
+             *
+             * Like `AdwToggleGroup`, it can accept the [`.flat`](style-classes.html#flat_1)
+             * and [`.round`](style-classes.html#round) style classes.
+             *
+             * <picture>
+             *   <source srcset="inline-view-switcher-style-classes-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="inline-view-switcher-style-classes.png" alt="inline-view-switcher-style-classes">
+             * </picture>
+             *
+             * ## Accessibility
+             *
+             * The internal toggle group uses the [enum@Gtk.AccessibleRole.tab-list] role.
+             * Its toggles use the [enum@Gtk.AccessibleRole.tab] role.
+             *
+             * See also: [class@ViewSwitcher], [class@ViewSwitcherBar],
+             * [class@ViewSwitcherSidebar].
+             * @since 1.7
+             */
+            InlineViewSwitcher: InlineViewSwitcherClass
+        }
         
 
         namespace Layout {
@@ -7901,18 +9022,14 @@ declare module "gi://Adw?version=1" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties, Gtk.Buildable.WritableProperties {
-                "content": Gtk.Widget
                 "name": string | null
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties {
+                "content": Gtk.Widget
             }
         }
 
-        /**
-         * An individual layout in [class@MultiLayoutView].
-         * @since 1.6
-         */
         interface Layout extends GObject.Object, Gtk.Buildable {
             readonly $signals: Layout.SignalSignatures
             readonly $readableProperties: Layout.ReadableProperties
@@ -7954,6 +9071,7 @@ declare module "gi://Adw?version=1" {
         interface LayoutClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Layout>
             readonly prototype: Layout
+
             new (props?: Partial<GObject.ConstructorProps<Layout>>): Layout
             /**
              * Creates a new `AdwLayout` that contains @content.
@@ -7964,7 +9082,13 @@ declare module "gi://Adw?version=1" {
             "new"(content: Gtk.Widget): Layout
         }
 
-        const Layout: LayoutClass
+        interface $Exports {
+            /**
+             * An individual layout in [class@MultiLayoutView].
+             * @since 1.6
+             */
+            Layout: LayoutClass
+        }
         
 
         namespace LayoutSlot {
@@ -7976,22 +9100,13 @@ declare module "gi://Adw?version=1" {
             }
 
             interface WritableProperties extends Gtk.Widget.WritableProperties, Gtk.Accessible.WritableProperties, Gtk.Buildable.WritableProperties, Gtk.ConstraintTarget.WritableProperties {
-                "id": string
             }
 
             interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties, Gtk.Accessible.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties, Gtk.ConstraintTarget.ConstructOnlyProperties {
+                "id": string
             }
         }
 
-        /**
-         * A child slot within [class@Layout].
-         *
-         * While it contains a layout child, the [property@Gtk.Widget:visible] property
-         * of the slot is updated to match that of the layout child.
-         *
-         * See [class@MultiLayoutView].
-         * @since 1.6
-         */
         interface LayoutSlot extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: LayoutSlot.SignalSignatures
             readonly $readableProperties: LayoutSlot.ReadableProperties
@@ -8017,6 +9132,7 @@ declare module "gi://Adw?version=1" {
         interface LayoutSlotClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<LayoutSlot>
             readonly prototype: LayoutSlot
+
             new (props?: Partial<GObject.ConstructorProps<LayoutSlot>>): LayoutSlot
             /**
              * Creates a new `AdwLayoutSlot` with its ID set to @id.
@@ -8024,10 +9140,21 @@ declare module "gi://Adw?version=1" {
              * @param id the slot ID
              * @returns a new `AdwLayoutSlot`
              */
-            "new"(id: string): Gtk.Widget
+            "new"(id: string): LayoutSlot
         }
 
-        const LayoutSlot: LayoutSlotClass
+        interface $Exports {
+            /**
+             * A child slot within [class@Layout].
+             *
+             * While it contains a layout child, the [property@Gtk.Widget:visible] property
+             * of the slot is updated to match that of the layout child.
+             *
+             * See [class@MultiLayoutView].
+             * @since 1.6
+             */
+            LayoutSlot: LayoutSlotClass
+        }
         
 
         namespace Leaflet {
@@ -8070,38 +9197,23 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * The `AdwLeaflet` widget can display its children like a [class@Gtk.Box] does
-         * or like a [class@Gtk.Stack] does, adapting to size changes by switching
-         * between the two modes.
-         *
-         * When there is enough space the children are displayed side by side, otherwise
-         * only one is displayed and the leaflet is said to be “folded”.
-         * The threshold is dictated by the preferred minimum sizes of the children.
-         * When a leaflet is folded, the children can be navigated using swipe gestures.
-         *
-         * The “over” and “under” transition types stack the children one on top of the
-         * other, while the “slide” transition puts the children side by side. While
-         * navigating to a child on the side or below can be performed by swiping the
-         * current child away, navigating to an upper child requires dragging it from
-         * the edge where it resides. This doesn't affect non-dragging swipes.
-         *
-         * ## CSS nodes
-         *
-         * `AdwLeaflet` has a single CSS node with name `leaflet`. The node will get the
-         * style classes `.folded` when it is folded, `.unfolded` when it's not, or none
-         * if it hasn't computed its fold yet.
-         * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
-         */
         interface Leaflet extends Gtk.Widget, Swipeable, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
             readonly $signals: Leaflet.SignalSignatures
             readonly $readableProperties: Leaflet.ReadableProperties
             readonly $writableProperties: Leaflet.WritableProperties
             readonly $constructOnlyProperties: Leaflet.ConstructOnlyProperties
             /**
-             *  for vertical orientation.
+             * Whether gestures and shortcuts for navigating backward are enabled.
+             *
+             * The supported gestures are:
+             *
+             * - One-finger swipe on touchscreens
+             * - Horizontal scrolling on touchpads (usually two-finger swipe)
+             * - Back/forward mouse buttons
+             *
+             * The keyboard back/forward keys are also supported, as well as the
+             * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut for horizontal orientation, or
+             * <kbd>Alt</kbd>+<kbd>↑</kbd> for vertical orientation.
              *
              * If the orientation is horizontal, for right-to-left locales, gestures and
              * shortcuts are reversed.
@@ -8114,7 +9226,17 @@ declare module "gi://Adw?version=1" {
             get canNavigateBack(): boolean
             set canNavigateBack(value: boolean)
             /**
-             *  for vertical orientation.
+             * Whether gestures and shortcuts for navigating forward are enabled.
+             *
+             * The supported gestures are:
+             *
+             * - One-finger swipe on touchscreens
+             * - Horizontal scrolling on touchpads (usually two-finger swipe)
+             * - Back/forward mouse buttons
+             *
+             * The keyboard back/forward keys are also supported, as well as the
+             * <kbd>Alt</kbd>+<kbd>→</kbd> shortcut for horizontal orientation, or
+             * <kbd>Alt</kbd>+<kbd>↓</kbd> for vertical orientation.
              *
              * If the orientation is horizontal, for right-to-left locales, gestures and
              * shortcuts are reversed.
@@ -8406,7 +9528,17 @@ declare module "gi://Adw?version=1" {
              */
             reorder_child_after(child: Gtk.Widget, sibling: Gtk.Widget | null): void
             /**
-             *  for vertical orientation.
+             * Sets whether gestures and shortcuts for navigating backward are enabled.
+             *
+             * The supported gestures are:
+             *
+             * - One-finger swipe on touchscreens
+             * - Horizontal scrolling on touchpads (usually two-finger swipe)
+             * - Back/forward mouse buttons
+             *
+             * The keyboard back/forward keys are also supported, as well as the
+             * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut for horizontal orientation, or
+             * <kbd>Alt</kbd>+<kbd>↑</kbd> for vertical orientation.
              *
              * If the orientation is horizontal, for right-to-left locales, gestures and
              * shortcuts are reversed.
@@ -8418,7 +9550,17 @@ declare module "gi://Adw?version=1" {
              */
             set_can_navigate_back(can_navigate_back: boolean): void
             /**
-             *  for vertical orientation.
+             * Sets whether gestures and shortcuts for navigating forward are enabled.
+             *
+             * The supported gestures are:
+             *
+             * - One-finger swipe on touchscreens
+             * - Horizontal scrolling on touchpads (usually two-finger swipe)
+             * - Back/forward mouse buttons
+             *
+             * The keyboard back/forward keys are also supported, as well as the
+             * <kbd>Alt</kbd>+<kbd>→</kbd> shortcut for horizontal orientation, or
+             * <kbd>Alt</kbd>+<kbd>↓</kbd> for vertical orientation.
              *
              * If the orientation is horizontal, for right-to-left locales, gestures and
              * shortcuts are reversed.
@@ -8509,16 +9651,53 @@ declare module "gi://Adw?version=1" {
         interface LeafletClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Leaflet>
             readonly prototype: Leaflet
+
             new (props?: Partial<GObject.ConstructorProps<Leaflet>>): Leaflet
             /**
              * Creates a new `AdwLeaflet`.
              * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
              * @returns the new created `AdwLeaflet`
              */
-            "new"(): Gtk.Widget
+            "new"(): Leaflet
         }
 
-        const Leaflet: LeafletClass
+        interface $Exports {
+            /**
+             * An adaptive container acting like a box or a stack.
+             *
+             * <picture>
+             *   <source srcset="leaflet-wide-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="leaflet-wide.png" alt="leaflet-wide">
+             * </picture>
+             * <picture>
+             *   <source srcset="leaflet-narrow-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="leaflet-narrow.png" alt="leaflet-narrow">
+             * </picture>
+             *
+             * The `AdwLeaflet` widget can display its children like a [class@Gtk.Box] does
+             * or like a [class@Gtk.Stack] does, adapting to size changes by switching
+             * between the two modes.
+             *
+             * When there is enough space the children are displayed side by side, otherwise
+             * only one is displayed and the leaflet is said to be “folded”.
+             * The threshold is dictated by the preferred minimum sizes of the children.
+             * When a leaflet is folded, the children can be navigated using swipe gestures.
+             *
+             * The “over” and “under” transition types stack the children one on top of the
+             * other, while the “slide” transition puts the children side by side. While
+             * navigating to a child on the side or below can be performed by swiping the
+             * current child away, navigating to an upper child requires dragging it from
+             * the edge where it resides. This doesn't affect non-dragging swipes.
+             *
+             * ## CSS nodes
+             *
+             * `AdwLeaflet` has a single CSS node with name `leaflet`. The node will get the
+             * style classes `.folded` when it is folded, `.unfolded` when it's not, or none
+             * if it hasn't computed its fold yet.
+             * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+             */
+            Leaflet: LeafletClass
+        }
         
 
         namespace LeafletPage {
@@ -8532,19 +9711,15 @@ declare module "gi://Adw?version=1" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "child": Gtk.Widget
                 "name": string | null
                 "navigatable": boolean
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "child": Gtk.Widget
             }
         }
 
-        /**
-         * An auxiliary class used by [class@Leaflet].
-         * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
-         */
         interface LeafletPage extends GObject.Object {
             readonly $signals: LeafletPage.SignalSignatures
             readonly $readableProperties: LeafletPage.ReadableProperties
@@ -8616,16 +9791,28 @@ declare module "gi://Adw?version=1" {
         interface LeafletPageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<LeafletPage>
             readonly prototype: LeafletPage
+
             new (props?: Partial<GObject.ConstructorProps<LeafletPage>>): LeafletPage
         }
 
-        const LeafletPage: LeafletPageClass
+        interface $Exports {
+            /**
+             * An auxiliary class used by [class@Leaflet].
+             * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+             */
+            LeafletPage: LeafletPageClass
+        }
         
 
         namespace MessageDialog {
             interface SignalSignatures extends Gtk.Window.SignalSignatures, Gtk.Accessible.SignalSignatures, Gtk.Buildable.SignalSignatures, Gtk.ConstraintTarget.SignalSignatures, Gtk.Native.SignalSignatures, Gtk.Root.SignalSignatures, Gtk.ShortcutManager.SignalSignatures {
                 /**
-                 *  or with a system
+                 * This signal is emitted when the dialog is closed.
+                 *
+                 * @response will be set to the response ID of the button that had been
+                 * activated.
+                 *
+                 * if the dialog was closed by pressing <kbd>Escape</kbd> or with a system
                  * action, @response will be set to the value of
                  * [property@MessageDialog:close-response].
                  * @since 1.2
@@ -8659,16 +9846,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * ## Accessibility
-         *
-         * `AdwMessageDialog` uses the [enum@Gtk.AccessibleRole.dialog] role.
-         * @since 1.2
-         * @deprecated since 1.6 Use [class@AlertDialog].
-         */
         interface MessageDialog extends Gtk.Window, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Native, Gtk.Root, Gtk.ShortcutManager {
             readonly $signals: MessageDialog.SignalSignatures
             readonly $readableProperties: MessageDialog.ReadableProperties
@@ -8692,7 +9869,10 @@ declare module "gi://Adw?version=1" {
             get bodyUseMarkup(): boolean
             set bodyUseMarkup(value: boolean)
             /**
-             *  or with a system action.
+             * The ID of the close response.
+             *
+             * It will be passed to [signal@MessageDialog::response] if the window is
+             * closed by pressing <kbd>Escape</kbd> or with a system action.
              *
              * It doesn't have to correspond to any of the responses in the dialog.
              *
@@ -8904,7 +10084,10 @@ declare module "gi://Adw?version=1" {
              */
             set_body_use_markup(use_markup: boolean): void
             /**
-             *  or with a system action.
+             * Sets the ID of the close response of @self.
+             *
+             * It will be passed to [signal@MessageDialog::response] if the window is
+             * closed by pressing <kbd>Escape</kbd> or with a system action.
              *
              * It doesn't have to correspond to any of the responses in the dialog.
              *
@@ -8955,7 +10138,12 @@ declare module "gi://Adw?version=1" {
              */
             set_heading_use_markup(use_markup: boolean): void
             /**
+             * Sets the appearance for @response.
              *
+             * <picture>
+             *   <source srcset="message-dialog-appearance-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="message-dialog-appearance.png" alt="message-dialog-appearance">
+             * </picture>
              *
              * Use [enum@Adw.ResponseAppearance.suggested] to mark important responses such
              * as the affirmative action, like the Save button in the example.
@@ -9016,6 +10204,7 @@ declare module "gi://Adw?version=1" {
         interface MessageDialogClass extends Omit<Gtk.WindowClass, "new"> {
             readonly $gtype: GObject.GType<MessageDialog>
             readonly prototype: MessageDialog
+
             new (props?: Partial<GObject.ConstructorProps<MessageDialog>>): MessageDialog
             /**
              * Creates a new `AdwMessageDialog`.
@@ -9039,10 +10228,145 @@ declare module "gi://Adw?version=1" {
              * @param body the body text
              * @returns the newly created `AdwMessageDialog`
              */
-            "new"(parent: Gtk.Window | null, heading: string | null, body: string | null): Gtk.Widget
+            "new"(parent: Gtk.Window | null, heading: string | null, body: string | null): MessageDialog
         }
 
-        const MessageDialog: MessageDialogClass
+        interface $Exports {
+            /**
+             * A dialog presenting a message or a question.
+             *
+             * <picture>
+             *   <source srcset="message-dialog-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="message-dialog.png" alt="message-dialog">
+             * </picture>
+             *
+             * Message dialogs have a heading, a body, an optional child widget, and one or
+             * multiple responses, each presented as a button.
+             *
+             * Each response has a unique string ID, and a button label. Additionally, each
+             * response can be enabled or disabled, and can have a suggested or destructive
+             * appearance.
+             *
+             * When one of the responses is activated, or the dialog is closed, the
+             * [signal@MessageDialog::response] signal will be emitted. This signal is
+             * detailed, and the detail, as well as the `response` parameter will be set to
+             * the ID of the activated response, or to the value of the
+             * [property@MessageDialog:close-response] property if the dialog had been
+             * closed without activating any of the responses.
+             *
+             * Response buttons can be presented horizontally or vertically depending on
+             * available space.
+             *
+             * When a response is activated, `AdwMessageDialog` is closed automatically.
+             *
+             * An example of using a message dialog:
+             *
+             * ```c
+             * GtkWidget *dialog;
+             *
+             * dialog = adw_message_dialog_new (parent, _("Replace File?"), NULL);
+             *
+             * adw_message_dialog_format_body (ADW_MESSAGE_DIALOG (dialog),
+             *                                 _("A file named “%s” already exists. Do you want to replace it?"),
+             *                                 filename);
+             *
+             * adw_message_dialog_add_responses (ADW_MESSAGE_DIALOG (dialog),
+             *                                   "cancel",  _("_Cancel"),
+             *                                   "replace", _("_Replace"),
+             *                                   NULL);
+             *
+             * adw_message_dialog_set_response_appearance (ADW_MESSAGE_DIALOG (dialog), "replace", ADW_RESPONSE_DESTRUCTIVE);
+             *
+             * adw_message_dialog_set_default_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
+             * adw_message_dialog_set_close_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
+             *
+             * g_signal_connect (dialog, "response", G_CALLBACK (response_cb), self);
+             *
+             * gtk_window_present (GTK_WINDOW (dialog));
+             * ```
+             *
+             * ## Async API
+             *
+             * `AdwMessageDialog` can also be used via the [method@MessageDialog.choose]
+             * method. This API follows the GIO async pattern, for example:
+             *
+             * ```c
+             * static void
+             * dialog_cb (AdwMessageDialog *dialog,
+             *            GAsyncResult     *result,
+             *            MyWindow         *self)
+             * {
+             *   const char *response = adw_message_dialog_choose_finish (dialog, result);
+             *
+             *   // ...
+             * }
+             *
+             * static void
+             * show_dialog (MyWindow *self)
+             * {
+             *   GtkWidget *dialog;
+             *
+             *   dialog = adw_message_dialog_new (GTK_WINDOW (self), _("Replace File?"), NULL);
+             *
+             *   adw_message_dialog_format_body (ADW_MESSAGE_DIALOG (dialog),
+             *                                   _("A file named “%s” already exists. Do you want to replace it?"),
+             *                                   filename);
+             *
+             *   adw_message_dialog_add_responses (ADW_MESSAGE_DIALOG (dialog),
+             *                                     "cancel",  _("_Cancel"),
+             *                                     "replace", _("_Replace"),
+             *                                     NULL);
+             *
+             *   adw_message_dialog_set_response_appearance (ADW_MESSAGE_DIALOG (dialog), "replace", ADW_RESPONSE_DESTRUCTIVE);
+             *
+             *   adw_message_dialog_set_default_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
+             *   adw_message_dialog_set_close_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
+             *
+             *   adw_message_dialog_choose (ADW_MESSAGE_DIALOG (dialog), NULL, (GAsyncReadyCallback) dialog_cb, self);
+             * }
+             * ```
+             *
+             * ## AdwMessageDialog as GtkBuildable
+             *
+             * `AdwMessageDialog` supports adding responses in UI definitions by via the
+             * `<responses>` element that may contain multiple `<response>` elements, each
+             * representing a response.
+             *
+             * Each of the `<response>` elements must have the `id` attribute specifying the
+             * response ID. The contents of the element are used as the response label.
+             *
+             * Response labels can be translated with the usual `translatable`, `context`
+             * and `comments` attributes.
+             *
+             * The `<response>` elements can also have `enabled` and/or `appearance`
+             * attributes. See [method@MessageDialog.set_response_enabled] and
+             * [method@MessageDialog.set_response_appearance] for details.
+             *
+             * Example of an `AdwMessageDialog` UI definition:
+             *
+             * ```xml
+             * <object class="AdwMessageDialog" id="dialog">
+             *   <property name="heading" translatable="yes">Save Changes?</property>
+             *   <property name="body" translatable="yes">Open documents contain unsaved changes. Changes which are not saved will be permanently lost.</property>
+             *   <property name="default-response">save</property>
+             *   <property name="close-response">cancel</property>
+             *   <signal name="response" handler="response_cb"/>
+             *   <responses>
+             *     <response id="cancel" translatable="yes">_Cancel</response>
+             *     <response id="discard" translatable="yes" appearance="destructive">_Discard</response>
+             *     <response id="save" translatable="yes" appearance="suggested" enabled="false">_Save</response>
+             *   </responses>
+             * </object>
+             * ```
+             *
+             * ## Accessibility
+             *
+             * `AdwMessageDialog` uses the [enum@Gtk.AccessibleRole.dialog] role.
+             * @since 1.2
+             * @deprecated since 1.6 Use [class@AlertDialog].
+             */
+            MessageDialog: MessageDialogClass
+        }
         
 
         namespace MultiLayoutView {
@@ -9063,15 +10387,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * ## CSS nodes
-         *
-         * `AdwMultiLayoutView` has a single CSS node with name `multi-layout-view`.
-         * @since 1.6
-         */
         interface MultiLayoutView extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: MultiLayoutView.SignalSignatures
             readonly $readableProperties: MultiLayoutView.ReadableProperties
@@ -9160,16 +10475,102 @@ declare module "gi://Adw?version=1" {
         interface MultiLayoutViewClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<MultiLayoutView>
             readonly prototype: MultiLayoutView
+
             new (props?: Partial<GObject.ConstructorProps<MultiLayoutView>>): MultiLayoutView
             /**
              * Creates a new `AdwMultiLayoutView`.
              * @since 1.6
              * @returns the newly created `AdwMultiLayoutView`
              */
-            "new"(): Gtk.Widget
+            "new"(): MultiLayoutView
         }
 
-        const MultiLayoutView: MultiLayoutViewClass
+        interface $Exports {
+            /**
+             * A widget for switching between different layouts.
+             *
+             * `AdwMultiLayoutView` contains layouts and children. Each child has
+             * an ID, each layout has slots inside it, each slot also has an ID. When
+             * switching layouts, children are inserted into slots with matching IDs. The
+             * [property@Gtk.Widget:visible] property of each slot is updated to match
+             * that of the inserted child.
+             *
+             * This can be useful for rearranging children when it's difficult to do so
+             * otherwise, for example to move a child from a sidebar to a bottom bar.
+             *
+             * The currently used layout can be switched using the
+             * [property@MultiLayoutView:layout] or [property@MultiLayoutView:layout-name]
+             * properties. For example, it can be done via a [class@Adw.Breakpoint] setter
+             * to change layouts depending on the window size.
+             *
+             * ## AdwMultiLayoutView as GtkBuildable
+             *
+             * The `AdwMultiLayoutView` implementation of the [iface@Gtk.Buildable]
+             * interface supports adding layouts via `<child>` element with the `type`
+             * attribute omitted.
+             *
+             * It also supports setting children via `<child type="ID">`.
+             *
+             * Example of an `AdwMultiLayoutView` UI definition that can display a secondary
+             * child as either a sidebar or a bottom sheet.
+             *
+             * ```xml
+             * <object class="AdwMultiLayoutView">
+             *   <child>
+             *     <object class="AdwLayout">
+             *       <property name="name">sidebar</property>
+             *       <property name="content">
+             *         <object class="AdwOverlaySplitView">
+             *           <property name="sidebar">
+             *             <object class="AdwLayoutSlot">
+             *               <property name="id">secondary</property>
+             *             </object>
+             *           </property>
+             *           <property name="content">
+             *             <object class="AdwLayoutSlot">
+             *               <property name="id">primary</property>
+             *             </object>
+             *           </property>
+             *         </object>
+             *       </property>
+             *     </object>
+             *   </child>
+             *   <child>
+             *     <object class="AdwLayout">
+             *       <property name="name">bottom-sheet</property>
+             *       <property name="content">
+             *         <object class="AdwBottomSheet">
+             *           <property name="open">True</property>
+             *           <property name="content">
+             *             <object class="AdwLayoutSlot">
+             *               <property name="id">primary</property>
+             *             </object>
+             *           </property>
+             *           <property name="sheet">
+             *             <object class="AdwLayoutSlot">
+             *               <property name="id">secondary</property>
+             *             </object>
+             *           </property>
+             *         </object>
+             *       </property>
+             *     </object>
+             *   </child>
+             *   <child type="primary">
+             *     <!-- ... -->
+             *   </child>
+             *   <child type="secondary">
+             *     <!-- ... -->
+             *   </child>
+             * </object>
+             * ```
+             *
+             * ## CSS nodes
+             *
+             * `AdwMultiLayoutView` has a single CSS node with name `multi-layout-view`.
+             * @since 1.6
+             */
+            MultiLayoutView: MultiLayoutViewClass
+        }
         
 
         namespace NavigationPage {
@@ -9230,35 +10631,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * A page within [class@NavigationView] or [class@NavigationSplitView].
-         *
-         * Each page has a child widget, a title and optionally a tag.
-         *
-         * The [signal@NavigationPage::showing], [signal@NavigationPage::shown],
-         * [signal@NavigationPage::hiding] and [signal@NavigationPage::hidden] signals
-         * can be used to track the page's visibility within its `AdwNavigationView`.
-         *
-         * ## Header Bar Integration
-         *
-         * When placed inside `AdwNavigationPage`, [class@HeaderBar] will display the
-         * page title instead of window title.
-         *
-         * When used together with [class@NavigationView], it will also display a back
-         * button that can be used to go back to the previous page. Set
-         * [property@HeaderBar:show-back-button] to `FALSE` to disable that behavior if
-         * it's unwanted.
-         *
-         * ## CSS Nodes
-         *
-         * `AdwNavigationPage` has a single CSS node with name
-         * `navigation-view-page`.
-         *
-         * ## Accessibility
-         *
-         * `AdwNavigationPage` uses the [enum@Gtk.AccessibleRole.group] role.
-         * @since 1.4
-         */
         interface NavigationPage extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: NavigationPage.SignalSignatures
             readonly $readableProperties: NavigationPage.ReadableProperties
@@ -9409,6 +10781,7 @@ declare module "gi://Adw?version=1" {
         interface NavigationPageClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<NavigationPage>
             readonly prototype: NavigationPage
+
             new (props?: Partial<GObject.ConstructorProps<NavigationPage>>): NavigationPage
             /**
              * Creates a new `AdwNavigationPage`.
@@ -9429,7 +10802,38 @@ declare module "gi://Adw?version=1" {
             new_with_tag(child: Gtk.Widget, title: string, tag: string): NavigationPage
         }
 
-        const NavigationPage: NavigationPageClass
+        interface $Exports {
+            /**
+             * A page within [class@NavigationView] or [class@NavigationSplitView].
+             *
+             * Each page has a child widget, a title and optionally a tag.
+             *
+             * The [signal@NavigationPage::showing], [signal@NavigationPage::shown],
+             * [signal@NavigationPage::hiding] and [signal@NavigationPage::hidden] signals
+             * can be used to track the page's visibility within its `AdwNavigationView`.
+             *
+             * ## Header Bar Integration
+             *
+             * When placed inside `AdwNavigationPage`, [class@HeaderBar] will display the
+             * page title instead of window title.
+             *
+             * When used together with [class@NavigationView], it will also display a back
+             * button that can be used to go back to the previous page. Set
+             * [property@HeaderBar:show-back-button] to `FALSE` to disable that behavior if
+             * it's unwanted.
+             *
+             * ## CSS Nodes
+             *
+             * `AdwNavigationPage` has a single CSS node with name
+             * `navigation-view-page`.
+             *
+             * ## Accessibility
+             *
+             * `AdwNavigationPage` uses the [enum@Gtk.AccessibleRole.group] role.
+             * @since 1.4
+             */
+            NavigationPage: NavigationPageClass
+        }
         
 
         namespace NavigationSplitView {
@@ -9464,42 +10868,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * ` element, Specifying “content” child type or
-         * omitting it results in setting the content widget.
-         *
-         * ## CSS nodes
-         *
-         * `AdwNavigationSplitView` has a single CSS node with the name
-         * `navigation-split-view`.
-         *
-         * When collapsed, it contains a child node with the name `navigation-view`
-         * containing both children.
-         *
-         * ```
-         * navigation-split-view
-         * ╰── navigation-view
-         *     ├── [sidebar child]
-         *     ╰── [content child]
-         * ```
-         *
-         * When not collapsed, it contains two nodes with the name `widget`, one with
-         * the `.sidebar-pane` style class, the other one with `.content-view` style
-         * class, containing the sidebar and content children respectively.
-         *
-         * ```
-         * navigation-split-view
-         * ├── widget.sidebar-pane
-         * │   ╰── [sidebar child]
-         * ╰── widget.content-pane
-         *     ╰── [content child]
-         * ```
-         *
-         * ## Accessibility
-         *
-         * `AdwNavigationSplitView` uses the [enum@Gtk.AccessibleRole.group] role.
-         * @since 1.4
-         */
         interface NavigationSplitView extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: NavigationSplitView.SignalSignatures
             readonly $readableProperties: NavigationSplitView.ReadableProperties
@@ -9760,16 +11128,154 @@ declare module "gi://Adw?version=1" {
         interface NavigationSplitViewClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<NavigationSplitView>
             readonly prototype: NavigationSplitView
+
             new (props?: Partial<GObject.ConstructorProps<NavigationSplitView>>): NavigationSplitView
             /**
              * Creates a new `AdwNavigationSplitView`.
              * @since 1.4
              * @returns the newly created `AdwNavigationSplitView`
              */
-            "new"(): Gtk.Widget
+            "new"(): NavigationSplitView
         }
 
-        const NavigationSplitView: NavigationSplitViewClass
+        interface $Exports {
+            /**
+             * A widget presenting sidebar and content side by side or as a navigation view.
+             *
+             * <picture>
+             *   <source srcset="navigation-split-view-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="navigation-split-view.png" alt="navigation-split-view">
+             * </picture>
+             * <picture>
+             *   <source srcset="navigation-split-view-collapsed-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="navigation-split-view-collapsed.png" alt="navigation-split-view-collapsed">
+             * </picture>
+             *
+             * `AdwNavigationSplitView` has two [class@NavigationPage] children: sidebar and
+             * content, and displays them side by side.
+             *
+             * When [property@NavigationSplitView:collapsed] is set to `TRUE`, it instead
+             * puts both children inside an [class@NavigationView]. The
+             * [property@NavigationSplitView:show-content] controls which child is visible
+             * while collapsed.
+             *
+             * See also [class@OverlaySplitView].
+             *
+             * `AdwNavigationSplitView` is typically used together with an [class@Breakpoint]
+             * setting the `collapsed` property to `TRUE` on small widths, as follows:
+             *
+             * ```xml
+             * <object class="AdwWindow">
+             *   <property name="default-width">800</property>
+             *   <property name="default-height">800</property>
+             *   <child>
+             *     <object class="AdwBreakpoint">
+             *       <condition>max-width: 400sp</condition>
+             *       <setter object="split_view" property="collapsed">True</setter>
+             *     </object>
+             *   </child>
+             *   <property name="content">
+             *     <object class="AdwNavigationSplitView" id="split_view">
+             *       <property name="sidebar">
+             *         <object class="AdwNavigationPage">
+             *           <property name="title" translatable="yes">Sidebar</property>
+             *           <property name="child">
+             *             <!-- ... -->
+             *           </property>
+             *         </object>
+             *       </property>
+             *       <property name="content">
+             *         <object class="AdwNavigationPage">
+             *           <property name="title" translatable="yes">Content</property>
+             *           <property name="child">
+             *             <!-- ... -->
+             *           </property>
+             *         </object>
+             *       </property>
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * ## Sizing
+             *
+             * When not collapsed, `AdwNavigationSplitView` changes the sidebar width
+             * depending on its own width.
+             *
+             * If possible, it tries to allocate a fraction of the total width, controlled
+             * with the [property@NavigationSplitView:sidebar-width-fraction] property.
+             *
+             * The sidebar also has minimum and maximum sizes, controlled with the
+             * [property@NavigationSplitView:min-sidebar-width] and
+             * [property@NavigationSplitView:max-sidebar-width] properties.
+             *
+             * The minimum and maximum sizes are using the length unit specified with the
+             * [property@NavigationSplitView:sidebar-width-unit].
+             *
+             * By default, sidebar is using 25% of the total width, with 180sp as the
+             * minimum size and 280sp as the maximum size.
+             *
+             * ## Header Bar Integration
+             *
+             * When used inside `AdwNavigationSplitView`, [class@HeaderBar] will
+             * automatically hide the window buttons in the middle.
+             *
+             * When collapsed, it also displays a back button for the content widget, as
+             * well as the page titles. See [class@NavigationView] documentation for details.
+             *
+             * ## Actions
+             *
+             * `AdwNavigationSplitView` defines the same actions as `AdwNavigationView`, but
+             * they can be used even when the split view is not collapsed:
+             *
+             * - `navigation.push` takes a string parameter specifying the tag of the page
+             * to push. If it matches the tag of the content widget, it sets
+             * [property@NavigationSplitView:show-content] to `TRUE`.
+             *
+             * - `navigation.pop` doesn't take any parameters and sets
+             * [property@NavigationSplitView:show-content] to `FALSE`.
+             *
+             * ## `AdwNavigationSplitView` as `GtkBuildable`
+             *
+             * The `AdwNavigationSplitView` implementation of the [iface@Gtk.Buildable]
+             * interface supports setting the sidebar widget by specifying “sidebar” as the
+             * “type” attribute of a `<child>` element, Specifying “content” child type or
+             * omitting it results in setting the content widget.
+             *
+             * ## CSS nodes
+             *
+             * `AdwNavigationSplitView` has a single CSS node with the name
+             * `navigation-split-view`.
+             *
+             * When collapsed, it contains a child node with the name `navigation-view`
+             * containing both children.
+             *
+             * ```
+             * navigation-split-view
+             * ╰── navigation-view
+             *     ├── [sidebar child]
+             *     ╰── [content child]
+             * ```
+             *
+             * When not collapsed, it contains two nodes with the name `widget`, one with
+             * the `.sidebar-pane` style class, the other one with `.content-view` style
+             * class, containing the sidebar and content children respectively.
+             *
+             * ```
+             * navigation-split-view
+             * ├── widget.sidebar-pane
+             * │   ╰── [sidebar child]
+             * ╰── widget.content-pane
+             *     ╰── [content child]
+             * ```
+             *
+             * ## Accessibility
+             *
+             * `AdwNavigationSplitView` uses the [enum@Gtk.AccessibleRole.group] role.
+             * @since 1.4
+             */
+            NavigationSplitView: NavigationSplitViewClass
+        }
         
 
         namespace NavigationView {
@@ -9842,18 +11348,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * ## CSS nodes
-         *
-         * `AdwNavigationView` has a single CSS node with the name `navigation-view`.
-         *
-         * ## Accessibility
-         *
-         * `AdwNavigationView` uses the [enum@Gtk.AccessibleRole.group] role.
-         * @since 1.4
-         */
         interface NavigationView extends Gtk.Widget, Swipeable, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: NavigationView.SignalSignatures
             readonly $readableProperties: NavigationView.ReadableProperties
@@ -10180,16 +11674,179 @@ declare module "gi://Adw?version=1" {
         interface NavigationViewClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<NavigationView>
             readonly prototype: NavigationView
+
             new (props?: Partial<GObject.ConstructorProps<NavigationView>>): NavigationView
             /**
              * Creates a new `AdwNavigationView`.
              * @since 1.4
              * @returns the new created `AdwNavigationView`
              */
-            "new"(): Gtk.Widget
+            "new"(): NavigationView
         }
 
-        const NavigationView: NavigationViewClass
+        interface $Exports {
+            /**
+             * A page-based navigation container.
+             *
+             * <picture>
+             *   <source srcset="navigation-view-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="navigation-view.png" alt="navigation-view">
+             * </picture>
+             *
+             * `AdwNavigationView` presents one child at a time, similar to
+             * [class@Gtk.Stack].
+             *
+             * `AdwNavigationView` can only contain [class@NavigationPage] children.
+             *
+             * It maintains a navigation stack that can be controlled with
+             * [method@NavigationView.push] and [method@NavigationView.pop]. The whole
+             * navigation stack can also be replaced using [method@NavigationView.replace].
+             *
+             * `AdwNavigationView` allows to manage pages statically or dynamically.
+             *
+             * Static pages can be added using the [method@NavigationView.add] method. The
+             * `AdwNavigationView` will keep a reference to these pages, but they aren't
+             * accessible to the user until [method@NavigationView.push] is called (except
+             * for the first page, which is pushed automatically). Use the
+             * [method@NavigationView.remove] method to remove them. This is useful for
+             * applications that have a small number of unique pages and just need
+             * navigation between them.
+             *
+             * Dynamic pages are automatically destroyed once they are popped off the
+             * navigation stack. To add a page like this, push it using the
+             * [method@NavigationView.push] method without calling
+             * [method@NavigationView.add] first.
+             *
+             * ## Tags
+             *
+             * Static pages, as well as any pages in the navigation stack, can be accessed
+             * by their [property@NavigationPage:tag]. For example,
+             * [method@NavigationView.push_by_tag] can be used to push a static page that's
+             * not in the navigation stack without having to keep a reference to it manually.
+             *
+             * ## Header Bar Integration
+             *
+             * When used inside `AdwNavigationView`, [class@HeaderBar] will automatically
+             * display a back button that can be used to go back to the previous page when
+             * possible. The button also has a context menu, allowing to pop multiple pages
+             * at once, potentially across multiple navigation views.
+             *
+             * Set [property@HeaderBar:show-back-button] to `FALSE` to disable this behavior
+             * in rare scenarios where it's unwanted.
+             *
+             * `AdwHeaderBar` will also display the title of the `AdwNavigationPage` it's
+             * placed into, so most applications shouldn't need to customize it at all.
+             *
+             * ## Shortcuts and Gestures
+             *
+             * `AdwNavigationView` supports the following shortcuts for going to the
+             * previous page:
+             *
+             * - <kbd>Escape</kbd> (unless [property@NavigationView:pop-on-escape] is set to
+             *   `FALSE`)
+             * - <kbd>Alt</kbd>+<kbd>←</kbd>
+             * - Back mouse button
+             *
+             * Additionally, it supports interactive gestures:
+             *
+             * - One-finger swipe towards the right on touchscreens
+             * - Scrolling towards the right on touchpads (usually two-finger swipe)
+             *
+             * These gestures have transitions enabled regardless of the
+             * [property@NavigationView:animate-transitions] value.
+             *
+             * Applications can also enable shortcuts for pushing another page onto the
+             * navigation stack via connecting to the [signal@NavigationView::get-next-page]
+             * signal, in that case the following shortcuts are supported:
+             *
+             * - <kbd>Alt</kbd>+<kbd>→</kbd>
+             * - Forward mouse button
+             * - Swipe/scrolling towards the left
+             *
+             * For right-to-left locales, the gestures and shortcuts are reversed.
+             *
+             * [property@NavigationPage:can-pop] can be used to disable them, along with the
+             * header bar back buttons.
+             *
+             * ## Actions
+             *
+             * `AdwNavigationView` defines actions for controlling the navigation stack.
+             * actions for controlling the navigation stack:
+             *
+             * - `navigation.push` takes a string parameter specifying the tag of the page to
+             * push, and is equivalent to calling [method@NavigationView.push_by_tag].
+             *
+             * - `navigation.pop` doesn't take any parameters and pops the current page from
+             * the navigation stack, equivalent to calling [method@NavigationView.pop].
+             *
+             * ## `AdwNavigationView` as `GtkBuildable`
+             *
+             * `AdwNavigationView` allows to add pages as children, equivalent to using the
+             * [method@NavigationView.add] method.
+             *
+             * Example of an `AdwNavigationView` UI definition:
+             *
+             * ```xml
+             * <object class="AdwNavigationView">
+             *   <child>
+             *     <object class="AdwNavigationPage">
+             *       <property name="title" translatable="yes">Page 1</property>
+             *       <property name="child">
+             *         <object class="AdwToolbarView">
+             *           <child type="top">
+             *             <object class="AdwHeaderBar"/>
+             *           </child>
+             *           <property name="content">
+             *             <object class="GtkButton">
+             *               <property name="label" translatable="yes">Open Page 2</property>
+             *               <property name="halign">center</property>
+             *               <property name="valign">center</property>
+             *               <property name="action-name">navigation.push</property>
+             *               <property name="action-target">'page-2'</property>
+             *               <style>
+             *                 <class name="pill"/>
+             *                </style>
+             *             </object>
+             *           </property>
+             *         </object>
+             *       </property>
+             *     </object>
+             *   </child>
+             *   <child>
+             *     <object class="AdwNavigationPage">
+             *       <property name="title" translatable="yes">Page 2</property>
+             *       <property name="tag">page-2</property>
+             *       <property name="child">
+             *         <object class="AdwToolbarView">
+             *           <child type="top">
+             *             <object class="AdwHeaderBar"/>
+             *           </child>
+             *           <property name="content">
+             *             <!-- ... -->
+             *           </property>
+             *         </object>
+             *       </property>
+             *     </object>
+             *   </child>
+             * </object>
+             * ```
+             *
+             * <picture>
+             *   <source srcset="navigation-view-example-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="navigation-view-example.png" alt="navigation-view-example">
+             * </picture>
+             *
+             * ## CSS nodes
+             *
+             * `AdwNavigationView` has a single CSS node with the name `navigation-view`.
+             *
+             * ## Accessibility
+             *
+             * `AdwNavigationView` uses the [enum@Gtk.AccessibleRole.group] role.
+             * @since 1.4
+             */
+            NavigationView: NavigationViewClass
+        }
         
 
         namespace NoneAnimationTarget {
@@ -10206,10 +11863,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * An [class@AnimationTarget] that doesn't do anything.
-         * @since 1.9
-         */
         interface NoneAnimationTarget extends AnimationTarget {
             readonly $signals: NoneAnimationTarget.SignalSignatures
             readonly $readableProperties: NoneAnimationTarget.ReadableProperties
@@ -10220,16 +11873,23 @@ declare module "gi://Adw?version=1" {
         interface NoneAnimationTargetClass extends Omit<AnimationTargetClass, "new"> {
             readonly $gtype: GObject.GType<NoneAnimationTarget>
             readonly prototype: NoneAnimationTarget
+
             new (props?: Partial<GObject.ConstructorProps<NoneAnimationTarget>>): NoneAnimationTarget
             /**
              * Creates a new `AdwAnimationTarget` that doesn't do anything.
              * @since 1.9
              * @returns the newly created target
              */
-            "new"(): AnimationTarget
+            "new"(): NoneAnimationTarget
         }
 
-        const NoneAnimationTarget: NoneAnimationTargetClass
+        interface $Exports {
+            /**
+             * An [class@AnimationTarget] that doesn't do anything.
+             * @since 1.9
+             */
+            NoneAnimationTarget: NoneAnimationTargetClass
+        }
         
 
         namespace OverlaySplitView {
@@ -10270,45 +11930,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * ` element, Specifying “content” child type or
-         * omitting it results in setting the content widget.
-         *
-         * ## CSS nodes
-         *
-         * `AdwOverlaySplitView` has a single CSS node with the name
-         * `overlay-split-view`.
-         *
-         * It contains two nodes with the name `widget`, containing the sidebar and
-         * content children.
-         *
-         * When not collapsed, they have the `.sidebar-view` and `.content-view` style
-         * classes respectively.
-         *
-         * ```
-         * overlay-split-view
-         * ├── widget.sidebar-pane
-         * │   ╰── [sidebar child]
-         * ╰── widget.content-pane
-         *     ╰── [content child]
-         * ```
-         *
-         * When collapsed, the one containing the sidebar child has the `.background`
-         * style class and the other one has no style classes.
-         *
-         * ```
-         * overlay-split-view
-         * ├── widget.background
-         * │   ╰── [sidebar child]
-         * ╰── widget
-         *     ╰── [content child]
-         * ```
-         *
-         * ## Accessibility
-         *
-         * `AdwOverlaySplitView` uses the [enum@Gtk.AccessibleRole.group] role.
-         * @since 1.4
-         */
         interface OverlaySplitView extends Gtk.Widget, Swipeable, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: OverlaySplitView.SignalSignatures
             readonly $readableProperties: OverlaySplitView.ReadableProperties
@@ -10615,16 +12236,153 @@ declare module "gi://Adw?version=1" {
         interface OverlaySplitViewClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<OverlaySplitView>
             readonly prototype: OverlaySplitView
+
             new (props?: Partial<GObject.ConstructorProps<OverlaySplitView>>): OverlaySplitView
             /**
              * Creates a new `AdwOverlaySplitView`.
              * @since 1.4
              * @returns the newly created `AdwOverlaySplitView`
              */
-            "new"(): Gtk.Widget
+            "new"(): OverlaySplitView
         }
 
-        const OverlaySplitView: OverlaySplitViewClass
+        interface $Exports {
+            /**
+             * A widget presenting sidebar and content side by side or as an overlay.
+             *
+             * <picture>
+             *   <source srcset="overlay-split-view-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="overlay-split-view.png" alt="overlay-split-view">
+             * </picture>
+             * <picture>
+             *   <source srcset="overlay-split-view-collapsed-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="overlay-split-view-collapsed.png" alt="overlay-split-view-collapsed">
+             * </picture>
+             *
+             * `AdwOverlaySplitView` has two children: sidebar and content, and displays
+             * them side by side.
+             *
+             * When [property@OverlaySplitView:collapsed] is set to `TRUE`, the sidebar is
+             * instead shown as an overlay above the content widget.
+             *
+             * The sidebar can be hidden or shown using the
+             * [property@OverlaySplitView:show-sidebar] property.
+             *
+             * Sidebar can be displayed before or after the content, this can be controlled
+             * with the [property@OverlaySplitView:sidebar-position] property.
+             *
+             * Collapsing the split view automatically hides the sidebar widget, and
+             * uncollapsing it shows the sidebar. If this behavior is not desired, the
+             * [property@OverlaySplitView:pin-sidebar] property can be used to override it.
+             *
+             * `AdwOverlaySplitView` supports an edge swipe gesture for showing the sidebar,
+             * and a swipe from the sidebar for hiding it. Gestures are only supported on
+             * touchscreen, but not touchpad. Gestures can be controlled with the
+             * [property@OverlaySplitView:enable-show-gesture] and
+             * [property@OverlaySplitView:enable-hide-gesture] properties.
+             *
+             * See also [class@NavigationSplitView].
+             *
+             * `AdwOverlaySplitView` is typically used together with an [class@Breakpoint]
+             * setting the `collapsed` property to `TRUE` on small widths, as follows:
+             *
+             * ```xml
+             * <object class="AdwWindow">
+             *   <property name="default-width">800</property>
+             *   <property name="default-height">800</property>
+             *   <child>
+             *     <object class="AdwBreakpoint">
+             *       <condition>max-width: 400sp</condition>
+             *       <setter object="split_view" property="collapsed">True</setter>
+             *     </object>
+             *   </child>
+             *   <property name="content">
+             *     <object class="AdwOverlaySplitView" id="split_view">
+             *       <property name="sidebar">
+             *         <!-- ... -->
+             *       </property>
+             *       <property name="content">
+             *         <!-- ... -->
+             *       </property>
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * `AdwOverlaySplitView` is often used for implementing the
+             * [utility pane](https://developer.gnome.org/hig/patterns/containers/utility-panes.html)
+             * pattern.
+             *
+             * ## Sizing
+             *
+             * When not collapsed, `AdwOverlaySplitView` changes the sidebar width
+             * depending on its own width.
+             *
+             * If possible, it tries to allocate a fraction of the total width, controlled
+             * with the [property@OverlaySplitView:sidebar-width-fraction] property.
+             *
+             * The sidebar also has minimum and maximum sizes, controlled with the
+             * [property@OverlaySplitView:min-sidebar-width] and
+             * [property@OverlaySplitView:max-sidebar-width] properties.
+             *
+             * The minimum and maximum sizes are using the length unit specified with the
+             * [property@OverlaySplitView:sidebar-width-unit].
+             *
+             * By default, sidebar is using 25% of the total width, with 180sp as the
+             * minimum size and 280sp as the maximum size.
+             *
+             * When collapsed, the preferred width fraction is ignored and the sidebar uses
+             * [property@OverlaySplitView:max-sidebar-width] when possible.
+             *
+             * ## Header Bar Integration
+             *
+             * When used inside `AdwOverlaySplitView`, [class@HeaderBar] will automatically
+             * hide the window buttons in the middle.
+             *
+             * ## `AdwOverlaySplitView` as `GtkBuildable`
+             *
+             * The `AdwOverlaySplitView` implementation of the [iface@Gtk.Buildable]
+             * interface supports setting the sidebar widget by specifying “sidebar” as the
+             * “type” attribute of a `<child>` element, Specifying “content” child type or
+             * omitting it results in setting the content widget.
+             *
+             * ## CSS nodes
+             *
+             * `AdwOverlaySplitView` has a single CSS node with the name
+             * `overlay-split-view`.
+             *
+             * It contains two nodes with the name `widget`, containing the sidebar and
+             * content children.
+             *
+             * When not collapsed, they have the `.sidebar-view` and `.content-view` style
+             * classes respectively.
+             *
+             * ```
+             * overlay-split-view
+             * ├── widget.sidebar-pane
+             * │   ╰── [sidebar child]
+             * ╰── widget.content-pane
+             *     ╰── [content child]
+             * ```
+             *
+             * When collapsed, the one containing the sidebar child has the `.background`
+             * style class and the other one has no style classes.
+             *
+             * ```
+             * overlay-split-view
+             * ├── widget.background
+             * │   ╰── [sidebar child]
+             * ╰── widget
+             *     ╰── [content child]
+             * ```
+             *
+             * ## Accessibility
+             *
+             * `AdwOverlaySplitView` uses the [enum@Gtk.AccessibleRole.group] role.
+             * @since 1.4
+             */
+            OverlaySplitView: OverlaySplitViewClass
+        }
         
 
         namespace PasswordEntryRow {
@@ -10641,23 +12399,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * It does not show its contents in clear text, does not allow to copy it to the
-         * clipboard, and shows a warning when Caps Lock is engaged. If the underlying
-         * platform allows it, `AdwPasswordEntryRow` will also place the text in a
-         * non-pageable memory area, to avoid it being written out to disk by the
-         * operating system.
-         *
-         * It offer a way to reveal the contents in clear text.
-         *
-         * ## CSS Nodes
-         *
-         * `AdwPasswordEntryRow` has a single CSS node with name `row` that carries
-         * `.entry` and `.password` style classes.
-         * @since 1.2
-         */
         interface PasswordEntryRow extends EntryRow, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Editable {
             readonly $signals: PasswordEntryRow.SignalSignatures
             readonly $readableProperties: PasswordEntryRow.ReadableProperties
@@ -10668,16 +12409,41 @@ declare module "gi://Adw?version=1" {
         interface PasswordEntryRowClass extends Omit<EntryRowClass, "new"> {
             readonly $gtype: GObject.GType<PasswordEntryRow>
             readonly prototype: PasswordEntryRow
+
             new (props?: Partial<GObject.ConstructorProps<PasswordEntryRow>>): PasswordEntryRow
             /**
              * Creates a new `AdwPasswordEntryRow`.
              * @since 1.2
              * @returns the newly created `AdwPasswordEntryRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): PasswordEntryRow
         }
 
-        const PasswordEntryRow: PasswordEntryRowClass
+        interface $Exports {
+            /**
+             * A [class@EntryRow] tailored for entering secrets.
+             *
+             * <picture>
+             *   <source srcset="password-entry-row-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="password-entry-row.png" alt="password-entry-row">
+             * </picture>
+             *
+             * It does not show its contents in clear text, does not allow to copy it to the
+             * clipboard, and shows a warning when Caps Lock is engaged. If the underlying
+             * platform allows it, `AdwPasswordEntryRow` will also place the text in a
+             * non-pageable memory area, to avoid it being written out to disk by the
+             * operating system.
+             *
+             * It offer a way to reveal the contents in clear text.
+             *
+             * ## CSS Nodes
+             *
+             * `AdwPasswordEntryRow` has a single CSS node with name `row` that carries
+             * `.entry` and `.password` style classes.
+             * @since 1.2
+             */
+            PasswordEntryRow: PasswordEntryRowClass
+        }
         
 
         namespace PreferencesDialog {
@@ -10700,24 +12466,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * The `AdwPreferencesDialog` widget presents an application's preferences
-         * gathered into pages and groups. The preferences are searchable by the user.
-         *
-         * ## Actions
-         *
-         * `AdwPrefencesDialog` defines the `navigation.pop` action, it doesn't take any
-         * parameters and pops the current subpage from the navigation stack, equivalent
-         * to calling [method@PreferencesDialog.pop_subpage].
-         *
-         * ## CSS nodes
-         *
-         * `AdwPreferencesDialog` has a main CSS node with the name `dialog` and the
-         * style class `.preferences`.
-         * @since 1.5
-         */
         interface PreferencesDialog extends Dialog, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.ShortcutManager {
             readonly $signals: PreferencesDialog.SignalSignatures
             readonly $readableProperties: PreferencesDialog.ReadableProperties
@@ -10822,16 +12570,42 @@ declare module "gi://Adw?version=1" {
         interface PreferencesDialogClass extends Omit<DialogClass, "new"> {
             readonly $gtype: GObject.GType<PreferencesDialog>
             readonly prototype: PreferencesDialog
+
             new (props?: Partial<GObject.ConstructorProps<PreferencesDialog>>): PreferencesDialog
             /**
              * Creates a new `AdwPreferencesDialog`.
              * @since 1.5
              * @returns the newly created `AdwPreferencesDialog`
              */
-            "new"(): Dialog
+            "new"(): PreferencesDialog
         }
 
-        const PreferencesDialog: PreferencesDialogClass
+        interface $Exports {
+            /**
+             * A dialog showing application's preferences.
+             *
+             * <picture>
+             *   <source srcset="preferences-dialog-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="preferences-dialog.png" alt="preferences-dialog">
+             * </picture>
+             *
+             * The `AdwPreferencesDialog` widget presents an application's preferences
+             * gathered into pages and groups. The preferences are searchable by the user.
+             *
+             * ## Actions
+             *
+             * `AdwPrefencesDialog` defines the `navigation.pop` action, it doesn't take any
+             * parameters and pops the current subpage from the navigation stack, equivalent
+             * to calling [method@PreferencesDialog.pop_subpage].
+             *
+             * ## CSS nodes
+             *
+             * `AdwPreferencesDialog` has a main CSS node with the name `dialog` and the
+             * style class `.preferences`.
+             * @since 1.5
+             */
+            PreferencesDialog: PreferencesDialogClass
+        }
         
 
         namespace PreferencesGroup {
@@ -10856,39 +12630,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * An `AdwPreferencesGroup` represents a group or tightly related preferences,
-         * which in turn are represented by [class@PreferencesRow].
-         *
-         * To summarize the role of the preferences it gathers, a group can have both a
-         * title and a description. The title will be used by [class@PreferencesDialog]
-         * to let the user look for a preference.
-         *
-         * The [property@PreferencesGroup:separate-rows] property can be used to
-         * separate the rows within the group, same as when using the
-         * [`.boxed-list-separate`](style-classes.html#boxed-lists-cards) style class
-         * instead of `.boxed-list`.
-         *
-         * ## AdwPreferencesGroup as GtkBuildable
-         *
-         * The `AdwPreferencesGroup` implementation of the [iface@Gtk.Buildable] interface
-         * supports adding [class@PreferencesRow]s to the list by omitting "type". If "type"
-         * is omitted and the widget isn't a [class@PreferencesRow] the child is added to
-         * a box below the list.
-         *
-         * When the "type" attribute of a child is `header-suffix`, the child
-         * is set as the suffix on the end of the title and description.
-         *
-         * ## CSS nodes
-         *
-         * `AdwPreferencesGroup` has a single CSS node with name `preferencesgroup`.
-         *
-         * ## Accessibility
-         *
-         * `AdwPreferencesGroup` uses the [enum@Gtk.AccessibleRole.group] role.
-         */
         interface PreferencesGroup extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: PreferencesGroup.SignalSignatures
             readonly $readableProperties: PreferencesGroup.ReadableProperties
@@ -11012,15 +12753,56 @@ declare module "gi://Adw?version=1" {
         interface PreferencesGroupClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<PreferencesGroup>
             readonly prototype: PreferencesGroup
+
             new (props?: Partial<GObject.ConstructorProps<PreferencesGroup>>): PreferencesGroup
             /**
              * Creates a new `AdwPreferencesGroup`.
              * @returns the newly created `AdwPreferencesGroup`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesGroup
         }
 
-        const PreferencesGroup: PreferencesGroupClass
+        interface $Exports {
+            /**
+             * A group of preference rows.
+             *
+             * <picture>
+             *   <source srcset="preferences-group-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="preferences-group.png" alt="preferences-group">
+             * </picture>
+             *
+             * An `AdwPreferencesGroup` represents a group or tightly related preferences,
+             * which in turn are represented by [class@PreferencesRow].
+             *
+             * To summarize the role of the preferences it gathers, a group can have both a
+             * title and a description. The title will be used by [class@PreferencesDialog]
+             * to let the user look for a preference.
+             *
+             * The [property@PreferencesGroup:separate-rows] property can be used to
+             * separate the rows within the group, same as when using the
+             * [`.boxed-list-separate`](style-classes.html#boxed-lists-cards) style class
+             * instead of `.boxed-list`.
+             *
+             * ## AdwPreferencesGroup as GtkBuildable
+             *
+             * The `AdwPreferencesGroup` implementation of the [iface@Gtk.Buildable] interface
+             * supports adding [class@PreferencesRow]s to the list by omitting "type". If "type"
+             * is omitted and the widget isn't a [class@PreferencesRow] the child is added to
+             * a box below the list.
+             *
+             * When the "type" attribute of a child is `header-suffix`, the child
+             * is set as the suffix on the end of the title and description.
+             *
+             * ## CSS nodes
+             *
+             * `AdwPreferencesGroup` has a single CSS node with name `preferencesgroup`.
+             *
+             * ## Accessibility
+             *
+             * `AdwPreferencesGroup` uses the [enum@Gtk.AccessibleRole.group] role.
+             */
+            PreferencesGroup: PreferencesGroupClass
+        }
         
 
         namespace PreferencesPage {
@@ -11051,20 +12833,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * The `AdwPreferencesPage` widget gathers preferences groups into a single page
-         * of a preferences window.
-         *
-         * ## CSS nodes
-         *
-         * `AdwPreferencesPage` has a single CSS node with name `preferencespage`.
-         *
-         * ## Accessibility
-         *
-         * `AdwPreferencesPage` uses the [enum@Gtk.AccessibleRole.group] role.
-         */
         interface PreferencesPage extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: PreferencesPage.SignalSignatures
             readonly $readableProperties: PreferencesPage.ReadableProperties
@@ -11228,15 +12996,37 @@ declare module "gi://Adw?version=1" {
         interface PreferencesPageClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<PreferencesPage>
             readonly prototype: PreferencesPage
+
             new (props?: Partial<GObject.ConstructorProps<PreferencesPage>>): PreferencesPage
             /**
              * Creates a new `AdwPreferencesPage`.
              * @returns the newly created `AdwPreferencesPage`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesPage
         }
 
-        const PreferencesPage: PreferencesPageClass
+        interface $Exports {
+            /**
+             * A page from [class@PreferencesDialog].
+             *
+             * <picture>
+             *   <source srcset="preferences-page-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="preferences-page.png" alt="preferences-page">
+             * </picture>
+             *
+             * The `AdwPreferencesPage` widget gathers preferences groups into a single page
+             * of a preferences window.
+             *
+             * ## CSS nodes
+             *
+             * `AdwPreferencesPage` has a single CSS node with name `preferencespage`.
+             *
+             * ## Accessibility
+             *
+             * `AdwPreferencesPage` uses the [enum@Gtk.AccessibleRole.group] role.
+             */
+            PreferencesPage: PreferencesPageClass
+        }
         
 
         namespace PreferencesRow {
@@ -11261,17 +13051,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * A [class@Gtk.ListBoxRow] used to present preferences.
-         *
-         * The `AdwPreferencesRow` widget has a title that [class@PreferencesDialog]
-         * will use to let the user look for a preference. It doesn't present the title
-         * in any way and lets you present the preference as you please.
-         *
-         * [class@ActionRow] and its derivatives are convenient to use as preference
-         * rows as they take care of presenting the preference's title while letting you
-         * compose the inputs of the preference around it.
-         */
         interface PreferencesRow extends Gtk.ListBoxRow, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: PreferencesRow.SignalSignatures
             readonly $readableProperties: PreferencesRow.ReadableProperties
@@ -11369,15 +13148,29 @@ declare module "gi://Adw?version=1" {
         interface PreferencesRowClass extends Omit<Gtk.ListBoxRowClass, "new"> {
             readonly $gtype: GObject.GType<PreferencesRow>
             readonly prototype: PreferencesRow
+
             new (props?: Partial<GObject.ConstructorProps<PreferencesRow>>): PreferencesRow
             /**
              * Creates a new `AdwPreferencesRow`.
              * @returns the newly created `AdwPreferencesRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesRow
         }
 
-        const PreferencesRow: PreferencesRowClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.ListBoxRow] used to present preferences.
+             *
+             * The `AdwPreferencesRow` widget has a title that [class@PreferencesDialog]
+             * will use to let the user look for a preference. It doesn't present the title
+             * in any way and lets you present the preference as you please.
+             *
+             * [class@ActionRow] and its derivatives are convenient to use as preference
+             * rows as they take care of presenting the preference's title while letting you
+             * compose the inputs of the preference around it.
+             */
+            PreferencesRow: PreferencesRowClass
+        }
         
 
         namespace PreferencesWindow {
@@ -11402,25 +13195,22 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * The `AdwPreferencesWindow` widget presents an application's preferences
-         * gathered into pages and groups. The preferences are searchable by the user.
-         *
-         * ## CSS nodes
-         *
-         * `AdwPreferencesWindow` has a main CSS node with the name `window` and the
-         * style class `.preferences`.
-         * @deprecated since 1.6 Use [class@PreferencesDialog].
-         */
         interface PreferencesWindow extends Window, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Native, Gtk.Root, Gtk.ShortcutManager {
             readonly $signals: PreferencesWindow.SignalSignatures
             readonly $readableProperties: PreferencesWindow.ReadableProperties
             readonly $writableProperties: PreferencesWindow.WritableProperties
             readonly $constructOnlyProperties: PreferencesWindow.ConstructOnlyProperties
             /**
-             *  shortcut.
+             * Whether gestures and shortcuts for closing subpages are enabled.
+             *
+             * The supported gestures are:
+             *
+             * - One-finger swipe on touchscreens
+             * - Horizontal scrolling on touchpads (usually two-finger swipe)
+             * - Back mouse button
+             *
+             * The keyboard back key is also supported, as well as the
+             * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut.
              *
              * For right-to-left locales, gestures and shortcuts are reversed.
              *
@@ -11530,7 +13320,16 @@ declare module "gi://Adw?version=1" {
              */
             remove(page: PreferencesPage): void
             /**
-             *  shortcut.
+             * Sets whether gestures and shortcuts for closing subpages are enabled.
+             *
+             * The supported gestures are:
+             *
+             * - One-finger swipe on touchscreens
+             * - Horizontal scrolling on touchpads (usually two-finger swipe)
+             * - Back mouse button
+             *
+             * The keyboard back key is also supported, as well as the
+             * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut.
              *
              * For right-to-left locales, gestures and shortcuts are reversed.
              *
@@ -11564,16 +13363,36 @@ declare module "gi://Adw?version=1" {
         interface PreferencesWindowClass extends Omit<WindowClass, "new"> {
             readonly $gtype: GObject.GType<PreferencesWindow>
             readonly prototype: PreferencesWindow
+
             new (props?: Partial<GObject.ConstructorProps<PreferencesWindow>>): PreferencesWindow
             /**
              * Creates a new `AdwPreferencesWindow`.
              * @deprecated since 1.6 Use [class@PreferencesDialog].
              * @returns the newly created `AdwPreferencesWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesWindow
         }
 
-        const PreferencesWindow: PreferencesWindowClass
+        interface $Exports {
+            /**
+             * A window to present an application's preferences.
+             *
+             * <picture>
+             *   <source srcset="preferences-window-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="preferences-window.png" alt="preferences-window">
+             * </picture>
+             *
+             * The `AdwPreferencesWindow` widget presents an application's preferences
+             * gathered into pages and groups. The preferences are searchable by the user.
+             *
+             * ## CSS nodes
+             *
+             * `AdwPreferencesWindow` has a main CSS node with the name `window` and the
+             * style class `.preferences`.
+             * @deprecated since 1.6 Use [class@PreferencesDialog].
+             */
+            PreferencesWindow: PreferencesWindowClass
+        }
         
 
         namespace PropertyAnimationTarget {
@@ -11586,19 +13405,14 @@ declare module "gi://Adw?version=1" {
             }
 
             interface WritableProperties extends AnimationTarget.WritableProperties {
-                "object": GObject.Object
-                "pspec": GObject.ParamSpec
             }
 
             interface ConstructOnlyProperties extends AnimationTarget.ConstructOnlyProperties {
+                "object": GObject.Object
+                "pspec": GObject.ParamSpec
             }
         }
 
-        /**
-         * An [class@AnimationTarget] changing the value of a property of a
-         * [class@GObject.Object] instance.
-         * @since 1.2
-         */
         interface PropertyAnimationTarget extends AnimationTarget {
             readonly $signals: PropertyAnimationTarget.SignalSignatures
             readonly $readableProperties: PropertyAnimationTarget.ReadableProperties
@@ -11641,6 +13455,7 @@ declare module "gi://Adw?version=1" {
         interface PropertyAnimationTargetClass extends Omit<AnimationTargetClass, "new"> {
             readonly $gtype: GObject.GType<PropertyAnimationTarget>
             readonly prototype: PropertyAnimationTarget
+
             new (props?: Partial<GObject.ConstructorProps<PropertyAnimationTarget>>): PropertyAnimationTarget
             /**
              * Creates a new `AdwPropertyAnimationTarget` for the @property_name property on
@@ -11650,7 +13465,7 @@ declare module "gi://Adw?version=1" {
              * @param property_name the name of the property on @object to animate
              * @returns the newly created `AdwPropertyAnimationTarget`
              */
-            "new"(object: GObject.Object, property_name: string): AnimationTarget
+            "new"(object: GObject.Object, property_name: string): PropertyAnimationTarget
             /**
              * Creates a new `AdwPropertyAnimationTarget` for the @pspec property on
              * @object.
@@ -11659,10 +13474,17 @@ declare module "gi://Adw?version=1" {
              * @param pspec the param spec of the property on @object to animate
              * @returns new newly created `AdwPropertyAnimationTarget`
              */
-            new_for_pspec(object: GObject.Object, pspec: GObject.ParamSpec): AnimationTarget
+            new_for_pspec(object: GObject.Object, pspec: GObject.ParamSpec): PropertyAnimationTarget
         }
 
-        const PropertyAnimationTarget: PropertyAnimationTargetClass
+        interface $Exports {
+            /**
+             * An [class@AnimationTarget] changing the value of a property of a
+             * [class@GObject.Object] instance.
+             * @since 1.2
+             */
+            PropertyAnimationTarget: PropertyAnimationTargetClass
+        }
         
 
         namespace ShortcutLabel {
@@ -11683,22 +13505,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * amp;` when used in UI files.
-         *
-         * ## CSS nodes
-         *
-         * `AdwShortcutLabel` has a single CSS node with name `shortcut-label`. The
-         * individual keycap labels each have the `.keycap` style class, while the
-         * labels separating them have the `.dimmed` style class.
-         *
-         * ## Accessibility
-         *
-         * `AdwShortcutLabel` uses the [enum@Gtk.AccessibleRole.label] role.
-         *
-         * See also: [class@ShortcutsDialog].
-         * @since 1.8
-         */
         interface ShortcutLabel extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ShortcutLabel.SignalSignatures
             readonly $readableProperties: ShortcutLabel.ReadableProperties
@@ -11745,6 +13551,7 @@ declare module "gi://Adw?version=1" {
         interface ShortcutLabelClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<ShortcutLabel>
             readonly prototype: ShortcutLabel
+
             new (props?: Partial<GObject.ConstructorProps<ShortcutLabel>>): ShortcutLabel
             /**
              * Creates a new `AdwShortcutLabel` showing @accelerator.
@@ -11752,10 +13559,79 @@ declare module "gi://Adw?version=1" {
              * @param accelerator the accelerator to show
              * @returns the newly created `AdwShortcutLabel`
              */
-            "new"(accelerator: string): Gtk.Widget
+            "new"(accelerator: string): ShortcutLabel
         }
 
-        const ShortcutLabel: ShortcutLabelClass
+        interface $Exports {
+            /**
+             * A widget that displays a keyboard shortcut.
+             *
+             * <picture>
+             *   <source srcset="shortcut-label-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="shortcut-label.png" alt="shortcut-label">
+             * </picture>
+             *
+             * The shown shortcut can be set using the [property@ShortcutLabel:accelerator]
+             * property.
+             *
+             * Optionally, if no shortcut is set, `AdwShortcutLabel` will display a
+             * placeholder set with the [property@ShortcutLabel:disabled-text] property.
+             *
+             * The following types of shortcuts can be displayed:
+             *
+             * - A single shortcut in [func@Gtk.accelerator_parse] format, e.g. `<Control>C`:
+             *
+             *     <picture>
+             *       <source srcset="shortcut-label-single-dark.png" media="(prefers-color-scheme: dark)">
+             *       <img src="shortcut-label-single.png" alt="shortcut-label-single">
+             *     </picture>
+             *
+             * - Multiple alternative shortcuts, separated with spaces, e.g. `<Shift>A Home`:
+             *
+             *     <picture>
+             *       <source srcset="shortcut-label-alternative-dark.png" media="(prefers-color-scheme: dark)">
+             *       <img src="shortcut-label-alternative.png" alt="shortcut-label-alternative">
+             *     </picture>
+             *
+             * - A range of shortcuts, separated with `...`, e.g. `<Alt>1...9`:
+             *
+             *     <picture>
+             *       <source srcset="shortcut-label-range-dark.png" media="(prefers-color-scheme: dark)">
+             *       <img src="shortcut-label-range.png" alt="shortcut-label-range">
+             *     </picture>
+             *
+             * - Multiple keys pressed at once, separated with `&`, e.g. `Control_L&Control_R`:
+             *
+             *     <picture>
+             *       <source srcset="shortcut-label-multiple-dark.png" media="(prefers-color-scheme: dark)">
+             *       <img src="shortcut-label-multiple.png" alt="shortcut-label-multiple">
+             *     </picture>
+             *
+             * - Multiple shortcuts or keys, pressed sequentially, separated with `+`, e.g. `<Control>C+<Control>X`:
+             *
+             *     <picture>
+             *       <source srcset="shortcut-label-sequence-dark.png" media="(prefers-color-scheme: dark)">
+             *       <img src="shortcut-label-sequence.png" alt="shortcut-label-sequence">
+             *     </picture>
+             *
+             * ::: note
+             *     `<`, `>` and `&` need to be escaped as `&lt;`, `&gt;` and `&amp;` when used in UI files.
+             *
+             * ## CSS nodes
+             *
+             * `AdwShortcutLabel` has a single CSS node with name `shortcut-label`. The
+             * individual keycap labels each have the `.keycap` style class, while the
+             * labels separating them have the `.dimmed` style class.
+             *
+             * ## Accessibility
+             *
+             * `AdwShortcutLabel` uses the [enum@Gtk.AccessibleRole.label] role.
+             *
+             * See also: [class@ShortcutsDialog].
+             * @since 1.8
+             */
+            ShortcutLabel: ShortcutLabelClass
+        }
         
 
         namespace ShortcutsDialog {
@@ -11772,15 +13648,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * The recommended way to use `AdwShortcutsDialog` is via [class@Application]'s
-         * automatic resource loading.
-         *
-         * See also: [class@ShortcutLabel].
-         * @since 1.8
-         */
         interface ShortcutsDialog extends Dialog, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.ShortcutManager {
             readonly $signals: ShortcutsDialog.SignalSignatures
             readonly $readableProperties: ShortcutsDialog.ReadableProperties
@@ -11797,16 +13664,107 @@ declare module "gi://Adw?version=1" {
         interface ShortcutsDialogClass extends Omit<DialogClass, "new"> {
             readonly $gtype: GObject.GType<ShortcutsDialog>
             readonly prototype: ShortcutsDialog
+
             new (props?: Partial<GObject.ConstructorProps<ShortcutsDialog>>): ShortcutsDialog
             /**
              * Creates a new `AdwShortcutsDialog`.
              * @since 1.8
              * @returns the newly created `AdwShortcutsDialog`
              */
-            "new"(): Dialog
+            "new"(): ShortcutsDialog
         }
 
-        const ShortcutsDialog: ShortcutsDialogClass
+        interface $Exports {
+            /**
+             * A dialog that displays application's keyboard shortcuts.
+             *
+             * <picture>
+             *   <source srcset="shortcuts-dialog-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="shortcuts-dialog.png" alt="shortcuts-dialog">
+             * </picture>
+             *
+             * Shortcuts are grouped into sections, represented by [class@ShortcutsSection]
+             * objects. Each section has one or more items, represented by
+             * [class@ShortcutsItem] objects.
+             *
+             * To add a section to the dialog, use [method@ShortcutsDialog.add], or add it
+             * as a child when using UI files.
+             *
+             * Sections without titles can be used to further subdivide each section into
+             * groups.
+             *
+             * Example of an `AdwShortcutsDialog` UI definition:
+             *
+             * ```xml
+             * <object class="AdwShortcutsDialog" id="shortcuts_dialog">
+             *   <child>
+             *     <object class="AdwShortcutsSection">
+             *       <property name="title" translatable="yes">General</property>
+             *       <child>
+             *         <object class="AdwShortcutsItem">
+             *           <property name="title" translatable="yes">Open Menu</property>
+             *           <property name="accelerator">F10</property>
+             *         </object>
+             *       </child>
+             *       <child>
+             *         <object class="AdwShortcutsItem">
+             *           <property name="title" translatable="yes">Quit</property>
+             *           <property name="action-name">app.quit</property>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </child>
+             *   <child>
+             *     <object class="AdwShortcutsSection">
+             *       <child>
+             *         <object class="AdwShortcutsItem">
+             *           <property name="title" translatable="yes">Move Tab Left</property>
+             *           <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Up</property>
+             *           <property name="direction">ltr</property>
+             *         </object>
+             *       </child>
+             *       <child>
+             *         <object class="AdwShortcutsItem">
+             *           <property name="title" translatable="yes">Move Tab Right</property>
+             *           <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Down</property>
+             *           <property name="direction">ltr</property>
+             *         </object>
+             *       </child>
+             *       <child>
+             *         <object class="AdwShortcutsItem">
+             *           <property name="title" translatable="yes">Move Tab Right</property>
+             *           <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Up</property>
+             *           <property name="direction">rtl</property>
+             *         </object>
+             *       </child>
+             *       <child>
+             *         <object class="AdwShortcutsItem">
+             *           <property name="title" translatable="yes">Move Tab Left</property>
+             *           <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Down</property>
+             *           <property name="direction">rtl</property>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </child>
+             * </object>
+             * ```
+             *
+             * If the `app.quit` action has the <kbd>Ctrl</kbd><kbd>Q</kbd> accelerator
+             * associated with it, the result will look as follows:
+             *
+             * <picture>
+             *   <source srcset="shortcuts-dialog-example-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="shortcuts-dialog-example.png" alt="shortcuts-dialog-example">
+             * </picture>
+             *
+             * The recommended way to use `AdwShortcutsDialog` is via [class@Application]'s
+             * automatic resource loading.
+             *
+             * See also: [class@ShortcutLabel].
+             * @since 1.8
+             */
+            ShortcutsDialog: ShortcutsDialogClass
+        }
         
 
         namespace ShortcutsItem {
@@ -11833,25 +13791,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * An object representing an individual shortcut in [class@ShortcutsSection].
-         *
-         * A shortcut has a title, an optional subtitle, and an accelerator.
-         *
-         * Accelerator must be specified in the format [class@ShortcutLabel] accepts.
-         *
-         * Alternatively, the [property@ShortcutsItem:action-name] property can be used
-         * to automatically get accelerator associated with the specified action, as set
-         * via [method@Gtk.Application.set_accels_for_action].
-         *
-         * If both are specified, the accelerator will be used if the action couldn't
-         * be found or doesn't have an accelerator associated for it.
-         *
-         * If [property@ShortcutsItem:direction] is set, the shortcut will only be
-         * displayed for the specified text direction. This allows to display different
-         * shortcuts for different text directions.
-         * @since 1.8
-         */
         interface ShortcutsItem extends GObject.Object {
             readonly $signals: ShortcutsItem.SignalSignatures
             readonly $readableProperties: ShortcutsItem.ReadableProperties
@@ -11963,6 +13902,7 @@ declare module "gi://Adw?version=1" {
         interface ShortcutsItemClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ShortcutsItem>
             readonly prototype: ShortcutsItem
+
             new (props?: Partial<GObject.ConstructorProps<ShortcutsItem>>): ShortcutsItem
             /**
              * Creates a new `AdwShortcutsItem` with @title and @accelerator.
@@ -11982,7 +13922,28 @@ declare module "gi://Adw?version=1" {
             new_from_action(title: string, action_name: string): ShortcutsItem
         }
 
-        const ShortcutsItem: ShortcutsItemClass
+        interface $Exports {
+            /**
+             * An object representing an individual shortcut in [class@ShortcutsSection].
+             *
+             * A shortcut has a title, an optional subtitle, and an accelerator.
+             *
+             * Accelerator must be specified in the format [class@ShortcutLabel] accepts.
+             *
+             * Alternatively, the [property@ShortcutsItem:action-name] property can be used
+             * to automatically get accelerator associated with the specified action, as set
+             * via [method@Gtk.Application.set_accels_for_action].
+             *
+             * If both are specified, the accelerator will be used if the action couldn't
+             * be found or doesn't have an accelerator associated for it.
+             *
+             * If [property@ShortcutsItem:direction] is set, the shortcut will only be
+             * displayed for the specified text direction. This allows to display different
+             * shortcuts for different text directions.
+             * @since 1.8
+             */
+            ShortcutsItem: ShortcutsItemClass
+        }
         
 
         namespace ShortcutsSection {
@@ -12005,20 +13966,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * An object representing a section in [class@ShortcutsDialog].
-         *
-         * It contains [class@ShortcutsItem] objects, use [method@ShortcutsSection.add] to
-         * add them.
-         *
-         * `AdwShortcutsSection` implements the [iface@Gio.ListModel] interface and
-         * allows to access the added shortcut items through it.
-         *
-         * ## `AdwShortcutsSection` as `GtkBuildable`
-         *
-         * `AdwShortcutsSection` allows adding `AdwShortcutsItem` objects as children.
-         * @since 1.8
-         */
         interface ShortcutsSection extends GObject.Object, Gio.ListModel, Gtk.Buildable {
             readonly $signals: ShortcutsSection.SignalSignatures
             readonly $readableProperties: ShortcutsSection.ReadableProperties
@@ -12067,6 +14014,7 @@ declare module "gi://Adw?version=1" {
         interface ShortcutsSectionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ShortcutsSection>
             readonly prototype: ShortcutsSection
+
             new (props?: Partial<GObject.ConstructorProps<ShortcutsSection>>): ShortcutsSection
             /**
              * Creates a new `AdwShortcutsSection` with @title as its title if provided.
@@ -12077,7 +14025,23 @@ declare module "gi://Adw?version=1" {
             "new"(title: string | null): ShortcutsSection
         }
 
-        const ShortcutsSection: ShortcutsSectionClass
+        interface $Exports {
+            /**
+             * An object representing a section in [class@ShortcutsDialog].
+             *
+             * It contains [class@ShortcutsItem] objects, use [method@ShortcutsSection.add] to
+             * add them.
+             *
+             * `AdwShortcutsSection` implements the [iface@Gio.ListModel] interface and
+             * allows to access the added shortcut items through it.
+             *
+             * ## `AdwShortcutsSection` as `GtkBuildable`
+             *
+             * `AdwShortcutsSection` allows adding `AdwShortcutsItem` objects as children.
+             * @since 1.8
+             */
+            ShortcutsSection: ShortcutsSectionClass
+        }
         
 
         namespace Sidebar {
@@ -12100,7 +14064,7 @@ declare module "gi://Adw?version=1" {
                  * @param preferred_action the preferred drop action
                  * @returns whether the drop was accepted  SinceL 1.9
                  */
-                "drop"(index: number, value: GObject.Value, preferred_action: Gdk.DragAction): boolean
+                "drop"(index: number, value: (GObject.Value | unknown), preferred_action: Gdk.DragAction): boolean
                 /**
                  * Emitted when the pointer enters the item at @index.
                  *
@@ -12128,7 +14092,7 @@ declare module "gi://Adw?version=1" {
                  * @param value the `GValue` being dropped
                  * @returns the preferred action for the drop
                  */
-                "drop-value-loaded"(index: number, value: GObject.Value): Gdk.DragAction
+                "drop-value-loaded"(index: number, value: (GObject.Value | unknown)): Gdk.DragAction
                 /**
                  * Emitted when a context menu is opened or closed for @item.
                  *
@@ -12169,23 +14133,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * ## CSS nodes
-         *
-         * `AdwSidebar` has a main CSS node with the name `sidebar`.
-         *
-         * Internally, it's using a [class@Gtk.ListBox] with the
-         * [`.navigation-sidebar`](style-classes.html#sidebars) style class in sidebar
-         * mode, or an [class@PreferencesPage] in page mode.
-         *
-         * ## Accessibility
-         *
-         * `AdwSidebar` uses the [enum@Gtk.AccessibleRole.generic] role.
-         * @since 1.9
-         */
         interface Sidebar extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: Sidebar.SignalSignatures
             readonly $readableProperties: Sidebar.ReadableProperties
@@ -12522,16 +14469,238 @@ declare module "gi://Adw?version=1" {
         interface SidebarClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Sidebar>
             readonly prototype: Sidebar
+
             new (props?: Partial<GObject.ConstructorProps<Sidebar>>): Sidebar
             /**
              * Creates a new `AdwSidebar`.
              * @since 1.9
              * @returns the newly created `AdwSidebar`
              */
-            "new"(): Gtk.Widget
+            "new"(): Sidebar
         }
 
-        const Sidebar: SidebarClass
+        interface $Exports {
+            /**
+             * Adaptive sidebar widget.
+             *
+             * <picture>
+             *   <source srcset="sidebar-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="sidebar.png" alt="sidebar">
+             * </picture>
+             *
+             * `AdwSidebar` contains [class@SidebarSection] objects, which in turn contain
+             * [class@SidebarItem] objects.
+             *
+             * To add sections, use [method@Sidebar.append], [method@Sidebar.prepend] or
+             * [method@Sidebar.insert].
+             *
+             * To remove sections, use [method@Sidebar.remove] or
+             * [method@Sidebar.remove_all].
+             *
+             * To inspect the items, use [method@Sidebar.get_item] or
+             * [property@Sidebar:items].
+             *
+             * To inspect sections themselves, use [method@Sidebar.get_section] or
+             * [property@Sidebar:sections].
+             *
+             * ## Selection and activation
+             *
+             * `AdwSidebar` has zero or one selected items. The index of the item can be
+             * accessed and changed via [property@Sidebar:selected]. Set it to
+             * [const@Gtk.INVALID_LIST_POSITION] to remove selection.
+             *
+             * Selection cannot be permanently disabled.
+             *
+             * [property@Sidebar:selected-item] can be used to access the selected item.
+             *
+             * Connect to the [signal@Sidebar::activated] signal to run code when an item
+             * has been activated. This can be used to toggle the visible pane when used in
+             * a split view.
+             *
+             * See also: [class@ViewSwitcherSidebar].
+             *
+             * ## Modes
+             *
+             * <picture>
+             *   <source srcset="sidebar-modes-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="sidebar-modes.png" alt="sidebar-modes">
+             * </picture>
+             *
+             * `AdwSidebar` is adaptive and can act as either a regular sidebar, or a page
+             * of boxed lists.
+             *
+             * Use the [property@Sidebar:mode] to determine its look and behavior.
+             *
+             * A typical use case involves using `AdwSidebar` inside the sidebar pane of a
+             * [class@NavigationSplitView], and switching mode to page whenever it's
+             * collapsed, as follows:
+             *
+             * ```xml
+             * <object class="AdwWindow">
+             *   <property name="default-width">800</property>
+             *   <property name="default-height">600</property>
+             *   <child>
+             *     <object class="AdwBreakpoint">
+             *       <condition>max-width: 400sp</condition>
+             *       <setter object="split_view" property="collapsed">True</setter>
+             *       <setter object="sidebar" property="mode">page</setter>
+             *     </object>
+             *   </child>
+             *   <property name="content">
+             *     <object class="AdwNavigationSplitView" id="split_view">
+             *       <property name="sidebar">
+             *         <object class="AdwNavigationPage">
+             *           <property name="title" translatable="yes">Sidebar</property>
+             *           <property name="child">
+             *             <object class="AdwToolbarView">
+             *               <child type="top">
+             *                 <object class="AdwHeaderBar"/>
+             *               </child>
+             *               <property name="content">
+             *                 <object class="AdwSidebar" id="sidebar">
+             *                   <!-- Calls adw_navigation_split_view_set_show_content (split_view, TRUE); -->
+             *                   <signal name="activated" handler="sidebar_activated_cb"/>
+             *                   <!-- ... -->
+             *                 </object>
+             *               </property>
+             *             </object>
+             *           </property>
+             *         </object>
+             *       </property>
+             *       <property name="content">
+             *         <object class="AdwNavigationPage">
+             *           <property name="title" translatable="yes">Content</property>
+             *           <property name="child">
+             *             <!-- ... -->
+             *           </property>
+             *         </object>
+             *       </property>
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * When used with [class@OverlaySplitView], the sidebar should stay in sidebar
+             * mode, as the sidebar pane is still a sidebar when collapsed.
+             *
+             * ## Search
+             *
+             * `AdwSidebar` supports filtering items via the [property@Sidebar:filter]
+             * property.
+             *
+             * Use [property@Sidebar:placeholder] to provide an empty state widget. It will
+             * be shown when all items have been filtered out, or the sidebar has no items
+             * otherwise.
+             *
+             * ## Context Menu
+             *
+             * To create a context menu for the sidebar items, use the
+             * [property@Sidebar:menu-model] property to provide a menu model, and the
+             * [signal@Sidebar::setup-menu] signal to set up actions for the given item.
+             *
+             * To set or override the menu for just one section, use
+             * [property@SidebarSection:menu-model] instead.
+             *
+             * ## Drag-and-Drop
+             *
+             * `AdwSidebar` items can have a drop target for arbitrary content.
+             *
+             * Use [method@Sidebar.setup_drop_target] to set it up, specifying the
+             * supported content types and drag actions, then connect to
+             * [signal@Sidebar::drop] to handle drops.
+             *
+             * In some cases, it may be necessary to determine the used action based on the
+             * dragged content, or the hovered item.
+             *
+             * To determine it based on the sidebar item, connect to the
+             * [signal@Sidebar::drop-enter] signal and return the action from its handler.
+             *
+             * To determine it based on the content, set [property@Sidebar:drop-preload] to
+             * `TRUE`, then connect to [signal@Sidebar::drop-value-loaded] signal and return
+             * the action from its handler.
+             *
+             * In both cases the action will be passed as a parameter to the
+             * [signal@Sidebar::drop] signal.
+             *
+             * Regardless of whether a drop target was set up, dragging content over sidebar
+             * items activates them after a timeout. To disable this behavior for specific
+             * items, set [property@SidebarItem:drag-motion-activate] to `FALSE` on them.
+             *
+             * ## `AdwSidebar` as `GtkBuildable`
+             *
+             * `AdwSidebar` allows adding sections as children.
+             *
+             * Example of an `AdwSidebar` UI definition:
+             *
+             * ```xml
+             * <object class="AdwSidebar">
+             *   <child>
+             *     <object class="AdwSidebarSection">
+             *       <child>
+             *         <object class="AdwSidebarItem">
+             *           <property name="title" translatable="yes">Recent</property>
+             *           <property name="icon-name">document-open-recent-symbolic</property>
+             *         </object>
+             *       </child>
+             *       <child>
+             *         <object class="AdwSidebarItem">
+             *           <property name="title" translatable="yes">Starred</property>
+             *           <property name="icon-name">starred-symbolic</property>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </child>
+             *   <child>
+             *     <object class="AdwSidebarSection">
+             *       <property name="title" translatable="yes">Places</property>
+             *       <child>
+             *         <object class="AdwSidebarItem">
+             *           <property name="title" translatable="yes">Music</property>
+             *           <property name="icon-name">folder-music-symbolic</property>
+             *         </object>
+             *       </child>
+             *       <child>
+             *         <object class="AdwSidebarItem">
+             *           <property name="title" translatable="yes">Pictures</property>
+             *           <property name="icon-name">folder-pictures-symbolic</property>
+             *         </object>
+             *       </child>
+             *       <child>
+             *         <object class="AdwSidebarItem">
+             *           <property name="title" translatable="yes">Videos</property>
+             *           <property name="icon-name">folder-videos-symbolic</property>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </child>
+             *   <child>
+             *     <object class="AdwSidebarSection">
+             *       <child>
+             *         <object class="AdwSidebarItem">
+             *           <property name="title" translatable="yes">Trash</property>
+             *           <property name="icon-name">user-trash-symbolic</property>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </child>
+             * </object>
+             * ```
+             *
+             * ## CSS nodes
+             *
+             * `AdwSidebar` has a main CSS node with the name `sidebar`.
+             *
+             * Internally, it's using a [class@Gtk.ListBox] with the
+             * [`.navigation-sidebar`](style-classes.html#sidebars) style class in sidebar
+             * mode, or an [class@PreferencesPage] in page mode.
+             *
+             * ## Accessibility
+             *
+             * `AdwSidebar` uses the [enum@Gtk.AccessibleRole.generic] role.
+             * @since 1.9
+             */
+            Sidebar: SidebarClass
+        }
         
 
         namespace SidebarItem {
@@ -12570,41 +14739,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * An item within [class@SidebarSection].
-         *
-         * Sidebar items must have a title, set via [property@SidebarItem:title].
-         *
-         * Sidebar items should, but are not required to, have an icon. Icons can be set
-         * from an icon name, via [property@SidebarItem:icon-name], or a
-         * [iface@Gdk.Paintable], via [property@SidebarItem:icon-paintable].
-         *
-         * Items can also have subtitles, set with the [property@SidebarItem:subtitle]
-         * property. Subtitles should be used sparingly.
-         *
-         * To add a tooltip, use [property@SidebarItem:tooltip]. Tooltips always use
-         * Pango markup.
-         *
-         * Items can have an arbitrary suffix widget, set with the
-         * [property@SidebarItem:suffix] properties. It will be displayed at the end of
-         * its row, or before the arrow in the [enum@Adw.SidebarMode.page] mode.
-         *
-         * To hide or disable the item, use the [property@SidebarItem:visible] and
-         * [property@SidebarItem:enabled] properties respectively.
-         *
-         * To access the items's section, use [property@SidebarItem:section].
-         *
-         * It's also possible to access the index of the item in both the section and
-         * the sidebar, using [method@SidebarItem.get_section_index] and
-         * [method@SidebarItem.get_index] respectively.
-         *
-         * Dragging content over sidebar items activates them by default. To disable
-         * this behavior, set [property@SidebarItem:drag-motion-activate] to `FALSE`.
-         *
-         * `AdwSidebarItem` is derivable, and applications that need to associate each
-         * page with data can store it in the items themselves  this way.
-         * @since 1.9
-         */
         interface SidebarItem extends GObject.Object {
             readonly $signals: SidebarItem.SignalSignatures
             readonly $readableProperties: SidebarItem.ReadableProperties
@@ -12871,6 +15005,7 @@ declare module "gi://Adw?version=1" {
         interface SidebarItemClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SidebarItem>
             readonly prototype: SidebarItem
+
             new (props?: Partial<GObject.ConstructorProps<SidebarItem>>): SidebarItem
             /**
              * Creates a new `AdwSidebarItem` with @title as its title.
@@ -12881,7 +15016,44 @@ declare module "gi://Adw?version=1" {
             "new"(title: string): SidebarItem
         }
 
-        const SidebarItem: SidebarItemClass
+        interface $Exports {
+            /**
+             * An item within [class@SidebarSection].
+             *
+             * Sidebar items must have a title, set via [property@SidebarItem:title].
+             *
+             * Sidebar items should, but are not required to, have an icon. Icons can be set
+             * from an icon name, via [property@SidebarItem:icon-name], or a
+             * [iface@Gdk.Paintable], via [property@SidebarItem:icon-paintable].
+             *
+             * Items can also have subtitles, set with the [property@SidebarItem:subtitle]
+             * property. Subtitles should be used sparingly.
+             *
+             * To add a tooltip, use [property@SidebarItem:tooltip]. Tooltips always use
+             * Pango markup.
+             *
+             * Items can have an arbitrary suffix widget, set with the
+             * [property@SidebarItem:suffix] properties. It will be displayed at the end of
+             * its row, or before the arrow in the [enum@Adw.SidebarMode.page] mode.
+             *
+             * To hide or disable the item, use the [property@SidebarItem:visible] and
+             * [property@SidebarItem:enabled] properties respectively.
+             *
+             * To access the items's section, use [property@SidebarItem:section].
+             *
+             * It's also possible to access the index of the item in both the section and
+             * the sidebar, using [method@SidebarItem.get_section_index] and
+             * [method@SidebarItem.get_index] respectively.
+             *
+             * Dragging content over sidebar items activates them by default. To disable
+             * this behavior, set [property@SidebarItem:drag-motion-activate] to `FALSE`.
+             *
+             * `AdwSidebarItem` is derivable, and applications that need to associate each
+             * page with data can store it in the items themselves  this way.
+             * @since 1.9
+             */
+            SidebarItem: SidebarItemClass
+        }
         
 
         namespace SidebarSection {
@@ -12906,10 +15078,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * >
-         * @since 1.9
-         */
         interface SidebarSection extends GObject.Object, Gtk.Buildable {
             readonly $signals: SidebarSection.SignalSignatures
             readonly $readableProperties: SidebarSection.ReadableProperties
@@ -13079,6 +15247,7 @@ declare module "gi://Adw?version=1" {
         interface SidebarSectionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SidebarSection>
             readonly prototype: SidebarSection
+
             new (props?: Partial<GObject.ConstructorProps<SidebarSection>>): SidebarSection
             /**
              * Creates a new `AdwSidebarSection`.
@@ -13088,7 +15257,78 @@ declare module "gi://Adw?version=1" {
             "new"(): SidebarSection
         }
 
-        const SidebarSection: SidebarSectionClass
+        interface $Exports {
+            /**
+             * A section within [class@Sidebar].
+             *
+             * `AdwSidebarSection` contains [class@SidebarItem] objects.
+             *
+             * Section can optionally have a title, set with the
+             * [property@SidebarSection:title] property. If a title is not set, the section
+             * will have a separator in front of it, or just spacing in the
+             * [enum@Adw.SidebarMode.page] mode.
+             *
+             * To add items, use [method@SidebarSection.append],
+             * [method@SidebarSection.prepend] or [method@SidebarSection.insert].
+             *
+             * To remove items, use [method@SidebarSection.remove] or
+             * [method@SidebarSection.remove_all].
+             *
+             * To inspect the items, use [method@SidebarSection.get_item] or
+             * [property@SidebarSection:items].
+             *
+             * To get the sidebar the section is in, use[property@SidebarSection:sidebar].
+             *
+             * ## Binding models
+             *
+             * `AdwSidebarSection` can show items from a provided [iface@Gio.ListModel],
+             * using [method@SidebarSection.bind_model]. It works the same way as
+             * [method@Gtk.ListBox.bind_model], except the provided function creates an
+             * [class@SidebarItem] rather than a [class@Gtk.ListBoxRow].
+             *
+             * While a model is bound, adding or removing items manually is not allowed.
+             * Inspecting them is still allowed, but discouraged.
+             *
+             * ## `AdwSidebarSection` as `GtkBuildable`
+             *
+             * `AdwSidebarSection` allows adding items as children.
+             *
+             * Example of an `AdwSidebarSection` UI definition:
+             *
+             * ```xml
+             * <object class="AdwSidebarSection">
+             *   <property name="title" translatable="yes">Places</property>
+             *   <child>
+             *     <object class="AdwSidebarItem">
+             *       <property name="title" translatable="yes">Music</property>
+             *       <property name="icon-name">folder-music-symbolic</property>
+             *     </object>
+             *   </child>
+             *   <child>
+             *     <object class="AdwSidebarItem">
+             *       <property name="title" translatable="yes">Pictures</property>
+             *       <property name="icon-name">folder-pictures-symbolic</property>
+             *     </object>
+             *   </child>
+             *   <child>
+             *     <object class="AdwSidebarItem">
+             *       <property name="title" translatable="yes">Videos</property>
+             *       <property name="icon-name">folder-videos-symbolic</property>
+             *     </object>
+             *   </child>
+             * </object>
+             * ```
+             *
+             * Result:
+             *
+             * <picture>
+             *   <source srcset="sidebar-section-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="sidebar-section.png" alt="sidebar-section">
+             * </picture>
+             * @since 1.9
+             */
+            SidebarSection: SidebarSectionClass
+        }
         
 
         namespace SpinRow {
@@ -13149,23 +15389,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * See [class@Gtk.SpinButton] for details.
-         *
-         * ## CSS nodes
-         *
-         * `AdwSpinRow` has the same structure as [class@ActionRow], as well as the
-         * `.spin` style class on the main node.
-         *
-         * ## Accessibility
-         *
-         * `AdwSpinRow` uses an internal `GtkSpinButton` with the
-         * [enum@Gtk.AccessibleRole.spin-button] role.
-         * @since 1.4
-         */
         interface SpinRow extends ActionRow, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Editable {
             readonly $signals: SpinRow.SignalSignatures
             readonly $readableProperties: SpinRow.ReadableProperties
@@ -13357,6 +15580,7 @@ declare module "gi://Adw?version=1" {
         interface SpinRowClass extends Omit<ActionRowClass, "new"> {
             readonly $gtype: GObject.GType<SpinRow>
             readonly prototype: SpinRow
+
             new (props?: Partial<GObject.ConstructorProps<SpinRow>>): SpinRow
             /**
              * Creates a new `AdwSpinRow`.
@@ -13366,7 +15590,7 @@ declare module "gi://Adw?version=1" {
              * @param digits the number of decimal places to display
              * @returns the newly created `AdwSpinRow`
              */
-            "new"(adjustment: Gtk.Adjustment | null, climb_rate: number, digits: number): Gtk.Widget
+            "new"(adjustment: Gtk.Adjustment | null, climb_rate: number, digits: number): SpinRow
             /**
              * Creates a new `AdwSpinRow` with the given properties.
              *
@@ -13385,10 +15609,50 @@ declare module "gi://Adw?version=1" {
              * @param step increment added or subtracted by spinning the widget
              * @returns the new `AdwSpinRow`
              */
-            new_with_range(min: number, max: number, step: number): Gtk.Widget
+            new_with_range(min: number, max: number, step: number): SpinRow
         }
 
-        const SpinRow: SpinRowClass
+        interface $Exports {
+            /**
+             * An [class@ActionRow] with an embedded spin button.
+             *
+             * <picture>
+             *   <source srcset="spin-row-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="spin-row.png" alt="spin-row">
+             * </picture>
+             *
+             * Example of an `AdwSpinRow` UI definition:
+             *
+             * ```xml
+             * <object class="AdwSpinRow">
+             *   <property name="title" translatable="yes">Spin Row</property>
+             *   <property name="adjustment">
+             *     <object class="GtkAdjustment">
+             *       <property name="lower">0</property>
+             *       <property name="upper">100</property>
+             *       <property name="value">50</property>
+             *       <property name="page-increment">10</property>
+             *       <property name="step-increment">1</property>
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * See [class@Gtk.SpinButton] for details.
+             *
+             * ## CSS nodes
+             *
+             * `AdwSpinRow` has the same structure as [class@ActionRow], as well as the
+             * `.spin` style class on the main node.
+             *
+             * ## Accessibility
+             *
+             * `AdwSpinRow` uses an internal `GtkSpinButton` with the
+             * [enum@Gtk.AccessibleRole.spin-button] role.
+             * @since 1.4
+             */
+            SpinRow: SpinRowClass
+        }
         
 
         namespace Spinner {
@@ -13405,23 +15669,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * See [class@SpinnerPaintable] for cases where using a widget is impractical or
-         * impossible, such as [property@StatusPage:paintable].
-         *
-         * ## CSS nodes
-         *
-         * `AdwSpinner` has a single node with the name `image` and the style class
-         * `.spinner`.
-         *
-         * ## Accessibility
-         *
-         * `AdwSpinner` uses the [enum@Gtk.AccessibleRole.progress-bar] role.
-         * @since 1.6
-         */
         interface Spinner extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: Spinner.SignalSignatures
             readonly $readableProperties: Spinner.ReadableProperties
@@ -13432,16 +15679,58 @@ declare module "gi://Adw?version=1" {
         interface SpinnerClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Spinner>
             readonly prototype: Spinner
+
             new (props?: Partial<GObject.ConstructorProps<Spinner>>): Spinner
             /**
              * Creates a new `AdwSpinner`.
              * @since 1.6
              * @returns the newly created `AdwSpinner`
              */
-            "new"(): Gtk.Widget
+            "new"(): Spinner
         }
 
-        const Spinner: SpinnerClass
+        interface $Exports {
+            /**
+             * A widget showing a loading spinner.
+             *
+             * <picture>
+             *   <source srcset="spinner-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="spinner.png" alt="spinner">
+             * </picture>
+             *
+             * The size of the spinner depends on the available size, never smaller than
+             * 16×16 pixels and never larger than 64×64 pixels.
+             *
+             * Use the [property@Gtk.Widget:halign] and [property@Gtk.Widget:valign]
+             * properties in combination with [property@Gtk.Widget:width-request] and
+             * [property@Gtk.Widget:height-request] for fine sizing control.
+             *
+             * For example, the following snippet shows the spinner at 48×48 pixels:
+             *
+             * ```xml
+             * <object class="AdwSpinner">
+             *   <property name="halign">center</property>
+             *   <property name="valign">center</property>
+             *   <property name="width-request">48</property>
+             *   <property name="height-request">48</property>
+             * </object>
+             * ```
+             *
+             * See [class@SpinnerPaintable] for cases where using a widget is impractical or
+             * impossible, such as [property@StatusPage:paintable].
+             *
+             * ## CSS nodes
+             *
+             * `AdwSpinner` has a single node with the name `image` and the style class
+             * `.spinner`.
+             *
+             * ## Accessibility
+             *
+             * `AdwSpinner` uses the [enum@Gtk.AccessibleRole.progress-bar] role.
+             * @since 1.6
+             */
+            Spinner: SpinnerClass
+        }
         
 
         namespace SpinnerPaintable {
@@ -13460,11 +15749,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         * @since 1.6
-         */
         interface SpinnerPaintable extends GObject.Object, Gdk.Paintable, Gtk.SymbolicPaintable {
             readonly $signals: SpinnerPaintable.SignalSignatures
             readonly $readableProperties: SpinnerPaintable.ReadableProperties
@@ -13493,6 +15777,7 @@ declare module "gi://Adw?version=1" {
         interface SpinnerPaintableClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SpinnerPaintable>
             readonly prototype: SpinnerPaintable
+
             new (props?: Partial<GObject.ConstructorProps<SpinnerPaintable>>): SpinnerPaintable
             /**
              * Creates a new `AdwSpinnerPaintable` for @widget.
@@ -13503,7 +15788,41 @@ declare module "gi://Adw?version=1" {
             "new"(widget: Gtk.Widget | null): SpinnerPaintable
         }
 
-        const SpinnerPaintable: SpinnerPaintableClass
+        interface $Exports {
+            /**
+             * A paintable showing a loading spinner.
+             *
+             * <picture>
+             *   <source srcset="spinner-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="spinner.png" alt="spinner">
+             * </picture>
+             *
+             * `AdwSpinnerPaintable` size varies depending on the available space, but is
+             * capped at 64×64 pixels.
+             *
+             * To be able to animate, `AdwSpinnerPaintable` needs a widget. It will be
+             * animated according to that widget's frame clock, and only if that widget is
+             * mapped. Ideally it should be the same widget the paintable is displayed in,
+             * but that's not a requirement.
+             *
+             * Most applications should be using [class@Spinner] instead.
+             * `AdwSpinnerPaintable` is provided for the cases where using a widget is
+             * impractical or impossible, such as [property@StatusPage:paintable]:
+             *
+             * ```xml
+             * <object class="AdwStatusPage" id="status_page">
+             *   <property name="paintable">
+             *     <object class="AdwSpinnerPaintable">
+             *       <property name="widget">status_page</property>
+             *     </object>
+             *   </property>
+             *   <!-- ... -->
+             * </object>
+             * ```
+             * @since 1.6
+             */
+            SpinnerPaintable: SpinnerPaintableClass
+        }
         
 
         namespace SplitButton {
@@ -13549,37 +15868,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ├── separator
-         * ╰── menubutton
-         *     ╰── button.toggle
-         *         ╰── arrow
-         * ```
-         *
-         * `AdwSplitButton`'s CSS node is called `splitbutton`. It contains the css
-         * nodes: `button`, `separator`, `menubutton`. See [class@Gtk.MenuButton]
-         * documentation for the `menubutton` contents.
-         *
-         * The main CSS node will contain the `.image-button` or `.text-button` style
-         * classes matching the button contents. The nested button nodes will never
-         * contain them.
-         *
-         * ## Style classes
-         *
-         * `AdwSplitButton` can use some of the same style classes as [class@Gtk.Button]:
-         *
-         * - [`.suggested-action`](style-classes.html#suggested-action)
-         * - [`.destructive-action`](style-classes.html#destructive-action)
-         * - [`.flat`](style-classes.html#flat)
-         * - [`.raised`](style-classes.html#raised)
-         *
-         * Other style classes, like `.pill`, cannot be used.
-         *
-         * ## Accessibility
-         *
-         * `AdwSplitButton` uses the [enum@Gtk.AccessibleRole.group] role.
-         */
         interface SplitButton extends Gtk.Widget, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: SplitButton.SignalSignatures
             readonly $readableProperties: SplitButton.ReadableProperties
@@ -13822,15 +16110,67 @@ declare module "gi://Adw?version=1" {
         interface SplitButtonClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<SplitButton>
             readonly prototype: SplitButton
+
             new (props?: Partial<GObject.ConstructorProps<SplitButton>>): SplitButton
             /**
              * Creates a new `AdwSplitButton`.
              * @returns the newly created `AdwSplitButton`
              */
-            "new"(): Gtk.Widget
+            "new"(): SplitButton
         }
 
-        const SplitButton: SplitButtonClass
+        interface $Exports {
+            /**
+             * A combined button and dropdown widget.
+             *
+             * <picture>
+             *   <source srcset="split-button-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="split-button.png" alt="split-button">
+             * </picture>
+             *
+             * `AdwSplitButton` is typically used to present a set of actions in a menu,
+             * but allow access to one of them with a single click.
+             *
+             * The API is very similar to [class@Gtk.Button] and [class@Gtk.MenuButton], see
+             * their documentation for details.
+             *
+             * ## CSS nodes
+             *
+             * ```
+             * splitbutton[.image-button][.text-button]
+             * ├── button
+             * │   ╰── <content>
+             * ├── separator
+             * ╰── menubutton
+             *     ╰── button.toggle
+             *         ╰── arrow
+             * ```
+             *
+             * `AdwSplitButton`'s CSS node is called `splitbutton`. It contains the css
+             * nodes: `button`, `separator`, `menubutton`. See [class@Gtk.MenuButton]
+             * documentation for the `menubutton` contents.
+             *
+             * The main CSS node will contain the `.image-button` or `.text-button` style
+             * classes matching the button contents. The nested button nodes will never
+             * contain them.
+             *
+             * ## Style classes
+             *
+             * `AdwSplitButton` can use some of the same style classes as [class@Gtk.Button]:
+             *
+             * - [`.suggested-action`](style-classes.html#suggested-action)
+             * - [`.destructive-action`](style-classes.html#destructive-action)
+             * - [`.flat`](style-classes.html#flat)
+             * - [`.raised`](style-classes.html#raised)
+             *
+             * Other style classes, like `.pill`, cannot be used.
+             *
+             * ## Accessibility
+             *
+             * `AdwSplitButton` uses the [enum@Gtk.AccessibleRole.group] role.
+             */
+            SplitButton: SplitButtonClass
+        }
         
 
         namespace SpringAnimation {
@@ -13863,39 +16203,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * A spring-based [class@Animation].
-         *
-         * `AdwSpringAnimation` implements an animation driven by a physical model of a
-         * spring described by [struct@SpringParams], with a resting position in
-         * [property@SpringAnimation:value-to], stretched to
-         * [property@SpringAnimation:value-from].
-         *
-         * Since the animation is physically simulated, spring animations don't have a
-         * fixed duration. The animation will stop when the simulated spring comes to a
-         * rest - when the amplitude of the oscillations becomes smaller than
-         * [property@SpringAnimation:epsilon], or immediately when it reaches
-         * [property@SpringAnimation:value-to] if
-         * [property@SpringAnimation:clamp] is set to `TRUE`. The estimated duration can
-         * be obtained with [property@SpringAnimation:estimated-duration].
-         *
-         * Due to the nature of spring-driven motion the animation can overshoot
-         * [property@SpringAnimation:value-to] before coming to a rest. Whether the
-         * animation will overshoot or not depends on the damping ratio of the spring.
-         * See [struct@SpringParams] for more information about specific damping ratio
-         * values.
-         *
-         * If [property@SpringAnimation:clamp] is `TRUE`, the animation will abruptly
-         * end as soon as it reaches the final value, preventing overshooting.
-         *
-         * Animations can have an initial velocity value, set via
-         * [property@SpringAnimation:initial-velocity], which adjusts the curve without
-         * changing the duration. This makes spring animations useful for deceleration
-         * at the end of gestures.
-         *
-         * If the initial and final values are equal, and the initial velocity is not 0,
-         * the animation value will bounce and return to its resting position.
-         */
         interface SpringAnimation extends Animation {
             readonly $signals: SpringAnimation.SignalSignatures
             readonly $readableProperties: SpringAnimation.ReadableProperties
@@ -14101,6 +16408,7 @@ declare module "gi://Adw?version=1" {
         interface SpringAnimationClass extends Omit<AnimationClass, "new"> {
             readonly $gtype: GObject.GType<SpringAnimation>
             readonly prototype: SpringAnimation
+
             new (props?: Partial<GObject.ConstructorProps<SpringAnimation>>): SpringAnimation
             /**
              * Creates a new `AdwSpringAnimation` on @widget.
@@ -14114,10 +16422,45 @@ declare module "gi://Adw?version=1" {
              * @param target a target value to animate
              * @returns the newly created animation
              */
-            "new"(widget: Gtk.Widget, from: number, to: number, spring_params: SpringParams, target: AnimationTarget): Animation
+            "new"(widget: Gtk.Widget, from: number, to: number, spring_params: SpringParams, target: AnimationTarget): SpringAnimation
         }
 
-        const SpringAnimation: SpringAnimationClass
+        interface $Exports {
+            /**
+             * A spring-based [class@Animation].
+             *
+             * `AdwSpringAnimation` implements an animation driven by a physical model of a
+             * spring described by [struct@SpringParams], with a resting position in
+             * [property@SpringAnimation:value-to], stretched to
+             * [property@SpringAnimation:value-from].
+             *
+             * Since the animation is physically simulated, spring animations don't have a
+             * fixed duration. The animation will stop when the simulated spring comes to a
+             * rest - when the amplitude of the oscillations becomes smaller than
+             * [property@SpringAnimation:epsilon], or immediately when it reaches
+             * [property@SpringAnimation:value-to] if
+             * [property@SpringAnimation:clamp] is set to `TRUE`. The estimated duration can
+             * be obtained with [property@SpringAnimation:estimated-duration].
+             *
+             * Due to the nature of spring-driven motion the animation can overshoot
+             * [property@SpringAnimation:value-to] before coming to a rest. Whether the
+             * animation will overshoot or not depends on the damping ratio of the spring.
+             * See [struct@SpringParams] for more information about specific damping ratio
+             * values.
+             *
+             * If [property@SpringAnimation:clamp] is `TRUE`, the animation will abruptly
+             * end as soon as it reaches the final value, preventing overshooting.
+             *
+             * Animations can have an initial velocity value, set via
+             * [property@SpringAnimation:initial-velocity], which adjusts the curve without
+             * changing the duration. This makes spring animations useful for deceleration
+             * at the end of gestures.
+             *
+             * If the initial and final values are equal, and the initial velocity is not 0,
+             * the animation value will bounce and return to its resting position.
+             */
+            SpringAnimation: SpringAnimationClass
+        }
         
 
         namespace Squeezer {
@@ -14156,22 +16499,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * The `AdwSqueezer` widget is a container which only shows the first of its
-         * children that fits in the available size. It is convenient to offer different
-         * widgets to represent the same data with different levels of detail, making
-         * the widget seem to squeeze itself to fit in the available space.
-         *
-         * Transitions between children can be animated as fades. This can be controlled
-         * with [property@Squeezer:transition-type].
-         *
-         * ## CSS nodes
-         *
-         * `AdwSqueezer` has a single CSS node with name `squeezer`.
-         * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
-         */
         interface Squeezer extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
             readonly $signals: Squeezer.SignalSignatures
             readonly $readableProperties: Squeezer.ReadableProperties
@@ -14473,16 +16800,44 @@ declare module "gi://Adw?version=1" {
         interface SqueezerClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<Squeezer>
             readonly prototype: Squeezer
+
             new (props?: Partial<GObject.ConstructorProps<Squeezer>>): Squeezer
             /**
              * Creates a new `AdwSqueezer`.
              * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
              * @returns the newly created `AdwSqueezer`
              */
-            "new"(): Gtk.Widget
+            "new"(): Squeezer
         }
 
-        const Squeezer: SqueezerClass
+        interface $Exports {
+            /**
+             * A best fit container.
+             *
+             * <picture>
+             *   <source srcset="squeezer-wide-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="squeezer-wide.png" alt="squeezer-wide">
+             * </picture>
+             * <picture>
+             *   <source srcset="squeezer-narrow-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="squeezer-narrow.png" alt="squeezer-narrow">
+             * </picture>
+             *
+             * The `AdwSqueezer` widget is a container which only shows the first of its
+             * children that fits in the available size. It is convenient to offer different
+             * widgets to represent the same data with different levels of detail, making
+             * the widget seem to squeeze itself to fit in the available space.
+             *
+             * Transitions between children can be animated as fades. This can be controlled
+             * with [property@Squeezer:transition-type].
+             *
+             * ## CSS nodes
+             *
+             * `AdwSqueezer` has a single CSS node with name `squeezer`.
+             * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+             */
+            Squeezer: SqueezerClass
+        }
         
 
         namespace SqueezerPage {
@@ -14495,18 +16850,14 @@ declare module "gi://Adw?version=1" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "child": Gtk.Widget
                 "enabled": boolean
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "child": Gtk.Widget
             }
         }
 
-        /**
-         * An auxiliary class used by [class@Squeezer].
-         * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
-         */
         interface SqueezerPage extends GObject.Object {
             readonly $signals: SqueezerPage.SignalSignatures
             readonly $readableProperties: SqueezerPage.ReadableProperties
@@ -14566,10 +16917,17 @@ declare module "gi://Adw?version=1" {
         interface SqueezerPageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SqueezerPage>
             readonly prototype: SqueezerPage
+
             new (props?: Partial<GObject.ConstructorProps<SqueezerPage>>): SqueezerPage
         }
 
-        const SqueezerPage: SqueezerPageClass
+        interface $Exports {
+            /**
+             * An auxiliary class used by [class@Squeezer].
+             * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+             */
+            SqueezerPage: SqueezerPageClass
+        }
         
 
         namespace StatusPage {
@@ -14596,9 +16954,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * >
-         */
         interface StatusPage extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: StatusPage.SignalSignatures
             readonly $readableProperties: StatusPage.ReadableProperties
@@ -14699,15 +17054,49 @@ declare module "gi://Adw?version=1" {
         interface StatusPageClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<StatusPage>
             readonly prototype: StatusPage
+
             new (props?: Partial<GObject.ConstructorProps<StatusPage>>): StatusPage
             /**
              * Creates a new `AdwStatusPage`.
              * @returns the newly created `AdwStatusPage`
              */
-            "new"(): Gtk.Widget
+            "new"(): StatusPage
         }
 
-        const StatusPage: StatusPageClass
+        interface $Exports {
+            /**
+             * A page used for empty/error states and similar use-cases.
+             *
+             * <picture>
+             *   <source srcset="status-page-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="status-page.png" alt="status-page">
+             * </picture>
+             *
+             * The `AdwStatusPage` widget can have an icon, a title, a description and a
+             * custom widget which is displayed below them.
+             *
+             * ## CSS nodes
+             *
+             * `AdwStatusPage` has a main CSS node with name `statuspage`.
+             *
+             * When setting an [class@SpinnerPaintable] as [property@StatusPage:paintable],
+             * the main nodes gains the `.spinner` style class for a more compact
+             * appearance.
+             *
+             * ## Style classes
+             *
+             * `AdwStatusPage` can use the
+             * [`.compact`](style-classes.html#compact-status-page) style class for when it
+             * needs to fit into a small space such a sidebar or a popover, similar to when
+             * using a spinner as the paintable.
+             *
+             * <picture>
+             *   <source srcset="status-page-compact-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="status-page-compact.png" alt="status-page-compact">
+             * </picture>
+             */
+            StatusPage: StatusPageClass
+        }
         
 
         namespace StyleManager {
@@ -14732,7 +17121,6 @@ declare module "gi://Adw?version=1" {
                 "accent-color-rgba": Gdk.RGBA
                 "color-scheme": ColorScheme
                 "dark": boolean
-                "display": Gdk.Display | null
                 "document-font-name": string
                 "high-contrast": boolean
                 "monospace-font-name": string
@@ -14741,21 +17129,10 @@ declare module "gi://Adw?version=1" {
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "display": Gdk.Display | null
             }
         }
 
-        /**
-         * A class for managing application-wide styling.
-         *
-         * `AdwStyleManager` provides a way to query and influence the application
-         * styles, such as whether to use dark style, the system accent color or high
-         * contrast appearance.
-         *
-         * It allows to set the color scheme via the
-         * [property@StyleManager:color-scheme] property, and to query the current
-         * appearance, as well as whether a system-wide color scheme and accent color
-         * preferences exists.
-         */
         interface StyleManager extends GObject.Object {
             readonly $signals: StyleManager.SignalSignatures
             readonly $readableProperties: StyleManager.ReadableProperties
@@ -15022,6 +17399,7 @@ declare module "gi://Adw?version=1" {
         interface StyleManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<StyleManager>
             readonly prototype: StyleManager
+
             new (props?: Partial<GObject.ConstructorProps<StyleManager>>): StyleManager
             /**
              * Gets the default `AdwStyleManager` instance.
@@ -15046,7 +17424,21 @@ declare module "gi://Adw?version=1" {
             get_for_display(display: Gdk.Display): StyleManager
         }
 
-        const StyleManager: StyleManagerClass
+        interface $Exports {
+            /**
+             * A class for managing application-wide styling.
+             *
+             * `AdwStyleManager` provides a way to query and influence the application
+             * styles, such as whether to use dark style, the system accent color or high
+             * contrast appearance.
+             *
+             * It allows to set the color scheme via the
+             * [property@StyleManager:color-scheme] property, and to query the current
+             * appearance, as well as whether a system-wide color scheme and accent color
+             * preferences exists.
+             */
+            StyleManager: StyleManagerClass
+        }
         
 
         namespace SwipeTracker {
@@ -15100,27 +17492,14 @@ declare module "gi://Adw?version=1" {
                 "enabled": boolean
                 "lower-overshoot": boolean
                 "reversed": boolean
-                "swipeable": Swipeable
                 "upper-overshoot": boolean
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gtk.Orientable.ConstructOnlyProperties {
+                "swipeable": Swipeable
             }
         }
 
-        /**
-         * A swipe tracker used in [class@Carousel], [class@NavigationView] and
-         * [class@OverlaySplitView].
-         *
-         * The `AdwSwipeTracker` object can be used for implementing widgets with swipe
-         * gestures. It supports touch-based swipes, pointer dragging, and touchpad
-         * scrolling.
-         *
-         * The widgets will probably want to expose the [property@SwipeTracker:enabled]
-         * property. If they expect to use horizontal orientation,
-         * [property@SwipeTracker:reversed] can be used for supporting RTL text
-         * direction.
-         */
         interface SwipeTracker extends GObject.Object, Gtk.Orientable {
             readonly $signals: SwipeTracker.SignalSignatures
             readonly $readableProperties: SwipeTracker.ReadableProperties
@@ -15292,6 +17671,7 @@ declare module "gi://Adw?version=1" {
         interface SwipeTrackerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SwipeTracker>
             readonly prototype: SwipeTracker
+
             new (props?: Partial<GObject.ConstructorProps<SwipeTracker>>): SwipeTracker
             /**
              * Creates a new `AdwSwipeTracker` for @widget.
@@ -15301,7 +17681,22 @@ declare module "gi://Adw?version=1" {
             "new"(swipeable: Swipeable): SwipeTracker
         }
 
-        const SwipeTracker: SwipeTrackerClass
+        interface $Exports {
+            /**
+             * A swipe tracker used in [class@Carousel], [class@NavigationView] and
+             * [class@OverlaySplitView].
+             *
+             * The `AdwSwipeTracker` object can be used for implementing widgets with swipe
+             * gestures. It supports touch-based swipes, pointer dragging, and touchpad
+             * scrolling.
+             *
+             * The widgets will probably want to expose the [property@SwipeTracker:enabled]
+             * property. If they expect to use horizontal orientation,
+             * [property@SwipeTracker:reversed] can be used for supporting RTL text
+             * direction.
+             */
+            SwipeTracker: SwipeTrackerClass
+        }
         
 
         namespace SwitchRow {
@@ -15320,18 +17715,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * The [property@SwitchRow:active] property should be connected to in order to
-         * monitor changes to the active state.
-         *
-         * ## Accessibility
-         *
-         * `AdwSwitchRow` uses the [enum@Gtk.AccessibleRole.switch] role.
-         * @since 1.4
-         */
         interface SwitchRow extends ActionRow, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: SwitchRow.SignalSignatures
             readonly $readableProperties: SwitchRow.ReadableProperties
@@ -15361,16 +17744,52 @@ declare module "gi://Adw?version=1" {
         interface SwitchRowClass extends Omit<ActionRowClass, "new"> {
             readonly $gtype: GObject.GType<SwitchRow>
             readonly prototype: SwitchRow
+
             new (props?: Partial<GObject.ConstructorProps<SwitchRow>>): SwitchRow
             /**
              * Creates a new `AdwSwitchRow`.
              * @since 1.4
              * @returns the newly created `AdwSwitchRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): SwitchRow
         }
 
-        const SwitchRow: SwitchRowClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.ListBoxRow] used to represent two states.
+             *
+             * <picture>
+             *   <source srcset="switch-row-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="switch-row.png" alt="switch-row">
+             * </picture>
+             *
+             * The `AdwSwitchRow` widget contains a [class@Gtk.Switch] that allows the user
+             * to select between two states: "on" or "off". When activated, the row will
+             * invert its active state.
+             *
+             * The user can control the switch by activating the row or by dragging on the
+             * switch handle.
+             *
+             * See [class@Gtk.Switch] for details.
+             *
+             * Example of an `AdwSwitchRow` UI definition:
+             * ```xml
+             * <object class="AdwSwitchRow">
+             *   <property name="title" translatable="yes">Switch Row</property>
+             *   <signal name="notify::active" handler="switch_row_notify_active_cb"/>
+             * </object>
+             * ```
+             *
+             * The [property@SwitchRow:active] property should be connected to in order to
+             * monitor changes to the active state.
+             *
+             * ## Accessibility
+             *
+             * `AdwSwitchRow` uses the [enum@Gtk.AccessibleRole.switch] role.
+             * @since 1.4
+             */
+            SwitchRow: SwitchRowClass
+        }
         
 
         namespace TabBar {
@@ -15386,7 +17805,7 @@ declare module "gi://Adw?version=1" {
                  * @param value the `GValue` being dropped
                  * @returns whether the drop was accepted
                  */
-                "extra-drag-drop"(page: TabPage, value: GObject.Value): boolean
+                "extra-drag-drop"(page: TabPage, value: (GObject.Value | unknown)): boolean
                 /**
                  * Emitted when the dropped content is preloaded.
                  *
@@ -15435,9 +17854,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * >
-         */
         interface TabBar extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: TabBar.SignalSignatures
             readonly $readableProperties: TabBar.ReadableProperties
@@ -15656,6 +18072,7 @@ declare module "gi://Adw?version=1" {
         interface TabBarClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<TabBar>
             readonly prototype: TabBar
+
             new (props?: Partial<GObject.ConstructorProps<TabBar>>): TabBar
             /**
              * Creates a new `AdwTabBar`.
@@ -15664,7 +18081,62 @@ declare module "gi://Adw?version=1" {
             "new"(): TabBar
         }
 
-        const TabBar: TabBarClass
+        interface $Exports {
+            /**
+             * A tab bar for [class@TabView].
+             *
+             * <picture>
+             *   <source srcset="tab-bar-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="tab-bar.png" alt="tab-bar">
+             * </picture>
+             *
+             * The `AdwTabBar` widget is a tab bar that can be used with conjunction with
+             * `AdwTabView`. It is typically used as a top bar within [class@ToolbarView].
+             *
+             * `AdwTabBar` can autohide and can optionally contain action widgets on both
+             * sides of the tabs.
+             *
+             * When there's not enough space to show all the tabs, `AdwTabBar` will scroll
+             * them. Pinned tabs always stay visible and aren't a part of the scrollable
+             * area.
+             *
+             * ## Drag-and-Drop
+             *
+             * `AdwTabBar` tabs can have an additional drop target for arbitrary content.
+             *
+             * Use [method@TabBar.setup_extra_drop_target] to set it up, specifying the
+             * supported content types and drag actions, then connect to
+             * [signal@TabBar::extra-drag-drop] to handle a drop.
+             *
+             * In some cases, it may be necessary to determine the used action based on the
+             * content. In that case, set [property@TabBar:extra-drag-preload] to `TRUE`
+             * and connect to [signal@TabBar::extra-drag-value] signal, then return the
+             * action from its handler. To access this action from the
+             * [signal@TabBar::extra-drag-drop] handler, use the
+             * [property@TabBar:extra-drag-preferred-action] property.
+             *
+             * [signal@TabBar::extra-drag-value] is also always emitted when starting to
+             * hover an item, with a `NULL` value. This happens even when
+             * [property@TabBar:extra-drag-preload] is `FALSE`.
+             *
+             * ## CSS nodes
+             *
+             * `AdwTabBar` has a single CSS node with name `tabbar`.
+             *
+             * ## Style classes
+             *
+             * By default `AdwTabBar` look like a part of an `AdwHeaderBar` and is intended
+             * to be used directly attached to one or used as a [class@ToolbarView] toolbar.
+             * The [`.inline`](style-classes.html#inline) style class removes its background,
+             * so that it can be used in different contexts instead.
+             *
+             * <picture>
+             *   <source srcset="tab-bar-inline-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="tab-bar-inline.png" alt="tab-bar-inline">
+             * </picture>
+             */
+            TabBar: TabBarClass
+        }
         
 
         namespace TabButton {
@@ -15696,19 +18168,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * ## CSS nodes
-         *
-         * `AdwTabButton` has a main CSS node with name `tabbutton`.
-         *
-         * # Accessibility
-         *
-         * `AdwTabButton` uses the [enum@Gtk.AccessibleRole.button] role.
-         * @since 1.3
-         */
         interface TabButton extends Gtk.Widget, Gtk.Accessible, Gtk.Actionable, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: TabButton.SignalSignatures
             readonly $readableProperties: TabButton.ReadableProperties
@@ -15737,16 +18196,50 @@ declare module "gi://Adw?version=1" {
         interface TabButtonClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<TabButton>
             readonly prototype: TabButton
+
             new (props?: Partial<GObject.ConstructorProps<TabButton>>): TabButton
             /**
              * Creates a new `AdwTabButton`.
              * @since 1.3
              * @returns the newly created `AdwTabButton`
              */
-            "new"(): Gtk.Widget
+            "new"(): TabButton
         }
 
-        const TabButton: TabButtonClass
+        interface $Exports {
+            /**
+             * A button that displays the number of [class@TabView] pages.
+             *
+             * <picture>
+             *   <source srcset="tab-button-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="tab-button.png" alt="tab-button">
+             * </picture>
+             *
+             * `AdwTabButton` is a button that displays the number of pages in a given
+             * `AdwTabView`, as well as whether one of the inactive pages needs attention.
+             *
+             * It's intended to be used as a visible indicator when there's no visible tab
+             * bar, typically opening an [class@TabOverview] on click, e.g. via the
+             * `overview.open` action name:
+             *
+             * ```xml
+             * <object class="AdwTabButton">
+             *   <property name="view">view</property>
+             *   <property name="action-name">overview.open</property>
+             * </object>
+             * ```
+             *
+             * ## CSS nodes
+             *
+             * `AdwTabButton` has a main CSS node with name `tabbutton`.
+             *
+             * # Accessibility
+             *
+             * `AdwTabButton` uses the [enum@Gtk.AccessibleRole.button] role.
+             * @since 1.3
+             */
+            TabButton: TabButtonClass
+        }
         
 
         namespace TabOverview {
@@ -15775,7 +18268,7 @@ declare module "gi://Adw?version=1" {
                  * @param value the `GValue` being dropped
                  * @returns whether the drop was accepted
                  */
-                "extra-drag-drop"(page: TabPage, value: GObject.Value): boolean
+                "extra-drag-drop"(page: TabPage, value: (GObject.Value | unknown)): boolean
                 /**
                  * Emitted when the dropped content is preloaded.
                  *
@@ -15828,80 +18321,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * `AdwTabOverview` is a widget that can display tabs from an `AdwTabView` in a
-         * grid.
-         *
-         * `AdwTabOverview` shows a thumbnail for each tab. By default thumbnails are
-         * static for all pages except the selected one. They can be made always live
-         * by setting [property@TabPage:live-thumbnail] to `TRUE`, or refreshed with
-         * [method@TabPage.invalidate_thumbnail] or
-         * [method@TabView.invalidate_thumbnails] otherwise.
-         *
-         * If the pages are too tall or too wide, the thumbnails will be cropped; use
-         * [property@TabPage:thumbnail-xalign] and [property@TabPage:thumbnail-yalign] to
-         * control which part of the page should be visible in this case.
-         *
-         * Pinned tabs are shown as smaller cards without thumbnails above the other
-         * tabs. Unlike in [class@TabBar], they still have titles, as well as an unpin
-         * button.
-         *
-         * `AdwTabOverview` provides search in open tabs. It searches in tab titles and
-         * tooltips, as well as [property@TabPage:keyword].
-         *
-         * If [property@TabOverview:enable-new-tab] is set to `TRUE`, a new tab button
-         * will be shown. Connect to the [signal@TabOverview::create-tab] signal to use
-         * it.
-         *
-         * [property@TabOverview:secondary-menu] can be used to provide a secondary menu
-         * for the overview. Use it to add extra actions, e.g. to open a new window or
-         * undo closed tab.
-         *
-         * `AdwTabOverview` is intended to be used as the direct child of the window,
-         * with the rest of the window contents set as the [property@TabOverview:child].
-         * The child is expected to contain an [class@TabView].
-         *
-         * `AdwTabOverview` shows window buttons by default. They can be disabled by
-         * setting [property@TabOverview:show-start-title-buttons] and/or
-         * [property@TabOverview:show-start-title-buttons] and/or
-         * [property@TabOverview:show-end-title-buttons] to `FALSE`.
-         *
-         * If search and window buttons are disabled, and secondary menu is not set, the
-         * header bar will be hidden.
-         *
-         * ## Drag-and-Drop
-         *
-         * `AdwTabOverview` thumbnails can have an additional drop target for arbitrary
-         * content.
-         *
-         * Use [method@TabOverview.setup_extra_drop_target] to set it up, specifying the
-         * supported content types and drag actions, then connect to
-         * [signal@TabOverview::extra-drag-drop] to handle a drop.
-         *
-         * In some cases, it may be necessary to determine the used action based on the
-         * content. In that case, set [property@TabOverview:extra-drag-preload] to
-         * `TRUE` and connect to [signal@TabOverview::extra-drag-value] signal, then
-         * return the action from its handler. To access this action from the
-         * [signal@TabOverview::extra-drag-drop] handler, use the
-         * [property@TabOverview:extra-drag-preferred-action] property.
-         *
-         * [signal@TabOverview::extra-drag-value] is also always emitted when starting to
-         * hover an item, with a `NULL` value. This happens even when
-         * [property@TabOverview:extra-drag-preload] is `FALSE`.
-         *
-         * ## Actions
-         *
-         * `AdwTabOverview` defines the `overview.open` and `overview.close` actions for
-         * opening and closing itself. They can be convenient when used together with
-         * [class@TabButton].
-         *
-         * ## CSS nodes
-         *
-         * `AdwTabOverview` has a single CSS node with name `taboverview`.
-         * @since 1.3
-         */
         interface TabOverview extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: TabOverview.SignalSignatures
             readonly $readableProperties: TabOverview.ReadableProperties
@@ -16206,16 +18625,98 @@ declare module "gi://Adw?version=1" {
         interface TabOverviewClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<TabOverview>
             readonly prototype: TabOverview
+
             new (props?: Partial<GObject.ConstructorProps<TabOverview>>): TabOverview
             /**
              * Creates a new `AdwTabOverview`.
              * @since 1.3
              * @returns the newly created `AdwTabOverview`
              */
-            "new"(): Gtk.Widget
+            "new"(): TabOverview
         }
 
-        const TabOverview: TabOverviewClass
+        interface $Exports {
+            /**
+             * A tab overview for [class@TabView].
+             *
+             * <picture>
+             *   <source srcset="tab-overview-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="tab-overview.png" alt="tab-overview">
+             * </picture>
+             *
+             * `AdwTabOverview` is a widget that can display tabs from an `AdwTabView` in a
+             * grid.
+             *
+             * `AdwTabOverview` shows a thumbnail for each tab. By default thumbnails are
+             * static for all pages except the selected one. They can be made always live
+             * by setting [property@TabPage:live-thumbnail] to `TRUE`, or refreshed with
+             * [method@TabPage.invalidate_thumbnail] or
+             * [method@TabView.invalidate_thumbnails] otherwise.
+             *
+             * If the pages are too tall or too wide, the thumbnails will be cropped; use
+             * [property@TabPage:thumbnail-xalign] and [property@TabPage:thumbnail-yalign] to
+             * control which part of the page should be visible in this case.
+             *
+             * Pinned tabs are shown as smaller cards without thumbnails above the other
+             * tabs. Unlike in [class@TabBar], they still have titles, as well as an unpin
+             * button.
+             *
+             * `AdwTabOverview` provides search in open tabs. It searches in tab titles and
+             * tooltips, as well as [property@TabPage:keyword].
+             *
+             * If [property@TabOverview:enable-new-tab] is set to `TRUE`, a new tab button
+             * will be shown. Connect to the [signal@TabOverview::create-tab] signal to use
+             * it.
+             *
+             * [property@TabOverview:secondary-menu] can be used to provide a secondary menu
+             * for the overview. Use it to add extra actions, e.g. to open a new window or
+             * undo closed tab.
+             *
+             * `AdwTabOverview` is intended to be used as the direct child of the window,
+             * with the rest of the window contents set as the [property@TabOverview:child].
+             * The child is expected to contain an [class@TabView].
+             *
+             * `AdwTabOverview` shows window buttons by default. They can be disabled by
+             * setting [property@TabOverview:show-start-title-buttons] and/or
+             * [property@TabOverview:show-start-title-buttons] and/or
+             * [property@TabOverview:show-end-title-buttons] to `FALSE`.
+             *
+             * If search and window buttons are disabled, and secondary menu is not set, the
+             * header bar will be hidden.
+             *
+             * ## Drag-and-Drop
+             *
+             * `AdwTabOverview` thumbnails can have an additional drop target for arbitrary
+             * content.
+             *
+             * Use [method@TabOverview.setup_extra_drop_target] to set it up, specifying the
+             * supported content types and drag actions, then connect to
+             * [signal@TabOverview::extra-drag-drop] to handle a drop.
+             *
+             * In some cases, it may be necessary to determine the used action based on the
+             * content. In that case, set [property@TabOverview:extra-drag-preload] to
+             * `TRUE` and connect to [signal@TabOverview::extra-drag-value] signal, then
+             * return the action from its handler. To access this action from the
+             * [signal@TabOverview::extra-drag-drop] handler, use the
+             * [property@TabOverview:extra-drag-preferred-action] property.
+             *
+             * [signal@TabOverview::extra-drag-value] is also always emitted when starting to
+             * hover an item, with a `NULL` value. This happens even when
+             * [property@TabOverview:extra-drag-preload] is `FALSE`.
+             *
+             * ## Actions
+             *
+             * `AdwTabOverview` defines the `overview.open` and `overview.close` actions for
+             * opening and closing itself. They can be convenient when used together with
+             * [class@TabButton].
+             *
+             * ## CSS nodes
+             *
+             * `AdwTabOverview` has a single CSS node with name `taboverview`.
+             * @since 1.3
+             */
+            TabOverview: TabOverviewClass
+        }
         
 
         namespace TabPage {
@@ -16242,7 +18743,6 @@ declare module "gi://Adw?version=1" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties, Gtk.Accessible.WritableProperties {
-                "child": Gtk.Widget
                 "icon": Gio.Icon | null
                 "indicator-activatable": boolean
                 "indicator-icon": Gio.Icon | null
@@ -16251,7 +18751,6 @@ declare module "gi://Adw?version=1" {
                 "live-thumbnail": boolean
                 "loading": boolean
                 "needs-attention": boolean
-                "parent": TabPage | null
                 "pinned": boolean
                 "selected": boolean
                 "thumbnail-xalign": number
@@ -16261,12 +18760,11 @@ declare module "gi://Adw?version=1" {
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gtk.Accessible.ConstructOnlyProperties {
+                "child": Gtk.Widget
+                "parent": TabPage | null
             }
         }
 
-        /**
-         * An auxiliary class used by [class@TabView].
-         */
         interface TabPage extends GObject.Object, Gtk.Accessible {
             readonly $signals: TabPage.SignalSignatures
             readonly $readableProperties: TabPage.ReadableProperties
@@ -16720,10 +19218,16 @@ declare module "gi://Adw?version=1" {
         interface TabPageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<TabPage>
             readonly prototype: TabPage
+
             new (props?: Partial<GObject.ConstructorProps<TabPage>>): TabPage
         }
 
-        const TabPage: TabPageClass
+        interface $Exports {
+            /**
+             * An auxiliary class used by [class@TabView].
+             */
+            TabPage: TabPageClass
+        }
         
 
         namespace TabView {
@@ -16847,49 +19351,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * A dynamic tabbed container.
-         *
-         * `AdwTabView` is a container which shows one child at a time. While it
-         * provides keyboard shortcuts for switching between pages, it does not provide
-         * a visible tab switcher and relies on external widgets for that, such as
-         * [class@TabBar], [class@TabOverview] and [class@TabButton].
-         *
-         * `AdwTabView` maintains a [class@TabPage] object for each page, which holds
-         * additional per-page properties. You can obtain the `AdwTabPage` for a page
-         * with [method@TabView.get_page], and as the return value for
-         * [method@TabView.append] and other functions for adding children.
-         *
-         * `AdwTabView` only aims to be useful for dynamic tabs in multi-window
-         * document-based applications, such as web browsers, file managers, text
-         * editors or terminals. It does not aim to replace [class@Gtk.Notebook] for use
-         * cases such as tabbed dialogs.
-         *
-         * As such, it does not support disabling page reordering or detaching.
-         *
-         * `AdwTabView` adds a number of global page switching and reordering shortcuts.
-         * The [property@TabView:shortcuts] property can be used to manage them.
-         *
-         * See [flags@TabViewShortcuts] for the list of the available shortcuts. All of
-         * the shortcuts are enabled by default.
-         *
-         * [method@TabView.add_shortcuts] and [method@TabView.remove_shortcuts] can be
-         * used to manage shortcuts in a convenient way, for example:
-         *
-         * ```c
-         * adw_tab_view_remove_shortcuts (view, ADW_TAB_VIEW_SHORTCUT_CONTROL_HOME |
-         *                                      ADW_TAB_VIEW_SHORTCUT_CONTROL_END);
-         * ```
-         *
-         * ## CSS nodes
-         *
-         * `AdwTabView` has a main CSS node with the name `tabview`.
-         *
-         * ## Accessibility
-         *
-         * `AdwTabView` uses the [enum@Gtk.AccessibleRole.tab-panel] role for the tab
-         * pages which are the accessible parent objects of the child widgets.
-         */
         interface TabView extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: TabView.SignalSignatures
             readonly $readableProperties: TabView.ReadableProperties
@@ -17330,6 +19791,7 @@ declare module "gi://Adw?version=1" {
         interface TabViewClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<TabView>
             readonly prototype: TabView
+
             new (props?: Partial<GObject.ConstructorProps<TabView>>): TabView
             /**
              * Creates a new `AdwTabView`.
@@ -17338,7 +19800,52 @@ declare module "gi://Adw?version=1" {
             "new"(): TabView
         }
 
-        const TabView: TabViewClass
+        interface $Exports {
+            /**
+             * A dynamic tabbed container.
+             *
+             * `AdwTabView` is a container which shows one child at a time. While it
+             * provides keyboard shortcuts for switching between pages, it does not provide
+             * a visible tab switcher and relies on external widgets for that, such as
+             * [class@TabBar], [class@TabOverview] and [class@TabButton].
+             *
+             * `AdwTabView` maintains a [class@TabPage] object for each page, which holds
+             * additional per-page properties. You can obtain the `AdwTabPage` for a page
+             * with [method@TabView.get_page], and as the return value for
+             * [method@TabView.append] and other functions for adding children.
+             *
+             * `AdwTabView` only aims to be useful for dynamic tabs in multi-window
+             * document-based applications, such as web browsers, file managers, text
+             * editors or terminals. It does not aim to replace [class@Gtk.Notebook] for use
+             * cases such as tabbed dialogs.
+             *
+             * As such, it does not support disabling page reordering or detaching.
+             *
+             * `AdwTabView` adds a number of global page switching and reordering shortcuts.
+             * The [property@TabView:shortcuts] property can be used to manage them.
+             *
+             * See [flags@TabViewShortcuts] for the list of the available shortcuts. All of
+             * the shortcuts are enabled by default.
+             *
+             * [method@TabView.add_shortcuts] and [method@TabView.remove_shortcuts] can be
+             * used to manage shortcuts in a convenient way, for example:
+             *
+             * ```c
+             * adw_tab_view_remove_shortcuts (view, ADW_TAB_VIEW_SHORTCUT_CONTROL_HOME |
+             *                                      ADW_TAB_VIEW_SHORTCUT_CONTROL_END);
+             * ```
+             *
+             * ## CSS nodes
+             *
+             * `AdwTabView` has a main CSS node with the name `tabview`.
+             *
+             * ## Accessibility
+             *
+             * `AdwTabView` uses the [enum@Gtk.AccessibleRole.tab-panel] role for the tab
+             * pages which are the accessible parent objects of the child widgets.
+             */
+            TabView: TabViewClass
+        }
         
 
         namespace TimedAnimation {
@@ -17369,24 +19876,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * A time-based [class@Animation].
-         *
-         * `AdwTimedAnimation` implements a simple animation interpolating the given
-         * value from [property@TimedAnimation:value-from] to
-         * [property@TimedAnimation:value-to] over
-         * [property@TimedAnimation:duration] milliseconds using the curve described by
-         * [property@TimedAnimation:easing].
-         *
-         * If [property@TimedAnimation:reverse] is set to `TRUE`, `AdwTimedAnimation`
-         * will instead animate from [property@TimedAnimation:value-to] to
-         * [property@TimedAnimation:value-from], and the easing curve will be inverted.
-         *
-         * The animation can repeat a certain amount of times, or endlessly, depending
-         * on the [property@TimedAnimation:repeat-count] value. If
-         * [property@TimedAnimation:alternate] is set to `TRUE`, it will also change the
-         * direction every other iteration.
-         */
         interface TimedAnimation extends Animation {
             readonly $signals: TimedAnimation.SignalSignatures
             readonly $readableProperties: TimedAnimation.ReadableProperties
@@ -17550,6 +20039,7 @@ declare module "gi://Adw?version=1" {
         interface TimedAnimationClass extends Omit<AnimationClass, "new"> {
             readonly $gtype: GObject.GType<TimedAnimation>
             readonly prototype: TimedAnimation
+
             new (props?: Partial<GObject.ConstructorProps<TimedAnimation>>): TimedAnimation
             /**
              * Creates a new `AdwTimedAnimation` on @widget to animate @target from @from
@@ -17561,10 +20051,30 @@ declare module "gi://Adw?version=1" {
              * @param target a target value to animate
              * @returns the newly created animation
              */
-            "new"(widget: Gtk.Widget, from: number, to: number, duration: number, target: AnimationTarget): Animation
+            "new"(widget: Gtk.Widget, from: number, to: number, duration: number, target: AnimationTarget): TimedAnimation
         }
 
-        const TimedAnimation: TimedAnimationClass
+        interface $Exports {
+            /**
+             * A time-based [class@Animation].
+             *
+             * `AdwTimedAnimation` implements a simple animation interpolating the given
+             * value from [property@TimedAnimation:value-from] to
+             * [property@TimedAnimation:value-to] over
+             * [property@TimedAnimation:duration] milliseconds using the curve described by
+             * [property@TimedAnimation:easing].
+             *
+             * If [property@TimedAnimation:reverse] is set to `TRUE`, `AdwTimedAnimation`
+             * will instead animate from [property@TimedAnimation:value-to] to
+             * [property@TimedAnimation:value-from], and the easing curve will be inverted.
+             *
+             * The animation can repeat a certain amount of times, or endlessly, depending
+             * on the [property@TimedAnimation:repeat-count] value. If
+             * [property@TimedAnimation:alternate] is set to `TRUE`, it will also change the
+             * direction every other iteration.
+             */
+            TimedAnimation: TimedAnimationClass
+        }
         
 
         namespace Toast {
@@ -17608,9 +20118,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * >
-         */
         interface Toast extends GObject.Object {
             readonly $signals: Toast.SignalSignatures
             readonly $readableProperties: Toast.ReadableProperties
@@ -17848,6 +20355,7 @@ declare module "gi://Adw?version=1" {
         interface ToastClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Toast>
             readonly prototype: Toast
+
             new (props?: Partial<GObject.ConstructorProps<Toast>>): Toast
             /**
              * Creates a new `AdwToast`.
@@ -17861,7 +20369,132 @@ declare module "gi://Adw?version=1" {
             "new"(title: string): Toast
         }
 
-        const Toast: ToastClass
+        interface $Exports {
+            /**
+             * A helper object for [class@ToastOverlay].
+             *
+             * Toasts are meant to be passed into [method@ToastOverlay.add_toast] as
+             * follows:
+             *
+             * ```c
+             * adw_toast_overlay_add_toast (overlay, adw_toast_new (_("Simple Toast")));
+             * ```
+             *
+             * <picture>
+             *   <source srcset="toast-simple-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toast-simple.png" alt="toast-simple">
+             * </picture>
+             *
+             * Toasts always have a close button. They emit the [signal@Toast::dismissed]
+             * signal when disappearing.
+             *
+             * [property@Toast:timeout] determines how long the toast stays on screen, while
+             * [property@Toast:priority] determines how it behaves if another toast is
+             * already being displayed.
+             *
+             * Toast titles use Pango markup by default, set [property@Toast:use-markup] to
+             * `FALSE` if this is unwanted.
+             *
+             * [property@Toast:custom-title] can be used to replace the title label with a
+             * custom widget.
+             *
+             * ## Actions
+             *
+             * Toasts can have one button on them, with a label and an attached
+             * [iface@Gio.Action].
+             *
+             * ```c
+             * AdwToast *toast = adw_toast_new (_("Toast with Action"));
+             *
+             * adw_toast_set_button_label (toast, _("_Example"));
+             * adw_toast_set_action_name (toast, "win.example");
+             *
+             * adw_toast_overlay_add_toast (overlay, toast);
+             * ```
+             *
+             * <picture>
+             *   <source srcset="toast-action-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toast-action.png" alt="toast-action">
+             * </picture>
+             *
+             * ## Modifying toasts
+             *
+             * Toasts can be modified after they have been shown. For this, an `AdwToast`
+             * reference must be kept around while the toast is visible.
+             *
+             * A common use case for this is using toasts as undo prompts that stack with
+             * each other, allowing to batch undo the last deleted items:
+             *
+             * ```c
+             *
+             * static void
+             * toast_undo_cb (GtkWidget  *sender,
+             *                const char *action,
+             *                GVariant   *param)
+             * {
+             *   // Undo the deletion
+             * }
+             *
+             * static void
+             * dismissed_cb (MyWindow *self)
+             * {
+             *   self->undo_toast = NULL;
+             *
+             *   // Permanently delete the items
+             * }
+             *
+             * static void
+             * delete_item (MyWindow *self,
+             *              MyItem   *item)
+             * {
+             *   g_autofree char *title = NULL;
+             *   int n_items;
+             *
+             *   // Mark the item as waiting for deletion
+             *   n_items = ... // The number of waiting items
+             *
+             *   if (!self->undo_toast) {
+             *     self->undo_toast = adw_toast_new_format (_("‘%s’ deleted"), ...);
+             *
+             *     adw_toast_set_priority (self->undo_toast, ADW_TOAST_PRIORITY_HIGH);
+             *     adw_toast_set_button_label (self->undo_toast, _("_Undo"));
+             *     adw_toast_set_action_name (self->undo_toast, "toast.undo");
+             *
+             *     g_signal_connect_swapped (self->undo_toast, "dismissed",
+             *                               G_CALLBACK (dismissed_cb), self);
+             *
+             *     adw_toast_overlay_add_toast (self->toast_overlay, self->undo_toast);
+             *
+             *     return;
+             *   }
+             *
+             *   title =
+             *     g_strdup_printf (ngettext ("<span font_features='tnum=1'>%d</span> item deleted",
+             *                                "<span font_features='tnum=1'>%d</span> items deleted",
+             *                                n_items), n_items);
+             *
+             *   adw_toast_set_title (self->undo_toast, title);
+             *
+             *   // Bump the toast timeout
+             *   adw_toast_overlay_add_toast (self->toast_overlay, g_object_ref (self->undo_toast));
+             * }
+             *
+             * static void
+             * my_window_class_init (MyWindowClass *klass)
+             * {
+             *   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+             *
+             *   gtk_widget_class_install_action (widget_class, "toast.undo", NULL, toast_undo_cb);
+             * }
+             * ```
+             *
+             * <picture>
+             *   <source srcset="toast-undo-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toast-undo.png" alt="toast-undo">
+             * </picture>
+             */
+            Toast: ToastClass
+        }
         
 
         namespace ToastOverlay {
@@ -17880,45 +20513,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * Much like [class@Gtk.Overlay], `AdwToastOverlay` is a container with a single
-         * main child, on top of which it can display a [class@Toast], overlaid.
-         * Toasts can be shown with [method@ToastOverlay.add_toast].
-         *
-         * Use [method@ToastOverlay.dismiss_all] to dismiss all toasts at once, or
-         * [method@Toast.dismiss] to dismiss a single toast.
-         *
-         * See [class@Toast] for details.
-         *
-         * ## CSS nodes
-         *
-         * ```
-         * toastoverlay
-         * ├── [child]
-         * ├── toast
-         * ┊   ├── widget
-         * ┊   │   ├── [label.heading]
-         *     │   ╰── [custom title]
-         *     ├── [button]
-         *     ╰── button.circular.flat
-         * ```
-         *
-         * `AdwToastOverlay`'s CSS node is called `toastoverlay`. It contains the child,
-         * as well as zero or more `toast` subnodes.
-         *
-         * Each of the `toast` nodes contains a `widget` subnode, optionally a `button`
-         * subnode, and another `button` subnode with `.circular` and `.flat` style
-         * classes.
-         *
-         * The `widget` subnode contains a `label` subnode with the `.heading` style
-         * class, or a custom widget provided by the application.
-         *
-         * ## Accessibility
-         *
-         * `AdwToastOverlay` uses the [enum@Gtk.AccessibleRole.group] role.
-         */
         interface ToastOverlay extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ToastOverlay.SignalSignatures
             readonly $readableProperties: ToastOverlay.ReadableProperties
@@ -17965,15 +20559,62 @@ declare module "gi://Adw?version=1" {
         interface ToastOverlayClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<ToastOverlay>
             readonly prototype: ToastOverlay
+
             new (props?: Partial<GObject.ConstructorProps<ToastOverlay>>): ToastOverlay
             /**
              * Creates a new `AdwToastOverlay`.
              * @returns the new created `AdwToastOverlay`
              */
-            "new"(): Gtk.Widget
+            "new"(): ToastOverlay
         }
 
-        const ToastOverlay: ToastOverlayClass
+        interface $Exports {
+            /**
+             * A widget showing toasts above its content.
+             *
+             * <picture>
+             *   <source srcset="toast-overlay-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toast-overlay.png" alt="toast-overlay">
+             * </picture>
+             *
+             * Much like [class@Gtk.Overlay], `AdwToastOverlay` is a container with a single
+             * main child, on top of which it can display a [class@Toast], overlaid.
+             * Toasts can be shown with [method@ToastOverlay.add_toast].
+             *
+             * Use [method@ToastOverlay.dismiss_all] to dismiss all toasts at once, or
+             * [method@Toast.dismiss] to dismiss a single toast.
+             *
+             * See [class@Toast] for details.
+             *
+             * ## CSS nodes
+             *
+             * ```
+             * toastoverlay
+             * ├── [child]
+             * ├── toast
+             * ┊   ├── widget
+             * ┊   │   ├── [label.heading]
+             *     │   ╰── [custom title]
+             *     ├── [button]
+             *     ╰── button.circular.flat
+             * ```
+             *
+             * `AdwToastOverlay`'s CSS node is called `toastoverlay`. It contains the child,
+             * as well as zero or more `toast` subnodes.
+             *
+             * Each of the `toast` nodes contains a `widget` subnode, optionally a `button`
+             * subnode, and another `button` subnode with `.circular` and `.flat` style
+             * classes.
+             *
+             * The `widget` subnode contains a `label` subnode with the `.heading` style
+             * class, or a custom widget provided by the application.
+             *
+             * ## Accessibility
+             *
+             * `AdwToastOverlay` uses the [enum@Gtk.AccessibleRole.group] role.
+             */
+            ToastOverlay: ToastOverlayClass
+        }
         
 
         namespace Toggle {
@@ -18006,14 +20647,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * A toggle within [class@ToggleGroup].
-         *
-         * `AdwToggle` can optionally have a name, set with [property@Toggle:name].
-         * If the name is set, [property@ToggleGroup:active-name] can be used to access
-         * toggles instead of index.
-         * @since 1.7
-         */
         interface Toggle extends GObject.Object {
             readonly $signals: Toggle.SignalSignatures
             readonly $readableProperties: Toggle.ReadableProperties
@@ -18235,6 +20868,7 @@ declare module "gi://Adw?version=1" {
         interface ToggleClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Toggle>
             readonly prototype: Toggle
+
             new (props?: Partial<GObject.ConstructorProps<Toggle>>): Toggle
             /**
              * Creates a new `AdwToggle`.
@@ -18244,7 +20878,17 @@ declare module "gi://Adw?version=1" {
             "new"(): Toggle
         }
 
-        const Toggle: ToggleClass
+        interface $Exports {
+            /**
+             * A toggle within [class@ToggleGroup].
+             *
+             * `AdwToggle` can optionally have a name, set with [property@Toggle:name].
+             * If the name is set, [property@ToggleGroup:active-name] can be used to access
+             * toggles instead of index.
+             * @since 1.7
+             */
+            Toggle: ToggleClass
+        }
         
 
         namespace ToggleGroup {
@@ -18273,15 +20917,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * ## Accessibility
-         *
-         * `AdwToggleGroup` uses the [enum@Gtk.AccessibleRole.radio-group] role. Its
-         * toggles use the [enum@Gtk.AccessibleRole.radio] role.
-         * @since 1.7
-         */
         interface ToggleGroup extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
             readonly $signals: ToggleGroup.SignalSignatures
             readonly $readableProperties: ToggleGroup.ReadableProperties
@@ -18465,16 +21100,118 @@ declare module "gi://Adw?version=1" {
         interface ToggleGroupClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<ToggleGroup>
             readonly prototype: ToggleGroup
+
             new (props?: Partial<GObject.ConstructorProps<ToggleGroup>>): ToggleGroup
             /**
              * Creates a new `AdwToggleGroup`.
              * @since 1.7
              * @returns the newly created `AdwToggleGroup`
              */
-            "new"(): Gtk.Widget
+            "new"(): ToggleGroup
         }
 
-        const ToggleGroup: ToggleGroupClass
+        interface $Exports {
+            /**
+             * A group of exclusive toggles.
+             *
+             * <picture>
+             *   <source srcset="toggle-group-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toggle-group.png" alt="toggle-group">
+             * </picture>
+             *
+             * `AdwToggleGroup` presents a set of exclusive toggles, represented as
+             * [class@Toggle] objects. Each toggle can display an icon, a label, an icon
+             * and a label, or a custom child.
+             *
+             * Toggles are indexed by their position, with the first toggle being equivalent
+             * to 0, and so on. Use the [property@ToggleGroup:active] to get that position.
+             *
+             * Toggles can also have optional names, set via the [property@Toggle:name]
+             * property. The name of the active toggle can be accessed via the
+             * [property@ToggleGroup:active-name] property.
+             *
+             * `AdwToggle` objects can be retrieved via their index or name, using
+             * [method@ToggleGroup.get_toggle] or [method@ToggleGroup.get_toggle_by_name]
+             * respectively. `AdwToggleGroup` also provides a [iface@Gtk.SelectionModel] of
+             * its toggles via the [property@ToggleGroup:toggles] property.
+             *
+             * `AdwToggleGroup` is orientable, and the toggles can be displayed horizontally
+             * or vertically. This is mostly useful for icon-only toggles.
+             *
+             * Use the [property@ToggleGroup:homogeneous] property to make the toggles take
+             * the same size, and the [property@ToggleGroup:can-shrink] to control whether
+             * the toggles can ellipsize.
+             *
+             * Example of an `AdwToggleGroup` UI definition:
+             *
+             * ```xml
+             *  <object class="AdwToggleGroup">
+             *    <property name="active-name">picture</property>
+             *    <child>
+             *      <object class="AdwToggle">
+             *        <property name="icon-name">camera-photo-symbolic</property>
+             *        <property name="tooltip" translatable="yes">Picture Mode</property>
+             *        <property name="name">picture</property>
+             *      </object>
+             *    </child>
+             *    <child>
+             *      <object class="AdwToggle">
+             *        <property name="icon-name">camera-video-symbolic</property>
+             *        <property name="tooltip" translatable="yes">Recording Mode</property>
+             *        <property name="name">recording</property>
+             *      </object>
+             *    </child>
+             *  </object>
+             * ```
+             *
+             * See also: [class@InlineViewSwitcher].
+             *
+             * ## CSS nodes
+             *
+             * `AdwToggleGroup` has a main CSS node with the name `toggle-group`.
+             *
+             * Its toggles have CSS nodes with the name `toggle`, and its separators have nodes
+             * with the name `separator`.
+             *
+             * Toggle nodes will have a different style classes depending on their content:
+             * `.text-button` for labels, `.image-button` for icons, `.image-text-button`
+             * for both or no style class for custom children.
+             *
+             * The hidden separators use the `.hidden` style class.
+             *
+             * ## Style classes
+             *
+             * `AdwToggleGroup` can use the [`.flat`](style-classes.html#flat_1) style class
+             * to remove its background and make it look like a group of buttons.
+             *
+             * <picture>
+             *   <source srcset="toggle-group-flat-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toggle-group-flat.png" alt="toggle-group-flat">
+             * </picture>
+             *
+             * It can also use the [`.round`](style-classes.html#round) style class to make
+             * its toggles and the group itself rounded.
+             *
+             * <picture>
+             *   <source srcset="toggle-group-round-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toggle-group-round.png" alt="toggle-group-round">
+             * </picture>
+             *
+             * They can also be combined with each other.
+             *
+             * <picture>
+             *   <source srcset="toggle-group-flat-round-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toggle-group-flat-round.png" alt="toggle-group-flat-round">
+             * </picture>
+             *
+             * ## Accessibility
+             *
+             * `AdwToggleGroup` uses the [enum@Gtk.AccessibleRole.radio-group] role. Its
+             * toggles use the [enum@Gtk.AccessibleRole.radio] role.
+             * @since 1.7
+             */
+            ToggleGroup: ToggleGroupClass
+        }
         
 
         namespace ToolbarView {
@@ -18509,14 +21246,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * ` element, or adding a bottom bar by specifying “bottom”.
-         *
-         * ## Accessibility
-         *
-         * `AdwToolbarView` uses the [enum@Gtk.AccessibleRole.group] role.
-         * @since 1.4
-         */
         interface ToolbarView extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ToolbarView.SignalSignatures
             readonly $readableProperties: ToolbarView.ReadableProperties
@@ -18868,16 +21597,120 @@ declare module "gi://Adw?version=1" {
         interface ToolbarViewClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<ToolbarView>
             readonly prototype: ToolbarView
+
             new (props?: Partial<GObject.ConstructorProps<ToolbarView>>): ToolbarView
             /**
              * Creates a new `AdwToolbarView`.
              * @since 1.4
              * @returns the newly created `AdwToolbarView`
              */
-            "new"(): Gtk.Widget
+            "new"(): ToolbarView
         }
 
-        const ToolbarView: ToolbarViewClass
+        interface $Exports {
+            /**
+             * A widget containing a page, as well as top and/or bottom bars.
+             *
+             * <picture>
+             *   <source srcset="toolbar-view-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toolbar-view.png" alt="toolbar-view">
+             * </picture>
+             *
+             * `AdwToolbarView` has a single content widget and one or multiple top and
+             * bottom bars, shown at the top and bottom sides respectively.
+             *
+             * Example of an `AdwToolbarView` UI definition:
+             * ```xml
+             * <object class="AdwToolbarView">
+             *   <child type="top">
+             *     <object class="AdwHeaderBar"/>
+             *   </child>
+             *   <property name="content">
+             *     <object class="AdwPreferencesPage">
+             *       <!-- ... -->
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * The following kinds of top and bottom bars are supported:
+             *
+             * - [class@HeaderBar]
+             * - [class@TabBar]
+             * - [class@ViewSwitcherBar]
+             * - [class@Gtk.ActionBar]
+             * - [class@Gtk.HeaderBar]
+             * - [class@Gtk.PopoverMenuBar]
+             * - [class@Gtk.SearchBar]
+             * - Any [class@Gtk.Box] or a similar widget with the
+             *   [`.toolbar`](style-classes.html#toolbars) style class
+             *
+             * By default, top and bottom bars are flat and scrolling content has a subtle
+             * undershoot shadow, same as when using the
+             * [`.undershoot-top`](style-classes.html#undershoot-indicators) and
+             * [`.undershoot-bottom`](style-classes.html#undershoot-indicators) style
+             * classes. This works well in most cases, e.g. with [class@StatusPage] or
+             * [class@PreferencesPage], where the background at the top and bottom parts of
+             * the page is uniform. Additionally, windows with sidebars should always use
+             * this style.
+             *
+             * [property@ToolbarView:top-bar-style] and
+             * [property@ToolbarView:bottom-bar-style] properties can be used add an opaque
+             * background and a persistent shadow to top and bottom bars, this can be useful
+             * for content such as [utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
+             * where some elements are adjacent to the top/bottom bars, or [class@TabView],
+             * where each page can have a different background.
+             *
+             * <picture style="min-width: 33%; display: inline-block;">
+             *   <source srcset="toolbar-view-flat-1-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toolbar-view-flat-1.png" alt="toolbar-view-flat-1">
+             * </picture>
+             * <picture style="min-width: 33%; display: inline-block;">
+             *   <source srcset="toolbar-view-flat-2-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toolbar-view-flat-2.png" alt="toolbar-view-flat-2">
+             * </picture>
+             * <picture style="min-width: 33%; display: inline-block;">
+             *   <source srcset="toolbar-view-raised-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toolbar-view-raised.png" alt="toolbar-view-raised">
+             * </picture>
+             *
+             * `AdwToolbarView` ensures the top and bottom bars have consistent backdrop
+             * styles and vertical spacing. For comparison:
+             *
+             * <picture style="min-width: 40%; display: inline-block;">
+             *   <source srcset="toolbar-view-spacing-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toolbar-view-spacing.png" alt="toolbar-view-spacing">
+             * </picture>
+             * <picture style="min-width: 40%; display: inline-block;">
+             *   <source srcset="toolbar-view-spacing-box-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toolbar-view-spacing-box.png" alt="toolbar-view-spacing-box">
+             * </picture>
+             *
+             * Any top and bottom bars can also be dragged to move the window, equivalent
+             * to putting them into a [class@Gtk.WindowHandle].
+             *
+             * Content is typically place between top and bottom bars, but can also extend
+             * behind them. This is controlled with the
+             * [property@ToolbarView:extend-content-to-top-edge] and
+             * [property@ToolbarView:extend-content-to-bottom-edge] properties.
+             *
+             * Top and bottom bars can be hidden and revealed with an animation using the
+             * [property@ToolbarView:reveal-top-bars] and
+             * [property@ToolbarView:reveal-bottom-bars] properties.
+             *
+             * ## `AdwToolbarView` as `GtkBuildable`
+             *
+             * The `AdwToolbarView` implementation of the [iface@Gtk.Buildable] interface
+             * supports adding a top bar by specifying “top” as the “type” attribute of a
+             * `<child>` element, or adding a bottom bar by specifying “bottom”.
+             *
+             * ## Accessibility
+             *
+             * `AdwToolbarView` uses the [enum@Gtk.AccessibleRole.group] role.
+             * @since 1.4
+             */
+            ToolbarView: ToolbarViewClass
+        }
         
 
         namespace ViewStack {
@@ -18910,19 +21743,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * ## CSS nodes
-         *
-         * `AdwViewStack` has a single CSS node named `stack`.
-         *
-         * ## Accessibility
-         *
-         * `AdwViewStack` uses the [enum@Gtk.AccessibleRole.tab-panel] for the stack
-         * pages which are the accessible parent objects of the child widgets.
-         */
         interface ViewStack extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ViewStack.SignalSignatures
             readonly $readableProperties: ViewStack.ReadableProperties
@@ -19177,15 +21997,82 @@ declare module "gi://Adw?version=1" {
         interface ViewStackClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<ViewStack>
             readonly prototype: ViewStack
+
             new (props?: Partial<GObject.ConstructorProps<ViewStack>>): ViewStack
             /**
              * Creates a new `AdwViewStack`.
              * @returns the newly created `AdwViewStack`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewStack
         }
 
-        const ViewStack: ViewStackClass
+        interface $Exports {
+            /**
+             * A view container for [class@ViewSwitcher].
+             *
+             * `AdwViewStack` is a container which only shows one page at a time.
+             * It is typically used to hold an application's main views.
+             *
+             * It doesn't provide a way to transition between pages.
+             * Instead, a separate widget such as [class@ViewSwitcher],
+             * [class@InlineViewSwitcher] or [class@ViewSwitcherSidebar] can be used with
+             * `AdwViewStack` to provide this functionality.
+             *
+             * `AdwViewStack` pages can have a title, an icon, an attention request, and a
+             * numbered badge that [class@ViewSwitcher] will use to let users identify which
+             * page is which. Set them using the [property@ViewStackPage:title],
+             * [property@ViewStackPage:icon-name],
+             * [property@ViewStackPage:needs-attention], and
+             * [property@ViewStackPage:badge-number] properties.
+             *
+             * `AdwViewStack` pages can also be grouped into sections, using the
+             * [property@ViewStackPage:starts-section] and
+             * [property@ViewStackPage:section-title] properties. Currently, only
+             * [class@ViewSwitcherSidebar] displays groups.
+             *
+             * Unlike [class@Gtk.Stack], transitions between views can only be animated via
+             * a crossfade and size changes are always interpolated. Animations are disabled
+             * by default. Use [property@ViewStack:enable-transitions] to enable them.
+             *
+             * `AdwViewStack` maintains a [class@ViewStackPage] object for each added child,
+             * which holds additional per-child properties. You obtain the
+             * [class@ViewStackPage] for a child with [method@ViewStack.get_page] and you
+             * can obtain a [iface@Gtk.SelectionModel] containing all the pages with
+             * [method@ViewStack.get_pages].
+             *
+             * ## AdwViewStack as GtkBuildable
+             *
+             * To set child-specific properties in a .ui file, create
+             * [class@ViewStackPage] objects explicitly, and set the child widget as a
+             * property on it:
+             *
+             * ```xml
+             *   <object class="AdwViewStack" id="stack">
+             *     <child>
+             *       <object class="AdwViewStackPage">
+             *         <property name="name">overview</property>
+             *         <property name="title">Overview</property>
+             *         <property name="child">
+             *           <object class="AdwStatusPage">
+             *             <property name="title">Welcome!</property>
+             *           </object>
+             *         </property>
+             *       </object>
+             *     </child>
+             *   </object>
+             * ```
+             *
+             * ## CSS nodes
+             *
+             * `AdwViewStack` has a single CSS node named `stack`.
+             *
+             * ## Accessibility
+             *
+             * `AdwViewStack` uses the [enum@Gtk.AccessibleRole.tab-panel] for the stack
+             * pages which are the accessible parent objects of the child widgets.
+             */
+            ViewStack: ViewStackClass
+        }
         
 
         namespace ViewStackPage {
@@ -19207,7 +22094,6 @@ declare module "gi://Adw?version=1" {
 
             interface WritableProperties extends GObject.Object.WritableProperties, Gtk.Accessible.WritableProperties {
                 "badge-number": number
-                "child": Gtk.Widget
                 "icon-name": string | null
                 "name": string | null
                 "needs-attention": boolean
@@ -19219,12 +22105,10 @@ declare module "gi://Adw?version=1" {
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gtk.Accessible.ConstructOnlyProperties {
+                "child": Gtk.Widget
             }
         }
 
-        /**
-         * An auxiliary class used by [class@ViewStack].
-         */
         interface ViewStackPage extends GObject.Object, Gtk.Accessible {
             readonly $signals: ViewStackPage.SignalSignatures
             readonly $readableProperties: ViewStackPage.ReadableProperties
@@ -19434,10 +22318,16 @@ declare module "gi://Adw?version=1" {
         interface ViewStackPageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ViewStackPage>
             readonly prototype: ViewStackPage
+
             new (props?: Partial<GObject.ConstructorProps<ViewStackPage>>): ViewStackPage
         }
 
-        const ViewStackPage: ViewStackPageClass
+        interface $Exports {
+            /**
+             * An auxiliary class used by [class@ViewStack].
+             */
+            ViewStackPage: ViewStackPageClass
+        }
         
 
         namespace ViewStackPages {
@@ -19460,12 +22350,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * An auxiliary class used by [class@ViewStack].
-         *
-         * See [property@ViewStack:pages].
-         * @since 1.4
-         */
         interface ViewStackPages extends GObject.Object, Gio.ListModel, Gtk.SectionModel, Gtk.SelectionModel {
             readonly $signals: ViewStackPages.SignalSignatures
             readonly $readableProperties: ViewStackPages.ReadableProperties
@@ -19518,10 +22402,19 @@ declare module "gi://Adw?version=1" {
         interface ViewStackPagesClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ViewStackPages>
             readonly prototype: ViewStackPages
+
             new (props?: Partial<GObject.ConstructorProps<ViewStackPages>>): ViewStackPages
         }
 
-        const ViewStackPages: ViewStackPagesClass
+        interface $Exports {
+            /**
+             * An auxiliary class used by [class@ViewStack].
+             *
+             * See [property@ViewStack:pages].
+             * @since 1.4
+             */
+            ViewStackPages: ViewStackPagesClass
+        }
         
 
         namespace ViewSwitcher {
@@ -19542,28 +22435,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * It's recommended to set [property@ViewSwitcher:policy] to
-         * [enum@Adw.ViewSwitcherPolicy.wide] in this case.
-         *
-         * You may have to adjust the breakpoint condition for your specific pages.
-         *
-         * ## CSS nodes
-         *
-         * `AdwViewSwitcher` has a single CSS node with name `viewswitcher`. It can have
-         * the style classes `.wide` and `.narrow`, matching its policy.
-         *
-         * ## Accessibility
-         *
-         * `AdwViewSwitcher` uses the [enum@Gtk.AccessibleRole.tab-list] role and the
-         * [enum@Gtk.AccessibleRole.tab] role for its buttons.
-         *
-         * See also: [class@ViewSwitcherBar], [class@InlineViewSwitcher],
-         * [class@ViewSwitcherSidebar].
-         */
         interface ViewSwitcher extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ViewSwitcher.SignalSignatures
             readonly $readableProperties: ViewSwitcher.ReadableProperties
@@ -19605,15 +22476,91 @@ declare module "gi://Adw?version=1" {
         interface ViewSwitcherClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<ViewSwitcher>
             readonly prototype: ViewSwitcher
+
             new (props?: Partial<GObject.ConstructorProps<ViewSwitcher>>): ViewSwitcher
             /**
              * Creates a new `AdwViewSwitcher`.
              * @returns the newly created `AdwViewSwitcher`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcher
         }
 
-        const ViewSwitcher: ViewSwitcherClass
+        interface $Exports {
+            /**
+             * An adaptive view switcher.
+             *
+             * <picture>
+             *   <source srcset="view-switcher-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="view-switcher.png" alt="view-switcher">
+             * </picture>
+             *
+             * An adaptive view switcher designed to switch between multiple views
+             * contained in a [class@ViewStack] in a similar fashion to
+             * [class@Gtk.StackSwitcher].
+             *
+             * `AdwViewSwitcher` buttons always have an icon and a label. They can be
+             * displayed side by side, or icon on top of the label. This can be controlled
+             * via the [property@ViewSwitcher:policy] property.
+             *
+             * `AdwViewSwitcher` is intended to be used in a header bar together with
+             * [class@ViewSwitcherBar] at the bottom of the window, and a [class@Breakpoint]
+             * showing the view switcher bar on narrow sizes, while removing the view
+             * switcher from the header bar, as follows:
+             *
+             * ```xml
+             * <object class="AdwWindow">
+             *   <child>
+             *     <object class="AdwBreakpoint">
+             *       <condition>max-width: 550sp</condition>
+             *       <setter object="switcher_bar" property="reveal">True</setter>
+             *       <setter object="header_bar" property="title-widget"/>
+             *     </object>
+             *   </child>
+             *   <property name="content">
+             *     <object class="AdwToolbarView">
+             *       <child type="top">
+             *         <object class="AdwHeaderBar" id="header_bar">
+             *           <property name="title-widget">
+             *             <object class="AdwViewSwitcher">
+             *               <property name="stack">stack</property>
+             *               <property name="policy">wide</property>
+             *             </object>
+             *           </property>
+             *         </object>
+             *       </child>
+             *       <property name="content">
+             *         <object class="AdwViewStack" id="stack"/>
+             *       </property>
+             *       <child type="bottom">
+             *         <object class="AdwViewSwitcherBar" id="switcher_bar">
+             *           <property name="stack">stack</property>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * It's recommended to set [property@ViewSwitcher:policy] to
+             * [enum@Adw.ViewSwitcherPolicy.wide] in this case.
+             *
+             * You may have to adjust the breakpoint condition for your specific pages.
+             *
+             * ## CSS nodes
+             *
+             * `AdwViewSwitcher` has a single CSS node with name `viewswitcher`. It can have
+             * the style classes `.wide` and `.narrow`, matching its policy.
+             *
+             * ## Accessibility
+             *
+             * `AdwViewSwitcher` uses the [enum@Gtk.AccessibleRole.tab-list] role and the
+             * [enum@Gtk.AccessibleRole.tab] role for its buttons.
+             *
+             * See also: [class@ViewSwitcherBar], [class@InlineViewSwitcher],
+             * [class@ViewSwitcherSidebar].
+             */
+            ViewSwitcher: ViewSwitcherClass
+        }
         
 
         namespace ViewSwitcherBar {
@@ -19634,22 +22581,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * It's recommended to set [property@ViewSwitcher:policy] to
-         * [enum@Adw.ViewSwitcherPolicy.wide] in this case.
-         *
-         * You may have to adjust the breakpoint condition for your specific pages.
-         *
-         * ## CSS nodes
-         *
-         * `AdwViewSwitcherBar` has a single CSS node with name` viewswitcherbar`.
-         *
-         * See also: [class@ViewSwitcher], [class@InlineViewSwitcher],
-         * [class@ViewSwitcherSidebar].
-         */
         interface ViewSwitcherBar extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ViewSwitcherBar.SignalSignatures
             readonly $readableProperties: ViewSwitcherBar.ReadableProperties
@@ -19691,15 +22622,82 @@ declare module "gi://Adw?version=1" {
         interface ViewSwitcherBarClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<ViewSwitcherBar>
             readonly prototype: ViewSwitcherBar
+
             new (props?: Partial<GObject.ConstructorProps<ViewSwitcherBar>>): ViewSwitcherBar
             /**
              * Creates a new `AdwViewSwitcherBar`.
              * @returns the newly created `AdwViewSwitcherBar`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcherBar
         }
 
-        const ViewSwitcherBar: ViewSwitcherBarClass
+        interface $Exports {
+            /**
+             * A view switcher action bar.
+             *
+             * <picture>
+             *   <source srcset="view-switcher-bar-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="view-switcher-bar.png" alt="view-switcher-bar">
+             * </picture>
+             *
+             * An action bar letting you switch between multiple views contained in a
+             * [class@ViewStack], via an [class@ViewSwitcher]. It is designed to be put at
+             * the bottom of a window and to be revealed only on really narrow windows, e.g.
+             * on mobile phones. It can't be revealed if there are less than two pages.
+             *
+             * `AdwViewSwitcherBar` is intended to be used together with
+             * `AdwViewSwitcher` in a header bar, and a [class@Breakpoint] showing the view
+             * switcher bar on narrow sizes, while removing the view switcher from the
+             * header bar, as follows:
+             *
+             * ```xml
+             * <object class="AdwWindow">
+             *   <child>
+             *     <object class="AdwBreakpoint">
+             *       <condition>max-width: 550sp</condition>
+             *       <setter object="switcher_bar" property="reveal">True</setter>
+             *       <setter object="header_bar" property="title-widget"/>
+             *     </object>
+             *   </child>
+             *   <property name="content">
+             *     <object class="AdwToolbarView">
+             *       <child type="top">
+             *         <object class="AdwHeaderBar" id="header_bar">
+             *           <property name="title-widget">
+             *             <object class="AdwViewSwitcher">
+             *               <property name="stack">stack</property>
+             *               <property name="policy">wide</property>
+             *             </object>
+             *           </property>
+             *         </object>
+             *       </child>
+             *       <property name="content">
+             *         <object class="AdwViewStack" id="stack"/>
+             *       </property>
+             *       <child type="bottom">
+             *         <object class="AdwViewSwitcherBar" id="switcher_bar">
+             *           <property name="stack">stack</property>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * It's recommended to set [property@ViewSwitcher:policy] to
+             * [enum@Adw.ViewSwitcherPolicy.wide] in this case.
+             *
+             * You may have to adjust the breakpoint condition for your specific pages.
+             *
+             * ## CSS nodes
+             *
+             * `AdwViewSwitcherBar` has a single CSS node with name` viewswitcherbar`.
+             *
+             * See also: [class@ViewSwitcher], [class@InlineViewSwitcher],
+             * [class@ViewSwitcherSidebar].
+             */
+            ViewSwitcherBar: ViewSwitcherBarClass
+        }
         
 
         namespace ViewSwitcherSidebar {
@@ -19729,29 +22727,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * Connect to the [signal@ViewSwitcherSidebar::activated] signal to run code when
-         * an item has been activated. This can be used to toggle the visible pane when
-         * used in a split view.
-         *
-         * Like `AdwSidebar`, `AdwViewSwitcherSidebar` supports filtering items via the
-         * [property@ViewSwitcherSidebar:filter] property.
-         *
-         * Use [property@ViewSwitcherSidebar:placeholder] to provide an empty state
-         * widget. It will be shown when all items have been filtered out, or the
-         * sidebar has no items otherwise.
-         *
-         * ## CSS nodes
-         *
-         * `AdwViewSwitcherSidebar` has a single CSS node with name
-         * `view-switcher-sidebar`.
-         *
-         * See also: [class@ViewSwitcher], [class@ViewSwitcherBar],
-         * [class@InlineViewSwitcher].
-         * @since 1.9
-         */
         interface ViewSwitcherSidebar extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ViewSwitcherSidebar.SignalSignatures
             readonly $readableProperties: ViewSwitcherSidebar.ReadableProperties
@@ -19887,16 +22862,65 @@ declare module "gi://Adw?version=1" {
         interface ViewSwitcherSidebarClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<ViewSwitcherSidebar>
             readonly prototype: ViewSwitcherSidebar
+
             new (props?: Partial<GObject.ConstructorProps<ViewSwitcherSidebar>>): ViewSwitcherSidebar
             /**
              * Creates a new `AdwViewSwitcherSidebar`.
              * @since 1.9
              * @returns the newly created `AdwViewSwitcherSidebar`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcherSidebar
         }
 
-        const ViewSwitcherSidebar: ViewSwitcherSidebarClass
+        interface $Exports {
+            /**
+             * An adaptive sidebar that controls an [class@ViewStack].
+             *
+             * <picture>
+             *   <source srcset="view-switcher-sidebar-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="view-switcher-sidebar.png" alt="view-switcher-sidebar">
+             * </picture>
+             *
+             * `AdwViewSwitcherSidebar` is a view switcher implemented using a
+             * [class@Sidebar], in a similar fashion to [class@Gtk.StackSidebar].
+             *
+             * `AdwViewSwitcherSidebar` items have an icon, a label, as well as an unread
+             * dot or a badge.
+             *
+             * Unlike other switchers, `AdwViewSwitcherSidebar` supports grouping pages into
+             * sections, using the [property@ViewStackPage:starts-section] and
+             * [property@ViewStackPage:section-title] properties.
+             *
+             * Like [class@Sidebar], `AdwViewSwitcherSidebar` is adaptive and can behave as
+             * a sidebar or a page, via the [property@ViewSwitcherSidebar:mode] property.
+             *
+             * <picture>
+             *   <source srcset="view-switcher-sidebar-modes-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="view-switcher-sidebar-modes.png" alt="view-switcher-sidebar-modes">
+             * </picture>
+             *
+             * Connect to the [signal@ViewSwitcherSidebar::activated] signal to run code when
+             * an item has been activated. This can be used to toggle the visible pane when
+             * used in a split view.
+             *
+             * Like `AdwSidebar`, `AdwViewSwitcherSidebar` supports filtering items via the
+             * [property@ViewSwitcherSidebar:filter] property.
+             *
+             * Use [property@ViewSwitcherSidebar:placeholder] to provide an empty state
+             * widget. It will be shown when all items have been filtered out, or the
+             * sidebar has no items otherwise.
+             *
+             * ## CSS nodes
+             *
+             * `AdwViewSwitcherSidebar` has a single CSS node with name
+             * `view-switcher-sidebar`.
+             *
+             * See also: [class@ViewSwitcher], [class@ViewSwitcherBar],
+             * [class@InlineViewSwitcher].
+             * @since 1.9
+             */
+            ViewSwitcherSidebar: ViewSwitcherSidebarClass
+        }
         
 
         namespace ViewSwitcherTitle {
@@ -19923,15 +22947,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * ## CSS nodes
-         *
-         * `AdwViewSwitcherTitle` has a single CSS node with name `viewswitchertitle`.
-         * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
-         */
         interface ViewSwitcherTitle extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: ViewSwitcherTitle.SignalSignatures
             readonly $readableProperties: ViewSwitcherTitle.ReadableProperties
@@ -20058,16 +23073,81 @@ declare module "gi://Adw?version=1" {
         interface ViewSwitcherTitleClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<ViewSwitcherTitle>
             readonly prototype: ViewSwitcherTitle
+
             new (props?: Partial<GObject.ConstructorProps<ViewSwitcherTitle>>): ViewSwitcherTitle
             /**
              * Creates a new `AdwViewSwitcherTitle`.
              * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
              * @returns the newly created `AdwViewSwitcherTitle`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcherTitle
         }
 
-        const ViewSwitcherTitle: ViewSwitcherTitleClass
+        interface $Exports {
+            /**
+             * A view switcher title.
+             *
+             * <picture>
+             *   <source srcset="view-switcher-title-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="view-switcher-title.png" alt="view-switcher-title">
+             * </picture>
+             *
+             * A widget letting you switch between multiple views contained by a
+             * [class@ViewStack] via an [class@ViewSwitcher].
+             *
+             * It is designed to be used as the title widget of a [class@HeaderBar], and
+             * will display the window's title when the window is too narrow to fit the view
+             * switcher e.g. on mobile phones, or if there are less than two views.
+             *
+             * In order to center the title in narrow windows, the header bar should have
+             * [property@HeaderBar:centering-policy] set to
+             * [enum@Adw.CenteringPolicy.strict].
+             *
+             * `AdwViewSwitcherTitle` is intended to be used together with
+             * [class@ViewSwitcherBar].
+             *
+             * A common use case is to bind the [property@ViewSwitcherBar:reveal] property
+             * to [property@ViewSwitcherTitle:title-visible] to automatically reveal the
+             * view switcher bar when the title label is displayed in place of the view
+             * switcher, as follows:
+             *
+             * ```xml
+             * <object class="AdwWindow">
+             *   <property name="content">
+             *     <object class="AdwToolbarView">
+             *       <child type="top">
+             *         <object class="AdwHeaderBar">
+             *           <property name="centering-policy">strict</property>
+             *           <property name="title-widget">
+             *             <object class="AdwViewSwitcherTitle" id="title">
+             *               <property name="stack">stack</property>
+             *             </object>
+             *           </property>
+             *         </object>
+             *       </child>
+             *       <property name="content">
+             *         <object class="AdwViewStack" id="stack"/>
+             *       </property>
+             *       <child type="bottom">
+             *         <object class="AdwViewSwitcherBar">
+             *           <property name="stack">stack</property>
+             *           <binding name="reveal">
+             *             <lookup name="title-visible">title</lookup>
+             *           </binding>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * ## CSS nodes
+             *
+             * `AdwViewSwitcherTitle` has a single CSS node with name `viewswitchertitle`.
+             * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+             */
+            ViewSwitcherTitle: ViewSwitcherTitleClass
+        }
         
 
         namespace Window {
@@ -20094,10 +23174,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         * ,
-         * and controlled via the [property@Window:adaptive-preview] property.
-         */
         interface Window extends Gtk.Window, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Native, Gtk.Root, Gtk.ShortcutManager {
             readonly $signals: Window.SignalSignatures
             readonly $readableProperties: Window.ReadableProperties
@@ -20208,15 +23284,99 @@ declare module "gi://Adw?version=1" {
         interface WindowClass extends Omit<Gtk.WindowClass, "new"> {
             readonly $gtype: GObject.GType<Window>
             readonly prototype: Window
+
             new (props?: Partial<GObject.ConstructorProps<Window>>): Window
             /**
              * Creates a new `AdwWindow`.
              * @returns the newly created `AdwWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): Window
         }
 
-        const Window: WindowClass
+        interface $Exports {
+            /**
+             * A freeform window.
+             *
+             * <picture>
+             *   <source srcset="window-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="window.png" alt="window">
+             * </picture>
+             *
+             * The `AdwWindow` widget is a subclass of [class@Gtk.Window] which has no
+             * titlebar area. Instead, [class@ToolbarView] can be used together with
+             * [class@HeaderBar] or [class@Gtk.HeaderBar] as follows:
+             *
+             * ```xml
+             * <object class="AdwWindow">
+             *   <property name="content">
+             *     <object class="AdwToolbarView">
+             *       <child type="top">
+             *         <object class="AdwHeaderBar"/>
+             *       </child>
+             *       <property name="content">
+             *         <!-- ... -->
+             *       </property>
+             *     </object>
+             *   </property>
+             * </object>
+             * ```
+             *
+             * Using [property@Gtk.Window:titlebar] or [property@Gtk.Window:child]
+             * is not supported and will result in a crash. Use [property@Window:content]
+             * instead.
+             *
+             * ## Dialogs
+             *
+             * `AdwWindow` can contain [class@Dialog]. Use [method@Dialog.present] with the
+             * window or a widget within a window to show a dialog.
+             *
+             * ## Breakpoints
+             *
+             * `AdwWindow` can be used with [class@Breakpoint] the same way as
+             * [class@BreakpointBin]. Refer to that widget's documentation for details.
+             *
+             * Example:
+             *
+             * ```xml
+             * <object class="AdwWindow">
+             *   <property name="content">
+             *     <object class="AdwToolbarView">
+             *       <child type="top">
+             *         <object class="AdwHeaderBar"/>
+             *       </child>
+             *       <property name="content">
+             *         <!-- ... -->
+             *       </property>
+             *       <child type="bottom">
+             *         <object class="GtkActionBar" id="bottom_bar">
+             *           <property name="revealed">True</property>
+             *           <property name="visible">False</property>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </property>
+             *   <child>
+             *     <object class="AdwBreakpoint">
+             *       <condition>max-width: 500px</condition>
+             *       <setter object="bottom_bar" property="visible">True</setter>
+             *     </object>
+             *   </child>
+             * </object>
+             * ```
+             *
+             * When breakpoints are used, the minimum size must be larger than the smallest
+             * UI state. `AdwWindow` defaults to the minimum size of 360×200 px. If that's
+             * too small, set the [property@Gtk.Widget:width-request] and
+             * [property@Gtk.Widget:height-request] properties manually.
+             *
+             * ## Adaptive Preview
+             *
+             * `AdwWindow` has a debug tool called adaptive preview. It can be opened from
+             * GTK Inspector or by pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd>,
+             * and controlled via the [property@Window:adaptive-preview] property.
+             */
+            Window: WindowClass
+        }
         
 
         namespace WindowTitle {
@@ -20237,16 +23397,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * `AdwWindowTitle` shows a title and subtitle. It's intended to be used as the
-         * title child of [class@Gtk.HeaderBar] or [class@HeaderBar].
-         *
-         * ## CSS nodes
-         *
-         * `AdwWindowTitle` has a single CSS node with name `windowtitle`.
-         */
         interface WindowTitle extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: WindowTitle.SignalSignatures
             readonly $readableProperties: WindowTitle.ReadableProperties
@@ -20297,6 +23447,7 @@ declare module "gi://Adw?version=1" {
         interface WindowTitleClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<WindowTitle>
             readonly prototype: WindowTitle
+
             new (props?: Partial<GObject.ConstructorProps<WindowTitle>>): WindowTitle
             /**
              * Creates a new `AdwWindowTitle`.
@@ -20304,10 +23455,27 @@ declare module "gi://Adw?version=1" {
              * @param subtitle a subtitle
              * @returns the newly created `AdwWindowTitle`
              */
-            "new"(title: string, subtitle: string): Gtk.Widget
+            "new"(title: string, subtitle: string): WindowTitle
         }
 
-        const WindowTitle: WindowTitleClass
+        interface $Exports {
+            /**
+             * A helper widget for setting a window's title and subtitle.
+             *
+             * <picture>
+             *   <source srcset="window-title-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="window-title.png" alt="window-title">
+             * </picture>
+             *
+             * `AdwWindowTitle` shows a title and subtitle. It's intended to be used as the
+             * title child of [class@Gtk.HeaderBar] or [class@HeaderBar].
+             *
+             * ## CSS nodes
+             *
+             * `AdwWindowTitle` has a single CSS node with name `windowtitle`.
+             */
+            WindowTitle: WindowTitleClass
+        }
         
 
         namespace WrapBox {
@@ -20350,61 +23518,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * `AdwWrapBox` is similar to [class@Gtk.Box], but can wrap lines when the
-         * widgets cannot fit otherwise. Unlike [class@Gtk.FlowBox], the children aren't
-         * arranged into a grid and behave more like words in a wrapping label.
-         *
-         * Like `GtkBox`, `AdwWrapBox` is orientable and has spacing:
-         *
-         * - [property@WrapBox:child-spacing] between children in the same line;
-         * - [property@WrapBox:line-spacing] between lines.
-         *
-         * ::: note
-         *     Unlike `GtkBox`, `AdwWrapBox` cannot follow the CSS `border-spacing`
-         *     property.
-         *
-         * Use the [property@WrapBox:natural-line-length] property to determine the
-         * layout's natural size, e.g. when using it in a [class@Gtk.Popover].
-         *
-         * Normally, a horizontal `AdwWrapBox` wraps left to right and top to bottom
-         * for left-to-right languages. Both of these directions can be reversed, using
-         * the [property@WrapBox:pack-direction] and [property@WrapBox:wrap-reverse]
-         * properties. Additionally, the alignment of each line can be controlled with
-         * the [property@WrapBox:align] property.
-         *
-         * Lines can be justified using the [property@WrapBox:justify] property, filling
-         * the entire line by either increasing child size or spacing depending on the
-         * value. Set [property@WrapBox:justify-last-line] to justify the last line as
-         * well.
-         *
-         * By default, `AdwWrapBox` wraps as soon as the previous line cannot fit any
-         * more children without shrinking them past their natural size. Set
-         * [property@WrapBox:wrap-policy] to [enum@Adw.WrapPolicy.minimum] to only wrap
-         * once all the children in the previous line have been shrunk to their minimum
-         * size.
-         *
-         * To make each line take the same amount of space, set
-         * [property@WrapBox:line-homogeneous] to `TRUE`.
-         *
-         * Spacing and natural line length can scale with the text scale factor, use the
-         * [property@WrapBox:child-spacing-unit], [property@WrapBox:line-spacing-unit]
-         * and/or [property@WrapBox:natural-line-length-unit] properties to enable that
-         * behavior.
-         *
-         * See [class@WrapLayout].
-         *
-         * ## CSS nodes
-         *
-         * `AdwWrapBox` uses a single CSS node with name `wrap-box`.
-         *
-         * ## Accessibility
-         *
-         * `AdwWrapBox` uses the [enum@Gtk.AccessibleRole.group] role.
-         * @since 1.7
-         */
         interface WrapBox extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
             readonly $signals: WrapBox.SignalSignatures
             readonly $readableProperties: WrapBox.ReadableProperties
@@ -20826,16 +23939,79 @@ declare module "gi://Adw?version=1" {
         interface WrapBoxClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<WrapBox>
             readonly prototype: WrapBox
+
             new (props?: Partial<GObject.ConstructorProps<WrapBox>>): WrapBox
             /**
              * Creates a new `AdwWrapBox`.
              * @since 1.7
              * @returns the newly created `AdwWrapBox`
              */
-            "new"(): Gtk.Widget
+            "new"(): WrapBox
         }
 
-        const WrapBox: WrapBoxClass
+        interface $Exports {
+            /**
+             * A box-like widget that can wrap into multiple lines.
+             *
+             * <picture>
+             *   <source srcset="wrap-box-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="wrap-box.png" alt="wrap-box">
+             * </picture>
+             *
+             * `AdwWrapBox` is similar to [class@Gtk.Box], but can wrap lines when the
+             * widgets cannot fit otherwise. Unlike [class@Gtk.FlowBox], the children aren't
+             * arranged into a grid and behave more like words in a wrapping label.
+             *
+             * Like `GtkBox`, `AdwWrapBox` is orientable and has spacing:
+             *
+             * - [property@WrapBox:child-spacing] between children in the same line;
+             * - [property@WrapBox:line-spacing] between lines.
+             *
+             * ::: note
+             *     Unlike `GtkBox`, `AdwWrapBox` cannot follow the CSS `border-spacing`
+             *     property.
+             *
+             * Use the [property@WrapBox:natural-line-length] property to determine the
+             * layout's natural size, e.g. when using it in a [class@Gtk.Popover].
+             *
+             * Normally, a horizontal `AdwWrapBox` wraps left to right and top to bottom
+             * for left-to-right languages. Both of these directions can be reversed, using
+             * the [property@WrapBox:pack-direction] and [property@WrapBox:wrap-reverse]
+             * properties. Additionally, the alignment of each line can be controlled with
+             * the [property@WrapBox:align] property.
+             *
+             * Lines can be justified using the [property@WrapBox:justify] property, filling
+             * the entire line by either increasing child size or spacing depending on the
+             * value. Set [property@WrapBox:justify-last-line] to justify the last line as
+             * well.
+             *
+             * By default, `AdwWrapBox` wraps as soon as the previous line cannot fit any
+             * more children without shrinking them past their natural size. Set
+             * [property@WrapBox:wrap-policy] to [enum@Adw.WrapPolicy.minimum] to only wrap
+             * once all the children in the previous line have been shrunk to their minimum
+             * size.
+             *
+             * To make each line take the same amount of space, set
+             * [property@WrapBox:line-homogeneous] to `TRUE`.
+             *
+             * Spacing and natural line length can scale with the text scale factor, use the
+             * [property@WrapBox:child-spacing-unit], [property@WrapBox:line-spacing-unit]
+             * and/or [property@WrapBox:natural-line-length-unit] properties to enable that
+             * behavior.
+             *
+             * See [class@WrapLayout].
+             *
+             * ## CSS nodes
+             *
+             * `AdwWrapBox` uses a single CSS node with name `wrap-box`.
+             *
+             * ## Accessibility
+             *
+             * `AdwWrapBox` uses the [enum@Gtk.AccessibleRole.group] role.
+             * @since 1.7
+             */
+            WrapBox: WrapBoxClass
+        }
         
 
         namespace WrapLayout {
@@ -20878,54 +24054,6 @@ declare module "gi://Adw?version=1" {
             }
         }
 
-        /**
-         *
-         *
-         * `AdwWrapLayout` is similar to [class@Gtk.BoxLayout], but can wrap lines when
-         * the widgets cannot fit otherwise. Unlike [class@Gtk.FlowBox], the children
-         * aren't arranged into a grid and behave more like words in a wrapping label.
-         *
-         * Like `GtkBoxLayout`, `AdwWrapLayout` is orientable and has spacing:
-         *
-         * - [property@WrapLayout:child-spacing] between children in the same line;
-         * - [property@WrapLayout:line-spacing] between lines.
-         *
-         * ::: note
-         *     Unlike `GtkBoxLayout`, `AdwWrapLayout` cannot follow the CSS
-         *     `border-spacing` property.
-         *
-         * Use the [property@WrapLayout:natural-line-length] property to determine the
-         * layout's natural size, e.g. when using it in a [class@Gtk.Popover].
-         *
-         * Normally, a horizontal `AdwWrapLayout` wraps left to right and top to bottom
-         * for left-to-right languages. Both of these directions can be reversed, using
-         * the [property@WrapLayout:pack-direction] and
-         * [property@WrapLayout:wrap-reverse] properties. Additionally, the alignment
-         * of each line can be controlled with the [property@WrapLayout:align] property.
-         *
-         * Lines can be justified using the [property@WrapLayout:justify] property,
-         * filling the entire line by either increasing child size or spacing depending
-         * on the value. Set [property@WrapLayout:justify-last-line] to justify the last
-         * line as well.
-         *
-         * By default, `AdwWrapLayout` wraps as soon as the previous line cannot fit
-         * any more children without shrinking them past their natural size. Set
-         * [property@WrapLayout:wrap-policy] to [enum@Adw.WrapPolicy.minimum] to only
-         * wrap once all the children in the previous line have been shrunk to their
-         * minimum size.
-         *
-         * To make each line take the same amount of space, set
-         * [property@WrapLayout:line-homogeneous] to `TRUE`.
-         *
-         * Spacing and natural line length can scale with the text scale factor, use the
-         * [property@WrapLayout:child-spacing-unit],
-         * [property@WrapLayout:line-spacing-unit] and/or
-         * [property@WrapLayout:natural-line-length-unit] properties to enable that
-         * behavior.
-         *
-         * See [class@WrapBox].
-         * @since 1.7
-         */
         interface WrapLayout extends Gtk.LayoutManager, Gtk.Orientable {
             readonly $signals: WrapLayout.SignalSignatures
             readonly $readableProperties: WrapLayout.ReadableProperties
@@ -21303,38 +24431,199 @@ declare module "gi://Adw?version=1" {
         interface WrapLayoutClass extends Omit<Gtk.LayoutManagerClass, "new"> {
             readonly $gtype: GObject.GType<WrapLayout>
             readonly prototype: WrapLayout
+
             new (props?: Partial<GObject.ConstructorProps<WrapLayout>>): WrapLayout
             /**
              * Creates a new `AdwWrapLayout`.
              * @since 1.7
              * @returns the newly created `AdwWrapLayout`
              */
-            "new"(): Gtk.LayoutManager
+            "new"(): WrapLayout
         }
 
-        const WrapLayout: WrapLayoutClass
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Describes condition for an [class@Breakpoint].
-         * @since 1.4
-         */
-        abstract class BreakpointCondition {
-            static readonly $gtype: GObject.GType<BreakpointCondition>
+        interface $Exports {
+            /**
+             * A box-like layout that can wrap into multiple lines.
+             *
+             * <picture>
+             *   <source srcset="wrap-box-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="wrap-box.png" alt="wrap-box">
+             * </picture>
+             *
+             * `AdwWrapLayout` is similar to [class@Gtk.BoxLayout], but can wrap lines when
+             * the widgets cannot fit otherwise. Unlike [class@Gtk.FlowBox], the children
+             * aren't arranged into a grid and behave more like words in a wrapping label.
+             *
+             * Like `GtkBoxLayout`, `AdwWrapLayout` is orientable and has spacing:
+             *
+             * - [property@WrapLayout:child-spacing] between children in the same line;
+             * - [property@WrapLayout:line-spacing] between lines.
+             *
+             * ::: note
+             *     Unlike `GtkBoxLayout`, `AdwWrapLayout` cannot follow the CSS
+             *     `border-spacing` property.
+             *
+             * Use the [property@WrapLayout:natural-line-length] property to determine the
+             * layout's natural size, e.g. when using it in a [class@Gtk.Popover].
+             *
+             * Normally, a horizontal `AdwWrapLayout` wraps left to right and top to bottom
+             * for left-to-right languages. Both of these directions can be reversed, using
+             * the [property@WrapLayout:pack-direction] and
+             * [property@WrapLayout:wrap-reverse] properties. Additionally, the alignment
+             * of each line can be controlled with the [property@WrapLayout:align] property.
+             *
+             * Lines can be justified using the [property@WrapLayout:justify] property,
+             * filling the entire line by either increasing child size or spacing depending
+             * on the value. Set [property@WrapLayout:justify-last-line] to justify the last
+             * line as well.
+             *
+             * By default, `AdwWrapLayout` wraps as soon as the previous line cannot fit
+             * any more children without shrinking them past their natural size. Set
+             * [property@WrapLayout:wrap-policy] to [enum@Adw.WrapPolicy.minimum] to only
+             * wrap once all the children in the previous line have been shrunk to their
+             * minimum size.
+             *
+             * To make each line take the same amount of space, set
+             * [property@WrapLayout:line-homogeneous] to `TRUE`.
+             *
+             * Spacing and natural line length can scale with the text scale factor, use the
+             * [property@WrapLayout:child-spacing-unit],
+             * [property@WrapLayout:line-spacing-unit] and/or
+             * [property@WrapLayout:natural-line-length-unit] properties to enable that
+             * behavior.
+             *
+             * See [class@WrapBox].
+             * @since 1.7
+             */
+            WrapLayout: WrapLayoutClass
+        }
+        
 
-            
+        namespace Swipeable {
+            interface SignalSignatures extends Gtk.Widget.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Gtk.Widget.ReadableProperties {
+            }
+
+            interface WritableProperties extends Gtk.Widget.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties {
+            }
+
+            interface Interface extends Gtk.Widget {
+                /**
+                 * Gets the progress @self will snap back to after the gesture is canceled.
+                 * @returns the cancel progress, unitless
+                 */
+                vfunc_get_cancel_progress(): number
+                /**
+                 * Gets the swipe distance of @self.
+                 *
+                 * This corresponds to how many pixels 1 unit represents.
+                 * @returns the swipe distance in pixels
+                 */
+                vfunc_get_distance(): number
+                /**
+                 * Gets the current progress of @self.
+                 * @returns the current progress, unitless
+                 */
+                vfunc_get_progress(): number
+                /**
+                 * Gets the snap points of @self.
+                 *
+                 * Each snap point represents a progress value that is considered acceptable to
+                 * end the swipe on.
+                 * @returns the snap points
+                 */
+                vfunc_get_snap_points(): number[]
+                /**
+                 * Gets the area @self can start a swipe from for the given direction and
+                 * gesture type.
+                 *
+                 * This can be used to restrict swipes to only be possible from a certain area,
+                 * for example, to only allow edge swipes, or to have a draggable element and
+                 * ignore swipes elsewhere.
+                 *
+                 * If not implemented, the default implementation returns the allocation of
+                 * @self, allowing swipes from anywhere.
+                 * @param navigation_direction the direction of the swipe
+                 * @param is_drag whether the swipe is caused by a dragging gesture
+                 * @returns , a pointer to a rectangle to store the swipe area
+                 */
+                vfunc_get_swipe_area(navigation_direction: NavigationDirection, is_drag: boolean): Gdk.Rectangle
+            }
+        }
+
+        interface Swipeable extends Gtk.Widget, Swipeable.Interface {
+            readonly $signals: Swipeable.SignalSignatures
+            readonly $readableProperties: Swipeable.ReadableProperties
+            readonly $writableProperties: Swipeable.WritableProperties
+            readonly $constructOnlyProperties: Swipeable.ConstructOnlyProperties
+            /**
+             * Gets the progress @self will snap back to after the gesture is canceled.
+             * @returns the cancel progress, unitless
+             */
+            get_cancel_progress(): number
+            /**
+             * Gets the swipe distance of @self.
+             *
+             * This corresponds to how many pixels 1 unit represents.
+             * @returns the swipe distance in pixels
+             */
+            get_distance(): number
+            /**
+             * Gets the current progress of @self.
+             * @returns the current progress, unitless
+             */
+            get_progress(): number
+            /**
+             * Gets the snap points of @self.
+             *
+             * Each snap point represents a progress value that is considered acceptable to
+             * end the swipe on.
+             * @returns the snap points
+             */
+            get_snap_points(): number[]
+            /**
+             * Gets the area @self can start a swipe from for the given direction and
+             * gesture type.
+             *
+             * This can be used to restrict swipes to only be possible from a certain area,
+             * for example, to only allow edge swipes, or to have a draggable element and
+             * ignore swipes elsewhere.
+             *
+             * If not implemented, the default implementation returns the allocation of
+             * @self, allowing swipes from anywhere.
+             * @param navigation_direction the direction of the swipe
+             * @param is_drag whether the swipe is caused by a dragging gesture
+             * @returns , a pointer to a rectangle to store the swipe area
+             */
+            get_swipe_area(navigation_direction: NavigationDirection, is_drag: boolean): Gdk.Rectangle
+        }
+
+        interface SwipeableInterface {
+            readonly $gtype: GObject.GType<Swipeable>
+            readonly prototype: Swipeable
+            [Symbol.hasInstance](instance: unknown): instance is Swipeable
+        }
+
+        interface $Exports {
+            /**
+             * An interface for swipeable widgets.
+             *
+             * The `AdwSwipeable` interface is implemented by all swipeable widgets.
+             *
+             * See [class@SwipeTracker] for details about implementing it.
+             */
+            Swipeable: SwipeableInterface
+        }
+        
+
+        interface BreakpointConditionStruct {
+            readonly $gtype: GObject.GType<BreakpointCondition>
+            [Symbol.hasInstance](instance: unknown): instance is BreakpointCondition
             /**
              * Creates a condition that triggers when @condition_1 and @condition_2 are both
              * true.
@@ -21343,7 +24632,7 @@ declare module "gi://Adw?version=1" {
              * @param condition_2 second condition
              * @returns the newly created condition
              */
-            static new_and(condition_1: BreakpointCondition, condition_2: BreakpointCondition): BreakpointCondition
+            new_and(condition_1: BreakpointCondition, condition_2: BreakpointCondition): BreakpointCondition
             /**
              * Creates a condition that triggers on length changes.
              * @since 1.4
@@ -21352,7 +24641,7 @@ declare module "gi://Adw?version=1" {
              * @param unit the length unit
              * @returns the newly created condition
              */
-            static new_length(type: BreakpointConditionLengthType, value: number, unit: LengthUnit): BreakpointCondition
+            new_length(type: BreakpointConditionLengthType, value: number, unit: LengthUnit): BreakpointCondition
             /**
              * Creates a condition that triggers when either @condition_1 or @condition_2 is
              * true.
@@ -21361,7 +24650,7 @@ declare module "gi://Adw?version=1" {
              * @param condition_2 second condition
              * @returns the newly created condition
              */
-            static new_or(condition_1: BreakpointCondition, condition_2: BreakpointCondition): BreakpointCondition
+            new_or(condition_1: BreakpointCondition, condition_2: BreakpointCondition): BreakpointCondition
             /**
              * Creates a condition that triggers on ratio changes.
              *
@@ -21372,9 +24661,51 @@ declare module "gi://Adw?version=1" {
              * @param height ratio height
              * @returns the newly created condition
              */
-            static new_ratio(type: BreakpointConditionRatioType, width: number, height: number): BreakpointCondition
+            new_ratio(type: BreakpointConditionRatioType, width: number, height: number): BreakpointCondition
             /**
-             * `s is true, same as when using
+             * Parses a condition from a string.
+             *
+             * Length conditions are specified as `<type>: <value>[<unit>]`, where:
+             *
+             * - `<type>` can be `min-width`, `max-width`, `min-height` or `max-height`
+             * - `<value>` is a fractional number
+             * - `<unit>` can be `px`, `pt` or `sp`
+             *
+             * If the unit is omitted, `px` is assumed.
+             *
+             * See [ctor@BreakpointCondition.new_length].
+             *
+             * Examples:
+             *
+             * - `min-width: 500px`
+             * - `min-height: 400pt`
+             * - `max-width: 100sp`
+             * - `max-height: 500`
+             *
+             * Ratio conditions are specified as `<type>: <width>[/<height>]`, where:
+             *
+             * - `<type>` can be `min-aspect-ratio` or `max-aspect-ratio`
+             * - `<width>` and `<height>` are integer numbers
+             *
+             * See [ctor@BreakpointCondition.new_ratio].
+             *
+             * The ratio is represented as `<width>` divided by `<height>`.
+             *
+             * If `<height>` is omitted, it's assumed to be 1.
+             *
+             * Examples:
+             *
+             * - `min-aspect-ratio: 4/3`
+             * - `max-aspect-ratio: 1`
+             *
+             * The logical operators `and`, `or` can be used to compose a complex condition
+             * as follows:
+             *
+             * - `<condition> and <condition>`: the condition is true when both
+             *   `<condition>`s are true, same as when using
+             *   [ctor@BreakpointCondition.new_and]
+             * - `<condition> or <condition>`: the condition is true when either of the
+             *   `<condition>`s is true, same as when using
              *   [ctor@BreakpointCondition.new_or]
              *
              * Examples:
@@ -21391,7 +24722,10 @@ declare module "gi://Adw?version=1" {
              * @param str the string specifying the condition
              * @returns the parsed condition
              */
-            static parse(str: string): BreakpointCondition
+            parse(str: string): BreakpointCondition
+        }
+
+        interface BreakpointCondition {
             /**
              * Copies @self.
              * @since 1.4
@@ -21412,90 +24746,15 @@ declare module "gi://Adw?version=1" {
              */
             to_string(): string
         }
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Physical parameters of a spring for [class@SpringAnimation].
-         *
-         * Any spring can be described by three parameters: mass, stiffness and damping.
-         *
-         * An undamped spring will produce an oscillatory motion which will go on
-         * forever.
-         *
-         * The frequency and amplitude of the oscillations will be determined by the
-         * stiffness (how "strong" the spring is) and its mass (how much "inertia" it
-         * has).
-         *
-         * If damping is larger than 0, the amplitude of that oscillating motion will
-         * exponientally decrease over time. If that damping is strong enough that the
-         * spring can't complete a full oscillation, it's called an overdamped spring.
-         *
-         * If we the spring can oscillate, it's called an underdamped spring.
-         *
-         * The value between these two behaviors is called critical damping; a
-         * critically damped spring will comes to rest in the minimum possible time
-         * without producing oscillations.
-         *
-         * The damping can be replaced by damping ratio, which produces the following
-         * springs:
-         *
-         * * 0: an undamped spring.
-         * * Between 0 and 1: an underdamped spring.
-         * * 1: a critically damped spring.
-         * * Larger than 1: an overdamped spring.
-         *
-         * As such
-         */
-        abstract class SpringParams {
-            static readonly $gtype: GObject.GType<SpringParams>
 
-            
+        interface $Exports {
+            BreakpointCondition: BreakpointConditionStruct
+        }
+        
+
+        interface SpringParamsStruct {
+            readonly $gtype: GObject.GType<SpringParams>
+            [Symbol.hasInstance](instance: unknown): instance is SpringParams
             /**
              * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping_ratio.
              *
@@ -21517,7 +24776,7 @@ declare module "gi://Adw?version=1" {
              * @param stiffness the stiffness of the spring
              * @returns the newly created spring parameters
              */
-            static "new"(damping_ratio: number, mass: number, stiffness: number): SpringParams
+            "new"(damping_ratio: number, mass: number, stiffness: number): SpringParams
             /**
              * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping.
              *
@@ -21528,7 +24787,10 @@ declare module "gi://Adw?version=1" {
              * @param stiffness the stiffness of the spring
              * @returns the newly created spring parameters
              */
-            static new_full(damping: number, mass: number, stiffness: number): SpringParams
+            new_full(damping: number, mass: number, stiffness: number): SpringParams
+        }
+
+        interface SpringParams {
             /**
              * Gets the damping of @self.
              * @returns the damping
@@ -21561,242 +24823,58 @@ declare module "gi://Adw?version=1" {
              */
             unref(): void
         }
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Converts @self to a `GdkRGBA` representing its background color.
-         *
-         * The matching foreground color is white.
-         * @since 1.6
-         * @param self an accent color
-         * @returns , return location for the color
-         */
-        function accent_color_to_rgba(self: AccentColor): Gdk.RGBA
-        /**
-         * Converts @self to a `GdkRGBA` representing its standalone color.
-         *
-         * It will typically be darker for light background, and lighter for dark
-         * background, ensuring contrast.
-         * @since 1.6
-         * @param self an accent color
-         * @param dark Whether to calculate standalone color for light or dark background
-         * @returns , return location for the color
-         */
-        function accent_color_to_standalone_rgba(self: AccentColor, dark: boolean): Gdk.RGBA
-        /**
-         * `s is true, same as when using
-         *   [ctor@BreakpointCondition.new_or]
-         *
-         * Examples:
-         *
-         * - `min-width: 400px and max-aspect-ratio: 4/3`
-         * - `max-width: 360sp or max-width: 360px`
-         *
-         * Conditions can be further nested using parentheses, for example:
-         *
-         * - `min-width: 400px and (max-aspect-ratio: 4/3 or max-height: 400px)`
-         *
-         * If parentheses are omitted, the first operator takes priority.
-         * @since 1.4
-         * @param str the string specifying the condition
-         * @returns the parsed condition
-         */
-        function breakpoint_condition_parse(str: string): BreakpointCondition
-        /**
-         * Computes easing with @easing for @value.
-         *
-         * @value should generally be in the [0, 1] range.
-         * @param self an easing value
-         * @param value a value to ease
-         * @returns the easing for `value`
-         */
-        function easing_ease(self: Easing, value: number): number
-        /**
-         * Checks whether animations are enabled for @widget.
-         *
-         * This should be used when implementing an animated widget to know whether to
-         * animate it or not.
-         * @param widget a `GtkWidget`
-         * @returns whether animations are enabled for `widget`
-         */
-        function get_enable_animations(widget: Gtk.Widget): boolean
-        /**
-         * Returns the major version number of the Adwaita library.
-         *
-         * For example, in libadwaita version 1.2.3 this is 1.
-         *
-         * This function is in the library, so it represents the libadwaita library your
-         * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-         * which represents the major version of the libadwaita headers you have
-         * included when compiling your code.
-         * @returns the major version number of the Adwaita library
-         */
-        function get_major_version(): number
-        /**
-         * Returns the micro version number of the Adwaita library.
-         *
-         * For example, in libadwaita version 1.2.3 this is 3.
-         *
-         * This function is in the library, so it represents the libadwaita library your
-         * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-         * which represents the micro version of the libadwaita headers you have
-         * included when compiling your code.
-         * @returns the micro version number of the Adwaita library
-         */
-        function get_micro_version(): number
-        /**
-         * Returns the minor version number of the Adwaita library.
-         *
-         * For example, in libadwaita version 1.2.3 this is 2.
-         *
-         * This function is in the library, so it represents the libadwaita library your
-         * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-         * which represents the minor version of the libadwaita headers you have
-         * included when compiling your code.
-         * @returns the minor version number of the Adwaita library
-         */
-        function get_minor_version(): number
-        /**
-         * Initializes Libadwaita.
-         *
-         * This function can be used instead of [func@Gtk.init] as it initializes GTK
-         * implicitly.
-         *
-         * There's no need to call this function if you're using [class@Application].
-         *
-         * If Libadwaita has already been initialized, the function will simply return.
-         *
-         * This makes sure translations, types, themes, and icons for the Adwaita
-         * library are set up properly.
-         */
-        function init(): void
-        /**
-         * Use this function to check if libadwaita has been initialized with
-         * [func@init].
-         * @returns the initialization status
-         */
-        function is_initialized(): boolean
-        /**
-         * Converts @value from pixels to @unit.
-         * @since 1.4
-         * @param unit a length unit
-         * @param value a value in pixels
-         * @param settings settings to use, or `NULL` for default settings
-         * @returns the length in `unit`
-         */
-        function length_unit_from_px(unit: LengthUnit, value: number, settings: Gtk.Settings | null): number
-        /**
-         * Converts @value from @unit to pixels.
-         * @since 1.4
-         * @param unit a length unit
-         * @param value a value in @unit
-         * @param settings settings to use, or `NULL` for default settings
-         * @returns the length in pixels
-         */
-        function length_unit_to_px(unit: LengthUnit, value: number, settings: Gtk.Settings | null): number
-        /**
-         * Computes the linear interpolation between @a and @b for @t.
-         * @param a the start
-         * @param b the end
-         * @param t the interpolation rate
-         * @returns the computed value
-         */
-        function lerp(a: number, b: number, t: number): number
-        /**
-         * Adjusts @rgba to be suitable as a standalone color.
-         *
-         * It will typically be darker for light background, and lighter for dark
-         * background, ensuring contrast.
-         * @since 1.6
-         * @param rgba a background color
-         * @param dark Whether to calculate standalone color for light or dark background
-         * @returns , return location for the standalone color
-         */
-        function rgba_to_standalone(rgba: Gdk.RGBA, dark: boolean): Gdk.RGBA
-        none
-        none
-        none
-        none
-        const DURATION_INFINITE: 4294967295
-        const MAJOR_VERSION: 1
-        const MICRO_VERSION: 0
-        const MINOR_VERSION: 9
-        const VERSION_S: "1.9.0"
-        
-        namespace AccentColor {
-            const $gtype: GObject.GType<AccentColor>
-        }
 
-        /**
-         * Describes the available system accent colors.
-         * @since 1.6
-         */
-        enum AccentColor {
+        interface $Exports {
+            SpringParams: SpringParamsStruct
+        }
+        
+        interface AccentColorEnum {
+            readonly $gtype: GObject.GType<AccentColor>
             /**
              * Use a blue color (`#3584e4`). This is the default value.
              */
-            "BLUE" = 0,
+            readonly "BLUE": 0
             /**
              * Use a teal color (`#2190a4`).
              */
-            "TEAL" = 1,
+            readonly "TEAL": 1
             /**
              * Use a green color (`#3a944a`).
              */
-            "GREEN" = 2,
+            readonly "GREEN": 2
             /**
              * Use a yellow color (`#c88800`).
              */
-            "YELLOW" = 3,
+            readonly "YELLOW": 3
             /**
              * Use a orange color (`#ed5b00`).
              */
-            "ORANGE" = 4,
+            readonly "ORANGE": 4
             /**
              * Use a red color (`#e62d42`).
              */
-            "RED" = 5,
+            readonly "RED": 5
             /**
              * Use a pink color (`#d56199`).
              */
-            "PINK" = 6,
+            readonly "PINK": 6
             /**
              * Use a purple color (`#9141ac`).
              */
-            "PURPLE" = 7,
+            readonly "PURPLE": 7
             /**
              * Use a slate color (`#6f8396`).
              */
-            "SLATE" = 8,
+            readonly "SLATE": 8
         }
-        /**
+        type AccentColor = AccentColorEnum[Exclude<keyof AccentColorEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the available system accent colors.
+             * @since 1.6
+             */
+            AccentColor: AccentColorEnum
+            /**
          * Converts @self to a `GdkRGBA` representing its background color.
          *
          * The matching foreground color is white.
@@ -21804,8 +24882,8 @@ declare module "gi://Adw?version=1" {
          * @param self an accent color
          * @returns , return location for the color
          */
-        function to_rgba(self: AccentColor): Gdk.RGBA
-        /**
+        to_rgba: (self: AccentColor) => Gdk.RGBA
+            /**
          * Converts @self to a `GdkRGBA` representing its standalone color.
          *
          * It will typically be darker for light background, and lighter for dark
@@ -21815,361 +24893,360 @@ declare module "gi://Adw?version=1" {
          * @param dark Whether to calculate standalone color for light or dark background
          * @returns , return location for the color
          */
-        function to_standalone_rgba(self: AccentColor, dark: boolean): Gdk.RGBA
-        
-        namespace AnimationState {
-            const $gtype: GObject.GType<AnimationState>
+        to_standalone_rgba: (self: AccentColor, dark: boolean) => Gdk.RGBA
         }
-
-        /**
-         * Describes the possible states of an [class@Animation].
-         *
-         * The state can be controlled with [method@Animation.play],
-         * [method@Animation.pause], [method@Animation.resume],
-         * [method@Animation.reset] and [method@Animation.skip].
-         */
-        enum AnimationState {
+        
+        interface AnimationStateEnum {
+            readonly $gtype: GObject.GType<AnimationState>
             /**
              * The animation hasn't started yet.
              */
-            "IDLE" = 0,
+            readonly "IDLE": 0
             /**
              * The animation has been paused.
              */
-            "PAUSED" = 1,
+            readonly "PAUSED": 1
             /**
              * The animation is currently playing.
              */
-            "PLAYING" = 2,
+            readonly "PLAYING": 2
             /**
              * The animation has finished.
              */
-            "FINISHED" = 3,
+            readonly "FINISHED": 3
+        }
+        type AnimationState = AnimationStateEnum[Exclude<keyof AnimationStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the possible states of an [class@Animation].
+             *
+             * The state can be controlled with [method@Animation.play],
+             * [method@Animation.pause], [method@Animation.resume],
+             * [method@Animation.reset] and [method@Animation.skip].
+             */
+            AnimationState: AnimationStateEnum
         }
         
-        namespace BannerButtonStyle {
-            const $gtype: GObject.GType<BannerButtonStyle>
-        }
-
-        /**
-         * Describes the available button styles for [class@Banner].
-         *
-         * New values may be added to this enumeration over time.
-         *
-         * See [property@Banner:button-style].
-         * @since 1.7
-         */
-        enum BannerButtonStyle {
+        interface BannerButtonStyleEnum {
+            readonly $gtype: GObject.GType<BannerButtonStyle>
             /**
              * The default button style.
              */
-            "DEFAULT" = 0,
+            readonly "DEFAULT": 0
             /**
              * A button in the suggested action style.
              */
-            "SUGGESTED" = 1,
+            readonly "SUGGESTED": 1
+        }
+        type BannerButtonStyle = BannerButtonStyleEnum[Exclude<keyof BannerButtonStyleEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the available button styles for [class@Banner].
+             *
+             * New values may be added to this enumeration over time.
+             *
+             * See [property@Banner:button-style].
+             * @since 1.7
+             */
+            BannerButtonStyle: BannerButtonStyleEnum
         }
         
-        namespace BreakpointConditionLengthType {
-            const $gtype: GObject.GType<BreakpointConditionLengthType>
-        }
-
-        /**
-         * Describes length types for [struct@BreakpointCondition].
-         *
-         * See [ctor@BreakpointCondition.new_length].
-         *
-         * New values may be added to this enumeration over time.
-         * @since 1.4
-         */
-        enum BreakpointConditionLengthType {
+        interface BreakpointConditionLengthTypeEnum {
+            readonly $gtype: GObject.GType<BreakpointConditionLengthType>
             /**
              * true if the width is greater than or
              *   equal to the condition value
              */
-            "MIN_WIDTH" = 0,
+            readonly "MIN_WIDTH": 0
             /**
              * true if the width is less than or
              *   equal to the condition value
              */
-            "MAX_WIDTH" = 1,
+            readonly "MAX_WIDTH": 1
             /**
              * true if the height is greater than or
              *   equal to the condition value
              */
-            "MIN_HEIGHT" = 2,
+            readonly "MIN_HEIGHT": 2
             /**
              * true if the height is less than or
              *   equal to the condition value
              */
-            "MAX_HEIGHT" = 3,
+            readonly "MAX_HEIGHT": 3
+        }
+        type BreakpointConditionLengthType = BreakpointConditionLengthTypeEnum[Exclude<keyof BreakpointConditionLengthTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes length types for [struct@BreakpointCondition].
+             *
+             * See [ctor@BreakpointCondition.new_length].
+             *
+             * New values may be added to this enumeration over time.
+             * @since 1.4
+             */
+            BreakpointConditionLengthType: BreakpointConditionLengthTypeEnum
         }
         
-        namespace BreakpointConditionRatioType {
-            const $gtype: GObject.GType<BreakpointConditionRatioType>
-        }
-
-        /**
-         * Describes ratio types for [struct@BreakpointCondition].
-         *
-         * See [ctor@BreakpointCondition.new_ratio].
-         *
-         * New values may be added to this enumeration over time.
-         * @since 1.4
-         */
-        enum BreakpointConditionRatioType {
+        interface BreakpointConditionRatioTypeEnum {
+            readonly $gtype: GObject.GType<BreakpointConditionRatioType>
             /**
              * true if the aspect ratio is
              *   greater than or equal to the condition value
              */
-            "MIN_ASPECT_RATIO" = 0,
+            readonly "MIN_ASPECT_RATIO": 0
             /**
              * true if the aspect ratio is
              *   less than or equal to the condition value
              */
-            "MAX_ASPECT_RATIO" = 1,
+            readonly "MAX_ASPECT_RATIO": 1
+        }
+        type BreakpointConditionRatioType = BreakpointConditionRatioTypeEnum[Exclude<keyof BreakpointConditionRatioTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes ratio types for [struct@BreakpointCondition].
+             *
+             * See [ctor@BreakpointCondition.new_ratio].
+             *
+             * New values may be added to this enumeration over time.
+             * @since 1.4
+             */
+            BreakpointConditionRatioType: BreakpointConditionRatioTypeEnum
         }
         
-        namespace CenteringPolicy {
-            const $gtype: GObject.GType<CenteringPolicy>
-        }
-
-        /**
-         * Describes title centering behavior of a [class@HeaderBar] widget.
-         */
-        enum CenteringPolicy {
+        interface CenteringPolicyEnum {
+            readonly $gtype: GObject.GType<CenteringPolicy>
             /**
              * Keep the title centered when possible
              */
-            "LOOSE" = 0,
+            readonly "LOOSE": 0
             /**
              * Keep the title centered at all cost
              */
-            "STRICT" = 1,
+            readonly "STRICT": 1
+        }
+        type CenteringPolicy = CenteringPolicyEnum[Exclude<keyof CenteringPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes title centering behavior of a [class@HeaderBar] widget.
+             */
+            CenteringPolicy: CenteringPolicyEnum
         }
         
-        namespace ColorScheme {
-            const $gtype: GObject.GType<ColorScheme>
-        }
-
-        /**
-         * Application color schemes for [property@StyleManager:color-scheme].
-         */
-        enum ColorScheme {
+        interface ColorSchemeEnum {
+            readonly $gtype: GObject.GType<ColorScheme>
             /**
              * Inherit the parent color-scheme. When set on the
              *   `AdwStyleManager` returned by [func@StyleManager.get_default], it's
              *   equivalent to [enum@Adw.ColorScheme.prefer-light].
              */
-            "DEFAULT" = 0,
+            readonly "DEFAULT": 0
             /**
              * Always use light appearance.
              */
-            "FORCE_LIGHT" = 1,
+            readonly "FORCE_LIGHT": 1
             /**
              * Use light appearance unless the system
              *   prefers dark colors.
              */
-            "PREFER_LIGHT" = 2,
+            readonly "PREFER_LIGHT": 2
             /**
              * Use dark appearance unless the system prefers
              *   prefers light colors.
              */
-            "PREFER_DARK" = 3,
+            readonly "PREFER_DARK": 3
             /**
              * Always use dark appearance.
              */
-            "FORCE_DARK" = 4,
+            readonly "FORCE_DARK": 4
+        }
+        type ColorScheme = ColorSchemeEnum[Exclude<keyof ColorSchemeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Application color schemes for [property@StyleManager:color-scheme].
+             */
+            ColorScheme: ColorSchemeEnum
         }
         
-        namespace DialogPresentationMode {
-            const $gtype: GObject.GType<DialogPresentationMode>
-        }
-
-        /**
-         * Describes the available presentation modes for [class@Dialog].
-         *
-         * New values may be added to this enumeration over time.
-         *
-         * See [property@Dialog:presentation-mode].
-         * @since 1.5
-         */
-        enum DialogPresentationMode {
+        interface DialogPresentationModeEnum {
+            readonly $gtype: GObject.GType<DialogPresentationMode>
             /**
              * Switch between [enum@Adw.DialogPresentationMode.floating]
              *   and [enum@Adw.DialogPresentationMode.bottom-sheet] depending on available
              *   size.
              */
-            "AUTO" = 0,
+            readonly "AUTO": 0
             /**
              * Present dialog as a centered floating window.
              */
-            "FLOATING" = 1,
+            readonly "FLOATING": 1
             /**
              * Present dialog as a bottom sheet.
              */
-            "BOTTOM_SHEET" = 2,
+            readonly "BOTTOM_SHEET": 2
+        }
+        type DialogPresentationMode = DialogPresentationModeEnum[Exclude<keyof DialogPresentationModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the available presentation modes for [class@Dialog].
+             *
+             * New values may be added to this enumeration over time.
+             *
+             * See [property@Dialog:presentation-mode].
+             * @since 1.5
+             */
+            DialogPresentationMode: DialogPresentationModeEnum
         }
         
-        namespace Easing {
-            const $gtype: GObject.GType<Easing>
-        }
-
-        /**
-         * Describes the available easing functions for use with
-         * [class@TimedAnimation].
-         *
-         * New values may be added to this enumeration over time.
-         */
-        enum Easing {
+        interface EasingEnum {
+            readonly $gtype: GObject.GType<Easing>
             /**
              * Linear tweening.
              */
-            "LINEAR" = 0,
+            readonly "LINEAR": 0
             /**
              * Quadratic tweening.
              */
-            "EASE_IN_QUAD" = 1,
+            readonly "EASE_IN_QUAD": 1
             /**
              * Quadratic tweening, inverse of
              *   [enum@Adw.Easing.ease-in-quad].
              */
-            "EASE_OUT_QUAD" = 2,
+            readonly "EASE_OUT_QUAD": 2
             /**
              * Quadratic tweening, combining
              *   [enum@Adw.Easing.ease-in-quad] and [enum@Adw.Easing.ease-out-quad].
              */
-            "EASE_IN_OUT_QUAD" = 3,
+            readonly "EASE_IN_OUT_QUAD": 3
             /**
              * Cubic tweening.
              */
-            "EASE_IN_CUBIC" = 4,
+            readonly "EASE_IN_CUBIC": 4
             /**
              * Cubic tweening, inverse of
              *   [enum@Adw.Easing.ease-in-cubic].
              */
-            "EASE_OUT_CUBIC" = 5,
+            readonly "EASE_OUT_CUBIC": 5
             /**
              * Cubic tweening, combining
              *   [enum@Adw.Easing.ease-in-cubic] and [enum@Adw.Easing.ease-out-cubic].
              */
-            "EASE_IN_OUT_CUBIC" = 6,
+            readonly "EASE_IN_OUT_CUBIC": 6
             /**
              * Quartic tweening.
              */
-            "EASE_IN_QUART" = 7,
+            readonly "EASE_IN_QUART": 7
             /**
              * Quartic tweening, inverse of
              *   [enum@Adw.Easing.ease-in-quart].
              */
-            "EASE_OUT_QUART" = 8,
+            readonly "EASE_OUT_QUART": 8
             /**
              * Quartic tweening, combining
              *   [enum@Adw.Easing.ease-in-quart] and [enum@Adw.Easing.ease-out-quart].
              */
-            "EASE_IN_OUT_QUART" = 9,
+            readonly "EASE_IN_OUT_QUART": 9
             /**
              * Quintic tweening.
              */
-            "EASE_IN_QUINT" = 10,
+            readonly "EASE_IN_QUINT": 10
             /**
              * Quintic tweening, inverse of
              *   [enum@Adw.Easing.ease-in-quint].
              */
-            "EASE_OUT_QUINT" = 11,
+            readonly "EASE_OUT_QUINT": 11
             /**
              * Quintic tweening, combining
              *   [enum@Adw.Easing.ease-in-quint] and [enum@Adw.Easing.ease-out-quint].
              */
-            "EASE_IN_OUT_QUINT" = 12,
+            readonly "EASE_IN_OUT_QUINT": 12
             /**
              * Sine wave tweening.
              */
-            "EASE_IN_SINE" = 13,
+            readonly "EASE_IN_SINE": 13
             /**
              * Sine wave tweening, inverse of
              *   [enum@Adw.Easing.ease-in-sine].
              */
-            "EASE_OUT_SINE" = 14,
+            readonly "EASE_OUT_SINE": 14
             /**
              * Sine wave tweening, combining
              *   [enum@Adw.Easing.ease-in-sine] and [enum@Adw.Easing.ease-out-sine].
              */
-            "EASE_IN_OUT_SINE" = 15,
+            readonly "EASE_IN_OUT_SINE": 15
             /**
              * Exponential tweening.
              */
-            "EASE_IN_EXPO" = 16,
+            readonly "EASE_IN_EXPO": 16
             /**
              * Exponential tweening, inverse of
              *   [enum@Adw.Easing.ease-in-expo].
              */
-            "EASE_OUT_EXPO" = 17,
+            readonly "EASE_OUT_EXPO": 17
             /**
              * Exponential tweening, combining
              *   [enum@Adw.Easing.ease-in-expo] and [enum@Adw.Easing.ease-out-expo].
              */
-            "EASE_IN_OUT_EXPO" = 18,
+            readonly "EASE_IN_OUT_EXPO": 18
             /**
              * Circular tweening.
              */
-            "EASE_IN_CIRC" = 19,
+            readonly "EASE_IN_CIRC": 19
             /**
              * Circular tweening, inverse of
              *   [enum@Adw.Easing.ease-in-circ].
              */
-            "EASE_OUT_CIRC" = 20,
+            readonly "EASE_OUT_CIRC": 20
             /**
              * Circular tweening, combining
              *   [enum@Adw.Easing.ease-in-circ] and [enum@Adw.Easing.ease-out-circ].
              */
-            "EASE_IN_OUT_CIRC" = 21,
+            readonly "EASE_IN_OUT_CIRC": 21
             /**
              * Elastic tweening, with offshoot on start.
              */
-            "EASE_IN_ELASTIC" = 22,
+            readonly "EASE_IN_ELASTIC": 22
             /**
              * Elastic tweening, with offshoot on end, inverse of
              *   [enum@Adw.Easing.ease-in-elastic].
              */
-            "EASE_OUT_ELASTIC" = 23,
+            readonly "EASE_OUT_ELASTIC": 23
             /**
              * Elastic tweening, with offshoot on both ends,
              *   combining [enum@Adw.Easing.ease-in-elastic] and
              *   [enum@Adw.Easing.ease-out-elastic].
              */
-            "EASE_IN_OUT_ELASTIC" = 24,
+            readonly "EASE_IN_OUT_ELASTIC": 24
             /**
              * Overshooting cubic tweening, with backtracking on start.
              */
-            "EASE_IN_BACK" = 25,
+            readonly "EASE_IN_BACK": 25
             /**
              * Overshooting cubic tweening, with backtracking on end,
              *   inverse of [enum@Adw.Easing.ease-in-back].
              */
-            "EASE_OUT_BACK" = 26,
+            readonly "EASE_OUT_BACK": 26
             /**
              * Overshooting cubic tweening, with backtracking on both
              *   ends, combining [enum@Adw.Easing.ease-in-back] and
              *   [enum@Adw.Easing.ease-out-back].
              */
-            "EASE_IN_OUT_BACK" = 27,
+            readonly "EASE_IN_OUT_BACK": 27
             /**
              * Exponentially decaying parabolic (bounce) tweening,
              *   on start.
              */
-            "EASE_IN_BOUNCE" = 28,
+            readonly "EASE_IN_BOUNCE": 28
             /**
              * Exponentially decaying parabolic (bounce) tweening,
              *   with bounce on end, inverse of [enum@Adw.Easing.ease-in-bounce].
              */
-            "EASE_OUT_BOUNCE" = 29,
+            readonly "EASE_OUT_BOUNCE": 29
             /**
              * Exponentially decaying parabolic (bounce) tweening,
              *   with bounce on both ends, combining [enum@Adw.Easing.ease-in-bounce] and
              *   [enum@Adw.Easing.ease-out-bounce].
              */
-            "EASE_IN_OUT_BOUNCE" = 30,
+            readonly "EASE_IN_OUT_BOUNCE": 30
             /**
              * Cubic bezier tweening, with control points in (0.25, 0.1) and (0.25, 1.0).
              *
@@ -22177,30 +25254,39 @@ declare module "gi://Adw?version=1" {
              * at the end.
              * @since 1.7
              */
-            "EASE" = 31,
+            readonly "EASE": 31
             /**
              * Cubic bezier tweening, with control points in (0.42, 0.0) and (1.0, 1.0).
              *
              * Starts off slowly, with the speed of the animation increasing until complete.
              * @since 1.7
              */
-            "EASE_IN" = 32,
+            readonly "EASE_IN": 32
             /**
              * Cubic bezier tweening, with control points in (0.0, 0.0) and (0.58, 1.0).
              *
              * Starts quickly, slowing down the animation until complete.
              * @since 1.7
              */
-            "EASE_OUT" = 33,
+            readonly "EASE_OUT": 33
             /**
              * Cubic bezier tweening, with control points in (0.42, 0.0) and (0.58, 1.0).
              *
              * Starts off slowly, speeds up in the middle, and then slows down again.
              * @since 1.7
              */
-            "EASE_IN_OUT" = 34,
+            readonly "EASE_IN_OUT": 34
         }
-        /**
+        type Easing = EasingEnum[Exclude<keyof EasingEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the available easing functions for use with
+             * [class@TimedAnimation].
+             *
+             * New values may be added to this enumeration over time.
+             */
+            Easing: EasingEnum
+            /**
          * Computes easing with @easing for @value.
          *
          * @value should generally be in the [0, 1] range.
@@ -22208,191 +25294,203 @@ declare module "gi://Adw?version=1" {
          * @param value a value to ease
          * @returns the easing for `value`
          */
-        function ease(self: Easing, value: number): number
-        
-        namespace FlapFoldPolicy {
-            const $gtype: GObject.GType<FlapFoldPolicy>
+        ease: (self: Easing, value: number) => number
         }
-
-        /**
-         * Describes the possible folding behavior of a [class@Flap] widget.
-         * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
-         */
-        enum FlapFoldPolicy {
+        
+        interface FlapFoldPolicyEnum {
+            readonly $gtype: GObject.GType<FlapFoldPolicy>
             /**
              * Disable folding, the flap cannot reach narrow
              *   sizes.
              */
-            "NEVER" = 0,
+            readonly "NEVER": 0
             /**
              * Keep the flap always folded.
              */
-            "ALWAYS" = 1,
+            readonly "ALWAYS": 1
             /**
              * Fold and unfold the flap based on available
              *   space.
              */
-            "AUTO" = 2,
+            readonly "AUTO": 2
+        }
+        type FlapFoldPolicy = FlapFoldPolicyEnum[Exclude<keyof FlapFoldPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the possible folding behavior of a [class@Flap] widget.
+             * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+             */
+            FlapFoldPolicy: FlapFoldPolicyEnum
         }
         
-        namespace FlapTransitionType {
-            const $gtype: GObject.GType<FlapTransitionType>
-        }
-
-        /**
-         * Describes transitions types of a [class@Flap] widget.
-         *
-         * It determines the type of animation when transitioning between children in a
-         * [class@Flap] widget, as well as which areas can be swiped via
-         * [property@Flap:swipe-to-open] and [property@Flap:swipe-to-close].
-         * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
-         */
-        enum FlapTransitionType {
+        interface FlapTransitionTypeEnum {
+            readonly $gtype: GObject.GType<FlapTransitionType>
             /**
              * The flap slides over the content, which is
              *   dimmed. When folded, only the flap can be swiped.
              */
-            "OVER" = 0,
+            readonly "OVER": 0
             /**
              * The content slides over the flap. Only the
              *   content can be swiped.
              */
-            "UNDER" = 1,
+            readonly "UNDER": 1
             /**
              * The flap slides offscreen when hidden,
              *   neither the flap nor content overlap each other. Both widgets can be
              *   swiped.
              */
-            "SLIDE" = 2,
+            readonly "SLIDE": 2
+        }
+        type FlapTransitionType = FlapTransitionTypeEnum[Exclude<keyof FlapTransitionTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes transitions types of a [class@Flap] widget.
+             *
+             * It determines the type of animation when transitioning between children in a
+             * [class@Flap] widget, as well as which areas can be swiped via
+             * [property@Flap:swipe-to-open] and [property@Flap:swipe-to-close].
+             * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+             */
+            FlapTransitionType: FlapTransitionTypeEnum
         }
         
-        namespace FoldThresholdPolicy {
-            const $gtype: GObject.GType<FoldThresholdPolicy>
-        }
-
-        /**
-         * Determines when [class@Flap] and [class@Leaflet] will fold.
-         * @deprecated since 1.4 Stop using `AdwLeaflet` and `AdwFlap`
-         */
-        enum FoldThresholdPolicy {
+        interface FoldThresholdPolicyEnum {
+            readonly $gtype: GObject.GType<FoldThresholdPolicy>
             /**
              * Folding is based on the minimum size
              */
-            "MINIMUM" = 0,
+            readonly "MINIMUM": 0
             /**
              * Folding is based on the natural size
              */
-            "NATURAL" = 1,
+            readonly "NATURAL": 1
+        }
+        type FoldThresholdPolicy = FoldThresholdPolicyEnum[Exclude<keyof FoldThresholdPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Determines when [class@Flap] and [class@Leaflet] will fold.
+             * @deprecated since 1.4 Stop using `AdwLeaflet` and `AdwFlap`
+             */
+            FoldThresholdPolicy: FoldThresholdPolicyEnum
         }
         
-        namespace InlineViewSwitcherDisplayMode {
-            const $gtype: GObject.GType<InlineViewSwitcherDisplayMode>
-        }
-
-        /**
-         * >
-         * @since 1.7
-         */
-        enum InlineViewSwitcherDisplayMode {
+        interface InlineViewSwitcherDisplayModeEnum {
+            readonly $gtype: GObject.GType<InlineViewSwitcherDisplayMode>
             /**
              * Toggles only display labels.
              */
-            "LABELS" = 0,
+            readonly "LABELS": 0
             /**
              * Toggles only display icons.
              */
-            "ICONS" = 1,
+            readonly "ICONS": 1
             /**
              * Toggles display both icons and labels.
              */
-            "BOTH" = 2,
+            readonly "BOTH": 2
+        }
+        type InlineViewSwitcherDisplayMode = InlineViewSwitcherDisplayModeEnum[Exclude<keyof InlineViewSwitcherDisplayModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes what [class@InlineViewSwitcher] toggles display.
+             *
+             * <picture>
+             *   <source srcset="inline-view-switcher-display-modes-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="inline-view-switcher-display-modes.png" alt="inline-view-switcher-display-modes">
+             * </picture>
+             * @since 1.7
+             */
+            InlineViewSwitcherDisplayMode: InlineViewSwitcherDisplayModeEnum
         }
         
-        namespace JustifyMode {
-            const $gtype: GObject.GType<JustifyMode>
-        }
-
-        /**
-         * Describes line justify behaviors in a [class@WrapLayout] or [class@WrapBox].
-         *
-         * See [property@WrapLayout:justify] and [property@WrapBox:justify].
-         * @since 1.7
-         */
-        enum JustifyMode {
+        interface JustifyModeEnum {
+            readonly $gtype: GObject.GType<JustifyMode>
             /**
              * Don't justify children within a line.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Stretch each child within the line, keeping consistent
              *     spacing, so that the line fills the entire length.
              */
-            "FILL" = 1,
+            readonly "FILL": 1
             /**
              * Increase spacing between children, moving the children
              *     so that the first and last child are aligned with the beginning and end
              *     of the line. If the line only contains a single widget, it will be
              *     stretched regardless.
              */
-            "SPREAD" = 2,
+            readonly "SPREAD": 2
+        }
+        type JustifyMode = JustifyModeEnum[Exclude<keyof JustifyModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes line justify behaviors in a [class@WrapLayout] or [class@WrapBox].
+             *
+             * See [property@WrapLayout:justify] and [property@WrapBox:justify].
+             * @since 1.7
+             */
+            JustifyMode: JustifyModeEnum
         }
         
-        namespace LeafletTransitionType {
-            const $gtype: GObject.GType<LeafletTransitionType>
-        }
-
-        /**
-         * Describes the possible transitions in a [class@Leaflet] widget.
-         *
-         * New values may be added to this enumeration over time.
-         * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
-         */
-        enum LeafletTransitionType {
+        interface LeafletTransitionTypeEnum {
+            readonly $gtype: GObject.GType<LeafletTransitionType>
             /**
              * Cover the old page or uncover the new page, sliding from or towards the end according to orientation, text direction and children order
              */
-            "OVER" = 0,
+            readonly "OVER": 0
             /**
              * Uncover the new page or cover the old page, sliding from or towards the start according to orientation, text direction and children order
              */
-            "UNDER" = 1,
+            readonly "UNDER": 1
             /**
              * Slide from left, right, up or down according to the orientation, text direction and the children order
              */
-            "SLIDE" = 2,
+            readonly "SLIDE": 2
+        }
+        type LeafletTransitionType = LeafletTransitionTypeEnum[Exclude<keyof LeafletTransitionTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the possible transitions in a [class@Leaflet] widget.
+             *
+             * New values may be added to this enumeration over time.
+             * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+             */
+            LeafletTransitionType: LeafletTransitionTypeEnum
         }
         
-        namespace LengthUnit {
-            const $gtype: GObject.GType<LengthUnit>
-        }
-
-        /**
-         * Describes length units.
-         *
-         * | Unit | Regular Text | Large Text |
-         * | ---- | ------------ | ---------- |
-         * | 1px  | 1px          | 1px        |
-         * | 1pt  | 1.333333px   | 1.666667px |
-         * | 1sp  | 1px          | 1.25px     |
-         *
-         * New values may be added to this enumeration over time.
-         * @since 1.4
-         */
-        enum LengthUnit {
+        interface LengthUnitEnum {
+            readonly $gtype: GObject.GType<LengthUnit>
             /**
              * pixels
              */
-            "PX" = 0,
+            readonly "PX": 0
             /**
              * points, changes with text scale factor
              */
-            "PT" = 1,
+            readonly "PT": 1
             /**
              * scale independent pixels, changes with text scale factor
              */
-            "SP" = 2,
+            readonly "SP": 2
         }
-        /**
+        type LengthUnit = LengthUnitEnum[Exclude<keyof LengthUnitEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes length units.
+             *
+             * | Unit | Regular Text | Large Text |
+             * | ---- | ------------ | ---------- |
+             * | 1px  | 1px          | 1px        |
+             * | 1pt  | 1.333333px   | 1.666667px |
+             * | 1sp  | 1px          | 1.25px     |
+             *
+             * New values may be added to this enumeration over time.
+             * @since 1.4
+             */
+            LengthUnit: LengthUnitEnum
+            /**
          * Converts @value from pixels to @unit.
          * @since 1.4
          * @param unit a length unit
@@ -22400,8 +25498,8 @@ declare module "gi://Adw?version=1" {
          * @param settings settings to use, or `NULL` for default settings
          * @returns the length in `unit`
          */
-        function from_px(unit: LengthUnit, value: number, settings: Gtk.Settings | null): number
-        /**
+        from_px: (unit: LengthUnit, value: number, settings: Gtk.Settings | null) => number
+            /**
          * Converts @value from @unit to pixels.
          * @since 1.4
          * @param unit a length unit
@@ -22409,283 +25507,328 @@ declare module "gi://Adw?version=1" {
          * @param settings settings to use, or `NULL` for default settings
          * @returns the length in pixels
          */
-        function to_px(unit: LengthUnit, value: number, settings: Gtk.Settings | null): number
-        
-        namespace NavigationDirection {
-            const $gtype: GObject.GType<NavigationDirection>
+        to_px: (unit: LengthUnit, value: number, settings: Gtk.Settings | null) => number
         }
-
-        /**
-         * Describes the direction of a swipe navigation gesture.
-         */
-        enum NavigationDirection {
+        
+        interface NavigationDirectionEnum {
+            readonly $gtype: GObject.GType<NavigationDirection>
             /**
              * Corresponds to start or top, depending on orientation and text direction
              */
-            "BACK" = 0,
+            readonly "BACK": 0
             /**
              * Corresponds to end or bottom, depending on orientation and text direction
              */
-            "FORWARD" = 1,
+            readonly "FORWARD": 1
+        }
+        type NavigationDirection = NavigationDirectionEnum[Exclude<keyof NavigationDirectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the direction of a swipe navigation gesture.
+             */
+            NavigationDirection: NavigationDirectionEnum
         }
         
-        namespace PackDirection {
-            const $gtype: GObject.GType<PackDirection>
-        }
-
-        /**
-         * Describes child packing behavior in a [class@WrapLayout] or [class@WrapBox].
-         *
-         * See [property@WrapLayout:pack-direction] and
-         * [property@WrapBox:pack-direction].
-         * @since 1.7
-         */
-        enum PackDirection {
+        interface PackDirectionEnum {
+            readonly $gtype: GObject.GType<PackDirection>
             /**
              * Pack children from left to right for LTR languages,
              *     or top to bottom vertically.
              */
-            "START_TO_END" = 0,
+            readonly "START_TO_END": 0
             /**
              * Pack children from right to left for LTR languages,
              *     or bottom to top vertically.
              */
-            "END_TO_START" = 1,
+            readonly "END_TO_START": 1
+        }
+        type PackDirection = PackDirectionEnum[Exclude<keyof PackDirectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes child packing behavior in a [class@WrapLayout] or [class@WrapBox].
+             *
+             * See [property@WrapLayout:pack-direction] and
+             * [property@WrapBox:pack-direction].
+             * @since 1.7
+             */
+            PackDirection: PackDirectionEnum
         }
         
-        namespace ResponseAppearance {
-            const $gtype: GObject.GType<ResponseAppearance>
-        }
-
-        /**
-         * Describes the possible styles of [class@AlertDialog] response buttons.
-         *
-         * See [method@AlertDialog.set_response_appearance].
-         * @since 1.2
-         */
-        enum ResponseAppearance {
+        interface ResponseAppearanceEnum {
+            readonly $gtype: GObject.GType<ResponseAppearance>
             /**
              * the default appearance.
              */
-            "DEFAULT" = 0,
+            readonly "DEFAULT": 0
             /**
              * used to denote important responses such as the
              *     affirmative action.
              */
-            "SUGGESTED" = 1,
+            readonly "SUGGESTED": 1
             /**
              * used to draw attention to the potentially damaging
              *     consequences of using the response. This appearance acts as a warning to
              *     the user.
              */
-            "DESTRUCTIVE" = 2,
+            readonly "DESTRUCTIVE": 2
+        }
+        type ResponseAppearance = ResponseAppearanceEnum[Exclude<keyof ResponseAppearanceEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the possible styles of [class@AlertDialog] response buttons.
+             *
+             * See [method@AlertDialog.set_response_appearance].
+             * @since 1.2
+             */
+            ResponseAppearance: ResponseAppearanceEnum
         }
         
-        namespace SidebarMode {
-            const $gtype: GObject.GType<SidebarMode>
-        }
-
-        /**
-         * Determines how an [class@Sidebar] should look and behave.
-         *
-         * See [property@Sidebar:mode] and [property@ViewSwitcherSidebar:mode].
-         * @since 1.9
-         */
-        enum SidebarMode {
+        interface SidebarModeEnum {
+            readonly $gtype: GObject.GType<SidebarMode>
             /**
              * The sidebar should be displayed as a sidebar
              */
-            "SIDEBAR" = 0,
+            readonly "SIDEBAR": 0
             /**
              * The sidebar should be displayed as boxed lists page
              */
-            "PAGE" = 1,
+            readonly "PAGE": 1
+        }
+        type SidebarMode = SidebarModeEnum[Exclude<keyof SidebarModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Determines how an [class@Sidebar] should look and behave.
+             *
+             * See [property@Sidebar:mode] and [property@ViewSwitcherSidebar:mode].
+             * @since 1.9
+             */
+            SidebarMode: SidebarModeEnum
         }
         
-        namespace SqueezerTransitionType {
-            const $gtype: GObject.GType<SqueezerTransitionType>
-        }
-
-        /**
-         * Describes the possible transitions in a [class@Squeezer] widget.
-         * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
-         */
-        enum SqueezerTransitionType {
+        interface SqueezerTransitionTypeEnum {
+            readonly $gtype: GObject.GType<SqueezerTransitionType>
             /**
              * No transition
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * A cross-fade
              */
-            "CROSSFADE" = 1,
+            readonly "CROSSFADE": 1
+        }
+        type SqueezerTransitionType = SqueezerTransitionTypeEnum[Exclude<keyof SqueezerTransitionTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the possible transitions in a [class@Squeezer] widget.
+             * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+             */
+            SqueezerTransitionType: SqueezerTransitionTypeEnum
         }
         
-        namespace ToastPriority {
-            const $gtype: GObject.GType<ToastPriority>
-        }
-
-        /**
-         * [class@Toast] behavior when another toast is already displayed.
-         */
-        enum ToastPriority {
+        interface ToastPriorityEnum {
+            readonly $gtype: GObject.GType<ToastPriority>
             /**
              * the toast will be queued if another toast is
              *   already displayed.
              */
-            "NORMAL" = 0,
+            readonly "NORMAL": 0
             /**
              * the toast will be displayed immediately, pushing
              *   the previous toast into the queue instead.
              */
-            "HIGH" = 1,
+            readonly "HIGH": 1
+        }
+        type ToastPriority = ToastPriorityEnum[Exclude<keyof ToastPriorityEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * [class@Toast] behavior when another toast is already displayed.
+             */
+            ToastPriority: ToastPriorityEnum
         }
         
-        namespace ToolbarStyle {
-            const $gtype: GObject.GType<ToolbarStyle>
-        }
-
-        /**
-         *
-         *
-         * See [property@ToolbarView:top-bar-style] and
-         * [property@ToolbarView:bottom-bar-style].
-         *
-         * New values may be added to this enumeration over time.
-         * @since 1.4
-         */
-        enum ToolbarStyle {
+        interface ToolbarStyleEnum {
+            readonly $gtype: GObject.GType<ToolbarStyle>
             /**
              * No background, shadow only for scrolled content
              */
-            "FLAT" = 0,
+            readonly "FLAT": 0
             /**
              * Opaque background with a persistent shadow
              */
-            "RAISED" = 1,
+            readonly "RAISED": 1
             /**
              * Opaque background with a persistent border
              */
-            "RAISED_BORDER" = 2,
+            readonly "RAISED_BORDER": 2
+        }
+        type ToolbarStyle = ToolbarStyleEnum[Exclude<keyof ToolbarStyleEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the possible top or bottom bar styles in an [class@ToolbarView]
+             * widget.
+             *
+             * [enum@Adw.ToolbarStyle.flat] is suitable for simple content, such as
+             * [class@StatusPage] or [class@PreferencesPage], where the background at the
+             * top and bottom parts of the page is uniform. Additionally, windows with
+             * sidebars should always use this style.
+             *
+             * <picture style="min-width: 33%; display: inline-block;">
+             *   <source srcset="toolbar-view-flat-1-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toolbar-view-flat-1.png" alt="toolbar-view-flat-1">
+             * </picture>
+             * <picture style="min-width: 33%; display: inline-block;">
+             *   <source srcset="toolbar-view-flat-2-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toolbar-view-flat-2.png" alt="toolbar-view-flat-2">
+             * </picture>
+             *
+             * [enum@Adw.ToolbarStyle.raised] style is suitable for content such as
+             * [utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
+             * where some elements are directly adjacent to the top/bottom bars, or
+             * [class@TabView], where each page can have a different background.
+             *
+             * [enum@Adw.ToolbarStyle.raised-border] style is similar to
+             * [enum@Adw.ToolbarStyle.raised], but with the shadow replaced with a more
+             * subtle border. It's intended to be used in applications like image viewers,
+             * where a shadow over the content might be undesired.
+             *
+             * <picture style="min-width: 33%; display: inline-block;">
+             *   <source srcset="toolbar-view-raised-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toolbar-view-raised.png" alt="toolbar-view-raised">
+             * </picture>
+             * <picture style="min-width: 33%; display: inline-block;">
+             *   <source srcset="toolbar-view-raised-border-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img src="toolbar-view-raised-border.png" alt="toolbar-view-raised-border">
+             * </picture>
+             *
+             * See [property@ToolbarView:top-bar-style] and
+             * [property@ToolbarView:bottom-bar-style].
+             *
+             * New values may be added to this enumeration over time.
+             * @since 1.4
+             */
+            ToolbarStyle: ToolbarStyleEnum
         }
         
-        namespace ViewSwitcherPolicy {
-            const $gtype: GObject.GType<ViewSwitcherPolicy>
-        }
-
-        /**
-         * Describes the adaptive modes of [class@ViewSwitcher].
-         */
-        enum ViewSwitcherPolicy {
+        interface ViewSwitcherPolicyEnum {
+            readonly $gtype: GObject.GType<ViewSwitcherPolicy>
             /**
              * Force the narrow mode
              */
-            "NARROW" = 0,
+            readonly "NARROW": 0
             /**
              * Force the wide mode
              */
-            "WIDE" = 1,
+            readonly "WIDE": 1
+        }
+        type ViewSwitcherPolicy = ViewSwitcherPolicyEnum[Exclude<keyof ViewSwitcherPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the adaptive modes of [class@ViewSwitcher].
+             */
+            ViewSwitcherPolicy: ViewSwitcherPolicyEnum
         }
         
-        namespace WrapPolicy {
-            const $gtype: GObject.GType<WrapPolicy>
-        }
-
-        /**
-         * Describes line wrapping behavior in a [class@WrapLayout] or [class@WrapBox].
-         *
-         * See [property@WrapLayout:wrap-policy] and [property@WrapBox:wrap-policy].
-         * @since 1.7
-         */
-        enum WrapPolicy {
+        interface WrapPolicyEnum {
+            readonly $gtype: GObject.GType<WrapPolicy>
             /**
              * Fit as many children into each line as possible, shrinking
              *     them down to their minimum size before wrapping to the next line.
              */
-            "MINIMUM" = 0,
+            readonly "MINIMUM": 0
             /**
              * Wrap to the next line as soon as the previous line cannot
              *     fit any more children without shrinking them past their natural size.
              */
-            "NATURAL" = 1,
+            readonly "NATURAL": 1
+        }
+        type WrapPolicy = WrapPolicyEnum[Exclude<keyof WrapPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes line wrapping behavior in a [class@WrapLayout] or [class@WrapBox].
+             *
+             * See [property@WrapLayout:wrap-policy] and [property@WrapBox:wrap-policy].
+             * @since 1.7
+             */
+            WrapPolicy: WrapPolicyEnum
         }
         
-        namespace TabViewShortcuts {
-            const $gtype: GObject.GType<TabViewShortcuts>
-        }
-
-        /**
-         * Describes available shortcuts in an [class@TabView].
-         *
-         * Shortcuts can be set with [property@TabView:shortcuts], or added/removed
-         * individually with [method@TabView.add_shortcuts] and
-         * [method@TabView.remove_shortcuts].
-         *
-         * New values may be added to this enumeration over time.
-         * @since 1.2
-         */
-        enum TabViewShortcuts {
+        interface TabViewShortcutsBitfield {
+            readonly $gtype: GObject.GType<TabViewShortcuts>
             /**
              * No shortcuts
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
-             *  - switch to the next page
+             * <kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the next page
              */
-            "CONTROL_TAB" = 1,
+            readonly "CONTROL_TAB": 1
             /**
-             *  - switch to the previous
+             * <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the previous
              *   page
              */
-            "CONTROL_SHIFT_TAB" = 2,
+            readonly "CONTROL_SHIFT_TAB": 2
             /**
-             *  - switch to the previous page
+             * <kbd>Ctrl</kbd>+<kbd>Page Up</kbd> - switch to the previous page
              */
-            "CONTROL_PAGE_UP" = 4,
+            readonly "CONTROL_PAGE_UP": 4
             /**
-             *  - switch to the next page
+             * <kbd>Ctrl</kbd>+<kbd>Page Down</kbd> - switch to the next page
              */
-            "CONTROL_PAGE_DOWN" = 8,
+            readonly "CONTROL_PAGE_DOWN": 8
             /**
-             *  - switch to the first page
+             * <kbd>Ctrl</kbd>+<kbd>Home</kbd> - switch to the first page
              */
-            "CONTROL_HOME" = 16,
+            readonly "CONTROL_HOME": 16
             /**
-             *  - switch to the last page
+             * <kbd>Ctrl</kbd>+<kbd>End</kbd> - switch to the last page
              */
-            "CONTROL_END" = 32,
+            readonly "CONTROL_END": 32
             /**
-             *  - move the selected
+             * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Up</kbd> - move the selected
              *   page backward
              */
-            "CONTROL_SHIFT_PAGE_UP" = 64,
+            readonly "CONTROL_SHIFT_PAGE_UP": 64
             /**
-             *  - move the selected
+             * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Down</kbd> - move the selected
              *   page forward
              */
-            "CONTROL_SHIFT_PAGE_DOWN" = 128,
+            readonly "CONTROL_SHIFT_PAGE_DOWN": 128
             /**
-             *  - move the selected page
+             * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Home</kbd> - move the selected page
              *   at the start
              */
-            "CONTROL_SHIFT_HOME" = 256,
+            readonly "CONTROL_SHIFT_HOME": 256
             /**
-             *  - move the current page at
+             * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>End</kbd> - move the current page at
              *   the end
              */
-            "CONTROL_SHIFT_END" = 512,
+            readonly "CONTROL_SHIFT_END": 512
             /**
-             *  - switch to pages 1-9
+             * <kbd>Alt</kbd>+<kbd>1</kbd>⋯<kbd>9</kbd> - switch to pages 1-9
              */
-            "ALT_DIGITS" = 1024,
+            readonly "ALT_DIGITS": 1024
             /**
-             *  - switch to page 10
+             * <kbd>Alt</kbd>+<kbd>0</kbd> - switch to page 10
              */
-            "ALT_ZERO" = 2048,
+            readonly "ALT_ZERO": 2048
             /**
              * All of the shortcuts
              */
-            "ALL_SHORTCUTS" = 4095,
+            readonly "ALL_SHORTCUTS": 4095
+        }
+        type TabViewShortcuts = number
+        interface $Exports {
+            /**
+             * Describes available shortcuts in an [class@TabView].
+             *
+             * Shortcuts can be set with [property@TabView:shortcuts], or added/removed
+             * individually with [method@TabView.add_shortcuts] and
+             * [method@TabView.remove_shortcuts].
+             *
+             * New values may be added to this enumeration over time.
+             * @since 1.2
+             */
+            TabViewShortcuts: TabViewShortcutsBitfield
         }
         /**
          * Prototype for animation targets based on user callbacks.
@@ -22701,7 +25844,210 @@ declare module "gi://Adw?version=1" {
          * @returns an `AdwSidebarItem` that represents `item`
          */
         type SidebarSectionCreateItemFunc = (item: GObject.Object) => SidebarItem
+
+        interface $Exports {
+            __name__: "Adw"
+            __version: "1"
+            DURATION_INFINITE: 4294967295
+            MAJOR_VERSION: 1
+            MICRO_VERSION: 0
+            MINOR_VERSION: 9
+            VERSION_S: "1.9.0"
+            /**
+             * Converts @self to a `GdkRGBA` representing its background color.
+             *
+             * The matching foreground color is white.
+             * @since 1.6
+             * @param self an accent color
+             * @returns , return location for the color
+             */
+            accent_color_to_rgba(self: AccentColor): Gdk.RGBA
+            /**
+             * Converts @self to a `GdkRGBA` representing its standalone color.
+             *
+             * It will typically be darker for light background, and lighter for dark
+             * background, ensuring contrast.
+             * @since 1.6
+             * @param self an accent color
+             * @param dark Whether to calculate standalone color for light or dark background
+             * @returns , return location for the color
+             */
+            accent_color_to_standalone_rgba(self: AccentColor, dark: boolean): Gdk.RGBA
+            /**
+             * Parses a condition from a string.
+             *
+             * Length conditions are specified as `<type>: <value>[<unit>]`, where:
+             *
+             * - `<type>` can be `min-width`, `max-width`, `min-height` or `max-height`
+             * - `<value>` is a fractional number
+             * - `<unit>` can be `px`, `pt` or `sp`
+             *
+             * If the unit is omitted, `px` is assumed.
+             *
+             * See [ctor@BreakpointCondition.new_length].
+             *
+             * Examples:
+             *
+             * - `min-width: 500px`
+             * - `min-height: 400pt`
+             * - `max-width: 100sp`
+             * - `max-height: 500`
+             *
+             * Ratio conditions are specified as `<type>: <width>[/<height>]`, where:
+             *
+             * - `<type>` can be `min-aspect-ratio` or `max-aspect-ratio`
+             * - `<width>` and `<height>` are integer numbers
+             *
+             * See [ctor@BreakpointCondition.new_ratio].
+             *
+             * The ratio is represented as `<width>` divided by `<height>`.
+             *
+             * If `<height>` is omitted, it's assumed to be 1.
+             *
+             * Examples:
+             *
+             * - `min-aspect-ratio: 4/3`
+             * - `max-aspect-ratio: 1`
+             *
+             * The logical operators `and`, `or` can be used to compose a complex condition
+             * as follows:
+             *
+             * - `<condition> and <condition>`: the condition is true when both
+             *   `<condition>`s are true, same as when using
+             *   [ctor@BreakpointCondition.new_and]
+             * - `<condition> or <condition>`: the condition is true when either of the
+             *   `<condition>`s is true, same as when using
+             *   [ctor@BreakpointCondition.new_or]
+             *
+             * Examples:
+             *
+             * - `min-width: 400px and max-aspect-ratio: 4/3`
+             * - `max-width: 360sp or max-width: 360px`
+             *
+             * Conditions can be further nested using parentheses, for example:
+             *
+             * - `min-width: 400px and (max-aspect-ratio: 4/3 or max-height: 400px)`
+             *
+             * If parentheses are omitted, the first operator takes priority.
+             * @since 1.4
+             * @param str the string specifying the condition
+             * @returns the parsed condition
+             */
+            breakpoint_condition_parse(str: string): BreakpointCondition
+            /**
+             * Computes easing with @easing for @value.
+             *
+             * @value should generally be in the [0, 1] range.
+             * @param self an easing value
+             * @param value a value to ease
+             * @returns the easing for `value`
+             */
+            easing_ease(self: Easing, value: number): number
+            /**
+             * Checks whether animations are enabled for @widget.
+             *
+             * This should be used when implementing an animated widget to know whether to
+             * animate it or not.
+             * @param widget a `GtkWidget`
+             * @returns whether animations are enabled for `widget`
+             */
+            get_enable_animations(widget: Gtk.Widget): boolean
+            /**
+             * Returns the major version number of the Adwaita library.
+             *
+             * For example, in libadwaita version 1.2.3 this is 1.
+             *
+             * This function is in the library, so it represents the libadwaita library your
+             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
+             * which represents the major version of the libadwaita headers you have
+             * included when compiling your code.
+             * @returns the major version number of the Adwaita library
+             */
+            get_major_version(): number
+            /**
+             * Returns the micro version number of the Adwaita library.
+             *
+             * For example, in libadwaita version 1.2.3 this is 3.
+             *
+             * This function is in the library, so it represents the libadwaita library your
+             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
+             * which represents the micro version of the libadwaita headers you have
+             * included when compiling your code.
+             * @returns the micro version number of the Adwaita library
+             */
+            get_micro_version(): number
+            /**
+             * Returns the minor version number of the Adwaita library.
+             *
+             * For example, in libadwaita version 1.2.3 this is 2.
+             *
+             * This function is in the library, so it represents the libadwaita library your
+             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
+             * which represents the minor version of the libadwaita headers you have
+             * included when compiling your code.
+             * @returns the minor version number of the Adwaita library
+             */
+            get_minor_version(): number
+            /**
+             * Initializes Libadwaita.
+             *
+             * This function can be used instead of [func@Gtk.init] as it initializes GTK
+             * implicitly.
+             *
+             * There's no need to call this function if you're using [class@Application].
+             *
+             * If Libadwaita has already been initialized, the function will simply return.
+             *
+             * This makes sure translations, types, themes, and icons for the Adwaita
+             * library are set up properly.
+             */
+            init(): void
+            /**
+             * Use this function to check if libadwaita has been initialized with
+             * [func@init].
+             * @returns the initialization status
+             */
+            is_initialized(): boolean
+            /**
+             * Converts @value from pixels to @unit.
+             * @since 1.4
+             * @param unit a length unit
+             * @param value a value in pixels
+             * @param settings settings to use, or `NULL` for default settings
+             * @returns the length in `unit`
+             */
+            length_unit_from_px(unit: LengthUnit, value: number, settings: Gtk.Settings | null): number
+            /**
+             * Converts @value from @unit to pixels.
+             * @since 1.4
+             * @param unit a length unit
+             * @param value a value in @unit
+             * @param settings settings to use, or `NULL` for default settings
+             * @returns the length in pixels
+             */
+            length_unit_to_px(unit: LengthUnit, value: number, settings: Gtk.Settings | null): number
+            /**
+             * Computes the linear interpolation between @a and @b for @t.
+             * @param a the start
+             * @param b the end
+             * @param t the interpolation rate
+             * @returns the computed value
+             */
+            lerp(a: number, b: number, t: number): number
+            /**
+             * Adjusts @rgba to be suitable as a standalone color.
+             *
+             * It will typically be darker for light background, and lighter for dark
+             * background, ensuring contrast.
+             * @since 1.6
+             * @param rgba a background color
+             * @param dark Whether to calculate standalone color for light or dark background
+             * @returns , return location for the standalone color
+             */
+            rgba_to_standalone(rgba: Gdk.RGBA, dark: boolean): Gdk.RGBA
+        }
     }
 
+    const Adw: Adw.$Exports
     export default Adw
 }

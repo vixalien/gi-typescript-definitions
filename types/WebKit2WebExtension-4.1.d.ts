@@ -38,211 +38,7 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
 
     
 
-
     namespace WebKit2WebExtension {
-        const __name__: "WebKit2WebExtension"
-        const __version: "4.1"
-        
-
-        namespace DOMEventTarget {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * @param event_name
-                 * @param handler
-                 * @param use_capture
-                 */
-                vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean
-                /**
-                 * @throws {GLib.Error}
-                 * @deprecated since 2.22 Use JavaScriptCore API instead
-                 * @param event A #WebKitDOMEvent
-                 * @returns a #gboolean
-                 */
-                vfunc_dispatch_event(event: DOMEvent): boolean
-                /**
-                 * @deprecated since 2.22 Use JavaScriptCore API instead
-                 * @param event_name A #gchar
-                 * @param handler A #GCallback
-                 * @param use_capture A #gboolean
-                 * @returns a #gboolean
-                 */
-                vfunc_remove_event_listener(event_name: string, handler: never | null, use_capture: boolean): boolean
-            }
-        }
-
-        /**
-         */
-        interface DOMEventTarget extends DOMEventTarget.Interface {
-            readonly $signals: DOMEventTarget.SignalSignatures
-            readonly $readableProperties: DOMEventTarget.ReadableProperties
-            readonly $writableProperties: DOMEventTarget.WritableProperties
-            readonly $constructOnlyProperties: DOMEventTarget.ConstructOnlyProperties
-            /**
-             * @deprecated since 2.22 Use JavaScriptCore API instead
-             * @param event_name A #gchar
-             * @param handler A #GCallback
-             * @param use_capture A #gboolean
-             * @returns a #gboolean
-             */
-            add_event_listener(event_name: string, handler: GObject.Callback, use_capture: boolean): boolean
-            /**
-             * Version of webkit_dom_event_target_add_event_listener() using a closure
-             * instead of a callbacks for easier binding in other languages.
-             * @override
-             * @deprecated since 2.22 Use JavaScriptCore API instead
-             * @param event_name A #gchar
-             * @param handler A #GClosure
-             * @param use_capture A #gboolean
-             * @returns a #gboolean
-             */
-            add_event_listener_with_closure(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean
-            /**
-             * @throws {GLib.Error}
-             * @deprecated since 2.22 Use JavaScriptCore API instead
-             * @param event A #WebKitDOMEvent
-             * @returns a #gboolean
-             */
-            dispatch_event(event: DOMEvent): boolean
-            /**
-             * @deprecated since 2.22 Use JavaScriptCore API instead
-             * @param event_name A #gchar
-             * @param handler A #GCallback
-             * @param use_capture A #gboolean
-             * @returns a #gboolean
-             */
-            remove_event_listener(event_name: string, handler: never | null, use_capture: boolean): boolean
-            /**
-             * Version of webkit_dom_event_target_remove_event_listener() using a closure
-             * instead of a callbacks for easier binding in other languages.
-             * @override
-             * @deprecated since 2.22 Use JavaScriptCore API instead
-             * @param event_name A #gchar
-             * @param handler A #GClosure
-             * @param use_capture A #gboolean
-             * @returns a #gboolean
-             */
-            remove_event_listener_with_closure(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean
-        }
-
-
-        interface DOMEventTargetIface {
-            readonly $gtype: GObject.GType<DOMEventTarget>
-            readonly prototype: DOMEventTarget
-
-            [Symbol.hasInstance](instance: unknown): instance is DOMEventTarget
-        }
-
-        const DOMEventTarget: DOMEventTargetIface
-        
-
-        namespace DOMNodeFilter {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * @deprecated since 2.22 Use JavaScriptCore API instead
-                 * @param node A #WebKitDOMNode
-                 * @returns a #gshort
-                 */
-                vfunc_accept_node(node: DOMNode): number
-            }
-        }
-
-        /**
-         */
-        interface DOMNodeFilter extends DOMNodeFilter.Interface {
-            readonly $signals: DOMNodeFilter.SignalSignatures
-            readonly $readableProperties: DOMNodeFilter.ReadableProperties
-            readonly $writableProperties: DOMNodeFilter.WritableProperties
-            readonly $constructOnlyProperties: DOMNodeFilter.ConstructOnlyProperties
-            /**
-             * @deprecated since 2.22 Use JavaScriptCore API instead
-             * @param node A #WebKitDOMNode
-             * @returns a #gshort
-             */
-            accept_node(node: DOMNode): number
-        }
-
-
-        interface DOMNodeFilterIface {
-            readonly $gtype: GObject.GType<DOMNodeFilter>
-            readonly prototype: DOMNodeFilter
-
-            [Symbol.hasInstance](instance: unknown): instance is DOMNodeFilter
-        }
-
-        const DOMNodeFilter: DOMNodeFilterIface
-        
-
-        namespace DOMXPathNSResolver {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * @deprecated since 2.22 Use JavaScriptCore API instead
-                 * @param prefix The prefix to lookup
-                 * @returns a #gchar
-                 */
-                vfunc_lookup_namespace_uri(prefix: string): string
-            }
-        }
-
-        /**
-         */
-        interface DOMXPathNSResolver extends DOMXPathNSResolver.Interface {
-            readonly $signals: DOMXPathNSResolver.SignalSignatures
-            readonly $readableProperties: DOMXPathNSResolver.ReadableProperties
-            readonly $writableProperties: DOMXPathNSResolver.WritableProperties
-            readonly $constructOnlyProperties: DOMXPathNSResolver.ConstructOnlyProperties
-            /**
-             * @deprecated since 2.22 Use JavaScriptCore API instead
-             * @param prefix The prefix to lookup
-             * @returns a #gchar
-             */
-            lookup_namespace_uri(prefix: string): string
-        }
-
-
-        interface DOMXPathNSResolverIface {
-            readonly $gtype: GObject.GType<DOMXPathNSResolver>
-            readonly prototype: DOMXPathNSResolver
-
-            [Symbol.hasInstance](instance: unknown): instance is DOMXPathNSResolver
-        }
-
-        const DOMXPathNSResolver: DOMXPathNSResolverIface
         
 
         namespace ContextMenu {
@@ -259,12 +55,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         * s with
-         * webkit_context_menu_prepend(), webkit_context_menu_append() or
-         * webkit_context_menu_insert(), maybe after having removed the
-         * existing ones with webkit_context_menu_remove_all().
-         */
         interface ContextMenu extends GObject.Object {
             readonly $signals: ContextMenu.SignalSignatures
             readonly $readableProperties: ContextMenu.ReadableProperties
@@ -281,7 +71,22 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
              */
             first(): ContextMenuItem
             /**
-             * >
+             * Gets the #GdkEvent that triggered the context menu. This function only returns a valid
+             * #GdkEvent when called for a #WebKitContextMenu passed to #WebKitWebView::context-menu
+             * signal; in all other cases, %NULL is returned.
+             *
+             * The returned #GdkEvent is expected to be one of the following types:
+             * <itemizedlist>
+             * <listitem><para>
+             * a #GdkEventButton of type %GDK_BUTTON_PRESS when the context menu was triggered with mouse.
+             * </para></listitem>
+             * <listitem><para>
+             * a #GdkEventKey of type %GDK_KEY_PRESS if the keyboard was used to show the menu.
+             * </para></listitem>
+             * <listitem><para>
+             * a generic #GdkEvent of type %GDK_NOTHING when the #GtkWidget::popup-menu signal was used to show the context menu.
+             * </para></listitem>
+             * </itemizedlist>
              * @since 2.40
              * @returns the menu event or %NULL.
              */
@@ -294,12 +99,12 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             get_item_at_position(position: number): ContextMenuItem
             /**
              * Returns the item list of @menu.
-             * @returns s
+             * @returns a #GList of    #WebKitContextMenuItem<!-- -->s
              */
             get_items(): ContextMenuItem[]
             /**
              * Gets the length of the @menu.
-             * @returns s in `menu`
+             * @returns the number of #WebKitContextMenuItem<!-- -->s in `menu`
              */
             get_n_items(): number
             /**
@@ -310,7 +115,7 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
              * @since 2.52
              * @returns %TRUE if valid position coordinates are available, %FALSE otherwise, return location for the x coordinate, return location for the y coordinate
              */
-            get_position(): boolean
+            get_position(): [boolean, number, number]
             /**
              * Gets the user data of @menu.
              *
@@ -377,6 +182,7 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface ContextMenuClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ContextMenu>
             readonly prototype: ContextMenu
+
             new (props?: Partial<GObject.ConstructorProps<ContextMenu>>): ContextMenu
             /**
              * Creates a new #WebKitContextMenu object.
@@ -403,7 +209,24 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             new_with_items(items: ContextMenuItem[]): ContextMenu
         }
 
-        const ContextMenu: ContextMenuClass
+        interface $Exports {
+            /**
+             * Represents the context menu in a #WebKitWebView.
+             *
+             * #WebKitContextMenu represents a context menu containing
+             * #WebKitContextMenuItem<!-- -->s in a #WebKitWebView.
+             *
+             * When a #WebKitWebView is about to display the context menu, it
+             * emits the #WebKitWebView::context-menu signal, which has the
+             * #WebKitContextMenu as an argument. You can modify it, adding new
+             * submenus that you can create with webkit_context_menu_new(), adding
+             * new #WebKitContextMenuItem<!-- -->s with
+             * webkit_context_menu_prepend(), webkit_context_menu_append() or
+             * webkit_context_menu_insert(), maybe after having removed the
+             * existing ones with webkit_context_menu_remove_all().
+             */
+            ContextMenu: ContextMenuClass
+        }
         
 
         namespace ContextMenuItem {
@@ -420,10 +243,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         * s denote stock actions
-         * for the items. You can also create separators and submenus.
-         */
         interface ContextMenuItem extends GObject.InitiallyUnowned {
             readonly $signals: ContextMenuItem.SignalSignatures
             readonly $readableProperties: ContextMenuItem.ReadableProperties
@@ -486,6 +305,7 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface ContextMenuItemClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
             readonly $gtype: GObject.GType<ContextMenuItem>
             readonly prototype: ContextMenuItem
+
             new (props?: Partial<GObject.ConstructorProps<ContextMenuItem>>): ContextMenuItem
             /**
              * Creates a new #WebKitContextMenuItem for the given @action.
@@ -545,7 +365,18 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             new_with_submenu(label: string, submenu: ContextMenu): ContextMenuItem
         }
 
-        const ContextMenuItem: ContextMenuItemClass
+        interface $Exports {
+            /**
+             * One item of a #WebKitContextMenu.
+             *
+             * The #WebKitContextMenu is composed of #WebKitContextMenuItem<!--
+             * -->s. These items can be created from a #GtkAction, from a
+             * #WebKitContextMenuAction or from a #WebKitContextMenuAction and a
+             * label. These #WebKitContextMenuAction<!-- -->s denote stock actions
+             * for the items. You can also create separators and submenus.
+             */
+            ContextMenuItem: ContextMenuItemClass
+        }
         
 
         namespace DOMAttr {
@@ -576,8 +407,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMAttr extends DOMNode, DOMEventTarget {
             readonly $signals: DOMAttr.SignalSignatures
             readonly $readableProperties: DOMAttr.ReadableProperties
@@ -661,10 +490,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMAttrClass extends Omit<DOMNodeClass, "new"> {
             readonly $gtype: GObject.GType<DOMAttr>
             readonly prototype: DOMAttr
+
             new (props?: Partial<GObject.ConstructorProps<DOMAttr>>): DOMAttr
         }
 
-        const DOMAttr: DOMAttrClass
+        interface $Exports {
+            /**
+             */
+            DOMAttr: DOMAttrClass
+        }
         
 
         namespace DOMBlob {
@@ -683,8 +517,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMBlob extends DOMObject {
             readonly $signals: DOMBlob.SignalSignatures
             readonly $readableProperties: DOMBlob.ReadableProperties
@@ -705,10 +537,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMBlobClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMBlob>
             readonly prototype: DOMBlob
+
             new (props?: Partial<GObject.ConstructorProps<DOMBlob>>): DOMBlob
         }
 
-        const DOMBlob: DOMBlobClass
+        interface $Exports {
+            /**
+             */
+            DOMBlob: DOMBlobClass
+        }
         
 
         namespace DOMCDATASection {
@@ -725,8 +562,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMCDATASection extends DOMText, DOMEventTarget {
             readonly $signals: DOMCDATASection.SignalSignatures
             readonly $readableProperties: DOMCDATASection.ReadableProperties
@@ -737,10 +572,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMCDATASectionClass extends Omit<DOMTextClass, "new"> {
             readonly $gtype: GObject.GType<DOMCDATASection>
             readonly prototype: DOMCDATASection
+
             new (props?: Partial<GObject.ConstructorProps<DOMCDATASection>>): DOMCDATASection
         }
 
-        const DOMCDATASection: DOMCDATASectionClass
+        interface $Exports {
+            /**
+             */
+            DOMCDATASection: DOMCDATASectionClass
+        }
         
 
         namespace DOMCSSRule {
@@ -765,8 +605,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMCSSRule extends DOMObject {
             readonly $signals: DOMCSSRule.SignalSignatures
             readonly $readableProperties: DOMCSSRule.ReadableProperties
@@ -820,10 +658,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMCSSRuleClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMCSSRule>
             readonly prototype: DOMCSSRule
+
             new (props?: Partial<GObject.ConstructorProps<DOMCSSRule>>): DOMCSSRule
         }
 
-        const DOMCSSRule: DOMCSSRuleClass
+        interface $Exports {
+            /**
+             */
+            DOMCSSRule: DOMCSSRuleClass
+        }
         
 
         namespace DOMCSSRuleList {
@@ -842,8 +685,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMCSSRuleList extends DOMObject {
             readonly $signals: DOMCSSRuleList.SignalSignatures
             readonly $readableProperties: DOMCSSRuleList.ReadableProperties
@@ -870,10 +711,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMCSSRuleListClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMCSSRuleList>
             readonly prototype: DOMCSSRuleList
+
             new (props?: Partial<GObject.ConstructorProps<DOMCSSRuleList>>): DOMCSSRuleList
         }
 
-        const DOMCSSRuleList: DOMCSSRuleListClass
+        interface $Exports {
+            /**
+             */
+            DOMCSSRuleList: DOMCSSRuleListClass
+        }
         
 
         namespace DOMCSSStyleDeclaration {
@@ -896,8 +742,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMCSSStyleDeclaration extends DOMObject {
             readonly $signals: DOMCSSStyleDeclaration.SignalSignatures
             readonly $readableProperties: DOMCSSStyleDeclaration.ReadableProperties
@@ -987,10 +831,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMCSSStyleDeclarationClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMCSSStyleDeclaration>
             readonly prototype: DOMCSSStyleDeclaration
+
             new (props?: Partial<GObject.ConstructorProps<DOMCSSStyleDeclaration>>): DOMCSSStyleDeclaration
         }
 
-        const DOMCSSStyleDeclaration: DOMCSSStyleDeclarationClass
+        interface $Exports {
+            /**
+             */
+            DOMCSSStyleDeclaration: DOMCSSStyleDeclarationClass
+        }
         
 
         namespace DOMCSSStyleSheet {
@@ -1013,8 +862,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMCSSStyleSheet extends DOMStyleSheet {
             readonly $signals: DOMCSSStyleSheet.SignalSignatures
             readonly $readableProperties: DOMCSSStyleSheet.ReadableProperties
@@ -1081,10 +928,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMCSSStyleSheetClass extends Omit<DOMStyleSheetClass, "new"> {
             readonly $gtype: GObject.GType<DOMCSSStyleSheet>
             readonly prototype: DOMCSSStyleSheet
+
             new (props?: Partial<GObject.ConstructorProps<DOMCSSStyleSheet>>): DOMCSSStyleSheet
         }
 
-        const DOMCSSStyleSheet: DOMCSSStyleSheetClass
+        interface $Exports {
+            /**
+             */
+            DOMCSSStyleSheet: DOMCSSStyleSheetClass
+        }
         
 
         namespace DOMCSSValue {
@@ -1105,8 +957,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMCSSValue extends DOMObject {
             readonly $signals: DOMCSSValue.SignalSignatures
             readonly $readableProperties: DOMCSSValue.ReadableProperties
@@ -1142,10 +992,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMCSSValueClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMCSSValue>
             readonly prototype: DOMCSSValue
+
             new (props?: Partial<GObject.ConstructorProps<DOMCSSValue>>): DOMCSSValue
         }
 
-        const DOMCSSValue: DOMCSSValueClass
+        interface $Exports {
+            /**
+             */
+            DOMCSSValue: DOMCSSValueClass
+        }
         
 
         namespace DOMCharacterData {
@@ -1166,8 +1021,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMCharacterData extends DOMNode, DOMEventTarget {
             readonly $signals: DOMCharacterData.SignalSignatures
             readonly $readableProperties: DOMCharacterData.ReadableProperties
@@ -1239,10 +1092,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMCharacterDataClass extends Omit<DOMNodeClass, "new"> {
             readonly $gtype: GObject.GType<DOMCharacterData>
             readonly prototype: DOMCharacterData
+
             new (props?: Partial<GObject.ConstructorProps<DOMCharacterData>>): DOMCharacterData
         }
 
-        const DOMCharacterData: DOMCharacterDataClass
+        interface $Exports {
+            /**
+             */
+            DOMCharacterData: DOMCharacterDataClass
+        }
         
 
         namespace DOMClientRect {
@@ -1271,8 +1129,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMClientRect extends DOMObject {
             readonly $signals: DOMClientRect.SignalSignatures
             readonly $readableProperties: DOMClientRect.ReadableProperties
@@ -1355,10 +1211,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMClientRectClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMClientRect>
             readonly prototype: DOMClientRect
+
             new (props?: Partial<GObject.ConstructorProps<DOMClientRect>>): DOMClientRect
         }
 
-        const DOMClientRect: DOMClientRectClass
+        interface $Exports {
+            /**
+             */
+            DOMClientRect: DOMClientRectClass
+        }
         
 
         namespace DOMClientRectList {
@@ -1377,8 +1238,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMClientRectList extends DOMObject {
             readonly $signals: DOMClientRectList.SignalSignatures
             readonly $readableProperties: DOMClientRectList.ReadableProperties
@@ -1409,10 +1268,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMClientRectListClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMClientRectList>
             readonly prototype: DOMClientRectList
+
             new (props?: Partial<GObject.ConstructorProps<DOMClientRectList>>): DOMClientRectList
         }
 
-        const DOMClientRectList: DOMClientRectListClass
+        interface $Exports {
+            /**
+             */
+            DOMClientRectList: DOMClientRectListClass
+        }
         
 
         namespace DOMComment {
@@ -1429,8 +1293,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMComment extends DOMCharacterData, DOMEventTarget {
             readonly $signals: DOMComment.SignalSignatures
             readonly $readableProperties: DOMComment.ReadableProperties
@@ -1441,10 +1303,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMCommentClass extends Omit<DOMCharacterDataClass, "new"> {
             readonly $gtype: GObject.GType<DOMComment>
             readonly prototype: DOMComment
+
             new (props?: Partial<GObject.ConstructorProps<DOMComment>>): DOMComment
         }
 
-        const DOMComment: DOMCommentClass
+        interface $Exports {
+            /**
+             */
+            DOMComment: DOMCommentClass
+        }
         
 
         namespace DOMDOMImplementation {
@@ -1461,8 +1328,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMDOMImplementation extends DOMObject {
             readonly $signals: DOMDOMImplementation.SignalSignatures
             readonly $readableProperties: DOMDOMImplementation.ReadableProperties
@@ -1512,10 +1377,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMDOMImplementationClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMDOMImplementation>
             readonly prototype: DOMDOMImplementation
+
             new (props?: Partial<GObject.ConstructorProps<DOMDOMImplementation>>): DOMDOMImplementation
         }
 
-        const DOMDOMImplementation: DOMDOMImplementationClass
+        interface $Exports {
+            /**
+             */
+            DOMDOMImplementation: DOMDOMImplementationClass
+        }
         
 
         namespace DOMDOMSelection {
@@ -1554,8 +1424,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMDOMSelection extends DOMObject {
             readonly $signals: DOMDOMSelection.SignalSignatures
             readonly $readableProperties: DOMDOMSelection.ReadableProperties
@@ -1776,10 +1644,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMDOMSelectionClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMDOMSelection>
             readonly prototype: DOMDOMSelection
+
             new (props?: Partial<GObject.ConstructorProps<DOMDOMSelection>>): DOMDOMSelection
         }
 
-        const DOMDOMSelection: DOMDOMSelectionClass
+        interface $Exports {
+            /**
+             */
+            DOMDOMSelection: DOMDOMSelectionClass
+        }
         
 
         namespace DOMDOMTokenList {
@@ -1800,8 +1673,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMDOMTokenList extends DOMObject {
             readonly $signals: DOMDOMTokenList.SignalSignatures
             readonly $readableProperties: DOMDOMTokenList.ReadableProperties
@@ -1870,10 +1741,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMDOMTokenListClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMDOMTokenList>
             readonly prototype: DOMDOMTokenList
+
             new (props?: Partial<GObject.ConstructorProps<DOMDOMTokenList>>): DOMDOMTokenList
         }
 
-        const DOMDOMTokenList: DOMDOMTokenListClass
+        interface $Exports {
+            /**
+             */
+            DOMDOMTokenList: DOMDOMTokenListClass
+        }
         
 
         namespace DOMDOMWindow {
@@ -1946,8 +1822,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMDOMWindow extends DOMObject, DOMEventTarget {
             readonly $signals: DOMDOMWindow.SignalSignatures
             readonly $readableProperties: DOMDOMWindow.ReadableProperties
@@ -2403,10 +2277,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMDOMWindowClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMDOMWindow>
             readonly prototype: DOMDOMWindow
+
             new (props?: Partial<GObject.ConstructorProps<DOMDOMWindow>>): DOMDOMWindow
         }
 
-        const DOMDOMWindow: DOMDOMWindowClass
+        interface $Exports {
+            /**
+             */
+            DOMDOMWindow: DOMDOMWindowClass
+        }
         
 
         namespace DOMDocument {
@@ -2525,8 +2404,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMDocument extends DOMNode, DOMEventTarget {
             readonly $signals: DOMDocument.SignalSignatures
             readonly $readableProperties: DOMDocument.ReadableProperties
@@ -3383,10 +3260,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMDocumentClass extends Omit<DOMNodeClass, "new"> {
             readonly $gtype: GObject.GType<DOMDocument>
             readonly prototype: DOMDocument
+
             new (props?: Partial<GObject.ConstructorProps<DOMDocument>>): DOMDocument
         }
 
-        const DOMDocument: DOMDocumentClass
+        interface $Exports {
+            /**
+             */
+            DOMDocument: DOMDocumentClass
+        }
         
 
         namespace DOMDocumentFragment {
@@ -3411,8 +3293,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMDocumentFragment extends DOMNode, DOMEventTarget {
             readonly $signals: DOMDocumentFragment.SignalSignatures
             readonly $readableProperties: DOMDocumentFragment.ReadableProperties
@@ -3487,10 +3367,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMDocumentFragmentClass extends Omit<DOMNodeClass, "new"> {
             readonly $gtype: GObject.GType<DOMDocumentFragment>
             readonly prototype: DOMDocumentFragment
+
             new (props?: Partial<GObject.ConstructorProps<DOMDocumentFragment>>): DOMDocumentFragment
         }
 
-        const DOMDocumentFragment: DOMDocumentFragmentClass
+        interface $Exports {
+            /**
+             */
+            DOMDocumentFragment: DOMDocumentFragmentClass
+        }
         
 
         namespace DOMDocumentType {
@@ -3519,8 +3404,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMDocumentType extends DOMNode, DOMEventTarget {
             readonly $signals: DOMDocumentType.SignalSignatures
             readonly $readableProperties: DOMDocumentType.ReadableProperties
@@ -3585,10 +3468,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMDocumentTypeClass extends Omit<DOMNodeClass, "new"> {
             readonly $gtype: GObject.GType<DOMDocumentType>
             readonly prototype: DOMDocumentType
+
             new (props?: Partial<GObject.ConstructorProps<DOMDocumentType>>): DOMDocumentType
         }
 
-        const DOMDocumentType: DOMDocumentTypeClass
+        interface $Exports {
+            /**
+             */
+            DOMDocumentType: DOMDocumentTypeClass
+        }
         
 
         namespace DOMElement {
@@ -3667,8 +3555,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMElement extends DOMNode, DOMEventTarget {
             readonly $signals: DOMElement.SignalSignatures
             readonly $readableProperties: DOMElement.ReadableProperties
@@ -4299,10 +4185,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMElementClass extends Omit<DOMNodeClass, "new"> {
             readonly $gtype: GObject.GType<DOMElement>
             readonly prototype: DOMElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMElement>>): DOMElement
         }
 
-        const DOMElement: DOMElementClass
+        interface $Exports {
+            /**
+             */
+            DOMElement: DOMElementClass
+        }
         
 
         namespace DOMEntityReference {
@@ -4319,8 +4210,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMEntityReference extends DOMNode, DOMEventTarget {
             readonly $signals: DOMEntityReference.SignalSignatures
             readonly $readableProperties: DOMEntityReference.ReadableProperties
@@ -4331,10 +4220,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMEntityReferenceClass extends Omit<DOMNodeClass, "new"> {
             readonly $gtype: GObject.GType<DOMEntityReference>
             readonly prototype: DOMEntityReference
+
             new (props?: Partial<GObject.ConstructorProps<DOMEntityReference>>): DOMEntityReference
         }
 
-        const DOMEntityReference: DOMEntityReferenceClass
+        interface $Exports {
+            /**
+             */
+            DOMEntityReference: DOMEntityReferenceClass
+        }
         
 
         namespace DOMEvent {
@@ -4371,8 +4265,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMEvent extends DOMObject {
             readonly $signals: DOMEvent.SignalSignatures
             readonly $readableProperties: DOMEvent.ReadableProperties
@@ -4504,10 +4396,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMEventClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMEvent>
             readonly prototype: DOMEvent
+
             new (props?: Partial<GObject.ConstructorProps<DOMEvent>>): DOMEvent
         }
 
-        const DOMEvent: DOMEventClass
+        interface $Exports {
+            /**
+             */
+            DOMEvent: DOMEventClass
+        }
         
 
         namespace DOMFile {
@@ -4526,8 +4423,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMFile extends DOMBlob {
             readonly $signals: DOMFile.SignalSignatures
             readonly $readableProperties: DOMFile.ReadableProperties
@@ -4547,10 +4442,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMFileClass extends Omit<DOMBlobClass, "new"> {
             readonly $gtype: GObject.GType<DOMFile>
             readonly prototype: DOMFile
+
             new (props?: Partial<GObject.ConstructorProps<DOMFile>>): DOMFile
         }
 
-        const DOMFile: DOMFileClass
+        interface $Exports {
+            /**
+             */
+            DOMFile: DOMFileClass
+        }
         
 
         namespace DOMFileList {
@@ -4569,8 +4469,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMFileList extends DOMObject {
             readonly $signals: DOMFileList.SignalSignatures
             readonly $readableProperties: DOMFileList.ReadableProperties
@@ -4597,10 +4495,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMFileListClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMFileList>
             readonly prototype: DOMFileList
+
             new (props?: Partial<GObject.ConstructorProps<DOMFileList>>): DOMFileList
         }
 
-        const DOMFileList: DOMFileListClass
+        interface $Exports {
+            /**
+             */
+            DOMFileList: DOMFileListClass
+        }
         
 
         namespace DOMHTMLAnchorElement {
@@ -4653,8 +4556,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLAnchorElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLAnchorElement.SignalSignatures
             readonly $readableProperties: DOMHTMLAnchorElement.ReadableProperties
@@ -4918,10 +4819,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLAnchorElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLAnchorElement>
             readonly prototype: DOMHTMLAnchorElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLAnchorElement>>): DOMHTMLAnchorElement
         }
 
-        const DOMHTMLAnchorElement: DOMHTMLAnchorElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLAnchorElement: DOMHTMLAnchorElementClass
+        }
         
 
         namespace DOMHTMLAppletElement {
@@ -4960,8 +4866,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLAppletElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLAppletElement.SignalSignatures
             readonly $readableProperties: DOMHTMLAppletElement.ReadableProperties
@@ -5128,10 +5032,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLAppletElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLAppletElement>
             readonly prototype: DOMHTMLAppletElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLAppletElement>>): DOMHTMLAppletElement
         }
 
-        const DOMHTMLAppletElement: DOMHTMLAppletElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLAppletElement: DOMHTMLAppletElementClass
+        }
         
 
         namespace DOMHTMLAreaElement {
@@ -5174,8 +5083,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLAreaElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLAreaElement.SignalSignatures
             readonly $readableProperties: DOMHTMLAreaElement.ReadableProperties
@@ -5375,10 +5282,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLAreaElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLAreaElement>
             readonly prototype: DOMHTMLAreaElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLAreaElement>>): DOMHTMLAreaElement
         }
 
-        const DOMHTMLAreaElement: DOMHTMLAreaElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLAreaElement: DOMHTMLAreaElementClass
+        }
         
 
         namespace DOMHTMLBRElement {
@@ -5397,8 +5309,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLBRElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLBRElement.SignalSignatures
             readonly $readableProperties: DOMHTMLBRElement.ReadableProperties
@@ -5423,10 +5333,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLBRElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLBRElement>
             readonly prototype: DOMHTMLBRElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLBRElement>>): DOMHTMLBRElement
         }
 
-        const DOMHTMLBRElement: DOMHTMLBRElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLBRElement: DOMHTMLBRElementClass
+        }
         
 
         namespace DOMHTMLBaseElement {
@@ -5447,8 +5362,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLBaseElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLBaseElement.SignalSignatures
             readonly $readableProperties: DOMHTMLBaseElement.ReadableProperties
@@ -5487,10 +5400,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLBaseElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLBaseElement>
             readonly prototype: DOMHTMLBaseElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLBaseElement>>): DOMHTMLBaseElement
         }
 
-        const DOMHTMLBaseElement: DOMHTMLBaseElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLBaseElement: DOMHTMLBaseElementClass
+        }
         
 
         namespace DOMHTMLBaseFontElement {
@@ -5507,8 +5425,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLBaseFontElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLBaseFontElement.SignalSignatures
             readonly $readableProperties: DOMHTMLBaseFontElement.ReadableProperties
@@ -5555,10 +5471,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLBaseFontElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLBaseFontElement>
             readonly prototype: DOMHTMLBaseFontElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLBaseFontElement>>): DOMHTMLBaseFontElement
         }
 
-        const DOMHTMLBaseFontElement: DOMHTMLBaseFontElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLBaseFontElement: DOMHTMLBaseFontElementClass
+        }
         
 
         namespace DOMHTMLBodyElement {
@@ -5587,8 +5508,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLBodyElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLBodyElement.SignalSignatures
             readonly $readableProperties: DOMHTMLBodyElement.ReadableProperties
@@ -5683,10 +5602,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLBodyElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLBodyElement>
             readonly prototype: DOMHTMLBodyElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLBodyElement>>): DOMHTMLBodyElement
         }
 
-        const DOMHTMLBodyElement: DOMHTMLBodyElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLBodyElement: DOMHTMLBodyElementClass
+        }
         
 
         namespace DOMHTMLButtonElement {
@@ -5717,8 +5641,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLButtonElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLButtonElement.SignalSignatures
             readonly $readableProperties: DOMHTMLButtonElement.ReadableProperties
@@ -5820,10 +5742,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLButtonElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLButtonElement>
             readonly prototype: DOMHTMLButtonElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLButtonElement>>): DOMHTMLButtonElement
         }
 
-        const DOMHTMLButtonElement: DOMHTMLButtonElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLButtonElement: DOMHTMLButtonElementClass
+        }
         
 
         namespace DOMHTMLCanvasElement {
@@ -5844,8 +5771,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLCanvasElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLCanvasElement.SignalSignatures
             readonly $readableProperties: DOMHTMLCanvasElement.ReadableProperties
@@ -5886,10 +5811,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLCanvasElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLCanvasElement>
             readonly prototype: DOMHTMLCanvasElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLCanvasElement>>): DOMHTMLCanvasElement
         }
 
-        const DOMHTMLCanvasElement: DOMHTMLCanvasElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLCanvasElement: DOMHTMLCanvasElementClass
+        }
         
 
         namespace DOMHTMLCollection {
@@ -5908,8 +5838,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLCollection extends DOMObject {
             readonly $signals: DOMHTMLCollection.SignalSignatures
             readonly $readableProperties: DOMHTMLCollection.ReadableProperties
@@ -5942,10 +5870,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLCollectionClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLCollection>
             readonly prototype: DOMHTMLCollection
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLCollection>>): DOMHTMLCollection
         }
 
-        const DOMHTMLCollection: DOMHTMLCollectionClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLCollection: DOMHTMLCollectionClass
+        }
         
 
         namespace DOMHTMLDListElement {
@@ -5964,8 +5897,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLDListElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLDListElement.SignalSignatures
             readonly $readableProperties: DOMHTMLDListElement.ReadableProperties
@@ -5991,10 +5922,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLDListElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLDListElement>
             readonly prototype: DOMHTMLDListElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLDListElement>>): DOMHTMLDListElement
         }
 
-        const DOMHTMLDListElement: DOMHTMLDListElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLDListElement: DOMHTMLDListElementClass
+        }
         
 
         namespace DOMHTMLDirectoryElement {
@@ -6013,8 +5949,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLDirectoryElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLDirectoryElement.SignalSignatures
             readonly $readableProperties: DOMHTMLDirectoryElement.ReadableProperties
@@ -6040,10 +5974,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLDirectoryElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLDirectoryElement>
             readonly prototype: DOMHTMLDirectoryElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLDirectoryElement>>): DOMHTMLDirectoryElement
         }
 
-        const DOMHTMLDirectoryElement: DOMHTMLDirectoryElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLDirectoryElement: DOMHTMLDirectoryElementClass
+        }
         
 
         namespace DOMHTMLDivElement {
@@ -6062,8 +6001,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLDivElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLDivElement.SignalSignatures
             readonly $readableProperties: DOMHTMLDivElement.ReadableProperties
@@ -6088,10 +6025,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLDivElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLDivElement>
             readonly prototype: DOMHTMLDivElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLDivElement>>): DOMHTMLDivElement
         }
 
-        const DOMHTMLDivElement: DOMHTMLDivElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLDivElement: DOMHTMLDivElementClass
+        }
         
 
         namespace DOMHTMLDocument {
@@ -6124,8 +6066,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLDocument extends DOMDocument, DOMEventTarget {
             readonly $signals: DOMHTMLDocument.SignalSignatures
             readonly $readableProperties: DOMHTMLDocument.ReadableProperties
@@ -6286,10 +6226,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLDocumentClass extends Omit<DOMDocumentClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLDocument>
             readonly prototype: DOMHTMLDocument
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLDocument>>): DOMHTMLDocument
         }
 
-        const DOMHTMLDocument: DOMHTMLDocumentClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLDocument: DOMHTMLDocumentClass
+        }
         
 
         namespace DOMHTMLElement {
@@ -6334,8 +6279,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLElement extends DOMElement, DOMEventTarget {
             readonly $signals: DOMHTMLElement.SignalSignatures
             readonly $readableProperties: DOMHTMLElement.ReadableProperties
@@ -6587,10 +6530,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLElementClass extends Omit<DOMElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLElement>
             readonly prototype: DOMHTMLElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLElement>>): DOMHTMLElement
         }
 
-        const DOMHTMLElement: DOMHTMLElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLElement: DOMHTMLElementClass
+        }
         
 
         namespace DOMHTMLEmbedElement {
@@ -6619,8 +6567,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLEmbedElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLEmbedElement.SignalSignatures
             readonly $readableProperties: DOMHTMLEmbedElement.ReadableProperties
@@ -6717,10 +6663,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLEmbedElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLEmbedElement>
             readonly prototype: DOMHTMLEmbedElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLEmbedElement>>): DOMHTMLEmbedElement
         }
 
-        const DOMHTMLEmbedElement: DOMHTMLEmbedElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLEmbedElement: DOMHTMLEmbedElementClass
+        }
         
 
         namespace DOMHTMLFieldSetElement {
@@ -6739,8 +6690,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLFieldSetElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLFieldSetElement.SignalSignatures
             readonly $readableProperties: DOMHTMLFieldSetElement.ReadableProperties
@@ -6760,10 +6709,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLFieldSetElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLFieldSetElement>
             readonly prototype: DOMHTMLFieldSetElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLFieldSetElement>>): DOMHTMLFieldSetElement
         }
 
-        const DOMHTMLFieldSetElement: DOMHTMLFieldSetElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLFieldSetElement: DOMHTMLFieldSetElementClass
+        }
         
 
         namespace DOMHTMLFontElement {
@@ -6786,8 +6740,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLFontElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLFontElement.SignalSignatures
             readonly $readableProperties: DOMHTMLFontElement.ReadableProperties
@@ -6840,10 +6792,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLFontElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLFontElement>
             readonly prototype: DOMHTMLFontElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLFontElement>>): DOMHTMLFontElement
         }
 
-        const DOMHTMLFontElement: DOMHTMLFontElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLFontElement: DOMHTMLFontElementClass
+        }
         
 
         namespace DOMHTMLFormElement {
@@ -6878,8 +6835,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLFormElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLFormElement.SignalSignatures
             readonly $readableProperties: DOMHTMLFormElement.ReadableProperties
@@ -7015,10 +6970,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLFormElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLFormElement>
             readonly prototype: DOMHTMLFormElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLFormElement>>): DOMHTMLFormElement
         }
 
-        const DOMHTMLFormElement: DOMHTMLFormElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLFormElement: DOMHTMLFormElementClass
+        }
         
 
         namespace DOMHTMLFrameElement {
@@ -7059,8 +7019,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLFrameElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLFrameElement.SignalSignatures
             readonly $readableProperties: DOMHTMLFrameElement.ReadableProperties
@@ -7222,10 +7180,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLFrameElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLFrameElement>
             readonly prototype: DOMHTMLFrameElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLFrameElement>>): DOMHTMLFrameElement
         }
 
-        const DOMHTMLFrameElement: DOMHTMLFrameElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLFrameElement: DOMHTMLFrameElementClass
+        }
         
 
         namespace DOMHTMLFrameSetElement {
@@ -7246,8 +7209,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLFrameSetElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLFrameSetElement.SignalSignatures
             readonly $readableProperties: DOMHTMLFrameSetElement.ReadableProperties
@@ -7286,10 +7247,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLFrameSetElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLFrameSetElement>
             readonly prototype: DOMHTMLFrameSetElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLFrameSetElement>>): DOMHTMLFrameSetElement
         }
 
-        const DOMHTMLFrameSetElement: DOMHTMLFrameSetElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLFrameSetElement: DOMHTMLFrameSetElementClass
+        }
         
 
         namespace DOMHTMLHRElement {
@@ -7314,8 +7280,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLHRElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLHRElement.SignalSignatures
             readonly $readableProperties: DOMHTMLHRElement.ReadableProperties
@@ -7383,10 +7347,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLHRElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLHRElement>
             readonly prototype: DOMHTMLHRElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLHRElement>>): DOMHTMLHRElement
         }
 
-        const DOMHTMLHRElement: DOMHTMLHRElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLHRElement: DOMHTMLHRElementClass
+        }
         
 
         namespace DOMHTMLHeadElement {
@@ -7405,8 +7374,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLHeadElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLHeadElement.SignalSignatures
             readonly $readableProperties: DOMHTMLHeadElement.ReadableProperties
@@ -7431,10 +7398,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLHeadElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLHeadElement>
             readonly prototype: DOMHTMLHeadElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLHeadElement>>): DOMHTMLHeadElement
         }
 
-        const DOMHTMLHeadElement: DOMHTMLHeadElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLHeadElement: DOMHTMLHeadElementClass
+        }
         
 
         namespace DOMHTMLHeadingElement {
@@ -7453,8 +7425,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLHeadingElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLHeadingElement.SignalSignatures
             readonly $readableProperties: DOMHTMLHeadingElement.ReadableProperties
@@ -7479,10 +7449,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLHeadingElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLHeadingElement>
             readonly prototype: DOMHTMLHeadingElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLHeadingElement>>): DOMHTMLHeadingElement
         }
 
-        const DOMHTMLHeadingElement: DOMHTMLHeadingElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLHeadingElement: DOMHTMLHeadingElementClass
+        }
         
 
         namespace DOMHTMLHtmlElement {
@@ -7501,8 +7476,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLHtmlElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLHtmlElement.SignalSignatures
             readonly $readableProperties: DOMHTMLHtmlElement.ReadableProperties
@@ -7527,10 +7500,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLHtmlElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLHtmlElement>
             readonly prototype: DOMHTMLHtmlElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLHtmlElement>>): DOMHTMLHtmlElement
         }
 
-        const DOMHTMLHtmlElement: DOMHTMLHtmlElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLHtmlElement: DOMHTMLHtmlElementClass
+        }
         
 
         namespace DOMHTMLIFrameElement {
@@ -7571,8 +7549,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLIFrameElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLIFrameElement.SignalSignatures
             readonly $readableProperties: DOMHTMLIFrameElement.ReadableProperties
@@ -7741,10 +7717,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLIFrameElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLIFrameElement>
             readonly prototype: DOMHTMLIFrameElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLIFrameElement>>): DOMHTMLIFrameElement
         }
 
-        const DOMHTMLIFrameElement: DOMHTMLIFrameElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLIFrameElement: DOMHTMLIFrameElementClass
+        }
         
 
         namespace DOMHTMLImageElement {
@@ -7797,8 +7778,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLImageElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLImageElement.SignalSignatures
             readonly $readableProperties: DOMHTMLImageElement.ReadableProperties
@@ -8046,10 +8025,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLImageElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLImageElement>
             readonly prototype: DOMHTMLImageElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLImageElement>>): DOMHTMLImageElement
         }
 
-        const DOMHTMLImageElement: DOMHTMLImageElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLImageElement: DOMHTMLImageElementClass
+        }
         
 
         namespace DOMHTMLInputElement {
@@ -8114,8 +8098,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLInputElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLInputElement.SignalSignatures
             readonly $readableProperties: DOMHTMLInputElement.ReadableProperties
@@ -8502,10 +8484,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLInputElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLInputElement>
             readonly prototype: DOMHTMLInputElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLInputElement>>): DOMHTMLInputElement
         }
 
-        const DOMHTMLInputElement: DOMHTMLInputElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLInputElement: DOMHTMLInputElementClass
+        }
         
 
         namespace DOMHTMLLIElement {
@@ -8526,8 +8513,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLLIElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLLIElement.SignalSignatures
             readonly $readableProperties: DOMHTMLLIElement.ReadableProperties
@@ -8567,10 +8552,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLLIElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLLIElement>
             readonly prototype: DOMHTMLLIElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLLIElement>>): DOMHTMLLIElement
         }
 
-        const DOMHTMLLIElement: DOMHTMLLIElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLLIElement: DOMHTMLLIElementClass
+        }
         
 
         namespace DOMHTMLLabelElement {
@@ -8591,8 +8581,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLLabelElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLLabelElement.SignalSignatures
             readonly $readableProperties: DOMHTMLLabelElement.ReadableProperties
@@ -8626,10 +8614,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLLabelElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLLabelElement>
             readonly prototype: DOMHTMLLabelElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLLabelElement>>): DOMHTMLLabelElement
         }
 
-        const DOMHTMLLabelElement: DOMHTMLLabelElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLLabelElement: DOMHTMLLabelElementClass
+        }
         
 
         namespace DOMHTMLLegendElement {
@@ -8650,8 +8643,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLLegendElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLLegendElement.SignalSignatures
             readonly $readableProperties: DOMHTMLLegendElement.ReadableProperties
@@ -8685,10 +8676,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLLegendElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLLegendElement>
             readonly prototype: DOMHTMLLegendElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLLegendElement>>): DOMHTMLLegendElement
         }
 
-        const DOMHTMLLegendElement: DOMHTMLLegendElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLLegendElement: DOMHTMLLegendElementClass
+        }
         
 
         namespace DOMHTMLLinkElement {
@@ -8727,8 +8723,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLLinkElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLLinkElement.SignalSignatures
             readonly $readableProperties: DOMHTMLLinkElement.ReadableProperties
@@ -8891,10 +8885,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLLinkElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLLinkElement>
             readonly prototype: DOMHTMLLinkElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLLinkElement>>): DOMHTMLLinkElement
         }
 
-        const DOMHTMLLinkElement: DOMHTMLLinkElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLLinkElement: DOMHTMLLinkElementClass
+        }
         
 
         namespace DOMHTMLMapElement {
@@ -8915,8 +8914,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLMapElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLMapElement.SignalSignatures
             readonly $readableProperties: DOMHTMLMapElement.ReadableProperties
@@ -8950,10 +8947,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLMapElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLMapElement>
             readonly prototype: DOMHTMLMapElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLMapElement>>): DOMHTMLMapElement
         }
 
-        const DOMHTMLMapElement: DOMHTMLMapElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLMapElement: DOMHTMLMapElementClass
+        }
         
 
         namespace DOMHTMLMarqueeElement {
@@ -8970,8 +8972,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLMarqueeElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLMarqueeElement.SignalSignatures
             readonly $readableProperties: DOMHTMLMarqueeElement.ReadableProperties
@@ -8990,10 +8990,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLMarqueeElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLMarqueeElement>
             readonly prototype: DOMHTMLMarqueeElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLMarqueeElement>>): DOMHTMLMarqueeElement
         }
 
-        const DOMHTMLMarqueeElement: DOMHTMLMarqueeElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLMarqueeElement: DOMHTMLMarqueeElementClass
+        }
         
 
         namespace DOMHTMLMenuElement {
@@ -9012,8 +9017,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLMenuElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLMenuElement.SignalSignatures
             readonly $readableProperties: DOMHTMLMenuElement.ReadableProperties
@@ -9039,10 +9042,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLMenuElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLMenuElement>
             readonly prototype: DOMHTMLMenuElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLMenuElement>>): DOMHTMLMenuElement
         }
 
-        const DOMHTMLMenuElement: DOMHTMLMenuElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLMenuElement: DOMHTMLMenuElementClass
+        }
         
 
         namespace DOMHTMLMetaElement {
@@ -9067,8 +9075,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLMetaElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLMetaElement.SignalSignatures
             readonly $readableProperties: DOMHTMLMetaElement.ReadableProperties
@@ -9135,10 +9141,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLMetaElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLMetaElement>
             readonly prototype: DOMHTMLMetaElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLMetaElement>>): DOMHTMLMetaElement
         }
 
-        const DOMHTMLMetaElement: DOMHTMLMetaElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLMetaElement: DOMHTMLMetaElementClass
+        }
         
 
         namespace DOMHTMLModElement {
@@ -9159,8 +9170,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLModElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLModElement.SignalSignatures
             readonly $readableProperties: DOMHTMLModElement.ReadableProperties
@@ -9199,10 +9208,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLModElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLModElement>
             readonly prototype: DOMHTMLModElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLModElement>>): DOMHTMLModElement
         }
 
-        const DOMHTMLModElement: DOMHTMLModElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLModElement: DOMHTMLModElementClass
+        }
         
 
         namespace DOMHTMLOListElement {
@@ -9225,8 +9239,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLOListElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLOListElement.SignalSignatures
             readonly $readableProperties: DOMHTMLOListElement.ReadableProperties
@@ -9281,10 +9293,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLOListElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLOListElement>
             readonly prototype: DOMHTMLOListElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLOListElement>>): DOMHTMLOListElement
         }
 
-        const DOMHTMLOListElement: DOMHTMLOListElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLOListElement: DOMHTMLOListElementClass
+        }
         
 
         namespace DOMHTMLObjectElement {
@@ -9337,8 +9354,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLObjectElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLObjectElement.SignalSignatures
             readonly $readableProperties: DOMHTMLObjectElement.ReadableProperties
@@ -9594,10 +9609,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLObjectElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLObjectElement>
             readonly prototype: DOMHTMLObjectElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLObjectElement>>): DOMHTMLObjectElement
         }
 
-        const DOMHTMLObjectElement: DOMHTMLObjectElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLObjectElement: DOMHTMLObjectElementClass
+        }
         
 
         namespace DOMHTMLOptGroupElement {
@@ -9618,8 +9638,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLOptGroupElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLOptGroupElement.SignalSignatures
             readonly $readableProperties: DOMHTMLOptGroupElement.ReadableProperties
@@ -9659,10 +9677,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLOptGroupElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLOptGroupElement>
             readonly prototype: DOMHTMLOptGroupElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLOptGroupElement>>): DOMHTMLOptGroupElement
         }
 
-        const DOMHTMLOptGroupElement: DOMHTMLOptGroupElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLOptGroupElement: DOMHTMLOptGroupElementClass
+        }
         
 
         namespace DOMHTMLOptionElement {
@@ -9695,8 +9718,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLOptionElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLOptionElement.SignalSignatures
             readonly $readableProperties: DOMHTMLOptionElement.ReadableProperties
@@ -9808,10 +9829,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLOptionElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLOptionElement>
             readonly prototype: DOMHTMLOptionElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLOptionElement>>): DOMHTMLOptionElement
         }
 
-        const DOMHTMLOptionElement: DOMHTMLOptionElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLOptionElement: DOMHTMLOptionElementClass
+        }
         
 
         namespace DOMHTMLOptionsCollection {
@@ -9832,8 +9858,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLOptionsCollection extends DOMHTMLCollection {
             readonly $signals: DOMHTMLOptionsCollection.SignalSignatures
             readonly $readableProperties: DOMHTMLOptionsCollection.ReadableProperties
@@ -9875,10 +9899,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLOptionsCollectionClass extends Omit<DOMHTMLCollectionClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLOptionsCollection>
             readonly prototype: DOMHTMLOptionsCollection
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLOptionsCollection>>): DOMHTMLOptionsCollection
         }
 
-        const DOMHTMLOptionsCollection: DOMHTMLOptionsCollectionClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLOptionsCollection: DOMHTMLOptionsCollectionClass
+        }
         
 
         namespace DOMHTMLParagraphElement {
@@ -9897,8 +9926,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLParagraphElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLParagraphElement.SignalSignatures
             readonly $readableProperties: DOMHTMLParagraphElement.ReadableProperties
@@ -9923,10 +9950,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLParagraphElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLParagraphElement>
             readonly prototype: DOMHTMLParagraphElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLParagraphElement>>): DOMHTMLParagraphElement
         }
 
-        const DOMHTMLParagraphElement: DOMHTMLParagraphElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLParagraphElement: DOMHTMLParagraphElementClass
+        }
         
 
         namespace DOMHTMLParamElement {
@@ -9951,8 +9983,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLParamElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLParamElement.SignalSignatures
             readonly $readableProperties: DOMHTMLParamElement.ReadableProperties
@@ -10019,10 +10049,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLParamElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLParamElement>
             readonly prototype: DOMHTMLParamElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLParamElement>>): DOMHTMLParamElement
         }
 
-        const DOMHTMLParamElement: DOMHTMLParamElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLParamElement: DOMHTMLParamElementClass
+        }
         
 
         namespace DOMHTMLPreElement {
@@ -10043,8 +10078,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLPreElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLPreElement.SignalSignatures
             readonly $readableProperties: DOMHTMLPreElement.ReadableProperties
@@ -10085,10 +10118,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLPreElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLPreElement>
             readonly prototype: DOMHTMLPreElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLPreElement>>): DOMHTMLPreElement
         }
 
-        const DOMHTMLPreElement: DOMHTMLPreElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLPreElement: DOMHTMLPreElementClass
+        }
         
 
         namespace DOMHTMLQuoteElement {
@@ -10107,8 +10145,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLQuoteElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLQuoteElement.SignalSignatures
             readonly $readableProperties: DOMHTMLQuoteElement.ReadableProperties
@@ -10133,10 +10169,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLQuoteElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLQuoteElement>
             readonly prototype: DOMHTMLQuoteElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLQuoteElement>>): DOMHTMLQuoteElement
         }
 
-        const DOMHTMLQuoteElement: DOMHTMLQuoteElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLQuoteElement: DOMHTMLQuoteElementClass
+        }
         
 
         namespace DOMHTMLScriptElement {
@@ -10167,8 +10208,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLScriptElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLScriptElement.SignalSignatures
             readonly $readableProperties: DOMHTMLScriptElement.ReadableProperties
@@ -10279,10 +10318,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLScriptElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLScriptElement>
             readonly prototype: DOMHTMLScriptElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLScriptElement>>): DOMHTMLScriptElement
         }
 
-        const DOMHTMLScriptElement: DOMHTMLScriptElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLScriptElement: DOMHTMLScriptElementClass
+        }
         
 
         namespace DOMHTMLSelectElement {
@@ -10323,8 +10367,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLSelectElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLSelectElement.SignalSignatures
             readonly $readableProperties: DOMHTMLSelectElement.ReadableProperties
@@ -10515,10 +10557,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLSelectElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLSelectElement>
             readonly prototype: DOMHTMLSelectElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLSelectElement>>): DOMHTMLSelectElement
         }
 
-        const DOMHTMLSelectElement: DOMHTMLSelectElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLSelectElement: DOMHTMLSelectElementClass
+        }
         
 
         namespace DOMHTMLStyleElement {
@@ -10543,8 +10590,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLStyleElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLStyleElement.SignalSignatures
             readonly $readableProperties: DOMHTMLStyleElement.ReadableProperties
@@ -10607,10 +10652,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLStyleElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLStyleElement>
             readonly prototype: DOMHTMLStyleElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLStyleElement>>): DOMHTMLStyleElement
         }
 
-        const DOMHTMLStyleElement: DOMHTMLStyleElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLStyleElement: DOMHTMLStyleElementClass
+        }
         
 
         namespace DOMHTMLTableCaptionElement {
@@ -10629,8 +10679,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLTableCaptionElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLTableCaptionElement.SignalSignatures
             readonly $readableProperties: DOMHTMLTableCaptionElement.ReadableProperties
@@ -10655,10 +10703,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLTableCaptionElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLTableCaptionElement>
             readonly prototype: DOMHTMLTableCaptionElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLTableCaptionElement>>): DOMHTMLTableCaptionElement
         }
 
-        const DOMHTMLTableCaptionElement: DOMHTMLTableCaptionElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLTableCaptionElement: DOMHTMLTableCaptionElementClass
+        }
         
 
         namespace DOMHTMLTableCellElement {
@@ -10705,8 +10758,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLTableCellElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLTableCellElement.SignalSignatures
             readonly $readableProperties: DOMHTMLTableCellElement.ReadableProperties
@@ -10926,10 +10977,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLTableCellElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLTableCellElement>
             readonly prototype: DOMHTMLTableCellElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLTableCellElement>>): DOMHTMLTableCellElement
         }
 
-        const DOMHTMLTableCellElement: DOMHTMLTableCellElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLTableCellElement: DOMHTMLTableCellElementClass
+        }
         
 
         namespace DOMHTMLTableColElement {
@@ -10958,8 +11014,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLTableColElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLTableColElement.SignalSignatures
             readonly $readableProperties: DOMHTMLTableColElement.ReadableProperties
@@ -11055,10 +11109,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLTableColElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLTableColElement>
             readonly prototype: DOMHTMLTableColElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLTableColElement>>): DOMHTMLTableColElement
         }
 
-        const DOMHTMLTableColElement: DOMHTMLTableColElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLTableColElement: DOMHTMLTableColElementClass
+        }
         
 
         namespace DOMHTMLTableElement {
@@ -11101,8 +11160,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLTableElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLTableElement.SignalSignatures
             readonly $readableProperties: DOMHTMLTableElement.ReadableProperties
@@ -11328,10 +11385,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLTableElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLTableElement>
             readonly prototype: DOMHTMLTableElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLTableElement>>): DOMHTMLTableElement
         }
 
-        const DOMHTMLTableElement: DOMHTMLTableElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLTableElement: DOMHTMLTableElementClass
+        }
         
 
         namespace DOMHTMLTableRowElement {
@@ -11364,8 +11426,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLTableRowElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLTableRowElement.SignalSignatures
             readonly $readableProperties: DOMHTMLTableRowElement.ReadableProperties
@@ -11488,10 +11548,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLTableRowElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLTableRowElement>
             readonly prototype: DOMHTMLTableRowElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLTableRowElement>>): DOMHTMLTableRowElement
         }
 
-        const DOMHTMLTableRowElement: DOMHTMLTableRowElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLTableRowElement: DOMHTMLTableRowElementClass
+        }
         
 
         namespace DOMHTMLTableSectionElement {
@@ -11518,8 +11583,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLTableSectionElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLTableSectionElement.SignalSignatures
             readonly $readableProperties: DOMHTMLTableSectionElement.ReadableProperties
@@ -11608,10 +11671,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLTableSectionElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLTableSectionElement>
             readonly prototype: DOMHTMLTableSectionElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLTableSectionElement>>): DOMHTMLTableSectionElement
         }
 
-        const DOMHTMLTableSectionElement: DOMHTMLTableSectionElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLTableSectionElement: DOMHTMLTableSectionElementClass
+        }
         
 
         namespace DOMHTMLTextAreaElement {
@@ -11654,8 +11722,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLTextAreaElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLTextAreaElement.SignalSignatures
             readonly $readableProperties: DOMHTMLTextAreaElement.ReadableProperties
@@ -11857,10 +11923,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLTextAreaElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLTextAreaElement>
             readonly prototype: DOMHTMLTextAreaElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLTextAreaElement>>): DOMHTMLTextAreaElement
         }
 
-        const DOMHTMLTextAreaElement: DOMHTMLTextAreaElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLTextAreaElement: DOMHTMLTextAreaElementClass
+        }
         
 
         namespace DOMHTMLTitleElement {
@@ -11879,8 +11950,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLTitleElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLTitleElement.SignalSignatures
             readonly $readableProperties: DOMHTMLTitleElement.ReadableProperties
@@ -11905,10 +11974,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLTitleElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLTitleElement>
             readonly prototype: DOMHTMLTitleElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLTitleElement>>): DOMHTMLTitleElement
         }
 
-        const DOMHTMLTitleElement: DOMHTMLTitleElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLTitleElement: DOMHTMLTitleElementClass
+        }
         
 
         namespace DOMHTMLUListElement {
@@ -11929,8 +12003,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMHTMLUListElement extends DOMHTMLElement, DOMEventTarget {
             readonly $signals: DOMHTMLUListElement.SignalSignatures
             readonly $readableProperties: DOMHTMLUListElement.ReadableProperties
@@ -11970,10 +12042,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMHTMLUListElementClass extends Omit<DOMHTMLElementClass, "new"> {
             readonly $gtype: GObject.GType<DOMHTMLUListElement>
             readonly prototype: DOMHTMLUListElement
+
             new (props?: Partial<GObject.ConstructorProps<DOMHTMLUListElement>>): DOMHTMLUListElement
         }
 
-        const DOMHTMLUListElement: DOMHTMLUListElementClass
+        interface $Exports {
+            /**
+             */
+            DOMHTMLUListElement: DOMHTMLUListElementClass
+        }
         
 
         namespace DOMKeyboardEvent {
@@ -12004,8 +12081,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMKeyboardEvent extends DOMUIEvent {
             readonly $signals: DOMKeyboardEvent.SignalSignatures
             readonly $readableProperties: DOMKeyboardEvent.ReadableProperties
@@ -12106,10 +12181,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMKeyboardEventClass extends Omit<DOMUIEventClass, "new"> {
             readonly $gtype: GObject.GType<DOMKeyboardEvent>
             readonly prototype: DOMKeyboardEvent
+
             new (props?: Partial<GObject.ConstructorProps<DOMKeyboardEvent>>): DOMKeyboardEvent
         }
 
-        const DOMKeyboardEvent: DOMKeyboardEventClass
+        interface $Exports {
+            /**
+             */
+            DOMKeyboardEvent: DOMKeyboardEventClass
+        }
         
 
         namespace DOMMediaList {
@@ -12130,8 +12210,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMMediaList extends DOMObject {
             readonly $signals: DOMMediaList.SignalSignatures
             readonly $readableProperties: DOMMediaList.ReadableProperties
@@ -12185,10 +12263,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMMediaListClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMMediaList>
             readonly prototype: DOMMediaList
+
             new (props?: Partial<GObject.ConstructorProps<DOMMediaList>>): DOMMediaList
         }
 
-        const DOMMediaList: DOMMediaListClass
+        interface $Exports {
+            /**
+             */
+            DOMMediaList: DOMMediaListClass
+        }
         
 
         namespace DOMMouseEvent {
@@ -12237,8 +12320,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMMouseEvent extends DOMUIEvent {
             readonly $signals: DOMMouseEvent.SignalSignatures
             readonly $readableProperties: DOMMouseEvent.ReadableProperties
@@ -12425,10 +12506,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMMouseEventClass extends Omit<DOMUIEventClass, "new"> {
             readonly $gtype: GObject.GType<DOMMouseEvent>
             readonly prototype: DOMMouseEvent
+
             new (props?: Partial<GObject.ConstructorProps<DOMMouseEvent>>): DOMMouseEvent
         }
 
-        const DOMMouseEvent: DOMMouseEventClass
+        interface $Exports {
+            /**
+             */
+            DOMMouseEvent: DOMMouseEventClass
+        }
         
 
         namespace DOMNamedNodeMap {
@@ -12447,8 +12533,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMNamedNodeMap extends DOMObject {
             readonly $signals: DOMNamedNodeMap.SignalSignatures
             readonly $readableProperties: DOMNamedNodeMap.ReadableProperties
@@ -12517,10 +12601,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMNamedNodeMapClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMNamedNodeMap>
             readonly prototype: DOMNamedNodeMap
+
             new (props?: Partial<GObject.ConstructorProps<DOMNamedNodeMap>>): DOMNamedNodeMap
         }
 
-        const DOMNamedNodeMap: DOMNamedNodeMapClass
+        interface $Exports {
+            /**
+             */
+            DOMNamedNodeMap: DOMNamedNodeMapClass
+        }
         
 
         namespace DOMNode {
@@ -12563,8 +12652,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMNode extends DOMObject, DOMEventTarget {
             readonly $signals: DOMNode.SignalSignatures
             readonly $readableProperties: DOMNode.ReadableProperties
@@ -12829,6 +12916,7 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMNodeClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMNode>
             readonly prototype: DOMNode
+
             new (props?: Partial<GObject.ConstructorProps<DOMNode>>): DOMNode
             /**
              * Get the #WebKitDOMNode for the DOM node referenced by @value.
@@ -12840,7 +12928,11 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             for_js_value(value: JavaScriptCore.Value): DOMNode
         }
 
-        const DOMNode: DOMNodeClass
+        interface $Exports {
+            /**
+             */
+            DOMNode: DOMNodeClass
+        }
         
 
         namespace DOMNodeIterator {
@@ -12867,8 +12959,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMNodeIterator extends DOMObject {
             readonly $signals: DOMNodeIterator.SignalSignatures
             readonly $readableProperties: DOMNodeIterator.ReadableProperties
@@ -12948,10 +13038,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMNodeIteratorClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMNodeIterator>
             readonly prototype: DOMNodeIterator
+
             new (props?: Partial<GObject.ConstructorProps<DOMNodeIterator>>): DOMNodeIterator
         }
 
-        const DOMNodeIterator: DOMNodeIteratorClass
+        interface $Exports {
+            /**
+             */
+            DOMNodeIterator: DOMNodeIteratorClass
+        }
         
 
         namespace DOMNodeList {
@@ -12970,8 +13065,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMNodeList extends DOMObject {
             readonly $signals: DOMNodeList.SignalSignatures
             readonly $readableProperties: DOMNodeList.ReadableProperties
@@ -12998,10 +13091,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMNodeListClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMNodeList>
             readonly prototype: DOMNodeList
+
             new (props?: Partial<GObject.ConstructorProps<DOMNodeList>>): DOMNodeList
         }
 
-        const DOMNodeList: DOMNodeListClass
+        interface $Exports {
+            /**
+             */
+            DOMNodeList: DOMNodeListClass
+        }
         
 
         namespace DOMObject {
@@ -13012,15 +13110,13 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "core-object": never
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "core-object": never
             }
         }
 
-        /**
-         */
         interface DOMObject extends GObject.Object {
             readonly $signals: DOMObject.SignalSignatures
             readonly $readableProperties: DOMObject.ReadableProperties
@@ -13034,10 +13130,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMObjectClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMObject>
             readonly prototype: DOMObject
+
             new (props?: Partial<GObject.ConstructorProps<DOMObject>>): DOMObject
         }
 
-        const DOMObject: DOMObjectClass
+        interface $Exports {
+            /**
+             */
+            DOMObject: DOMObjectClass
+        }
         
 
         namespace DOMProcessingInstruction {
@@ -13058,8 +13159,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMProcessingInstruction extends DOMCharacterData, DOMEventTarget {
             readonly $signals: DOMProcessingInstruction.SignalSignatures
             readonly $readableProperties: DOMProcessingInstruction.ReadableProperties
@@ -13088,10 +13187,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMProcessingInstructionClass extends Omit<DOMCharacterDataClass, "new"> {
             readonly $gtype: GObject.GType<DOMProcessingInstruction>
             readonly prototype: DOMProcessingInstruction
+
             new (props?: Partial<GObject.ConstructorProps<DOMProcessingInstruction>>): DOMProcessingInstruction
         }
 
-        const DOMProcessingInstruction: DOMProcessingInstructionClass
+        interface $Exports {
+            /**
+             */
+            DOMProcessingInstruction: DOMProcessingInstructionClass
+        }
         
 
         namespace DOMRange {
@@ -13122,8 +13226,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMRange extends DOMObject {
             readonly $signals: DOMRange.SignalSignatures
             readonly $readableProperties: DOMRange.ReadableProperties
@@ -13360,10 +13462,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMRangeClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMRange>
             readonly prototype: DOMRange
+
             new (props?: Partial<GObject.ConstructorProps<DOMRange>>): DOMRange
         }
 
-        const DOMRange: DOMRangeClass
+        interface $Exports {
+            /**
+             */
+            DOMRange: DOMRangeClass
+        }
         
 
         namespace DOMStyleSheet {
@@ -13394,8 +13501,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMStyleSheet extends DOMObject {
             readonly $signals: DOMStyleSheet.SignalSignatures
             readonly $readableProperties: DOMStyleSheet.ReadableProperties
@@ -13475,10 +13580,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMStyleSheetClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMStyleSheet>
             readonly prototype: DOMStyleSheet
+
             new (props?: Partial<GObject.ConstructorProps<DOMStyleSheet>>): DOMStyleSheet
         }
 
-        const DOMStyleSheet: DOMStyleSheetClass
+        interface $Exports {
+            /**
+             */
+            DOMStyleSheet: DOMStyleSheetClass
+        }
         
 
         namespace DOMStyleSheetList {
@@ -13497,8 +13607,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMStyleSheetList extends DOMObject {
             readonly $signals: DOMStyleSheetList.SignalSignatures
             readonly $readableProperties: DOMStyleSheetList.ReadableProperties
@@ -13525,10 +13633,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMStyleSheetListClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMStyleSheetList>
             readonly prototype: DOMStyleSheetList
+
             new (props?: Partial<GObject.ConstructorProps<DOMStyleSheetList>>): DOMStyleSheetList
         }
 
-        const DOMStyleSheetList: DOMStyleSheetListClass
+        interface $Exports {
+            /**
+             */
+            DOMStyleSheetList: DOMStyleSheetListClass
+        }
         
 
         namespace DOMText {
@@ -13547,8 +13660,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMText extends DOMCharacterData, DOMEventTarget {
             readonly $signals: DOMText.SignalSignatures
             readonly $readableProperties: DOMText.ReadableProperties
@@ -13582,10 +13693,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMTextClass extends Omit<DOMCharacterDataClass, "new"> {
             readonly $gtype: GObject.GType<DOMText>
             readonly prototype: DOMText
+
             new (props?: Partial<GObject.ConstructorProps<DOMText>>): DOMText
         }
 
-        const DOMText: DOMTextClass
+        interface $Exports {
+            /**
+             */
+            DOMText: DOMTextClass
+        }
         
 
         namespace DOMTreeWalker {
@@ -13610,8 +13726,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMTreeWalker extends DOMObject {
             readonly $signals: DOMTreeWalker.SignalSignatures
             readonly $readableProperties: DOMTreeWalker.ReadableProperties
@@ -13706,10 +13820,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMTreeWalkerClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMTreeWalker>
             readonly prototype: DOMTreeWalker
+
             new (props?: Partial<GObject.ConstructorProps<DOMTreeWalker>>): DOMTreeWalker
         }
 
-        const DOMTreeWalker: DOMTreeWalkerClass
+        interface $Exports {
+            /**
+             */
+            DOMTreeWalker: DOMTreeWalkerClass
+        }
         
 
         namespace DOMUIEvent {
@@ -13742,8 +13861,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMUIEvent extends DOMEvent {
             readonly $signals: DOMUIEvent.SignalSignatures
             readonly $readableProperties: DOMUIEvent.ReadableProperties
@@ -13842,10 +13959,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMUIEventClass extends Omit<DOMEventClass, "new"> {
             readonly $gtype: GObject.GType<DOMUIEvent>
             readonly prototype: DOMUIEvent
+
             new (props?: Partial<GObject.ConstructorProps<DOMUIEvent>>): DOMUIEvent
         }
 
-        const DOMUIEvent: DOMUIEventClass
+        interface $Exports {
+            /**
+             */
+            DOMUIEvent: DOMUIEventClass
+        }
         
 
         namespace DOMWheelEvent {
@@ -13868,8 +13990,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMWheelEvent extends DOMMouseEvent {
             readonly $signals: DOMWheelEvent.SignalSignatures
             readonly $readableProperties: DOMWheelEvent.ReadableProperties
@@ -13925,10 +14045,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMWheelEventClass extends Omit<DOMMouseEventClass, "new"> {
             readonly $gtype: GObject.GType<DOMWheelEvent>
             readonly prototype: DOMWheelEvent
+
             new (props?: Partial<GObject.ConstructorProps<DOMWheelEvent>>): DOMWheelEvent
         }
 
-        const DOMWheelEvent: DOMWheelEventClass
+        interface $Exports {
+            /**
+             */
+            DOMWheelEvent: DOMWheelEventClass
+        }
         
 
         namespace DOMXPathExpression {
@@ -13945,8 +14070,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMXPathExpression extends DOMObject {
             readonly $signals: DOMXPathExpression.SignalSignatures
             readonly $readableProperties: DOMXPathExpression.ReadableProperties
@@ -13966,10 +14089,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMXPathExpressionClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMXPathExpression>
             readonly prototype: DOMXPathExpression
+
             new (props?: Partial<GObject.ConstructorProps<DOMXPathExpression>>): DOMXPathExpression
         }
 
-        const DOMXPathExpression: DOMXPathExpressionClass
+        interface $Exports {
+            /**
+             */
+            DOMXPathExpression: DOMXPathExpressionClass
+        }
         
 
         namespace DOMXPathResult {
@@ -14000,8 +14128,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface DOMXPathResult extends DOMObject {
             readonly $signals: DOMXPathResult.SignalSignatures
             readonly $readableProperties: DOMXPathResult.ReadableProperties
@@ -14098,10 +14224,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface DOMXPathResultClass extends Omit<DOMObjectClass, "new"> {
             readonly $gtype: GObject.GType<DOMXPathResult>
             readonly prototype: DOMXPathResult
+
             new (props?: Partial<GObject.ConstructorProps<DOMXPathResult>>): DOMXPathResult
         }
 
-        const DOMXPathResult: DOMXPathResultClass
+        interface $Exports {
+            /**
+             */
+            DOMXPathResult: DOMXPathResultClass
+        }
         
 
         namespace Frame {
@@ -14118,13 +14249,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         * A web page frame.
-         *
-         * Each `WebKitWebPage` has at least one main frame, and can have any number
-         * of subframes.
-         * @since 2.26
-         */
         interface Frame extends GObject.Object {
             readonly $signals: Frame.SignalSignatures
             readonly $readableProperties: Frame.ReadableProperties
@@ -14188,10 +14312,20 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface FrameClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Frame>
             readonly prototype: Frame
+
             new (props?: Partial<GObject.ConstructorProps<Frame>>): Frame
         }
 
-        const Frame: FrameClass
+        interface $Exports {
+            /**
+             * A web page frame.
+             *
+             * Each `WebKitWebPage` has at least one main frame, and can have any number
+             * of subframes.
+             * @since 2.26
+             */
+            Frame: FrameClass
+        }
         
 
         namespace HitTestResult {
@@ -14208,6 +14342,9 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "context": number
                 "image-uri": string
                 "link-label": string
@@ -14215,33 +14352,8 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
                 "link-uri": string
                 "media-uri": string
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Result of a Hit Test.
-         *
-         * A Hit Test is an operation to get context information about a given
-         * point in a #WebKitWebView. #WebKitHitTestResult represents the
-         * result of a Hit Test. It provides context information about what is
-         * at the coordinates of the Hit Test, such as if there's a link,
-         * an image or a media.
-         *
-         * You can get the context of the HitTestResult with
-         * webkit_hit_test_result_get_context() that returns a bitmask of
-         * #WebKitHitTestResultContext flags. You can also use
-         * webkit_hit_test_result_context_is_link(), webkit_hit_test_result_context_is_image() and
-         * webkit_hit_test_result_context_is_media() to determine whether there's
-         * a link, image or a media element at the coordinates of the Hit Test.
-         * Note that it's possible that several #WebKitHitTestResultContext flags
-         * are active at the same time, for example if there's a link containing an image.
-         *
-         * When the mouse is moved over a #WebKitWebView a Hit Test is performed
-         * for the mouse coordinates and #WebKitWebView::mouse-target-changed
-         * signal is emitted with a #WebKitHitTestResult.
-         */
         interface HitTestResult extends GObject.Object {
             readonly $signals: HitTestResult.SignalSignatures
             readonly $readableProperties: HitTestResult.ReadableProperties
@@ -14361,10 +14473,35 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface HitTestResultClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<HitTestResult>
             readonly prototype: HitTestResult
+
             new (props?: Partial<GObject.ConstructorProps<HitTestResult>>): HitTestResult
         }
 
-        const HitTestResult: HitTestResultClass
+        interface $Exports {
+            /**
+             * Result of a Hit Test.
+             *
+             * A Hit Test is an operation to get context information about a given
+             * point in a #WebKitWebView. #WebKitHitTestResult represents the
+             * result of a Hit Test. It provides context information about what is
+             * at the coordinates of the Hit Test, such as if there's a link,
+             * an image or a media.
+             *
+             * You can get the context of the HitTestResult with
+             * webkit_hit_test_result_get_context() that returns a bitmask of
+             * #WebKitHitTestResultContext flags. You can also use
+             * webkit_hit_test_result_context_is_link(), webkit_hit_test_result_context_is_image() and
+             * webkit_hit_test_result_context_is_media() to determine whether there's
+             * a link, image or a media element at the coordinates of the Hit Test.
+             * Note that it's possible that several #WebKitHitTestResultContext flags
+             * are active at the same time, for example if there's a link containing an image.
+             *
+             * When the mouse is moved over a #WebKitWebView a Hit Test is performed
+             * for the mouse coordinates and #WebKitWebView::mouse-target-changed
+             * signal is emitted with a #WebKitHitTestResult.
+             */
+            HitTestResult: HitTestResultClass
+        }
         
 
         namespace ScriptWorld {
@@ -14392,8 +14529,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         */
         interface ScriptWorld extends GObject.Object {
             readonly $signals: ScriptWorld.SignalSignatures
             readonly $readableProperties: ScriptWorld.ReadableProperties
@@ -14410,6 +14545,7 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface ScriptWorldClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ScriptWorld>
             readonly prototype: ScriptWorld
+
             new (props?: Partial<GObject.ConstructorProps<ScriptWorld>>): ScriptWorld
             /**
              * Creates a new isolated #WebKitScriptWorld. Scripts executed in
@@ -14446,7 +14582,11 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             get_default(): ScriptWorld
         }
 
-        const ScriptWorld: ScriptWorldClass
+        interface $Exports {
+            /**
+             */
+            ScriptWorld: ScriptWorldClass
+        }
         
 
         namespace URIRequest {
@@ -14465,13 +14605,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         * Represents a URI request.
-         *
-         * A #WebKitURIRequest can be created with a URI using the
-         * webkit_uri_request_new() method, and you can get the URI of an
-         * existing request with the webkit_uri_request_get_uri() one.
-         */
         interface URIRequest extends GObject.Object {
             readonly $signals: URIRequest.SignalSignatures
             readonly $readableProperties: URIRequest.ReadableProperties
@@ -14509,6 +14642,7 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface URIRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<URIRequest>
             readonly prototype: URIRequest
+
             new (props?: Partial<GObject.ConstructorProps<URIRequest>>): URIRequest
             /**
              * Creates a new #WebKitURIRequest for the given URI.
@@ -14518,7 +14652,16 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             "new"(uri: string): URIRequest
         }
 
-        const URIRequest: URIRequestClass
+        interface $Exports {
+            /**
+             * Represents a URI request.
+             *
+             * A #WebKitURIRequest can be created with a URI using the
+             * webkit_uri_request_new() method, and you can get the URI of an
+             * existing request with the webkit_uri_request_get_uri() one.
+             */
+            URIRequest: URIRequestClass
+        }
         
 
         namespace URIResponse {
@@ -14547,13 +14690,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         * Represents an URI response.
-         *
-         * A #WebKitURIResponse contains information such as the URI, the
-         * status code, the content length, the mime type, the HTTP status or
-         * the suggested filename.
-         */
         interface URIResponse extends GObject.Object {
             readonly $signals: URIResponse.SignalSignatures
             readonly $readableProperties: URIResponse.ReadableProperties
@@ -14642,10 +14778,20 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface URIResponseClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<URIResponse>
             readonly prototype: URIResponse
+
             new (props?: Partial<GObject.ConstructorProps<URIResponse>>): URIResponse
         }
 
-        const URIResponse: URIResponseClass
+        interface $Exports {
+            /**
+             * Represents an URI response.
+             *
+             * A #WebKitURIResponse contains information such as the URI, the
+             * status code, the content length, the mime type, the HTTP status or
+             * the suggested filename.
+             */
+            URIResponse: URIResponseClass
+        }
         
 
         namespace UserMessage {
@@ -14659,26 +14805,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
 
             interface WritableProperties extends GObject.InitiallyUnowned.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.InitiallyUnowned.ConstructOnlyProperties {
                 "fd-list": Gio.UnixFDList | null
                 "name": string
                 "parameters": GLib.Variant | null
             }
-
-            interface ConstructOnlyProperties extends GObject.InitiallyUnowned.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Message that can be sent between the UI process and web process extensions.
-         *
-         * A WebKitUserMessage is a message that can be used for the communication between the UI process
-         * and web process extensions. A WebKitUserMessage always has a name, and it can also include parameters and
-         * UNIX file descriptors. Messages can be sent from a #WebKitWebContext to all web process extensions,
-         * from a web process extension to its corresponding #WebKitWebContext, and from a #WebKitWebView to its
-         * corresponding #WebKitWebPage (and vice versa). One to one messages can be replied to directly with
-         * webkit_user_message_send_reply().
-         * @since 2.28
-         */
         interface UserMessage extends GObject.InitiallyUnowned {
             readonly $signals: UserMessage.SignalSignatures
             readonly $readableProperties: UserMessage.ReadableProperties
@@ -14738,6 +14873,7 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface UserMessageClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
             readonly $gtype: GObject.GType<UserMessage>
             readonly prototype: UserMessage
+
             new (props?: Partial<GObject.ConstructorProps<UserMessage>>): UserMessage
             /**
              * Create a new #WebKitUserMessage with @name.
@@ -14763,7 +14899,20 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             error_quark(): GLib.Quark
         }
 
-        const UserMessage: UserMessageClass
+        interface $Exports {
+            /**
+             * Message that can be sent between the UI process and web process extensions.
+             *
+             * A WebKitUserMessage is a message that can be used for the communication between the UI process
+             * and web process extensions. A WebKitUserMessage always has a name, and it can also include parameters and
+             * UNIX file descriptors. Messages can be sent from a #WebKitWebContext to all web process extensions,
+             * from a web process extension to its corresponding #WebKitWebContext, and from a #WebKitWebView to its
+             * corresponding #WebKitWebPage (and vice versa). One to one messages can be replied to directly with
+             * webkit_user_message_send_reply().
+             * @since 2.28
+             */
+            UserMessage: UserMessageClass
+        }
         
 
         namespace WebEditor {
@@ -14787,14 +14936,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         * Access to editing capabilities of a #WebKitWebPage.
-         *
-         * The WebKitWebEditor provides access to various editing capabilities of
-         * a #WebKitWebPage such as a possibility to react to the current selection in
-         * #WebKitWebPage.
-         * @since 2.10
-         */
         interface WebEditor extends GObject.Object {
             readonly $signals: WebEditor.SignalSignatures
             readonly $readableProperties: WebEditor.ReadableProperties
@@ -14811,10 +14952,21 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface WebEditorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebEditor>
             readonly prototype: WebEditor
+
             new (props?: Partial<GObject.ConstructorProps<WebEditor>>): WebEditor
         }
 
-        const WebEditor: WebEditorClass
+        interface $Exports {
+            /**
+             * Access to editing capabilities of a #WebKitWebPage.
+             *
+             * The WebKitWebEditor provides access to various editing capabilities of
+             * a #WebKitWebPage such as a possibility to react to the current selection in
+             * #WebKitWebPage.
+             * @since 2.10
+             */
+            WebEditor: WebEditorClass
+        }
         
 
         namespace WebExtension {
@@ -14826,7 +14978,9 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
                  */
                 "page-created"(web_page: WebPage): void
                 /**
-                 * s and they can't be
+                 * This signal is emitted when a #WebKitUserMessage is received from the
+                 * #WebKitWebContext corresponding to @extension. Messages sent by #WebKitWebContext
+                 * are always broadcasted to all #WebKitWebExtension<!-- -->s and they can't be
                  * replied to. Calling webkit_user_message_send_reply() will do nothing.
                  * @since 2.28
                  * @param message the #WebKitUserMessage received
@@ -14844,79 +14998,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         * Represents an extension of the WebProcess.
-         *
-         * WebKitWebExtension is a loadable module for the WebProcess. It allows you to execute code in the
-         * WebProcess and being able to use the DOM API, to change any request or to inject custom
-         * JavaScript code, for example.
-         *
-         * To create a WebKitWebExtension you should write a module with an initialization function that could
-         * be either webkit_web_extension_initialize() with prototype #WebKitWebExtensionInitializeFunction or
-         * webkit_web_extension_initialize_with_user_data() with prototype #WebKitWebExtensionInitializeWithUserDataFunction.
-         * This function has to be public and it has to use the #G_MODULE_EXPORT macro. It is called when the
-         * web process is initialized.
-         *
-         * ```c
-         * static void
-         * web_page_created_callback (WebKitWebExtension *extension,
-         *                            WebKitWebPage      *web_page,
-         *                            gpointer            user_data)
-         * {
-         *     g_print ("Page %d created for %s\n",
-         *              webkit_web_page_get_id (web_page),
-         *              webkit_web_page_get_uri (web_page));
-         * }
-         *
-         * G_MODULE_EXPORT void
-         * webkit_web_extension_initialize (WebKitWebExtension *extension)
-         * {
-         *     g_signal_connect (extension, "page-created",
-         *                       G_CALLBACK (web_page_created_callback),
-         *                       NULL);
-         * }
-         * ```
-         *
-         * The previous piece of code shows a trivial example of an extension that notifies when
-         * a #WebKitWebPage is created.
-         *
-         * WebKit has to know where it can find the created WebKitWebExtension. To do so you
-         * should use the webkit_web_context_set_web_extensions_directory() function. The signal
-         * #WebKitWebContext::initialize-web-extensions is the recommended place to call it.
-         *
-         * To provide the initialization data used by the webkit_web_extension_initialize_with_user_data()
-         * function, you have to call webkit_web_context_set_web_extensions_initialization_user_data() with
-         * the desired data as parameter. You can see an example of this in the following piece of code:
-         *
-         * ```c
-         * #define WEB_EXTENSIONS_DIRECTORY // ...
-         *
-         * static void
-         * initialize_web_extensions (WebKitWebContext *context,
-         *                            gpointer          user_data)
-         * {
-         *   // Web Extensions get a different ID for each Web Process
-         *   static guint32 unique_id = 0;
-         *
-         *   webkit_web_context_set_web_extensions_directory (
-         *      context, WEB_EXTENSIONS_DIRECTORY);
-         *   webkit_web_context_set_web_extensions_initialization_user_data (
-         *      context, g_variant_new_uint32 (unique_id++));
-         * }
-         *
-         * int main (int argc, char **argv)
-         * {
-         *   g_signal_connect (webkit_web_context_get_default (),
-         *                    "initialize-web-extensions",
-         *                     G_CALLBACK (initialize_web_extensions),
-         *                     NULL);
-         *
-         *   GtkWidget *view = webkit_web_view_new ();
-         *
-         *   // ...
-         * }
-         * ```
-         */
         interface WebExtension extends GObject.Object {
             readonly $signals: WebExtension.SignalSignatures
             readonly $readableProperties: WebExtension.ReadableProperties
@@ -14953,10 +15034,86 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface WebExtensionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebExtension>
             readonly prototype: WebExtension
+
             new (props?: Partial<GObject.ConstructorProps<WebExtension>>): WebExtension
         }
 
-        const WebExtension: WebExtensionClass
+        interface $Exports {
+            /**
+             * Represents an extension of the WebProcess.
+             *
+             * WebKitWebExtension is a loadable module for the WebProcess. It allows you to execute code in the
+             * WebProcess and being able to use the DOM API, to change any request or to inject custom
+             * JavaScript code, for example.
+             *
+             * To create a WebKitWebExtension you should write a module with an initialization function that could
+             * be either webkit_web_extension_initialize() with prototype #WebKitWebExtensionInitializeFunction or
+             * webkit_web_extension_initialize_with_user_data() with prototype #WebKitWebExtensionInitializeWithUserDataFunction.
+             * This function has to be public and it has to use the #G_MODULE_EXPORT macro. It is called when the
+             * web process is initialized.
+             *
+             * ```c
+             * static void
+             * web_page_created_callback (WebKitWebExtension *extension,
+             *                            WebKitWebPage      *web_page,
+             *                            gpointer            user_data)
+             * {
+             *     g_print ("Page %d created for %s\n",
+             *              webkit_web_page_get_id (web_page),
+             *              webkit_web_page_get_uri (web_page));
+             * }
+             *
+             * G_MODULE_EXPORT void
+             * webkit_web_extension_initialize (WebKitWebExtension *extension)
+             * {
+             *     g_signal_connect (extension, "page-created",
+             *                       G_CALLBACK (web_page_created_callback),
+             *                       NULL);
+             * }
+             * ```
+             *
+             * The previous piece of code shows a trivial example of an extension that notifies when
+             * a #WebKitWebPage is created.
+             *
+             * WebKit has to know where it can find the created WebKitWebExtension. To do so you
+             * should use the webkit_web_context_set_web_extensions_directory() function. The signal
+             * #WebKitWebContext::initialize-web-extensions is the recommended place to call it.
+             *
+             * To provide the initialization data used by the webkit_web_extension_initialize_with_user_data()
+             * function, you have to call webkit_web_context_set_web_extensions_initialization_user_data() with
+             * the desired data as parameter. You can see an example of this in the following piece of code:
+             *
+             * ```c
+             * #define WEB_EXTENSIONS_DIRECTORY // ...
+             *
+             * static void
+             * initialize_web_extensions (WebKitWebContext *context,
+             *                            gpointer          user_data)
+             * {
+             *   // Web Extensions get a different ID for each Web Process
+             *   static guint32 unique_id = 0;
+             *
+             *   webkit_web_context_set_web_extensions_directory (
+             *      context, WEB_EXTENSIONS_DIRECTORY);
+             *   webkit_web_context_set_web_extensions_initialization_user_data (
+             *      context, g_variant_new_uint32 (unique_id++));
+             * }
+             *
+             * int main (int argc, char **argv)
+             * {
+             *   g_signal_connect (webkit_web_context_get_default (),
+             *                    "initialize-web-extensions",
+             *                     G_CALLBACK (initialize_web_extensions),
+             *                     NULL);
+             *
+             *   GtkWidget *view = webkit_web_view_new ();
+             *
+             *   // ...
+             * }
+             * ```
+             */
+            WebExtension: WebExtensionClass
+        }
         
 
         namespace WebFormManager {
@@ -15022,10 +15179,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         * Form manager of a #WebKitWebPage in a #WebKitScriptWorld
-         * @since 2.40
-         */
         interface WebFormManager extends GObject.Object {
             readonly $signals: WebFormManager.SignalSignatures
             readonly $readableProperties: WebFormManager.ReadableProperties
@@ -15036,6 +15189,7 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface WebFormManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebFormManager>
             readonly prototype: WebFormManager
+
             new (props?: Partial<GObject.ConstructorProps<WebFormManager>>): WebFormManager
             /**
              * Set the value of an HTML input element as if it had been edited by
@@ -15062,7 +15216,13 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             input_element_is_user_edited(element: JavaScriptCore.Value): boolean
         }
 
-        const WebFormManager: WebFormManagerClass
+        interface $Exports {
+            /**
+             * Form manager of a #WebKitWebPage in a #WebKitScriptWorld
+             * @since 2.40
+             */
+            WebFormManager: WebFormManagerClass
+        }
         
 
         namespace WebHitTestResult {
@@ -15074,20 +15234,13 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
 
             interface WritableProperties extends HitTestResult.WritableProperties {
-                "node": DOMNode
             }
 
             interface ConstructOnlyProperties extends HitTestResult.ConstructOnlyProperties {
+                "node": DOMNode
             }
         }
 
-        /**
-         * Result of a Hit Test (Web Process Extensions).
-         *
-         * WebKitWebHitTestResult extends #WebKitHitTestResult to provide information
-         * about the #WebKitDOMNode in the coordinates of the Hit Test.
-         * @since 2.8
-         */
         interface WebHitTestResult extends HitTestResult {
             readonly $signals: WebHitTestResult.SignalSignatures
             readonly $readableProperties: WebHitTestResult.ReadableProperties
@@ -15118,10 +15271,20 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface WebHitTestResultClass extends Omit<HitTestResultClass, "new"> {
             readonly $gtype: GObject.GType<WebHitTestResult>
             readonly prototype: WebHitTestResult
+
             new (props?: Partial<GObject.ConstructorProps<WebHitTestResult>>): WebHitTestResult
         }
 
-        const WebHitTestResult: WebHitTestResultClass
+        interface $Exports {
+            /**
+             * Result of a Hit Test (Web Process Extensions).
+             *
+             * WebKitWebHitTestResult extends #WebKitHitTestResult to provide information
+             * about the #WebKitDOMNode in the coordinates of the Hit Test.
+             * @since 2.8
+             */
+            WebHitTestResult: WebHitTestResultClass
+        }
         
 
         namespace WebPage {
@@ -15281,9 +15444,6 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
             }
         }
 
-        /**
-         * A loaded web page.
-         */
         interface WebPage extends GObject.Object {
             readonly $signals: WebPage.SignalSignatures
             readonly $readableProperties: WebPage.ReadableProperties
@@ -15359,16 +15519,223 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         interface WebPageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebPage>
             readonly prototype: WebPage
+
             new (props?: Partial<GObject.ConstructorProps<WebPage>>): WebPage
         }
 
-        const WebPage: WebPageClass
-        /**
-         */
-        abstract class ConsoleMessage {
-            static readonly $gtype: GObject.GType<ConsoleMessage>
+        interface $Exports {
+            /**
+             * A loaded web page.
+             */
+            WebPage: WebPageClass
+        }
+        
 
-            
+        namespace DOMEventTarget {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * @param event_name
+                 * @param handler
+                 * @param use_capture
+                 */
+                vfunc_add_event_listener(event_name: string, handler: ((...args: unknown[]) => unknown), use_capture: boolean): boolean
+                /**
+                 * @throws {GLib.Error}
+                 * @deprecated since 2.22 Use JavaScriptCore API instead
+                 * @param event A #WebKitDOMEvent
+                 * @returns a #gboolean
+                 */
+                vfunc_dispatch_event(event: DOMEvent): boolean
+                /**
+                 * @deprecated since 2.22 Use JavaScriptCore API instead
+                 * @param event_name A #gchar
+                 * @param handler A #GCallback
+                 * @param use_capture A #gboolean
+                 * @returns a #gboolean
+                 */
+                vfunc_remove_event_listener(event_name: string, handler: never | null, use_capture: boolean): boolean
+            }
+        }
+
+        interface DOMEventTarget extends GObject.Object, DOMEventTarget.Interface {
+            readonly $signals: DOMEventTarget.SignalSignatures
+            readonly $readableProperties: DOMEventTarget.ReadableProperties
+            readonly $writableProperties: DOMEventTarget.WritableProperties
+            readonly $constructOnlyProperties: DOMEventTarget.ConstructOnlyProperties
+            /**
+             * @deprecated since 2.22 Use JavaScriptCore API instead
+             * @param event_name A #gchar
+             * @param handler A #GCallback
+             * @param use_capture A #gboolean
+             * @returns a #gboolean
+             */
+            add_event_listener(event_name: string, handler: GObject.Callback, use_capture: boolean): boolean
+            /**
+             * Version of webkit_dom_event_target_add_event_listener() using a closure
+             * instead of a callbacks for easier binding in other languages.
+             * @deprecated since 2.22 Use JavaScriptCore API instead
+             * @param event_name A #gchar
+             * @param handler A #GClosure
+             * @param use_capture A #gboolean
+             * @returns a #gboolean
+             */
+            add_event_listener(event_name: string, handler: ((...args: unknown[]) => unknown), use_capture: boolean): boolean
+            /**
+             * @throws {GLib.Error}
+             * @deprecated since 2.22 Use JavaScriptCore API instead
+             * @param event A #WebKitDOMEvent
+             * @returns a #gboolean
+             */
+            dispatch_event(event: DOMEvent): boolean
+            /**
+             * @deprecated since 2.22 Use JavaScriptCore API instead
+             * @param event_name A #gchar
+             * @param handler A #GCallback
+             * @param use_capture A #gboolean
+             * @returns a #gboolean
+             */
+            remove_event_listener(event_name: string, handler: never | null, use_capture: boolean): boolean
+            /**
+             * Version of webkit_dom_event_target_remove_event_listener() using a closure
+             * instead of a callbacks for easier binding in other languages.
+             * @deprecated since 2.22 Use JavaScriptCore API instead
+             * @param event_name A #gchar
+             * @param handler A #GClosure
+             * @param use_capture A #gboolean
+             * @returns a #gboolean
+             */
+            remove_event_listener(event_name: string, handler: ((...args: unknown[]) => unknown), use_capture: boolean): boolean
+        }
+
+        interface DOMEventTargetIface {
+            readonly $gtype: GObject.GType<DOMEventTarget>
+            readonly prototype: DOMEventTarget
+            [Symbol.hasInstance](instance: unknown): instance is DOMEventTarget
+        }
+
+        interface $Exports {
+            /**
+             */
+            DOMEventTarget: DOMEventTargetIface
+        }
+        
+
+        namespace DOMNodeFilter {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * @deprecated since 2.22 Use JavaScriptCore API instead
+                 * @param node A #WebKitDOMNode
+                 * @returns a #gshort
+                 */
+                vfunc_accept_node(node: DOMNode): number
+            }
+        }
+
+        interface DOMNodeFilter extends GObject.Object, DOMNodeFilter.Interface {
+            readonly $signals: DOMNodeFilter.SignalSignatures
+            readonly $readableProperties: DOMNodeFilter.ReadableProperties
+            readonly $writableProperties: DOMNodeFilter.WritableProperties
+            readonly $constructOnlyProperties: DOMNodeFilter.ConstructOnlyProperties
+            /**
+             * @deprecated since 2.22 Use JavaScriptCore API instead
+             * @param node A #WebKitDOMNode
+             * @returns a #gshort
+             */
+            accept_node(node: DOMNode): number
+        }
+
+        interface DOMNodeFilterIface {
+            readonly $gtype: GObject.GType<DOMNodeFilter>
+            readonly prototype: DOMNodeFilter
+            [Symbol.hasInstance](instance: unknown): instance is DOMNodeFilter
+        }
+
+        interface $Exports {
+            /**
+             */
+            DOMNodeFilter: DOMNodeFilterIface
+        }
+        
+
+        namespace DOMXPathNSResolver {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * @deprecated since 2.22 Use JavaScriptCore API instead
+                 * @param prefix The prefix to lookup
+                 * @returns a #gchar
+                 */
+                vfunc_lookup_namespace_uri(prefix: string): string
+            }
+        }
+
+        interface DOMXPathNSResolver extends GObject.Object, DOMXPathNSResolver.Interface {
+            readonly $signals: DOMXPathNSResolver.SignalSignatures
+            readonly $readableProperties: DOMXPathNSResolver.ReadableProperties
+            readonly $writableProperties: DOMXPathNSResolver.WritableProperties
+            readonly $constructOnlyProperties: DOMXPathNSResolver.ConstructOnlyProperties
+            /**
+             * @deprecated since 2.22 Use JavaScriptCore API instead
+             * @param prefix The prefix to lookup
+             * @returns a #gchar
+             */
+            lookup_namespace_uri(prefix: string): string
+        }
+
+        interface DOMXPathNSResolverIface {
+            readonly $gtype: GObject.GType<DOMXPathNSResolver>
+            readonly prototype: DOMXPathNSResolver
+            [Symbol.hasInstance](instance: unknown): instance is DOMXPathNSResolver
+        }
+
+        interface $Exports {
+            /**
+             */
+            DOMXPathNSResolver: DOMXPathNSResolverIface
+        }
+        
+
+        interface ConsoleMessageStruct {
+            readonly $gtype: GObject.GType<ConsoleMessage>
+            [Symbol.hasInstance](instance: unknown): instance is ConsoleMessage
+        }
+
+        interface ConsoleMessage {
             /**
              * Make a copy of @console_message.
              * @since 2.12
@@ -15411,628 +15778,508 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
              */
             get_text(): string
         }
-        none
-        none
-        /**
-         */
-        abstract class ContextMenuItemPrivate {
-            static readonly $gtype: GObject.GType<ContextMenuItemPrivate>
 
-            
+        interface $Exports {
+            ConsoleMessage: ConsoleMessageStruct
         }
-        /**
-         */
-        abstract class ContextMenuPrivate {
-            static readonly $gtype: GObject.GType<ContextMenuPrivate>
-
-            
-        }
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         */
-        abstract class FramePrivate {
-            static readonly $gtype: GObject.GType<FramePrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class HitTestResultPrivate {
-            static readonly $gtype: GObject.GType<HitTestResultPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class ScriptWorldPrivate {
-            static readonly $gtype: GObject.GType<ScriptWorldPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class URIRequestPrivate {
-            static readonly $gtype: GObject.GType<URIRequestPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class URIResponsePrivate {
-            static readonly $gtype: GObject.GType<URIResponsePrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class UserMessagePrivate {
-            static readonly $gtype: GObject.GType<UserMessagePrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class WebEditorPrivate {
-            static readonly $gtype: GObject.GType<WebEditorPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class WebExtensionPrivate {
-            static readonly $gtype: GObject.GType<WebExtensionPrivate>
-
-            
-        }
-        none
-        none
-        /**
-         */
-        abstract class WebHitTestResultPrivate {
-            static readonly $gtype: GObject.GType<WebHitTestResultPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class WebPagePrivate {
-            static readonly $gtype: GObject.GType<WebPagePrivate>
-
-            
-        }
-        const DOM_CSS_RULE_CHARSET_RULE: 2
-        const DOM_CSS_RULE_FONT_FACE_RULE: 5
-        const DOM_CSS_RULE_IMPORT_RULE: 3
-        const DOM_CSS_RULE_MEDIA_RULE: 4
-        const DOM_CSS_RULE_PAGE_RULE: 6
-        const DOM_CSS_RULE_STYLE_RULE: 1
-        const DOM_CSS_RULE_UNKNOWN_RULE: 0
-        const DOM_CSS_VALUE_CSS_CUSTOM: 3
-        const DOM_CSS_VALUE_CSS_INHERIT: 0
-        const DOM_CSS_VALUE_CSS_PRIMITIVE_VALUE: 1
-        const DOM_CSS_VALUE_CSS_VALUE_LIST: 2
-        const DOM_ELEMENT_ALLOW_KEYBOARD_INPUT: 1
-        const DOM_EVENT_AT_TARGET: 2
-        const DOM_EVENT_BLUR: 8192
-        const DOM_EVENT_BUBBLING_PHASE: 3
-        const DOM_EVENT_CAPTURING_PHASE: 1
-        const DOM_EVENT_CHANGE: 32768
-        const DOM_EVENT_CLICK: 64
-        const DOM_EVENT_DBLCLICK: 128
-        const DOM_EVENT_DRAGDROP: 2048
-        const DOM_EVENT_FOCUS: 4096
-        const DOM_EVENT_KEYDOWN: 256
-        const DOM_EVENT_KEYPRESS: 1024
-        const DOM_EVENT_KEYUP: 512
-        const DOM_EVENT_MOUSEDOWN: 1
-        const DOM_EVENT_MOUSEDRAG: 32
-        const DOM_EVENT_MOUSEMOVE: 16
-        const DOM_EVENT_MOUSEOUT: 8
-        const DOM_EVENT_MOUSEOVER: 4
-        const DOM_EVENT_MOUSEUP: 2
-        const DOM_EVENT_NONE: 0
-        const DOM_EVENT_SELECT: 16384
-        const DOM_KEYBOARD_EVENT_KEY_LOCATION_LEFT: 1
-        const DOM_KEYBOARD_EVENT_KEY_LOCATION_NUMPAD: 3
-        const DOM_KEYBOARD_EVENT_KEY_LOCATION_RIGHT: 2
-        const DOM_KEYBOARD_EVENT_KEY_LOCATION_STANDARD: 0
-        const DOM_NODE_ATTRIBUTE_NODE: 2
-        const DOM_NODE_CDATA_SECTION_NODE: 4
-        const DOM_NODE_COMMENT_NODE: 8
-        const DOM_NODE_DOCUMENT_FRAGMENT_NODE: 11
-        const DOM_NODE_DOCUMENT_NODE: 9
-        const DOM_NODE_DOCUMENT_POSITION_CONTAINED_BY: 16
-        const DOM_NODE_DOCUMENT_POSITION_CONTAINS: 8
-        const DOM_NODE_DOCUMENT_POSITION_DISCONNECTED: 1
-        const DOM_NODE_DOCUMENT_POSITION_FOLLOWING: 4
-        const DOM_NODE_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: 32
-        const DOM_NODE_DOCUMENT_POSITION_PRECEDING: 2
-        const DOM_NODE_DOCUMENT_TYPE_NODE: 10
-        const DOM_NODE_ELEMENT_NODE: 1
-        const DOM_NODE_ENTITY_NODE: 6
-        const DOM_NODE_ENTITY_REFERENCE_NODE: 5
-        const DOM_NODE_FILTER_ACCEPT: 1
-        const DOM_NODE_FILTER_REJECT: 2
-        const DOM_NODE_FILTER_SHOW_ALL: 4294967295
-        const DOM_NODE_FILTER_SHOW_ATTRIBUTE: 2
-        const DOM_NODE_FILTER_SHOW_CDATA_SECTION: 8
-        const DOM_NODE_FILTER_SHOW_COMMENT: 128
-        const DOM_NODE_FILTER_SHOW_DOCUMENT: 256
-        const DOM_NODE_FILTER_SHOW_DOCUMENT_FRAGMENT: 1024
-        const DOM_NODE_FILTER_SHOW_DOCUMENT_TYPE: 512
-        const DOM_NODE_FILTER_SHOW_ELEMENT: 1
-        const DOM_NODE_FILTER_SHOW_ENTITY: 32
-        const DOM_NODE_FILTER_SHOW_ENTITY_REFERENCE: 16
-        const DOM_NODE_FILTER_SHOW_NOTATION: 2048
-        const DOM_NODE_FILTER_SHOW_PROCESSING_INSTRUCTION: 64
-        const DOM_NODE_FILTER_SHOW_TEXT: 4
-        const DOM_NODE_FILTER_SKIP: 3
-        const DOM_NODE_PROCESSING_INSTRUCTION_NODE: 7
-        const DOM_NODE_TEXT_NODE: 3
-        const DOM_RANGE_END_TO_END: 2
-        const DOM_RANGE_END_TO_START: 3
-        const DOM_RANGE_NODE_AFTER: 1
-        const DOM_RANGE_NODE_BEFORE: 0
-        const DOM_RANGE_NODE_BEFORE_AND_AFTER: 2
-        const DOM_RANGE_NODE_INSIDE: 3
-        const DOM_RANGE_START_TO_END: 1
-        const DOM_RANGE_START_TO_START: 0
-        const DOM_XPATH_RESULT_ANY_TYPE: 0
-        const DOM_XPATH_RESULT_ANY_UNORDERED_NODE_TYPE: 8
-        const DOM_XPATH_RESULT_BOOLEAN_TYPE: 3
-        const DOM_XPATH_RESULT_FIRST_ORDERED_NODE_TYPE: 9
-        const DOM_XPATH_RESULT_NUMBER_TYPE: 1
-        const DOM_XPATH_RESULT_ORDERED_NODE_ITERATOR_TYPE: 5
-        const DOM_XPATH_RESULT_ORDERED_NODE_SNAPSHOT_TYPE: 7
-        const DOM_XPATH_RESULT_STRING_TYPE: 2
-        const DOM_XPATH_RESULT_UNORDERED_NODE_ITERATOR_TYPE: 4
-        const DOM_XPATH_RESULT_UNORDERED_NODE_SNAPSHOT_TYPE: 6
         
-        namespace ConsoleMessageLevel {
-            const $gtype: GObject.GType<ConsoleMessageLevel>
+
+        interface ContextMenuItemPrivateStruct {
+            readonly $gtype: GObject.GType<ContextMenuItemPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ContextMenuItemPrivate
         }
 
-        /**
-         * Enum values used to denote the various levels of console messages.
-         * @since 2.12
-         */
-        enum ConsoleMessageLevel {
+        interface ContextMenuItemPrivate {
+        }
+
+        interface $Exports {
+            ContextMenuItemPrivate: ContextMenuItemPrivateStruct
+        }
+        
+
+        interface ContextMenuPrivateStruct {
+            readonly $gtype: GObject.GType<ContextMenuPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ContextMenuPrivate
+        }
+
+        interface ContextMenuPrivate {
+        }
+
+        interface $Exports {
+            ContextMenuPrivate: ContextMenuPrivateStruct
+        }
+        
+
+        interface FramePrivateStruct {
+            readonly $gtype: GObject.GType<FramePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is FramePrivate
+        }
+
+        interface FramePrivate {
+        }
+
+        interface $Exports {
+            FramePrivate: FramePrivateStruct
+        }
+        
+
+        interface HitTestResultPrivateStruct {
+            readonly $gtype: GObject.GType<HitTestResultPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is HitTestResultPrivate
+        }
+
+        interface HitTestResultPrivate {
+        }
+
+        interface $Exports {
+            HitTestResultPrivate: HitTestResultPrivateStruct
+        }
+        
+
+        interface ScriptWorldPrivateStruct {
+            readonly $gtype: GObject.GType<ScriptWorldPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ScriptWorldPrivate
+        }
+
+        interface ScriptWorldPrivate {
+        }
+
+        interface $Exports {
+            ScriptWorldPrivate: ScriptWorldPrivateStruct
+        }
+        
+
+        interface URIRequestPrivateStruct {
+            readonly $gtype: GObject.GType<URIRequestPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is URIRequestPrivate
+        }
+
+        interface URIRequestPrivate {
+        }
+
+        interface $Exports {
+            URIRequestPrivate: URIRequestPrivateStruct
+        }
+        
+
+        interface URIResponsePrivateStruct {
+            readonly $gtype: GObject.GType<URIResponsePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is URIResponsePrivate
+        }
+
+        interface URIResponsePrivate {
+        }
+
+        interface $Exports {
+            URIResponsePrivate: URIResponsePrivateStruct
+        }
+        
+
+        interface UserMessagePrivateStruct {
+            readonly $gtype: GObject.GType<UserMessagePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is UserMessagePrivate
+        }
+
+        interface UserMessagePrivate {
+        }
+
+        interface $Exports {
+            UserMessagePrivate: UserMessagePrivateStruct
+        }
+        
+
+        interface WebEditorPrivateStruct {
+            readonly $gtype: GObject.GType<WebEditorPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is WebEditorPrivate
+        }
+
+        interface WebEditorPrivate {
+        }
+
+        interface $Exports {
+            WebEditorPrivate: WebEditorPrivateStruct
+        }
+        
+
+        interface WebExtensionPrivateStruct {
+            readonly $gtype: GObject.GType<WebExtensionPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is WebExtensionPrivate
+        }
+
+        interface WebExtensionPrivate {
+        }
+
+        interface $Exports {
+            WebExtensionPrivate: WebExtensionPrivateStruct
+        }
+        
+
+        interface WebHitTestResultPrivateStruct {
+            readonly $gtype: GObject.GType<WebHitTestResultPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is WebHitTestResultPrivate
+        }
+
+        interface WebHitTestResultPrivate {
+        }
+
+        interface $Exports {
+            WebHitTestResultPrivate: WebHitTestResultPrivateStruct
+        }
+        
+
+        interface WebPagePrivateStruct {
+            readonly $gtype: GObject.GType<WebPagePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is WebPagePrivate
+        }
+
+        interface WebPagePrivate {
+        }
+
+        interface $Exports {
+            WebPagePrivate: WebPagePrivateStruct
+        }
+        
+        interface ConsoleMessageLevelEnum {
+            readonly $gtype: GObject.GType<ConsoleMessageLevel>
             /**
              * Information message.
              */
-            "INFO" = 0,
+            readonly "INFO": 0
             /**
              * Log message.
              */
-            "LOG" = 1,
+            readonly "LOG": 1
             /**
              * Warning message.
              */
-            "WARNING" = 2,
+            readonly "WARNING": 2
             /**
              * Error message.
              */
-            "ERROR" = 3,
+            readonly "ERROR": 3
             /**
              * Debug message.
              */
-            "DEBUG" = 4,
+            readonly "DEBUG": 4
+        }
+        type ConsoleMessageLevel = ConsoleMessageLevelEnum[Exclude<keyof ConsoleMessageLevelEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the various levels of console messages.
+             * @since 2.12
+             */
+            ConsoleMessageLevel: ConsoleMessageLevelEnum
         }
         
-        namespace ConsoleMessageSource {
-            const $gtype: GObject.GType<ConsoleMessageSource>
-        }
-
-        /**
-         * Enum values used to denote the various sources of console messages.
-         * @since 2.12
-         */
-        enum ConsoleMessageSource {
+        interface ConsoleMessageSourceEnum {
+            readonly $gtype: GObject.GType<ConsoleMessageSource>
             /**
              * Message produced by JavaScript.
              */
-            "JAVASCRIPT" = 0,
+            readonly "JAVASCRIPT": 0
             /**
              * Network messages.
              */
-            "NETWORK" = 1,
+            readonly "NETWORK": 1
             /**
              * Messages produced by console API.
              */
-            "CONSOLE_API" = 2,
+            readonly "CONSOLE_API": 2
             /**
              * Security messages.
              */
-            "SECURITY" = 3,
+            readonly "SECURITY": 3
             /**
              * Other messages.
              */
-            "OTHER" = 4,
+            readonly "OTHER": 4
+        }
+        type ConsoleMessageSource = ConsoleMessageSourceEnum[Exclude<keyof ConsoleMessageSourceEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the various sources of console messages.
+             * @since 2.12
+             */
+            ConsoleMessageSource: ConsoleMessageSourceEnum
         }
         
-        namespace ContextMenuAction {
-            const $gtype: GObject.GType<ContextMenuAction>
-        }
-
-        /**
-         * s
-         */
-        enum ContextMenuAction {
+        interface ContextMenuActionEnum {
+            readonly $gtype: GObject.GType<ContextMenuAction>
             /**
              * No action, used by separator menu items.
              */
-            "NO_ACTION" = 0,
+            readonly "NO_ACTION": 0
             /**
              * Open current link.
              */
-            "OPEN_LINK" = 1,
+            readonly "OPEN_LINK": 1
             /**
              * Open current link in a new window.
              */
-            "OPEN_LINK_IN_NEW_WINDOW" = 2,
+            readonly "OPEN_LINK_IN_NEW_WINDOW": 2
             /**
              * Download link destination.
              */
-            "DOWNLOAD_LINK_TO_DISK" = 3,
+            readonly "DOWNLOAD_LINK_TO_DISK": 3
             /**
              * Copy link location to the clipboard.
              */
-            "COPY_LINK_TO_CLIPBOARD" = 4,
+            readonly "COPY_LINK_TO_CLIPBOARD": 4
             /**
              * Open current image in a new window.
              */
-            "OPEN_IMAGE_IN_NEW_WINDOW" = 5,
+            readonly "OPEN_IMAGE_IN_NEW_WINDOW": 5
             /**
              * Download current image.
              */
-            "DOWNLOAD_IMAGE_TO_DISK" = 6,
+            readonly "DOWNLOAD_IMAGE_TO_DISK": 6
             /**
              * Copy current image to the clipboard.
              */
-            "COPY_IMAGE_TO_CLIPBOARD" = 7,
+            readonly "COPY_IMAGE_TO_CLIPBOARD": 7
             /**
              * Copy current image location to the clipboard.
              */
-            "COPY_IMAGE_URL_TO_CLIPBOARD" = 8,
+            readonly "COPY_IMAGE_URL_TO_CLIPBOARD": 8
             /**
              * Open current frame in a new window.
              */
-            "OPEN_FRAME_IN_NEW_WINDOW" = 9,
+            readonly "OPEN_FRAME_IN_NEW_WINDOW": 9
             /**
              * Load the previous history item.
              */
-            "GO_BACK" = 10,
+            readonly "GO_BACK": 10
             /**
              * Load the next history item.
              */
-            "GO_FORWARD" = 11,
+            readonly "GO_FORWARD": 11
             /**
              * Stop any ongoing loading operation.
              */
-            "STOP" = 12,
+            readonly "STOP": 12
             /**
              * Reload the contents of current view.
              */
-            "RELOAD" = 13,
+            readonly "RELOAD": 13
             /**
              * Copy current selection the clipboard.
              */
-            "COPY" = 14,
+            readonly "COPY": 14
             /**
              * Cut current selection to the clipboard.
              */
-            "CUT" = 15,
+            readonly "CUT": 15
             /**
              * Paste clipboard contents.
              */
-            "PASTE" = 16,
+            readonly "PASTE": 16
             /**
              * Delete current selection.
              */
-            "DELETE" = 17,
+            readonly "DELETE": 17
             /**
              * Select all text.
              */
-            "SELECT_ALL" = 18,
+            readonly "SELECT_ALL": 18
             /**
              * Input methods menu.
              */
-            "INPUT_METHODS" = 19,
+            readonly "INPUT_METHODS": 19
             /**
              * Unicode menu.
              */
-            "UNICODE" = 20,
+            readonly "UNICODE": 20
             /**
              * A proposed replacement for a misspelled word.
              */
-            "SPELLING_GUESS" = 21,
+            readonly "SPELLING_GUESS": 21
             /**
              * An indicator that spellchecking found no proposed replacements.
              */
-            "NO_GUESSES_FOUND" = 22,
+            readonly "NO_GUESSES_FOUND": 22
             /**
              * Causes the spellchecker to ignore the word for this session.
              */
-            "IGNORE_SPELLING" = 23,
+            readonly "IGNORE_SPELLING": 23
             /**
              * Causes the spellchecker to add the word to the dictionary.
              */
-            "LEARN_SPELLING" = 24,
+            readonly "LEARN_SPELLING": 24
             /**
              * Ignore grammar.
              */
-            "IGNORE_GRAMMAR" = 25,
+            readonly "IGNORE_GRAMMAR": 25
             /**
              * Font options menu.
              */
-            "FONT_MENU" = 26,
+            readonly "FONT_MENU": 26
             /**
              * Bold.
              */
-            "BOLD" = 27,
+            readonly "BOLD": 27
             /**
              * Italic.
              */
-            "ITALIC" = 28,
+            readonly "ITALIC": 28
             /**
              * Underline.
              */
-            "UNDERLINE" = 29,
+            readonly "UNDERLINE": 29
             /**
              * Outline.
              */
-            "OUTLINE" = 30,
+            readonly "OUTLINE": 30
             /**
              * Open current element in the inspector.
              */
-            "INSPECT_ELEMENT" = 31,
+            readonly "INSPECT_ELEMENT": 31
             /**
              * Open current video element in a new window.
              */
-            "OPEN_VIDEO_IN_NEW_WINDOW" = 32,
+            readonly "OPEN_VIDEO_IN_NEW_WINDOW": 32
             /**
              * Open current audio element in a new window.
              */
-            "OPEN_AUDIO_IN_NEW_WINDOW" = 33,
+            readonly "OPEN_AUDIO_IN_NEW_WINDOW": 33
             /**
              * Copy video link location in to the clipboard.
              */
-            "COPY_VIDEO_LINK_TO_CLIPBOARD" = 34,
+            readonly "COPY_VIDEO_LINK_TO_CLIPBOARD": 34
             /**
              * Copy audio link location in to the clipboard.
              */
-            "COPY_AUDIO_LINK_TO_CLIPBOARD" = 35,
+            readonly "COPY_AUDIO_LINK_TO_CLIPBOARD": 35
             /**
              * Enable or disable media controls.
              */
-            "TOGGLE_MEDIA_CONTROLS" = 36,
+            readonly "TOGGLE_MEDIA_CONTROLS": 36
             /**
              * Enable or disable media loop.
              */
-            "TOGGLE_MEDIA_LOOP" = 37,
+            readonly "TOGGLE_MEDIA_LOOP": 37
             /**
              * Show current video element in fullscreen mode.
              */
-            "ENTER_VIDEO_FULLSCREEN" = 38,
+            readonly "ENTER_VIDEO_FULLSCREEN": 38
             /**
              * Play current media element.
              */
-            "MEDIA_PLAY" = 39,
+            readonly "MEDIA_PLAY": 39
             /**
              * Pause current media element.
              */
-            "MEDIA_PAUSE" = 40,
+            readonly "MEDIA_PAUSE": 40
             /**
              * Mute current media element.
              */
-            "MEDIA_MUTE" = 41,
+            readonly "MEDIA_MUTE": 41
             /**
              * Download video to disk. Since 2.2
              */
-            "DOWNLOAD_VIDEO_TO_DISK" = 42,
+            readonly "DOWNLOAD_VIDEO_TO_DISK": 42
             /**
              * Download audio to disk. Since 2.2
              */
-            "DOWNLOAD_AUDIO_TO_DISK" = 43,
+            readonly "DOWNLOAD_AUDIO_TO_DISK": 43
             /**
              * Insert an emoji. Since 2.26
              */
-            "INSERT_EMOJI" = 44,
+            readonly "INSERT_EMOJI": 44
             /**
              * Paste clipboard contents as plain text. Since 2.30
              */
-            "PASTE_AS_PLAIN_TEXT" = 45,
+            readonly "PASTE_AS_PLAIN_TEXT": 45
             /**
              * Custom action defined by applications.
              */
-            "CUSTOM" = 10000,
+            readonly "CUSTOM": 10000
+        }
+        type ContextMenuAction = ContextMenuActionEnum[Exclude<keyof ContextMenuActionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the stock actions for
+             * #WebKitContextMenuItem<!-- -->s
+             */
+            ContextMenuAction: ContextMenuActionEnum
         }
         
-        namespace FormSubmissionStep {
-            const $gtype: GObject.GType<FormSubmissionStep>
-        }
-
-        /**
-         * Used to indicate a particular stage in form submission. See
-         * #WebKitWebPage::will-submit-form.
-         * @since 2.20
-         * @deprecated since 2.40
-         */
-        enum FormSubmissionStep {
+        interface FormSubmissionStepEnum {
+            readonly $gtype: GObject.GType<FormSubmissionStep>
             /**
              * indicates the form's
              * DOM submit event is about to be emitted.
              */
-            "SEND_DOM_EVENT" = 0,
+            readonly "SEND_DOM_EVENT": 0
             /**
              * indicates the form is about
              * to be submitted.
              */
-            "COMPLETE" = 1,
+            readonly "COMPLETE": 1
+        }
+        type FormSubmissionStep = FormSubmissionStepEnum[Exclude<keyof FormSubmissionStepEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Used to indicate a particular stage in form submission. See
+             * #WebKitWebPage::will-submit-form.
+             * @since 2.20
+             * @deprecated since 2.40
+             */
+            FormSubmissionStep: FormSubmissionStepEnum
         }
         
-        namespace UserMessageError {
-            const $gtype: GObject.GType<UserMessageError>
-        }
-
-        /**
-         * Enum values used to denote errors happening when sending user messages.
-         * @since 2.28
-         */
-        enum UserMessageError {
+        interface UserMessageErrorEnum {
+            readonly $gtype: GObject.GType<UserMessageError>
             /**
              * The message was not handled by the receiver.
              */
-            "USER_MESSAGE_UNHANDLED_MESSAGE" = 0,
+            readonly "USER_MESSAGE_UNHANDLED_MESSAGE": 0
+        }
+        type UserMessageError = UserMessageErrorEnum[Exclude<keyof UserMessageErrorEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote errors happening when sending user messages.
+             * @since 2.28
+             */
+            UserMessageError: UserMessageErrorEnum
         }
         
-        namespace HitTestResultContext {
-            const $gtype: GObject.GType<HitTestResultContext>
-        }
-
-        /**
-         * Enum values with flags representing the context of a #WebKitHitTestResult.
-         */
-        enum HitTestResultContext {
+        interface HitTestResultContextBitfield {
+            readonly $gtype: GObject.GType<HitTestResultContext>
             /**
              * anywhere in the document.
              */
-            "DOCUMENT" = 2,
+            readonly "DOCUMENT": 2
             /**
              * a hyperlink element.
              */
-            "LINK" = 4,
+            readonly "LINK": 4
             /**
              * an image element.
              */
-            "IMAGE" = 8,
+            readonly "IMAGE": 8
             /**
              * a video or audio element.
              */
-            "MEDIA" = 16,
+            readonly "MEDIA": 16
             /**
              * an editable element
              */
-            "EDITABLE" = 32,
+            readonly "EDITABLE": 32
             /**
              * a scrollbar element.
              */
-            "SCROLLBAR" = 64,
+            readonly "SCROLLBAR": 64
             /**
              * a selected element. Since 2.8
              */
-            "SELECTION" = 128,
+            readonly "SELECTION": 128
+        }
+        type HitTestResultContext = number
+        interface $Exports {
+            /**
+             * Enum values with flags representing the context of a #WebKitHitTestResult.
+             */
+            HitTestResultContext: HitTestResultContextBitfield
         }
         /**
          * Type definition for a function that will be called to initialize
@@ -16050,7 +16297,100 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
          * @param user_data a #GVariant
          */
         type WebExtensionInitializeWithUserDataFunction = (extension: WebExtension, user_data: GLib.Variant) => void
+
+        interface $Exports {
+            __name__: "WebKit2WebExtension"
+            __version: "4.1"
+            DOM_CSS_RULE_CHARSET_RULE: 2
+            DOM_CSS_RULE_FONT_FACE_RULE: 5
+            DOM_CSS_RULE_IMPORT_RULE: 3
+            DOM_CSS_RULE_MEDIA_RULE: 4
+            DOM_CSS_RULE_PAGE_RULE: 6
+            DOM_CSS_RULE_STYLE_RULE: 1
+            DOM_CSS_RULE_UNKNOWN_RULE: 0
+            DOM_CSS_VALUE_CSS_CUSTOM: 3
+            DOM_CSS_VALUE_CSS_INHERIT: 0
+            DOM_CSS_VALUE_CSS_PRIMITIVE_VALUE: 1
+            DOM_CSS_VALUE_CSS_VALUE_LIST: 2
+            DOM_ELEMENT_ALLOW_KEYBOARD_INPUT: 1
+            DOM_EVENT_AT_TARGET: 2
+            DOM_EVENT_BLUR: 8192
+            DOM_EVENT_BUBBLING_PHASE: 3
+            DOM_EVENT_CAPTURING_PHASE: 1
+            DOM_EVENT_CHANGE: 32768
+            DOM_EVENT_CLICK: 64
+            DOM_EVENT_DBLCLICK: 128
+            DOM_EVENT_DRAGDROP: 2048
+            DOM_EVENT_FOCUS: 4096
+            DOM_EVENT_KEYDOWN: 256
+            DOM_EVENT_KEYPRESS: 1024
+            DOM_EVENT_KEYUP: 512
+            DOM_EVENT_MOUSEDOWN: 1
+            DOM_EVENT_MOUSEDRAG: 32
+            DOM_EVENT_MOUSEMOVE: 16
+            DOM_EVENT_MOUSEOUT: 8
+            DOM_EVENT_MOUSEOVER: 4
+            DOM_EVENT_MOUSEUP: 2
+            DOM_EVENT_NONE: 0
+            DOM_EVENT_SELECT: 16384
+            DOM_KEYBOARD_EVENT_KEY_LOCATION_LEFT: 1
+            DOM_KEYBOARD_EVENT_KEY_LOCATION_NUMPAD: 3
+            DOM_KEYBOARD_EVENT_KEY_LOCATION_RIGHT: 2
+            DOM_KEYBOARD_EVENT_KEY_LOCATION_STANDARD: 0
+            DOM_NODE_ATTRIBUTE_NODE: 2
+            DOM_NODE_CDATA_SECTION_NODE: 4
+            DOM_NODE_COMMENT_NODE: 8
+            DOM_NODE_DOCUMENT_FRAGMENT_NODE: 11
+            DOM_NODE_DOCUMENT_NODE: 9
+            DOM_NODE_DOCUMENT_POSITION_CONTAINED_BY: 16
+            DOM_NODE_DOCUMENT_POSITION_CONTAINS: 8
+            DOM_NODE_DOCUMENT_POSITION_DISCONNECTED: 1
+            DOM_NODE_DOCUMENT_POSITION_FOLLOWING: 4
+            DOM_NODE_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: 32
+            DOM_NODE_DOCUMENT_POSITION_PRECEDING: 2
+            DOM_NODE_DOCUMENT_TYPE_NODE: 10
+            DOM_NODE_ELEMENT_NODE: 1
+            DOM_NODE_ENTITY_NODE: 6
+            DOM_NODE_ENTITY_REFERENCE_NODE: 5
+            DOM_NODE_FILTER_ACCEPT: 1
+            DOM_NODE_FILTER_REJECT: 2
+            DOM_NODE_FILTER_SHOW_ALL: 4294967295
+            DOM_NODE_FILTER_SHOW_ATTRIBUTE: 2
+            DOM_NODE_FILTER_SHOW_CDATA_SECTION: 8
+            DOM_NODE_FILTER_SHOW_COMMENT: 128
+            DOM_NODE_FILTER_SHOW_DOCUMENT: 256
+            DOM_NODE_FILTER_SHOW_DOCUMENT_FRAGMENT: 1024
+            DOM_NODE_FILTER_SHOW_DOCUMENT_TYPE: 512
+            DOM_NODE_FILTER_SHOW_ELEMENT: 1
+            DOM_NODE_FILTER_SHOW_ENTITY: 32
+            DOM_NODE_FILTER_SHOW_ENTITY_REFERENCE: 16
+            DOM_NODE_FILTER_SHOW_NOTATION: 2048
+            DOM_NODE_FILTER_SHOW_PROCESSING_INSTRUCTION: 64
+            DOM_NODE_FILTER_SHOW_TEXT: 4
+            DOM_NODE_FILTER_SKIP: 3
+            DOM_NODE_PROCESSING_INSTRUCTION_NODE: 7
+            DOM_NODE_TEXT_NODE: 3
+            DOM_RANGE_END_TO_END: 2
+            DOM_RANGE_END_TO_START: 3
+            DOM_RANGE_NODE_AFTER: 1
+            DOM_RANGE_NODE_BEFORE: 0
+            DOM_RANGE_NODE_BEFORE_AND_AFTER: 2
+            DOM_RANGE_NODE_INSIDE: 3
+            DOM_RANGE_START_TO_END: 1
+            DOM_RANGE_START_TO_START: 0
+            DOM_XPATH_RESULT_ANY_TYPE: 0
+            DOM_XPATH_RESULT_ANY_UNORDERED_NODE_TYPE: 8
+            DOM_XPATH_RESULT_BOOLEAN_TYPE: 3
+            DOM_XPATH_RESULT_FIRST_ORDERED_NODE_TYPE: 9
+            DOM_XPATH_RESULT_NUMBER_TYPE: 1
+            DOM_XPATH_RESULT_ORDERED_NODE_ITERATOR_TYPE: 5
+            DOM_XPATH_RESULT_ORDERED_NODE_SNAPSHOT_TYPE: 7
+            DOM_XPATH_RESULT_STRING_TYPE: 2
+            DOM_XPATH_RESULT_UNORDERED_NODE_ITERATOR_TYPE: 4
+            DOM_XPATH_RESULT_UNORDERED_NODE_SNAPSHOT_TYPE: 6
+        }
     }
 
+    const WebKit2WebExtension: WebKit2WebExtension.$Exports
     export default WebKit2WebExtension
 }

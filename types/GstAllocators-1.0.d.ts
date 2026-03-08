@@ -16,54 +16,7 @@ declare module "gi://GstAllocators?version=1.0" {
 
     
 
-
     namespace GstAllocators {
-        const __name__: "GstAllocators"
-        const __version: "1.0"
-        
-
-        namespace PhysMemoryAllocator {
-            interface SignalSignatures extends Gst.Allocator.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Allocator.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.Allocator.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Allocator.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gst.Allocator {
-                /**
-                 * Implementations shall return the physicall memory address
-                 *    that is backing the provided memory, or 0 if none.
-                 * @param mem
-                 */
-                vfunc_get_phys_addr(mem: Gst.Memory): never
-            }
-        }
-
-        /**
-         * @since 1.14
-         */
-        interface PhysMemoryAllocator extends Gst.Allocator, PhysMemoryAllocator.Interface {
-            readonly $signals: PhysMemoryAllocator.SignalSignatures
-            readonly $readableProperties: PhysMemoryAllocator.ReadableProperties
-            readonly $writableProperties: PhysMemoryAllocator.WritableProperties
-            readonly $constructOnlyProperties: PhysMemoryAllocator.ConstructOnlyProperties
-        }
-
-
-        interface PhysMemoryAllocatorInterface {
-            readonly $gtype: GObject.GType<PhysMemoryAllocator>
-            readonly prototype: PhysMemoryAllocator
-
-            [Symbol.hasInstance](instance: unknown): instance is PhysMemoryAllocator
-        }
-
-        const PhysMemoryAllocator: PhysMemoryAllocatorInterface
         
 
         namespace DRMDumbAllocator {
@@ -76,18 +29,14 @@ declare module "gi://GstAllocators?version=1.0" {
             }
 
             interface WritableProperties extends Gst.Allocator.WritableProperties {
-                "drm-device-path": string
-                "drm-fd": number
             }
 
             interface ConstructOnlyProperties extends Gst.Allocator.ConstructOnlyProperties {
+                "drm-device-path": string
+                "drm-fd": number
             }
         }
 
-        /**
-         * Private intance object for #GstDRMDumbAllocator.
-         * @since 1.24
-         */
         interface DRMDumbAllocator extends Gst.Allocator {
             readonly $signals: DRMDumbAllocator.SignalSignatures
             readonly $readableProperties: DRMDumbAllocator.ReadableProperties
@@ -128,6 +77,7 @@ declare module "gi://GstAllocators?version=1.0" {
         interface DRMDumbAllocatorClass extends Omit<Gst.AllocatorClass, "new"> {
             readonly $gtype: GObject.GType<DRMDumbAllocator>
             readonly prototype: DRMDumbAllocator
+
             new (props?: Partial<GObject.ConstructorProps<DRMDumbAllocator>>): DRMDumbAllocator
             /**
              * Creates a new #GstDRMDumbAllocator for the specific device path. This
@@ -137,7 +87,7 @@ declare module "gi://GstAllocators?version=1.0" {
              * @param drm_device_path path to the DRM device to open
              * @returns a new DRM Dumb allocator. Use gst_object_unref()   to release the allocator after usage.
              */
-            new_with_device_path(drm_device_path: string): Gst.Allocator | null
+            new_with_device_path(drm_device_path: string): DRMDumbAllocator | null
             /**
              * Creates a new #GstDRMDumbAllocator for the specific file desciptor. This
              * function can fail if the file descriptor is not a DRM device or if
@@ -146,10 +96,16 @@ declare module "gi://GstAllocators?version=1.0" {
              * @param drm_fd file descriptor of the DRM device
              * @returns a new DRM Dumb allocator. Use gst_object_unref()   to release the allocator after usage.
              */
-            new_with_fd(drm_fd: number): Gst.Allocator | null
+            new_with_fd(drm_fd: number): DRMDumbAllocator | null
         }
 
-        const DRMDumbAllocator: DRMDumbAllocatorClass
+        interface $Exports {
+            /**
+             * Private intance object for #GstDRMDumbAllocator.
+             * @since 1.24
+             */
+            DRMDumbAllocator: DRMDumbAllocatorClass
+        }
         
 
         namespace DmaBufAllocator {
@@ -166,10 +122,6 @@ declare module "gi://GstAllocators?version=1.0" {
             }
         }
 
-        /**
-         * Base class for allocators with dmabuf-backed memory
-         * @since 1.12
-         */
         interface DmaBufAllocator extends FdAllocator {
             readonly $signals: DmaBufAllocator.SignalSignatures
             readonly $readableProperties: DmaBufAllocator.ReadableProperties
@@ -180,13 +132,14 @@ declare module "gi://GstAllocators?version=1.0" {
         interface DmaBufAllocatorClass extends Omit<FdAllocatorClass, "new"> {
             readonly $gtype: GObject.GType<DmaBufAllocator>
             readonly prototype: DmaBufAllocator
+
             new (props?: Partial<GObject.ConstructorProps<DmaBufAllocator>>): DmaBufAllocator
             /**
              * Return a new dmabuf allocator.
              * @since 1.2
              * @returns a new dmabuf allocator. Use gst_object_unref() to release the allocator after usage
              */
-            "new"(): Gst.Allocator
+            "new"(): DmaBufAllocator
             /**
              * Return a %GstMemory that wraps a dmabuf file descriptor.
              * @since 1.2
@@ -208,7 +161,13 @@ declare module "gi://GstAllocators?version=1.0" {
             alloc_with_flags(allocator: Gst.Allocator, fd: number, size: number, flags: FdMemoryFlags): Gst.Memory | null
         }
 
-        const DmaBufAllocator: DmaBufAllocatorClass
+        interface $Exports {
+            /**
+             * Base class for allocators with dmabuf-backed memory
+             * @since 1.12
+             */
+            DmaBufAllocator: DmaBufAllocatorClass
+        }
         
 
         namespace FdAllocator {
@@ -225,10 +184,6 @@ declare module "gi://GstAllocators?version=1.0" {
             }
         }
 
-        /**
-         * Base class for allocators with fd-backed memory
-         * @since 1.6
-         */
         interface FdAllocator extends Gst.Allocator {
             readonly $signals: FdAllocator.SignalSignatures
             readonly $readableProperties: FdAllocator.ReadableProperties
@@ -239,13 +194,14 @@ declare module "gi://GstAllocators?version=1.0" {
         interface FdAllocatorClass extends Omit<Gst.AllocatorClass, "new"> {
             readonly $gtype: GObject.GType<FdAllocator>
             readonly prototype: FdAllocator
+
             new (props?: Partial<GObject.ConstructorProps<FdAllocator>>): FdAllocator
             /**
              * Return a new fd allocator.
              * @since 1.6
              * @returns a new fd allocator. Use gst_object_unref() to release the allocator after usage
              */
-            "new"(): Gst.Allocator
+            "new"(): FdAllocator
             /**
              * Return a %GstMemory that wraps a generic file descriptor.
              * @since 1.6
@@ -258,7 +214,13 @@ declare module "gi://GstAllocators?version=1.0" {
             alloc(allocator: Gst.Allocator, fd: number, size: number, flags: FdMemoryFlags): Gst.Memory | null
         }
 
-        const FdAllocator: FdAllocatorClass
+        interface $Exports {
+            /**
+             * Base class for allocators with fd-backed memory
+             * @since 1.6
+             */
+            FdAllocator: FdAllocatorClass
+        }
         
 
         namespace ShmAllocator {
@@ -275,18 +237,6 @@ declare module "gi://GstAllocators?version=1.0" {
             }
         }
 
-        /**
-         * This is a subclass of #GstFdAllocator that implements the
-         * gst_allocator_alloc() method using `memfd_create()` when available, POSIX
-         * `shm_open()` otherwise. Platforms not supporting any of those (Windows) will
-         * always return %NULL.
-         *
-         * Note that allocating new shared memories has a significant performance cost,
-         * it is thus recommended to keep a pool of pre-allocated #GstMemory, using
-         * #GstBufferPool. For that reason, this allocator has the
-         * %GST_ALLOCATOR_FLAG_NO_COPY flag set.
-         * @since 1.24
-         */
         interface ShmAllocator extends FdAllocator {
             readonly $signals: ShmAllocator.SignalSignatures
             readonly $readableProperties: ShmAllocator.ReadableProperties
@@ -297,6 +247,7 @@ declare module "gi://GstAllocators?version=1.0" {
         interface ShmAllocatorClass extends Omit<FdAllocatorClass, "new"> {
             readonly $gtype: GObject.GType<ShmAllocator>
             readonly prototype: ShmAllocator
+
             new (props?: Partial<GObject.ConstructorProps<ShmAllocator>>): ShmAllocator
             /**
              * Get the #GstShmAllocator singleton previously registered with
@@ -313,109 +264,169 @@ declare module "gi://GstAllocators?version=1.0" {
             init_once(): void
         }
 
-        const ShmAllocator: ShmAllocatorClass
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Return the file descriptor associated with @mem.
-         * @since 1.2
-         * @param mem the memory to get the file descriptor
-         * @returns the file descriptor associated with the memory, or -1.  The file     descriptor is still owned by the GstMemory.  Use dup to take a copy     if you intend to use it beyond the lifetime of this GstMemory.
-         */
-        function dmabuf_memory_get_fd(mem: Gst.Memory): number
-        /**
-         * Exports a DMABuf from the DRM Bumb buffer object. One can check if this
-         * feature is supported using gst_drm_dumb_allocator_has_prime_export();
-         * @since 1.24
-         * @param mem the memory to export from
-         * @returns a #GstMemory from #GstDmaBufAllocator wrapping the exported dma-buf    file descriptor.
-         */
-        function drm_dumb_memory_export_dmabuf(mem: Gst.Memory): Gst.Memory
-        /**
-         * Return the DRM buffer object handle associated with @mem.
-         * @since 1.24
-         * @param mem the memory to get the handle from
-         * @returns the DRM buffer object handle associated with the memory, or 0.     The handle is still owned by the GstMemory and cannot be used     beyond the lifetime of this GstMemory unless it is being passed     to DRM driver, which does handle a refcount internally.
-         */
-        function drm_dumb_memory_get_handle(mem: Gst.Memory): number
-        /**
-         * Get the fd from @mem. Call gst_is_fd_memory() to check if @mem has
-         * an fd.
-         * @since 1.6
-         * @param mem #GstMemory
-         * @returns the fd of `mem` or -1 when there is no fd on `mem`
-         */
-        function fd_memory_get_fd(mem: Gst.Memory): number
-        /**
-         * Check if @mem is dmabuf memory.
-         * @since 1.2
-         * @param mem the memory to be check
-         * @returns %TRUE if `mem` is dmabuf memory, otherwise %FALSE
-         */
-        function is_dmabuf_memory(mem: Gst.Memory): boolean
-        /**
-         * @since 1.24
-         * @param mem the memory to be checked
-         * @returns %TRUE if `mem` is DRM Dumb memory, otherwise %FALSE
-         */
-        function is_drm_dumb_memory(mem: Gst.Memory): boolean
-        /**
-         * Check if @mem is memory backed by an fd
-         * @since 1.6
-         * @param mem #GstMemory
-         * @returns %TRUE when `mem` has an fd that can be retrieved with gst_fd_memory_get_fd().
-         */
-        function is_fd_memory(mem: Gst.Memory): boolean
-        /**
-         * @since 1.14
-         * @param mem a #GstMemory
-         * @returns whether the memory at `mem` is backed by physical memory
-         */
-        function is_phys_memory(mem: Gst.Memory): boolean
-        /**
-         * @since 1.14
-         * @param mem a #GstMemory
-         * @returns Physical memory address that is backing `mem`, or 0 if none
-         */
-        function phys_memory_get_phys_addr(mem: Gst.Memory): never
-        const ALLOCATOR_DMABUF: "dmabuf"
-        const ALLOCATOR_FD: "fd"
-        const ALLOCATOR_SHM: "shm"
-        const CAPS_FEATURE_MEMORY_DMABUF: "memory:DMABuf"
+        interface $Exports {
+            /**
+             * This is a subclass of #GstFdAllocator that implements the
+             * gst_allocator_alloc() method using `memfd_create()` when available, POSIX
+             * `shm_open()` otherwise. Platforms not supporting any of those (Windows) will
+             * always return %NULL.
+             *
+             * Note that allocating new shared memories has a significant performance cost,
+             * it is thus recommended to keep a pool of pre-allocated #GstMemory, using
+             * #GstBufferPool. For that reason, this allocator has the
+             * %GST_ALLOCATOR_FLAG_NO_COPY flag set.
+             * @since 1.24
+             */
+            ShmAllocator: ShmAllocatorClass
+        }
         
-        namespace FdMemoryFlags {
-            const $gtype: GObject.GType<FdMemoryFlags>
+
+        namespace PhysMemoryAllocator {
+            interface SignalSignatures extends Gst.Allocator.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Gst.Allocator.ReadableProperties {
+            }
+
+            interface WritableProperties extends Gst.Allocator.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Gst.Allocator.ConstructOnlyProperties {
+            }
+
+            interface Interface extends Gst.Allocator {
+                /**
+                 * Implementations shall return the physicall memory address
+                 *    that is backing the provided memory, or 0 if none.
+                 * @param mem
+                 */
+                vfunc_get_phys_addr(mem: Gst.Memory): never
+            }
         }
 
-        /**
-         * Various flags to control the operation of the fd backed memory.
-         * @since 1.6
-         */
-        enum FdMemoryFlags {
+        interface PhysMemoryAllocator extends Gst.Allocator, PhysMemoryAllocator.Interface {
+            readonly $signals: PhysMemoryAllocator.SignalSignatures
+            readonly $readableProperties: PhysMemoryAllocator.ReadableProperties
+            readonly $writableProperties: PhysMemoryAllocator.WritableProperties
+            readonly $constructOnlyProperties: PhysMemoryAllocator.ConstructOnlyProperties
+        }
+
+        interface PhysMemoryAllocatorInterface {
+            readonly $gtype: GObject.GType<PhysMemoryAllocator>
+            readonly prototype: PhysMemoryAllocator
+            [Symbol.hasInstance](instance: unknown): instance is PhysMemoryAllocator
+        }
+
+        interface $Exports {
+            /**
+             * @since 1.14
+             */
+            PhysMemoryAllocator: PhysMemoryAllocatorInterface
+        }
+        
+        interface FdMemoryFlagsBitfield {
+            readonly $gtype: GObject.GType<FdMemoryFlags>
             /**
              * no flag
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * once the memory is mapped,
              *        keep it mapped until the memory is destroyed.
              */
-            "KEEP_MAPPED" = 1,
+            readonly "KEEP_MAPPED": 1
             /**
              * do a private mapping instead of
              *        the default shared mapping.
              */
-            "MAP_PRIVATE" = 2,
+            readonly "MAP_PRIVATE": 2
             /**
              * don't close the file descriptor when
              *        the memory is freed. Since: 1.10
              */
-            "DONT_CLOSE" = 4,
+            readonly "DONT_CLOSE": 4
+        }
+        type FdMemoryFlags = number
+        interface $Exports {
+            /**
+             * Various flags to control the operation of the fd backed memory.
+             * @since 1.6
+             */
+            FdMemoryFlags: FdMemoryFlagsBitfield
+        }
+
+        interface $Exports {
+            __name__: "GstAllocators"
+            __version: "1.0"
+            ALLOCATOR_DMABUF: "dmabuf"
+            ALLOCATOR_FD: "fd"
+            ALLOCATOR_SHM: "shm"
+            CAPS_FEATURE_MEMORY_DMABUF: "memory:DMABuf"
+            /**
+             * Return the file descriptor associated with @mem.
+             * @since 1.2
+             * @param mem the memory to get the file descriptor
+             * @returns the file descriptor associated with the memory, or -1.  The file     descriptor is still owned by the GstMemory.  Use dup to take a copy     if you intend to use it beyond the lifetime of this GstMemory.
+             */
+            dmabuf_memory_get_fd(mem: Gst.Memory): number
+            /**
+             * Exports a DMABuf from the DRM Bumb buffer object. One can check if this
+             * feature is supported using gst_drm_dumb_allocator_has_prime_export();
+             * @since 1.24
+             * @param mem the memory to export from
+             * @returns a #GstMemory from #GstDmaBufAllocator wrapping the exported dma-buf    file descriptor.
+             */
+            drm_dumb_memory_export_dmabuf(mem: Gst.Memory): Gst.Memory
+            /**
+             * Return the DRM buffer object handle associated with @mem.
+             * @since 1.24
+             * @param mem the memory to get the handle from
+             * @returns the DRM buffer object handle associated with the memory, or 0.     The handle is still owned by the GstMemory and cannot be used     beyond the lifetime of this GstMemory unless it is being passed     to DRM driver, which does handle a refcount internally.
+             */
+            drm_dumb_memory_get_handle(mem: Gst.Memory): number
+            /**
+             * Get the fd from @mem. Call gst_is_fd_memory() to check if @mem has
+             * an fd.
+             * @since 1.6
+             * @param mem #GstMemory
+             * @returns the fd of `mem` or -1 when there is no fd on `mem`
+             */
+            fd_memory_get_fd(mem: Gst.Memory): number
+            /**
+             * Check if @mem is dmabuf memory.
+             * @since 1.2
+             * @param mem the memory to be check
+             * @returns %TRUE if `mem` is dmabuf memory, otherwise %FALSE
+             */
+            is_dmabuf_memory(mem: Gst.Memory): boolean
+            /**
+             * @since 1.24
+             * @param mem the memory to be checked
+             * @returns %TRUE if `mem` is DRM Dumb memory, otherwise %FALSE
+             */
+            is_drm_dumb_memory(mem: Gst.Memory): boolean
+            /**
+             * Check if @mem is memory backed by an fd
+             * @since 1.6
+             * @param mem #GstMemory
+             * @returns %TRUE when `mem` has an fd that can be retrieved with gst_fd_memory_get_fd().
+             */
+            is_fd_memory(mem: Gst.Memory): boolean
+            /**
+             * @since 1.14
+             * @param mem a #GstMemory
+             * @returns whether the memory at `mem` is backed by physical memory
+             */
+            is_phys_memory(mem: Gst.Memory): boolean
+            /**
+             * @since 1.14
+             * @param mem a #GstMemory
+             * @returns Physical memory address that is backing `mem`, or 0 if none
+             */
+            phys_memory_get_phys_addr(mem: Gst.Memory): never
         }
     }
 
+    const GstAllocators: GstAllocators.$Exports
     export default GstAllocators
 }

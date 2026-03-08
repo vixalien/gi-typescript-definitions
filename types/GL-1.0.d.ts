@@ -12,91 +12,186 @@ declare module "gi://GL?version=1.0" {
 
     
 
-
     namespace GL {
-        const __name__: "GL"
-        const __version: "1.0"
-        /**
-         */
-        abstract class bitfield {
-            static readonly $gtype: GObject.GType<bitfield>
+        
 
-            
+        interface bitfieldStruct {
+            readonly $gtype: GObject.GType<bitfield>
+            [Symbol.hasInstance](instance: unknown): instance is bitfield
         }
-        /**
-         */
-        abstract class charARB {
-            static readonly $gtype: GObject.GType<charARB>
 
-            
+        interface bitfield {
         }
-        /**
-         */
-        abstract class clampf {
-            static readonly $gtype: GObject.GType<clampf>
 
-            
+        interface $Exports {
+            bitfield: bitfieldStruct
         }
-        /**
-         */
-        abstract class boolean {
-            static readonly $gtype: GObject.GType<boolean>
+        
 
-            
+        interface charARBStruct {
+            readonly $gtype: GObject.GType<charARB>
+            [Symbol.hasInstance](instance: unknown): instance is charARB
         }
-        /**
-         */
-        abstract class float {
-            static readonly $gtype: GObject.GType<float>
 
-            
+        interface charARB {
         }
-        /**
-         */
-        abstract class handleARB {
-            static readonly $gtype: GObject.GType<handleARB>
 
-            
+        interface $Exports {
+            charARB: charARBStruct
         }
-        /**
-         */
-        abstract class int {
-            static readonly $gtype: GObject.GType<int>
+        
 
-            
+        interface clampfStruct {
+            readonly $gtype: GObject.GType<clampf>
+            [Symbol.hasInstance](instance: unknown): instance is clampf
         }
-        /**
-         */
-        abstract class intptr {
-            static readonly $gtype: GObject.GType<intptr>
 
-            
+        interface clampf {
         }
-        /**
-         */
-        abstract class sizei {
-            static readonly $gtype: GObject.GType<sizei>
 
-            
+        interface $Exports {
+            clampf: clampfStruct
         }
-        /**
-         */
-        abstract class sizeiptr {
-            static readonly $gtype: GObject.GType<sizeiptr>
+        
 
-            
+        interface booleanStruct {
+            readonly $gtype: GObject.GType<_boolean>
+            [Symbol.hasInstance](instance: unknown): instance is _boolean
         }
-        /**
-         */
-        abstract class uint {
-            static readonly $gtype: GObject.GType<uint>
 
-            
+        interface _boolean {
         }
-        /**
-         */
-        function InitNames(): void
+
+        interface $Exports {
+            boolean: booleanStruct
+        }
+        
+
+        interface enumStruct {
+            readonly $gtype: GObject.GType<_enum>
+            [Symbol.hasInstance](instance: unknown): instance is _enum
+        }
+
+        interface _enum {
+        }
+
+        interface $Exports {
+            enum: enumStruct
+        }
+        
+
+        interface floatStruct {
+            readonly $gtype: GObject.GType<float>
+            [Symbol.hasInstance](instance: unknown): instance is float
+        }
+
+        interface float {
+        }
+
+        interface $Exports {
+            float: floatStruct
+        }
+        
+
+        interface handleARBStruct {
+            readonly $gtype: GObject.GType<handleARB>
+            [Symbol.hasInstance](instance: unknown): instance is handleARB
+        }
+
+        interface handleARB {
+        }
+
+        interface $Exports {
+            handleARB: handleARBStruct
+        }
+        
+
+        interface intStruct {
+            readonly $gtype: GObject.GType<int>
+            [Symbol.hasInstance](instance: unknown): instance is int
+        }
+
+        interface int {
+        }
+
+        interface $Exports {
+            int: intStruct
+        }
+        
+
+        interface intptrStruct {
+            readonly $gtype: GObject.GType<intptr>
+            [Symbol.hasInstance](instance: unknown): instance is intptr
+        }
+
+        interface intptr {
+        }
+
+        interface $Exports {
+            intptr: intptrStruct
+        }
+        
+
+        interface sizeiStruct {
+            readonly $gtype: GObject.GType<sizei>
+            [Symbol.hasInstance](instance: unknown): instance is sizei
+        }
+
+        interface sizei {
+        }
+
+        interface $Exports {
+            sizei: sizeiStruct
+        }
+        
+
+        interface sizeiptrStruct {
+            readonly $gtype: GObject.GType<sizeiptr>
+            [Symbol.hasInstance](instance: unknown): instance is sizeiptr
+        }
+
+        interface sizeiptr {
+        }
+
+        interface $Exports {
+            sizeiptr: sizeiptrStruct
+        }
+        
+
+        interface uintStruct {
+            readonly $gtype: GObject.GType<uint>
+            [Symbol.hasInstance](instance: unknown): instance is uint
+        }
+
+        interface uint {
+        }
+
+        interface $Exports {
+            uint: uintStruct
+        }
+        
+
+        interface voidStruct {
+            readonly $gtype: GObject.GType<_void>
+            [Symbol.hasInstance](instance: unknown): instance is _void
+        }
+
+        interface _void {
+        }
+
+        interface $Exports {
+            void: voidStruct
+        }
+
+        interface $Exports {
+            __name__: "GL"
+            __version: "1.0"
+            /**
+             */
+            InitNames(): void
+        }
     }
 
+    const GL: GL.$Exports
     export default GL
 }

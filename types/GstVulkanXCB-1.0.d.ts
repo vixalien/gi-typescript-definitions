@@ -24,10 +24,7 @@ declare module "gi://GstVulkanXCB?version=1.0" {
 
     
 
-
     namespace GstVulkanXCB {
-        const __name__: "GstVulkanXCB"
-        const __version: "1.0"
         
 
         namespace VulkanDisplayXCB {
@@ -44,11 +41,6 @@ declare module "gi://GstVulkanXCB?version=1.0" {
             }
         }
 
-        /**
-         * the contents of a #GstVulkanDisplayXCB are private and should only be accessed
-         * through the provided API
-         * @since 1.18
-         */
         interface VulkanDisplayXCB extends GstVulkan.VulkanDisplay {
             readonly $signals: VulkanDisplayXCB.SignalSignatures
             readonly $readableProperties: VulkanDisplayXCB.ReadableProperties
@@ -59,6 +51,7 @@ declare module "gi://GstVulkanXCB?version=1.0" {
         interface VulkanDisplayXCBClass extends Omit<GstVulkan.VulkanDisplayClass, "new"> {
             readonly $gtype: GObject.GType<VulkanDisplayXCB>
             readonly prototype: VulkanDisplayXCB
+
             new (props?: Partial<GObject.ConstructorProps<VulkanDisplayXCB>>): VulkanDisplayXCB
             /**
              * Create a new #GstVulkanDisplayXCB from the xcb display name.  See XOpenDisplay\()
@@ -70,9 +63,21 @@ declare module "gi://GstVulkanXCB?version=1.0" {
             "new"(name: string | null): VulkanDisplayXCB | null
         }
 
-        const VulkanDisplayXCB: VulkanDisplayXCBClass
-        none
+        interface $Exports {
+            /**
+             * the contents of a #GstVulkanDisplayXCB are private and should only be accessed
+             * through the provided API
+             * @since 1.18
+             */
+            VulkanDisplayXCB: VulkanDisplayXCBClass
+        }
+
+        interface $Exports {
+            __name__: "GstVulkanXCB"
+            __version: "1.0"
+        }
     }
 
+    const GstVulkanXCB: GstVulkanXCB.$Exports
     export default GstVulkanXCB
 }

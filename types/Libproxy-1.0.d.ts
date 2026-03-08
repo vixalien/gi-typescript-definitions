@@ -16,16 +16,12 @@ declare module "gi://Libproxy?version=1.0" {
 
     
 
-
     namespace Libproxy {
-        const __name__: "Libproxy"
-        const __version: "1.0"
-        /**
-         */
-        abstract class ProxyFactory {
-            static readonly $gtype: GObject.GType<ProxyFactory>
+        
 
-            
+        interface ProxyFactoryStruct {
+            readonly $gtype: GObject.GType<ProxyFactory>
+            [Symbol.hasInstance](instance: unknown): instance is ProxyFactory
             /**
              * Creates a new `pxProxyFactory` instance.
              *
@@ -34,7 +30,7 @@ declare module "gi://Libproxy?version=1.0" {
              * (cache is small) and the cache lifespan is handled automatically.
              * @returns The newly created `pxProxyFactory`
              */
-            static "new"(): ProxyFactory
+            "new"(): ProxyFactory
             /**
              * Frees the proxy array returned by @px_proxy_factory_get_proxies when no
              * longer used.
@@ -42,13 +38,51 @@ declare module "gi://Libproxy?version=1.0" {
              * @since 0.4.16
              * @param proxies a %NULL-terminated array of proxies
              */
-            static free_proxies(proxies: string[]): void
+            free_proxies(proxies: string[]): void
+        }
+
+        interface ProxyFactory {
             /**
              * Frees the `pxProxyFactory`.
              */
             free(): void
             /**
-             * ://[username:password@]proxy:port
+             * Get which proxies to use for the specified @URL.
+             *
+             * A %NULL-terminated array of proxy strings is returned.
+             * If the first proxy fails, the second should be tried, etc...
+             * Don't forget to free the strings/array when you are done.
+             * If an unrecoverable error occurs, this function returns %NULL.
+             *
+             * Regarding performance: this method always blocks and may be called
+             * in a separate thread (is thread-safe).  In most cases, the time
+             * required to complete this function call is simply the time required
+             * to read the configuration (i.e. from gconf, kconfig, etc).
+             *
+             * In the case of PAC, if no valid PAC is found in the cache (i.e.
+             * configuration has changed, cache is invalid, etc), the PAC file is
+             * downloaded and inserted into the cache. This is the most expensive
+             * operation as the PAC is retrieved over the network. Once a PAC exists
+             * in the cache, it is merely a javascript invocation to evaluate the PAC.
+             * One should note that DNS can be called from within a PAC during
+             * javascript invocation.
+             *
+             * In the case of WPAD, WPAD is used to automatically locate a PAC on the
+             * network.  Currently, we only use DNS for this, but other methods may
+             * be implemented in the future.  Once the PAC is located, normal PAC
+             * performance (described above) applies.
+             *
+             * The format of the returned proxy strings are as follows:
+             *
+             *   - http://[username:password@]proxy:port
+             *
+             *   - socks://[username:password@]proxy:port
+             *
+             *   - socks5://[username:password@]proxy:port
+             *
+             *   - socks4://[username:password@]proxy:port
+             *
+             *   - <procotol>://[username:password@]proxy:port
              *
              *   - direct://
              *
@@ -74,15 +108,25 @@ declare module "gi://Libproxy?version=1.0" {
              */
             get_proxies(url: string): string[]
         }
-        /**
-         * Frees the proxy array returned by @px_proxy_factory_get_proxies when no
-         * longer used.
-         *
-         * @since 0.4.16
-         * @param proxies a %NULL-terminated array of proxies
-         */
-        function proxy_factory_free_proxies(proxies: string[]): void
+
+        interface $Exports {
+            ProxyFactory: ProxyFactoryStruct
+        }
+
+        interface $Exports {
+            __name__: "Libproxy"
+            __version: "1.0"
+            /**
+             * Frees the proxy array returned by @px_proxy_factory_get_proxies when no
+             * longer used.
+             *
+             * @since 0.4.16
+             * @param proxies a %NULL-terminated array of proxies
+             */
+            proxy_factory_free_proxies(proxies: string[]): void
+        }
     }
 
+    const Libproxy: Libproxy.$Exports
     export default Libproxy
 }

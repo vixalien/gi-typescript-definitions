@@ -16,31 +16,41 @@ declare module "gi://GstSdp?version=1.0" {
 
     
 
-
     namespace GstSdp {
-        const __name__: "GstSdp"
-        const __version: "1.0"
-        /**
-         */
-        abstract class MIKEYDecryptInfo {
-            static readonly $gtype: GObject.GType<MIKEYDecryptInfo>
+        
 
-            
+        interface MIKEYDecryptInfoStruct {
+            readonly $gtype: GObject.GType<MIKEYDecryptInfo>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYDecryptInfo
         }
-        /**
-         */
-        abstract class MIKEYEncryptInfo {
-            static readonly $gtype: GObject.GType<MIKEYEncryptInfo>
 
-            
+        interface MIKEYDecryptInfo {
         }
-        /**
-         * The Security policy Map item for SRTP
-         */
-        abstract class MIKEYMapSRTP {
-            static readonly $gtype: GObject.GType<MIKEYMapSRTP>
 
-            
+        interface $Exports {
+            MIKEYDecryptInfo: MIKEYDecryptInfoStruct
+        }
+        
+
+        interface MIKEYEncryptInfoStruct {
+            readonly $gtype: GObject.GType<MIKEYEncryptInfo>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYEncryptInfo
+        }
+
+        interface MIKEYEncryptInfo {
+        }
+
+        interface $Exports {
+            MIKEYEncryptInfo: MIKEYEncryptInfoStruct
+        }
+        
+
+        interface MIKEYMapSRTPStruct {
+            readonly $gtype: GObject.GType<MIKEYMapSRTP>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYMapSRTP
+        }
+
+        interface MIKEYMapSRTP {
             /**
              * The security policy applied for the stream with @ssrc
              */
@@ -54,19 +64,21 @@ declare module "gi://GstSdp?version=1.0" {
              */
             roc: number
         }
-        /**
-         * Structure holding the information of the MIKEY message
-         */
-        abstract class MIKEYMessage {
-            static readonly $gtype: GObject.GType<MIKEYMessage>
 
-            
+        interface $Exports {
+            MIKEYMapSRTP: MIKEYMapSRTPStruct
+        }
+        
+
+        interface MIKEYMessageStruct {
+            readonly $gtype: GObject.GType<MIKEYMessage>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYMessage
             /**
              * Make a new MIKEY message.
              * @since 1.4
              * @returns a new #GstMIKEYMessage on success
              */
-            static "new"(): MIKEYMessage
+            "new"(): MIKEYMessage
             /**
              * Make a new #GstMIKEYMessage from @bytes.
              * @throws {GLib.Error}
@@ -75,7 +87,7 @@ declare module "gi://GstSdp?version=1.0" {
              * @param info a #GstMIKEYDecryptInfo
              * @returns a new #GstMIKEYMessage
              */
-            static new_from_bytes(bytes: GLib.Bytes, info: MIKEYDecryptInfo): MIKEYMessage
+            new_from_bytes(bytes: (GLib.Bytes | Uint8Array), info: MIKEYDecryptInfo): MIKEYMessage
             /**
              * Makes mikey message including:
              *  - Security Policy Payload
@@ -85,7 +97,7 @@ declare module "gi://GstSdp?version=1.0" {
              * @param caps a #GstCaps, including SRTP parameters (srtp/srtcp cipher, authorization, key data)
              * @returns a #GstMIKEYMessage, or %NULL if there is no srtp information in the caps.
              */
-            static new_from_caps(caps: Gst.Caps): MIKEYMessage | null
+            new_from_caps(caps: Gst.Caps): MIKEYMessage | null
             /**
              * Parse @size bytes from @data into a #GstMIKEYMessage. @info contains the
              * parameters to decrypt and verify the data.
@@ -95,7 +107,10 @@ declare module "gi://GstSdp?version=1.0" {
              * @param info #GstMIKEYDecryptInfo
              * @returns a #GstMIKEYMessage on success or %NULL when parsing failed and `error` will be set.
              */
-            static new_from_data(data: Uint8Array, info: MIKEYDecryptInfo): MIKEYMessage
+            new_from_data(data: Uint8Array, info: MIKEYDecryptInfo): MIKEYMessage
+        }
+
+        interface MIKEYMessage {
             /**
              * the version
              */
@@ -296,20 +311,25 @@ declare module "gi://GstSdp?version=1.0" {
              */
             to_caps(caps: Gst.Caps): boolean
         }
-        /**
-         * Hold the common fields for all payloads
-         */
-        abstract class MIKEYPayload {
-            static readonly $gtype: GObject.GType<MIKEYPayload>
 
-            
+        interface $Exports {
+            MIKEYMessage: MIKEYMessageStruct
+        }
+        
+
+        interface MIKEYPayloadStruct {
+            readonly $gtype: GObject.GType<MIKEYPayload>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYPayload
             /**
              * Make a new #GstMIKEYPayload with @type.
              * @since 1.4
              * @param type a #GstMIKEYPayloadType
              * @returns a new #GstMIKEYPayload or %NULL on failure.
              */
-            static "new"(type: MIKEYPayloadType): MIKEYPayload | null
+            "new"(type: MIKEYPayloadType): MIKEYPayload | null
+        }
+
+        interface MIKEYPayload {
             /**
              * the payload type
              */
@@ -453,13 +473,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             t_set(type: MIKEYTSType, ts_value: Uint8Array): boolean
         }
-        /**
-         * A structure holding the KEMAC payload
-         */
-        abstract class MIKEYPayloadKEMAC {
-            static readonly $gtype: GObject.GType<MIKEYPayloadKEMAC>
 
-            
+        interface $Exports {
+            MIKEYPayload: MIKEYPayloadStruct
+        }
+        
+
+        interface MIKEYPayloadKEMACStruct {
+            readonly $gtype: GObject.GType<MIKEYPayloadKEMAC>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYPayloadKEMAC
+        }
+
+        interface MIKEYPayloadKEMAC {
             /**
              * the common #GstMIKEYPayload
              */
@@ -477,14 +502,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             subpayloads: never[]
         }
-        /**
-         * The Key data payload contains key material. It should be added as sub
-         * payload to the KEMAC.
-         */
-        abstract class MIKEYPayloadKeyData {
-            static readonly $gtype: GObject.GType<MIKEYPayloadKeyData>
 
-            
+        interface $Exports {
+            MIKEYPayloadKEMAC: MIKEYPayloadKEMACStruct
+        }
+        
+
+        interface MIKEYPayloadKeyDataStruct {
+            readonly $gtype: GObject.GType<MIKEYPayloadKeyData>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYPayloadKeyData
+        }
+
+        interface MIKEYPayloadKeyData {
             /**
              * the payload header
              */
@@ -522,16 +551,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             kv_data: Uint8Array
         }
-        /**
-         * The Envelope data payload contains the encrypted envelope key that is
-         * used in the public-key transport to protect the data in the Key data
-         * transport payload.  The encryption algorithm used is implicit from
-         * the certificate/public key used.
-         */
-        abstract class MIKEYPayloadPKE {
-            static readonly $gtype: GObject.GType<MIKEYPayloadPKE>
 
-            
+        interface $Exports {
+            MIKEYPayloadKeyData: MIKEYPayloadKeyDataStruct
+        }
+        
+
+        interface MIKEYPayloadPKEStruct {
+            readonly $gtype: GObject.GType<MIKEYPayloadPKE>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYPayloadPKE
+        }
+
+        interface MIKEYPayloadPKE {
             /**
              * the common #GstMIKEYPayload
              */
@@ -549,13 +580,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             data: number
         }
-        /**
-         * The RAND payload consists of a (pseudo-)random bit-string
-         */
-        abstract class MIKEYPayloadRAND {
-            static readonly $gtype: GObject.GType<MIKEYPayloadRAND>
 
-            
+        interface $Exports {
+            MIKEYPayloadPKE: MIKEYPayloadPKEStruct
+        }
+        
+
+        interface MIKEYPayloadRANDStruct {
+            readonly $gtype: GObject.GType<MIKEYPayloadRAND>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYPayloadRAND
+        }
+
+        interface MIKEYPayloadRAND {
             /**
              * the payload header
              */
@@ -569,14 +605,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             rand: number
         }
-        /**
-         * The Security Policy payload defines a set of policies that apply to a
-         * specific security protocol
-         */
-        abstract class MIKEYPayloadSP {
-            static readonly $gtype: GObject.GType<MIKEYPayloadSP>
 
-            
+        interface $Exports {
+            MIKEYPayloadRAND: MIKEYPayloadRANDStruct
+        }
+        
+
+        interface MIKEYPayloadSPStruct {
+            readonly $gtype: GObject.GType<MIKEYPayloadSP>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYPayloadSP
+        }
+
+        interface MIKEYPayloadSP {
             /**
              * the payload header
              */
@@ -594,13 +634,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             params: never[]
         }
-        /**
-         * A Type/Length/Value field for security parameters
-         */
-        abstract class MIKEYPayloadSPParam {
-            static readonly $gtype: GObject.GType<MIKEYPayloadSPParam>
 
-            
+        interface $Exports {
+            MIKEYPayloadSP: MIKEYPayloadSPStruct
+        }
+        
+
+        interface MIKEYPayloadSPParamStruct {
+            readonly $gtype: GObject.GType<MIKEYPayloadSPParam>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYPayloadSPParam
+        }
+
+        interface MIKEYPayloadSPParam {
             /**
              * specifies the type of the parameter
              */
@@ -614,13 +659,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             val: number
         }
-        /**
-         * The timestamp payload carries the timestamp information
-         */
-        abstract class MIKEYPayloadT {
-            static readonly $gtype: GObject.GType<MIKEYPayloadT>
 
-            
+        interface $Exports {
+            MIKEYPayloadSPParam: MIKEYPayloadSPParamStruct
+        }
+        
+
+        interface MIKEYPayloadTStruct {
+            readonly $gtype: GObject.GType<MIKEYPayloadT>
+            [Symbol.hasInstance](instance: unknown): instance is MIKEYPayloadT
+        }
+
+        interface MIKEYPayloadT {
             /**
              * the payload header
              */
@@ -634,13 +684,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             ts_value: number
         }
-        /**
-         * The contents of the SDP "a=" field which contains a key/value pair.
-         */
-        abstract class SDPAttribute {
-            static readonly $gtype: GObject.GType<SDPAttribute>
 
-            
+        interface $Exports {
+            MIKEYPayloadT: MIKEYPayloadTStruct
+        }
+        
+
+        interface SDPAttributeStruct {
+            readonly $gtype: GObject.GType<SDPAttribute>
+            [Symbol.hasInstance](instance: unknown): instance is SDPAttribute
+        }
+
+        interface SDPAttribute {
             /**
              * the attribute key
              */
@@ -664,14 +719,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             set(key: string, value: string | null): SDPResult
         }
-        /**
-         * The contents of the SDP "b=" field which specifies the proposed bandwidth to
-         * be used by the session or media.
-         */
-        abstract class SDPBandwidth {
-            static readonly $gtype: GObject.GType<SDPBandwidth>
 
-            
+        interface $Exports {
+            SDPAttribute: SDPAttributeStruct
+        }
+        
+
+        interface SDPBandwidthStruct {
+            readonly $gtype: GObject.GType<SDPBandwidth>
+            [Symbol.hasInstance](instance: unknown): instance is SDPBandwidth
+        }
+
+        interface SDPBandwidth {
             /**
              * the bandwidth modifier type
              */
@@ -695,13 +754,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             set(bwtype: string, bandwidth: number): SDPResult
         }
-        /**
-         * The contents of the SDP "c=" field which contains connection data.
-         */
-        abstract class SDPConnection {
-            static readonly $gtype: GObject.GType<SDPConnection>
 
-            
+        interface $Exports {
+            SDPBandwidth: SDPBandwidthStruct
+        }
+        
+
+        interface SDPConnectionStruct {
+            readonly $gtype: GObject.GType<SDPConnection>
+            [Symbol.hasInstance](instance: unknown): instance is SDPConnection
+        }
+
+        interface SDPConnection {
             /**
              * the type of network. "IN" is defined to have the meaning
              *    "Internet".
@@ -742,14 +806,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             set(nettype: string, addrtype: string, address: string, ttl: number, addr_number: number): SDPResult
         }
-        /**
-         * The contents of the SDP "k=" field which is used to convey encryption
-         * keys.
-         */
-        abstract class SDPKey {
-            static readonly $gtype: GObject.GType<SDPKey>
 
-            
+        interface $Exports {
+            SDPConnection: SDPConnectionStruct
+        }
+        
+
+        interface SDPKeyStruct {
+            readonly $gtype: GObject.GType<SDPKey>
+            [Symbol.hasInstance](instance: unknown): instance is SDPKey
+        }
+
+        interface SDPKey {
             /**
              * the encryption type
              */
@@ -759,13 +827,15 @@ declare module "gi://GstSdp?version=1.0" {
              */
             data: string
         }
-        /**
-         * The contents of the SDP "m=" field with all related fields.
-         */
-        abstract class SDPMedia {
-            static readonly $gtype: GObject.GType<SDPMedia>
 
-            
+        interface $Exports {
+            SDPKey: SDPKeyStruct
+        }
+        
+
+        interface SDPMediaStruct {
+            readonly $gtype: GObject.GType<SDPMedia>
+            [Symbol.hasInstance](instance: unknown): instance is SDPMedia
             /**
              * Initialize @media so that its contents are as if it was freshly allocated
              * with gst_sdp_media_new(). This function is mostly used to initialize a media
@@ -775,12 +845,12 @@ declare module "gi://GstSdp?version=1.0" {
              * stack), its contents should be set to 0 before calling this function.
              * @returns a #GstSDPResult., a #GstSDPMedia
              */
-            static init(): [SDPResult, SDPMedia]
+            init(): [SDPResult, SDPMedia]
             /**
              * Allocate a new GstSDPMedia and store the result in @media.
              * @returns a #GstSDPResult., pointer to new #GstSDPMedia
              */
-            static "new"(): [SDPResult, SDPMedia]
+            "new"(): [SDPResult, SDPMedia]
             /**
              * Mapping of caps to SDP fields:
              *
@@ -797,7 +867,10 @@ declare module "gi://GstSdp?version=1.0" {
              * @param caps a #GstCaps
              * @returns a #GstSDPResult., a #GstSDPMedia
              */
-            static set_media_from_caps(caps: Gst.Caps): [SDPResult, SDPMedia]
+            set_media_from_caps(caps: Gst.Caps): [SDPResult, SDPMedia]
+        }
+
+        interface SDPMedia {
             /**
              * the media type
              */
@@ -1140,23 +1213,26 @@ declare module "gi://GstSdp?version=1.0" {
              */
             uninit(): SDPResult
         }
-        /**
-         * The GstSDPMessage helper functions makes it easy to parse and create SDP
-         * messages.
-         */
-        abstract class SDPMessage {
-            static readonly $gtype: GObject.GType<SDPMessage>
 
-            
+        interface $Exports {
+            SDPMedia: SDPMediaStruct
+        }
+        
+
+        interface SDPMessageStruct {
+            readonly $gtype: GObject.GType<SDPMessage>
+            [Symbol.hasInstance](instance: unknown): instance is SDPMessage
             /**
-             * type=value]]
+             * Creates a uri from @msg with the given @scheme. The uri has the format:
+             *
+             *  \@scheme:///[#type=value *[&type=value]]
              *
              *  Where each value is url encoded.
              * @param scheme the uri scheme
              * @param msg the #GstSDPMessage
              * @returns a uri for `msg`.
              */
-            static as_uri(scheme: string, msg: SDPMessage): string
+            as_uri(scheme: string, msg: SDPMessage): string
             /**
              * Initialize @msg so that its contents are as if it was freshly allocated
              * with gst_sdp_message_new(). This function is mostly used to initialize a message
@@ -1166,19 +1242,19 @@ declare module "gi://GstSdp?version=1.0" {
              * stack), its contents should be set to 0 before calling this function.
              * @returns a #GstSDPResult., a #GstSDPMessage
              */
-            static init(): [SDPResult, SDPMessage]
+            init(): [SDPResult, SDPMessage]
             /**
              * Allocate a new GstSDPMessage and store the result in @msg.
              * @returns a #GstSDPResult., pointer to new #GstSDPMessage
              */
-            static "new"(): [SDPResult, SDPMessage]
+            "new"(): [SDPResult, SDPMessage]
             /**
              * Parse @text and create a new SDPMessage from these.
              * @since 1.16
              * @param text A dynamically allocated string representing the SDP description
              * @returns a #GstSDPResult., pointer to new #GstSDPMessage
              */
-            static new_from_text(text: string): [SDPResult, SDPMessage]
+            new_from_text(text: string): [SDPResult, SDPMessage]
             /**
              * Parse the contents of @size bytes pointed to by @data and store the result in
              * @msg.
@@ -1186,9 +1262,14 @@ declare module "gi://GstSdp?version=1.0" {
              * @param msg the result #GstSDPMessage
              * @returns #GST_SDP_OK on success.
              */
-            static parse_buffer(data: Uint8Array, msg: SDPMessage): SDPResult
+            parse_buffer(data: Uint8Array, msg: SDPMessage): SDPResult
             /**
-             * type=value]]
+             * Parse the null-terminated @uri and store the result in @msg.
+             *
+             * The uri should be of the form:
+             *
+             *  scheme://[address[:ttl=ttl][:noa=noa]]/[sessionname]
+             *               [#type=value *[&type=value]]
              *
              *  where value is url encoded. This looslely resembles
              *  http://tools.ietf.org/html/draft-fujikawa-sdp-url-01
@@ -1196,7 +1277,10 @@ declare module "gi://GstSdp?version=1.0" {
              * @param msg the result #GstSDPMessage
              * @returns #GST_SDP_OK on success.
              */
-            static parse_uri(uri: string, msg: SDPMessage): SDPResult
+            parse_uri(uri: string, msg: SDPMessage): SDPResult
+        }
+
+        interface SDPMessage {
             /**
              * the protocol version
              */
@@ -1681,15 +1765,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             zones_len(): number
         }
-        /**
-         * The contents of the SDP "o=" field which gives the originator of the session
-         * (their username and the address of the user's host) plus a session id and
-         * session version number.
-         */
-        abstract class SDPOrigin {
-            static readonly $gtype: GObject.GType<SDPOrigin>
 
-            
+        interface $Exports {
+            SDPMessage: SDPMessageStruct
+        }
+        
+
+        interface SDPOriginStruct {
+            readonly $gtype: GObject.GType<SDPOrigin>
+            [Symbol.hasInstance](instance: unknown): instance is SDPOrigin
+        }
+
+        interface SDPOrigin {
             /**
              * the user's login on the originating host, or it is "-"
              *    if the originating host does not support the concept of user ids.
@@ -1720,14 +1807,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             addr: string
         }
-        /**
-         * The contents of the SDP "t=" field which specify the start and stop times for
-         * a conference session.
-         */
-        abstract class SDPTime {
-            static readonly $gtype: GObject.GType<SDPTime>
 
-            
+        interface $Exports {
+            SDPOrigin: SDPOriginStruct
+        }
+        
+
+        interface SDPTimeStruct {
+            readonly $gtype: GObject.GType<SDPTime>
+            [Symbol.hasInstance](instance: unknown): instance is SDPTime
+        }
+
+        interface SDPTime {
             /**
              * start time for the conference. The value is the decimal
              *     representation of Network Time Protocol (NTP) time values in seconds
@@ -1758,15 +1849,18 @@ declare module "gi://GstSdp?version=1.0" {
              */
             set(start: string, stop: string, repeat: string[]): SDPResult
         }
-        /**
-         * The contents of the SDP "z=" field which allows the sender to
-         * specify a list of time zone adjustments and offsets from the base
-         * time.
-         */
-        abstract class SDPZone {
-            static readonly $gtype: GObject.GType<SDPZone>
 
-            
+        interface $Exports {
+            SDPTime: SDPTimeStruct
+        }
+        
+
+        interface SDPZoneStruct {
+            readonly $gtype: GObject.GType<SDPZone>
+            [Symbol.hasInstance](instance: unknown): instance is SDPZone
+        }
+
+        interface SDPZone {
             /**
              * the NTP time that a time zone adjustment happens
              */
@@ -1790,479 +1884,509 @@ declare module "gi://GstSdp?version=1.0" {
              */
             set(adj_time: string, typed_time: string): SDPResult
         }
-        /**
-         * Check if the given @addr is a multicast address.
-         * @param nettype a network type
-         * @param addrtype an address type
-         * @param addr an address
-         * @returns TRUE when `addr` is multicast.
-         */
-        function sdp_address_is_multicast(nettype: string, addrtype: string, addr: string): boolean
-        /**
-         * Makes key management data
-         * @since 1.8
-         * @param uri a #gchar URI
-         * @param base64 a #gchar base64-encoded key data
-         * @returns a #gchar key-mgmt data,
-         */
-        function sdp_make_keymgmt(uri: string, base64: string): string
-        /**
-         * Initialize @media so that its contents are as if it was freshly allocated
-         * with gst_sdp_media_new(). This function is mostly used to initialize a media
-         * allocated on the stack. gst_sdp_media_uninit() undoes this operation.
-         *
-         * When this function is invoked on newly allocated data (with malloc or on the
-         * stack), its contents should be set to 0 before calling this function.
-         * @returns a #GstSDPResult., a #GstSDPMedia
-         */
-        function sdp_media_init(): [SDPResult, SDPMedia]
-        /**
-         * Allocate a new GstSDPMedia and store the result in @media.
-         * @returns a #GstSDPResult., pointer to new #GstSDPMedia
-         */
-        function sdp_media_new(): [SDPResult, SDPMedia]
-        /**
-         * Mapping of caps to SDP fields:
-         *
-         * a=rtpmap:(payload) (encoding_name) or (clock_rate)[or (encoding_params)]
-         *
-         * a=framesize:(payload) (width)-(height)
-         *
-         * a=fmtp:(payload) (param)[=(value)];...
-         *
-         * a=rtcp-fb:(payload) (param1) [param2]...
-         *
-         * a=extmap:(id)[/direction] (extensionname) (extensionattributes)
-         * @since 1.8
-         * @param caps a #GstCaps
-         * @returns a #GstSDPResult., a #GstSDPMedia
-         */
-        function sdp_media_set_media_from_caps(caps: Gst.Caps): [SDPResult, SDPMedia]
-        /**
-         * type=value]]
-         *
-         *  Where each value is url encoded.
-         * @param scheme the uri scheme
-         * @param msg the #GstSDPMessage
-         * @returns a uri for `msg`.
-         */
-        function sdp_message_as_uri(scheme: string, msg: SDPMessage): string
-        /**
-         * Initialize @msg so that its contents are as if it was freshly allocated
-         * with gst_sdp_message_new(). This function is mostly used to initialize a message
-         * allocated on the stack. gst_sdp_message_uninit() undoes this operation.
-         *
-         * When this function is invoked on newly allocated data (with malloc or on the
-         * stack), its contents should be set to 0 before calling this function.
-         * @returns a #GstSDPResult., a #GstSDPMessage
-         */
-        function sdp_message_init(): [SDPResult, SDPMessage]
-        /**
-         * Allocate a new GstSDPMessage and store the result in @msg.
-         * @returns a #GstSDPResult., pointer to new #GstSDPMessage
-         */
-        function sdp_message_new(): [SDPResult, SDPMessage]
-        /**
-         * Parse @text and create a new SDPMessage from these.
-         * @since 1.16
-         * @param text A dynamically allocated string representing the SDP description
-         * @returns a #GstSDPResult., pointer to new #GstSDPMessage
-         */
-        function sdp_message_new_from_text(text: string): [SDPResult, SDPMessage]
-        /**
-         * Parse the contents of @size bytes pointed to by @data and store the result in
-         * @msg.
-         * @param data the start of the buffer
-         * @param msg the result #GstSDPMessage
-         * @returns #GST_SDP_OK on success.
-         */
-        function sdp_message_parse_buffer(data: Uint8Array, msg: SDPMessage): SDPResult
-        /**
-         * type=value]]
-         *
-         *  where value is url encoded. This looslely resembles
-         *  http://tools.ietf.org/html/draft-fujikawa-sdp-url-01
-         * @param uri the start of the uri
-         * @param msg the result #GstSDPMessage
-         * @returns #GST_SDP_OK on success.
-         */
-        function sdp_message_parse_uri(uri: string, msg: SDPMessage): SDPResult
-        const MIKEY_VERSION: 1
-        const SDP_BWTYPE_AS: "AS"
-        const SDP_BWTYPE_CT: "CT"
-        const SDP_BWTYPE_EXT_PREFIX: "X-"
-        const SDP_BWTYPE_RR: "RR"
-        const SDP_BWTYPE_RS: "RS"
-        const SDP_BWTYPE_TIAS: "TIAS"
-        
-        namespace MIKEYCacheType {
-            const $gtype: GObject.GType<MIKEYCacheType>
-        }
 
-        /**
-         * The different cache types
-         */
-        enum MIKEYCacheType {
+        interface $Exports {
+            SDPZone: SDPZoneStruct
+        }
+        
+        interface MIKEYCacheTypeEnum {
+            readonly $gtype: GObject.GType<MIKEYCacheType>
             /**
              * The envelope key MUST NOT be cached
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * The envelope key MUST be cached
              */
-            "ALWAYS" = 1,
+            readonly "ALWAYS": 1
             /**
              * The envelope key MUST be cached, but only
              *                           to be used for the specific CSB.
              */
-            "FOR_CSB" = 2,
+            readonly "FOR_CSB": 2
+        }
+        type MIKEYCacheType = MIKEYCacheTypeEnum[Exclude<keyof MIKEYCacheTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different cache types
+             */
+            MIKEYCacheType: MIKEYCacheTypeEnum
         }
         
-        namespace MIKEYEncAlg {
-            const $gtype: GObject.GType<MIKEYEncAlg>
-        }
-
-        /**
-         * The encryption algorithm used to encrypt the Encr data field
-         */
-        enum MIKEYEncAlg {
+        interface MIKEYEncAlgEnum {
+            readonly $gtype: GObject.GType<MIKEYEncAlg>
             /**
              * no encryption
              */
-            "NULL" = 0,
+            readonly "NULL": 0
             /**
              * AES-CM using a 128-bit key
              */
-            "AES_CM_128" = 1,
+            readonly "AES_CM_128": 1
             /**
              * AES Key Wrap using a 128-bit key
              */
-            "AES_KW_128" = 2,
+            readonly "AES_KW_128": 2
             /**
              * AES-GCM using a 128-bit key (Since: 1.16)
              */
-            "AES_GCM_128" = 6,
+            readonly "AES_GCM_128": 6
+        }
+        type MIKEYEncAlg = MIKEYEncAlgEnum[Exclude<keyof MIKEYEncAlgEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The encryption algorithm used to encrypt the Encr data field
+             */
+            MIKEYEncAlg: MIKEYEncAlgEnum
         }
         
-        namespace MIKEYKVType {
-            const $gtype: GObject.GType<MIKEYKVType>
-        }
-
-        /**
-         * The key validity type
-         */
-        enum MIKEYKVType {
+        interface MIKEYKVTypeEnum {
+            readonly $gtype: GObject.GType<MIKEYKVType>
             /**
              * No specific usage rule
              */
-            "NULL" = 0,
+            readonly "NULL": 0
             /**
              * The key is associated with the SPI/MKI
              */
-            "SPI" = 1,
+            readonly "SPI": 1
             /**
              * The key has a start and expiration time
              */
-            "INTERVAL" = 2,
+            readonly "INTERVAL": 2
+        }
+        type MIKEYKVType = MIKEYKVTypeEnum[Exclude<keyof MIKEYKVTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The key validity type
+             */
+            MIKEYKVType: MIKEYKVTypeEnum
         }
         
-        namespace MIKEYKeyDataType {
-            const $gtype: GObject.GType<MIKEYKeyDataType>
-        }
-
-        /**
-         * The type of key.
-         */
-        enum MIKEYKeyDataType {
+        interface MIKEYKeyDataTypeEnum {
+            readonly $gtype: GObject.GType<MIKEYKeyDataType>
             /**
              * a TEK Generation Key
              */
-            "TGK" = 0,
+            readonly "TGK": 0
             /**
              * Traffic-Encrypting Key
              */
-            "TEK" = 2,
+            readonly "TEK": 2
+        }
+        type MIKEYKeyDataType = MIKEYKeyDataTypeEnum[Exclude<keyof MIKEYKeyDataTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of key.
+             */
+            MIKEYKeyDataType: MIKEYKeyDataTypeEnum
         }
         
-        namespace MIKEYMacAlg {
-            const $gtype: GObject.GType<MIKEYMacAlg>
-        }
-
-        /**
-         * Specifies the authentication algorithm used
-         */
-        enum MIKEYMacAlg {
+        interface MIKEYMacAlgEnum {
+            readonly $gtype: GObject.GType<MIKEYMacAlg>
             /**
              * no authentication
              */
-            "NULL" = 0,
+            readonly "NULL": 0
             /**
              * HMAC-SHA-1-160
              */
-            "HMAC_SHA_1_160" = 1,
+            readonly "HMAC_SHA_1_160": 1
+        }
+        type MIKEYMacAlg = MIKEYMacAlgEnum[Exclude<keyof MIKEYMacAlgEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the authentication algorithm used
+             */
+            MIKEYMacAlg: MIKEYMacAlgEnum
         }
         
-        namespace MIKEYMapType {
-            const $gtype: GObject.GType<MIKEYMapType>
-        }
-
-        /**
-         * Specifies the method of uniquely mapping Crypto Sessions to the security
-         * protocol sessions.
-         */
-        enum MIKEYMapType {
+        interface MIKEYMapTypeEnum {
+            readonly $gtype: GObject.GType<MIKEYMapType>
             /**
              * SRTP
              */
-            "MIKEY_MAP_TYPE_SRTP" = 0,
+            readonly "MIKEY_MAP_TYPE_SRTP": 0
+        }
+        type MIKEYMapType = MIKEYMapTypeEnum[Exclude<keyof MIKEYMapTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the method of uniquely mapping Crypto Sessions to the security
+             * protocol sessions.
+             */
+            MIKEYMapType: MIKEYMapTypeEnum
         }
         
-        namespace MIKEYPRFFunc {
-            const $gtype: GObject.GType<MIKEYPRFFunc>
-        }
-
-        /**
-         * The PRF function that has been/will be used for key derivation
-         */
-        enum MIKEYPRFFunc {
+        interface MIKEYPRFFuncEnum {
+            readonly $gtype: GObject.GType<MIKEYPRFFunc>
             /**
              * MIKEY-1 PRF function
              */
-            "MIKEY_PRF_MIKEY_1" = 0,
+            readonly "MIKEY_PRF_MIKEY_1": 0
+        }
+        type MIKEYPRFFunc = MIKEYPRFFuncEnum[Exclude<keyof MIKEYPRFFuncEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The PRF function that has been/will be used for key derivation
+             */
+            MIKEYPRFFunc: MIKEYPRFFuncEnum
         }
         
-        namespace MIKEYPayloadType {
-            const $gtype: GObject.GType<MIKEYPayloadType>
-        }
-
-        /**
-         * Different MIKEY Payload types.
-         */
-        enum MIKEYPayloadType {
+        interface MIKEYPayloadTypeEnum {
+            readonly $gtype: GObject.GType<MIKEYPayloadType>
             /**
              * Last payload
              */
-            "LAST" = 0,
+            readonly "LAST": 0
             /**
              * Key data transport payload
              */
-            "KEMAC" = 1,
+            readonly "KEMAC": 1
             /**
              * Envelope data payload
              */
-            "PKE" = 2,
+            readonly "PKE": 2
             /**
              * DH data payload
              */
-            "DH" = 3,
+            readonly "DH": 3
             /**
              * Signature payload
              */
-            "SIGN" = 4,
+            readonly "SIGN": 4
             /**
              * Timestamp payload
              */
-            "T" = 5,
+            readonly "T": 5
             /**
              * ID payload
              */
-            "ID" = 6,
+            readonly "ID": 6
             /**
              * Certificate Payload
              */
-            "CERT" = 7,
+            readonly "CERT": 7
             /**
              * Cert hash payload
              */
-            "CHASH" = 8,
+            readonly "CHASH": 8
             /**
              * Verification message payload
              */
-            "V" = 9,
+            readonly "V": 9
             /**
              * Security Policy payload
              */
-            "SP" = 10,
+            readonly "SP": 10
             /**
              * RAND payload
              */
-            "RAND" = 11,
+            readonly "RAND": 11
             /**
              * Error payload
              */
-            "ERR" = 12,
+            readonly "ERR": 12
             /**
              * Key data sub-payload
              */
-            "KEY_DATA" = 20,
+            readonly "KEY_DATA": 20
             /**
              * General Extension Payload
              */
-            "GEN_EXT" = 21,
+            readonly "GEN_EXT": 21
+        }
+        type MIKEYPayloadType = MIKEYPayloadTypeEnum[Exclude<keyof MIKEYPayloadTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Different MIKEY Payload types.
+             */
+            MIKEYPayloadType: MIKEYPayloadTypeEnum
         }
         
-        namespace MIKEYSecProto {
-            const $gtype: GObject.GType<MIKEYSecProto>
-        }
-
-        /**
-         * Specifies the security protocol
-         */
-        enum MIKEYSecProto {
+        interface MIKEYSecProtoEnum {
+            readonly $gtype: GObject.GType<MIKEYSecProto>
             /**
              * SRTP
              */
-            "MIKEY_SEC_PROTO_SRTP" = 0,
+            readonly "MIKEY_SEC_PROTO_SRTP": 0
+        }
+        type MIKEYSecProto = MIKEYSecProtoEnum[Exclude<keyof MIKEYSecProtoEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the security protocol
+             */
+            MIKEYSecProto: MIKEYSecProtoEnum
         }
         
-        namespace MIKEYSecSRTP {
-            const $gtype: GObject.GType<MIKEYSecSRTP>
-        }
-
-        /**
-         * This policy specifies the parameters for SRTP and SRTCP
-         */
-        enum MIKEYSecSRTP {
+        interface MIKEYSecSRTPEnum {
+            readonly $gtype: GObject.GType<MIKEYSecSRTP>
             /**
              * Encryption algorithm
              */
-            "ENC_ALG" = 0,
+            readonly "ENC_ALG": 0
             /**
              * Session Encr. key length
              */
-            "ENC_KEY_LEN" = 1,
+            readonly "ENC_KEY_LEN": 1
             /**
              * Authentication algorithm
              */
-            "AUTH_ALG" = 2,
+            readonly "AUTH_ALG": 2
             /**
              * Session Auth. key length
              */
-            "AUTH_KEY_LEN" = 3,
+            readonly "AUTH_KEY_LEN": 3
             /**
              * Session Salt key length
              */
-            "SALT_KEY_LEN" = 4,
+            readonly "SALT_KEY_LEN": 4
             /**
              * SRTP Pseudo Random Function
              */
-            "PRF" = 5,
+            readonly "PRF": 5
             /**
              * Key derivation rate
              */
-            "KEY_DERIV_RATE" = 6,
+            readonly "KEY_DERIV_RATE": 6
             /**
              * SRTP encryption off/on, 0 if off, 1 if on
              */
-            "SRTP_ENC" = 7,
+            readonly "SRTP_ENC": 7
             /**
              * SRTCP encryption off/on, 0 if off, 1 if on
              */
-            "SRTCP_ENC" = 8,
+            readonly "SRTCP_ENC": 8
             /**
              * sender's FEC order
              */
-            "FEC_ORDER" = 9,
+            readonly "FEC_ORDER": 9
             /**
              * SRTP authentication off/on, 0 if off, 1 if on
              */
-            "SRTP_AUTH" = 10,
+            readonly "SRTP_AUTH": 10
             /**
              * Authentication tag length
              */
-            "AUTH_TAG_LEN" = 11,
+            readonly "AUTH_TAG_LEN": 11
             /**
              * SRTP prefix length
              */
-            "SRTP_PREFIX_LEN" = 12,
+            readonly "SRTP_PREFIX_LEN": 12
             /**
              * AEAD authentication tag length (Since: 1.16)
              */
-            "AEAD_AUTH_TAG_LEN" = 20,
+            readonly "AEAD_AUTH_TAG_LEN": 20
+        }
+        type MIKEYSecSRTP = MIKEYSecSRTPEnum[Exclude<keyof MIKEYSecSRTPEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * This policy specifies the parameters for SRTP and SRTCP
+             */
+            MIKEYSecSRTP: MIKEYSecSRTPEnum
         }
         
-        namespace MIKEYTSType {
-            const $gtype: GObject.GType<MIKEYTSType>
-        }
-
-        /**
-         * Specifies the timestamp type.
-         */
-        enum MIKEYTSType {
+        interface MIKEYTSTypeEnum {
+            readonly $gtype: GObject.GType<MIKEYTSType>
             /**
              * an NTP time in UTC timezone
              */
-            "NTP_UTC" = 0,
+            readonly "NTP_UTC": 0
             /**
              * an NTP time
              */
-            "NTP" = 1,
+            readonly "NTP": 1
             /**
              * a counter
              */
-            "COUNTER" = 2,
+            readonly "COUNTER": 2
+        }
+        type MIKEYTSType = MIKEYTSTypeEnum[Exclude<keyof MIKEYTSTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the timestamp type.
+             */
+            MIKEYTSType: MIKEYTSTypeEnum
         }
         
-        namespace MIKEYType {
-            const $gtype: GObject.GType<MIKEYType>
-        }
-
-        /**
-         * Different MIKEY data types.
-         */
-        enum MIKEYType {
+        interface MIKEYTypeEnum {
+            readonly $gtype: GObject.GType<MIKEYType>
             /**
              * Invalid type
              */
-            "INVALID" = -1,
+            readonly "INVALID": -1
             /**
              * Initiator's pre-shared key message
              */
-            "PSK_INIT" = 0,
+            readonly "PSK_INIT": 0
             /**
              * Verification message of a Pre-shared key message
              */
-            "PSK_VERIFY" = 1,
+            readonly "PSK_VERIFY": 1
             /**
              * Initiator's public-key transport message
              */
-            "PK_INIT" = 2,
+            readonly "PK_INIT": 2
             /**
              * Verification message of a public-key message
              */
-            "PK_VERIFY" = 3,
+            readonly "PK_VERIFY": 3
             /**
              * Initiator's DH exchange message
              */
-            "DH_INIT" = 4,
+            readonly "DH_INIT": 4
             /**
              * Responder's DH exchange message
              */
-            "DH_RESP" = 5,
+            readonly "DH_RESP": 5
             /**
              * Error message
              */
-            "ERROR" = 6,
+            readonly "ERROR": 6
+        }
+        type MIKEYType = MIKEYTypeEnum[Exclude<keyof MIKEYTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Different MIKEY data types.
+             */
+            MIKEYType: MIKEYTypeEnum
         }
         
-        namespace SDPResult {
-            const $gtype: GObject.GType<SDPResult>
-        }
-
-        /**
-         * Return values for the SDP functions.
-         */
-        enum SDPResult {
+        interface SDPResultEnum {
+            readonly $gtype: GObject.GType<SDPResult>
             /**
              * A successful return value
              */
-            "OK" = 0,
+            readonly "OK": 0
             /**
              * a function was given invalid parameters
              */
-            "EINVAL" = -1,
+            readonly "EINVAL": -1
+        }
+        type SDPResult = SDPResultEnum[Exclude<keyof SDPResultEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Return values for the SDP functions.
+             */
+            SDPResult: SDPResultEnum
+        }
+
+        interface $Exports {
+            __name__: "GstSdp"
+            __version: "1.0"
+            MIKEY_VERSION: 1
+            SDP_BWTYPE_AS: "AS"
+            SDP_BWTYPE_CT: "CT"
+            SDP_BWTYPE_EXT_PREFIX: "X-"
+            SDP_BWTYPE_RR: "RR"
+            SDP_BWTYPE_RS: "RS"
+            SDP_BWTYPE_TIAS: "TIAS"
+            /**
+             * Check if the given @addr is a multicast address.
+             * @param nettype a network type
+             * @param addrtype an address type
+             * @param addr an address
+             * @returns TRUE when `addr` is multicast.
+             */
+            sdp_address_is_multicast(nettype: string, addrtype: string, addr: string): boolean
+            /**
+             * Makes key management data
+             * @since 1.8
+             * @param uri a #gchar URI
+             * @param base64 a #gchar base64-encoded key data
+             * @returns a #gchar key-mgmt data,
+             */
+            sdp_make_keymgmt(uri: string, base64: string): string
+            /**
+             * Initialize @media so that its contents are as if it was freshly allocated
+             * with gst_sdp_media_new(). This function is mostly used to initialize a media
+             * allocated on the stack. gst_sdp_media_uninit() undoes this operation.
+             *
+             * When this function is invoked on newly allocated data (with malloc or on the
+             * stack), its contents should be set to 0 before calling this function.
+             * @returns a #GstSDPResult., a #GstSDPMedia
+             */
+            sdp_media_init(): [SDPResult, SDPMedia]
+            /**
+             * Allocate a new GstSDPMedia and store the result in @media.
+             * @returns a #GstSDPResult., pointer to new #GstSDPMedia
+             */
+            sdp_media_new(): [SDPResult, SDPMedia]
+            /**
+             * Mapping of caps to SDP fields:
+             *
+             * a=rtpmap:(payload) (encoding_name) or (clock_rate)[or (encoding_params)]
+             *
+             * a=framesize:(payload) (width)-(height)
+             *
+             * a=fmtp:(payload) (param)[=(value)];...
+             *
+             * a=rtcp-fb:(payload) (param1) [param2]...
+             *
+             * a=extmap:(id)[/direction] (extensionname) (extensionattributes)
+             * @since 1.8
+             * @param caps a #GstCaps
+             * @returns a #GstSDPResult., a #GstSDPMedia
+             */
+            sdp_media_set_media_from_caps(caps: Gst.Caps): [SDPResult, SDPMedia]
+            /**
+             * Creates a uri from @msg with the given @scheme. The uri has the format:
+             *
+             *  \@scheme:///[#type=value *[&type=value]]
+             *
+             *  Where each value is url encoded.
+             * @param scheme the uri scheme
+             * @param msg the #GstSDPMessage
+             * @returns a uri for `msg`.
+             */
+            sdp_message_as_uri(scheme: string, msg: SDPMessage): string
+            /**
+             * Initialize @msg so that its contents are as if it was freshly allocated
+             * with gst_sdp_message_new(). This function is mostly used to initialize a message
+             * allocated on the stack. gst_sdp_message_uninit() undoes this operation.
+             *
+             * When this function is invoked on newly allocated data (with malloc or on the
+             * stack), its contents should be set to 0 before calling this function.
+             * @returns a #GstSDPResult., a #GstSDPMessage
+             */
+            sdp_message_init(): [SDPResult, SDPMessage]
+            /**
+             * Allocate a new GstSDPMessage and store the result in @msg.
+             * @returns a #GstSDPResult., pointer to new #GstSDPMessage
+             */
+            sdp_message_new(): [SDPResult, SDPMessage]
+            /**
+             * Parse @text and create a new SDPMessage from these.
+             * @since 1.16
+             * @param text A dynamically allocated string representing the SDP description
+             * @returns a #GstSDPResult., pointer to new #GstSDPMessage
+             */
+            sdp_message_new_from_text(text: string): [SDPResult, SDPMessage]
+            /**
+             * Parse the contents of @size bytes pointed to by @data and store the result in
+             * @msg.
+             * @param data the start of the buffer
+             * @param msg the result #GstSDPMessage
+             * @returns #GST_SDP_OK on success.
+             */
+            sdp_message_parse_buffer(data: Uint8Array, msg: SDPMessage): SDPResult
+            /**
+             * Parse the null-terminated @uri and store the result in @msg.
+             *
+             * The uri should be of the form:
+             *
+             *  scheme://[address[:ttl=ttl][:noa=noa]]/[sessionname]
+             *               [#type=value *[&type=value]]
+             *
+             *  where value is url encoded. This looslely resembles
+             *  http://tools.ietf.org/html/draft-fujikawa-sdp-url-01
+             * @param uri the start of the uri
+             * @param msg the result #GstSDPMessage
+             * @returns #GST_SDP_OK on success.
+             */
+            sdp_message_parse_uri(uri: string, msg: SDPMessage): SDPResult
         }
     }
 
+    const GstSdp: GstSdp.$Exports
     export default GstSdp
 }

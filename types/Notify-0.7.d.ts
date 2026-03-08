@@ -18,10 +18,7 @@ declare module "gi://Notify?version=0.7" {
 
     
 
-
     namespace Notify {
-        const __name__: "Notify"
-        const __version: "0.7"
         
 
         namespace Notification {
@@ -64,16 +61,6 @@ declare module "gi://Notify?version=0.7" {
             }
         }
 
-        /**
-         * A passive pop-up notification.
-         *
-         * #NotifyNotification represents a passive pop-up notification. It can
-         * contain summary text, body text, and an icon, as well as hints specifying
-         * how the notification should be presented. The notification is rendered
-         * by a notification daemon, and may present the notification in any number
-         * of ways. As such, there is a clear separation of content and presentation,
-         * and this API enforces that.
-         */
         interface Notification extends GObject.Object {
             readonly $signals: Notification.SignalSignatures
             readonly $readableProperties: Notification.ReadableProperties
@@ -318,6 +305,7 @@ declare module "gi://Notify?version=0.7" {
         interface NotificationClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Notification>
             readonly prototype: Notification
+
             new (props?: Partial<GObject.ConstructorProps<Notification>>): Notification
             /**
              * Creates a new #NotifyNotification.
@@ -331,148 +319,80 @@ declare module "gi://Notify?version=0.7" {
             "new"(summary: string, body: string | null, icon: string | null): Notification
         }
 
-        const Notification: NotificationClass
-        none
-        /**
-         * Gets the application icon registered.
-         * @since 0.8.4
-         * @returns The registered application icon, set via [func@set_app_icon].
-         */
-        function get_app_icon(): string
-        /**
-         * Gets the application name registered.
-         * @returns The registered application name, passed to [func@init].
-         */
-        function get_app_name(): string
-        /**
-         * Queries the server capabilities.
-         *
-         * Synchronously queries the server for its capabilities and returns them in a
-         * list.
-         * @returns a list of server capability strings.
-         */
-        function get_server_caps(): string[]
-        /**
-         * Queries the server for information.
-         *
-         * Synchronously queries the server for its information, specifically, the name,
-         * vendor, server version, and the version of the notifications specification
-         * that it is compliant with.
-         * @returns %TRUE if successful, and the variables passed will be set, %FALSE   on error. The returned strings must be freed with g_free, a location to store the server name, or %NULL, a location to store the server vendor, or %NULL, a location to store the server version, or %NULL, a location to store the version the service is compliant with, or %NULL
-         */
-        function get_server_info(): boolean
-        /**
-         * Initialized libnotify. This must be called before any other functions.
-         *
-         * Starting from 0.8, if the provided @app_name is %NULL, libnotify will
-         * try to figure it out from the running application.
-         * Before it was not allowed, and was causing libnotify not to be initialized.
-         * @param app_name The name of the application initializing libnotify.
-         * @returns %TRUE if successful, or %FALSE on error.
-         */
-        function init(app_name: string | null): boolean
-        /**
-         * Gets whether or not libnotify is initialized.
-         * @returns %TRUE if libnotify is initialized, or %FALSE otherwise.
-         */
-        function is_initted(): boolean
-        /**
-         * Sets the application icon.
-         * @since 0.8.4
-         * @param app_icon The optional icon theme icon name or filename.
-         */
-        function set_app_icon(app_icon: string | null): void
-        /**
-         * Sets the application name.
-         * @param app_name The name of the application
-         */
-        function set_app_name(app_name: string): void
-        /**
-         * Uninitializes libnotify.
-         *
-         * This should be called when the program no longer needs libnotify for
-         * the rest of its lifecycle, typically just before exitting.
-         */
-        function uninit(): void
-        const EXPIRES_DEFAULT: -1
-        const EXPIRES_NEVER: 0
-        const NOTIFICATION_HINT_ACTION_ICONS: "action-icons"
-        const NOTIFICATION_HINT_CATEGORY: "category"
-        const NOTIFICATION_HINT_DESKTOP_ENTRY: "desktop-entry"
-        const NOTIFICATION_HINT_IMAGE_DATA: "image-data"
-        const NOTIFICATION_HINT_IMAGE_DATA_LEGACY: "image_data"
-        const NOTIFICATION_HINT_IMAGE_PATH: "image-path"
-        const NOTIFICATION_HINT_IMAGE_PATH_LEGACY: "image_path"
-        const NOTIFICATION_HINT_RESIDENT: "resident"
-        const NOTIFICATION_HINT_SOUND_FILE: "sound-file"
-        const NOTIFICATION_HINT_SOUND_NAME: "sound-name"
-        const NOTIFICATION_HINT_SUPPRESS_SOUND: "suppress-sound"
-        const NOTIFICATION_HINT_TRANSIENT: "transient"
-        const NOTIFICATION_HINT_URGENCY: "urgency"
-        const NOTIFICATION_HINT_X: "x"
-        const NOTIFICATION_HINT_Y: "y"
-        const VERSION_MAJOR: 0
-        const VERSION_MICRO: 8
-        const VERSION_MINOR: 8
-        
-        namespace ClosedReason {
-            const $gtype: GObject.GType<ClosedReason>
+        interface $Exports {
+            /**
+             * A passive pop-up notification.
+             *
+             * #NotifyNotification represents a passive pop-up notification. It can
+             * contain summary text, body text, and an icon, as well as hints specifying
+             * how the notification should be presented. The notification is rendered
+             * by a notification daemon, and may present the notification in any number
+             * of ways. As such, there is a clear separation of content and presentation,
+             * and this API enforces that.
+             */
+            Notification: NotificationClass
         }
-
-        /**
-         * @since 0.8.0
-         */
-        enum ClosedReason {
+        
+        interface ClosedReasonEnum {
+            readonly $gtype: GObject.GType<ClosedReason>
             /**
              * Notification not closed.
              */
-            "UNSET" = -1,
+            readonly "UNSET": -1
             /**
              * Timeout has expired.
              */
-            "EXPIRED" = 1,
+            readonly "EXPIRED": 1
             /**
              * It has been dismissed by the user.
              */
-            "DISMISSED" = 2,
+            readonly "DISMISSED": 2
             /**
              * It has been closed by a call to
              *   [method@NotifyNotification.close].
              */
-            "API_REQUEST" = 3,
+            readonly "API_REQUEST": 3
             /**
              * Closed by undefined/reserved reasons.
              * @since 0.8.8
              */
-            "UNDEFINED" = 4,
+            readonly "UNDEFINED": 4
             /**
              * Closed by undefined/reserved reasons.
              * @since 0.8.0
              * @deprecated since 0.8.8 Use [flags@Notify.ClosedReason.UNDEFINED].
              */
-            "UNDEFIEND" = 4,
+            readonly "UNDEFIEND": 4
+        }
+        type ClosedReason = ClosedReasonEnum[Exclude<keyof ClosedReasonEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 0.8.0
+             */
+            ClosedReason: ClosedReasonEnum
         }
         
-        namespace Urgency {
-            const $gtype: GObject.GType<Urgency>
-        }
-
-        /**
-         * The urgency level of the notification.
-         */
-        enum Urgency {
+        interface UrgencyEnum {
+            readonly $gtype: GObject.GType<Urgency>
             /**
              * Low urgency. Used for unimportant notifications.
              */
-            "LOW" = 0,
+            readonly "LOW": 0
             /**
              * Normal urgency. Used for most standard notifications.
              */
-            "NORMAL" = 1,
+            readonly "NORMAL": 1
             /**
              * Critical urgency. Used for very important notifications.
              */
-            "CRITICAL" = 2,
+            readonly "CRITICAL": 2
+        }
+        type Urgency = UrgencyEnum[Exclude<keyof UrgencyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The urgency level of the notification.
+             */
+            Urgency: UrgencyEnum
         }
         /**
          * An action callback function.
@@ -480,7 +400,94 @@ declare module "gi://Notify?version=0.7" {
          * @param action The activated action name
          */
         type ActionCallback = (notification: Notification, action: string) => void
+
+        interface $Exports {
+            __name__: "Notify"
+            __version: "0.7"
+            EXPIRES_DEFAULT: -1
+            EXPIRES_NEVER: 0
+            NOTIFICATION_HINT_ACTION_ICONS: "action-icons"
+            NOTIFICATION_HINT_CATEGORY: "category"
+            NOTIFICATION_HINT_DESKTOP_ENTRY: "desktop-entry"
+            NOTIFICATION_HINT_IMAGE_DATA: "image-data"
+            NOTIFICATION_HINT_IMAGE_DATA_LEGACY: "image_data"
+            NOTIFICATION_HINT_IMAGE_PATH: "image-path"
+            NOTIFICATION_HINT_IMAGE_PATH_LEGACY: "image_path"
+            NOTIFICATION_HINT_RESIDENT: "resident"
+            NOTIFICATION_HINT_SOUND_FILE: "sound-file"
+            NOTIFICATION_HINT_SOUND_NAME: "sound-name"
+            NOTIFICATION_HINT_SUPPRESS_SOUND: "suppress-sound"
+            NOTIFICATION_HINT_TRANSIENT: "transient"
+            NOTIFICATION_HINT_URGENCY: "urgency"
+            NOTIFICATION_HINT_X: "x"
+            NOTIFICATION_HINT_Y: "y"
+            VERSION_MAJOR: 0
+            VERSION_MICRO: 8
+            VERSION_MINOR: 8
+            /**
+             * Gets the application icon registered.
+             * @since 0.8.4
+             * @returns The registered application icon, set via [func@set_app_icon].
+             */
+            get_app_icon(): string
+            /**
+             * Gets the application name registered.
+             * @returns The registered application name, passed to [func@init].
+             */
+            get_app_name(): string
+            /**
+             * Queries the server capabilities.
+             *
+             * Synchronously queries the server for its capabilities and returns them in a
+             * list.
+             * @returns a list of server capability strings.
+             */
+            get_server_caps(): string[]
+            /**
+             * Queries the server for information.
+             *
+             * Synchronously queries the server for its information, specifically, the name,
+             * vendor, server version, and the version of the notifications specification
+             * that it is compliant with.
+             * @returns %TRUE if successful, and the variables passed will be set, %FALSE   on error. The returned strings must be freed with g_free, a location to store the server name, or %NULL, a location to store the server vendor, or %NULL, a location to store the server version, or %NULL, a location to store the version the service is compliant with, or %NULL
+             */
+            get_server_info(): [boolean, string, string, string, string]
+            /**
+             * Initialized libnotify. This must be called before any other functions.
+             *
+             * Starting from 0.8, if the provided @app_name is %NULL, libnotify will
+             * try to figure it out from the running application.
+             * Before it was not allowed, and was causing libnotify not to be initialized.
+             * @param app_name The name of the application initializing libnotify.
+             * @returns %TRUE if successful, or %FALSE on error.
+             */
+            init(app_name: string | null): boolean
+            /**
+             * Gets whether or not libnotify is initialized.
+             * @returns %TRUE if libnotify is initialized, or %FALSE otherwise.
+             */
+            is_initted(): boolean
+            /**
+             * Sets the application icon.
+             * @since 0.8.4
+             * @param app_icon The optional icon theme icon name or filename.
+             */
+            set_app_icon(app_icon: string | null): void
+            /**
+             * Sets the application name.
+             * @param app_name The name of the application
+             */
+            set_app_name(app_name: string): void
+            /**
+             * Uninitializes libnotify.
+             *
+             * This should be called when the program no longer needs libnotify for
+             * the rest of its lifecycle, typically just before exitting.
+             */
+            uninit(): void
+        }
     }
 
+    const Notify: Notify.$Exports
     export default Notify
 }

@@ -12,19 +12,12 @@ declare module "gi://Graphene?version=1.0" {
 
     
 
-
     namespace Graphene {
-        const __name__: "Graphene"
-        const __version: "1.0"
-        /**
-         * A 3D box, described as the volume between a minimum and
-         * a maximum vertices.
-         * @since 1.2
-         */
-        abstract class Box {
-            static readonly $gtype: GObject.GType<Box>
+        
 
-            
+        interface BoxStruct {
+            readonly $gtype: GObject.GType<Box>
+            [Symbol.hasInstance](instance: unknown): instance is Box
             /**
              * Allocates a new #graphene_box_t.
              *
@@ -32,7 +25,7 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns the newly allocated #graphene_box_t structure.   Use graphene_box_free() to free the resources allocated by this function
              */
-            static alloc(): Box
+            alloc(): Box
             /**
              * A degenerate #graphene_box_t that can only be expanded.
              *
@@ -40,7 +33,7 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns a #graphene_box_t
              */
-            static empty(): Box
+            empty(): Box
             /**
              * A degenerate #graphene_box_t that cannot be expanded.
              *
@@ -48,7 +41,7 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns a #graphene_box_t
              */
-            static infinite(): Box
+            infinite(): Box
             /**
              * A #graphene_box_t with the minimum vertex set at (-1, -1, -1) and the
              * maximum vertex set at (0, 0, 0).
@@ -57,7 +50,7 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns a #graphene_box_t
              */
-            static minus_one(): Box
+            minus_one(): Box
             /**
              * A #graphene_box_t with the minimum vertex set at (0, 0, 0) and the
              * maximum vertex set at (1, 1, 1).
@@ -66,7 +59,7 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns a #graphene_box_t
              */
-            static one(): Box
+            one(): Box
             /**
              * A #graphene_box_t with the minimum vertex set at (-1, -1, -1) and the
              * maximum vertex set at (1, 1, 1).
@@ -75,7 +68,7 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns a #graphene_box_t
              */
-            static one_minus_one(): Box
+            one_minus_one(): Box
             /**
              * A #graphene_box_t with both the minimum and maximum vertices set at (0, 0, 0).
              *
@@ -83,7 +76,10 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns a #graphene_box_t
              */
-            static zero(): Box
+            zero(): Box
+        }
+
+        interface Box {
             /**
              * Checks whether the #graphene_box_t @a contains the given
              * #graphene_box_t @b.
@@ -250,7 +246,7 @@ declare module "gi://Graphene?version=1.0" {
              * @param b a #graphene_box_t
              * @returns true if the two boxes intersect, return location for the result
              */
-            intersection(b: Box): boolean
+            intersection(b: Box): [boolean, Box]
             /**
              * Unions the two given #graphene_box_t.
              * @since 1.2
@@ -259,17 +255,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             union(b: Box): Box
         }
-        /**
-         * Describe a rotation using Euler angles.
-         *
-         * The contents of the #graphene_euler_t structure are private
-         * and should never be accessed directly.
-         * @since 1.2
-         */
-        abstract class Euler {
-            static readonly $gtype: GObject.GType<Euler>
 
-            
+        interface $Exports {
+            Box: BoxStruct
+        }
+        
+
+        interface EulerStruct {
+            readonly $gtype: GObject.GType<Euler>
+            [Symbol.hasInstance](instance: unknown): instance is Euler
             /**
              * Allocates a new #graphene_euler_t.
              *
@@ -277,7 +271,10 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns the newly allocated #graphene_euler_t
              */
-            static alloc(): Euler
+            alloc(): Euler
+        }
+
+        interface Euler {
             /**
              * Checks if two #graphene_euler_t are equal.
              * @since 1.2
@@ -471,17 +468,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             to_vec3(): Vec3
         }
-        /**
-         * A 3D volume delimited by 2D clip planes.
-         *
-         * The contents of the `graphene_frustum_t` are private, and should not be
-         * modified directly.
-         * @since 1.2
-         */
-        abstract class Frustum {
-            static readonly $gtype: GObject.GType<Frustum>
 
-            
+        interface $Exports {
+            Euler: EulerStruct
+        }
+        
+
+        interface FrustumStruct {
+            readonly $gtype: GObject.GType<Frustum>
+            [Symbol.hasInstance](instance: unknown): instance is Frustum
             /**
              * Allocates a new #graphene_frustum_t structure.
              *
@@ -489,7 +484,10 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns the newly allocated #graphene_frustum_t   structure. Use graphene_frustum_free() to free the resources   allocated by this function.
              */
-            static alloc(): Frustum
+            alloc(): Frustum
+        }
+
+        interface Frustum {
             /**
              * Checks whether a point is inside the volume defined by the given
              * #graphene_frustum_t.
@@ -561,22 +559,24 @@ declare module "gi://Graphene?version=1.0" {
              */
             intersects_sphere(sphere: Sphere): boolean
         }
-        /**
-         * A structure capable of holding a 4x4 matrix.
-         *
-         * The contents of the #graphene_matrix_t structure are private and
-         * should never be accessed directly.
-         */
-        abstract class Matrix {
-            static readonly $gtype: GObject.GType<Matrix>
 
-            
+        interface $Exports {
+            Frustum: FrustumStruct
+        }
+        
+
+        interface MatrixStruct {
+            readonly $gtype: GObject.GType<Matrix>
+            [Symbol.hasInstance](instance: unknown): instance is Matrix
             /**
              * Allocates a new #graphene_matrix_t.
              * @since 1.0
              * @returns the newly allocated matrix
              */
-            static alloc(): Matrix
+            alloc(): Matrix
+        }
+
+        interface Matrix {
             /**
              * Decomposes a transformation matrix into its component transformations.
              *
@@ -602,7 +602,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             equal(b: Matrix): boolean
             /**
+             * Checks whether the two given #graphene_matrix_t matrices are
+             * byte-by-byte equal.
              *
+             * While this function is faster than graphene_matrix_equal(), it
+             * can also return false negatives, so it should be used in
+             * conjuction with either graphene_matrix_equal() or
+             * graphene_matrix_near(). For instance:
+             *
+             * |[<!-- language="C" -->
              *   if (graphene_matrix_equal_fast (a, b))
              *     {
              *       // matrices are definitely the same
@@ -679,7 +687,12 @@ declare module "gi://Graphene?version=1.0" {
              */
             get_z_translation(): number
             /**
+             * Initializes a #graphene_matrix_t from the values of an affine
+             * transformation matrix.
              *
+             * The arguments map to the following matrix layout:
+             *
+             * |[<!-- language="plain" -->
              *   ⎛ xx  yx ⎞   ⎛  a   b  0 ⎞
              *   ⎜ xy  yy ⎟ = ⎜  c   d  0 ⎟
              *   ⎝ x0  y0 ⎠   ⎝ tx  ty  1 ⎠
@@ -1024,7 +1037,12 @@ declare module "gi://Graphene?version=1.0" {
              */
             skew_yz(factor: number): void
             /**
+             * Converts a #graphene_matrix_t to an affine transformation
+             * matrix, if the given matrix is compatible.
              *
+             * The returned values have the following layout:
+             *
+             * |[<!-- language="plain" -->
              *   ⎛ xx  yx ⎞   ⎛  a   b  0 ⎞
              *   ⎜ xy  yy ⎟ = ⎜  c   d  0 ⎟
              *   ⎝ x0  y0 ⎠   ⎝ tx  ty  1 ⎠
@@ -1184,17 +1202,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             untransform_point(p: Point, bounds: Rect): [boolean, Point]
         }
-        /**
-         * A 2D plane that extends infinitely in a 3D volume.
-         *
-         * The contents of the `graphene_plane_t` are private, and should not be
-         * modified directly.
-         * @since 1.2
-         */
-        abstract class Plane {
-            static readonly $gtype: GObject.GType<Plane>
 
-            
+        interface $Exports {
+            Matrix: MatrixStruct
+        }
+        
+
+        interface PlaneStruct {
+            readonly $gtype: GObject.GType<Plane>
+            [Symbol.hasInstance](instance: unknown): instance is Plane
             /**
              * Allocates a new #graphene_plane_t structure.
              *
@@ -1202,7 +1218,10 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns the newly allocated #graphene_plane_t.   Use graphene_plane_free() to free the resources allocated by   this function
              */
-            static alloc(): Plane
+            alloc(): Plane
+        }
+
+        interface Plane {
             /**
              * Computes the distance of @point from a #graphene_plane_t.
              * @since 1.2
@@ -1317,16 +1336,24 @@ declare module "gi://Graphene?version=1.0" {
              */
             transform(matrix: Matrix, normal_matrix: Matrix | null): Plane
         }
-        /**
-         * A point with two coordinates.
-         * @since 1.0
-         */
-        abstract class Point {
-            static readonly $gtype: GObject.GType<Point>
 
-            
+        interface $Exports {
+            Plane: PlaneStruct
+        }
+        
+
+        interface PointStruct {
+            readonly $gtype: GObject.GType<Point>
+            [Symbol.hasInstance](instance: unknown): instance is Point
             /**
+             * Allocates a new #graphene_point_t structure.
              *
+             * The coordinates of the returned point are (0, 0).
+             *
+             * It's possible to chain this function with graphene_point_init()
+             * or graphene_point_init_from_point(), e.g.:
+             *
+             * |[<!-- language="C" -->
              *   graphene_point_t *
              *   point_new (float x, float y)
              *   {
@@ -1342,13 +1369,16 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.0
              * @returns the newly allocated #graphene_point_t.   Use graphene_point_free() to free the resources allocated by   this function.
              */
-            static alloc(): Point
+            alloc(): Point
             /**
              * Returns a point fixed at (0, 0).
              * @since 1.0
              * @returns a fixed point
              */
-            static zero(): Point
+            zero(): Point
+        }
+
+        interface Point {
             /**
              * the X coordinate of the point
              */
@@ -1363,7 +1393,7 @@ declare module "gi://Graphene?version=1.0" {
              * @param b a #graphene_point_t
              * @returns the distance between the two points, distance component on the X axis, distance component on the Y axis
              */
-            distance(b: Point): number
+            distance(b: Point): [number, number, number]
             /**
              * Checks if the two points @a and @b point to the same
              * coordinates.
@@ -1431,26 +1461,30 @@ declare module "gi://Graphene?version=1.0" {
              */
             to_vec2(): Vec2
         }
-        /**
-         * A point with three components: X, Y, and Z.
-         * @since 1.0
-         */
-        abstract class Point3D {
-            static readonly $gtype: GObject.GType<Point3D>
 
-            
+        interface $Exports {
+            Point: PointStruct
+        }
+        
+
+        interface Point3DStruct {
+            readonly $gtype: GObject.GType<Point3D>
+            [Symbol.hasInstance](instance: unknown): instance is Point3D
             /**
              * Allocates a #graphene_point3d_t structure.
              * @since 1.0
              * @returns the newly allocated structure.   Use graphene_point3d_free() to free the resources   allocated by this function.
              */
-            static alloc(): Point3D
+            alloc(): Point3D
             /**
              * Retrieves a constant point with all three coordinates set to 0.
              * @since 1.0
              * @returns a zero point
              */
-            static zero(): Point3D
+            zero(): Point3D
+        }
+
+        interface Point3D {
             /**
              * the X coordinate
              */
@@ -1476,7 +1510,7 @@ declare module "gi://Graphene?version=1.0" {
              * @param b a #graphene_point3d_t
              * @returns the distance between two points, return location for the distance   components on the X, Y, and Z axis
              */
-            distance(b: Point3D): number
+            distance(b: Point3D): [number, Vec3]
             /**
              * Computes the dot product of the two given #graphene_point3d_t.
              * @since 1.0
@@ -1584,17 +1618,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             to_vec3(): Vec3
         }
-        /**
-         * A 4 vertex quadrilateral, as represented by four #graphene_point_t.
-         *
-         * The contents of a #graphene_quad_t are private and should never be
-         * accessed directly.
-         * @since 1.0
-         */
-        abstract class Quad {
-            static readonly $gtype: GObject.GType<Quad>
 
-            
+        interface $Exports {
+            Point3D: Point3DStruct
+        }
+        
+
+        interface QuadStruct {
+            readonly $gtype: GObject.GType<Quad>
+            [Symbol.hasInstance](instance: unknown): instance is Quad
             /**
              * Allocates a new #graphene_quad_t instance.
              *
@@ -1602,7 +1634,10 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.0
              * @returns the newly created #graphene_quad_t instance
              */
-            static alloc(): Quad
+            alloc(): Quad
+        }
+
+        interface Quad {
             /**
              * Computes the bounding rectangle of @q and places it into @r.
              * @since 1.0
@@ -1654,17 +1689,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             init_from_rect(r: Rect): Quad
         }
-        /**
-         * A quaternion.
-         *
-         * The contents of the #graphene_quaternion_t structure are private
-         * and should never be accessed directly.
-         * @since 1.0
-         */
-        abstract class Quaternion {
-            static readonly $gtype: GObject.GType<Quaternion>
 
-            
+        interface $Exports {
+            Quad: QuadStruct
+        }
+        
+
+        interface QuaternionStruct {
+            readonly $gtype: GObject.GType<Quaternion>
+            [Symbol.hasInstance](instance: unknown): instance is Quaternion
             /**
              * Allocates a new #graphene_quaternion_t.
              *
@@ -1672,7 +1705,10 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.0
              * @returns the newly allocated #graphene_quaternion_t
              */
-            static alloc(): Quaternion
+            alloc(): Quaternion
+        }
+
+        interface Quaternion {
             /**
              * Adds two #graphene_quaternion_t @a and @b.
              * @since 1.10
@@ -1831,7 +1867,7 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns , return location for the rotation angle on   the X axis (yaw), in degrees, return location for the rotation angle on   the Y axis (pitch), in degrees, return location for the rotation angle on   the Z axis (roll), in degrees
              */
-            to_angles(): void
+            to_angles(): [number, number, number]
             /**
              * Converts a quaternion into a transformation matrix expressing
              * the rotation defined by the #graphene_quaternion_t.
@@ -1846,7 +1882,7 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns , return location for the rotation angle on   the X axis (yaw), in radians, return location for the rotation angle on   the Y axis (pitch), in radians, return location for the rotation angle on   the Z axis (roll), in radians
              */
-            to_radians(): void
+            to_radians(): [number, number, number]
             /**
              * Copies the components of a #graphene_quaternion_t into a
              * #graphene_vec4_t.
@@ -1855,17 +1891,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             to_vec4(): Vec4
         }
-        /**
-         * A ray emitted from an origin in a given direction.
-         *
-         * The contents of the `graphene_ray_t` structure are private, and should not
-         * be modified directly.
-         * @since 1.4
-         */
-        abstract class Ray {
-            static readonly $gtype: GObject.GType<Ray>
 
-            
+        interface $Exports {
+            Quaternion: QuaternionStruct
+        }
+        
+
+        interface RayStruct {
+            readonly $gtype: GObject.GType<Ray>
+            [Symbol.hasInstance](instance: unknown): instance is Ray
             /**
              * Allocates a new #graphene_ray_t structure.
              *
@@ -1873,7 +1907,10 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.4
              * @returns the newly allocated #graphene_ray_t.   Use graphene_ray_free() to free the resources allocated by   this function
              */
-            static alloc(): Ray
+            alloc(): Ray
+        }
+
+        interface Ray {
             /**
              * Checks whether the two given #graphene_ray_t are equal.
              * @since 1.4
@@ -2016,25 +2053,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             intersects_triangle(t: Triangle): boolean
         }
-        /**
-         * The location and size of a rectangle region.
-         *
-         * The width and height of a #graphene_rect_t can be negative; for instance,
-         * a #graphene_rect_t with an origin of [ 0, 0 ] and a size of [ 10, 10 ] is
-         * equivalent to a #graphene_rect_t with an origin of [ 10, 10 ] and a size
-         * of [ -10, -10 ].
-         *
-         * Application code can normalize rectangles using graphene_rect_normalize();
-         * this function will ensure that the width and height of a rectangle are
-         * positive values. All functions taking a #graphene_rect_t as an argument
-         * will internally operate on a normalized copy; all functions returning a
-         * #graphene_rect_t will always return a normalized rectangle.
-         * @since 1.0
-         */
-        abstract class Rect {
-            static readonly $gtype: GObject.GType<Rect>
 
-            
+        interface $Exports {
+            Ray: RayStruct
+        }
+        
+
+        interface RectStruct {
+            readonly $gtype: GObject.GType<Rect>
+            [Symbol.hasInstance](instance: unknown): instance is Rect
             /**
              * Allocates a new #graphene_rect_t.
              *
@@ -2042,14 +2069,17 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.0
              * @returns the newly allocated rectangle
              */
-            static alloc(): Rect
+            alloc(): Rect
             /**
              * Returns a degenerate rectangle with origin fixed at (0, 0) and
              * a size of 0, 0.
              * @since 1.4
              * @returns a fixed rectangle
              */
-            static zero(): Rect
+            zero(): Rect
+        }
+
+        interface Rect {
             /**
              * the coordinates of the origin of the rectangle
              */
@@ -2247,7 +2277,7 @@ declare module "gi://Graphene?version=1.0" {
              * @param b a #graphene_rect_t
              * @returns `true` if the two rectangles intersect, return location for   a #graphene_rect_t
              */
-            intersection(b: Rect): boolean
+            intersection(b: Rect): [boolean, Rect]
             /**
              * Normalizes the passed rectangle.
              *
@@ -2359,28 +2389,41 @@ declare module "gi://Graphene?version=1.0" {
              */
             union(b: Rect): Rect
         }
-        /**
-         */
-        abstract class Simd4F {
-            static readonly $gtype: GObject.GType<Simd4F>
 
-            
+        interface $Exports {
+            Rect: RectStruct
         }
-        /**
-         */
-        abstract class Simd4X4F {
-            static readonly $gtype: GObject.GType<Simd4X4F>
+        
 
-            
+        interface Simd4FStruct {
+            readonly $gtype: GObject.GType<Simd4F>
+            [Symbol.hasInstance](instance: unknown): instance is Simd4F
         }
-        /**
-         * A size.
-         * @since 1.0
-         */
-        abstract class Size {
-            static readonly $gtype: GObject.GType<Size>
 
-            
+        interface Simd4F {
+        }
+
+        interface $Exports {
+            Simd4F: Simd4FStruct
+        }
+        
+
+        interface Simd4X4FStruct {
+            readonly $gtype: GObject.GType<Simd4X4F>
+            [Symbol.hasInstance](instance: unknown): instance is Simd4X4F
+        }
+
+        interface Simd4X4F {
+        }
+
+        interface $Exports {
+            Simd4X4F: Simd4X4FStruct
+        }
+        
+
+        interface SizeStruct {
+            readonly $gtype: GObject.GType<Size>
+            [Symbol.hasInstance](instance: unknown): instance is Size
             /**
              * Allocates a new #graphene_size_t.
              *
@@ -2388,14 +2431,17 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.0
              * @returns the newly allocated #graphene_size_t
              */
-            static alloc(): Size
+            alloc(): Size
             /**
              * A constant pointer to a zero #graphene_size_t, useful for
              * equality checks and interpolations.
              * @since 1.0
              * @returns a constant size
              */
-            static zero(): Size
+            zero(): Size
+        }
+
+        interface Size {
             /**
              * the width
              */
@@ -2449,14 +2495,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             scale(factor: number): Size
         }
-        /**
-         * A sphere, represented by its center and radius.
-         * @since 1.2
-         */
-        abstract class Sphere {
-            static readonly $gtype: GObject.GType<Sphere>
 
-            
+        interface $Exports {
+            Size: SizeStruct
+        }
+        
+
+        interface SphereStruct {
+            readonly $gtype: GObject.GType<Sphere>
+            [Symbol.hasInstance](instance: unknown): instance is Sphere
             /**
              * Allocates a new #graphene_sphere_t.
              *
@@ -2464,7 +2511,10 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns the newly allocated #graphene_sphere_t. Use   graphene_sphere_free() to free the resources allocated by this function
              */
-            static alloc(): Sphere
+            alloc(): Sphere
+        }
+
+        interface Sphere {
             /**
              * Checks whether the given @point is contained in the volume
              * of a #graphene_sphere_t.
@@ -2559,14 +2609,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             translate(point: Point3D): Sphere
         }
-        /**
-         * A triangle.
-         * @since 1.2
-         */
-        abstract class Triangle {
-            static readonly $gtype: GObject.GType<Triangle>
 
-            
+        interface $Exports {
+            Sphere: SphereStruct
+        }
+        
+
+        interface TriangleStruct {
+            readonly $gtype: GObject.GType<Triangle>
+            [Symbol.hasInstance](instance: unknown): instance is Triangle
             /**
              * Allocates a new #graphene_triangle_t.
              *
@@ -2574,7 +2625,10 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns the newly allocated #graphene_triangle_t   structure. Use graphene_triangle_free() to free the resources   allocated by this function
              */
-            static alloc(): Triangle
+            alloc(): Triangle
+        }
+
+        interface Triangle {
             /**
              * Checks whether the given triangle @t contains the point @p.
              * @since 1.2
@@ -2655,7 +2709,7 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns , return location for the coordinates   of the first vertex, return location for the coordinates   of the second vertex, return location for the coordinates   of the third vertex
              */
-            get_points(): void
+            get_points(): [Point3D, Point3D, Point3D]
             /**
              * Computes the UV coordinates of the given point @p.
              *
@@ -2682,7 +2736,7 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.2
              * @returns , return location for the first vertex, return location for the second vertex, return location for the third vertex
              */
-            get_vertices(): void
+            get_vertices(): [Vec3, Vec3, Vec3]
             /**
              * Initializes a #graphene_triangle_t using the three given arrays
              * of floating point values, each representing the coordinates of
@@ -2713,16 +2767,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             init_from_vec3(a: Vec3 | null, b: Vec3 | null, c: Vec3 | null): Triangle
         }
-        /**
-         * A structure capable of holding a vector with two dimensions, x and y.
-         *
-         * The contents of the #graphene_vec2_t structure are private and should
-         * never be accessed directly.
-         */
-        abstract class Vec2 {
-            static readonly $gtype: GObject.GType<Vec2>
 
-            
+        interface $Exports {
+            Triangle: TriangleStruct
+        }
+        
+
+        interface Vec2Struct {
+            readonly $gtype: GObject.GType<Vec2>
+            [Symbol.hasInstance](instance: unknown): instance is Vec2
             /**
              * Allocates a new #graphene_vec2_t structure.
              *
@@ -2732,31 +2785,34 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.0
              * @returns the newly allocated #graphene_vec2_t   structure. Use graphene_vec2_free() to free the resources allocated   by this function.
              */
-            static alloc(): Vec2
+            alloc(): Vec2
             /**
              * Retrieves a constant vector with (1, 1) components.
              * @since 1.0
              * @returns the one vector
              */
-            static one(): Vec2
+            one(): Vec2
             /**
              * Retrieves a constant vector with (1, 0) components.
              * @since 1.0
              * @returns the X axis vector
              */
-            static x_axis(): Vec2
+            x_axis(): Vec2
             /**
              * Retrieves a constant vector with (0, 1) components.
              * @since 1.0
              * @returns the Y axis vector
              */
-            static y_axis(): Vec2
+            y_axis(): Vec2
             /**
              * Retrieves a constant vector with (0, 0) components.
              * @since 1.0
              * @returns the zero vector
              */
-            static zero(): Vec2
+            zero(): Vec2
+        }
+
+        interface Vec2 {
             /**
              * Adds each component of the two passed vectors and places
              * each result into the components of @res.
@@ -2912,16 +2968,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             to_float(): number[]
         }
-        /**
-         * A structure capable of holding a vector with three dimensions: x, y, and z.
-         *
-         * The contents of the #graphene_vec3_t structure are private and should
-         * never be accessed directly.
-         */
-        abstract class Vec3 {
-            static readonly $gtype: GObject.GType<Vec3>
 
-            
+        interface $Exports {
+            Vec2: Vec2Struct
+        }
+        
+
+        interface Vec3Struct {
+            readonly $gtype: GObject.GType<Vec3>
+            [Symbol.hasInstance](instance: unknown): instance is Vec3
             /**
              * Allocates a new #graphene_vec3_t structure.
              *
@@ -2931,42 +2986,45 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.0
              * @returns the newly allocated #graphene_vec3_t   structure. Use graphene_vec3_free() to free the resources allocated   by this function.
              */
-            static alloc(): Vec3
+            alloc(): Vec3
             /**
              * Provides a constant pointer to a vector with three components,
              * all sets to 1.
              * @since 1.0
              * @returns a constant vector
              */
-            static one(): Vec3
+            one(): Vec3
             /**
              * Provides a constant pointer to a vector with three components
              * with values set to (1, 0, 0).
              * @since 1.0
              * @returns a constant vector
              */
-            static x_axis(): Vec3
+            x_axis(): Vec3
             /**
              * Provides a constant pointer to a vector with three components
              * with values set to (0, 1, 0).
              * @since 1.0
              * @returns a constant vector
              */
-            static y_axis(): Vec3
+            y_axis(): Vec3
             /**
              * Provides a constant pointer to a vector with three components
              * with values set to (0, 0, 1).
              * @since 1.0
              * @returns a constant vector
              */
-            static z_axis(): Vec3
+            z_axis(): Vec3
             /**
              * Provides a constant pointer to a vector with three components,
              * all sets to 0.
              * @since 1.0
              * @returns a constant vector
              */
-            static zero(): Vec3
+            zero(): Vec3
+        }
+
+        interface Vec3 {
             /**
              * Adds each component of the two given vectors.
              * @since 1.0
@@ -3170,16 +3228,15 @@ declare module "gi://Graphene?version=1.0" {
              */
             to_float(): number[]
         }
-        /**
-         * A structure capable of holding a vector with four dimensions: x, y, z, and w.
-         *
-         * The contents of the #graphene_vec4_t structure are private and should
-         * never be accessed directly.
-         */
-        abstract class Vec4 {
-            static readonly $gtype: GObject.GType<Vec4>
 
-            
+        interface $Exports {
+            Vec3: Vec3Struct
+        }
+        
+
+        interface Vec4Struct {
+            readonly $gtype: GObject.GType<Vec4>
+            [Symbol.hasInstance](instance: unknown): instance is Vec4
             /**
              * Allocates a new #graphene_vec4_t structure.
              *
@@ -3189,49 +3246,52 @@ declare module "gi://Graphene?version=1.0" {
              * @since 1.0
              * @returns the newly allocated #graphene_vec4_t   structure. Use graphene_vec4_free() to free the resources allocated   by this function.
              */
-            static alloc(): Vec4
+            alloc(): Vec4
             /**
              * Retrieves a pointer to a #graphene_vec4_t with all its
              * components set to 1.
              * @since 1.0
              * @returns a constant vector
              */
-            static one(): Vec4
+            one(): Vec4
             /**
              * Retrieves a pointer to a #graphene_vec4_t with its
              * components set to (0, 0, 0, 1).
              * @since 1.0
              * @returns a constant vector
              */
-            static w_axis(): Vec4
+            w_axis(): Vec4
             /**
              * Retrieves a pointer to a #graphene_vec4_t with its
              * components set to (1, 0, 0, 0).
              * @since 1.0
              * @returns a constant vector
              */
-            static x_axis(): Vec4
+            x_axis(): Vec4
             /**
              * Retrieves a pointer to a #graphene_vec4_t with its
              * components set to (0, 1, 0, 0).
              * @since 1.0
              * @returns a constant vector
              */
-            static y_axis(): Vec4
+            y_axis(): Vec4
             /**
              * Retrieves a pointer to a #graphene_vec4_t with its
              * components set to (0, 0, 1, 0).
              * @since 1.0
              * @returns a constant vector
              */
-            static z_axis(): Vec4
+            z_axis(): Vec4
             /**
              * Retrieves a pointer to a #graphene_vec4_t with all its
              * components set to 0.
              * @since 1.0
              * @returns a constant vector
              */
-            static zero(): Vec4
+            zero(): Vec4
+        }
+
+        interface Vec4 {
             /**
              * Adds each component of the two given vectors.
              * @since 1.0
@@ -3433,368 +3493,380 @@ declare module "gi://Graphene?version=1.0" {
              */
             to_float(): number[]
         }
-        /**
-         * A degenerate #graphene_box_t that can only be expanded.
-         *
-         * The returned value is owned by Graphene and should not be modified or freed.
-         * @since 1.2
-         * @returns a #graphene_box_t
-         */
-        function box_empty(): Box
-        /**
-         * A degenerate #graphene_box_t that cannot be expanded.
-         *
-         * The returned value is owned by Graphene and should not be modified or freed.
-         * @since 1.2
-         * @returns a #graphene_box_t
-         */
-        function box_infinite(): Box
-        /**
-         * A #graphene_box_t with the minimum vertex set at (-1, -1, -1) and the
-         * maximum vertex set at (0, 0, 0).
-         *
-         * The returned value is owned by Graphene and should not be modified or freed.
-         * @since 1.2
-         * @returns a #graphene_box_t
-         */
-        function box_minus_one(): Box
-        /**
-         * A #graphene_box_t with the minimum vertex set at (0, 0, 0) and the
-         * maximum vertex set at (1, 1, 1).
-         *
-         * The returned value is owned by Graphene and should not be modified or freed.
-         * @since 1.2
-         * @returns a #graphene_box_t
-         */
-        function box_one(): Box
-        /**
-         * A #graphene_box_t with the minimum vertex set at (-1, -1, -1) and the
-         * maximum vertex set at (1, 1, 1).
-         *
-         * The returned value is owned by Graphene and should not be modified or freed.
-         * @since 1.2
-         * @returns a #graphene_box_t
-         */
-        function box_one_minus_one(): Box
-        /**
-         * A #graphene_box_t with both the minimum and maximum vertices set at (0, 0, 0).
-         *
-         * The returned value is owned by Graphene and should not be modified or freed.
-         * @since 1.2
-         * @returns a #graphene_box_t
-         */
-        function box_zero(): Box
-        /**
-         * Retrieves a constant point with all three coordinates set to 0.
-         * @since 1.0
-         * @returns a zero point
-         */
-        function point3d_zero(): Point3D
-        /**
-         * Returns a point fixed at (0, 0).
-         * @since 1.0
-         * @returns a fixed point
-         */
-        function point_zero(): Point
-        /**
-         * Allocates a new #graphene_rect_t.
-         *
-         * The contents of the returned rectangle are undefined.
-         * @since 1.0
-         * @returns the newly allocated rectangle
-         */
-        function rect_alloc(): Rect
-        /**
-         * Returns a degenerate rectangle with origin fixed at (0, 0) and
-         * a size of 0, 0.
-         * @since 1.4
-         * @returns a fixed rectangle
-         */
-        function rect_zero(): Rect
-        /**
-         * A constant pointer to a zero #graphene_size_t, useful for
-         * equality checks and interpolations.
-         * @since 1.0
-         * @returns a constant size
-         */
-        function size_zero(): Size
-        /**
-         * Retrieves a constant vector with (1, 1) components.
-         * @since 1.0
-         * @returns the one vector
-         */
-        function vec2_one(): Vec2
-        /**
-         * Retrieves a constant vector with (1, 0) components.
-         * @since 1.0
-         * @returns the X axis vector
-         */
-        function vec2_x_axis(): Vec2
-        /**
-         * Retrieves a constant vector with (0, 1) components.
-         * @since 1.0
-         * @returns the Y axis vector
-         */
-        function vec2_y_axis(): Vec2
-        /**
-         * Retrieves a constant vector with (0, 0) components.
-         * @since 1.0
-         * @returns the zero vector
-         */
-        function vec2_zero(): Vec2
-        /**
-         * Provides a constant pointer to a vector with three components,
-         * all sets to 1.
-         * @since 1.0
-         * @returns a constant vector
-         */
-        function vec3_one(): Vec3
-        /**
-         * Provides a constant pointer to a vector with three components
-         * with values set to (1, 0, 0).
-         * @since 1.0
-         * @returns a constant vector
-         */
-        function vec3_x_axis(): Vec3
-        /**
-         * Provides a constant pointer to a vector with three components
-         * with values set to (0, 1, 0).
-         * @since 1.0
-         * @returns a constant vector
-         */
-        function vec3_y_axis(): Vec3
-        /**
-         * Provides a constant pointer to a vector with three components
-         * with values set to (0, 0, 1).
-         * @since 1.0
-         * @returns a constant vector
-         */
-        function vec3_z_axis(): Vec3
-        /**
-         * Provides a constant pointer to a vector with three components,
-         * all sets to 0.
-         * @since 1.0
-         * @returns a constant vector
-         */
-        function vec3_zero(): Vec3
-        /**
-         * Retrieves a pointer to a #graphene_vec4_t with all its
-         * components set to 1.
-         * @since 1.0
-         * @returns a constant vector
-         */
-        function vec4_one(): Vec4
-        /**
-         * Retrieves a pointer to a #graphene_vec4_t with its
-         * components set to (0, 0, 0, 1).
-         * @since 1.0
-         * @returns a constant vector
-         */
-        function vec4_w_axis(): Vec4
-        /**
-         * Retrieves a pointer to a #graphene_vec4_t with its
-         * components set to (1, 0, 0, 0).
-         * @since 1.0
-         * @returns a constant vector
-         */
-        function vec4_x_axis(): Vec4
-        /**
-         * Retrieves a pointer to a #graphene_vec4_t with its
-         * components set to (0, 1, 0, 0).
-         * @since 1.0
-         * @returns a constant vector
-         */
-        function vec4_y_axis(): Vec4
-        /**
-         * Retrieves a pointer to a #graphene_vec4_t with its
-         * components set to (0, 0, 1, 0).
-         * @since 1.0
-         * @returns a constant vector
-         */
-        function vec4_z_axis(): Vec4
-        /**
-         * Retrieves a pointer to a #graphene_vec4_t with all its
-         * components set to 0.
-         * @since 1.0
-         * @returns a constant vector
-         */
-        function vec4_zero(): Vec4
-        const PI: 3.141593
-        const PI_2: 1.570796
-        const VEC2_LEN: 2
-        const VEC3_LEN: 3
-        const VEC4_LEN: 4
-        
-        namespace EulerOrder {
-            const $gtype: GObject.GType<EulerOrder>
-        }
 
-        /**
-         * Specify the order of the rotations on each axis.
-         *
-         * The %GRAPHENE_EULER_ORDER_DEFAULT value is special, and is used
-         * as an alias for one of the other orders.
-         * @since 1.2
-         */
-        enum EulerOrder {
+        interface $Exports {
+            Vec4: Vec4Struct
+        }
+        
+        interface EulerOrderEnum {
+            readonly $gtype: GObject.GType<EulerOrder>
             /**
              * Rotate in the default order; the
              *   default order is one of the following enumeration values
              */
-            "DEFAULT" = -1,
+            readonly "DEFAULT": -1
             /**
              * Rotate in the X, Y, and Z order. Deprecated in
              *   Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SXYZ
              */
-            "XYZ" = 0,
+            readonly "XYZ": 0
             /**
              * Rotate in the Y, Z, and X order. Deprecated in
              *   Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SYZX
              */
-            "YZX" = 1,
+            readonly "YZX": 1
             /**
              * Rotate in the Z, X, and Y order. Deprecated in
              *   Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SZXY
              */
-            "ZXY" = 2,
+            readonly "ZXY": 2
             /**
              * Rotate in the X, Z, and Y order. Deprecated in
              *   Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SXZY
              */
-            "XZY" = 3,
+            readonly "XZY": 3
             /**
              * Rotate in the Y, X, and Z order. Deprecated in
              *   Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SYXZ
              */
-            "YXZ" = 4,
+            readonly "YXZ": 4
             /**
              * Rotate in the Z, Y, and X order. Deprecated in
              *   Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SZYX
              */
-            "ZYX" = 5,
+            readonly "ZYX": 5
             /**
              * Defines a static rotation along the X, Y, and Z axes (Since: 1.10)
              */
-            "SXYZ" = 6,
+            readonly "SXYZ": 6
             /**
              * Defines a static rotation along the X, Y, and X axes (Since: 1.10)
              */
-            "SXYX" = 7,
+            readonly "SXYX": 7
             /**
              * Defines a static rotation along the X, Z, and Y axes (Since: 1.10)
              */
-            "SXZY" = 8,
+            readonly "SXZY": 8
             /**
              * Defines a static rotation along the X, Z, and X axes (Since: 1.10)
              */
-            "SXZX" = 9,
+            readonly "SXZX": 9
             /**
              * Defines a static rotation along the Y, Z, and X axes (Since: 1.10)
              */
-            "SYZX" = 10,
+            readonly "SYZX": 10
             /**
              * Defines a static rotation along the Y, Z, and Y axes (Since: 1.10)
              */
-            "SYZY" = 11,
+            readonly "SYZY": 11
             /**
              * Defines a static rotation along the Y, X, and Z axes (Since: 1.10)
              */
-            "SYXZ" = 12,
+            readonly "SYXZ": 12
             /**
              * Defines a static rotation along the Y, X, and Y axes (Since: 1.10)
              */
-            "SYXY" = 13,
+            readonly "SYXY": 13
             /**
              * Defines a static rotation along the Z, X, and Y axes (Since: 1.10)
              */
-            "SZXY" = 14,
+            readonly "SZXY": 14
             /**
              * Defines a static rotation along the Z, X, and Z axes (Since: 1.10)
              */
-            "SZXZ" = 15,
+            readonly "SZXZ": 15
             /**
              * Defines a static rotation along the Z, Y, and X axes (Since: 1.10)
              */
-            "SZYX" = 16,
+            readonly "SZYX": 16
             /**
              * Defines a static rotation along the Z, Y, and Z axes (Since: 1.10)
              */
-            "SZYZ" = 17,
+            readonly "SZYZ": 17
             /**
              * Defines a relative rotation along the Z, Y, and X axes (Since: 1.10)
              */
-            "RZYX" = 18,
+            readonly "RZYX": 18
             /**
              * Defines a relative rotation along the X, Y, and X axes (Since: 1.10)
              */
-            "RXYX" = 19,
+            readonly "RXYX": 19
             /**
              * Defines a relative rotation along the Y, Z, and X axes (Since: 1.10)
              */
-            "RYZX" = 20,
+            readonly "RYZX": 20
             /**
              * Defines a relative rotation along the X, Z, and X axes (Since: 1.10)
              */
-            "RXZX" = 21,
+            readonly "RXZX": 21
             /**
              * Defines a relative rotation along the X, Z, and Y axes (Since: 1.10)
              */
-            "RXZY" = 22,
+            readonly "RXZY": 22
             /**
              * Defines a relative rotation along the Y, Z, and Y axes (Since: 1.10)
              */
-            "RYZY" = 23,
+            readonly "RYZY": 23
             /**
              * Defines a relative rotation along the Z, X, and Y axes (Since: 1.10)
              */
-            "RZXY" = 24,
+            readonly "RZXY": 24
             /**
              * Defines a relative rotation along the Y, X, and Y axes (Since: 1.10)
              */
-            "RYXY" = 25,
+            readonly "RYXY": 25
             /**
              * Defines a relative rotation along the Y, X, and Z axes (Since: 1.10)
              */
-            "RYXZ" = 26,
+            readonly "RYXZ": 26
             /**
              * Defines a relative rotation along the Z, X, and Z axes (Since: 1.10)
              */
-            "RZXZ" = 27,
+            readonly "RZXZ": 27
             /**
              * Defines a relative rotation along the X, Y, and Z axes (Since: 1.10)
              */
-            "RXYZ" = 28,
+            readonly "RXYZ": 28
             /**
              * Defines a relative rotation along the Z, Y, and Z axes (Since: 1.10)
              */
-            "RZYZ" = 29,
+            readonly "RZYZ": 29
+        }
+        type EulerOrder = EulerOrderEnum[Exclude<keyof EulerOrderEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specify the order of the rotations on each axis.
+             *
+             * The %GRAPHENE_EULER_ORDER_DEFAULT value is special, and is used
+             * as an alias for one of the other orders.
+             * @since 1.2
+             */
+            EulerOrder: EulerOrderEnum
         }
         
-        namespace RayIntersectionKind {
-            const $gtype: GObject.GType<RayIntersectionKind>
-        }
-
-        /**
-         * The type of intersection.
-         * @since 1.10
-         */
-        enum RayIntersectionKind {
+        interface RayIntersectionKindEnum {
+            readonly $gtype: GObject.GType<RayIntersectionKind>
             /**
              * No intersection
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * The ray is entering the intersected
              *   object
              */
-            "ENTER" = 1,
+            readonly "ENTER": 1
             /**
              * The ray is leaving the intersected
              *   object
              */
-            "LEAVE" = 2,
+            readonly "LEAVE": 2
+        }
+        type RayIntersectionKind = RayIntersectionKindEnum[Exclude<keyof RayIntersectionKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of intersection.
+             * @since 1.10
+             */
+            RayIntersectionKind: RayIntersectionKindEnum
+        }
+
+        interface $Exports {
+            __name__: "Graphene"
+            __version: "1.0"
+            PI: 3.141593
+            PI_2: 1.570796
+            VEC2_LEN: 2
+            VEC3_LEN: 3
+            VEC4_LEN: 4
+            /**
+             * A degenerate #graphene_box_t that can only be expanded.
+             *
+             * The returned value is owned by Graphene and should not be modified or freed.
+             * @since 1.2
+             * @returns a #graphene_box_t
+             */
+            box_empty(): Box
+            /**
+             * A degenerate #graphene_box_t that cannot be expanded.
+             *
+             * The returned value is owned by Graphene and should not be modified or freed.
+             * @since 1.2
+             * @returns a #graphene_box_t
+             */
+            box_infinite(): Box
+            /**
+             * A #graphene_box_t with the minimum vertex set at (-1, -1, -1) and the
+             * maximum vertex set at (0, 0, 0).
+             *
+             * The returned value is owned by Graphene and should not be modified or freed.
+             * @since 1.2
+             * @returns a #graphene_box_t
+             */
+            box_minus_one(): Box
+            /**
+             * A #graphene_box_t with the minimum vertex set at (0, 0, 0) and the
+             * maximum vertex set at (1, 1, 1).
+             *
+             * The returned value is owned by Graphene and should not be modified or freed.
+             * @since 1.2
+             * @returns a #graphene_box_t
+             */
+            box_one(): Box
+            /**
+             * A #graphene_box_t with the minimum vertex set at (-1, -1, -1) and the
+             * maximum vertex set at (1, 1, 1).
+             *
+             * The returned value is owned by Graphene and should not be modified or freed.
+             * @since 1.2
+             * @returns a #graphene_box_t
+             */
+            box_one_minus_one(): Box
+            /**
+             * A #graphene_box_t with both the minimum and maximum vertices set at (0, 0, 0).
+             *
+             * The returned value is owned by Graphene and should not be modified or freed.
+             * @since 1.2
+             * @returns a #graphene_box_t
+             */
+            box_zero(): Box
+            /**
+             * Retrieves a constant point with all three coordinates set to 0.
+             * @since 1.0
+             * @returns a zero point
+             */
+            point3d_zero(): Point3D
+            /**
+             * Returns a point fixed at (0, 0).
+             * @since 1.0
+             * @returns a fixed point
+             */
+            point_zero(): Point
+            /**
+             * Allocates a new #graphene_rect_t.
+             *
+             * The contents of the returned rectangle are undefined.
+             * @since 1.0
+             * @returns the newly allocated rectangle
+             */
+            rect_alloc(): Rect
+            /**
+             * Returns a degenerate rectangle with origin fixed at (0, 0) and
+             * a size of 0, 0.
+             * @since 1.4
+             * @returns a fixed rectangle
+             */
+            rect_zero(): Rect
+            /**
+             * A constant pointer to a zero #graphene_size_t, useful for
+             * equality checks and interpolations.
+             * @since 1.0
+             * @returns a constant size
+             */
+            size_zero(): Size
+            /**
+             * Retrieves a constant vector with (1, 1) components.
+             * @since 1.0
+             * @returns the one vector
+             */
+            vec2_one(): Vec2
+            /**
+             * Retrieves a constant vector with (1, 0) components.
+             * @since 1.0
+             * @returns the X axis vector
+             */
+            vec2_x_axis(): Vec2
+            /**
+             * Retrieves a constant vector with (0, 1) components.
+             * @since 1.0
+             * @returns the Y axis vector
+             */
+            vec2_y_axis(): Vec2
+            /**
+             * Retrieves a constant vector with (0, 0) components.
+             * @since 1.0
+             * @returns the zero vector
+             */
+            vec2_zero(): Vec2
+            /**
+             * Provides a constant pointer to a vector with three components,
+             * all sets to 1.
+             * @since 1.0
+             * @returns a constant vector
+             */
+            vec3_one(): Vec3
+            /**
+             * Provides a constant pointer to a vector with three components
+             * with values set to (1, 0, 0).
+             * @since 1.0
+             * @returns a constant vector
+             */
+            vec3_x_axis(): Vec3
+            /**
+             * Provides a constant pointer to a vector with three components
+             * with values set to (0, 1, 0).
+             * @since 1.0
+             * @returns a constant vector
+             */
+            vec3_y_axis(): Vec3
+            /**
+             * Provides a constant pointer to a vector with three components
+             * with values set to (0, 0, 1).
+             * @since 1.0
+             * @returns a constant vector
+             */
+            vec3_z_axis(): Vec3
+            /**
+             * Provides a constant pointer to a vector with three components,
+             * all sets to 0.
+             * @since 1.0
+             * @returns a constant vector
+             */
+            vec3_zero(): Vec3
+            /**
+             * Retrieves a pointer to a #graphene_vec4_t with all its
+             * components set to 1.
+             * @since 1.0
+             * @returns a constant vector
+             */
+            vec4_one(): Vec4
+            /**
+             * Retrieves a pointer to a #graphene_vec4_t with its
+             * components set to (0, 0, 0, 1).
+             * @since 1.0
+             * @returns a constant vector
+             */
+            vec4_w_axis(): Vec4
+            /**
+             * Retrieves a pointer to a #graphene_vec4_t with its
+             * components set to (1, 0, 0, 0).
+             * @since 1.0
+             * @returns a constant vector
+             */
+            vec4_x_axis(): Vec4
+            /**
+             * Retrieves a pointer to a #graphene_vec4_t with its
+             * components set to (0, 1, 0, 0).
+             * @since 1.0
+             * @returns a constant vector
+             */
+            vec4_y_axis(): Vec4
+            /**
+             * Retrieves a pointer to a #graphene_vec4_t with its
+             * components set to (0, 0, 1, 0).
+             * @since 1.0
+             * @returns a constant vector
+             */
+            vec4_z_axis(): Vec4
+            /**
+             * Retrieves a pointer to a #graphene_vec4_t with all its
+             * components set to 0.
+             * @since 1.0
+             * @returns a constant vector
+             */
+            vec4_zero(): Vec4
         }
     }
 
+    const Graphene: Graphene.$Exports
     export default Graphene
 }

@@ -12,10 +12,7 @@ declare module "gi://DBusGLib?version=1.0" {
 
     
 
-
     namespace DBusGLib {
-        const __name__: "DBusGLib"
-        const __version: "1.0"
         
 
         namespace Proxy {
@@ -32,8 +29,6 @@ declare module "gi://DBusGLib?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Proxy extends GObject.Object {
             readonly $signals: Proxy.SignalSignatures
             readonly $readableProperties: Proxy.ReadableProperties
@@ -44,32 +39,61 @@ declare module "gi://DBusGLib?version=1.0" {
         interface ProxyClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Proxy>
             readonly prototype: Proxy
+
             new (props?: Partial<GObject.ConstructorProps<Proxy>>): Proxy
         }
 
-        const Proxy: ProxyClass
-        /**
-         */
-        abstract class Connection {
-            static readonly $gtype: GObject.GType<Connection>
-
-            
+        interface $Exports {
+            /**
+             */
+            Proxy: ProxyClass
         }
-        /**
-         */
-        abstract class MethodInvocation {
-            static readonly $gtype: GObject.GType<MethodInvocation>
+        
 
-            
+        interface ConnectionStruct {
+            readonly $gtype: GObject.GType<Connection>
+            [Symbol.hasInstance](instance: unknown): instance is Connection
         }
-        /**
-         */
-        abstract class ProxyClass {
-            static readonly $gtype: GObject.GType<ProxyClass>
 
-            
+        interface Connection {
+        }
+
+        interface $Exports {
+            Connection: ConnectionStruct
+        }
+        
+
+        interface MethodInvocationStruct {
+            readonly $gtype: GObject.GType<MethodInvocation>
+            [Symbol.hasInstance](instance: unknown): instance is MethodInvocation
+        }
+
+        interface MethodInvocation {
+        }
+
+        interface $Exports {
+            MethodInvocation: MethodInvocationStruct
+        }
+        
+
+        interface ProxyClassStruct {
+            readonly $gtype: GObject.GType<ProxyClass>
+            [Symbol.hasInstance](instance: unknown): instance is ProxyClass
+        }
+
+        interface ProxyClass {
+        }
+
+        interface $Exports {
+            ProxyClass: ProxyClassStruct
+        }
+
+        interface $Exports {
+            __name__: "DBusGLib"
+            __version: "1.0"
         }
     }
 
+    const DBusGLib: DBusGLib.$Exports
     export default DBusGLib
 }

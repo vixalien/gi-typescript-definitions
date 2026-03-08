@@ -20,10 +20,7 @@ declare module "gi://GstBadAudio?version=1.0" {
 
     
 
-
     namespace GstBadAudio {
-        const __name__: "GstBadAudio"
-        const __version: "1.0"
         
 
         namespace NonstreamAudioDecoder {
@@ -44,12 +41,6 @@ declare module "gi://GstBadAudio?version=1.0" {
             }
         }
 
-        /**
-         * 0 or -1, durations of TOC entries are set to
-         *   the duration of the respective subsong in LOOPING mode and to G_MAXINT64 in
-         *   STEADY mode. If the number of loops is 0, entry durations are set to the
-         *   subsong duration regardless of the output mode.
-         */
         interface NonstreamAudioDecoder extends Gst.Element {
             readonly $signals: NonstreamAudioDecoder.SignalSignatures
             readonly $readableProperties: NonstreamAudioDecoder.ReadableProperties
@@ -226,11 +217,17 @@ declare module "gi://GstBadAudio?version=1.0" {
              */
             vfunc_get_subsong_tags(subsong: number): Gst.TagList
             /**
-             *  , where mode is either STEADY or LOOPING
+             * Always required.
+             *                              Returns a bitmask containing the output modes the subclass supports.
+             *                              The mask is formed by a bitwise OR combination of integers, which can be calculated
+             *                              this way:  1 << GST_NONSTREAM_AUDIO_OUTPUT_MODE_<mode> , where mode is either STEADY or LOOPING
              */
             vfunc_get_supported_output_modes(): number
             /**
-             *  subsong mode and initial
+             * Required if loads_from_sinkpad is set to TRUE (the default value).
+             *                              Loads the media from the given buffer. The entire media is supplied at once,
+             *                              so after this call, loading should be finished. This function
+             *                              can also make use of a suggested initial subsong & subsong mode and initial
              *                              playback position (but isn't required to). In case it chooses a different starting
              *                              position, the function must pass this position to *initial_position.
              *                              The subclass does not have to unref the input buffer; the base class does that
@@ -344,10 +341,145 @@ declare module "gi://GstBadAudio?version=1.0" {
         interface NonstreamAudioDecoderClass extends Omit<Gst.ElementClass, "new"> {
             readonly $gtype: GObject.GType<NonstreamAudioDecoder>
             readonly prototype: NonstreamAudioDecoder
+
             new (props?: Partial<GObject.ConstructorProps<NonstreamAudioDecoder>>): NonstreamAudioDecoder
         }
 
-        const NonstreamAudioDecoder: NonstreamAudioDecoderClass
+        interface $Exports {
+            /**
+             * This base class is for decoders which do not operate on a streaming model.
+             * That is: they load the encoded media at once, as part of an initialization,
+             * and afterwards can decode samples (sometimes referred to as "rendering the
+             * samples").
+             *
+             * This sets it apart from GstAudioDecoder, which is a base class for
+             * streaming audio decoders.
+             *
+             * The base class is conceptually a mix between decoder and parser. This is
+             * unavoidable, since virtually no format that isn't streaming based has a
+             * clear distinction between parsing and decoding. As a result, this class
+             * also handles seeking.
+             *
+             * Non-streaming audio formats tend to have some characteristics unknown to
+             * more "regular" bitstreams. These include subsongs and looping.
+             *
+             * Subsongs are a set of songs-within-a-song. An analogy would be a multitrack
+             * recording, where each track is its own song. The first subsong is typically
+             * the "main" one. Subsongs were popular for video games to enable context-
+             * aware music; for example, subsong `#0` would be the "main" song, `#1` would be
+             * an alternate song playing when a fight started, `#2` would be heard during
+             * conversations etc. The base class is designed to always have at least one
+             * subsong. If the subclass doesn't provide any, the base class creates a
+             * "pseudo" subsong, which is actually the whole song.
+             * Downstream is informed about the subsong using a table of contents (TOC),
+             * but only if there are at least 2 subsongs.
+             *
+             * Looping refers to jumps within the song, typically backwards to the loop
+             * start (although bi-directional looping is possible). The loop is defined
+             * by a chronological start and end; once the playback position reaches the
+             * loop end, it jumps back to the loop start.
+             * Depending on the subclass, looping may not be possible at all, or it
+             * may only be possible to enable/disable it (that is, either no looping, or
+             * an infinite amount of loops), or it may allow for defining a finite number
+             * of times the loop is repeated.
+             * Looping can affect output in two ways. Either, the playback position is
+             * reset to the start of the loop, similar to what happens after a seek event.
+             * Or, it is not reset, so the pipeline sees playback steadily moving forwards,
+             * the playback position monotonically increasing. However, seeking must
+             * always happen within the confines of the defined subsong duration; for
+             * example, if a subsong is 2 minutes long, steady playback is at 5 minutes
+             * (because infinite looping is enabled), then seeking will still place the
+             * position within the 2 minute period.
+             * Loop count 0 means no looping. Loop count -1 means infinite looping.
+             * Nonzero positive values indicate how often a loop shall occur.
+             *
+             * If the initial subsong and loop count are set to values the subclass does
+             * not support, the subclass has a chance to correct these values.
+             * @get_property then reports the corrected versions.
+             *
+             * The base class operates as follows:
+             * * Unloaded mode
+             *   - Initial values are set. If a current subsong has already been
+             *     defined (for example over the command line with gst-launch), then
+             *     the subsong index is copied over to current_subsong .
+             *     Same goes for the num-loops and output-mode properties.
+             *     Media is NOT loaded yet.
+             *   - Once the sinkpad is activated, the process continues. The sinkpad is
+             *     activated in push mode, and the class accumulates the incoming media
+             *     data in an adapter inside the sinkpad's chain function until either an
+             *     EOS event is received from upstream, or the number of bytes reported
+             *     by upstream is reached. Then it loads the media, and starts the decoder
+             *     output task.
+             *   - If upstream cannot respond to the size query (in bytes) of @load_from_buffer
+             *     fails, an error is reported, and the pipeline stops.
+             *   - If there are no errors, @load_from_buffer is called to load the media. The
+             *     subclass must at least call gst_nonstream_audio_decoder_set_output_format()
+             *     there, and is free to make use of the initial subsong, output mode, and
+             *     position. If the actual output mode or position differs from the initial
+             *     value,it must set the initial value to the actual one (for example, if
+             *     the actual starting position is always 0, set *initial_position to 0).
+             *     If loading is unsuccessful, an error is reported, and the pipeline
+             *     stops. Otherwise, the base class calls @get_current_subsong to retrieve
+             *     the actual current subsong, @get_subsong_duration to report the current
+             *     subsong's duration in a duration event and message, and @get_subsong_tags
+             *     to send tags downstream in an event (these functions are optional; if
+             *     set to NULL, the associated operation is skipped). Afterwards, the base
+             *     class switches to loaded mode, and starts the decoder output task.
+             *
+             * * Loaded mode</title>
+             *   - Inside the decoder output task, the base class repeatedly calls @decode,
+             *     which returns a buffer with decoded, ready-to-play samples. If the
+             *     subclass reached the end of playback, @decode returns FALSE, otherwise
+             *     TRUE.
+             *   - Upon reaching a loop end, subclass either ignores that, or loops back
+             *     to the beginning of the loop. In the latter case, if the output mode is set
+             *     to LOOPING, the subclass must call gst_nonstream_audio_decoder_handle_loop()
+             *     *after* the playback position moved to the start of the loop. In
+             *     STEADY mode, the subclass must *not* call this function.
+             *     Since many decoders only provide a callback for when the looping occurs,
+             *     and that looping occurs inside the decoding operation itself, the following
+             *     mechanism for subclass is suggested: set a flag inside such a callback.
+             *     Then, in the next @decode call, before doing the decoding, check this flag.
+             *     If it is set, gst_nonstream_audio_decoder_handle_loop() is called, and the
+             *     flag is cleared.
+             *     (This function call is necessary in LOOPING mode because it updates the
+             *     current segment and makes sure the next buffer that is sent downstream
+             *     has its DISCONT flag set.)
+             *   - When the current subsong is switched, @set_current_subsong is called.
+             *     If it fails, a warning is reported, and nothing else is done. Otherwise,
+             *     it calls @get_subsong_duration to get the new current subsongs's
+             *     duration, @get_subsong_tags to get its tags, reports a new duration
+             *     (i.e. it sends a duration event downstream and generates a duration
+             *     message), updates the current segment, and sends the subsong's tags in
+             *     an event downstream. (If @set_current_subsong has been set to NULL by
+             *     the subclass, attempts to set a current subsong are ignored; likewise,
+             *     if @get_subsong_duration is NULL, no duration is reported, and if
+             *     @get_subsong_tags is NULL, no tags are sent downstream.)
+             *   - When an attempt is made to switch the output mode, it is checked against
+             *     the bitmask returned by @get_supported_output_modes. If the proposed
+             *     new output mode is supported, the current segment is updated
+             *     (it is open-ended in STEADY mode, and covers the (sub)song length in
+             *     LOOPING mode), and the subclass' @set_output_mode function is called
+             *     unless it is set to NULL. Subclasses should reset internal loop counters
+             *     in this function.
+             *
+             * The relationship between (sub)song duration, output mode, and number of loops
+             * is defined this way (this is all done by the base class automatically):
+             *
+             * * Segments have their duration and stop values set to GST_CLOCK_TIME_NONE in
+             *   STEADY mode, and to the duration of the (sub)song in LOOPING mode.
+             *
+             * * The duration that is returned to a DURATION query is always the duration
+             *   of the (sub)song, regardless of number of loops or output mode. The same
+             *   goes for DURATION messages and tags.
+             *
+             * * If the number of loops is >0 or -1, durations of TOC entries are set to
+             *   the duration of the respective subsong in LOOPING mode and to G_MAXINT64 in
+             *   STEADY mode. If the number of loops is 0, entry durations are set to the
+             *   subsong duration regardless of the output mode.
+             */
+            NonstreamAudioDecoder: NonstreamAudioDecoderClass
+        }
         
 
         namespace PlanarAudioAdapter {
@@ -364,11 +496,6 @@ declare module "gi://GstBadAudio?version=1.0" {
             }
         }
 
-        /**
-         * This class is similar to GstAdapter, but it is made to work with
-         * non-interleaved (planar) audio buffers. Before using, an audio format
-         * must be configured with gst_planar_audio_adapter_configure()
-         */
         interface PlanarAudioAdapter extends GObject.Object {
             readonly $signals: PlanarAudioAdapter.SignalSignatures
             readonly $readableProperties: PlanarAudioAdapter.ReadableProperties
@@ -441,7 +568,7 @@ declare module "gi://GstBadAudio?version=1.0" {
              * and distance returned are GST_CLOCK_TIME_NONE and 0 respectively.
              * @returns The previously seen dts., pointer to location for distance, or %NULL
              */
-            prev_dts(): Gst.ClockTime
+            prev_dts(): [Gst.ClockTime, number]
             /**
              * Get the offset that was before the current sample in the adapter. When
              * @distance is given, the amount of samples between the offset and the current
@@ -453,7 +580,7 @@ declare module "gi://GstBadAudio?version=1.0" {
              * offset and distance returned are GST_BUFFER_OFFSET_NONE and 0 respectively.
              * @returns The previous seen offset., pointer to a location for distance, or %NULL
              */
-            prev_offset(): number
+            prev_offset(): [number, number]
             /**
              * Get the pts that was before the current sample in the adapter. When
              * @distance is given, the amount of samples between the pts and the current
@@ -465,7 +592,7 @@ declare module "gi://GstBadAudio?version=1.0" {
              * and distance returned are GST_CLOCK_TIME_NONE and 0 respectively.
              * @returns The previously seen pts., pointer to location for distance, or %NULL
              */
-            prev_pts(): Gst.ClockTime
+            prev_pts(): [Gst.ClockTime, number]
             /**
              * Get the PTS that was on the last buffer with the GST_BUFFER_FLAG_DISCONT
              * flag, or GST_CLOCK_TIME_NONE.
@@ -498,6 +625,7 @@ declare module "gi://GstBadAudio?version=1.0" {
         interface PlanarAudioAdapterClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PlanarAudioAdapter>
             readonly prototype: PlanarAudioAdapter
+
             new (props?: Partial<GObject.ConstructorProps<PlanarAudioAdapter>>): PlanarAudioAdapter
             /**
              * Creates a new #GstPlanarAudioAdapter. Free with g_object_unref().
@@ -506,54 +634,67 @@ declare module "gi://GstBadAudio?version=1.0" {
             "new"(): PlanarAudioAdapter
         }
 
-        const PlanarAudioAdapter: PlanarAudioAdapterClass
-        none
-        none
-        const NONSTREAM_AUDIO_DECODER_SINK_NAME: "sink"
-        const NONSTREAM_AUDIO_DECODER_SRC_NAME: "src"
-        
-        namespace NonstreamAudioOutputMode {
-            const $gtype: GObject.GType<NonstreamAudioOutputMode>
+        interface $Exports {
+            /**
+             * This class is similar to GstAdapter, but it is made to work with
+             * non-interleaved (planar) audio buffers. Before using, an audio format
+             * must be configured with gst_planar_audio_adapter_configure()
+             */
+            PlanarAudioAdapter: PlanarAudioAdapterClass
         }
-
-        /**
-         * The output mode defines how the output behaves with regards to looping. Either the playback position is
-         * moved back to the beginning of the loop, acting like a backwards seek, or it increases steadily, as if
-         * loop were "unrolled".
-         */
-        enum NonstreamAudioOutputMode {
+        
+        interface NonstreamAudioOutputModeEnum {
+            readonly $gtype: GObject.GType<NonstreamAudioOutputMode>
             /**
              * Playback position is moved back to the beginning of the loop
              */
-            "LOOPING" = 0,
+            readonly "LOOPING": 0
             /**
              * Playback position increases steadily, even when looping
              */
-            "STEADY" = 1,
+            readonly "STEADY": 1
+        }
+        type NonstreamAudioOutputMode = NonstreamAudioOutputModeEnum[Exclude<keyof NonstreamAudioOutputModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The output mode defines how the output behaves with regards to looping. Either the playback position is
+             * moved back to the beginning of the loop, acting like a backwards seek, or it increases steadily, as if
+             * loop were "unrolled".
+             */
+            NonstreamAudioOutputMode: NonstreamAudioOutputModeEnum
         }
         
-        namespace NonstreamAudioSubsongMode {
-            const $gtype: GObject.GType<NonstreamAudioSubsongMode>
-        }
-
-        /**
-         * The subsong mode defines how the decoder shall handle subsongs.
-         */
-        enum NonstreamAudioSubsongMode {
+        interface NonstreamAudioSubsongModeEnum {
+            readonly $gtype: GObject.GType<NonstreamAudioSubsongMode>
             /**
              * Only the current subsong is played
              */
-            "SINGLE" = 0,
+            readonly "SINGLE": 0
             /**
              * All subsongs are played (current subsong index is ignored)
              */
-            "ALL" = 1,
+            readonly "ALL": 1
             /**
              * Use decoder specific default behavior
              */
-            "DECODER_DEFAULT" = 2,
+            readonly "DECODER_DEFAULT": 2
+        }
+        type NonstreamAudioSubsongMode = NonstreamAudioSubsongModeEnum[Exclude<keyof NonstreamAudioSubsongModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The subsong mode defines how the decoder shall handle subsongs.
+             */
+            NonstreamAudioSubsongMode: NonstreamAudioSubsongModeEnum
+        }
+
+        interface $Exports {
+            __name__: "GstBadAudio"
+            __version: "1.0"
+            NONSTREAM_AUDIO_DECODER_SINK_NAME: "sink"
+            NONSTREAM_AUDIO_DECODER_SRC_NAME: "src"
         }
     }
 
+    const GstBadAudio: GstBadAudio.$Exports
     export default GstBadAudio
 }

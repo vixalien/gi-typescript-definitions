@@ -18,102 +18,7 @@ declare module "gi://GstAudio?version=1.0" {
 
     
 
-
     namespace GstAudio {
-        const __name__: "GstAudio"
-        const __version: "1.0"
-        
-
-        namespace StreamVolume {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-                "mute": boolean
-                "volume": number
-            }
-
-            interface WritableProperties  {
-                "mute": boolean
-                "volume": number
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         * This interface is implemented by elements that provide a stream volume. Examples for
-         * such elements are #volume and #playbin.
-         *
-         * Applications can use this interface to get or set the current stream volume. For this
-         * the "volume" #GObject property can be used or the helper functions gst_stream_volume_set_volume()
-         * and gst_stream_volume_get_volume(). This volume is always a linear factor, i.e. 0.0 is muted
-         * 1.0 is 100%. For showing the volume in a GUI it might make sense to convert it to
-         * a different format by using gst_stream_volume_convert_volume(). Volume sliders should usually
-         * use a cubic volume.
-         *
-         * Separate from the volume the stream can also be muted by the "mute" #GObject property or
-         * gst_stream_volume_set_mute() and gst_stream_volume_get_mute().
-         *
-         * Elements that provide some kind of stream volume should implement the "volume" and
-         * "mute" #GObject properties and handle setting and getting of them properly.
-         * The volume property is defined to be a linear volume factor.
-         */
-        interface StreamVolume extends StreamVolume.Interface {
-            readonly $signals: StreamVolume.SignalSignatures
-            readonly $readableProperties: StreamVolume.ReadableProperties
-            readonly $writableProperties: StreamVolume.WritableProperties
-            readonly $constructOnlyProperties: StreamVolume.ConstructOnlyProperties
-            /**
-             * @default FALSE
-             */
-            get mute(): boolean
-            set mute(value: boolean)
-            /**
-             * @default 1.000000
-             */
-            get volume(): number
-            set volume(value: number)
-            /**
-             * @returns Returns %TRUE if the stream is muted
-             */
-            get_mute(): boolean
-            /**
-             * @param format #GstStreamVolumeFormat which should be returned
-             * @returns The current stream volume as linear factor
-             */
-            get_volume(format: StreamVolumeFormat): number
-            /**
-             * @param mute Mute state that should be set
-             */
-            set_mute(mute: boolean): void
-            /**
-             * @param format #GstStreamVolumeFormat of @val
-             * @param val Linear volume factor that should be set
-             */
-            set_volume(format: StreamVolumeFormat, val: number): void
-        }
-
-
-        interface StreamVolumeInterface {
-            readonly $gtype: GObject.GType<StreamVolume>
-            readonly prototype: StreamVolume
-            /**
-             * @param from #GstStreamVolumeFormat to convert from
-             * @param to #GstStreamVolumeFormat to convert to
-             * @param val Volume in @from format that should be converted
-             * @returns the converted volume
-             */
-            convert_volume(from: StreamVolumeFormat, to: StreamVolumeFormat, val: number): number
-
-            [Symbol.hasInstance](instance: unknown): instance is StreamVolume
-        }
-
-        const StreamVolume: StreamVolumeInterface
         
 
         namespace AudioAggregator {
@@ -132,63 +37,16 @@ declare module "gi://GstAudio?version=1.0" {
             interface WritableProperties extends GstBase.Aggregator.WritableProperties {
                 "alignment-threshold": number
                 "discont-wait": number
-                "force-live": boolean
                 "ignore-inactive-pads": boolean
                 "output-buffer-duration": number
                 "output-buffer-duration-fraction": Gst.Fraction
             }
 
             interface ConstructOnlyProperties extends GstBase.Aggregator.ConstructOnlyProperties {
+                "force-live": boolean
             }
         }
 
-        /**
-         * Subclasses must use (a subclass of) #GstAudioAggregatorPad for both
-         * their source and sink pads,
-         * gst_element_class_add_static_pad_template_with_gtype() is a convenient
-         * helper.
-         *
-         * #GstAudioAggregator can perform conversion on the data arriving
-         * on its sink pads, based on the format expected downstream: in order
-         * to enable that behaviour, the GType of the sink pads must either be
-         * a (subclass of) #GstAudioAggregatorConvertPad to use the default
-         * #GstAudioConverter implementation, or a subclass of #GstAudioAggregatorPad
-         * implementing #GstAudioAggregatorPadClass.convert_buffer.
-         *
-         * To allow for the output caps to change, the mechanism is the same as
-         * above, with the GType of the source pad.
-         *
-         * See #GstAudioMixer for an example.
-         *
-         * When conversion is enabled, #GstAudioAggregator will accept
-         * any type of raw audio caps and perform conversion
-         * on the data arriving on its sink pads, with whatever downstream
-         * expects as the target format.
-         *
-         * In case downstream caps are not fully fixated, it will use
-         * the first configured sink pad to finish fixating its source pad
-         * caps.
-         *
-         * A notable exception for now is the sample rate, sink pads must
-         * have the same sample rate as either the downstream requirement,
-         * or the first configured pad, or a combination of both (when
-         * downstream specifies a range or a set of acceptable rates).
-         *
-         * The #GstAggregator::samples-selected signal is provided with some
-         * additional information about the output buffer:
-         * - "offset"  G_TYPE_UINT64   Offset in samples since segment start
-         *   for the position that is next to be filled in the output buffer.
-         * - "frames"  G_TYPE_UINT   Number of frames per output buffer.
-         *
-         * In addition the gst_aggregator_peek_next_sample() function returns
-         * additional information in the info #GstStructure of the returned sample:
-         * - "output-offset"  G_TYPE_UINT64   Sample offset in output segment relative to
-         *   the output segment's start where the current position of this input
-         *   buffer would be placed
-         * - "position"  G_TYPE_UINT   current position in the input buffer in samples
-         * - "size"  G_TYPE_UINT   size of the input buffer in samples
-         * @since 1.14
-         */
         interface AudioAggregator extends GstBase.Aggregator {
             readonly $signals: AudioAggregator.SignalSignatures
             readonly $readableProperties: AudioAggregator.ReadableProperties
@@ -268,10 +126,60 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioAggregatorClass extends Omit<GstBase.AggregatorClass, "new"> {
             readonly $gtype: GObject.GType<AudioAggregator>
             readonly prototype: AudioAggregator
+
             new (props?: Partial<GObject.ConstructorProps<AudioAggregator>>): AudioAggregator
         }
 
-        const AudioAggregator: AudioAggregatorClass
+        interface $Exports {
+            /**
+             * Subclasses must use (a subclass of) #GstAudioAggregatorPad for both
+             * their source and sink pads,
+             * gst_element_class_add_static_pad_template_with_gtype() is a convenient
+             * helper.
+             *
+             * #GstAudioAggregator can perform conversion on the data arriving
+             * on its sink pads, based on the format expected downstream: in order
+             * to enable that behaviour, the GType of the sink pads must either be
+             * a (subclass of) #GstAudioAggregatorConvertPad to use the default
+             * #GstAudioConverter implementation, or a subclass of #GstAudioAggregatorPad
+             * implementing #GstAudioAggregatorPadClass.convert_buffer.
+             *
+             * To allow for the output caps to change, the mechanism is the same as
+             * above, with the GType of the source pad.
+             *
+             * See #GstAudioMixer for an example.
+             *
+             * When conversion is enabled, #GstAudioAggregator will accept
+             * any type of raw audio caps and perform conversion
+             * on the data arriving on its sink pads, with whatever downstream
+             * expects as the target format.
+             *
+             * In case downstream caps are not fully fixated, it will use
+             * the first configured sink pad to finish fixating its source pad
+             * caps.
+             *
+             * A notable exception for now is the sample rate, sink pads must
+             * have the same sample rate as either the downstream requirement,
+             * or the first configured pad, or a combination of both (when
+             * downstream specifies a range or a set of acceptable rates).
+             *
+             * The #GstAggregator::samples-selected signal is provided with some
+             * additional information about the output buffer:
+             * - "offset"  G_TYPE_UINT64   Offset in samples since segment start
+             *   for the position that is next to be filled in the output buffer.
+             * - "frames"  G_TYPE_UINT   Number of frames per output buffer.
+             *
+             * In addition the gst_aggregator_peek_next_sample() function returns
+             * additional information in the info #GstStructure of the returned sample:
+             * - "output-offset"  G_TYPE_UINT64   Sample offset in output segment relative to
+             *   the output segment's start where the current position of this input
+             *   buffer would be placed
+             * - "position"  G_TYPE_UINT   current position in the input buffer in samples
+             * - "size"  G_TYPE_UINT   size of the input buffer in samples
+             * @since 1.14
+             */
+            AudioAggregator: AudioAggregatorClass
+        }
         
 
         namespace AudioAggregatorConvertPad {
@@ -290,12 +198,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * An implementation of GstPad that can be used with #GstAudioAggregator.
-         *
-         * See #GstAudioAggregator for more details.
-         * @since 1.14
-         */
         interface AudioAggregatorConvertPad extends AudioAggregatorPad {
             readonly $signals: AudioAggregatorConvertPad.SignalSignatures
             readonly $readableProperties: AudioAggregatorConvertPad.ReadableProperties
@@ -310,10 +212,19 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioAggregatorConvertPadClass extends Omit<AudioAggregatorPadClass, "new"> {
             readonly $gtype: GObject.GType<AudioAggregatorConvertPad>
             readonly prototype: AudioAggregatorConvertPad
+
             new (props?: Partial<GObject.ConstructorProps<AudioAggregatorConvertPad>>): AudioAggregatorConvertPad
         }
 
-        const AudioAggregatorConvertPad: AudioAggregatorConvertPadClass
+        interface $Exports {
+            /**
+             * An implementation of GstPad that can be used with #GstAudioAggregator.
+             *
+             * See #GstAudioAggregator for more details.
+             * @since 1.14
+             */
+            AudioAggregatorConvertPad: AudioAggregatorConvertPadClass
+        }
         
 
         namespace AudioAggregatorPad {
@@ -332,10 +243,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * The default implementation of GstPad used with #GstAudioAggregator
-         * @since 1.14
-         */
         interface AudioAggregatorPad extends GstBase.AggregatorPad {
             readonly $signals: AudioAggregatorPad.SignalSignatures
             readonly $readableProperties: AudioAggregatorPad.ReadableProperties
@@ -365,10 +272,17 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioAggregatorPadClass extends Omit<GstBase.AggregatorPadClass, "new"> {
             readonly $gtype: GObject.GType<AudioAggregatorPad>
             readonly prototype: AudioAggregatorPad
+
             new (props?: Partial<GObject.ConstructorProps<AudioAggregatorPad>>): AudioAggregatorPad
         }
 
-        const AudioAggregatorPad: AudioAggregatorPadClass
+        interface $Exports {
+            /**
+             * The default implementation of GstPad used with #GstAudioAggregator
+             * @since 1.14
+             */
+            AudioAggregatorPad: AudioAggregatorPadClass
+        }
         
 
         namespace AudioBaseSink {
@@ -401,11 +315,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * This is the base class for audio sinks. Subclasses need to implement the
-         * ::create_ringbuffer vmethod. This base class will then take care of
-         * writing samples to the ringbuffer, synchronisation, clipping and flushing.
-         */
         interface AudioBaseSink extends GstBase.BaseSink {
             readonly $signals: AudioBaseSink.SignalSignatures
             readonly $readableProperties: AudioBaseSink.ReadableProperties
@@ -558,10 +467,18 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioBaseSinkClass extends Omit<GstBase.BaseSinkClass, "new"> {
             readonly $gtype: GObject.GType<AudioBaseSink>
             readonly prototype: AudioBaseSink
+
             new (props?: Partial<GObject.ConstructorProps<AudioBaseSink>>): AudioBaseSink
         }
 
-        const AudioBaseSink: AudioBaseSinkClass
+        interface $Exports {
+            /**
+             * This is the base class for audio sinks. Subclasses need to implement the
+             * ::create_ringbuffer vmethod. This base class will then take care of
+             * writing samples to the ringbuffer, synchronisation, clipping and flushing.
+             */
+            AudioBaseSink: AudioBaseSinkClass
+        }
         
 
         namespace AudioBaseSrc {
@@ -590,11 +507,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * This is the base class for audio sources. Subclasses need to implement the
-         * ::create_ringbuffer vmethod. This base class will then take care of
-         * reading samples from the ringbuffer, synchronisation and flushing.
-         */
         interface AudioBaseSrc extends GstBase.PushSrc {
             readonly $signals: AudioBaseSrc.SignalSignatures
             readonly $readableProperties: AudioBaseSrc.ReadableProperties
@@ -674,10 +586,18 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioBaseSrcClass extends Omit<GstBase.PushSrcClass, "new"> {
             readonly $gtype: GObject.GType<AudioBaseSrc>
             readonly prototype: AudioBaseSrc
+
             new (props?: Partial<GObject.ConstructorProps<AudioBaseSrc>>): AudioBaseSrc
         }
 
-        const AudioBaseSrc: AudioBaseSrcClass
+        interface $Exports {
+            /**
+             * This is the base class for audio sources. Subclasses need to implement the
+             * ::create_ringbuffer vmethod. This base class will then take care of
+             * reading samples from the ringbuffer, synchronisation and flushing.
+             */
+            AudioBaseSrc: AudioBaseSrcClass
+        }
         
 
         namespace AudioCdSrc {
@@ -700,45 +620,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * s of its own, namely
-         * the "track" format and the "sector" format. Applications will usually
-         * only find the "track" format interesting. You can retrieve that #GstFormat
-         * for use in seek events or queries with gst_format_get_by_nick("track").
-         *
-         * In order to query the number of tracks, for example, an application would
-         * set the CDDA source element to READY or PAUSED state and then query the
-         * the number of tracks via gst_element_query_duration() using the track
-         * format acquired above. Applications can query the currently playing track
-         * in the same way.
-         *
-         * Alternatively, applications may retrieve the currently playing track and
-         * the total number of tracks from the taglist that will posted on the bus
-         * whenever the CD is opened or the currently playing track changes. The
-         * taglist will contain GST_TAG_TRACK_NUMBER and GST_TAG_TRACK_COUNT tags.
-         *
-         * Applications playing back CD audio using playbin and cdda://n URIs should
-         * issue a seek command in track format to change between tracks, rather than
-         * setting a new cdda://n+1 URI on playbin (as setting a new URI on playbin
-         * involves closing and re-opening the CD device, which is much much slower).
-         *
-         * ## Tags and meta-information
-         *
-         * CDDA sources will automatically emit a number of tags, details about which
-         * can be found in the libgsttag documentation. Those tags are:
-         * #GST_TAG_CDDA_CDDB_DISCID, #GST_TAG_CDDA_CDDB_DISCID_FULL,
-         * #GST_TAG_CDDA_MUSICBRAINZ_DISCID, #GST_TAG_CDDA_MUSICBRAINZ_DISCID_FULL,
-         * among others.
-         *
-         * ## Tracks and Table of Contents (TOC)
-         *
-         * Applications will be informed of the available tracks via a TOC message
-         * on the pipeline's #GstBus. The #GstToc will contain a #GstTocEntry for
-         * each track, with information about each track. The duration for each
-         * track can be retrieved via the #GST_TAG_DURATION tag from each entry's
-         * tag list, or calculated via gst_toc_entry_get_start_stop_times().
-         * The track entries in the TOC will be sorted by track number.
-         */
         interface AudioCdSrc extends GstBase.PushSrc, Gst.URIHandler {
             readonly $signals: AudioCdSrc.SignalSignatures
             readonly $readableProperties: AudioCdSrc.ReadableProperties
@@ -787,10 +668,58 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioCdSrcClass extends Omit<GstBase.PushSrcClass, "new"> {
             readonly $gtype: GObject.GType<AudioCdSrc>
             readonly prototype: AudioCdSrc
+
             new (props?: Partial<GObject.ConstructorProps<AudioCdSrc>>): AudioCdSrc
         }
 
-        const AudioCdSrc: AudioCdSrcClass
+        interface $Exports {
+            /**
+             * Provides a base class for CD digital audio (CDDA) sources, which handles
+             * things like seeking, querying, discid calculation, tags, and buffer
+             * timestamping.
+             *
+             * ## Using GstAudioCdSrc-based elements in applications
+             *
+             * GstAudioCdSrc registers two #GstFormat<!-- -->s of its own, namely
+             * the "track" format and the "sector" format. Applications will usually
+             * only find the "track" format interesting. You can retrieve that #GstFormat
+             * for use in seek events or queries with gst_format_get_by_nick("track").
+             *
+             * In order to query the number of tracks, for example, an application would
+             * set the CDDA source element to READY or PAUSED state and then query the
+             * the number of tracks via gst_element_query_duration() using the track
+             * format acquired above. Applications can query the currently playing track
+             * in the same way.
+             *
+             * Alternatively, applications may retrieve the currently playing track and
+             * the total number of tracks from the taglist that will posted on the bus
+             * whenever the CD is opened or the currently playing track changes. The
+             * taglist will contain GST_TAG_TRACK_NUMBER and GST_TAG_TRACK_COUNT tags.
+             *
+             * Applications playing back CD audio using playbin and cdda://n URIs should
+             * issue a seek command in track format to change between tracks, rather than
+             * setting a new cdda://n+1 URI on playbin (as setting a new URI on playbin
+             * involves closing and re-opening the CD device, which is much much slower).
+             *
+             * ## Tags and meta-information
+             *
+             * CDDA sources will automatically emit a number of tags, details about which
+             * can be found in the libgsttag documentation. Those tags are:
+             * #GST_TAG_CDDA_CDDB_DISCID, #GST_TAG_CDDA_CDDB_DISCID_FULL,
+             * #GST_TAG_CDDA_MUSICBRAINZ_DISCID, #GST_TAG_CDDA_MUSICBRAINZ_DISCID_FULL,
+             * among others.
+             *
+             * ## Tracks and Table of Contents (TOC)
+             *
+             * Applications will be informed of the available tracks via a TOC message
+             * on the pipeline's #GstBus. The #GstToc will contain a #GstTocEntry for
+             * each track, with information about each track. The duration for each
+             * track can be retrieved via the #GST_TAG_DURATION tag from each entry's
+             * tag list, or calculated via gst_toc_entry_get_start_stop_times().
+             * The track entries in the TOC will be sorted by track number.
+             */
+            AudioCdSrc: AudioCdSrcClass
+        }
         
 
         namespace AudioClock {
@@ -807,12 +736,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * #GstAudioClock makes it easy for elements to implement a #GstClock, they
-         * simply need to provide a function that returns the current clock time.
-         *
-         * This object is internally used to implement the clock in #GstAudioBaseSink.
-         */
         interface AudioClock extends Gst.SystemClock {
             readonly $signals: AudioClock.SignalSignatures
             readonly $readableProperties: AudioClock.ReadableProperties
@@ -852,6 +775,7 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioClockClass extends Omit<Gst.SystemClockClass, "new"> {
             readonly $gtype: GObject.GType<AudioClock>
             readonly prototype: AudioClock
+
             new (props?: Partial<GObject.ConstructorProps<AudioClock>>): AudioClock
             /**
              * Create a new #GstAudioClock instance. Whenever the clock time should be
@@ -861,10 +785,18 @@ declare module "gi://GstAudio?version=1.0" {
              * @param func a function
              * @returns a new #GstAudioClock casted to a #GstClock.
              */
-            "new"(name: string, func: AudioClockGetTimeFunc): Gst.Clock
+            "new"(name: string, func: AudioClockGetTimeFunc): AudioClock
         }
 
-        const AudioClock: AudioClockClass
+        interface $Exports {
+            /**
+             * #GstAudioClock makes it easy for elements to implement a #GstClock, they
+             * simply need to provide a function that returns the current clock time.
+             *
+             * This object is internally used to implement the clock in #GstAudioBaseSink.
+             */
+            AudioClock: AudioClockClass
+        }
         
 
         namespace AudioDecoder {
@@ -889,97 +821,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * This base class is for audio decoders turning encoded data into
-         * raw audio samples.
-         *
-         * GstAudioDecoder and subclass should cooperate as follows.
-         *
-         * ## Configuration
-         *
-         *   * Initially, GstAudioDecoder calls @start when the decoder element
-         *     is activated, which allows subclass to perform any global setup.
-         *     Base class (context) parameters can already be set according to subclass
-         *     capabilities (or possibly upon receive more information in subsequent
-         *     @set_format).
-         *   * GstAudioDecoder calls @set_format to inform subclass of the format
-         *     of input audio data that it is about to receive.
-         *     While unlikely, it might be called more than once, if changing input
-         *     parameters require reconfiguration.
-         *   * GstAudioDecoder calls @stop at end of all processing.
-         *
-         * As of configuration stage, and throughout processing, GstAudioDecoder
-         * provides various (context) parameters, e.g. describing the format of
-         * output audio data (valid when output caps have been set) or current parsing state.
-         * Conversely, subclass can and should configure context to inform
-         * base class of its expectation w.r.t. buffer handling.
-         *
-         * ## Data processing
-         *     * Base class gathers input data, and optionally allows subclass
-         *       to parse this into subsequently manageable (as defined by subclass)
-         *       chunks.  Such chunks are subsequently referred to as 'frames',
-         *       though they may or may not correspond to 1 (or more) audio format frame.
-         *     * Input frame is provided to subclass' @handle_frame.
-         *     * If codec processing results in decoded data, subclass should call
-         *       @gst_audio_decoder_finish_frame to have decoded data pushed
-         *       downstream.
-         *     * Just prior to actually pushing a buffer downstream,
-         *       it is passed to @pre_push.  Subclass should either use this callback
-         *       to arrange for additional downstream pushing or otherwise ensure such
-         *       custom pushing occurs after at least a method call has finished since
-         *       setting src pad caps.
-         *     * During the parsing process GstAudioDecoderClass will handle both
-         *       srcpad and sinkpad events. Sink events will be passed to subclass
-         *       if @event callback has been provided.
-         *
-         * ## Shutdown phase
-         *
-         *   * GstAudioDecoder class calls @stop to inform the subclass that data
-         *     parsing will be stopped.
-         *
-         * Subclass is responsible for providing pad template caps for
-         * source and sink pads. The pads need to be named "sink" and "src". It also
-         * needs to set the fixed caps on srcpad, when the format is ensured.  This
-         * is typically when base class calls subclass' @set_format function, though
-         * it might be delayed until calling @gst_audio_decoder_finish_frame.
-         *
-         * In summary, above process should have subclass concentrating on
-         * codec data processing while leaving other matters to base class,
-         * such as most notably timestamp handling.  While it may exert more control
-         * in this area (see e.g. @pre_push), it is very much not recommended.
-         *
-         * In particular, base class will try to arrange for perfect output timestamps
-         * as much as possible while tracking upstream timestamps.
-         * To this end, if deviation between the next ideal expected perfect timestamp
-         * and upstream exceeds #GstAudioDecoder:tolerance, then resync to upstream
-         * occurs (which would happen always if the tolerance mechanism is disabled).
-         *
-         * In non-live pipelines, baseclass can also (configurably) arrange for
-         * output buffer aggregation which may help to redue large(r) numbers of
-         * small(er) buffers being pushed and processed downstream. Note that this
-         * feature is only available if the buffer layout is interleaved. For planar
-         * buffers, the decoder implementation is fully responsible for the output
-         * buffer size.
-         *
-         * On the other hand, it should be noted that baseclass only provides limited
-         * seeking support (upon explicit subclass request), as full-fledged support
-         * should rather be left to upstream demuxer, parser or alike.  This simple
-         * approach caters for seeking and duration reporting using estimated input
-         * bitrates.
-         *
-         * Things that subclass need to take care of:
-         *
-         *   * Provide pad templates
-         *   * Set source pad caps when appropriate
-         *   * Set user-configurable properties to sane defaults for format and
-         *      implementing codec at hand, and convey some subclass capabilities and
-         *      expectations in context.
-         *
-         *   * Accept data in @handle_frame and provide encoded results to
-         *      @gst_audio_decoder_finish_frame.  If it is prepared to perform
-         *      PLC, it should also accept NULL data in @handle_frame and provide for
-         *      data for indicated duration.
-         */
         interface AudioDecoder extends Gst.Element {
             readonly $signals: AudioDecoder.SignalSignatures
             readonly $readableProperties: AudioDecoder.ReadableProperties
@@ -1057,7 +898,7 @@ declare module "gi://GstAudio?version=1.0" {
              * Unref the @allocator after use it.
              * @returns , the #GstAllocator used, the #GstAllocationParams of `allocator`
              */
-            get_allocator(): void
+            get_allocator(): [Gst.Allocator | null, Gst.AllocationParams]
             /**
              * @returns a #GstAudioInfo describing the input audio format
              */
@@ -1080,7 +921,7 @@ declare module "gi://GstAudio?version=1.0" {
              * latency.
              * @returns , a pointer to storage to hold minimum latency, a pointer to storage to hold maximum latency
              */
-            get_latency(): void
+            get_latency(): [Gst.ClockTime, Gst.ClockTime]
             /**
              * @returns currently configured decoder tolerated error count.
              */
@@ -1099,7 +940,7 @@ declare module "gi://GstAudio?version=1.0" {
              * Return current parsing (sync and eos) state.
              * @returns , a pointer to a variable to hold the current sync state, a pointer to a variable to hold the current eos state
              */
-            get_parse_state(): void
+            get_parse_state(): [boolean, boolean]
             /**
              * Queries decoder packet loss concealment handling.
              * @returns TRUE if packet loss concealment is enabled.  MT safe.
@@ -1390,10 +1231,104 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioDecoderClass extends Omit<Gst.ElementClass, "new"> {
             readonly $gtype: GObject.GType<AudioDecoder>
             readonly prototype: AudioDecoder
+
             new (props?: Partial<GObject.ConstructorProps<AudioDecoder>>): AudioDecoder
         }
 
-        const AudioDecoder: AudioDecoderClass
+        interface $Exports {
+            /**
+             * This base class is for audio decoders turning encoded data into
+             * raw audio samples.
+             *
+             * GstAudioDecoder and subclass should cooperate as follows.
+             *
+             * ## Configuration
+             *
+             *   * Initially, GstAudioDecoder calls @start when the decoder element
+             *     is activated, which allows subclass to perform any global setup.
+             *     Base class (context) parameters can already be set according to subclass
+             *     capabilities (or possibly upon receive more information in subsequent
+             *     @set_format).
+             *   * GstAudioDecoder calls @set_format to inform subclass of the format
+             *     of input audio data that it is about to receive.
+             *     While unlikely, it might be called more than once, if changing input
+             *     parameters require reconfiguration.
+             *   * GstAudioDecoder calls @stop at end of all processing.
+             *
+             * As of configuration stage, and throughout processing, GstAudioDecoder
+             * provides various (context) parameters, e.g. describing the format of
+             * output audio data (valid when output caps have been set) or current parsing state.
+             * Conversely, subclass can and should configure context to inform
+             * base class of its expectation w.r.t. buffer handling.
+             *
+             * ## Data processing
+             *     * Base class gathers input data, and optionally allows subclass
+             *       to parse this into subsequently manageable (as defined by subclass)
+             *       chunks.  Such chunks are subsequently referred to as 'frames',
+             *       though they may or may not correspond to 1 (or more) audio format frame.
+             *     * Input frame is provided to subclass' @handle_frame.
+             *     * If codec processing results in decoded data, subclass should call
+             *       @gst_audio_decoder_finish_frame to have decoded data pushed
+             *       downstream.
+             *     * Just prior to actually pushing a buffer downstream,
+             *       it is passed to @pre_push.  Subclass should either use this callback
+             *       to arrange for additional downstream pushing or otherwise ensure such
+             *       custom pushing occurs after at least a method call has finished since
+             *       setting src pad caps.
+             *     * During the parsing process GstAudioDecoderClass will handle both
+             *       srcpad and sinkpad events. Sink events will be passed to subclass
+             *       if @event callback has been provided.
+             *
+             * ## Shutdown phase
+             *
+             *   * GstAudioDecoder class calls @stop to inform the subclass that data
+             *     parsing will be stopped.
+             *
+             * Subclass is responsible for providing pad template caps for
+             * source and sink pads. The pads need to be named "sink" and "src". It also
+             * needs to set the fixed caps on srcpad, when the format is ensured.  This
+             * is typically when base class calls subclass' @set_format function, though
+             * it might be delayed until calling @gst_audio_decoder_finish_frame.
+             *
+             * In summary, above process should have subclass concentrating on
+             * codec data processing while leaving other matters to base class,
+             * such as most notably timestamp handling.  While it may exert more control
+             * in this area (see e.g. @pre_push), it is very much not recommended.
+             *
+             * In particular, base class will try to arrange for perfect output timestamps
+             * as much as possible while tracking upstream timestamps.
+             * To this end, if deviation between the next ideal expected perfect timestamp
+             * and upstream exceeds #GstAudioDecoder:tolerance, then resync to upstream
+             * occurs (which would happen always if the tolerance mechanism is disabled).
+             *
+             * In non-live pipelines, baseclass can also (configurably) arrange for
+             * output buffer aggregation which may help to redue large(r) numbers of
+             * small(er) buffers being pushed and processed downstream. Note that this
+             * feature is only available if the buffer layout is interleaved. For planar
+             * buffers, the decoder implementation is fully responsible for the output
+             * buffer size.
+             *
+             * On the other hand, it should be noted that baseclass only provides limited
+             * seeking support (upon explicit subclass request), as full-fledged support
+             * should rather be left to upstream demuxer, parser or alike.  This simple
+             * approach caters for seeking and duration reporting using estimated input
+             * bitrates.
+             *
+             * Things that subclass need to take care of:
+             *
+             *   * Provide pad templates
+             *   * Set source pad caps when appropriate
+             *   * Set user-configurable properties to sane defaults for format and
+             *      implementing codec at hand, and convey some subclass capabilities and
+             *      expectations in context.
+             *
+             *   * Accept data in @handle_frame and provide encoded results to
+             *      @gst_audio_decoder_finish_frame.  If it is prepared to perform
+             *      PLC, it should also accept NULL data in @handle_frame and provide for
+             *      data for indicated duration.
+             */
+            AudioDecoder: AudioDecoderClass
+        }
         
 
         namespace AudioEncoder {
@@ -1418,100 +1353,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * This base class is for audio encoders turning raw audio samples into
-         * encoded audio data.
-         *
-         * GstAudioEncoder and subclass should cooperate as follows.
-         *
-         * ## Configuration
-         *
-         *   * Initially, GstAudioEncoder calls @start when the encoder element
-         *     is activated, which allows subclass to perform any global setup.
-         *
-         *   * GstAudioEncoder calls @set_format to inform subclass of the format
-         *     of input audio data that it is about to receive.  Subclass should
-         *     setup for encoding and configure various base class parameters
-         *     appropriately, notably those directing desired input data handling.
-         *     While unlikely, it might be called more than once, if changing input
-         *     parameters require reconfiguration.
-         *
-         *   * GstAudioEncoder calls @stop at end of all processing.
-         *
-         * As of configuration stage, and throughout processing, GstAudioEncoder
-         * maintains various parameters that provide required context,
-         * e.g. describing the format of input audio data.
-         * Conversely, subclass can and should configure these context parameters
-         * to inform base class of its expectation w.r.t. buffer handling.
-         *
-         * ## Data processing
-         *
-         *     * Base class gathers input sample data (as directed by the context's
-         *       frame_samples and frame_max) and provides this to subclass' @handle_frame.
-         *     * If codec processing results in encoded data, subclass should call
-         *       gst_audio_encoder_finish_frame() to have encoded data pushed
-         *       downstream. Alternatively, it might also call
-         *       gst_audio_encoder_finish_frame() (with a NULL buffer and some number of
-         *       dropped samples) to indicate dropped (non-encoded) samples.
-         *     * Just prior to actually pushing a buffer downstream,
-         *       it is passed to @pre_push.
-         *     * During the parsing process GstAudioEncoderClass will handle both
-         *       srcpad and sinkpad events. Sink events will be passed to subclass
-         *       if @event callback has been provided.
-         *
-         * ## Shutdown phase
-         *
-         *   * GstAudioEncoder class calls @stop to inform the subclass that data
-         *     parsing will be stopped.
-         *
-         * Subclass is responsible for providing pad template caps for
-         * source and sink pads. The pads need to be named "sink" and "src". It also
-         * needs to set the fixed caps on srcpad, when the format is ensured.  This
-         * is typically when base class calls subclass' @set_format function, though
-         * it might be delayed until calling @gst_audio_encoder_finish_frame.
-         *
-         * In summary, above process should have subclass concentrating on
-         * codec data processing while leaving other matters to base class,
-         * such as most notably timestamp handling.  While it may exert more control
-         * in this area (see e.g. @pre_push), it is very much not recommended.
-         *
-         * In particular, base class will either favor tracking upstream timestamps
-         * (at the possible expense of jitter) or aim to arrange for a perfect stream of
-         * output timestamps, depending on #GstAudioEncoder:perfect-timestamp.
-         * However, in the latter case, the input may not be so perfect or ideal, which
-         * is handled as follows.  An input timestamp is compared with the expected
-         * timestamp as dictated by input sample stream and if the deviation is less
-         * than #GstAudioEncoder:tolerance, the deviation is discarded.
-         * Otherwise, it is considered a discontuinity and subsequent output timestamp
-         * is resynced to the new position after performing configured discontinuity
-         * processing.  In the non-perfect-timestamp case, an upstream variation
-         * exceeding tolerance only leads to marking DISCONT on subsequent outgoing
-         * (while timestamps are adjusted to upstream regardless of variation).
-         * While DISCONT is also marked in the perfect-timestamp case, this one
-         * optionally (see #GstAudioEncoder:hard-resync)
-         * performs some additional steps, such as clipping of (early) input samples
-         * or draining all currently remaining input data, depending on the direction
-         * of the discontuinity.
-         *
-         * If perfect timestamps are arranged, it is also possible to request baseclass
-         * (usually set by subclass) to provide additional buffer metadata (in OFFSET
-         * and OFFSET_END) fields according to granule defined semantics currently
-         * needed by oggmux.  Specifically, OFFSET is set to granulepos (= sample count
-         * including buffer) and OFFSET_END to corresponding timestamp (as determined
-         * by same sample count and sample rate).
-         *
-         * Things that subclass need to take care of:
-         *
-         *   * Provide pad templates
-         *   * Set source pad caps when appropriate
-         *   * Inform base class of buffer processing needs using context's
-         *      frame_samples and frame_bytes.
-         *   * Set user-configurable properties to sane defaults for format and
-         *      implementing codec at hand, e.g. those controlling timestamp behaviour
-         *      and discontinuity processing.
-         *   * Accept data in @handle_frame and provide encoded results to
-         *      gst_audio_encoder_finish_frame().
-         */
         interface AudioEncoder extends Gst.Element, Gst.Preset {
             readonly $signals: AudioEncoder.SignalSignatures
             readonly $readableProperties: AudioEncoder.ReadableProperties
@@ -1545,7 +1386,10 @@ declare module "gi://GstAudio?version=1.0" {
              */
             allocate_output_buffer(size: number): Gst.Buffer
             /**
-             *  0, then best estimate is all samples provided to encoder
+             * Collects encoded data and pushes encoded data downstream.
+             * Source pad caps must be set when this is called.
+             *
+             * If @samples < 0, then best estimate is all samples provided to encoder
              * (subclass) so far.  @buf may be NULL, in which case next number of @samples
              * are considered discarded, e.g. as a result of discontinuous transmission,
              * and a discontinuity is marked.
@@ -1564,7 +1408,7 @@ declare module "gi://GstAudio?version=1.0" {
              * Unref the @allocator after use it.
              * @returns , the #GstAllocator used, the #GstAllocationParams of `allocator`
              */
-            get_allocator(): void
+            get_allocator(): [Gst.Allocator | null, Gst.AllocationParams]
             /**
              * @returns a #GstAudioInfo describing the input audio format
              */
@@ -1599,7 +1443,7 @@ declare module "gi://GstAudio?version=1.0" {
              * latency.
              * @returns , a pointer to storage to hold minimum latency, a pointer to storage to hold maximum latency
              */
-            get_latency(): void
+            get_latency(): [Gst.ClockTime, Gst.ClockTime]
             /**
              * @returns currently configured encoder lookahead
              */
@@ -1900,10 +1744,107 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioEncoderClass extends Omit<Gst.ElementClass, "new"> {
             readonly $gtype: GObject.GType<AudioEncoder>
             readonly prototype: AudioEncoder
+
             new (props?: Partial<GObject.ConstructorProps<AudioEncoder>>): AudioEncoder
         }
 
-        const AudioEncoder: AudioEncoderClass
+        interface $Exports {
+            /**
+             * This base class is for audio encoders turning raw audio samples into
+             * encoded audio data.
+             *
+             * GstAudioEncoder and subclass should cooperate as follows.
+             *
+             * ## Configuration
+             *
+             *   * Initially, GstAudioEncoder calls @start when the encoder element
+             *     is activated, which allows subclass to perform any global setup.
+             *
+             *   * GstAudioEncoder calls @set_format to inform subclass of the format
+             *     of input audio data that it is about to receive.  Subclass should
+             *     setup for encoding and configure various base class parameters
+             *     appropriately, notably those directing desired input data handling.
+             *     While unlikely, it might be called more than once, if changing input
+             *     parameters require reconfiguration.
+             *
+             *   * GstAudioEncoder calls @stop at end of all processing.
+             *
+             * As of configuration stage, and throughout processing, GstAudioEncoder
+             * maintains various parameters that provide required context,
+             * e.g. describing the format of input audio data.
+             * Conversely, subclass can and should configure these context parameters
+             * to inform base class of its expectation w.r.t. buffer handling.
+             *
+             * ## Data processing
+             *
+             *     * Base class gathers input sample data (as directed by the context's
+             *       frame_samples and frame_max) and provides this to subclass' @handle_frame.
+             *     * If codec processing results in encoded data, subclass should call
+             *       gst_audio_encoder_finish_frame() to have encoded data pushed
+             *       downstream. Alternatively, it might also call
+             *       gst_audio_encoder_finish_frame() (with a NULL buffer and some number of
+             *       dropped samples) to indicate dropped (non-encoded) samples.
+             *     * Just prior to actually pushing a buffer downstream,
+             *       it is passed to @pre_push.
+             *     * During the parsing process GstAudioEncoderClass will handle both
+             *       srcpad and sinkpad events. Sink events will be passed to subclass
+             *       if @event callback has been provided.
+             *
+             * ## Shutdown phase
+             *
+             *   * GstAudioEncoder class calls @stop to inform the subclass that data
+             *     parsing will be stopped.
+             *
+             * Subclass is responsible for providing pad template caps for
+             * source and sink pads. The pads need to be named "sink" and "src". It also
+             * needs to set the fixed caps on srcpad, when the format is ensured.  This
+             * is typically when base class calls subclass' @set_format function, though
+             * it might be delayed until calling @gst_audio_encoder_finish_frame.
+             *
+             * In summary, above process should have subclass concentrating on
+             * codec data processing while leaving other matters to base class,
+             * such as most notably timestamp handling.  While it may exert more control
+             * in this area (see e.g. @pre_push), it is very much not recommended.
+             *
+             * In particular, base class will either favor tracking upstream timestamps
+             * (at the possible expense of jitter) or aim to arrange for a perfect stream of
+             * output timestamps, depending on #GstAudioEncoder:perfect-timestamp.
+             * However, in the latter case, the input may not be so perfect or ideal, which
+             * is handled as follows.  An input timestamp is compared with the expected
+             * timestamp as dictated by input sample stream and if the deviation is less
+             * than #GstAudioEncoder:tolerance, the deviation is discarded.
+             * Otherwise, it is considered a discontuinity and subsequent output timestamp
+             * is resynced to the new position after performing configured discontinuity
+             * processing.  In the non-perfect-timestamp case, an upstream variation
+             * exceeding tolerance only leads to marking DISCONT on subsequent outgoing
+             * (while timestamps are adjusted to upstream regardless of variation).
+             * While DISCONT is also marked in the perfect-timestamp case, this one
+             * optionally (see #GstAudioEncoder:hard-resync)
+             * performs some additional steps, such as clipping of (early) input samples
+             * or draining all currently remaining input data, depending on the direction
+             * of the discontuinity.
+             *
+             * If perfect timestamps are arranged, it is also possible to request baseclass
+             * (usually set by subclass) to provide additional buffer metadata (in OFFSET
+             * and OFFSET_END) fields according to granule defined semantics currently
+             * needed by oggmux.  Specifically, OFFSET is set to granulepos (= sample count
+             * including buffer) and OFFSET_END to corresponding timestamp (as determined
+             * by same sample count and sample rate).
+             *
+             * Things that subclass need to take care of:
+             *
+             *   * Provide pad templates
+             *   * Set source pad caps when appropriate
+             *   * Inform base class of buffer processing needs using context's
+             *      frame_samples and frame_bytes.
+             *   * Set user-configurable properties to sane defaults for format and
+             *      implementing codec at hand, e.g. those controlling timestamp behaviour
+             *      and discontinuity processing.
+             *   * Accept data in @handle_frame and provide encoded results to
+             *      gst_audio_encoder_finish_frame().
+             */
+            AudioEncoder: AudioEncoderClass
+        }
         
 
         namespace AudioFilter {
@@ -1920,21 +1861,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * -derived base class for simple audio
-         * filters, ie. those that output the same format that they get as input.
-         *
-         * #GstAudioFilter will parse the input format for you (with error checking)
-         * before calling your setup function. Also, elements deriving from
-         * #GstAudioFilter may use gst_audio_filter_class_add_pad_templates() from
-         * their class_init function to easily configure the set of caps/formats that
-         * the element is able to handle.
-         *
-         * Derived classes should override the #GstAudioFilterClass.setup() and
-         * #GstBaseTransformClass.transform_ip() and/or
-         * #GstBaseTransformClass.transform()
-         * virtual functions in their class_init function.
-         */
         interface AudioFilter extends GstBase.BaseTransform {
             readonly $signals: AudioFilter.SignalSignatures
             readonly $readableProperties: AudioFilter.ReadableProperties
@@ -1950,6 +1876,7 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioFilterClass extends Omit<GstBase.BaseTransformClass, "new"> {
             readonly $gtype: GObject.GType<AudioFilter>
             readonly prototype: AudioFilter
+
             new (props?: Partial<GObject.ConstructorProps<AudioFilter>>): AudioFilter
             /**
              * Convenience function to add pad templates to this element class, with
@@ -1961,7 +1888,24 @@ declare module "gi://GstAudio?version=1.0" {
             add_pad_templates(allowed_caps: Gst.Caps): void
         }
 
-        const AudioFilter: AudioFilterClass
+        interface $Exports {
+            /**
+             * #GstAudioFilter is a #GstBaseTransform<!-- -->-derived base class for simple audio
+             * filters, ie. those that output the same format that they get as input.
+             *
+             * #GstAudioFilter will parse the input format for you (with error checking)
+             * before calling your setup function. Also, elements deriving from
+             * #GstAudioFilter may use gst_audio_filter_class_add_pad_templates() from
+             * their class_init function to easily configure the set of caps/formats that
+             * the element is able to handle.
+             *
+             * Derived classes should override the #GstAudioFilterClass.setup() and
+             * #GstBaseTransformClass.transform_ip() and/or
+             * #GstBaseTransformClass.transform()
+             * virtual functions in their class_init function.
+             */
+            AudioFilter: AudioFilterClass
+        }
         
 
         namespace AudioRingBuffer {
@@ -1978,16 +1922,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * This object is the base class for audio ringbuffers used by the base
-         * audio source and sink classes.
-         *
-         * The ringbuffer abstracts a circular buffer of data. One reader and
-         * one writer can operate on the data from different threads in a lockfree
-         * manner. The base class is sufficiently flexible to be used as an
-         * abstraction for DMA based ringbuffers as well as a pure software
-         * implementations.
-         */
         interface AudioRingBuffer extends Gst.Object {
             readonly $signals: AudioRingBuffer.SignalSignatures
             readonly $readableProperties: AudioRingBuffer.ReadableProperties
@@ -2183,11 +2117,10 @@ declare module "gi://GstAudio?version=1.0" {
              * will be called every time a segment has been written to a device.
              *
              * MT safe.
-             * @override
              * @since 1.12
              * @param cb the callback to set
              */
-            set_callback_full(cb: AudioRingBufferCallback | null): void
+            set_callback(cb: AudioRingBufferCallback | null): void
             /**
              * Tell the ringbuffer about the device's channel positions. This must
              * be called in when the ringbuffer is acquired.
@@ -2346,6 +2279,7 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioRingBufferClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<AudioRingBuffer>
             readonly prototype: AudioRingBuffer
+
             new (props?: Partial<GObject.ConstructorProps<AudioRingBuffer>>): AudioRingBuffer
             /**
              * Print debug info about the buffer sized in @spec to the debug log.
@@ -2366,7 +2300,19 @@ declare module "gi://GstAudio?version=1.0" {
             parse_caps(spec: AudioRingBufferSpec, caps: Gst.Caps): boolean
         }
 
-        const AudioRingBuffer: AudioRingBufferClass
+        interface $Exports {
+            /**
+             * This object is the base class for audio ringbuffers used by the base
+             * audio source and sink classes.
+             *
+             * The ringbuffer abstracts a circular buffer of data. One reader and
+             * one writer can operate on the data from different threads in a lockfree
+             * manner. The base class is sufficiently flexible to be used as an
+             * abstraction for DMA based ringbuffers as well as a pure software
+             * implementations.
+             */
+            AudioRingBuffer: AudioRingBufferClass
+        }
         
 
         namespace AudioSink {
@@ -2383,29 +2329,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * This is the most simple base class for audio sinks that only requires
-         * subclasses to implement a set of simple functions:
-         *
-         * * `open()` :Open the device.
-         *
-         * * `prepare()` :Configure the device with the specified format.
-         *
-         * * `write()` :Write samples to the device.
-         *
-         * * `reset()` :Unblock writes and flush the device.
-         *
-         * * `delay()` :Get the number of samples written but not yet played
-         * by the device.
-         *
-         * * `unprepare()` :Undo operations done by prepare.
-         *
-         * * `close()` :Close the device.
-         *
-         * All scheduling of samples and timestamps is done in this base class
-         * together with #GstAudioBaseSink using a default implementation of a
-         * #GstAudioRingBuffer that uses threads.
-         */
         interface AudioSink extends AudioBaseSink {
             readonly $signals: AudioSink.SignalSignatures
             readonly $readableProperties: AudioSink.ReadableProperties
@@ -2467,10 +2390,36 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioSinkClass extends Omit<AudioBaseSinkClass, "new"> {
             readonly $gtype: GObject.GType<AudioSink>
             readonly prototype: AudioSink
+
             new (props?: Partial<GObject.ConstructorProps<AudioSink>>): AudioSink
         }
 
-        const AudioSink: AudioSinkClass
+        interface $Exports {
+            /**
+             * This is the most simple base class for audio sinks that only requires
+             * subclasses to implement a set of simple functions:
+             *
+             * * `open()` :Open the device.
+             *
+             * * `prepare()` :Configure the device with the specified format.
+             *
+             * * `write()` :Write samples to the device.
+             *
+             * * `reset()` :Unblock writes and flush the device.
+             *
+             * * `delay()` :Get the number of samples written but not yet played
+             * by the device.
+             *
+             * * `unprepare()` :Undo operations done by prepare.
+             *
+             * * `close()` :Close the device.
+             *
+             * All scheduling of samples and timestamps is done in this base class
+             * together with #GstAudioBaseSink using a default implementation of a
+             * #GstAudioRingBuffer that uses threads.
+             */
+            AudioSink: AudioSinkClass
+        }
         
 
         namespace AudioSrc {
@@ -2487,22 +2436,6 @@ declare module "gi://GstAudio?version=1.0" {
             }
         }
 
-        /**
-         * This is the most simple base class for audio sources that only requires
-         * subclasses to implement a set of simple functions:
-         *
-         * * `open()` :Open the device.
-         * * `prepare()` :Configure the device with the specified format.
-         * * `read()` :Read samples from the device.
-         * * `reset()` :Unblock reads and flush the device.
-         * * `delay()` :Get the number of samples in the device but not yet read.
-         * * `unprepare()` :Undo operations done by prepare.
-         * * `close()` :Close the device.
-         *
-         * All scheduling of samples and timestamps is done in this base class
-         * together with #GstAudioBaseSrc using a default implementation of a
-         * #GstAudioRingBuffer that uses threads.
-         */
         interface AudioSrc extends AudioBaseSrc {
             readonly $signals: AudioSrc.SignalSignatures
             readonly $readableProperties: AudioSrc.ReadableProperties
@@ -2544,65 +2477,191 @@ declare module "gi://GstAudio?version=1.0" {
         interface AudioSrcClass extends Omit<AudioBaseSrcClass, "new"> {
             readonly $gtype: GObject.GType<AudioSrc>
             readonly prototype: AudioSrc
+
             new (props?: Partial<GObject.ConstructorProps<AudioSrc>>): AudioSrc
         }
 
-        const AudioSrc: AudioSrcClass
-        none
-        none
-        /**
-         */
-        abstract class AudioAggregatorConvertPadPrivate {
-            static readonly $gtype: GObject.GType<AudioAggregatorConvertPadPrivate>
-
-            
+        interface $Exports {
+            /**
+             * This is the most simple base class for audio sources that only requires
+             * subclasses to implement a set of simple functions:
+             *
+             * * `open()` :Open the device.
+             * * `prepare()` :Configure the device with the specified format.
+             * * `read()` :Read samples from the device.
+             * * `reset()` :Unblock reads and flush the device.
+             * * `delay()` :Get the number of samples in the device but not yet read.
+             * * `unprepare()` :Undo operations done by prepare.
+             * * `close()` :Close the device.
+             *
+             * All scheduling of samples and timestamps is done in this base class
+             * together with #GstAudioBaseSrc using a default implementation of a
+             * #GstAudioRingBuffer that uses threads.
+             */
+            AudioSrc: AudioSrcClass
         }
-        none
-        /**
-         */
-        abstract class AudioAggregatorPadPrivate {
-            static readonly $gtype: GObject.GType<AudioAggregatorPadPrivate>
+        
 
-            
+        namespace StreamVolume {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "mute": boolean
+                "volume": number
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "mute": boolean
+                "volume": number
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
         }
-        /**
-         */
-        abstract class AudioAggregatorPrivate {
-            static readonly $gtype: GObject.GType<AudioAggregatorPrivate>
 
-            
+        interface StreamVolume extends GObject.Object, StreamVolume.Interface {
+            readonly $signals: StreamVolume.SignalSignatures
+            readonly $readableProperties: StreamVolume.ReadableProperties
+            readonly $writableProperties: StreamVolume.WritableProperties
+            readonly $constructOnlyProperties: StreamVolume.ConstructOnlyProperties
+            /**
+             * @default FALSE
+             */
+            get mute(): boolean
+            set mute(value: boolean)
+            /**
+             * @default 1.000000
+             */
+            get volume(): number
+            set volume(value: number)
+            /**
+             * @returns Returns %TRUE if the stream is muted
+             */
+            get_mute(): boolean
+            /**
+             * @param format #GstStreamVolumeFormat which should be returned
+             * @returns The current stream volume as linear factor
+             */
+            get_volume(format: StreamVolumeFormat): number
+            /**
+             * @param mute Mute state that should be set
+             */
+            set_mute(mute: boolean): void
+            /**
+             * @param format #GstStreamVolumeFormat of @val
+             * @param val Linear volume factor that should be set
+             */
+            set_volume(format: StreamVolumeFormat, val: number): void
         }
-        none
-        /**
-         */
-        abstract class AudioBaseSinkPrivate {
-            static readonly $gtype: GObject.GType<AudioBaseSinkPrivate>
 
-            
+        interface StreamVolumeInterface {
+            readonly $gtype: GObject.GType<StreamVolume>
+            readonly prototype: StreamVolume
+            [Symbol.hasInstance](instance: unknown): instance is StreamVolume
+            /**
+             * @param from #GstStreamVolumeFormat to convert from
+             * @param to #GstStreamVolumeFormat to convert to
+             * @param val Volume in @from format that should be converted
+             * @returns the converted volume
+             */
+            convert_volume(from: StreamVolumeFormat, to: StreamVolumeFormat, val: number): number
         }
-        none
-        /**
-         */
-        abstract class AudioBaseSrcPrivate {
-            static readonly $gtype: GObject.GType<AudioBaseSrcPrivate>
 
-            
+        interface $Exports {
+            /**
+             * This interface is implemented by elements that provide a stream volume. Examples for
+             * such elements are #volume and #playbin.
+             *
+             * Applications can use this interface to get or set the current stream volume. For this
+             * the "volume" #GObject property can be used or the helper functions gst_stream_volume_set_volume()
+             * and gst_stream_volume_get_volume(). This volume is always a linear factor, i.e. 0.0 is muted
+             * 1.0 is 100%. For showing the volume in a GUI it might make sense to convert it to
+             * a different format by using gst_stream_volume_convert_volume(). Volume sliders should usually
+             * use a cubic volume.
+             *
+             * Separate from the volume the stream can also be muted by the "mute" #GObject property or
+             * gst_stream_volume_set_mute() and gst_stream_volume_get_mute().
+             *
+             * Elements that provide some kind of stream volume should implement the "volume" and
+             * "mute" #GObject properties and handle setting and getting of them properly.
+             * The volume property is defined to be a linear volume factor.
+             */
+            StreamVolume: StreamVolumeInterface
         }
-        /**
-         * A structure containing the result of an audio buffer map operation,
-         * which is executed with gst_audio_buffer_map(). For non-interleaved (planar)
-         * buffers, the beginning of each channel in the buffer has its own pointer in
-         * the @planes array. For interleaved buffers, the @planes array only contains
-         * one item, which is the pointer to the beginning of the buffer, and @n_planes
-         * equals 1.
-         *
-         * The different channels in @planes are always in the GStreamer channel order.
-         * @since 1.16
-         */
-        abstract class AudioBuffer {
-            static readonly $gtype: GObject.GType<AudioBuffer>
+        
 
-            
+        interface AudioAggregatorConvertPadPrivateStruct {
+            readonly $gtype: GObject.GType<AudioAggregatorConvertPadPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AudioAggregatorConvertPadPrivate
+        }
+
+        interface AudioAggregatorConvertPadPrivate {
+        }
+
+        interface $Exports {
+            AudioAggregatorConvertPadPrivate: AudioAggregatorConvertPadPrivateStruct
+        }
+        
+
+        interface AudioAggregatorPadPrivateStruct {
+            readonly $gtype: GObject.GType<AudioAggregatorPadPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AudioAggregatorPadPrivate
+        }
+
+        interface AudioAggregatorPadPrivate {
+        }
+
+        interface $Exports {
+            AudioAggregatorPadPrivate: AudioAggregatorPadPrivateStruct
+        }
+        
+
+        interface AudioAggregatorPrivateStruct {
+            readonly $gtype: GObject.GType<AudioAggregatorPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AudioAggregatorPrivate
+        }
+
+        interface AudioAggregatorPrivate {
+        }
+
+        interface $Exports {
+            AudioAggregatorPrivate: AudioAggregatorPrivateStruct
+        }
+        
+
+        interface AudioBaseSinkPrivateStruct {
+            readonly $gtype: GObject.GType<AudioBaseSinkPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AudioBaseSinkPrivate
+        }
+
+        interface AudioBaseSinkPrivate {
+        }
+
+        interface $Exports {
+            AudioBaseSinkPrivate: AudioBaseSinkPrivateStruct
+        }
+        
+
+        interface AudioBaseSrcPrivateStruct {
+            readonly $gtype: GObject.GType<AudioBaseSrcPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AudioBaseSrcPrivate
+        }
+
+        interface AudioBaseSrcPrivate {
+        }
+
+        interface $Exports {
+            AudioBaseSrcPrivate: AudioBaseSrcPrivateStruct
+        }
+        
+
+        interface AudioBufferStruct {
+            readonly $gtype: GObject.GType<AudioBuffer>
+            [Symbol.hasInstance](instance: unknown): instance is AudioBuffer
             /**
              * Clip the buffer to the given %GstSegment.
              *
@@ -2616,7 +2675,7 @@ declare module "gi://GstAudio?version=1.0" {
             number of channels.
              * @returns %NULL if the buffer is completely outside the configured segment, otherwise the clipped buffer is returned.  If the buffer has no timestamp, it is assumed to be inside the segment and is not clipped
              */
-            static clip(buffer: Gst.Buffer, segment: Gst.Segment, rate: number, bpf: number): Gst.Buffer | null
+            clip(buffer: Gst.Buffer, segment: Gst.Segment, rate: number, bpf: number): Gst.Buffer | null
             /**
              * Maps an audio @gstbuffer so that it can be read or written and stores the
              * result of the map operation in @buffer.
@@ -2648,7 +2707,7 @@ declare module "gi://GstAudio?version=1.0" {
              * @param flags the access mode for the memory
              * @returns %TRUE if the map operation succeeded or %FALSE on failure, pointer to a #GstAudioBuffer
              */
-            static map(info: AudioInfo, gstbuffer: Gst.Buffer, flags: Gst.MapFlags): [boolean, AudioBuffer]
+            map(info: AudioInfo, gstbuffer: Gst.Buffer, flags: Gst.MapFlags): [boolean, AudioBuffer]
             /**
              * Reorders @buffer from the channel positions @from to the channel
              * positions @to. @from and @to must contain the same number of
@@ -2660,7 +2719,7 @@ declare module "gi://GstAudio?version=1.0" {
              * @param to The channel positions to convert to.
              * @returns %TRUE if the reordering was possible.
              */
-            static reorder_channels(buffer: Gst.Buffer, format: AudioFormat, from: AudioChannelPosition[], to: AudioChannelPosition[]): boolean
+            reorder_channels(buffer: Gst.Buffer, format: AudioFormat, from: AudioChannelPosition[], to: AudioChannelPosition[]): boolean
             /**
              * Truncate the buffer to finally have @samples number of samples, removing
              * the necessary amount of samples from the end and @trim number of samples
@@ -2684,7 +2743,10 @@ declare module "gi://GstAudio?version=1.0" {
             beginning.
              * @returns the truncated buffer
              */
-            static truncate(buffer: Gst.Buffer, bpf: number, trim: number, samples: number): Gst.Buffer
+            truncate(buffer: Gst.Buffer, bpf: number, trim: number, samples: number): Gst.Buffer
+        }
+
+        interface AudioBuffer {
             /**
              * a #GstAudioInfo describing the audio properties of this buffer
              */
@@ -2713,27 +2775,31 @@ declare module "gi://GstAudio?version=1.0" {
              */
             unmap(): void
         }
-        none
-        /**
-         */
-        abstract class AudioCdSrcPrivate {
-            static readonly $gtype: GObject.GType<AudioCdSrcPrivate>
 
-            
+        interface $Exports {
+            AudioBuffer: AudioBufferStruct
         }
-        /**
-         * CD track abstraction to communicate TOC entries to the base class.
-         *
-         * This structure is only for use by sub-classed in connection with
-         * gst_audio_cd_src_add_track().
-         *
-         * Applications will be informed of the available tracks via a TOC message
-         * on the pipeline's #GstBus instead.
-         */
-        abstract class AudioCdSrcTrack {
-            static readonly $gtype: GObject.GType<AudioCdSrcTrack>
+        
 
-            
+        interface AudioCdSrcPrivateStruct {
+            readonly $gtype: GObject.GType<AudioCdSrcPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AudioCdSrcPrivate
+        }
+
+        interface AudioCdSrcPrivate {
+        }
+
+        interface $Exports {
+            AudioCdSrcPrivate: AudioCdSrcPrivateStruct
+        }
+        
+
+        interface AudioCdSrcTrackStruct {
+            readonly $gtype: GObject.GType<AudioCdSrcTrack>
+            [Symbol.hasInstance](instance: unknown): instance is AudioCdSrcTrack
+        }
+
+        interface AudioCdSrcTrack {
             /**
              * Whether this is an audio track
              */
@@ -2755,12 +2821,18 @@ declare module "gi://GstAudio?version=1.0" {
              */
             tags: Gst.TagList
         }
-        /**
-         */
-        abstract class AudioChannelMixer {
-            static readonly $gtype: GObject.GType<AudioChannelMixer>
 
-            
+        interface $Exports {
+            AudioCdSrcTrack: AudioCdSrcTrackStruct
+        }
+        
+
+        interface AudioChannelMixerStruct {
+            readonly $gtype: GObject.GType<AudioChannelMixer>
+            [Symbol.hasInstance](instance: unknown): instance is AudioChannelMixer
+        }
+
+        interface AudioChannelMixer {
             /**
              * Free memory allocated by @mix.
              */
@@ -2795,27 +2867,21 @@ declare module "gi://GstAudio?version=1.0" {
              */
             samples(in_: never | null, out: never | null, samples: number): void
         }
-        /**
-         * Extra buffer metadata describing how much audio has to be clipped from
-         * the start or end of a buffer. This is used for compressed formats, where
-         * the first frame usually has some additional samples due to encoder and
-         * decoder delays, and the last frame usually has some additional samples to
-         * be able to fill the complete last frame.
-         *
-         * This is used to ensure that decoded data in the end has the same amount of
-         * samples, and multiply decoded streams can be gaplessly concatenated.
-         *
-         * Note: If clipping of the start is done by adjusting the segment, this meta
-         * has to be dropped from buffers as otherwise clipping could happen twice.
-         * @since 1.8
-         */
-        abstract class AudioClippingMeta {
-            static readonly $gtype: GObject.GType<AudioClippingMeta>
 
-            
+        interface $Exports {
+            AudioChannelMixer: AudioChannelMixerStruct
+        }
+        
+
+        interface AudioClippingMetaStruct {
+            readonly $gtype: GObject.GType<AudioClippingMeta>
+            [Symbol.hasInstance](instance: unknown): instance is AudioClippingMeta
             /**
              */
-            static get_info(): Gst.MetaInfo
+            get_info(): Gst.MetaInfo
+        }
+
+        interface AudioClippingMeta {
             /**
              * parent #GstMeta
              */
@@ -2833,22 +2899,15 @@ declare module "gi://GstAudio?version=1.0" {
              */
             end: number
         }
-        none
-        /**
-         * This object is used to convert audio samples from one format to another.
-         * The object can perform conversion of:
-         *
-         *  * audio format with optional dithering and noise shaping
-         *
-         *  * audio samplerate
-         *
-         *  * audio channels and channel layout
-         * @since 1.8
-         */
-        abstract class AudioConverter {
-            static readonly $gtype: GObject.GType<AudioConverter>
 
-            
+        interface $Exports {
+            AudioClippingMeta: AudioClippingMetaStruct
+        }
+        
+
+        interface AudioConverterStruct {
+            readonly $gtype: GObject.GType<AudioConverter>
+            [Symbol.hasInstance](instance: unknown): instance is AudioConverter
             /**
              * Create a new #GstAudioConverter that is able to convert between @in and @out
              * audio formats.
@@ -2861,7 +2920,10 @@ declare module "gi://GstAudio?version=1.0" {
              * @param config a #GstStructure with configuration options
              * @returns a #GstAudioConverter or %NULL if conversion is not possible.
              */
-            static "new"(flags: AudioConverterFlags, in_info: AudioInfo, out_info: AudioInfo, config: Gst.Structure | null): AudioConverter | null
+            "new"(flags: AudioConverterFlags, in_info: AudioInfo, out_info: AudioInfo, config: Gst.Structure | null): AudioConverter | null
+        }
+
+        interface AudioConverter {
             /**
              * Convenience wrapper around gst_audio_converter_samples(), which will
              * perform allocation of the output buffer based on the result from
@@ -2880,7 +2942,7 @@ declare module "gi://GstAudio?version=1.0" {
              * Get the current configuration of @convert.
              * @returns    a #GstStructure that remains valid for as long as `convert` is valid   or until gst_audio_converter_update_config() is called., result input rate, result output rate
              */
-            get_config(): Gst.Structure
+            get_config(): [Gst.Structure, number, number]
             /**
              * Calculate how many input frames are currently needed by @convert to produce
              * @out_frames of output frames.
@@ -2967,31 +3029,34 @@ declare module "gi://GstAudio?version=1.0" {
              */
             update_config(in_rate: number, out_rate: number, config: Gst.Structure | null): boolean
         }
-        none
-        /**
-         */
-        abstract class AudioDecoderPrivate {
-            static readonly $gtype: GObject.GType<AudioDecoderPrivate>
 
-            
+        interface $Exports {
+            AudioConverter: AudioConverterStruct
         }
-        /**
-         * Extra buffer metadata describing audio downmixing matrix. This metadata is
-         * attached to audio buffers and contains a matrix to downmix the buffer number
-         * of channels to @channels.
-         *
-         * @matrix is an two-dimensional array of @to_channels times @from_channels
-         * coefficients, i.e. the i-th output channels is constructed by multiplicating
-         * the input channels with the coefficients in @matrix[i] and taking the sum
-         * of the results.
-         */
-        abstract class AudioDownmixMeta {
-            static readonly $gtype: GObject.GType<AudioDownmixMeta>
+        
 
-            
+        interface AudioDecoderPrivateStruct {
+            readonly $gtype: GObject.GType<AudioDecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AudioDecoderPrivate
+        }
+
+        interface AudioDecoderPrivate {
+        }
+
+        interface $Exports {
+            AudioDecoderPrivate: AudioDecoderPrivateStruct
+        }
+        
+
+        interface AudioDownmixMetaStruct {
+            readonly $gtype: GObject.GType<AudioDownmixMeta>
+            [Symbol.hasInstance](instance: unknown): instance is AudioDownmixMeta
             /**
              */
-            static get_info(): Gst.MetaInfo
+            get_info(): Gst.MetaInfo
+        }
+
+        interface AudioDownmixMeta {
             /**
              * parent #GstMeta
              */
@@ -3017,22 +3082,31 @@ declare module "gi://GstAudio?version=1.0" {
              */
             matrix: number
         }
-        none
-        /**
-         */
-        abstract class AudioEncoderPrivate {
-            static readonly $gtype: GObject.GType<AudioEncoderPrivate>
 
-            
+        interface $Exports {
+            AudioDownmixMeta: AudioDownmixMetaStruct
         }
-        none
-        /**
-         * Information for an audio format.
-         */
-        abstract class AudioFormatInfo {
-            static readonly $gtype: GObject.GType<AudioFormatInfo>
+        
 
-            
+        interface AudioEncoderPrivateStruct {
+            readonly $gtype: GObject.GType<AudioEncoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AudioEncoderPrivate
+        }
+
+        interface AudioEncoderPrivate {
+        }
+
+        interface $Exports {
+            AudioEncoderPrivate: AudioEncoderPrivateStruct
+        }
+        
+
+        interface AudioFormatInfoStruct {
+            readonly $gtype: GObject.GType<AudioFormatInfo>
+            [Symbol.hasInstance](instance: unknown): instance is AudioFormatInfo
+        }
+
+        interface AudioFormatInfo {
             /**
              * #GstAudioFormat
              */
@@ -3085,40 +3159,42 @@ declare module "gi://GstAudio?version=1.0" {
              */
             fill_silence(dest: Uint8Array): void
         }
-        /**
-         * Information describing audio properties. This information can be filled
-         * in from GstCaps with gst_audio_info_from_caps().
-         *
-         * Use the provided macros to access the info in this structure.
-         */
-        abstract class AudioInfo {
-            static readonly $gtype: GObject.GType<AudioInfo>
 
-            
+        interface $Exports {
+            AudioFormatInfo: AudioFormatInfoStruct
+        }
+        
+
+        interface AudioInfoStruct {
+            readonly $gtype: GObject.GType<AudioInfo>
+            [Symbol.hasInstance](instance: unknown): instance is AudioInfo
             /**
              * Allocate a new #GstAudioInfo that is also initialized with
              * gst_audio_info_init().
              * @returns a new #GstAudioInfo. free with gst_audio_info_free().
              */
-            static "new"(): AudioInfo
+            "new"(): AudioInfo
             /**
              * Parse @caps to generate a #GstAudioInfo.
              * @since 1.20
              * @param caps a #GstCaps
              * @returns A #GstAudioInfo, or %NULL if `caps` couldn't be parsed
              */
-            static new_from_caps(caps: Gst.Caps): AudioInfo | null
+            new_from_caps(caps: Gst.Caps): AudioInfo | null
             /**
              * Parse @caps and update @info.
              * @param caps a #GstCaps
              * @returns TRUE if `caps` could be parsed, a #GstAudioInfo
              */
-            static from_caps(caps: Gst.Caps): [boolean, AudioInfo]
+            from_caps(caps: Gst.Caps): [boolean, AudioInfo]
             /**
              * Initialize @info with default values.
              * @returns , a #GstAudioInfo
              */
-            static init(): AudioInfo
+            init(): AudioInfo
+        }
+
+        interface AudioInfo {
             /**
              * the format info of the audio
              */
@@ -3192,20 +3268,24 @@ declare module "gi://GstAudio?version=1.0" {
              */
             to_caps(): Gst.Caps
         }
-        /**
-         * Meta containing Audio Level Indication: https://tools.ietf.org/html/rfc6464
-         * @since 1.20
-         */
-        abstract class AudioLevelMeta {
-            static readonly $gtype: GObject.GType<AudioLevelMeta>
 
-            
+        interface $Exports {
+            AudioInfo: AudioInfoStruct
+        }
+        
+
+        interface AudioLevelMetaStruct {
+            readonly $gtype: GObject.GType<AudioLevelMeta>
+            [Symbol.hasInstance](instance: unknown): instance is AudioLevelMeta
             /**
              * Return the #GstMetaInfo associated with #GstAudioLevelMeta.
              * @since 1.20
              * @returns a #GstMetaInfo
              */
-            static get_info(): Gst.MetaInfo
+            get_info(): Gst.MetaInfo
+        }
+
+        interface AudioLevelMeta {
             /**
              * parent #GstMeta
              */
@@ -3219,19 +3299,21 @@ declare module "gi://GstAudio?version=1.0" {
              */
             voice_activity: boolean
         }
-        /**
-         * #GstAudioDownmixMeta defines an audio downmix matrix to be send along with
-         * audio buffers. These functions in this module help to create and attach the
-         * meta as well as extracting it.
-         * @since 1.16
-         */
-        abstract class AudioMeta {
-            static readonly $gtype: GObject.GType<AudioMeta>
 
-            
+        interface $Exports {
+            AudioLevelMeta: AudioLevelMetaStruct
+        }
+        
+
+        interface AudioMetaStruct {
+            readonly $gtype: GObject.GType<AudioMeta>
+            [Symbol.hasInstance](instance: unknown): instance is AudioMeta
             /**
              */
-            static get_info(): Gst.MetaInfo
+            get_info(): Gst.MetaInfo
+        }
+
+        interface AudioMeta {
             /**
              * parent #GstMeta
              */
@@ -3251,12 +3333,18 @@ declare module "gi://GstAudio?version=1.0" {
              */
             offsets: number
         }
-        /**
-         */
-        abstract class AudioQuantize {
-            static readonly $gtype: GObject.GType<AudioQuantize>
 
-            
+        interface $Exports {
+            AudioMeta: AudioMetaStruct
+        }
+        
+
+        interface AudioQuantizeStruct {
+            readonly $gtype: GObject.GType<AudioQuantize>
+            [Symbol.hasInstance](instance: unknown): instance is AudioQuantize
+        }
+
+        interface AudioQuantize {
             /**
              * Free a #GstAudioQuantize.
              */
@@ -3283,15 +3371,15 @@ declare module "gi://GstAudio?version=1.0" {
              */
             samples(in_: never | null, out: never | null, samples: number): void
         }
-        /**
-         * #GstAudioResampler is a structure which holds the information
-         * required to perform various kinds of resampling filtering.
-         * @since 1.10
-         */
-        abstract class AudioResampler {
-            static readonly $gtype: GObject.GType<AudioResampler>
 
-            
+        interface $Exports {
+            AudioQuantize: AudioQuantizeStruct
+        }
+        
+
+        interface AudioResamplerStruct {
+            readonly $gtype: GObject.GType<AudioResampler>
+            [Symbol.hasInstance](instance: unknown): instance is AudioResampler
             /**
              * Make a new resampler.
              * @param method a #GstAudioResamplerMethod
@@ -3303,7 +3391,7 @@ declare module "gi://GstAudio?version=1.0" {
              * @param options extra options
              * @returns The new #GstAudioResampler.
              */
-            static "new"(method: AudioResamplerMethod, flags: AudioResamplerFlags, format: AudioFormat, channels: number, in_rate: number, out_rate: number, options: Gst.Structure): AudioResampler
+            "new"(method: AudioResamplerMethod, flags: AudioResamplerFlags, format: AudioFormat, channels: number, in_rate: number, out_rate: number, options: Gst.Structure): AudioResampler
             /**
              * Set the parameters for resampling from @in_rate to @out_rate using @method
              * for @quality in @options.
@@ -3313,7 +3401,10 @@ declare module "gi://GstAudio?version=1.0" {
              * @param out_rate the output rate
              * @param options a #GstStructure
              */
-            static options_set_quality(method: AudioResamplerMethod, quality: number, in_rate: number, out_rate: number, options: Gst.Structure): void
+            options_set_quality(method: AudioResamplerMethod, quality: number, in_rate: number, out_rate: number, options: Gst.Structure): void
+        }
+
+        interface AudioResampler {
             /**
              * Free a previously allocated #GstAudioResampler @resampler.
              */
@@ -3379,25 +3470,31 @@ declare module "gi://GstAudio?version=1.0" {
              */
             update(in_rate: number, out_rate: number, options: Gst.Structure): boolean
         }
-        none
-        /**
-         */
-        abstract class AudioRingBufferPrivate {
-            static readonly $gtype: GObject.GType<AudioRingBufferPrivate>
 
-            
+        interface $Exports {
+            AudioResampler: AudioResamplerStruct
         }
-        /**
-         * The structure containing the format specification of the ringbuffer.
-         *
-         * When @type is GST_AUDIO_RING_BUFFER_FORMAT_TYPE_DSD, the @dsd_format
-         * is valid (otherwise it is unused). Also, when DSD is the sample type,
-         * only the rate, channels, position, and bpf fields in @info are populated.
-         */
-        abstract class AudioRingBufferSpec {
-            static readonly $gtype: GObject.GType<AudioRingBufferSpec>
+        
 
-            
+        interface AudioRingBufferPrivateStruct {
+            readonly $gtype: GObject.GType<AudioRingBufferPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AudioRingBufferPrivate
+        }
+
+        interface AudioRingBufferPrivate {
+        }
+
+        interface $Exports {
+            AudioRingBufferPrivate: AudioRingBufferPrivateStruct
+        }
+        
+
+        interface AudioRingBufferSpecStruct {
+            readonly $gtype: GObject.GType<AudioRingBufferSpec>
+            [Symbol.hasInstance](instance: unknown): instance is AudioRingBufferSpec
+        }
+
+        interface AudioRingBufferSpec {
             /**
              * The caps that generated the Spec.
              */
@@ -3432,28 +3529,28 @@ declare module "gi://GstAudio?version=1.0" {
              */
             seglatency: number
         }
-        none
-        /**
-         */
-        abstract class AudioSinkClassExtension {
-            static readonly $gtype: GObject.GType<AudioSinkClassExtension>
 
-            
+        interface $Exports {
+            AudioRingBufferSpec: AudioRingBufferSpecStruct
         }
-        none
-        /**
-         * #GstAudioStreamAlign provides a helper object that helps tracking audio
-         * stream alignment and discontinuities, and detects discontinuities if
-         * possible.
-         *
-         * See gst_audio_stream_align_new() for a description of its parameters and
-         * gst_audio_stream_align_process() for the details of the processing.
-         * @since 1.14
-         */
-        abstract class AudioStreamAlign {
-            static readonly $gtype: GObject.GType<AudioStreamAlign>
+        
 
-            
+        interface AudioSinkClassExtensionStruct {
+            readonly $gtype: GObject.GType<AudioSinkClassExtension>
+            [Symbol.hasInstance](instance: unknown): instance is AudioSinkClassExtension
+        }
+
+        interface AudioSinkClassExtension {
+        }
+
+        interface $Exports {
+            AudioSinkClassExtension: AudioSinkClassExtensionStruct
+        }
+        
+
+        interface AudioStreamAlignStruct {
+            readonly $gtype: GObject.GType<AudioStreamAlign>
+            [Symbol.hasInstance](instance: unknown): instance is AudioStreamAlign
             /**
              * Allocate a new #GstAudioStreamAlign with the given configuration. All
              * processing happens according to sample rate @rate, until
@@ -3472,7 +3569,10 @@ declare module "gi://GstAudio?version=1.0" {
              * @param discont_wait discont wait in nanoseconds
              * @returns a new #GstAudioStreamAlign. free with gst_audio_stream_align_free().
              */
-            static "new"(rate: number, alignment_threshold: Gst.ClockTime, discont_wait: Gst.ClockTime): AudioStreamAlign
+            "new"(rate: number, alignment_threshold: Gst.ClockTime, discont_wait: Gst.ClockTime): AudioStreamAlign
+        }
+
+        interface AudioStreamAlign {
             /**
              * Copy a GstAudioStreamAlign structure.
              * @since 1.14
@@ -3566,91 +3666,45 @@ declare module "gi://GstAudio?version=1.0" {
              */
             set_rate(rate: number): void
         }
-        /**
-         * Information describing DSD audio properties.
-         *
-         * In DSD, the "sample format" is the bit. Unlike PCM, there are no further
-         * "sample formats" in DSD. However, in software, DSD bits are grouped into
-         * bytes (since dealing with individual bits is impractical), and these bytes
-         * in turn are grouped into words. This becomes relevant when interleaving
-         * channels and transmitting DSD data through audio APIs. The different
-         * types of grouping DSD bytes are referred to as the "DSD grouping forma"
-         * or just "DSD format". #GstDsdFormat has a list of valid ways of grouping
-         * DSD bytes into words.
-         *
-         * DSD rates are equivalent to PCM sample rates, except that they specify
-         * how many DSD bytes are consumed per second. This refers to the bytes per
-         * second _per channel_; the rate does not change when the number of channel
-         * changes. (Strictly speaking, it would be more correct to measure the
-         * *bits* per second, since the bit is the DSD "sample format", but it is
-         * more practical to use bytes.) In DSD, bit rates are always an integer
-         * multiple of the CD audio rate (44100) or the DAT rate (48000). DSD64-44x
-         * is 44100 * 64 = 2822400 bits per second, or 352800 bytes per second
-         * (the latter would be used in this info structure). DSD64-48x is
-         * 48000 * 64 = 3072000 bits per second, or 384000 bytes per second.
-         * #GST_DSD_MAKE_DSD_RATE_44x can be used for specifying DSD-44x rates,
-         * *and #GST_DSD_MAKE_DSD_RATE_48x can be used for specifying DSD-48x ones.
-         * Also, since DSD-48x is less well known, when the multiplier is given
-         * without the 44x/48x specifier, 44x is typically implied.
-         *
-         * It is important to know that in DSD, different format widths correspond
-         * to different playtimes. That is, a word with 32 DSD bits covers two times
-         * as much playtime as a word with 16 DSD bits. This is in contrast to PCM,
-         * where one word (= one PCM sample) always covers a time period of 1/samplerate,
-         * no matter how many bits a PCM sample is made of. For this reason, DSD
-         * and PCM widths and strides cannot be used the same way.
-         *
-         * Multiple channels are arranged in DSD data either interleaved or non-
-         * interleaved. This is similar to PCM. Interleaved layouts rotate between
-         * channels and words. First, word 0 of channel 0 is present. Then word
-         * 0 of channel 1 follows. Then word 0 of channel 2 etc. until all
-         * channels are through, then comes word 1 of channel 0 etc.
-         *
-         * Non-interleaved data is planar. First, all words of channel 0 are
-         * present, then all words of channel 1 etc. Unlike interleaved data,
-         * non-interleaved data can be sparse, that is, there can be space in
-         * between the planes. the @positions array specifies the plane offsets.
-         *
-         * In uncommon cases, the DSD bits in the data bytes can be stored in reverse
-         * order. For example, normally, in DSDU8, the first byte contains DSD bits
-         * 0 to 7, and the most significant bit of that byte is DSD bit 0. If this
-         * order is reversed, then bit 7 is the first one instead. In that ase,
-         * @reversed_bytes is set to TRUE.
-         *
-         * Use the provided macros to access the info in this structure.
-         * @since 1.24
-         */
-        abstract class DsdInfo {
-            static readonly $gtype: GObject.GType<DsdInfo>
 
-            
+        interface $Exports {
+            AudioStreamAlign: AudioStreamAlignStruct
+        }
+        
+
+        interface DsdInfoStruct {
+            readonly $gtype: GObject.GType<DsdInfo>
+            [Symbol.hasInstance](instance: unknown): instance is DsdInfo
             /**
              * Allocate a new #GstDsdInfo that is also initialized with
              * gst_dsd_info_init().
              * @since 1.24
              * @returns a new #GstDsdInfo. free with gst_dsd_info_free().
              */
-            static "new"(): DsdInfo
+            "new"(): DsdInfo
             /**
              * Parse @caps to generate a #GstDsdInfo.
              * @since 1.24
              * @param caps a #GstCaps
              * @returns A #GstDsdInfo, or %NULL if `caps` couldn't be parsed
              */
-            static new_from_caps(caps: Gst.Caps): DsdInfo
+            new_from_caps(caps: Gst.Caps): DsdInfo
             /**
              * Parse @caps and update @info.
              * @since 1.24
              * @param caps a #GstCaps
              * @returns TRUE if `caps` could be parsed, a #GstDsdInfo
              */
-            static from_caps(caps: Gst.Caps): [boolean, DsdInfo]
+            from_caps(caps: Gst.Caps): [boolean, DsdInfo]
             /**
              * Initialize @info with default values.
              * @since 1.24
              * @returns , a #GstDsdInfo
              */
-            static init(): DsdInfo
+            init(): DsdInfo
+        }
+
+        interface DsdInfo {
             /**
              * DSD grouping format
              */
@@ -3716,35 +3770,21 @@ declare module "gi://GstAudio?version=1.0" {
              */
             to_caps(): Gst.Caps
         }
-        /**
-         * Buffer metadata describing planar DSD contents in the buffer. This is not needed
-         * for interleaved DSD data, and is required for non-interleaved (= planar) data.
-         *
-         * The different channels in @offsets are always in the GStreamer channel order.
-         * Zero-copy channel reordering can be implemented by swapping the values in
-         * @offsets.
-         *
-         * It is not allowed for channels to overlap in memory,
-         * i.e. for each i in [0, channels), the range
-         * [@offsets[i], @offsets[i] + @num_bytes_per_channel) must not overlap
-         * with any other such range.
-         *
-         * It is, however, allowed to have parts of the buffer memory unused, by using
-         * @offsets and @num_bytes_per_channel in such a way that leave gaps on it.
-         * This is used to implement zero-copy clipping in non-interleaved buffers.
-         *
-         * Obviously, due to the above, it is not safe to infer the
-         * number of valid bytes from the size of the buffer. You should always
-         * use the @num_bytes_per_channel variable of this metadata.
-         * @since 1.24
-         */
-        abstract class DsdPlaneOffsetMeta {
-            static readonly $gtype: GObject.GType<DsdPlaneOffsetMeta>
 
-            
+        interface $Exports {
+            DsdInfo: DsdInfoStruct
+        }
+        
+
+        interface DsdPlaneOffsetMetaStruct {
+            readonly $gtype: GObject.GType<DsdPlaneOffsetMeta>
+            [Symbol.hasInstance](instance: unknown): instance is DsdPlaneOffsetMeta
             /**
              */
-            static get_info(): Gst.MetaInfo
+            get_info(): Gst.MetaInfo
+        }
+
+        interface DsdPlaneOffsetMeta {
             /**
              * parent #GstMeta
              */
@@ -3762,1062 +3802,519 @@ declare module "gi://GstAudio?version=1.0" {
              */
             offsets: number
         }
-        none
-        /**
-         * Clip the buffer to the given %GstSegment.
-         *
-         * After calling this function the caller does not own a reference to
-         * @buffer anymore.
-         * @param buffer The buffer to clip.
-         * @param segment Segment in %GST_FORMAT_TIME or %GST_FORMAT_DEFAULT to which
-                  the buffer should be clipped.
-         * @param rate sample rate.
-         * @param bpf size of one audio frame in bytes. This is the size of one sample *
-        number of channels.
-         * @returns %NULL if the buffer is completely outside the configured segment, otherwise the clipped buffer is returned.  If the buffer has no timestamp, it is assumed to be inside the segment and is not clipped
-         */
-        function audio_buffer_clip(buffer: Gst.Buffer, segment: Gst.Segment, rate: number, bpf: number): Gst.Buffer | null
-        /**
-         * Maps an audio @gstbuffer so that it can be read or written and stores the
-         * result of the map operation in @buffer.
-         *
-         * This is especially useful when the @gstbuffer is in non-interleaved (planar)
-         * layout, in which case this function will use the information in the
-         * @gstbuffer's attached #GstAudioMeta in order to map each channel in a
-         * separate "plane" in #GstAudioBuffer. If a #GstAudioMeta is not attached
-         * on the @gstbuffer, then it must be in interleaved layout.
-         *
-         * If a #GstAudioMeta is attached, then the #GstAudioInfo on the meta is checked
-         * against @info. Normally, they should be equal, but in case they are not,
-         * a g_critical will be printed and the #GstAudioInfo from the meta will be
-         * used.
-         *
-         * In non-interleaved buffers, it is possible to have each channel on a separate
-         * #GstMemory. In this case, each memory will be mapped separately to avoid
-         * copying their contents in a larger memory area. Do note though that it is
-         * not supported to have a single channel spanning over two or more different
-         * #GstMemory objects. Although the map operation will likely succeed in this
-         * case, it will be highly sub-optimal and it is recommended to merge all the
-         * memories in the buffer before calling this function.
-         *
-         * Note: The actual #GstBuffer is not ref'ed, but it is required to stay valid
-         * as long as it's mapped.
-         * @since 1.16
-         * @param info the audio properties of the buffer
-         * @param gstbuffer the #GstBuffer to be mapped
-         * @param flags the access mode for the memory
-         * @returns %TRUE if the map operation succeeded or %FALSE on failure, pointer to a #GstAudioBuffer
-         */
-        function audio_buffer_map(info: AudioInfo, gstbuffer: Gst.Buffer, flags: Gst.MapFlags): [boolean, AudioBuffer]
-        /**
-         * Reorders @buffer from the channel positions @from to the channel
-         * positions @to. @from and @to must contain the same number of
-         * positions and the same positions, only in a different order.
-         * @buffer must be writable.
-         * @param buffer The buffer to reorder.
-         * @param format The %GstAudioFormat of the buffer.
-         * @param from The channel positions in the buffer.
-         * @param to The channel positions to convert to.
-         * @returns %TRUE if the reordering was possible.
-         */
-        function audio_buffer_reorder_channels(buffer: Gst.Buffer, format: AudioFormat, from: AudioChannelPosition[], to: AudioChannelPosition[]): boolean
-        /**
-         * Truncate the buffer to finally have @samples number of samples, removing
-         * the necessary amount of samples from the end and @trim number of samples
-         * from the beginning.
-         *
-         * This function does not know the audio rate, therefore the caller is
-         * responsible for re-setting the correct timestamp and duration to the
-         * buffer. However, timestamp will be preserved if trim == 0, and duration
-         * will also be preserved if there is no trimming to be done. Offset and
-         * offset end will be preserved / updated.
-         *
-         * After calling this function the caller does not own a reference to
-         * @buffer anymore.
-         * @since 1.16
-         * @param buffer The buffer to truncate.
-         * @param bpf size of one audio frame in bytes. This is the size of one sample *
-        number of channels.
-         * @param trim the number of samples to remove from the beginning of the buffer
-         * @param samples the final number of samples that should exist in this buffer or -1
-        to use all the remaining samples if you are only removing samples from the
-        beginning.
-         * @returns the truncated buffer
-         */
-        function audio_buffer_truncate(buffer: Gst.Buffer, bpf: number, trim: number, samples: number): Gst.Buffer
-        /**
-         * Get the fallback channel-mask for the given number of channels.
-         *
-         * This function returns a reasonable fallback channel-mask and should be
-         * called as a last resort when the specific channel map is unknown.
-         * @since 1.8
-         * @param channels the number of channels
-         * @returns a fallback channel-mask for `channels` or 0 when there is no mask and mono.
-         */
-        function audio_channel_get_fallback_mask(channels: number): number
-        none
-        none
-        /**
-         * Convert the @channels present in @channel_mask to a @position array
-         * (which should have at least @channels entries ensured by caller).
-         * If @channel_mask is set to 0, it is considered as 'not present' for purpose
-         * of conversion.
-         * A partially valid @channel_mask with less bits set than the number
-         * of channels is considered valid.
-         * @param channel_mask The input channel_mask
-         * @param position s
-         * @returns %TRUE if channel and channel mask are valid and could be converted
-         */
-        function audio_channel_positions_from_mask(channel_mask: number, position: AudioChannelPosition[]): boolean
-        /**
-         * Convert the @position array of @channels channels to a bitmask.
-         *
-         * If @force_order is %TRUE it additionally checks if the channels are
-         * in the order required by GStreamer.
-         * @param position The %GstAudioChannelPositions
-         * @param force_order Only consider the GStreamer channel order.
-         * @returns %TRUE if the channel positions are valid and could be converted., the output channel mask
-         */
-        function audio_channel_positions_to_mask(position: AudioChannelPosition[], force_order: boolean): [boolean, number]
-        /**
-         * Converts @position to a human-readable string representation for
-         * debugging purposes.
-         * @since 1.10
-         * @param position The %GstAudioChannelPositions
-          to convert.
-         * @returns a newly allocated string representing `position`
-         */
-        function audio_channel_positions_to_string(position: AudioChannelPosition[]): string
-        /**
-         * Reorders the channel positions in @position from any order to
-         * the GStreamer channel order.
-         * @param position The channel positions to
-          reorder to.
-         * @returns %TRUE if the channel positions are valid and reordering was successful.
-         */
-        function audio_channel_positions_to_valid_order(position: AudioChannelPosition[]): boolean
-        /**
-         * Checks if @position contains valid channel positions for
-         * @channels channels. If @force_order is %TRUE it additionally
-         * checks if the channels are in the order required by GStreamer.
-         * @param position The %GstAudioChannelPositions
-          to check.
-         * @param force_order Only consider the GStreamer channel order.
-         * @returns %TRUE if the channel positions are valid.
-         */
-        function audio_check_valid_channel_positions(position: AudioChannelPosition[], force_order: boolean): boolean
-        /**
-         */
-        function audio_clipping_meta_api_get_type(): GObject.GType
-        /**
-         */
-        function audio_clipping_meta_get_info(): Gst.MetaInfo
-        /**
-         */
-        function audio_downmix_meta_api_get_type(): GObject.GType
-        /**
-         */
-        function audio_downmix_meta_get_info(): Gst.MetaInfo
-        /**
-         * Construct a #GstAudioFormat with given parameters.
-         * @param sign signed or unsigned format
-         * @param endianness G_LITTLE_ENDIAN or G_BIG_ENDIAN
-         * @param width amount of bits used per sample
-         * @param depth amount of used bits in @width
-         * @returns a #GstAudioFormat or GST_AUDIO_FORMAT_UNKNOWN when no audio format exists with the given parameters.
-         */
-        function audio_format_build_integer(sign: boolean, endianness: number, width: number, depth: number): AudioFormat
-        /**
-         * Fill @length bytes in @dest with silence samples for @info.
-         * @deprecated since 1.20 Use gst_audio_format_info_fill_silence() instead.
-         * @param info a #GstAudioFormatInfo
-         * @param dest a destination
-          to fill
-         */
-        function audio_format_fill_silence(info: AudioFormatInfo, dest: Uint8Array): void
-        /**
-         * Convert the @format string to its #GstAudioFormat.
-         * @param format a format string
-         * @returns the #GstAudioFormat for `format` or GST_AUDIO_FORMAT_UNKNOWN when the string is not a known format.
-         */
-        function audio_format_from_string(format: string): AudioFormat
-        /**
-         * Get the #GstAudioFormatInfo for @format
-         * @param format a #GstAudioFormat
-         * @returns The #GstAudioFormatInfo for `format`.
-         */
-        function audio_format_get_info(format: AudioFormat): AudioFormatInfo
-        /**
-         * Returns a string containing a descriptive name for the #GstAudioFormat.
-         *
-         * Since 1.26 this can also be used with %GST_AUDIO_FORMAT_UNKNOWN, previous
-         * versions were printing a critical warning and returned %NULL.
-         * @param format a #GstAudioFormat audio format
-         * @returns the name corresponding to `format`
-         */
-        function audio_format_to_string(format: AudioFormat): string
-        /**
-         * Return all the raw audio formats supported by GStreamer.
-         * @since 1.18
-         * @returns an array of #GstAudioFormat
-         */
-        function audio_formats_raw(): AudioFormat[]
-        /**
-         * Returns a reorder map for @from to @to that can be used in
-         * custom channel reordering code, e.g. to convert from or to the
-         * GStreamer channel order. @from and @to must contain the same
-         * number of positions and the same positions, only in a
-         * different order.
-         *
-         * The resulting @reorder_map can be used for reordering by assigning
-         * channel i of the input to channel reorder_map[i] of the output.
-         * @param from The channel positions to reorder from.
-         * @param to The channel positions to reorder to.
-         * @param reorder_map Pointer to the reorder map.
-         * @returns %TRUE if the channel positions are valid and reordering is possible.
-         */
-        function audio_get_channel_reorder_map(from: AudioChannelPosition[], to: AudioChannelPosition[], reorder_map: number[]): boolean
-        /**
-         * Calculated the size of the buffer expected by gst_audio_iec61937_payload() for
-         * payloading type from @spec.
-         * @param spec the ringbufer spec
-         * @returns the size or 0 if the given `type` is not supported or cannot be payloaded.
-         */
-        function audio_iec61937_frame_size(spec: AudioRingBufferSpec): number
-        /**
-         * Payloads @src in the form specified by IEC 61937 for the type from @spec and
-         * stores the result in @dst. @src must contain exactly one frame of data and
-         * the frame is not checked for errors.
-         * @param src a buffer containing the data to payload
-         * @param dst the destination buffer to store the
-              payloaded contents in. Should not overlap with @src
-         * @param spec the ringbufer spec for @src
-         * @param endianness the expected byte order of the payloaded data
-         * @returns transfer-full: %TRUE if the payloading was successful, %FALSE otherwise.
-         */
-        function audio_iec61937_payload(src: Uint8Array, dst: Uint8Array, spec: AudioRingBufferSpec, endianness: number): boolean
-        /**
-         * Parse @caps and update @info.
-         * @param caps a #GstCaps
-         * @returns TRUE if `caps` could be parsed, a #GstAudioInfo
-         */
-        function audio_info_from_caps(caps: Gst.Caps): [boolean, AudioInfo]
-        /**
-         * Initialize @info with default values.
-         * @returns , a #GstAudioInfo
-         */
-        function audio_info_init(): AudioInfo
-        /**
-         * Return the #GType associated with #GstAudioLevelMeta.
-         * @since 1.20
-         * @returns a #GType
-         */
-        function audio_level_meta_api_get_type(): GObject.GType
-        /**
-         * Return the #GstMetaInfo associated with #GstAudioLevelMeta.
-         * @since 1.20
-         * @returns a #GstMetaInfo
-         */
-        function audio_level_meta_get_info(): Gst.MetaInfo
-        /**
-         * Return a generic raw audio caps for formats defined in @formats.
-         * If @formats is %NULL returns a caps for all the supported raw audio formats,
-         * see gst_audio_formats_raw().
-         * @since 1.18
-         * @param formats an array of raw #GstAudioFormat, or %NULL
-         * @param layout the layout of audio samples
-         * @returns an audio `GstCaps`
-         */
-        function audio_make_raw_caps(formats: AudioFormat[] | null, layout: AudioLayout): Gst.Caps
-        /**
-         */
-        function audio_meta_api_get_type(): GObject.GType
-        /**
-         */
-        function audio_meta_get_info(): Gst.MetaInfo
-        none
-        /**
-         * Reorders @data from the channel positions @from to the channel
-         * positions @to. @from and @to must contain the same number of
-         * positions and the same positions, only in a different order.
-         *
-         * This function internally calls gst_audio_get_channel_reorder_map() and
-         * gst_audio_reorder_channels_with_reorder_map(). It is more efficient to call
-         * gst_audio_get_channel_reorder_map() once to retrieve the reorder map and
-         * then call gst_audio_reorder_channels_with_reorder_map() with the same
-         * reorder map until the channel positions change.
-         *
-         * Note: this function assumes the audio data is in interleaved layout
-         * @param data The pointer to
-          the memory.
-         * @param format The %GstAudioFormat of the buffer.
-         * @param from The channel positions in the buffer.
-         * @param to The channel positions to convert to.
-         * @returns %TRUE if the reordering was possible.
-         */
-        function audio_reorder_channels(data: Uint8Array, format: AudioFormat, from: AudioChannelPosition[], to: AudioChannelPosition[]): boolean
-        /**
-         * Reorders @data with the given @reorder_map.
-         *
-         * The reorder map can be retrieved for example with
-         * gst_audio_get_channel_reorder_map().
-         *
-         * Note: this function assumes the audio data is in interleaved layout
-         * @since 1.26
-         * @param data The pointer to
-          the memory.
-         * @param bps The number of bytes per sample.
-         * @param reorder_map The channel reorder map.
-         */
-        function audio_reorder_channels_with_reorder_map(data: Uint8Array, bps: number, reorder_map: number[]): void
-        /**
-         * Make a new resampler.
-         * @param method a #GstAudioResamplerMethod
-         * @param flags #GstAudioResamplerFlags
-         * @param format the #GstAudioFormat
-         * @param channels the number of channels
-         * @param in_rate input rate
-         * @param out_rate output rate
-         * @param options extra options
-         * @returns The new #GstAudioResampler.
-         */
-        function audio_resampler_new(method: AudioResamplerMethod, flags: AudioResamplerFlags, format: AudioFormat, channels: number, in_rate: number, out_rate: number, options: Gst.Structure): AudioResampler
-        /**
-         * Set the parameters for resampling from @in_rate to @out_rate using @method
-         * for @quality in @options.
-         * @param method a #GstAudioResamplerMethod
-         * @param quality the quality
-         * @param in_rate the input rate
-         * @param out_rate the output rate
-         * @param options a #GstStructure
-         */
-        function audio_resampler_options_set_quality(method: AudioResamplerMethod, quality: number, in_rate: number, out_rate: number, options: Gst.Structure): void
-        /**
-         * Attaches #GstAudioClippingMeta metadata to @buffer with the given parameters.
-         * @since 1.8
-         * @param buffer a #GstBuffer
-         * @param format GstFormat of @start and @stop, GST_FORMAT_DEFAULT is samples
-         * @param start Amount of audio to clip from start of buffer
-         * @param end Amount of  to clip from end of buffer
-         * @returns the #GstAudioClippingMeta on `buffer`.
-         */
-        function buffer_add_audio_clipping_meta(buffer: Gst.Buffer, format: Gst.Format, start: number, end: number): AudioClippingMeta
-        /**
-         * Attaches #GstAudioDownmixMeta metadata to @buffer with the given parameters.
-         *
-         * @matrix is an two-dimensional array of @to_channels times @from_channels
-         * coefficients, i.e. the i-th output channels is constructed by multiplicating
-         * the input channels with the coefficients in @matrix[i] and taking the sum
-         * of the results.
-         * @param buffer a #GstBuffer
-         * @param from_position the channel positions
-          of the source
-         * @param to_position the channel positions of
-          the destination
-         * @param matrix The matrix coefficients.
-         * @returns the #GstAudioDownmixMeta on `buffer`.
-         */
-        function buffer_add_audio_downmix_meta(buffer: Gst.Buffer, from_position: AudioChannelPosition[], to_position: AudioChannelPosition[], matrix: number): AudioDownmixMeta
-        /**
-         * Attaches audio level information to @buffer. (RFC 6464)
-         * @since 1.20
-         * @param buffer a #GstBuffer
-         * @param level the -dBov from 0-127 (127 is silence).
-         * @param voice_activity whether the buffer contains voice activity.
-         * @returns the #GstAudioLevelMeta on `buffer`.
-         */
-        function buffer_add_audio_level_meta(buffer: Gst.Buffer, level: number, voice_activity: boolean): AudioLevelMeta | null
-        /**
-         * layout is %GST_AUDIO_LAYOUT_NON_INTERLEAVED and @offsets is
-         * %NULL, the offsets are calculated with a formula that assumes the planes are
-         * tightly packed and in sequence:
-         * offsets[channel] = channel * @samples * sample_stride
-         *
-         * It is not allowed for channels to overlap in memory,
-         * i.e. for each i in [0, channels), the range
-         * [@offsets[i], @offsets[i] + @samples * sample_stride) must not overlap
-         * with any other such range. This function will assert if the parameters
-         * specified cause this restriction to be violated.
-         *
-         * It is, obviously, also not allowed to specify parameters that would cause
-         * out-of-bounds memory access on @buffer. This is also checked, which means
-         * that you must add enough memory on the @buffer before adding this meta.
-         * @since 1.16
-         * @param buffer a #GstBuffer
-         * @param info the audio properties of the buffer
-         * @param samples the number of valid samples in the buffer
-         * @param offsets layout is %GST_AUDIO_LAYOUT_INTERLEAVED
-         * @returns the #GstAudioMeta that was attached on the `buffer`
-         */
-        function buffer_add_audio_meta(buffer: Gst.Buffer, info: AudioInfo, samples: number, offsets: number | null): AudioMeta
-        /**
-         * Allocates and attaches a #GstDsdPlaneOffsetMeta on @buffer, which must be
-         * writable for that purpose. The fields of the #GstDsdPlaneOffsetMeta are
-         * directly populated from the arguments of this function.
-         *
-         * If @offsets is NULL, then the meta's offsets field is left uninitialized.
-         * This is useful if for example offset values are to be calculated in the
-         * meta's offsets field in-place. Similarly, @num_bytes_per_channel can be
-         * set to 0, but only if @offsets is NULL. This is useful if the number of
-         * bytes per channel is known only later.
-         *
-         * It is not allowed for channels to overlap in memory,
-         * i.e. for each i in [0, channels), the range
-         * [@offsets[i], @offsets[i] + @num_bytes_per_channel) must not overlap
-         * with any other such range. This function will assert if the parameters
-         * specified cause this restriction to be violated.
-         *
-         * It is, obviously, also not allowed to specify parameters that would cause
-         * out-of-bounds memory access on @buffer. This is also checked, which means
-         * that you must add enough memory on the @buffer before adding this meta.
-         *
-         * This meta is only needed for non-interleaved (= planar) DSD data.
-         * @since 1.24
-         * @param buffer a #GstBuffer
-         * @param num_channels Number of channels in the DSD data
-         * @param num_bytes_per_channel Number of bytes per channel
-         * @param offsets the offsets (in bytes) where each channel plane starts
-          in the buffer
-         * @returns the #GstDsdPlaneOffsetMeta that was attached   on the `buffer`
-         */
-        function buffer_add_dsd_plane_offset_meta(buffer: Gst.Buffer, num_channels: number, num_bytes_per_channel: number, offsets: number | null): DsdPlaneOffsetMeta
-        /**
-         * Find the #GstAudioDownmixMeta on @buffer for the given destination
-         * channel positions.
-         * @param buffer a #GstBuffer
-         * @param to_position the channel positions of
-          the destination
-         * @returns the #GstAudioDownmixMeta on `buffer`.
-         */
-        function buffer_get_audio_downmix_meta_for_channels(buffer: Gst.Buffer, to_position: AudioChannelPosition[]): AudioDownmixMeta
-        /**
-         * Find the #GstAudioLevelMeta on @buffer.
-         * @since 1.20
-         * @param buffer a #GstBuffer
-         * @returns the #GstAudioLevelMeta or %NULL when there is no such metadata on `buffer`.
-         */
-        function buffer_get_audio_level_meta(buffer: Gst.Buffer): AudioLevelMeta | null
-        /**
-         * Converts DSD data from one layout and grouping format to another.
-         * @num_bytes must be an integer multiple of the width of both input
-         * and output format. For example, if the input format is GST_DSD_FORMAT_U32LE,
-         * and the output format is GST_DSD_FORMAT_U16BE, then @num_bytes must
-         * be an integer multiple of both 4 (U32LE width) and 2 (U16BE width).
-         *
-         * @reverse_byte_bits is necessary if the bit order within the DSD bytes
-         * needs to be reversed. This is rarely necessary, and is not to be
-         * confused with the endianness of formats (which determines the ordering
-         * of *bytes*).
-         *
-         * @input_plane_offsets must not be NULL if @input_layout is set to
-         * #GST_AUDIO_LAYOUT_NON_INTERLEAVED. The same applies to @output_plane_offsets.
-         * These plane offsets define the starting offset of the planes (there is
-         * exactly one plane per channel) within @input_data and @output_data
-         * respectively. If GST_AUDIO_LAYOUT_INTERLEAVED is used, the plane offsets
-         * are ignored.
-         * @since 1.24
-         * @param input_data the DSD format conversion's input source
-         * @param output_data the DSD format conversion's output destination
-         * @param input_format DSD format of the input data to convert from
-         * @param output_format DSD format of the output data to convert to
-         * @param input_layout Input data layout
-         * @param output_layout Output data layout
-         * @param input_plane_offsets Plane offsets for non-interleaved input data
-         * @param output_plane_offsets Plane offsets for non-interleaved output data
-         * @param num_dsd_bytes How many bytes with DSD data to convert
-         * @param num_channels Number of channels (must be at least 1)
-         * @param reverse_byte_bits If TRUE, reverse the bits in each DSD byte
-         */
-        function dsd_convert(input_data: number, output_data: number, input_format: DsdFormat, output_format: DsdFormat, input_layout: AudioLayout, output_layout: AudioLayout, input_plane_offsets: number, output_plane_offsets: number, num_dsd_bytes: number, num_channels: number, reverse_byte_bits: boolean): void
-        /**
-         * Convert the DSD format string @str to its #GstDsdFormat.
-         * @since 1.24
-         * @param str a DSD format string
-         * @returns the #GstDsdFormat for `format` or GST_DSD_FORMAT_UNKNOWN when the string is not a known format.
-         */
-        function dsd_format_from_string(str: string): DsdFormat
-        /**
-         * @since 1.24
-         * @param format a #GstDsdFormat
-         * @returns Number of bytes in this DSD grouping format.
-         */
-        function dsd_format_get_width(format: DsdFormat): number
-        /**
-         * Returns a string containing a descriptive name for
-         * the #GstDsdFormat if there is one, or NULL otherwise.
-         * @since 1.24
-         * @param format a #GstDsdFormat
-         * @returns the name corresponding to `format`
-         */
-        function dsd_format_to_string(format: DsdFormat): string
-        /**
-         * Parse @caps and update @info.
-         * @since 1.24
-         * @param caps a #GstCaps
-         * @returns TRUE if `caps` could be parsed, a #GstDsdInfo
-         */
-        function dsd_info_from_caps(caps: Gst.Caps): [boolean, DsdInfo]
-        /**
-         * Initialize @info with default values.
-         * @since 1.24
-         * @returns , a #GstDsdInfo
-         */
-        function dsd_info_init(): DsdInfo
-        /**
-         */
-        function dsd_plane_offset_meta_api_get_type(): GObject.GType
-        /**
-         */
-        function dsd_plane_offset_meta_get_info(): Gst.MetaInfo
-        /**
-         * @param from #GstStreamVolumeFormat to convert from
-         * @param to #GstStreamVolumeFormat to convert to
-         * @param val Volume in @from format that should be converted
-         * @returns the converted volume
-         */
-        function stream_volume_convert_volume(from: StreamVolumeFormat, to: StreamVolumeFormat, val: number): number
-        const AUDIO_CHANNELS_RANGE: "(int) [ 1, max ]"
-        const AUDIO_CONVERTER_OPT_DITHER_METHOD: "GstAudioConverter.dither-method"
-        const AUDIO_CONVERTER_OPT_DITHER_THRESHOLD: "GstAudioConverter.dither-threshold"
-        const AUDIO_CONVERTER_OPT_MIX_MATRIX: "GstAudioConverter.mix-matrix"
-        const AUDIO_CONVERTER_OPT_NOISE_SHAPING_METHOD: "GstAudioConverter.noise-shaping-method"
-        const AUDIO_CONVERTER_OPT_QUANTIZATION: "GstAudioConverter.quantization"
-        const AUDIO_CONVERTER_OPT_RESAMPLER_METHOD: "GstAudioConverter.resampler-method"
-        const AUDIO_DECODER_MAX_ERRORS: -1
-        const AUDIO_DECODER_SINK_NAME: "sink"
-        const AUDIO_DECODER_SRC_NAME: "src"
-        const AUDIO_DEF_CHANNELS: 2
-        const AUDIO_DEF_FORMAT: "S16LE"
-        const AUDIO_DEF_RATE: 44100
-        const AUDIO_ENCODER_SINK_NAME: "sink"
-        const AUDIO_ENCODER_SRC_NAME: "src"
-        const AUDIO_FORMATS_ALL: "{ F64BE, F64LE, F32BE, F32LE, S32BE, S32LE, U32BE, U32LE, S24_32BE, S24_32LE, U24_32BE, U24_32LE, S24BE, S24LE, U24BE, U24LE, S20BE, S20LE, U20BE, U20LE, S18BE, S18LE, U18BE, U18LE, S16BE, S16LE, U16BE, U16LE, S8, U8 }"
-        const AUDIO_FORMAT_LAST: 32
-        const AUDIO_RATE_RANGE: "(int) [ 1, max ]"
-        const AUDIO_RESAMPLER_OPT_CUBIC_B: "GstAudioResampler.cubic-b"
-        const AUDIO_RESAMPLER_OPT_CUBIC_C: "GstAudioResampler.cubic-c"
-        const AUDIO_RESAMPLER_OPT_CUTOFF: "GstAudioResampler.cutoff"
-        const AUDIO_RESAMPLER_OPT_FILTER_INTERPOLATION: "GstAudioResampler.filter-interpolation"
-        const AUDIO_RESAMPLER_OPT_FILTER_MODE: "GstAudioResampler.filter-mode"
-        const AUDIO_RESAMPLER_OPT_FILTER_MODE_THRESHOLD: "GstAudioResampler.filter-mode-threshold"
-        const AUDIO_RESAMPLER_OPT_FILTER_OVERSAMPLE: "GstAudioResampler.filter-oversample"
-        const AUDIO_RESAMPLER_OPT_MAX_PHASE_ERROR: "GstAudioResampler.max-phase-error"
-        const AUDIO_RESAMPLER_OPT_N_TAPS: "GstAudioResampler.n-taps"
-        const AUDIO_RESAMPLER_OPT_STOP_ATTENUATION: "GstAudioResampler.stop-attenutation"
-        const AUDIO_RESAMPLER_OPT_TRANSITION_BANDWIDTH: "GstAudioResampler.transition-bandwidth"
-        const AUDIO_RESAMPLER_QUALITY_DEFAULT: 4
-        const AUDIO_RESAMPLER_QUALITY_MAX: 10
-        const AUDIO_RESAMPLER_QUALITY_MIN: 0
-        const DSD_FORMATS_ALL: "{ DSDU32BE, DSDU16BE, DSDU8, DSDU32LE, DSDU16LE }"
-        const DSD_MEDIA_TYPE: "audio/x-dsd"
-        const DSD_SILENCE_PATTERN_BYTE: 105
-        const META_TAG_AUDIO_CHANNELS_STR: "channels"
-        const META_TAG_AUDIO_RATE_STR: "rate"
-        const META_TAG_AUDIO_STR: "audio"
-        const META_TAG_DSD_PLANE_OFFSETS_STR: "dsdplaneoffsets"
-        
-        namespace AudioBaseSinkDiscontReason {
-            const $gtype: GObject.GType<AudioBaseSinkDiscontReason>
-        }
 
-        /**
-         * Different possible reasons for discontinuities. This enum is useful for the custom
-         * slave method.
-         * @since 1.6
-         */
-        enum AudioBaseSinkDiscontReason {
+        interface $Exports {
+            DsdPlaneOffsetMeta: DsdPlaneOffsetMetaStruct
+        }
+        
+        interface AudioBaseSinkDiscontReasonEnum {
+            readonly $gtype: GObject.GType<AudioBaseSinkDiscontReason>
             /**
              * No discontinuity occurred
              */
-            "NO_DISCONT" = 0,
+            readonly "NO_DISCONT": 0
             /**
              * New caps are set, causing renegotiotion
              */
-            "NEW_CAPS" = 1,
+            readonly "NEW_CAPS": 1
             /**
              * Samples have been flushed
              */
-            "FLUSH" = 2,
+            readonly "FLUSH": 2
             /**
              * Sink was synchronized to the estimated latency (occurs during initialization)
              */
-            "SYNC_LATENCY" = 3,
+            readonly "SYNC_LATENCY": 3
             /**
              * Aligning buffers failed because the timestamps are too discontinuous
              */
-            "ALIGNMENT" = 4,
+            readonly "ALIGNMENT": 4
             /**
              * Audio output device experienced and recovered from an error but introduced latency in the process (see also gst_audio_base_sink_report_device_failure())
              */
-            "DEVICE_FAILURE" = 5,
+            readonly "DEVICE_FAILURE": 5
+        }
+        type AudioBaseSinkDiscontReason = AudioBaseSinkDiscontReasonEnum[Exclude<keyof AudioBaseSinkDiscontReasonEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Different possible reasons for discontinuities. This enum is useful for the custom
+             * slave method.
+             * @since 1.6
+             */
+            AudioBaseSinkDiscontReason: AudioBaseSinkDiscontReasonEnum
         }
         
-        namespace AudioBaseSinkSlaveMethod {
-            const $gtype: GObject.GType<AudioBaseSinkSlaveMethod>
-        }
-
-        /**
-         * Different possible clock slaving algorithms used when the internal audio
-         * clock is not selected as the pipeline master clock.
-         */
-        enum AudioBaseSinkSlaveMethod {
+        interface AudioBaseSinkSlaveMethodEnum {
+            readonly $gtype: GObject.GType<AudioBaseSinkSlaveMethod>
             /**
              * Resample to match the master clock
              */
-            "RESAMPLE" = 0,
+            readonly "RESAMPLE": 0
             /**
              * Adjust playout pointer when master clock
              * drifts too much.
              */
-            "SKEW" = 1,
+            readonly "SKEW": 1
             /**
              * No adjustment is done.
              */
-            "NONE" = 2,
+            readonly "NONE": 2
             /**
              * Use custom clock slaving algorithm (Since: 1.6)
              */
-            "CUSTOM" = 3,
+            readonly "CUSTOM": 3
+        }
+        type AudioBaseSinkSlaveMethod = AudioBaseSinkSlaveMethodEnum[Exclude<keyof AudioBaseSinkSlaveMethodEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Different possible clock slaving algorithms used when the internal audio
+             * clock is not selected as the pipeline master clock.
+             */
+            AudioBaseSinkSlaveMethod: AudioBaseSinkSlaveMethodEnum
         }
         
-        namespace AudioBaseSrcSlaveMethod {
-            const $gtype: GObject.GType<AudioBaseSrcSlaveMethod>
-        }
-
-        /**
-         * Different possible clock slaving algorithms when the internal audio clock was
-         * not selected as the pipeline clock.
-         */
-        enum AudioBaseSrcSlaveMethod {
+        interface AudioBaseSrcSlaveMethodEnum {
+            readonly $gtype: GObject.GType<AudioBaseSrcSlaveMethod>
             /**
              * Resample to match the master clock.
              */
-            "RESAMPLE" = 0,
+            readonly "RESAMPLE": 0
             /**
              * Retimestamp output buffers with master
              * clock time.
              */
-            "RE_TIMESTAMP" = 1,
+            readonly "RE_TIMESTAMP": 1
             /**
              * Adjust capture pointer when master clock
              * drifts too much.
              */
-            "SKEW" = 2,
+            readonly "SKEW": 2
             /**
              * No adjustment is done.
              */
-            "NONE" = 3,
+            readonly "NONE": 3
+        }
+        type AudioBaseSrcSlaveMethod = AudioBaseSrcSlaveMethodEnum[Exclude<keyof AudioBaseSrcSlaveMethodEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Different possible clock slaving algorithms when the internal audio clock was
+             * not selected as the pipeline clock.
+             */
+            AudioBaseSrcSlaveMethod: AudioBaseSrcSlaveMethodEnum
         }
         
-        namespace AudioCdSrcMode {
-            const $gtype: GObject.GType<AudioCdSrcMode>
-        }
-
-        /**
-         * Mode in which the CD audio source operates. Influences timestamping,
-         * EOS handling and seeking.
-         */
-        enum AudioCdSrcMode {
+        interface AudioCdSrcModeEnum {
+            readonly $gtype: GObject.GType<AudioCdSrcMode>
             /**
              * each single track is a stream
              */
-            "NORMAL" = 0,
+            readonly "NORMAL": 0
             /**
              * the entire disc is a single stream
              */
-            "CONTINUOUS" = 1,
+            readonly "CONTINUOUS": 1
+        }
+        type AudioCdSrcMode = AudioCdSrcModeEnum[Exclude<keyof AudioCdSrcModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Mode in which the CD audio source operates. Influences timestamping,
+             * EOS handling and seeking.
+             */
+            AudioCdSrcMode: AudioCdSrcModeEnum
         }
         
-        namespace AudioChannelPosition {
-            const $gtype: GObject.GType<AudioChannelPosition>
-        }
-
-        /**
-         * Audio channel positions.
-         *
-         * These are the channels defined in SMPTE 2036-2-2008
-         * Table 1 for 22.2 audio systems with the Surround and Wide channels from
-         * DTS Coherent Acoustics (v.1.3.1) and 10.2 and 7.1 layouts. In the caps the
-         * actual channel layout is expressed with a channel count and a channel mask,
-         * which describes the existing channels. The positions in the bit mask correspond
-         * to the enum values.
-         * For negotiation it is allowed to have more bits set in the channel mask than
-         * the number of channels to specify the allowed channel positions but this is
-         * not allowed in negotiated caps. It is not allowed in any situation other
-         * than the one mentioned below to have less bits set in the channel mask than
-         * the number of channels.
-         *
-         * @GST_AUDIO_CHANNEL_POSITION_MONO can only be used with a single mono channel that
-         * has no direction information and would be mixed into all directional channels.
-         * This is expressed in caps by having a single channel and no channel mask.
-         *
-         * @GST_AUDIO_CHANNEL_POSITION_NONE can only be used if all channels have this position.
-         * This is expressed in caps by having a channel mask with no bits set.
-         *
-         * As another special case it is allowed to have two channels without a channel mask.
-         * This implicitly means that this is a stereo stream with a front left and front right
-         * channel.
-         */
-        enum AudioChannelPosition {
+        interface AudioChannelPositionEnum {
+            readonly $gtype: GObject.GType<AudioChannelPosition>
             /**
              * used for position-less channels, e.g.
              *     from a sound card that records 1024 channels; mutually exclusive with
              *     any other channel position
              */
-            "NONE" = -3,
+            readonly "NONE": -3
             /**
              * Mono without direction;
              *     can only be used with 1 channel
              */
-            "MONO" = -2,
+            readonly "MONO": -2
             /**
              * invalid position
              */
-            "INVALID" = -1,
+            readonly "INVALID": -1
             /**
              * Front left
              */
-            "FRONT_LEFT" = 0,
+            readonly "FRONT_LEFT": 0
             /**
              * Front right
              */
-            "FRONT_RIGHT" = 1,
+            readonly "FRONT_RIGHT": 1
             /**
              * Front center
              */
-            "FRONT_CENTER" = 2,
+            readonly "FRONT_CENTER": 2
             /**
              * Low-frequency effects 1 (subwoofer)
              */
-            "LFE1" = 3,
+            readonly "LFE1": 3
             /**
              * Rear left
              */
-            "REAR_LEFT" = 4,
+            readonly "REAR_LEFT": 4
             /**
              * Rear right
              */
-            "REAR_RIGHT" = 5,
+            readonly "REAR_RIGHT": 5
             /**
              * Front left of center
              */
-            "FRONT_LEFT_OF_CENTER" = 6,
+            readonly "FRONT_LEFT_OF_CENTER": 6
             /**
              * Front right of center
              */
-            "FRONT_RIGHT_OF_CENTER" = 7,
+            readonly "FRONT_RIGHT_OF_CENTER": 7
             /**
              * Rear center
              */
-            "REAR_CENTER" = 8,
+            readonly "REAR_CENTER": 8
             /**
              * Low-frequency effects 2 (subwoofer)
              */
-            "LFE2" = 9,
+            readonly "LFE2": 9
             /**
              * Side left
              */
-            "SIDE_LEFT" = 10,
+            readonly "SIDE_LEFT": 10
             /**
              * Side right
              */
-            "SIDE_RIGHT" = 11,
+            readonly "SIDE_RIGHT": 11
             /**
              * Top front left
              */
-            "TOP_FRONT_LEFT" = 12,
+            readonly "TOP_FRONT_LEFT": 12
             /**
              * Top front right
              */
-            "TOP_FRONT_RIGHT" = 13,
+            readonly "TOP_FRONT_RIGHT": 13
             /**
              * Top front center
              */
-            "TOP_FRONT_CENTER" = 14,
+            readonly "TOP_FRONT_CENTER": 14
             /**
              * Top center
              */
-            "TOP_CENTER" = 15,
+            readonly "TOP_CENTER": 15
             /**
              * Top rear left
              */
-            "TOP_REAR_LEFT" = 16,
+            readonly "TOP_REAR_LEFT": 16
             /**
              * Top rear right
              */
-            "TOP_REAR_RIGHT" = 17,
+            readonly "TOP_REAR_RIGHT": 17
             /**
              * Top side right
              */
-            "TOP_SIDE_LEFT" = 18,
+            readonly "TOP_SIDE_LEFT": 18
             /**
              * Top rear right
              */
-            "TOP_SIDE_RIGHT" = 19,
+            readonly "TOP_SIDE_RIGHT": 19
             /**
              * Top rear center
              */
-            "TOP_REAR_CENTER" = 20,
+            readonly "TOP_REAR_CENTER": 20
             /**
              * Bottom front center
              */
-            "BOTTOM_FRONT_CENTER" = 21,
+            readonly "BOTTOM_FRONT_CENTER": 21
             /**
              * Bottom front left
              */
-            "BOTTOM_FRONT_LEFT" = 22,
+            readonly "BOTTOM_FRONT_LEFT": 22
             /**
              * Bottom front right
              */
-            "BOTTOM_FRONT_RIGHT" = 23,
+            readonly "BOTTOM_FRONT_RIGHT": 23
             /**
              * Wide left (between front left and side left)
              */
-            "WIDE_LEFT" = 24,
+            readonly "WIDE_LEFT": 24
             /**
              * Wide right (between front right and side right)
              */
-            "WIDE_RIGHT" = 25,
+            readonly "WIDE_RIGHT": 25
             /**
              * Surround left (between rear left and side left)
              */
-            "SURROUND_LEFT" = 26,
+            readonly "SURROUND_LEFT": 26
             /**
              * Surround right (between rear right and side right)
              */
-            "SURROUND_RIGHT" = 27,
+            readonly "SURROUND_RIGHT": 27
             /**
              * Top surround left (between rear left and side left).
              * @since 1.26
              */
-            "TOP_SURROUND_LEFT" = 28,
+            readonly "TOP_SURROUND_LEFT": 28
             /**
              * Top surround right (between rear right and side right).
              * @since 1.26
              */
-            "TOP_SURROUND_RIGHT" = 29,
+            readonly "TOP_SURROUND_RIGHT": 29
+        }
+        type AudioChannelPosition = AudioChannelPositionEnum[Exclude<keyof AudioChannelPositionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Audio channel positions.
+             *
+             * These are the channels defined in SMPTE 2036-2-2008
+             * Table 1 for 22.2 audio systems with the Surround and Wide channels from
+             * DTS Coherent Acoustics (v.1.3.1) and 10.2 and 7.1 layouts. In the caps the
+             * actual channel layout is expressed with a channel count and a channel mask,
+             * which describes the existing channels. The positions in the bit mask correspond
+             * to the enum values.
+             * For negotiation it is allowed to have more bits set in the channel mask than
+             * the number of channels to specify the allowed channel positions but this is
+             * not allowed in negotiated caps. It is not allowed in any situation other
+             * than the one mentioned below to have less bits set in the channel mask than
+             * the number of channels.
+             *
+             * @GST_AUDIO_CHANNEL_POSITION_MONO can only be used with a single mono channel that
+             * has no direction information and would be mixed into all directional channels.
+             * This is expressed in caps by having a single channel and no channel mask.
+             *
+             * @GST_AUDIO_CHANNEL_POSITION_NONE can only be used if all channels have this position.
+             * This is expressed in caps by having a channel mask with no bits set.
+             *
+             * As another special case it is allowed to have two channels without a channel mask.
+             * This implicitly means that this is a stereo stream with a front left and front right
+             * channel.
+             */
+            AudioChannelPosition: AudioChannelPositionEnum
         }
         
-        namespace AudioDitherMethod {
-            const $gtype: GObject.GType<AudioDitherMethod>
-        }
-
-        /**
-         * Set of available dithering methods.
-         */
-        enum AudioDitherMethod {
+        interface AudioDitherMethodEnum {
+            readonly $gtype: GObject.GType<AudioDitherMethod>
             /**
              * No dithering
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Rectangular dithering
              */
-            "RPDF" = 1,
+            readonly "RPDF": 1
             /**
              * Triangular dithering (default)
              */
-            "TPDF" = 2,
+            readonly "TPDF": 2
             /**
              * High frequency triangular dithering
              */
-            "TPDF_HF" = 3,
+            readonly "TPDF_HF": 3
+        }
+        type AudioDitherMethod = AudioDitherMethodEnum[Exclude<keyof AudioDitherMethodEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Set of available dithering methods.
+             */
+            AudioDitherMethod: AudioDitherMethodEnum
         }
         
-        namespace AudioFormat {
-            const $gtype: GObject.GType<AudioFormat>
-        }
-
-        /**
-         * Enum value describing the most common audio formats.
-         */
-        enum AudioFormat {
+        interface AudioFormatEnum {
+            readonly $gtype: GObject.GType<AudioFormat>
             /**
              * unknown or unset audio format
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * encoded audio format
              */
-            "ENCODED" = 1,
+            readonly "ENCODED": 1
             /**
              * 8 bits in 8 bits, signed
              */
-            "S8" = 2,
+            readonly "S8": 2
             /**
              * 8 bits in 8 bits, unsigned
              */
-            "U8" = 3,
+            readonly "U8": 3
             /**
              * 16 bits in 16 bits, signed, little endian
              */
-            "S16LE" = 4,
+            readonly "S16LE": 4
             /**
              * 16 bits in 16 bits, signed, big endian
              */
-            "S16BE" = 5,
+            readonly "S16BE": 5
             /**
              * 16 bits in 16 bits, unsigned, little endian
              */
-            "U16LE" = 6,
+            readonly "U16LE": 6
             /**
              * 16 bits in 16 bits, unsigned, big endian
              */
-            "U16BE" = 7,
+            readonly "U16BE": 7
             /**
              * 24 bits in 32 bits, signed, little endian
              */
-            "S24_32LE" = 8,
+            readonly "S24_32LE": 8
             /**
              * 24 bits in 32 bits, signed, big endian
              */
-            "S24_32BE" = 9,
+            readonly "S24_32BE": 9
             /**
              * 24 bits in 32 bits, unsigned, little endian
              */
-            "U24_32LE" = 10,
+            readonly "U24_32LE": 10
             /**
              * 24 bits in 32 bits, unsigned, big endian
              */
-            "U24_32BE" = 11,
+            readonly "U24_32BE": 11
             /**
              * 32 bits in 32 bits, signed, little endian
              */
-            "S32LE" = 12,
+            readonly "S32LE": 12
             /**
              * 32 bits in 32 bits, signed, big endian
              */
-            "S32BE" = 13,
+            readonly "S32BE": 13
             /**
              * 32 bits in 32 bits, unsigned, little endian
              */
-            "U32LE" = 14,
+            readonly "U32LE": 14
             /**
              * 32 bits in 32 bits, unsigned, big endian
              */
-            "U32BE" = 15,
+            readonly "U32BE": 15
             /**
              * 24 bits in 24 bits, signed, little endian
              */
-            "S24LE" = 16,
+            readonly "S24LE": 16
             /**
              * 24 bits in 24 bits, signed, big endian
              */
-            "S24BE" = 17,
+            readonly "S24BE": 17
             /**
              * 24 bits in 24 bits, unsigned, little endian
              */
-            "U24LE" = 18,
+            readonly "U24LE": 18
             /**
              * 24 bits in 24 bits, unsigned, big endian
              */
-            "U24BE" = 19,
+            readonly "U24BE": 19
             /**
              * 20 bits in 24 bits, signed, little endian
              */
-            "S20LE" = 20,
+            readonly "S20LE": 20
             /**
              * 20 bits in 24 bits, signed, big endian
              */
-            "S20BE" = 21,
+            readonly "S20BE": 21
             /**
              * 20 bits in 24 bits, unsigned, little endian
              */
-            "U20LE" = 22,
+            readonly "U20LE": 22
             /**
              * 20 bits in 24 bits, unsigned, big endian
              */
-            "U20BE" = 23,
+            readonly "U20BE": 23
             /**
              * 18 bits in 24 bits, signed, little endian
              */
-            "S18LE" = 24,
+            readonly "S18LE": 24
             /**
              * 18 bits in 24 bits, signed, big endian
              */
-            "S18BE" = 25,
+            readonly "S18BE": 25
             /**
              * 18 bits in 24 bits, unsigned, little endian
              */
-            "U18LE" = 26,
+            readonly "U18LE": 26
             /**
              * 18 bits in 24 bits, unsigned, big endian
              */
-            "U18BE" = 27,
+            readonly "U18BE": 27
             /**
              * 32-bit floating point samples, little endian
              */
-            "F32LE" = 28,
+            readonly "F32LE": 28
             /**
              * 32-bit floating point samples, big endian
              */
-            "F32BE" = 29,
+            readonly "F32BE": 29
             /**
              * 64-bit floating point samples, little endian
              */
-            "F64LE" = 30,
+            readonly "F64LE": 30
             /**
              * 64-bit floating point samples, big endian
              */
-            "F64BE" = 31,
+            readonly "F64BE": 31
             /**
              * 16 bits in 16 bits, signed, native endianness
              */
-            "S16" = 4,
+            readonly "S16": 4
             /**
              * 16 bits in 16 bits, unsigned, native endianness
              */
-            "U16" = 6,
+            readonly "U16": 6
             /**
              * 24 bits in 32 bits, signed, native endianness
              */
-            "S24_32" = 8,
+            readonly "S24_32": 8
             /**
              * 24 bits in 32 bits, unsigned, native endianness
              */
-            "U24_32" = 10,
+            readonly "U24_32": 10
             /**
              * 32 bits in 32 bits, signed, native endianness
              */
-            "S32" = 12,
+            readonly "S32": 12
             /**
              * 32 bits in 32 bits, unsigned, native endianness
              */
-            "U32" = 14,
+            readonly "U32": 14
             /**
              * 24 bits in 24 bits, signed, native endianness
              */
-            "S24" = 16,
+            readonly "S24": 16
             /**
              * 24 bits in 24 bits, unsigned, native endianness
              */
-            "U24" = 18,
+            readonly "U24": 18
             /**
              * 20 bits in 24 bits, signed, native endianness
              */
-            "S20" = 20,
+            readonly "S20": 20
             /**
              * 20 bits in 24 bits, unsigned, native endianness
              */
-            "U20" = 22,
+            readonly "U20": 22
             /**
              * 18 bits in 24 bits, signed, native endianness
              */
-            "S18" = 24,
+            readonly "S18": 24
             /**
              * 18 bits in 24 bits, unsigned, native endianness
              */
-            "U18" = 26,
+            readonly "U18": 26
             /**
              * 32-bit floating point samples, native endianness
              */
-            "F32" = 28,
+            readonly "F32": 28
             /**
              * 64-bit floating point samples, native endianness
              */
-            "F64" = 30,
+            readonly "F64": 30
         }
-        /**
+        type AudioFormat = AudioFormatEnum[Exclude<keyof AudioFormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum value describing the most common audio formats.
+             */
+            AudioFormat: AudioFormatEnum
+            /**
          * Construct a #GstAudioFormat with given parameters.
          * @param sign signed or unsigned format
          * @param endianness G_LITTLE_ENDIAN or G_BIG_ENDIAN
@@ -4825,28 +4322,28 @@ declare module "gi://GstAudio?version=1.0" {
          * @param depth amount of used bits in @width
          * @returns a #GstAudioFormat or GST_AUDIO_FORMAT_UNKNOWN when no audio format exists with the given parameters.
          */
-        function build_integer(sign: boolean, endianness: number, width: number, depth: number): AudioFormat
-        /**
+        build_integer: (sign: boolean, endianness: number, width: number, depth: number) => AudioFormat
+            /**
          * Fill @length bytes in @dest with silence samples for @info.
          * @deprecated since 1.20 Use gst_audio_format_info_fill_silence() instead.
          * @param info a #GstAudioFormatInfo
          * @param dest a destination
           to fill
          */
-        function fill_silence(info: AudioFormatInfo, dest: Uint8Array): void
-        /**
+        fill_silence: (info: AudioFormatInfo, dest: Uint8Array) => void
+            /**
          * Convert the @format string to its #GstAudioFormat.
          * @param format a format string
          * @returns the #GstAudioFormat for `format` or GST_AUDIO_FORMAT_UNKNOWN when the string is not a known format.
          */
-        function from_string(format: string): AudioFormat
-        /**
+        from_string: (format: string) => AudioFormat
+            /**
          * Get the #GstAudioFormatInfo for @format
          * @param format a #GstAudioFormat
          * @returns The #GstAudioFormatInfo for `format`.
          */
-        function get_info(format: AudioFormat): AudioFormatInfo
-        /**
+        get_info: (format: AudioFormat) => AudioFormatInfo
+            /**
          * Returns a string containing a descriptive name for the #GstAudioFormat.
          *
          * Since 1.26 this can also be used with %GST_AUDIO_FORMAT_UNKNOWN, previous
@@ -4854,453 +4351,461 @@ declare module "gi://GstAudio?version=1.0" {
          * @param format a #GstAudioFormat audio format
          * @returns the name corresponding to `format`
          */
-        function to_string(format: AudioFormat): string
-        
-        namespace AudioLayout {
-            const $gtype: GObject.GType<AudioLayout>
+        to_string: (format: AudioFormat) => string
         }
-
-        /**
-         * Layout of the audio samples for the different channels.
-         */
-        enum AudioLayout {
+        
+        interface AudioLayoutEnum {
+            readonly $gtype: GObject.GType<AudioLayout>
             /**
              * interleaved audio
              */
-            "INTERLEAVED" = 0,
+            readonly "INTERLEAVED": 0
             /**
              * non-interleaved audio
              */
-            "NON_INTERLEAVED" = 1,
+            readonly "NON_INTERLEAVED": 1
+        }
+        type AudioLayout = AudioLayoutEnum[Exclude<keyof AudioLayoutEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Layout of the audio samples for the different channels.
+             */
+            AudioLayout: AudioLayoutEnum
         }
         
-        namespace AudioNoiseShapingMethod {
-            const $gtype: GObject.GType<AudioNoiseShapingMethod>
-        }
-
-        /**
-         * Set of available noise shaping methods
-         */
-        enum AudioNoiseShapingMethod {
+        interface AudioNoiseShapingMethodEnum {
+            readonly $gtype: GObject.GType<AudioNoiseShapingMethod>
             /**
              * No noise shaping (default)
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Error feedback
              */
-            "ERROR_FEEDBACK" = 1,
+            readonly "ERROR_FEEDBACK": 1
             /**
              * Simple 2-pole noise shaping
              */
-            "SIMPLE" = 2,
+            readonly "SIMPLE": 2
             /**
              * Medium 5-pole noise shaping
              */
-            "MEDIUM" = 3,
+            readonly "MEDIUM": 3
             /**
              * High 8-pole noise shaping
              */
-            "HIGH" = 4,
+            readonly "HIGH": 4
+        }
+        type AudioNoiseShapingMethod = AudioNoiseShapingMethodEnum[Exclude<keyof AudioNoiseShapingMethodEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Set of available noise shaping methods
+             */
+            AudioNoiseShapingMethod: AudioNoiseShapingMethodEnum
         }
         
-        namespace AudioResamplerFilterInterpolation {
-            const $gtype: GObject.GType<AudioResamplerFilterInterpolation>
-        }
-
-        /**
-         * The different filter interpolation methods.
-         * @since 1.10
-         */
-        enum AudioResamplerFilterInterpolation {
+        interface AudioResamplerFilterInterpolationEnum {
+            readonly $gtype: GObject.GType<AudioResamplerFilterInterpolation>
             /**
              * no interpolation
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * linear interpolation of the
              *   filter coefficients.
              */
-            "LINEAR" = 1,
+            readonly "LINEAR": 1
             /**
              * cubic interpolation of the
              *   filter coefficients.
              */
-            "CUBIC" = 2,
+            readonly "CUBIC": 2
+        }
+        type AudioResamplerFilterInterpolation = AudioResamplerFilterInterpolationEnum[Exclude<keyof AudioResamplerFilterInterpolationEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different filter interpolation methods.
+             * @since 1.10
+             */
+            AudioResamplerFilterInterpolation: AudioResamplerFilterInterpolationEnum
         }
         
-        namespace AudioResamplerFilterMode {
-            const $gtype: GObject.GType<AudioResamplerFilterMode>
-        }
-
-        /**
-         * Select for the filter tables should be set up.
-         * @since 1.10
-         */
-        enum AudioResamplerFilterMode {
+        interface AudioResamplerFilterModeEnum {
+            readonly $gtype: GObject.GType<AudioResamplerFilterMode>
             /**
              * Use interpolated filter tables. This
              *     uses less memory but more CPU and is slightly less accurate but it allows for more
              *     efficient variable rate resampling with gst_audio_resampler_update().
              */
-            "INTERPOLATED" = 0,
+            readonly "INTERPOLATED": 0
             /**
              * Use full filter table. This uses more memory
              *     but less CPU.
              */
-            "FULL" = 1,
+            readonly "FULL": 1
             /**
              * Automatically choose between interpolated
              *     and full filter tables.
              */
-            "AUTO" = 2,
+            readonly "AUTO": 2
+        }
+        type AudioResamplerFilterMode = AudioResamplerFilterModeEnum[Exclude<keyof AudioResamplerFilterModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Select for the filter tables should be set up.
+             * @since 1.10
+             */
+            AudioResamplerFilterMode: AudioResamplerFilterModeEnum
         }
         
-        namespace AudioResamplerMethod {
-            const $gtype: GObject.GType<AudioResamplerMethod>
-        }
-
-        /**
-         * Different subsampling and upsampling methods
-         * @since 1.10
-         */
-        enum AudioResamplerMethod {
+        interface AudioResamplerMethodEnum {
+            readonly $gtype: GObject.GType<AudioResamplerMethod>
             /**
              * Duplicates the samples when
              *    upsampling and drops when downsampling
              */
-            "NEAREST" = 0,
+            readonly "NEAREST": 0
             /**
              * Uses linear interpolation to reconstruct
              *    missing samples and averaging to downsample
              */
-            "LINEAR" = 1,
+            readonly "LINEAR": 1
             /**
              * Uses cubic interpolation
              */
-            "CUBIC" = 2,
+            readonly "CUBIC": 2
             /**
              * Uses Blackman-Nuttall windowed sinc interpolation
              */
-            "BLACKMAN_NUTTALL" = 3,
+            readonly "BLACKMAN_NUTTALL": 3
             /**
              * Uses Kaiser windowed sinc interpolation
              */
-            "KAISER" = 4,
+            readonly "KAISER": 4
+        }
+        type AudioResamplerMethod = AudioResamplerMethodEnum[Exclude<keyof AudioResamplerMethodEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Different subsampling and upsampling methods
+             * @since 1.10
+             */
+            AudioResamplerMethod: AudioResamplerMethodEnum
         }
         
-        namespace AudioRingBufferFormatType {
-            const $gtype: GObject.GType<AudioRingBufferFormatType>
-        }
-
-        /**
-         * The format of the samples in the ringbuffer.
-         */
-        enum AudioRingBufferFormatType {
+        interface AudioRingBufferFormatTypeEnum {
+            readonly $gtype: GObject.GType<AudioRingBufferFormatType>
             /**
              * samples in linear or float
              */
-            "RAW" = 0,
+            readonly "RAW": 0
             /**
              * samples in mulaw
              */
-            "MU_LAW" = 1,
+            readonly "MU_LAW": 1
             /**
              * samples in alaw
              */
-            "A_LAW" = 2,
+            readonly "A_LAW": 2
             /**
              * samples in ima adpcm
              */
-            "IMA_ADPCM" = 3,
+            readonly "IMA_ADPCM": 3
             /**
              * samples in mpeg audio (but not AAC) format
              */
-            "MPEG" = 4,
+            readonly "MPEG": 4
             /**
              * samples in gsm format
              */
-            "GSM" = 5,
+            readonly "GSM": 5
             /**
              * samples in IEC958 frames (e.g. AC3)
              */
-            "IEC958" = 6,
+            readonly "IEC958": 6
             /**
              * samples in AC3 format
              */
-            "AC3" = 7,
+            readonly "AC3": 7
             /**
              * samples in EAC3 format
              */
-            "EAC3" = 8,
+            readonly "EAC3": 8
             /**
              * samples in DTS format
              */
-            "DTS" = 9,
+            readonly "DTS": 9
             /**
              * samples in MPEG-2 AAC ADTS format
              */
-            "MPEG2_AAC" = 10,
+            readonly "MPEG2_AAC": 10
             /**
              * samples in MPEG-4 AAC ADTS format
              */
-            "MPEG4_AAC" = 11,
+            readonly "MPEG4_AAC": 11
             /**
              * samples in MPEG-2 AAC raw format (Since: 1.12)
              */
-            "MPEG2_AAC_RAW" = 12,
+            readonly "MPEG2_AAC_RAW": 12
             /**
              * samples in MPEG-4 AAC raw format (Since: 1.12)
              */
-            "MPEG4_AAC_RAW" = 13,
+            readonly "MPEG4_AAC_RAW": 13
             /**
              * samples in FLAC format (Since: 1.12)
              */
-            "FLAC" = 14,
+            readonly "FLAC": 14
             /**
              * samples in DSD format (Since: 1.24)
              */
-            "DSD" = 15,
+            readonly "DSD": 15
+        }
+        type AudioRingBufferFormatType = AudioRingBufferFormatTypeEnum[Exclude<keyof AudioRingBufferFormatTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The format of the samples in the ringbuffer.
+             */
+            AudioRingBufferFormatType: AudioRingBufferFormatTypeEnum
         }
         
-        namespace AudioRingBufferState {
-            const $gtype: GObject.GType<AudioRingBufferState>
-        }
-
-        /**
-         * The state of the ringbuffer.
-         */
-        enum AudioRingBufferState {
+        interface AudioRingBufferStateEnum {
+            readonly $gtype: GObject.GType<AudioRingBufferState>
             /**
              * The ringbuffer is stopped
              */
-            "STOPPED" = 0,
+            readonly "STOPPED": 0
             /**
              * The ringbuffer is paused
              */
-            "PAUSED" = 1,
+            readonly "PAUSED": 1
             /**
              * The ringbuffer is started
              */
-            "STARTED" = 2,
+            readonly "STARTED": 2
             /**
              * The ringbuffer has encountered an
              *     error after it has been started, e.g. because the device was
              *     disconnected (Since: 1.2)
              */
-            "ERROR" = 3,
+            readonly "ERROR": 3
+        }
+        type AudioRingBufferState = AudioRingBufferStateEnum[Exclude<keyof AudioRingBufferStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The state of the ringbuffer.
+             */
+            AudioRingBufferState: AudioRingBufferStateEnum
         }
         
-        namespace DsdFormat {
-            const $gtype: GObject.GType<DsdFormat>
-        }
-
-        /**
-         * Enum value describing how DSD bits are grouped.
-         * @since 1.24
-         */
-        enum DsdFormat {
+        interface DsdFormatEnum {
+            readonly $gtype: GObject.GType<DsdFormat>
             /**
              * unknown / invalid DSD format
              */
-            "DSD_FORMAT_UNKNOWN" = 0,
+            readonly "DSD_FORMAT_UNKNOWN": 0
             /**
              * 8 DSD bits in 1 byte
              */
-            "DSD_FORMAT_U8" = 1,
+            readonly "DSD_FORMAT_U8": 1
             /**
              * 16 DSD bits in 2 bytes, little endian order
              */
-            "DSD_FORMAT_U16LE" = 2,
+            readonly "DSD_FORMAT_U16LE": 2
             /**
              * 16 DSD bits in 2 bytes, big endian order
              */
-            "DSD_FORMAT_U16BE" = 3,
+            readonly "DSD_FORMAT_U16BE": 3
             /**
              * 32 DSD bits in 4 bytes, little endian order
              */
-            "DSD_FORMAT_U32LE" = 4,
+            readonly "DSD_FORMAT_U32LE": 4
             /**
              * 32 DSD bits in 4 bytes, big endian order
              */
-            "DSD_FORMAT_U32BE" = 5,
+            readonly "DSD_FORMAT_U32BE": 5
             /**
              * number of valid DSD formats
              */
-            "NUM_DSD_FORMATS" = 6,
+            readonly "NUM_DSD_FORMATS": 6
             /**
              * 16 DSD bits in 2 bytes, native endianness
              */
-            "DSD_FORMAT_U16" = 2,
+            readonly "DSD_FORMAT_U16": 2
             /**
              * 32 DSD bits in 4 bytes, native endianness
              */
-            "DSD_FORMAT_U32" = 4,
+            readonly "DSD_FORMAT_U32": 4
         }
-        /**
+        type DsdFormat = DsdFormatEnum[Exclude<keyof DsdFormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum value describing how DSD bits are grouped.
+             * @since 1.24
+             */
+            DsdFormat: DsdFormatEnum
+            /**
          * Convert the DSD format string @str to its #GstDsdFormat.
          * @since 1.24
          * @param str a DSD format string
          * @returns the #GstDsdFormat for `format` or GST_DSD_FORMAT_UNKNOWN when the string is not a known format.
          */
-        function from_string(str: string): DsdFormat
-        /**
+        from_string: (str: string) => DsdFormat
+            /**
          * @since 1.24
          * @param format a #GstDsdFormat
          * @returns Number of bytes in this DSD grouping format.
          */
-        function get_width(format: DsdFormat): number
-        /**
+        get_width: (format: DsdFormat) => number
+            /**
          * Returns a string containing a descriptive name for
          * the #GstDsdFormat if there is one, or NULL otherwise.
          * @since 1.24
          * @param format a #GstDsdFormat
          * @returns the name corresponding to `format`
          */
-        function to_string(format: DsdFormat): string
-        
-        namespace StreamVolumeFormat {
-            const $gtype: GObject.GType<StreamVolumeFormat>
+        to_string: (format: DsdFormat) => string
         }
-
-        /**
-         * Different representations of a stream volume. gst_stream_volume_convert_volume()
-         * allows to convert between the different representations.
-         *
-         * Formulas to convert from a linear to a cubic or dB volume are
-         * cbrt(val) and 20 * log10 (val).
-         */
-        enum StreamVolumeFormat {
+        
+        interface StreamVolumeFormatEnum {
+            readonly $gtype: GObject.GType<StreamVolumeFormat>
             /**
              * Linear scale factor, 1.0 = 100%
              */
-            "LINEAR" = 0,
+            readonly "LINEAR": 0
             /**
              * Cubic volume scale
              */
-            "CUBIC" = 1,
+            readonly "CUBIC": 1
             /**
              * Logarithmic volume scale (dB, amplitude not power)
              */
-            "DB" = 2,
+            readonly "DB": 2
+        }
+        type StreamVolumeFormat = StreamVolumeFormatEnum[Exclude<keyof StreamVolumeFormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Different representations of a stream volume. gst_stream_volume_convert_volume()
+             * allows to convert between the different representations.
+             *
+             * Formulas to convert from a linear to a cubic or dB volume are
+             * cbrt(val) and 20 * log10 (val).
+             */
+            StreamVolumeFormat: StreamVolumeFormatEnum
         }
         
-        namespace AudioChannelMixerFlags {
-            const $gtype: GObject.GType<AudioChannelMixerFlags>
-        }
-
-        /**
-         * Flags passed to gst_audio_channel_mixer_new()
-         */
-        enum AudioChannelMixerFlags {
+        interface AudioChannelMixerFlagsBitfield {
+            readonly $gtype: GObject.GType<AudioChannelMixerFlags>
             /**
              * no flag
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * input channels are not interleaved
              */
-            "NON_INTERLEAVED_IN" = 1,
+            readonly "NON_INTERLEAVED_IN": 1
             /**
              * output channels are not interleaved
              */
-            "NON_INTERLEAVED_OUT" = 2,
+            readonly "NON_INTERLEAVED_OUT": 2
             /**
              * input channels are explicitly unpositioned
              */
-            "UNPOSITIONED_IN" = 4,
+            readonly "UNPOSITIONED_IN": 4
             /**
              * output channels are explicitly unpositioned
              */
-            "UNPOSITIONED_OUT" = 8,
+            readonly "UNPOSITIONED_OUT": 8
+        }
+        type AudioChannelMixerFlags = number
+        interface $Exports {
+            /**
+             * Flags passed to gst_audio_channel_mixer_new()
+             */
+            AudioChannelMixerFlags: AudioChannelMixerFlagsBitfield
         }
         
-        namespace AudioConverterFlags {
-            const $gtype: GObject.GType<AudioConverterFlags>
-        }
-
-        /**
-         * Extra flags passed to gst_audio_converter_new() and gst_audio_converter_samples().
-         */
-        enum AudioConverterFlags {
+        interface AudioConverterFlagsBitfield {
+            readonly $gtype: GObject.GType<AudioConverterFlags>
             /**
              * no flag
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * the input sample arrays are writable and can be
              *    used as temporary storage during conversion.
              */
-            "IN_WRITABLE" = 1,
+            readonly "IN_WRITABLE": 1
             /**
              * allow arbitrary rate updates with
              *    gst_audio_converter_update_config().
              */
-            "VARIABLE_RATE" = 2,
+            readonly "VARIABLE_RATE": 2
+        }
+        type AudioConverterFlags = number
+        interface $Exports {
+            /**
+             * Extra flags passed to gst_audio_converter_new() and gst_audio_converter_samples().
+             */
+            AudioConverterFlags: AudioConverterFlagsBitfield
         }
         
-        namespace AudioFlags {
-            const $gtype: GObject.GType<AudioFlags>
-        }
-
-        /**
-         * Extra audio flags
-         */
-        enum AudioFlags {
+        interface AudioFlagsBitfield {
+            readonly $gtype: GObject.GType<AudioFlags>
             /**
              * no valid flag
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * the position array explicitly
              *     contains unpositioned channels.
              */
-            "UNPOSITIONED" = 1,
+            readonly "UNPOSITIONED": 1
+        }
+        type AudioFlags = number
+        interface $Exports {
+            /**
+             * Extra audio flags
+             */
+            AudioFlags: AudioFlagsBitfield
         }
         
-        namespace AudioFormatFlags {
-            const $gtype: GObject.GType<AudioFormatFlags>
-        }
-
-        /**
-         * The different audio flags that a format info can have.
-         */
-        enum AudioFormatFlags {
+        interface AudioFormatFlagsBitfield {
+            readonly $gtype: GObject.GType<AudioFormatFlags>
             /**
              * integer samples
              */
-            "INTEGER" = 1,
+            readonly "INTEGER": 1
             /**
              * float samples
              */
-            "FLOAT" = 2,
+            readonly "FLOAT": 2
             /**
              * signed samples
              */
-            "SIGNED" = 4,
+            readonly "SIGNED": 4
             /**
              * complex layout
              */
-            "COMPLEX" = 16,
+            readonly "COMPLEX": 16
             /**
              * the format can be used in
              * #GstAudioFormatUnpack and #GstAudioFormatPack functions
              */
-            "UNPACK" = 32,
+            readonly "UNPACK": 32
+        }
+        type AudioFormatFlags = number
+        interface $Exports {
+            /**
+             * The different audio flags that a format info can have.
+             */
+            AudioFormatFlags: AudioFormatFlagsBitfield
         }
         
-        namespace AudioPackFlags {
-            const $gtype: GObject.GType<AudioPackFlags>
-        }
-
-        /**
-         * The different flags that can be used when packing and unpacking.
-         */
-        enum AudioPackFlags {
+        interface AudioPackFlagsBitfield {
+            readonly $gtype: GObject.GType<AudioPackFlags>
             /**
              * No flag
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * When the source has a smaller depth
              *   than the target format, set the least significant bits of the target
@@ -5308,61 +4813,80 @@ declare module "gi://GstAudio?version=1.0" {
              *   is not specified, the most significant bits of the source are duplicated
              *   in the least significant bits of the destination.
              */
-            "TRUNCATE_RANGE" = 1,
+            readonly "TRUNCATE_RANGE": 1
+        }
+        type AudioPackFlags = number
+        interface $Exports {
+            /**
+             * The different flags that can be used when packing and unpacking.
+             */
+            AudioPackFlags: AudioPackFlagsBitfield
         }
         
-        namespace AudioQuantizeFlags {
-            const $gtype: GObject.GType<AudioQuantizeFlags>
-        }
-
-        /**
-         * Extra flags that can be passed to gst_audio_quantize_new()
-         */
-        enum AudioQuantizeFlags {
+        interface AudioQuantizeFlagsBitfield {
+            readonly $gtype: GObject.GType<AudioQuantizeFlags>
             /**
              * no flags
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * samples are non-interleaved
              */
-            "NON_INTERLEAVED" = 1,
+            readonly "NON_INTERLEAVED": 1
+        }
+        type AudioQuantizeFlags = number
+        interface $Exports {
+            /**
+             * Extra flags that can be passed to gst_audio_quantize_new()
+             */
+            AudioQuantizeFlags: AudioQuantizeFlagsBitfield
         }
         
-        namespace AudioResamplerFlags {
-            const $gtype: GObject.GType<AudioResamplerFlags>
-        }
-
-        /**
-         * Different resampler flags.
-         * @since 1.10
-         */
-        enum AudioResamplerFlags {
+        interface AudioResamplerFlagsBitfield {
+            readonly $gtype: GObject.GType<AudioResamplerFlags>
             /**
              * no flags
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * input samples are non-interleaved.
              *    an array of blocks of samples, one for each channel, should be passed to the
              *    resample function.
              */
-            "NON_INTERLEAVED_IN" = 1,
+            readonly "NON_INTERLEAVED_IN": 1
             /**
              * output samples are non-interleaved.
              *    an array of blocks of samples, one for each channel, should be passed to the
              *    resample function.
              */
-            "NON_INTERLEAVED_OUT" = 2,
+            readonly "NON_INTERLEAVED_OUT": 2
             /**
              * optimize for dynamic updates of the sample
              *    rates with gst_audio_resampler_update(). This will select an interpolating filter
              *    when #GST_AUDIO_RESAMPLER_FILTER_MODE_AUTO is configured.
              */
-            "VARIABLE_RATE" = 4,
+            readonly "VARIABLE_RATE": 4
+        }
+        type AudioResamplerFlags = number
+        interface $Exports {
+            /**
+             * Different resampler flags.
+             * @since 1.10
+             */
+            AudioResamplerFlags: AudioResamplerFlagsBitfield
         }
         /**
-         *  etime
+         * This function is set with gst_audio_base_sink_set_custom_slaving_callback()
+         * and is called during playback. It receives the current time of external and
+         * internal clocks, which the callback can then use to apply any custom
+         * slaving/synchronization schemes.
+         *
+         * The external clock is the sink's element clock, the internal one is the
+         * internal audio clock. The internal audio clock's calibration is applied to
+         * the timestamps before they are passed to the callback. The difference between
+         * etime and itime is the skew; how much internal and external clock lie apart
+         * from each other. A skew of 0 means both clocks are perfectly in sync.
+         * itime > etime means the external clock is going slower, while itime < etime
          * means it is going faster than the internal clock. etime and itime are always
          * valid timestamps, except for when a discontinuity happens.
          *
@@ -5422,7 +4946,569 @@ declare module "gi://GstAudio?version=1.0" {
          * @param data target to fill
          */
         type AudioRingBufferCallback = (rbuf: AudioRingBuffer, data: Uint8Array) => void
+
+        interface $Exports {
+            __name__: "GstAudio"
+            __version: "1.0"
+            AUDIO_CHANNELS_RANGE: "(int) [ 1, max ]"
+            AUDIO_CONVERTER_OPT_DITHER_METHOD: "GstAudioConverter.dither-method"
+            AUDIO_CONVERTER_OPT_DITHER_THRESHOLD: "GstAudioConverter.dither-threshold"
+            AUDIO_CONVERTER_OPT_MIX_MATRIX: "GstAudioConverter.mix-matrix"
+            AUDIO_CONVERTER_OPT_NOISE_SHAPING_METHOD: "GstAudioConverter.noise-shaping-method"
+            AUDIO_CONVERTER_OPT_QUANTIZATION: "GstAudioConverter.quantization"
+            AUDIO_CONVERTER_OPT_RESAMPLER_METHOD: "GstAudioConverter.resampler-method"
+            AUDIO_DECODER_MAX_ERRORS: -1
+            AUDIO_DECODER_SINK_NAME: "sink"
+            AUDIO_DECODER_SRC_NAME: "src"
+            AUDIO_DEF_CHANNELS: 2
+            AUDIO_DEF_FORMAT: "S16LE"
+            AUDIO_DEF_RATE: 44100
+            AUDIO_ENCODER_SINK_NAME: "sink"
+            AUDIO_ENCODER_SRC_NAME: "src"
+            AUDIO_FORMATS_ALL: "{ F64BE, F64LE, F32BE, F32LE, S32BE, S32LE, U32BE, U32LE, S24_32BE, S24_32LE, U24_32BE, U24_32LE, S24BE, S24LE, U24BE, U24LE, S20BE, S20LE, U20BE, U20LE, S18BE, S18LE, U18BE, U18LE, S16BE, S16LE, U16BE, U16LE, S8, U8 }"
+            AUDIO_FORMAT_LAST: 32
+            AUDIO_RATE_RANGE: "(int) [ 1, max ]"
+            AUDIO_RESAMPLER_OPT_CUBIC_B: "GstAudioResampler.cubic-b"
+            AUDIO_RESAMPLER_OPT_CUBIC_C: "GstAudioResampler.cubic-c"
+            AUDIO_RESAMPLER_OPT_CUTOFF: "GstAudioResampler.cutoff"
+            AUDIO_RESAMPLER_OPT_FILTER_INTERPOLATION: "GstAudioResampler.filter-interpolation"
+            AUDIO_RESAMPLER_OPT_FILTER_MODE: "GstAudioResampler.filter-mode"
+            AUDIO_RESAMPLER_OPT_FILTER_MODE_THRESHOLD: "GstAudioResampler.filter-mode-threshold"
+            AUDIO_RESAMPLER_OPT_FILTER_OVERSAMPLE: "GstAudioResampler.filter-oversample"
+            AUDIO_RESAMPLER_OPT_MAX_PHASE_ERROR: "GstAudioResampler.max-phase-error"
+            AUDIO_RESAMPLER_OPT_N_TAPS: "GstAudioResampler.n-taps"
+            AUDIO_RESAMPLER_OPT_STOP_ATTENUATION: "GstAudioResampler.stop-attenutation"
+            AUDIO_RESAMPLER_OPT_TRANSITION_BANDWIDTH: "GstAudioResampler.transition-bandwidth"
+            AUDIO_RESAMPLER_QUALITY_DEFAULT: 4
+            AUDIO_RESAMPLER_QUALITY_MAX: 10
+            AUDIO_RESAMPLER_QUALITY_MIN: 0
+            DSD_FORMATS_ALL: "{ DSDU32BE, DSDU16BE, DSDU8, DSDU32LE, DSDU16LE }"
+            DSD_MEDIA_TYPE: "audio/x-dsd"
+            DSD_SILENCE_PATTERN_BYTE: 105
+            META_TAG_AUDIO_CHANNELS_STR: "channels"
+            META_TAG_AUDIO_RATE_STR: "rate"
+            META_TAG_AUDIO_STR: "audio"
+            META_TAG_DSD_PLANE_OFFSETS_STR: "dsdplaneoffsets"
+            /**
+             * Clip the buffer to the given %GstSegment.
+             *
+             * After calling this function the caller does not own a reference to
+             * @buffer anymore.
+             * @param buffer The buffer to clip.
+             * @param segment Segment in %GST_FORMAT_TIME or %GST_FORMAT_DEFAULT to which
+                      the buffer should be clipped.
+             * @param rate sample rate.
+             * @param bpf size of one audio frame in bytes. This is the size of one sample *
+            number of channels.
+             * @returns %NULL if the buffer is completely outside the configured segment, otherwise the clipped buffer is returned.  If the buffer has no timestamp, it is assumed to be inside the segment and is not clipped
+             */
+            audio_buffer_clip(buffer: Gst.Buffer, segment: Gst.Segment, rate: number, bpf: number): Gst.Buffer | null
+            /**
+             * Maps an audio @gstbuffer so that it can be read or written and stores the
+             * result of the map operation in @buffer.
+             *
+             * This is especially useful when the @gstbuffer is in non-interleaved (planar)
+             * layout, in which case this function will use the information in the
+             * @gstbuffer's attached #GstAudioMeta in order to map each channel in a
+             * separate "plane" in #GstAudioBuffer. If a #GstAudioMeta is not attached
+             * on the @gstbuffer, then it must be in interleaved layout.
+             *
+             * If a #GstAudioMeta is attached, then the #GstAudioInfo on the meta is checked
+             * against @info. Normally, they should be equal, but in case they are not,
+             * a g_critical will be printed and the #GstAudioInfo from the meta will be
+             * used.
+             *
+             * In non-interleaved buffers, it is possible to have each channel on a separate
+             * #GstMemory. In this case, each memory will be mapped separately to avoid
+             * copying their contents in a larger memory area. Do note though that it is
+             * not supported to have a single channel spanning over two or more different
+             * #GstMemory objects. Although the map operation will likely succeed in this
+             * case, it will be highly sub-optimal and it is recommended to merge all the
+             * memories in the buffer before calling this function.
+             *
+             * Note: The actual #GstBuffer is not ref'ed, but it is required to stay valid
+             * as long as it's mapped.
+             * @since 1.16
+             * @param info the audio properties of the buffer
+             * @param gstbuffer the #GstBuffer to be mapped
+             * @param flags the access mode for the memory
+             * @returns %TRUE if the map operation succeeded or %FALSE on failure, pointer to a #GstAudioBuffer
+             */
+            audio_buffer_map(info: AudioInfo, gstbuffer: Gst.Buffer, flags: Gst.MapFlags): [boolean, AudioBuffer]
+            /**
+             * Reorders @buffer from the channel positions @from to the channel
+             * positions @to. @from and @to must contain the same number of
+             * positions and the same positions, only in a different order.
+             * @buffer must be writable.
+             * @param buffer The buffer to reorder.
+             * @param format The %GstAudioFormat of the buffer.
+             * @param from The channel positions in the buffer.
+             * @param to The channel positions to convert to.
+             * @returns %TRUE if the reordering was possible.
+             */
+            audio_buffer_reorder_channels(buffer: Gst.Buffer, format: AudioFormat, from: AudioChannelPosition[], to: AudioChannelPosition[]): boolean
+            /**
+             * Truncate the buffer to finally have @samples number of samples, removing
+             * the necessary amount of samples from the end and @trim number of samples
+             * from the beginning.
+             *
+             * This function does not know the audio rate, therefore the caller is
+             * responsible for re-setting the correct timestamp and duration to the
+             * buffer. However, timestamp will be preserved if trim == 0, and duration
+             * will also be preserved if there is no trimming to be done. Offset and
+             * offset end will be preserved / updated.
+             *
+             * After calling this function the caller does not own a reference to
+             * @buffer anymore.
+             * @since 1.16
+             * @param buffer The buffer to truncate.
+             * @param bpf size of one audio frame in bytes. This is the size of one sample *
+            number of channels.
+             * @param trim the number of samples to remove from the beginning of the buffer
+             * @param samples the final number of samples that should exist in this buffer or -1
+            to use all the remaining samples if you are only removing samples from the
+            beginning.
+             * @returns the truncated buffer
+             */
+            audio_buffer_truncate(buffer: Gst.Buffer, bpf: number, trim: number, samples: number): Gst.Buffer
+            /**
+             * Get the fallback channel-mask for the given number of channels.
+             *
+             * This function returns a reasonable fallback channel-mask and should be
+             * called as a last resort when the specific channel map is unknown.
+             * @since 1.8
+             * @param channels the number of channels
+             * @returns a fallback channel-mask for `channels` or 0 when there is no mask and mono.
+             */
+            audio_channel_get_fallback_mask(channels: number): number
+            /**
+             * Convert the @channels present in @channel_mask to a @position array
+             * (which should have at least @channels entries ensured by caller).
+             * If @channel_mask is set to 0, it is considered as 'not present' for purpose
+             * of conversion.
+             * A partially valid @channel_mask with less bits set than the number
+             * of channels is considered valid.
+             * @param channel_mask The input channel_mask
+             * @param position The
+              %GstAudioChannelPosition<!-- -->s
+             * @returns %TRUE if channel and channel mask are valid and could be converted
+             */
+            audio_channel_positions_from_mask(channel_mask: number, position: AudioChannelPosition[]): boolean
+            /**
+             * Convert the @position array of @channels channels to a bitmask.
+             *
+             * If @force_order is %TRUE it additionally checks if the channels are
+             * in the order required by GStreamer.
+             * @param position The %GstAudioChannelPositions
+             * @param force_order Only consider the GStreamer channel order.
+             * @returns %TRUE if the channel positions are valid and could be converted., the output channel mask
+             */
+            audio_channel_positions_to_mask(position: AudioChannelPosition[], force_order: boolean): [boolean, number]
+            /**
+             * Converts @position to a human-readable string representation for
+             * debugging purposes.
+             * @since 1.10
+             * @param position The %GstAudioChannelPositions
+              to convert.
+             * @returns a newly allocated string representing `position`
+             */
+            audio_channel_positions_to_string(position: AudioChannelPosition[]): string
+            /**
+             * Reorders the channel positions in @position from any order to
+             * the GStreamer channel order.
+             * @param position The channel positions to
+              reorder to.
+             * @returns %TRUE if the channel positions are valid and reordering was successful.
+             */
+            audio_channel_positions_to_valid_order(position: AudioChannelPosition[]): boolean
+            /**
+             * Checks if @position contains valid channel positions for
+             * @channels channels. If @force_order is %TRUE it additionally
+             * checks if the channels are in the order required by GStreamer.
+             * @param position The %GstAudioChannelPositions
+              to check.
+             * @param force_order Only consider the GStreamer channel order.
+             * @returns %TRUE if the channel positions are valid.
+             */
+            audio_check_valid_channel_positions(position: AudioChannelPosition[], force_order: boolean): boolean
+            /**
+             */
+            audio_clipping_meta_api_get_type(): GObject.GType
+            /**
+             */
+            audio_clipping_meta_get_info(): Gst.MetaInfo
+            /**
+             */
+            audio_downmix_meta_api_get_type(): GObject.GType
+            /**
+             */
+            audio_downmix_meta_get_info(): Gst.MetaInfo
+            /**
+             * Construct a #GstAudioFormat with given parameters.
+             * @param sign signed or unsigned format
+             * @param endianness G_LITTLE_ENDIAN or G_BIG_ENDIAN
+             * @param width amount of bits used per sample
+             * @param depth amount of used bits in @width
+             * @returns a #GstAudioFormat or GST_AUDIO_FORMAT_UNKNOWN when no audio format exists with the given parameters.
+             */
+            audio_format_build_integer(sign: boolean, endianness: number, width: number, depth: number): AudioFormat
+            /**
+             * Fill @length bytes in @dest with silence samples for @info.
+             * @deprecated since 1.20 Use gst_audio_format_info_fill_silence() instead.
+             * @param info a #GstAudioFormatInfo
+             * @param dest a destination
+              to fill
+             */
+            audio_format_fill_silence(info: AudioFormatInfo, dest: Uint8Array): void
+            /**
+             * Convert the @format string to its #GstAudioFormat.
+             * @param format a format string
+             * @returns the #GstAudioFormat for `format` or GST_AUDIO_FORMAT_UNKNOWN when the string is not a known format.
+             */
+            audio_format_from_string(format: string): AudioFormat
+            /**
+             * Get the #GstAudioFormatInfo for @format
+             * @param format a #GstAudioFormat
+             * @returns The #GstAudioFormatInfo for `format`.
+             */
+            audio_format_get_info(format: AudioFormat): AudioFormatInfo
+            /**
+             * Returns a string containing a descriptive name for the #GstAudioFormat.
+             *
+             * Since 1.26 this can also be used with %GST_AUDIO_FORMAT_UNKNOWN, previous
+             * versions were printing a critical warning and returned %NULL.
+             * @param format a #GstAudioFormat audio format
+             * @returns the name corresponding to `format`
+             */
+            audio_format_to_string(format: AudioFormat): string
+            /**
+             * Return all the raw audio formats supported by GStreamer.
+             * @since 1.18
+             * @returns an array of #GstAudioFormat
+             */
+            audio_formats_raw(): AudioFormat[]
+            /**
+             * Returns a reorder map for @from to @to that can be used in
+             * custom channel reordering code, e.g. to convert from or to the
+             * GStreamer channel order. @from and @to must contain the same
+             * number of positions and the same positions, only in a
+             * different order.
+             *
+             * The resulting @reorder_map can be used for reordering by assigning
+             * channel i of the input to channel reorder_map[i] of the output.
+             * @param from The channel positions to reorder from.
+             * @param to The channel positions to reorder to.
+             * @param reorder_map Pointer to the reorder map.
+             * @returns %TRUE if the channel positions are valid and reordering is possible.
+             */
+            audio_get_channel_reorder_map(from: AudioChannelPosition[], to: AudioChannelPosition[], reorder_map: number[]): boolean
+            /**
+             * Calculated the size of the buffer expected by gst_audio_iec61937_payload() for
+             * payloading type from @spec.
+             * @param spec the ringbufer spec
+             * @returns the size or 0 if the given `type` is not supported or cannot be payloaded.
+             */
+            audio_iec61937_frame_size(spec: AudioRingBufferSpec): number
+            /**
+             * Payloads @src in the form specified by IEC 61937 for the type from @spec and
+             * stores the result in @dst. @src must contain exactly one frame of data and
+             * the frame is not checked for errors.
+             * @param src a buffer containing the data to payload
+             * @param dst the destination buffer to store the
+                  payloaded contents in. Should not overlap with @src
+             * @param spec the ringbufer spec for @src
+             * @param endianness the expected byte order of the payloaded data
+             * @returns transfer-full: %TRUE if the payloading was successful, %FALSE otherwise.
+             */
+            audio_iec61937_payload(src: Uint8Array, dst: Uint8Array, spec: AudioRingBufferSpec, endianness: number): boolean
+            /**
+             * Parse @caps and update @info.
+             * @param caps a #GstCaps
+             * @returns TRUE if `caps` could be parsed, a #GstAudioInfo
+             */
+            audio_info_from_caps(caps: Gst.Caps): [boolean, AudioInfo]
+            /**
+             * Initialize @info with default values.
+             * @returns , a #GstAudioInfo
+             */
+            audio_info_init(): AudioInfo
+            /**
+             * Return the #GType associated with #GstAudioLevelMeta.
+             * @since 1.20
+             * @returns a #GType
+             */
+            audio_level_meta_api_get_type(): GObject.GType
+            /**
+             * Return the #GstMetaInfo associated with #GstAudioLevelMeta.
+             * @since 1.20
+             * @returns a #GstMetaInfo
+             */
+            audio_level_meta_get_info(): Gst.MetaInfo
+            /**
+             * Return a generic raw audio caps for formats defined in @formats.
+             * If @formats is %NULL returns a caps for all the supported raw audio formats,
+             * see gst_audio_formats_raw().
+             * @since 1.18
+             * @param formats an array of raw #GstAudioFormat, or %NULL
+             * @param layout the layout of audio samples
+             * @returns an audio `GstCaps`
+             */
+            audio_make_raw_caps(formats: AudioFormat[] | null, layout: AudioLayout): Gst.Caps
+            /**
+             */
+            audio_meta_api_get_type(): GObject.GType
+            /**
+             */
+            audio_meta_get_info(): Gst.MetaInfo
+            /**
+             * Reorders @data from the channel positions @from to the channel
+             * positions @to. @from and @to must contain the same number of
+             * positions and the same positions, only in a different order.
+             *
+             * This function internally calls gst_audio_get_channel_reorder_map() and
+             * gst_audio_reorder_channels_with_reorder_map(). It is more efficient to call
+             * gst_audio_get_channel_reorder_map() once to retrieve the reorder map and
+             * then call gst_audio_reorder_channels_with_reorder_map() with the same
+             * reorder map until the channel positions change.
+             *
+             * Note: this function assumes the audio data is in interleaved layout
+             * @param data The pointer to
+              the memory.
+             * @param format The %GstAudioFormat of the buffer.
+             * @param from The channel positions in the buffer.
+             * @param to The channel positions to convert to.
+             * @returns %TRUE if the reordering was possible.
+             */
+            audio_reorder_channels(data: Uint8Array, format: AudioFormat, from: AudioChannelPosition[], to: AudioChannelPosition[]): boolean
+            /**
+             * Reorders @data with the given @reorder_map.
+             *
+             * The reorder map can be retrieved for example with
+             * gst_audio_get_channel_reorder_map().
+             *
+             * Note: this function assumes the audio data is in interleaved layout
+             * @since 1.26
+             * @param data The pointer to
+              the memory.
+             * @param bps The number of bytes per sample.
+             * @param reorder_map The channel reorder map.
+             */
+            audio_reorder_channels_with_reorder_map(data: Uint8Array, bps: number, reorder_map: number[]): void
+            /**
+             * Make a new resampler.
+             * @param method a #GstAudioResamplerMethod
+             * @param flags #GstAudioResamplerFlags
+             * @param format the #GstAudioFormat
+             * @param channels the number of channels
+             * @param in_rate input rate
+             * @param out_rate output rate
+             * @param options extra options
+             * @returns The new #GstAudioResampler.
+             */
+            audio_resampler_new(method: AudioResamplerMethod, flags: AudioResamplerFlags, format: AudioFormat, channels: number, in_rate: number, out_rate: number, options: Gst.Structure): AudioResampler
+            /**
+             * Set the parameters for resampling from @in_rate to @out_rate using @method
+             * for @quality in @options.
+             * @param method a #GstAudioResamplerMethod
+             * @param quality the quality
+             * @param in_rate the input rate
+             * @param out_rate the output rate
+             * @param options a #GstStructure
+             */
+            audio_resampler_options_set_quality(method: AudioResamplerMethod, quality: number, in_rate: number, out_rate: number, options: Gst.Structure): void
+            /**
+             * Attaches #GstAudioClippingMeta metadata to @buffer with the given parameters.
+             * @since 1.8
+             * @param buffer a #GstBuffer
+             * @param format GstFormat of @start and @stop, GST_FORMAT_DEFAULT is samples
+             * @param start Amount of audio to clip from start of buffer
+             * @param end Amount of  to clip from end of buffer
+             * @returns the #GstAudioClippingMeta on `buffer`.
+             */
+            buffer_add_audio_clipping_meta(buffer: Gst.Buffer, format: Gst.Format, start: number, end: number): AudioClippingMeta
+            /**
+             * Attaches #GstAudioDownmixMeta metadata to @buffer with the given parameters.
+             *
+             * @matrix is an two-dimensional array of @to_channels times @from_channels
+             * coefficients, i.e. the i-th output channels is constructed by multiplicating
+             * the input channels with the coefficients in @matrix[i] and taking the sum
+             * of the results.
+             * @param buffer a #GstBuffer
+             * @param from_position the channel positions
+              of the source
+             * @param to_position the channel positions of
+              the destination
+             * @param matrix The matrix coefficients.
+             * @returns the #GstAudioDownmixMeta on `buffer`.
+             */
+            buffer_add_audio_downmix_meta(buffer: Gst.Buffer, from_position: AudioChannelPosition[], to_position: AudioChannelPosition[], matrix: number): AudioDownmixMeta
+            /**
+             * Attaches audio level information to @buffer. (RFC 6464)
+             * @since 1.20
+             * @param buffer a #GstBuffer
+             * @param level the -dBov from 0-127 (127 is silence).
+             * @param voice_activity whether the buffer contains voice activity.
+             * @returns the #GstAudioLevelMeta on `buffer`.
+             */
+            buffer_add_audio_level_meta(buffer: Gst.Buffer, level: number, voice_activity: boolean): AudioLevelMeta | null
+            /**
+             * Allocates and attaches a #GstAudioMeta on @buffer, which must be writable
+             * for that purpose. The fields of the #GstAudioMeta are directly populated
+             * from the arguments of this function.
+             *
+             * When @info->layout is %GST_AUDIO_LAYOUT_NON_INTERLEAVED and @offsets is
+             * %NULL, the offsets are calculated with a formula that assumes the planes are
+             * tightly packed and in sequence:
+             * offsets[channel] = channel * @samples * sample_stride
+             *
+             * It is not allowed for channels to overlap in memory,
+             * i.e. for each i in [0, channels), the range
+             * [@offsets[i], @offsets[i] + @samples * sample_stride) must not overlap
+             * with any other such range. This function will assert if the parameters
+             * specified cause this restriction to be violated.
+             *
+             * It is, obviously, also not allowed to specify parameters that would cause
+             * out-of-bounds memory access on @buffer. This is also checked, which means
+             * that you must add enough memory on the @buffer before adding this meta.
+             * @since 1.16
+             * @param buffer a #GstBuffer
+             * @param info the audio properties of the buffer
+             * @param samples the number of valid samples in the buffer
+             * @param offsets the offsets (in bytes) where each channel plane starts
+              in the buffer or %NULL to calculate it (see below); must be %NULL also
+              when @info->layout is %GST_AUDIO_LAYOUT_INTERLEAVED
+             * @returns the #GstAudioMeta that was attached on the `buffer`
+             */
+            buffer_add_audio_meta(buffer: Gst.Buffer, info: AudioInfo, samples: number, offsets: number | null): AudioMeta
+            /**
+             * Allocates and attaches a #GstDsdPlaneOffsetMeta on @buffer, which must be
+             * writable for that purpose. The fields of the #GstDsdPlaneOffsetMeta are
+             * directly populated from the arguments of this function.
+             *
+             * If @offsets is NULL, then the meta's offsets field is left uninitialized.
+             * This is useful if for example offset values are to be calculated in the
+             * meta's offsets field in-place. Similarly, @num_bytes_per_channel can be
+             * set to 0, but only if @offsets is NULL. This is useful if the number of
+             * bytes per channel is known only later.
+             *
+             * It is not allowed for channels to overlap in memory,
+             * i.e. for each i in [0, channels), the range
+             * [@offsets[i], @offsets[i] + @num_bytes_per_channel) must not overlap
+             * with any other such range. This function will assert if the parameters
+             * specified cause this restriction to be violated.
+             *
+             * It is, obviously, also not allowed to specify parameters that would cause
+             * out-of-bounds memory access on @buffer. This is also checked, which means
+             * that you must add enough memory on the @buffer before adding this meta.
+             *
+             * This meta is only needed for non-interleaved (= planar) DSD data.
+             * @since 1.24
+             * @param buffer a #GstBuffer
+             * @param num_channels Number of channels in the DSD data
+             * @param num_bytes_per_channel Number of bytes per channel
+             * @param offsets the offsets (in bytes) where each channel plane starts
+              in the buffer
+             * @returns the #GstDsdPlaneOffsetMeta that was attached   on the `buffer`
+             */
+            buffer_add_dsd_plane_offset_meta(buffer: Gst.Buffer, num_channels: number, num_bytes_per_channel: number, offsets: number | null): DsdPlaneOffsetMeta
+            /**
+             * Find the #GstAudioDownmixMeta on @buffer for the given destination
+             * channel positions.
+             * @param buffer a #GstBuffer
+             * @param to_position the channel positions of
+              the destination
+             * @returns the #GstAudioDownmixMeta on `buffer`.
+             */
+            buffer_get_audio_downmix_meta_for_channels(buffer: Gst.Buffer, to_position: AudioChannelPosition[]): AudioDownmixMeta
+            /**
+             * Find the #GstAudioLevelMeta on @buffer.
+             * @since 1.20
+             * @param buffer a #GstBuffer
+             * @returns the #GstAudioLevelMeta or %NULL when there is no such metadata on `buffer`.
+             */
+            buffer_get_audio_level_meta(buffer: Gst.Buffer): AudioLevelMeta | null
+            /**
+             * Converts DSD data from one layout and grouping format to another.
+             * @num_bytes must be an integer multiple of the width of both input
+             * and output format. For example, if the input format is GST_DSD_FORMAT_U32LE,
+             * and the output format is GST_DSD_FORMAT_U16BE, then @num_bytes must
+             * be an integer multiple of both 4 (U32LE width) and 2 (U16BE width).
+             *
+             * @reverse_byte_bits is necessary if the bit order within the DSD bytes
+             * needs to be reversed. This is rarely necessary, and is not to be
+             * confused with the endianness of formats (which determines the ordering
+             * of *bytes*).
+             *
+             * @input_plane_offsets must not be NULL if @input_layout is set to
+             * #GST_AUDIO_LAYOUT_NON_INTERLEAVED. The same applies to @output_plane_offsets.
+             * These plane offsets define the starting offset of the planes (there is
+             * exactly one plane per channel) within @input_data and @output_data
+             * respectively. If GST_AUDIO_LAYOUT_INTERLEAVED is used, the plane offsets
+             * are ignored.
+             * @since 1.24
+             * @param input_data the DSD format conversion's input source
+             * @param output_data the DSD format conversion's output destination
+             * @param input_format DSD format of the input data to convert from
+             * @param output_format DSD format of the output data to convert to
+             * @param input_layout Input data layout
+             * @param output_layout Output data layout
+             * @param input_plane_offsets Plane offsets for non-interleaved input data
+             * @param output_plane_offsets Plane offsets for non-interleaved output data
+             * @param num_dsd_bytes How many bytes with DSD data to convert
+             * @param num_channels Number of channels (must be at least 1)
+             * @param reverse_byte_bits If TRUE, reverse the bits in each DSD byte
+             */
+            dsd_convert(input_data: number, output_data: number, input_format: DsdFormat, output_format: DsdFormat, input_layout: AudioLayout, output_layout: AudioLayout, input_plane_offsets: number, output_plane_offsets: number, num_dsd_bytes: number, num_channels: number, reverse_byte_bits: boolean): void
+            /**
+             * Convert the DSD format string @str to its #GstDsdFormat.
+             * @since 1.24
+             * @param str a DSD format string
+             * @returns the #GstDsdFormat for `format` or GST_DSD_FORMAT_UNKNOWN when the string is not a known format.
+             */
+            dsd_format_from_string(str: string): DsdFormat
+            /**
+             * @since 1.24
+             * @param format a #GstDsdFormat
+             * @returns Number of bytes in this DSD grouping format.
+             */
+            dsd_format_get_width(format: DsdFormat): number
+            /**
+             * Returns a string containing a descriptive name for
+             * the #GstDsdFormat if there is one, or NULL otherwise.
+             * @since 1.24
+             * @param format a #GstDsdFormat
+             * @returns the name corresponding to `format`
+             */
+            dsd_format_to_string(format: DsdFormat): string
+            /**
+             * Parse @caps and update @info.
+             * @since 1.24
+             * @param caps a #GstCaps
+             * @returns TRUE if `caps` could be parsed, a #GstDsdInfo
+             */
+            dsd_info_from_caps(caps: Gst.Caps): [boolean, DsdInfo]
+            /**
+             * Initialize @info with default values.
+             * @since 1.24
+             * @returns , a #GstDsdInfo
+             */
+            dsd_info_init(): DsdInfo
+            /**
+             */
+            dsd_plane_offset_meta_api_get_type(): GObject.GType
+            /**
+             */
+            dsd_plane_offset_meta_get_info(): Gst.MetaInfo
+            /**
+             * @param from #GstStreamVolumeFormat to convert from
+             * @param to #GstStreamVolumeFormat to convert to
+             * @param val Volume in @from format that should be converted
+             * @returns the converted volume
+             */
+            stream_volume_convert_volume(from: StreamVolumeFormat, to: StreamVolumeFormat, val: number): number
+        }
     }
 
+    const GstAudio: GstAudio.$Exports
     export default GstAudio
 }

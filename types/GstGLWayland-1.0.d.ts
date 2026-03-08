@@ -22,10 +22,7 @@ declare module "gi://GstGLWayland?version=1.0" {
 
     
 
-
     namespace GstGLWayland {
-        const __name__: "GstGLWayland"
-        const __version: "1.0"
         
 
         namespace GLDisplayWayland {
@@ -42,10 +39,6 @@ declare module "gi://GstGLWayland?version=1.0" {
             }
         }
 
-        /**
-         * the contents of a #GstGLDisplayWayland are private and should only be accessed
-         * through the provided API
-         */
         interface GLDisplayWayland extends GstGL.GLDisplay {
             readonly $signals: GLDisplayWayland.SignalSignatures
             readonly $readableProperties: GLDisplayWayland.ReadableProperties
@@ -56,6 +49,7 @@ declare module "gi://GstGLWayland?version=1.0" {
         interface GLDisplayWaylandClass extends Omit<GstGL.GLDisplayClass, "new"> {
             readonly $gtype: GObject.GType<GLDisplayWayland>
             readonly prototype: GLDisplayWayland
+
             new (props?: Partial<GObject.ConstructorProps<GLDisplayWayland>>): GLDisplayWayland
             /**
              * Create a new #GstGLDisplayWayland from the wayland display name.  See `wl_display_connect`()
@@ -72,9 +66,20 @@ declare module "gi://GstGLWayland?version=1.0" {
             new_with_display(display: never | null): GLDisplayWayland
         }
 
-        const GLDisplayWayland: GLDisplayWaylandClass
-        none
+        interface $Exports {
+            /**
+             * the contents of a #GstGLDisplayWayland are private and should only be accessed
+             * through the provided API
+             */
+            GLDisplayWayland: GLDisplayWaylandClass
+        }
+
+        interface $Exports {
+            __name__: "GstGLWayland"
+            __version: "1.0"
+        }
     }
 
+    const GstGLWayland: GstGLWayland.$Exports
     export default GstGLWayland
 }

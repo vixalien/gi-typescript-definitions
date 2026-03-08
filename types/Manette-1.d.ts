@@ -18,10 +18,7 @@ declare module "gi://Manette?version=1" {
 
     
 
-
     namespace Manette {
-        const __name__: "Manette"
-        const __version: "1"
         
 
         namespace Device {
@@ -80,11 +77,6 @@ declare module "gi://Manette?version=1" {
             }
         }
 
-        /**
-         * An object representing a physical gamepad.
-         *
-         * See also: [class@Monitor].
-         */
         interface Device extends GObject.Object {
             readonly $signals: Device.SignalSignatures
             readonly $readableProperties: Device.ReadableProperties
@@ -185,10 +177,18 @@ declare module "gi://Manette?version=1" {
         interface DeviceClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Device>
             readonly prototype: Device
+
             new (props?: Partial<GObject.ConstructorProps<Device>>): Device
         }
 
-        const Device: DeviceClass
+        interface $Exports {
+            /**
+             * An object representing a physical gamepad.
+             *
+             * See also: [class@Monitor].
+             */
+            Device: DeviceClass
+        }
         
 
         namespace Monitor {
@@ -215,11 +215,6 @@ declare module "gi://Manette?version=1" {
             }
         }
 
-        /**
-         * An object monitoring the availability of devices.
-         *
-         * See also: [class@Device].
-         */
         interface Monitor extends GObject.Object {
             readonly $signals: Monitor.SignalSignatures
             readonly $readableProperties: Monitor.ReadableProperties
@@ -235,6 +230,7 @@ declare module "gi://Manette?version=1" {
         interface MonitorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Monitor>
             readonly prototype: Monitor
+
             new (props?: Partial<GObject.ConstructorProps<Monitor>>): Monitor
             /**
              * Creates a new `ManetteMonitor`.
@@ -243,231 +239,245 @@ declare module "gi://Manette?version=1" {
             "new"(): Monitor
         }
 
-        const Monitor: MonitorClass
-        none
-        none
-        /**
-         * Returns the major version number of the libmanette library.
-         *
-         * For example, in libmanette version 1.2.3 this is 1.
-         *
-         * This function is in the library, so it represents the libmanette library your
-         * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-         * which represents the major version of the libmanette headers you have
-         * included when compiling your code.
-         * @returns the major version number of the libmanette library
-         */
-        function get_major_version(): number
-        /**
-         * Returns the micro version number of the libmanette library.
-         *
-         * For example, in libmanette version 1.2.3 this is 3.
-         *
-         * This function is in the library, so it represents the libmanette library your
-         * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-         * which represents the micro version of the libmanette headers you have
-         * included when compiling your code.
-         * @returns the micro version number of the libmanette library
-         */
-        function get_micro_version(): number
-        /**
-         * Returns the minor version number of the libmanette library.
-         *
-         * For example, in libmanette version 1.2.3 this is 2.
-         *
-         * This function is in the library, so it represents the libmanette library your
-         * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-         * which represents the minor version of the libmanette headers you have
-         * included when compiling your code.
-         * @returns the minor version number of the libmanette library
-         */
-        function get_minor_version(): number
-        const MAJOR_VERSION: 1
-        const MICRO_VERSION: 0
-        const MINOR_VERSION: 0
-        const VERSION_S: "1.0.alpha"
-        
-        namespace Axis {
-            const $gtype: GObject.GType<Axis>
+        interface $Exports {
+            /**
+             * An object monitoring the availability of devices.
+             *
+             * See also: [class@Device].
+             */
+            Monitor: MonitorClass
         }
-
-        /**
-         * Describes available axes a [class@Device] can have.
-         *
-         * More values may be added to this enumeration over time.
-         */
-        enum Axis {
+        
+        interface AxisEnum {
+            readonly $gtype: GObject.GType<Axis>
             /**
              * Left analog stick, horizontal axis
              */
-            "LEFT_X" = 0,
+            readonly "LEFT_X": 0
             /**
              * Left analog stick, vertical axis
              */
-            "LEFT_Y" = 1,
+            readonly "LEFT_Y": 1
             /**
              * Right analog stick, horizontal axis
              */
-            "RIGHT_X" = 2,
+            readonly "RIGHT_X": 2
             /**
              * Right analog stick, vertical axis
              */
-            "RIGHT_Y" = 3,
+            readonly "RIGHT_Y": 3
             /**
              * Left trigger (L2, LT or ZL)
              */
-            "LEFT_TRIGGER" = 4,
+            readonly "LEFT_TRIGGER": 4
             /**
              * Right trigger (R2, RT or ZR)
              */
-            "RIGHT_TRIGGER" = 5,
+            readonly "RIGHT_TRIGGER": 5
+        }
+        type Axis = AxisEnum[Exclude<keyof AxisEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes available axes a [class@Device] can have.
+             *
+             * More values may be added to this enumeration over time.
+             */
+            Axis: AxisEnum
         }
         
-        namespace Button {
-            const $gtype: GObject.GType<Button>
-        }
-
-        /**
-         * Describes available buttons a [class@Device] can have.
-         *
-         * More values may be added to this enumeration over time.
-         */
-        enum Button {
+        interface ButtonEnum {
+            readonly $gtype: GObject.GType<Button>
             /**
              * D-pad (up)
              */
-            "DPAD_UP" = 0,
+            readonly "DPAD_UP": 0
             /**
              * D-pad (down)
              */
-            "DPAD_DOWN" = 1,
+            readonly "DPAD_DOWN": 1
             /**
              * D-pad (left)
              */
-            "DPAD_LEFT" = 2,
+            readonly "DPAD_LEFT": 2
             /**
              * D-pad (right)
              */
-            "DPAD_RIGHT" = 3,
+            readonly "DPAD_RIGHT": 3
             /**
              * Top face button
              *     (XBox Y, Nintendo X, PlayStation triangle)
              */
-            "NORTH" = 4,
+            readonly "NORTH": 4
             /**
              * Bottom face button
              *     (XBox A, Nintendo B, PlayStation X)
              */
-            "SOUTH" = 5,
+            readonly "SOUTH": 5
             /**
              * Left face button
              *     (XBox X, Nintendo Y, PlayStation square)
              */
-            "WEST" = 6,
+            readonly "WEST": 6
             /**
              * Right face button
              *     (XBox B, Nintendo A, PlayStation circle)
              */
-            "EAST" = 7,
+            readonly "EAST": 7
             /**
              * Left menu button
              */
-            "SELECT" = 8,
+            readonly "SELECT": 8
             /**
              * Right menu button
              */
-            "START" = 9,
+            readonly "START": 9
             /**
              * Center menu button (Home, Guide, Steam etc)
              */
-            "MODE" = 10,
+            readonly "MODE": 10
             /**
              * Left shoulder button (L, L1 or LB)
              */
-            "LEFT_SHOULDER" = 11,
+            readonly "LEFT_SHOULDER": 11
             /**
              * Right shoulder button (R, R1 or RB)
              */
-            "RIGHT_SHOULDER" = 12,
+            readonly "RIGHT_SHOULDER": 12
             /**
              * Left stick
              */
-            "LEFT_STICK" = 13,
+            readonly "LEFT_STICK": 13
             /**
              * Right stick
              */
-            "RIGHT_STICK" = 14,
+            readonly "RIGHT_STICK": 14
             /**
              * Upper left paddle
              *     (Steam Deck L4 or XBox Elite P3)
              */
-            "LEFT_PADDLE1" = 15,
+            readonly "LEFT_PADDLE1": 15
             /**
              * Lower left paddle
              *     (Steam Deck L5 or XBox Elite P4)
              */
-            "LEFT_PADDLE2" = 16,
+            readonly "LEFT_PADDLE2": 16
             /**
              * Upper right paddle
              *     (Steam Deck R4 or XBox Elite P1)
              */
-            "RIGHT_PADDLE1" = 17,
+            readonly "RIGHT_PADDLE1": 17
             /**
              * Lower right paddle
              *     (Steam Deck R5 or XBox Elite P2)
              */
-            "RIGHT_PADDLE2" = 18,
+            readonly "RIGHT_PADDLE2": 18
             /**
              * Additional button
              *     (Steam Deck QAM button, Xbox Series X share button etc)
              */
-            "MISC1" = 19,
+            readonly "MISC1": 19
             /**
              * Additional button
              */
-            "MISC2" = 20,
+            readonly "MISC2": 20
             /**
              * Additional button
              */
-            "MISC3" = 21,
+            readonly "MISC3": 21
             /**
              * Additional button
              */
-            "MISC4" = 22,
+            readonly "MISC4": 22
             /**
              * Additional button
              */
-            "MISC5" = 23,
+            readonly "MISC5": 23
             /**
              * Additional button
              */
-            "MISC6" = 24,
+            readonly "MISC6": 24
             /**
              * PS4/PS5 touchpad button
              */
-            "TOUCHPAD" = 25,
+            readonly "TOUCHPAD": 25
+        }
+        type Button = ButtonEnum[Exclude<keyof ButtonEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes available buttons a [class@Device] can have.
+             *
+             * More values may be added to this enumeration over time.
+             */
+            Button: ButtonEnum
         }
         
-        namespace DeviceType {
-            const $gtype: GObject.GType<DeviceType>
-        }
-
-        /**
-         * Describes available types of a [class@Device].
-         *
-         * More values may be added to this enumeration over time.
-         */
-        enum DeviceType {
+        interface DeviceTypeEnum {
+            readonly $gtype: GObject.GType<DeviceType>
             /**
              * Generic gamepads
              */
-            "GENERIC" = 0,
+            readonly "GENERIC": 0
             /**
              * Steam Deck
              */
-            "STEAM_DECK" = 1,
+            readonly "STEAM_DECK": 1
+        }
+        type DeviceType = DeviceTypeEnum[Exclude<keyof DeviceTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes available types of a [class@Device].
+             *
+             * More values may be added to this enumeration over time.
+             */
+            DeviceType: DeviceTypeEnum
+        }
+
+        interface $Exports {
+            __name__: "Manette"
+            __version: "1"
+            MAJOR_VERSION: 1
+            MICRO_VERSION: 0
+            MINOR_VERSION: 0
+            VERSION_S: "1.0.alpha"
+            /**
+             * Returns the major version number of the libmanette library.
+             *
+             * For example, in libmanette version 1.2.3 this is 1.
+             *
+             * This function is in the library, so it represents the libmanette library your
+             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
+             * which represents the major version of the libmanette headers you have
+             * included when compiling your code.
+             * @returns the major version number of the libmanette library
+             */
+            get_major_version(): number
+            /**
+             * Returns the micro version number of the libmanette library.
+             *
+             * For example, in libmanette version 1.2.3 this is 3.
+             *
+             * This function is in the library, so it represents the libmanette library your
+             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
+             * which represents the micro version of the libmanette headers you have
+             * included when compiling your code.
+             * @returns the micro version number of the libmanette library
+             */
+            get_micro_version(): number
+            /**
+             * Returns the minor version number of the libmanette library.
+             *
+             * For example, in libmanette version 1.2.3 this is 2.
+             *
+             * This function is in the library, so it represents the libmanette library your
+             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
+             * which represents the minor version of the libmanette headers you have
+             * included when compiling your code.
+             * @returns the minor version number of the libmanette library
+             */
+            get_minor_version(): number
         }
     }
 
+    const Manette: Manette.$Exports
     export default Manette
 }

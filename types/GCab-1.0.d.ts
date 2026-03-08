@@ -16,10 +16,7 @@ declare module "gi://GCab?version=1.0" {
 
     
 
-
     namespace GCab {
-        const __name__: "GCab"
-        const __version: "1.0"
         
 
         namespace Cabinet {
@@ -40,9 +37,6 @@ declare module "gi://GCab?version=1.0" {
             }
         }
 
-        /**
-         * An opaque object holding a Cabinet file reference.
-         */
         interface Cabinet extends GObject.Object {
             readonly $signals: Cabinet.SignalSignatures
             readonly $readableProperties: Cabinet.ReadableProperties
@@ -154,6 +148,7 @@ declare module "gi://GCab?version=1.0" {
         interface CabinetClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Cabinet>
             readonly prototype: Cabinet
+
             new (props?: Partial<GObject.ConstructorProps<Cabinet>>): Cabinet
             /**
              * Create a new #GCabCabinet object to read or create a Cabinet
@@ -163,7 +158,12 @@ declare module "gi://GCab?version=1.0" {
             "new"(): Cabinet
         }
 
-        const Cabinet: CabinetClass
+        interface $Exports {
+            /**
+             * An opaque object holding a Cabinet file reference.
+             */
+            Cabinet: CabinetClass
+        }
         
 
         namespace File {
@@ -186,9 +186,6 @@ declare module "gi://GCab?version=1.0" {
             }
         }
 
-        /**
-         * An opaque object, referencing a file in a Cabinet.
-         */
         interface File extends GObject.Object {
             readonly $signals: File.SignalSignatures
             readonly $readableProperties: File.ReadableProperties
@@ -272,7 +269,7 @@ declare module "gi://GCab?version=1.0" {
              * @since 1.5
              * @param bytes a #GBytes
              */
-            set_bytes(bytes: GLib.Bytes): void
+            set_bytes(bytes: (GLib.Bytes | Uint8Array)): void
             /**
              * Sets the file modification date, instead of the value provided by the GFile.
              * @since 1.0
@@ -296,6 +293,7 @@ declare module "gi://GCab?version=1.0" {
         interface FileClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<File>
             readonly prototype: File
+
             new (props?: Partial<GObject.ConstructorProps<File>>): File
             /**
              * Create a #GCabFile from a given #GBytes.
@@ -307,7 +305,7 @@ declare module "gi://GCab?version=1.0" {
              * @param bytes a #GBytes to be added to the cabinet
              * @returns a new #GCabFile
              */
-            new_with_bytes(name: string, bytes: GLib.Bytes): File
+            new_with_bytes(name: string, bytes: (GLib.Bytes | Uint8Array)): File
             /**
              * Create a #GCabFile from a given #GFile, to be added to a
              * #GCabCabinet for archive creation.
@@ -318,7 +316,12 @@ declare module "gi://GCab?version=1.0" {
             new_with_file(name: string, file: Gio.File): File
         }
 
-        const File: FileClass
+        interface $Exports {
+            /**
+             * An opaque object, referencing a file in a Cabinet.
+             */
+            File: FileClass
+        }
         
 
         namespace Folder {
@@ -333,17 +336,14 @@ declare module "gi://GCab?version=1.0" {
 
             interface WritableProperties extends GObject.Object.WritableProperties {
                 "compression": Compression
-                "comptype": number
                 "reserved": Uint8Array
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "comptype": number
             }
         }
 
-        /**
-         * An opaque object, referencing a folder in a Cabinet.
-         */
         interface Folder extends GObject.Object {
             readonly $signals: Folder.SignalSignatures
             readonly $readableProperties: Folder.ReadableProperties
@@ -400,6 +400,7 @@ declare module "gi://GCab?version=1.0" {
         interface FolderClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Folder>
             readonly prototype: Folder
+
             new (props?: Partial<GObject.ConstructorProps<Folder>>): Folder
             /**
              * Creates a new empty Cabinet folder. Use gcab_folder_add_file() to
@@ -412,96 +413,108 @@ declare module "gi://GCab?version=1.0" {
             "new"(comptype: number): Folder
         }
 
-        const Folder: FolderClass
-        none
-        none
-        none
-        /**
-         */
-        function error_quark(): GLib.Quark
-        
-        namespace Compression {
-            const $gtype: GObject.GType<Compression>
+        interface $Exports {
+            /**
+             * An opaque object, referencing a folder in a Cabinet.
+             */
+            Folder: FolderClass
         }
-
-        /**
-         * Compression used by the #GCabFolder.
-         */
-        enum Compression {
+        
+        interface CompressionEnum {
+            readonly $gtype: GObject.GType<Compression>
             /**
              * No compression.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * MSZIP compression.
              */
-            "MSZIP" = 1,
+            readonly "MSZIP": 1
             /**
              * QUANTUM compression (unsupported).
              */
-            "QUANTUM" = 2,
+            readonly "QUANTUM": 2
             /**
              * LZX compression (only decompression supported).
              */
-            "LZX" = 3,
+            readonly "LZX": 3
             /**
              * compression value mask.
              */
-            "MASK" = 15,
+            readonly "MASK": 15
+        }
+        type Compression = CompressionEnum[Exclude<keyof CompressionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Compression used by the #GCabFolder.
+             */
+            Compression: CompressionEnum
         }
         
-        abstract class Error extends GLib.Error {
-            static readonly $gtype: GObject.GType<Error>
+        interface Error extends GLib.Error {}
+
+        interface ErrorEnum {
+            readonly $gtype: GObject.GType<Error>
+
+            new(props: { message: string, code: number }): Error
             /**
              * The given file is not of Cabinet format.
              */
-            static readonly "FORMAT": 0
+            readonly "FORMAT": 0
             /**
              * General function failure.
              */
-            static readonly "FAILED": 1
+            readonly "FAILED": 1
             /**
              * Action or format is not supported
              */
-            static readonly "NOT_SUPPORTED": 2
+            readonly "NOT_SUPPORTED": 2
             /**
              * Data stream was invalid
              */
-            static readonly "INVALID_DATA": 3
-        }
-        
-        namespace FileAttribute {
-            const $gtype: GObject.GType<FileAttribute>
+            readonly "INVALID_DATA": 3
         }
 
-        /**
-         * Attributes associated with the #GCabFile.
-         */
-        enum FileAttribute {
+        interface $Exports {
+            /**
+             * The various errors triggered by the GCab functions.
+             */
+            Error: ErrorEnum
+        }
+        
+        interface FileAttributeEnum {
+            readonly $gtype: GObject.GType<FileAttribute>
             /**
              * file is read-only
              */
-            "RDONLY" = 1,
+            readonly "RDONLY": 1
             /**
              * file is hidden
              */
-            "HIDDEN" = 2,
+            readonly "HIDDEN": 2
             /**
              * file is a system file
              */
-            "SYSTEM" = 4,
+            readonly "SYSTEM": 4
             /**
              * file modified since last backup
              */
-            "ARCH" = 32,
+            readonly "ARCH": 32
             /**
              * run after extraction
              */
-            "EXEC" = 64,
+            readonly "EXEC": 64
             /**
              * name contains UTF
              */
-            "NAME_IS_UTF" = 128,
+            readonly "NAME_IS_UTF": 128
+        }
+        type FileAttribute = FileAttributeEnum[Exclude<keyof FileAttributeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Attributes associated with the #GCabFile.
+             */
+            FileAttribute: FileAttributeEnum
         }
         /**
          * The type used for callback called when processing Cabinet archive
@@ -509,7 +522,16 @@ declare module "gi://GCab?version=1.0" {
          * @param file the file being processed
          */
         type FileCallback = (file: File) => boolean
+
+        interface $Exports {
+            __name__: "GCab"
+            __version: "1.0"
+            /**
+             */
+            error_quark(): GLib.Quark
+        }
     }
 
+    const GCab: GCab.$Exports
     export default GCab
 }

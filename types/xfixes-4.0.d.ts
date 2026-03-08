@@ -12,18 +12,27 @@ declare module "gi://xfixes?version=4.0" {
 
     
 
-
     namespace xfixes {
-        const __name__: "xfixes"
-        const __version: "4.0"
-        /**
-         */
-        abstract class XserverRegion {
-            static readonly $gtype: GObject.GType<XserverRegion>
+        
 
-            
+        interface XserverRegionStruct {
+            readonly $gtype: GObject.GType<XserverRegion>
+            [Symbol.hasInstance](instance: unknown): instance is XserverRegion
+        }
+
+        interface XserverRegion {
+        }
+
+        interface $Exports {
+            XserverRegion: XserverRegionStruct
+        }
+
+        interface $Exports {
+            __name__: "xfixes"
+            __version: "4.0"
         }
     }
 
+    const xfixes: xfixes.$Exports
     export default xfixes
 }

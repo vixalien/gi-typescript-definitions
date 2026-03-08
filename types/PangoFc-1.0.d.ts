@@ -26,10 +26,7 @@ declare module "gi://PangoFc?version=1.0" {
 
     
 
-
     namespace PangoFc {
-        const __name__: "PangoFc"
-        const __version: "1.0"
         
 
         namespace Decoder {
@@ -46,19 +43,6 @@ declare module "gi://PangoFc?version=1.0" {
             }
         }
 
-        /**
-         * `PangoFcDecoder` is a virtual base class that implementations will
-         * inherit from.
-         *
-         * It's the interface that is used to define a custom encoding for a font.
-         * These objects are created in your code from a function callback that was
-         * originally registered with [method@PangoFc.FontMap.add_decoder_find_func].
-         * Pango requires information about the supported charset for a font as well
-         * as the individual character to glyph conversions. Pango gets that
-         * information via the #get_charset and #get_glyph callbacks into your
-         * object implementation.
-         * @since 1.6
-         */
         interface Decoder extends GObject.Object {
             readonly $signals: Decoder.SignalSignatures
             readonly $readableProperties: Decoder.ReadableProperties
@@ -121,10 +105,26 @@ declare module "gi://PangoFc?version=1.0" {
         interface DecoderClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Decoder>
             readonly prototype: Decoder
+
             new (props?: Partial<GObject.ConstructorProps<Decoder>>): Decoder
         }
 
-        const Decoder: DecoderClass
+        interface $Exports {
+            /**
+             * `PangoFcDecoder` is a virtual base class that implementations will
+             * inherit from.
+             *
+             * It's the interface that is used to define a custom encoding for a font.
+             * These objects are created in your code from a function callback that was
+             * originally registered with [method@PangoFc.FontMap.add_decoder_find_func].
+             * Pango requires information about the supported charset for a font as well
+             * as the individual character to glyph conversions. Pango gets that
+             * information via the #get_charset and #get_glyph callbacks into your
+             * object implementation.
+             * @since 1.6
+             */
+            Decoder: DecoderClass
+        }
         
 
         namespace Font {
@@ -138,22 +138,13 @@ declare module "gi://PangoFc?version=1.0" {
 
             interface WritableProperties extends Pango.Font.WritableProperties {
                 "fontmap": FontMap
-                "pattern": never
             }
 
             interface ConstructOnlyProperties extends Pango.Font.ConstructOnlyProperties {
+                "pattern": never
             }
         }
 
-        /**
-         * `PangoFcFont` is a base class for font implementations
-         * using the Fontconfig and FreeType libraries.
-         *
-         * It is used in onjunction with [class@PangoFc.FontMap].
-         * When deriving from this class, you need to implement all
-         * of its virtual functions other than shutdown() along with
-         * the get_glyph_extents() virtual function from `PangoFont`.
-         */
         interface Font extends Pango.Font {
             readonly $signals: Font.SignalSignatures
             readonly $readableProperties: Font.ReadableProperties
@@ -232,6 +223,7 @@ declare module "gi://PangoFc?version=1.0" {
         interface FontClass extends Omit<Pango.FontClass, "new"> {
             readonly $gtype: GObject.GType<Font>
             readonly prototype: Font
+
             new (props?: Partial<GObject.ConstructorProps<Font>>): Font
             /**
              * Creates a `PangoFontDescription` that matches the specified
@@ -250,7 +242,18 @@ declare module "gi://PangoFc?version=1.0" {
             description_from_pattern(pattern: fontconfig.Pattern, include_size: boolean): Pango.FontDescription
         }
 
-        const Font: FontClass
+        interface $Exports {
+            /**
+             * `PangoFcFont` is a base class for font implementations
+             * using the Fontconfig and FreeType libraries.
+             *
+             * It is used in onjunction with [class@PangoFc.FontMap].
+             * When deriving from this class, you need to implement all
+             * of its virtual functions other than shutdown() along with
+             * the get_glyph_extents() virtual function from `PangoFont`.
+             */
+            Font: FontClass
+        }
         
 
         namespace FontMap {
@@ -267,15 +270,6 @@ declare module "gi://PangoFc?version=1.0" {
             }
         }
 
-        /**
-         * `PangoFcFontMap` is a base class for font map implementations using the
-         * Fontconfig and FreeType libraries.
-         *
-         * It is used in the Xft and FreeType backends shipped with Pango,
-         * but can also be used when creating new backends. Any backend
-         * deriving from this base class will take advantage of the wide
-         * range of shapers implemented using FreeType that come with Pango.
-         */
         interface FontMap extends Pango.FontMap, Gio.ListModel {
             readonly $signals: FontMap.SignalSignatures
             readonly $readableProperties: FontMap.ReadableProperties
@@ -362,33 +356,53 @@ declare module "gi://PangoFc?version=1.0" {
         interface FontMapClass extends Omit<Pango.FontMapClass, "new"> {
             readonly $gtype: GObject.GType<FontMap>
             readonly prototype: FontMap
+
             new (props?: Partial<GObject.ConstructorProps<FontMap>>): FontMap
         }
 
-        const FontMap: FontMapClass
-        none
-        none
-        none
-        /**
-         */
-        abstract class FontMapPrivate {
-            static readonly $gtype: GObject.GType<FontMapPrivate>
-
-            
+        interface $Exports {
+            /**
+             * `PangoFcFontMap` is a base class for font map implementations using the
+             * Fontconfig and FreeType libraries.
+             *
+             * It is used in the Xft and FreeType backends shipped with Pango,
+             * but can also be used when creating new backends. Any backend
+             * deriving from this base class will take advantage of the wide
+             * range of shapers implemented using FreeType that come with Pango.
+             */
+            FontMap: FontMapClass
         }
-        const FONT_FEATURES: "fontfeatures"
-        const FONT_VARIATIONS: "fontvariations"
-        const GRAVITY: "pangogravity"
-        const PRGNAME: "prgname"
-        const VERSION: "pangoversion"
-        none
+        
+
+        interface FontMapPrivateStruct {
+            readonly $gtype: GObject.GType<FontMapPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is FontMapPrivate
+        }
+
+        interface FontMapPrivate {
+        }
+
+        interface $Exports {
+            FontMapPrivate: FontMapPrivateStruct
+        }
         /**
          * Function type for doing final config tweaking on prepared `FcPattern`s.
          * @param pattern the FcPattern to tweak.
          * @param data user data.
          */
         type SubstituteFunc = (pattern: fontconfig.Pattern, data: never | null) => void
+
+        interface $Exports {
+            __name__: "PangoFc"
+            __version: "1.0"
+            FONT_FEATURES: "fontfeatures"
+            FONT_VARIATIONS: "fontvariations"
+            GRAVITY: "pangogravity"
+            PRGNAME: "prgname"
+            VERSION: "pangoversion"
+        }
     }
 
+    const PangoFc: PangoFc.$Exports
     export default PangoFc
 }

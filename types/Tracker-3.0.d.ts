@@ -16,10 +16,7 @@ declare module "gi://Tracker?version=3.0" {
 
     
 
-
     namespace Tracker {
-        const __name__: "Tracker"
-        const __version: "3.0"
         
 
         namespace Batch {
@@ -31,33 +28,13 @@ declare module "gi://Tracker?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "connection": SparqlConnection
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "connection": SparqlConnection
             }
         }
 
-        /**
-         * `TrackerBatch` executes a series of SPARQL updates and RDF data
-         * insertions within a transaction.
-         *
-         * A batch is created with [method@SparqlConnection.create_batch].
-         * To add resources use [method@Batch.add_resource],
-         * [method@Batch.add_sparql] or [method@Batch.add_statement].
-         *
-         * When a batch is ready for execution, use [method@Batch.execute]
-         * or [method@Batch.execute_async]. The batch is executed as a single
-         * transaction, it will succeed or fail entirely.
-         *
-         * This object has a single use, after the batch is executed it can
-         * only be finished and freed.
-         *
-         * The mapping of blank node labels is global in a `TrackerBatch`,
-         * referencing the same blank node label in different operations in
-         * a batch will resolve to the same resource.
-         * @since 3.1
-         */
         interface Batch extends GObject.Object {
             readonly $signals: Batch.SignalSignatures
             readonly $readableProperties: Batch.ReadableProperties
@@ -99,7 +76,19 @@ declare module "gi://Tracker?version=3.0" {
              */
             add_sparql(sparql: string): void
             /**
-             * values[0], "John Smith");
+             * Adds a [class@SparqlStatement] containing an SPARQL update. The statement will
+             * be executed once in the batch, with the values bound as specified by @variable_names
+             * and @values.
+             *
+             * For example, for a statement that has a single `~name` parameter,
+             * it could be given a value for execution with the given code:
+             *
+             * ```c
+             * const char *names = { "name" };
+             * const GValue values[G_N_ELEMENTS (names)] = { 0, };
+             *
+             * g_value_init (&values[0], G_TYPE_STRING);
+             * g_value_set_string (&values[0], "John Smith");
              * tracker_batch_add_statementv (batch, stmt,
              *                               G_N_ELEMENTS (names),
              *                               names, values);
@@ -118,13 +107,12 @@ declare module "gi://Tracker?version=3.0" {
              * This function should only be called on [class@SparqlStatement] objects
              * obtained through [method@SparqlConnection.update_statement] or
              * update statements loaded through [method@SparqlConnection.load_statement_from_gresource].
-             * @override
              * @since 3.5
              * @param stmt A [class@SparqlStatement] containing a SPARQL update
              * @param variable_names The names of each bound parameter
              * @param values The values of each bound parameter
              */
-            add_statementv(stmt: SparqlStatement, variable_names: string[], values: GObject.Value[]): void
+            add_statement(stmt: SparqlStatement, variable_names: string[], values: GObject.Value[]): void
             /**
              * Executes the batch. This operations happens synchronously.
              * @throws {GLib.Error}
@@ -161,10 +149,33 @@ declare module "gi://Tracker?version=3.0" {
         interface BatchClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Batch>
             readonly prototype: Batch
+
             new (props?: Partial<GObject.ConstructorProps<Batch>>): Batch
         }
 
-        const Batch: BatchClass
+        interface $Exports {
+            /**
+             * `TrackerBatch` executes a series of SPARQL updates and RDF data
+             * insertions within a transaction.
+             *
+             * A batch is created with [method@SparqlConnection.create_batch].
+             * To add resources use [method@Batch.add_resource],
+             * [method@Batch.add_sparql] or [method@Batch.add_statement].
+             *
+             * When a batch is ready for execution, use [method@Batch.execute]
+             * or [method@Batch.execute_async]. The batch is executed as a single
+             * transaction, it will succeed or fail entirely.
+             *
+             * This object has a single use, after the batch is executed it can
+             * only be finished and freed.
+             *
+             * The mapping of blank node labels is global in a `TrackerBatch`,
+             * referencing the same blank node label in different operations in
+             * a batch will resolve to the same resource.
+             * @since 3.1
+             */
+            Batch: BatchClass
+        }
         
 
         namespace Endpoint {
@@ -182,31 +193,13 @@ declare module "gi://Tracker?version=3.0" {
                 "allowed-graphs": string[]
                 "allowed-services": string[]
                 "readonly": boolean
-                "sparql-connection": SparqlConnection
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "sparql-connection": SparqlConnection
             }
         }
 
-        /**
-         *  { ... }` SPARQL
-         * syntax from their own [class@SparqlConnection]s to expand their data set.
-         *
-         * By default, and as long as the underlying [class@SparqlConnection]
-         * allows SPARQL updates and RDF graph changes, endpoints will allow updates
-         * and modifications to happen through them. Use [method@Endpoint.set_readonly]
-         * to change this behavior.
-         *
-         * By default, endpoints allow access to every RDF graph in the triple store
-         * and further external SPARQL endpoints to the queries performed on it. Use
-         * [method@Endpoint.set_allowed_graphs] and
-         * [method@Endpoint.set_allowed_services] to change this behavior. Users do
-         * not typically need to do this for D-Bus endpoints, as these do already have a layer
-         * of protection with the Tracker portal. This is the mechanism used by the portal
-         * itself. This access control API may not interoperate with other SPARQL endpoint
-         * implementations than Tracker.
-         */
         interface Endpoint extends GObject.Object {
             readonly $signals: Endpoint.SignalSignatures
             readonly $readableProperties: Endpoint.ReadableProperties
@@ -323,10 +316,42 @@ declare module "gi://Tracker?version=3.0" {
         interface EndpointClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Endpoint>
             readonly prototype: Endpoint
+
             new (props?: Partial<GObject.ConstructorProps<Endpoint>>): Endpoint
         }
 
-        const Endpoint: EndpointClass
+        interface $Exports {
+            /**
+             * `TrackerEndpoint` is a helper object to make RDF triple stores represented
+             * by a [class@SparqlConnection] publicly available to other processes/hosts.
+             *
+             * This is a base abstract object, see [class@EndpointDBus] to make
+             * RDF triple stores available to other processes in the same machine, and
+             * [class@EndpointHttp] to make it available to other hosts in the
+             * network.
+             *
+             * When the RDF triple store represented by a [class@SparqlConnection]
+             * is made public this way, other peers may connect to the database using
+             * [ctor@SparqlConnection.bus_new] or [ctor@SparqlConnection.remote_new]
+             * to access this endpoint exclusively, or they may use the `SERVICE <uri> { ... }` SPARQL
+             * syntax from their own [class@SparqlConnection]s to expand their data set.
+             *
+             * By default, and as long as the underlying [class@SparqlConnection]
+             * allows SPARQL updates and RDF graph changes, endpoints will allow updates
+             * and modifications to happen through them. Use [method@Endpoint.set_readonly]
+             * to change this behavior.
+             *
+             * By default, endpoints allow access to every RDF graph in the triple store
+             * and further external SPARQL endpoints to the queries performed on it. Use
+             * [method@Endpoint.set_allowed_graphs] and
+             * [method@Endpoint.set_allowed_services] to change this behavior. Users do
+             * not typically need to do this for D-Bus endpoints, as these do already have a layer
+             * of protection with the Tracker portal. This is the mechanism used by the portal
+             * itself. This access control API may not interoperate with other SPARQL endpoint
+             * implementations than Tracker.
+             */
+            Endpoint: EndpointClass
+        }
         
 
         namespace EndpointDBus {
@@ -343,38 +368,14 @@ declare module "gi://Tracker?version=3.0" {
             }
 
             interface WritableProperties extends Endpoint.WritableProperties, Gio.Initable.WritableProperties {
-                "dbus-connection": Gio.DBusConnection
-                "object-path": string
             }
 
             interface ConstructOnlyProperties extends Endpoint.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
+                "dbus-connection": Gio.DBusConnection
+                "object-path": string
             }
         }
 
-        /**
-         * error);
-         * ```
-         *
-         * The `TrackerEndpointDBus` will manage a DBus object at the given path
-         * with the `org.freedesktop.Tracker3.Endpoint` interface, if no path is
-         * given the object will be at the default `/org/freedesktop/Tracker3/Endpoint`
-         * location.
-         *
-         * Access to D-Bus endpoints may be managed via the
-         * [signal@EndpointDBus::block-call] signal, the boolean
-         * return value expressing whether the request is blocked or not.
-         * Inspection of the requester address is left up to the user. The
-         * default value allows all requests independently of their provenance.
-         *
-         * However, moderating access to D-Bus interfaces is typically not necessary
-         * in user code, as access to public D-Bus endpoints will be transparently
-         * managed through the Tracker portal service for applications sandboxed
-         * via XDG portals. These already have access to D-Bus SPARQL endpoints and
-         * their data naturally filtered as defined in the application manifest.
-         *
-         * A `TrackerEndpointDBus` may be created on a different thread/main
-         * context from the one that created [class@SparqlConnection].
-         */
         interface EndpointDBus extends Endpoint, Gio.Initable {
             readonly $signals: EndpointDBus.SignalSignatures
             readonly $readableProperties: EndpointDBus.ReadableProperties
@@ -396,6 +397,7 @@ declare module "gi://Tracker?version=3.0" {
         interface EndpointDBusClass extends Omit<EndpointClass, "new"> {
             readonly $gtype: GObject.GType<EndpointDBus>
             readonly prototype: EndpointDBus
+
             new (props?: Partial<GObject.ConstructorProps<EndpointDBus>>): EndpointDBus
             /**
              * Registers a Tracker endpoint object at @object_path on @dbus_connection.
@@ -410,7 +412,52 @@ declare module "gi://Tracker?version=3.0" {
             "new"(sparql_connection: SparqlConnection, dbus_connection: Gio.DBusConnection, object_path: string | null, cancellable: Gio.Cancellable | null): EndpointDBus
         }
 
-        const EndpointDBus: EndpointDBusClass
+        interface $Exports {
+            /**
+             * `TrackerEndpointDBus` makes the RDF data in a [class@SparqlConnection]
+             * accessible to other processes via DBus.
+             *
+             * This object is a [class@Endpoint] subclass that exports
+             * a [class@SparqlConnection] so its RDF data is accessible to other
+             * processes through the given [class@Gio.DBusConnection].
+             *
+             * ```c
+             * // This process already has org.example.Endpoint bus name
+             * endpoint = tracker_endpoint_dbus_new (sparql_connection,
+             *                                       dbus_connection,
+             *                                       NULL,
+             *                                       NULL,
+             *                                       &error);
+             *
+             * // From another process
+             * connection = tracker_sparql_connection_bus_new ("org.example.Endpoint",
+             *                                                 NULL,
+             *                                                 dbus_connection,
+             *                                                 &error);
+             * ```
+             *
+             * The `TrackerEndpointDBus` will manage a DBus object at the given path
+             * with the `org.freedesktop.Tracker3.Endpoint` interface, if no path is
+             * given the object will be at the default `/org/freedesktop/Tracker3/Endpoint`
+             * location.
+             *
+             * Access to D-Bus endpoints may be managed via the
+             * [signal@EndpointDBus::block-call] signal, the boolean
+             * return value expressing whether the request is blocked or not.
+             * Inspection of the requester address is left up to the user. The
+             * default value allows all requests independently of their provenance.
+             *
+             * However, moderating access to D-Bus interfaces is typically not necessary
+             * in user code, as access to public D-Bus endpoints will be transparently
+             * managed through the Tracker portal service for applications sandboxed
+             * via XDG portals. These already have access to D-Bus SPARQL endpoints and
+             * their data naturally filtered as defined in the application manifest.
+             *
+             * A `TrackerEndpointDBus` may be created on a different thread/main
+             * context from the one that created [class@SparqlConnection].
+             */
+            EndpointDBus: EndpointDBusClass
+        }
         
 
         namespace EndpointHttp {
@@ -433,41 +480,14 @@ declare module "gi://Tracker?version=3.0" {
             }
 
             interface WritableProperties extends Endpoint.WritableProperties, Gio.Initable.WritableProperties {
-                "http-certificate": Gio.TlsCertificate
-                "http-port": number
             }
 
             interface ConstructOnlyProperties extends Endpoint.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
+                "http-certificate": Gio.TlsCertificate
+                "http-port": number
             }
         }
 
-        /**
-         * error);
-         *
-         * // From another host
-         * connection = tracker_sparql_connection_remote_new ("http://example.local:8080/sparql");
-         * ```
-         *
-         * Access to HTTP endpoints may be managed via the
-         * [signal@EndpointHttp::block-remote-address] signal, the boolean
-         * return value expressing whether the connection is blocked or not.
-         * Inspection of the requester address is left up to the user. The
-         * default value allows all requests independently of their provenance,
-         * users are encouraged to add a handler.
-         *
-         * If the provided [class@Gio.TlsCertificate] is %NULL, the endpoint will allow
-         * plain HTTP connections. Users are encouraged to provide a certificate
-         * in order to use HTTPS.
-         *
-         * As a security measure, and in compliance specifications,
-         * the HTTP endpoint does not handle database updates or modifications in any
-         * way. The database content is considered to be entirely managed by the
-         * process that creates the HTTP endpoint and owns the [class@SparqlConnection].
-         *
-         * A `TrackerEndpointHttp` may be created on a different thread/main
-         * context from the one that created [class@SparqlConnection].
-         * @since 3.1
-         */
         interface EndpointHttp extends Endpoint, Gio.Initable {
             readonly $signals: EndpointHttp.SignalSignatures
             readonly $readableProperties: EndpointHttp.ReadableProperties
@@ -489,6 +509,7 @@ declare module "gi://Tracker?version=3.0" {
         interface EndpointHttpClass extends Omit<EndpointClass, "new"> {
             readonly $gtype: GObject.GType<EndpointHttp>
             readonly prototype: EndpointHttp
+
             new (props?: Partial<GObject.ConstructorProps<EndpointHttp>>): EndpointHttp
             /**
              * Sets up a Tracker endpoint to listen via HTTP, in the given @port.
@@ -505,7 +526,51 @@ declare module "gi://Tracker?version=3.0" {
             "new"(sparql_connection: SparqlConnection, port: number, certificate: Gio.TlsCertificate | null, cancellable: Gio.Cancellable | null): EndpointHttp
         }
 
-        const EndpointHttp: EndpointHttpClass
+        interface $Exports {
+            /**
+             * `TrackerEndpointHttp` makes the RDF data in a [class@SparqlConnection]
+             * accessible to other hosts via HTTP.
+             *
+             * This object is a [class@Endpoint] subclass that exports
+             * a [class@SparqlConnection] so its RDF data is accessible via HTTP
+             * requests on the given port. This endpoint implementation is compliant
+             * with the [SPARQL protocol specifications](https://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/)
+             * and may interoperate with other implementations.
+             *
+             * ```c
+             * // This host has "example.local" hostname
+             * endpoint = tracker_endpoint_http_new (sparql_connection,
+             *                                       8080,
+             *                                       tls_certificate,
+             *                                       NULL,
+             *                                       &error);
+             *
+             * // From another host
+             * connection = tracker_sparql_connection_remote_new ("http://example.local:8080/sparql");
+             * ```
+             *
+             * Access to HTTP endpoints may be managed via the
+             * [signal@EndpointHttp::block-remote-address] signal, the boolean
+             * return value expressing whether the connection is blocked or not.
+             * Inspection of the requester address is left up to the user. The
+             * default value allows all requests independently of their provenance,
+             * users are encouraged to add a handler.
+             *
+             * If the provided [class@Gio.TlsCertificate] is %NULL, the endpoint will allow
+             * plain HTTP connections. Users are encouraged to provide a certificate
+             * in order to use HTTPS.
+             *
+             * As a security measure, and in compliance specifications,
+             * the HTTP endpoint does not handle database updates or modifications in any
+             * way. The database content is considered to be entirely managed by the
+             * process that creates the HTTP endpoint and owns the [class@SparqlConnection].
+             *
+             * A `TrackerEndpointHttp` may be created on a different thread/main
+             * context from the one that created [class@SparqlConnection].
+             * @since 3.1
+             */
+            EndpointHttp: EndpointHttpClass
+        }
         
 
         namespace NamespaceManager {
@@ -522,19 +587,6 @@ declare module "gi://Tracker?version=3.0" {
             }
         }
 
-        /**
-         * `TrackerNamespaceManager` object represents a mapping between namespaces and
-         * their shortened prefixes.
-         *
-         * This object keeps track of namespaces, and allows you to assign
-         * short prefixes for them to avoid frequent use of full namespace IRIs. The syntax
-         * used is that of [Compact URIs (CURIEs)](https://www.w3.org/TR/2010/NOTE-curie-20101216).
-         *
-         * Usually you will want to use a namespace manager obtained through
-         * [method@SparqlConnection.get_namespace_manager] from the
-         * [class@SparqlConnection] that manages the RDF data, as that will
-         * contain all prefixes and namespaces that are pre-defined by its ontology.
-         */
         interface NamespaceManager extends GObject.Object {
             readonly $signals: NamespaceManager.SignalSignatures
             readonly $readableProperties: NamespaceManager.ReadableProperties
@@ -596,6 +648,7 @@ declare module "gi://Tracker?version=3.0" {
         interface NamespaceManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<NamespaceManager>
             readonly prototype: NamespaceManager
+
             new (props?: Partial<GObject.ConstructorProps<NamespaceManager>>): NamespaceManager
             /**
              * Creates a new, empty `TrackerNamespaceManager` instance.
@@ -615,7 +668,22 @@ declare module "gi://Tracker?version=3.0" {
             get_default(): NamespaceManager
         }
 
-        const NamespaceManager: NamespaceManagerClass
+        interface $Exports {
+            /**
+             * `TrackerNamespaceManager` object represents a mapping between namespaces and
+             * their shortened prefixes.
+             *
+             * This object keeps track of namespaces, and allows you to assign
+             * short prefixes for them to avoid frequent use of full namespace IRIs. The syntax
+             * used is that of [Compact URIs (CURIEs)](https://www.w3.org/TR/2010/NOTE-curie-20101216).
+             *
+             * Usually you will want to use a namespace manager obtained through
+             * [method@SparqlConnection.get_namespace_manager] from the
+             * [class@SparqlConnection] that manages the RDF data, as that will
+             * contain all prefixes and namespaces that are pre-defined by its ontology.
+             */
+            NamespaceManager: NamespaceManagerClass
+        }
         
 
         namespace Notifier {
@@ -634,46 +702,13 @@ declare module "gi://Tracker?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "connection": SparqlConnection
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "connection": SparqlConnection
             }
         }
 
-        /**
-         * `TrackerNotifier` allows receiving notification on changes
-         * in the data stored by a [class@SparqlConnection].
-         *
-         * This object may be created through [method@SparqlConnection.create_notifier],
-         * events can then be listened for by connecting to the
-         * [signal@Notifier::events] signal.
-         *
-         * Not every change is notified, only RDF resources with a
-         * class that has the [nrl:notify](nrl-ontology.html#nrl:notify)
-         * property defined by the ontology will be notified upon changes.
-         *
-         * Database changes are communicated through [struct@NotifierEvent] events on
-         * individual graph/resource pairs. The event type obtained through
-         * [method@NotifierEvent.get_event_type] will determine the type of event.
-         * Insertion of new resources is notified through
-         * %TRACKER_NOTIFIER_EVENT_CREATE events, deletion of
-         * resources is notified through %TRACKER_NOTIFIER_EVENT_DELETE
-         * events, and changes on any property of the resource is notified
-         * through %TRACKER_NOTIFIER_EVENT_UPDATE events.
-         *
-         * The events happen in reaction to database changes, after a `TrackerNotifier`
-         * received an event of type %TRACKER_NOTIFIER_EVENT_DELETE, the resource will
-         * not exist anymore and only the information in the [struct@NotifierEvent]
-         * will remain.
-         *
-         * Similarly, when receiving an event of type %TRACKER_NOTIFIER_EVENT_UPDATE,
-         * the resource will have already changed, so the data previous to the update is
-         * no longer available.
-         *
-         * The [signal@Notifier::events] signal is emitted in the thread-default
-         * main context of the thread where the `TrackerNotifier` instance was created.
-         */
         interface Notifier extends GObject.Object {
             readonly $signals: Notifier.SignalSignatures
             readonly $readableProperties: Notifier.ReadableProperties
@@ -720,10 +755,46 @@ declare module "gi://Tracker?version=3.0" {
         interface NotifierClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Notifier>
             readonly prototype: Notifier
+
             new (props?: Partial<GObject.ConstructorProps<Notifier>>): Notifier
         }
 
-        const Notifier: NotifierClass
+        interface $Exports {
+            /**
+             * `TrackerNotifier` allows receiving notification on changes
+             * in the data stored by a [class@SparqlConnection].
+             *
+             * This object may be created through [method@SparqlConnection.create_notifier],
+             * events can then be listened for by connecting to the
+             * [signal@Notifier::events] signal.
+             *
+             * Not every change is notified, only RDF resources with a
+             * class that has the [nrl:notify](nrl-ontology.html#nrl:notify)
+             * property defined by the ontology will be notified upon changes.
+             *
+             * Database changes are communicated through [struct@NotifierEvent] events on
+             * individual graph/resource pairs. The event type obtained through
+             * [method@NotifierEvent.get_event_type] will determine the type of event.
+             * Insertion of new resources is notified through
+             * %TRACKER_NOTIFIER_EVENT_CREATE events, deletion of
+             * resources is notified through %TRACKER_NOTIFIER_EVENT_DELETE
+             * events, and changes on any property of the resource is notified
+             * through %TRACKER_NOTIFIER_EVENT_UPDATE events.
+             *
+             * The events happen in reaction to database changes, after a `TrackerNotifier`
+             * received an event of type %TRACKER_NOTIFIER_EVENT_DELETE, the resource will
+             * not exist anymore and only the information in the [struct@NotifierEvent]
+             * will remain.
+             *
+             * Similarly, when receiving an event of type %TRACKER_NOTIFIER_EVENT_UPDATE,
+             * the resource will have already changed, so the data previous to the update is
+             * no longer available.
+             *
+             * The [signal@Notifier::events] signal is emitted in the thread-default
+             * main context of the thread where the `TrackerNotifier` instance was created.
+             */
+            Notifier: NotifierClass
+        }
         
 
         namespace Resource {
@@ -742,37 +813,6 @@ declare module "gi://Tracker?version=3.0" {
             }
         }
 
-        /**
-         * `TrackerResource` is an in-memory representation of RDF data about a given resource.
-         *
-         * This object keeps track of a set of properties for a given resource, and can
-         * also link to other `TrackerResource` objects to form trees or graphs of RDF
-         * data. See [method@Resource.set_relation] and [method@Resource.set_uri]
-         * on how to link a `TrackerResource` to other RDF data.
-         *
-         * `TrackerResource` may also hold data about literal values, added through
-         * the specialized [method@Resource.set_int64], [method@Resource.set_string],
-         * etc family of functions, or the generic [method@Resource.set_gvalue] method.
-         *
-         * Since RDF properties may be multi-valued, for every `set` call there exists
-         * another `add` call (e.g. [method@Resource.add_int64], [method@Resource.add_string]
-         * and so on). The `set` methods do also reset any previously value the
-         * property might hold for the given resource.
-         *
-         * Resources may have an IRI set at creation through [ctor@Resource.new],
-         * or set afterwards through [method@Resource.set_identifier]. Resources
-         * without a name will represent a blank node, and will be dealt with as such
-         * during database insertions.
-         *
-         * `TrackerResource` performs no validation on the data being coherent as per
-         * any ontology. Errors will be found out at the time of using the TrackerResource
-         * for e.g. database updates.
-         *
-         * Once the RDF data is built in memory, the (tree of) `TrackerResource` may be
-         * converted to a RDF format through [method@Resource.print_rdf], or
-         * directly inserted into a database through [method@Batch.add_resource]
-         * or [method@SparqlConnection.update_resource].
-         */
         interface Resource extends GObject.Object {
             readonly $signals: Resource.SignalSignatures
             readonly $readableProperties: Resource.ReadableProperties
@@ -830,7 +870,7 @@ declare module "gi://Tracker?version=3.0" {
              * @param property_uri a string identifying the property to set
              * @param value an initialised [struct@GObject.Value]
              */
-            add_gvalue(property_uri: string, value: GObject.Value): void
+            add_gvalue(property_uri: string, value: (GObject.Value | unknown)): void
             /**
              * Adds a numeric property with integer precision. Previous values for the same property are kept.
              *
@@ -995,11 +1035,13 @@ declare module "gi://Tracker?version=3.0" {
              * A helper function that compares a `TrackerResource` by its identifier
              * string.
              * @param identifier a string identifying the resource
-             * @returns  than `identifier`
+             * @returns an integer less than, equal to, or greater than zero, if the          resource identifier is <, == or > than `identifier`
              */
             identifier_compare_func(identifier: string): number
             /**
-             *  for more information on the JSON-LD
+             * Serialize all the information in @resource as a JSON-LD document.
+             *
+             * See <http://www.jsonld.org/> for more information on the JSON-LD
              * serialization format.
              *
              * The @namespaces object is used to expand any compact URI values. In most
@@ -1040,7 +1082,10 @@ declare module "gi://Tracker?version=3.0" {
              */
             print_sparql_update(namespaces: NamespaceManager | null, graph_id: string | null): string
             /**
+             * Serialize all the information in @resource as a Turtle document.
              *
+             * The generated Turtle should correspond to this standard:
+             * <https://www.w3.org/TR/2014/REC-turtle-20140225/>
              *
              * The @namespaces object is used to expand any compact URI values. In most
              * cases you should pass the one returned by [method@SparqlConnection.get_namespace_manager]
@@ -1097,7 +1142,7 @@ declare module "gi://Tracker?version=3.0" {
              * @param property_uri a string identifying the property to set
              * @param value an initialised [struct@GObject.Value]
              */
-            set_gvalue(property_uri: string, value: GObject.Value): void
+            set_gvalue(property_uri: string, value: (GObject.Value | unknown)): void
             /**
              * Changes the identifier of a `TrackerResource`. The identifier should be a
              * URI or compact URI, but this is not necessarily enforced. Invalid
@@ -1180,6 +1225,7 @@ declare module "gi://Tracker?version=3.0" {
         interface ResourceClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Resource>
             readonly prototype: Resource
+
             new (props?: Partial<GObject.ConstructorProps<Resource>>): Resource
             /**
              * Creates a TrackerResource instance.
@@ -1197,7 +1243,40 @@ declare module "gi://Tracker?version=3.0" {
             deserialize(variant: GLib.Variant): Resource | null
         }
 
-        const Resource: ResourceClass
+        interface $Exports {
+            /**
+             * `TrackerResource` is an in-memory representation of RDF data about a given resource.
+             *
+             * This object keeps track of a set of properties for a given resource, and can
+             * also link to other `TrackerResource` objects to form trees or graphs of RDF
+             * data. See [method@Resource.set_relation] and [method@Resource.set_uri]
+             * on how to link a `TrackerResource` to other RDF data.
+             *
+             * `TrackerResource` may also hold data about literal values, added through
+             * the specialized [method@Resource.set_int64], [method@Resource.set_string],
+             * etc family of functions, or the generic [method@Resource.set_gvalue] method.
+             *
+             * Since RDF properties may be multi-valued, for every `set` call there exists
+             * another `add` call (e.g. [method@Resource.add_int64], [method@Resource.add_string]
+             * and so on). The `set` methods do also reset any previously value the
+             * property might hold for the given resource.
+             *
+             * Resources may have an IRI set at creation through [ctor@Resource.new],
+             * or set afterwards through [method@Resource.set_identifier]. Resources
+             * without a name will represent a blank node, and will be dealt with as such
+             * during database insertions.
+             *
+             * `TrackerResource` performs no validation on the data being coherent as per
+             * any ontology. Errors will be found out at the time of using the TrackerResource
+             * for e.g. database updates.
+             *
+             * Once the RDF data is built in memory, the (tree of) `TrackerResource` may be
+             * converted to a RDF format through [method@Resource.print_rdf], or
+             * directly inserted into a database through [method@Batch.add_resource]
+             * or [method@SparqlConnection.update_resource].
+             */
+            Resource: ResourceClass
+        }
         
 
         namespace SparqlConnection {
@@ -1214,67 +1293,6 @@ declare module "gi://Tracker?version=3.0" {
             }
         }
 
-        /**
-         * `TrackerSparqlConnection` holds a connection to a RDF triple store.
-         *
-         * This triple store may be of three types:
-         *
-         *  - Local to the process, created through [ctor@SparqlConnection.new].
-         *  - A HTTP SPARQL endpoint over the network, created through
-         *    [ctor@SparqlConnection.remote_new]
-         *  - A DBus SPARQL endpoint owned by another process in the same machine, created
-         *    through [ctor@SparqlConnection.bus_new]
-         *
-         * When creating a local triple store, it is required to give details about its
-         * structure. This is done by passing a location to an ontology, see more
-         * on how are [ontologies defined](ontologies.html). A local database may be
-         * stored in a filesystem location, or it may reside in memory.
-         *
-         * A `TrackerSparqlConnection` is private to the calling process, it can be
-         * exposed to other hosts/processes via a [class@Endpoint], see
-         * [ctor@EndpointDBus.new] and [ctor@EndpointHttp.new].
-         *
-         * When issuing SPARQL queries and updates, it is recommended that these are
-         * created through [class@SparqlStatement] to avoid the SPARQL
-         * injection class of bugs, see [method@SparqlConnection.query_statement]
-         * and [method@SparqlConnection.update_statement]. For SPARQL updates
-         * it is also possible to use a "builder" approach to generate RDF data, see
-         * [class@Resource]. It is also possible to create [class@SparqlStatement]
-         * objects for SPARQL queries and updates from SPARQL strings embedded in a
-         * [struct@Gio.Resource], see [method@SparqlConnection.load_statement_from_gresource].
-         *
-         * To get the best performance, it is recommended that SPARQL updates are clustered
-         * through [class@Batch].
-         *
-         * `TrackerSparqlConnection` also offers a number of methods for the simple cases,
-         * [method@SparqlConnection.query] may be used when there is a SPARQL
-         * query string directly available, and the [method@SparqlConnection.update]
-         * family of functions may be used for one-off updates. All functions have asynchronous
-         * variants.
-         *
-         * When a SPARQL query is executed, a [class@SparqlCursor] will be obtained
-         * to iterate over the query results.
-         *
-         * Depending on the ontology definition, `TrackerSparqlConnection` may emit
-         * notifications whenever resources of certain types get insert, modified or
-         * deleted from the triple store (see [nrl:notify](nrl-ontology.html#nrl:notify).
-         * These notifications can be handled via a [class@Notifier] obtained with
-         * [method@SparqlConnection.create_notifier].
-         *
-         * After done with a connection, it is recommended to call [method@SparqlConnection.close]
-         * or [method@SparqlConnection.close_async] explicitly to cleanly close the
-         * connection and prevent consistency checks on future runs. The triple store
-         * connection will be implicitly closed when the `TrackerSparqlConnection` object
-         * is disposed.
-         *
-         * A `TrackerSparqlConnection` may be used from multiple threads, asynchronous
-         * updates are executed sequentially on arrival order, asynchronous
-         * queries are dispatched in a thread pool.
-         *
-         * If you ever have the need to procedurally compose SPARQL query strings, consider
-         * the use of [func@sparql_escape_string] for literal strings and
-         * the [func@sparql_escape_uri] family of functions for URIs.
-         */
         interface SparqlConnection extends GObject.Object {
             readonly $signals: SparqlConnection.SignalSignatures
             readonly $readableProperties: SparqlConnection.ReadableProperties
@@ -1375,7 +1393,20 @@ declare module "gi://Tracker?version=3.0" {
              */
             load_statement_from_gresource(resource_path: string, cancellable: Gio.Cancellable | null): SparqlStatement
             /**
-             *  {
+             * Maps a `TrackerSparqlConnection` onto another through a `private:@handle_name` URI.
+             *
+             * This can be accessed via the SERVICE SPARQL syntax in
+             * queries from @connection. E.g.:
+             *
+             * ```c
+             * tracker_sparql_connection_map_connection (connection,
+             *                                           "other-connection",
+             *                                           other_connection);
+             * ```
+             *
+             * ```sparql
+             * SELECT ?u {
+             *   SERVICE <private:other-connection> {
              *     ?u a rdfs:Resource
              *   }
              * }
@@ -1652,6 +1683,7 @@ declare module "gi://Tracker?version=3.0" {
         interface SparqlConnectionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SparqlConnection>
             readonly prototype: SparqlConnection
+
             new (props?: Partial<GObject.ConstructorProps<SparqlConnection>>): SparqlConnection
             /**
              * @service_name (nullable): The name of the D-Bus service to connect to, or %NULL if not using a message bus.
@@ -1824,7 +1856,70 @@ declare module "gi://Tracker?version=3.0" {
             new_from_rdf_async(flags: SparqlConnectionFlags, store: Gio.File | null, deserialize_flags: DeserializeFlags, rdf_format: RdfFormat, rdf_stream: Gio.InputStream, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         }
 
-        const SparqlConnection: SparqlConnectionClass
+        interface $Exports {
+            /**
+             * `TrackerSparqlConnection` holds a connection to a RDF triple store.
+             *
+             * This triple store may be of three types:
+             *
+             *  - Local to the process, created through [ctor@SparqlConnection.new].
+             *  - A HTTP SPARQL endpoint over the network, created through
+             *    [ctor@SparqlConnection.remote_new]
+             *  - A DBus SPARQL endpoint owned by another process in the same machine, created
+             *    through [ctor@SparqlConnection.bus_new]
+             *
+             * When creating a local triple store, it is required to give details about its
+             * structure. This is done by passing a location to an ontology, see more
+             * on how are [ontologies defined](ontologies.html). A local database may be
+             * stored in a filesystem location, or it may reside in memory.
+             *
+             * A `TrackerSparqlConnection` is private to the calling process, it can be
+             * exposed to other hosts/processes via a [class@Endpoint], see
+             * [ctor@EndpointDBus.new] and [ctor@EndpointHttp.new].
+             *
+             * When issuing SPARQL queries and updates, it is recommended that these are
+             * created through [class@SparqlStatement] to avoid the SPARQL
+             * injection class of bugs, see [method@SparqlConnection.query_statement]
+             * and [method@SparqlConnection.update_statement]. For SPARQL updates
+             * it is also possible to use a "builder" approach to generate RDF data, see
+             * [class@Resource]. It is also possible to create [class@SparqlStatement]
+             * objects for SPARQL queries and updates from SPARQL strings embedded in a
+             * [struct@Gio.Resource], see [method@SparqlConnection.load_statement_from_gresource].
+             *
+             * To get the best performance, it is recommended that SPARQL updates are clustered
+             * through [class@Batch].
+             *
+             * `TrackerSparqlConnection` also offers a number of methods for the simple cases,
+             * [method@SparqlConnection.query] may be used when there is a SPARQL
+             * query string directly available, and the [method@SparqlConnection.update]
+             * family of functions may be used for one-off updates. All functions have asynchronous
+             * variants.
+             *
+             * When a SPARQL query is executed, a [class@SparqlCursor] will be obtained
+             * to iterate over the query results.
+             *
+             * Depending on the ontology definition, `TrackerSparqlConnection` may emit
+             * notifications whenever resources of certain types get insert, modified or
+             * deleted from the triple store (see [nrl:notify](nrl-ontology.html#nrl:notify).
+             * These notifications can be handled via a [class@Notifier] obtained with
+             * [method@SparqlConnection.create_notifier].
+             *
+             * After done with a connection, it is recommended to call [method@SparqlConnection.close]
+             * or [method@SparqlConnection.close_async] explicitly to cleanly close the
+             * connection and prevent consistency checks on future runs. The triple store
+             * connection will be implicitly closed when the `TrackerSparqlConnection` object
+             * is disposed.
+             *
+             * A `TrackerSparqlConnection` may be used from multiple threads, asynchronous
+             * updates are executed sequentially on arrival order, asynchronous
+             * queries are dispatched in a thread pool.
+             *
+             * If you ever have the need to procedurally compose SPARQL query strings, consider
+             * the use of [func@sparql_escape_string] for literal strings and
+             * the [func@sparql_escape_uri] family of functions for URIs.
+             */
+            SparqlConnection: SparqlConnectionClass
+        }
         
 
         namespace SparqlCursor {
@@ -1837,41 +1932,14 @@ declare module "gi://Tracker?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "connection": SparqlConnection
                 "n-columns": number
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "connection": SparqlConnection
             }
         }
 
-        /**
-         * `TrackerSparqlCursor` provides the methods to iterate the results of a SPARQL query.
-         *
-         * Cursors are obtained through e.g. [method@SparqlStatement.execute]
-         * or [method@SparqlConnection.query] after the SPARQL query has been
-         * executed.
-         *
-         * When created, a cursor does not point to any element, [method@SparqlCursor.next]
-         * is necessary to iterate one by one to the first (and following) results.
-         * When the cursor iterated across all rows in the result set, [method@SparqlCursor.next]
-         * will return %FALSE with no error set.
-         *
-         * On each row, it is possible to extract the result values through the
-         * [method@SparqlCursor.get_integer], [method@SparqlCursor.get_string], etc... family
-         * of methods. The column index of those functions starts at 0. The number of columns is
-         * dependent on the SPARQL query issued, but may be checked at runtime through the
-         * [method@SparqlCursor.get_n_columns] method.
-         *
-         * After a cursor is iterated, it is recommended to call [method@SparqlCursor.close]
-         * explicitly to free up resources for other users of the same [class@SparqlConnection],
-         * this is especially important in garbage collected languages. These resources
-         * will be also implicitly freed on cursor object finalization.
-         *
-         * It is possible to use a given `TrackerSparqlCursor` in other threads than
-         * the one it was created from. It must be however used from just one thread
-         * at any given time.
-         */
         interface SparqlCursor extends GObject.Object {
             readonly $signals: SparqlCursor.SignalSignatures
             readonly $readableProperties: SparqlCursor.ReadableProperties
@@ -2042,10 +2110,40 @@ declare module "gi://Tracker?version=3.0" {
         interface SparqlCursorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SparqlCursor>
             readonly prototype: SparqlCursor
+
             new (props?: Partial<GObject.ConstructorProps<SparqlCursor>>): SparqlCursor
         }
 
-        const SparqlCursor: SparqlCursorClass
+        interface $Exports {
+            /**
+             * `TrackerSparqlCursor` provides the methods to iterate the results of a SPARQL query.
+             *
+             * Cursors are obtained through e.g. [method@SparqlStatement.execute]
+             * or [method@SparqlConnection.query] after the SPARQL query has been
+             * executed.
+             *
+             * When created, a cursor does not point to any element, [method@SparqlCursor.next]
+             * is necessary to iterate one by one to the first (and following) results.
+             * When the cursor iterated across all rows in the result set, [method@SparqlCursor.next]
+             * will return %FALSE with no error set.
+             *
+             * On each row, it is possible to extract the result values through the
+             * [method@SparqlCursor.get_integer], [method@SparqlCursor.get_string], etc... family
+             * of methods. The column index of those functions starts at 0. The number of columns is
+             * dependent on the SPARQL query issued, but may be checked at runtime through the
+             * [method@SparqlCursor.get_n_columns] method.
+             *
+             * After a cursor is iterated, it is recommended to call [method@SparqlCursor.close]
+             * explicitly to free up resources for other users of the same [class@SparqlConnection],
+             * this is especially important in garbage collected languages. These resources
+             * will be also implicitly freed on cursor object finalization.
+             *
+             * It is possible to use a given `TrackerSparqlCursor` in other threads than
+             * the one it was created from. It must be however used from just one thread
+             * at any given time.
+             */
+            SparqlCursor: SparqlCursorClass
+        }
         
 
         namespace SparqlStatement {
@@ -2058,46 +2156,14 @@ declare module "gi://Tracker?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "connection": SparqlConnection
-                "sparql": string
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "connection": SparqlConnection
+                "sparql": string
             }
         }
 
-        /**
-         * `TrackerSparqlStatement` represents a prepared statement for a SPARQL query.
-         *
-         * The SPARQL query will be internally compiled into the format that is most
-         * optimal to execute the query many times. For connections created
-         * through [ctor@SparqlConnection.new] that will be a
-         * SQLite compiled statement.
-         *
-         * The SPARQL query may contain parameterized variables expressed via the
-         * `~` prefix in the SPARQL syntax (e.g. `~var`), these may happen anywhere
-         * in the SPARQL where a literal or variable would typically happen. These
-         * parameterized variables may be mapped to arbitrary values prior to
-         * execution. The `TrackerSparqlStatement` may be reused for future
-         * queries with different values.
-         *
-         * The argument bindings may be changed through the [method@SparqlStatement.bind_int],
-         * [method@SparqlStatement.bind_int], etc... family of functions. Those functions
-         * receive a @name argument corresponding for the variable name in the SPARQL query
-         * (eg. `"var"` for `~var`) and a value to map the variable to.
-         *
-         * Once all arguments have a value, the query may be executed through
-         * [method@SparqlStatement.execute_async] or [method@SparqlStatement.execute].
-         *
-         * It is possible to use any `TrackerSparqlStatement` from other threads than
-         * the one it was created from. However, binding values and executing the
-         * statement must only happen from one thread at a time. It is possible to reuse
-         * the `TrackerSparqlStatement` right after [method@SparqlStatement.execute_async]
-         * was called, there is no need to wait for [method@SparqlStatement.execute_finish].
-         *
-         * In some circumstances, it is possible that the query needs to be recompiled
-         * from the SPARQL source. This will happen transparently.
-         */
         interface SparqlStatement extends GObject.Object {
             readonly $signals: SparqlStatement.SignalSignatures
             readonly $readableProperties: SparqlStatement.ReadableProperties
@@ -2289,22 +2355,53 @@ declare module "gi://Tracker?version=3.0" {
         interface SparqlStatementClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SparqlStatement>
             readonly prototype: SparqlStatement
+
             new (props?: Partial<GObject.ConstructorProps<SparqlStatement>>): SparqlStatement
         }
 
-        const SparqlStatement: SparqlStatementClass
-        none
-        none
-        none
-        none
-        /**
-         *  struct represents a
-         * change event in the stored data.
-         */
-        abstract class NotifierEvent {
-            static readonly $gtype: GObject.GType<NotifierEvent>
+        interface $Exports {
+            /**
+             * `TrackerSparqlStatement` represents a prepared statement for a SPARQL query.
+             *
+             * The SPARQL query will be internally compiled into the format that is most
+             * optimal to execute the query many times. For connections created
+             * through [ctor@SparqlConnection.new] that will be a
+             * SQLite compiled statement.
+             *
+             * The SPARQL query may contain parameterized variables expressed via the
+             * `~` prefix in the SPARQL syntax (e.g. `~var`), these may happen anywhere
+             * in the SPARQL where a literal or variable would typically happen. These
+             * parameterized variables may be mapped to arbitrary values prior to
+             * execution. The `TrackerSparqlStatement` may be reused for future
+             * queries with different values.
+             *
+             * The argument bindings may be changed through the [method@SparqlStatement.bind_int],
+             * [method@SparqlStatement.bind_int], etc... family of functions. Those functions
+             * receive a @name argument corresponding for the variable name in the SPARQL query
+             * (eg. `"var"` for `~var`) and a value to map the variable to.
+             *
+             * Once all arguments have a value, the query may be executed through
+             * [method@SparqlStatement.execute_async] or [method@SparqlStatement.execute].
+             *
+             * It is possible to use any `TrackerSparqlStatement` from other threads than
+             * the one it was created from. However, binding values and executing the
+             * statement must only happen from one thread at a time. It is possible to reuse
+             * the `TrackerSparqlStatement` right after [method@SparqlStatement.execute_async]
+             * was called, there is no need to wait for [method@SparqlStatement.execute_finish].
+             *
+             * In some circumstances, it is possible that the query needs to be recompiled
+             * from the SPARQL source. This will happen transparently.
+             */
+            SparqlStatement: SparqlStatementClass
+        }
+        
 
-            
+        interface NotifierEventStruct {
+            readonly $gtype: GObject.GType<NotifierEvent>
+            [Symbol.hasInstance](instance: unknown): instance is NotifierEvent
+        }
+
+        interface NotifierEvent {
             /**
              * Returns the event type.
              * @returns The event type
@@ -2326,222 +2423,159 @@ declare module "gi://Tracker?version=3.0" {
              */
             get_urn(): string
         }
-        none
-        none
-        none
-        none
-        /**
-         * Checks that the Tracker library in use is compatible with the given version.
-         *
-         * Generally you would pass in the constants
-         * [const@MAJOR_VERSION], [const@MINOR_VERSION], [const@MICRO_VERSION]
-         * as the three arguments to this function; that produces
-         * a check that the library in use is compatible with
-         * the version of Tracker the application or module was compiled
-         * against.
-         *
-         * Compatibility is defined by two things: first the version
-         * of the running library is newer than the version
-         * @required_major.@required_minor.@required_micro. Second
-         * the running library must be binary compatible with the
-         * version @required_major.@required_minor.@required_micro
-         * (same major version.)
-         * @param required_major the required major version.
-         * @param required_minor the required minor version.
-         * @param required_micro the required micro version.
-         * @returns %NULL if the Tracker library is compatible with the   given version, or a string describing the version mismatch.
-         */
-        function check_version(required_major: number, required_minor: number, required_micro: number): string
-        /**
-         */
-        function sparql_error_quark(): GLib.Quark
-        /**
-         * Escapes @literal so it is suitable for insertion in
-         * SPARQL queries as string literals.
-         *
-         * Manual construction of query strings based user input is best
-         * avoided at all cost, use of #TrackerSparqlStatement is recommended
-         * instead.
-         * @param literal a string to escape
-         * @returns the escaped string
-         */
-        function sparql_escape_string(literal: string): string
-        /**
-         * Escapes a string for use as a URI.
-         * @param uri a string to be escaped, following the tracker sparql rules
-         * @returns a newly-allocated string holding the result.
-         */
-        function sparql_escape_uri(uri: string): string
-        none
-        none
-        /**
-         * Returns a path to the built-in Nepomuk ontologies.
-         * @returns a #GFile instance.
-         */
-        function sparql_get_ontology_nepomuk(): Gio.File
-        /**
-         * Creates a fresh UUID-based URN.
-         * @returns A newly generated UUID URN.
-         */
-        function sparql_get_uuid_urn(): string
-        const MAJOR_VERSION: 3
-        const MICRO_VERSION: 0
-        const MINOR_VERSION: 11
-        const PREFIX_DC: "http://purl.org/dc/elements/1.1/"
-        const PREFIX_MFO: "http://tracker.api.gnome.org/ontology/v3/mfo#"
-        const PREFIX_NAO: "http://tracker.api.gnome.org/ontology/v3/nao#"
-        const PREFIX_NCO: "http://tracker.api.gnome.org/ontology/v3/nco#"
-        const PREFIX_NFO: "http://tracker.api.gnome.org/ontology/v3/nfo#"
-        const PREFIX_NIE: "http://tracker.api.gnome.org/ontology/v3/nie#"
-        const PREFIX_NMM: "http://tracker.api.gnome.org/ontology/v3/nmm#"
-        const PREFIX_NRL: "http://tracker.api.gnome.org/ontology/v3/nrl#"
-        const PREFIX_OSINFO: "http://tracker.api.gnome.org/ontology/v3/osinfo#"
-        const PREFIX_RDF: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        const PREFIX_RDFS: "http://www.w3.org/2000/01/rdf-schema#"
-        const PREFIX_SLO: "http://tracker.api.gnome.org/ontology/v3/slo#"
-        const PREFIX_TRACKER: "http://tracker.api.gnome.org/ontology/v3/tracker#"
-        const PREFIX_XSD: "http://www.w3.org/2001/XMLSchema#"
-        
-        namespace DeserializeFlags {
-            const $gtype: GObject.GType<DeserializeFlags>
-        }
 
-        /**
-         * Flags affecting deserialization from a RDF data format.
-         */
-        enum DeserializeFlags {
+        interface $Exports {
+            NotifierEvent: NotifierEventStruct
+        }
+        
+        interface DeserializeFlagsEnum {
+            readonly $gtype: GObject.GType<DeserializeFlags>
             /**
              * No flags.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
+        }
+        type DeserializeFlags = DeserializeFlagsEnum[Exclude<keyof DeserializeFlagsEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Flags affecting deserialization from a RDF data format.
+             */
+            DeserializeFlags: DeserializeFlagsEnum
         }
         
-        namespace NotifierEventType {
-            const $gtype: GObject.GType<NotifierEventType>
-        }
-
-        /**
-         * Notifier event types.
-         */
-        enum NotifierEventType {
+        interface NotifierEventTypeEnum {
+            readonly $gtype: GObject.GType<NotifierEventType>
             /**
              * An element was created.
              */
-            "CREATE" = 0,
+            readonly "CREATE": 0
             /**
              * An element was deleted.
              */
-            "DELETE" = 1,
+            readonly "DELETE": 1
             /**
              * An element was updated.
              */
-            "UPDATE" = 2,
+            readonly "UPDATE": 2
+        }
+        type NotifierEventType = NotifierEventTypeEnum[Exclude<keyof NotifierEventTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Notifier event types.
+             */
+            NotifierEventType: NotifierEventTypeEnum
         }
         
-        namespace RdfFormat {
-            const $gtype: GObject.GType<RdfFormat>
-        }
-
-        /**
-         * Describes a RDF format to be used in data exchange.
-         */
-        enum RdfFormat {
+        interface RdfFormatEnum {
+            readonly $gtype: GObject.GType<RdfFormat>
             /**
              * Turtle format
              *   ([http://www.w3.org/ns/formats/Turtle](http://www.w3.org/ns/formats/Turtle))
              */
-            "TURTLE" = 0,
+            readonly "TURTLE": 0
             /**
              * Trig format
              *   ([http://www.w3.org/ns/formats/Trig](http://www.w3.org/ns/formats/Trig))
              */
-            "TRIG" = 1,
+            readonly "TRIG": 1
             /**
              * JSON-LD format
              *   ([http://www.w3.org/ns/formats/JSON-LD](http://www.w3.org/ns/formats/JSON-LD)).
              *   This value was added in version 3.5.
              */
-            "JSON_LD" = 2,
+            readonly "JSON_LD": 2
             /**
              * The total number of RDF formats
              */
-            "LAST" = 3,
+            readonly "LAST": 3
+        }
+        type RdfFormat = RdfFormatEnum[Exclude<keyof RdfFormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes a RDF format to be used in data exchange.
+             */
+            RdfFormat: RdfFormatEnum
         }
         
-        namespace SerializeFlags {
-            const $gtype: GObject.GType<SerializeFlags>
-        }
-
-        /**
-         * Flags affecting serialization into a RDF data format.
-         */
-        enum SerializeFlags {
+        interface SerializeFlagsEnum {
+            readonly $gtype: GObject.GType<SerializeFlags>
             /**
              * No flags.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
+        }
+        type SerializeFlags = SerializeFlagsEnum[Exclude<keyof SerializeFlagsEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Flags affecting serialization into a RDF data format.
+             */
+            SerializeFlags: SerializeFlagsEnum
         }
         
-        abstract class SparqlError extends GLib.Error {
-            static readonly $gtype: GObject.GType<SparqlError>
+        interface SparqlError extends GLib.Error {}
+
+        interface SparqlErrorEnum {
+            readonly $gtype: GObject.GType<SparqlError>
+
+            new(props: { message: string, code: number }): SparqlError
             /**
              * Subject is not in the domain of a property or
              *                             trying to set multiple values for a single valued
              *                             property.
              */
-            static readonly "CONSTRAINT": 0
+            readonly "CONSTRAINT": 0
             /**
              * Internal error.
              */
-            static readonly "INTERNAL": 1
+            readonly "INTERNAL": 1
             /**
              * There was no disk space available to perform the request.
              */
-            static readonly "NO_SPACE": 2
+            readonly "NO_SPACE": 2
             /**
              * The specified ontology wasn't found.
              */
-            static readonly "ONTOLOGY_NOT_FOUND": 3
+            readonly "ONTOLOGY_NOT_FOUND": 3
             /**
              * Problem encountered while opening the database.
              */
-            static readonly "OPEN_ERROR": 4
+            readonly "OPEN_ERROR": 4
             /**
              * Error parsing the SPARQL string.
              */
-            static readonly "PARSE": 5
+            readonly "PARSE": 5
             /**
              * Problem while executing the query.
              */
-            static readonly "QUERY_FAILED": 6
+            readonly "QUERY_FAILED": 6
             /**
              * Type constraint failed when trying to insert data.
              */
-            static readonly "TYPE": 7
+            readonly "TYPE": 7
             /**
              * Unknown class.
              */
-            static readonly "UNKNOWN_CLASS": 8
+            readonly "UNKNOWN_CLASS": 8
             /**
              * Unknown graph.
              */
-            static readonly "UNKNOWN_GRAPH": 9
+            readonly "UNKNOWN_GRAPH": 9
             /**
              * Unknown property.
              */
-            static readonly "UNKNOWN_PROPERTY": 10
+            readonly "UNKNOWN_PROPERTY": 10
             /**
              * Unsupported feature or method.
              */
-            static readonly "UNSUPPORTED": 11
+            readonly "UNSUPPORTED": 11
             /**
              * The ontology doesn't contain nrl:lastModified header
              */
-            static readonly "MISSING_LAST_MODIFIED_HEADER": 12
+            readonly "MISSING_LAST_MODIFIED_HEADER": 12
             /**
              * The property is not completely defined.
              */
-            static readonly "INCOMPLETE_PROPERTY_DEFINITION": 13
+            readonly "INCOMPLETE_PROPERTY_DEFINITION": 13
             /**
              * A soft/hard corruption was found in the database during operation.
              *   If this error is obtained during regular operations with an existing [class@SparqlConnection],
@@ -2553,110 +2587,196 @@ declare module "gi://Tracker?version=3.0" {
              *   database and recover from the error. See [ctor@SparqlConnection.new] documentation
              *   for more information on corruption handling.
              */
-            static readonly "CORRUPT": 14
+            readonly "CORRUPT": 14
             /**
              * The total number of error codes.
              */
-            static readonly "LAST": 15
-        }
-        /**
+            readonly "LAST": 15
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace SparqlValueType {
-            const $gtype: GObject.GType<SparqlValueType>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Enumeration with the possible types of the cursor's cells
-         */
-        enum SparqlValueType {
+        interface $Exports {
+            /**
+             * Error domain for Tracker Sparql. Errors in this domain will be from the
+             * [error@SparqlError] enumeration. See [struct@GLib.Error] for more information on error
+             * domains.
+             */
+            SparqlError: SparqlErrorEnum
+        }
+        
+        interface SparqlValueTypeEnum {
+            readonly $gtype: GObject.GType<SparqlValueType>
             /**
              * Unbound value type
              */
-            "UNBOUND" = 0,
+            readonly "UNBOUND": 0
             /**
              * Uri value type, rdfs:Resource
              */
-            "URI" = 1,
+            readonly "URI": 1
             /**
              * String value type, xsd:string or rdf:langString
              */
-            "STRING" = 2,
+            readonly "STRING": 2
             /**
              * Integer value type, xsd:integer
              */
-            "INTEGER" = 3,
+            readonly "INTEGER": 3
             /**
              * Double value type, xsd:double
              */
-            "DOUBLE" = 4,
+            readonly "DOUBLE": 4
             /**
              * Datetime value type, xsd:dateTime
              */
-            "DATETIME" = 5,
+            readonly "DATETIME": 5
             /**
              * Blank node value type
              */
-            "BLANK_NODE" = 6,
+            readonly "BLANK_NODE": 6
             /**
              * Boolean value type, xsd:boolean
              */
-            "BOOLEAN" = 7,
+            readonly "BOOLEAN": 7
+        }
+        type SparqlValueType = SparqlValueTypeEnum[Exclude<keyof SparqlValueTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration with the possible types of the cursor's cells
+             */
+            SparqlValueType: SparqlValueTypeEnum
         }
         
-        namespace SparqlConnectionFlags {
-            const $gtype: GObject.GType<SparqlConnectionFlags>
-        }
-
-        /**
-         * Connection flags to modify #TrackerSparqlConnection behavior.
-         */
-        enum SparqlConnectionFlags {
+        interface SparqlConnectionFlagsBitfield {
+            readonly $gtype: GObject.GType<SparqlConnectionFlags>
             /**
              * No flags.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Connection is readonly.
              */
-            "READONLY" = 1,
+            readonly "READONLY": 1
             /**
              * Word stemming is applied to FTS search terms.
              */
-            "FTS_ENABLE_STEMMER" = 2,
+            readonly "FTS_ENABLE_STEMMER": 2
             /**
              * Unaccenting is applied to FTS search terms.
              */
-            "FTS_ENABLE_UNACCENT" = 4,
+            readonly "FTS_ENABLE_UNACCENT": 4
             /**
              * FTS Search terms are filtered through a stop word list. This flag is deprecated since Tracker 3.6, and will do nothing.
              */
-            "FTS_ENABLE_STOP_WORDS" = 8,
+            readonly "FTS_ENABLE_STOP_WORDS": 8
             /**
              * Ignore numbers in FTS search terms.
              */
-            "FTS_IGNORE_NUMBERS" = 16,
+            readonly "FTS_IGNORE_NUMBERS": 16
             /**
              * Treat blank nodes as specified in
              *   SPARQL 1.1 syntax. Namely, they cannot be used as URIs. This flag is available since Tracker 3.3.
              */
-            "ANONYMOUS_BNODES" = 32,
+            readonly "ANONYMOUS_BNODES": 32
             /**
              * Disables no longer recommended [legacy syntax extensions to the SPARQL 1.1
              * specifications](sparql-and-tracker.md#legacy-syntax-extensions).
              * @since 3.11
              */
-            "DISABLE_SYNTAX_EXTENSIONS" = 64,
+            readonly "DISABLE_SYNTAX_EXTENSIONS": 64
             /**
              * Enables all behavior that provides most adherence to SPARQL 1.1 standards.
              * Currently this is equivalent to `ANONYMOUS_BNODES | DISABLE_SYNTAX_EXTENSIONS`.
              * More flags may be added in the future.
              * @since 3.11
              */
-            "SPARQL_STRICT" = 96,
+            readonly "SPARQL_STRICT": 96
+        }
+        type SparqlConnectionFlags = number
+        interface $Exports {
+            /**
+             * Connection flags to modify #TrackerSparqlConnection behavior.
+             */
+            SparqlConnectionFlags: SparqlConnectionFlagsBitfield
+        }
+
+        interface $Exports {
+            __name__: "Tracker"
+            __version: "3.0"
+            MAJOR_VERSION: 3
+            MICRO_VERSION: 0
+            MINOR_VERSION: 11
+            PREFIX_DC: "http://purl.org/dc/elements/1.1/"
+            PREFIX_MFO: "http://tracker.api.gnome.org/ontology/v3/mfo#"
+            PREFIX_NAO: "http://tracker.api.gnome.org/ontology/v3/nao#"
+            PREFIX_NCO: "http://tracker.api.gnome.org/ontology/v3/nco#"
+            PREFIX_NFO: "http://tracker.api.gnome.org/ontology/v3/nfo#"
+            PREFIX_NIE: "http://tracker.api.gnome.org/ontology/v3/nie#"
+            PREFIX_NMM: "http://tracker.api.gnome.org/ontology/v3/nmm#"
+            PREFIX_NRL: "http://tracker.api.gnome.org/ontology/v3/nrl#"
+            PREFIX_OSINFO: "http://tracker.api.gnome.org/ontology/v3/osinfo#"
+            PREFIX_RDF: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            PREFIX_RDFS: "http://www.w3.org/2000/01/rdf-schema#"
+            PREFIX_SLO: "http://tracker.api.gnome.org/ontology/v3/slo#"
+            PREFIX_TRACKER: "http://tracker.api.gnome.org/ontology/v3/tracker#"
+            PREFIX_XSD: "http://www.w3.org/2001/XMLSchema#"
+            /**
+             * Checks that the Tracker library in use is compatible with the given version.
+             *
+             * Generally you would pass in the constants
+             * [const@MAJOR_VERSION], [const@MINOR_VERSION], [const@MICRO_VERSION]
+             * as the three arguments to this function; that produces
+             * a check that the library in use is compatible with
+             * the version of Tracker the application or module was compiled
+             * against.
+             *
+             * Compatibility is defined by two things: first the version
+             * of the running library is newer than the version
+             * @required_major.@required_minor.@required_micro. Second
+             * the running library must be binary compatible with the
+             * version @required_major.@required_minor.@required_micro
+             * (same major version.)
+             * @param required_major the required major version.
+             * @param required_minor the required minor version.
+             * @param required_micro the required micro version.
+             * @returns %NULL if the Tracker library is compatible with the   given version, or a string describing the version mismatch.
+             */
+            check_version(required_major: number, required_minor: number, required_micro: number): string
+            /**
+             */
+            sparql_error_quark(): GLib.Quark
+            /**
+             * Escapes @literal so it is suitable for insertion in
+             * SPARQL queries as string literals.
+             *
+             * Manual construction of query strings based user input is best
+             * avoided at all cost, use of #TrackerSparqlStatement is recommended
+             * instead.
+             * @param literal a string to escape
+             * @returns the escaped string
+             */
+            sparql_escape_string(literal: string): string
+            /**
+             * Escapes a string for use as a URI.
+             * @param uri a string to be escaped, following the tracker sparql rules
+             * @returns a newly-allocated string holding the result.
+             */
+            sparql_escape_uri(uri: string): string
+            /**
+             * Returns a path to the built-in Nepomuk ontologies.
+             * @returns a #GFile instance.
+             */
+            sparql_get_ontology_nepomuk(): Gio.File
+            /**
+             * Creates a fresh UUID-based URN.
+             * @returns A newly generated UUID URN.
+             */
+            sparql_get_uuid_urn(): string
         }
     }
 
+    const Tracker: Tracker.$Exports
     export default Tracker
 }

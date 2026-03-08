@@ -34,202 +34,7 @@ declare module "gi://Handy?version=1" {
 
     
 
-
     namespace Handy {
-        const __name__: "Handy"
-        const __version: "1"
-        
-
-        namespace Swipeable {
-            interface SignalSignatures extends Gtk.Widget.SignalSignatures {
-                /**
-                 * Emitted when the widget's visible child is changed.
-                 *
-                 * @duration can be 0 if the child is switched without animation.
-                 *
-                 * This is used by [class@SwipeGroup], applications should not connect to it.
-                 * @since 1.0
-                 * @param index the index of the child to switch to
-                 * @param duration animation duration, in milliseconds
-                 */
-                "child-switched"(index: number, duration: number): void
-            }
-
-            interface ReadableProperties extends Gtk.Widget.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gtk.Widget.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gtk.Widget {
-                /**
-                 * Gets the progress @self will snap back to after the gesture is canceled.
-                 * @since 1.0
-                 * @returns the cancel progress, unitless
-                 */
-                vfunc_get_cancel_progress(): number
-                /**
-                 * Gets the swipe distance of @self.
-                 *
-                 * This corresponds to how many pixels 1 unit represents.
-                 * @since 1.0
-                 * @returns the swipe distance in pixels
-                 */
-                vfunc_get_distance(): number
-                /**
-                 * Gets the current progress of @self.
-                 * @since 1.0
-                 * @returns the current progress, unitless
-                 */
-                vfunc_get_progress(): number
-                /**
-                 * Gets the snap points of @self.
-                 *
-                 * Each snap point represents a progress value that is considered acceptable to
-                 * end the swipe on.
-                 * @since 1.0
-                 * @returns the snap points
-                 */
-                vfunc_get_snap_points(): number[]
-                /**
-                 * Gets the area @self can start a swipe from for the given direction and
-                 * gesture type.
-                 *
-                 * This can be used to restrict swipes to only be possible from a certain area,
-                 * for example, to only allow edge swipes, or to have a draggable element and
-                 * ignore swipes elsewhere.
-                 *
-                 * Swipe area is only considered for direct swipes (as in, not initiated by
-                 * [class@SwipeGroup]).
-                 *
-                 * If not implemented, the default implementation returns the allocation of
-                 * @self, allowing swipes from anywhere.
-                 * @since 1.0
-                 * @param navigation_direction the direction of the swipe
-                 * @param is_drag whether the swipe is caused by a dragging gesture
-                 * @returns , a pointer to a rectangle to store the swipe area
-                 */
-                vfunc_get_swipe_area(navigation_direction: NavigationDirection, is_drag: boolean): Gdk.Rectangle
-                /**
-                 * Gets the [class@SwipeTracker] used by this swipeable widget.
-                 * @since 1.0
-                 * @returns the swipe tracker
-                 */
-                vfunc_get_swipe_tracker(): SwipeTracker
-                /**
-                 * Switches to child with index @index.
-                 *
-                 * See [signal@Swipeable::child-switched].
-                 * @since 1.0
-                 * @param index the index of the child to switch to
-                 * @param duration animation duration, in milliseconds
-                 */
-                vfunc_switch_child(index: number, duration: number): void
-            }
-        }
-
-        /**
-         * An interface for swipeable widgets.
-         *
-         * The `HdySwipeable` interface is implemented by all swipeable widgets. They
-         * can be synced using [class@SwipeGroup].
-         *
-         * See [class@SwipeTracker] for details about implementing it.
-         * @since 1.0
-         */
-        interface Swipeable extends Gtk.Widget, Swipeable.Interface {
-            readonly $signals: Swipeable.SignalSignatures
-            readonly $readableProperties: Swipeable.ReadableProperties
-            readonly $writableProperties: Swipeable.WritableProperties
-            readonly $constructOnlyProperties: Swipeable.ConstructOnlyProperties
-            /**
-             * Emits [signal@Swipeable::child-switched] signal.
-             *
-             * This should be called when the widget switches visible child widget.
-             *
-             * @duration can be 0 if the child is switched without animation.
-             * @since 1.0
-             * @param index the index of the child to switch to
-             * @param duration animation duration, in milliseconds
-             */
-            emit_child_switched(index: number, duration: number): void
-            /**
-             * Gets the progress @self will snap back to after the gesture is canceled.
-             * @since 1.0
-             * @returns the cancel progress, unitless
-             */
-            get_cancel_progress(): number
-            /**
-             * Gets the swipe distance of @self.
-             *
-             * This corresponds to how many pixels 1 unit represents.
-             * @since 1.0
-             * @returns the swipe distance in pixels
-             */
-            get_distance(): number
-            /**
-             * Gets the current progress of @self.
-             * @since 1.0
-             * @returns the current progress, unitless
-             */
-            get_progress(): number
-            /**
-             * Gets the snap points of @self.
-             *
-             * Each snap point represents a progress value that is considered acceptable to
-             * end the swipe on.
-             * @since 1.0
-             * @returns the snap points
-             */
-            get_snap_points(): number[]
-            /**
-             * Gets the area @self can start a swipe from for the given direction and
-             * gesture type.
-             *
-             * This can be used to restrict swipes to only be possible from a certain area,
-             * for example, to only allow edge swipes, or to have a draggable element and
-             * ignore swipes elsewhere.
-             *
-             * Swipe area is only considered for direct swipes (as in, not initiated by
-             * [class@SwipeGroup]).
-             *
-             * If not implemented, the default implementation returns the allocation of
-             * @self, allowing swipes from anywhere.
-             * @since 1.0
-             * @param navigation_direction the direction of the swipe
-             * @param is_drag whether the swipe is caused by a dragging gesture
-             * @returns , a pointer to a rectangle to store the swipe area
-             */
-            get_swipe_area(navigation_direction: NavigationDirection, is_drag: boolean): Gdk.Rectangle
-            /**
-             * Gets the [class@SwipeTracker] used by this swipeable widget.
-             * @since 1.0
-             * @returns the swipe tracker
-             */
-            get_swipe_tracker(): SwipeTracker
-            /**
-             * Switches to child with index @index.
-             *
-             * See [signal@Swipeable::child-switched].
-             * @since 1.0
-             * @param index the index of the child to switch to
-             * @param duration animation duration, in milliseconds
-             */
-            switch_child(index: number, duration: number): void
-        }
-
-
-        interface SwipeableInterface {
-            readonly $gtype: GObject.GType<Swipeable>
-            readonly prototype: Swipeable
-
-            [Symbol.hasInstance](instance: unknown): instance is Swipeable
-        }
-
-        const Swipeable: SwipeableInterface
         
 
         namespace ActionRow {
@@ -263,20 +68,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         *  element.
-         *
-         * ## CSS nodes
-         *
-         * `HdyActionRow` has a main CSS node with name `row`.
-         *
-         * It contains the subnode `box.header` for its main horizontal box, and
-         * `box.title` for the vertical box containing the title and subtitle labels.
-         *
-         * It contains subnodes `label.title` and `label.subtitle` representing
-         * respectively the title label and subtitle label.
-         * @since 1.0
-         */
         interface ActionRow extends PreferencesRow, Atk.ImplementorIface, Gtk.Actionable, Gtk.Buildable {
             readonly $signals: ActionRow.SignalSignatures
             readonly $readableProperties: ActionRow.ReadableProperties
@@ -443,16 +234,51 @@ declare module "gi://Handy?version=1" {
         interface ActionRowClass extends Omit<PreferencesRowClass, "new"> {
             readonly $gtype: GObject.GType<ActionRow>
             readonly prototype: ActionRow
+
             new (props?: Partial<GObject.ConstructorProps<ActionRow>>): ActionRow
             /**
              * Creates a new `HdyActionRow`.
              * @since 1.0
              * @returns the newly created `HdyActionRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ActionRow
         }
 
-        const ActionRow: ActionRowClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.ListBoxRow] used to present actions.
+             *
+             * The `HdyActionRow` widget can have a title, a subtitle and an icon. The row
+             * can receive additional widgets at its end, or prefix widgets at its start.
+             *
+             * It is convenient to present a preference and its related actions.
+             *
+             * `HdyActionRow` is unactivatable by default, giving it an activatable widget
+             * will automatically make it activatable, but unsetting it won't change the
+             * row's activatability.
+             *
+             * ## HdyActionRow as GtkBuildable
+             *
+             * The `HdyActionRow` implementation of the [iface@Gtk.Buildable] interface
+             * supports adding a child at its end by specifying “suffix” or omitting the
+             * “type” attribute of a <child> element.
+             *
+             * It also supports adding a child as a prefix widget by specifying “prefix” as
+             * the “type” attribute of a <child> element.
+             *
+             * ## CSS nodes
+             *
+             * `HdyActionRow` has a main CSS node with name `row`.
+             *
+             * It contains the subnode `box.header` for its main horizontal box, and
+             * `box.title` for the vertical box containing the title and subtitle labels.
+             *
+             * It contains subnodes `label.title` and `label.subtitle` representing
+             * respectively the title label and subtitle label.
+             * @since 1.0
+             */
+            ActionRow: ActionRowClass
+        }
         
 
         namespace ApplicationWindow {
@@ -469,19 +295,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A freeform application window.
-         *
-         * `HdyApplicationWindow` is a [class@Gtk.ApplicationWindow] subclass providing
-         * the same features as [class@Window].
-         *
-         * See [class@Window] for details.
-         *
-         * Using [method@Gtk.Application.set_app_menu] and
-         * [method@Gtk.Application.set_menubar] is not supported and may result in
-         * visual glitches.
-         * @since 1.0
-         */
         interface ApplicationWindow extends Gtk.ApplicationWindow, Atk.ImplementorIface, Gio.ActionGroup, Gio.ActionMap, Gtk.Buildable {
             readonly $signals: ApplicationWindow.SignalSignatures
             readonly $readableProperties: ApplicationWindow.ReadableProperties
@@ -492,16 +305,32 @@ declare module "gi://Handy?version=1" {
         interface ApplicationWindowClass extends Omit<Gtk.ApplicationWindowClass, "new"> {
             readonly $gtype: GObject.GType<ApplicationWindow>
             readonly prototype: ApplicationWindow
+
             new (props?: Partial<GObject.ConstructorProps<ApplicationWindow>>): ApplicationWindow
             /**
              * Creates a new `HdyApplicationWindow`.
              * @since 1.0
              * @returns the newly created `HdyApplicationWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ApplicationWindow
         }
 
-        const ApplicationWindow: ApplicationWindowClass
+        interface $Exports {
+            /**
+             * A freeform application window.
+             *
+             * `HdyApplicationWindow` is a [class@Gtk.ApplicationWindow] subclass providing
+             * the same features as [class@Window].
+             *
+             * See [class@Window] for details.
+             *
+             * Using [method@Gtk.Application.set_app_menu] and
+             * [method@Gtk.Application.set_menubar] is not supported and may result in
+             * visual glitches.
+             * @since 1.0
+             */
+            ApplicationWindow: ApplicationWindowClass
+        }
         
 
         namespace Avatar {
@@ -528,28 +357,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A widget displaying an image, with a generated fallback.
-         *
-         * `HdyAvatar` is a widget to display a round avatar.
-         *
-         * A provided image is made round before displaying, if no image is given this
-         * widget generates a round fallback with the initials of the
-         * [property@Avatar:text] on top of a colored background.
-         *
-         * The color is picked based on the hash of the [property@Avatar:text].
-         *
-         * If [property@Avatar:show-initials] is set to `FALSE`,
-         * `avatar-default-symbolic` is shown instead of the initials.
-         *
-         * Use [method@Avatar.set_loadable_icon] or [property@Avatar:loadable-icon] to
-         * set a custom image.
-         *
-         * ## CSS nodes
-         *
-         * `HdyAvatar` has a single CSS node with name `avatar`.
-         * @since 1.0
-         */
         interface Avatar extends Gtk.DrawingArea, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: Avatar.SignalSignatures
             readonly $readableProperties: Avatar.ReadableProperties
@@ -709,6 +516,7 @@ declare module "gi://Handy?version=1" {
         interface AvatarClass extends Omit<Gtk.DrawingAreaClass, "new"> {
             readonly $gtype: GObject.GType<Avatar>
             readonly prototype: Avatar
+
             new (props?: Partial<GObject.ConstructorProps<Avatar>>): Avatar
             /**
              * Creates a new `HdyAvatar`.
@@ -718,10 +526,34 @@ declare module "gi://Handy?version=1" {
              * @param show_initials whether to use initials instead of an icon as fallback
              * @returns the newly created `HdyAvatar`
              */
-            "new"(size: number, text: string | null, show_initials: boolean): Gtk.Widget
+            "new"(size: number, text: string | null, show_initials: boolean): Avatar
         }
 
-        const Avatar: AvatarClass
+        interface $Exports {
+            /**
+             * A widget displaying an image, with a generated fallback.
+             *
+             * `HdyAvatar` is a widget to display a round avatar.
+             *
+             * A provided image is made round before displaying, if no image is given this
+             * widget generates a round fallback with the initials of the
+             * [property@Avatar:text] on top of a colored background.
+             *
+             * The color is picked based on the hash of the [property@Avatar:text].
+             *
+             * If [property@Avatar:show-initials] is set to `FALSE`,
+             * `avatar-default-symbolic` is shown instead of the initials.
+             *
+             * Use [method@Avatar.set_loadable_icon] or [property@Avatar:loadable-icon] to
+             * set a custom image.
+             *
+             * ## CSS nodes
+             *
+             * `HdyAvatar` has a single CSS node with name `avatar`.
+             * @since 1.0
+             */
+            Avatar: AvatarClass
+        }
         
 
         namespace Carousel {
@@ -765,20 +597,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A paginated scrolling widget.
-         *
-         * The `HdyCarousel` widget can be used to display a set of pages with
-         * swipe-based navigation between them.
-         *
-         * [class@CarouselIndicatorDots] and [class@CarouselIndicatorLines] can be used
-         * to provide page indicators for `HdyCarousel`.
-         *
-         * ## CSS nodes
-         *
-         * `HdyCarousel` has a single CSS node with name `carousel`.
-         * @since 1.0
-         */
         interface Carousel extends Gtk.EventBox, Atk.ImplementorIface, Gtk.Buildable, Gtk.Orientable, Swipeable {
             readonly $signals: Carousel.SignalSignatures
             readonly $readableProperties: Carousel.ReadableProperties
@@ -1008,16 +826,33 @@ declare module "gi://Handy?version=1" {
         interface CarouselClass extends Omit<Gtk.EventBoxClass, "new"> {
             readonly $gtype: GObject.GType<Carousel>
             readonly prototype: Carousel
+
             new (props?: Partial<GObject.ConstructorProps<Carousel>>): Carousel
             /**
              * Creates a new `HdyCarousel`.
              * @since 1.0
              * @returns the newly created `HdyCarousel`
              */
-            "new"(): Gtk.Widget
+            "new"(): Carousel
         }
 
-        const Carousel: CarouselClass
+        interface $Exports {
+            /**
+             * A paginated scrolling widget.
+             *
+             * The `HdyCarousel` widget can be used to display a set of pages with
+             * swipe-based navigation between them.
+             *
+             * [class@CarouselIndicatorDots] and [class@CarouselIndicatorLines] can be used
+             * to provide page indicators for `HdyCarousel`.
+             *
+             * ## CSS nodes
+             *
+             * `HdyCarousel` has a single CSS node with name `carousel`.
+             * @since 1.0
+             */
+            Carousel: CarouselClass
+        }
         
 
         namespace CarouselIndicatorDots {
@@ -1036,22 +871,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A dots indicator for [class@Carousel].
-         *
-         * The `HdyCarouselIndicatorDots` widget shows a set of dots for each page of a
-         * given [class@Carousel]. The dot representing the carousel's active page is
-         * larger and more opaque than the others, the transition to the active and
-         * inactive state is gradual to match the carousel's position.
-         *
-         * See also [class@CarouselIndicatorLines].
-         *
-         * ## CSS nodes
-         *
-         * `HdyCarouselIndicatorDots` has a single CSS node with name
-         * `carouselindicatordots`.
-         * @since 1.0
-         */
         interface CarouselIndicatorDots extends Gtk.DrawingArea, Atk.ImplementorIface, Gtk.Buildable, Gtk.Orientable {
             readonly $signals: CarouselIndicatorDots.SignalSignatures
             readonly $readableProperties: CarouselIndicatorDots.ReadableProperties
@@ -1080,16 +899,35 @@ declare module "gi://Handy?version=1" {
         interface CarouselIndicatorDotsClass extends Omit<Gtk.DrawingAreaClass, "new"> {
             readonly $gtype: GObject.GType<CarouselIndicatorDots>
             readonly prototype: CarouselIndicatorDots
+
             new (props?: Partial<GObject.ConstructorProps<CarouselIndicatorDots>>): CarouselIndicatorDots
             /**
              * Creates a new `HdyCarouselIndicatorDots`.
              * @since 1.0
              * @returns The newly created `HdyCarouselIndicatorDots`
              */
-            "new"(): Gtk.Widget
+            "new"(): CarouselIndicatorDots
         }
 
-        const CarouselIndicatorDots: CarouselIndicatorDotsClass
+        interface $Exports {
+            /**
+             * A dots indicator for [class@Carousel].
+             *
+             * The `HdyCarouselIndicatorDots` widget shows a set of dots for each page of a
+             * given [class@Carousel]. The dot representing the carousel's active page is
+             * larger and more opaque than the others, the transition to the active and
+             * inactive state is gradual to match the carousel's position.
+             *
+             * See also [class@CarouselIndicatorLines].
+             *
+             * ## CSS nodes
+             *
+             * `HdyCarouselIndicatorDots` has a single CSS node with name
+             * `carouselindicatordots`.
+             * @since 1.0
+             */
+            CarouselIndicatorDots: CarouselIndicatorDotsClass
+        }
         
 
         namespace CarouselIndicatorLines {
@@ -1108,21 +946,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A lines indicator for [class@Carousel].
-         *
-         * The `HdyCarouselIndicatorLines` widget shows a set of lines for each page of
-         * a given [class@Carousel]. The carousel's active page is shown as another line
-         * that moves between them to match the carousel's position.
-         *
-         * See also [class@CarouselIndicatorDots].
-         *
-         * ## CSS nodes
-         *
-         * `HdyCarouselIndicatorLines` has a single CSS node with name
-         * `carouselindicatorlines`.
-         * @since 1.0
-         */
         interface CarouselIndicatorLines extends Gtk.DrawingArea, Atk.ImplementorIface, Gtk.Buildable, Gtk.Orientable {
             readonly $signals: CarouselIndicatorLines.SignalSignatures
             readonly $readableProperties: CarouselIndicatorLines.ReadableProperties
@@ -1151,16 +974,34 @@ declare module "gi://Handy?version=1" {
         interface CarouselIndicatorLinesClass extends Omit<Gtk.DrawingAreaClass, "new"> {
             readonly $gtype: GObject.GType<CarouselIndicatorLines>
             readonly prototype: CarouselIndicatorLines
+
             new (props?: Partial<GObject.ConstructorProps<CarouselIndicatorLines>>): CarouselIndicatorLines
             /**
              * Creates a new `HdyCarouselIndicatorLines`.
              * @since 1.0
              * @returns the newly created `HdyCarouselIndicatorLines`
              */
-            "new"(): Gtk.Widget
+            "new"(): CarouselIndicatorLines
         }
 
-        const CarouselIndicatorLines: CarouselIndicatorLinesClass
+        interface $Exports {
+            /**
+             * A lines indicator for [class@Carousel].
+             *
+             * The `HdyCarouselIndicatorLines` widget shows a set of lines for each page of
+             * a given [class@Carousel]. The carousel's active page is shown as another line
+             * that moves between them to match the carousel's position.
+             *
+             * See also [class@CarouselIndicatorDots].
+             *
+             * ## CSS nodes
+             *
+             * `HdyCarouselIndicatorLines` has a single CSS node with name
+             * `carouselindicatorlines`.
+             * @since 1.0
+             */
+            CarouselIndicatorLines: CarouselIndicatorLinesClass
+        }
         
 
         namespace Clamp {
@@ -1181,26 +1022,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A widget constraining its child to a given size.
-         *
-         * The `HdyClamp` widget constrains the size of the widget it contains to a
-         * given maximum size. It will constrain the width if it is horizontal, or the
-         * height if it is vertical. The expansion of the child from its minimum to its
-         * maximum size is eased out for a smooth transition.
-         *
-         * If the child requires more than the requested maximum size, it will be
-         * allocated the minimum size it can fit in instead.
-         *
-         * ## CSS nodes
-         *
-         * `HdyClamp` has a single CSS node with name `clamp`.
-         *
-         * The node will get the style classes `.large` when its child reached its
-         * maximum size, `.small` when the clamp allocates its full size to its child,
-         * `.medium` in-between, or none if it didn't compute its size yet.
-         * @since 1.0
-         */
         interface Clamp extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable, Gtk.Orientable {
             readonly $signals: Clamp.SignalSignatures
             readonly $readableProperties: Clamp.ReadableProperties
@@ -1265,16 +1086,39 @@ declare module "gi://Handy?version=1" {
         interface ClampClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<Clamp>
             readonly prototype: Clamp
+
             new (props?: Partial<GObject.ConstructorProps<Clamp>>): Clamp
             /**
              * Creates a new `HdyClamp`.
              * @since 1.0
              * @returns the newly created `HdyClamp`
              */
-            "new"(): Gtk.Widget
+            "new"(): Clamp
         }
 
-        const Clamp: ClampClass
+        interface $Exports {
+            /**
+             * A widget constraining its child to a given size.
+             *
+             * The `HdyClamp` widget constrains the size of the widget it contains to a
+             * given maximum size. It will constrain the width if it is horizontal, or the
+             * height if it is vertical. The expansion of the child from its minimum to its
+             * maximum size is eased out for a smooth transition.
+             *
+             * If the child requires more than the requested maximum size, it will be
+             * allocated the minimum size it can fit in instead.
+             *
+             * ## CSS nodes
+             *
+             * `HdyClamp` has a single CSS node with name `clamp`.
+             *
+             * The node will get the style classes `.large` when its child reached its
+             * maximum size, `.small` when the clamp allocates its full size to its child,
+             * `.medium` in-between, or none if it didn't compute its size yet.
+             * @since 1.0
+             */
+            Clamp: ClampClass
+        }
         
 
         namespace ComboRow {
@@ -1295,32 +1139,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A [class@Gtk.ListBoxRow] used to choose from a list of items.
-         *
-         * The `HdyComboRow` widget allows the user to choose from a list of valid
-         * choices. The row displays the selected choice. When activated, the row
-         * displays a popover which allows the user to make a new choice.
-         *
-         * The [class@ComboRow] uses the model-view pattern; the list of valid choices
-         * is specified in the form of a [iface@Gio.ListModel], and the display of the
-         * choices can be adapted to the data in the model via widget creation
-         * functions.
-         *
-         * `HdyComboRow` is [property@Gtk.ListBoxRow:activatable] if a model is set.
-         *
-         * ## CSS nodes
-         *
-         * `HdyComboRow` has a main CSS node with name `row`.
-         *
-         * Its popover has the node name popover with the `.combo` style class, it
-         * contains a [class@Gtk.ScrolledWindow], which in turn contains a
-         * [class@Gtk.ListBox], both are accessible via their regular nodes.
-         *
-         * A checkmark of node and style class `image.checkmark` in the popover denotes
-         * the current item.
-         * @since 1.0
-         */
         interface ComboRow extends ActionRow, Atk.ImplementorIface, Gtk.Actionable, Gtk.Buildable {
             readonly $signals: ComboRow.SignalSignatures
             readonly $readableProperties: ComboRow.ReadableProperties
@@ -1447,16 +1265,45 @@ declare module "gi://Handy?version=1" {
         interface ComboRowClass extends Omit<ActionRowClass, "new"> {
             readonly $gtype: GObject.GType<ComboRow>
             readonly prototype: ComboRow
+
             new (props?: Partial<GObject.ConstructorProps<ComboRow>>): ComboRow
             /**
              * Creates a new `HdyComboRow`.
              * @since 1.0
              * @returns the newly created `HdyComboRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ComboRow
         }
 
-        const ComboRow: ComboRowClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.ListBoxRow] used to choose from a list of items.
+             *
+             * The `HdyComboRow` widget allows the user to choose from a list of valid
+             * choices. The row displays the selected choice. When activated, the row
+             * displays a popover which allows the user to make a new choice.
+             *
+             * The [class@ComboRow] uses the model-view pattern; the list of valid choices
+             * is specified in the form of a [iface@Gio.ListModel], and the display of the
+             * choices can be adapted to the data in the model via widget creation
+             * functions.
+             *
+             * `HdyComboRow` is [property@Gtk.ListBoxRow:activatable] if a model is set.
+             *
+             * ## CSS nodes
+             *
+             * `HdyComboRow` has a main CSS node with name `row`.
+             *
+             * Its popover has the node name popover with the `.combo` style class, it
+             * contains a [class@Gtk.ScrolledWindow], which in turn contains a
+             * [class@Gtk.ListBox], both are accessible via their regular nodes.
+             *
+             * A checkmark of node and style class `image.checkmark` in the popover denotes
+             * the current item.
+             * @since 1.0
+             */
+            ComboRow: ComboRowClass
+        }
         
 
         namespace Deck {
@@ -1493,30 +1340,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A swipeable widget showing one of the visible children at a time.
-         *
-         * The `HdyDeck` widget displays one of the visible children, similar to a
-         * [class@Gtk.Stack]. The children are strictly ordered and can be navigated
-         * using swipe gestures.
-         *
-         * The “over” and “under” stack the children one on top of the other, while the
-         * “slide” transition puts the children side by side. While navigating to a
-         * child on the side or below can be performed by swiping the current child
-         * away, navigating to an upper child requires dragging it from the edge where
-         * it resides. This doesn't affect non-dragging swipes.
-         *
-         * The “over” and “under” transitions can draw their shadow on top of the
-         * window's transparent areas, like the rounded corners. This is a side-effect
-         * of allowing shadows to be drawn on top of OpenGL areas. It can be mitigated
-         * by using [class@Window] or [class@ApplicationWindow] as they will crop
-         * anything drawn beyond the rounded corners.
-         *
-         * ## CSS nodes
-         *
-         * `HdyDeck` has a single CSS node with name `deck`.
-         * @since 1.0
-         */
         interface Deck extends Gtk.Container, Atk.ImplementorIface, Gtk.Buildable, Gtk.Orientable, Swipeable {
             readonly $signals: Deck.SignalSignatures
             readonly $readableProperties: Deck.ReadableProperties
@@ -1777,16 +1600,43 @@ declare module "gi://Handy?version=1" {
         interface DeckClass extends Omit<Gtk.ContainerClass, "new"> {
             readonly $gtype: GObject.GType<Deck>
             readonly prototype: Deck
+
             new (props?: Partial<GObject.ConstructorProps<Deck>>): Deck
             /**
              * Creates a new `HdyDeck`.
              * @since 1.0
              * @returns the newly created `HdyDeck`
              */
-            "new"(): Gtk.Widget
+            "new"(): Deck
         }
 
-        const Deck: DeckClass
+        interface $Exports {
+            /**
+             * A swipeable widget showing one of the visible children at a time.
+             *
+             * The `HdyDeck` widget displays one of the visible children, similar to a
+             * [class@Gtk.Stack]. The children are strictly ordered and can be navigated
+             * using swipe gestures.
+             *
+             * The “over” and “under” stack the children one on top of the other, while the
+             * “slide” transition puts the children side by side. While navigating to a
+             * child on the side or below can be performed by swiping the current child
+             * away, navigating to an upper child requires dragging it from the edge where
+             * it resides. This doesn't affect non-dragging swipes.
+             *
+             * The “over” and “under” transitions can draw their shadow on top of the
+             * window's transparent areas, like the rounded corners. This is a side-effect
+             * of allowing shadows to be drawn on top of OpenGL areas. It can be mitigated
+             * by using [class@Window] or [class@ApplicationWindow] as they will crop
+             * anything drawn beyond the rounded corners.
+             *
+             * ## CSS nodes
+             *
+             * `HdyDeck` has a single CSS node with name `deck`.
+             * @since 1.0
+             */
+            Deck: DeckClass
+        }
         
 
         namespace EnumValueObject {
@@ -1803,13 +1653,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * An object representing an [struct@GObject.EnumValue].
-         *
-         * The `HdyEnumValueObject` object represents a [struct@GObject.EnumValue],
-         * allowing it to be used with [iface@Gio.ListModel].
-         * @since 1.0
-         */
         interface EnumValueObject extends GObject.Object {
             readonly $signals: EnumValueObject.SignalSignatures
             readonly $readableProperties: EnumValueObject.ReadableProperties
@@ -1838,6 +1681,7 @@ declare module "gi://Handy?version=1" {
         interface EnumValueObjectClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<EnumValueObject>
             readonly prototype: EnumValueObject
+
             new (props?: Partial<GObject.ConstructorProps<EnumValueObject>>): EnumValueObject
             /**
              * Creates a new `HdyEnumValueObject`.
@@ -1848,7 +1692,16 @@ declare module "gi://Handy?version=1" {
             "new"(enum_value: GObject.EnumValue): EnumValueObject
         }
 
-        const EnumValueObject: EnumValueObjectClass
+        interface $Exports {
+            /**
+             * An object representing an [struct@GObject.EnumValue].
+             *
+             * The `HdyEnumValueObject` object represents a [struct@GObject.EnumValue],
+             * allowing it to be used with [iface@Gio.ListModel].
+             * @since 1.0
+             */
+            EnumValueObject: EnumValueObjectClass
+        }
         
 
         namespace ExpanderRow {
@@ -1877,23 +1730,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         *  element.
-         *
-         * ## CSS nodes
-         *
-         * `HdyExpanderRow` has a main CSS node with name `row`, and the `.expander`
-         * style class. It has the `.empty` style class when it contains no children.
-         *
-         * It contains the subnodes `row.header` for its main embedded row,
-         * `list.nested` for the list it can expand, and `image.expander-row-arrow` for
-         * its arrow.
-         *
-         * When expanded, `HdyExpanderRow` will add the
-         * `.checked-expander-row-previous-sibling` style class to its previous sibling,
-         * and remove it when retracted.
-         * @since 1.0
-         */
         interface ExpanderRow extends PreferencesRow, Atk.ImplementorIface, Gtk.Actionable, Gtk.Buildable {
             readonly $signals: ExpanderRow.SignalSignatures
             readonly $readableProperties: ExpanderRow.ReadableProperties
@@ -2026,16 +1862,49 @@ declare module "gi://Handy?version=1" {
         interface ExpanderRowClass extends Omit<PreferencesRowClass, "new"> {
             readonly $gtype: GObject.GType<ExpanderRow>
             readonly prototype: ExpanderRow
+
             new (props?: Partial<GObject.ConstructorProps<ExpanderRow>>): ExpanderRow
             /**
              * Creates a new `HdyExpanderRow`.
              * @since 1.0
              * @returns the newly created `HdyExpanderRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ExpanderRow
         }
 
-        const ExpanderRow: ExpanderRowClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.ListBoxRow] used to reveal widgets.
+             *
+             * The `HdyExpanderRow` widget allows the user to reveal or hide widgets below
+             * it. It also allows the user to enable the expansion of the row, allowing to
+             * disable all that the row contains.
+             *
+             * ## HdyExpanderRow as GtkBuildable
+             *
+             * The `HdyExpanderRow` implementation of the [iface@Gtk.Buildable] interface
+             * supports adding a child as an action widget by specifying “action” as the
+             * “type” attribute of a <child> element.
+             *
+             * It also supports adding it as a prefix widget by specifying “prefix” as the
+             * “type” attribute of a <child> element.
+             *
+             * ## CSS nodes
+             *
+             * `HdyExpanderRow` has a main CSS node with name `row`, and the `.expander`
+             * style class. It has the `.empty` style class when it contains no children.
+             *
+             * It contains the subnodes `row.header` for its main embedded row,
+             * `list.nested` for the list it can expand, and `image.expander-row-arrow` for
+             * its arrow.
+             *
+             * When expanded, `HdyExpanderRow` will add the
+             * `.checked-expander-row-previous-sibling` style class to its previous sibling,
+             * and remove it when retracted.
+             * @since 1.0
+             */
+            ExpanderRow: ExpanderRowClass
+        }
         
 
         namespace Flap {
@@ -2082,16 +1951,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         *  element, and separator by specifying “separator”. Specifying
-         * “content” child type or omitting it results in setting the content child.
-         *
-         * ## CSS nodes
-         *
-         * `HdyFlap` has a single CSS node with name `flap`. The node will get the style
-         * classes `.folded` when it is folded, and `.unfolded` when it's not.
-         * @since 1.2
-         */
         interface Flap extends Gtk.Container, Atk.ImplementorIface, Gtk.Buildable, Gtk.Orientable, Swipeable {
             readonly $signals: Flap.SignalSignatures
             readonly $readableProperties: Flap.ReadableProperties
@@ -2161,7 +2020,10 @@ declare module "gi://Handy?version=1" {
             get locked(): boolean
             set locked(value: boolean)
             /**
-             *  key, will close the flap. If `FALSE`, clicks
+             * Whether the flap is modal.
+             *
+             * If `TRUE`, clicking the content widget while flap is revealed, as well as
+             * pressing the <kbd>Esc</kbd> key, will close the flap. If `FALSE`, clicks
              * are passed through to the content widget.
              * @since 1.2
              * @default TRUE
@@ -2366,7 +2228,10 @@ declare module "gi://Handy?version=1" {
              */
             set_locked(locked: boolean): void
             /**
-             *  key, will close the flap. If `FALSE`, clicks are
+             * Sets whether the @self can be closed with a click.
+             *
+             * If @modal is `TRUE`, clicking the content widget while flap is revealed, or
+             * pressing the <kbd>Esc</kbd> key, will close the flap. If `FALSE`, clicks are
              * passed through to the content widget.
              * @since 1.2
              * @param modal whether @self can be closed with a click
@@ -2418,16 +2283,69 @@ declare module "gi://Handy?version=1" {
         interface FlapClass extends Omit<Gtk.ContainerClass, "new"> {
             readonly $gtype: GObject.GType<Flap>
             readonly prototype: Flap
+
             new (props?: Partial<GObject.ConstructorProps<Flap>>): Flap
             /**
              * Creates a new `HdyFlap`.
              * @since 1.2
              * @returns the newly created `HdyFlap`
              */
-            "new"(): Gtk.Widget
+            "new"(): Flap
         }
 
-        const Flap: FlapClass
+        interface $Exports {
+            /**
+             * An adaptive container acting like a box or an overlay.
+             *
+             * The `HdyFlap` widget can display its children like a [class@Gtk.Box] does or
+             * like a [class@Gtk.Overlay] does, according to the
+             * [property@Flap:fold-policy] value.
+             *
+             * `HdyFlap` has at most three children: [property@Flap:content],
+             * [property@Flap:flap] and [property@Flap:separator]. Content is the primary
+             * child, flap is displayed next to it when unfolded, or overlays it when
+             * folded. Flap can be shown or hidden by changing the
+             * [property@Flap:reveal-flap] value, as well as via swipe gestures if
+             * [property@Flap:swipe-to-open] and/or [property@Flap:swipe-to-close] are set
+             * to `TRUE`.
+             *
+             * Optionally, a separator can be provided, which would be displayed between the
+             * content and the flap when there's no shadow to separate them, depending on
+             * the transition type.
+             *
+             * [property@Flap:flap] is transparent by default; add the `.background` style
+             * class to it if this is unwanted.
+             *
+             * If [property@Flap:modal] is set to `TRUE`, content becomes completely
+             * inaccessible when the flap is revealed while folded.
+             *
+             * The position of the flap and separator children relative to the content is
+             * determined by orientation, as well as the [property@Flap:flap-position]
+             * value.
+             *
+             * Folding the flap will automatically hide the flap widget, and unfolding it
+             * will automatically reveal it. If this behavior is not desired, the
+             * [property@Flap:locked] property can be used to override it.
+             *
+             * Common use cases include sidebars, header bars that need to be able to
+             * overlap the window content (for example, in fullscreen mode) and bottom
+             * sheets.
+             *
+             * ## HdyFlap as GtkBuildable
+             *
+             * The `HdyFlap` implementation of the [iface@Gtk.Buildable] interface supports
+             * setting the flap child by specifying “flap” as the “type” attribute of a
+             * <child> element, and separator by specifying “separator”. Specifying
+             * “content” child type or omitting it results in setting the content child.
+             *
+             * ## CSS nodes
+             *
+             * `HdyFlap` has a single CSS node with name `flap`. The node will get the style
+             * classes `.folded` when it is folded, and `.unfolded` when it's not.
+             * @since 1.2
+             */
+            Flap: FlapClass
+        }
         
 
         namespace HeaderBar {
@@ -2468,31 +2386,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A title bar widget.
-         *
-         * `HdyHeaderBar` is similar to [class@Gtk.HeaderBar] but is designed to fix
-         * some of its shortcomings for adaptive applications.
-         *
-         * `HdyHeaderBar` doesn't force the custom title widget to be vertically
-         * centered, hence allowing it to fill up the whole height, which is e.g. needed
-         * for [class@ViewSwitcher].
-         *
-         * When used in a mobile dialog, `HdyHeaderBar` will replace its window
-         * decorations by a back button allowing to close it. It doesn't have to be its
-         * direct child and you can use any complex contraption you like as the dialog's
-         * titlebar.
-         *
-         * `HdyHeaderBar` can be used in window's content area rather than titlebar, and
-         * will still be draggable and will handle right click, middle click and double
-         * click as expected from a titlebar. This is particularly useful with
-         * [class@Window] or [class@ApplicationWindow].
-         *
-         * ## CSS nodes
-         *
-         * `HdyHeaderBar` has a single CSS node with name `headerbar`.
-         * @since 1.0
-         */
         interface HeaderBar extends Gtk.Container, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: HeaderBar.SignalSignatures
             readonly $readableProperties: HeaderBar.ReadableProperties
@@ -2757,16 +2650,44 @@ declare module "gi://Handy?version=1" {
         interface HeaderBarClass extends Omit<Gtk.ContainerClass, "new"> {
             readonly $gtype: GObject.GType<HeaderBar>
             readonly prototype: HeaderBar
+
             new (props?: Partial<GObject.ConstructorProps<HeaderBar>>): HeaderBar
             /**
              * Creates a new `HdyHeaderBar`.
              * @since 1.0
              * @returns the newly created `HdyHeaderBar`.
              */
-            "new"(): Gtk.Widget
+            "new"(): HeaderBar
         }
 
-        const HeaderBar: HeaderBarClass
+        interface $Exports {
+            /**
+             * A title bar widget.
+             *
+             * `HdyHeaderBar` is similar to [class@Gtk.HeaderBar] but is designed to fix
+             * some of its shortcomings for adaptive applications.
+             *
+             * `HdyHeaderBar` doesn't force the custom title widget to be vertically
+             * centered, hence allowing it to fill up the whole height, which is e.g. needed
+             * for [class@ViewSwitcher].
+             *
+             * When used in a mobile dialog, `HdyHeaderBar` will replace its window
+             * decorations by a back button allowing to close it. It doesn't have to be its
+             * direct child and you can use any complex contraption you like as the dialog's
+             * titlebar.
+             *
+             * `HdyHeaderBar` can be used in window's content area rather than titlebar, and
+             * will still be draggable and will handle right click, middle click and double
+             * click as expected from a titlebar. This is particularly useful with
+             * [class@Window] or [class@ApplicationWindow].
+             *
+             * ## CSS nodes
+             *
+             * `HdyHeaderBar` has a single CSS node with name `headerbar`.
+             * @since 1.0
+             */
+            HeaderBar: HeaderBarClass
+        }
         
 
         namespace HeaderGroup {
@@ -2790,11 +2711,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         * @since 1.0
-         */
         interface HeaderGroup extends GObject.Object, Gtk.Buildable {
             readonly $signals: HeaderGroup.SignalSignatures
             readonly $readableProperties: HeaderGroup.ReadableProperties
@@ -2888,6 +2804,7 @@ declare module "gi://Handy?version=1" {
         interface HeaderGroupClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<HeaderGroup>
             readonly prototype: HeaderGroup
+
             new (props?: Partial<GObject.ConstructorProps<HeaderGroup>>): HeaderGroup
             /**
              * Creates a new `HdyHeaderGroup`.
@@ -2897,7 +2814,43 @@ declare module "gi://Handy?version=1" {
             "new"(): HeaderGroup
         }
 
-        const HeaderGroup: HeaderGroupClass
+        interface $Exports {
+            /**
+             * An object handling composite title bars.
+             *
+             * The `HdyHeaderGroup` object handles the header bars of a composite title bar.
+             * It splits the window decoration across the header bars, giving the left side
+             * of the decorations to the leftmost header bar, and the right side of the
+             * decorations to the rightmost header bar. See
+             * [method@HeaderBar.set_decoration_layout].
+             *
+             * The [property@HeaderGroup:decorate-all] property can be used in conjunction
+             * with [property@Leaflet:folded] when the title bar is split across the pages
+             * of a [class@Leaflet] to automatically display the decorations on all the
+             * pages when the leaflet is folded.
+             *
+             * You can nest header groups, which is convenient when you nest leaflets too:
+             *
+             * ```xml
+             * <object class="HdyHeaderGroup" id="inner_header_group">
+             *   <property name="decorate-all" bind-source="inner_leaflet" bind-property="folded" bind-flags="sync-create"/>
+             *   <headerbars>
+             *     <headerbar name="inner_header_bar_1"/>
+             *     <headerbar name="inner_header_bar_2"/>
+             *   </headerbars>
+             * </object>
+             * <object class="HdyHeaderGroup" id="outer_header_group">
+             *   <property name="decorate-all" bind-source="outer_leaflet" bind-property="folded" bind-flags="sync-create"/>
+             *   <headerbars>
+             *     <headerbar name="inner_header_group"/>
+             *     <headerbar name="outer_header_bar"/>
+             *   </headerbars>
+             * </object>
+             * ```
+             * @since 1.0
+             */
+            HeaderGroup: HeaderGroupClass
+        }
         
 
         namespace HeaderGroupChild {
@@ -2914,10 +2867,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A child object for [class@HeaderGroup].
-         * @since 1.0
-         */
         interface HeaderGroupChild extends GObject.Object {
             readonly $signals: HeaderGroupChild.SignalSignatures
             readonly $readableProperties: HeaderGroupChild.ReadableProperties
@@ -2958,10 +2907,17 @@ declare module "gi://Handy?version=1" {
         interface HeaderGroupChildClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<HeaderGroupChild>
             readonly prototype: HeaderGroupChild
+
             new (props?: Partial<GObject.ConstructorProps<HeaderGroupChild>>): HeaderGroupChild
         }
 
-        const HeaderGroupChild: HeaderGroupChildClass
+        interface $Exports {
+            /**
+             * A child object for [class@HeaderGroup].
+             * @since 1.0
+             */
+            HeaderGroupChild: HeaderGroupChildClass
+        }
         
 
         namespace Keypad {
@@ -2992,17 +2948,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A keypad for dialing numbers
-         *
-         * The `HdyKeypad` widget is a keypad for entering numbers such as phone numbers
-         * or PIN codes.
-         *
-         * ## CSS nodes
-         *
-         * `HdyKeypad` has a single CSS node with name `keypad`.
-         * @since 1.0
-         */
         interface Keypad extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: Keypad.SignalSignatures
             readonly $readableProperties: Keypad.ReadableProperties
@@ -3149,6 +3094,7 @@ declare module "gi://Handy?version=1" {
         interface KeypadClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<Keypad>
             readonly prototype: Keypad
+
             new (props?: Partial<GObject.ConstructorProps<Keypad>>): Keypad
             /**
              * Creates a new `HdyKeypad`.
@@ -3157,10 +3103,23 @@ declare module "gi://Handy?version=1" {
              * @param letters_visible whether the letters below the digits should be visible
              * @returns the newly created `HdyKeypad`
              */
-            "new"(symbols_visible: boolean, letters_visible: boolean): Gtk.Widget
+            "new"(symbols_visible: boolean, letters_visible: boolean): Keypad
         }
 
-        const Keypad: KeypadClass
+        interface $Exports {
+            /**
+             * A keypad for dialing numbers
+             *
+             * The `HdyKeypad` widget is a keypad for entering numbers such as phone numbers
+             * or PIN codes.
+             *
+             * ## CSS nodes
+             *
+             * `HdyKeypad` has a single CSS node with name `keypad`.
+             * @since 1.0
+             */
+            Keypad: KeypadClass
+        }
         
 
         namespace Leaflet {
@@ -3205,43 +3164,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * An adaptive container acting like a box or a stack.
-         *
-         * The `HdyLeaflet` widget can display its children like a [class@Gtk.Box] does
-         * or like a [class@Gtk.Stack] does, adapting to size changes by switching
-         * between the two modes.
-         *
-         * When there is enough space the children are displayed side by side, otherwise
-         * only one is displayed and the leaflet is said to be “folded”. The threshold
-         * is dictated by the preferred minimum sizes of the children. When a leaflet is
-         * folded, the children can be navigated using swipe gestures.
-         *
-         * The “over” and “under” transition types stack the children one on top of the
-         * other, while the “slide” transition puts the children side by side. While
-         * navigating to a child on the side or below can be performed by swiping the
-         * current child away, navigating to an upper child requires dragging it from
-         * the edge where it resides. This doesn't affect non-dragging swipes.
-         *
-         * The “over” and “under” transitions can draw their shadow on top of the
-         * window's transparent areas, like the rounded corners. This is a side-effect
-         * of allowing shadows to be drawn on top of OpenGL areas. It can be mitigated
-         * by using [class@Window] or [class@ApplicationWindow] as they will crop
-         * anything drawn beyond the rounded corners.
-         *
-         * The child property `navigatable` can be set on `HdyLeaflet` children to
-         * determine whether they can be navigated to when folded. If `FALSE`, the child
-         * will be ignored by [method@Leaflet.get_adjacent_child],
-         * [method@Leaflet.navigate], and swipe gestures. This can be used used to
-         * prevent switching to widgets like separators.
-         *
-         * ## CSS nodes
-         *
-         * `HdyLeaflet` has a single CSS node with name `leaflet`. The node will get the
-         * style classes `.folded` when it is folded, `.unfolded` when it's not, or none
-         * if it didn't compute its fold yet.
-         * @since 1.0
-         */
         interface Leaflet extends Gtk.Container, Atk.ImplementorIface, Gtk.Buildable, Gtk.Orientable, Swipeable {
             readonly $signals: Leaflet.SignalSignatures
             readonly $readableProperties: Leaflet.ReadableProperties
@@ -3557,16 +3479,56 @@ declare module "gi://Handy?version=1" {
         interface LeafletClass extends Omit<Gtk.ContainerClass, "new"> {
             readonly $gtype: GObject.GType<Leaflet>
             readonly prototype: Leaflet
+
             new (props?: Partial<GObject.ConstructorProps<Leaflet>>): Leaflet
             /**
              * Creates a new `HdyLeaflet`.
              * @since 1.0
              * @returns the newly created `HdyLeaflet`
              */
-            "new"(): Gtk.Widget
+            "new"(): Leaflet
         }
 
-        const Leaflet: LeafletClass
+        interface $Exports {
+            /**
+             * An adaptive container acting like a box or a stack.
+             *
+             * The `HdyLeaflet` widget can display its children like a [class@Gtk.Box] does
+             * or like a [class@Gtk.Stack] does, adapting to size changes by switching
+             * between the two modes.
+             *
+             * When there is enough space the children are displayed side by side, otherwise
+             * only one is displayed and the leaflet is said to be “folded”. The threshold
+             * is dictated by the preferred minimum sizes of the children. When a leaflet is
+             * folded, the children can be navigated using swipe gestures.
+             *
+             * The “over” and “under” transition types stack the children one on top of the
+             * other, while the “slide” transition puts the children side by side. While
+             * navigating to a child on the side or below can be performed by swiping the
+             * current child away, navigating to an upper child requires dragging it from
+             * the edge where it resides. This doesn't affect non-dragging swipes.
+             *
+             * The “over” and “under” transitions can draw their shadow on top of the
+             * window's transparent areas, like the rounded corners. This is a side-effect
+             * of allowing shadows to be drawn on top of OpenGL areas. It can be mitigated
+             * by using [class@Window] or [class@ApplicationWindow] as they will crop
+             * anything drawn beyond the rounded corners.
+             *
+             * The child property `navigatable` can be set on `HdyLeaflet` children to
+             * determine whether they can be navigated to when folded. If `FALSE`, the child
+             * will be ignored by [method@Leaflet.get_adjacent_child],
+             * [method@Leaflet.navigate], and swipe gestures. This can be used used to
+             * prevent switching to widgets like separators.
+             *
+             * ## CSS nodes
+             *
+             * `HdyLeaflet` has a single CSS node with name `leaflet`. The node will get the
+             * style classes `.folded` when it is folded, `.unfolded` when it's not, or none
+             * if it didn't compute its fold yet.
+             * @since 1.0
+             */
+            Leaflet: LeafletClass
+        }
         
 
         namespace PreferencesGroup {
@@ -3589,21 +3551,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A group of preference rows.
-         *
-         * A `HdyPreferencesGroup` represents a group or tightly related preferences,
-         * which in turn are represented by [class@PreferencesRow].
-         *
-         * To summarize the role of the preferences it gathers, a group can have both a
-         * title and a description. The title will be used by [class@PreferencesWindow]
-         * to let the user look for a preference.
-         *
-         * ## CSS nodes
-         *
-         * `HdyPreferencesGroup` has a single CSS node with name `preferencesgroup`.
-         * @since 1.0
-         */
         interface PreferencesGroup extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: PreferencesGroup.SignalSignatures
             readonly $readableProperties: PreferencesGroup.ReadableProperties
@@ -3668,16 +3615,34 @@ declare module "gi://Handy?version=1" {
         interface PreferencesGroupClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<PreferencesGroup>
             readonly prototype: PreferencesGroup
+
             new (props?: Partial<GObject.ConstructorProps<PreferencesGroup>>): PreferencesGroup
             /**
              * Creates a new `HdyPreferencesGroup`.
              * @since 1.0
              * @returns the newly created `HdyPreferencesGroup`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesGroup
         }
 
-        const PreferencesGroup: PreferencesGroupClass
+        interface $Exports {
+            /**
+             * A group of preference rows.
+             *
+             * A `HdyPreferencesGroup` represents a group or tightly related preferences,
+             * which in turn are represented by [class@PreferencesRow].
+             *
+             * To summarize the role of the preferences it gathers, a group can have both a
+             * title and a description. The title will be used by [class@PreferencesWindow]
+             * to let the user look for a preference.
+             *
+             * ## CSS nodes
+             *
+             * `HdyPreferencesGroup` has a single CSS node with name `preferencesgroup`.
+             * @since 1.0
+             */
+            PreferencesGroup: PreferencesGroupClass
+        }
         
 
         namespace PreferencesPage {
@@ -3698,17 +3663,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A page from [class@PreferencesWindow].
-         *
-         * The `HdyPreferencesPage` widget gathers preferences groups into a single page
-         * of a preferences window.
-         *
-         * ## CSS nodes
-         *
-         * `HdyPreferencesPage` has a single CSS node with name `preferencespage`.
-         * @since 1.0
-         */
         interface PreferencesPage extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: PreferencesPage.SignalSignatures
             readonly $readableProperties: PreferencesPage.ReadableProperties
@@ -3755,16 +3709,30 @@ declare module "gi://Handy?version=1" {
         interface PreferencesPageClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<PreferencesPage>
             readonly prototype: PreferencesPage
+
             new (props?: Partial<GObject.ConstructorProps<PreferencesPage>>): PreferencesPage
             /**
              * Creates a new `HdyPreferencesPage`.
              * @since 1.0
              * @returns the newly created `HdyPreferencesPage`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesPage
         }
 
-        const PreferencesPage: PreferencesPageClass
+        interface $Exports {
+            /**
+             * A page from [class@PreferencesWindow].
+             *
+             * The `HdyPreferencesPage` widget gathers preferences groups into a single page
+             * of a preferences window.
+             *
+             * ## CSS nodes
+             *
+             * `HdyPreferencesPage` has a single CSS node with name `preferencespage`.
+             * @since 1.0
+             */
+            PreferencesPage: PreferencesPageClass
+        }
         
 
         namespace PreferencesRow {
@@ -3785,18 +3753,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A [class@Gtk.ListBoxRow] used to present preferences.
-         *
-         * The `HdyPreferencesRow` widget has a title that [class@PreferencesWindow]
-         * will use to let the user look for a preference. It doesn't present the title
-         * in any way and lets you present the preference as you please.
-         *
-         * [class@ActionRow] and its derivatives are convenient to use as preference
-         * rows as they take care of presenting the preference's title while letting you
-         * compose the inputs of the preference around it.
-         * @since 1.0
-         */
         interface PreferencesRow extends Gtk.ListBoxRow, Atk.ImplementorIface, Gtk.Actionable, Gtk.Buildable {
             readonly $signals: PreferencesRow.SignalSignatures
             readonly $readableProperties: PreferencesRow.ReadableProperties
@@ -3844,16 +3800,31 @@ declare module "gi://Handy?version=1" {
         interface PreferencesRowClass extends Omit<Gtk.ListBoxRowClass, "new"> {
             readonly $gtype: GObject.GType<PreferencesRow>
             readonly prototype: PreferencesRow
+
             new (props?: Partial<GObject.ConstructorProps<PreferencesRow>>): PreferencesRow
             /**
              * Creates a new `HdyPreferencesRow`.
              * @since 1.0
              * @returns the newly created `HdyPreferencesRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesRow
         }
 
-        const PreferencesRow: PreferencesRowClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.ListBoxRow] used to present preferences.
+             *
+             * The `HdyPreferencesRow` widget has a title that [class@PreferencesWindow]
+             * will use to let the user look for a preference. It doesn't present the title
+             * in any way and lets you present the preference as you please.
+             *
+             * [class@ActionRow] and its derivatives are convenient to use as preference
+             * rows as they take care of presenting the preference's title while letting you
+             * compose the inputs of the preference around it.
+             * @since 1.0
+             */
+            PreferencesRow: PreferencesRowClass
+        }
         
 
         namespace PreferencesWindow {
@@ -3874,18 +3845,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A window to present an application's preferences.
-         *
-         * The `HdyPreferencesWindow` widget presents an application's preferences
-         * gathered into pages and groups. The preferences are searchable by the user.
-         *
-         * ## CSS nodes
-         *
-         * `HdyPreferencesWindow` has a main CSS node with the name `window` and the
-         * style class `.preferences`.
-         * @since 1.0
-         */
         interface PreferencesWindow extends Window, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: PreferencesWindow.SignalSignatures
             readonly $readableProperties: PreferencesWindow.ReadableProperties
@@ -3952,16 +3911,31 @@ declare module "gi://Handy?version=1" {
         interface PreferencesWindowClass extends Omit<WindowClass, "new"> {
             readonly $gtype: GObject.GType<PreferencesWindow>
             readonly prototype: PreferencesWindow
+
             new (props?: Partial<GObject.ConstructorProps<PreferencesWindow>>): PreferencesWindow
             /**
              * Creates a new `HdyPreferencesWindow`.
              * @since 1.0
              * @returns the newly created `HdyPreferencesWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesWindow
         }
 
-        const PreferencesWindow: PreferencesWindowClass
+        interface $Exports {
+            /**
+             * A window to present an application's preferences.
+             *
+             * The `HdyPreferencesWindow` widget presents an application's preferences
+             * gathered into pages and groups. The preferences are searchable by the user.
+             *
+             * ## CSS nodes
+             *
+             * `HdyPreferencesWindow` has a main CSS node with the name `window` and the
+             * style class `.preferences`.
+             * @since 1.0
+             */
+            PreferencesWindow: PreferencesWindowClass
+        }
         
 
         namespace SearchBar {
@@ -3982,23 +3956,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         *  should be handled as an application action, or
-         * through the menu items.
-         *
-         * You will also need to tell the search bar about which entry you are using as
-         * your search entry using [method@SearchBar.connect_entry]. The following
-         * example shows you how to create a more complex search entry.
-         *
-         * `HdySearchBar` is very similar to [class@Gtk.SearchBar], the main difference
-         * being that it allows the search entry to fill all the available space. This
-         * allows you to control your search entry's width with a [class@Clamp].
-         *
-         * ## CSS nodes
-         *
-         * `HdySearchBar` has a single CSS node with name `searchbar`.
-         * @since 1.0
-         */
         interface SearchBar extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: SearchBar.SignalSignatures
             readonly $readableProperties: SearchBar.ReadableProperties
@@ -4105,6 +4062,7 @@ declare module "gi://Handy?version=1" {
         interface SearchBarClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<SearchBar>
             readonly prototype: SearchBar
+
             new (props?: Partial<GObject.ConstructorProps<SearchBar>>): SearchBar
             /**
              * Creates a new `HdySearchBar.
@@ -4114,10 +4072,39 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdySearchBar`
              */
-            "new"(): Gtk.Widget
+            "new"(): SearchBar
         }
 
-        const SearchBar: SearchBarClass
+        interface $Exports {
+            /**
+             * A toolbar to integrate a search entry with.
+             *
+             * `HdySearchBar` is a container made to have a search entry (possibly with
+             * additional connex widgets, such as drop-down menus, or buttons) built-in. The
+             * search bar would appear when a search is started through typing on the
+             * keyboard, or the application’s search mode is toggled on.
+             *
+             * For keyboard presses to start a search, events will need to be forwarded from
+             * the top-level window that contains the search bar. See
+             * [method@SearchBar.handle_event] for example code. Common shortcuts such as
+             * <kbd>Ctrl</kbd>+<kbd>F</kbd> should be handled as an application action, or
+             * through the menu items.
+             *
+             * You will also need to tell the search bar about which entry you are using as
+             * your search entry using [method@SearchBar.connect_entry]. The following
+             * example shows you how to create a more complex search entry.
+             *
+             * `HdySearchBar` is very similar to [class@Gtk.SearchBar], the main difference
+             * being that it allows the search entry to fill all the available space. This
+             * allows you to control your search entry's width with a [class@Clamp].
+             *
+             * ## CSS nodes
+             *
+             * `HdySearchBar` has a single CSS node with name `searchbar`.
+             * @since 1.0
+             */
+            SearchBar: SearchBarClass
+        }
         
 
         namespace Squeezer {
@@ -4150,22 +4137,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A best fit container.
-         *
-         * The `HdySqueezer` widget is a container which only shows the first of its
-         * children that fits in the available size. It is convenient to offer different
-         * widgets to represent the same data with different levels of detail, making
-         * the widget seem to squeeze itself to fit in the available space.
-         *
-         * Transitions between children can be animated as fades. This can be controlled
-         * with [method@Squeezer.set_transition_type].
-         *
-         * ## CSS nodes
-         *
-         * `HdySqueezer` has a single CSS node with name `squeezer`.
-         * @since 1.0
-         */
         interface Squeezer extends Gtk.Container, Atk.ImplementorIface, Gtk.Buildable, Gtk.Orientable {
             readonly $signals: Squeezer.SignalSignatures
             readonly $readableProperties: Squeezer.ReadableProperties
@@ -4369,16 +4340,35 @@ declare module "gi://Handy?version=1" {
         interface SqueezerClass extends Omit<Gtk.ContainerClass, "new"> {
             readonly $gtype: GObject.GType<Squeezer>
             readonly prototype: Squeezer
+
             new (props?: Partial<GObject.ConstructorProps<Squeezer>>): Squeezer
             /**
              * Creates a new `HdySqueezer`.
              * @since 1.0
              * @returns the newly created `HdySqueezer`
              */
-            "new"(): Gtk.Widget
+            "new"(): Squeezer
         }
 
-        const Squeezer: SqueezerClass
+        interface $Exports {
+            /**
+             * A best fit container.
+             *
+             * The `HdySqueezer` widget is a container which only shows the first of its
+             * children that fits in the available size. It is convenient to offer different
+             * widgets to represent the same data with different levels of detail, making
+             * the widget seem to squeeze itself to fit in the available space.
+             *
+             * Transitions between children can be animated as fades. This can be controlled
+             * with [method@Squeezer.set_transition_type].
+             *
+             * ## CSS nodes
+             *
+             * `HdySqueezer` has a single CSS node with name `squeezer`.
+             * @since 1.0
+             */
+            Squeezer: SqueezerClass
+        }
         
 
         namespace StatusPage {
@@ -4401,17 +4391,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A page used for empty/error states and similar use-cases.
-         *
-         * The `HdyStatusPage` widget can have an icon, a title, a description and a
-         * custom widget which is displayed below them.
-         *
-         * ## CSS nodes
-         *
-         * `HdyStatusPage` has a main CSS node with name `statuspage`.
-         * @since 1.2
-         */
         interface StatusPage extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: StatusPage.SignalSignatures
             readonly $readableProperties: StatusPage.ReadableProperties
@@ -4477,16 +4456,30 @@ declare module "gi://Handy?version=1" {
         interface StatusPageClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<StatusPage>
             readonly prototype: StatusPage
+
             new (props?: Partial<GObject.ConstructorProps<StatusPage>>): StatusPage
             /**
              * Creates a new `HdyStatusPage`.
              * @since 1.2
              * @returns the newly created `HdyStatusPage`
              */
-            "new"(): Gtk.Widget
+            "new"(): StatusPage
         }
 
-        const StatusPage: StatusPageClass
+        interface $Exports {
+            /**
+             * A page used for empty/error states and similar use-cases.
+             *
+             * The `HdyStatusPage` widget can have an icon, a title, a description and a
+             * custom widget which is displayed below them.
+             *
+             * ## CSS nodes
+             *
+             * `HdyStatusPage` has a main CSS node with name `statuspage`.
+             * @since 1.2
+             */
+            StatusPage: StatusPageClass
+        }
         
 
         namespace StyleManager {
@@ -4504,30 +4497,15 @@ declare module "gi://Handy?version=1" {
             interface WritableProperties extends GObject.Object.WritableProperties {
                 "color-scheme": ColorScheme
                 "dark": boolean
-                "display": Gdk.Display
                 "high-contrast": boolean
                 "system-supports-color-schemes": boolean
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "display": Gdk.Display
             }
         }
 
-        /**
-         * A class for managing application-wide styling.
-         *
-         * `HdyStyleManager` provides a way to query and influence the application
-         * styles, such as whether to use dark or high contrast appearance.
-         *
-         * It allows to set the color scheme via the
-         * [property@StyleManager:color-scheme] property, and to query the current
-         * appearance, as well as whether a system-wide color scheme preference exists.
-         *
-         * Important: [property@Gtk.Settings:gtk-application-prefer-dark-theme] should
-         * not be used together with `HdyStyleManager` and will result in a warning.
-         * Color schemes should be used instead.
-         * @since 1.6
-         */
         interface StyleManager extends GObject.Object {
             readonly $signals: StyleManager.SignalSignatures
             readonly $readableProperties: StyleManager.ReadableProperties
@@ -4662,6 +4640,7 @@ declare module "gi://Handy?version=1" {
         interface StyleManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<StyleManager>
             readonly prototype: StyleManager
+
             new (props?: Partial<GObject.ConstructorProps<StyleManager>>): StyleManager
             /**
              * Gets the default [class@StyleManager] instance.
@@ -4688,7 +4667,24 @@ declare module "gi://Handy?version=1" {
             get_for_display(display: Gdk.Display): StyleManager
         }
 
-        const StyleManager: StyleManagerClass
+        interface $Exports {
+            /**
+             * A class for managing application-wide styling.
+             *
+             * `HdyStyleManager` provides a way to query and influence the application
+             * styles, such as whether to use dark or high contrast appearance.
+             *
+             * It allows to set the color scheme via the
+             * [property@StyleManager:color-scheme] property, and to query the current
+             * appearance, as well as whether a system-wide color scheme preference exists.
+             *
+             * Important: [property@Gtk.Settings:gtk-application-prefer-dark-theme] should
+             * not be used together with `HdyStyleManager` and will result in a warning.
+             * Color schemes should be used instead.
+             * @since 1.6
+             */
+            StyleManager: StyleManagerClass
+        }
         
 
         namespace SwipeGroup {
@@ -4705,16 +4701,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * `HdySwipeGroup` has been deprecated, [class@Window] and
-         * [class@ApplicationWindow] allow using a single leaflet for both content and
-         * header bar, without the need to sync them.
-         * @since 1.0
-         * @deprecated since 1.4
-         */
         interface SwipeGroup extends GObject.Object, Gtk.Buildable {
             readonly $signals: SwipeGroup.SignalSignatures
             readonly $readableProperties: SwipeGroup.ReadableProperties
@@ -4749,6 +4735,7 @@ declare module "gi://Handy?version=1" {
         interface SwipeGroupClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SwipeGroup>
             readonly prototype: SwipeGroup
+
             new (props?: Partial<GObject.ConstructorProps<SwipeGroup>>): SwipeGroup
             /**
              * Creates a new `HdySwipeGroup`.
@@ -4759,7 +4746,41 @@ declare module "gi://Handy?version=1" {
             "new"(): SwipeGroup
         }
 
-        const SwipeGroup: SwipeGroupClass
+        interface $Exports {
+            /**
+             * An object for syncing swipeable widgets.
+             *
+             * The `HdySwipeGroup` object can be used to sync multiple swipeable widgets
+             * that implement the [iface@Swipeable] interface, such as [class@Carousel], so
+             * that animating one of them also animates all the other widgets in the group.
+             *
+             * This can be useful for syncing widgets between a window's titlebar and
+             * content area.
+             *
+             * ## HdySwipeGroup as GtkBuildable
+             *
+             * `HdySwipeGroup` can be created in an UI definition. The list of swipeable
+             * widgets is specified with a &lt;swipeables&gt; element containing multiple
+             * &lt;swipeable&gt; elements with their ”name” attribute specifying the id of
+             * the widgets.
+             *
+             * ```xml
+             * <object class="HdySwipeGroup">
+             *   <swipeables>
+             *     <swipeable name="carousel1"/>
+             *     <swipeable name="carousel2"/>
+             *   </swipeables>
+             * </object>
+             * ```
+             *
+             * `HdySwipeGroup` has been deprecated, [class@Window] and
+             * [class@ApplicationWindow] allow using a single leaflet for both content and
+             * header bar, without the need to sync them.
+             * @since 1.0
+             * @deprecated since 1.4
+             */
+            SwipeGroup: SwipeGroupClass
+        }
         
 
         namespace SwipeTracker {
@@ -4803,26 +4824,13 @@ declare module "gi://Handy?version=1" {
                 "allow-mouse-drag": boolean
                 "enabled": boolean
                 "reversed": boolean
-                "swipeable": Swipeable
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gtk.Orientable.ConstructOnlyProperties {
+                "swipeable": Swipeable
             }
         }
 
-        /**
-         * Swipe tracker used in [class@Carousel] and [class@Leaflet].
-         *
-         * The `HdySwipeTracker` object can be used for implementing widgets with swipe
-         * gestures. It supports touch-based swipes, pointer dragging, and touchpad
-         * scrolling.
-         *
-         * The widgets will probably want to expose [property@SwipeTracker:enabled]
-         * property. If they expect to use horizontal orientation,
-         * [property@SwipeTracker:reversed] property can be used for supporting RTL text
-         * direction.
-         * @since 1.0
-         */
         interface SwipeTracker extends GObject.Object, Gtk.Orientable {
             readonly $signals: SwipeTracker.SignalSignatures
             readonly $readableProperties: SwipeTracker.ReadableProperties
@@ -4951,6 +4959,7 @@ declare module "gi://Handy?version=1" {
         interface SwipeTrackerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SwipeTracker>
             readonly prototype: SwipeTracker
+
             new (props?: Partial<GObject.ConstructorProps<SwipeTracker>>): SwipeTracker
             /**
              * Creates a new `HdySwipeTracker` object on @widget.
@@ -4961,7 +4970,22 @@ declare module "gi://Handy?version=1" {
             "new"(swipeable: Swipeable): SwipeTracker
         }
 
-        const SwipeTracker: SwipeTrackerClass
+        interface $Exports {
+            /**
+             * Swipe tracker used in [class@Carousel] and [class@Leaflet].
+             *
+             * The `HdySwipeTracker` object can be used for implementing widgets with swipe
+             * gestures. It supports touch-based swipes, pointer dragging, and touchpad
+             * scrolling.
+             *
+             * The widgets will probably want to expose [property@SwipeTracker:enabled]
+             * property. If they expect to use horizontal orientation,
+             * [property@SwipeTracker:reversed] property can be used for supporting RTL text
+             * direction.
+             * @since 1.0
+             */
+            SwipeTracker: SwipeTrackerClass
+        }
         
 
         namespace TabBar {
@@ -5010,24 +5034,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A tab bar for [class@TabView].
-         *
-         * The `HdyTabBar` widget is a tab bar that can be used with conjunction with
-         * [class@TabView].
-         *
-         * `HdyTabBar` can autohide and can optionally contain action widgets on both
-         * sides of the tabs.
-         *
-         * When there's not enough space to show all the tabs, `HdyTabBar` will scroll
-         * them. Pinned tabs always stay visible and aren't a part of the scrollable
-         * area.
-         *
-         * ## CSS nodes
-         *
-         * `HdyTabBar` has a single CSS node with name `tabbar`.
-         * @since 1.2
-         */
         interface TabBar extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: TabBar.SignalSignatures
             readonly $readableProperties: TabBar.ReadableProperties
@@ -5245,6 +5251,7 @@ declare module "gi://Handy?version=1" {
         interface TabBarClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<TabBar>
             readonly prototype: TabBar
+
             new (props?: Partial<GObject.ConstructorProps<TabBar>>): TabBar
             /**
              * Creates a new `HdyTabBar` widget.
@@ -5254,7 +5261,27 @@ declare module "gi://Handy?version=1" {
             "new"(): TabBar
         }
 
-        const TabBar: TabBarClass
+        interface $Exports {
+            /**
+             * A tab bar for [class@TabView].
+             *
+             * The `HdyTabBar` widget is a tab bar that can be used with conjunction with
+             * [class@TabView].
+             *
+             * `HdyTabBar` can autohide and can optionally contain action widgets on both
+             * sides of the tabs.
+             *
+             * When there's not enough space to show all the tabs, `HdyTabBar` will scroll
+             * them. Pinned tabs always stay visible and aren't a part of the scrollable
+             * area.
+             *
+             * ## CSS nodes
+             *
+             * `HdyTabBar` has a single CSS node with name `tabbar`.
+             * @since 1.2
+             */
+            TabBar: TabBarClass
+        }
         
 
         namespace TabPage {
@@ -5276,13 +5303,11 @@ declare module "gi://Handy?version=1" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "child": Gtk.Widget
                 "icon": Gio.Icon | null
                 "indicator-activatable": boolean
                 "indicator-icon": Gio.Icon | null
                 "loading": boolean
                 "needs-attention": boolean
-                "parent": TabPage | null
                 "pinned": boolean
                 "selected": boolean
                 "title": string | null
@@ -5290,13 +5315,11 @@ declare module "gi://Handy?version=1" {
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "child": Gtk.Widget
+                "parent": TabPage | null
             }
         }
 
-        /**
-         * An auxiliary class used by [class@TabView].
-         * @since 1.2
-         */
         interface TabPage extends GObject.Object {
             readonly $signals: TabPage.SignalSignatures
             readonly $readableProperties: TabPage.ReadableProperties
@@ -5530,10 +5553,17 @@ declare module "gi://Handy?version=1" {
         interface TabPageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<TabPage>
             readonly prototype: TabPage
+
             new (props?: Partial<GObject.ConstructorProps<TabPage>>): TabPage
         }
 
-        const TabPage: TabPageClass
+        interface $Exports {
+            /**
+             * An auxiliary class used by [class@TabView].
+             * @since 1.2
+             */
+            TabPage: TabPageClass
+        }
         
 
         namespace TabView {
@@ -5658,43 +5688,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A dynamic tabbed container.
-         *
-         * `HdyTabView` is a container which shows one child at a time. While it
-         * provides keyboard shortcuts for switching between pages, it does not provide
-         * a visible tab bar and relies on external widgets for that, such as
-         * [class@TabBar].
-         *
-         * `HdyTabView` maintains a [class@TabPage] object for each page,which holds
-         * additional per-page properties. You can obtain the [class@TabPage] for a page
-         * with [method@TabView.get_page], and as return value for
-         * [method@TabView.append] and other functions for adding children.
-         *
-         * `HdyTabView` only aims to be useful for dynamic tabs in multi-window
-         * document-based applications, such as web browsers, file managers, text
-         * editors or terminals. It does not aim to replace [class@Gtk.Notebook] for use
-         * cases such as tabbed dialogs.
-         *
-         * As such, it does not support disabling page reordering or detaching, or
-         * adding children via [iface@Gtk.Buildable].
-         *
-         * ## CSS nodes
-         *
-         * `HdyTabView` has a main CSS node with the name `tabview`.
-         *
-         * It contains the subnode overlay, which contains subnodes stack and widget.
-         * The stack subnode contains the added pages.
-         *
-         * ```
-         * tabview
-         * ╰── overlay
-         *     ├── stack
-         *     │   ╰── [ Children ]
-         *     ╰── widget
-         * ```
-         * @since 1.2
-         */
         interface TabView extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: TabView.SignalSignatures
             readonly $readableProperties: TabView.ReadableProperties
@@ -5759,7 +5752,27 @@ declare module "gi://Handy?version=1" {
             get selectedPage(): TabPage | null
             set selectedPage(value: TabPage | null)
             /**
-             *  - switch to page 10
+             * Tab shortcut widget.
+             *
+             * Has the following shortcuts:
+             *
+             * * <kbd>Ctrl</kbd>+<kbd>Page Up</kbd> - switch to the previous page
+             * * <kbd>Ctrl</kbd>+<kbd>Page Down</kbd> - switch to the next page
+             * * <kbd>Ctrl</kbd>+<kbd>Home</kbd> - switch to the first page
+             * * <kbd>Ctrl</kbd>+<kbd>End</kbd> - switch to the last page
+             * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Up</kbd> - move the current page
+             *     backward
+             * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Down</kbd> - move the current
+             *     page forward
+             * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Home</kbd> - move the current page at
+             *     the start
+             * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>End</kbd> - move the current page at
+             *      the end
+             * * <kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the next page, with looping
+             * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Tab</kbd> - switch to the previous
+             *     page, with looping
+             * * <kbd>Alt</kbd>+<kbd>1</kbd>⋯<kbd>9</kbd> - switch to pages 1-9
+             * * <kbd>Alt</kbd>+<kbd>0</kbd> - switch to page 10
              *
              * These shortcuts are always available on @self, this property is useful if
              * they should be available globally.
@@ -6104,6 +6117,7 @@ declare module "gi://Handy?version=1" {
         interface TabViewClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<TabView>
             readonly prototype: TabView
+
             new (props?: Partial<GObject.ConstructorProps<TabView>>): TabView
             /**
              * Creates a new `HdyTabView`.
@@ -6113,7 +6127,46 @@ declare module "gi://Handy?version=1" {
             "new"(): TabView
         }
 
-        const TabView: TabViewClass
+        interface $Exports {
+            /**
+             * A dynamic tabbed container.
+             *
+             * `HdyTabView` is a container which shows one child at a time. While it
+             * provides keyboard shortcuts for switching between pages, it does not provide
+             * a visible tab bar and relies on external widgets for that, such as
+             * [class@TabBar].
+             *
+             * `HdyTabView` maintains a [class@TabPage] object for each page,which holds
+             * additional per-page properties. You can obtain the [class@TabPage] for a page
+             * with [method@TabView.get_page], and as return value for
+             * [method@TabView.append] and other functions for adding children.
+             *
+             * `HdyTabView` only aims to be useful for dynamic tabs in multi-window
+             * document-based applications, such as web browsers, file managers, text
+             * editors or terminals. It does not aim to replace [class@Gtk.Notebook] for use
+             * cases such as tabbed dialogs.
+             *
+             * As such, it does not support disabling page reordering or detaching, or
+             * adding children via [iface@Gtk.Buildable].
+             *
+             * ## CSS nodes
+             *
+             * `HdyTabView` has a main CSS node with the name `tabview`.
+             *
+             * It contains the subnode overlay, which contains subnodes stack and widget.
+             * The stack subnode contains the added pages.
+             *
+             * ```
+             * tabview
+             * ╰── overlay
+             *     ├── stack
+             *     │   ╰── [ Children ]
+             *     ╰── widget
+             * ```
+             * @since 1.2
+             */
+            TabView: TabViewClass
+        }
         
 
         namespace TitleBar {
@@ -6132,26 +6185,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A simple title bar container.
-         *
-         * `HdyTitleBar` is meant to be used as the top-level widget of your window's
-         * title bar. It will be drawn with the same style as a [class@Gtk.HeaderBar]
-         * but it won't force a widget layout on you: you can put whatever widget you
-         * want in it, including a [class@Gtk.HeaderBar].
-         *
-         * `HdyTitleBar` becomes really useful when you want to animate header bars,
-         * like an adaptive application using [class@Leaflet] would do.
-         *
-         * `HdyTitleBar` has been deprecated, header bars can be animated without it
-         * when placed inside [class@Window] or [class@ApplicationWindow].
-         *
-         * ## CSS nodes
-         *
-         * `HdyTitleBar` has a single CSS node with name `headerbar`.
-         * @since 1.0
-         * @deprecated since 1.4
-         */
         interface TitleBar extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: TitleBar.SignalSignatures
             readonly $readableProperties: TitleBar.ReadableProperties
@@ -6184,6 +6217,7 @@ declare module "gi://Handy?version=1" {
         interface TitleBarClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<TitleBar>
             readonly prototype: TitleBar
+
             new (props?: Partial<GObject.ConstructorProps<TitleBar>>): TitleBar
             /**
              * Creates a new `HdyTitleBar`.
@@ -6191,10 +6225,32 @@ declare module "gi://Handy?version=1" {
              * @deprecated since 1.4
              * @returns a new `HdyTitleBar`
              */
-            "new"(): Gtk.Widget
+            "new"(): TitleBar
         }
 
-        const TitleBar: TitleBarClass
+        interface $Exports {
+            /**
+             * A simple title bar container.
+             *
+             * `HdyTitleBar` is meant to be used as the top-level widget of your window's
+             * title bar. It will be drawn with the same style as a [class@Gtk.HeaderBar]
+             * but it won't force a widget layout on you: you can put whatever widget you
+             * want in it, including a [class@Gtk.HeaderBar].
+             *
+             * `HdyTitleBar` becomes really useful when you want to animate header bars,
+             * like an adaptive application using [class@Leaflet] would do.
+             *
+             * `HdyTitleBar` has been deprecated, header bars can be animated without it
+             * when placed inside [class@Window] or [class@ApplicationWindow].
+             *
+             * ## CSS nodes
+             *
+             * `HdyTitleBar` has a single CSS node with name `headerbar`.
+             * @since 1.0
+             * @deprecated since 1.4
+             */
+            TitleBar: TitleBarClass
+        }
         
 
         namespace ValueObject {
@@ -6206,20 +6262,13 @@ declare module "gi://Handy?version=1" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "value": GObject.Value
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "value": GObject.Value
             }
         }
 
-        /**
-         * An object representing a [struct@GObject.Value].
-         *
-         * The `HdyValueObject` object represents a [struct@GObject.Value], allowing it
-         * to be used with [iface@Gio.ListModel].
-         * @since 1.0
-         */
         interface ValueObject extends GObject.Object {
             readonly $signals: ValueObject.SignalSignatures
             readonly $readableProperties: ValueObject.ReadableProperties
@@ -6236,7 +6285,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @param dest value with correct type to copy into
              */
-            copy_value(dest: GObject.Value): void
+            copy_value(dest: (GObject.Value | unknown)): void
             /**
              * Gets a copy of the contained string if the value is of type `G_TYPE_STRING`.
              * @since 1.0
@@ -6260,6 +6309,7 @@ declare module "gi://Handy?version=1" {
         interface ValueObjectClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ValueObject>
             readonly prototype: ValueObject
+
             new (props?: Partial<GObject.ConstructorProps<ValueObject>>): ValueObject
             /**
              * Creates a new `HdyValueObject`.
@@ -6267,10 +6317,19 @@ declare module "gi://Handy?version=1" {
              * @param value the value to store
              * @returns a new `HdyValueObject`
              */
-            "new"(value: GObject.Value): ValueObject
+            "new"(value: (GObject.Value | unknown)): ValueObject
         }
 
-        const ValueObject: ValueObjectClass
+        interface $Exports {
+            /**
+             * An object representing a [struct@GObject.Value].
+             *
+             * The `HdyValueObject` object represents a [struct@GObject.Value], allowing it
+             * to be used with [iface@Gio.ListModel].
+             * @since 1.0
+             */
+            ValueObject: ValueObjectClass
+        }
         
 
         namespace ViewSwitcher {
@@ -6293,27 +6352,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * An adaptive view switcher.
-         *
-         * An adaptive view switcher, designed to switch between multiple views in a
-         * similar fashion than a [class@Gtk.StackSwitcher].
-         *
-         * Depending on the available width, the view switcher can adapt from a wide
-         * mode showing the view's icon and title side by side, to a narrow mode showing
-         * the view's icon and title one on top of the other, in a more compact way.
-         * This can be controlled via the policy property.
-         *
-         * To look good in a header bar, an `HdyViewSwitcher` requires to fill its full
-         * height. Contrary to [class@Gtk.HeaderBar], [class@HeaderBar] doesn't force a
-         * vertical alignment on its title widget, so we recommend it over
-         * [class@Gtk.HeaderBar].
-         *
-         * ## CSS nodes
-         *
-         * `HdyViewSwitcher` has a single CSS node with name `viewswitcher`.
-         * @since 1.0
-         */
         interface ViewSwitcher extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: ViewSwitcher.SignalSignatures
             readonly $readableProperties: ViewSwitcher.ReadableProperties
@@ -6387,16 +6425,40 @@ declare module "gi://Handy?version=1" {
         interface ViewSwitcherClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<ViewSwitcher>
             readonly prototype: ViewSwitcher
+
             new (props?: Partial<GObject.ConstructorProps<ViewSwitcher>>): ViewSwitcher
             /**
              * Creates a new `HdyViewSwitcher`.
              * @since 1.0
              * @returns the newly created `HdyViewSwitcher`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcher
         }
 
-        const ViewSwitcher: ViewSwitcherClass
+        interface $Exports {
+            /**
+             * An adaptive view switcher.
+             *
+             * An adaptive view switcher, designed to switch between multiple views in a
+             * similar fashion than a [class@Gtk.StackSwitcher].
+             *
+             * Depending on the available width, the view switcher can adapt from a wide
+             * mode showing the view's icon and title side by side, to a narrow mode showing
+             * the view's icon and title one on top of the other, in a more compact way.
+             * This can be controlled via the policy property.
+             *
+             * To look good in a header bar, an `HdyViewSwitcher` requires to fill its full
+             * height. Contrary to [class@Gtk.HeaderBar], [class@HeaderBar] doesn't force a
+             * vertical alignment on its title widget, so we recommend it over
+             * [class@Gtk.HeaderBar].
+             *
+             * ## CSS nodes
+             *
+             * `HdyViewSwitcher` has a single CSS node with name `viewswitcher`.
+             * @since 1.0
+             */
+            ViewSwitcher: ViewSwitcherClass
+        }
         
 
         namespace ViewSwitcherBar {
@@ -6419,15 +6481,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * ## CSS nodes
-         *
-         * `HdyViewSwitcherBar` has a single CSS node with name `viewswitcherbar`.
-         * @since 1.0
-         */
         interface ViewSwitcherBar extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: ViewSwitcherBar.SignalSignatures
             readonly $readableProperties: ViewSwitcherBar.ReadableProperties
@@ -6494,16 +6547,72 @@ declare module "gi://Handy?version=1" {
         interface ViewSwitcherBarClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<ViewSwitcherBar>
             readonly prototype: ViewSwitcherBar
+
             new (props?: Partial<GObject.ConstructorProps<ViewSwitcherBar>>): ViewSwitcherBar
             /**
              * Creates a new `HdyViewSwitcherBar`.
              * @since 1.0
              * @returns the newly created `HdyViewSwitcherBar`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcherBar
         }
 
-        const ViewSwitcherBar: ViewSwitcherBarClass
+        interface $Exports {
+            /**
+             * A view switcher action bar.
+             *
+             * An action bar letting you switch between multiple views offered by a
+             * [class@Gtk.Stack], via an [class@ViewSwitcher]. It is designed to be put at
+             * the bottom of a window and to be revealed only on really narrow windows e.g.
+             * on mobile phones. It can't be revealed if there are less than two pages.
+             *
+             * `HdyViewSwitcherBar` is intended to be used together with
+             * [class@ViewSwitcherTitle].
+             *
+             * A common use case is to bind the [property@ViewSwitcherBar:reveal] property
+             * to [property@ViewSwitcherTitle:title-visible] to automatically reveal the
+             * view switcher bar when the title label is displayed in place of the view
+             * switcher, as follows:
+             *
+             * ```xml
+             * <object class="GtkWindow"/>
+             *   <child type="titlebar">
+             *     <object class="HdyHeaderBar">
+             *       <property name="centering-policy">strict</property>
+             *       <child type="title">
+             *         <object class="HdyViewSwitcherTitle"
+             *                 id="view_switcher_title">
+             *           <property name="stack">stack</property>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </child>
+             *   <child>
+             *     <object class="GtkBox">
+             *       <child>
+             *         <object class="GtkStack" id="stack"/>
+             *       </child>
+             *       <child>
+             *         <object class="HdyViewSwitcherBar">
+             *           <property name="stack">stack</property>
+             *           <property name="reveal"
+             *                     bind-source="view_switcher_title"
+             *                     bind-property="title-visible"
+             *                     bind-flags="sync-create"/>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </child>
+             * </object>
+             * ```
+             *
+             * ## CSS nodes
+             *
+             * `HdyViewSwitcherBar` has a single CSS node with name `viewswitcherbar`.
+             * @since 1.0
+             */
+            ViewSwitcherBar: ViewSwitcherBarClass
+        }
         
 
         namespace ViewSwitcherTitle {
@@ -6532,15 +6641,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * ## CSS nodes
-         *
-         * `HdyViewSwitcherTitle` has a single CSS node with name `viewswitchertitle`.
-         * @since 1.0
-         */
         interface ViewSwitcherTitle extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: ViewSwitcherTitle.SignalSignatures
             readonly $readableProperties: ViewSwitcherTitle.ReadableProperties
@@ -6670,6 +6770,7 @@ declare module "gi://Handy?version=1" {
         interface ViewSwitcherTitleClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<ViewSwitcherTitle>
             readonly prototype: ViewSwitcherTitle
+
             new (props?: Partial<GObject.ConstructorProps<ViewSwitcherTitle>>): ViewSwitcherTitle
             /**
              * Creates a new `HdyViewSwitcherTitle`.
@@ -6679,7 +6780,64 @@ declare module "gi://Handy?version=1" {
             "new"(): ViewSwitcherTitle
         }
 
-        const ViewSwitcherTitle: ViewSwitcherTitleClass
+        interface $Exports {
+            /**
+             * A view switcher title.
+             *
+             * A widget letting you switch between multiple views contained by a
+             * [class@Gtk.Stack], via an [class@ViewSwitcher].
+             *
+             * It is designed to be used as the title widget of a [class@HeaderBar], and
+             * will display the window's title when the window is too narrow to fit the view
+             * switcher e.g. on mobile phones, or if there are less than two views.
+             *
+             * `HdyViewSwitcherTitle` is intended to be used together with
+             * [class@ViewSwitcherBar].
+             *
+             * A common use case is to bind the [property@ViewSwitcherBar:reveal] property
+             * to [property@ViewSwitcherTitle:title-visible] to automatically reveal the
+             * view switcher bar when the title label is displayed in place of the view
+             * switcher, as follows:
+             *
+             * ```xml
+             * <object class="GtkWindow"/>
+             *   <child type="titlebar">
+             *     <object class="HdyHeaderBar">
+             *       <property name="centering-policy">strict</property>
+             *       <child type="title">
+             *         <object class="HdyViewSwitcherTitle"
+             *                 id="view_switcher_title">
+             *           <property name="stack">stack</property>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </child>
+             *   <child>
+             *     <object class="GtkBox">
+             *       <child>
+             *         <object class="GtkStack" id="stack"/>
+             *       </child>
+             *       <child>
+             *         <object class="HdyViewSwitcherBar">
+             *           <property name="stack">stack</property>
+             *           <property name="reveal"
+             *                     bind-source="view_switcher_title"
+             *                     bind-property="title-visible"
+             *                     bind-flags="sync-create"/>
+             *         </object>
+             *       </child>
+             *     </object>
+             *   </child>
+             * </object>
+             * ```
+             *
+             * ## CSS nodes
+             *
+             * `HdyViewSwitcherTitle` has a single CSS node with name `viewswitchertitle`.
+             * @since 1.0
+             */
+            ViewSwitcherTitle: ViewSwitcherTitleClass
+        }
         
 
         namespace Window {
@@ -6696,40 +6854,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         *
-         * ```
-         *
-         * It's recommended to use [class@HeaderBar] with `HdyWindow`, as unlike
-         * [class@Gtk.HeaderBar] it remains draggable inside the window. Otherwise,
-         * [class@WindowHandle] can be used.
-         *
-         * `HdyWindow` allows to easily implement titlebar autohiding by putting the
-         * headerbar inside a [class@Gtk.Revealer], and to show titlebar above content
-         * by putting it into a [class@Gtk.Overlay] instead of [class@Gtk.Box].
-         *
-         * If the window has a [class@Gtk.GLArea], it may bring a slight performance
-         * regression when the window is not fullscreen, tiled or maximized.
-         *
-         * Using [method@Gtk.Window.get_titlebar] and [method@Gtk.Window.set_titlebar]
-         * is not supported and will result in a crash.
-         *
-         * ## CSS nodes
-         *
-         * `HdyWindow` has a main CSS node with the name `window` and style classes
-         * `.background`, `.csd` and `.unified`.
-         *
-         * The `.solid-csd` style class on the main node is used for client-side
-         * decorations without invisible borders.
-         *
-         * `HdyWindow` also represents window states with the following style classes on
-         * the main node: `.tiled`, `.maximized`, `.fullscreen`.
-         *
-         * It contains the subnodes decoration for window shadow and/or border,
-         * decoration-overlay for the sheen on top of the window, `widget.titlebar`, and
-         * deck, which contains the child inside the window.
-         * @since 1.0
-         */
         interface Window extends Gtk.Window, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: Window.SignalSignatures
             readonly $readableProperties: Window.ReadableProperties
@@ -6740,16 +6864,77 @@ declare module "gi://Handy?version=1" {
         interface WindowClass extends Omit<Gtk.WindowClass, "new"> {
             readonly $gtype: GObject.GType<Window>
             readonly prototype: Window
+
             new (props?: Partial<GObject.ConstructorProps<Window>>): Window
             /**
              * Creates a new `HdyWindow`.
              * @since 1.0
              * @returns the newly created `HdyWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): Window
         }
 
-        const Window: WindowClass
+        interface $Exports {
+            /**
+             * A freeform window.
+             *
+             * The `HdyWindow` widget is a subclass of [class@Gtk.Window] which has no
+             * titlebar area and provides rounded corners on all sides, ensuring they can
+             * never be overlapped by the content. This makes it safe to use headerbars in
+             * the content area as follows:
+             *
+             * ```xml
+             * <object class="HdyWindow"/>
+             *   <child>
+             *     <object class="GtkBox">
+             *       <property name="visible">True</property>
+             *       <property name="orientation">vertical</property>
+             *       <child>
+             *         <object class="HdyHeaderBar">
+             *           <property name="visible">True</property>
+             *           <property name="show-close-button">True</property>
+             *         </object>
+             *       </child>
+             *       <child>
+             *         <!-- ... -->
+             *       </child>
+             *     </object>
+             *   </child>
+             * </object>
+             * ```
+             *
+             * It's recommended to use [class@HeaderBar] with `HdyWindow`, as unlike
+             * [class@Gtk.HeaderBar] it remains draggable inside the window. Otherwise,
+             * [class@WindowHandle] can be used.
+             *
+             * `HdyWindow` allows to easily implement titlebar autohiding by putting the
+             * headerbar inside a [class@Gtk.Revealer], and to show titlebar above content
+             * by putting it into a [class@Gtk.Overlay] instead of [class@Gtk.Box].
+             *
+             * If the window has a [class@Gtk.GLArea], it may bring a slight performance
+             * regression when the window is not fullscreen, tiled or maximized.
+             *
+             * Using [method@Gtk.Window.get_titlebar] and [method@Gtk.Window.set_titlebar]
+             * is not supported and will result in a crash.
+             *
+             * ## CSS nodes
+             *
+             * `HdyWindow` has a main CSS node with the name `window` and style classes
+             * `.background`, `.csd` and `.unified`.
+             *
+             * The `.solid-csd` style class on the main node is used for client-side
+             * decorations without invisible borders.
+             *
+             * `HdyWindow` also represents window states with the following style classes on
+             * the main node: `.tiled`, `.maximized`, `.fullscreen`.
+             *
+             * It contains the subnodes decoration for window shadow and/or border,
+             * decoration-overlay for the sheen on top of the window, `widget.titlebar`, and
+             * deck, which contains the child inside the window.
+             * @since 1.0
+             */
+            Window: WindowClass
+        }
         
 
         namespace WindowHandle {
@@ -6766,23 +6951,6 @@ declare module "gi://Handy?version=1" {
             }
         }
 
-        /**
-         * A bin that acts like a titlebar.
-         *
-         * `HdyWindowHandle` is a [class@Gtk.Bin] subclass that can be dragged to move
-         * its [class@Gtk.Window], and handles right click, middle click and double
-         * click as expected from a titlebar. This is particularly useful with
-         * [class@Window] or [class@ApplicationWindow].
-         *
-         * It isn't necessary to use `HdyWindowHandle` if you use [class@HeaderBar].
-         *
-         * It can be safely nested or used in the actual window titlebar.
-         *
-         * ## CSS nodes
-         *
-         * `HdyWindowHandle` has a single CSS node with name `windowhandle`.
-         * @since 1.0
-         */
         interface WindowHandle extends Gtk.EventBox, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: WindowHandle.SignalSignatures
             readonly $readableProperties: WindowHandle.ReadableProperties
@@ -6793,358 +6961,499 @@ declare module "gi://Handy?version=1" {
         interface WindowHandleClass extends Omit<Gtk.EventBoxClass, "new"> {
             readonly $gtype: GObject.GType<WindowHandle>
             readonly prototype: WindowHandle
+
             new (props?: Partial<GObject.ConstructorProps<WindowHandle>>): WindowHandle
             /**
              * Creates a new `HdyWindowHandle`.
              * @since 1.0
              * @returns the newly created `HdyWindowHandle`
              */
-            "new"(): Gtk.Widget
+            "new"(): WindowHandle
         }
 
-        const WindowHandle: WindowHandleClass
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Computes the ease out for a value.
-         * @since 1.0
-         * @param t the term
-         * @returns the ease out for `t`
-         */
-        function ease_out_cubic(t: number): number
-        /**
-         * Returns the name of a [class@EnumValueObject].
-         *
-         * This is a default implementation of [callback@ComboRowGetEnumValueNameFunc]
-         * to be used with [method@ComboRow.set_for_enum]. If the enumeration has a
-         * nickname, it will return it, otherwise it will return its name.
-         * @since 1.0
-         * @param value the value from the enum from which to get a name
-         * @param user_data unused user data
-         * @returns a displayable name that represents `value`
-         */
-        function enum_value_row_name(value: EnumValueObject, user_data: never | null): string
-        /**
-         * Checks whether animations are enabled for @widget.
-         *
-         * This should be used when implementing an animated widget to know whether to
-         * animate it or not.
-         * @since 1.0
-         * @param widget a widget
-         * @returns whether animations are enabled for `widget`
-         */
-        function get_enable_animations(widget: Gtk.Widget): boolean
-        /**
-         * Initializes Libhandy.
-         *
-         * Call this function just after initializing GTK, if you are using
-         * [class@Gtk.Application] it means it must be called when the
-         * [signal@Gio.Application::startup] signal is emitted.
-         *
-         * If Libhandy has already been initialized, the function will simply return.
-         *
-         * This makes sure translations, types, themes, and icons for the Handy library
-         * are set up properly.
-         * @since 1.0
-         */
-        function init(): void
+        interface $Exports {
+            /**
+             * A bin that acts like a titlebar.
+             *
+             * `HdyWindowHandle` is a [class@Gtk.Bin] subclass that can be dragged to move
+             * its [class@Gtk.Window], and handles right click, middle click and double
+             * click as expected from a titlebar. This is particularly useful with
+             * [class@Window] or [class@ApplicationWindow].
+             *
+             * It isn't necessary to use `HdyWindowHandle` if you use [class@HeaderBar].
+             *
+             * It can be safely nested or used in the actual window titlebar.
+             *
+             * ## CSS nodes
+             *
+             * `HdyWindowHandle` has a single CSS node with name `windowhandle`.
+             * @since 1.0
+             */
+            WindowHandle: WindowHandleClass
+        }
         
-        namespace CenteringPolicy {
-            const $gtype: GObject.GType<CenteringPolicy>
+
+        namespace Swipeable {
+            interface SignalSignatures extends Gtk.Widget.SignalSignatures {
+                /**
+                 * Emitted when the widget's visible child is changed.
+                 *
+                 * @duration can be 0 if the child is switched without animation.
+                 *
+                 * This is used by [class@SwipeGroup], applications should not connect to it.
+                 * @since 1.0
+                 * @param index the index of the child to switch to
+                 * @param duration animation duration, in milliseconds
+                 */
+                "child-switched"(index: number, duration: number): void
+            }
+
+            interface ReadableProperties extends Gtk.Widget.ReadableProperties {
+            }
+
+            interface WritableProperties extends Gtk.Widget.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties {
+            }
+
+            interface Interface extends Gtk.Widget {
+                /**
+                 * Gets the progress @self will snap back to after the gesture is canceled.
+                 * @since 1.0
+                 * @returns the cancel progress, unitless
+                 */
+                vfunc_get_cancel_progress(): number
+                /**
+                 * Gets the swipe distance of @self.
+                 *
+                 * This corresponds to how many pixels 1 unit represents.
+                 * @since 1.0
+                 * @returns the swipe distance in pixels
+                 */
+                vfunc_get_distance(): number
+                /**
+                 * Gets the current progress of @self.
+                 * @since 1.0
+                 * @returns the current progress, unitless
+                 */
+                vfunc_get_progress(): number
+                /**
+                 * Gets the snap points of @self.
+                 *
+                 * Each snap point represents a progress value that is considered acceptable to
+                 * end the swipe on.
+                 * @since 1.0
+                 * @returns the snap points
+                 */
+                vfunc_get_snap_points(): number[]
+                /**
+                 * Gets the area @self can start a swipe from for the given direction and
+                 * gesture type.
+                 *
+                 * This can be used to restrict swipes to only be possible from a certain area,
+                 * for example, to only allow edge swipes, or to have a draggable element and
+                 * ignore swipes elsewhere.
+                 *
+                 * Swipe area is only considered for direct swipes (as in, not initiated by
+                 * [class@SwipeGroup]).
+                 *
+                 * If not implemented, the default implementation returns the allocation of
+                 * @self, allowing swipes from anywhere.
+                 * @since 1.0
+                 * @param navigation_direction the direction of the swipe
+                 * @param is_drag whether the swipe is caused by a dragging gesture
+                 * @returns , a pointer to a rectangle to store the swipe area
+                 */
+                vfunc_get_swipe_area(navigation_direction: NavigationDirection, is_drag: boolean): Gdk.Rectangle
+                /**
+                 * Gets the [class@SwipeTracker] used by this swipeable widget.
+                 * @since 1.0
+                 * @returns the swipe tracker
+                 */
+                vfunc_get_swipe_tracker(): SwipeTracker
+                /**
+                 * Switches to child with index @index.
+                 *
+                 * See [signal@Swipeable::child-switched].
+                 * @since 1.0
+                 * @param index the index of the child to switch to
+                 * @param duration animation duration, in milliseconds
+                 */
+                vfunc_switch_child(index: number, duration: number): void
+            }
         }
 
-        /**
-         * Describes title centering behavior of a [class@HeaderBar] widget.
-         * @since 1.0
-         */
-        enum CenteringPolicy {
+        interface Swipeable extends Gtk.Widget, Swipeable.Interface {
+            readonly $signals: Swipeable.SignalSignatures
+            readonly $readableProperties: Swipeable.ReadableProperties
+            readonly $writableProperties: Swipeable.WritableProperties
+            readonly $constructOnlyProperties: Swipeable.ConstructOnlyProperties
+            /**
+             * Emits [signal@Swipeable::child-switched] signal.
+             *
+             * This should be called when the widget switches visible child widget.
+             *
+             * @duration can be 0 if the child is switched without animation.
+             * @since 1.0
+             * @param index the index of the child to switch to
+             * @param duration animation duration, in milliseconds
+             */
+            emit_child_switched(index: number, duration: number): void
+            /**
+             * Gets the progress @self will snap back to after the gesture is canceled.
+             * @since 1.0
+             * @returns the cancel progress, unitless
+             */
+            get_cancel_progress(): number
+            /**
+             * Gets the swipe distance of @self.
+             *
+             * This corresponds to how many pixels 1 unit represents.
+             * @since 1.0
+             * @returns the swipe distance in pixels
+             */
+            get_distance(): number
+            /**
+             * Gets the current progress of @self.
+             * @since 1.0
+             * @returns the current progress, unitless
+             */
+            get_progress(): number
+            /**
+             * Gets the snap points of @self.
+             *
+             * Each snap point represents a progress value that is considered acceptable to
+             * end the swipe on.
+             * @since 1.0
+             * @returns the snap points
+             */
+            get_snap_points(): number[]
+            /**
+             * Gets the area @self can start a swipe from for the given direction and
+             * gesture type.
+             *
+             * This can be used to restrict swipes to only be possible from a certain area,
+             * for example, to only allow edge swipes, or to have a draggable element and
+             * ignore swipes elsewhere.
+             *
+             * Swipe area is only considered for direct swipes (as in, not initiated by
+             * [class@SwipeGroup]).
+             *
+             * If not implemented, the default implementation returns the allocation of
+             * @self, allowing swipes from anywhere.
+             * @since 1.0
+             * @param navigation_direction the direction of the swipe
+             * @param is_drag whether the swipe is caused by a dragging gesture
+             * @returns , a pointer to a rectangle to store the swipe area
+             */
+            get_swipe_area(navigation_direction: NavigationDirection, is_drag: boolean): Gdk.Rectangle
+            /**
+             * Gets the [class@SwipeTracker] used by this swipeable widget.
+             * @since 1.0
+             * @returns the swipe tracker
+             */
+            get_swipe_tracker(): SwipeTracker
+            /**
+             * Switches to child with index @index.
+             *
+             * See [signal@Swipeable::child-switched].
+             * @since 1.0
+             * @param index the index of the child to switch to
+             * @param duration animation duration, in milliseconds
+             */
+            switch_child(index: number, duration: number): void
+        }
+
+        interface SwipeableInterface {
+            readonly $gtype: GObject.GType<Swipeable>
+            readonly prototype: Swipeable
+            [Symbol.hasInstance](instance: unknown): instance is Swipeable
+        }
+
+        interface $Exports {
+            /**
+             * An interface for swipeable widgets.
+             *
+             * The `HdySwipeable` interface is implemented by all swipeable widgets. They
+             * can be synced using [class@SwipeGroup].
+             *
+             * See [class@SwipeTracker] for details about implementing it.
+             * @since 1.0
+             */
+            Swipeable: SwipeableInterface
+        }
+        
+        interface CenteringPolicyEnum {
+            readonly $gtype: GObject.GType<CenteringPolicy>
             /**
              * Keep the title centered when possible
              */
-            "LOOSE" = 0,
+            readonly "LOOSE": 0
             /**
              * Keep the title centered at all cost
              */
-            "STRICT" = 1,
+            readonly "STRICT": 1
+        }
+        type CenteringPolicy = CenteringPolicyEnum[Exclude<keyof CenteringPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes title centering behavior of a [class@HeaderBar] widget.
+             * @since 1.0
+             */
+            CenteringPolicy: CenteringPolicyEnum
         }
         
-        namespace ColorScheme {
-            const $gtype: GObject.GType<ColorScheme>
-        }
-
-        /**
-         * Application color schemes for [property@StyleManager:color-scheme].
-         * @since 1.6
-         */
-        enum ColorScheme {
+        interface ColorSchemeEnum {
+            readonly $gtype: GObject.GType<ColorScheme>
             /**
              * Inherit the parent color-scheme. When set on the
              *   [class@StyleManager] returned by [func@StyleManager.get_default], it's
              *   equivalent to `HDY_COLOR_SCHEME_FORCE_LIGHT`.
              */
-            "DEFAULT" = 0,
+            readonly "DEFAULT": 0
             /**
              * Always use light appearance.
              */
-            "FORCE_LIGHT" = 1,
+            readonly "FORCE_LIGHT": 1
             /**
              * Use light appearance unless the system
              *   prefers dark colors.
              */
-            "PREFER_LIGHT" = 2,
+            readonly "PREFER_LIGHT": 2
             /**
              * Use dark appearance unless the system prefers
              *   light colors.
              */
-            "PREFER_DARK" = 3,
+            readonly "PREFER_DARK": 3
             /**
              * Always use dark appearance.
              */
-            "FORCE_DARK" = 4,
+            readonly "FORCE_DARK": 4
+        }
+        type ColorScheme = ColorSchemeEnum[Exclude<keyof ColorSchemeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Application color schemes for [property@StyleManager:color-scheme].
+             * @since 1.6
+             */
+            ColorScheme: ColorSchemeEnum
         }
         
-        namespace DeckTransitionType {
-            const $gtype: GObject.GType<DeckTransitionType>
-        }
-
-        /**
-         * Describes the possible transitions in a [class@Deck] widget.
-         *
-         * New values may be added to this enumeration over time.
-         * @since 1.0
-         */
-        enum DeckTransitionType {
+        interface DeckTransitionTypeEnum {
+            readonly $gtype: GObject.GType<DeckTransitionType>
             /**
              * Cover the old page or uncover the new page,
              *   sliding from or towards the end according to orientation, text direction
              *   and children order
              */
-            "OVER" = 0,
+            readonly "OVER": 0
             /**
              * Uncover the new page or cover the old page,
              *   sliding from or towards the start according to orientation, text direction
              *   and children order
              */
-            "UNDER" = 1,
+            readonly "UNDER": 1
             /**
              * Slide from left, right, up or down according
              *   to the orientation, text direction and the children order
              */
-            "SLIDE" = 2,
+            readonly "SLIDE": 2
+        }
+        type DeckTransitionType = DeckTransitionTypeEnum[Exclude<keyof DeckTransitionTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the possible transitions in a [class@Deck] widget.
+             *
+             * New values may be added to this enumeration over time.
+             * @since 1.0
+             */
+            DeckTransitionType: DeckTransitionTypeEnum
         }
         
-        namespace FlapFoldPolicy {
-            const $gtype: GObject.GType<FlapFoldPolicy>
-        }
-
-        /**
-         * Describes the possible folding behavior of a [class@Flap] widget.
-         * @since 1.2
-         */
-        enum FlapFoldPolicy {
+        interface FlapFoldPolicyEnum {
+            readonly $gtype: GObject.GType<FlapFoldPolicy>
             /**
              * Disable folding, the flap cannot reach narrow
              *   sizes.
              */
-            "NEVER" = 0,
+            readonly "NEVER": 0
             /**
              * Keep the flap always folded.
              */
-            "ALWAYS" = 1,
+            readonly "ALWAYS": 1
             /**
              * Fold and unfold the flap based on available
              *   space.
              */
-            "AUTO" = 2,
+            readonly "AUTO": 2
+        }
+        type FlapFoldPolicy = FlapFoldPolicyEnum[Exclude<keyof FlapFoldPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the possible folding behavior of a [class@Flap] widget.
+             * @since 1.2
+             */
+            FlapFoldPolicy: FlapFoldPolicyEnum
         }
         
-        namespace FlapTransitionType {
-            const $gtype: GObject.GType<FlapTransitionType>
-        }
-
-        /**
-         * Describes transitions types of a [class@Flap] widget.
-         *
-         * These enumeration values describe the possible transitions between children
-         * in a [class@Flap] widget, as well as which areas can be swiped via
-         * [property@Flap:swipe-to-open] and [property@Flap:swipe-to-close].
-         *
-         * New values may be added to this enum over time.
-         * @since 1.2
-         */
-        enum FlapTransitionType {
+        interface FlapTransitionTypeEnum {
+            readonly $gtype: GObject.GType<FlapTransitionType>
             /**
              * The flap slides over the content, which is
              *   dimmed. When folded, only the flap can be swiped.
              */
-            "OVER" = 0,
+            readonly "OVER": 0
             /**
              * The content slides over the flap. Only the
              *   content can be swiped.
              */
-            "UNDER" = 1,
+            readonly "UNDER": 1
             /**
              * The flap slides offscreen when hidden,
              *   neither the flap nor content overlap each other. Both widgets can be
              *   swiped.
              */
-            "SLIDE" = 2,
+            readonly "SLIDE": 2
+        }
+        type FlapTransitionType = FlapTransitionTypeEnum[Exclude<keyof FlapTransitionTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes transitions types of a [class@Flap] widget.
+             *
+             * These enumeration values describe the possible transitions between children
+             * in a [class@Flap] widget, as well as which areas can be swiped via
+             * [property@Flap:swipe-to-open] and [property@Flap:swipe-to-close].
+             *
+             * New values may be added to this enum over time.
+             * @since 1.2
+             */
+            FlapTransitionType: FlapTransitionTypeEnum
         }
         
-        namespace HeaderGroupChildType {
-            const $gtype: GObject.GType<HeaderGroupChildType>
-        }
-
-        /**
-         * Describes the child types handled by [class@HeaderGroup].
-         *
-         * New values may be added to this enumeration over time.
-         * @since 1.0
-         */
-        enum HeaderGroupChildType {
+        interface HeaderGroupChildTypeEnum {
+            readonly $gtype: GObject.GType<HeaderGroupChildType>
             /**
              * The child is a [class@HeaderBar]
              */
-            "HEADER_BAR" = 0,
+            readonly "HEADER_BAR": 0
             /**
              * The child is a
              *   [class@Gtk.HeaderBar]
              */
-            "GTK_HEADER_BAR" = 1,
+            readonly "GTK_HEADER_BAR": 1
             /**
              * The child is a
              *   [class@HeaderGroup]
              */
-            "HEADER_GROUP" = 2,
+            readonly "HEADER_GROUP": 2
+        }
+        type HeaderGroupChildType = HeaderGroupChildTypeEnum[Exclude<keyof HeaderGroupChildTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the child types handled by [class@HeaderGroup].
+             *
+             * New values may be added to this enumeration over time.
+             * @since 1.0
+             */
+            HeaderGroupChildType: HeaderGroupChildTypeEnum
         }
         
-        namespace LeafletTransitionType {
-            const $gtype: GObject.GType<LeafletTransitionType>
-        }
-
-        /**
-         * Describes the possible transitions in a [class@Leaflet] widget.
-         *
-         * New values may be added to this enumeration over time.
-         * @since 1.0
-         */
-        enum LeafletTransitionType {
+        interface LeafletTransitionTypeEnum {
+            readonly $gtype: GObject.GType<LeafletTransitionType>
             /**
              * Cover the old page or uncover the new
              *   page, sliding from or towards the end according to orientation, text
              *   direction and children order
              */
-            "OVER" = 0,
+            readonly "OVER": 0
             /**
              * Uncover the new page or cover the old
              *   page, sliding from or towards the start according to orientation, text
              *   direction and children order
              */
-            "UNDER" = 1,
+            readonly "UNDER": 1
             /**
              * Slide from left, right, up or down
              *   according to the orientation, text direction and the children order
              */
-            "SLIDE" = 2,
+            readonly "SLIDE": 2
+        }
+        type LeafletTransitionType = LeafletTransitionTypeEnum[Exclude<keyof LeafletTransitionTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the possible transitions in a [class@Leaflet] widget.
+             *
+             * New values may be added to this enumeration over time.
+             * @since 1.0
+             */
+            LeafletTransitionType: LeafletTransitionTypeEnum
         }
         
-        namespace NavigationDirection {
-            const $gtype: GObject.GType<NavigationDirection>
-        }
-
-        /**
-         * Describes the direction of a swipe navigation gesture.
-         * @since 1.0
-         */
-        enum NavigationDirection {
+        interface NavigationDirectionEnum {
+            readonly $gtype: GObject.GType<NavigationDirection>
             /**
              * Corresponds to start or top, depending on
              *   orientation and text direction
              */
-            "BACK" = 0,
+            readonly "BACK": 0
             /**
              * Corresponds to end or bottom, depending on
              *   orientation and text direction
              */
-            "FORWARD" = 1,
+            readonly "FORWARD": 1
+        }
+        type NavigationDirection = NavigationDirectionEnum[Exclude<keyof NavigationDirectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the direction of a swipe navigation gesture.
+             * @since 1.0
+             */
+            NavigationDirection: NavigationDirectionEnum
         }
         
-        namespace SqueezerTransitionType {
-            const $gtype: GObject.GType<SqueezerTransitionType>
-        }
-
-        /**
-         * Describes the possible transitions in a [class@Squeezer] widget.
-         * @since 1.0
-         */
-        enum SqueezerTransitionType {
+        interface SqueezerTransitionTypeEnum {
+            readonly $gtype: GObject.GType<SqueezerTransitionType>
             /**
              * No transition
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * A cross-fade
              */
-            "CROSSFADE" = 1,
+            readonly "CROSSFADE": 1
+        }
+        type SqueezerTransitionType = SqueezerTransitionTypeEnum[Exclude<keyof SqueezerTransitionTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the possible transitions in a [class@Squeezer] widget.
+             * @since 1.0
+             */
+            SqueezerTransitionType: SqueezerTransitionTypeEnum
         }
         
-        namespace ViewSwitcherPolicy {
-            const $gtype: GObject.GType<ViewSwitcherPolicy>
-        }
-
-        /**
-         * Describes the adaptive modes of [class@ViewSwitcher].
-         * @since 1.0
-         */
-        enum ViewSwitcherPolicy {
+        interface ViewSwitcherPolicyEnum {
+            readonly $gtype: GObject.GType<ViewSwitcherPolicy>
             /**
              * Automatically adapt to the best fitting mode
              */
-            "AUTO" = 0,
+            readonly "AUTO": 0
             /**
              * Force the narrow mode
              */
-            "NARROW" = 1,
+            readonly "NARROW": 1
             /**
              * Force the wide mode
              */
-            "WIDE" = 2,
+            readonly "WIDE": 2
+        }
+        type ViewSwitcherPolicy = ViewSwitcherPolicyEnum[Exclude<keyof ViewSwitcherPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the adaptive modes of [class@ViewSwitcher].
+             * @since 1.0
+             */
+            ViewSwitcherPolicy: ViewSwitcherPolicyEnum
         }
         /**
          * Callback for loading an [class@Avatar]'s image.
@@ -7180,7 +7489,56 @@ declare module "gi://Handy?version=1" {
          * @returns a displayable name that represents `item`
          */
         type ComboRowGetNameFunc = (item: GObject.Object) => string
+
+        interface $Exports {
+            __name__: "Handy"
+            __version: "1"
+            /**
+             * Computes the ease out for a value.
+             * @since 1.0
+             * @param t the term
+             * @returns the ease out for `t`
+             */
+            ease_out_cubic(t: number): number
+            /**
+             * Returns the name of a [class@EnumValueObject].
+             *
+             * This is a default implementation of [callback@ComboRowGetEnumValueNameFunc]
+             * to be used with [method@ComboRow.set_for_enum]. If the enumeration has a
+             * nickname, it will return it, otherwise it will return its name.
+             * @since 1.0
+             * @param value the value from the enum from which to get a name
+             * @param user_data unused user data
+             * @returns a displayable name that represents `value`
+             */
+            enum_value_row_name(value: EnumValueObject, user_data: never | null): string
+            /**
+             * Checks whether animations are enabled for @widget.
+             *
+             * This should be used when implementing an animated widget to know whether to
+             * animate it or not.
+             * @since 1.0
+             * @param widget a widget
+             * @returns whether animations are enabled for `widget`
+             */
+            get_enable_animations(widget: Gtk.Widget): boolean
+            /**
+             * Initializes Libhandy.
+             *
+             * Call this function just after initializing GTK, if you are using
+             * [class@Gtk.Application] it means it must be called when the
+             * [signal@Gio.Application::startup] signal is emitted.
+             *
+             * If Libhandy has already been initialized, the function will simply return.
+             *
+             * This makes sure translations, types, themes, and icons for the Handy library
+             * are set up properly.
+             * @since 1.0
+             */
+            init(): void
+        }
     }
 
+    const Handy: Handy.$Exports
     export default Handy
 }

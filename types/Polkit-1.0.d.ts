@@ -16,236 +16,7 @@ declare module "gi://Polkit?version=1.0" {
 
     
 
-
     namespace Polkit {
-        const __name__: "Polkit"
-        const __version: "1.0"
-        
-
-        namespace Identity {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * Checks if @a and @b are equal, ie. represent the same identity.
-                 *
-                 * This function can be used in e.g. g_hash_table_new().
-                 * @param b A #PolkitIdentity.
-                 * @returns %TRUE if `a` and `b` are equal, %FALSE otherwise.
-                 */
-                vfunc_equal(b: Identity): boolean
-                /**
-                 * Gets a hash code for @identity that can be used with e.g. g_hash_table_new().
-                 * @returns A hash code.
-                 */
-                vfunc_hash(): number
-                /**
-                 * Serializes @identity to a string that can be used in
-                 * polkit_identity_from_string().
-                 * @returns A string representing `identity`. Free with g_free().
-                 */
-                vfunc_to_string(): string
-            }
-        }
-
-        /**
-         * #PolkitIdentity is an abstract type for representing one or more
-         * identities.
-         */
-        interface Identity extends Identity.Interface {
-            readonly $signals: Identity.SignalSignatures
-            readonly $readableProperties: Identity.ReadableProperties
-            readonly $writableProperties: Identity.WritableProperties
-            readonly $constructOnlyProperties: Identity.ConstructOnlyProperties
-            /**
-             * Checks if @a and @b are equal, ie. represent the same identity.
-             *
-             * This function can be used in e.g. g_hash_table_new().
-             * @param b A #PolkitIdentity.
-             * @returns %TRUE if `a` and `b` are equal, %FALSE otherwise.
-             */
-            equal(b: Identity): boolean
-            /**
-             * Gets a hash code for @identity that can be used with e.g. g_hash_table_new().
-             * @returns A hash code.
-             */
-            hash(): number
-            /**
-             * Serializes @identity to a string that can be used in
-             * polkit_identity_from_string().
-             * @returns A string representing `identity`. Free with g_free().
-             */
-            to_string(): string
-        }
-
-
-        interface IdentityIface {
-            readonly $gtype: GObject.GType<Identity>
-            readonly prototype: Identity
-            /**
-             * Creates an object from @str that implements the #PolkitIdentity
-             * interface.
-             * @throws {GLib.Error}
-             * @param str A string obtained from polkit_identity_to_string().
-             * @returns A #PolkitIdentity or %NULL if `error` is set. Free with g_object_unref().
-             */
-            from_string(str: string): Identity | null
-
-            [Symbol.hasInstance](instance: unknown): instance is Identity
-        }
-
-        const Identity: IdentityIface
-        
-
-        namespace Subject {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * Checks if @a and @b are equal, ie. represent the same subject.
-                 * However, avoid calling polkit_subject_equal() to compare two processes;
-                 * for more information see the `PolkitUnixProcess` documentation.
-                 *
-                 * This function can be used in e.g. g_hash_table_new().
-                 * @param b A #PolkitSubject.
-                 * @returns %TRUE if `a` and `b` are equal, %FALSE otherwise.
-                 */
-                vfunc_equal(b: Subject): boolean
-                /**
-                 *  of the thread you are calling this method
-                 * from. You can then call polkit_subject_exists_finish() to get the
-                 * result of the operation.
-                 * @param cancellable A #GCancellable or %NULL.
-                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 */
-                vfunc_exists(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-                /**
-                 * Finishes checking whether a subject exists.
-                 * @throws {GLib.Error}
-                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to polkit_subject_exists().
-                 * @returns %TRUE if the subject exists, %FALSE if not or `error` is set.
-                 */
-                vfunc_exists_finish(res: Gio.AsyncResult): boolean
-                /**
-                 * Checks if @subject exists.
-                 *
-                 * This is a synchronous blocking call - the calling thread is blocked
-                 * until a reply is received. See polkit_subject_exists() for the
-                 * asynchronous version.
-                 * @throws {GLib.Error}
-                 * @param cancellable A #GCancellable or %NULL.
-                 * @returns %TRUE if the subject exists, %FALSE if not or `error` is set.
-                 */
-                vfunc_exists_sync(cancellable: Gio.Cancellable | null): boolean
-                /**
-                 * Gets a hash code for @subject that can be used with e.g. g_hash_table_new().
-                 * @returns A hash code.
-                 */
-                vfunc_hash(): number
-                /**
-                 * Serializes @subject to a string that can be used in
-                 * polkit_subject_from_string().
-                 * @returns A string representing `subject`. Free with g_free().
-                 */
-                vfunc_to_string(): string
-            }
-        }
-
-        /**
-         * #PolkitSubject is an abstract type for representing one or more
-         * processes.
-         */
-        interface Subject extends Subject.Interface {
-            readonly $signals: Subject.SignalSignatures
-            readonly $readableProperties: Subject.ReadableProperties
-            readonly $writableProperties: Subject.WritableProperties
-            readonly $constructOnlyProperties: Subject.ConstructOnlyProperties
-            /**
-             * Checks if @a and @b are equal, ie. represent the same subject.
-             * However, avoid calling polkit_subject_equal() to compare two processes;
-             * for more information see the `PolkitUnixProcess` documentation.
-             *
-             * This function can be used in e.g. g_hash_table_new().
-             * @param b A #PolkitSubject.
-             * @returns %TRUE if `a` and `b` are equal, %FALSE otherwise.
-             */
-            equal(b: Subject): boolean
-            /**
-             *  of the thread you are calling this method
-             * from. You can then call polkit_subject_exists_finish() to get the
-             * result of the operation.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-             */
-            exists(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes checking whether a subject exists.
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to polkit_subject_exists().
-             * @returns %TRUE if the subject exists, %FALSE if not or `error` is set.
-             */
-            exists_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Checks if @subject exists.
-             *
-             * This is a synchronous blocking call - the calling thread is blocked
-             * until a reply is received. See polkit_subject_exists() for the
-             * asynchronous version.
-             * @throws {GLib.Error}
-             * @param cancellable A #GCancellable or %NULL.
-             * @returns %TRUE if the subject exists, %FALSE if not or `error` is set.
-             */
-            exists_sync(cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Gets a hash code for @subject that can be used with e.g. g_hash_table_new().
-             * @returns A hash code.
-             */
-            hash(): number
-            /**
-             * Serializes @subject to a string that can be used in
-             * polkit_subject_from_string().
-             * @returns A string representing `subject`. Free with g_free().
-             */
-            to_string(): string
-        }
-
-
-        interface SubjectIface {
-            readonly $gtype: GObject.GType<Subject>
-            readonly prototype: Subject
-            /**
-             * Creates an object from @str that implements the #PolkitSubject
-             * interface.
-             * @throws {GLib.Error}
-             * @param str A string obtained from polkit_subject_to_string().
-             * @returns A #PolkitSubject or %NULL if `error` is set. Free with g_object_unref().
-             */
-            from_string(str: string): Subject
-
-            [Symbol.hasInstance](instance: unknown): instance is Subject
-        }
-
-        const Subject: SubjectIface
         
 
         namespace ActionDescription {
@@ -262,9 +33,6 @@ declare module "gi://Polkit?version=1.0" {
             }
         }
 
-        /**
-         * Object used to encapsulate a registered action.
-         */
         interface ActionDescription extends GObject.Object {
             readonly $signals: ActionDescription.SignalSignatures
             readonly $readableProperties: ActionDescription.ReadableProperties
@@ -334,10 +102,16 @@ declare module "gi://Polkit?version=1.0" {
         interface ActionDescriptionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ActionDescription>
             readonly prototype: ActionDescription
+
             new (props?: Partial<GObject.ConstructorProps<ActionDescription>>): ActionDescription
         }
 
-        const ActionDescription: ActionDescriptionClass
+        interface $Exports {
+            /**
+             * Object used to encapsulate a registered action.
+             */
+            ActionDescription: ActionDescriptionClass
+        }
         
 
         namespace Authority {
@@ -370,18 +144,6 @@ declare module "gi://Polkit?version=1.0" {
             }
         }
 
-        /**
-         * #PolkitAuthority is used for checking whether a given subject is
-         * authorized to perform a given action. Typically privileged system
-         * daemons or suid helpers will use this when handling requests from
-         * untrusted clients.
-         *
-         * User sessions can register an authentication agent with the
-         * authority. This is used for requests from untrusted clients where
-         * system policy requires that the user needs to acknowledge (through
-         * proving he is the user or the administrator) a given action. See
-         * #PolkitAgentListener and #PolkitAgentSession for details.
-         */
         interface Authority extends GObject.Object, Gio.AsyncInitable, Gio.Initable {
             readonly $signals: Authority.SignalSignatures
             readonly $readableProperties: Authority.ReadableProperties
@@ -413,7 +175,15 @@ declare module "gi://Polkit?version=1.0" {
             get owner(): string | null
             set owner(value: string | null)
             /**
-             *  of the thread you are calling this method
+             * Asynchronously provide response that @identity successfully authenticated
+             * for the authentication request identified by @cookie.
+             *
+             * This function is only used by the privileged bits of an authentication agent.
+             * It will fail if the caller is not sufficiently privileged (typically uid 0).
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
              * from. You can then call
              * polkit_authority_authentication_agent_response_finish() to get the
              * result of the operation.
@@ -446,7 +216,16 @@ declare module "gi://Polkit?version=1.0" {
              */
             authentication_agent_response_sync(cookie: string, identity: Identity, cancellable: Gio.Cancellable | null): boolean
             /**
-             *  of the thread you are calling this method
+             * Asynchronously provide response that @identity successfully authenticated
+             * for the authentication request identified by @cookie as requested by @subject.
+             *
+             * This function is only used by the socket-activated agent helper, running as uiid
+             * 0, and will fail otherwise. The requesting process is identified via @subject
+             * which will contain a PID FD identifying the process.
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
              * from. You can then call
              * polkit_authority_authentication_agent_response_finish() to get the
              * result of the operation.
@@ -474,7 +253,26 @@ declare module "gi://Polkit?version=1.0" {
              */
             authentication_agent_response_with_subject_sync(cookie: string, identity: Identity, subject: Subject, cancellable: Gio.Cancellable | null): boolean
             /**
-             *  for more details.
+             * Asynchronously checks if @subject is authorized to perform the action represented
+             * by @action_id.
+             *
+             * Note that %POLKIT_CHECK_AUTHORIZATION_FLAGS_ALLOW_USER_INTERACTION
+             * <emphasis>SHOULD</emphasis> be passed <emphasis>ONLY</emphasis> if
+             * the event that triggered the authorization check is stemming from
+             * an user action, e.g. the user pressing a button or attaching a
+             * device.
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_check_authorization_finish() to get the result of
+             * the operation.
+             *
+             * Known keys in @details include <literal>polkit.message</literal>
+             * and <literal>polkit.gettext_domain</literal> that can be used to
+             * override the message shown to the user. See the documentation for
+             * the <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.CheckAuthorization">D-Bus method</link> for more details.
              *
              * If @details is non-empty then the request will fail with
              * #POLKIT_ERROR_FAILED unless the process doing the check itself is
@@ -495,7 +293,27 @@ declare module "gi://Polkit?version=1.0" {
              */
             check_authorization_finish(res: Gio.AsyncResult): AuthorizationResult
             /**
-             *  for more details.
+             * Checks if @subject is authorized to perform the action represented
+             * by @action_id.
+             *
+             * Note that %POLKIT_CHECK_AUTHORIZATION_FLAGS_ALLOW_USER_INTERACTION
+             * <emphasis>SHOULD</emphasis> be passed <emphasis>ONLY</emphasis> if
+             * the event that triggered the authorization check is stemming from
+             * an user action, e.g. the user pressing a button or attaching a
+             * device.
+             *
+             * Note the calling thread is blocked until a reply is received. You
+             * should therefore <emphasis>NEVER</emphasis> do this from a GUI
+             * thread or a daemon service thread when using the
+             * %POLKIT_CHECK_AUTHORIZATION_FLAGS_ALLOW_USER_INTERACTION flag. This
+             * is because it may potentially take minutes (or even hours) for the
+             * operation to complete because it involves waiting for the user to
+             * authenticate.
+             *
+             * Known keys in @details include <literal>polkit.message</literal>
+             * and <literal>polkit.gettext_domain</literal> that can be used to
+             * override the message shown to the user. See the documentation for
+             * the <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.CheckAuthorization">D-Bus method</link> for more details.
              * @throws {GLib.Error}
              * @param subject A #PolkitSubject.
              * @param action_id The action to check for.
@@ -506,7 +324,11 @@ declare module "gi://Polkit?version=1.0" {
              */
             check_authorization_sync(subject: Subject, action_id: string, details: Details | null, flags: CheckAuthorizationFlags, cancellable: Gio.Cancellable | null): AuthorizationResult
             /**
-             *  of the thread you are calling this method
+             * Asynchronously retrieves all registered actions.
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
              * from. You can then call polkit_authority_enumerate_actions_finish()
              * to get the result of the operation.
              * @param cancellable A #GCancellable or %NULL.
@@ -530,7 +352,11 @@ declare module "gi://Polkit?version=1.0" {
              */
             enumerate_actions_sync(cancellable: Gio.Cancellable | null): ActionDescription[]
             /**
-             *  of the thread you are calling this method
+             * Asynchronously gets all temporary authorizations for @subject.
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
              * from. You can then call
              * polkit_authority_enumerate_temporary_authorizations_finish() to get
              * the result of the operation.
@@ -574,14 +400,23 @@ declare module "gi://Polkit?version=1.0" {
              */
             get_backend_version(): string
             /**
-             *  or %NULL if no-one
+             * The unique name on the system message bus of the owner of the name
+             * <literal>org.freedesktop.PolicyKit1</literal> or %NULL if no-one
              * currently owns the name. You may connect to the #GObject::notify
              * signal to track changes to the #PolkitAuthority:owner property.
              * @returns %NULL or a string that should be freed with g_free().
              */
             get_owner(): string | null
             /**
-             *  of the thread you are calling this method
+             * Asynchronously registers an authentication agent.
+             *
+             * Note that this should be called by the same effective UID which will be
+             * the real UID using the #PolkitAgentSession API or otherwise calling
+             * polkit_authority_authentication_agent_response().
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
              * from. You can then call
              * polkit_authority_register_authentication_agent_finish() to get the
              * result of the operation.
@@ -619,7 +454,15 @@ declare module "gi://Polkit?version=1.0" {
              */
             register_authentication_agent_sync(subject: Subject, locale: string, object_path: string, cancellable: Gio.Cancellable | null): boolean
             /**
-             *  of the thread you are calling this method
+             * Asynchronously registers an authentication agent.
+             *
+             * Note that this should be called by the same effective UID which will be
+             * the real UID using the #PolkitAgentSession API or otherwise calling
+             * polkit_authority_authentication_agent_response().
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
              * from. You can then call
              * polkit_authority_register_authentication_agent_with_options_finish() to get the
              * result of the operation.
@@ -659,7 +502,11 @@ declare module "gi://Polkit?version=1.0" {
              */
             register_authentication_agent_with_options_sync(subject: Subject, locale: string, object_path: string, options: GLib.Variant | null, cancellable: Gio.Cancellable | null): boolean
             /**
-             *  of the thread you are calling this method
+             * Asynchronously revoke a temporary authorization.
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
              * from. You can then call
              * polkit_authority_revoke_temporary_authorization_by_id_finish() to
              * get the result of the operation.
@@ -688,7 +535,11 @@ declare module "gi://Polkit?version=1.0" {
              */
             revoke_temporary_authorization_by_id_sync(id: string, cancellable: Gio.Cancellable | null): boolean
             /**
-             *  of the thread you are calling this method
+             * Asynchronously revokes all temporary authorizations for @subject.
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
              * from. You can then call
              * polkit_authority_revoke_temporary_authorizations_finish() to get
              * the result of the operation.
@@ -717,7 +568,11 @@ declare module "gi://Polkit?version=1.0" {
              */
             revoke_temporary_authorizations_sync(subject: Subject, cancellable: Gio.Cancellable | null): boolean
             /**
-             *  of the thread you are calling this method
+             * Asynchronously unregisters an authentication agent.
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
              * from. You can then call
              * polkit_authority_unregister_authentication_agent_finish() to get
              * the result of the operation.
@@ -751,6 +606,7 @@ declare module "gi://Polkit?version=1.0" {
         interface AuthorityClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Authority>
             readonly prototype: Authority
+
             new (props?: Partial<GObject.ConstructorProps<Authority>>): Authority
             /**
              * (deprecated)
@@ -758,7 +614,12 @@ declare module "gi://Polkit?version=1.0" {
              */
             get(): Authority
             /**
-             *  of the thread you are calling this method from and you
+             * Asynchronously gets a reference to the authority.
+             *
+             * This is an asynchronous failable function. When the result is
+             * ready, @callback will be invoked in the <link
+             * linkend="g-main-context-push-thread-default">thread-default main
+             * loop</link> of the thread you are calling this method from and you
              * can use polkit_authority_get_finish() to get the result. See
              * polkit_authority_get_sync() for the synchronous version.
              * @param cancellable A #GCancellable or %NULL.
@@ -785,7 +646,21 @@ declare module "gi://Polkit?version=1.0" {
             get_sync(cancellable: Gio.Cancellable | null): Authority
         }
 
-        const Authority: AuthorityClass
+        interface $Exports {
+            /**
+             * #PolkitAuthority is used for checking whether a given subject is
+             * authorized to perform a given action. Typically privileged system
+             * daemons or suid helpers will use this when handling requests from
+             * untrusted clients.
+             *
+             * User sessions can register an authentication agent with the
+             * authority. This is used for requests from untrusted clients where
+             * system policy requires that the user needs to acknowledge (through
+             * proving he is the user or the administrator) a given action. See
+             * #PolkitAgentListener and #PolkitAgentSession for details.
+             */
+            Authority: AuthorityClass
+        }
         
 
         namespace AuthorizationResult {
@@ -802,9 +677,6 @@ declare module "gi://Polkit?version=1.0" {
             }
         }
 
-        /**
-         * This class represents the result you get when checking for an authorization.
-         */
         interface AuthorizationResult extends GObject.Object {
             readonly $signals: AuthorizationResult.SignalSignatures
             readonly $readableProperties: AuthorizationResult.ReadableProperties
@@ -816,7 +688,10 @@ declare module "gi://Polkit?version=1.0" {
              */
             get_details(): Details | null
             /**
-             * .
+             * Gets whether the authentication request was dismissed / canceled by the user.
+             *
+             * This method simply reads the value of the key/value pair in @details with the
+             * key <literal>polkit.dismissed</literal>.
              * @since 0.101
              * @returns %TRUE if the authentication request was dismissed, %FALSE otherwise.
              */
@@ -835,12 +710,34 @@ declare module "gi://Polkit?version=1.0" {
              */
             get_is_challenge(): boolean
             /**
-             * .
+             * Gets whether authorization is retained if obtained via authentication. This can only be the case
+             * if @result indicates that the subject can obtain authorization after challenge (cf.
+             * polkit_authorization_result_get_is_challenge()), e.g. when the subject is not already authorized (cf.
+             * polkit_authorization_result_get_is_authorized()).
+             *
+             * If the subject is already authorized, use polkit_authorization_result_get_temporary_authorization_id()
+             * to check if the authorization is temporary.
+             *
+             * This method simply reads the value of the key/value pair in @details with the
+             * key <literal>polkit.retains_authorization_after_challenge</literal>.
              * @returns %TRUE if the authorization is or will be temporary.
              */
             get_retains_authorization(): boolean
             /**
-             * .
+             * Gets the opaque temporary authorization id for @result if @result indicates the
+             * subject is authorized and the authorization is temporary rather than one-shot or
+             * permanent.
+             *
+             * You can use this string together with the result from
+             * polkit_authority_enumerate_temporary_authorizations() to get more details
+             * about the temporary authorization or polkit_authority_revoke_temporary_authorization_by_id()
+             * to revoke the temporary authorization.
+             *
+             * If the subject is not authorized, use polkit_authorization_result_get_retains_authorization()
+             * to check if the authorization will be retained if obtained via authentication.
+             *
+             * This method simply reads the value of the key/value pair in @details with the
+             * key <literal>polkit.temporary_authorization_id</literal>.
              * @returns The opaque temporary authorization id for    `result` or %NULL if not available. Do not free this string, it    is owned by `result`.
              */
             get_temporary_authorization_id(): string | null
@@ -849,6 +746,7 @@ declare module "gi://Polkit?version=1.0" {
         interface AuthorizationResultClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<AuthorizationResult>
             readonly prototype: AuthorizationResult
+
             new (props?: Partial<GObject.ConstructorProps<AuthorizationResult>>): AuthorizationResult
             /**
              * Creates a new #PolkitAuthorizationResult object.
@@ -862,7 +760,12 @@ declare module "gi://Polkit?version=1.0" {
             "new"(is_authorized: boolean, is_challenge: boolean, details: Details | null): AuthorizationResult
         }
 
-        const AuthorizationResult: AuthorizationResultClass
+        interface $Exports {
+            /**
+             * This class represents the result you get when checking for an authorization.
+             */
+            AuthorizationResult: AuthorizationResultClass
+        }
         
 
         namespace Details {
@@ -879,9 +782,6 @@ declare module "gi://Polkit?version=1.0" {
             }
         }
 
-        /**
-         * An object used for passing details around.
-         */
         interface Details extends GObject.Object {
             readonly $signals: Details.SignalSignatures
             readonly $readableProperties: Details.ReadableProperties
@@ -911,6 +811,7 @@ declare module "gi://Polkit?version=1.0" {
         interface DetailsClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Details>
             readonly prototype: Details
+
             new (props?: Partial<GObject.ConstructorProps<Details>>): Details
             /**
              * Creates a new #PolkitDetails object.
@@ -919,7 +820,12 @@ declare module "gi://Polkit?version=1.0" {
             "new"(): Details
         }
 
-        const Details: DetailsClass
+        interface $Exports {
+            /**
+             * An object used for passing details around.
+             */
+            Details: DetailsClass
+        }
         
 
         namespace Permission {
@@ -932,19 +838,14 @@ declare module "gi://Polkit?version=1.0" {
             }
 
             interface WritableProperties extends Gio.Permission.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.Initable.WritableProperties {
-                "action-id": string
-                "subject": Subject
             }
 
             interface ConstructOnlyProperties extends Gio.Permission.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
+                "action-id": string
+                "subject": Subject
             }
         }
 
-        /**
-         * #PolkitPermission is a #GPermission implementation. It can be used
-         * with e.g. #GtkLockButton. See the #GPermission documentation for
-         * more information.
-         */
         interface Permission extends Gio.Permission, Gio.AsyncInitable, Gio.Initable {
             readonly $signals: Permission.SignalSignatures
             readonly $readableProperties: Permission.ReadableProperties
@@ -977,6 +878,7 @@ declare module "gi://Polkit?version=1.0" {
         interface PermissionClass extends Omit<Gio.PermissionClass, "new"> {
             readonly $gtype: GObject.GType<Permission>
             readonly prototype: Permission
+
             new (props?: Partial<GObject.ConstructorProps<Permission>>): Permission
             /**
              * Finishes an operation started with polkit_permission_new().
@@ -984,7 +886,7 @@ declare module "gi://Polkit?version=1.0" {
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to polkit_permission_new().
              * @returns A #GPermission or %NULL if `error` is set.
              */
-            new_finish(res: Gio.AsyncResult): Gio.Permission
+            new_finish(res: Gio.AsyncResult): Permission
             /**
              * Creates a #GPermission instance for the PolicyKit action
              * @action_id.
@@ -997,7 +899,7 @@ declare module "gi://Polkit?version=1.0" {
              * @param cancellable A #GCancellable or %NULL.
              * @returns A #GPermission or %NULL if `error` is set.
              */
-            new_sync(action_id: string, subject: Subject | null, cancellable: Gio.Cancellable | null): Gio.Permission
+            new_sync(action_id: string, subject: Subject | null, cancellable: Gio.Cancellable | null): Permission
             /**
              * Creates a #GPermission instance for the PolicyKit action
              * @action_id.
@@ -1016,7 +918,14 @@ declare module "gi://Polkit?version=1.0" {
             "new"(action_id: string, subject: Subject | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         }
 
-        const Permission: PermissionClass
+        interface $Exports {
+            /**
+             * #PolkitPermission is a #GPermission implementation. It can be used
+             * with e.g. #GtkLockButton. See the #GPermission documentation for
+             * more information.
+             */
+            Permission: PermissionClass
+        }
         
 
         namespace SystemBusName {
@@ -1035,9 +944,6 @@ declare module "gi://Polkit?version=1.0" {
             }
         }
 
-        /**
-         * An object that represents a process owning a unique name on the system bus.
-         */
         interface SystemBusName extends GObject.Object, Subject {
             readonly $signals: SystemBusName.SignalSignatures
             readonly $readableProperties: SystemBusName.ReadableProperties
@@ -1080,6 +986,7 @@ declare module "gi://Polkit?version=1.0" {
         interface SystemBusNameClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SystemBusName>
             readonly prototype: SystemBusName
+
             new (props?: Partial<GObject.ConstructorProps<SystemBusName>>): SystemBusName
             /**
              * Creates a new #PolkitSystemBusName for @name.
@@ -1089,7 +996,12 @@ declare module "gi://Polkit?version=1.0" {
             "new"(name: string): Subject
         }
 
-        const SystemBusName: SystemBusNameClass
+        interface $Exports {
+            /**
+             * An object that represents a process owning a unique name on the system bus.
+             */
+            SystemBusName: SystemBusNameClass
+        }
         
 
         namespace TemporaryAuthorization {
@@ -1106,9 +1018,6 @@ declare module "gi://Polkit?version=1.0" {
             }
         }
 
-        /**
-         * Object used to describe a temporary authorization.
-         */
         interface TemporaryAuthorization extends GObject.Object {
             readonly $signals: TemporaryAuthorization.SignalSignatures
             readonly $readableProperties: TemporaryAuthorization.ReadableProperties
@@ -1150,10 +1059,16 @@ declare module "gi://Polkit?version=1.0" {
         interface TemporaryAuthorizationClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<TemporaryAuthorization>
             readonly prototype: TemporaryAuthorization
+
             new (props?: Partial<GObject.ConstructorProps<TemporaryAuthorization>>): TemporaryAuthorization
         }
 
-        const TemporaryAuthorization: TemporaryAuthorizationClass
+        interface $Exports {
+            /**
+             * Object used to describe a temporary authorization.
+             */
+            TemporaryAuthorization: TemporaryAuthorizationClass
+        }
         
 
         namespace UnixGroup {
@@ -1172,9 +1087,6 @@ declare module "gi://Polkit?version=1.0" {
             }
         }
 
-        /**
-         * An object representing a group identity on a UNIX system.
-         */
         interface UnixGroup extends GObject.Object, Identity {
             readonly $signals: UnixGroup.SignalSignatures
             readonly $readableProperties: UnixGroup.ReadableProperties
@@ -1201,6 +1113,7 @@ declare module "gi://Polkit?version=1.0" {
         interface UnixGroupClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<UnixGroup>
             readonly prototype: UnixGroup
+
             new (props?: Partial<GObject.ConstructorProps<UnixGroup>>): UnixGroup
             /**
              * Creates a new #PolkitUnixGroup object for @gid.
@@ -1218,7 +1131,12 @@ declare module "gi://Polkit?version=1.0" {
             new_for_name(name: string): Identity | null
         }
 
-        const UnixGroup: UnixGroupClass
+        interface $Exports {
+            /**
+             * An object representing a group identity on a UNIX system.
+             */
+            UnixGroup: UnixGroupClass
+        }
         
 
         namespace UnixNetgroup {
@@ -1237,9 +1155,6 @@ declare module "gi://Polkit?version=1.0" {
             }
         }
 
-        /**
-         * An object representing a netgroup identity on a UNIX system.
-         */
         interface UnixNetgroup extends GObject.Object, Identity {
             readonly $signals: UnixNetgroup.SignalSignatures
             readonly $readableProperties: UnixNetgroup.ReadableProperties
@@ -1266,6 +1181,7 @@ declare module "gi://Polkit?version=1.0" {
         interface UnixNetgroupClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<UnixNetgroup>
             readonly prototype: UnixNetgroup
+
             new (props?: Partial<GObject.ConstructorProps<UnixNetgroup>>): UnixNetgroup
             /**
              * Creates a new #PolkitUnixNetgroup object for @name.
@@ -1275,7 +1191,12 @@ declare module "gi://Polkit?version=1.0" {
             "new"(name: string): Identity
         }
 
-        const UnixNetgroup: UnixNetgroupClass
+        interface $Exports {
+            /**
+             * An object representing a netgroup identity on a UNIX system.
+             */
+            UnixNetgroup: UnixNetgroupClass
+        }
         
 
         namespace UnixProcess {
@@ -1310,30 +1231,6 @@ declare module "gi://Polkit?version=1.0" {
             }
         }
 
-        /**
-         * An object for representing a UNIX process. In order to be reliable and
-         * race-free, this requires support for PID File Descriptors in the kernel,
-         * dbus-daemon/broker and systemd. With this functionality, we can reliably
-         * track processes without risking PID reuse and race conditions, and compare
-         * them.
-         *
-         * NOTE: If PID FDs are not available, this object will fall back to using
-         * PIDs, and this designed is now known broken; a mechanism to exploit a delay
-         * in start time in the Linux kernel was identified.  Avoid
-         * calling polkit_subject_equal() to compare two processes.
-         *
-         * To uniquely identify processes, both the process id and the start
-         * time of the process (a monotonic increasing value representing the
-         * time since the kernel was started) is used.
-         *
-         * NOTE: This object stores, and provides access to, the real UID of the
-         * process.  That value can change over time (with set*uid*(2) and exec*(2)).
-         * Checks whether an operation is allowed need to take care to use the UID
-         * value as of the time when the operation was made (or, following the open()
-         * privilege check model, when the connection making the operation possible
-         * was initiated).  That is usually done by initializing this with
-         * polkit_unix_process_new_for_owner() with trusted data.
-         */
         interface UnixProcess extends GObject.Object, Subject {
             readonly $signals: UnixProcess.SignalSignatures
             readonly $readableProperties: UnixProcess.ReadableProperties
@@ -1489,9 +1386,13 @@ declare module "gi://Polkit?version=1.0" {
         interface UnixProcessClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<UnixProcess>
             readonly prototype: UnixProcess
+
             new (props?: Partial<GObject.ConstructorProps<UnixProcess>>): UnixProcess
             /**
-             *  filesystem depending on the
+             * Creates a new #PolkitUnixProcess for @pid.
+             *
+             * The uid and start time of the process will be looked up in using
+             * e.g. the <filename>/proc</filename> filesystem depending on the
              * platform in use.
              * @param pid The process id.
              * @returns A #PolkitSubject. Free with g_object_unref().
@@ -1500,13 +1401,16 @@ declare module "gi://Polkit?version=1.0" {
             /**
              * Creates a new #PolkitUnixProcess object for @pid, @start_time and @uid.
              * @param pid The process id.
-             * @param start_time .
-             * @param uid .
+             * @param start_time The start time for @pid or 0 to look it up in e.g. <filename>/proc</filename>.
+             * @param uid The (real, not effective) uid of the owner of @pid or -1 to look it up in e.g. <filename>/proc</filename>.
              * @returns A #PolkitSubject. Free with g_object_unref().
              */
             new_for_owner(pid: number, start_time: number, uid: number): Subject
             /**
-             *  filesystem depending on the platform in
+             * Creates a new #PolkitUnixProcess object for @pid and @start_time.
+             *
+             * The uid of the process will be looked up in using e.g. the
+             * <filename>/proc</filename> filesystem depending on the platform in
              * use.
              * @param pid The process id.
              * @param start_time The start time for @pid.
@@ -1516,14 +1420,40 @@ declare module "gi://Polkit?version=1.0" {
             /**
              * Creates a new #PolkitUnixProcess object for @pidfd and @uid.
              * @param pidfd The process id file descriptor.
-             * @param uid .
+             * @param uid The (real, not effective) uid of the owner of @pid or -1 to look it up in e.g. <filename>/proc</filename>.
              * @param gids The (real, not effective) gids of the owner of @pid or %NULL.
              * @returns A #PolkitSubject. Free with g_object_unref().
              */
             new_pidfd(pidfd: number, uid: number, gids: number[] | null): Subject
         }
 
-        const UnixProcess: UnixProcessClass
+        interface $Exports {
+            /**
+             * An object for representing a UNIX process. In order to be reliable and
+             * race-free, this requires support for PID File Descriptors in the kernel,
+             * dbus-daemon/broker and systemd. With this functionality, we can reliably
+             * track processes without risking PID reuse and race conditions, and compare
+             * them.
+             *
+             * NOTE: If PID FDs are not available, this object will fall back to using
+             * PIDs, and this designed is now known broken; a mechanism to exploit a delay
+             * in start time in the Linux kernel was identified.  Avoid
+             * calling polkit_subject_equal() to compare two processes.
+             *
+             * To uniquely identify processes, both the process id and the start
+             * time of the process (a monotonic increasing value representing the
+             * time since the kernel was started) is used.
+             *
+             * NOTE: This object stores, and provides access to, the real UID of the
+             * process.  That value can change over time (with set*uid*(2) and exec*(2)).
+             * Checks whether an operation is allowed need to take care to use the UID
+             * value as of the time when the operation was made (or, following the open()
+             * privilege check model, when the connection making the operation possible
+             * was initiated).  That is usually done by initializing this with
+             * polkit_unix_process_new_for_owner() with trusted data.
+             */
+            UnixProcess: UnixProcessClass
+        }
         
 
         namespace UnixSession {
@@ -1535,19 +1465,14 @@ declare module "gi://Polkit?version=1.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.Initable.WritableProperties, Subject.WritableProperties {
-                "pid": number
                 "session-id": string
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties, Subject.ConstructOnlyProperties {
+                "pid": number
             }
         }
 
-        /**
-         * An object that represents an user session.
-         *
-         * The session id is an opaque string obtained from ConsoleKit.
-         */
         interface UnixSession extends GObject.Object, Gio.AsyncInitable, Gio.Initable, Subject {
             readonly $signals: UnixSession.SignalSignatures
             readonly $readableProperties: UnixSession.ReadableProperties
@@ -1579,6 +1504,7 @@ declare module "gi://Polkit?version=1.0" {
         interface UnixSessionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<UnixSession>
             readonly prototype: UnixSession
+
             new (props?: Partial<GObject.ConstructorProps<UnixSession>>): UnixSession
             /**
              * Creates a new #PolkitUnixSession for @session_id.
@@ -1587,7 +1513,12 @@ declare module "gi://Polkit?version=1.0" {
              */
             "new"(session_id: string): Subject
             /**
-             *  of the thread you are calling this method
+             * Asynchronously creates a new #PolkitUnixSession object for the
+             * process with process id @pid.
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
              * from. You can then call
              * polkit_unix_session_new_for_process_finish() to get the result of
              * the operation.
@@ -1620,7 +1551,14 @@ declare module "gi://Polkit?version=1.0" {
             new_for_process_sync(pid: number, cancellable: Gio.Cancellable | null): Subject | null
         }
 
-        const UnixSession: UnixSessionClass
+        interface $Exports {
+            /**
+             * An object that represents an user session.
+             *
+             * The session id is an opaque string obtained from ConsoleKit.
+             */
+            UnixSession: UnixSessionClass
+        }
         
 
         namespace UnixUser {
@@ -1639,9 +1577,6 @@ declare module "gi://Polkit?version=1.0" {
             }
         }
 
-        /**
-         * An object representing a user identity on a UNIX system.
-         */
         interface UnixUser extends GObject.Object, Identity {
             readonly $signals: UnixUser.SignalSignatures
             readonly $readableProperties: UnixUser.ReadableProperties
@@ -1673,6 +1608,7 @@ declare module "gi://Polkit?version=1.0" {
         interface UnixUserClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<UnixUser>
             readonly prototype: UnixUser
+
             new (props?: Partial<GObject.ConstructorProps<UnixUser>>): UnixUser
             /**
              * Creates a new #PolkitUnixUser object for @uid.
@@ -1690,162 +1626,408 @@ declare module "gi://Polkit?version=1.0" {
             new_for_name(name: string): Identity | null
         }
 
-        const UnixUser: UnixUserClass
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         */
-        function error_quark(): GLib.Quark
-        /**
-         * Creates an object from @str that implements the #PolkitIdentity
-         * interface.
-         * @throws {GLib.Error}
-         * @param str A string obtained from polkit_identity_to_string().
-         * @returns A #PolkitIdentity or %NULL if `error` is set. Free with g_object_unref().
-         */
-        function identity_from_string(str: string): Identity | null
-        /**
-         * @param string A string
-         * @returns , The location of the resulting deserialization
-         */
-        function implicit_authorization_from_string(string: string): [boolean, ImplicitAuthorization]
-        /**
-         * @param implicit_authorization
-         */
-        function implicit_authorization_to_string(implicit_authorization: ImplicitAuthorization): string
-        /**
-         * Creates an object from @str that implements the #PolkitSubject
-         * interface.
-         * @throws {GLib.Error}
-         * @param str A string obtained from polkit_subject_to_string().
-         * @returns A #PolkitSubject or %NULL if `error` is set. Free with g_object_unref().
-         */
-        function subject_from_string(str: string): Subject
+        interface $Exports {
+            /**
+             * An object representing a user identity on a UNIX system.
+             */
+            UnixUser: UnixUserClass
+        }
         
-        abstract class Error extends GLib.Error {
-            static readonly $gtype: GObject.GType<Error>
+
+        namespace Identity {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * Checks if @a and @b are equal, ie. represent the same identity.
+                 *
+                 * This function can be used in e.g. g_hash_table_new().
+                 * @param b A #PolkitIdentity.
+                 * @returns %TRUE if `a` and `b` are equal, %FALSE otherwise.
+                 */
+                vfunc_equal(b: Identity): boolean
+                /**
+                 * Gets a hash code for @identity that can be used with e.g. g_hash_table_new().
+                 * @returns A hash code.
+                 */
+                vfunc_hash(): number
+                /**
+                 * Serializes @identity to a string that can be used in
+                 * polkit_identity_from_string().
+                 * @returns A string representing `identity`. Free with g_free().
+                 */
+                vfunc_to_string(): string
+            }
+        }
+
+        interface Identity extends GObject.Object, Identity.Interface {
+            readonly $signals: Identity.SignalSignatures
+            readonly $readableProperties: Identity.ReadableProperties
+            readonly $writableProperties: Identity.WritableProperties
+            readonly $constructOnlyProperties: Identity.ConstructOnlyProperties
+            /**
+             * Checks if @a and @b are equal, ie. represent the same identity.
+             *
+             * This function can be used in e.g. g_hash_table_new().
+             * @param b A #PolkitIdentity.
+             * @returns %TRUE if `a` and `b` are equal, %FALSE otherwise.
+             */
+            equal(b: Identity): boolean
+            /**
+             * Gets a hash code for @identity that can be used with e.g. g_hash_table_new().
+             * @returns A hash code.
+             */
+            hash(): number
+            /**
+             * Serializes @identity to a string that can be used in
+             * polkit_identity_from_string().
+             * @returns A string representing `identity`. Free with g_free().
+             */
+            to_string(): string
+        }
+
+        interface IdentityIface {
+            readonly $gtype: GObject.GType<Identity>
+            readonly prototype: Identity
+            [Symbol.hasInstance](instance: unknown): instance is Identity
+            /**
+             * Creates an object from @str that implements the #PolkitIdentity
+             * interface.
+             * @throws {GLib.Error}
+             * @param str A string obtained from polkit_identity_to_string().
+             * @returns A #PolkitIdentity or %NULL if `error` is set. Free with g_object_unref().
+             */
+            from_string(str: string): Identity | null
+        }
+
+        interface $Exports {
+            /**
+             * #PolkitIdentity is an abstract type for representing one or more
+             * identities.
+             */
+            Identity: IdentityIface
+        }
+        
+
+        namespace Subject {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * Checks if @a and @b are equal, ie. represent the same subject.
+                 * However, avoid calling polkit_subject_equal() to compare two processes;
+                 * for more information see the `PolkitUnixProcess` documentation.
+                 *
+                 * This function can be used in e.g. g_hash_table_new().
+                 * @param b A #PolkitSubject.
+                 * @returns %TRUE if `a` and `b` are equal, %FALSE otherwise.
+                 */
+                vfunc_equal(b: Subject): boolean
+                /**
+                 * Asynchronously checks if @subject exists.
+                 *
+                 * When the operation is finished, @callback will be invoked in the
+                 * <link linkend="g-main-context-push-thread-default">thread-default
+                 * main loop</link> of the thread you are calling this method
+                 * from. You can then call polkit_subject_exists_finish() to get the
+                 * result of the operation.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied
+                 */
+                vfunc_exists(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes checking whether a subject exists.
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to polkit_subject_exists().
+                 * @returns %TRUE if the subject exists, %FALSE if not or `error` is set.
+                 */
+                vfunc_exists_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * Checks if @subject exists.
+                 *
+                 * This is a synchronous blocking call - the calling thread is blocked
+                 * until a reply is received. See polkit_subject_exists() for the
+                 * asynchronous version.
+                 * @throws {GLib.Error}
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @returns %TRUE if the subject exists, %FALSE if not or `error` is set.
+                 */
+                vfunc_exists_sync(cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Gets a hash code for @subject that can be used with e.g. g_hash_table_new().
+                 * @returns A hash code.
+                 */
+                vfunc_hash(): number
+                /**
+                 * Serializes @subject to a string that can be used in
+                 * polkit_subject_from_string().
+                 * @returns A string representing `subject`. Free with g_free().
+                 */
+                vfunc_to_string(): string
+            }
+        }
+
+        interface Subject extends GObject.Object, Subject.Interface {
+            readonly $signals: Subject.SignalSignatures
+            readonly $readableProperties: Subject.ReadableProperties
+            readonly $writableProperties: Subject.WritableProperties
+            readonly $constructOnlyProperties: Subject.ConstructOnlyProperties
+            /**
+             * Checks if @a and @b are equal, ie. represent the same subject.
+             * However, avoid calling polkit_subject_equal() to compare two processes;
+             * for more information see the `PolkitUnixProcess` documentation.
+             *
+             * This function can be used in e.g. g_hash_table_new().
+             * @param b A #PolkitSubject.
+             * @returns %TRUE if `a` and `b` are equal, %FALSE otherwise.
+             */
+            equal(b: Subject): boolean
+            /**
+             * Asynchronously checks if @subject exists.
+             *
+             * When the operation is finished, @callback will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call polkit_subject_exists_finish() to get the
+             * result of the operation.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
+             */
+            exists(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes checking whether a subject exists.
+             * @throws {GLib.Error}
+             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to polkit_subject_exists().
+             * @returns %TRUE if the subject exists, %FALSE if not or `error` is set.
+             */
+            exists_finish(res: Gio.AsyncResult): boolean
+            /**
+             * Checks if @subject exists.
+             *
+             * This is a synchronous blocking call - the calling thread is blocked
+             * until a reply is received. See polkit_subject_exists() for the
+             * asynchronous version.
+             * @throws {GLib.Error}
+             * @param cancellable A #GCancellable or %NULL.
+             * @returns %TRUE if the subject exists, %FALSE if not or `error` is set.
+             */
+            exists_sync(cancellable: Gio.Cancellable | null): boolean
+            /**
+             * Gets a hash code for @subject that can be used with e.g. g_hash_table_new().
+             * @returns A hash code.
+             */
+            hash(): number
+            /**
+             * Serializes @subject to a string that can be used in
+             * polkit_subject_from_string().
+             * @returns A string representing `subject`. Free with g_free().
+             */
+            to_string(): string
+        }
+
+        interface SubjectIface {
+            readonly $gtype: GObject.GType<Subject>
+            readonly prototype: Subject
+            [Symbol.hasInstance](instance: unknown): instance is Subject
+            /**
+             * Creates an object from @str that implements the #PolkitSubject
+             * interface.
+             * @throws {GLib.Error}
+             * @param str A string obtained from polkit_subject_to_string().
+             * @returns A #PolkitSubject or %NULL if `error` is set. Free with g_object_unref().
+             */
+            from_string(str: string): Subject
+        }
+
+        interface $Exports {
+            /**
+             * #PolkitSubject is an abstract type for representing one or more
+             * processes.
+             */
+            Subject: SubjectIface
+        }
+        
+        interface Error extends GLib.Error {}
+
+        interface ErrorEnum {
+            readonly $gtype: GObject.GType<Error>
+
+            new(props: { message: string, code: number }): Error
             /**
              * The operation failed.
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * The operation was cancelled.
              */
-            static readonly "CANCELLED": 1
+            readonly "CANCELLED": 1
             /**
              * Operation is not supported.
              */
-            static readonly "NOT_SUPPORTED": 2
+            readonly "NOT_SUPPORTED": 2
             /**
              * Not authorized to perform operation.
              */
-            static readonly "NOT_AUTHORIZED": 3
-        }
-        /**
+            readonly "NOT_AUTHORIZED": 3
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace ImplicitAuthorization {
-            const $gtype: GObject.GType<ImplicitAuthorization>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Possible implicit authorizations.
-         */
-        enum ImplicitAuthorization {
+        interface $Exports {
+            /**
+             * Possible error when using PolicyKit.
+             */
+            Error: ErrorEnum
+        }
+        
+        interface ImplicitAuthorizationEnum {
+            readonly $gtype: GObject.GType<ImplicitAuthorization>
             /**
              * Unknown whether the subject is authorized, never returned in any public API.
              */
-            "UNKNOWN" = -1,
+            readonly "UNKNOWN": -1
             /**
              * Subject is not authorized.
              */
-            "NOT_AUTHORIZED" = 0,
+            readonly "NOT_AUTHORIZED": 0
             /**
              * Authentication is required.
              */
-            "AUTHENTICATION_REQUIRED" = 1,
+            readonly "AUTHENTICATION_REQUIRED": 1
             /**
              * Authentication as an administrator is required.
              */
-            "ADMINISTRATOR_AUTHENTICATION_REQUIRED" = 2,
+            readonly "ADMINISTRATOR_AUTHENTICATION_REQUIRED": 2
             /**
              * Authentication is required. If the authorization is obtained, it is retained.
              */
-            "AUTHENTICATION_REQUIRED_RETAINED" = 3,
+            readonly "AUTHENTICATION_REQUIRED_RETAINED": 3
             /**
              * Authentication as an administrator is required. If the authorization is obtained, it is retained.
              */
-            "ADMINISTRATOR_AUTHENTICATION_REQUIRED_RETAINED" = 4,
+            readonly "ADMINISTRATOR_AUTHENTICATION_REQUIRED_RETAINED": 4
             /**
              * The subject is authorized
              */
-            "AUTHORIZED" = 5,
+            readonly "AUTHORIZED": 5
         }
-        /**
+        type ImplicitAuthorization = ImplicitAuthorizationEnum[Exclude<keyof ImplicitAuthorizationEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Possible implicit authorizations.
+             */
+            ImplicitAuthorization: ImplicitAuthorizationEnum
+            /**
          * @param string A string
          * @returns , The location of the resulting deserialization
          */
-        function from_string(string: string): [boolean, ImplicitAuthorization]
-        /**
+        from_string: (string: string) => [boolean, ImplicitAuthorization]
+            /**
          * @param implicit_authorization
          */
-        function to_string(implicit_authorization: ImplicitAuthorization): string
-        
-        namespace AuthorityFeatures {
-            const $gtype: GObject.GType<AuthorityFeatures>
+        to_string: (implicit_authorization: ImplicitAuthorization) => string
         }
-
-        /**
-         * Flags describing features supported by the Authority implementation.
-         */
-        enum AuthorityFeatures {
+        
+        interface AuthorityFeaturesBitfield {
+            readonly $gtype: GObject.GType<AuthorityFeatures>
             /**
              * No flags set.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * The authority supports temporary authorizations
              * that can be obtained through authentication.
              */
-            "TEMPORARY_AUTHORIZATION" = 1,
+            readonly "TEMPORARY_AUTHORIZATION": 1
+        }
+        type AuthorityFeatures = number
+        interface $Exports {
+            /**
+             * Flags describing features supported by the Authority implementation.
+             */
+            AuthorityFeatures: AuthorityFeaturesBitfield
         }
         
-        namespace CheckAuthorizationFlags {
-            const $gtype: GObject.GType<CheckAuthorizationFlags>
-        }
-
-        /**
-         * Possible flags when checking authorizations.
-         */
-        enum CheckAuthorizationFlags {
+        interface CheckAuthorizationFlagsBitfield {
+            readonly $gtype: GObject.GType<CheckAuthorizationFlags>
             /**
              * No flags set.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * If the subject can obtain the authorization
              * through authentication, and an authentication agent is available, then attempt to do so. Note, this
              * means that the method used for checking authorization is likely to block for a long time.
              */
-            "ALLOW_USER_INTERACTION" = 1,
+            readonly "ALLOW_USER_INTERACTION": 1
             /**
              * Check access against policy even for root user.
              */
-            "ALWAYS_CHECK" = 2,
+            readonly "ALWAYS_CHECK": 2
+        }
+        type CheckAuthorizationFlags = number
+        interface $Exports {
+            /**
+             * Possible flags when checking authorizations.
+             */
+            CheckAuthorizationFlags: CheckAuthorizationFlagsBitfield
+        }
+
+        interface $Exports {
+            __name__: "Polkit"
+            __version: "1.0"
+            /**
+             */
+            error_quark(): GLib.Quark
+            /**
+             * Creates an object from @str that implements the #PolkitIdentity
+             * interface.
+             * @throws {GLib.Error}
+             * @param str A string obtained from polkit_identity_to_string().
+             * @returns A #PolkitIdentity or %NULL if `error` is set. Free with g_object_unref().
+             */
+            identity_from_string(str: string): Identity | null
+            /**
+             * @param string A string
+             * @returns , The location of the resulting deserialization
+             */
+            implicit_authorization_from_string(string: string): [boolean, ImplicitAuthorization]
+            /**
+             * @param implicit_authorization
+             */
+            implicit_authorization_to_string(implicit_authorization: ImplicitAuthorization): string
+            /**
+             * Creates an object from @str that implements the #PolkitSubject
+             * interface.
+             * @throws {GLib.Error}
+             * @param str A string obtained from polkit_subject_to_string().
+             * @returns A #PolkitSubject or %NULL if `error` is set. Free with g_object_unref().
+             */
+            subject_from_string(str: string): Subject
         }
     }
 
+    const Polkit: Polkit.$Exports
     export default Polkit
 }

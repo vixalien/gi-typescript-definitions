@@ -12,86 +12,145 @@ declare module "gi://cairo?version=1.0" {
 
     
 
-
     namespace cairo {
-        const __name__: "cairo"
-        const __version: "1.0"
-        /**
-         */
-        abstract class Context {
-            static readonly $gtype: GObject.GType<Context>
+        
 
-            
+        interface ContextStruct {
+            readonly $gtype: GObject.GType<Context>
+            [Symbol.hasInstance](instance: unknown): instance is Context
         }
-        /**
-         */
-        abstract class Device {
-            static readonly $gtype: GObject.GType<Device>
 
-            
+        interface Context {
         }
-        /**
-         */
-        abstract class Surface {
-            static readonly $gtype: GObject.GType<Surface>
 
-            
+        interface $Exports {
+            Context: ContextStruct
         }
-        /**
-         */
-        abstract class Matrix {
-            static readonly $gtype: GObject.GType<Matrix>
+        
 
-            
+        interface DeviceStruct {
+            readonly $gtype: GObject.GType<Device>
+            [Symbol.hasInstance](instance: unknown): instance is Device
         }
-        /**
-         */
-        abstract class Pattern {
-            static readonly $gtype: GObject.GType<Pattern>
 
-            
+        interface Device {
         }
-        /**
-         */
-        abstract class Region {
-            static readonly $gtype: GObject.GType<Region>
 
-            
+        interface $Exports {
+            Device: DeviceStruct
         }
-        /**
-         */
-        abstract class FontOptions {
-            static readonly $gtype: GObject.GType<FontOptions>
+        
 
-            
+        interface SurfaceStruct {
+            readonly $gtype: GObject.GType<Surface>
+            [Symbol.hasInstance](instance: unknown): instance is Surface
         }
-        /**
-         */
-        abstract class FontFace {
-            static readonly $gtype: GObject.GType<FontFace>
 
-            
+        interface Surface {
         }
-        /**
-         */
-        abstract class ScaledFont {
-            static readonly $gtype: GObject.GType<ScaledFont>
 
-            
+        interface $Exports {
+            Surface: SurfaceStruct
         }
-        /**
-         */
-        abstract class Path {
-            static readonly $gtype: GObject.GType<Path>
+        
 
-            
+        interface MatrixStruct {
+            readonly $gtype: GObject.GType<Matrix>
+            [Symbol.hasInstance](instance: unknown): instance is Matrix
         }
-        /**
-         */
-        abstract class Rectangle {
-            static readonly $gtype: GObject.GType<Rectangle>
 
-            
+        interface Matrix {
+        }
+
+        interface $Exports {
+            Matrix: MatrixStruct
+        }
+        
+
+        interface PatternStruct {
+            readonly $gtype: GObject.GType<Pattern>
+            [Symbol.hasInstance](instance: unknown): instance is Pattern
+        }
+
+        interface Pattern {
+        }
+
+        interface $Exports {
+            Pattern: PatternStruct
+        }
+        
+
+        interface RegionStruct {
+            readonly $gtype: GObject.GType<Region>
+            [Symbol.hasInstance](instance: unknown): instance is Region
+        }
+
+        interface Region {
+        }
+
+        interface $Exports {
+            Region: RegionStruct
+        }
+        
+
+        interface FontOptionsStruct {
+            readonly $gtype: GObject.GType<FontOptions>
+            [Symbol.hasInstance](instance: unknown): instance is FontOptions
+        }
+
+        interface FontOptions {
+        }
+
+        interface $Exports {
+            FontOptions: FontOptionsStruct
+        }
+        
+
+        interface FontFaceStruct {
+            readonly $gtype: GObject.GType<FontFace>
+            [Symbol.hasInstance](instance: unknown): instance is FontFace
+        }
+
+        interface FontFace {
+        }
+
+        interface $Exports {
+            FontFace: FontFaceStruct
+        }
+        
+
+        interface ScaledFontStruct {
+            readonly $gtype: GObject.GType<ScaledFont>
+            [Symbol.hasInstance](instance: unknown): instance is ScaledFont
+        }
+
+        interface ScaledFont {
+        }
+
+        interface $Exports {
+            ScaledFont: ScaledFontStruct
+        }
+        
+
+        interface PathStruct {
+            readonly $gtype: GObject.GType<Path>
+            [Symbol.hasInstance](instance: unknown): instance is Path
+        }
+
+        interface Path {
+        }
+
+        interface $Exports {
+            Path: PathStruct
+        }
+        
+
+        interface RectangleStruct {
+            readonly $gtype: GObject.GType<Rectangle>
+            [Symbol.hasInstance](instance: unknown): instance is Rectangle
+        }
+
+        interface Rectangle {
             /**
              */
             x: number
@@ -105,12 +164,18 @@ declare module "gi://cairo?version=1.0" {
              */
             height: number
         }
-        /**
-         */
-        abstract class RectangleInt {
-            static readonly $gtype: GObject.GType<RectangleInt>
 
-            
+        interface $Exports {
+            Rectangle: RectangleStruct
+        }
+        
+
+        interface RectangleIntStruct {
+            readonly $gtype: GObject.GType<RectangleInt>
+            [Symbol.hasInstance](instance: unknown): instance is RectangleInt
+        }
+
+        interface RectangleInt {
             /**
              */
             x: number
@@ -124,12 +189,18 @@ declare module "gi://cairo?version=1.0" {
              */
             height: number
         }
-        /**
-         */
-        abstract class Glyph {
-            static readonly $gtype: GObject.GType<Glyph>
 
-            
+        interface $Exports {
+            RectangleInt: RectangleIntStruct
+        }
+        
+
+        interface GlyphStruct {
+            readonly $gtype: GObject.GType<Glyph>
+            [Symbol.hasInstance](instance: unknown): instance is Glyph
+        }
+
+        interface Glyph {
             /**
              */
             index: number
@@ -140,12 +211,18 @@ declare module "gi://cairo?version=1.0" {
              */
             y: number
         }
-        /**
-         */
-        abstract class TextCluster {
-            static readonly $gtype: GObject.GType<TextCluster>
 
-            
+        interface $Exports {
+            Glyph: GlyphStruct
+        }
+        
+
+        interface TextClusterStruct {
+            readonly $gtype: GObject.GType<TextCluster>
+            [Symbol.hasInstance](instance: unknown): instance is TextCluster
+        }
+
+        interface TextCluster {
             /**
              */
             num_bytes: number
@@ -153,730 +230,762 @@ declare module "gi://cairo?version=1.0" {
              */
             num_glyphs: number
         }
-        /**
-         */
-        function image_surface_create(): void
-        
-        namespace Status {
-            const $gtype: GObject.GType<Status>
-        }
 
-        /**
-         */
-        enum Status {
-            /**
-             */
-            "SUCCESS" = 0,
-            /**
-             */
-            "NO_MEMORY" = 1,
-            /**
-             */
-            "INVALID_RESTORE" = 2,
-            /**
-             */
-            "INVALID_POP_GROUP" = 3,
-            /**
-             */
-            "NO_CURRENT_POINT" = 4,
-            /**
-             */
-            "INVALID_MATRIX" = 5,
-            /**
-             */
-            "INVALID_STATUS" = 6,
-            /**
-             */
-            "NULL_POINTER" = 7,
-            /**
-             */
-            "INVALID_STRING" = 8,
-            /**
-             */
-            "INVALID_PATH_DATA" = 9,
-            /**
-             */
-            "READ_ERROR" = 10,
-            /**
-             */
-            "WRITE_ERROR" = 11,
-            /**
-             */
-            "SURFACE_FINISHED" = 12,
-            /**
-             */
-            "SURFACE_TYPE_MISMATCH" = 13,
-            /**
-             */
-            "PATTERN_TYPE_MISMATCH" = 14,
-            /**
-             */
-            "INVALID_CONTENT" = 15,
-            /**
-             */
-            "INVALID_FORMAT" = 16,
-            /**
-             */
-            "INVALID_VISUAL" = 17,
-            /**
-             */
-            "FILE_NOT_FOUND" = 18,
-            /**
-             */
-            "INVALID_DASH" = 19,
-            /**
-             */
-            "INVALID_DSC_COMMENT" = 20,
-            /**
-             */
-            "INVALID_INDEX" = 21,
-            /**
-             */
-            "CLIP_NOT_REPRESENTABLE" = 22,
-            /**
-             */
-            "TEMP_FILE_ERROR" = 23,
-            /**
-             */
-            "INVALID_STRIDE" = 24,
-            /**
-             */
-            "FONT_TYPE_MISMATCH" = 25,
-            /**
-             */
-            "USER_FONT_IMMUTABLE" = 26,
-            /**
-             */
-            "USER_FONT_ERROR" = 27,
-            /**
-             */
-            "NEGATIVE_COUNT" = 28,
-            /**
-             */
-            "INVALID_CLUSTERS" = 29,
-            /**
-             */
-            "INVALID_SLANT" = 30,
-            /**
-             */
-            "INVALID_WEIGHT" = 31,
-            /**
-             */
-            "INVALID_SIZE" = 32,
-            /**
-             */
-            "USER_FONT_NOT_IMPLEMENTED" = 33,
-            /**
-             */
-            "DEVICE_TYPE_MISMATCH" = 34,
-            /**
-             */
-            "DEVICE_ERROR" = 35,
-            /**
-             */
-            "INVALID_MESH_CONSTRUCTION" = 36,
-            /**
-             */
-            "DEVICE_FINISHED" = 37,
-            /**
-             */
-            "JBIG2_GLOBAL_MISSING" = 38,
+        interface $Exports {
+            TextCluster: TextClusterStruct
         }
         
-        namespace Content {
-            const $gtype: GObject.GType<Content>
+        interface StatusEnum {
+            readonly $gtype: GObject.GType<Status>
+            /**
+             */
+            readonly "SUCCESS": 0
+            /**
+             */
+            readonly "NO_MEMORY": 1
+            /**
+             */
+            readonly "INVALID_RESTORE": 2
+            /**
+             */
+            readonly "INVALID_POP_GROUP": 3
+            /**
+             */
+            readonly "NO_CURRENT_POINT": 4
+            /**
+             */
+            readonly "INVALID_MATRIX": 5
+            /**
+             */
+            readonly "INVALID_STATUS": 6
+            /**
+             */
+            readonly "NULL_POINTER": 7
+            /**
+             */
+            readonly "INVALID_STRING": 8
+            /**
+             */
+            readonly "INVALID_PATH_DATA": 9
+            /**
+             */
+            readonly "READ_ERROR": 10
+            /**
+             */
+            readonly "WRITE_ERROR": 11
+            /**
+             */
+            readonly "SURFACE_FINISHED": 12
+            /**
+             */
+            readonly "SURFACE_TYPE_MISMATCH": 13
+            /**
+             */
+            readonly "PATTERN_TYPE_MISMATCH": 14
+            /**
+             */
+            readonly "INVALID_CONTENT": 15
+            /**
+             */
+            readonly "INVALID_FORMAT": 16
+            /**
+             */
+            readonly "INVALID_VISUAL": 17
+            /**
+             */
+            readonly "FILE_NOT_FOUND": 18
+            /**
+             */
+            readonly "INVALID_DASH": 19
+            /**
+             */
+            readonly "INVALID_DSC_COMMENT": 20
+            /**
+             */
+            readonly "INVALID_INDEX": 21
+            /**
+             */
+            readonly "CLIP_NOT_REPRESENTABLE": 22
+            /**
+             */
+            readonly "TEMP_FILE_ERROR": 23
+            /**
+             */
+            readonly "INVALID_STRIDE": 24
+            /**
+             */
+            readonly "FONT_TYPE_MISMATCH": 25
+            /**
+             */
+            readonly "USER_FONT_IMMUTABLE": 26
+            /**
+             */
+            readonly "USER_FONT_ERROR": 27
+            /**
+             */
+            readonly "NEGATIVE_COUNT": 28
+            /**
+             */
+            readonly "INVALID_CLUSTERS": 29
+            /**
+             */
+            readonly "INVALID_SLANT": 30
+            /**
+             */
+            readonly "INVALID_WEIGHT": 31
+            /**
+             */
+            readonly "INVALID_SIZE": 32
+            /**
+             */
+            readonly "USER_FONT_NOT_IMPLEMENTED": 33
+            /**
+             */
+            readonly "DEVICE_TYPE_MISMATCH": 34
+            /**
+             */
+            readonly "DEVICE_ERROR": 35
+            /**
+             */
+            readonly "INVALID_MESH_CONSTRUCTION": 36
+            /**
+             */
+            readonly "DEVICE_FINISHED": 37
+            /**
+             */
+            readonly "JBIG2_GLOBAL_MISSING": 38
         }
-
-        /**
-         */
-        enum Content {
+        type Status = StatusEnum[Exclude<keyof StatusEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "COLOR" = 4096,
-            /**
-             */
-            "ALPHA" = 8192,
-            /**
-             */
-            "COLOR_ALPHA" = 12288,
-        }
-        
-        namespace Operator {
-            const $gtype: GObject.GType<Operator>
-        }
-
-        /**
-         */
-        enum Operator {
-            /**
-             */
-            "CLEAR" = 0,
-            /**
-             */
-            "SOURCE" = 1,
-            /**
-             */
-            "OVER" = 2,
-            /**
-             */
-            "IN" = 3,
-            /**
-             */
-            "OUT" = 4,
-            /**
-             */
-            "ATOP" = 5,
-            /**
-             */
-            "DEST" = 6,
-            /**
-             */
-            "DEST_OVER" = 7,
-            /**
-             */
-            "DEST_IN" = 8,
-            /**
-             */
-            "DEST_OUT" = 9,
-            /**
-             */
-            "DEST_ATOP" = 10,
-            /**
-             */
-            "XOR" = 11,
-            /**
-             */
-            "ADD" = 12,
-            /**
-             */
-            "SATURATE" = 13,
-            /**
-             */
-            "MULTIPLY" = 14,
-            /**
-             */
-            "SCREEN" = 15,
-            /**
-             */
-            "OVERLAY" = 16,
-            /**
-             */
-            "DARKEN" = 17,
-            /**
-             */
-            "LIGHTEN" = 18,
-            /**
-             */
-            "COLOR_DODGE" = 19,
-            /**
-             */
-            "COLOR_BURN" = 20,
-            /**
-             */
-            "HARD_LIGHT" = 21,
-            /**
-             */
-            "SOFT_LIGHT" = 22,
-            /**
-             */
-            "DIFFERENCE" = 23,
-            /**
-             */
-            "EXCLUSION" = 24,
-            /**
-             */
-            "HSL_HUE" = 25,
-            /**
-             */
-            "HSL_SATURATION" = 26,
-            /**
-             */
-            "HSL_COLOR" = 27,
-            /**
-             */
-            "HSL_LUMINOSITY" = 28,
-        }
-        
-        namespace Antialias {
-            const $gtype: GObject.GType<Antialias>
-        }
-
-        /**
-         */
-        enum Antialias {
-            /**
-             */
-            "DEFAULT" = 0,
-            /**
-             */
-            "NONE" = 1,
-            /**
-             */
-            "GRAY" = 2,
-            /**
-             */
-            "SUBPIXEL" = 3,
-            /**
-             */
-            "FAST" = 4,
-            /**
-             */
-            "GOOD" = 5,
-            /**
-             */
-            "BEST" = 6,
+            Status: StatusEnum
         }
         
-        namespace FillRule {
-            const $gtype: GObject.GType<FillRule>
+        interface ContentEnum {
+            readonly $gtype: GObject.GType<Content>
+            /**
+             */
+            readonly "COLOR": 4096
+            /**
+             */
+            readonly "ALPHA": 8192
+            /**
+             */
+            readonly "COLOR_ALPHA": 12288
         }
-
-        /**
-         */
-        enum FillRule {
+        type Content = ContentEnum[Exclude<keyof ContentEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "WINDING" = 0,
-            /**
-             */
-            "EVEN_ODD" = 1,
-        }
-        
-        namespace LineCap {
-            const $gtype: GObject.GType<LineCap>
-        }
-
-        /**
-         */
-        enum LineCap {
-            /**
-             */
-            "BUTT" = 0,
-            /**
-             */
-            "ROUND" = 1,
-            /**
-             */
-            "SQUARE" = 2,
+            Content: ContentEnum
         }
         
-        namespace LineJoin {
-            const $gtype: GObject.GType<LineJoin>
+        interface OperatorEnum {
+            readonly $gtype: GObject.GType<Operator>
+            /**
+             */
+            readonly "CLEAR": 0
+            /**
+             */
+            readonly "SOURCE": 1
+            /**
+             */
+            readonly "OVER": 2
+            /**
+             */
+            readonly "IN": 3
+            /**
+             */
+            readonly "OUT": 4
+            /**
+             */
+            readonly "ATOP": 5
+            /**
+             */
+            readonly "DEST": 6
+            /**
+             */
+            readonly "DEST_OVER": 7
+            /**
+             */
+            readonly "DEST_IN": 8
+            /**
+             */
+            readonly "DEST_OUT": 9
+            /**
+             */
+            readonly "DEST_ATOP": 10
+            /**
+             */
+            readonly "XOR": 11
+            /**
+             */
+            readonly "ADD": 12
+            /**
+             */
+            readonly "SATURATE": 13
+            /**
+             */
+            readonly "MULTIPLY": 14
+            /**
+             */
+            readonly "SCREEN": 15
+            /**
+             */
+            readonly "OVERLAY": 16
+            /**
+             */
+            readonly "DARKEN": 17
+            /**
+             */
+            readonly "LIGHTEN": 18
+            /**
+             */
+            readonly "COLOR_DODGE": 19
+            /**
+             */
+            readonly "COLOR_BURN": 20
+            /**
+             */
+            readonly "HARD_LIGHT": 21
+            /**
+             */
+            readonly "SOFT_LIGHT": 22
+            /**
+             */
+            readonly "DIFFERENCE": 23
+            /**
+             */
+            readonly "EXCLUSION": 24
+            /**
+             */
+            readonly "HSL_HUE": 25
+            /**
+             */
+            readonly "HSL_SATURATION": 26
+            /**
+             */
+            readonly "HSL_COLOR": 27
+            /**
+             */
+            readonly "HSL_LUMINOSITY": 28
         }
-
-        /**
-         */
-        enum LineJoin {
+        type Operator = OperatorEnum[Exclude<keyof OperatorEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "MITER" = 0,
-            /**
-             */
-            "ROUND" = 1,
-            /**
-             */
-            "BEVEL" = 2,
-        }
-        
-        namespace TextClusterFlags {
-            const $gtype: GObject.GType<TextClusterFlags>
-        }
-
-        /**
-         */
-        enum TextClusterFlags {
-            /**
-             */
-            "BACKWARD" = 1,
-        }
-        
-        namespace FontSlant {
-            const $gtype: GObject.GType<FontSlant>
-        }
-
-        /**
-         */
-        enum FontSlant {
-            /**
-             */
-            "NORMAL" = 0,
-            /**
-             */
-            "ITALIC" = 1,
-            /**
-             */
-            "OBLIQUE" = 2,
-        }
-        
-        namespace FontWeight {
-            const $gtype: GObject.GType<FontWeight>
-        }
-
-        /**
-         */
-        enum FontWeight {
-            /**
-             */
-            "NORMAL" = 0,
-            /**
-             */
-            "BOLD" = 1,
-        }
-        
-        namespace SubpixelOrder {
-            const $gtype: GObject.GType<SubpixelOrder>
-        }
-
-        /**
-         */
-        enum SubpixelOrder {
-            /**
-             */
-            "DEFAULT" = 0,
-            /**
-             */
-            "RGB" = 1,
-            /**
-             */
-            "BGR" = 2,
-            /**
-             */
-            "VRGB" = 3,
-            /**
-             */
-            "VBGR" = 4,
-        }
-        
-        namespace HintStyle {
-            const $gtype: GObject.GType<HintStyle>
-        }
-
-        /**
-         */
-        enum HintStyle {
-            /**
-             */
-            "DEFAULT" = 0,
-            /**
-             */
-            "NONE" = 1,
-            /**
-             */
-            "SLIGHT" = 2,
-            /**
-             */
-            "MEDIUM" = 3,
-            /**
-             */
-            "FULL" = 4,
+            Operator: OperatorEnum
         }
         
-        namespace HintMetrics {
-            const $gtype: GObject.GType<HintMetrics>
+        interface AntialiasEnum {
+            readonly $gtype: GObject.GType<Antialias>
+            /**
+             */
+            readonly "DEFAULT": 0
+            /**
+             */
+            readonly "NONE": 1
+            /**
+             */
+            readonly "GRAY": 2
+            /**
+             */
+            readonly "SUBPIXEL": 3
+            /**
+             */
+            readonly "FAST": 4
+            /**
+             */
+            readonly "GOOD": 5
+            /**
+             */
+            readonly "BEST": 6
         }
-
-        /**
-         */
-        enum HintMetrics {
+        type Antialias = AntialiasEnum[Exclude<keyof AntialiasEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "DEFAULT" = 0,
-            /**
-             */
-            "OFF" = 1,
-            /**
-             */
-            "ON" = 2,
-        }
-        
-        namespace FontType {
-            const $gtype: GObject.GType<FontType>
-        }
-
-        /**
-         */
-        enum FontType {
-            /**
-             */
-            "TOY" = 0,
-            /**
-             */
-            "FT" = 1,
-            /**
-             */
-            "WIN32" = 2,
-            /**
-             */
-            "QUARTZ" = 3,
-            /**
-             */
-            "USER" = 4,
+            Antialias: AntialiasEnum
         }
         
-        namespace PathDataType {
-            const $gtype: GObject.GType<PathDataType>
+        interface FillRuleEnum {
+            readonly $gtype: GObject.GType<FillRule>
+            /**
+             */
+            readonly "WINDING": 0
+            /**
+             */
+            readonly "EVEN_ODD": 1
         }
-
-        /**
-         */
-        enum PathDataType {
+        type FillRule = FillRuleEnum[Exclude<keyof FillRuleEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "MOVE_TO" = 0,
-            /**
-             */
-            "LINE_TO" = 1,
-            /**
-             */
-            "CURVE_TO" = 2,
-            /**
-             */
-            "CLOSE_PATH" = 3,
+            FillRule: FillRuleEnum
         }
         
-        namespace DeviceType {
-            const $gtype: GObject.GType<DeviceType>
+        interface LineCapEnum {
+            readonly $gtype: GObject.GType<LineCap>
+            /**
+             */
+            readonly "BUTT": 0
+            /**
+             */
+            readonly "ROUND": 1
+            /**
+             */
+            readonly "SQUARE": 2
         }
-
-        /**
-         */
-        enum DeviceType {
+        type LineCap = LineCapEnum[Exclude<keyof LineCapEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "DRM" = 0,
-            /**
-             */
-            "GL" = 1,
-            /**
-             */
-            "SCRIPT" = 2,
-            /**
-             */
-            "XCB" = 3,
-            /**
-             */
-            "XLIB" = 4,
-            /**
-             */
-            "XML" = 5,
-            /**
-             */
-            "COGL" = 6,
-            /**
-             */
-            "WIN32" = 7,
-            /**
-             */
-            "INVALID" = -1,
+            LineCap: LineCapEnum
         }
         
-        namespace SurfaceType {
-            const $gtype: GObject.GType<SurfaceType>
+        interface LineJoinEnum {
+            readonly $gtype: GObject.GType<LineJoin>
+            /**
+             */
+            readonly "MITER": 0
+            /**
+             */
+            readonly "ROUND": 1
+            /**
+             */
+            readonly "BEVEL": 2
         }
-
-        /**
-         */
-        enum SurfaceType {
+        type LineJoin = LineJoinEnum[Exclude<keyof LineJoinEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "IMAGE" = 0,
-            /**
-             */
-            "PDF" = 1,
-            /**
-             */
-            "PS" = 2,
-            /**
-             */
-            "XLIB" = 3,
-            /**
-             */
-            "XCB" = 4,
-            /**
-             */
-            "GLITZ" = 5,
-            /**
-             */
-            "QUARTZ" = 6,
-            /**
-             */
-            "WIN32" = 7,
-            /**
-             */
-            "BEOS" = 8,
-            /**
-             */
-            "DIRECTFB" = 9,
-            /**
-             */
-            "SVG" = 10,
-            /**
-             */
-            "OS2" = 11,
-            /**
-             */
-            "WIN32_PRINTING" = 12,
-            /**
-             */
-            "QUARTZ_IMAGE" = 13,
-            /**
-             */
-            "SCRIPT" = 14,
-            /**
-             */
-            "QT" = 15,
-            /**
-             */
-            "RECORDING" = 16,
-            /**
-             */
-            "VG" = 17,
-            /**
-             */
-            "GL" = 18,
-            /**
-             */
-            "DRM" = 19,
-            /**
-             */
-            "TEE" = 20,
-            /**
-             */
-            "XML" = 21,
-            /**
-             */
-            "SKIA" = 22,
-            /**
-             */
-            "SUBSURFACE" = 23,
-            /**
-             */
-            "COGL" = 24,
+            LineJoin: LineJoinEnum
         }
         
-        namespace Format {
-            const $gtype: GObject.GType<Format>
+        interface TextClusterFlagsEnum {
+            readonly $gtype: GObject.GType<TextClusterFlags>
+            /**
+             */
+            readonly "BACKWARD": 1
         }
-
-        /**
-         */
-        enum Format {
+        type TextClusterFlags = TextClusterFlagsEnum[Exclude<keyof TextClusterFlagsEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "INVALID" = -1,
-            /**
-             */
-            "ARGB32" = 0,
-            /**
-             */
-            "RGB24" = 1,
-            /**
-             */
-            "A8" = 2,
-            /**
-             */
-            "A1" = 3,
-            /**
-             */
-            "RGB16_565" = 4,
-            /**
-             */
-            "RGB30" = 5,
+            TextClusterFlags: TextClusterFlagsEnum
         }
         
-        namespace PatternType {
-            const $gtype: GObject.GType<PatternType>
+        interface FontSlantEnum {
+            readonly $gtype: GObject.GType<FontSlant>
+            /**
+             */
+            readonly "NORMAL": 0
+            /**
+             */
+            readonly "ITALIC": 1
+            /**
+             */
+            readonly "OBLIQUE": 2
         }
-
-        /**
-         */
-        enum PatternType {
+        type FontSlant = FontSlantEnum[Exclude<keyof FontSlantEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "SOLID" = 0,
-            /**
-             */
-            "SURFACE" = 1,
-            /**
-             */
-            "LINEAR" = 2,
-            /**
-             */
-            "RADIAL" = 3,
-            /**
-             */
-            "MESH" = 4,
-            /**
-             */
-            "RASTER_SOURCE" = 5,
+            FontSlant: FontSlantEnum
         }
         
-        namespace Extend {
-            const $gtype: GObject.GType<Extend>
+        interface FontWeightEnum {
+            readonly $gtype: GObject.GType<FontWeight>
+            /**
+             */
+            readonly "NORMAL": 0
+            /**
+             */
+            readonly "BOLD": 1
         }
-
-        /**
-         */
-        enum Extend {
+        type FontWeight = FontWeightEnum[Exclude<keyof FontWeightEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "NONE" = 0,
-            /**
-             */
-            "REPEAT" = 1,
-            /**
-             */
-            "REFLECT" = 2,
-            /**
-             */
-            "PAD" = 3,
+            FontWeight: FontWeightEnum
         }
         
-        namespace Filter {
-            const $gtype: GObject.GType<Filter>
+        interface SubpixelOrderEnum {
+            readonly $gtype: GObject.GType<SubpixelOrder>
+            /**
+             */
+            readonly "DEFAULT": 0
+            /**
+             */
+            readonly "RGB": 1
+            /**
+             */
+            readonly "BGR": 2
+            /**
+             */
+            readonly "VRGB": 3
+            /**
+             */
+            readonly "VBGR": 4
         }
-
-        /**
-         */
-        enum Filter {
+        type SubpixelOrder = SubpixelOrderEnum[Exclude<keyof SubpixelOrderEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "FAST" = 0,
-            /**
-             */
-            "GOOD" = 1,
-            /**
-             */
-            "BEST" = 2,
-            /**
-             */
-            "NEAREST" = 3,
-            /**
-             */
-            "BILINEAR" = 4,
-            /**
-             */
-            "GAUSSIAN" = 5,
+            SubpixelOrder: SubpixelOrderEnum
         }
         
-        namespace RegionOverlap {
-            const $gtype: GObject.GType<RegionOverlap>
+        interface HintStyleEnum {
+            readonly $gtype: GObject.GType<HintStyle>
+            /**
+             */
+            readonly "DEFAULT": 0
+            /**
+             */
+            readonly "NONE": 1
+            /**
+             */
+            readonly "SLIGHT": 2
+            /**
+             */
+            readonly "MEDIUM": 3
+            /**
+             */
+            readonly "FULL": 4
+        }
+        type HintStyle = HintStyleEnum[Exclude<keyof HintStyleEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            HintStyle: HintStyleEnum
+        }
+        
+        interface HintMetricsEnum {
+            readonly $gtype: GObject.GType<HintMetrics>
+            /**
+             */
+            readonly "DEFAULT": 0
+            /**
+             */
+            readonly "OFF": 1
+            /**
+             */
+            readonly "ON": 2
+        }
+        type HintMetrics = HintMetricsEnum[Exclude<keyof HintMetricsEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            HintMetrics: HintMetricsEnum
+        }
+        
+        interface FontTypeEnum {
+            readonly $gtype: GObject.GType<FontType>
+            /**
+             */
+            readonly "TOY": 0
+            /**
+             */
+            readonly "FT": 1
+            /**
+             */
+            readonly "WIN32": 2
+            /**
+             */
+            readonly "QUARTZ": 3
+            /**
+             */
+            readonly "USER": 4
+        }
+        type FontType = FontTypeEnum[Exclude<keyof FontTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            FontType: FontTypeEnum
+        }
+        
+        interface PathDataTypeEnum {
+            readonly $gtype: GObject.GType<PathDataType>
+            /**
+             */
+            readonly "MOVE_TO": 0
+            /**
+             */
+            readonly "LINE_TO": 1
+            /**
+             */
+            readonly "CURVE_TO": 2
+            /**
+             */
+            readonly "CLOSE_PATH": 3
+        }
+        type PathDataType = PathDataTypeEnum[Exclude<keyof PathDataTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            PathDataType: PathDataTypeEnum
+        }
+        
+        interface DeviceTypeEnum {
+            readonly $gtype: GObject.GType<DeviceType>
+            /**
+             */
+            readonly "DRM": 0
+            /**
+             */
+            readonly "GL": 1
+            /**
+             */
+            readonly "SCRIPT": 2
+            /**
+             */
+            readonly "XCB": 3
+            /**
+             */
+            readonly "XLIB": 4
+            /**
+             */
+            readonly "XML": 5
+            /**
+             */
+            readonly "COGL": 6
+            /**
+             */
+            readonly "WIN32": 7
+            /**
+             */
+            readonly "INVALID": -1
+        }
+        type DeviceType = DeviceTypeEnum[Exclude<keyof DeviceTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            DeviceType: DeviceTypeEnum
+        }
+        
+        interface SurfaceTypeEnum {
+            readonly $gtype: GObject.GType<SurfaceType>
+            /**
+             */
+            readonly "IMAGE": 0
+            /**
+             */
+            readonly "PDF": 1
+            /**
+             */
+            readonly "PS": 2
+            /**
+             */
+            readonly "XLIB": 3
+            /**
+             */
+            readonly "XCB": 4
+            /**
+             */
+            readonly "GLITZ": 5
+            /**
+             */
+            readonly "QUARTZ": 6
+            /**
+             */
+            readonly "WIN32": 7
+            /**
+             */
+            readonly "BEOS": 8
+            /**
+             */
+            readonly "DIRECTFB": 9
+            /**
+             */
+            readonly "SVG": 10
+            /**
+             */
+            readonly "OS2": 11
+            /**
+             */
+            readonly "WIN32_PRINTING": 12
+            /**
+             */
+            readonly "QUARTZ_IMAGE": 13
+            /**
+             */
+            readonly "SCRIPT": 14
+            /**
+             */
+            readonly "QT": 15
+            /**
+             */
+            readonly "RECORDING": 16
+            /**
+             */
+            readonly "VG": 17
+            /**
+             */
+            readonly "GL": 18
+            /**
+             */
+            readonly "DRM": 19
+            /**
+             */
+            readonly "TEE": 20
+            /**
+             */
+            readonly "XML": 21
+            /**
+             */
+            readonly "SKIA": 22
+            /**
+             */
+            readonly "SUBSURFACE": 23
+            /**
+             */
+            readonly "COGL": 24
+        }
+        type SurfaceType = SurfaceTypeEnum[Exclude<keyof SurfaceTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            SurfaceType: SurfaceTypeEnum
+        }
+        
+        interface FormatEnum {
+            readonly $gtype: GObject.GType<Format>
+            /**
+             */
+            readonly "INVALID": -1
+            /**
+             */
+            readonly "ARGB32": 0
+            /**
+             */
+            readonly "RGB24": 1
+            /**
+             */
+            readonly "A8": 2
+            /**
+             */
+            readonly "A1": 3
+            /**
+             */
+            readonly "RGB16_565": 4
+            /**
+             */
+            readonly "RGB30": 5
+        }
+        type Format = FormatEnum[Exclude<keyof FormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            Format: FormatEnum
+        }
+        
+        interface PatternTypeEnum {
+            readonly $gtype: GObject.GType<PatternType>
+            /**
+             */
+            readonly "SOLID": 0
+            /**
+             */
+            readonly "SURFACE": 1
+            /**
+             */
+            readonly "LINEAR": 2
+            /**
+             */
+            readonly "RADIAL": 3
+            /**
+             */
+            readonly "MESH": 4
+            /**
+             */
+            readonly "RASTER_SOURCE": 5
+        }
+        type PatternType = PatternTypeEnum[Exclude<keyof PatternTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            PatternType: PatternTypeEnum
+        }
+        
+        interface ExtendEnum {
+            readonly $gtype: GObject.GType<Extend>
+            /**
+             */
+            readonly "NONE": 0
+            /**
+             */
+            readonly "REPEAT": 1
+            /**
+             */
+            readonly "REFLECT": 2
+            /**
+             */
+            readonly "PAD": 3
+        }
+        type Extend = ExtendEnum[Exclude<keyof ExtendEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            Extend: ExtendEnum
+        }
+        
+        interface FilterEnum {
+            readonly $gtype: GObject.GType<Filter>
+            /**
+             */
+            readonly "FAST": 0
+            /**
+             */
+            readonly "GOOD": 1
+            /**
+             */
+            readonly "BEST": 2
+            /**
+             */
+            readonly "NEAREST": 3
+            /**
+             */
+            readonly "BILINEAR": 4
+            /**
+             */
+            readonly "GAUSSIAN": 5
+        }
+        type Filter = FilterEnum[Exclude<keyof FilterEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            Filter: FilterEnum
+        }
+        
+        interface RegionOverlapEnum {
+            readonly $gtype: GObject.GType<RegionOverlap>
+            /**
+             */
+            readonly "IN": 0
+            /**
+             */
+            readonly "OUT": 1
+            /**
+             */
+            readonly "PART": 2
+        }
+        type RegionOverlap = RegionOverlapEnum[Exclude<keyof RegionOverlapEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            RegionOverlap: RegionOverlapEnum
         }
 
-        /**
-         */
-        enum RegionOverlap {
+        interface $Exports {
+            __name__: "cairo"
+            __version: "1.0"
             /**
              */
-            "IN" = 0,
-            /**
-             */
-            "OUT" = 1,
-            /**
-             */
-            "PART" = 2,
+            image_surface_create(): void
         }
     }
 
+    const cairo: cairo.$Exports
     export default cairo
 }

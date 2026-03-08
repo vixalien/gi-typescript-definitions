@@ -20,10 +20,7 @@ declare module "gi://GstGL?version=1.0" {
 
     
 
-
     namespace GstGL {
-        const __name__: "GstGL"
-        const __version: "1.0"
         
 
         namespace GLBaseFilter {
@@ -42,12 +39,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * #GstGLBaseFilter handles the nitty gritty details of retrieving an OpenGL
-         * context.  It also provided some wrappers around #GstBaseTransform's
-         * `start()`, `stop()` and `set_caps()` virtual methods that ensure an OpenGL
-         * context is available and current in the calling thread.
-         */
         interface GLBaseFilter extends GstBase.BaseTransform {
             readonly $signals: GLBaseFilter.SignalSignatures
             readonly $readableProperties: GLBaseFilter.ReadableProperties
@@ -88,10 +79,19 @@ declare module "gi://GstGL?version=1.0" {
         interface GLBaseFilterClass extends Omit<GstBase.BaseTransformClass, "new"> {
             readonly $gtype: GObject.GType<GLBaseFilter>
             readonly prototype: GLBaseFilter
+
             new (props?: Partial<GObject.ConstructorProps<GLBaseFilter>>): GLBaseFilter
         }
 
-        const GLBaseFilter: GLBaseFilterClass
+        interface $Exports {
+            /**
+             * #GstGLBaseFilter handles the nitty gritty details of retrieving an OpenGL
+             * context.  It also provided some wrappers around #GstBaseTransform's
+             * `start()`, `stop()` and `set_caps()` virtual methods that ensure an OpenGL
+             * context is available and current in the calling thread.
+             */
+            GLBaseFilter: GLBaseFilterClass
+        }
         
 
         namespace GLBaseMemoryAllocator {
@@ -108,10 +108,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * Opaque #GstGLBaseMemoryAllocator struct
-         * @since 1.8
-         */
         interface GLBaseMemoryAllocator extends Gst.Allocator {
             readonly $signals: GLBaseMemoryAllocator.SignalSignatures
             readonly $readableProperties: GLBaseMemoryAllocator.ReadableProperties
@@ -128,10 +124,17 @@ declare module "gi://GstGL?version=1.0" {
         interface GLBaseMemoryAllocatorClass extends Omit<Gst.AllocatorClass, "new"> {
             readonly $gtype: GObject.GType<GLBaseMemoryAllocator>
             readonly prototype: GLBaseMemoryAllocator
+
             new (props?: Partial<GObject.ConstructorProps<GLBaseMemoryAllocator>>): GLBaseMemoryAllocator
         }
 
-        const GLBaseMemoryAllocator: GLBaseMemoryAllocatorClass
+        interface $Exports {
+            /**
+             * Opaque #GstGLBaseMemoryAllocator struct
+             * @since 1.8
+             */
+            GLBaseMemoryAllocator: GLBaseMemoryAllocatorClass
+        }
         
 
         namespace GLBaseMixer {
@@ -150,12 +153,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * #GstGLBaseMixer handles the nitty gritty details of retrieving an OpenGL
-         * context.  It provides some virtual methods to know when the OpenGL context
-         * is available and is not available within this element.
-         * @since 1.24
-         */
         interface GLBaseMixer extends GstVideo.VideoAggregator {
             readonly $signals: GLBaseMixer.SignalSignatures
             readonly $readableProperties: GLBaseMixer.ReadableProperties
@@ -188,10 +185,19 @@ declare module "gi://GstGL?version=1.0" {
         interface GLBaseMixerClass extends Omit<GstVideo.VideoAggregatorClass, "new"> {
             readonly $gtype: GObject.GType<GLBaseMixer>
             readonly prototype: GLBaseMixer
+
             new (props?: Partial<GObject.ConstructorProps<GLBaseMixer>>): GLBaseMixer
         }
 
-        const GLBaseMixer: GLBaseMixerClass
+        interface $Exports {
+            /**
+             * #GstGLBaseMixer handles the nitty gritty details of retrieving an OpenGL
+             * context.  It provides some virtual methods to know when the OpenGL context
+             * is available and is not available within this element.
+             * @since 1.24
+             */
+            GLBaseMixer: GLBaseMixerClass
+        }
         
 
         namespace GLBaseMixerPad {
@@ -208,9 +214,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * @since 1.24
-         */
         interface GLBaseMixerPad extends GstVideo.VideoAggregatorPad {
             readonly $signals: GLBaseMixerPad.SignalSignatures
             readonly $readableProperties: GLBaseMixerPad.ReadableProperties
@@ -221,10 +224,16 @@ declare module "gi://GstGL?version=1.0" {
         interface GLBaseMixerPadClass extends Omit<GstVideo.VideoAggregatorPadClass, "new"> {
             readonly $gtype: GObject.GType<GLBaseMixerPad>
             readonly prototype: GLBaseMixerPad
+
             new (props?: Partial<GObject.ConstructorProps<GLBaseMixerPad>>): GLBaseMixerPad
         }
 
-        const GLBaseMixerPad: GLBaseMixerPadClass
+        interface $Exports {
+            /**
+             * @since 1.24
+             */
+            GLBaseMixerPad: GLBaseMixerPadClass
+        }
         
 
         namespace GLBaseSrc {
@@ -243,13 +252,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * #GstGLBaseSrc handles the nitty gritty details of retrieving an OpenGL
-         * context. It also provided some wrappers around #GstBaseSrc's `start()` and
-         * `stop()` virtual methods that ensure an OpenGL context is available and
-         * current in the calling thread.
-         * @since 1.18
-         */
         interface GLBaseSrc extends GstBase.PushSrc {
             readonly $signals: GLBaseSrc.SignalSignatures
             readonly $readableProperties: GLBaseSrc.ReadableProperties
@@ -278,10 +280,20 @@ declare module "gi://GstGL?version=1.0" {
         interface GLBaseSrcClass extends Omit<GstBase.PushSrcClass, "new"> {
             readonly $gtype: GObject.GType<GLBaseSrc>
             readonly prototype: GLBaseSrc
+
             new (props?: Partial<GObject.ConstructorProps<GLBaseSrc>>): GLBaseSrc
         }
 
-        const GLBaseSrc: GLBaseSrcClass
+        interface $Exports {
+            /**
+             * #GstGLBaseSrc handles the nitty gritty details of retrieving an OpenGL
+             * context. It also provided some wrappers around #GstBaseSrc's `start()` and
+             * `stop()` virtual methods that ensure an OpenGL context is available and
+             * current in the calling thread.
+             * @since 1.18
+             */
+            GLBaseSrc: GLBaseSrcClass
+        }
         
 
         namespace GLBufferAllocator {
@@ -298,9 +310,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * Opaque #GstGLBufferAllocator struct
-         */
         interface GLBufferAllocator extends GLBaseMemoryAllocator {
             readonly $signals: GLBufferAllocator.SignalSignatures
             readonly $readableProperties: GLBufferAllocator.ReadableProperties
@@ -311,10 +320,16 @@ declare module "gi://GstGL?version=1.0" {
         interface GLBufferAllocatorClass extends Omit<GLBaseMemoryAllocatorClass, "new"> {
             readonly $gtype: GObject.GType<GLBufferAllocator>
             readonly prototype: GLBufferAllocator
+
             new (props?: Partial<GObject.ConstructorProps<GLBufferAllocator>>): GLBufferAllocator
         }
 
-        const GLBufferAllocator: GLBufferAllocatorClass
+        interface $Exports {
+            /**
+             * Opaque #GstGLBufferAllocator struct
+             */
+            GLBufferAllocator: GLBufferAllocatorClass
+        }
         
 
         namespace GLBufferPool {
@@ -331,16 +346,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * a #GstGLBufferPool is an object that allocates buffers with #GstGLBaseMemory
-         *
-         * A #GstGLBufferPool is created with gst_gl_buffer_pool_new()
-         *
-         * #GstGLBufferPool implements the VideoMeta buffer pool option
-         * %GST_BUFFER_POOL_OPTION_VIDEO_META, the VideoAligment buffer pool option
-         * %GST_BUFFER_POOL_OPTION_VIDEO_ALIGNMENT as well as the OpenGL specific
-         * %GST_BUFFER_POOL_OPTION_GL_SYNC_META buffer pool option.
-         */
         interface GLBufferPool extends Gst.BufferPool {
             readonly $signals: GLBufferPool.SignalSignatures
             readonly $readableProperties: GLBufferPool.ReadableProperties
@@ -360,15 +365,28 @@ declare module "gi://GstGL?version=1.0" {
         interface GLBufferPoolClass extends Omit<Gst.BufferPoolClass, "new"> {
             readonly $gtype: GObject.GType<GLBufferPool>
             readonly prototype: GLBufferPool
+
             new (props?: Partial<GObject.ConstructorProps<GLBufferPool>>): GLBufferPool
             /**
              * @param context the #GstGLContext to use
              * @returns a #GstBufferPool that allocates buffers with #GstGLMemory
              */
-            "new"(context: GLContext): Gst.BufferPool
+            "new"(context: GLContext): GLBufferPool
         }
 
-        const GLBufferPool: GLBufferPoolClass
+        interface $Exports {
+            /**
+             * a #GstGLBufferPool is an object that allocates buffers with #GstGLBaseMemory
+             *
+             * A #GstGLBufferPool is created with gst_gl_buffer_pool_new()
+             *
+             * #GstGLBufferPool implements the VideoMeta buffer pool option
+             * %GST_BUFFER_POOL_OPTION_VIDEO_META, the VideoAligment buffer pool option
+             * %GST_BUFFER_POOL_OPTION_VIDEO_ALIGNMENT as well as the OpenGL specific
+             * %GST_BUFFER_POOL_OPTION_GL_SYNC_META buffer pool option.
+             */
+            GLBufferPool: GLBufferPoolClass
+        }
         
 
         namespace GLColorConvert {
@@ -385,17 +403,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * #GstGLColorConvert is an object that converts between color spaces and/or
-         * formats using OpenGL Shaders.
-         *
-         * A #GstGLColorConvert can be created with gst_gl_color_convert_new(), the
-         * configuration negotiated with gst_gl_color_convert_transform_caps() and the
-         * conversion performed with gst_gl_color_convert_perform().
-         *
-         * The glcolorconvertelement provides a GStreamer element that uses
-         * #GstGLColorConvert to convert between video formats and color spaces.
-         */
         interface GLColorConvert extends Gst.Object {
             readonly $signals: GLColorConvert.SignalSignatures
             readonly $readableProperties: GLColorConvert.ReadableProperties
@@ -428,6 +435,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLColorConvertClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLColorConvert>
             readonly prototype: GLColorConvert
+
             new (props?: Partial<GObject.ConstructorProps<GLColorConvert>>): GLColorConvert
             /**
              * @since 1.4
@@ -476,7 +484,20 @@ declare module "gi://GstGL?version=1.0" {
             yuv_to_rgb_shader_string(context: GLContext): string
         }
 
-        const GLColorConvert: GLColorConvertClass
+        interface $Exports {
+            /**
+             * #GstGLColorConvert is an object that converts between color spaces and/or
+             * formats using OpenGL Shaders.
+             *
+             * A #GstGLColorConvert can be created with gst_gl_color_convert_new(), the
+             * configuration negotiated with gst_gl_color_convert_transform_caps() and the
+             * conversion performed with gst_gl_color_convert_perform().
+             *
+             * The glcolorconvertelement provides a GStreamer element that uses
+             * #GstGLColorConvert to convert between video formats and color spaces.
+             */
+            GLColorConvert: GLColorConvertClass
+        }
         
 
         namespace GLContext {
@@ -493,27 +514,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * #GstGLContext wraps an OpenGL context object in a uniform API.  As a result
-         * of the limitation on OpenGL context, this object is not thread safe unless
-         * specified and must only be activated in a single thread.
-         *
-         * Environment variables:
-         * - `GST_GL_API`: select which OpenGL API to create and OpenGL context for.
-         *                 Depending on the platform, the available values are
-         *                 'opengl', 'opengl3' (core profile), and 'gles2'.  See the
-         *                 the #GstGLAPI enumeration for more details.
-         * - `GST_GL_PLATFORM`: select which OpenGL platform to create an OpenGL
-         *                      context with.  Depending on the platform and the
-         *                      dependencies available build-time, the available values
-         *                      are, 'glx', 'egl', 'cgl', 'wgl', and 'eagl'
-         * - `GST_GL_CONFIG`: select the configuration used for creating the OpenGL
-         *                    context and OpenGL surface.  Written out as a GstStructure
-         *                    that has been serialized to string.  e.g.
-         *                    `GST_GL_CONFIG="gst-gl-context-config,red-size=8,green-size=8,blue-size=8,alpha-size=8,depth-size=16"`.
-         *                    Not all platforms will support the same level of
-         *                    functionality.
-         */
         interface GLContext extends Gst.Object {
             readonly $signals: GLContext.SignalSignatures
             readonly $readableProperties: GLContext.ReadableProperties
@@ -667,7 +667,23 @@ declare module "gi://GstGL?version=1.0" {
              */
             get_gl_version(): [number, number]
             /**
+             * Get a function pointer to a specified opengl function, @name.  If the the
+             * specific function does not exist, NULL is returned instead.
              *
+             * Platform specific functions (names starting 'egl', 'glX', 'wgl', etc) can also
+             * be retrieved using this method.
+             *
+             * Note: This function may return valid function pointers that may not be valid
+             * to call in @context.  The caller is responsible for ensuring that the
+             * returned function is a valid function to call in @context by either checking
+             * the OpenGL API and version or for an appropriate OpenGL extension.
+             *
+             * Note: On success, you need to cast the returned function pointer to the
+             * correct type to be able to call it correctly.  On 32-bit Windows, this will
+             * include the `GSTGLAPI` identifier to use the correct calling convention.
+             * e.g.
+             *
+             * |[<!-- language="C" -->
              * void (GSTGLAPI *PFN_glGetIntegerv) (GLenum name, GLint * ret)
              * ]|
              * @since 1.4
@@ -860,6 +876,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLContextClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLContext>
             readonly prototype: GLContext
+
             new (props?: Partial<GObject.ConstructorProps<GLContext>>): GLContext
             /**
              * Create a new #GstGLContext with the specified @display
@@ -910,7 +927,7 @@ declare module "gi://GstGL?version=1.0" {
              * @param platform the #GstGLPlatform to retrieve the API for
              * @returns The version supported by the OpenGL context current in the calling          thread or %GST_GL_API_NONE, the major version, the minor version
              */
-            get_current_gl_api(platform: GLPlatform): GLAPI
+            get_current_gl_api(platform: GLPlatform): [GLAPI, number, number]
             /**
              * @since 1.6
              * @param context_type a #GstGLPlatform specifying the type of context to retrieve
@@ -931,7 +948,30 @@ declare module "gi://GstGL?version=1.0" {
             get_proc_address_with_platform(context_type: GLPlatform, gl_api: GLAPI, name: string): never | null
         }
 
-        const GLContext: GLContextClass
+        interface $Exports {
+            /**
+             * #GstGLContext wraps an OpenGL context object in a uniform API.  As a result
+             * of the limitation on OpenGL context, this object is not thread safe unless
+             * specified and must only be activated in a single thread.
+             *
+             * Environment variables:
+             * - `GST_GL_API`: select which OpenGL API to create and OpenGL context for.
+             *                 Depending on the platform, the available values are
+             *                 'opengl', 'opengl3' (core profile), and 'gles2'.  See the
+             *                 the #GstGLAPI enumeration for more details.
+             * - `GST_GL_PLATFORM`: select which OpenGL platform to create an OpenGL
+             *                      context with.  Depending on the platform and the
+             *                      dependencies available build-time, the available values
+             *                      are, 'glx', 'egl', 'cgl', 'wgl', and 'eagl'
+             * - `GST_GL_CONFIG`: select the configuration used for creating the OpenGL
+             *                    context and OpenGL surface.  Written out as a GstStructure
+             *                    that has been serialized to string.  e.g.
+             *                    `GST_GL_CONFIG="gst-gl-context-config,red-size=8,green-size=8,blue-size=8,alpha-size=8,depth-size=16"`.
+             *                    Not all platforms will support the same level of
+             *                    functionality.
+             */
+            GLContext: GLContextClass
+        }
         
 
         namespace GLDisplay {
@@ -956,9 +996,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         *  example of such a function is X11's XInitThreads\().
-         */
         interface GLDisplay extends Gst.Object {
             readonly $signals: GLDisplay.SignalSignatures
             readonly $readableProperties: GLDisplay.ReadableProperties
@@ -1068,6 +1105,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLDisplayClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLDisplay>
             readonly prototype: GLDisplay
+
             new (props?: Partial<GObject.ConstructorProps<GLDisplay>>): GLDisplay
             /**
              * @since 1.4
@@ -1086,7 +1124,31 @@ declare module "gi://GstGL?version=1.0" {
             new_with_type(type: GLDisplayType): GLDisplay | null
         }
 
-        const GLDisplay: GLDisplayClass
+        interface $Exports {
+            /**
+             * #GstGLDisplay represents a connection to the underlying windowing system.
+             * Elements are required to make use of #GstContext to share and propagate
+             * a #GstGLDisplay.
+             *
+             * There are a number of environment variables that influence the choice of
+             * platform and window system specific functionality.
+             * - GST_GL_WINDOW influences the window system to use.  Common values are
+             *   'x11', 'wayland', 'surfaceless', 'win32' or 'cocoa'.
+             * - GST_GL_PLATFORM influences the OpenGL platform to use.  Common values are
+             *   'egl', 'glx', 'wgl' or 'cgl'.
+             * - GST_GL_API influences the OpenGL API requested by the OpenGL platform.
+             *   Common values are 'opengl', 'opengl3' and 'gles2'.
+             *
+             * > Certain window systems require a special function to be called to
+             * > initialize threading support.  As this GStreamer GL library does not preclude
+             * > concurrent access to the windowing system, it is strongly advised that
+             * > applications ensure that threading support has been initialized before any
+             * > other toolkit/library functionality is accessed.  Failure to do so could
+             * > result in sudden application abortion during execution.  The most notably
+             * > example of such a function is X11's XInitThreads\().
+             */
+            GLDisplay: GLDisplayClass
+        }
         
 
         namespace GLFilter {
@@ -1103,10 +1165,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * #GstGLFilter helps to implement simple OpenGL filter elements taking a
-         * single input and producing a single output with a #GstGLFramebuffer
-         */
         interface GLFilter extends GLBaseFilter {
             readonly $signals: GLFilter.SignalSignatures
             readonly $readableProperties: GLFilter.ReadableProperties
@@ -1187,6 +1245,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLFilterClass extends Omit<GLBaseFilterClass, "new"> {
             readonly $gtype: GObject.GType<GLFilter>
             readonly prototype: GLFilter
+
             new (props?: Partial<GObject.ConstructorProps<GLFilter>>): GLFilter
             /**
              * @param klass
@@ -1194,7 +1253,13 @@ declare module "gi://GstGL?version=1.0" {
             add_rgba_pad_templates(klass: GLFilterClass): void
         }
 
-        const GLFilter: GLFilterClass
+        interface $Exports {
+            /**
+             * #GstGLFilter helps to implement simple OpenGL filter elements taking a
+             * single input and producing a single output with a #GstGLFramebuffer
+             */
+            GLFilter: GLFilterClass
+        }
         
 
         namespace GLFramebuffer {
@@ -1211,19 +1276,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * A #GstGLFramebuffer represents and holds an OpenGL framebuffer object with
-         * it's associated attachments.
-         *
-         * A #GstGLFramebuffer can be created with gst_gl_framebuffer_new() or
-         * gst_gl_framebuffer_new_with_default_depth() and bound with
-         * gst_gl_framebuffer_bind().  Other resources can be bound with
-         * gst_gl_framebuffer_attach()
-         *
-         * Note: OpenGL framebuffers are not shareable resources so cannot be used
-         * between multiple OpenGL contexts.
-         * @since 1.10
-         */
         interface GLFramebuffer extends Gst.Object {
             readonly $signals: GLFramebuffer.SignalSignatures
             readonly $readableProperties: GLFramebuffer.ReadableProperties
@@ -1269,7 +1321,7 @@ declare module "gi://GstGL?version=1.0" {
              * @since 1.10
              * @returns , output width, output height
              */
-            get_effective_dimensions(): void
+            get_effective_dimensions(): [number, number]
             /**
              * @since 1.10
              * @returns the OpenGL id for `fb`
@@ -1280,6 +1332,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLFramebufferClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLFramebuffer>
             readonly prototype: GLFramebuffer
+
             new (props?: Partial<GObject.ConstructorProps<GLFramebuffer>>): GLFramebuffer
             /**
              * This function will internally create an OpenGL framebuffer object and must
@@ -1301,7 +1354,22 @@ declare module "gi://GstGL?version=1.0" {
             new_with_default_depth(context: GLContext, width: number, height: number): GLFramebuffer
         }
 
-        const GLFramebuffer: GLFramebufferClass
+        interface $Exports {
+            /**
+             * A #GstGLFramebuffer represents and holds an OpenGL framebuffer object with
+             * it's associated attachments.
+             *
+             * A #GstGLFramebuffer can be created with gst_gl_framebuffer_new() or
+             * gst_gl_framebuffer_new_with_default_depth() and bound with
+             * gst_gl_framebuffer_bind().  Other resources can be bound with
+             * gst_gl_framebuffer_attach()
+             *
+             * Note: OpenGL framebuffers are not shareable resources so cannot be used
+             * between multiple OpenGL contexts.
+             * @since 1.10
+             */
+            GLFramebuffer: GLFramebufferClass
+        }
         
 
         namespace GLMemoryAllocator {
@@ -1318,9 +1386,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * Opaque #GstGLMemoryAllocator struct
-         */
         interface GLMemoryAllocator extends GLBaseMemoryAllocator {
             readonly $signals: GLMemoryAllocator.SignalSignatures
             readonly $readableProperties: GLMemoryAllocator.ReadableProperties
@@ -1331,6 +1396,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLMemoryAllocatorClass extends Omit<GLBaseMemoryAllocatorClass, "new"> {
             readonly $gtype: GObject.GType<GLMemoryAllocator>
             readonly prototype: GLMemoryAllocator
+
             new (props?: Partial<GObject.ConstructorProps<GLMemoryAllocator>>): GLMemoryAllocator
             /**
              * @since 1.8
@@ -1340,7 +1406,12 @@ declare module "gi://GstGL?version=1.0" {
             get_default(context: GLContext): GLMemoryAllocator
         }
 
-        const GLMemoryAllocator: GLMemoryAllocatorClass
+        interface $Exports {
+            /**
+             * Opaque #GstGLMemoryAllocator struct
+             */
+            GLMemoryAllocator: GLMemoryAllocatorClass
+        }
         
 
         namespace GLMemoryPBOAllocator {
@@ -1357,9 +1428,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * Opaque #GstGLMemoryPBOAllocator struct
-         */
         interface GLMemoryPBOAllocator extends GLMemoryAllocator {
             readonly $signals: GLMemoryPBOAllocator.SignalSignatures
             readonly $readableProperties: GLMemoryPBOAllocator.ReadableProperties
@@ -1370,10 +1438,16 @@ declare module "gi://GstGL?version=1.0" {
         interface GLMemoryPBOAllocatorClass extends Omit<GLMemoryAllocatorClass, "new"> {
             readonly $gtype: GObject.GType<GLMemoryPBOAllocator>
             readonly prototype: GLMemoryPBOAllocator
+
             new (props?: Partial<GObject.ConstructorProps<GLMemoryPBOAllocator>>): GLMemoryPBOAllocator
         }
 
-        const GLMemoryPBOAllocator: GLMemoryPBOAllocatorClass
+        interface $Exports {
+            /**
+             * Opaque #GstGLMemoryPBOAllocator struct
+             */
+            GLMemoryPBOAllocator: GLMemoryPBOAllocatorClass
+        }
         
 
         namespace GLMixer {
@@ -1390,10 +1464,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * #GstGLMixer helps implement an element that operates on RGBA textures.
-         * @since 1.24
-         */
         interface GLMixer extends GLBaseMixer {
             readonly $signals: GLMixer.SignalSignatures
             readonly $readableProperties: GLMixer.ReadableProperties
@@ -1434,6 +1504,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLMixerClass extends Omit<GLBaseMixerClass, "new"> {
             readonly $gtype: GObject.GType<GLMixer>
             readonly prototype: GLMixer
+
             new (props?: Partial<GObject.ConstructorProps<GLMixer>>): GLMixer
             /**
              * Adds the default RGBA pad templates to this class.  If you have any special
@@ -1445,7 +1516,13 @@ declare module "gi://GstGL?version=1.0" {
             add_rgba_pad_templates(): void
         }
 
-        const GLMixer: GLMixerClass
+        interface $Exports {
+            /**
+             * #GstGLMixer helps implement an element that operates on RGBA textures.
+             * @since 1.24
+             */
+            GLMixer: GLMixerClass
+        }
         
 
         namespace GLMixerPad {
@@ -1462,9 +1539,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * @since 1.24
-         */
         interface GLMixerPad extends GLBaseMixerPad {
             readonly $signals: GLMixerPad.SignalSignatures
             readonly $readableProperties: GLMixerPad.ReadableProperties
@@ -1475,10 +1549,16 @@ declare module "gi://GstGL?version=1.0" {
         interface GLMixerPadClass extends Omit<GLBaseMixerPadClass, "new"> {
             readonly $gtype: GObject.GType<GLMixerPad>
             readonly prototype: GLMixerPad
+
             new (props?: Partial<GObject.ConstructorProps<GLMixerPad>>): GLMixerPad
         }
 
-        const GLMixerPad: GLMixerPadClass
+        interface $Exports {
+            /**
+             * @since 1.24
+             */
+            GLMixerPad: GLMixerPadClass
+        }
         
 
         namespace GLOverlayCompositor {
@@ -1497,9 +1577,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * Opaque #GstGLOverlayCompositor object
-         */
         interface GLOverlayCompositor extends Gst.Object {
             readonly $signals: GLOverlayCompositor.SignalSignatures
             readonly $readableProperties: GLOverlayCompositor.ReadableProperties
@@ -1525,6 +1602,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLOverlayCompositorClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLOverlayCompositor>
             readonly prototype: GLOverlayCompositor
+
             new (props?: Partial<GObject.ConstructorProps<GLOverlayCompositor>>): GLOverlayCompositor
             /**
              * @param context
@@ -1536,7 +1614,12 @@ declare module "gi://GstGL?version=1.0" {
             add_caps(caps: Gst.Caps): Gst.Caps
         }
 
-        const GLOverlayCompositor: GLOverlayCompositorClass
+        interface $Exports {
+            /**
+             * Opaque #GstGLOverlayCompositor object
+             */
+            GLOverlayCompositor: GLOverlayCompositorClass
+        }
         
 
         namespace GLRenderbufferAllocator {
@@ -1553,9 +1636,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * Opaque #GstGLRenderbufferAllocator struct
-         */
         interface GLRenderbufferAllocator extends GLBaseMemoryAllocator {
             readonly $signals: GLRenderbufferAllocator.SignalSignatures
             readonly $readableProperties: GLRenderbufferAllocator.ReadableProperties
@@ -1566,10 +1646,16 @@ declare module "gi://GstGL?version=1.0" {
         interface GLRenderbufferAllocatorClass extends Omit<GLBaseMemoryAllocatorClass, "new"> {
             readonly $gtype: GObject.GType<GLRenderbufferAllocator>
             readonly prototype: GLRenderbufferAllocator
+
             new (props?: Partial<GObject.ConstructorProps<GLRenderbufferAllocator>>): GLRenderbufferAllocator
         }
 
-        const GLRenderbufferAllocator: GLRenderbufferAllocatorClass
+        interface $Exports {
+            /**
+             * Opaque #GstGLRenderbufferAllocator struct
+             */
+            GLRenderbufferAllocator: GLRenderbufferAllocatorClass
+        }
         
 
         namespace GLSLStage {
@@ -1586,9 +1672,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * #GstGLSLStage holds and represents a single OpenGL shader stage.
-         */
         interface GLSLStage extends Gst.Object {
             readonly $signals: GLSLStage.SignalSignatures
             readonly $readableProperties: GLSLStage.ReadableProperties
@@ -1633,6 +1716,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLSLStageClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLSLStage>
             readonly prototype: GLSLStage
+
             new (props?: Partial<GObject.ConstructorProps<GLSLStage>>): GLSLStage
             /**
              * @since 1.8
@@ -1676,7 +1760,12 @@ declare module "gi://GstGL?version=1.0" {
             new_with_strings(context: GLContext, type: number, version: GLSLVersion, profile: GLSLProfile, str: string[]): GLSLStage
         }
 
-        const GLSLStage: GLSLStageClass
+        interface $Exports {
+            /**
+             * #GstGLSLStage holds and represents a single OpenGL shader stage.
+             */
+            GLSLStage: GLSLStageClass
+        }
         
 
         namespace GLShader {
@@ -1695,8 +1784,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         */
         interface GLShader extends Gst.Object {
             readonly $signals: GLShader.SignalSignatures
             readonly $readableProperties: GLShader.ReadableProperties
@@ -1999,6 +2086,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLShaderClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLShader>
             readonly prototype: GLShader
+
             new (props?: Partial<GObject.ConstructorProps<GLShader>>): GLShader
             /**
              * Note: must be called in the GL thread
@@ -2047,7 +2135,11 @@ declare module "gi://GstGL?version=1.0" {
             string_get_highest_precision(context: GLContext, version: GLSLVersion, profile: GLSLProfile): string
         }
 
-        const GLShader: GLShaderClass
+        interface $Exports {
+            /**
+             */
+            GLShader: GLShaderClass
+        }
         
 
         namespace GLUpload {
@@ -2064,11 +2156,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * #GstGLUpload is an object that uploads data from system memory into GL textures.
-         *
-         * A #GstGLUpload can be created with gst_gl_upload_new()
-         */
         interface GLUpload extends Gst.Object {
             readonly $signals: GLUpload.SignalSignatures
             readonly $readableProperties: GLUpload.ReadableProperties
@@ -2086,7 +2173,7 @@ declare module "gi://GstGL?version=1.0" {
             /**
              * @returns , the input #GstCaps, the output #GstCaps
              */
-            get_caps(): void
+            get_caps(): [Gst.Caps, Gst.Caps]
             /**
              * Uploads @buffer using the transformation specified by
              * gst_gl_upload_set_caps() creating a new #GstBuffer in @outbuf_ptr.
@@ -2123,6 +2210,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLUploadClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLUpload>
             readonly prototype: GLUpload
+
             new (props?: Partial<GObject.ConstructorProps<GLUpload>>): GLUpload
             /**
              * @param context a #GstGLContext
@@ -2134,7 +2222,14 @@ declare module "gi://GstGL?version=1.0" {
             get_input_template_caps(): Gst.Caps
         }
 
-        const GLUpload: GLUploadClass
+        interface $Exports {
+            /**
+             * #GstGLUpload is an object that uploads data from system memory into GL textures.
+             *
+             * A #GstGLUpload can be created with gst_gl_upload_new()
+             */
+            GLUpload: GLUploadClass
+        }
         
 
         namespace GLViewConvert {
@@ -2161,9 +2256,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * Convert stereoscopic/multiview video using fragment shaders.
-         */
         interface GLViewConvert extends Gst.Object {
             readonly $signals: GLViewConvert.SignalSignatures
             readonly $readableProperties: GLViewConvert.ReadableProperties
@@ -2258,6 +2350,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLViewConvertClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLViewConvert>
             readonly prototype: GLViewConvert
+
             new (props?: Partial<GObject.ConstructorProps<GLViewConvert>>): GLViewConvert
             /**
              * @since 1.6
@@ -2266,7 +2359,12 @@ declare module "gi://GstGL?version=1.0" {
             "new"(): GLViewConvert
         }
 
-        const GLViewConvert: GLViewConvertClass
+        interface $Exports {
+            /**
+             * Convert stereoscopic/multiview video using fragment shaders.
+             */
+            GLViewConvert: GLViewConvertClass
+        }
         
 
         namespace GLWindow {
@@ -2316,10 +2414,6 @@ declare module "gi://GstGL?version=1.0" {
             }
         }
 
-        /**
-         * GstGLWindow represents a window that elements can render into.  A window can
-         * either be a user visible window (onscreen) or hidden (offscreen).
-         */
         interface GLWindow extends Gst.Object {
             readonly $signals: GLWindow.SignalSignatures
             readonly $readableProperties: GLWindow.ReadableProperties
@@ -2587,6 +2681,7 @@ declare module "gi://GstGL?version=1.0" {
         interface GLWindowClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLWindow>
             readonly prototype: GLWindow
+
             new (props?: Partial<GObject.ConstructorProps<GLWindow>>): GLWindow
             /**
              * @since 1.4
@@ -2596,13 +2691,21 @@ declare module "gi://GstGL?version=1.0" {
             "new"(display: GLDisplay): GLWindow
         }
 
-        const GLWindow: GLWindowClass
-        /**
-         */
-        abstract class GLAllocationParams {
-            static readonly $gtype: GObject.GType<GLAllocationParams>
+        interface $Exports {
+            /**
+             * GstGLWindow represents a window that elements can render into.  A window can
+             * either be a user visible window (onscreen) or hidden (offscreen).
+             */
+            GLWindow: GLWindowClass
+        }
+        
 
-            
+        interface GLAllocationParamsStruct {
+            readonly $gtype: GObject.GType<GLAllocationParams>
+            [Symbol.hasInstance](instance: unknown): instance is GLAllocationParams
+        }
+
+        interface GLAllocationParams {
             /**
              * the size of the struct (including and subclass data)
              */
@@ -2671,14 +2774,18 @@ declare module "gi://GstGL?version=1.0" {
              */
             free_data(): void
         }
-        /**
-         * #GstGLAsyncDebug an opaque structure and should only be accessed through the
-         * provided API.
-         */
-        abstract class GLAsyncDebug {
-            static readonly $gtype: GObject.GType<GLAsyncDebug>
 
-            
+        interface $Exports {
+            GLAllocationParams: GLAllocationParamsStruct
+        }
+        
+
+        interface GLAsyncDebugStruct {
+            readonly $gtype: GObject.GType<GLAsyncDebug>
+            [Symbol.hasInstance](instance: unknown): instance is GLAsyncDebug
+        }
+
+        interface GLAsyncDebug {
             /**
              * Frees @ad
              * @since 1.8
@@ -2713,37 +2820,44 @@ declare module "gi://GstGL?version=1.0" {
              */
             unset(): void
         }
-        none
-        /**
-         */
-        abstract class GLBaseFilterPrivate {
-            static readonly $gtype: GObject.GType<GLBaseFilterPrivate>
 
-            
+        interface $Exports {
+            GLAsyncDebug: GLAsyncDebugStruct
         }
-        /**
-         * GstGLBaseMemory is a #GstMemory subclass providing the basis of support
-         * for the mapping of GL buffers.
-         *
-         * Data is uploaded or downloaded from the GPU as is necessary.
-         */
-        abstract class GLBaseMemory {
-            static readonly $gtype: GObject.GType<GLBaseMemory>
+        
 
-            
+        interface GLBaseFilterPrivateStruct {
+            readonly $gtype: GObject.GType<GLBaseFilterPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLBaseFilterPrivate
+        }
+
+        interface GLBaseFilterPrivate {
+        }
+
+        interface $Exports {
+            GLBaseFilterPrivate: GLBaseFilterPrivateStruct
+        }
+        
+
+        interface GLBaseMemoryStruct {
+            readonly $gtype: GObject.GType<GLBaseMemory>
+            [Symbol.hasInstance](instance: unknown): instance is GLBaseMemory
             /**
              * @since 1.8
              * @param allocator a #GstGLBaseMemoryAllocator
              * @param params the #GstGLAllocationParams to allocate the memory with
              * @returns a new #GstGLBaseMemory from `allocator` with the requested `params`.
              */
-            static alloc(allocator: GLBaseMemoryAllocator, params: GLAllocationParams): GLBaseMemory | null
+            alloc(allocator: GLBaseMemoryAllocator, params: GLAllocationParams): GLBaseMemory | null
             /**
              * Initializes the GL Base Memory allocator. It is safe to call this function
              * multiple times.  This must be called before any other GstGLBaseMemory operation.
              * @since 1.8
              */
-            static init_once(): void
+            init_once(): void
+        }
+
+        interface GLBaseMemory {
             /**
              * the parent object
              */
@@ -2771,7 +2885,8 @@ declare module "gi://GstGL?version=1.0" {
              */
             query: GLQuery
             /**
-             * data,
+             * Note: only intended for subclass usage to allocate the system memory buffer
+             * on demand.  If there is already a non-NULL data pointer in @gl_mem->data,
              * then this function imply returns TRUE.
              * @returns whether the system memory could be allocated
              */
@@ -2797,40 +2912,50 @@ declare module "gi://GstGL?version=1.0" {
              */
             memcpy(dest: GLBaseMemory, offset: number, size: number): boolean
         }
-        none
-        none
-        none
-        /**
-         */
-        abstract class GLBaseMixerPrivate {
-            static readonly $gtype: GObject.GType<GLBaseMixerPrivate>
 
-            
+        interface $Exports {
+            GLBaseMemory: GLBaseMemoryStruct
         }
-        none
-        /**
-         */
-        abstract class GLBaseSrcPrivate {
-            static readonly $gtype: GObject.GType<GLBaseSrcPrivate>
+        
 
-            
+        interface GLBaseMixerPrivateStruct {
+            readonly $gtype: GObject.GType<GLBaseMixerPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLBaseMixerPrivate
         }
-        /**
-         * GstGLBuffer is a #GstMemory subclass providing support for the mapping of
-         * GL buffers.
-         *
-         * Data is uploaded or downloaded from the GPU as is necessary.
-         */
-        abstract class GLBuffer {
-            static readonly $gtype: GObject.GType<GLBuffer>
 
-            
+        interface GLBaseMixerPrivate {
+        }
+
+        interface $Exports {
+            GLBaseMixerPrivate: GLBaseMixerPrivateStruct
+        }
+        
+
+        interface GLBaseSrcPrivateStruct {
+            readonly $gtype: GObject.GType<GLBaseSrcPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLBaseSrcPrivate
+        }
+
+        interface GLBaseSrcPrivate {
+        }
+
+        interface $Exports {
+            GLBaseSrcPrivate: GLBaseSrcPrivateStruct
+        }
+        
+
+        interface GLBufferStruct {
+            readonly $gtype: GObject.GType<GLBuffer>
+            [Symbol.hasInstance](instance: unknown): instance is GLBuffer
             /**
              * Initializes the GL Buffer allocator. It is safe to call this function
              * multiple times.  This must be called before any other #GstGLBuffer operation.
              * @since 1.8
              */
-            static init_once(): void
+            init_once(): void
+        }
+
+        interface GLBuffer {
             /**
              * the parent object
              */
@@ -2848,12 +2973,15 @@ declare module "gi://GstGL?version=1.0" {
              */
             usage_hints: number
         }
-        /**
-         */
-        abstract class GLBufferAllocationParams {
-            static readonly $gtype: GObject.GType<GLBufferAllocationParams>
 
-            
+        interface $Exports {
+            GLBuffer: GLBufferStruct
+        }
+        
+
+        interface GLBufferAllocationParamsStruct {
+            readonly $gtype: GObject.GType<GLBufferAllocationParams>
+            [Symbol.hasInstance](instance: unknown): instance is GLBufferAllocationParams
             /**
              * @since 1.8
              * @param context a #GstGLContext
@@ -2863,7 +2991,10 @@ declare module "gi://GstGL?version=1.0" {
              * @param gl_usage the OpenGL usage hint to allocate with
              * @returns a new #GstGLBufferAllocationParams for allocating OpenGL buffer          objects
              */
-            static "new"(context: GLContext, alloc_size: number, alloc_params: Gst.AllocationParams | null, gl_target: number, gl_usage: number): GLBufferAllocationParams
+            "new"(context: GLContext, alloc_size: number, alloc_params: Gst.AllocationParams | null, gl_target: number, gl_usage: number): GLBufferAllocationParams
+        }
+
+        interface GLBufferAllocationParams {
             /**
              * parent object
              */
@@ -2877,84 +3008,102 @@ declare module "gi://GstGL?version=1.0" {
              */
             gl_usage: number
         }
-        none
-        none
-        /**
-         */
-        abstract class GLBufferPoolPrivate {
-            static readonly $gtype: GObject.GType<GLBufferPoolPrivate>
 
-            
+        interface $Exports {
+            GLBufferAllocationParams: GLBufferAllocationParamsStruct
         }
-        none
-        /**
-         */
-        abstract class GLColorConvertPrivate {
-            static readonly $gtype: GObject.GType<GLColorConvertPrivate>
+        
 
-            
+        interface GLBufferPoolPrivateStruct {
+            readonly $gtype: GObject.GType<GLBufferPoolPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLBufferPoolPrivate
         }
-        none
-        /**
-         */
-        abstract class GLContextPrivate {
-            static readonly $gtype: GObject.GType<GLContextPrivate>
 
-            
+        interface GLBufferPoolPrivate {
         }
-        none
-        /**
-         */
-        abstract class GLDisplayPrivate {
-            static readonly $gtype: GObject.GType<GLDisplayPrivate>
 
-            
+        interface $Exports {
+            GLBufferPoolPrivate: GLBufferPoolPrivateStruct
         }
-        none
-        none
-        /**
-         */
-        abstract class GLFramebufferPrivate {
-            static readonly $gtype: GObject.GType<GLFramebufferPrivate>
+        
 
-            
+        interface GLColorConvertPrivateStruct {
+            readonly $gtype: GObject.GType<GLColorConvertPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLColorConvertPrivate
         }
-        /**
-         * Structure containing function pointers to OpenGL functions.
-         *
-         * Each field is named exactly the same as the OpenGL function without the
-         * `gl` prefix.
-         */
-        abstract class GLFuncs {
-            static readonly $gtype: GObject.GType<GLFuncs>
 
-            
+        interface GLColorConvertPrivate {
         }
-        /**
-         * GstGLMemory is a #GstGLBaseMemory subclass providing support for the mapping of
-         * OpenGL textures.
-         *
-         * #GstGLMemory is created or wrapped through gst_gl_base_memory_alloc()
-         * with #GstGLVideoAllocationParams.
-         *
-         * Data is uploaded or downloaded from the GPU as is necessary.
-         *
-         * The #GstCaps that is used for #GstGLMemory based buffers should contain
-         * the %GST_CAPS_FEATURE_MEMORY_GL_MEMORY as a #GstCapsFeatures and should
-         * contain a 'texture-target' field with one of the #GstGLTextureTarget values
-         * as a string, i.e. some combination of 'texture-target=(string){2D,
-         * rectangle, external-oes}'.
-         */
-        abstract class GLMemory {
-            static readonly $gtype: GObject.GType<GLMemory>
 
-            
+        interface $Exports {
+            GLColorConvertPrivate: GLColorConvertPrivateStruct
+        }
+        
+
+        interface GLContextPrivateStruct {
+            readonly $gtype: GObject.GType<GLContextPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLContextPrivate
+        }
+
+        interface GLContextPrivate {
+        }
+
+        interface $Exports {
+            GLContextPrivate: GLContextPrivateStruct
+        }
+        
+
+        interface GLDisplayPrivateStruct {
+            readonly $gtype: GObject.GType<GLDisplayPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLDisplayPrivate
+        }
+
+        interface GLDisplayPrivate {
+        }
+
+        interface $Exports {
+            GLDisplayPrivate: GLDisplayPrivateStruct
+        }
+        
+
+        interface GLFramebufferPrivateStruct {
+            readonly $gtype: GObject.GType<GLFramebufferPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLFramebufferPrivate
+        }
+
+        interface GLFramebufferPrivate {
+        }
+
+        interface $Exports {
+            GLFramebufferPrivate: GLFramebufferPrivateStruct
+        }
+        
+
+        interface GLFuncsStruct {
+            readonly $gtype: GObject.GType<GLFuncs>
+            [Symbol.hasInstance](instance: unknown): instance is GLFuncs
+        }
+
+        interface GLFuncs {
+        }
+
+        interface $Exports {
+            GLFuncs: GLFuncsStruct
+        }
+        
+
+        interface GLMemoryStruct {
+            readonly $gtype: GObject.GType<GLMemory>
+            [Symbol.hasInstance](instance: unknown): instance is GLMemory
             /**
              * Initializes the GL Base Texture allocator. It is safe to call this function
              * multiple times.  This must be called before any other GstGLMemory operation.
              * @since 1.4
              */
-            static init_once(): void
+            init_once(): void
+        }
+
+        interface GLMemory {
             /**
              * the parent #GstGLBaseMemory object
              */
@@ -3082,20 +3231,21 @@ declare module "gi://GstGL?version=1.0" {
              */
             texsubimage(read_pointer: never | null): void
         }
-        none
-        /**
-         * #GstGLMemoryPBO is created or wrapped through gst_gl_base_memory_alloc()
-         * with #GstGLVideoAllocationParams.
-         *
-         * Data is uploaded or downloaded from the GPU as is necessary.
-         */
-        abstract class GLMemoryPBO {
-            static readonly $gtype: GObject.GType<GLMemoryPBO>
 
-            
+        interface $Exports {
+            GLMemory: GLMemoryStruct
+        }
+        
+
+        interface GLMemoryPBOStruct {
+            readonly $gtype: GObject.GType<GLMemoryPBO>
+            [Symbol.hasInstance](instance: unknown): instance is GLMemoryPBO
             /**
              */
-            static init_once(): void
+            init_once(): void
+        }
+
+        interface GLMemoryPBO {
             /**
              * Copies @gl_mem into the texture specified by @tex_id.  The format of @tex_id
              * is specified by @tex_format, @width and @height.
@@ -3132,26 +3282,28 @@ declare module "gi://GstGL?version=1.0" {
              */
             upload_transfer(): void
         }
-        none
-        none
-        none
-        /**
-         */
-        abstract class GLMixerPrivate {
-            static readonly $gtype: GObject.GType<GLMixerPrivate>
 
-            
+        interface $Exports {
+            GLMemoryPBO: GLMemoryPBOStruct
         }
-        none
-        /**
-         * A #GstGLQuery represents and holds an OpenGL query object.  Various types of
-         * queries can be run or counters retrieved.
-         * @since 1.10
-         */
-        abstract class GLQuery {
-            static readonly $gtype: GObject.GType<GLQuery>
+        
 
-            
+        interface GLMixerPrivateStruct {
+            readonly $gtype: GObject.GType<GLMixerPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLMixerPrivate
+        }
+
+        interface GLMixerPrivate {
+        }
+
+        interface $Exports {
+            GLMixerPrivate: GLMixerPrivateStruct
+        }
+        
+
+        interface GLQueryStruct {
+            readonly $gtype: GObject.GType<GLQuery>
+            [Symbol.hasInstance](instance: unknown): instance is GLQuery
             /**
              * Performs a GST_QUERY_CONTEXT query of type "gst.gl.local_context" on all
              * #GstPads in @element of @direction for the local OpenGL context used by
@@ -3160,7 +3312,10 @@ declare module "gi://GstGL?version=1.0" {
              * @param direction the #GstPadDirection to query
              * @returns whether `context_ptr` contains a #GstGLContext, location containing the current and/or resulting                      #GstGLContext
              */
-            static local_gl_context(element: Gst.Element, direction: Gst.PadDirection): [boolean, GLContext]
+            local_gl_context(element: Gst.Element, direction: Gst.PadDirection): [boolean, GLContext]
+        }
+
+        interface GLQuery {
             /**
              * Record the result of a counter
              * @since 1.10
@@ -3198,24 +3353,24 @@ declare module "gi://GstGL?version=1.0" {
              */
             unset(): void
         }
-        /**
-         * GstGLRenderbuffer is a #GstGLBaseMemory subclass providing support for
-         * OpenGL renderbuffers.
-         *
-         * #GstGLRenderbuffer is created or wrapped through gst_gl_base_memory_alloc()
-         * with #GstGLRenderbufferAllocationParams.
-         * @since 1.10
-         */
-        abstract class GLRenderbuffer {
-            static readonly $gtype: GObject.GType<GLRenderbuffer>
 
-            
+        interface $Exports {
+            GLQuery: GLQueryStruct
+        }
+        
+
+        interface GLRenderbufferStruct {
+            readonly $gtype: GObject.GType<GLRenderbuffer>
+            [Symbol.hasInstance](instance: unknown): instance is GLRenderbuffer
             /**
              * Initializes the GL Base Texture allocator. It is safe to call this function
              * multiple times.  This must be called before any other GstGLRenderbuffer operation.
              * @since 1.10
              */
-            static init_once(): void
+            init_once(): void
+        }
+
+        interface GLRenderbuffer {
             /**
              * the GL texture id for this memory
              */
@@ -3256,13 +3411,15 @@ declare module "gi://GstGL?version=1.0" {
              */
             get_width(): number
         }
-        /**
-         * Allocation parameters
-         */
-        abstract class GLRenderbufferAllocationParams {
-            static readonly $gtype: GObject.GType<GLRenderbufferAllocationParams>
 
-            
+        interface $Exports {
+            GLRenderbuffer: GLRenderbufferStruct
+        }
+        
+
+        interface GLRenderbufferAllocationParamsStruct {
+            readonly $gtype: GObject.GType<GLRenderbufferAllocationParams>
+            [Symbol.hasInstance](instance: unknown): instance is GLRenderbufferAllocationParams
             /**
              * @since 1.10
              * @param context a #GstGLContext
@@ -3272,7 +3429,7 @@ declare module "gi://GstGL?version=1.0" {
              * @param height the height of the renderbuffer
              * @returns a new #GstGLRenderbufferAllocationParams for allocating #GstGLRenderbuffer's
              */
-            static "new"(context: GLContext, alloc_params: Gst.AllocationParams | null, renderbuffer_format: GLFormat, width: number, height: number): GLRenderbufferAllocationParams
+            "new"(context: GLContext, alloc_params: Gst.AllocationParams | null, renderbuffer_format: GLFormat, width: number, height: number): GLRenderbufferAllocationParams
             /**
              * @since 1.10
              * @param context a #GstGLContext
@@ -3285,7 +3442,10 @@ declare module "gi://GstGL?version=1.0" {
              * @param notify a #GDestroyNotify
              * @returns a new #GstGLRenderbufferAllocationParams for wrapping `gl_handle` as a          renderbuffer
              */
-            static new_wrapped(context: GLContext, alloc_params: Gst.AllocationParams | null, renderbuffer_format: GLFormat, width: number, height: number, gl_handle: never | null, user_data: never | null, notify: GLib.DestroyNotify | null): GLRenderbufferAllocationParams
+            new_wrapped(context: GLContext, alloc_params: Gst.AllocationParams | null, renderbuffer_format: GLFormat, width: number, height: number, gl_handle: never | null, user_data: never | null, notify: GLib.DestroyNotify | null): GLRenderbufferAllocationParams
+        }
+
+        interface GLRenderbufferAllocationParams {
             /**
              * the #GstGLFormat
              */
@@ -3299,34 +3459,47 @@ declare module "gi://GstGL?version=1.0" {
              */
             height: number
         }
-        none
-        none
-        /**
-         */
-        abstract class GLSLStagePrivate {
-            static readonly $gtype: GObject.GType<GLSLStagePrivate>
 
-            
+        interface $Exports {
+            GLRenderbufferAllocationParams: GLRenderbufferAllocationParamsStruct
         }
-        none
-        /**
-         */
-        abstract class GLShaderPrivate {
-            static readonly $gtype: GObject.GType<GLShaderPrivate>
+        
 
-            
+        interface GLSLStagePrivateStruct {
+            readonly $gtype: GObject.GType<GLSLStagePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLSLStagePrivate
         }
-        /**
-         * #GstGLSyncMeta provides the ability to synchronize the OpenGL command stream
-         * with the CPU or with other OpenGL contexts.
-         */
-        abstract class GLSyncMeta {
-            static readonly $gtype: GObject.GType<GLSyncMeta>
 
-            
+        interface GLSLStagePrivate {
+        }
+
+        interface $Exports {
+            GLSLStagePrivate: GLSLStagePrivateStruct
+        }
+        
+
+        interface GLShaderPrivateStruct {
+            readonly $gtype: GObject.GType<GLShaderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLShaderPrivate
+        }
+
+        interface GLShaderPrivate {
+        }
+
+        interface $Exports {
+            GLShaderPrivate: GLShaderPrivateStruct
+        }
+        
+
+        interface GLSyncMetaStruct {
+            readonly $gtype: GObject.GType<GLSyncMeta>
+            [Symbol.hasInstance](instance: unknown): instance is GLSyncMeta
             /**
              */
-            static get_info(): Gst.MetaInfo
+            get_info(): Gst.MetaInfo
+        }
+
+        interface GLSyncMeta {
             /**
              * the parent #GstMeta
              */
@@ -3361,20 +3534,28 @@ declare module "gi://GstGL?version=1.0" {
              */
             wait_cpu(context: GLContext): void
         }
-        none
-        /**
-         */
-        abstract class GLUploadPrivate {
-            static readonly $gtype: GObject.GType<GLUploadPrivate>
 
-            
+        interface $Exports {
+            GLSyncMeta: GLSyncMetaStruct
         }
-        /**
-         */
-        abstract class GLVideoAllocationParams {
-            static readonly $gtype: GObject.GType<GLVideoAllocationParams>
+        
 
-            
+        interface GLUploadPrivateStruct {
+            readonly $gtype: GObject.GType<GLUploadPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLUploadPrivate
+        }
+
+        interface GLUploadPrivate {
+        }
+
+        interface $Exports {
+            GLUploadPrivate: GLUploadPrivateStruct
+        }
+        
+
+        interface GLVideoAllocationParamsStruct {
+            readonly $gtype: GObject.GType<GLVideoAllocationParams>
+            [Symbol.hasInstance](instance: unknown): instance is GLVideoAllocationParams
             /**
              * @since 1.8
              * @param context a #GstGLContext
@@ -3386,7 +3567,7 @@ declare module "gi://GstGL?version=1.0" {
              * @param tex_format the #GstGLFormat for the created textures
              * @returns a new #GstGLVideoAllocationParams for allocating #GstGLMemory's
              */
-            static "new"(context: GLContext, alloc_params: Gst.AllocationParams | null, v_info: GstVideo.VideoInfo, plane: number, valign: GstVideo.VideoAlignment | null, target: GLTextureTarget, tex_format: GLFormat): GLVideoAllocationParams
+            "new"(context: GLContext, alloc_params: Gst.AllocationParams | null, v_info: GstVideo.VideoInfo, plane: number, valign: GstVideo.VideoAlignment | null, target: GLTextureTarget, tex_format: GLFormat): GLVideoAllocationParams
             /**
              * @since 1.8
              * @param context a #GstGLContext
@@ -3401,7 +3582,7 @@ declare module "gi://GstGL?version=1.0" {
              * @param notify a #GDestroyNotify
              * @returns a new #GstGLVideoAllocationParams for wrapping `wrapped_data`
              */
-            static new_wrapped_data(context: GLContext, alloc_params: Gst.AllocationParams | null, v_info: GstVideo.VideoInfo, plane: number, valign: GstVideo.VideoAlignment | null, target: GLTextureTarget, tex_format: GLFormat, wrapped_data: never | null, user_data: never | null, notify: GLib.DestroyNotify | null): GLVideoAllocationParams
+            new_wrapped_data(context: GLContext, alloc_params: Gst.AllocationParams | null, v_info: GstVideo.VideoInfo, plane: number, valign: GstVideo.VideoAlignment | null, target: GLTextureTarget, tex_format: GLFormat, wrapped_data: never | null, user_data: never | null, notify: GLib.DestroyNotify | null): GLVideoAllocationParams
             /**
              * @gl_handle is defined by the specific OpenGL handle being wrapped
              * For #GstGLMemory and #GstGLMemoryPBO it is an OpenGL texture id.
@@ -3419,7 +3600,7 @@ declare module "gi://GstGL?version=1.0" {
              * @param notify a #GDestroyNotify
              * @returns a new #GstGLVideoAllocationParams for wrapping `gl_handle`
              */
-            static new_wrapped_gl_handle(context: GLContext, alloc_params: Gst.AllocationParams | null, v_info: GstVideo.VideoInfo, plane: number, valign: GstVideo.VideoAlignment | null, target: GLTextureTarget, tex_format: GLFormat, gl_handle: never | null, user_data: never | null, notify: GLib.DestroyNotify | null): GLVideoAllocationParams
+            new_wrapped_gl_handle(context: GLContext, alloc_params: Gst.AllocationParams | null, v_info: GstVideo.VideoInfo, plane: number, valign: GstVideo.VideoAlignment | null, target: GLTextureTarget, tex_format: GLFormat, gl_handle: never | null, user_data: never | null, notify: GLib.DestroyNotify | null): GLVideoAllocationParams
             /**
              * @since 1.8
              * @param context a #GstGLContext
@@ -3434,7 +3615,10 @@ declare module "gi://GstGL?version=1.0" {
              * @param notify a #GDestroyNotify
              * @returns a new #GstGLVideoAllocationParams for wrapping `tex_id`
              */
-            static new_wrapped_texture(context: GLContext, alloc_params: Gst.AllocationParams | null, v_info: GstVideo.VideoInfo, plane: number, valign: GstVideo.VideoAlignment | null, target: GLTextureTarget, tex_format: GLFormat, tex_id: number, user_data: never | null, notify: GLib.DestroyNotify | null): GLVideoAllocationParams
+            new_wrapped_texture(context: GLContext, alloc_params: Gst.AllocationParams | null, v_info: GstVideo.VideoInfo, plane: number, valign: GstVideo.VideoAlignment | null, target: GLTextureTarget, tex_format: GLFormat, tex_id: number, user_data: never | null, notify: GLib.DestroyNotify | null): GLVideoAllocationParams
+        }
+
+        interface GLVideoAllocationParams {
             /**
              * the parent #GstGLAllocationParams structure
              */
@@ -3473,1296 +3657,856 @@ declare module "gi://GstGL?version=1.0" {
              */
             free_data(): void
         }
-        none
-        /**
-         */
-        abstract class GLViewConvertPrivate {
-            static readonly $gtype: GObject.GType<GLViewConvertPrivate>
 
-            
+        interface $Exports {
+            GLVideoAllocationParams: GLVideoAllocationParamsStruct
         }
-        none
-        /**
-         */
-        abstract class GLWindowPrivate {
-            static readonly $gtype: GObject.GType<GLWindowPrivate>
-
-            
-        }
-        /**
-         * @since 1.6
-         * @param context a #GstGLContext
-         * @param buffer a #GstBuffer
-         * @returns the #GstGLSyncMeta added to #GstBuffer
-         */
-        function buffer_add_gl_sync_meta(context: GLContext, buffer: Gst.Buffer): GLSyncMeta
-        /**
-         * @since 1.8
-         * @param context a #GstGLContext
-         * @param buffer a #GstBuffer
-         * @param data sync data to hold
-         * @returns the #GstGLSyncMeta added to #GstBuffer
-         */
-        function buffer_add_gl_sync_meta_full(context: GLContext, buffer: Gst.Buffer, data: never | null): GLSyncMeta
-        /**
-         * @param config a buffer pool config
-         * @returns the currently set #GstGLAllocationParams or %NULL
-         */
-        function buffer_pool_config_get_gl_allocation_params(config: Gst.Structure): GLAllocationParams | null
-        /**
-         * See gst_buffer_pool_config_set_gl_min_free_queue_size().
-         * @since 1.24
-         * @param config a buffer pool config
-         * @returns then number of buffers configured the free queue
-         */
-        function buffer_pool_config_get_gl_min_free_queue_size(config: Gst.Structure): number
-        /**
-         * Sets @params on @config
-         * @param config a buffer pool config
-         * @param params a #GstGLAllocationParams
-         */
-        function buffer_pool_config_set_gl_allocation_params(config: Gst.Structure, params: GLAllocationParams | null): void
-        /**
-         * Instructs the #GstGLBufferPool to keep @queue_size amount of buffers around
-         * before allowing them for reuse.
-         *
-         * This is helpful to allow GPU processing to complete before the CPU
-         * operations on the same buffer could start.  Particularly useful when
-         * uploading or downloading data to/from the GPU.
-         *
-         * A value of 0 disabled this functionality.
-         *
-         * This value must be less than the configured maximum amount of buffers for
-         * this @config.
-         * @since 1.24
-         * @param config a buffer pool config
-         * @param queue_size the number of buffers
-         */
-        function buffer_pool_config_set_gl_min_free_queue_size(config: Gst.Structure, queue_size: number): void
-        /**
-         * @since 1.4
-         * @param context a #GstContext
-         * @returns Whether `display` was in `context`, resulting #GstGLDisplay
-         */
-        function context_get_gl_display(context: Gst.Context): boolean
-        /**
-         * Sets @display on @context
-         * @since 1.4
-         * @param context a #GstContext
-         * @param display resulting #GstGLDisplay
-         */
-        function context_set_gl_display(context: Gst.Context, display: GLDisplay | null): void
-        /**
-         * @param api_s a space separated string of OpenGL apis
-         * @returns The #GstGLAPI represented by `api_s`
-         */
-        function gl_api_from_string(api_s: string): GLAPI
-        /**
-         * @param api a #GstGLAPI to stringify
-         * @returns A space separated string of the OpenGL api's enabled in `api`
-         */
-        function gl_api_to_string(api: GLAPI): string
-        none
-        /**
-         * @since 1.8
-         * @param allocator a #GstGLBaseMemoryAllocator
-         * @param params the #GstGLAllocationParams to allocate the memory with
-         * @returns a new #GstGLBaseMemory from `allocator` with the requested `params`.
-         */
-        function gl_base_memory_alloc(allocator: GLBaseMemoryAllocator, params: GLAllocationParams): GLBaseMemory | null
-        /**
-         * @returns the quark used for #GstGLBaseMemory in #GError's
-         */
-        function gl_base_memory_error_quark(): GLib.Quark
-        /**
-         * Initializes the GL Base Memory allocator. It is safe to call this function
-         * multiple times.  This must be called before any other GstGLBaseMemory operation.
-         * @since 1.8
-         */
-        function gl_base_memory_init_once(): void
-        /**
-         * Initializes the GL Buffer allocator. It is safe to call this function
-         * multiple times.  This must be called before any other #GstGLBuffer operation.
-         * @since 1.8
-         */
-        function gl_buffer_init_once(): void
-        /**
-         * @param name the extension to search for
-         * @param ext the list of possible extensions
-         * @returns whether `name` is in the space separated list of `ext`
-         */
-        function gl_check_extension(name: string, ext: string): boolean
-        /**
-         * @since 1.20
-         * @param caveat the #GstGLConfigCaveat
-         * @returns a string version of `caveat` or %NULL if `caveat` does not                      exist.
-         */
-        function gl_config_caveat_to_string(caveat: GLConfigCaveat): string | null
-        /**
-         * @since 1.20
-         * @param surface_type the #GstGLConfigSurfaceType
-         * @returns a string version of `caveat` or %NULL if `surface_type` does not                      exist.
-         */
-        function gl_config_surface_type_to_string(surface_type: GLConfigSurfaceType): string | null
-        /**
-         * @returns the quark used for #GstGLContext in #GError's
-         */
-        function gl_context_error_quark(): GLib.Quark
-        /**
-         * Given the DRM formats in @src #GValue, collect corresponding GST formats to
-         * @dst #GValue. This function returns %FALSE if  the context is not an EGL
-         * context.
-         * @since 1.26
-         * @param context a #GstContext
-         * @param src value of "drm-format" field in #GstCaps as #GValue
-         * @param flags transformation flags
-         * @returns whether any valid GST video formats were found and stored in `dst`, empty destination #GValue
-         */
-        function gl_dma_buf_transform_drm_formats_to_gst_formats(context: GLContext, src: GObject.Value, flags: GLDrmFormatFlags): [boolean, GObject.Value]
-        /**
-         * Given the video formats in @src #GValue, collect corresponding drm formats
-         * supported by @context into @dst #GValue. This function returns %FALSE if
-         * the context is not an EGL context.
-         * @since 1.26
-         * @param context a #GstContext
-         * @param src value of "format" field in #GstCaps as #GValue
-         * @param flags transformation flags
-         * @returns whether any valid drm formats were found and stored in `dst`, empty destination #GValue
-         */
-        function gl_dma_buf_transform_gst_formats_to_drm_formats(context: GLContext, src: GObject.Value, flags: GLDrmFormatFlags): [boolean, GObject.Value]
-        /**
-         * @param element
-         * @param display
-         */
-        function gl_element_propagate_display_context(element: Gst.Element, display: GLDisplay): void
-        /**
-         * Perform the steps necessary for retrieving a #GstGLDisplay and (optionally)
-         * an application provided #GstGLContext from the surrounding elements or from
-         * the application using the #GstContext mechanism.
-         *
-         * If the contents of @display_ptr or @other_context_ptr are not %NULL, then no
-         * #GstContext query is necessary for #GstGLDisplay or #GstGLContext retrieval
-         * or is performed.
-         *
-         * This performs #GstContext queries (if necessary) for a winsys display
-         * connection with %GST_GL_DISPLAY_CONTEXT_TYPE, "gst.x11.display.handle", and
-         * "GstWaylandDisplayHandleContextType" stopping after the first successful
-         * retrieval.
-         *
-         * This also performs a #GstContext query (if necessary) for an optional
-         * application provided #GstGLContext using the name "gst.gl.app_context".
-         * The returned #GstGLContext will be shared with a GStreamer created OpenGL context.
-         * @param element the #GstElement running the query
-         * @returns whether a #GstGLDisplay exists in `display_ptr`, the resulting #GstGLDisplay, the resulting #GstGLContext
-         */
-        function gl_ensure_element_data(element: Gst.Element): [boolean, GLDisplay, GLContext]
-        /**
-         * @param context a #GstGLContext
-         * @param vinfo a #GstVideoInfo
-         * @param plane the plane number in @vinfo
-         * @returns the #GstGLFormat necessary for holding the data in `plane` of `vinfo`
-         */
-        function gl_format_from_video_info(context: GLContext, vinfo: GstVideo.VideoInfo, plane: number): GLFormat
-        /**
-         * @since 1.16
-         * @param context a #GstGLContext
-         * @param format the #GstGLFormat to check is supported by @context
-         * @returns Whether `format` is supported by `context` based on the OpenGL API,          version, or available OpenGL extension/s.
-         */
-        function gl_format_is_supported(context: GLContext, format: GLFormat): boolean
-        /**
-         * @since 1.24
-         * @param gl_format the #GstGLFormat
-         * @returns the number of components in a #GstGLFormat
-         */
-        function gl_format_n_components(gl_format: GLFormat): number
-        /**
-         * Get the unsized format and type from @format for usage in glReadPixels,
-         * glTex{Sub}Image*, glTexImage* and similar functions.
-         * @since 1.16
-         * @param format the sized internal #GstGLFormat
-         * @returns , location for the resulting unsized #GstGLFormat, location for the resulting GL type
-         */
-        function gl_format_type_from_sized_gl_format(format: GLFormat): [GLFormat, number]
-        /**
-         * @param format the OpenGL format, `GL_RGBA`, `GL_LUMINANCE`, etc
-         * @param type the OpenGL type, `GL_UNSIGNED_BYTE`, `GL_FLOAT`, etc
-         * @returns the number of bytes the specified `format`, `type` combination takes per pixel
-         */
-        function gl_format_type_n_bytes(format: number, type: number): number
-        /**
-         * Retrieves the stored 4x4 affine transformation matrix stored in @meta in
-         * NDC coordinates. if @meta is NULL, an identity matrix is returned.
-         *
-         * NDC is a left-handed coordinate system
-         * - x - [-1, 1] - +ve X moves right
-         * - y - [-1, 1] - +ve Y moves up
-         * - z - [-1, 1] - +ve Z moves into
-         * @since 1.20
-         * @param meta a #GstVideoAffineTransformationMeta
-         * @returns , result of the 4x4 matrix
-         */
-        function gl_get_affine_transformation_meta_as_ndc(meta: GstVideo.VideoAffineTransformationMeta | null): number[]
-        /**
-         * Retrieve the size in bytes of a video plane of data with a certain alignment
-         * @param info a #GstVideoInfo
-         * @param align a #GstVideoAlignment or %NULL
-         * @param plane plane number in @info to retrieve the data size of
-         */
-        function gl_get_plane_data_size(info: GstVideo.VideoInfo, align: GstVideo.VideoAlignment, plane: number): number
-        /**
-         * @param info a #GstVideoInfo
-         * @param valign a #GstVideoAlignment or %NULL
-         * @param plane plane number in @info to retrieve the data size of
-         * @returns difference between the supposed start of the plane from the `info`          and where the data from the previous plane ends.
-         */
-        function gl_get_plane_start(info: GstVideo.VideoInfo, valign: GstVideo.VideoAlignment, plane: number): number
-        /**
-         * @param element a #GstElement
-         * @param query a #GstQuery of type %GST_QUERY_CONTEXT
-         * @param display a #GstGLDisplay
-         * @param context a #GstGLContext
-         * @param other_context application provided #GstGLContext
-         * @returns Whether the `query` was successfully responded to from the passed          `display`, `context`, and `other_context`.
-         */
-        function gl_handle_context_query(element: Gst.Element, query: Gst.Query, display: GLDisplay | null, context: GLContext | null, other_context: GLContext | null): boolean
-        /**
-         * Helper function for implementing #GstElementClass.set_context() in
-         * OpenGL capable elements.
-         *
-         * Retrieve's the #GstGLDisplay or #GstGLContext in @context and places the
-         * result in @display or @other_context respectively.
-         * @param element a #GstElement
-         * @param context a #GstContext
-         * @returns whether the `display` or `other_context` could be set successfully, location of a #GstGLDisplay, location of a #GstGLContext
-         */
-        function gl_handle_set_context(element: Gst.Element, context: Gst.Context): [boolean, GLDisplay, GLContext]
-        none
-        /**
-         * Initializes the GL Base Texture allocator. It is safe to call this function
-         * multiple times.  This must be called before any other GstGLMemory operation.
-         * @since 1.4
-         */
-        function gl_memory_init_once(): void
-        /**
-         */
-        function gl_memory_pbo_init_once(): void
-        none
-        /**
-         * Multiplies two 4x4 matrices, @a and @b, and stores the result, a
-         * 2-dimensional array of #gfloat, in @result.
-         * @since 1.20
-         * @param a a 2-dimensional 4x4 array of #gfloat
-         * @param b another 2-dimensional 4x4 array of #gfloat
-         * @returns , the result of the multiplication
-         */
-        function gl_multiply_matrix4(a: number[], b: number[]): number[]
-        /**
-         * @param platform_s a space separated string of OpenGL platformss
-         * @returns The #GstGLPlatform represented by `platform_s`
-         */
-        function gl_platform_from_string(platform_s: string): GLPlatform
-        /**
-         * @param platform a #GstGLPlatform to stringify
-         * @returns A space separated string of the OpenGL platforms enabled in `platform`
-         */
-        function gl_platform_to_string(platform: GLPlatform): string
-        /**
-         * Performs a GST_QUERY_CONTEXT query of type "gst.gl.local_context" on all
-         * #GstPads in @element of @direction for the local OpenGL context used by
-         * GStreamer elements.
-         * @param element a #GstElement to query from
-         * @param direction the #GstPadDirection to query
-         * @returns whether `context_ptr` contains a #GstGLContext, location containing the current and/or resulting                      #GstGLContext
-         */
-        function gl_query_local_gl_context(element: Gst.Element, direction: Gst.PadDirection): [boolean, GLContext]
-        none
-        /**
-         * Initializes the GL Base Texture allocator. It is safe to call this function
-         * multiple times.  This must be called before any other GstGLRenderbuffer operation.
-         * @since 1.10
-         */
-        function gl_renderbuffer_init_once(): void
-        /**
-         * Set the 4x4 affine transformation matrix stored in @meta from the
-         * NDC coordinates in @matrix.
-         * @since 1.20
-         * @param meta a #GstVideoAffineTransformationMeta
-         * @param matrix a 4x4 matrix
-         */
-        function gl_set_affine_transformation_meta_from_ndc(meta: GstVideo.VideoAffineTransformationMeta, matrix: number[]): void
-        /**
-         * @param context a #GstGLContext
-         * @param format an OpenGL format, `GL_RGBA`, `GL_LUMINANCE`, etc
-         * @param type an OpenGL type, `GL_UNSIGNED_BYTE`, `GL_FLOAT`, etc
-         * @returns the sized internal format specified by `format` and `type` that can          be used in `context`
-         */
-        function gl_sized_gl_format_from_gl_format_type(context: GLContext, format: number, type: number): number
-        /**
-         */
-        function gl_stereo_downmix_mode_get_type(): GObject.GType
-        /**
-         * Given @swizzle, produce @inversion such that:
-         *
-         * @swizzle[@inversion[i]] == identity[i] where:
-         * - identity = {0, 1, 2,...}
-         * - unset fields are marked by -1
-         * @since 1.24
-         * @param swizzle input swizzle
-         * @returns , resulting inversion
-         */
-        function gl_swizzle_invert(swizzle: number[]): number[]
-        /**
-         */
-        function gl_sync_meta_api_get_type(): GObject.GType
-        /**
-         */
-        function gl_sync_meta_get_info(): Gst.MetaInfo
-        /**
-         * @param target an OpenGL texture binding target
-         * @returns the #GstGLTextureTarget that's equiavalant to `target` or          %GST_GL_TEXTURE_TARGET_NONE
-         */
-        function gl_texture_target_from_gl(target: number): GLTextureTarget
-        /**
-         * @param str a string equivalent to one of the GST_GL_TEXTURE_TARGET_*_STR values
-         * @returns the #GstGLTextureTarget represented by `str` or          %GST_GL_TEXTURE_TARGET_NONE
-         */
-        function gl_texture_target_from_string(str: string): GLTextureTarget
-        /**
-         * @param target a #GstGLTextureTarget
-         * @returns a string representing the `GstBufferPoolOption` specified by `target`
-         */
-        function gl_texture_target_to_buffer_pool_option(target: GLTextureTarget): string | null
-        /**
-         * @param target a #GstGLTextureTarget
-         * @returns the OpenGL value for binding the `target` with glBindTexture() and          similar functions or 0
-         */
-        function gl_texture_target_to_gl(target: GLTextureTarget): number
-        /**
-         * @param target a #GstGLTextureTarget
-         * @returns the stringified version of `target` or %NULL
-         */
-        function gl_texture_target_to_string(target: GLTextureTarget): string | null
-        /**
-         * See gst_gl_value_set_texture_target_from_mask() for what entails a mask
-         * @param value an initialized #GValue of type G_TYPE_STRING
-         * @returns the mask of #GstGLTextureTarget's in `value` or     %GST_GL_TEXTURE_TARGET_NONE on failure
-         */
-        function gl_value_get_texture_target_mask(value: GObject.Value): GLTextureTarget
-        /**
-         * @param value an initialized #GValue of type G_TYPE_STRING
-         * @param target a #GstGLTextureTarget's
-         * @returns whether the `target` could be set on `value`
-         */
-        function gl_value_set_texture_target(value: GObject.Value, target: GLTextureTarget): boolean
-        /**
-         *  target) where target is a valid
-         * #GstGLTextureTarget
-         * @param value an uninitialized #GValue
-         * @param target_mask a bitwise mask of #GstGLTextureTarget's
-         * @returns whether the `target_mask` could be set on `value`
-         */
-        function gl_value_set_texture_target_from_mask(value: GObject.Value, target_mask: GLTextureTarget): boolean
-        /**
-         * @param gl_api the #GstGLAPI
-         * @param maj the major GL version
-         * @param min the minor GL version
-         * @returns The minimum supported #GstGLSLVersion available for `gl_api`, `maj` and `min`
-         */
-        function gl_version_to_glsl_version(gl_api: GLAPI, maj: number, min: number): GLSLVersion
-        /**
-         * Calculates the swizzle indices for @video_format and @gl_format in order to
-         * access a texture such that accessing a texel from a texture through the swizzle
-         * index produces values in the order (R, G, B, A) or (Y, U, V, A).
-         *
-         * For multi-planer formats, the swizzle index uses the same component order (RGBA/YUVA)
-         * and should be applied after combining multiple planes into a single rgba/yuva value.
-         * e.g. sampling from a NV12 format would have Y from one texture and UV from
-         * another texture into a (Y, U, V) value.  Add an Aplha component and then
-         * perform swizzling.  Sampling from NV21 would produce (Y, V, U) which is then
-         * swizzled to (Y, U, V).
-         * @since 1.24
-         * @param video_format the #GstVideoFormat in use
-         * @returns whether valid swizzle indices could be found, the returned swizzle indices
-         */
-        function gl_video_format_swizzle(video_format: GstVideo.VideoFormat): [boolean, number[]]
-        /**
-         * @returns the quark used for #GstGLWindow in #GError's
-         */
-        function gl_window_error_quark(): GLib.Quark
-        /**
-         * @returns the quark used for GstGLSL in #GError's
-         */
-        function glsl_error_quark(): GLib.Quark
-        /**
-         * @param string a GLSL version string
-         * @returns the #GstGLSLProfile of `string` or %GST_GLSL_PROFILE_NONE on error
-         */
-        function glsl_profile_from_string(string: string): GLSLProfile
-        /**
-         * @param profile a #GstGLSLProfile
-         * @returns the name for `profile` or %NULL on error
-         */
-        function glsl_profile_to_string(profile: GLSLProfile): string | null
-        /**
-         * Note: this function first searches the first 1 kilobytes for a `#version`
-         * preprocessor directive and then executes gst_glsl_version_profile_from_string().
-         * @param s string to search for a valid `#version` string
-         * @returns TRUE if a valid `#version` string was found, FALSE otherwise, resulting #GstGLSLVersion, resulting #GstGLSLProfile
-         */
-        function glsl_string_get_version_profile(s: string): [boolean, GLSLVersion, GLSLProfile]
-        /**
-         * @param string a GLSL version string
-         * @returns the #GstGLSLVersion of `string` or %GST_GLSL_VERSION_NONE on error
-         */
-        function glsl_version_from_string(string: string): GLSLVersion
-        /**
-         * Note: this function expects either a `#version` GLSL preprocesser directive
-         * or a valid GLSL version and/or profile.
-         * @param string a valid GLSL `#version` string
-         * @returns TRUE if a valid `#version` string was found, FALSE otherwise, resulting #GstGLSLVersion, resulting #GstGLSLVersion
-         */
-        function glsl_version_profile_from_string(string: string): [boolean, GLSLVersion, GLSLProfile]
-        /**
-         * @param version a #GstGLSLVersion
-         * @param profile a #GstGLSLVersion
-         * @returns the combined GLSL `#version` string for `version` and `profile`
-         */
-        function glsl_version_profile_to_string(version: GLSLVersion, profile: GLSLProfile): string | null
-        /**
-         * @param version a #GstGLSLVersion
-         * @returns the name of `version` or %NULL on error
-         */
-        function glsl_version_to_string(version: GLSLVersion): string | null
-        /**
-         * @since 1.8
-         * @param mem a #GstMemory
-         * @returns whether the memory at `mem` is a #GstGLBaseMemory
-         */
-        function is_gl_base_memory(mem: Gst.Memory): boolean
-        /**
-         * @since 1.8
-         * @param mem a #GstMemory
-         * @returns whether the memory at `mem` is a #GstGLBuffer
-         */
-        function is_gl_buffer(mem: Gst.Memory): boolean
-        /**
-         * @since 1.4
-         * @param mem a #GstMemory
-         * @returns whether the memory at `mem` is a #GstGLMemory
-         */
-        function is_gl_memory(mem: Gst.Memory): boolean
-        /**
-         * @since 1.8
-         * @param mem a #GstMemory
-         * @returns whether the memory at `mem` is a #GstGLMemoryPBO
-         */
-        function is_gl_memory_pbo(mem: Gst.Memory): boolean
-        /**
-         * @since 1.10
-         * @param mem a #GstMemory
-         * @returns whether the memory at `mem` is a #GstGLRenderbuffer
-         */
-        function is_gl_renderbuffer(mem: Gst.Memory): boolean
-        const BUFFER_POOL_OPTION_GL_SYNC_META: "GstBufferPoolOptionGLSyncMeta"
-        const BUFFER_POOL_OPTION_GL_TEXTURE_TARGET_2D: "GstBufferPoolOptionGLTextureTarget2D"
-        const BUFFER_POOL_OPTION_GL_TEXTURE_TARGET_EXTERNAL_OES: "GstBufferPoolOptionGLTextureTargetExternalOES"
-        const BUFFER_POOL_OPTION_GL_TEXTURE_TARGET_RECTANGLE: "GstBufferPoolOptionGLTextureTargetRectangle"
-        const CAPS_FEATURE_MEMORY_GL_BUFFER: "memory:GLBuffer"
-        const CAPS_FEATURE_MEMORY_GL_MEMORY: "memory:GLMemory"
-        const GL_ALLOCATION_PARAMS_ALLOC_FLAG_ALLOC: 1
-        const GL_ALLOCATION_PARAMS_ALLOC_FLAG_BUFFER: 16
-        const GL_ALLOCATION_PARAMS_ALLOC_FLAG_USER: 65536
-        const GL_ALLOCATION_PARAMS_ALLOC_FLAG_VIDEO: 8
-        const GL_ALLOCATION_PARAMS_ALLOC_FLAG_WRAP_GPU_HANDLE: 4
-        const GL_ALLOCATION_PARAMS_ALLOC_FLAG_WRAP_SYSMEM: 2
-        const GL_API_GLES1_NAME: "gles1"
-        const GL_API_GLES2_NAME: "gles2"
-        const GL_API_OPENGL3_NAME: "opengl3"
-        const GL_API_OPENGL_NAME: "opengl"
-        const GL_BASE_MEMORY_ALLOCATOR_NAME: "GLBaseMemory"
-        const GL_BUFFER_ALLOCATOR_NAME: "GLBuffer"
-        none
-        const GL_COLOR_CONVERT_FORMATS: "{ RGBA, RGB, RGBx, BGR, BGRx, BGRA, xRGB, xBGR, ARGB, ABGR, GBRA, GBR, RGBP, BGRP, Y444, I420, YV12, Y42B, Y41B, NV12, NV21, NV16, NV61, YUY2, UYVY, Y210, AYUV, VUYA, Y410, A444, A422, GRAY8, GRAY16_LE, GRAY16_BE, RGB16, BGR16, ARGB64, A420, AV12, NV12_16L32S, NV12_4L4, RBGA, v210"
-        const GL_COLOR_CONVERT_VIDEO_CAPS: "video/x-raw("
-        const GL_CONFIG_STRUCTURE_NAME: "gst-gl-context-config"
-        const GL_CONTEXT_TYPE_CGL: "gst.gl.context.CGL"
-        const GL_CONTEXT_TYPE_EAGL: "gst.gl.context.EAGL"
-        const GL_CONTEXT_TYPE_EGL: "gst.gl.context.EGL"
-        const GL_CONTEXT_TYPE_GLX: "gst.gl.context.GLX"
-        const GL_CONTEXT_TYPE_WGL: "gst.gl.context.WGL"
-        const GL_DISPLAY_CONTEXT_TYPE: "gst.gl.GLDisplay"
-        const GL_MEMORY_ALLOCATOR_NAME: "GLMemory"
-        const GL_MEMORY_PBO_ALLOCATOR_NAME: "GLMemoryPBO"
-        none
-        const GL_MEMORY_VIDEO_FORMATS_STR: "{ RGBA, BGRA, RGBx, BGRx, ARGB, ABGR, xRGB, xBGR, GBRA, GBR, RGBP, BGRP, RGB, BGR, RGB16, BGR16, AYUV, VUYA, A444, A422, Y410, I420, YV12, NV12, NV21, NV16, NV61, YUY2, UYVY, Y210, Y41B, Y42B, Y444, GRAY8, GRAY16_LE, GRAY16_BE, ARGB64, A420, AV12, NV12_16L32S, NV12_4L4, RBGA, v210"
-        const GL_RENDERBUFFER_ALLOCATOR_NAME: "GLRenderbuffer"
-        const GL_TEXTURE_TARGET_2D_STR: "2D"
-        const GL_TEXTURE_TARGET_EXTERNAL_OES_STR: "external-oes"
-        const GL_TEXTURE_TARGET_RECTANGLE_STR: "rectangle"
-        const MAP_GL: 131072
         
-        abstract class GLBaseMemoryError extends GLib.Error {
-            static readonly $gtype: GObject.GType<GLBaseMemoryError>
+
+        interface GLViewConvertPrivateStruct {
+            readonly $gtype: GObject.GType<GLViewConvertPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLViewConvertPrivate
+        }
+
+        interface GLViewConvertPrivate {
+        }
+
+        interface $Exports {
+            GLViewConvertPrivate: GLViewConvertPrivateStruct
+        }
+        
+
+        interface GLWindowPrivateStruct {
+            readonly $gtype: GObject.GType<GLWindowPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GLWindowPrivate
+        }
+
+        interface GLWindowPrivate {
+        }
+
+        interface $Exports {
+            GLWindowPrivate: GLWindowPrivateStruct
+        }
+        
+        interface GLBaseMemoryError extends GLib.Error {}
+
+        interface GLBaseMemoryErrorEnum {
+            readonly $gtype: GObject.GType<GLBaseMemoryError>
+
+            new(props: { message: string, code: number }): GLBaseMemoryError
             /**
              * generic failure
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * the implementation is too old and doesn't
              *                                     implement enough features
              */
-            static readonly "OLD_LIBS": 1
+            readonly "OLD_LIBS": 1
             /**
              * a resource could not be found
              */
-            static readonly "RESOURCE_UNAVAILABLE": 2
-        }
-        /**
+            readonly "RESOURCE_UNAVAILABLE": 2
+            /**
          * @returns the quark used for #GstGLBaseMemory in #GError's
          */
-        function quark(): GLib.Quark
-        
-        namespace GLConfigCaveat {
-            const $gtype: GObject.GType<GLConfigCaveat>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * @since 1.20
-         */
-        enum GLConfigCaveat {
+        interface $Exports {
+            /**
+             */
+            GLBaseMemoryError: GLBaseMemoryErrorEnum
+        }
+        
+        interface GLConfigCaveatEnum {
+            readonly $gtype: GObject.GType<GLConfigCaveat>
             /**
              * none
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * slow
              */
-            "SLOW" = 1,
+            readonly "SLOW": 1
             /**
              * non-conformant
              */
-            "NON_CONFORMANT" = 2,
+            readonly "NON_CONFORMANT": 2
         }
-        /**
+        type GLConfigCaveat = GLConfigCaveatEnum[Exclude<keyof GLConfigCaveatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            GLConfigCaveat: GLConfigCaveatEnum
+            /**
          * @since 1.20
          * @param caveat the #GstGLConfigCaveat
          * @returns a string version of `caveat` or %NULL if `caveat` does not                      exist.
          */
-        function to_string(caveat: GLConfigCaveat): string | null
+        to_string: (caveat: GLConfigCaveat) => string | null
+        }
         
-        abstract class GLContextError extends GLib.Error {
-            static readonly $gtype: GObject.GType<GLContextError>
+        interface GLContextError extends GLib.Error {}
+
+        interface GLContextErrorEnum {
+            readonly $gtype: GObject.GType<GLContextError>
+
+            new(props: { message: string, code: number }): GLContextError
             /**
              * Failed for an unspecified reason
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * The configuration requested is not correct
              */
-            static readonly "WRONG_CONFIG": 1
+            readonly "WRONG_CONFIG": 1
             /**
              * The OpenGL API requested is not correct
              */
-            static readonly "WRONG_API": 2
+            readonly "WRONG_API": 2
             /**
              * The OpenGL libraries are too old
              */
-            static readonly "OLD_LIBS": 3
+            readonly "OLD_LIBS": 3
             /**
              * glXCreateContext (or similar) failed
              */
-            static readonly "CREATE_CONTEXT": 4
+            readonly "CREATE_CONTEXT": 4
             /**
              * A resource is not available
              */
-            static readonly "RESOURCE_UNAVAILABLE": 5
-        }
-        /**
+            readonly "RESOURCE_UNAVAILABLE": 5
+            /**
          * @returns the quark used for #GstGLContext in #GError's
          */
-        function quark(): GLib.Quark
-        
-        namespace GLFormat {
-            const $gtype: GObject.GType<GLFormat>
+        quark: () => GLib.Quark
         }
 
-        /**
-         */
-        enum GLFormat {
+        interface $Exports {
+            /**
+             * OpenGL context errors.
+             */
+            GLContextError: GLContextErrorEnum
+        }
+        
+        interface GLFormatEnum {
+            readonly $gtype: GObject.GType<GLFormat>
             /**
              * Single component replicated across R, G, and B textures
              *                    components
              */
-            "LUMINANCE" = 6409,
+            readonly "LUMINANCE": 6409
             /**
              * Single component stored in the A texture component
              */
-            "ALPHA" = 6406,
+            readonly "ALPHA": 6406
             /**
              * Combination of #GST_GL_LUMINANCE and #GST_GL_ALPHA
              */
-            "LUMINANCE_ALPHA" = 6410,
+            readonly "LUMINANCE_ALPHA": 6410
             /**
              * Single component stored in the R texture component
              */
-            "RED" = 6403,
+            readonly "RED": 6403
             /**
              * Single 8-bit component stored in the R texture component
              */
-            "R8" = 33321,
+            readonly "R8": 33321
             /**
              * Two components stored in the R and G texture components
              */
-            "RG" = 33319,
+            readonly "RG": 33319
             /**
              * Two 8-bit components stored in the R and G texture components
              */
-            "RG8" = 33323,
+            readonly "RG8": 33323
             /**
              * Three components stored in the R, G, and B texture components
              */
-            "RGB" = 6407,
+            readonly "RGB": 6407
             /**
              * Three 8-bit components stored in the R, G, and B
              *               texture components
              */
-            "RGB8" = 32849,
+            readonly "RGB8": 32849
             /**
              * Three components of bit depth 5, 6 and 5 stored in the R, G,
              *                 and B texture components respectively.
              */
-            "RGB565" = 36194,
+            readonly "RGB565": 36194
             /**
              * Three 16-bit components stored in the R, G, and B
              *               texture components
              */
-            "RGB16" = 32852,
+            readonly "RGB16": 32852
             /**
              * Four components stored in the R, G, B, and A texture
              *               components respectively.
              */
-            "RGBA" = 6408,
+            readonly "RGBA": 6408
             /**
              * Four 8-bit components stored in the R, G, B, and A texture
              *                components respectively.
              */
-            "RGBA8" = 32856,
+            readonly "RGBA8": 32856
             /**
              * Four 16-bit components stored in the R, G, B, and A texture
              *                components respectively.
              */
-            "RGBA16" = 32859,
+            readonly "RGBA16": 32859
             /**
              * A single 16-bit component for depth information.
              */
-            "DEPTH_COMPONENT16" = 33189,
+            readonly "DEPTH_COMPONENT16": 33189
             /**
              * A 24-bit component for depth information and
              *                           a 8-bit component for stencil informat.
              */
-            "DEPTH24_STENCIL8" = 35056,
+            readonly "DEPTH24_STENCIL8": 35056
             /**
              */
-            "RGB10_A2" = 32857,
+            readonly "RGB10_A2": 32857
             /**
              * Single 16-bit component stored in the R texture component
              */
-            "R16" = 33322,
+            readonly "R16": 33322
             /**
              * Two 16-bit components stored in the R and G texture components
              */
-            "RG16" = 33324,
+            readonly "RG16": 33324
         }
-        /**
+        type GLFormat = GLFormatEnum[Exclude<keyof GLFormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            GLFormat: GLFormatEnum
+            /**
          * @param context a #GstGLContext
          * @param vinfo a #GstVideoInfo
          * @param plane the plane number in @vinfo
          * @returns the #GstGLFormat necessary for holding the data in `plane` of `vinfo`
          */
-        function from_video_info(context: GLContext, vinfo: GstVideo.VideoInfo, plane: number): GLFormat
-        /**
+        from_video_info: (context: GLContext, vinfo: GstVideo.VideoInfo, plane: number) => GLFormat
+            /**
          * @since 1.16
          * @param context a #GstGLContext
          * @param format the #GstGLFormat to check is supported by @context
          * @returns Whether `format` is supported by `context` based on the OpenGL API,          version, or available OpenGL extension/s.
          */
-        function is_supported(context: GLContext, format: GLFormat): boolean
-        /**
+        is_supported: (context: GLContext, format: GLFormat) => boolean
+            /**
          * @since 1.24
          * @param gl_format the #GstGLFormat
          * @returns the number of components in a #GstGLFormat
          */
-        function n_components(gl_format: GLFormat): number
-        /**
+        n_components: (gl_format: GLFormat) => number
+            /**
          * Get the unsized format and type from @format for usage in glReadPixels,
          * glTex{Sub}Image*, glTexImage* and similar functions.
          * @since 1.16
          * @param format the sized internal #GstGLFormat
          * @returns , location for the resulting unsized #GstGLFormat, location for the resulting GL type
          */
-        function type_from_sized_gl_format(format: GLFormat): [GLFormat, number]
-        /**
+        type_from_sized_gl_format: (format: GLFormat) => [GLFormat, number]
+            /**
          * @param format the OpenGL format, `GL_RGBA`, `GL_LUMINANCE`, etc
          * @param type the OpenGL type, `GL_UNSIGNED_BYTE`, `GL_FLOAT`, etc
          * @returns the number of bytes the specified `format`, `type` combination takes per pixel
          */
-        function type_n_bytes(format: number, type: number): number
-        
-        namespace GLQueryType {
-            const $gtype: GObject.GType<GLQueryType>
+        type_n_bytes: (format: number, type: number) => number
         }
-
-        /**
-         */
-        enum GLQueryType {
+        
+        interface GLQueryTypeEnum {
+            readonly $gtype: GObject.GType<GLQueryType>
             /**
              * no query
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * query the time elapsed
              */
-            "TIME_ELAPSED" = 1,
+            readonly "TIME_ELAPSED": 1
             /**
              * query the current time
              */
-            "TIMESTAMP" = 2,
+            readonly "TIMESTAMP": 2
+        }
+        type GLQueryType = GLQueryTypeEnum[Exclude<keyof GLQueryTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            GLQueryType: GLQueryTypeEnum
         }
         
-        abstract class GLSLError extends GLib.Error {
-            static readonly $gtype: GObject.GType<GLSLError>
+        interface GLSLError extends GLib.Error {}
+
+        interface GLSLErrorEnum {
+            readonly $gtype: GObject.GType<GLSLError>
+
+            new(props: { message: string, code: number }): GLSLError
             /**
              * Compilation error occurred
              */
-            static readonly "COMPILE": 0
+            readonly "COMPILE": 0
             /**
              * Link error occurred
              */
-            static readonly "LINK": 1
+            readonly "LINK": 1
             /**
              * General program error occurred
              */
-            static readonly "PROGRAM": 2
-        }
-        /**
+            readonly "PROGRAM": 2
+            /**
          * @returns the quark used for GstGLSL in #GError's
          */
-        function quark(): GLib.Quark
-        
-        namespace GLSLVersion {
-            const $gtype: GObject.GType<GLSLVersion>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * GLSL version list
-         * @since 1.8
-         */
-        enum GLSLVersion {
+        interface $Exports {
+            /**
+             * Compilation stage that caused an error
+             * @since 1.8
+             */
+            GLSLError: GLSLErrorEnum
+        }
+        
+        interface GLSLVersionEnum {
+            readonly $gtype: GObject.GType<GLSLVersion>
             /**
              * no version
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * version 100 (only valid for ES)
              */
-            "100" = 100,
+            readonly "100": 100
             /**
              * version 110 (only valid for compatibility desktop GL)
              */
-            "110" = 110,
+            readonly "110": 110
             /**
              * version 120 (only valid for compatibility desktop GL)
              */
-            "120" = 120,
+            readonly "120": 120
             /**
              * version 130 (only valid for compatibility desktop GL)
              */
-            "130" = 130,
+            readonly "130": 130
             /**
              * version 140 (only valid for compatibility desktop GL)
              */
-            "140" = 140,
+            readonly "140": 140
             /**
              * version 150 (valid for compatibility/core desktop GL)
              */
-            "150" = 150,
+            readonly "150": 150
             /**
              * version 300 (only valid for ES)
              */
-            "300" = 300,
+            readonly "300": 300
             /**
              * version 310 (only valid for ES)
              */
-            "310" = 310,
+            readonly "310": 310
             /**
              * version 320 (only valid for ES)
              */
-            "320" = 320,
+            readonly "320": 320
             /**
              * version 330 (valid for compatibility/core desktop GL)
              */
-            "330" = 330,
+            readonly "330": 330
             /**
              * version 400 (valid for compatibility/core desktop GL)
              */
-            "400" = 400,
+            readonly "400": 400
             /**
              * version 410 (valid for compatibility/core desktop GL)
              */
-            "410" = 410,
+            readonly "410": 410
             /**
              * version 420 (valid for compatibility/core desktop GL)
              */
-            "420" = 420,
+            readonly "420": 420
             /**
              * version 430 (valid for compatibility/core desktop GL)
              */
-            "430" = 430,
+            readonly "430": 430
             /**
              * version 440 (valid for compatibility/core desktop GL)
              */
-            "440" = 440,
+            readonly "440": 440
             /**
              * version 450 (valid for compatibility/core desktop GL)
              */
-            "450" = 450,
+            readonly "450": 450
         }
-        /**
+        type GLSLVersion = GLSLVersionEnum[Exclude<keyof GLSLVersionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * GLSL version list
+             * @since 1.8
+             */
+            GLSLVersion: GLSLVersionEnum
+            /**
          * @param string a GLSL version string
          * @returns the #GstGLSLVersion of `string` or %GST_GLSL_VERSION_NONE on error
          */
-        function from_string(string: string): GLSLVersion
-        /**
+        from_string: (string: string) => GLSLVersion
+            /**
          * Note: this function expects either a `#version` GLSL preprocesser directive
          * or a valid GLSL version and/or profile.
          * @param string a valid GLSL `#version` string
          * @returns TRUE if a valid `#version` string was found, FALSE otherwise, resulting #GstGLSLVersion, resulting #GstGLSLVersion
          */
-        function profile_from_string(string: string): [boolean, GLSLVersion, GLSLProfile]
-        /**
+        profile_from_string: (string: string) => [boolean, GLSLVersion, GLSLProfile]
+            /**
          * @param version a #GstGLSLVersion
          * @param profile a #GstGLSLVersion
          * @returns the combined GLSL `#version` string for `version` and `profile`
          */
-        function profile_to_string(version: GLSLVersion, profile: GLSLProfile): string | null
-        /**
+        profile_to_string: (version: GLSLVersion, profile: GLSLProfile) => string | null
+            /**
          * @param version a #GstGLSLVersion
          * @returns the name of `version` or %NULL on error
          */
-        function to_string(version: GLSLVersion): string | null
-        
-        namespace GLStereoDownmix {
-            const $gtype: GObject.GType<GLStereoDownmix>
+        to_string: (version: GLSLVersion) => string | null
         }
-
-        /**
-         * Output anaglyph type to generate when downmixing to mono
-         */
-        enum GLStereoDownmix {
+        
+        interface GLStereoDownmixEnum {
+            readonly $gtype: GObject.GType<GLStereoDownmix>
             /**
              * Dubois optimised Green-Magenta anaglyph
              */
-            "GREEN_MAGENTA_DUBOIS" = 0,
+            readonly "GREEN_MAGENTA_DUBOIS": 0
             /**
              * Dubois optimised Red-Cyan anaglyph
              */
-            "RED_CYAN_DUBOIS" = 1,
+            readonly "RED_CYAN_DUBOIS": 1
             /**
              * Dubois optimised Amber-Blue anaglyph
              */
-            "AMBER_BLUE_DUBOIS" = 2,
+            readonly "AMBER_BLUE_DUBOIS": 2
+        }
+        type GLStereoDownmix = GLStereoDownmixEnum[Exclude<keyof GLStereoDownmixEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Output anaglyph type to generate when downmixing to mono
+             */
+            GLStereoDownmix: GLStereoDownmixEnum
         }
         
-        namespace GLTextureTarget {
-            const $gtype: GObject.GType<GLTextureTarget>
-        }
-
-        /**
-         * The OpenGL texture target that an OpenGL texture can be bound to.  The
-         * gst_gl_value_set_texture_target_from_mask(),
-         * gst_gl_value_get_texture_target_mask(), and
-         * gst_gl_value_set_texture_target() functions can be used for handling texture
-         * targets with #GValue's when e.g. dealing with #GstCaps.
-         * @since 1.8
-         */
-        enum GLTextureTarget {
+        interface GLTextureTargetEnum {
+            readonly $gtype: GObject.GType<GLTextureTarget>
             /**
              * no texture target
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * 2D texture target (`GL_TEXTURE_2D`)
              */
-            "2D" = 1,
+            readonly "2D": 1
             /**
              * rectangle texture target
              *     (`GL_TEXTURE_RECTANGLE`)
              */
-            "RECTANGLE" = 2,
+            readonly "RECTANGLE": 2
             /**
              * external oes texture target
              *     (`GL_TEXTURE_EXTERNAL_OES`)
              */
-            "EXTERNAL_OES" = 3,
+            readonly "EXTERNAL_OES": 3
         }
-        /**
+        type GLTextureTarget = GLTextureTargetEnum[Exclude<keyof GLTextureTargetEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The OpenGL texture target that an OpenGL texture can be bound to.  The
+             * gst_gl_value_set_texture_target_from_mask(),
+             * gst_gl_value_get_texture_target_mask(), and
+             * gst_gl_value_set_texture_target() functions can be used for handling texture
+             * targets with #GValue's when e.g. dealing with #GstCaps.
+             * @since 1.8
+             */
+            GLTextureTarget: GLTextureTargetEnum
+            /**
          * @param target an OpenGL texture binding target
          * @returns the #GstGLTextureTarget that's equiavalant to `target` or          %GST_GL_TEXTURE_TARGET_NONE
          */
-        function from_gl(target: number): GLTextureTarget
-        /**
+        from_gl: (target: number) => GLTextureTarget
+            /**
          * @param str a string equivalent to one of the GST_GL_TEXTURE_TARGET_*_STR values
          * @returns the #GstGLTextureTarget represented by `str` or          %GST_GL_TEXTURE_TARGET_NONE
          */
-        function from_string(str: string): GLTextureTarget
-        /**
+        from_string: (str: string) => GLTextureTarget
+            /**
          * @param target a #GstGLTextureTarget
          * @returns a string representing the `GstBufferPoolOption` specified by `target`
          */
-        function to_buffer_pool_option(target: GLTextureTarget): string | null
-        /**
+        to_buffer_pool_option: (target: GLTextureTarget) => string | null
+            /**
          * @param target a #GstGLTextureTarget
          * @returns the OpenGL value for binding the `target` with glBindTexture() and          similar functions or 0
          */
-        function to_gl(target: GLTextureTarget): number
-        /**
+        to_gl: (target: GLTextureTarget) => number
+            /**
          * @param target a #GstGLTextureTarget
          * @returns the stringified version of `target` or %NULL
          */
-        function to_string(target: GLTextureTarget): string | null
-        
-        namespace GLUploadReturn {
-            const $gtype: GObject.GType<GLUploadReturn>
+        to_string: (target: GLTextureTarget) => string | null
         }
-
-        /**
-         */
-        enum GLUploadReturn {
+        
+        interface GLUploadReturnEnum {
+            readonly $gtype: GObject.GType<GLUploadReturn>
             /**
              * No further processing required
              */
-            "DONE" = 1,
+            readonly "DONE": 1
             /**
              * An unspecified error occurred
              */
-            "ERROR" = -1,
+            readonly "ERROR": -1
             /**
              * The configuration is unsupported.
              */
-            "UNSUPPORTED" = -2,
+            readonly "UNSUPPORTED": -2
             /**
              * This element requires a reconfiguration.
              */
-            "RECONFIGURE" = -3,
+            readonly "RECONFIGURE": -3
             /**
              * private return value.
              */
-            "UNSHARED_GL_CONTEXT" = -100,
+            readonly "UNSHARED_GL_CONTEXT": -100
+        }
+        type GLUploadReturn = GLUploadReturnEnum[Exclude<keyof GLUploadReturnEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            GLUploadReturn: GLUploadReturnEnum
         }
         
-        abstract class GLWindowError extends GLib.Error {
-            static readonly $gtype: GObject.GType<GLWindowError>
+        interface GLWindowError extends GLib.Error {}
+
+        interface GLWindowErrorEnum {
+            readonly $gtype: GObject.GType<GLWindowError>
+
+            new(props: { message: string, code: number }): GLWindowError
             /**
              * failed for a unspecified reason
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * the implementation is too old
              */
-            static readonly "OLD_LIBS": 1
+            readonly "OLD_LIBS": 1
             /**
              * no such resource was found
              */
-            static readonly "RESOURCE_UNAVAILABLE": 2
-        }
-        /**
+            readonly "RESOURCE_UNAVAILABLE": 2
+            /**
          * @returns the quark used for #GstGLWindow in #GError's
          */
-        function quark(): GLib.Quark
-        
-        namespace GLAPI {
-            const $gtype: GObject.GType<GLAPI>
+        quark: () => GLib.Quark
         }
 
-        /**
-         */
-        enum GLAPI {
+        interface $Exports {
+            /**
+             */
+            GLWindowError: GLWindowErrorEnum
+        }
+        
+        interface GLAPIBitfield {
+            readonly $gtype: GObject.GType<GLAPI>
             /**
              * no API
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
-             * = 3.2
+             * Desktop OpenGL up to and including 3.1.  The
+             *                    compatibility profile when the OpenGL version is >= 3.2
              */
-            "OPENGL" = 1,
+            readonly "OPENGL": 1
             /**
-             * = 3.2 core profile
+             * Desktop OpenGL >= 3.2 core profile
              */
-            "OPENGL3" = 2,
+            readonly "OPENGL3": 2
             /**
              * OpenGL ES 1.x
              */
-            "GLES1" = 32768,
+            readonly "GLES1": 32768
             /**
              * OpenGL ES 2.x and 3.x
              */
-            "GLES2" = 65536,
+            readonly "GLES2": 65536
             /**
              * Any OpenGL API
              */
-            "ANY" = 4294967295,
+            readonly "ANY": 4294967295
         }
-        /**
+        type GLAPI = number
+        interface $Exports {
+            /**
+             */
+            GLAPI: GLAPIBitfield
+            /**
          * @param api_s a space separated string of OpenGL apis
          * @returns The #GstGLAPI represented by `api_s`
          */
-        function from_string(api_s: string): GLAPI
-        /**
+        from_string: (api_s: string) => GLAPI
+            /**
          * @param api a #GstGLAPI to stringify
          * @returns A space separated string of the OpenGL api's enabled in `api`
          */
-        function to_string(api: GLAPI): string
-        
-        namespace GLBaseMemoryTransfer {
-            const $gtype: GObject.GType<GLBaseMemoryTransfer>
+        to_string: (api: GLAPI) => string
         }
-
-        /**
-         */
-        enum GLBaseMemoryTransfer {
+        
+        interface GLBaseMemoryTransferBitfield {
+            readonly $gtype: GObject.GType<GLBaseMemoryTransfer>
             /**
              * the texture needs downloading
              *                                             to the data pointer
              */
-            "DOWNLOAD" = 1048576,
+            readonly "DOWNLOAD": 1048576
             /**
              * the data pointer needs uploading
              *                                             to the texture
              */
-            "UPLOAD" = 2097152,
+            readonly "UPLOAD": 2097152
+        }
+        type GLBaseMemoryTransfer = number
+        interface $Exports {
+            /**
+             */
+            GLBaseMemoryTransfer: GLBaseMemoryTransferBitfield
         }
         
-        namespace GLConfigSurfaceType {
-            const $gtype: GObject.GType<GLConfigSurfaceType>
-        }
-
-        /**
-         * @since 1.20
-         */
-        enum GLConfigSurfaceType {
+        interface GLConfigSurfaceTypeBitfield {
+            readonly $gtype: GObject.GType<GLConfigSurfaceType>
             /**
              * none
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * window
              */
-            "WINDOW" = 1,
+            readonly "WINDOW": 1
             /**
              * pbuffer
              */
-            "PBUFFER" = 2,
+            readonly "PBUFFER": 2
             /**
              * pixmap
              */
-            "PIXMAP" = 4,
+            readonly "PIXMAP": 4
         }
-        /**
+        type GLConfigSurfaceType = number
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            GLConfigSurfaceType: GLConfigSurfaceTypeBitfield
+            /**
          * @since 1.20
          * @param surface_type the #GstGLConfigSurfaceType
          * @returns a string version of `caveat` or %NULL if `surface_type` does not                      exist.
          */
-        function to_string(surface_type: GLConfigSurfaceType): string | null
-        
-        namespace GLDisplayType {
-            const $gtype: GObject.GType<GLDisplayType>
+        to_string: (surface_type: GLConfigSurfaceType) => string | null
         }
-
-        /**
-         */
-        enum GLDisplayType {
+        
+        interface GLDisplayTypeBitfield {
+            readonly $gtype: GObject.GType<GLDisplayType>
             /**
              * no display type
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * X11 display
              */
-            "X11" = 1,
+            readonly "X11": 1
             /**
              * Wayland display
              */
-            "WAYLAND" = 2,
+            readonly "WAYLAND": 2
             /**
              * Cocoa display
              */
-            "COCOA" = 4,
+            readonly "COCOA": 4
             /**
              * Win32 display
              */
-            "WIN32" = 8,
+            readonly "WIN32": 8
             /**
              * Dispmanx display
              */
-            "DISPMANX" = 16,
+            readonly "DISPMANX": 16
             /**
              * EGL display
              */
-            "EGL" = 32,
+            readonly "EGL": 32
             /**
              * Vivante Framebuffer display
              */
-            "VIV_FB" = 64,
+            readonly "VIV_FB": 64
             /**
              * Mesa3D GBM display
              */
-            "GBM" = 128,
+            readonly "GBM": 128
             /**
              * EGLDevice display.
              * @since 1.18
              */
-            "EGL_DEVICE" = 256,
+            readonly "EGL_DEVICE": 256
             /**
              * EAGL display.
              * @since 1.20
              */
-            "EAGL" = 512,
+            readonly "EAGL": 512
             /**
              * WinRT display.
              * @since 1.20
              */
-            "WINRT" = 1024,
+            readonly "WINRT": 1024
             /**
              * Android display.
              * @since 1.20
              */
-            "ANDROID" = 2048,
+            readonly "ANDROID": 2048
             /**
              * Mesa3D surfaceless display using the EGL_PLATFORM_SURFACELESS_MESA
              * extension.
              * @since 1.24
              */
-            "EGL_SURFACELESS" = 4096,
+            readonly "EGL_SURFACELESS": 4096
             /**
              * any display type
              */
-            "ANY" = 4294967295,
+            readonly "ANY": 4294967295
+        }
+        type GLDisplayType = number
+        interface $Exports {
+            /**
+             */
+            GLDisplayType: GLDisplayTypeBitfield
         }
         
-        namespace GLDrmFormatFlags {
-            const $gtype: GObject.GType<GLDrmFormatFlags>
-        }
-
-        /**
-         * @since 1.26
-         */
-        enum GLDrmFormatFlags {
+        interface GLDrmFormatFlagsBitfield {
+            readonly $gtype: GObject.GType<GLDrmFormatFlags>
             /**
              * include external-only formats
              * @since 1.26
              */
-            "INCLUDE_EXTERNAL" = 1,
+            readonly "INCLUDE_EXTERNAL": 1
             /**
              * only include formats with linear modifier
              * @since 1.26
              */
-            "LINEAR_ONLY" = 2,
+            readonly "LINEAR_ONLY": 2
             /**
              * include emulated formats
              * @since 1.26
              */
-            "INCLUDE_EMULATED" = 4,
+            readonly "INCLUDE_EMULATED": 4
+        }
+        type GLDrmFormatFlags = number
+        interface $Exports {
+            /**
+             * @since 1.26
+             */
+            GLDrmFormatFlags: GLDrmFormatFlagsBitfield
         }
         
-        namespace GLPlatform {
-            const $gtype: GObject.GType<GLPlatform>
-        }
-
-        /**
-         */
-        enum GLPlatform {
+        interface GLPlatformBitfield {
+            readonly $gtype: GObject.GType<GLPlatform>
             /**
              * no platform
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * the EGL platform used primarily with the X11, wayland
              *                      and android window systems as well as on embedded Linux
              */
-            "EGL" = 1,
+            readonly "EGL": 1
             /**
              * the GLX platform used primarily with the X11 window system
              */
-            "GLX" = 2,
+            readonly "GLX": 2
             /**
              * the WGL platform used primarily on Windows
              */
-            "WGL" = 4,
+            readonly "WGL": 4
             /**
              * the CGL platform used primarily on OS X
              */
-            "CGL" = 8,
+            readonly "CGL": 8
             /**
              * the EAGL platform used primarily on iOS
              */
-            "EAGL" = 16,
+            readonly "EAGL": 16
             /**
              * any OpenGL platform
              */
-            "ANY" = 4294967295,
+            readonly "ANY": 4294967295
         }
-        /**
+        type GLPlatform = number
+        interface $Exports {
+            /**
+             */
+            GLPlatform: GLPlatformBitfield
+            /**
          * @param platform_s a space separated string of OpenGL platformss
          * @returns The #GstGLPlatform represented by `platform_s`
          */
-        function from_string(platform_s: string): GLPlatform
-        /**
+        from_string: (platform_s: string) => GLPlatform
+            /**
          * @param platform a #GstGLPlatform to stringify
          * @returns A space separated string of the OpenGL platforms enabled in `platform`
          */
-        function to_string(platform: GLPlatform): string
-        
-        namespace GLSLProfile {
-            const $gtype: GObject.GType<GLSLProfile>
+        to_string: (platform: GLPlatform) => string
         }
-
-        /**
-         * GLSL profiles
-         * @since 1.8
-         */
-        enum GLSLProfile {
+        
+        interface GLSLProfileBitfield {
+            readonly $gtype: GObject.GType<GLSLProfile>
             /**
              * no profile supported/available
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * OpenGL|ES profile
              */
-            "ES" = 1,
+            readonly "ES": 1
             /**
              * OpenGL core profile
              */
-            "CORE" = 2,
+            readonly "CORE": 2
             /**
              * OpenGL compatibility profile
              */
-            "COMPATIBILITY" = 4,
+            readonly "COMPATIBILITY": 4
             /**
              * any OpenGL/OpenGL|ES profile
              */
-            "ANY" = 4294967295,
+            readonly "ANY": 4294967295
         }
-        /**
+        type GLSLProfile = number
+        interface $Exports {
+            /**
+             * GLSL profiles
+             * @since 1.8
+             */
+            GLSLProfile: GLSLProfileBitfield
+            /**
          * @param string a GLSL version string
          * @returns the #GstGLSLProfile of `string` or %GST_GLSL_PROFILE_NONE on error
          */
-        function from_string(string: string): GLSLProfile
-        /**
+        from_string: (string: string) => GLSLProfile
+            /**
          * @param profile a #GstGLSLProfile
          * @returns the name for `profile` or %NULL on error
          */
-        function to_string(profile: GLSLProfile): string | null
+        to_string: (profile: GLSLProfile) => string | null
+        }
         /**
          * Copies the parameters from @src into @dest.  The subclass must compose copy
          * functions from the superclass.
@@ -4855,7 +4599,519 @@ declare module "gi://GstGL?version=1.0" {
          * @param height
          */
         type GLWindowResizeCB = (data: never | null, width: number, height: number) => void
+
+        interface $Exports {
+            __name__: "GstGL"
+            __version: "1.0"
+            BUFFER_POOL_OPTION_GL_SYNC_META: "GstBufferPoolOptionGLSyncMeta"
+            BUFFER_POOL_OPTION_GL_TEXTURE_TARGET_2D: "GstBufferPoolOptionGLTextureTarget2D"
+            BUFFER_POOL_OPTION_GL_TEXTURE_TARGET_EXTERNAL_OES: "GstBufferPoolOptionGLTextureTargetExternalOES"
+            BUFFER_POOL_OPTION_GL_TEXTURE_TARGET_RECTANGLE: "GstBufferPoolOptionGLTextureTargetRectangle"
+            CAPS_FEATURE_MEMORY_GL_BUFFER: "memory:GLBuffer"
+            CAPS_FEATURE_MEMORY_GL_MEMORY: "memory:GLMemory"
+            GL_ALLOCATION_PARAMS_ALLOC_FLAG_ALLOC: 1
+            GL_ALLOCATION_PARAMS_ALLOC_FLAG_BUFFER: 16
+            GL_ALLOCATION_PARAMS_ALLOC_FLAG_USER: 65536
+            GL_ALLOCATION_PARAMS_ALLOC_FLAG_VIDEO: 8
+            GL_ALLOCATION_PARAMS_ALLOC_FLAG_WRAP_GPU_HANDLE: 4
+            GL_ALLOCATION_PARAMS_ALLOC_FLAG_WRAP_SYSMEM: 2
+            GL_API_GLES1_NAME: "gles1"
+            GL_API_GLES2_NAME: "gles2"
+            GL_API_OPENGL3_NAME: "opengl3"
+            GL_API_OPENGL_NAME: "opengl"
+            GL_BASE_MEMORY_ALLOCATOR_NAME: "GLBaseMemory"
+            GL_BUFFER_ALLOCATOR_NAME: "GLBuffer"
+            GL_COLOR_CONVERT_FORMATS: "{ RGBA, RGB, RGBx, BGR, BGRx, BGRA, xRGB, xBGR, ARGB, ABGR, GBRA, GBR, RGBP, BGRP, Y444, I420, YV12, Y42B, Y41B, NV12, NV21, NV16, NV61, YUY2, UYVY, Y210, AYUV, VUYA, Y410, A444, A422, GRAY8, GRAY16_LE, GRAY16_BE, RGB16, BGR16, ARGB64, A420, AV12, NV12_16L32S, NV12_4L4, RBGA, v210"
+            GL_COLOR_CONVERT_VIDEO_CAPS: "video/x-raw("
+            GL_CONFIG_STRUCTURE_NAME: "gst-gl-context-config"
+            GL_CONTEXT_TYPE_CGL: "gst.gl.context.CGL"
+            GL_CONTEXT_TYPE_EAGL: "gst.gl.context.EAGL"
+            GL_CONTEXT_TYPE_EGL: "gst.gl.context.EGL"
+            GL_CONTEXT_TYPE_GLX: "gst.gl.context.GLX"
+            GL_CONTEXT_TYPE_WGL: "gst.gl.context.WGL"
+            GL_DISPLAY_CONTEXT_TYPE: "gst.gl.GLDisplay"
+            GL_MEMORY_ALLOCATOR_NAME: "GLMemory"
+            GL_MEMORY_PBO_ALLOCATOR_NAME: "GLMemoryPBO"
+            GL_MEMORY_VIDEO_FORMATS_STR: "{ RGBA, BGRA, RGBx, BGRx, ARGB, ABGR, xRGB, xBGR, GBRA, GBR, RGBP, BGRP, RGB, BGR, RGB16, BGR16, AYUV, VUYA, A444, A422, Y410, I420, YV12, NV12, NV21, NV16, NV61, YUY2, UYVY, Y210, Y41B, Y42B, Y444, GRAY8, GRAY16_LE, GRAY16_BE, ARGB64, A420, AV12, NV12_16L32S, NV12_4L4, RBGA, v210"
+            GL_RENDERBUFFER_ALLOCATOR_NAME: "GLRenderbuffer"
+            GL_TEXTURE_TARGET_2D_STR: "2D"
+            GL_TEXTURE_TARGET_EXTERNAL_OES_STR: "external-oes"
+            GL_TEXTURE_TARGET_RECTANGLE_STR: "rectangle"
+            MAP_GL: 131072
+            /**
+             * @since 1.6
+             * @param context a #GstGLContext
+             * @param buffer a #GstBuffer
+             * @returns the #GstGLSyncMeta added to #GstBuffer
+             */
+            buffer_add_gl_sync_meta(context: GLContext, buffer: Gst.Buffer): GLSyncMeta
+            /**
+             * @since 1.8
+             * @param context a #GstGLContext
+             * @param buffer a #GstBuffer
+             * @param data sync data to hold
+             * @returns the #GstGLSyncMeta added to #GstBuffer
+             */
+            buffer_add_gl_sync_meta_full(context: GLContext, buffer: Gst.Buffer, data: never | null): GLSyncMeta
+            /**
+             * @param config a buffer pool config
+             * @returns the currently set #GstGLAllocationParams or %NULL
+             */
+            buffer_pool_config_get_gl_allocation_params(config: Gst.Structure): GLAllocationParams | null
+            /**
+             * See gst_buffer_pool_config_set_gl_min_free_queue_size().
+             * @since 1.24
+             * @param config a buffer pool config
+             * @returns then number of buffers configured the free queue
+             */
+            buffer_pool_config_get_gl_min_free_queue_size(config: Gst.Structure): number
+            /**
+             * Sets @params on @config
+             * @param config a buffer pool config
+             * @param params a #GstGLAllocationParams
+             */
+            buffer_pool_config_set_gl_allocation_params(config: Gst.Structure, params: GLAllocationParams | null): void
+            /**
+             * Instructs the #GstGLBufferPool to keep @queue_size amount of buffers around
+             * before allowing them for reuse.
+             *
+             * This is helpful to allow GPU processing to complete before the CPU
+             * operations on the same buffer could start.  Particularly useful when
+             * uploading or downloading data to/from the GPU.
+             *
+             * A value of 0 disabled this functionality.
+             *
+             * This value must be less than the configured maximum amount of buffers for
+             * this @config.
+             * @since 1.24
+             * @param config a buffer pool config
+             * @param queue_size the number of buffers
+             */
+            buffer_pool_config_set_gl_min_free_queue_size(config: Gst.Structure, queue_size: number): void
+            /**
+             * @since 1.4
+             * @param context a #GstContext
+             * @returns Whether `display` was in `context`, resulting #GstGLDisplay
+             */
+            context_get_gl_display(context: Gst.Context): [boolean, GLDisplay | null]
+            /**
+             * Sets @display on @context
+             * @since 1.4
+             * @param context a #GstContext
+             * @param display resulting #GstGLDisplay
+             */
+            context_set_gl_display(context: Gst.Context, display: GLDisplay | null): void
+            /**
+             * @param api_s a space separated string of OpenGL apis
+             * @returns The #GstGLAPI represented by `api_s`
+             */
+            gl_api_from_string(api_s: string): GLAPI
+            /**
+             * @param api a #GstGLAPI to stringify
+             * @returns A space separated string of the OpenGL api's enabled in `api`
+             */
+            gl_api_to_string(api: GLAPI): string
+            /**
+             * @since 1.8
+             * @param allocator a #GstGLBaseMemoryAllocator
+             * @param params the #GstGLAllocationParams to allocate the memory with
+             * @returns a new #GstGLBaseMemory from `allocator` with the requested `params`.
+             */
+            gl_base_memory_alloc(allocator: GLBaseMemoryAllocator, params: GLAllocationParams): GLBaseMemory | null
+            /**
+             * @returns the quark used for #GstGLBaseMemory in #GError's
+             */
+            gl_base_memory_error_quark(): GLib.Quark
+            /**
+             * Initializes the GL Base Memory allocator. It is safe to call this function
+             * multiple times.  This must be called before any other GstGLBaseMemory operation.
+             * @since 1.8
+             */
+            gl_base_memory_init_once(): void
+            /**
+             * Initializes the GL Buffer allocator. It is safe to call this function
+             * multiple times.  This must be called before any other #GstGLBuffer operation.
+             * @since 1.8
+             */
+            gl_buffer_init_once(): void
+            /**
+             * @param name the extension to search for
+             * @param ext the list of possible extensions
+             * @returns whether `name` is in the space separated list of `ext`
+             */
+            gl_check_extension(name: string, ext: string): boolean
+            /**
+             * @since 1.20
+             * @param caveat the #GstGLConfigCaveat
+             * @returns a string version of `caveat` or %NULL if `caveat` does not                      exist.
+             */
+            gl_config_caveat_to_string(caveat: GLConfigCaveat): string | null
+            /**
+             * @since 1.20
+             * @param surface_type the #GstGLConfigSurfaceType
+             * @returns a string version of `caveat` or %NULL if `surface_type` does not                      exist.
+             */
+            gl_config_surface_type_to_string(surface_type: GLConfigSurfaceType): string | null
+            /**
+             * @returns the quark used for #GstGLContext in #GError's
+             */
+            gl_context_error_quark(): GLib.Quark
+            /**
+             * Given the DRM formats in @src #GValue, collect corresponding GST formats to
+             * @dst #GValue. This function returns %FALSE if  the context is not an EGL
+             * context.
+             * @since 1.26
+             * @param context a #GstContext
+             * @param src value of "drm-format" field in #GstCaps as #GValue
+             * @param flags transformation flags
+             * @returns whether any valid GST video formats were found and stored in `dst`, empty destination #GValue
+             */
+            gl_dma_buf_transform_drm_formats_to_gst_formats(context: GLContext, src: (GObject.Value | unknown), flags: GLDrmFormatFlags): [boolean, unknown]
+            /**
+             * Given the video formats in @src #GValue, collect corresponding drm formats
+             * supported by @context into @dst #GValue. This function returns %FALSE if
+             * the context is not an EGL context.
+             * @since 1.26
+             * @param context a #GstContext
+             * @param src value of "format" field in #GstCaps as #GValue
+             * @param flags transformation flags
+             * @returns whether any valid drm formats were found and stored in `dst`, empty destination #GValue
+             */
+            gl_dma_buf_transform_gst_formats_to_drm_formats(context: GLContext, src: (GObject.Value | unknown), flags: GLDrmFormatFlags): [boolean, unknown]
+            /**
+             * @param element
+             * @param display
+             */
+            gl_element_propagate_display_context(element: Gst.Element, display: GLDisplay): void
+            /**
+             * Perform the steps necessary for retrieving a #GstGLDisplay and (optionally)
+             * an application provided #GstGLContext from the surrounding elements or from
+             * the application using the #GstContext mechanism.
+             *
+             * If the contents of @display_ptr or @other_context_ptr are not %NULL, then no
+             * #GstContext query is necessary for #GstGLDisplay or #GstGLContext retrieval
+             * or is performed.
+             *
+             * This performs #GstContext queries (if necessary) for a winsys display
+             * connection with %GST_GL_DISPLAY_CONTEXT_TYPE, "gst.x11.display.handle", and
+             * "GstWaylandDisplayHandleContextType" stopping after the first successful
+             * retrieval.
+             *
+             * This also performs a #GstContext query (if necessary) for an optional
+             * application provided #GstGLContext using the name "gst.gl.app_context".
+             * The returned #GstGLContext will be shared with a GStreamer created OpenGL context.
+             * @param element the #GstElement running the query
+             * @returns whether a #GstGLDisplay exists in `display_ptr`, the resulting #GstGLDisplay, the resulting #GstGLContext
+             */
+            gl_ensure_element_data(element: Gst.Element): [boolean, GLDisplay, GLContext]
+            /**
+             * @param context a #GstGLContext
+             * @param vinfo a #GstVideoInfo
+             * @param plane the plane number in @vinfo
+             * @returns the #GstGLFormat necessary for holding the data in `plane` of `vinfo`
+             */
+            gl_format_from_video_info(context: GLContext, vinfo: GstVideo.VideoInfo, plane: number): GLFormat
+            /**
+             * @since 1.16
+             * @param context a #GstGLContext
+             * @param format the #GstGLFormat to check is supported by @context
+             * @returns Whether `format` is supported by `context` based on the OpenGL API,          version, or available OpenGL extension/s.
+             */
+            gl_format_is_supported(context: GLContext, format: GLFormat): boolean
+            /**
+             * @since 1.24
+             * @param gl_format the #GstGLFormat
+             * @returns the number of components in a #GstGLFormat
+             */
+            gl_format_n_components(gl_format: GLFormat): number
+            /**
+             * Get the unsized format and type from @format for usage in glReadPixels,
+             * glTex{Sub}Image*, glTexImage* and similar functions.
+             * @since 1.16
+             * @param format the sized internal #GstGLFormat
+             * @returns , location for the resulting unsized #GstGLFormat, location for the resulting GL type
+             */
+            gl_format_type_from_sized_gl_format(format: GLFormat): [GLFormat, number]
+            /**
+             * @param format the OpenGL format, `GL_RGBA`, `GL_LUMINANCE`, etc
+             * @param type the OpenGL type, `GL_UNSIGNED_BYTE`, `GL_FLOAT`, etc
+             * @returns the number of bytes the specified `format`, `type` combination takes per pixel
+             */
+            gl_format_type_n_bytes(format: number, type: number): number
+            /**
+             * Retrieves the stored 4x4 affine transformation matrix stored in @meta in
+             * NDC coordinates. if @meta is NULL, an identity matrix is returned.
+             *
+             * NDC is a left-handed coordinate system
+             * - x - [-1, 1] - +ve X moves right
+             * - y - [-1, 1] - +ve Y moves up
+             * - z - [-1, 1] - +ve Z moves into
+             * @since 1.20
+             * @param meta a #GstVideoAffineTransformationMeta
+             * @returns , result of the 4x4 matrix
+             */
+            gl_get_affine_transformation_meta_as_ndc(meta: GstVideo.VideoAffineTransformationMeta | null): number[]
+            /**
+             * Retrieve the size in bytes of a video plane of data with a certain alignment
+             * @param info a #GstVideoInfo
+             * @param align a #GstVideoAlignment or %NULL
+             * @param plane plane number in @info to retrieve the data size of
+             */
+            gl_get_plane_data_size(info: GstVideo.VideoInfo, align: GstVideo.VideoAlignment, plane: number): number
+            /**
+             * @param info a #GstVideoInfo
+             * @param valign a #GstVideoAlignment or %NULL
+             * @param plane plane number in @info to retrieve the data size of
+             * @returns difference between the supposed start of the plane from the `info`          and where the data from the previous plane ends.
+             */
+            gl_get_plane_start(info: GstVideo.VideoInfo, valign: GstVideo.VideoAlignment, plane: number): number
+            /**
+             * @param element a #GstElement
+             * @param query a #GstQuery of type %GST_QUERY_CONTEXT
+             * @param display a #GstGLDisplay
+             * @param context a #GstGLContext
+             * @param other_context application provided #GstGLContext
+             * @returns Whether the `query` was successfully responded to from the passed          `display`, `context`, and `other_context`.
+             */
+            gl_handle_context_query(element: Gst.Element, query: Gst.Query, display: GLDisplay | null, context: GLContext | null, other_context: GLContext | null): boolean
+            /**
+             * Helper function for implementing #GstElementClass.set_context() in
+             * OpenGL capable elements.
+             *
+             * Retrieve's the #GstGLDisplay or #GstGLContext in @context and places the
+             * result in @display or @other_context respectively.
+             * @param element a #GstElement
+             * @param context a #GstContext
+             * @returns whether the `display` or `other_context` could be set successfully, location of a #GstGLDisplay, location of a #GstGLContext
+             */
+            gl_handle_set_context(element: Gst.Element, context: Gst.Context): [boolean, GLDisplay, GLContext]
+            /**
+             * Initializes the GL Base Texture allocator. It is safe to call this function
+             * multiple times.  This must be called before any other GstGLMemory operation.
+             * @since 1.4
+             */
+            gl_memory_init_once(): void
+            /**
+             */
+            gl_memory_pbo_init_once(): void
+            /**
+             * Multiplies two 4x4 matrices, @a and @b, and stores the result, a
+             * 2-dimensional array of #gfloat, in @result.
+             * @since 1.20
+             * @param a a 2-dimensional 4x4 array of #gfloat
+             * @param b another 2-dimensional 4x4 array of #gfloat
+             * @returns , the result of the multiplication
+             */
+            gl_multiply_matrix4(a: number[], b: number[]): number[]
+            /**
+             * @param platform_s a space separated string of OpenGL platformss
+             * @returns The #GstGLPlatform represented by `platform_s`
+             */
+            gl_platform_from_string(platform_s: string): GLPlatform
+            /**
+             * @param platform a #GstGLPlatform to stringify
+             * @returns A space separated string of the OpenGL platforms enabled in `platform`
+             */
+            gl_platform_to_string(platform: GLPlatform): string
+            /**
+             * Performs a GST_QUERY_CONTEXT query of type "gst.gl.local_context" on all
+             * #GstPads in @element of @direction for the local OpenGL context used by
+             * GStreamer elements.
+             * @param element a #GstElement to query from
+             * @param direction the #GstPadDirection to query
+             * @returns whether `context_ptr` contains a #GstGLContext, location containing the current and/or resulting                      #GstGLContext
+             */
+            gl_query_local_gl_context(element: Gst.Element, direction: Gst.PadDirection): [boolean, GLContext]
+            /**
+             * Initializes the GL Base Texture allocator. It is safe to call this function
+             * multiple times.  This must be called before any other GstGLRenderbuffer operation.
+             * @since 1.10
+             */
+            gl_renderbuffer_init_once(): void
+            /**
+             * Set the 4x4 affine transformation matrix stored in @meta from the
+             * NDC coordinates in @matrix.
+             * @since 1.20
+             * @param meta a #GstVideoAffineTransformationMeta
+             * @param matrix a 4x4 matrix
+             */
+            gl_set_affine_transformation_meta_from_ndc(meta: GstVideo.VideoAffineTransformationMeta, matrix: number[]): void
+            /**
+             * @param context a #GstGLContext
+             * @param format an OpenGL format, `GL_RGBA`, `GL_LUMINANCE`, etc
+             * @param type an OpenGL type, `GL_UNSIGNED_BYTE`, `GL_FLOAT`, etc
+             * @returns the sized internal format specified by `format` and `type` that can          be used in `context`
+             */
+            gl_sized_gl_format_from_gl_format_type(context: GLContext, format: number, type: number): number
+            /**
+             */
+            gl_stereo_downmix_mode_get_type(): GObject.GType
+            /**
+             * Given @swizzle, produce @inversion such that:
+             *
+             * @swizzle[@inversion[i]] == identity[i] where:
+             * - identity = {0, 1, 2,...}
+             * - unset fields are marked by -1
+             * @since 1.24
+             * @param swizzle input swizzle
+             * @returns , resulting inversion
+             */
+            gl_swizzle_invert(swizzle: number[]): number[]
+            /**
+             */
+            gl_sync_meta_api_get_type(): GObject.GType
+            /**
+             */
+            gl_sync_meta_get_info(): Gst.MetaInfo
+            /**
+             * @param target an OpenGL texture binding target
+             * @returns the #GstGLTextureTarget that's equiavalant to `target` or          %GST_GL_TEXTURE_TARGET_NONE
+             */
+            gl_texture_target_from_gl(target: number): GLTextureTarget
+            /**
+             * @param str a string equivalent to one of the GST_GL_TEXTURE_TARGET_*_STR values
+             * @returns the #GstGLTextureTarget represented by `str` or          %GST_GL_TEXTURE_TARGET_NONE
+             */
+            gl_texture_target_from_string(str: string): GLTextureTarget
+            /**
+             * @param target a #GstGLTextureTarget
+             * @returns a string representing the `GstBufferPoolOption` specified by `target`
+             */
+            gl_texture_target_to_buffer_pool_option(target: GLTextureTarget): string | null
+            /**
+             * @param target a #GstGLTextureTarget
+             * @returns the OpenGL value for binding the `target` with glBindTexture() and          similar functions or 0
+             */
+            gl_texture_target_to_gl(target: GLTextureTarget): number
+            /**
+             * @param target a #GstGLTextureTarget
+             * @returns the stringified version of `target` or %NULL
+             */
+            gl_texture_target_to_string(target: GLTextureTarget): string | null
+            /**
+             * See gst_gl_value_set_texture_target_from_mask() for what entails a mask
+             * @param value an initialized #GValue of type G_TYPE_STRING
+             * @returns the mask of #GstGLTextureTarget's in `value` or     %GST_GL_TEXTURE_TARGET_NONE on failure
+             */
+            gl_value_get_texture_target_mask(value: (GObject.Value | unknown)): GLTextureTarget
+            /**
+             * @param value an initialized #GValue of type G_TYPE_STRING
+             * @param target a #GstGLTextureTarget's
+             * @returns whether the `target` could be set on `value`
+             */
+            gl_value_set_texture_target(value: (GObject.Value | unknown), target: GLTextureTarget): boolean
+            /**
+             * A mask is a bitwise OR of (1 << target) where target is a valid
+             * #GstGLTextureTarget
+             * @param value an uninitialized #GValue
+             * @param target_mask a bitwise mask of #GstGLTextureTarget's
+             * @returns whether the `target_mask` could be set on `value`
+             */
+            gl_value_set_texture_target_from_mask(value: (GObject.Value | unknown), target_mask: GLTextureTarget): boolean
+            /**
+             * @param gl_api the #GstGLAPI
+             * @param maj the major GL version
+             * @param min the minor GL version
+             * @returns The minimum supported #GstGLSLVersion available for `gl_api`, `maj` and `min`
+             */
+            gl_version_to_glsl_version(gl_api: GLAPI, maj: number, min: number): GLSLVersion
+            /**
+             * Calculates the swizzle indices for @video_format and @gl_format in order to
+             * access a texture such that accessing a texel from a texture through the swizzle
+             * index produces values in the order (R, G, B, A) or (Y, U, V, A).
+             *
+             * For multi-planer formats, the swizzle index uses the same component order (RGBA/YUVA)
+             * and should be applied after combining multiple planes into a single rgba/yuva value.
+             * e.g. sampling from a NV12 format would have Y from one texture and UV from
+             * another texture into a (Y, U, V) value.  Add an Aplha component and then
+             * perform swizzling.  Sampling from NV21 would produce (Y, V, U) which is then
+             * swizzled to (Y, U, V).
+             * @since 1.24
+             * @param video_format the #GstVideoFormat in use
+             * @returns whether valid swizzle indices could be found, the returned swizzle indices
+             */
+            gl_video_format_swizzle(video_format: GstVideo.VideoFormat): [boolean, number[]]
+            /**
+             * @returns the quark used for #GstGLWindow in #GError's
+             */
+            gl_window_error_quark(): GLib.Quark
+            /**
+             * @returns the quark used for GstGLSL in #GError's
+             */
+            glsl_error_quark(): GLib.Quark
+            /**
+             * @param string a GLSL version string
+             * @returns the #GstGLSLProfile of `string` or %GST_GLSL_PROFILE_NONE on error
+             */
+            glsl_profile_from_string(string: string): GLSLProfile
+            /**
+             * @param profile a #GstGLSLProfile
+             * @returns the name for `profile` or %NULL on error
+             */
+            glsl_profile_to_string(profile: GLSLProfile): string | null
+            /**
+             * Note: this function first searches the first 1 kilobytes for a `#version`
+             * preprocessor directive and then executes gst_glsl_version_profile_from_string().
+             * @param s string to search for a valid `#version` string
+             * @returns TRUE if a valid `#version` string was found, FALSE otherwise, resulting #GstGLSLVersion, resulting #GstGLSLProfile
+             */
+            glsl_string_get_version_profile(s: string): [boolean, GLSLVersion, GLSLProfile]
+            /**
+             * @param string a GLSL version string
+             * @returns the #GstGLSLVersion of `string` or %GST_GLSL_VERSION_NONE on error
+             */
+            glsl_version_from_string(string: string): GLSLVersion
+            /**
+             * Note: this function expects either a `#version` GLSL preprocesser directive
+             * or a valid GLSL version and/or profile.
+             * @param string a valid GLSL `#version` string
+             * @returns TRUE if a valid `#version` string was found, FALSE otherwise, resulting #GstGLSLVersion, resulting #GstGLSLVersion
+             */
+            glsl_version_profile_from_string(string: string): [boolean, GLSLVersion, GLSLProfile]
+            /**
+             * @param version a #GstGLSLVersion
+             * @param profile a #GstGLSLVersion
+             * @returns the combined GLSL `#version` string for `version` and `profile`
+             */
+            glsl_version_profile_to_string(version: GLSLVersion, profile: GLSLProfile): string | null
+            /**
+             * @param version a #GstGLSLVersion
+             * @returns the name of `version` or %NULL on error
+             */
+            glsl_version_to_string(version: GLSLVersion): string | null
+            /**
+             * @since 1.8
+             * @param mem a #GstMemory
+             * @returns whether the memory at `mem` is a #GstGLBaseMemory
+             */
+            is_gl_base_memory(mem: Gst.Memory): boolean
+            /**
+             * @since 1.8
+             * @param mem a #GstMemory
+             * @returns whether the memory at `mem` is a #GstGLBuffer
+             */
+            is_gl_buffer(mem: Gst.Memory): boolean
+            /**
+             * @since 1.4
+             * @param mem a #GstMemory
+             * @returns whether the memory at `mem` is a #GstGLMemory
+             */
+            is_gl_memory(mem: Gst.Memory): boolean
+            /**
+             * @since 1.8
+             * @param mem a #GstMemory
+             * @returns whether the memory at `mem` is a #GstGLMemoryPBO
+             */
+            is_gl_memory_pbo(mem: Gst.Memory): boolean
+            /**
+             * @since 1.10
+             * @param mem a #GstMemory
+             * @returns whether the memory at `mem` is a #GstGLRenderbuffer
+             */
+            is_gl_renderbuffer(mem: Gst.Memory): boolean
+        }
     }
 
+    const GstGL: GstGL.$Exports
     export default GstGL
 }

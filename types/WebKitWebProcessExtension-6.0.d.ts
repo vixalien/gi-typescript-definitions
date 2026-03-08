@@ -40,10 +40,7 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
 
     
 
-
     namespace WebKitWebProcessExtension {
-        const __name__: "WebKitWebProcessExtension"
-        const __version: "6.0"
         
 
         namespace ContextMenu {
@@ -60,12 +57,6 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
         }
 
-        /**
-         * s with
-         * webkit_context_menu_prepend(), webkit_context_menu_append() or
-         * webkit_context_menu_insert(), maybe after having removed the
-         * existing ones with webkit_context_menu_remove_all().
-         */
         interface ContextMenu extends GObject.Object {
             readonly $signals: ContextMenu.SignalSignatures
             readonly $readableProperties: ContextMenu.ReadableProperties
@@ -82,7 +73,22 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
              */
             first(): ContextMenuItem
             /**
-             * >
+             * Gets the #GdkEvent that triggered the context menu. This function only returns a valid
+             * #GdkEvent when called for a #WebKitContextMenu passed to #WebKitWebView::context-menu
+             * signal; in all other cases, %NULL is returned.
+             *
+             * The returned #GdkEvent is expected to be one of the following types:
+             * <itemizedlist>
+             * <listitem><para>
+             * a #GdkEventButton of type %GDK_BUTTON_PRESS when the context menu was triggered with mouse.
+             * </para></listitem>
+             * <listitem><para>
+             * a #GdkEventKey of type %GDK_KEY_PRESS if the keyboard was used to show the menu.
+             * </para></listitem>
+             * <listitem><para>
+             * a generic #GdkEvent of type %GDK_NOTHING when the #GtkWidget::popup-menu signal was used to show the context menu.
+             * </para></listitem>
+             * </itemizedlist>
              * @since 2.40
              * @returns the menu event or %NULL.
              */
@@ -95,12 +101,12 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             get_item_at_position(position: number): ContextMenuItem
             /**
              * Returns the item list of @menu.
-             * @returns s
+             * @returns a #GList of    #WebKitContextMenuItem<!-- -->s
              */
             get_items(): ContextMenuItem[]
             /**
              * Gets the length of the @menu.
-             * @returns s in `menu`
+             * @returns the number of #WebKitContextMenuItem<!-- -->s in `menu`
              */
             get_n_items(): number
             /**
@@ -111,7 +117,7 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
              * @since 2.52
              * @returns %TRUE if valid position coordinates are available, %FALSE otherwise, return location for the x coordinate, return location for the y coordinate
              */
-            get_position(): boolean
+            get_position(): [boolean, number, number]
             /**
              * Gets the user data of @menu.
              *
@@ -178,6 +184,7 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface ContextMenuClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ContextMenu>
             readonly prototype: ContextMenu
+
             new (props?: Partial<GObject.ConstructorProps<ContextMenu>>): ContextMenu
             /**
              * Creates a new #WebKitContextMenu object.
@@ -204,7 +211,24 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             new_with_items(items: ContextMenuItem[]): ContextMenu
         }
 
-        const ContextMenu: ContextMenuClass
+        interface $Exports {
+            /**
+             * Represents the context menu in a #WebKitWebView.
+             *
+             * #WebKitContextMenu represents a context menu containing
+             * #WebKitContextMenuItem<!-- -->s in a #WebKitWebView.
+             *
+             * When a #WebKitWebView is about to display the context menu, it
+             * emits the #WebKitWebView::context-menu signal, which has the
+             * #WebKitContextMenu as an argument. You can modify it, adding new
+             * submenus that you can create with webkit_context_menu_new(), adding
+             * new #WebKitContextMenuItem<!-- -->s with
+             * webkit_context_menu_prepend(), webkit_context_menu_append() or
+             * webkit_context_menu_insert(), maybe after having removed the
+             * existing ones with webkit_context_menu_remove_all().
+             */
+            ContextMenu: ContextMenuClass
+        }
         
 
         namespace ContextMenuItem {
@@ -221,10 +245,6 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
         }
 
-        /**
-         * s denote stock actions
-         * for the items. You can also create separators and submenus.
-         */
         interface ContextMenuItem extends GObject.InitiallyUnowned {
             readonly $signals: ContextMenuItem.SignalSignatures
             readonly $readableProperties: ContextMenuItem.ReadableProperties
@@ -281,6 +301,7 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface ContextMenuItemClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
             readonly $gtype: GObject.GType<ContextMenuItem>
             readonly prototype: ContextMenuItem
+
             new (props?: Partial<GObject.ConstructorProps<ContextMenuItem>>): ContextMenuItem
             /**
              * Creates a new #WebKitContextMenuItem for the given @action and @label.
@@ -333,7 +354,18 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             new_with_submenu(label: string, submenu: ContextMenu): ContextMenuItem
         }
 
-        const ContextMenuItem: ContextMenuItemClass
+        interface $Exports {
+            /**
+             * One item of a #WebKitContextMenu.
+             *
+             * The #WebKitContextMenu is composed of #WebKitContextMenuItem<!--
+             * -->s. These items can be created from a #GtkAction, from a
+             * #WebKitContextMenuAction or from a #WebKitContextMenuAction and a
+             * label. These #WebKitContextMenuAction<!-- -->s denote stock actions
+             * for the items. You can also create separators and submenus.
+             */
+            ContextMenuItem: ContextMenuItemClass
+        }
         
 
         namespace Frame {
@@ -350,13 +382,6 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
         }
 
-        /**
-         * A web page frame.
-         *
-         * Each `WebKitWebPage` has at least one main frame, and can have any number
-         * of subframes.
-         * @since 2.26
-         */
         interface Frame extends GObject.Object {
             readonly $signals: Frame.SignalSignatures
             readonly $readableProperties: Frame.ReadableProperties
@@ -401,10 +426,20 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface FrameClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Frame>
             readonly prototype: Frame
+
             new (props?: Partial<GObject.ConstructorProps<Frame>>): Frame
         }
 
-        const Frame: FrameClass
+        interface $Exports {
+            /**
+             * A web page frame.
+             *
+             * Each `WebKitWebPage` has at least one main frame, and can have any number
+             * of subframes.
+             * @since 2.26
+             */
+            Frame: FrameClass
+        }
         
 
         namespace HitTestResult {
@@ -421,6 +456,9 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "context": number
                 "image-uri": string
                 "link-label": string
@@ -428,33 +466,8 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
                 "link-uri": string
                 "media-uri": string
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Result of a Hit Test.
-         *
-         * A Hit Test is an operation to get context information about a given
-         * point in a #WebKitWebView. #WebKitHitTestResult represents the
-         * result of a Hit Test. It provides context information about what is
-         * at the coordinates of the Hit Test, such as if there's a link,
-         * an image or a media.
-         *
-         * You can get the context of the HitTestResult with
-         * webkit_hit_test_result_get_context() that returns a bitmask of
-         * #WebKitHitTestResultContext flags. You can also use
-         * webkit_hit_test_result_context_is_link(), webkit_hit_test_result_context_is_image() and
-         * webkit_hit_test_result_context_is_media() to determine whether there's
-         * a link, image or a media element at the coordinates of the Hit Test.
-         * Note that it's possible that several #WebKitHitTestResultContext flags
-         * are active at the same time, for example if there's a link containing an image.
-         *
-         * When the mouse is moved over a #WebKitWebView a Hit Test is performed
-         * for the mouse coordinates and #WebKitWebView::mouse-target-changed
-         * signal is emitted with a #WebKitHitTestResult.
-         */
         interface HitTestResult extends GObject.Object {
             readonly $signals: HitTestResult.SignalSignatures
             readonly $readableProperties: HitTestResult.ReadableProperties
@@ -574,10 +587,35 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface HitTestResultClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<HitTestResult>
             readonly prototype: HitTestResult
+
             new (props?: Partial<GObject.ConstructorProps<HitTestResult>>): HitTestResult
         }
 
-        const HitTestResult: HitTestResultClass
+        interface $Exports {
+            /**
+             * Result of a Hit Test.
+             *
+             * A Hit Test is an operation to get context information about a given
+             * point in a #WebKitWebView. #WebKitHitTestResult represents the
+             * result of a Hit Test. It provides context information about what is
+             * at the coordinates of the Hit Test, such as if there's a link,
+             * an image or a media.
+             *
+             * You can get the context of the HitTestResult with
+             * webkit_hit_test_result_get_context() that returns a bitmask of
+             * #WebKitHitTestResultContext flags. You can also use
+             * webkit_hit_test_result_context_is_link(), webkit_hit_test_result_context_is_image() and
+             * webkit_hit_test_result_context_is_media() to determine whether there's
+             * a link, image or a media element at the coordinates of the Hit Test.
+             * Note that it's possible that several #WebKitHitTestResultContext flags
+             * are active at the same time, for example if there's a link containing an image.
+             *
+             * When the mouse is moved over a #WebKitWebView a Hit Test is performed
+             * for the mouse coordinates and #WebKitWebView::mouse-target-changed
+             * signal is emitted with a #WebKitHitTestResult.
+             */
+            HitTestResult: HitTestResultClass
+        }
         
 
         namespace ScriptWorld {
@@ -605,8 +643,6 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
         }
 
-        /**
-         */
         interface ScriptWorld extends GObject.Object {
             readonly $signals: ScriptWorld.SignalSignatures
             readonly $readableProperties: ScriptWorld.ReadableProperties
@@ -623,6 +659,7 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface ScriptWorldClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ScriptWorld>
             readonly prototype: ScriptWorld
+
             new (props?: Partial<GObject.ConstructorProps<ScriptWorld>>): ScriptWorld
             /**
              * Creates a new isolated #WebKitScriptWorld. Scripts executed in
@@ -659,7 +696,11 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             get_default(): ScriptWorld
         }
 
-        const ScriptWorld: ScriptWorldClass
+        interface $Exports {
+            /**
+             */
+            ScriptWorld: ScriptWorldClass
+        }
         
 
         namespace URIRequest {
@@ -678,13 +719,6 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
         }
 
-        /**
-         * Represents a URI request.
-         *
-         * A #WebKitURIRequest can be created with a URI using the
-         * webkit_uri_request_new() method, and you can get the URI of an
-         * existing request with the webkit_uri_request_get_uri() one.
-         */
         interface URIRequest extends GObject.Object {
             readonly $signals: URIRequest.SignalSignatures
             readonly $readableProperties: URIRequest.ReadableProperties
@@ -722,6 +756,7 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface URIRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<URIRequest>
             readonly prototype: URIRequest
+
             new (props?: Partial<GObject.ConstructorProps<URIRequest>>): URIRequest
             /**
              * Creates a new #WebKitURIRequest for the given URI.
@@ -731,7 +766,16 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             "new"(uri: string): URIRequest
         }
 
-        const URIRequest: URIRequestClass
+        interface $Exports {
+            /**
+             * Represents a URI request.
+             *
+             * A #WebKitURIRequest can be created with a URI using the
+             * webkit_uri_request_new() method, and you can get the URI of an
+             * existing request with the webkit_uri_request_get_uri() one.
+             */
+            URIRequest: URIRequestClass
+        }
         
 
         namespace URIResponse {
@@ -760,13 +804,6 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
         }
 
-        /**
-         * Represents an URI response.
-         *
-         * A #WebKitURIResponse contains information such as the URI, the
-         * status code, the content length, the mime type, the HTTP status or
-         * the suggested filename.
-         */
         interface URIResponse extends GObject.Object {
             readonly $signals: URIResponse.SignalSignatures
             readonly $readableProperties: URIResponse.ReadableProperties
@@ -855,10 +892,20 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface URIResponseClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<URIResponse>
             readonly prototype: URIResponse
+
             new (props?: Partial<GObject.ConstructorProps<URIResponse>>): URIResponse
         }
 
-        const URIResponse: URIResponseClass
+        interface $Exports {
+            /**
+             * Represents an URI response.
+             *
+             * A #WebKitURIResponse contains information such as the URI, the
+             * status code, the content length, the mime type, the HTTP status or
+             * the suggested filename.
+             */
+            URIResponse: URIResponseClass
+        }
         
 
         namespace UserMessage {
@@ -872,26 +919,15 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
 
             interface WritableProperties extends GObject.InitiallyUnowned.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.InitiallyUnowned.ConstructOnlyProperties {
                 "fd-list": Gio.UnixFDList | null
                 "name": string
                 "parameters": GLib.Variant | null
             }
-
-            interface ConstructOnlyProperties extends GObject.InitiallyUnowned.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Message that can be sent between the UI process and web process extensions.
-         *
-         * A WebKitUserMessage is a message that can be used for the communication between the UI process
-         * and web process extensions. A WebKitUserMessage always has a name, and it can also include parameters and
-         * UNIX file descriptors. Messages can be sent from a #WebKitWebContext to all web process extensions,
-         * from a web process extension to its corresponding #WebKitWebContext, and from a #WebKitWebView to its
-         * corresponding #WebKitWebPage (and vice versa). One to one messages can be replied to directly with
-         * webkit_user_message_send_reply().
-         * @since 2.28
-         */
         interface UserMessage extends GObject.InitiallyUnowned {
             readonly $signals: UserMessage.SignalSignatures
             readonly $readableProperties: UserMessage.ReadableProperties
@@ -951,6 +987,7 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface UserMessageClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
             readonly $gtype: GObject.GType<UserMessage>
             readonly prototype: UserMessage
+
             new (props?: Partial<GObject.ConstructorProps<UserMessage>>): UserMessage
             /**
              * Create a new #WebKitUserMessage with @name.
@@ -976,7 +1013,20 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             error_quark(): GLib.Quark
         }
 
-        const UserMessage: UserMessageClass
+        interface $Exports {
+            /**
+             * Message that can be sent between the UI process and web process extensions.
+             *
+             * A WebKitUserMessage is a message that can be used for the communication between the UI process
+             * and web process extensions. A WebKitUserMessage always has a name, and it can also include parameters and
+             * UNIX file descriptors. Messages can be sent from a #WebKitWebContext to all web process extensions,
+             * from a web process extension to its corresponding #WebKitWebContext, and from a #WebKitWebView to its
+             * corresponding #WebKitWebPage (and vice versa). One to one messages can be replied to directly with
+             * webkit_user_message_send_reply().
+             * @since 2.28
+             */
+            UserMessage: UserMessageClass
+        }
         
 
         namespace WebEditor {
@@ -1000,14 +1050,6 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
         }
 
-        /**
-         * Access to editing capabilities of a #WebKitWebPage.
-         *
-         * The WebKitWebEditor provides access to various editing capabilities of
-         * a #WebKitWebPage such as a possibility to react to the current selection in
-         * #WebKitWebPage.
-         * @since 2.10
-         */
         interface WebEditor extends GObject.Object {
             readonly $signals: WebEditor.SignalSignatures
             readonly $readableProperties: WebEditor.ReadableProperties
@@ -1024,10 +1066,21 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface WebEditorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebEditor>
             readonly prototype: WebEditor
+
             new (props?: Partial<GObject.ConstructorProps<WebEditor>>): WebEditor
         }
 
-        const WebEditor: WebEditorClass
+        interface $Exports {
+            /**
+             * Access to editing capabilities of a #WebKitWebPage.
+             *
+             * The WebKitWebEditor provides access to various editing capabilities of
+             * a #WebKitWebPage such as a possibility to react to the current selection in
+             * #WebKitWebPage.
+             * @since 2.10
+             */
+            WebEditor: WebEditorClass
+        }
         
 
         namespace WebFormManager {
@@ -1093,10 +1146,6 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
         }
 
-        /**
-         * Form manager of a #WebKitWebPage in a #WebKitScriptWorld
-         * @since 2.40
-         */
         interface WebFormManager extends GObject.Object {
             readonly $signals: WebFormManager.SignalSignatures
             readonly $readableProperties: WebFormManager.ReadableProperties
@@ -1107,6 +1156,7 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface WebFormManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebFormManager>
             readonly prototype: WebFormManager
+
             new (props?: Partial<GObject.ConstructorProps<WebFormManager>>): WebFormManager
             /**
              * Set the value of an HTML input element as if it had been edited by
@@ -1133,7 +1183,13 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             input_element_is_user_edited(element: JavaScriptCore.Value): boolean
         }
 
-        const WebFormManager: WebFormManagerClass
+        interface $Exports {
+            /**
+             * Form manager of a #WebKitWebPage in a #WebKitScriptWorld
+             * @since 2.40
+             */
+            WebFormManager: WebFormManagerClass
+        }
         
 
         namespace WebHitTestResult {
@@ -1150,13 +1206,6 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
         }
 
-        /**
-         * Result of a Hit Test (Web Process Extensions).
-         *
-         * WebKitWebHitTestResult extends #WebKitHitTestResult to provide information
-         * about the #WebKitDOMNode in the coordinates of the Hit Test.
-         * @since 2.8
-         */
         interface WebHitTestResult extends GObject.Object {
             readonly $signals: WebHitTestResult.SignalSignatures
             readonly $readableProperties: WebHitTestResult.ReadableProperties
@@ -1252,10 +1301,20 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface WebHitTestResultClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebHitTestResult>
             readonly prototype: WebHitTestResult
+
             new (props?: Partial<GObject.ConstructorProps<WebHitTestResult>>): WebHitTestResult
         }
 
-        const WebHitTestResult: WebHitTestResultClass
+        interface $Exports {
+            /**
+             * Result of a Hit Test (Web Process Extensions).
+             *
+             * WebKitWebHitTestResult extends #WebKitHitTestResult to provide information
+             * about the #WebKitDOMNode in the coordinates of the Hit Test.
+             * @since 2.8
+             */
+            WebHitTestResult: WebHitTestResultClass
+        }
         
 
         namespace WebPage {
@@ -1339,9 +1398,6 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
         }
 
-        /**
-         * A loaded web page.
-         */
         interface WebPage extends GObject.Object {
             readonly $signals: WebPage.SignalSignatures
             readonly $readableProperties: WebPage.ReadableProperties
@@ -1411,10 +1467,16 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface WebPageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebPage>
             readonly prototype: WebPage
+
             new (props?: Partial<GObject.ConstructorProps<WebPage>>): WebPage
         }
 
-        const WebPage: WebPageClass
+        interface $Exports {
+            /**
+             * A loaded web page.
+             */
+            WebPage: WebPageClass
+        }
         
 
         namespace WebProcessExtension {
@@ -1447,80 +1509,6 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
             }
         }
 
-        /**
-         * Represents an extension of the web process.
-         *
-         * WebKitWebProcessExtension is a loadable module for the web process. It allows you to execute code in the
-         * web process and being able to use the DOM API, to change any request or to inject custom
-         * JavaScript code, for example.
-         *
-         * To create a WebKitWebProcessExtension you should write a module with an initialization function that could
-         * be either webkit_web_process_extension_initialize() with prototype #WebKitWebProcessExtensionInitializeFunction or
-         * webkit_web_process_extension_initialize_with_user_data() with prototype #WebKitWebProcessExtensionInitializeWithUserDataFunction.
-         * This function has to be public and it has to use the #G_MODULE_EXPORT macro. It is called when the
-         * web process is initialized.
-         *
-         * ```c
-         * static void
-         * web_page_created_callback (WebKitWebProcessExtension *extension,
-         *                            WebKitWebPage             *web_page,
-         *                            gpointer                   user_data)
-         * {
-         *     g_print ("Page %d created for %s\n",
-         *              webkit_web_page_get_id (web_page),
-         *              webkit_web_page_get_uri (web_page));
-         * }
-         *
-         * G_MODULE_EXPORT void
-         * webkit_web_process_extension_initialize (WebKitWebProcessExtension *extension)
-         * {
-         *     g_signal_connect (extension, "page-created",
-         *                       G_CALLBACK (web_page_created_callback),
-         *                       NULL);
-         * }
-         * ```
-         *
-         * The previous piece of code shows a trivial example of an extension that notifies when
-         * a #WebKitWebPage is created.
-         *
-         * WebKit has to know where it can find the created WebKitWebProcessExtension. To do so you
-         * should use the webkit_web_context_set_web_extensions_directory() function. The signal
-         * #WebKitWebContext::initialize-web-extensions is the recommended place to call it.
-         *
-         * To provide the initialization data used by the webkit_web_process_extension_initialize_with_user_data()
-         * function, you have to call webkit_web_context_set_web_extensions_initialization_user_data() with
-         * the desired data as parameter. You can see an example of this in the following piece of code:
-         *
-         * ```c
-         * #define WEB_EXTENSIONS_DIRECTORY // ...
-         *
-         * static void
-         * initialize_web_extensions (WebKitWebContext *context,
-         *                            gpointer          user_data)
-         * {
-         *   // Web Extensions get a different ID for each Web Process
-         *   static guint32 unique_id = 0;
-         *
-         *   webkit_web_context_set_web_extensions_directory (
-         *      context, WEB_EXTENSIONS_DIRECTORY);
-         *   webkit_web_context_set_web_extensions_initialization_user_data (
-         *      context, g_variant_new_uint32 (unique_id++));
-         * }
-         *
-         * int main (int argc, char **argv)
-         * {
-         *   g_signal_connect (webkit_web_context_get_default (),
-         *                    "initialize-web-extensions",
-         *                     G_CALLBACK (initialize_web_extensions),
-         *                     NULL);
-         *
-         *   GtkWidget *view = webkit_web_view_new ();
-         *
-         *   // ...
-         * }
-         * ```
-         * @since 2.40
-         */
         interface WebProcessExtension extends GObject.Object {
             readonly $signals: WebProcessExtension.SignalSignatures
             readonly $readableProperties: WebProcessExtension.ReadableProperties
@@ -1558,16 +1546,95 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
         interface WebProcessExtensionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebProcessExtension>
             readonly prototype: WebProcessExtension
+
             new (props?: Partial<GObject.ConstructorProps<WebProcessExtension>>): WebProcessExtension
         }
 
-        const WebProcessExtension: WebProcessExtensionClass
-        /**
-         */
-        abstract class ConsoleMessage {
-            static readonly $gtype: GObject.GType<ConsoleMessage>
+        interface $Exports {
+            /**
+             * Represents an extension of the web process.
+             *
+             * WebKitWebProcessExtension is a loadable module for the web process. It allows you to execute code in the
+             * web process and being able to use the DOM API, to change any request or to inject custom
+             * JavaScript code, for example.
+             *
+             * To create a WebKitWebProcessExtension you should write a module with an initialization function that could
+             * be either webkit_web_process_extension_initialize() with prototype #WebKitWebProcessExtensionInitializeFunction or
+             * webkit_web_process_extension_initialize_with_user_data() with prototype #WebKitWebProcessExtensionInitializeWithUserDataFunction.
+             * This function has to be public and it has to use the #G_MODULE_EXPORT macro. It is called when the
+             * web process is initialized.
+             *
+             * ```c
+             * static void
+             * web_page_created_callback (WebKitWebProcessExtension *extension,
+             *                            WebKitWebPage             *web_page,
+             *                            gpointer                   user_data)
+             * {
+             *     g_print ("Page %d created for %s\n",
+             *              webkit_web_page_get_id (web_page),
+             *              webkit_web_page_get_uri (web_page));
+             * }
+             *
+             * G_MODULE_EXPORT void
+             * webkit_web_process_extension_initialize (WebKitWebProcessExtension *extension)
+             * {
+             *     g_signal_connect (extension, "page-created",
+             *                       G_CALLBACK (web_page_created_callback),
+             *                       NULL);
+             * }
+             * ```
+             *
+             * The previous piece of code shows a trivial example of an extension that notifies when
+             * a #WebKitWebPage is created.
+             *
+             * WebKit has to know where it can find the created WebKitWebProcessExtension. To do so you
+             * should use the webkit_web_context_set_web_extensions_directory() function. The signal
+             * #WebKitWebContext::initialize-web-extensions is the recommended place to call it.
+             *
+             * To provide the initialization data used by the webkit_web_process_extension_initialize_with_user_data()
+             * function, you have to call webkit_web_context_set_web_extensions_initialization_user_data() with
+             * the desired data as parameter. You can see an example of this in the following piece of code:
+             *
+             * ```c
+             * #define WEB_EXTENSIONS_DIRECTORY // ...
+             *
+             * static void
+             * initialize_web_extensions (WebKitWebContext *context,
+             *                            gpointer          user_data)
+             * {
+             *   // Web Extensions get a different ID for each Web Process
+             *   static guint32 unique_id = 0;
+             *
+             *   webkit_web_context_set_web_extensions_directory (
+             *      context, WEB_EXTENSIONS_DIRECTORY);
+             *   webkit_web_context_set_web_extensions_initialization_user_data (
+             *      context, g_variant_new_uint32 (unique_id++));
+             * }
+             *
+             * int main (int argc, char **argv)
+             * {
+             *   g_signal_connect (webkit_web_context_get_default (),
+             *                    "initialize-web-extensions",
+             *                     G_CALLBACK (initialize_web_extensions),
+             *                     NULL);
+             *
+             *   GtkWidget *view = webkit_web_view_new ();
+             *
+             *   // ...
+             * }
+             * ```
+             * @since 2.40
+             */
+            WebProcessExtension: WebProcessExtensionClass
+        }
+        
 
-            
+        interface ConsoleMessageStruct {
+            readonly $gtype: GObject.GType<ConsoleMessage>
+            [Symbol.hasInstance](instance: unknown): instance is ConsoleMessage
+        }
+
+        interface ConsoleMessage {
             /**
              * Make a copy of @console_message.
              * @since 2.12
@@ -1610,331 +1677,328 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
              */
             get_text(): string
         }
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        
-        namespace ConsoleMessageLevel {
-            const $gtype: GObject.GType<ConsoleMessageLevel>
-        }
 
-        /**
-         * Enum values used to denote the various levels of console messages.
-         * @since 2.12
-         */
-        enum ConsoleMessageLevel {
+        interface $Exports {
+            ConsoleMessage: ConsoleMessageStruct
+        }
+        
+        interface ConsoleMessageLevelEnum {
+            readonly $gtype: GObject.GType<ConsoleMessageLevel>
             /**
              * Information message.
              */
-            "INFO" = 0,
+            readonly "INFO": 0
             /**
              * Log message.
              */
-            "LOG" = 1,
+            readonly "LOG": 1
             /**
              * Warning message.
              */
-            "WARNING" = 2,
+            readonly "WARNING": 2
             /**
              * Error message.
              */
-            "ERROR" = 3,
+            readonly "ERROR": 3
             /**
              * Debug message.
              */
-            "DEBUG" = 4,
+            readonly "DEBUG": 4
+        }
+        type ConsoleMessageLevel = ConsoleMessageLevelEnum[Exclude<keyof ConsoleMessageLevelEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the various levels of console messages.
+             * @since 2.12
+             */
+            ConsoleMessageLevel: ConsoleMessageLevelEnum
         }
         
-        namespace ConsoleMessageSource {
-            const $gtype: GObject.GType<ConsoleMessageSource>
-        }
-
-        /**
-         * Enum values used to denote the various sources of console messages.
-         * @since 2.12
-         */
-        enum ConsoleMessageSource {
+        interface ConsoleMessageSourceEnum {
+            readonly $gtype: GObject.GType<ConsoleMessageSource>
             /**
              * Message produced by JavaScript.
              */
-            "JAVASCRIPT" = 0,
+            readonly "JAVASCRIPT": 0
             /**
              * Network messages.
              */
-            "NETWORK" = 1,
+            readonly "NETWORK": 1
             /**
              * Messages produced by console API.
              */
-            "CONSOLE_API" = 2,
+            readonly "CONSOLE_API": 2
             /**
              * Security messages.
              */
-            "SECURITY" = 3,
+            readonly "SECURITY": 3
             /**
              * Other messages.
              */
-            "OTHER" = 4,
+            readonly "OTHER": 4
+        }
+        type ConsoleMessageSource = ConsoleMessageSourceEnum[Exclude<keyof ConsoleMessageSourceEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the various sources of console messages.
+             * @since 2.12
+             */
+            ConsoleMessageSource: ConsoleMessageSourceEnum
         }
         
-        namespace ContextMenuAction {
-            const $gtype: GObject.GType<ContextMenuAction>
-        }
-
-        /**
-         * s
-         */
-        enum ContextMenuAction {
+        interface ContextMenuActionEnum {
+            readonly $gtype: GObject.GType<ContextMenuAction>
             /**
              * No action, used by separator menu items.
              */
-            "NO_ACTION" = 0,
+            readonly "NO_ACTION": 0
             /**
              * Open current link.
              */
-            "OPEN_LINK" = 1,
+            readonly "OPEN_LINK": 1
             /**
              * Open current link in a new window.
              */
-            "OPEN_LINK_IN_NEW_WINDOW" = 2,
+            readonly "OPEN_LINK_IN_NEW_WINDOW": 2
             /**
              * Download link destination.
              */
-            "DOWNLOAD_LINK_TO_DISK" = 3,
+            readonly "DOWNLOAD_LINK_TO_DISK": 3
             /**
              * Copy link location to the clipboard.
              */
-            "COPY_LINK_TO_CLIPBOARD" = 4,
+            readonly "COPY_LINK_TO_CLIPBOARD": 4
             /**
              * Open current image in a new window.
              */
-            "OPEN_IMAGE_IN_NEW_WINDOW" = 5,
+            readonly "OPEN_IMAGE_IN_NEW_WINDOW": 5
             /**
              * Download current image.
              */
-            "DOWNLOAD_IMAGE_TO_DISK" = 6,
+            readonly "DOWNLOAD_IMAGE_TO_DISK": 6
             /**
              * Copy current image to the clipboard.
              */
-            "COPY_IMAGE_TO_CLIPBOARD" = 7,
+            readonly "COPY_IMAGE_TO_CLIPBOARD": 7
             /**
              * Copy current image location to the clipboard.
              */
-            "COPY_IMAGE_URL_TO_CLIPBOARD" = 8,
+            readonly "COPY_IMAGE_URL_TO_CLIPBOARD": 8
             /**
              * Open current frame in a new window.
              */
-            "OPEN_FRAME_IN_NEW_WINDOW" = 9,
+            readonly "OPEN_FRAME_IN_NEW_WINDOW": 9
             /**
              * Load the previous history item.
              */
-            "GO_BACK" = 10,
+            readonly "GO_BACK": 10
             /**
              * Load the next history item.
              */
-            "GO_FORWARD" = 11,
+            readonly "GO_FORWARD": 11
             /**
              * Stop any ongoing loading operation.
              */
-            "STOP" = 12,
+            readonly "STOP": 12
             /**
              * Reload the contents of current view.
              */
-            "RELOAD" = 13,
+            readonly "RELOAD": 13
             /**
              * Copy current selection the clipboard.
              */
-            "COPY" = 14,
+            readonly "COPY": 14
             /**
              * Cut current selection to the clipboard.
              */
-            "CUT" = 15,
+            readonly "CUT": 15
             /**
              * Paste clipboard contents.
              */
-            "PASTE" = 16,
+            readonly "PASTE": 16
             /**
              * Delete current selection.
              */
-            "DELETE" = 17,
+            readonly "DELETE": 17
             /**
              * Select all text.
              */
-            "SELECT_ALL" = 18,
+            readonly "SELECT_ALL": 18
             /**
              * Input methods menu.
              */
-            "INPUT_METHODS" = 19,
+            readonly "INPUT_METHODS": 19
             /**
              * Unicode menu.
              */
-            "UNICODE" = 20,
+            readonly "UNICODE": 20
             /**
              * A proposed replacement for a misspelled word.
              */
-            "SPELLING_GUESS" = 21,
+            readonly "SPELLING_GUESS": 21
             /**
              * An indicator that spellchecking found no proposed replacements.
              */
-            "NO_GUESSES_FOUND" = 22,
+            readonly "NO_GUESSES_FOUND": 22
             /**
              * Causes the spellchecker to ignore the word for this session.
              */
-            "IGNORE_SPELLING" = 23,
+            readonly "IGNORE_SPELLING": 23
             /**
              * Causes the spellchecker to add the word to the dictionary.
              */
-            "LEARN_SPELLING" = 24,
+            readonly "LEARN_SPELLING": 24
             /**
              * Ignore grammar.
              */
-            "IGNORE_GRAMMAR" = 25,
+            readonly "IGNORE_GRAMMAR": 25
             /**
              * Font options menu.
              */
-            "FONT_MENU" = 26,
+            readonly "FONT_MENU": 26
             /**
              * Bold.
              */
-            "BOLD" = 27,
+            readonly "BOLD": 27
             /**
              * Italic.
              */
-            "ITALIC" = 28,
+            readonly "ITALIC": 28
             /**
              * Underline.
              */
-            "UNDERLINE" = 29,
+            readonly "UNDERLINE": 29
             /**
              * Outline.
              */
-            "OUTLINE" = 30,
+            readonly "OUTLINE": 30
             /**
              * Open current element in the inspector.
              */
-            "INSPECT_ELEMENT" = 31,
+            readonly "INSPECT_ELEMENT": 31
             /**
              * Open current video element in a new window.
              */
-            "OPEN_VIDEO_IN_NEW_WINDOW" = 32,
+            readonly "OPEN_VIDEO_IN_NEW_WINDOW": 32
             /**
              * Open current audio element in a new window.
              */
-            "OPEN_AUDIO_IN_NEW_WINDOW" = 33,
+            readonly "OPEN_AUDIO_IN_NEW_WINDOW": 33
             /**
              * Copy video link location in to the clipboard.
              */
-            "COPY_VIDEO_LINK_TO_CLIPBOARD" = 34,
+            readonly "COPY_VIDEO_LINK_TO_CLIPBOARD": 34
             /**
              * Copy audio link location in to the clipboard.
              */
-            "COPY_AUDIO_LINK_TO_CLIPBOARD" = 35,
+            readonly "COPY_AUDIO_LINK_TO_CLIPBOARD": 35
             /**
              * Enable or disable media controls.
              */
-            "TOGGLE_MEDIA_CONTROLS" = 36,
+            readonly "TOGGLE_MEDIA_CONTROLS": 36
             /**
              * Enable or disable media loop.
              */
-            "TOGGLE_MEDIA_LOOP" = 37,
+            readonly "TOGGLE_MEDIA_LOOP": 37
             /**
              * Show current video element in fullscreen mode.
              */
-            "ENTER_VIDEO_FULLSCREEN" = 38,
+            readonly "ENTER_VIDEO_FULLSCREEN": 38
             /**
              * Play current media element.
              */
-            "MEDIA_PLAY" = 39,
+            readonly "MEDIA_PLAY": 39
             /**
              * Pause current media element.
              */
-            "MEDIA_PAUSE" = 40,
+            readonly "MEDIA_PAUSE": 40
             /**
              * Mute current media element.
              */
-            "MEDIA_MUTE" = 41,
+            readonly "MEDIA_MUTE": 41
             /**
              * Download video to disk. Since 2.2
              */
-            "DOWNLOAD_VIDEO_TO_DISK" = 42,
+            readonly "DOWNLOAD_VIDEO_TO_DISK": 42
             /**
              * Download audio to disk. Since 2.2
              */
-            "DOWNLOAD_AUDIO_TO_DISK" = 43,
+            readonly "DOWNLOAD_AUDIO_TO_DISK": 43
             /**
              * Insert an emoji. Since 2.26
              */
-            "INSERT_EMOJI" = 44,
+            readonly "INSERT_EMOJI": 44
             /**
              * Paste clipboard contents as plain text. Since 2.30
              */
-            "PASTE_AS_PLAIN_TEXT" = 45,
+            readonly "PASTE_AS_PLAIN_TEXT": 45
             /**
              * Custom action defined by applications.
              */
-            "CUSTOM" = 10000,
+            readonly "CUSTOM": 10000
+        }
+        type ContextMenuAction = ContextMenuActionEnum[Exclude<keyof ContextMenuActionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the stock actions for
+             * #WebKitContextMenuItem<!-- -->s
+             */
+            ContextMenuAction: ContextMenuActionEnum
         }
         
-        namespace UserMessageError {
-            const $gtype: GObject.GType<UserMessageError>
-        }
-
-        /**
-         * Enum values used to denote errors happening when sending user messages.
-         * @since 2.28
-         */
-        enum UserMessageError {
+        interface UserMessageErrorEnum {
+            readonly $gtype: GObject.GType<UserMessageError>
             /**
              * The message was not handled by the receiver.
              */
-            "USER_MESSAGE_UNHANDLED_MESSAGE" = 0,
+            readonly "USER_MESSAGE_UNHANDLED_MESSAGE": 0
+        }
+        type UserMessageError = UserMessageErrorEnum[Exclude<keyof UserMessageErrorEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote errors happening when sending user messages.
+             * @since 2.28
+             */
+            UserMessageError: UserMessageErrorEnum
         }
         
-        namespace HitTestResultContext {
-            const $gtype: GObject.GType<HitTestResultContext>
-        }
-
-        /**
-         * Enum values with flags representing the context of a #WebKitHitTestResult.
-         */
-        enum HitTestResultContext {
+        interface HitTestResultContextBitfield {
+            readonly $gtype: GObject.GType<HitTestResultContext>
             /**
              * anywhere in the document.
              */
-            "DOCUMENT" = 2,
+            readonly "DOCUMENT": 2
             /**
              * a hyperlink element.
              */
-            "LINK" = 4,
+            readonly "LINK": 4
             /**
              * an image element.
              */
-            "IMAGE" = 8,
+            readonly "IMAGE": 8
             /**
              * a video or audio element.
              */
-            "MEDIA" = 16,
+            readonly "MEDIA": 16
             /**
              * an editable element
              */
-            "EDITABLE" = 32,
+            readonly "EDITABLE": 32
             /**
              * a scrollbar element.
              */
-            "SCROLLBAR" = 64,
+            readonly "SCROLLBAR": 64
             /**
              * a selected element. Since 2.8
              */
-            "SELECTION" = 128,
+            readonly "SELECTION": 128
+        }
+        type HitTestResultContext = number
+        interface $Exports {
+            /**
+             * Enum values with flags representing the context of a #WebKitHitTestResult.
+             */
+            HitTestResultContext: HitTestResultContextBitfield
         }
         /**
          * Type definition for a function that will be called to initialize
@@ -1953,7 +2017,13 @@ declare module "gi://WebKitWebProcessExtension?version=6.0" {
          * @param user_data a #GVariant
          */
         type WebProcessExtensionInitializeWithUserDataFunction = (extension: WebProcessExtension, user_data: GLib.Variant) => void
+
+        interface $Exports {
+            __name__: "WebKitWebProcessExtension"
+            __version: "6.0"
+        }
     }
 
+    const WebKitWebProcessExtension: WebKitWebProcessExtension.$Exports
     export default WebKitWebProcessExtension
 }

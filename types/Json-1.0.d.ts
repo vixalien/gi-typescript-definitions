@@ -16,202 +16,7 @@ declare module "gi://Json?version=1.0" {
 
     
 
-
     namespace Json {
-        const __name__: "Json"
-        const __version: "1.0"
-        
-
-        namespace Serializable {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * Asks a `JsonSerializable` implementation to deserialize the
-                 * property contained inside `property_node` and place its value
-                 * into `value`.
-                 *
-                 * The `value` can be:
-                 *
-                 * - an empty `GValue` initialized by `G_VALUE_INIT`, which will be automatically
-                 *   initialized with the expected type of the property by using the given
-                 *   property description (since JSON-GLib 1.6)
-                 * - a `GValue` initialized with the expected type of the property
-                 *
-                 * This function will not be called for properties that are marked as
-                 * as `G_PARAM_CONSTRUCT_ONLY`.
-                 * @param property_name the name of the property to serialize
-                 * @param pspec a property description
-                 * @param property_node the JSON node containing the serialized property
-                 * @returns `TRUE` if the property was successfully deserialized, a pointer to an uninitialized value
-                 */
-                vfunc_deserialize_property(property_name: string, pspec: GObject.ParamSpec, property_node: Node): [boolean, GObject.Value]
-                /**
-                 * Calls the [vfunc@Json.Serializable.find_property] implementation on
-                 * the `JsonSerializable` instance, which will return the property
-                 * description for the given name.
-                 * @since 0.14
-                 * @param name the name of the property
-                 * @returns the property description
-                 */
-                vfunc_find_property(name: string): GObject.ParamSpec | null
-                /**
-                 * Calls the [vfunc@Json.Serializable.get_property] implementation
-                 * on the `JsonSerializable` instance, which will get the value of
-                 * the given property.
-                 * @since 0.14
-                 * @param pspec a property description
-                 * @returns , return location for the property value
-                 */
-                vfunc_get_property(pspec: GObject.ParamSpec): GObject.Value
-                /**
-                 * Asks a `JsonSerializable` implementation to serialize an object
-                 * property into a JSON node.
-                 * @param property_name the name of the property to serialize
-                 * @param value the value of the property to serialize
-                 * @param pspec a property description
-                 * @returns a node containing the serialized property
-                 */
-                vfunc_serialize_property(property_name: string, value: GObject.Value, pspec: GObject.ParamSpec): Node | null
-                /**
-                 * Calls the [vfunc@Json.Serializable.set_property] implementation
-                 * on the `JsonSerializable` instance, which will set the property
-                 * with the given value.
-                 * @since 0.14
-                 * @param pspec a property description
-                 * @param value the property value to set
-                 */
-                vfunc_set_property(pspec: GObject.ParamSpec, value: GObject.Value): void
-            }
-        }
-
-        /**
-         * `JsonSerializable` is an interface for controlling the serialization
-         * and deserialization of `GObject` classes.
-         *
-         * Implementing this interface allows controlling how the class is going
-         * to be serialized or deserialized by [func@Json.construct_gobject] and
-         * [func@Json.serialize_gobject], respectively.
-         */
-        interface Serializable extends Serializable.Interface {
-            readonly $signals: Serializable.SignalSignatures
-            readonly $readableProperties: Serializable.ReadableProperties
-            readonly $writableProperties: Serializable.WritableProperties
-            readonly $constructOnlyProperties: Serializable.ConstructOnlyProperties
-            /**
-             * deserialize_property (serializable, property_name,
-             *                                    value,
-             *                                    pspec,
-             *                                    property_node);
-             * ```
-             * @since 0.10
-             * @param property_name the name of the property to deserialize
-             * @param value a pointer to an uninitialized value
-             * @param pspec a property description
-             * @param property_node the JSON node containing the serialized property
-             * @returns `TRUE` if the property was successfully deserialized
-             */
-            default_deserialize_property(property_name: string, value: GObject.Value, pspec: GObject.ParamSpec, property_node: Node): boolean
-            /**
-             * serialize_property (serializable, property_name,
-             *                                   value,
-             *                                   pspec);
-             * ```
-             *
-             * This function will return `NULL` if the property could not be
-             * serialized.
-             * @since 0.10
-             * @param property_name the name of the property to serialize
-             * @param value the value of the property to serialize
-             * @param pspec a property description
-             * @returns a node containing the   serialized property
-             */
-            default_serialize_property(property_name: string, value: GObject.Value, pspec: GObject.ParamSpec): Node | null
-            /**
-             * Asks a `JsonSerializable` implementation to deserialize the
-             * property contained inside `property_node` and place its value
-             * into `value`.
-             *
-             * The `value` can be:
-             *
-             * - an empty `GValue` initialized by `G_VALUE_INIT`, which will be automatically
-             *   initialized with the expected type of the property by using the given
-             *   property description (since JSON-GLib 1.6)
-             * - a `GValue` initialized with the expected type of the property
-             *
-             * This function will not be called for properties that are marked as
-             * as `G_PARAM_CONSTRUCT_ONLY`.
-             * @param property_name the name of the property to serialize
-             * @param pspec a property description
-             * @param property_node the JSON node containing the serialized property
-             * @returns `TRUE` if the property was successfully deserialized, a pointer to an uninitialized value
-             */
-            deserialize_property(property_name: string, pspec: GObject.ParamSpec, property_node: Node): [boolean, GObject.Value]
-            /**
-             * Calls the [vfunc@Json.Serializable.find_property] implementation on
-             * the `JsonSerializable` instance, which will return the property
-             * description for the given name.
-             * @since 0.14
-             * @param name the name of the property
-             * @returns the property description
-             */
-            find_property(name: string): GObject.ParamSpec | null
-            /**
-             * Calls the [vfunc@Json.Serializable.get_property] implementation
-             * on the `JsonSerializable` instance, which will get the value of
-             * the given property.
-             * @since 0.14
-             * @param pspec a property description
-             * @returns , return location for the property value
-             */
-            get_property(pspec: GObject.ParamSpec): GObject.Value
-            /**
-             * Calls the [vfunc@Json.Serializable.list_properties] implementation on
-             * the `JsonSerializable` instance, which will return the list of serializable
-             * properties.
-             * @since 0.14
-             * @returns the serializable   properties of the object
-             */
-            list_properties(): GObject.ParamSpec[]
-            /**
-             * Asks a `JsonSerializable` implementation to serialize an object
-             * property into a JSON node.
-             * @param property_name the name of the property to serialize
-             * @param value the value of the property to serialize
-             * @param pspec a property description
-             * @returns a node containing the serialized property
-             */
-            serialize_property(property_name: string, value: GObject.Value, pspec: GObject.ParamSpec): Node | null
-            /**
-             * Calls the [vfunc@Json.Serializable.set_property] implementation
-             * on the `JsonSerializable` instance, which will set the property
-             * with the given value.
-             * @since 0.14
-             * @param pspec a property description
-             * @param value the property value to set
-             */
-            set_property(pspec: GObject.ParamSpec, value: GObject.Value): void
-        }
-
-
-        interface SerializableIface {
-            readonly $gtype: GObject.GType<Serializable>
-            readonly prototype: Serializable
-
-            [Symbol.hasInstance](instance: unknown): instance is Serializable
-        }
-
-        const Serializable: SerializableIface
         
 
         namespace Builder {
@@ -223,51 +28,13 @@ declare module "gi://Json?version=1.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "immutable": boolean
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "immutable": boolean
             }
         }
 
-        /**
-         * `JsonBuilder` provides an object for generating a JSON tree.
-         *
-         * The root of the JSON tree can be either a [struct@Json.Object] or a [struct@Json.Array].
-         * Thus the first call must necessarily be either
-         * [method@Json.Builder.begin_object] or [method@Json.Builder.begin_array].
-         *
-         * For convenience to language bindings, most `JsonBuilder` method return the
-         * instance, making it easy to chain function calls.
-         *
-         * ## Using `JsonBuilder`
-         *
-         * ```c
-         * g_autoptr(JsonBuilder) builder = json_builder_new ();
-         *
-         * json_builder_begin_object (builder);
-         *
-         * json_builder_set_member_name (builder, "url");
-         * json_builder_add_string_value (builder, "http://www.gnome.org/img/flash/two-thirty.png");
-         *
-         * json_builder_set_member_name (builder, "size");
-         * json_builder_begin_array (builder);
-         * json_builder_add_int_value (builder, 652);
-         * json_builder_add_int_value (builder, 242);
-         * json_builder_end_array (builder);
-         *
-         * json_builder_end_object (builder);
-         *
-         * g_autoptr(JsonNode) root = json_builder_get_root (builder);
-         *
-         * g_autoptr(JsonGenerator) gen = json_generator_new ();
-         * json_generator_set_root (gen, root);
-         * g_autofree char *str = json_generator_to_data (gen, NULL);
-         *
-         * // str now contains the following JSON data
-         * // { "url" : "http://www.gnome.org/img/flash/two-thirty.png", "size" : [ 652, 242 ] }
-         * ```
-         */
         interface Builder extends GObject.Object {
             readonly $signals: Builder.SignalSignatures
             readonly $readableProperties: Builder.ReadableProperties
@@ -425,6 +192,7 @@ declare module "gi://Json?version=1.0" {
         interface BuilderClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Builder>
             readonly prototype: Builder
+
             new (props?: Partial<GObject.ConstructorProps<Builder>>): Builder
             /**
              * Creates a new `JsonBuilder`.
@@ -444,7 +212,47 @@ declare module "gi://Json?version=1.0" {
             new_immutable(): Builder
         }
 
-        const Builder: BuilderClass
+        interface $Exports {
+            /**
+             * `JsonBuilder` provides an object for generating a JSON tree.
+             *
+             * The root of the JSON tree can be either a [struct@Json.Object] or a [struct@Json.Array].
+             * Thus the first call must necessarily be either
+             * [method@Json.Builder.begin_object] or [method@Json.Builder.begin_array].
+             *
+             * For convenience to language bindings, most `JsonBuilder` method return the
+             * instance, making it easy to chain function calls.
+             *
+             * ## Using `JsonBuilder`
+             *
+             * ```c
+             * g_autoptr(JsonBuilder) builder = json_builder_new ();
+             *
+             * json_builder_begin_object (builder);
+             *
+             * json_builder_set_member_name (builder, "url");
+             * json_builder_add_string_value (builder, "http://www.gnome.org/img/flash/two-thirty.png");
+             *
+             * json_builder_set_member_name (builder, "size");
+             * json_builder_begin_array (builder);
+             * json_builder_add_int_value (builder, 652);
+             * json_builder_add_int_value (builder, 242);
+             * json_builder_end_array (builder);
+             *
+             * json_builder_end_object (builder);
+             *
+             * g_autoptr(JsonNode) root = json_builder_get_root (builder);
+             *
+             * g_autoptr(JsonGenerator) gen = json_generator_new ();
+             * json_generator_set_root (gen, root);
+             * g_autofree char *str = json_generator_to_data (gen, NULL);
+             *
+             * // str now contains the following JSON data
+             * // { "url" : "http://www.gnome.org/img/flash/two-thirty.png", "size" : [ 652, 242 ] }
+             * ```
+             */
+            Builder: BuilderClass
+        }
         
 
         namespace Generator {
@@ -469,11 +277,6 @@ declare module "gi://Json?version=1.0" {
             }
         }
 
-        /**
-         * `JsonGenerator` provides an object for generating a JSON data stream
-         * from a tree of [struct@Json.Node] instances, and put it into a buffer
-         * or a file.
-         */
         interface Generator extends GObject.Object {
             readonly $signals: Generator.SignalSignatures
             readonly $readableProperties: Generator.ReadableProperties
@@ -580,7 +383,7 @@ declare module "gi://Json?version=1.0" {
              * buffer.
              * @returns a newly allocated string holding a JSON data stream, return location for the length of the returned   buffer
              */
-            to_data(): string
+            to_data(): [string, number]
             /**
              * Creates a JSON data stream and puts it inside `filename`, overwriting
              * the file's current contents.
@@ -613,6 +416,7 @@ declare module "gi://Json?version=1.0" {
         interface GeneratorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Generator>
             readonly prototype: Generator
+
             new (props?: Partial<GObject.ConstructorProps<Generator>>): Generator
             /**
              * Creates a new `JsonGenerator`.
@@ -624,7 +428,14 @@ declare module "gi://Json?version=1.0" {
             "new"(): Generator
         }
 
-        const Generator: GeneratorClass
+        interface $Exports {
+            /**
+             * `JsonGenerator` provides an object for generating a JSON data stream
+             * from a tree of [struct@Json.Node] instances, and put it into a buffer
+             * or a file.
+             */
+            Generator: GeneratorClass
+        }
         
 
         namespace Parser {
@@ -696,35 +507,14 @@ declare module "gi://Json?version=1.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "immutable": boolean
                 "strict": boolean
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "immutable": boolean
             }
         }
 
-        /**
-         * message);
-         *       return FALSE;
-         *     }
-         *
-         *   JsonNode *root = json_parser_get_root (parser);
-         *
-         *   // manipulate the object tree from the root node
-         *
-         *   return TRUE;
-         * }
-         * ```
-         *
-         * By default, the entire process of loading the data and parsing it is
-         * synchronous; the [method@Json.Parser.load_from_stream_async] API will
-         * load the data asynchronously, but parse it in the main context as the
-         * signals of the parser must be emitted in the same thread. If you do
-         * not use signals, and you wish to also parse the JSON data without blocking,
-         * you should use a `GTask` and the synchronous `JsonParser` API inside the
-         * task itself.
-         */
         interface Parser extends GObject.Object {
             readonly $signals: Parser.SignalSignatures
             readonly $readableProperties: Parser.ReadableProperties
@@ -799,7 +589,7 @@ declare module "gi://Json?version=1.0" {
              * @since 0.4
              * @returns `TRUE` if there was an assignment, and `FALSE` otherwise, the variable name
              */
-            has_assignment(): boolean
+            has_assignment(): [boolean, string]
             /**
              * Loads a JSON stream from a buffer and parses it.
              *
@@ -945,6 +735,7 @@ declare module "gi://Json?version=1.0" {
         interface ParserClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Parser>
             readonly prototype: Parser
+
             new (props?: Partial<GObject.ConstructorProps<Parser>>): Parser
             /**
              * Creates a new JSON parser.
@@ -963,7 +754,47 @@ declare module "gi://Json?version=1.0" {
             new_immutable(): Parser
         }
 
-        const Parser: ParserClass
+        interface $Exports {
+            /**
+             * `JsonParser` provides an object for parsing a JSON data stream, either
+             * inside a file or inside a static buffer.
+             *
+             * ## Using `JsonParser`
+             *
+             * The `JsonParser` API is fairly simple:
+             *
+             * ```c
+             * gboolean
+             * parse_json (const char *filename)
+             * {
+             *   g_autoptr(JsonParser) parser = json_parser_new ();
+             *   g_autoptr(GError) error = NULL
+             *
+             *   json_parser_load_from_file (parser, filename, &error);
+             *   if (error != NULL)
+             *     {
+             *       g_critical ("Unable to parse '%s': %s", filename, error->message);
+             *       return FALSE;
+             *     }
+             *
+             *   JsonNode *root = json_parser_get_root (parser);
+             *
+             *   // manipulate the object tree from the root node
+             *
+             *   return TRUE;
+             * }
+             * ```
+             *
+             * By default, the entire process of loading the data and parsing it is
+             * synchronous; the [method@Json.Parser.load_from_stream_async] API will
+             * load the data asynchronously, but parse it in the main context as the
+             * signals of the parser must be emitted in the same thread. If you do
+             * not use signals, and you wish to also parse the JSON data without blocking,
+             * you should use a `GTask` and the synchronous `JsonParser` API inside the
+             * task itself.
+             */
+            Parser: ParserClass
+        }
         
 
         namespace Path {
@@ -980,136 +811,6 @@ declare module "gi://Json?version=1.0" {
             }
         }
 
-        /**
-         * `JsonPath` is a simple class implementing the JSONPath syntax for extracting
-         * data out of a JSON tree.
-         *
-         * While the semantics of the JSONPath expressions are heavily borrowed by the
-         * XPath specification for XML, the syntax follows the ECMAScript origins of
-         * JSON.
-         *
-         * Once a `JsonPath` instance has been created, it has to compile a JSONPath
-         * expression using [method@Json.Path.compile] before being able to match it to
-         * a JSON tree; the same `JsonPath` instance can be used to match multiple JSON
-         * trees. It it also possible to compile a new JSONPath expression using the
-         * same `JsonPath` instance; the previous expression will be discarded only if
-         * the compilation of the new expression is successful.
-         *
-         * The simple convenience function [func@Json.Path.query] can be used for
-         * one-off matching.
-         *
-         * ## Syntax of the JSONPath expressions
-         *
-         * A JSONPath expression is composed by path indices and operators.
-         * Each path index can either be a member name or an element index inside
-         * a JSON tree. A JSONPath expression must start with the `$` operator; each
-         * path index is separated using either the dot notation or the bracket
-         * notation, e.g.:
-         *
-         * ```
-         * // dot notation
-         * $.store.book[0].title
-         *
-         * // bracket notation
-         * $['store']['book'][0]['title']
-         * ```
-         *
-         * The available operators are:
-         *
-         * * The `$` character represents the root node of the JSON tree, and
-         *   matches the entire document.
-         *
-         * * Child nodes can either be matched using `.` or `[]`. For instance,
-         *   both `$.store.book` and `$['store']['book']` match the contents of
-         *   the book member of the store object.
-         *
-         * * Child nodes can be reached without specifying the whole tree structure
-         *   through the recursive descent operator, or `..`. For instance,
-         *   `$..author` matches all author member in every object.
-         *
-         * * Child nodes can grouped through the wildcard operator, or `*`. For
-         *   instance, `$.store.book[*].author` matches all author members of any
-         *   object element contained in the book array of the store object.
-         *
-         * * Element nodes can be accessed using their index (starting from zero)
-         *   in the subscript operator `[]`. For instance, `$.store.book[0]` matches
-         *   the first element of the book array of the store object.
-         *
-         * * Subsets of element nodes can be accessed using the set notation
-         *   operator `[i,j,...]`. For instance, `$.store.book[0,2]` matches the
-         *   elements 0 and 2 (the first and third) of the book array of the store
-         *   object.
-         *
-         * * Slices of element nodes can be accessed using the slice notation
-         *   operation `[start:end:step]`. If start is omitted, the starting index
-         *   of the slice is implied to be zero; if end is omitted, the ending index
-         *   of the slice is implied to be the length of the array; if step is
-         *   omitted, the step of the slice is implied to be 1. For instance,
-         *   `$.store.book[:2]` matches the first two elements of the book array
-         *   of the store object.
-         *
-         * More information about JSONPath is available on Stefan Gössner's
-         * [JSONPath website](http://goessner.net/articles/JsonPath/).
-         *
-         * ## Example of JSONPath matches
-         *
-         * The following example shows some of the results of using `JsonPath`
-         * on a JSON tree. We use the following JSON description of a bookstore:
-         *
-         * ```json
-         * { "store": {
-         *     "book": [
-         *       { "category": "reference", "author": "Nigel Rees",
-         *         "title": "Sayings of the Century", "price": "8.95"  },
-         *       { "category": "fiction", "author": "Evelyn Waugh",
-         *         "title": "Sword of Honour", "price": "12.99" },
-         *       { "category": "fiction", "author": "Herman Melville",
-         *         "title": "Moby Dick", "isbn": "0-553-21311-3",
-         *         "price": "8.99" },
-         *       { "category": "fiction", "author": "J. R. R. Tolkien",
-         *         "title": "The Lord of the Rings", "isbn": "0-395-19395-8",
-         *         "price": "22.99" }
-         *     ],
-         *     "bicycle": { "color": "red", "price": "19.95" }
-         *   }
-         * }
-         * ```
-         *
-         * We can parse the JSON using [class@Json.Parser]:
-         *
-         * ```c
-         * JsonParser *parser = json_parser_new ();
-         * json_parser_load_from_data (parser, json_data, -1, NULL);
-         * ```
-         *
-         * If we run the following code:
-         *
-         * ```c
-         * JsonNode *result;
-         * JsonPath *path = json_path_new ();
-         * json_path_compile (path, "$.store..author", NULL);
-         * result = json_path_match (path, json_parser_get_root (parser));
-         * ```
-         *
-         * The `result` node will contain an array with all values of the
-         * author member of the objects in the JSON tree. If we use a
-         * [class@Json.Generator] to convert the `result` node to a string
-         * and print it:
-         *
-         * ```c
-         * JsonGenerator *generator = json_generator_new ();
-         * json_generator_set_root (generator, result);
-         * char *str = json_generator_to_data (generator, NULL);
-         * g_print ("Results: %s\n", str);
-         * ```
-         *
-         * The output will be:
-         *
-         * ```json
-         * ["Nigel Rees","Evelyn Waugh","Herman Melville","J. R. R. Tolkien"]
-         * ```
-         * @since 0.14
-         */
         interface Path extends GObject.Object {
             readonly $signals: Path.SignalSignatures
             readonly $readableProperties: Path.ReadableProperties
@@ -1141,6 +842,7 @@ declare module "gi://Json?version=1.0" {
         interface PathClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Path>
             readonly prototype: Path
+
             new (props?: Partial<GObject.ConstructorProps<Path>>): Path
             /**
              * Creates a new `JsonPath` instance.
@@ -1167,7 +869,139 @@ declare module "gi://Json?version=1.0" {
             query(expression: string, root: Node): Node
         }
 
-        const Path: PathClass
+        interface $Exports {
+            /**
+             * `JsonPath` is a simple class implementing the JSONPath syntax for extracting
+             * data out of a JSON tree.
+             *
+             * While the semantics of the JSONPath expressions are heavily borrowed by the
+             * XPath specification for XML, the syntax follows the ECMAScript origins of
+             * JSON.
+             *
+             * Once a `JsonPath` instance has been created, it has to compile a JSONPath
+             * expression using [method@Json.Path.compile] before being able to match it to
+             * a JSON tree; the same `JsonPath` instance can be used to match multiple JSON
+             * trees. It it also possible to compile a new JSONPath expression using the
+             * same `JsonPath` instance; the previous expression will be discarded only if
+             * the compilation of the new expression is successful.
+             *
+             * The simple convenience function [func@Json.Path.query] can be used for
+             * one-off matching.
+             *
+             * ## Syntax of the JSONPath expressions
+             *
+             * A JSONPath expression is composed by path indices and operators.
+             * Each path index can either be a member name or an element index inside
+             * a JSON tree. A JSONPath expression must start with the `$` operator; each
+             * path index is separated using either the dot notation or the bracket
+             * notation, e.g.:
+             *
+             * ```
+             * // dot notation
+             * $.store.book[0].title
+             *
+             * // bracket notation
+             * $['store']['book'][0]['title']
+             * ```
+             *
+             * The available operators are:
+             *
+             * * The `$` character represents the root node of the JSON tree, and
+             *   matches the entire document.
+             *
+             * * Child nodes can either be matched using `.` or `[]`. For instance,
+             *   both `$.store.book` and `$['store']['book']` match the contents of
+             *   the book member of the store object.
+             *
+             * * Child nodes can be reached without specifying the whole tree structure
+             *   through the recursive descent operator, or `..`. For instance,
+             *   `$..author` matches all author member in every object.
+             *
+             * * Child nodes can grouped through the wildcard operator, or `*`. For
+             *   instance, `$.store.book[*].author` matches all author members of any
+             *   object element contained in the book array of the store object.
+             *
+             * * Element nodes can be accessed using their index (starting from zero)
+             *   in the subscript operator `[]`. For instance, `$.store.book[0]` matches
+             *   the first element of the book array of the store object.
+             *
+             * * Subsets of element nodes can be accessed using the set notation
+             *   operator `[i,j,...]`. For instance, `$.store.book[0,2]` matches the
+             *   elements 0 and 2 (the first and third) of the book array of the store
+             *   object.
+             *
+             * * Slices of element nodes can be accessed using the slice notation
+             *   operation `[start:end:step]`. If start is omitted, the starting index
+             *   of the slice is implied to be zero; if end is omitted, the ending index
+             *   of the slice is implied to be the length of the array; if step is
+             *   omitted, the step of the slice is implied to be 1. For instance,
+             *   `$.store.book[:2]` matches the first two elements of the book array
+             *   of the store object.
+             *
+             * More information about JSONPath is available on Stefan Gössner's
+             * [JSONPath website](http://goessner.net/articles/JsonPath/).
+             *
+             * ## Example of JSONPath matches
+             *
+             * The following example shows some of the results of using `JsonPath`
+             * on a JSON tree. We use the following JSON description of a bookstore:
+             *
+             * ```json
+             * { "store": {
+             *     "book": [
+             *       { "category": "reference", "author": "Nigel Rees",
+             *         "title": "Sayings of the Century", "price": "8.95"  },
+             *       { "category": "fiction", "author": "Evelyn Waugh",
+             *         "title": "Sword of Honour", "price": "12.99" },
+             *       { "category": "fiction", "author": "Herman Melville",
+             *         "title": "Moby Dick", "isbn": "0-553-21311-3",
+             *         "price": "8.99" },
+             *       { "category": "fiction", "author": "J. R. R. Tolkien",
+             *         "title": "The Lord of the Rings", "isbn": "0-395-19395-8",
+             *         "price": "22.99" }
+             *     ],
+             *     "bicycle": { "color": "red", "price": "19.95" }
+             *   }
+             * }
+             * ```
+             *
+             * We can parse the JSON using [class@Json.Parser]:
+             *
+             * ```c
+             * JsonParser *parser = json_parser_new ();
+             * json_parser_load_from_data (parser, json_data, -1, NULL);
+             * ```
+             *
+             * If we run the following code:
+             *
+             * ```c
+             * JsonNode *result;
+             * JsonPath *path = json_path_new ();
+             * json_path_compile (path, "$.store..author", NULL);
+             * result = json_path_match (path, json_parser_get_root (parser));
+             * ```
+             *
+             * The `result` node will contain an array with all values of the
+             * author member of the objects in the JSON tree. If we use a
+             * [class@Json.Generator] to convert the `result` node to a string
+             * and print it:
+             *
+             * ```c
+             * JsonGenerator *generator = json_generator_new ();
+             * json_generator_set_root (generator, result);
+             * char *str = json_generator_to_data (generator, NULL);
+             * g_print ("Results: %s\n", str);
+             * ```
+             *
+             * The output will be:
+             *
+             * ```json
+             * ["Nigel Rees","Evelyn Waugh","Herman Melville","J. R. R. Tolkien"]
+             * ```
+             * @since 0.14
+             */
+            Path: PathClass
+        }
         
 
         namespace Reader {
@@ -1186,12 +1020,6 @@ declare module "gi://Json?version=1.0" {
             }
         }
 
-        /**
-         * message);
-         *   }
-         * ```
-         * @since 0.12
-         */
         interface Reader extends GObject.Object {
             readonly $signals: Reader.SignalSignatures
             readonly $readableProperties: Reader.ReadableProperties
@@ -1454,6 +1282,7 @@ declare module "gi://Json?version=1.0" {
         interface ReaderClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Reader>
             readonly prototype: Reader
+
             new (props?: Partial<GObject.ConstructorProps<Reader>>): Reader
             /**
              * Creates a new reader.
@@ -1467,40 +1296,322 @@ declare module "gi://Json?version=1.0" {
             "new"(node: Node | null): Reader
         }
 
-        const Reader: ReaderClass
-        /**
-         * `JsonArray` is the representation of the array type inside JSON.
-         *
-         * A `JsonArray` contains [struct@Json.Node] elements, which may contain
-         * fundamental types, other arrays or objects.
-         *
-         * Since arrays can be arbitrarily big, copying them can be expensive; for
-         * this reason, they are reference counted. You can control the lifetime of
-         * a `JsonArray` using [method@Json.Array.ref] and [method@Json.Array.unref].
-         *
-         * To append an element, use [method@Json.Array.add_element].
-         *
-         * To extract an element at a given index, use [method@Json.Array.get_element].
-         *
-         * To retrieve the entire array in list form, use [method@Json.Array.get_elements].
-         *
-         * To retrieve the length of the array, use [method@Json.Array.get_length].
-         */
-        abstract class Array {
-            static readonly $gtype: GObject.GType<Array>
+        interface $Exports {
+            /**
+             * `JsonReader` provides a simple, cursor-based API for parsing a JSON DOM.
+             *
+             * It is similar, in spirit, to the XML Reader API.
+             *
+             * The cursor is moved by the `json_reader_read_*` and the `json_reader_end_*`
+             * functions. You can enter a JSON object using [method@Json.Reader.read_member]
+             * with the name of the object member, access the value at that position, and
+             * move the cursor back one level using [method@Json.Reader.end_member]; arrays
+             * work in a similar way, using [method@Json.Reader.read_element] with the
+             * index of the element, and using [method@Json.Reader.end_element] to move
+             * the cursor back.
+             *
+             * ## Using `JsonReader`
+             *
+             * ```c
+             * g_autoptr(JsonParser) parser = json_parser_new ();
+             *
+             * // str is defined elsewhere and contains:
+             * // { "url" : "http://www.gnome.org/img/flash/two-thirty.png", "size" : [ 652, 242 ] }
+             * json_parser_load_from_data (parser, str, -1, NULL);
+             *
+             * g_autoptr(JsonReader) reader = json_reader_new (json_parser_get_root (parser));
+             *
+             * // Enter the "url" member of the object
+             * json_reader_read_member (reader, "url");
+             *   const char *url = json_reader_get_string_value (reader);
+             *   // url now contains "http://www.gnome.org/img/flash/two-thirty.png"
+             *   json_reader_end_member (reader);
+             *
+             * // Enter the "size" member of the object
+             * json_reader_read_member (reader, "size");
+             *   // Enter the first element of the array
+             *   json_reader_read_element (reader, 0);
+             *     int width = json_reader_get_int_value (reader);
+             *     // width now contains 652
+             *     json_reader_end_element (reader);
+             *   // Enter the second element of the array
+             *   json_reader_read_element (reader, 1);
+             *     int height = json_reader_get_int_value (reader);
+             *     // height now contains 242
+             *     json_reader_end_element (reader);
+             *   json_reader_end_member (reader);
+             * ```
+             *
+             * ## Error handling
+             *
+             * In case of error, `JsonReader` will be set in an error state; all subsequent
+             * calls will simply be ignored until a function that resets the error state is
+             * called, e.g.:
+             *
+             * ```c
+             * // ask for the 7th element; if the element does not exist, the
+             * // reader will be put in an error state
+             * json_reader_read_element (reader, 6);
+             *
+             * // in case of error, this will return NULL, otherwise it will
+             * // return the value of the element
+             * str = json_reader_get_string_value (value);
+             *
+             * // this function resets the error state if any was set
+             * json_reader_end_element (reader);
+             * ```
+             *
+             * If you want to detect the error state as soon as possible, you can use
+             * [method@Json.Reader.get_error]:
+             *
+             * ```c
+             * // like the example above, but in this case we print out the
+             * // error immediately
+             * if (!json_reader_read_element (reader, 6))
+             *   {
+             *     const GError *error = json_reader_get_error (reader);
+             *     g_print ("Unable to read the element: %s", error->message);
+             *   }
+             * ```
+             * @since 0.12
+             */
+            Reader: ReaderClass
+        }
+        
 
-            
+        namespace Serializable {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * Asks a `JsonSerializable` implementation to deserialize the
+                 * property contained inside `property_node` and place its value
+                 * into `value`.
+                 *
+                 * The `value` can be:
+                 *
+                 * - an empty `GValue` initialized by `G_VALUE_INIT`, which will be automatically
+                 *   initialized with the expected type of the property by using the given
+                 *   property description (since JSON-GLib 1.6)
+                 * - a `GValue` initialized with the expected type of the property
+                 *
+                 * This function will not be called for properties that are marked as
+                 * as `G_PARAM_CONSTRUCT_ONLY`.
+                 * @param property_name the name of the property to serialize
+                 * @param pspec a property description
+                 * @param property_node the JSON node containing the serialized property
+                 * @returns `TRUE` if the property was successfully deserialized, a pointer to an uninitialized value
+                 */
+                vfunc_deserialize_property(property_name: string, pspec: GObject.ParamSpec, property_node: Node): [boolean, unknown]
+                /**
+                 * Calls the [vfunc@Json.Serializable.find_property] implementation on
+                 * the `JsonSerializable` instance, which will return the property
+                 * description for the given name.
+                 * @since 0.14
+                 * @param name the name of the property
+                 * @returns the property description
+                 */
+                vfunc_find_property(name: string): GObject.ParamSpec | null
+                /**
+                 * Calls the [vfunc@Json.Serializable.get_property] implementation
+                 * on the `JsonSerializable` instance, which will get the value of
+                 * the given property.
+                 * @since 0.14
+                 * @param pspec a property description
+                 * @returns , return location for the property value
+                 */
+                vfunc_get_property(pspec: GObject.ParamSpec): unknown
+                /**
+                 * Asks a `JsonSerializable` implementation to serialize an object
+                 * property into a JSON node.
+                 * @param property_name the name of the property to serialize
+                 * @param value the value of the property to serialize
+                 * @param pspec a property description
+                 * @returns a node containing the serialized property
+                 */
+                vfunc_serialize_property(property_name: string, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): Node | null
+                /**
+                 * Calls the [vfunc@Json.Serializable.set_property] implementation
+                 * on the `JsonSerializable` instance, which will set the property
+                 * with the given value.
+                 * @since 0.14
+                 * @param pspec a property description
+                 * @param value the property value to set
+                 */
+                vfunc_set_property(pspec: GObject.ParamSpec, value: (GObject.Value | unknown)): void
+            }
+        }
+
+        interface Serializable extends GObject.Object, Serializable.Interface {
+            readonly $signals: Serializable.SignalSignatures
+            readonly $readableProperties: Serializable.ReadableProperties
+            readonly $writableProperties: Serializable.WritableProperties
+            readonly $constructOnlyProperties: Serializable.ConstructOnlyProperties
+            /**
+             * Calls the default implementation of the [vfunc@Json.Serializable.deserialize_property]
+             * virtual function.
+             *
+             * This function can be used inside a custom implementation of the
+             * `deserialize_property()` virtual function in lieu of calling the
+             * default implementation through `g_type_default_interface_peek()`:
+             *
+             * ```c
+             * JsonSerializable *iface;
+             * gboolean res;
+             *
+             * iface = g_type_default_interface_peek (JSON_TYPE_SERIALIZABLE);
+             * res = iface->deserialize_property (serializable, property_name,
+             *                                    value,
+             *                                    pspec,
+             *                                    property_node);
+             * ```
+             * @since 0.10
+             * @param property_name the name of the property to deserialize
+             * @param value a pointer to an uninitialized value
+             * @param pspec a property description
+             * @param property_node the JSON node containing the serialized property
+             * @returns `TRUE` if the property was successfully deserialized
+             */
+            default_deserialize_property(property_name: string, value: (GObject.Value | unknown), pspec: GObject.ParamSpec, property_node: Node): boolean
+            /**
+             * Calls the default implementation of the [vfunc@Json.Serializable.serialize_property]
+             * virtual function.
+             *
+             * This function can be used inside a custom implementation of the
+             * `serialize_property()` virtual function in lieu of calling the
+             * default implementation through `g_type_default_interface_peek()`:
+             *
+             * ```c
+             * JsonSerializable *iface;
+             * JsonNode *node;
+             *
+             * iface = g_type_default_interface_peek (JSON_TYPE_SERIALIZABLE);
+             * node = iface->serialize_property (serializable, property_name,
+             *                                   value,
+             *                                   pspec);
+             * ```
+             *
+             * This function will return `NULL` if the property could not be
+             * serialized.
+             * @since 0.10
+             * @param property_name the name of the property to serialize
+             * @param value the value of the property to serialize
+             * @param pspec a property description
+             * @returns a node containing the   serialized property
+             */
+            default_serialize_property(property_name: string, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): Node | null
+            /**
+             * Asks a `JsonSerializable` implementation to deserialize the
+             * property contained inside `property_node` and place its value
+             * into `value`.
+             *
+             * The `value` can be:
+             *
+             * - an empty `GValue` initialized by `G_VALUE_INIT`, which will be automatically
+             *   initialized with the expected type of the property by using the given
+             *   property description (since JSON-GLib 1.6)
+             * - a `GValue` initialized with the expected type of the property
+             *
+             * This function will not be called for properties that are marked as
+             * as `G_PARAM_CONSTRUCT_ONLY`.
+             * @param property_name the name of the property to serialize
+             * @param pspec a property description
+             * @param property_node the JSON node containing the serialized property
+             * @returns `TRUE` if the property was successfully deserialized, a pointer to an uninitialized value
+             */
+            deserialize_property(property_name: string, pspec: GObject.ParamSpec, property_node: Node): [boolean, unknown]
+            /**
+             * Calls the [vfunc@Json.Serializable.find_property] implementation on
+             * the `JsonSerializable` instance, which will return the property
+             * description for the given name.
+             * @since 0.14
+             * @param name the name of the property
+             * @returns the property description
+             */
+            find_property(name: string): GObject.ParamSpec | null
+            /**
+             * Calls the [vfunc@Json.Serializable.get_property] implementation
+             * on the `JsonSerializable` instance, which will get the value of
+             * the given property.
+             * @since 0.14
+             * @param pspec a property description
+             * @returns , return location for the property value
+             */
+            get_property(pspec: GObject.ParamSpec): unknown
+            /**
+             * Calls the [vfunc@Json.Serializable.list_properties] implementation on
+             * the `JsonSerializable` instance, which will return the list of serializable
+             * properties.
+             * @since 0.14
+             * @returns the serializable   properties of the object
+             */
+            list_properties(): GObject.ParamSpec[]
+            /**
+             * Asks a `JsonSerializable` implementation to serialize an object
+             * property into a JSON node.
+             * @param property_name the name of the property to serialize
+             * @param value the value of the property to serialize
+             * @param pspec a property description
+             * @returns a node containing the serialized property
+             */
+            serialize_property(property_name: string, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): Node | null
+            /**
+             * Calls the [vfunc@Json.Serializable.set_property] implementation
+             * on the `JsonSerializable` instance, which will set the property
+             * with the given value.
+             * @since 0.14
+             * @param pspec a property description
+             * @param value the property value to set
+             */
+            set_property(pspec: GObject.ParamSpec, value: (GObject.Value | unknown)): void
+        }
+
+        interface SerializableIface {
+            readonly $gtype: GObject.GType<Serializable>
+            readonly prototype: Serializable
+            [Symbol.hasInstance](instance: unknown): instance is Serializable
+        }
+
+        interface $Exports {
+            /**
+             * `JsonSerializable` is an interface for controlling the serialization
+             * and deserialization of `GObject` classes.
+             *
+             * Implementing this interface allows controlling how the class is going
+             * to be serialized or deserialized by [func@Json.construct_gobject] and
+             * [func@Json.serialize_gobject], respectively.
+             */
+            Serializable: SerializableIface
+        }
+        
+
+        interface ArrayStruct {
+            readonly $gtype: GObject.GType<Array>
+            [Symbol.hasInstance](instance: unknown): instance is Array
             /**
              * Creates a new array.
              * @returns the newly created array
              */
-            static "new"(): Array
+            "new"(): Array
             /**
              * Creates a new array with `n_elements` slots already allocated.
              * @param n_elements number of slots to pre-allocate
              * @returns the newly created array
              */
-            static sized_new(n_elements: number): Array
+            sized_new(n_elements: number): Array
+        }
+
+        interface Array {
             /**
              * Conveniently adds an array element into an array.
              *
@@ -1726,61 +1837,41 @@ declare module "gi://Json?version=1.0" {
              */
             unref(): void
         }
-        none
-        /**
-         */
-        abstract class BuilderPrivate {
-            static readonly $gtype: GObject.GType<BuilderPrivate>
 
-            
+        interface $Exports {
+            Array: ArrayStruct
         }
-        none
-        /**
-         */
-        abstract class GeneratorPrivate {
-            static readonly $gtype: GObject.GType<GeneratorPrivate>
+        
 
-            
+        interface BuilderPrivateStruct {
+            readonly $gtype: GObject.GType<BuilderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is BuilderPrivate
         }
-        /**
-         * A generic container of JSON data types.
-         *
-         * `JsonNode` can contain fundamental types (integers, booleans, floating point
-         * numbers, strings) and complex types (arrays and objects).
-         *
-         * When parsing a JSON data stream you extract the root node and walk
-         * the node tree by retrieving the type of data contained inside the
-         * node with the `JSON_NODE_TYPE` macro. If the node contains a fundamental
-         * type you can retrieve a copy of the `GValue` holding it with the
-         * [method@Json.Node.get_value] function, and then use the `GValue` API to extract
-         * the data; if the node contains a complex type you can retrieve the
-         * [struct@Json.Object] or the [struct@Json.Array] using [method@Json.Node.get_object]
-         * or [method@Json.Node.get_array] respectively, and then retrieve the nodes
-         * they contain.
-         *
-         * A `JsonNode` may be marked as immutable using [method@Json.Node.seal]. This
-         * marks the node and all its descendents as read-only, and means that
-         * subsequent calls to setter functions (such as [method@Json.Node.set_array])
-         * on them will abort as a programmer error. By marking a node tree as
-         * immutable, it may be referenced in multiple places and its hash value cached
-         * for fast lookups, without the possibility of a value deep within the tree
-         * changing and affecting hash values. Immutable nodes may be passed to
-         * functions which retain a reference to them without needing to take a copy.
-         *
-         * A `JsonNode` supports two types of memory management: `malloc`/`free`
-         * semantics, and reference counting semantics. The two may be mixed to a
-         * limited extent: nodes may be allocated (which gives them a reference count
-         * of 1), referenced one or more times, unreferenced exactly that number of
-         * times (using [method@Json.Node.unref]), then either unreferenced exactly
-         * once more or freed (using [method@Json.Node.free]) to destroy them.
-         * The [method@Json.Node.free] function must not be used when a node might
-         * have a reference count not equal to 1. To this end, JSON-GLib uses
-         * [method@Json.Node.copy] and [method@Json.Node.unref] internally.
-         */
-        abstract class Node {
-            static readonly $gtype: GObject.GType<Node>
 
-            
+        interface BuilderPrivate {
+        }
+
+        interface $Exports {
+            BuilderPrivate: BuilderPrivateStruct
+        }
+        
+
+        interface GeneratorPrivateStruct {
+            readonly $gtype: GObject.GType<GeneratorPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GeneratorPrivate
+        }
+
+        interface GeneratorPrivate {
+        }
+
+        interface $Exports {
+            GeneratorPrivate: GeneratorPrivateStruct
+        }
+        
+
+        interface NodeStruct {
+            readonly $gtype: GObject.GType<Node>
+            [Symbol.hasInstance](instance: unknown): instance is Node
             /**
              * Allocates a new, uninitialized node.
              *
@@ -1788,7 +1879,7 @@ declare module "gi://Json?version=1.0" {
              * @since 0.16
              * @returns the newly allocated node
              */
-            static alloc(): Node
+            alloc(): Node
             /**
              * Creates a new node holding the given @type.
              *
@@ -1801,7 +1892,10 @@ declare module "gi://Json?version=1.0" {
              * @param type the type of the node to create
              * @returns the newly created node
              */
-            static "new"(type: NodeType): Node
+            "new"(type: NodeType): Node
+        }
+
+        interface Node {
             /**
              * Copies @node.
              *
@@ -1937,7 +2031,7 @@ declare module "gi://Json?version=1.0" {
              * value. Use `JSON_NODE_HOLDS_VALUE` first.
              * @returns , return location for an uninitialized value
              */
-            get_value(): GObject.Value
+            get_value(): unknown
             /**
              * Returns the `GType` of the payload of the node.
              *
@@ -2162,7 +2256,7 @@ declare module "gi://Json?version=1.0" {
              * a value node.
              * @param value the value to set
              */
-            set_value(value: GObject.Value): void
+            set_value(value: (GObject.Value | unknown)): void
             /**
              * Sets @array inside @node.
              *
@@ -2199,35 +2293,23 @@ declare module "gi://Json?version=1.0" {
              */
             unref(): void
         }
-        /**
-         * `JsonObject` is the representation of the object type inside JSON.
-         *
-         * A `JsonObject` contains [struct@Json.Node] "members", which may contain
-         * fundamental types, arrays or other objects; each member of an object is
-         * accessed using a unique string, or "name".
-         *
-         * Since objects can be arbitrarily big, copying them can be expensive; for
-         * this reason they are reference counted. You can control the lifetime of
-         * a `JsonObject` using [method@Json.Object.ref] and [method@Json.Object.unref].
-         *
-         * To add or overwrite a member with a given name, use [method@Json.Object.set_member].
-         *
-         * To extract a member with a given name, use [method@Json.Object.get_member].
-         *
-         * To retrieve the list of members, use [method@Json.Object.get_members].
-         *
-         * To retrieve the size of the object (that is, the number of members it has),
-         * use [method@Json.Object.get_size].
-         */
-        abstract class Object {
-            static readonly $gtype: GObject.GType<Object>
 
-            
+        interface $Exports {
+            Node: NodeStruct
+        }
+        
+
+        interface ObjectStruct {
+            readonly $gtype: GObject.GType<Object>
+            [Symbol.hasInstance](instance: unknown): instance is Object
             /**
              * Creates a new object.
              * @returns the newly created object
              */
-            static "new"(): Object
+            "new"(): Object
+        }
+
+        interface Object {
             /**
              * Adds a new member for the given name and value into an object.
              *
@@ -2562,25 +2644,28 @@ declare module "gi://Json?version=1.0" {
              */
             unref(): void
         }
-        /**
-         * An iterator object used to iterate over the members of a JSON object.
-         *
-         * `JsonObjectIter` must be allocated on the stack and initialised using
-         * [method@Json.ObjectIter.init] or [method@Json.ObjectIter.init_ordered].
-         *
-         * The iterator is invalidated if the object is modified during
-         * iteration.
-         *
-         * All the fields in the `JsonObjectIter` structure are private and should
-         * never be accessed directly.
-         * @since 1.2
-         */
-        abstract class ObjectIter {
-            static readonly $gtype: GObject.GType<ObjectIter>
 
-            
+        interface $Exports {
+            Object: ObjectStruct
+        }
+        
+
+        interface ObjectIterStruct {
+            readonly $gtype: GObject.GType<ObjectIter>
+            [Symbol.hasInstance](instance: unknown): instance is ObjectIter
+        }
+
+        interface ObjectIter {
             /**
-             * member_node))
+             * Initialises the @iter and associate it with @object.
+             *
+             * ```c
+             * JsonObjectIter iter;
+             * const gchar *member_name;
+             * JsonNode *member_node;
+             *
+             * json_object_iter_init (&iter, some_object);
+             * while (json_object_iter_next (&iter, &member_name, &member_node))
              *   {
              *     // Do something with @member_name and @member_node.
              *   }
@@ -2595,7 +2680,15 @@ declare module "gi://Json?version=1.0" {
              */
             init(object: Object): void
             /**
-             * member_node))
+             * Initialises the @iter and associate it with @object.
+             *
+             * ```c
+             * JsonObjectIter iter;
+             * const gchar *member_name;
+             * JsonNode *member_node;
+             *
+             * json_object_iter_init_ordered (&iter, some_object);
+             * while (json_object_iter_next_ordered (&iter, &member_name, &member_node))
              *   {
              *     // Do something with @member_name and @member_node.
              *   }
@@ -2625,7 +2718,7 @@ declare module "gi://Json?version=1.0" {
              * @since 1.2
              * @returns `TRUE` if `member_name` and `member_node` are valid; `FALSE` if   there are no more members, return    location for the member name, or %NULL to ignore, return    location for the member value, or %NULL to ignore
              */
-            next(): boolean
+            next(): [boolean, string, Node]
             /**
              * Advances the iterator and retrieves the next member in the object.
              *
@@ -2644,413 +2737,210 @@ declare module "gi://Json?version=1.0" {
              * @since 1.6
              * @returns `TRUE `if `member_name` and `member_node` are valid; `FALSE` if the end    of the object has been reached, return    location for the member name, or %NULL to ignore, return    location for the member value, or %NULL to ignore
              */
-            next_ordered(): boolean
+            next_ordered(): [boolean, string, Node]
         }
-        none
-        /**
-         */
-        abstract class ParserPrivate {
-            static readonly $gtype: GObject.GType<ParserPrivate>
 
-            
+        interface $Exports {
+            ObjectIter: ObjectIterStruct
         }
-        none
-        none
-        /**
-         */
-        abstract class ReaderPrivate {
-            static readonly $gtype: GObject.GType<ReaderPrivate>
-
-            
-        }
-        none
-        /**
-         * Checks whether it is possible to deserialize a `GBoxed` of
-         * type `gboxed_type` from a [struct@Json.Node] of type `node_type`.
-         * @since 0.10
-         * @param gboxed_type a boxed type
-         * @param node_type a node type
-         * @returns `TRUE` if the type can be deserialized, and `FALSE` otherwise
-         */
-        function boxed_can_deserialize(gboxed_type: (GObject.GType | { $gtype: GObject.GType }), node_type: NodeType): boolean
-        /**
-         * Checks whether it is possible to serialize a `GBoxed` of
-         * type `gboxed_type` into a [struct@Json.Node].
-         *
-         * The type of the node is placed inside `node_type` if the function
-         * returns `TRUE`, and it's undefined otherwise.
-         * @since 0.10
-         * @param gboxed_type a boxed type
-         * @returns `TRUE` if the type can be serialized, and `FALSE` otherwise, the node type to which the boxed type   can be serialized into
-         */
-        function boxed_can_serialize(gboxed_type: (GObject.GType | { $gtype: GObject.GType })): boolean
-        /**
-         * Deserializes the given [struct@Json.Node] into a `GBoxed` of the given type.
-         * @since 0.10
-         * @param gboxed_type a boxed type
-         * @param node a node
-         * @returns the newly allocated boxed data
-         */
-        function boxed_deserialize(gboxed_type: (GObject.GType | { $gtype: GObject.GType }), node: Node): never | null
-        none
-        none
-        /**
-         * Serializes a pointer to a `GBoxed` of the given type into a [struct@Json.Node].
-         *
-         * If the serialization is not possible, this function will return `NULL`.
-         * @since 0.10
-         * @param gboxed_type a boxed type
-         * @param boxed a pointer to a boxed of type `gboxed_type`
-         * @returns a node with the serialized boxed type
-         */
-        function boxed_serialize(gboxed_type: (GObject.GType | { $gtype: GObject.GType }), boxed: never | null): Node | null
-        /**
-         * Deserializes a JSON data stream and creates an instance of the given
-         * type.
-         *
-         * If the given type implements the [iface@Json.Serializable] interface, it
-         * will be asked to deserialize all the JSON members into their respective
-         * properties; otherwise, the default implementation will be used to translate
-         * the compatible JSON native types.
-         *
-         * **Note**: the JSON data stream must be an object.
-         *
-         * For historical reasons, the `length` argument is unused. The given `data`
-         * must be a `NUL`-terminated string.
-         * @throws {GLib.Error}
-         * @since 0.4
-         * @deprecated since 0.10 Use [func@Json.gobject_from_data] instead
-         * @param gtype the type of the object to construct
-         * @param data a JSON data stream
-         * @param length length of the data stream (unused)
-         * @returns a new object instance of the given   type
-         */
-        function construct_gobject(gtype: (GObject.GType | { $gtype: GObject.GType }), data: string, length: number): GObject.Object | null
-        /**
-         * Parses the given string and returns the corresponding JSON tree.
-         *
-         * If the string is empty, this function will return `NULL`.
-         *
-         * In case of parsing error, this function returns `NULL` and sets
-         * the error appropriately.
-         * @throws {GLib.Error}
-         * @since 1.2
-         * @param str a valid UTF-8 string containing JSON data
-         * @returns the root node of the JSON tree
-         */
-        function from_string(str: string): Node | null
-        /**
-         * Creates a new `GObject` instance of the given type, and constructs it
-         * using the members of the object in the given node.
-         * @since 0.10
-         * @param gtype the type of the object to create
-         * @param node a node of type `JSON_NODE_OBJECT` describing the
-          object instance for the given type
-         * @returns The newly created instance
-         */
-        function gobject_deserialize(gtype: (GObject.GType | { $gtype: GObject.GType }), node: Node): GObject.Object
-        /**
-         * Deserializes a JSON data stream and creates an instance of the
-         * given type.
-         *
-         * If the type implements the [iface@Json.Serializable] interface, it will
-         * be asked to deserialize all the JSON members into their respective properties;
-         * otherwise, the default implementation will be used to translate the
-         * compatible JSON native types.
-         *
-         * **Note**: the JSON data stream must be an object
-         * @throws {GLib.Error}
-         * @since 0.10
-         * @param gtype the type of the object to construct
-         * @param data a JSON data stream
-         * @param length length of the data stream, or -1 if it is `NUL`-terminated
-         * @returns a new object instance of the given type
-         */
-        function gobject_from_data(gtype: (GObject.GType | { $gtype: GObject.GType }), data: string, length: number): GObject.Object | null
-        /**
-         * Creates a JSON tree representing the passed object instance.
-         *
-         * Each member of the returned JSON object will map to a property of
-         * the object type.
-         *
-         * The returned JSON tree will be returned as a `JsonNode` with a type
-         * of `JSON_NODE_OBJECT`.
-         * @since 0.10
-         * @param gobject the object to serialize
-         * @returns the newly created JSON tree
-         */
-        function gobject_serialize(gobject: GObject.Object): Node
-        /**
-         * Serializes a `GObject` instance into a JSON data stream, iterating
-         * recursively over each property.
-         *
-         * If the given object implements the [iface@Json.Serializable] interface,
-         * it will be asked to serialize all its properties; otherwise, the default
-         * implementation will be use to translate the compatible types into
-         * JSON native types.
-         * @since 0.10
-         * @param gobject the object to serialize
-         * @returns a JSON data stream representing the given object, return value for the length of the buffer
-         */
-        function gobject_to_data(gobject: GObject.Object): string
-        /**
-         * Converts a JSON data structure to a `GVariant`.
-         *
-         * If `signature` is not `NULL`, it will be used to resolve ambiguous
-         * data types.
-         *
-         * If no error occurs, the resulting `GVariant` is guaranteed to conform
-         * to `signature`.
-         *
-         * If `signature` is not `NULL` but does not represent a valid `GVariant` type
-         * string, `NULL` is returned and the `error` is set to
-         * `G_IO_ERROR_INVALID_ARGUMENT`.
-         *
-         * If a `signature` is provided but the JSON structure cannot be mapped to it,
-         * `NULL` is returned and the `error` is set to `G_IO_ERROR_INVALID_DATA`.
-         *
-         * If `signature` is `NULL`, the conversion is done based strictly on the types
-         * in the JSON nodes.
-         *
-         * The returned variant has a floating reference that will need to be sunk
-         * by the caller code.
-         * @throws {GLib.Error}
-         * @since 0.14
-         * @param json_node the node to convert
-         * @param signature a valid `GVariant` type string
-         * @returns A newly created `GVariant`
-         */
-        function gvariant_deserialize(json_node: Node, signature: string | null): GLib.Variant | null
-        /**
-         * Converts a JSON string to a `GVariant` value.
-         *
-         * This function works exactly like [func@Json.gvariant_deserialize], but
-         * takes a JSON encoded string instead.
-         *
-         * The string is first converted to a [struct@Json.Node] using
-         * [class@Json.Parser], and then `json_gvariant_deserialize` is called on
-         * the node.
-         *
-         * The returned variant has a floating reference that will need to be sunk
-         * by the caller code.
-         * @throws {GLib.Error}
-         * @since 0.14
-         * @param json A JSON data string
-         * @param length The length of @json, or -1 if `NUL`-terminated
-         * @param signature A valid `GVariant` type string
-         * @returns A newly created `GVariant`D compliant
-         */
-        function gvariant_deserialize_data(json: string, length: number, signature: string | null): GLib.Variant | null
-        /**
-         * Converts `variant` to a JSON tree.
-         * @since 0.14
-         * @param variant A `GVariant` to convert
-         * @returns the root of the JSON data structure   obtained from `variant`
-         */
-        function gvariant_serialize(variant: GLib.Variant): Node
-        /**
-         * Converts @variant to its JSON encoded string representation.
-         *
-         * This is a convenience function around [func@Json.gvariant_serialize], to
-         * obtain the JSON tree, and then [class@Json.Generator] to stringify it.
-         * @since 0.14
-         * @param variant A #GVariant to convert
-         * @returns The JSON encoded string corresponding to   the given variant, the length of the returned string
-         */
-        function gvariant_serialize_data(variant: GLib.Variant): string
-        /**
-         */
-        function parser_error_quark(): GLib.Quark
-        /**
-         */
-        function path_error_quark(): GLib.Quark
-        /**
-         */
-        function reader_error_quark(): GLib.Quark
-        /**
-         * Serializes a `GObject` instance into a JSON data stream.
-         *
-         * If the object implements the [iface@Json.Serializable] interface, it will be
-         * asked to serizalize all its properties; otherwise, the default
-         * implementation will be use to translate the compatible types into JSON
-         * native types.
-         * @deprecated since 0.10 Use [func@Json.gobject_to_data] instead
-         * @param gobject the object to serialize
-         * @returns a JSON data stream representing the given object, return value for the length of the buffer
-         */
-        function serialize_gobject(gobject: GObject.Object): string
-        /**
-         * Check whether @a and @b are equal UTF-8 JSON strings and return an ordering
-         * over them in `strcmp()` style.
-         * @since 1.2
-         * @param a a JSON string
-         * @param b another JSON string
-         * @returns  b`
-         */
-        function string_compare(a: string, b: string): number
-        /**
-         * Check whether @a and @b are equal UTF-8 JSON strings.
-         * @since 1.2
-         * @param a a JSON string
-         * @param b another JSON string
-         * @returns `TRUE` if `a` and `b` are equal; `FALSE` otherwise
-         */
-        function string_equal(a: string, b: string): boolean
-        /**
-         * Calculate a hash value for the given @key (a UTF-8 JSON string).
-         *
-         * Note: Member names are compared byte-wise, without applying any Unicode
-         * decomposition or normalisation. This is not explicitly mentioned in the JSON
-         * standard (ECMA-404), but is assumed.
-         * @since 1.2
-         * @param key a JSON string to hash
-         * @returns hash value for `key`
-         */
-        function string_hash(key: string): number
-        /**
-         * Generates a stringified JSON representation of the contents of
-         * the given `node`.
-         * @since 1.2
-         * @param node a JSON tree
-         * @param pretty whether the output should be prettyfied for printing
-         * @returns the string representation of the node
-         */
-        function to_string(node: Node, pretty: boolean): string
-        const MAJOR_VERSION: 1
-        const MICRO_VERSION: 9
-        const MINOR_VERSION: 10
-        const PARSER_MAX_RECURSION_DEPTH: 1024
-        const VERSION_S: "1.10.9"
         
-        namespace NodeType {
-            const $gtype: GObject.GType<NodeType>
+
+        interface ParserPrivateStruct {
+            readonly $gtype: GObject.GType<ParserPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ParserPrivate
         }
 
-        /**
-         * Indicates the content of a node.
-         */
-        enum NodeType {
+        interface ParserPrivate {
+        }
+
+        interface $Exports {
+            ParserPrivate: ParserPrivateStruct
+        }
+        
+
+        interface ReaderPrivateStruct {
+            readonly $gtype: GObject.GType<ReaderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ReaderPrivate
+        }
+
+        interface ReaderPrivate {
+        }
+
+        interface $Exports {
+            ReaderPrivate: ReaderPrivateStruct
+        }
+        
+        interface NodeTypeEnum {
+            readonly $gtype: GObject.GType<NodeType>
             /**
              * The node contains a JSON object
              */
-            "OBJECT" = 0,
+            readonly "OBJECT": 0
             /**
              * The node contains a JSON array
              */
-            "ARRAY" = 1,
+            readonly "ARRAY": 1
             /**
              * The node contains a fundamental type
              */
-            "VALUE" = 2,
+            readonly "VALUE": 2
             /**
              * Special type, for nodes containing null
              */
-            "NULL" = 3,
+            readonly "NULL": 3
+        }
+        type NodeType = NodeTypeEnum[Exclude<keyof NodeTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Indicates the content of a node.
+             */
+            NodeType: NodeTypeEnum
         }
         
-        abstract class ParserError extends GLib.Error {
-            static readonly $gtype: GObject.GType<ParserError>
+        interface ParserError extends GLib.Error {}
+
+        interface ParserErrorEnum {
+            readonly $gtype: GObject.GType<ParserError>
+
+            new(props: { message: string, code: number }): ParserError
             /**
              * parse error
              */
-            static readonly "PARSE": 0
+            readonly "PARSE": 0
             /**
              * unexpected trailing comma
              */
-            static readonly "TRAILING_COMMA": 1
+            readonly "TRAILING_COMMA": 1
             /**
              * expected comma
              */
-            static readonly "MISSING_COMMA": 2
+            readonly "MISSING_COMMA": 2
             /**
              * expected colon
              */
-            static readonly "MISSING_COLON": 3
+            readonly "MISSING_COLON": 3
             /**
              * invalid bareword
              */
-            static readonly "INVALID_BAREWORD": 4
+            readonly "INVALID_BAREWORD": 4
             /**
              * Empty member name.
              * @since 0.16
              */
-            static readonly "EMPTY_MEMBER_NAME": 5
+            readonly "EMPTY_MEMBER_NAME": 5
             /**
              * Invalid data.
              * @since 0.18
              */
-            static readonly "INVALID_DATA": 6
+            readonly "INVALID_DATA": 6
             /**
              * unknown error
              */
-            static readonly "UNKNOWN": 7
+            readonly "UNKNOWN": 7
             /**
              * Too many levels of nesting.
              * @since 1.10
              */
-            static readonly "NESTING": 8
+            readonly "NESTING": 8
             /**
              * Invalid structure.
              * @since 1.10
              */
-            static readonly "INVALID_STRUCTURE": 9
+            readonly "INVALID_STRUCTURE": 9
             /**
              * Invalid assignment.
              * @since 1.10
              */
-            static readonly "INVALID_ASSIGNMENT": 10
-        }
-        /**
+            readonly "INVALID_ASSIGNMENT": 10
+            /**
          */
-        function quark(): GLib.Quark
+        quark: () => GLib.Quark
+        }
+
+        interface $Exports {
+            /**
+             * Error codes for `JSON_PARSER_ERROR`.
+             *
+             * This enumeration can be extended at later date
+             */
+            ParserError: ParserErrorEnum
+        }
         
-        abstract class PathError extends GLib.Error {
-            static readonly $gtype: GObject.GType<PathError>
+        interface PathError extends GLib.Error {}
+
+        interface PathErrorEnum {
+            readonly $gtype: GObject.GType<PathError>
+
+            new(props: { message: string, code: number }): PathError
             /**
              * Invalid query
              */
-            static readonly "QUERY": 0
-        }
-        /**
+            readonly "QUERY": 0
+            /**
          */
-        function quark(): GLib.Quark
+        quark: () => GLib.Quark
+        }
+
+        interface $Exports {
+            /**
+             * Error codes for `JSON_PATH_ERROR`.
+             *
+             * This enumeration can be extended at later date
+             * @since 0.14
+             */
+            PathError: PathErrorEnum
+        }
         
-        abstract class ReaderError extends GLib.Error {
-            static readonly $gtype: GObject.GType<ReaderError>
+        interface ReaderError extends GLib.Error {}
+
+        interface ReaderErrorEnum {
+            readonly $gtype: GObject.GType<ReaderError>
+
+            new(props: { message: string, code: number }): ReaderError
             /**
              * No array found at the current position
              */
-            static readonly "NO_ARRAY": 0
+            readonly "NO_ARRAY": 0
             /**
              * Index out of bounds
              */
-            static readonly "INVALID_INDEX": 1
+            readonly "INVALID_INDEX": 1
             /**
              * No object found at the current position
              */
-            static readonly "NO_OBJECT": 2
+            readonly "NO_OBJECT": 2
             /**
              * Member not found
              */
-            static readonly "INVALID_MEMBER": 3
+            readonly "INVALID_MEMBER": 3
             /**
              * No valid node found at the current position
              */
-            static readonly "INVALID_NODE": 4
+            readonly "INVALID_NODE": 4
             /**
              * The node at the current position does not
              *   hold a value
              */
-            static readonly "NO_VALUE": 5
+            readonly "NO_VALUE": 5
             /**
              * The node at the current position does not
              *   hold a value of the desired type
              */
-            static readonly "INVALID_TYPE": 6
-        }
-        /**
+            readonly "INVALID_TYPE": 6
+            /**
          */
-        function quark(): GLib.Quark
+        quark: () => GLib.Quark
+        }
+
+        interface $Exports {
+            /**
+             * Error codes for `JSON_READER_ERROR`.
+             *
+             * This enumeration can be extended at later date
+             * @since 0.12
+             */
+            ReaderError: ReaderErrorEnum
+        }
         /**
          * The function to be passed to [method@Json.Array.foreach_element].
          *
@@ -3101,7 +2991,21 @@ declare module "gi://Json?version=1.0" {
          */
         type BoxedDeserializeFunc = (node: Node) => never | null
         /**
-         * y);
+         * Serializes the passed `GBoxed` and stores it inside a `JsonNode`, for instance:
+         *
+         * ```c
+         * static JsonNode *
+         * my_point_serialize (gconstpointer boxed)
+         * {
+         *   const MyPoint *point = boxed;
+         *
+         *   g_autoptr(JsonBuilder) builder = json_builder_new ();
+         *
+         *   json_builder_begin_object (builder);
+         *   json_builder_set_member_name (builder, "x");
+         *   json_builder_add_double_value (builder, point->x);
+         *   json_builder_set_member_name (builder, "y");
+         *   json_builder_add_double_value (builder, point->y);
          *   json_builder_end_object (builder);
          *
          *   return json_builder_get_root (builder);
@@ -3125,7 +3029,268 @@ declare module "gi://Json?version=1.0" {
          * @param member_node the value of the member
          */
         type ObjectForeach = (object: Object, member_name: string, member_node: Node) => void
+
+        interface $Exports {
+            __name__: "Json"
+            __version: "1.0"
+            MAJOR_VERSION: 1
+            MICRO_VERSION: 9
+            MINOR_VERSION: 10
+            PARSER_MAX_RECURSION_DEPTH: 1024
+            VERSION_S: "1.10.9"
+            /**
+             * Checks whether it is possible to deserialize a `GBoxed` of
+             * type `gboxed_type` from a [struct@Json.Node] of type `node_type`.
+             * @since 0.10
+             * @param gboxed_type a boxed type
+             * @param node_type a node type
+             * @returns `TRUE` if the type can be deserialized, and `FALSE` otherwise
+             */
+            boxed_can_deserialize(gboxed_type: (GObject.GType | { $gtype: GObject.GType }), node_type: NodeType): boolean
+            /**
+             * Checks whether it is possible to serialize a `GBoxed` of
+             * type `gboxed_type` into a [struct@Json.Node].
+             *
+             * The type of the node is placed inside `node_type` if the function
+             * returns `TRUE`, and it's undefined otherwise.
+             * @since 0.10
+             * @param gboxed_type a boxed type
+             * @returns `TRUE` if the type can be serialized, and `FALSE` otherwise, the node type to which the boxed type   can be serialized into
+             */
+            boxed_can_serialize(gboxed_type: (GObject.GType | { $gtype: GObject.GType })): [boolean, NodeType]
+            /**
+             * Deserializes the given [struct@Json.Node] into a `GBoxed` of the given type.
+             * @since 0.10
+             * @param gboxed_type a boxed type
+             * @param node a node
+             * @returns the newly allocated boxed data
+             */
+            boxed_deserialize(gboxed_type: (GObject.GType | { $gtype: GObject.GType }), node: Node): never | null
+            /**
+             * Serializes a pointer to a `GBoxed` of the given type into a [struct@Json.Node].
+             *
+             * If the serialization is not possible, this function will return `NULL`.
+             * @since 0.10
+             * @param gboxed_type a boxed type
+             * @param boxed a pointer to a boxed of type `gboxed_type`
+             * @returns a node with the serialized boxed type
+             */
+            boxed_serialize(gboxed_type: (GObject.GType | { $gtype: GObject.GType }), boxed: never | null): Node | null
+            /**
+             * Deserializes a JSON data stream and creates an instance of the given
+             * type.
+             *
+             * If the given type implements the [iface@Json.Serializable] interface, it
+             * will be asked to deserialize all the JSON members into their respective
+             * properties; otherwise, the default implementation will be used to translate
+             * the compatible JSON native types.
+             *
+             * **Note**: the JSON data stream must be an object.
+             *
+             * For historical reasons, the `length` argument is unused. The given `data`
+             * must be a `NUL`-terminated string.
+             * @throws {GLib.Error}
+             * @since 0.4
+             * @deprecated since 0.10 Use [func@Json.gobject_from_data] instead
+             * @param gtype the type of the object to construct
+             * @param data a JSON data stream
+             * @param length length of the data stream (unused)
+             * @returns a new object instance of the given   type
+             */
+            construct_gobject(gtype: (GObject.GType | { $gtype: GObject.GType }), data: string, length: number): GObject.Object | null
+            /**
+             * Parses the given string and returns the corresponding JSON tree.
+             *
+             * If the string is empty, this function will return `NULL`.
+             *
+             * In case of parsing error, this function returns `NULL` and sets
+             * the error appropriately.
+             * @throws {GLib.Error}
+             * @since 1.2
+             * @param str a valid UTF-8 string containing JSON data
+             * @returns the root node of the JSON tree
+             */
+            from_string(str: string): Node | null
+            /**
+             * Creates a new `GObject` instance of the given type, and constructs it
+             * using the members of the object in the given node.
+             * @since 0.10
+             * @param gtype the type of the object to create
+             * @param node a node of type `JSON_NODE_OBJECT` describing the
+              object instance for the given type
+             * @returns The newly created instance
+             */
+            gobject_deserialize(gtype: (GObject.GType | { $gtype: GObject.GType }), node: Node): GObject.Object
+            /**
+             * Deserializes a JSON data stream and creates an instance of the
+             * given type.
+             *
+             * If the type implements the [iface@Json.Serializable] interface, it will
+             * be asked to deserialize all the JSON members into their respective properties;
+             * otherwise, the default implementation will be used to translate the
+             * compatible JSON native types.
+             *
+             * **Note**: the JSON data stream must be an object
+             * @throws {GLib.Error}
+             * @since 0.10
+             * @param gtype the type of the object to construct
+             * @param data a JSON data stream
+             * @param length length of the data stream, or -1 if it is `NUL`-terminated
+             * @returns a new object instance of the given type
+             */
+            gobject_from_data(gtype: (GObject.GType | { $gtype: GObject.GType }), data: string, length: number): GObject.Object | null
+            /**
+             * Creates a JSON tree representing the passed object instance.
+             *
+             * Each member of the returned JSON object will map to a property of
+             * the object type.
+             *
+             * The returned JSON tree will be returned as a `JsonNode` with a type
+             * of `JSON_NODE_OBJECT`.
+             * @since 0.10
+             * @param gobject the object to serialize
+             * @returns the newly created JSON tree
+             */
+            gobject_serialize(gobject: GObject.Object): Node
+            /**
+             * Serializes a `GObject` instance into a JSON data stream, iterating
+             * recursively over each property.
+             *
+             * If the given object implements the [iface@Json.Serializable] interface,
+             * it will be asked to serialize all its properties; otherwise, the default
+             * implementation will be use to translate the compatible types into
+             * JSON native types.
+             * @since 0.10
+             * @param gobject the object to serialize
+             * @returns a JSON data stream representing the given object, return value for the length of the buffer
+             */
+            gobject_to_data(gobject: GObject.Object): [string, number]
+            /**
+             * Converts a JSON data structure to a `GVariant`.
+             *
+             * If `signature` is not `NULL`, it will be used to resolve ambiguous
+             * data types.
+             *
+             * If no error occurs, the resulting `GVariant` is guaranteed to conform
+             * to `signature`.
+             *
+             * If `signature` is not `NULL` but does not represent a valid `GVariant` type
+             * string, `NULL` is returned and the `error` is set to
+             * `G_IO_ERROR_INVALID_ARGUMENT`.
+             *
+             * If a `signature` is provided but the JSON structure cannot be mapped to it,
+             * `NULL` is returned and the `error` is set to `G_IO_ERROR_INVALID_DATA`.
+             *
+             * If `signature` is `NULL`, the conversion is done based strictly on the types
+             * in the JSON nodes.
+             *
+             * The returned variant has a floating reference that will need to be sunk
+             * by the caller code.
+             * @throws {GLib.Error}
+             * @since 0.14
+             * @param json_node the node to convert
+             * @param signature a valid `GVariant` type string
+             * @returns A newly created `GVariant`
+             */
+            gvariant_deserialize(json_node: Node, signature: string | null): GLib.Variant | null
+            /**
+             * Converts a JSON string to a `GVariant` value.
+             *
+             * This function works exactly like [func@Json.gvariant_deserialize], but
+             * takes a JSON encoded string instead.
+             *
+             * The string is first converted to a [struct@Json.Node] using
+             * [class@Json.Parser], and then `json_gvariant_deserialize` is called on
+             * the node.
+             *
+             * The returned variant has a floating reference that will need to be sunk
+             * by the caller code.
+             * @throws {GLib.Error}
+             * @since 0.14
+             * @param json A JSON data string
+             * @param length The length of @json, or -1 if `NUL`-terminated
+             * @param signature A valid `GVariant` type string
+             * @returns A newly created `GVariant`D compliant
+             */
+            gvariant_deserialize_data(json: string, length: number, signature: string | null): GLib.Variant | null
+            /**
+             * Converts `variant` to a JSON tree.
+             * @since 0.14
+             * @param variant A `GVariant` to convert
+             * @returns the root of the JSON data structure   obtained from `variant`
+             */
+            gvariant_serialize(variant: GLib.Variant): Node
+            /**
+             * Converts @variant to its JSON encoded string representation.
+             *
+             * This is a convenience function around [func@Json.gvariant_serialize], to
+             * obtain the JSON tree, and then [class@Json.Generator] to stringify it.
+             * @since 0.14
+             * @param variant A #GVariant to convert
+             * @returns The JSON encoded string corresponding to   the given variant, the length of the returned string
+             */
+            gvariant_serialize_data(variant: GLib.Variant): [string, number]
+            /**
+             */
+            parser_error_quark(): GLib.Quark
+            /**
+             */
+            path_error_quark(): GLib.Quark
+            /**
+             */
+            reader_error_quark(): GLib.Quark
+            /**
+             * Serializes a `GObject` instance into a JSON data stream.
+             *
+             * If the object implements the [iface@Json.Serializable] interface, it will be
+             * asked to serizalize all its properties; otherwise, the default
+             * implementation will be use to translate the compatible types into JSON
+             * native types.
+             * @deprecated since 0.10 Use [func@Json.gobject_to_data] instead
+             * @param gobject the object to serialize
+             * @returns a JSON data stream representing the given object, return value for the length of the buffer
+             */
+            serialize_gobject(gobject: GObject.Object): [string, number]
+            /**
+             * Check whether @a and @b are equal UTF-8 JSON strings and return an ordering
+             * over them in `strcmp()` style.
+             * @since 1.2
+             * @param a a JSON string
+             * @param b another JSON string
+             * @returns an integer less than zero if `a < b`, equal to zero if `a == b`, and   greater than zero if `a > b`
+             */
+            string_compare(a: string, b: string): number
+            /**
+             * Check whether @a and @b are equal UTF-8 JSON strings.
+             * @since 1.2
+             * @param a a JSON string
+             * @param b another JSON string
+             * @returns `TRUE` if `a` and `b` are equal; `FALSE` otherwise
+             */
+            string_equal(a: string, b: string): boolean
+            /**
+             * Calculate a hash value for the given @key (a UTF-8 JSON string).
+             *
+             * Note: Member names are compared byte-wise, without applying any Unicode
+             * decomposition or normalisation. This is not explicitly mentioned in the JSON
+             * standard (ECMA-404), but is assumed.
+             * @since 1.2
+             * @param key a JSON string to hash
+             * @returns hash value for `key`
+             */
+            string_hash(key: string): number
+            /**
+             * Generates a stringified JSON representation of the contents of
+             * the given `node`.
+             * @since 1.2
+             * @param node a JSON tree
+             * @param pretty whether the output should be prettyfied for printing
+             * @returns the string representation of the node
+             */
+            to_string(node: Node, pretty: boolean): string
+        }
     }
 
+    const Json: Json.$Exports
     export default Json
 }

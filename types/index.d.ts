@@ -1,8 +1,10 @@
+
 import "./Adw-1.d.ts"
 import "./AppStream-1.0.d.ts"
 import "./AppStreamCompose-1.0.d.ts"
 import "./Atk-1.0.d.ts"
 import "./Atspi-2.0.d.ts"
+import "./CudaGst-1.0.d.ts"
 import "./DBus-1.0.d.ts"
 import "./DBusGLib-1.0.d.ts"
 import "./Dex-1.d.ts"
@@ -119,3 +121,4 @@ import "./gjs.d.ts"
 import "./logging.d.ts"
 import "./system.d.ts"
 import "./timers.d.ts"
+

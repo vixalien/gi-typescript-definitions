@@ -32,10 +32,7 @@ declare module "gi://Gsk?version=4.0" {
 
     
 
-
     namespace Gsk {
-        const __name__: "Gsk"
-        const __version: "4.0"
         
 
         namespace BlendNode {
@@ -52,9 +49,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node applying a blending function between its two child nodes.
-         */
         interface BlendNode extends RenderNode {
             readonly $signals: BlendNode.SignalSignatures
             readonly $readableProperties: BlendNode.ReadableProperties
@@ -80,6 +74,7 @@ declare module "gi://Gsk?version=4.0" {
         interface BlendNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<BlendNode>
             readonly prototype: BlendNode
+
             new (props?: Partial<GObject.ConstructorProps<BlendNode>>): BlendNode
             /**
              * Creates a `GskRenderNode` that will use @blend_mode to blend the @top
@@ -92,7 +87,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(bottom: RenderNode, top: RenderNode, blend_mode: BlendMode): BlendNode
         }
 
-        const BlendNode: BlendNodeClass
+        interface $Exports {
+            /**
+             * A render node applying a blending function between its two child nodes.
+             */
+            BlendNode: BlendNodeClass
+        }
         
 
         namespace BlurNode {
@@ -109,9 +109,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node applying a blur effect to its single child.
-         */
         interface BlurNode extends RenderNode {
             readonly $signals: BlurNode.SignalSignatures
             readonly $readableProperties: BlurNode.ReadableProperties
@@ -132,6 +129,7 @@ declare module "gi://Gsk?version=4.0" {
         interface BlurNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<BlurNode>
             readonly prototype: BlurNode
+
             new (props?: Partial<GObject.ConstructorProps<BlurNode>>): BlurNode
             /**
              * Creates a render node that blurs the child.
@@ -142,7 +140,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, radius: number): BlurNode
         }
 
-        const BlurNode: BlurNodeClass
+        interface $Exports {
+            /**
+             * A render node applying a blur effect to its single child.
+             */
+            BlurNode: BlurNodeClass
+        }
         
 
         namespace BorderNode {
@@ -159,9 +162,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for a border.
-         */
         interface BorderNode extends RenderNode {
             readonly $signals: BorderNode.SignalSignatures
             readonly $readableProperties: BorderNode.ReadableProperties
@@ -187,6 +187,7 @@ declare module "gi://Gsk?version=4.0" {
         interface BorderNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<BorderNode>
             readonly prototype: BorderNode
+
             new (props?: Partial<GObject.ConstructorProps<BorderNode>>): BorderNode
             /**
              * Creates a `GskRenderNode` that will stroke a border rectangle inside the
@@ -203,7 +204,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(outline: RoundedRect, border_width: number[], border_color: Gdk.RGBA[]): BorderNode
         }
 
-        const BorderNode: BorderNodeClass
+        interface $Exports {
+            /**
+             * A render node for a border.
+             */
+            BorderNode: BorderNodeClass
+        }
         
 
         namespace BroadwayRenderer {
@@ -220,11 +226,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A Broadway based renderer.
-         *
-         * See [class@Gsk.Renderer].
-         */
         interface BroadwayRenderer extends Renderer {
             readonly $signals: BroadwayRenderer.SignalSignatures
             readonly $readableProperties: BroadwayRenderer.ReadableProperties
@@ -235,6 +236,7 @@ declare module "gi://Gsk?version=4.0" {
         interface BroadwayRendererClass extends Omit<RendererClass, "new"> {
             readonly $gtype: GObject.GType<BroadwayRenderer>
             readonly prototype: BroadwayRenderer
+
             new (props?: Partial<GObject.ConstructorProps<BroadwayRenderer>>): BroadwayRenderer
             /**
              * Creates a new Broadway renderer.
@@ -248,10 +250,17 @@ declare module "gi://Gsk?version=4.0" {
              * @deprecated since 4.20 Broadway will be retired in GTK 5
              * @returns a new Broadway renderer.
              */
-            "new"(): Renderer
+            "new"(): BroadwayRenderer
         }
 
-        const BroadwayRenderer: BroadwayRendererClass
+        interface $Exports {
+            /**
+             * A Broadway based renderer.
+             *
+             * See [class@Gsk.Renderer].
+             */
+            BroadwayRenderer: BroadwayRendererClass
+        }
         
 
         namespace CairoNode {
@@ -268,9 +277,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for a Cairo surface.
-         */
         interface CairoNode extends RenderNode {
             readonly $signals: CairoNode.SignalSignatures
             readonly $readableProperties: CairoNode.ReadableProperties
@@ -295,6 +301,7 @@ declare module "gi://Gsk?version=4.0" {
         interface CairoNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<CairoNode>
             readonly prototype: CairoNode
+
             new (props?: Partial<GObject.ConstructorProps<CairoNode>>): CairoNode
             /**
              * Creates a `GskRenderNode` that will render a cairo surface
@@ -307,7 +314,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(bounds: Graphene.Rect): CairoNode
         }
 
-        const CairoNode: CairoNodeClass
+        interface $Exports {
+            /**
+             * A render node for a Cairo surface.
+             */
+            CairoNode: CairoNodeClass
+        }
         
 
         namespace CairoRenderer {
@@ -324,12 +336,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * Renders a GSK rendernode tree with cairo.
-         *
-         * Since it is using cairo, this renderer cannot support
-         * 3D transformations.
-         */
         interface CairoRenderer extends Renderer {
             readonly $signals: CairoRenderer.SignalSignatures
             readonly $readableProperties: CairoRenderer.ReadableProperties
@@ -340,6 +346,7 @@ declare module "gi://Gsk?version=4.0" {
         interface CairoRendererClass extends Omit<RendererClass, "new"> {
             readonly $gtype: GObject.GType<CairoRenderer>
             readonly prototype: CairoRenderer
+
             new (props?: Partial<GObject.ConstructorProps<CairoRenderer>>): CairoRenderer
             /**
              * Creates a new Cairo renderer.
@@ -352,10 +359,18 @@ declare module "gi://Gsk?version=4.0" {
              * avoided.
              * @returns a new Cairo renderer.
              */
-            "new"(): Renderer
+            "new"(): CairoRenderer
         }
 
-        const CairoRenderer: CairoRendererClass
+        interface $Exports {
+            /**
+             * Renders a GSK rendernode tree with cairo.
+             *
+             * Since it is using cairo, this renderer cannot support
+             * 3D transformations.
+             */
+            CairoRenderer: CairoRendererClass
+        }
         
 
         namespace ClipNode {
@@ -372,9 +387,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node applying a rectangular clip to its single child node.
-         */
         interface ClipNode extends RenderNode {
             readonly $signals: ClipNode.SignalSignatures
             readonly $readableProperties: ClipNode.ReadableProperties
@@ -395,6 +407,7 @@ declare module "gi://Gsk?version=4.0" {
         interface ClipNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<ClipNode>
             readonly prototype: ClipNode
+
             new (props?: Partial<GObject.ConstructorProps<ClipNode>>): ClipNode
             /**
              * Creates a `GskRenderNode` that will clip the @child to the area
@@ -406,7 +419,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, clip: Graphene.Rect): ClipNode
         }
 
-        const ClipNode: ClipNodeClass
+        interface $Exports {
+            /**
+             * A render node applying a rectangular clip to its single child node.
+             */
+            ClipNode: ClipNodeClass
+        }
         
 
         namespace ColorMatrixNode {
@@ -423,9 +441,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node controlling the color matrix of its single child node.
-         */
         interface ColorMatrixNode extends RenderNode {
             readonly $signals: ColorMatrixNode.SignalSignatures
             readonly $readableProperties: ColorMatrixNode.ReadableProperties
@@ -451,6 +466,7 @@ declare module "gi://Gsk?version=4.0" {
         interface ColorMatrixNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<ColorMatrixNode>
             readonly prototype: ColorMatrixNode
+
             new (props?: Partial<GObject.ConstructorProps<ColorMatrixNode>>): ColorMatrixNode
             /**
              * Creates a `GskRenderNode` that will drawn the @child with
@@ -470,7 +486,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, color_matrix: Graphene.Matrix, color_offset: Graphene.Vec4): ColorMatrixNode
         }
 
-        const ColorMatrixNode: ColorMatrixNodeClass
+        interface $Exports {
+            /**
+             * A render node controlling the color matrix of its single child node.
+             */
+            ColorMatrixNode: ColorMatrixNodeClass
+        }
         
 
         namespace ColorNode {
@@ -487,9 +508,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for a solid color.
-         */
         interface ColorNode extends RenderNode {
             readonly $signals: ColorNode.SignalSignatures
             readonly $readableProperties: ColorNode.ReadableProperties
@@ -508,6 +526,7 @@ declare module "gi://Gsk?version=4.0" {
         interface ColorNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<ColorNode>
             readonly prototype: ColorNode
+
             new (props?: Partial<GObject.ConstructorProps<ColorNode>>): ColorNode
             /**
              * Creates a `GskRenderNode` that will render the color specified by @rgba into
@@ -519,7 +538,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(rgba: Gdk.RGBA, bounds: Graphene.Rect): ColorNode
         }
 
-        const ColorNode: ColorNodeClass
+        interface $Exports {
+            /**
+             * A render node for a solid color.
+             */
+            ColorNode: ColorNodeClass
+        }
         
 
         namespace ComponentTransferNode {
@@ -536,11 +560,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for applying a `GskComponentTransfer` for each color
-         * component of the child node.
-         * @since 4.20
-         */
         interface ComponentTransferNode extends RenderNode {
             readonly $signals: ComponentTransferNode.SignalSignatures
             readonly $readableProperties: ComponentTransferNode.ReadableProperties
@@ -564,6 +583,7 @@ declare module "gi://Gsk?version=4.0" {
         interface ComponentTransferNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<ComponentTransferNode>
             readonly prototype: ComponentTransferNode
+
             new (props?: Partial<GObject.ConstructorProps<ComponentTransferNode>>): ComponentTransferNode
             /**
              * Creates a render node that will apply component
@@ -579,7 +599,14 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, r: ComponentTransfer, g: ComponentTransfer, b: ComponentTransfer, a: ComponentTransfer): ComponentTransferNode
         }
 
-        const ComponentTransferNode: ComponentTransferNodeClass
+        interface $Exports {
+            /**
+             * A render node for applying a `GskComponentTransfer` for each color
+             * component of the child node.
+             * @since 4.20
+             */
+            ComponentTransferNode: ComponentTransferNodeClass
+        }
         
 
         namespace CompositeNode {
@@ -596,11 +623,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node that uses Porter/Duff compositing operators to combine
-         * its child with the background.
-         * @since 4.22
-         */
         interface CompositeNode extends RenderNode {
             readonly $signals: CompositeNode.SignalSignatures
             readonly $readableProperties: CompositeNode.ReadableProperties
@@ -630,6 +652,7 @@ declare module "gi://Gsk?version=4.0" {
         interface CompositeNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<CompositeNode>
             readonly prototype: CompositeNode
+
             new (props?: Partial<GObject.ConstructorProps<CompositeNode>>): CompositeNode
             /**
              * Creates a `GskRenderNode` that will composite the child onto the
@@ -647,7 +670,14 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, mask: RenderNode, op: PorterDuff): CompositeNode
         }
 
-        const CompositeNode: CompositeNodeClass
+        interface $Exports {
+            /**
+             * A render node that uses Porter/Duff compositing operators to combine
+             * its child with the background.
+             * @since 4.22
+             */
+            CompositeNode: CompositeNodeClass
+        }
         
 
         namespace ConicGradientNode {
@@ -664,9 +694,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for a conic gradient.
-         */
         interface ConicGradientNode extends RenderNode {
             readonly $signals: ConicGradientNode.SignalSignatures
             readonly $readableProperties: ConicGradientNode.ReadableProperties
@@ -708,6 +735,7 @@ declare module "gi://Gsk?version=4.0" {
         interface ConicGradientNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<ConicGradientNode>
             readonly prototype: ConicGradientNode
+
             new (props?: Partial<GObject.ConstructorProps<ConicGradientNode>>): ConicGradientNode
             /**
              * Creates a `GskRenderNode` that draws a conic gradient.
@@ -718,13 +746,21 @@ declare module "gi://Gsk?version=4.0" {
              * @param bounds the bounds of the node
              * @param center the center of the gradient
              * @param rotation the rotation of the gradient in degrees
-             * @param color_stops = 1.
+             * @param color_stops a pointer to an array of
+              `GskColorStop` defining the gradient. The offsets of all color stops
+              must be increasing. The first stop's offset must be >= 0 and the last
+              stop's offset must be <= 1.
              * @returns A new `GskRenderNode`
              */
             "new"(bounds: Graphene.Rect, center: Graphene.Point, rotation: number, color_stops: ColorStop[]): ConicGradientNode
         }
 
-        const ConicGradientNode: ConicGradientNodeClass
+        interface $Exports {
+            /**
+             * A render node for a conic gradient.
+             */
+            ConicGradientNode: ConicGradientNodeClass
+        }
         
 
         namespace ContainerNode {
@@ -741,9 +777,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node that can contain other render nodes.
-         */
         interface ContainerNode extends RenderNode {
             readonly $signals: ContainerNode.SignalSignatures
             readonly $readableProperties: ContainerNode.ReadableProperties
@@ -765,6 +798,7 @@ declare module "gi://Gsk?version=4.0" {
         interface ContainerNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<ContainerNode>
             readonly prototype: ContainerNode
+
             new (props?: Partial<GObject.ConstructorProps<ContainerNode>>): ContainerNode
             /**
              * Creates a new `GskRenderNode` instance for holding the given @children.
@@ -776,7 +810,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(children: RenderNode[]): ContainerNode
         }
 
-        const ContainerNode: ContainerNodeClass
+        interface $Exports {
+            /**
+             * A render node that can contain other render nodes.
+             */
+            ContainerNode: ContainerNodeClass
+        }
         
 
         namespace CopyNode {
@@ -793,11 +832,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node that copies the current state of the rendering canvas
-         * so a [class@Gsk.PasteNode] can draw it.
-         * @since 4.22
-         */
         interface CopyNode extends RenderNode {
             readonly $signals: CopyNode.SignalSignatures
             readonly $readableProperties: CopyNode.ReadableProperties
@@ -814,6 +848,7 @@ declare module "gi://Gsk?version=4.0" {
         interface CopyNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<CopyNode>
             readonly prototype: CopyNode
+
             new (props?: Partial<GObject.ConstructorProps<CopyNode>>): CopyNode
             /**
              * Creates a `GskRenderNode` that copies the current rendering
@@ -825,7 +860,14 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode): CopyNode
         }
 
-        const CopyNode: CopyNodeClass
+        interface $Exports {
+            /**
+             * A render node that copies the current state of the rendering canvas
+             * so a [class@Gsk.PasteNode] can draw it.
+             * @since 4.22
+             */
+            CopyNode: CopyNodeClass
+        }
         
 
         namespace CrossFadeNode {
@@ -842,9 +884,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node cross fading between two child nodes.
-         */
         interface CrossFadeNode extends RenderNode {
             readonly $signals: CrossFadeNode.SignalSignatures
             readonly $readableProperties: CrossFadeNode.ReadableProperties
@@ -870,6 +909,7 @@ declare module "gi://Gsk?version=4.0" {
         interface CrossFadeNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<CrossFadeNode>
             readonly prototype: CrossFadeNode
+
             new (props?: Partial<GObject.ConstructorProps<CrossFadeNode>>): CrossFadeNode
             /**
              * Creates a `GskRenderNode` that will do a cross-fade between @start and @end.
@@ -882,7 +922,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(start: RenderNode, end: RenderNode, progress: number): CrossFadeNode
         }
 
-        const CrossFadeNode: CrossFadeNodeClass
+        interface $Exports {
+            /**
+             * A render node cross fading between two child nodes.
+             */
+            CrossFadeNode: CrossFadeNodeClass
+        }
         
 
         namespace DebugNode {
@@ -899,10 +944,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node that emits a debugging message when drawing its
-         * child node.
-         */
         interface DebugNode extends RenderNode {
             readonly $signals: DebugNode.SignalSignatures
             readonly $readableProperties: DebugNode.ReadableProperties
@@ -923,6 +964,7 @@ declare module "gi://Gsk?version=4.0" {
         interface DebugNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<DebugNode>
             readonly prototype: DebugNode
+
             new (props?: Partial<GObject.ConstructorProps<DebugNode>>): DebugNode
             /**
              * Creates a `GskRenderNode` that will add debug information about
@@ -936,7 +978,13 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, message: string): DebugNode
         }
 
-        const DebugNode: DebugNodeClass
+        interface $Exports {
+            /**
+             * A render node that emits a debugging message when drawing its
+             * child node.
+             */
+            DebugNode: DebugNodeClass
+        }
         
 
         namespace FillNode {
@@ -953,11 +1001,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node filling the area given by [struct@Gsk.Path]
-         * and [enum@Gsk.FillRule] with the child node.
-         * @since 4.14
-         */
         interface FillNode extends RenderNode {
             readonly $signals: FillNode.SignalSignatures
             readonly $readableProperties: FillNode.ReadableProperties
@@ -987,6 +1030,7 @@ declare module "gi://Gsk?version=4.0" {
         interface FillNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<FillNode>
             readonly prototype: FillNode
+
             new (props?: Partial<GObject.ConstructorProps<FillNode>>): FillNode
             /**
              * Creates a `GskRenderNode` that will fill the @child in the area
@@ -1000,7 +1044,14 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, path: Path, fill_rule: FillRule): FillNode
         }
 
-        const FillNode: FillNodeClass
+        interface $Exports {
+            /**
+             * A render node filling the area given by [struct@Gsk.Path]
+             * and [enum@Gsk.FillRule] with the child node.
+             * @since 4.14
+             */
+            FillNode: FillNodeClass
+        }
         
 
         namespace GLRenderer {
@@ -1017,12 +1068,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * Renders a GSK rendernode tree with OpenGL.
-         *
-         * See [class@Gsk.Renderer].
-         * @since 4.2
-         */
         interface GLRenderer extends Renderer {
             readonly $signals: GLRenderer.SignalSignatures
             readonly $readableProperties: GLRenderer.ReadableProperties
@@ -1033,15 +1078,24 @@ declare module "gi://Gsk?version=4.0" {
         interface GLRendererClass extends Omit<RendererClass, "new"> {
             readonly $gtype: GObject.GType<GLRenderer>
             readonly prototype: GLRenderer
+
             new (props?: Partial<GObject.ConstructorProps<GLRenderer>>): GLRenderer
             /**
              * Creates an instance of the GL renderer.
              * @returns a GL renderer
              */
-            "new"(): Renderer
+            "new"(): GLRenderer
         }
 
-        const GLRenderer: GLRendererClass
+        interface $Exports {
+            /**
+             * Renders a GSK rendernode tree with OpenGL.
+             *
+             * See [class@Gsk.Renderer].
+             * @since 4.2
+             */
+            GLRenderer: GLRendererClass
+        }
         
 
         namespace GLShader {
@@ -1054,129 +1108,14 @@ declare module "gi://Gsk?version=4.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "resource": string | null
-                "source": GLib.Bytes
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "resource": string | null
+                "source": GLib.Bytes
             }
         }
 
-        /**
-         * Implements a fragment shader using GLSL.
-         *
-         * A fragment shader gets the coordinates being rendered as input and
-         * produces the pixel values for that particular pixel. Additionally,
-         * the shader can declare a set of other input arguments, called
-         * uniforms (as they are uniform over all the calls to your shader in
-         * each instance of use). A shader can also receive up to 4
-         * textures that it can use as input when producing the pixel data.
-         *
-         * `GskGLShader` is usually used with gtk_snapshot_push_gl_shader()
-         * to produce a [class@Gsk.GLShaderNode] in the rendering hierarchy,
-         * and then its input textures are constructed by rendering the child
-         * nodes to textures before rendering the shader node itself. (You can
-         * pass texture nodes as children if you want to directly use a texture
-         * as input).
-         *
-         * The actual shader code is GLSL code that gets combined with
-         * some other code into the fragment shader. Since the exact
-         * capabilities of the GPU driver differs between different OpenGL
-         * drivers and hardware, GTK adds some defines that you can use
-         * to ensure your GLSL code runs on as many drivers as it can.
-         *
-         * If the OpenGL driver is GLES, then the shader language version
-         * is set to 100, and GSK_GLES will be defined in the shader.
-         *
-         * Otherwise, if the OpenGL driver does not support the 3.2 core profile,
-         * then the shader will run with language version 110 for GL2 and 130 for GL3,
-         * and GSK_LEGACY will be defined in the shader.
-         *
-         * If the OpenGL driver supports the 3.2 code profile, it will be used,
-         * the shader language version is set to 150, and GSK_GL3 will be defined
-         * in the shader.
-         *
-         * The main function the shader must implement is:
-         *
-         * ```glsl
-         *  void mainImage(out vec4 fragColor,
-         *                 in vec2 fragCoord,
-         *                 in vec2 resolution,
-         *                 in vec2 uv)
-         * ```
-         *
-         * Where the input @fragCoord is the coordinate of the pixel we're
-         * currently rendering, relative to the boundary rectangle that was
-         * specified in the `GskGLShaderNode`, and @resolution is the width and
-         * height of that rectangle. This is in the typical GTK coordinate
-         * system with the origin in the top left. @uv contains the u and v
-         * coordinates that can be used to index a texture at the
-         * corresponding point. These coordinates are in the [0..1]x[0..1]
-         * region, with 0, 0 being in the lower left corder (which is typical
-         * for OpenGL).
-         *
-         * The output @fragColor should be a RGBA color (with
-         * premultiplied alpha) that will be used as the output for the
-         * specified pixel location. Note that this output will be
-         * automatically clipped to the clip region of the glshader node.
-         *
-         * In addition to the function arguments the shader can define
-         * up to 4 uniforms for textures which must be called u_textureN
-         * (i.e. u_texture1 to u_texture4) as well as any custom uniforms
-         * you want of types int, uint, bool, float, vec2, vec3 or vec4.
-         *
-         * All textures sources contain premultiplied alpha colors, but if some
-         * there are outer sources of colors there is a gsk_premultiply() helper
-         * to compute premultiplication when needed.
-         *
-         * Note that GTK parses the uniform declarations, so each uniform has to
-         * be on a line by itself with no other code, like so:
-         *
-         * ```glsl
-         * uniform float u_time;
-         * uniform vec3 u_color;
-         * uniform sampler2D u_texture1;
-         * uniform sampler2D u_texture2;
-         * ```
-         *
-         * GTK uses the "gsk" namespace in the symbols it uses in the
-         * shader, so your code should not use any symbols with the prefix gsk
-         * or GSK. There are some helper functions declared that you can use:
-         *
-         * ```glsl
-         * vec4 GskTexture(sampler2D sampler, vec2 texCoords);
-         * ```
-         *
-         * This samples a texture (e.g. u_texture1) at the specified
-         * coordinates, and contains some helper ifdefs to ensure that
-         * it works on all OpenGL versions.
-         *
-         * You can compile the shader yourself using [method@Gsk.GLShader.compile],
-         * otherwise the GSK renderer will do it when it handling the glshader
-         * node. If errors occurs, the returned @error will include the glsl
-         * sources, so you can see what GSK was passing to the compiler. You
-         * can also set GSK_DEBUG=shaders in the environment to see the sources
-         * and other relevant information about all shaders that GSK is handling.
-         *
-         * # An example shader
-         *
-         * ```glsl
-         * uniform float position;
-         * uniform sampler2D u_texture1;
-         * uniform sampler2D u_texture2;
-         *
-         * void mainImage(out vec4 fragColor,
-         *                in vec2 fragCoord,
-         *                in vec2 resolution,
-         *                in vec2 uv) {
-         *   vec4 source1 = GskTexture(u_texture1, uv);
-         *   vec4 source2 = GskTexture(u_texture2, uv);
-         *
-         *   fragColor = position * source1 + (1.0 - position) * source2;
-         * }
-         * ```
-         * @deprecated since 4.16 This feature was deprecated in GTK 4.16 after the new rendering infrastructure introduced in 4.14 did not support it. The lack of Vulkan integration would have made it a very hard feature to support. If you want to use OpenGL directly, you should look at [GtkGLArea](../gtk4/class.GLArea.html), which uses a different approach and is still well-supported.
-         */
         interface GLShader extends GObject.Object {
             readonly $signals: GLShader.SignalSignatures
             readonly $readableProperties: GLShader.ReadableProperties
@@ -1232,7 +1171,7 @@ declare module "gi://Gsk?version=4.0" {
              * @param idx index of the uniform
              * @returns The value
              */
-            get_arg_bool(args: GLib.Bytes, idx: number): boolean
+            get_arg_bool(args: (GLib.Bytes | Uint8Array), idx: number): boolean
             /**
              * Gets the value of the uniform @idx in the @args block.
              *
@@ -1242,7 +1181,7 @@ declare module "gi://Gsk?version=4.0" {
              * @param idx index of the uniform
              * @returns The value
              */
-            get_arg_float(args: GLib.Bytes, idx: number): number
+            get_arg_float(args: (GLib.Bytes | Uint8Array), idx: number): number
             /**
              * Gets the value of the uniform @idx in the @args block.
              *
@@ -1252,7 +1191,7 @@ declare module "gi://Gsk?version=4.0" {
              * @param idx index of the uniform
              * @returns The value
              */
-            get_arg_int(args: GLib.Bytes, idx: number): number
+            get_arg_int(args: (GLib.Bytes | Uint8Array), idx: number): number
             /**
              * Gets the value of the uniform @idx in the @args block.
              *
@@ -1262,7 +1201,7 @@ declare module "gi://Gsk?version=4.0" {
              * @param idx index of the uniform
              * @returns The value
              */
-            get_arg_uint(args: GLib.Bytes, idx: number): number
+            get_arg_uint(args: (GLib.Bytes | Uint8Array), idx: number): number
             /**
              * Gets the value of the uniform @idx in the @args block.
              *
@@ -1272,7 +1211,7 @@ declare module "gi://Gsk?version=4.0" {
              * @param idx index of the uniform
              * @param out_value location to store the uniform value in
              */
-            get_arg_vec2(args: GLib.Bytes, idx: number, out_value: Graphene.Vec2): void
+            get_arg_vec2(args: (GLib.Bytes | Uint8Array), idx: number, out_value: Graphene.Vec2): void
             /**
              * Gets the value of the uniform @idx in the @args block.
              *
@@ -1282,7 +1221,7 @@ declare module "gi://Gsk?version=4.0" {
              * @param idx index of the uniform
              * @param out_value location to store the uniform value in
              */
-            get_arg_vec3(args: GLib.Bytes, idx: number, out_value: Graphene.Vec3): void
+            get_arg_vec3(args: (GLib.Bytes | Uint8Array), idx: number, out_value: Graphene.Vec3): void
             /**
              * Gets the value of the uniform @idx in the @args block.
              *
@@ -1292,7 +1231,7 @@ declare module "gi://Gsk?version=4.0" {
              * @param idx index of the uniform
              * @param out_value location to store set the uniform value in
              */
-            get_arg_vec4(args: GLib.Bytes, idx: number, out_value: Graphene.Vec4): void
+            get_arg_vec4(args: (GLib.Bytes | Uint8Array), idx: number, out_value: Graphene.Vec4): void
             /**
              * Get the size of the data block used to specify arguments for this shader.
              * @deprecated since 4.16 GTK's new Vulkan-focused rendering   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)   for OpenGL rendering.
@@ -1354,6 +1293,7 @@ declare module "gi://Gsk?version=4.0" {
         interface GLShaderClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLShader>
             readonly prototype: GLShader
+
             new (props?: Partial<GObject.ConstructorProps<GLShader>>): GLShader
             /**
              * Creates a `GskGLShader` that will render pixels using the specified code.
@@ -1361,7 +1301,7 @@ declare module "gi://Gsk?version=4.0" {
              * @param sourcecode GLSL sourcecode for the shader, as a `GBytes`
              * @returns A new `GskGLShader`
              */
-            new_from_bytes(sourcecode: GLib.Bytes): GLShader
+            new_from_bytes(sourcecode: (GLib.Bytes | Uint8Array)): GLShader
             /**
              * Creates a `GskGLShader` that will render pixels using the specified code.
              * @deprecated since 4.16 GTK's new Vulkan-focused rendering   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)   for OpenGL rendering.
@@ -1372,7 +1312,124 @@ declare module "gi://Gsk?version=4.0" {
             new_from_resource(resource_path: string): GLShader
         }
 
-        const GLShader: GLShaderClass
+        interface $Exports {
+            /**
+             * Implements a fragment shader using GLSL.
+             *
+             * A fragment shader gets the coordinates being rendered as input and
+             * produces the pixel values for that particular pixel. Additionally,
+             * the shader can declare a set of other input arguments, called
+             * uniforms (as they are uniform over all the calls to your shader in
+             * each instance of use). A shader can also receive up to 4
+             * textures that it can use as input when producing the pixel data.
+             *
+             * `GskGLShader` is usually used with gtk_snapshot_push_gl_shader()
+             * to produce a [class@Gsk.GLShaderNode] in the rendering hierarchy,
+             * and then its input textures are constructed by rendering the child
+             * nodes to textures before rendering the shader node itself. (You can
+             * pass texture nodes as children if you want to directly use a texture
+             * as input).
+             *
+             * The actual shader code is GLSL code that gets combined with
+             * some other code into the fragment shader. Since the exact
+             * capabilities of the GPU driver differs between different OpenGL
+             * drivers and hardware, GTK adds some defines that you can use
+             * to ensure your GLSL code runs on as many drivers as it can.
+             *
+             * If the OpenGL driver is GLES, then the shader language version
+             * is set to 100, and GSK_GLES will be defined in the shader.
+             *
+             * Otherwise, if the OpenGL driver does not support the 3.2 core profile,
+             * then the shader will run with language version 110 for GL2 and 130 for GL3,
+             * and GSK_LEGACY will be defined in the shader.
+             *
+             * If the OpenGL driver supports the 3.2 code profile, it will be used,
+             * the shader language version is set to 150, and GSK_GL3 will be defined
+             * in the shader.
+             *
+             * The main function the shader must implement is:
+             *
+             * ```glsl
+             *  void mainImage(out vec4 fragColor,
+             *                 in vec2 fragCoord,
+             *                 in vec2 resolution,
+             *                 in vec2 uv)
+             * ```
+             *
+             * Where the input @fragCoord is the coordinate of the pixel we're
+             * currently rendering, relative to the boundary rectangle that was
+             * specified in the `GskGLShaderNode`, and @resolution is the width and
+             * height of that rectangle. This is in the typical GTK coordinate
+             * system with the origin in the top left. @uv contains the u and v
+             * coordinates that can be used to index a texture at the
+             * corresponding point. These coordinates are in the [0..1]x[0..1]
+             * region, with 0, 0 being in the lower left corder (which is typical
+             * for OpenGL).
+             *
+             * The output @fragColor should be a RGBA color (with
+             * premultiplied alpha) that will be used as the output for the
+             * specified pixel location. Note that this output will be
+             * automatically clipped to the clip region of the glshader node.
+             *
+             * In addition to the function arguments the shader can define
+             * up to 4 uniforms for textures which must be called u_textureN
+             * (i.e. u_texture1 to u_texture4) as well as any custom uniforms
+             * you want of types int, uint, bool, float, vec2, vec3 or vec4.
+             *
+             * All textures sources contain premultiplied alpha colors, but if some
+             * there are outer sources of colors there is a gsk_premultiply() helper
+             * to compute premultiplication when needed.
+             *
+             * Note that GTK parses the uniform declarations, so each uniform has to
+             * be on a line by itself with no other code, like so:
+             *
+             * ```glsl
+             * uniform float u_time;
+             * uniform vec3 u_color;
+             * uniform sampler2D u_texture1;
+             * uniform sampler2D u_texture2;
+             * ```
+             *
+             * GTK uses the "gsk" namespace in the symbols it uses in the
+             * shader, so your code should not use any symbols with the prefix gsk
+             * or GSK. There are some helper functions declared that you can use:
+             *
+             * ```glsl
+             * vec4 GskTexture(sampler2D sampler, vec2 texCoords);
+             * ```
+             *
+             * This samples a texture (e.g. u_texture1) at the specified
+             * coordinates, and contains some helper ifdefs to ensure that
+             * it works on all OpenGL versions.
+             *
+             * You can compile the shader yourself using [method@Gsk.GLShader.compile],
+             * otherwise the GSK renderer will do it when it handling the glshader
+             * node. If errors occurs, the returned @error will include the glsl
+             * sources, so you can see what GSK was passing to the compiler. You
+             * can also set GSK_DEBUG=shaders in the environment to see the sources
+             * and other relevant information about all shaders that GSK is handling.
+             *
+             * # An example shader
+             *
+             * ```glsl
+             * uniform float position;
+             * uniform sampler2D u_texture1;
+             * uniform sampler2D u_texture2;
+             *
+             * void mainImage(out vec4 fragColor,
+             *                in vec2 fragCoord,
+             *                in vec2 resolution,
+             *                in vec2 uv) {
+             *   vec4 source1 = GskTexture(u_texture1, uv);
+             *   vec4 source2 = GskTexture(u_texture2, uv);
+             *
+             *   fragColor = position * source1 + (1.0 - position) * source2;
+             * }
+             * ```
+             * @deprecated since 4.16 This feature was deprecated in GTK 4.16 after the new rendering infrastructure introduced in 4.14 did not support it. The lack of Vulkan integration would have made it a very hard feature to support. If you want to use OpenGL directly, you should look at [GtkGLArea](../gtk4/class.GLArea.html), which uses a different approach and is still well-supported.
+             */
+            GLShader: GLShaderClass
+        }
         
 
         namespace GLShaderNode {
@@ -1389,9 +1446,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node using a GL shader when drawing its children nodes.
-         */
         interface GLShaderNode extends RenderNode {
             readonly $signals: GLShaderNode.SignalSignatures
             readonly $readableProperties: GLShaderNode.ReadableProperties
@@ -1426,6 +1480,7 @@ declare module "gi://Gsk?version=4.0" {
         interface GLShaderNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<GLShaderNode>
             readonly prototype: GLShaderNode
+
             new (props?: Partial<GObject.ConstructorProps<GLShaderNode>>): GLShaderNode
             /**
              * Creates a `GskRenderNode` that will render the given @shader into the
@@ -1453,10 +1508,15 @@ declare module "gi://Gsk?version=4.0" {
               these will be rendered to textures and used as input.
              * @returns A new `GskRenderNode`
              */
-            "new"(shader: GLShader, bounds: Graphene.Rect, args: GLib.Bytes, children: RenderNode[] | null): GLShaderNode
+            "new"(shader: GLShader, bounds: Graphene.Rect, args: (GLib.Bytes | Uint8Array), children: RenderNode[] | null): GLShaderNode
         }
 
-        const GLShaderNode: GLShaderNodeClass
+        interface $Exports {
+            /**
+             * A render node using a GL shader when drawing its children nodes.
+             */
+            GLShaderNode: GLShaderNodeClass
+        }
         
 
         namespace InsetShadowNode {
@@ -1473,9 +1533,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for an inset shadow.
-         */
         interface InsetShadowNode extends RenderNode {
             readonly $signals: InsetShadowNode.SignalSignatures
             readonly $readableProperties: InsetShadowNode.ReadableProperties
@@ -1519,6 +1576,7 @@ declare module "gi://Gsk?version=4.0" {
         interface InsetShadowNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<InsetShadowNode>
             readonly prototype: InsetShadowNode
+
             new (props?: Partial<GObject.ConstructorProps<InsetShadowNode>>): InsetShadowNode
             /**
              * Creates a `GskRenderNode` that will render an inset shadow
@@ -1534,7 +1592,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(outline: RoundedRect, color: Gdk.RGBA, dx: number, dy: number, spread: number, blur_radius: number): InsetShadowNode
         }
 
-        const InsetShadowNode: InsetShadowNodeClass
+        interface $Exports {
+            /**
+             * A render node for an inset shadow.
+             */
+            InsetShadowNode: InsetShadowNodeClass
+        }
         
 
         namespace IsolationNode {
@@ -1551,10 +1614,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node that isolates its child from surrounding rendernodes.
-         * @since 4.22
-         */
         interface IsolationNode extends RenderNode {
             readonly $signals: IsolationNode.SignalSignatures
             readonly $readableProperties: IsolationNode.ReadableProperties
@@ -1577,9 +1636,15 @@ declare module "gi://Gsk?version=4.0" {
         interface IsolationNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<IsolationNode>
             readonly prototype: IsolationNode
+
             new (props?: Partial<GObject.ConstructorProps<IsolationNode>>): IsolationNode
             /**
-             *  ~(GSK_ISOLATION_BACKGROUND | GSK_ISOLATION_COPY_PASTE)`
+             * Creates a `GskRenderNode` that isolates the drawing operations of
+             * the child from surrounding ones.
+             *
+             * You can express "everything but these flags" in a forward compatible
+             * way by using bit math:
+             * `GSK_ISOLATION_ALL & ~(GSK_ISOLATION_BACKGROUND | GSK_ISOLATION_COPY_PASTE)`
              * will isolate everything but background and copy/paste.
              *
              * For the available isolations, see [flags@Gsk.Isolation].
@@ -1591,7 +1656,13 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, isolations: Isolation): IsolationNode
         }
 
-        const IsolationNode: IsolationNodeClass
+        interface $Exports {
+            /**
+             * A render node that isolates its child from surrounding rendernodes.
+             * @since 4.22
+             */
+            IsolationNode: IsolationNodeClass
+        }
         
 
         namespace LinearGradientNode {
@@ -1608,9 +1679,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for a linear gradient.
-         */
         interface LinearGradientNode extends RenderNode {
             readonly $signals: LinearGradientNode.SignalSignatures
             readonly $readableProperties: LinearGradientNode.ReadableProperties
@@ -1641,6 +1709,7 @@ declare module "gi://Gsk?version=4.0" {
         interface LinearGradientNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<LinearGradientNode>
             readonly prototype: LinearGradientNode
+
             new (props?: Partial<GObject.ConstructorProps<LinearGradientNode>>): LinearGradientNode
             /**
              * Creates a `GskRenderNode` that will create a linear gradient from the given
@@ -1648,13 +1717,21 @@ declare module "gi://Gsk?version=4.0" {
              * @param bounds the rectangle to render the linear gradient into
              * @param start the point at which the linear gradient will begin
              * @param end the point at which the linear gradient will finish
-             * @param color_stops = 1.
+             * @param color_stops a pointer to an array of
+              `GskColorStop` defining the gradient. The offsets of all color stops
+              must be increasing. The first stop's offset must be >= 0 and the last
+              stop's offset must be <= 1.
              * @returns A new `GskRenderNode`
              */
             "new"(bounds: Graphene.Rect, start: Graphene.Point, end: Graphene.Point, color_stops: ColorStop[]): LinearGradientNode
         }
 
-        const LinearGradientNode: LinearGradientNodeClass
+        interface $Exports {
+            /**
+             * A render node for a linear gradient.
+             */
+            LinearGradientNode: LinearGradientNodeClass
+        }
         
 
         namespace MaskNode {
@@ -1671,10 +1748,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node masking one child node with another.
-         * @since 4.10
-         */
         interface MaskNode extends RenderNode {
             readonly $signals: MaskNode.SignalSignatures
             readonly $readableProperties: MaskNode.ReadableProperties
@@ -1703,6 +1776,7 @@ declare module "gi://Gsk?version=4.0" {
         interface MaskNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<MaskNode>
             readonly prototype: MaskNode
+
             new (props?: Partial<GObject.ConstructorProps<MaskNode>>): MaskNode
             /**
              * Creates a `GskRenderNode` that will mask a given node by another.
@@ -1719,7 +1793,13 @@ declare module "gi://Gsk?version=4.0" {
             "new"(source: RenderNode, mask: RenderNode, mask_mode: MaskMode): MaskNode
         }
 
-        const MaskNode: MaskNodeClass
+        interface $Exports {
+            /**
+             * A render node masking one child node with another.
+             * @since 4.10
+             */
+            MaskNode: MaskNodeClass
+        }
         
 
         namespace NglRenderer {
@@ -1736,11 +1816,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A GL based renderer.
-         *
-         * See [class@Gsk.Renderer].
-         */
         interface NglRenderer extends Renderer {
             readonly $signals: NglRenderer.SignalSignatures
             readonly $readableProperties: NglRenderer.ReadableProperties
@@ -1751,16 +1826,24 @@ declare module "gi://Gsk?version=4.0" {
         interface NglRendererClass extends Omit<RendererClass, "new"> {
             readonly $gtype: GObject.GType<NglRenderer>
             readonly prototype: NglRenderer
+
             new (props?: Partial<GObject.ConstructorProps<NglRenderer>>): NglRenderer
             /**
              * Same as gsk_gl_renderer_new().
              * @deprecated since 4.18 Use gsk_gl_renderer_new()
              * @returns a GL renderer
              */
-            "new"(): Renderer
+            "new"(): NglRenderer
         }
 
-        const NglRenderer: NglRendererClass
+        interface $Exports {
+            /**
+             * A GL based renderer.
+             *
+             * See [class@Gsk.Renderer].
+             */
+            NglRenderer: NglRendererClass
+        }
         
 
         namespace OpacityNode {
@@ -1777,9 +1860,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node controlling the opacity of its single child node.
-         */
         interface OpacityNode extends RenderNode {
             readonly $signals: OpacityNode.SignalSignatures
             readonly $readableProperties: OpacityNode.ReadableProperties
@@ -1800,6 +1880,7 @@ declare module "gi://Gsk?version=4.0" {
         interface OpacityNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<OpacityNode>
             readonly prototype: OpacityNode
+
             new (props?: Partial<GObject.ConstructorProps<OpacityNode>>): OpacityNode
             /**
              * Creates a `GskRenderNode` that will drawn the @child with reduced
@@ -1811,7 +1892,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, opacity: number): OpacityNode
         }
 
-        const OpacityNode: OpacityNodeClass
+        interface $Exports {
+            /**
+             * A render node controlling the opacity of its single child node.
+             */
+            OpacityNode: OpacityNodeClass
+        }
         
 
         namespace OutsetShadowNode {
@@ -1828,9 +1914,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for an outset shadow.
-         */
         interface OutsetShadowNode extends RenderNode {
             readonly $signals: OutsetShadowNode.SignalSignatures
             readonly $readableProperties: OutsetShadowNode.ReadableProperties
@@ -1874,6 +1957,7 @@ declare module "gi://Gsk?version=4.0" {
         interface OutsetShadowNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<OutsetShadowNode>
             readonly prototype: OutsetShadowNode
+
             new (props?: Partial<GObject.ConstructorProps<OutsetShadowNode>>): OutsetShadowNode
             /**
              * Creates a `GskRenderNode` that will render an outset shadow
@@ -1889,7 +1973,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(outline: RoundedRect, color: Gdk.RGBA, dx: number, dy: number, spread: number, blur_radius: number): OutsetShadowNode
         }
 
-        const OutsetShadowNode: OutsetShadowNodeClass
+        interface $Exports {
+            /**
+             * A render node for an outset shadow.
+             */
+            OutsetShadowNode: OutsetShadowNodeClass
+        }
         
 
         namespace PasteNode {
@@ -1906,10 +1995,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for a paste.
-         * @since 4.22
-         */
         interface PasteNode extends RenderNode {
             readonly $signals: PasteNode.SignalSignatures
             readonly $readableProperties: PasteNode.ReadableProperties
@@ -1926,6 +2011,7 @@ declare module "gi://Gsk?version=4.0" {
         interface PasteNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<PasteNode>
             readonly prototype: PasteNode
+
             new (props?: Partial<GObject.ConstructorProps<PasteNode>>): PasteNode
             /**
              * Creates a `GskRenderNode` that will paste copied contents.
@@ -1937,7 +2023,13 @@ declare module "gi://Gsk?version=4.0" {
             "new"(bounds: Graphene.Rect, depth: number): PasteNode
         }
 
-        const PasteNode: PasteNodeClass
+        interface $Exports {
+            /**
+             * A render node for a paste.
+             * @since 4.22
+             */
+            PasteNode: PasteNodeClass
+        }
         
 
         namespace RadialGradientNode {
@@ -1954,9 +2046,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for a radial gradient.
-         */
         interface RadialGradientNode extends RenderNode {
             readonly $signals: RadialGradientNode.SignalSignatures
             readonly $readableProperties: RadialGradientNode.ReadableProperties
@@ -2002,6 +2091,7 @@ declare module "gi://Gsk?version=4.0" {
         interface RadialGradientNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<RadialGradientNode>
             readonly prototype: RadialGradientNode
+
             new (props?: Partial<GObject.ConstructorProps<RadialGradientNode>>): RadialGradientNode
             /**
              * Creates a `GskRenderNode` that draws a radial gradient.
@@ -2013,15 +2103,23 @@ declare module "gi://Gsk?version=4.0" {
              * @param center the center of the gradient
              * @param hradius the horizontal radius
              * @param vradius the vertical radius
-             * @param start = 0 that defines the start of the gradient around @center
-             * @param end = 0 that defines the end of the gradient around @center
-             * @param color_stops = 1.
+             * @param start a percentage >= 0 that defines the start of the gradient around @center
+             * @param end a percentage >= 0 that defines the end of the gradient around @center
+             * @param color_stops a pointer to an array of
+              `GskColorStop` defining the gradient. The offsets of all color stops
+              must be increasing. The first stop's offset must be >= 0 and the last
+              stop's offset must be <= 1.
              * @returns A new `GskRenderNode`
              */
             "new"(bounds: Graphene.Rect, center: Graphene.Point, hradius: number, vradius: number, start: number, end: number, color_stops: ColorStop[]): RadialGradientNode
         }
 
-        const RadialGradientNode: RadialGradientNodeClass
+        interface $Exports {
+            /**
+             * A render node for a radial gradient.
+             */
+            RadialGradientNode: RadialGradientNodeClass
+        }
         
 
         namespace RenderNode {
@@ -2038,20 +2136,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * The basic block in a scene graph to be rendered using [class@Gsk.Renderer].
-         *
-         * Each node has a parent, except the top-level node; each node may have
-         * children nodes.
-         *
-         * Each node has an associated drawing surface, which has the size of
-         * the rectangle set when creating it.
-         *
-         * Render nodes are meant to be transient; once they have been associated
-         * to a [class@Gsk.Renderer] it's safe to release any reference you have on
-         * them. All [class@Gsk.RenderNode]s are immutable, you can only specify their
-         * properties during construction.
-         */
         interface RenderNode  {
             readonly $signals: RenderNode.SignalSignatures
             readonly $readableProperties: RenderNode.ReadableProperties
@@ -2147,6 +2231,7 @@ declare module "gi://Gsk?version=4.0" {
         interface RenderNodeClass {
             readonly $gtype: GObject.GType<RenderNode>
             readonly prototype: RenderNode
+
             new (props?: Partial<GObject.ConstructorProps<RenderNode>>): RenderNode
             /**
              * Loads data previously created via [method@Gsk.RenderNode.serialize].
@@ -2156,10 +2241,26 @@ declare module "gi://Gsk?version=4.0" {
              * @param error_func callback on parsing errors
              * @returns a new render node
              */
-            deserialize(bytes: GLib.Bytes, error_func: ParseErrorFunc | null): RenderNode | null
+            deserialize(bytes: (GLib.Bytes | Uint8Array), error_func: ParseErrorFunc | null): RenderNode | null
         }
 
-        const RenderNode: RenderNodeClass
+        interface $Exports {
+            /**
+             * The basic block in a scene graph to be rendered using [class@Gsk.Renderer].
+             *
+             * Each node has a parent, except the top-level node; each node may have
+             * children nodes.
+             *
+             * Each node has an associated drawing surface, which has the size of
+             * the rectangle set when creating it.
+             *
+             * Render nodes are meant to be transient; once they have been associated
+             * to a [class@Gsk.Renderer] it's safe to release any reference you have on
+             * them. All [class@Gsk.RenderNode]s are immutable, you can only specify their
+             * properties during construction.
+             */
+            RenderNode: RenderNodeClass
+        }
         
 
         namespace Renderer {
@@ -2180,18 +2281,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * Renders a scene graph defined via a tree of [class@Gsk.RenderNode] instances.
-         *
-         * Typically you will use a `GskRenderer` instance to repeatedly call
-         * [method@Gsk.Renderer.render] to update the contents of its associated
-         * [class@Gdk.Surface].
-         *
-         * It is necessary to realize a `GskRenderer` instance using
-         * [method@Gsk.Renderer.realize] before calling [method@Gsk.Renderer.render],
-         * in order to create the appropriate windowing system resources needed
-         * to render the scene.
-         */
         interface Renderer extends GObject.Object {
             readonly $signals: Renderer.SignalSignatures
             readonly $readableProperties: Renderer.ReadableProperties
@@ -2287,6 +2376,7 @@ declare module "gi://Gsk?version=4.0" {
         interface RendererClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Renderer>
             readonly prototype: Renderer
+
             new (props?: Partial<GObject.ConstructorProps<Renderer>>): Renderer
             /**
              * Creates an appropriate `GskRenderer` instance for the given surface.
@@ -2302,7 +2392,21 @@ declare module "gi://Gsk?version=4.0" {
             new_for_surface(surface: Gdk.Surface): Renderer | null
         }
 
-        const Renderer: RendererClass
+        interface $Exports {
+            /**
+             * Renders a scene graph defined via a tree of [class@Gsk.RenderNode] instances.
+             *
+             * Typically you will use a `GskRenderer` instance to repeatedly call
+             * [method@Gsk.Renderer.render] to update the contents of its associated
+             * [class@Gdk.Surface].
+             *
+             * It is necessary to realize a `GskRenderer` instance using
+             * [method@Gsk.Renderer.realize] before calling [method@Gsk.Renderer.render],
+             * in order to create the appropriate windowing system resources needed
+             * to render the scene.
+             */
+            Renderer: RendererClass
+        }
         
 
         namespace RepeatNode {
@@ -2319,9 +2423,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node repeating its single child node.
-         */
         interface RepeatNode extends RenderNode {
             readonly $signals: RepeatNode.SignalSignatures
             readonly $readableProperties: RepeatNode.ReadableProperties
@@ -2342,6 +2443,7 @@ declare module "gi://Gsk?version=4.0" {
         interface RepeatNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<RepeatNode>
             readonly prototype: RepeatNode
+
             new (props?: Partial<GObject.ConstructorProps<RepeatNode>>): RepeatNode
             /**
              * Creates a `GskRenderNode` that will repeat the drawing of @child across
@@ -2355,7 +2457,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(bounds: Graphene.Rect, child: RenderNode, child_bounds: Graphene.Rect | null): RepeatNode
         }
 
-        const RepeatNode: RepeatNodeClass
+        interface $Exports {
+            /**
+             * A render node repeating its single child node.
+             */
+            RepeatNode: RepeatNodeClass
+        }
         
 
         namespace RepeatingLinearGradientNode {
@@ -2372,9 +2479,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for a repeating linear gradient.
-         */
         interface RepeatingLinearGradientNode extends RenderNode {
             readonly $signals: RepeatingLinearGradientNode.SignalSignatures
             readonly $readableProperties: RepeatingLinearGradientNode.ReadableProperties
@@ -2385,6 +2489,7 @@ declare module "gi://Gsk?version=4.0" {
         interface RepeatingLinearGradientNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<RepeatingLinearGradientNode>
             readonly prototype: RepeatingLinearGradientNode
+
             new (props?: Partial<GObject.ConstructorProps<RepeatingLinearGradientNode>>): RepeatingLinearGradientNode
             /**
              * Creates a `GskRenderNode` that will create a repeating linear gradient
@@ -2393,13 +2498,21 @@ declare module "gi://Gsk?version=4.0" {
              * @param bounds the rectangle to render the linear gradient into
              * @param start the point at which the linear gradient will begin
              * @param end the point at which the linear gradient will finish
-             * @param color_stops = 1.
+             * @param color_stops a pointer to an array of
+            `GskColorStop` defining the gradient. The offsets of all color stops
+              must be increasing. The first stop's offset must be >= 0 and the last
+              stop's offset must be <= 1.
              * @returns A new `GskRenderNode`
              */
             "new"(bounds: Graphene.Rect, start: Graphene.Point, end: Graphene.Point, color_stops: ColorStop[]): RepeatingLinearGradientNode
         }
 
-        const RepeatingLinearGradientNode: RepeatingLinearGradientNodeClass
+        interface $Exports {
+            /**
+             * A render node for a repeating linear gradient.
+             */
+            RepeatingLinearGradientNode: RepeatingLinearGradientNodeClass
+        }
         
 
         namespace RepeatingRadialGradientNode {
@@ -2416,9 +2529,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for a repeating radial gradient.
-         */
         interface RepeatingRadialGradientNode extends RenderNode {
             readonly $signals: RepeatingRadialGradientNode.SignalSignatures
             readonly $readableProperties: RepeatingRadialGradientNode.ReadableProperties
@@ -2429,6 +2539,7 @@ declare module "gi://Gsk?version=4.0" {
         interface RepeatingRadialGradientNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<RepeatingRadialGradientNode>
             readonly prototype: RepeatingRadialGradientNode
+
             new (props?: Partial<GObject.ConstructorProps<RepeatingRadialGradientNode>>): RepeatingRadialGradientNode
             /**
              * Creates a `GskRenderNode` that draws a repeating radial gradient.
@@ -2440,15 +2551,23 @@ declare module "gi://Gsk?version=4.0" {
              * @param center the center of the gradient
              * @param hradius the horizontal radius
              * @param vradius the vertical radius
-             * @param start = 0 that defines the start of the gradient around @center
-             * @param end = 0 that defines the end of the gradient around @center
-             * @param color_stops = 1.
+             * @param start a percentage >= 0 that defines the start of the gradient around @center
+             * @param end a percentage >= 0 that defines the end of the gradient around @center
+             * @param color_stops a pointer to an array of
+              `GskColorStop` defining the gradient. The offsets of all color stops
+              must be increasing. The first stop's offset must be >= 0 and the last
+              stop's offset must be <= 1.
              * @returns A new `GskRenderNode`
              */
             "new"(bounds: Graphene.Rect, center: Graphene.Point, hradius: number, vradius: number, start: number, end: number, color_stops: ColorStop[]): RepeatingRadialGradientNode
         }
 
-        const RepeatingRadialGradientNode: RepeatingRadialGradientNodeClass
+        interface $Exports {
+            /**
+             * A render node for a repeating radial gradient.
+             */
+            RepeatingRadialGradientNode: RepeatingRadialGradientNodeClass
+        }
         
 
         namespace RoundedClipNode {
@@ -2465,9 +2584,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node applying a rounded rectangle clip to its single child.
-         */
         interface RoundedClipNode extends RenderNode {
             readonly $signals: RoundedClipNode.SignalSignatures
             readonly $readableProperties: RoundedClipNode.ReadableProperties
@@ -2488,6 +2604,7 @@ declare module "gi://Gsk?version=4.0" {
         interface RoundedClipNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<RoundedClipNode>
             readonly prototype: RoundedClipNode
+
             new (props?: Partial<GObject.ConstructorProps<RoundedClipNode>>): RoundedClipNode
             /**
              * Creates a `GskRenderNode` that will clip the @child to the area
@@ -2499,7 +2616,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, clip: RoundedRect): RoundedClipNode
         }
 
-        const RoundedClipNode: RoundedClipNodeClass
+        interface $Exports {
+            /**
+             * A render node applying a rounded rectangle clip to its single child.
+             */
+            RoundedClipNode: RoundedClipNodeClass
+        }
         
 
         namespace ShadowNode {
@@ -2516,9 +2638,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node drawing one or more shadows behind its single child node.
-         */
         interface ShadowNode extends RenderNode {
             readonly $signals: ShadowNode.SignalSignatures
             readonly $readableProperties: ShadowNode.ReadableProperties
@@ -2545,6 +2664,7 @@ declare module "gi://Gsk?version=4.0" {
         interface ShadowNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<ShadowNode>
             readonly prototype: ShadowNode
+
             new (props?: Partial<GObject.ConstructorProps<ShadowNode>>): ShadowNode
             /**
              * Creates a `GskRenderNode` that will draw a @child with the given
@@ -2556,7 +2676,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, shadows: Shadow[]): ShadowNode
         }
 
-        const ShadowNode: ShadowNodeClass
+        interface $Exports {
+            /**
+             * A render node drawing one or more shadows behind its single child node.
+             */
+            ShadowNode: ShadowNodeClass
+        }
         
 
         namespace StrokeNode {
@@ -2573,11 +2698,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node that will fill the area determined by stroking the the given
-         * [struct@Gsk.Path] using the [struct@Gsk.Stroke] attributes.
-         * @since 4.14
-         */
         interface StrokeNode extends RenderNode {
             readonly $signals: StrokeNode.SignalSignatures
             readonly $readableProperties: StrokeNode.ReadableProperties
@@ -2607,6 +2727,7 @@ declare module "gi://Gsk?version=4.0" {
         interface StrokeNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<StrokeNode>
             readonly prototype: StrokeNode
+
             new (props?: Partial<GObject.ConstructorProps<StrokeNode>>): StrokeNode
             /**
              * Creates a #GskRenderNode that will fill the outline generated by stroking
@@ -2626,7 +2747,14 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, path: Path, stroke: Stroke): StrokeNode
         }
 
-        const StrokeNode: StrokeNodeClass
+        interface $Exports {
+            /**
+             * A render node that will fill the area determined by stroking the the given
+             * [struct@Gsk.Path] using the [struct@Gsk.Stroke] attributes.
+             * @since 4.14
+             */
+            StrokeNode: StrokeNodeClass
+        }
         
 
         namespace SubsurfaceNode {
@@ -2643,10 +2771,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node that potentially diverts a part of the scene graph to a subsurface.
-         * @since 4.14
-         */
         interface SubsurfaceNode extends RenderNode {
             readonly $signals: SubsurfaceNode.SignalSignatures
             readonly $readableProperties: SubsurfaceNode.ReadableProperties
@@ -2663,10 +2787,17 @@ declare module "gi://Gsk?version=4.0" {
         interface SubsurfaceNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<SubsurfaceNode>
             readonly prototype: SubsurfaceNode
+
             new (props?: Partial<GObject.ConstructorProps<SubsurfaceNode>>): SubsurfaceNode
         }
 
-        const SubsurfaceNode: SubsurfaceNodeClass
+        interface $Exports {
+            /**
+             * A render node that potentially diverts a part of the scene graph to a subsurface.
+             * @since 4.14
+             */
+            SubsurfaceNode: SubsurfaceNodeClass
+        }
         
 
         namespace TextNode {
@@ -2683,9 +2814,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node drawing a set of glyphs.
-         */
         interface TextNode extends RenderNode {
             readonly $signals: TextNode.SignalSignatures
             readonly $readableProperties: TextNode.ReadableProperties
@@ -2730,6 +2858,7 @@ declare module "gi://Gsk?version=4.0" {
         interface TextNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<TextNode>
             readonly prototype: TextNode
+
             new (props?: Partial<GObject.ConstructorProps<TextNode>>): TextNode
             /**
              * Creates a render node that renders the given glyphs.
@@ -2745,7 +2874,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(font: Pango.Font, glyphs: Pango.GlyphString, color: Gdk.RGBA, offset: Graphene.Point): TextNode | null
         }
 
-        const TextNode: TextNodeClass
+        interface $Exports {
+            /**
+             * A render node drawing a set of glyphs.
+             */
+            TextNode: TextNodeClass
+        }
         
 
         namespace TextureNode {
@@ -2762,9 +2896,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for a `GdkTexture`.
-         */
         interface TextureNode extends RenderNode {
             readonly $signals: TextureNode.SignalSignatures
             readonly $readableProperties: TextureNode.ReadableProperties
@@ -2780,6 +2911,7 @@ declare module "gi://Gsk?version=4.0" {
         interface TextureNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<TextureNode>
             readonly prototype: TextureNode
+
             new (props?: Partial<GObject.ConstructorProps<TextureNode>>): TextureNode
             /**
              * Creates a `GskRenderNode` that will render the given
@@ -2795,7 +2927,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(texture: Gdk.Texture, bounds: Graphene.Rect): TextureNode
         }
 
-        const TextureNode: TextureNodeClass
+        interface $Exports {
+            /**
+             * A render node for a `GdkTexture`.
+             */
+            TextureNode: TextureNodeClass
+        }
         
 
         namespace TextureScaleNode {
@@ -2812,10 +2949,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node for a `GdkTexture`, with control over scaling.
-         * @since 4.10
-         */
         interface TextureScaleNode extends RenderNode {
             readonly $signals: TextureScaleNode.SignalSignatures
             readonly $readableProperties: TextureScaleNode.ReadableProperties
@@ -2838,6 +2971,7 @@ declare module "gi://Gsk?version=4.0" {
         interface TextureScaleNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<TextureScaleNode>
             readonly prototype: TextureScaleNode
+
             new (props?: Partial<GObject.ConstructorProps<TextureScaleNode>>): TextureScaleNode
             /**
              * Creates a node that scales the texture to the size given by the
@@ -2861,7 +2995,13 @@ declare module "gi://Gsk?version=4.0" {
             "new"(texture: Gdk.Texture, bounds: Graphene.Rect, filter: ScalingFilter): TextureScaleNode
         }
 
-        const TextureScaleNode: TextureScaleNodeClass
+        interface $Exports {
+            /**
+             * A render node for a `GdkTexture`, with control over scaling.
+             * @since 4.10
+             */
+            TextureScaleNode: TextureScaleNodeClass
+        }
         
 
         namespace TransformNode {
@@ -2878,9 +3018,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * A render node applying a `GskTransform` to its single child node.
-         */
         interface TransformNode extends RenderNode {
             readonly $signals: TransformNode.SignalSignatures
             readonly $readableProperties: TransformNode.ReadableProperties
@@ -2901,6 +3038,7 @@ declare module "gi://Gsk?version=4.0" {
         interface TransformNodeClass extends Omit<RenderNodeClass, "new"> {
             readonly $gtype: GObject.GType<TransformNode>
             readonly prototype: TransformNode
+
             new (props?: Partial<GObject.ConstructorProps<TransformNode>>): TransformNode
             /**
              * Creates a `GskRenderNode` that will transform the given @child
@@ -2912,7 +3050,12 @@ declare module "gi://Gsk?version=4.0" {
             "new"(child: RenderNode, transform: Transform | null): TransformNode
         }
 
-        const TransformNode: TransformNodeClass
+        interface $Exports {
+            /**
+             * A render node applying a `GskTransform` to its single child node.
+             */
+            TransformNode: TransformNodeClass
+        }
         
 
         namespace VulkanRenderer {
@@ -2929,11 +3072,6 @@ declare module "gi://Gsk?version=4.0" {
             }
         }
 
-        /**
-         * Renders a GSK rendernode tree with Vulkan.
-         *
-         * This renderer will fail to realize if Vulkan is not supported.
-         */
         interface VulkanRenderer extends Renderer {
             readonly $signals: VulkanRenderer.SignalSignatures
             readonly $readableProperties: VulkanRenderer.ReadableProperties
@@ -2944,6 +3082,7 @@ declare module "gi://Gsk?version=4.0" {
         interface VulkanRendererClass extends Omit<RendererClass, "new"> {
             readonly $gtype: GObject.GType<VulkanRenderer>
             readonly prototype: VulkanRenderer
+
             new (props?: Partial<GObject.ConstructorProps<VulkanRenderer>>): VulkanRenderer
             /**
              * Creates a new Vulkan renderer.
@@ -2955,19 +3094,25 @@ declare module "gi://Gsk?version=4.0" {
              * Vulkan support.
              * @returns a new Vulkan renderer
              */
-            "new"(): Renderer
+            "new"(): VulkanRenderer
         }
 
-        const VulkanRenderer: VulkanRendererClass
-        none
-        none
-        /**
-         * A color stop in a gradient node.
-         */
-        abstract class ColorStop {
-            static readonly $gtype: GObject.GType<ColorStop>
+        interface $Exports {
+            /**
+             * Renders a GSK rendernode tree with Vulkan.
+             *
+             * This renderer will fail to realize if Vulkan is not supported.
+             */
+            VulkanRenderer: VulkanRendererClass
+        }
+        
 
-            
+        interface ColorStopStruct {
+            readonly $gtype: GObject.GType<ColorStop>
+            [Symbol.hasInstance](instance: unknown): instance is ColorStop
+        }
+
+        interface ColorStop {
             /**
              * the offset of the color stop
              */
@@ -2977,65 +3122,135 @@ declare module "gi://Gsk?version=4.0" {
              */
             color: Gdk.RGBA
         }
-        /**
-         * Specifies a transfer function for a color component to be applied
-         * while rendering.
-         *
-         * The available functions include linear, piecewise-linear,
-         * gamma and step functions.
-         *
-         * Note that the transfer function is applied to un-premultiplied
-         * values, and all results are clamped to the [0, 1] range.
-         * @since 4.20
-         */
-        abstract class ComponentTransfer {
-            static readonly $gtype: GObject.GType<ComponentTransfer>
 
-            
+        interface $Exports {
+            ColorStop: ColorStopStruct
+        }
+        
+
+        interface ComponentTransferStruct {
+            readonly $gtype: GObject.GType<ComponentTransfer>
+            [Symbol.hasInstance](instance: unknown): instance is ComponentTransfer
             /**
-             * >
+             * Creates a new component transfer that applies
+             * a step function.
+             *
+             * The new value is computed as
+             *
+             *     C' = values[k]
+             *
+             * where k is the smallest value such that
+             *
+             *     k / n <= C < (k + 1) / n
+             *
+             * <figure>
+             *   <picture>
+             *     <source srcset="discrete-dark.png" media="(prefers-color-scheme: dark)">
+             *       <img alt="Component transfer: discrete" src="discrete-light.png">
+             *   </picture>
+             * </figure>
              * @since 4.20
              * @param values Values
              * @returns a new `GskComponentTransfer`
              */
-            static new_discrete(values: number[]): ComponentTransfer
+            new_discrete(values: number[]): ComponentTransfer
             /**
-             * >
+             * Creates a new component transfer that applies
+             * a gamma transform.
+             *
+             * The new value is computed as
+             *
+             *     C' = amp * pow (C, exp) + ofs
+             *
+             * <figure>
+             *   <picture>
+             *     <source srcset="gamma-dark.png" media="(prefers-color-scheme: dark)">
+             *       <img alt="Component transfer: gamma" src="gamma-light.png">
+             *   </picture>
+             * </figure>
              * @since 4.20
              * @param amp Amplitude
              * @param exp Exponent
              * @param ofs Offset
              * @returns a new `GskComponentTransfer`
              */
-            static new_gamma(amp: number, exp: number, ofs: number): ComponentTransfer
+            new_gamma(amp: number, exp: number, ofs: number): ComponentTransfer
             /**
-             * >
+             * Creates a new component transfer that doesn't
+             * change the component value.
+             *
+             * <figure>
+             *   <picture>
+             *     <source srcset="identity-dark.png" media="(prefers-color-scheme: dark)">
+             *       <img alt="Component transfer: identity" src="identity-light.png">
+             *   </picture>
+             * </figure>
              * @since 4.20
              * @returns a new `GskComponentTransfer`
              */
-            static new_identity(): ComponentTransfer
+            new_identity(): ComponentTransfer
             /**
-             * >
+             * Creates a new component transfer that limits
+             * the values of the component to `n` levels.
+             *
+             * The new value is computed as
+             *
+             *     C' = (floor (C * n) + 0.5) / n
+             *
+             * <figure>
+             *   <picture>
+             *     <source srcset="levels-dark.png" media="(prefers-color-scheme: dark)">
+             *       <img alt="Component transfer: levels" src="levels-light.png">
+             *   </picture>
+             * </figure>
              * @since 4.20
              * @param n Number of levels
              * @returns a new `GskComponentTransfer`
              */
-            static new_levels(n: number): ComponentTransfer
+            new_levels(n: number): ComponentTransfer
             /**
-             * >
+             * Creates a new component transfer that applies
+             * a linear transform.
+             *
+             * The new value is computed as
+             *
+             *     C' = C * m + b
+             *
+             * <figure>
+             *   <picture>
+             *     <source srcset="linear-dark.png" media="(prefers-color-scheme: dark)">
+             *       <img alt="Component transfer: linear" src="linear-light.png">
+             *   </picture>
+             * </figure>
              * @since 4.20
              * @param m Slope
              * @param b Offset
              * @returns a new `GskComponentTransfer`
              */
-            static new_linear(m: number, b: number): ComponentTransfer
+            new_linear(m: number, b: number): ComponentTransfer
             /**
-             * >
+             * Creates a new component transfer that applies
+             * a piecewise linear function.
+             *
+             * The new value is computed as
+             *
+             *     C' = values[k] + (C - k / (n - 1)) * n * (values[k + 1] - values[k])
+             *
+             * where k is the smallest value such that
+             *
+             *     k / (n - 1) <= C < (k + 1) / (n - 1)
+             *
+             * <figure>
+             *   <picture>
+             *     <source srcset="table-dark.png" media="(prefers-color-scheme: dark)">
+             *       <img alt="Component transfer: table" src="table-light.png">
+             *   </picture>
+             * </figure>
              * @since 4.20
              * @param values Values
              * @returns a new `GskComponentTransfer`
              */
-            static new_table(values: number[]): ComponentTransfer
+            new_table(values: number[]): ComponentTransfer
             /**
              * Compares two component transfers for equality.
              * @since 4.20
@@ -3043,7 +3258,10 @@ declare module "gi://Gsk?version=4.0" {
              * @param other another component transfer
              * @returns true if `self` and `other` are equal
              */
-            static equal(self: never, other: never): boolean
+            equal(self: never, other: never): boolean
+        }
+
+        interface ComponentTransfer {
             /**
              * Creates a copy of @other.
              * @since 4.20
@@ -3056,15 +3274,18 @@ declare module "gi://Gsk?version=4.0" {
              */
             free(): void
         }
-        none
-        none
-        /**
-         * A location in a parse buffer.
-         */
-        abstract class ParseLocation {
-            static readonly $gtype: GObject.GType<ParseLocation>
 
-            
+        interface $Exports {
+            ComponentTransfer: ComponentTransferStruct
+        }
+        
+
+        interface ParseLocationStruct {
+            readonly $gtype: GObject.GType<ParseLocation>
+            [Symbol.hasInstance](instance: unknown): instance is ParseLocation
+        }
+
+        interface ParseLocation {
             /**
              * the offset of the location in the parse buffer, as bytes
              */
@@ -3086,14 +3307,15 @@ declare module "gi://Gsk?version=4.0" {
              */
             line_chars: number
         }
-        /**
-         * >
-         * @since 4.14
-         */
-        abstract class Path {
-            static readonly $gtype: GObject.GType<Path>
 
-            
+        interface $Exports {
+            ParseLocation: ParseLocationStruct
+        }
+        
+
+        interface PathStruct {
+            readonly $gtype: GObject.GType<Path>
+            [Symbol.hasInstance](instance: unknown): instance is Path
             /**
              * Constructs a path from a serialized form.
              *
@@ -3123,7 +3345,10 @@ declare module "gi://Gsk?version=4.0" {
              * @param string a string
              * @returns a new `GskPath`, or `NULL` if `string` could not be parsed
              */
-            static parse(string: string): Path | null
+            parse(string: string): Path | null
+        }
+
+        interface Path {
             /**
              * Returns whether two paths have identical structure.
              *
@@ -3206,7 +3431,7 @@ declare module "gi://Gsk?version=4.0" {
              * @param threshold maximum allowed distance
              * @returns true if `point` was set to the closest point   on `self`, false if no point is closer than `threshold`, return location for the closest point, return location for the distance
              */
-            get_closest_point(point: Graphene.Point, threshold: number): [boolean, PathPoint]
+            get_closest_point(point: Graphene.Point, threshold: number): [boolean, PathPoint, number]
             /**
              * Gets the end point of the path.
              *
@@ -3336,51 +3561,15 @@ declare module "gi://Gsk?version=4.0" {
              */
             unref(): void
         }
-        /**
-         * Constructs `GskPath` objects.
-         *
-         * A path is constructed like this:
-         *
-         * ```c
-         * GskPath *
-         * construct_path (void)
-         * {
-         *   GskPathBuilder *builder;
-         *
-         *   builder = gsk_path_builder_new ();
-         *
-         *   // add contours to the path here
-         *
-         *   return gsk_path_builder_free_to_path (builder);
-         * ```
-         *
-         * Adding contours to the path can be done in two ways.
-         * The easiest option is to use the `gsk_path_builder_add_*` group
-         * of functions that add predefined contours to the current path,
-         * either common shapes like [method@Gsk.PathBuilder.add_circle]
-         * or by adding from other paths like [method@Gsk.PathBuilder.add_path].
-         *
-         * The `gsk_path_builder_add_*` methods always add complete contours,
-         * and do not use or modify the current point.
-         *
-         * The other option is to define each line and curve manually with
-         * the `gsk_path_builder_*_to` group of functions. You start with
-         * a call to [method@Gsk.PathBuilder.move_to] to set the starting point
-         * and then use multiple calls to any of the drawing functions to
-         * move the pen along the plane. Once you are done, you can call
-         * [method@Gsk.PathBuilder.close] to close the path by connecting it
-         * back with a line to the starting point.
-         *
-         * This is similar to how paths are drawn in Cairo.
-         *
-         * Note that `GskPathBuilder` will reduce the degree of added Bézier
-         * curves as much as possible, to simplify rendering.
-         * @since 4.14
-         */
-        abstract class PathBuilder {
-            static readonly $gtype: GObject.GType<PathBuilder>
 
-            
+        interface $Exports {
+            Path: PathStruct
+        }
+        
+
+        interface PathBuilderStruct {
+            readonly $gtype: GObject.GType<PathBuilder>
+            [Symbol.hasInstance](instance: unknown): instance is PathBuilder
             /**
              * Create a new `GskPathBuilder` object.
              *
@@ -3389,7 +3578,10 @@ declare module "gi://Gsk?version=4.0" {
              * @since 4.14
              * @returns a new `GskPathBuilder`
              */
-            static "new"(): PathBuilder
+            "new"(): PathBuilder
+        }
+
+        interface PathBuilder {
             /**
              * Adds a Cairo path to the builder.
              *
@@ -3464,7 +3656,20 @@ declare module "gi://Gsk?version=4.0" {
              */
             add_segment(path: Path, start: PathPoint, end: PathPoint): void
             /**
-             * >
+             * Adds an elliptical arc from the current point to @x2, @y2
+             * with @x1, @y1 determining the tangent directions.
+             *
+             * After this, @x2, @y2 will be the new current point.
+             *
+             * Note: Two points and their tangents do not determine
+             * a unique ellipse, so GSK just picks one. If you need more
+             * precise control, use [method@Gsk.PathBuilder.conic_to]
+             * or [method@Gsk.PathBuilder.svg_arc_to].
+             *
+             * <picture>
+             *   <source srcset="arc-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Arc To" src="arc-light.png">
+             * </picture>
              * @since 4.14
              * @param x1 x coordinate of first control point
              * @param y1 y coordinate of first control point
@@ -3484,7 +3689,22 @@ declare module "gi://Gsk?version=4.0" {
              */
             close(): void
             /**
-             * >
+             * Adds a [conic curve](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)
+             * from the current point to @x2, @y2 with the given @weight and @x1, @y1 as the
+             * control point.
+             *
+             * The weight determines how strongly the curve is pulled towards the control point.
+             * A conic with weight 1 is identical to a quadratic Bézier curve with the same points.
+             *
+             * Conic curves can be used to draw ellipses and circles. They are also known as
+             * rational quadratic Bézier curves.
+             *
+             * After this, @x2, @y2 will be the new current point.
+             *
+             * <picture>
+             *   <source srcset="conic-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Conic To" src="conic-light.png">
+             * </picture>
              * @since 4.14
              * @param x1 x coordinate of control point
              * @param y1 y coordinate of control point
@@ -3494,7 +3714,16 @@ declare module "gi://Gsk?version=4.0" {
              */
             conic_to(x1: number, y1: number, x2: number, y2: number, weight: number): void
             /**
-             * >
+             * Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
+             * from the current point to @x3, @y3 with @x1, @y1 and @x2, @y2 as the control
+             * points.
+             *
+             * After this, @x3, @y3 will be the new current point.
+             *
+             * <picture>
+             *   <source srcset="cubic-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Cubic To" src="cubic-light.png">
+             * </picture>
              * @since 4.14
              * @param x1 x coordinate of first control point
              * @param y1 y coordinate of first control point
@@ -3536,7 +3765,13 @@ declare module "gi://Gsk?version=4.0" {
              */
             html_arc_to(x1: number, y1: number, x2: number, y2: number, radius: number): void
             /**
-             * >
+             * Draws a line from the current point to @x, @y and makes it
+             * the new current point.
+             *
+             * <picture>
+             *   <source srcset="line-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Line To" src="line-light.png">
+             * </picture>
              * @since 4.14
              * @param x x coordinate
              * @param y y coordinate
@@ -3554,7 +3789,15 @@ declare module "gi://Gsk?version=4.0" {
              */
             move_to(x: number, y: number): void
             /**
-             * >
+             * Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
+             * from the current point to @x2, @y2 with @x1, @y1 as the control point.
+             *
+             * After this, @x2, @y2 will be the new current point.
+             *
+             * <picture>
+             *   <source srcset="quad-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Quad To" src="quad-light.png">
+             * </picture>
              * @since 4.14
              * @param x1 x coordinate of control point
              * @param y1 y coordinate of control point
@@ -3720,22 +3963,15 @@ declare module "gi://Gsk?version=4.0" {
              */
             unref(): void
         }
-        /**
-         * Performs measurements on paths such as determining the length of the path.
-         *
-         * Many measuring operations require sampling the path length
-         * at intermediate points. Therefore, a `GskPathMeasure` has
-         * a tolerance that determines what precision is required
-         * for such approximations.
-         *
-         * A `GskPathMeasure` struct is a reference counted struct
-         * and should be treated as opaque.
-         * @since 4.14
-         */
-        abstract class PathMeasure {
-            static readonly $gtype: GObject.GType<PathMeasure>
 
-            
+        interface $Exports {
+            PathBuilder: PathBuilderStruct
+        }
+        
+
+        interface PathMeasureStruct {
+            readonly $gtype: GObject.GType<PathMeasure>
+            [Symbol.hasInstance](instance: unknown): instance is PathMeasure
             /**
              * Creates a measure object for the given @path with the
              * default tolerance.
@@ -3743,7 +3979,7 @@ declare module "gi://Gsk?version=4.0" {
              * @param path the path to measure
              * @returns a new `GskPathMeasure` representing `path`
              */
-            static "new"(path: Path): PathMeasure
+            "new"(path: Path): PathMeasure
             /**
              * Creates a measure object for the given @path and @tolerance.
              * @since 4.14
@@ -3751,7 +3987,10 @@ declare module "gi://Gsk?version=4.0" {
              * @param tolerance the tolerance for measuring operations
              * @returns a new `GskPathMeasure` representing `path`
              */
-            static new_with_tolerance(path: Path, tolerance: number): PathMeasure
+            new_with_tolerance(path: Path, tolerance: number): PathMeasure
+        }
+
+        interface PathMeasure {
             /**
              * Gets the length of the path being measured.
              *
@@ -3795,26 +4034,18 @@ declare module "gi://Gsk?version=4.0" {
              */
             unref(): void
         }
-        /**
-         * Represents a point on a path.
-         *
-         * It can be queried for properties of the path at that point,
-         * such as its tangent or its curvature.
-         *
-         * To obtain a `GskPathPoint`, use [method@Gsk.Path.get_closest_point],
-         * [method@Gsk.Path.get_start_point], [method@Gsk.Path.get_end_point]
-         * or [method@Gsk.PathMeasure.get_point].
-         *
-         * Note that `GskPathPoint` structs are meant to be stack-allocated,
-         * and don't hold a reference to the path object they are obtained from.
-         * It is the callers responsibility to keep a reference to the path
-         * as long as the `GskPathPoint` is used.
-         * @since 4.14
-         */
-        abstract class PathPoint {
-            static readonly $gtype: GObject.GType<PathPoint>
 
-            
+        interface $Exports {
+            PathMeasure: PathMeasureStruct
+        }
+        
+
+        interface PathPointStruct {
+            readonly $gtype: GObject.GType<PathPoint>
+            [Symbol.hasInstance](instance: unknown): instance is PathPoint
+        }
+
+        interface PathPoint {
             /**
              * Returns whether @point1 is before or after @point2.
              * @since 4.14
@@ -3848,7 +4079,26 @@ declare module "gi://Gsk?version=4.0" {
              */
             free(): void
             /**
-             * >
+             * Calculates the curvature of the path at the point.
+             *
+             * Optionally, returns the center of the osculating circle as well.
+             * The curvature is the inverse of the radius of the osculating circle.
+             *
+             * Lines have a curvature of zero (indicating an osculating circle of
+             * infinite radius). In this case, the @center is not modified.
+             *
+             * Circles with a radius of zero have `INFINITY` as curvature
+             *
+             * Note that certain points on a path may not have a single curvature,
+             * such as sharp turns. At such points, there are two curvatures — the
+             * (limit of) the curvature of the path going into the point, and the
+             * (limit of) the curvature of the path coming out of it. The @direction
+             * argument lets you choose which one to get.
+             *
+             * <picture>
+             *   <source srcset="curvature-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Osculating circle" src="curvature-light.png">
+             * </picture>
              * @since 4.14
              * @param path the path that @point is on
              * @param direction the direction for which to return the curvature
@@ -3905,70 +4155,24 @@ declare module "gi://Gsk?version=4.0" {
              */
             get_tangent(path: Path, direction: PathDirection): Graphene.Vec2
         }
-        /**
-         * bounds);
-         *     }
-         *   else
-         *     {
-         *       result = gsk_render_replay_default (replay, node);
-         *     }
-         *
-         *   return result;
-         * }
-         *
-         * int
-         * main (int argc, char *argv[])
-         * {
-         *   GFile *file;
-         *   GBytes *bytes;
-         *   GskRenderNode *result, *node;
-         *   GskRenderReplay *replay;
-         *
-         *   gtk_init ();
-         *
-         *   if (argc != 3)
-         *     {
-         *       g_print ("usage: %s INFILE OUTFILE\n", argv[0]);
-         *       return 0;
-         *     }
-         *
-         *   file = g_file_new_for_commandline_arg (argv[1]);
-         *   bytes = g_file_load_bytes (file, NULL, NULL, NULL);
-         *   g_object_unref (file);
-         *   if (bytes == NULL)
-         *     return 1;
-         *
-         *   node = gsk_render_node_deserialize (bytes, NULL, NULL);
-         *   g_bytes_unref (bytes);
-         *   if (node == NULL)
-         *     return 1;
-         *
-         *   replay = gsk_render_replay_new ();
-         *   gsk_render_replay_set_node_filter (replay, redact_nodes, NULL, NULL);
-         *   result = gsk_render_replay_filter_node (replay, node);
-         *   gsk_render_replay_free (replay);
-         *
-         *   if (!gsk_render_node_write_to_file (result, argv[2], NULL))
-         *     return 1;
-         *
-         *   gsk_render_node_unref (result);
-         *   gsk_render_node_unref (node);
-         *
-         *   return 0;
-         * }
-         * ```
-         * @since 4.22
-         */
-        abstract class RenderReplay {
-            static readonly $gtype: GObject.GType<RenderReplay>
 
-            
+        interface $Exports {
+            PathPoint: PathPointStruct
+        }
+        
+
+        interface RenderReplayStruct {
+            readonly $gtype: GObject.GType<RenderReplay>
+            [Symbol.hasInstance](instance: unknown): instance is RenderReplay
             /**
              * Creates a new replay object to replay nodes.
              * @since 4.22
              * @returns A new replay object to replay nodes
              */
-            static "new"(): RenderReplay
+            "new"(): RenderReplay
+        }
+
+        interface RenderReplay {
             /**
              * Replays the node using the default method.
              *
@@ -4060,26 +4264,18 @@ declare module "gi://Gsk?version=4.0" {
              */
             set_texture_filter(filter: RenderReplayTextureFilter | null): void
         }
-        none
-        /**
-         * A rectangular region with rounded corners.
-         *
-         * Application code should normalize rectangles using
-         * [method@Gsk.RoundedRect.normalize]; this function will ensure that
-         * the bounds of the rectangle are normalized and ensure that the corner
-         * values are positive and the corners do not overlap.
-         *
-         * All functions taking a `GskRoundedRect` as an argument will internally
-         * operate on a normalized copy; all functions returning a `GskRoundedRect`
-         * will always return a normalized one.
-         *
-         * The algorithm used for normalizing corner sizes is described in
-         * [the CSS specification](https://drafts.csswg.org/css-backgrounds-3/#border-radius).
-         */
-        abstract class RoundedRect {
-            static readonly $gtype: GObject.GType<RoundedRect>
 
-            
+        interface $Exports {
+            RenderReplay: RenderReplayStruct
+        }
+        
+
+        interface RoundedRectStruct {
+            readonly $gtype: GObject.GType<RoundedRect>
+            [Symbol.hasInstance](instance: unknown): instance is RoundedRect
+        }
+
+        interface RoundedRect {
             /**
              * the bounds of the rectangle
              */
@@ -4181,14 +4377,15 @@ declare module "gi://Gsk?version=4.0" {
              */
             shrink(top: number, right: number, bottom: number, left: number): RoundedRect
         }
-        /**
-         * Builds the uniforms data for a `GskGLShader`.
-         * @deprecated since 4.16
-         */
-        abstract class ShaderArgsBuilder {
-            static readonly $gtype: GObject.GType<ShaderArgsBuilder>
 
-            
+        interface $Exports {
+            RoundedRect: RoundedRectStruct
+        }
+        
+
+        interface ShaderArgsBuilderStruct {
+            readonly $gtype: GObject.GType<ShaderArgsBuilder>
+            [Symbol.hasInstance](instance: unknown): instance is ShaderArgsBuilder
             /**
              * Allocates a builder that can be used to construct a new uniform data
              * chunk.
@@ -4197,7 +4394,10 @@ declare module "gi://Gsk?version=4.0" {
              * @param initial_values optional `GBytes` with initial values
              * @returns The newly allocated builder, free with     [method@Gsk.ShaderArgsBuilder.unref]
              */
-            static "new"(shader: GLShader, initial_values: GLib.Bytes | null): ShaderArgsBuilder
+            "new"(shader: GLShader, initial_values: (GLib.Bytes | Uint8Array | null)): ShaderArgsBuilder
+        }
+
+        interface ShaderArgsBuilder {
             /**
              * Increases the reference count of a `GskShaderArgsBuilder` by one.
              * @deprecated since 4.16 GTK's new Vulkan-focused rendering   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)   for OpenGL rendering.
@@ -4290,13 +4490,18 @@ declare module "gi://Gsk?version=4.0" {
              */
             unref(): void
         }
-        /**
-         * The shadow parameters in a shadow node.
-         */
-        abstract class Shadow {
-            static readonly $gtype: GObject.GType<Shadow>
 
-            
+        interface $Exports {
+            ShaderArgsBuilder: ShaderArgsBuilderStruct
+        }
+        
+
+        interface ShadowStruct {
+            readonly $gtype: GObject.GType<Shadow>
+            [Symbol.hasInstance](instance: unknown): instance is Shadow
+        }
+
+        interface Shadow {
             /**
              * the color of the shadow
              */
@@ -4314,21 +4519,22 @@ declare module "gi://Gsk?version=4.0" {
              */
             radius: number
         }
-        /**
-         * Collects the parameters that are needed when stroking a path.
-         * @since 4.14
-         */
-        abstract class Stroke {
-            static readonly $gtype: GObject.GType<Stroke>
 
-            
+        interface $Exports {
+            Shadow: ShadowStruct
+        }
+        
+
+        interface StrokeStruct {
+            readonly $gtype: GObject.GType<Stroke>
+            [Symbol.hasInstance](instance: unknown): instance is Stroke
             /**
              * Creates a new `GskStroke` with the given @line_width.
              * @since 4.14
-             * @param line_width  0
+             * @param line_width line width of the stroke. Must be > 0
              * @returns a new `GskStroke`
              */
-            static "new"(line_width: number): Stroke
+            "new"(line_width: number): Stroke
             /**
              * Checks if two strokes are identical.
              * @since 4.14
@@ -4336,7 +4542,10 @@ declare module "gi://Gsk?version=4.0" {
              * @param stroke2 the second stroke
              * @returns true if the two strokes are equal, false otherwise
              */
-            static equal(stroke1: never | null, stroke2: never | null): boolean
+            equal(stroke1: never | null, stroke2: never | null): boolean
+        }
+
+        interface Stroke {
             /**
              * Creates a copy of a `GskStroke`.
              * @since 4.14
@@ -4445,7 +4654,9 @@ declare module "gi://Gsk?version=4.0" {
              */
             set_line_join(line_join: LineJoin): void
             /**
-             * = 0.
+             * Sets the line width to be used when stroking.
+             *
+             * The line width must be >= 0.
              * @since 4.14
              * @param line_width width of the line in pixels
              */
@@ -4472,21 +4683,15 @@ declare module "gi://Gsk?version=4.0" {
              */
             to_cairo(cr: cairo.Context): void
         }
-        /**
-         * Describes a 3D transform.
-         *
-         * Unlike `graphene_matrix_t`, `GskTransform` retains the steps in how
-         * a transform was constructed, and allows inspecting them. It is modeled
-         * after the way CSS describes transforms.
-         *
-         * `GskTransform` objects are immutable and cannot be changed after creation.
-         * This means code can safely expose them as properties of objects without
-         * having to worry about others changing them.
-         */
-        abstract class Transform {
-            static readonly $gtype: GObject.GType<Transform>
 
-            
+        interface $Exports {
+            Stroke: StrokeStruct
+        }
+        
+
+        interface TransformStruct {
+            readonly $gtype: GObject.GType<Transform>
+            [Symbol.hasInstance](instance: unknown): instance is Transform
             /**
              * Creates a new identity transform.
              *
@@ -4494,7 +4699,7 @@ declare module "gi://Gsk?version=4.0" {
              * bindings. For C code, this is equivalent to using `NULL`.
              * @returns A new identity transform
              */
-            static "new"(): Transform
+            "new"(): Transform
             /**
              * Parses a given into a transform.
              *
@@ -4506,7 +4711,10 @@ declare module "gi://Gsk?version=4.0" {
              * @param string the string to parse
              * @returns true if `string` described a valid transform, return location for the transform
              */
-            static parse(string: string): [boolean, Transform]
+            parse(string: string): [boolean, Transform]
+        }
+
+        interface Transform {
             /**
              * Checks two transforms for equality.
              * @param second the second transform
@@ -4647,7 +4855,12 @@ declare module "gi://Gsk?version=4.0" {
              */
             skew(skew_x: number, skew_y: number): Transform | null
             /**
-             * = GSK_TRANSFORM_CATEGORY_2D
+             * Converts a transform to a 2D transformation matrix.
+             *
+             * @self must be a 2D transformation. If you are not
+             * sure, use
+             *
+             *     gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D
              *
              * to check.
              *
@@ -4668,7 +4881,22 @@ declare module "gi://Gsk?version=4.0" {
              */
             to_2d(): [number, number, number, number, number, number]
             /**
-             * = GSK_TRANSFORM_CATEGORY_2D
+             * Converts a transform to 2D transformation factors.
+             *
+             * To recreate an equivalent transform from the factors returned
+             * by this function, use
+             *
+             *     gsk_transform_skew (
+             *         gsk_transform_scale (
+             *             gsk_transform_rotate (
+             *                 gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (dx, dy)),
+             *                 angle),
+             *             scale_x, scale_y),
+             *         skew_x, skew_y)
+             *
+             * @self must be a 2D transformation. If you are not sure, use
+             *
+             *     gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D
              *
              * to check.
              * @since 4.6
@@ -4676,7 +4904,21 @@ declare module "gi://Gsk?version=4.0" {
              */
             to_2d_components(): [number, number, number, number, number, number, number]
             /**
-             * = GSK_TRANSFORM_CATEGORY_2D_AFFINE
+             * Converts a transform to 2D affine transformation factors.
+             *
+             * To recreate an equivalent transform from the factors returned
+             * by this function, use
+             *
+             *     gsk_transform_scale (
+             *         gsk_transform_translate (
+             *             NULL,
+             *             &GRAPHENE_POINT_T (dx, dy)),
+             *         sx, sy)
+             *
+             * @self must be a 2D affine transformation. If you are not
+             * sure, use
+             *
+             *     gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D_AFFINE
              *
              * to check.
              * @returns , return location for the scale   factor in the x direction, return location for the scale   factor in the y direction, return location for the translation   in the x direction, return location for the translation   in the y direction
@@ -4699,7 +4941,12 @@ declare module "gi://Gsk?version=4.0" {
              */
             to_string(): string
             /**
-             * = GSK_TRANSFORM_CATEGORY_2D_TRANSLATE
+             * Converts a transform to a translation operation.
+             *
+             * @self must be a 2D transformation. If you are not
+             * sure, use
+             *
+             *     gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D_TRANSLATE
              *
              * to check.
              * @returns , return location for the translation   in the x direction, return location for the translation   in the y direction
@@ -4756,230 +5003,124 @@ declare module "gi://Gsk?version=4.0" {
              */
             unref(): void
         }
-        none
-        /**
-         * Compares two component transfers for equality.
-         * @since 4.20
-         * @param self a component transfer
-         * @param other another component transfer
-         * @returns true if `self` and `other` are equal
-         */
-        function component_transfer_equal(self: never, other: never): boolean
-        /**
-         * Constructs a path from a serialized form.
-         *
-         * The string is expected to be in (a superset of)
-         * [SVG path syntax](https://www.w3.org/TR/SVG11/paths.html#PathData),
-         * as e.g. produced by [method@Gsk.Path.to_string].
-         *
-         * A high-level summary of the syntax:
-         *
-         * - `M x y` Move to `(x, y)`
-         * - `L x y` Add a line from the current point to `(x, y)`
-         * - `Q x1 y1 x2 y2` Add a quadratic Bézier from the current point to `(x2, y2)`, with control point `(x1, y1)`
-         * - `C x1 y1 x2 y2 x3 y3` Add a cubic Bézier from the current point to `(x3, y3)`, with control points `(x1, y1)` and `(x2, y2)`
-         * - `Z` Close the contour by drawing a line back to the start point
-         * - `H x` Add a horizontal line from the current point to the given x value
-         * - `V y` Add a vertical line from the current point to the given y value
-         * - `T x2 y2` Add a quadratic Bézier, using the reflection of the previous segments' control point as control point
-         * - `S x2 y2 x3 y3` Add a cubic Bézier, using the reflection of the previous segments' second control point as first control point
-         * - `A rx ry r l s x y` Add an elliptical arc from the current point to `(x, y)` with radii rx and ry. See the SVG documentation for how the other parameters influence the arc.
-         * - `O x1 y1 x2 y2 w` Add a rational quadratic Bézier from the current point to `(x2, y2)` with control point `(x1, y1)` and weight `w`.
-         *
-         * All the commands have lowercase variants that interpret coordinates
-         * relative to the current point.
-         *
-         * The `O` command is an extension that is not supported in SVG.
-         * @since 4.14
-         * @param string a string
-         * @returns a new `GskPath`, or `NULL` if `string` could not be parsed
-         */
-        function path_parse(string: string): Path | null
-        /**
-         * Registers an error quark for [class@Gsk.RenderNode] errors.
-         * @returns the error quark
-         */
-        function serialization_error_quark(): GLib.Quark
-        /**
-         * Checks if two strokes are identical.
-         * @since 4.14
-         * @param stroke1 the first stroke
-         * @param stroke2 the second stroke
-         * @returns true if the two strokes are equal, false otherwise
-         */
-        function stroke_equal(stroke1: never | null, stroke2: never | null): boolean
-        /**
-         * Parses a given into a transform.
-         *
-         * Strings printed via [method@Gsk.Transform.to_string]
-         * can be read in again successfully using this function.
-         *
-         * If @string does not describe a valid transform, false
-         * is returned and `NULL` is put in @out_transform.
-         * @param string the string to parse
-         * @returns true if `string` described a valid transform, return location for the transform
-         */
-        function transform_parse(string: string): [boolean, Transform]
-        /**
-         * Retrieves the render node stored inside a `GValue`,
-         * and acquires a reference to it.
-         * @since 4.6
-         * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
-         * @returns the render node
-         */
-        function value_dup_render_node(value: GObject.Value): RenderNode | null
-        /**
-         * Retrieves the render node stored inside a `GValue`.
-         * @since 4.6
-         * @param value a `GValue` initialized with type `GSK_TYPE_RENDER_NODE`
-         * @returns the render node
-         */
-        function value_get_render_node(value: GObject.Value): RenderNode | null
-        /**
-         * Stores the given render node inside a `GValue`.
-         *
-         * The [struct@GObject.Value] will acquire a reference
-         * to the render node.
-         * @since 4.6
-         * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
-         * @param node a render node
-         */
-        function value_set_render_node(value: GObject.Value, node: RenderNode): void
-        /**
-         * Stores the given render node inside a `GValue`.
-         *
-         * This function transfers the ownership of the
-         * render node to the `GValue`.
-         * @since 4.6
-         * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
-         * @param node a render node
-         */
-        function value_take_render_node(value: GObject.Value, node: RenderNode | null): void
-        
-        namespace BlendMode {
-            const $gtype: GObject.GType<BlendMode>
-        }
 
-        /**
-         *  for more information
-         * on blending and blend modes.
-         */
-        enum BlendMode {
+        interface $Exports {
+            Transform: TransformStruct
+        }
+        
+        interface BlendModeEnum {
+            readonly $gtype: GObject.GType<BlendMode>
             /**
              * The default blend mode, which specifies no blending
              */
-            "DEFAULT" = 0,
+            readonly "DEFAULT": 0
             /**
              * The source color is multiplied by the destination
              *   and replaces the destination
              */
-            "MULTIPLY" = 1,
+            readonly "MULTIPLY": 1
             /**
              * Multiplies the complements of the destination and source
              *   color values, then complements the result.
              */
-            "SCREEN" = 2,
+            readonly "SCREEN": 2
             /**
              * Multiplies or screens the colors, depending on the
              *   destination color value. This is the inverse of hard-list
              */
-            "OVERLAY" = 3,
+            readonly "OVERLAY": 3
             /**
              * Selects the darker of the destination and source colors
              */
-            "DARKEN" = 4,
+            readonly "DARKEN": 4
             /**
              * Selects the lighter of the destination and source colors
              */
-            "LIGHTEN" = 5,
+            readonly "LIGHTEN": 5
             /**
              * Brightens the destination color to reflect the source color
              */
-            "COLOR_DODGE" = 6,
+            readonly "COLOR_DODGE": 6
             /**
              * Darkens the destination color to reflect the source color
              */
-            "COLOR_BURN" = 7,
+            readonly "COLOR_BURN": 7
             /**
              * Multiplies or screens the colors, depending on the source color value
              */
-            "HARD_LIGHT" = 8,
+            readonly "HARD_LIGHT": 8
             /**
              * Darkens or lightens the colors, depending on the source color value
              */
-            "SOFT_LIGHT" = 9,
+            readonly "SOFT_LIGHT": 9
             /**
              * Subtracts the darker of the two constituent colors from the lighter color
              */
-            "DIFFERENCE" = 10,
+            readonly "DIFFERENCE": 10
             /**
              * Produces an effect similar to that of the difference mode but lower in contrast
              */
-            "EXCLUSION" = 11,
+            readonly "EXCLUSION": 11
             /**
              * Creates a color with the hue and saturation of the source color and the luminosity of the destination color
              */
-            "COLOR" = 12,
+            readonly "COLOR": 12
             /**
              * Creates a color with the hue of the source color and the saturation and luminosity of the destination color
              */
-            "HUE" = 13,
+            readonly "HUE": 13
             /**
              * Creates a color with the saturation of the source color and the hue and luminosity of the destination color
              */
-            "SATURATION" = 14,
+            readonly "SATURATION": 14
             /**
              * Creates a color with the luminosity of the source color and the hue and saturation of the destination color
              */
-            "LUMINOSITY" = 15,
+            readonly "LUMINOSITY": 15
+        }
+        type BlendMode = BlendModeEnum[Exclude<keyof BlendModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The blend modes available for render nodes.
+             *
+             * The implementation of each blend mode is deferred to the
+             * rendering pipeline.
+             *
+             * See <https://www.w3.org/TR/compositing-1/#blending> for more information
+             * on blending and blend modes.
+             */
+            BlendMode: BlendModeEnum
         }
         
-        namespace Corner {
-            const $gtype: GObject.GType<Corner>
-        }
-
-        /**
-         * The corner indices used by `GskRoundedRect`.
-         */
-        enum Corner {
+        interface CornerEnum {
+            readonly $gtype: GObject.GType<Corner>
             /**
              * The top left corner
              */
-            "TOP_LEFT" = 0,
+            readonly "TOP_LEFT": 0
             /**
              * The top right corner
              */
-            "TOP_RIGHT" = 1,
+            readonly "TOP_RIGHT": 1
             /**
              * The bottom right corner
              */
-            "BOTTOM_RIGHT" = 2,
+            readonly "BOTTOM_RIGHT": 2
             /**
              * The bottom left corner
              */
-            "BOTTOM_LEFT" = 3,
+            readonly "BOTTOM_LEFT": 3
+        }
+        type Corner = CornerEnum[Exclude<keyof CornerEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The corner indices used by `GskRoundedRect`.
+             */
+            Corner: CornerEnum
         }
         
-        namespace FillRule {
-            const $gtype: GObject.GType<FillRule>
-        }
-
-        /**
-         * Specifies how paths are filled.
-         *
-         * Whether or not a point is included in the fill is determined by taking
-         * a ray from that point to infinity and looking at intersections with the
-         * path. The ray can be in any direction, as long as it doesn't pass through
-         * the end point of a segment or have a tricky intersection such as
-         * intersecting tangent to the path.
-         *
-         * (Note that filling is not actually implemented in this way. This
-         * is just a description of the rule that is applied.)
-         *
-         * New entries may be added in future versions.
-         * @since 4.14
-         */
-        enum FillRule {
+        interface FillRuleEnum {
+            readonly $gtype: GObject.GType<FillRule>
             /**
              * If the path crosses the ray from
              *   left-to-right, counts +1. If the path crosses the ray
@@ -4987,650 +5128,731 @@ declare module "gi://Gsk?version=4.0" {
              *   from the perspective of looking along the ray from the starting
              *   point.) If the total count is non-zero, the point will be filled.
              */
-            "WINDING" = 0,
+            readonly "WINDING": 0
             /**
              * Counts the total number of
              *   intersections, without regard to the orientation of the contour. If
              *   the total number of intersections is odd, the point will be
              *   filled.
              */
-            "EVEN_ODD" = 1,
+            readonly "EVEN_ODD": 1
+        }
+        type FillRule = FillRuleEnum[Exclude<keyof FillRuleEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies how paths are filled.
+             *
+             * Whether or not a point is included in the fill is determined by taking
+             * a ray from that point to infinity and looking at intersections with the
+             * path. The ray can be in any direction, as long as it doesn't pass through
+             * the end point of a segment or have a tricky intersection such as
+             * intersecting tangent to the path.
+             *
+             * (Note that filling is not actually implemented in this way. This
+             * is just a description of the rule that is applied.)
+             *
+             * New entries may be added in future versions.
+             * @since 4.14
+             */
+            FillRule: FillRuleEnum
         }
         
-        namespace GLUniformType {
-            const $gtype: GObject.GType<GLUniformType>
-        }
-
-        /**
-         * Defines the types of the uniforms that `GskGLShaders` declare.
-         *
-         * It defines both what the type is called in the GLSL shader
-         * code, and what the corresponding C type is on the Gtk side.
-         * @deprecated since 4.16
-         */
-        enum GLUniformType {
+        interface GLUniformTypeEnum {
+            readonly $gtype: GObject.GType<GLUniformType>
             /**
              * No type, used for uninitialized or unspecified values.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * A float uniform
              */
-            "FLOAT" = 1,
+            readonly "FLOAT": 1
             /**
              * A GLSL int / gint32 uniform
              */
-            "INT" = 2,
+            readonly "INT": 2
             /**
              * A GLSL uint / guint32 uniform
              */
-            "UINT" = 3,
+            readonly "UINT": 3
             /**
              * A GLSL bool / gboolean uniform
              */
-            "BOOL" = 4,
+            readonly "BOOL": 4
             /**
              * A GLSL vec2 / graphene_vec2_t uniform
              */
-            "VEC2" = 5,
+            readonly "VEC2": 5
             /**
              * A GLSL vec3 / graphene_vec3_t uniform
              */
-            "VEC3" = 6,
+            readonly "VEC3": 6
             /**
              * A GLSL vec4 / graphene_vec4_t uniform
              */
-            "VEC4" = 7,
+            readonly "VEC4": 7
+        }
+        type GLUniformType = GLUniformTypeEnum[Exclude<keyof GLUniformTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Defines the types of the uniforms that `GskGLShaders` declare.
+             *
+             * It defines both what the type is called in the GLSL shader
+             * code, and what the corresponding C type is on the Gtk side.
+             * @deprecated since 4.16
+             */
+            GLUniformType: GLUniformTypeEnum
         }
         
-        namespace LineCap {
-            const $gtype: GObject.GType<LineCap>
-        }
-
-        /**
-         * >
-         * @since 4.14
-         */
-        enum LineCap {
+        interface LineCapEnum {
+            readonly $gtype: GObject.GType<LineCap>
             /**
              * Start and stop the line exactly at the start
              *   and end point
              */
-            "BUTT" = 0,
+            readonly "BUTT": 0
             /**
              * Use a round ending, the center of the circle
              *   is the start or end point
              */
-            "ROUND" = 1,
+            readonly "ROUND": 1
             /**
              * use squared ending, the center of the square
              *   is the start or end point
              */
-            "SQUARE" = 2,
+            readonly "SQUARE": 2
+        }
+        type LineCap = LineCapEnum[Exclude<keyof LineCapEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies how to render the start and end points of contours or
+             * dashes when stroking.
+             *
+             * The default line cap style is `GSK_LINE_CAP_BUTT`.
+             *
+             * New entries may be added in future versions.
+             *
+             * <figure>
+             *   <picture>
+             *     <source srcset="caps-dark.png" media="(prefers-color-scheme: dark)">
+             *     <img alt="Line Cap Styles" src="caps-light.png">
+             *   </picture>
+             *   <figcaption>GSK_LINE_CAP_BUTT, GSK_LINE_CAP_ROUND, GSK_LINE_CAP_SQUARE</figcaption>
+             * </figure>
+             * @since 4.14
+             */
+            LineCap: LineCapEnum
         }
         
-        namespace LineJoin {
-            const $gtype: GObject.GType<LineJoin>
-        }
-
-        /**
-         * >
-         * @since 4.14
-         */
-        enum LineJoin {
+        interface LineJoinEnum {
+            readonly $gtype: GObject.GType<LineJoin>
             /**
              * Use a sharp angled corner
              */
-            "MITER" = 0,
+            readonly "MITER": 0
             /**
              * Use a round join, the center of the circle is
              *   the join point
              */
-            "ROUND" = 1,
+            readonly "ROUND": 1
             /**
              * use a cut-off join, the join is cut off at half
              *   the line width from the joint point
              */
-            "BEVEL" = 2,
+            readonly "BEVEL": 2
+        }
+        type LineJoin = LineJoinEnum[Exclude<keyof LineJoinEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies how to render the junction of two lines when stroking.
+             *
+             * The default line join style is `GSK_LINE_JOIN_MITER`.
+             *
+             * New entries may be added in future versions.
+             *
+             * <figure>
+             *   <picture>
+             *     <source srcset="join-dark.png" media="(prefers-color-scheme: dark)">
+             *     <img alt="Line Join Styles" src="join-light.png">
+             *   </picture>
+             *   <figcaption>GSK_LINE_JOINT_MITER, GSK_LINE_JOINT_ROUND, GSK_LINE_JOIN_BEVEL</figcaption>
+             * </figure>
+             * @since 4.14
+             */
+            LineJoin: LineJoinEnum
         }
         
-        namespace MaskMode {
-            const $gtype: GObject.GType<MaskMode>
-        }
-
-        /**
-         * The mask modes available for mask nodes.
-         * @since 4.10
-         */
-        enum MaskMode {
+        interface MaskModeEnum {
+            readonly $gtype: GObject.GType<MaskMode>
             /**
              * Use the alpha channel of the mask
              */
-            "ALPHA" = 0,
+            readonly "ALPHA": 0
             /**
              * Use the inverted alpha channel of the mask
              */
-            "INVERTED_ALPHA" = 1,
+            readonly "INVERTED_ALPHA": 1
             /**
              * Use the luminance of the mask,
              *     multiplied by mask alpha
              */
-            "LUMINANCE" = 2,
+            readonly "LUMINANCE": 2
             /**
              * Use the inverted luminance of the mask,
              *     multiplied by mask alpha
              */
-            "INVERTED_LUMINANCE" = 3,
+            readonly "INVERTED_LUMINANCE": 3
+        }
+        type MaskMode = MaskModeEnum[Exclude<keyof MaskModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The mask modes available for mask nodes.
+             * @since 4.10
+             */
+            MaskMode: MaskModeEnum
         }
         
-        namespace PathDirection {
-            const $gtype: GObject.GType<PathDirection>
-        }
-
-        /**
-         * >
-         * @since 4.14
-         */
-        enum PathDirection {
+        interface PathDirectionEnum {
+            readonly $gtype: GObject.GType<PathDirection>
             /**
              * The tangent in path direction of the incoming side
              *   of the path
              */
-            "FROM_START" = 0,
+            readonly "FROM_START": 0
             /**
              * The tangent against path direction of the incoming side
              *   of the path
              */
-            "TO_START" = 1,
+            readonly "TO_START": 1
             /**
              * The tangent in path direction of the outgoing side
              *   of the path
              */
-            "TO_END" = 2,
+            readonly "TO_END": 2
             /**
              * The tangent against path direction of the outgoing
              *   side of the path
              */
-            "FROM_END" = 3,
+            readonly "FROM_END": 3
+        }
+        type PathDirection = PathDirectionEnum[Exclude<keyof PathDirectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Used to pick one of the four tangents at a given point on the path.
+             *
+             * Note that the directions for @GSK_PATH_FROM_START/@GSK_PATH_TO_END and
+             * @GSK_PATH_TO_START/@GSK_PATH_FROM_END will coincide for smooth points.
+             * Only sharp turns will exhibit four different directions.
+             *
+             * <picture>
+             *   <source srcset="directions-dark.png" media="(prefers-color-scheme: dark)">
+             *   <img alt="Path Tangents" src="directions-light.png">
+             * </picture>
+             * @since 4.14
+             */
+            PathDirection: PathDirectionEnum
         }
         
-        namespace PathIntersection {
-            const $gtype: GObject.GType<PathIntersection>
-        }
-
-        /**
-         * The values of this enumeration classify intersections
-         * between paths.
-         * @since 4.20
-         */
-        enum PathIntersection {
+        interface PathIntersectionEnum {
+            readonly $gtype: GObject.GType<PathIntersection>
             /**
              * No intersection
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * A normal intersection, where the two paths
              *   cross each other
              */
-            "NORMAL" = 1,
+            readonly "NORMAL": 1
             /**
              * The start of a segment where the two paths coincide
              */
-            "START" = 2,
+            readonly "START": 2
             /**
              * The end of a segment where the two paths coincide
              */
-            "END" = 3,
+            readonly "END": 3
+        }
+        type PathIntersection = PathIntersectionEnum[Exclude<keyof PathIntersectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The values of this enumeration classify intersections
+             * between paths.
+             * @since 4.20
+             */
+            PathIntersection: PathIntersectionEnum
         }
         
-        namespace PathOperation {
-            const $gtype: GObject.GType<PathOperation>
-        }
-
-        /**
-         * Describes the segments of a `GskPath`.
-         *
-         * More values may be added in the future.
-         * @since 4.14
-         */
-        enum PathOperation {
+        interface PathOperationEnum {
+            readonly $gtype: GObject.GType<PathOperation>
             /**
              * A move-to operation, with 1 point describing the target point.
              */
-            "MOVE" = 0,
+            readonly "MOVE": 0
             /**
              * A close operation ending the current contour with a line back
              *   to the starting point. Two points describe the start and end of the line.
              */
-            "CLOSE" = 1,
+            readonly "CLOSE": 1
             /**
              * A line-to operation, with 2 points describing the start and
              *   end point of a straight line.
              */
-            "LINE" = 2,
+            readonly "LINE": 2
             /**
              * A curve-to operation describing a quadratic Bézier curve
              *   with 3 points describing the start point, the control point and the end
              *   point of the curve.
              */
-            "QUAD" = 3,
+            readonly "QUAD": 3
             /**
              * A curve-to operation describing a cubic Bézier curve with 4
              *   points describing the start point, the two control points and the end point
              *   of the curve.
              */
-            "CUBIC" = 4,
+            readonly "CUBIC": 4
             /**
              * A rational quadratic Bézier curve with 3 points describing
              *   the start point, control point and end point of the curve. A weight for the
              *   curve will be passed, too.
              */
-            "CONIC" = 5,
+            readonly "CONIC": 5
+        }
+        type PathOperation = PathOperationEnum[Exclude<keyof PathOperationEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the segments of a `GskPath`.
+             *
+             * More values may be added in the future.
+             * @since 4.14
+             */
+            PathOperation: PathOperationEnum
         }
         
-        namespace PorterDuff {
-            const $gtype: GObject.GType<PorterDuff>
+        interface PorterDuffEnum {
+            readonly $gtype: GObject.GType<PorterDuff>
+            /**
+             */
+            readonly "SOURCE": 0
+            /**
+             */
+            readonly "DEST": 1
+            /**
+             */
+            readonly "SOURCE_OVER_DEST": 2
+            /**
+             */
+            readonly "DEST_OVER_SOURCE": 3
+            /**
+             */
+            readonly "SOURCE_IN_DEST": 4
+            /**
+             */
+            readonly "DEST_IN_SOURCE": 5
+            /**
+             */
+            readonly "SOURCE_OUT_DEST": 6
+            /**
+             */
+            readonly "DEST_OUT_SOURCE": 7
+            /**
+             */
+            readonly "SOURCE_ATOP_DEST": 8
+            /**
+             */
+            readonly "DEST_ATOP_SOURCE": 9
+            /**
+             */
+            readonly "XOR": 10
+            /**
+             */
+            readonly "CLEAR": 11
         }
-
-        /**
-         * GSK_PORTER_DUFF_SOURCE:
-         * GSK_PORTER_DUFF_DEST:
-         * GSK_PORTER_DUFF_SOURCE_OVER_DEST:
-         * GSK_PORTER_DUFF_DEST_OVER_SOURCE:
-         * GSK_PORTER_DUFF_SOURCE_IN_DEST:
-         * GSK_PORTER_DUFF_DEST_IN_SOURCE:
-         * GSK_PORTER_DUFF_SOURCE_OUT_DEST:
-         * GSK_PORTER_DUFF_DEST_OUT_SOURCE:
-         * GSK_PORTER_DUFF_SOURCE_ATOP_DEST:
-         * GSK_PORTER_DUFF_DEST_ATOP_SOURCE:
-         * GSK_PORTER_DUFF_XOR:
-         * GSK_PORTER_DUFF_CLEAR:
-         * The 12 compositing modes defined by the seminal paper
-         * by Thomas Porter and Tom Duff.
-         *
-         * They are used in SVG, PDF and in Cairo with `cairo_operator_t`.
-         * @since 4.22
-         */
-        enum PorterDuff {
+        type PorterDuff = PorterDuffEnum[Exclude<keyof PorterDuffEnum, "$gtype">]
+        interface $Exports {
             /**
+             * GSK_PORTER_DUFF_SOURCE:
+             * GSK_PORTER_DUFF_DEST:
+             * GSK_PORTER_DUFF_SOURCE_OVER_DEST:
+             * GSK_PORTER_DUFF_DEST_OVER_SOURCE:
+             * GSK_PORTER_DUFF_SOURCE_IN_DEST:
+             * GSK_PORTER_DUFF_DEST_IN_SOURCE:
+             * GSK_PORTER_DUFF_SOURCE_OUT_DEST:
+             * GSK_PORTER_DUFF_DEST_OUT_SOURCE:
+             * GSK_PORTER_DUFF_SOURCE_ATOP_DEST:
+             * GSK_PORTER_DUFF_DEST_ATOP_SOURCE:
+             * GSK_PORTER_DUFF_XOR:
+             * GSK_PORTER_DUFF_CLEAR:
+             * The 12 compositing modes defined by the seminal paper
+             * by Thomas Porter and Tom Duff.
+             *
+             * They are used in SVG, PDF and in Cairo with `cairo_operator_t`.
+             * @since 4.22
              */
-            "SOURCE" = 0,
-            /**
-             */
-            "DEST" = 1,
-            /**
-             */
-            "SOURCE_OVER_DEST" = 2,
-            /**
-             */
-            "DEST_OVER_SOURCE" = 3,
-            /**
-             */
-            "SOURCE_IN_DEST" = 4,
-            /**
-             */
-            "DEST_IN_SOURCE" = 5,
-            /**
-             */
-            "SOURCE_OUT_DEST" = 6,
-            /**
-             */
-            "DEST_OUT_SOURCE" = 7,
-            /**
-             */
-            "SOURCE_ATOP_DEST" = 8,
-            /**
-             */
-            "DEST_ATOP_SOURCE" = 9,
-            /**
-             */
-            "XOR" = 10,
-            /**
-             */
-            "CLEAR" = 11,
+            PorterDuff: PorterDuffEnum
         }
         
-        namespace RenderNodeType {
-            const $gtype: GObject.GType<RenderNodeType>
-        }
-
-        /**
-         * The type of a node determines what the node is rendering.
-         */
-        enum RenderNodeType {
+        interface RenderNodeTypeEnum {
+            readonly $gtype: GObject.GType<RenderNodeType>
             /**
              * Error type. No node will ever have this type.
              */
-            "NOT_A_RENDER_NODE" = 0,
+            readonly "NOT_A_RENDER_NODE": 0
             /**
              * A node containing a stack of children
              */
-            "CONTAINER_NODE" = 1,
+            readonly "CONTAINER_NODE": 1
             /**
              * A node drawing a `cairo_surface_t`
              */
-            "CAIRO_NODE" = 2,
+            readonly "CAIRO_NODE": 2
             /**
              * A node drawing a single color rectangle
              */
-            "COLOR_NODE" = 3,
+            readonly "COLOR_NODE": 3
             /**
              * A node drawing a linear gradient
              */
-            "LINEAR_GRADIENT_NODE" = 4,
+            readonly "LINEAR_GRADIENT_NODE": 4
             /**
              * A node drawing a repeating linear gradient
              */
-            "REPEATING_LINEAR_GRADIENT_NODE" = 5,
+            readonly "REPEATING_LINEAR_GRADIENT_NODE": 5
             /**
              * A node drawing a radial gradient
              */
-            "RADIAL_GRADIENT_NODE" = 6,
+            readonly "RADIAL_GRADIENT_NODE": 6
             /**
              * A node drawing a repeating radial gradient
              */
-            "REPEATING_RADIAL_GRADIENT_NODE" = 7,
+            readonly "REPEATING_RADIAL_GRADIENT_NODE": 7
             /**
              * A node drawing a conic gradient
              */
-            "CONIC_GRADIENT_NODE" = 8,
+            readonly "CONIC_GRADIENT_NODE": 8
             /**
              * A node stroking a border around an area
              */
-            "BORDER_NODE" = 9,
+            readonly "BORDER_NODE": 9
             /**
              * A node drawing a `GdkTexture`
              */
-            "TEXTURE_NODE" = 10,
+            readonly "TEXTURE_NODE": 10
             /**
              * A node drawing an inset shadow
              */
-            "INSET_SHADOW_NODE" = 11,
+            readonly "INSET_SHADOW_NODE": 11
             /**
              * A node drawing an outset shadow
              */
-            "OUTSET_SHADOW_NODE" = 12,
+            readonly "OUTSET_SHADOW_NODE": 12
             /**
              * A node that renders its child after applying a matrix transform
              */
-            "TRANSFORM_NODE" = 13,
+            readonly "TRANSFORM_NODE": 13
             /**
              * A node that changes the opacity of its child
              */
-            "OPACITY_NODE" = 14,
+            readonly "OPACITY_NODE": 14
             /**
              * A node that applies a color matrix to every pixel
              */
-            "COLOR_MATRIX_NODE" = 15,
+            readonly "COLOR_MATRIX_NODE": 15
             /**
              * A node that repeats the child's contents
              */
-            "REPEAT_NODE" = 16,
+            readonly "REPEAT_NODE": 16
             /**
              * A node that clips its child to a rectangular area
              */
-            "CLIP_NODE" = 17,
+            readonly "CLIP_NODE": 17
             /**
              * A node that clips its child to a rounded rectangle
              */
-            "ROUNDED_CLIP_NODE" = 18,
+            readonly "ROUNDED_CLIP_NODE": 18
             /**
              * A node that draws a shadow below its child
              */
-            "SHADOW_NODE" = 19,
+            readonly "SHADOW_NODE": 19
             /**
              * A node that blends two children together
              */
-            "BLEND_NODE" = 20,
+            readonly "BLEND_NODE": 20
             /**
              * A node that cross-fades between two children
              */
-            "CROSS_FADE_NODE" = 21,
+            readonly "CROSS_FADE_NODE": 21
             /**
              * A node containing a glyph string
              */
-            "TEXT_NODE" = 22,
+            readonly "TEXT_NODE": 22
             /**
              * A node that applies a blur
              */
-            "BLUR_NODE" = 23,
+            readonly "BLUR_NODE": 23
             /**
              * Debug information that does not affect the rendering
              */
-            "DEBUG_NODE" = 24,
+            readonly "DEBUG_NODE": 24
             /**
              * A node that uses OpenGL fragment shaders to render
              */
-            "GL_SHADER_NODE" = 25,
+            readonly "GL_SHADER_NODE": 25
             /**
              * A node drawing a `GdkTexture` scaled and filtered.
              * @since 4.10
              */
-            "TEXTURE_SCALE_NODE" = 26,
+            readonly "TEXTURE_SCALE_NODE": 26
             /**
              * A node that masks one child with another.
              * @since 4.10
              */
-            "MASK_NODE" = 27,
+            readonly "MASK_NODE": 27
             /**
              * A node that fills a path.
              * @since 4.14
              */
-            "FILL_NODE" = 28,
+            readonly "FILL_NODE": 28
             /**
              * A node that strokes a path.
              * @since 4.14
              */
-            "STROKE_NODE" = 29,
+            readonly "STROKE_NODE": 29
             /**
              * A node that possibly redirects part of the scene graph to a subsurface.
              * @since 4.14
              */
-            "SUBSURFACE_NODE" = 30,
+            readonly "SUBSURFACE_NODE": 30
             /**
              * A node that applies some function to each color component.
              * @since 4.20
              */
-            "COMPONENT_TRANSFER_NODE" = 31,
+            readonly "COMPONENT_TRANSFER_NODE": 31
             /**
              * A node that copies the rendering canvas to be pasted later.
              * @since 4.22
              */
-            "COPY_NODE" = 32,
+            readonly "COPY_NODE": 32
             /**
              * A node that pastes a previously copied canvas.
              * @since 4.22
              */
-            "PASTE_NODE" = 33,
+            readonly "PASTE_NODE": 33
             /**
              * A node that combines a child with the background using Porter/Duff
              * operations.
              * @since 4.22
              */
-            "COMPOSITE_NODE" = 34,
+            readonly "COMPOSITE_NODE": 34
             /**
              * A node that isolated content of its child from previous content.
              * @since 4.22
              */
-            "ISOLATION_NODE" = 35,
+            readonly "ISOLATION_NODE": 35
             /**
              * A node that displaces content according to some mask.
              * @since 4.22
              */
-            "DISPLACEMENT_NODE" = 36,
+            readonly "DISPLACEMENT_NODE": 36
             /**
              * A node that combines two child nodes in an arithmetic way.
              * @since 4.22
              */
-            "ARITHMETIC_NODE" = 37,
+            readonly "ARITHMETIC_NODE": 37
+        }
+        type RenderNodeType = RenderNodeTypeEnum[Exclude<keyof RenderNodeTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of a node determines what the node is rendering.
+             */
+            RenderNodeType: RenderNodeTypeEnum
         }
         
-        namespace ScalingFilter {
-            const $gtype: GObject.GType<ScalingFilter>
-        }
-
-        /**
-         * The filters used when scaling texture data.
-         *
-         * The actual implementation of each filter is deferred to the
-         * rendering pipeline.
-         */
-        enum ScalingFilter {
+        interface ScalingFilterEnum {
+            readonly $gtype: GObject.GType<ScalingFilter>
             /**
              * linear interpolation filter
              */
-            "LINEAR" = 0,
+            readonly "LINEAR": 0
             /**
              * nearest neighbor interpolation filter
              */
-            "NEAREST" = 1,
+            readonly "NEAREST": 1
             /**
              * linear interpolation along each axis,
              *   plus mipmap generation, with linear interpolation along the mipmap
              *   levels
              */
-            "TRILINEAR" = 2,
+            readonly "TRILINEAR": 2
+        }
+        type ScalingFilter = ScalingFilterEnum[Exclude<keyof ScalingFilterEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The filters used when scaling texture data.
+             *
+             * The actual implementation of each filter is deferred to the
+             * rendering pipeline.
+             */
+            ScalingFilter: ScalingFilterEnum
         }
         
-        abstract class SerializationError extends GLib.Error {
-            static readonly $gtype: GObject.GType<SerializationError>
+        interface SerializationError extends GLib.Error {}
+
+        interface SerializationErrorEnum {
+            readonly $gtype: GObject.GType<SerializationError>
+
+            new(props: { message: string, code: number }): SerializationError
             /**
              * The format can not be identified
              */
-            static readonly "UNSUPPORTED_FORMAT": 0
+            readonly "UNSUPPORTED_FORMAT": 0
             /**
              * The version of the data is not
              *   understood
              */
-            static readonly "UNSUPPORTED_VERSION": 1
+            readonly "UNSUPPORTED_VERSION": 1
             /**
              * The given data may not exist in
              *   a proper serialization
              */
-            static readonly "INVALID_DATA": 2
-        }
-        /**
+            readonly "INVALID_DATA": 2
+            /**
          * Registers an error quark for [class@Gsk.RenderNode] errors.
          * @returns the error quark
          */
-        function quark(): GLib.Quark
-        
-        namespace TransformCategory {
-            const $gtype: GObject.GType<TransformCategory>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * = GSK_TRANSFORM_CATEGORY_2D` is the way to do this.
-         *
-         * Also keep in mind that rounding errors may cause matrices to not
-         * conform to their categories. Otherwise, matrix operations done via
-         * multiplication will not worsen categories. So for the matrix
-         * multiplication `C = A * B`, `category(C) = MIN (category(A), category(B))`.
-         */
-        enum TransformCategory {
+        interface $Exports {
+            /**
+             * Errors that can happen during (de)serialization.
+             */
+            SerializationError: SerializationErrorEnum
+        }
+        
+        interface TransformCategoryEnum {
+            readonly $gtype: GObject.GType<TransformCategory>
             /**
              * The category of the matrix has not been
              *   determined.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Analyzing the matrix concluded that it does
              *   not fit in any other category.
              */
-            "ANY" = 1,
+            readonly "ANY": 1
             /**
              * The matrix is a 3D matrix. This means that
              *   the w column (the last column) has the values (0, 0, 0, 1).
              */
-            "3D" = 2,
+            readonly "3D": 2
             /**
              * The matrix is a 2D matrix. This is equivalent
              *   to graphene_matrix_is_2d() returning %TRUE. In particular, this
              *   means that Cairo can deal with the matrix.
              */
-            "2D" = 3,
+            readonly "2D": 3
             /**
              * The matrix is a combination of 2D scale
              *   and 2D translation operations. In particular, this means that any
              *   rectangle can be transformed exactly using this matrix.
              */
-            "2D_AFFINE" = 4,
+            readonly "2D_AFFINE": 4
             /**
              * The matrix is a 2D translation.
              */
-            "2D_TRANSLATE" = 5,
+            readonly "2D_TRANSLATE": 5
             /**
              * The matrix is the identity matrix.
              */
-            "IDENTITY" = 6,
+            readonly "IDENTITY": 6
+        }
+        type TransformCategory = TransformCategoryEnum[Exclude<keyof TransformCategoryEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The categories of matrices relevant for GSK and GTK.
+             *
+             * Note that any category includes matrices of all later categories.
+             * So if you want to for example check if a matrix is a 2D matrix,
+             * `category >= GSK_TRANSFORM_CATEGORY_2D` is the way to do this.
+             *
+             * Also keep in mind that rounding errors may cause matrices to not
+             * conform to their categories. Otherwise, matrix operations done via
+             * multiplication will not worsen categories. So for the matrix
+             * multiplication `C = A * B`, `category(C) = MIN (category(A), category(B))`.
+             */
+            TransformCategory: TransformCategoryEnum
         }
         
-        namespace Isolation {
-            const $gtype: GObject.GType<Isolation>
-        }
-
-        /**
-         * These flags describe the types of isolations possible with a
-         * [class@Gsk.IsolationNode].
-         *
-         * More isolation options may be added in the future.
-         * @since 4.22
-         */
-        enum Isolation {
+        interface IsolationBitfield {
+            readonly $gtype: GObject.GType<Isolation>
             /**
              * No isolation is defined.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * If the background should be made available.
              *   If the background is not available, future operations will be rendered
              *   to a transparent background and added to the existing background later.
              */
-            "BACKGROUND" = 1,
+            readonly "BACKGROUND": 1
             /**
              * If copies should be available to paste nodes.
              *   If copies are not available, paste nodes can only paste from copies that
              *   are made inside the isolated contents.
              */
-            "COPY_PASTE" = 2,
+            readonly "COPY_PASTE": 2
             /**
              * Isolate everything. This will include features that
              *   are added in the future.
              */
-            "ALL" = -1,
+            readonly "ALL": -1
+        }
+        type Isolation = number
+        interface $Exports {
+            /**
+             * These flags describe the types of isolations possible with a
+             * [class@Gsk.IsolationNode].
+             *
+             * More isolation options may be added in the future.
+             * @since 4.22
+             */
+            Isolation: IsolationBitfield
         }
         
-        namespace PathForeachFlags {
-            const $gtype: GObject.GType<PathForeachFlags>
-        }
-
-        /**
-         * Flags that can be passed to gsk_path_foreach() to influence what
-         * kinds of operations the path is decomposed into.
-         *
-         * By default, [method@Gsk.Path.foreach] will only emit a path with all
-         * operations flattened to straight lines to allow for maximum compatibility.
-         * The only operations emitted will be `GSK_PATH_MOVE`, `GSK_PATH_LINE` and
-         * `GSK_PATH_CLOSE`.
-         * @since 4.14
-         */
-        enum PathForeachFlags {
+        interface PathForeachFlagsBitfield {
+            readonly $gtype: GObject.GType<PathForeachFlags>
             /**
              * The default behavior, only allow lines.
              */
-            "ONLY_LINES" = 0,
+            readonly "ONLY_LINES": 0
             /**
              * Allow emission of `GSK_PATH_QUAD` operations
              */
-            "QUAD" = 1,
+            readonly "QUAD": 1
             /**
              * Allow emission of `GSK_PATH_CUBIC` operations.
              */
-            "CUBIC" = 2,
+            readonly "CUBIC": 2
             /**
              * Allow emission of `GSK_PATH_CONIC` operations.
              */
-            "CONIC" = 4,
+            readonly "CONIC": 4
+        }
+        type PathForeachFlags = number
+        interface $Exports {
+            /**
+             * Flags that can be passed to gsk_path_foreach() to influence what
+             * kinds of operations the path is decomposed into.
+             *
+             * By default, [method@Gsk.Path.foreach] will only emit a path with all
+             * operations flattened to straight lines to allow for maximum compatibility.
+             * The only operations emitted will be `GSK_PATH_MOVE`, `GSK_PATH_LINE` and
+             * `GSK_PATH_CLOSE`.
+             * @since 4.14
+             */
+            PathForeachFlags: PathForeachFlagsBitfield
         }
         /**
          * Type of callback that is called when an error occurs
@@ -5714,7 +5936,111 @@ declare module "gi://Gsk?version=4.0" {
          * @returns The filtered texture
          */
         type RenderReplayTextureFilter = (replay: RenderReplay, texture: Gdk.Texture) => Gdk.Texture
+
+        interface $Exports {
+            __name__: "Gsk"
+            __version: "4.0"
+            /**
+             * Compares two component transfers for equality.
+             * @since 4.20
+             * @param self a component transfer
+             * @param other another component transfer
+             * @returns true if `self` and `other` are equal
+             */
+            component_transfer_equal(self: never, other: never): boolean
+            /**
+             * Constructs a path from a serialized form.
+             *
+             * The string is expected to be in (a superset of)
+             * [SVG path syntax](https://www.w3.org/TR/SVG11/paths.html#PathData),
+             * as e.g. produced by [method@Gsk.Path.to_string].
+             *
+             * A high-level summary of the syntax:
+             *
+             * - `M x y` Move to `(x, y)`
+             * - `L x y` Add a line from the current point to `(x, y)`
+             * - `Q x1 y1 x2 y2` Add a quadratic Bézier from the current point to `(x2, y2)`, with control point `(x1, y1)`
+             * - `C x1 y1 x2 y2 x3 y3` Add a cubic Bézier from the current point to `(x3, y3)`, with control points `(x1, y1)` and `(x2, y2)`
+             * - `Z` Close the contour by drawing a line back to the start point
+             * - `H x` Add a horizontal line from the current point to the given x value
+             * - `V y` Add a vertical line from the current point to the given y value
+             * - `T x2 y2` Add a quadratic Bézier, using the reflection of the previous segments' control point as control point
+             * - `S x2 y2 x3 y3` Add a cubic Bézier, using the reflection of the previous segments' second control point as first control point
+             * - `A rx ry r l s x y` Add an elliptical arc from the current point to `(x, y)` with radii rx and ry. See the SVG documentation for how the other parameters influence the arc.
+             * - `O x1 y1 x2 y2 w` Add a rational quadratic Bézier from the current point to `(x2, y2)` with control point `(x1, y1)` and weight `w`.
+             *
+             * All the commands have lowercase variants that interpret coordinates
+             * relative to the current point.
+             *
+             * The `O` command is an extension that is not supported in SVG.
+             * @since 4.14
+             * @param string a string
+             * @returns a new `GskPath`, or `NULL` if `string` could not be parsed
+             */
+            path_parse(string: string): Path | null
+            /**
+             * Registers an error quark for [class@Gsk.RenderNode] errors.
+             * @returns the error quark
+             */
+            serialization_error_quark(): GLib.Quark
+            /**
+             * Checks if two strokes are identical.
+             * @since 4.14
+             * @param stroke1 the first stroke
+             * @param stroke2 the second stroke
+             * @returns true if the two strokes are equal, false otherwise
+             */
+            stroke_equal(stroke1: never | null, stroke2: never | null): boolean
+            /**
+             * Parses a given into a transform.
+             *
+             * Strings printed via [method@Gsk.Transform.to_string]
+             * can be read in again successfully using this function.
+             *
+             * If @string does not describe a valid transform, false
+             * is returned and `NULL` is put in @out_transform.
+             * @param string the string to parse
+             * @returns true if `string` described a valid transform, return location for the transform
+             */
+            transform_parse(string: string): [boolean, Transform]
+            /**
+             * Retrieves the render node stored inside a `GValue`,
+             * and acquires a reference to it.
+             * @since 4.6
+             * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
+             * @returns the render node
+             */
+            value_dup_render_node(value: (GObject.Value | unknown)): RenderNode | null
+            /**
+             * Retrieves the render node stored inside a `GValue`.
+             * @since 4.6
+             * @param value a `GValue` initialized with type `GSK_TYPE_RENDER_NODE`
+             * @returns the render node
+             */
+            value_get_render_node(value: (GObject.Value | unknown)): RenderNode | null
+            /**
+             * Stores the given render node inside a `GValue`.
+             *
+             * The [struct@GObject.Value] will acquire a reference
+             * to the render node.
+             * @since 4.6
+             * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
+             * @param node a render node
+             */
+            value_set_render_node(value: (GObject.Value | unknown), node: RenderNode): void
+            /**
+             * Stores the given render node inside a `GValue`.
+             *
+             * This function transfers the ownership of the
+             * render node to the `GValue`.
+             * @since 4.6
+             * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
+             * @param node a render node
+             */
+            value_take_render_node(value: (GObject.Value | unknown), node: RenderNode | null): void
+        }
     }
 
+    const Gsk: Gsk.$Exports
     export default Gsk
 }

@@ -22,10 +22,7 @@ declare module "gi://GstDxva?version=1.0" {
 
     
 
-
     namespace GstDxva {
-        const __name__: "GstDxva"
-        const __version: "1.0"
         
 
         namespace DxvaAV1Decoder {
@@ -42,9 +39,6 @@ declare module "gi://GstDxva?version=1.0" {
             }
         }
 
-        /**
-         * @since 1.24
-         */
         interface DxvaAV1Decoder extends GstCodecs.AV1Decoder {
             readonly $signals: DxvaAV1Decoder.SignalSignatures
             readonly $readableProperties: DxvaAV1Decoder.ReadableProperties
@@ -91,10 +85,16 @@ declare module "gi://GstDxva?version=1.0" {
         interface DxvaAV1DecoderClass extends Omit<GstCodecs.AV1DecoderClass, "new"> {
             readonly $gtype: GObject.GType<DxvaAV1Decoder>
             readonly prototype: DxvaAV1Decoder
+
             new (props?: Partial<GObject.ConstructorProps<DxvaAV1Decoder>>): DxvaAV1Decoder
         }
 
-        const DxvaAV1Decoder: DxvaAV1DecoderClass
+        interface $Exports {
+            /**
+             * @since 1.24
+             */
+            DxvaAV1Decoder: DxvaAV1DecoderClass
+        }
         
 
         namespace DxvaH264Decoder {
@@ -111,9 +111,6 @@ declare module "gi://GstDxva?version=1.0" {
             }
         }
 
-        /**
-         * @since 1.24
-         */
         interface DxvaH264Decoder extends GstCodecs.H264Decoder {
             readonly $signals: DxvaH264Decoder.SignalSignatures
             readonly $readableProperties: DxvaH264Decoder.ReadableProperties
@@ -160,10 +157,16 @@ declare module "gi://GstDxva?version=1.0" {
         interface DxvaH264DecoderClass extends Omit<GstCodecs.H264DecoderClass, "new"> {
             readonly $gtype: GObject.GType<DxvaH264Decoder>
             readonly prototype: DxvaH264Decoder
+
             new (props?: Partial<GObject.ConstructorProps<DxvaH264Decoder>>): DxvaH264Decoder
         }
 
-        const DxvaH264Decoder: DxvaH264DecoderClass
+        interface $Exports {
+            /**
+             * @since 1.24
+             */
+            DxvaH264Decoder: DxvaH264DecoderClass
+        }
         
 
         namespace DxvaH265Decoder {
@@ -180,9 +183,6 @@ declare module "gi://GstDxva?version=1.0" {
             }
         }
 
-        /**
-         * @since 1.24
-         */
         interface DxvaH265Decoder extends GstCodecs.H265Decoder {
             readonly $signals: DxvaH265Decoder.SignalSignatures
             readonly $readableProperties: DxvaH265Decoder.ReadableProperties
@@ -224,10 +224,16 @@ declare module "gi://GstDxva?version=1.0" {
         interface DxvaH265DecoderClass extends Omit<GstCodecs.H265DecoderClass, "new"> {
             readonly $gtype: GObject.GType<DxvaH265Decoder>
             readonly prototype: DxvaH265Decoder
+
             new (props?: Partial<GObject.ConstructorProps<DxvaH265Decoder>>): DxvaH265Decoder
         }
 
-        const DxvaH265Decoder: DxvaH265DecoderClass
+        interface $Exports {
+            /**
+             * @since 1.24
+             */
+            DxvaH265Decoder: DxvaH265DecoderClass
+        }
         
 
         namespace DxvaMpeg2Decoder {
@@ -244,9 +250,6 @@ declare module "gi://GstDxva?version=1.0" {
             }
         }
 
-        /**
-         * @since 1.24
-         */
         interface DxvaMpeg2Decoder extends GstCodecs.Mpeg2Decoder {
             readonly $signals: DxvaMpeg2Decoder.SignalSignatures
             readonly $readableProperties: DxvaMpeg2Decoder.ReadableProperties
@@ -296,10 +299,16 @@ declare module "gi://GstDxva?version=1.0" {
         interface DxvaMpeg2DecoderClass extends Omit<GstCodecs.Mpeg2DecoderClass, "new"> {
             readonly $gtype: GObject.GType<DxvaMpeg2Decoder>
             readonly prototype: DxvaMpeg2Decoder
+
             new (props?: Partial<GObject.ConstructorProps<DxvaMpeg2Decoder>>): DxvaMpeg2Decoder
         }
 
-        const DxvaMpeg2Decoder: DxvaMpeg2DecoderClass
+        interface $Exports {
+            /**
+             * @since 1.24
+             */
+            DxvaMpeg2Decoder: DxvaMpeg2DecoderClass
+        }
         
 
         namespace DxvaVp8Decoder {
@@ -316,9 +325,6 @@ declare module "gi://GstDxva?version=1.0" {
             }
         }
 
-        /**
-         * @since 1.24
-         */
         interface DxvaVp8Decoder extends GstCodecs.Vp8Decoder {
             readonly $signals: DxvaVp8Decoder.SignalSignatures
             readonly $readableProperties: DxvaVp8Decoder.ReadableProperties
@@ -360,10 +366,16 @@ declare module "gi://GstDxva?version=1.0" {
         interface DxvaVp8DecoderClass extends Omit<GstCodecs.Vp8DecoderClass, "new"> {
             readonly $gtype: GObject.GType<DxvaVp8Decoder>
             readonly prototype: DxvaVp8Decoder
+
             new (props?: Partial<GObject.ConstructorProps<DxvaVp8Decoder>>): DxvaVp8Decoder
         }
 
-        const DxvaVp8Decoder: DxvaVp8DecoderClass
+        interface $Exports {
+            /**
+             * @since 1.24
+             */
+            DxvaVp8Decoder: DxvaVp8DecoderClass
+        }
         
 
         namespace DxvaVp9Decoder {
@@ -380,9 +392,6 @@ declare module "gi://GstDxva?version=1.0" {
             }
         }
 
-        /**
-         * @since 1.24
-         */
         interface DxvaVp9Decoder extends GstCodecs.Vp9Decoder {
             readonly $signals: DxvaVp9Decoder.SignalSignatures
             readonly $readableProperties: DxvaVp9Decoder.ReadableProperties
@@ -429,25 +438,37 @@ declare module "gi://GstDxva?version=1.0" {
         interface DxvaVp9DecoderClass extends Omit<GstCodecs.Vp9DecoderClass, "new"> {
             readonly $gtype: GObject.GType<DxvaVp9Decoder>
             readonly prototype: DxvaVp9Decoder
+
             new (props?: Partial<GObject.ConstructorProps<DxvaVp9Decoder>>): DxvaVp9Decoder
         }
 
-        const DxvaVp9Decoder: DxvaVp9DecoderClass
-        none
-        /**
-         */
-        abstract class DxvaAV1DecoderPrivate {
-            static readonly $gtype: GObject.GType<DxvaAV1DecoderPrivate>
-
-            
+        interface $Exports {
+            /**
+             * @since 1.24
+             */
+            DxvaVp9Decoder: DxvaVp9DecoderClass
         }
-        /**
-         * @since 1.24
-         */
-        abstract class DxvaDecodingArgs {
-            static readonly $gtype: GObject.GType<DxvaDecodingArgs>
+        
 
-            
+        interface DxvaAV1DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<DxvaAV1DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DxvaAV1DecoderPrivate
+        }
+
+        interface DxvaAV1DecoderPrivate {
+        }
+
+        interface $Exports {
+            DxvaAV1DecoderPrivate: DxvaAV1DecoderPrivateStruct
+        }
+        
+
+        interface DxvaDecodingArgsStruct {
+            readonly $gtype: GObject.GType<DxvaDecodingArgs>
+            [Symbol.hasInstance](instance: unknown): instance is DxvaDecodingArgs
+        }
+
+        interface DxvaDecodingArgs {
             /**
              */
             picture_params: never
@@ -473,37 +494,57 @@ declare module "gi://GstDxva?version=1.0" {
              */
             inverse_quantization_matrix_size: number
         }
-        none
-        /**
-         */
-        abstract class DxvaH264DecoderPrivate {
-            static readonly $gtype: GObject.GType<DxvaH264DecoderPrivate>
 
-            
+        interface $Exports {
+            DxvaDecodingArgs: DxvaDecodingArgsStruct
         }
-        none
-        /**
-         */
-        abstract class DxvaH265DecoderPrivate {
-            static readonly $gtype: GObject.GType<DxvaH265DecoderPrivate>
+        
 
-            
+        interface DxvaH264DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<DxvaH264DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DxvaH264DecoderPrivate
         }
-        none
-        /**
-         */
-        abstract class DxvaMpeg2DecoderPrivate {
-            static readonly $gtype: GObject.GType<DxvaMpeg2DecoderPrivate>
 
-            
+        interface DxvaH264DecoderPrivate {
         }
-        /**
-         * @since 1.24
-         */
-        abstract class DxvaResolution {
-            static readonly $gtype: GObject.GType<DxvaResolution>
 
-            
+        interface $Exports {
+            DxvaH264DecoderPrivate: DxvaH264DecoderPrivateStruct
+        }
+        
+
+        interface DxvaH265DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<DxvaH265DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DxvaH265DecoderPrivate
+        }
+
+        interface DxvaH265DecoderPrivate {
+        }
+
+        interface $Exports {
+            DxvaH265DecoderPrivate: DxvaH265DecoderPrivateStruct
+        }
+        
+
+        interface DxvaMpeg2DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<DxvaMpeg2DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DxvaMpeg2DecoderPrivate
+        }
+
+        interface DxvaMpeg2DecoderPrivate {
+        }
+
+        interface $Exports {
+            DxvaMpeg2DecoderPrivate: DxvaMpeg2DecoderPrivateStruct
+        }
+        
+
+        interface DxvaResolutionStruct {
+            readonly $gtype: GObject.GType<DxvaResolution>
+            [Symbol.hasInstance](instance: unknown): instance is DxvaResolution
+        }
+
+        interface DxvaResolution {
             /**
              */
             width: number
@@ -511,63 +552,84 @@ declare module "gi://GstDxva?version=1.0" {
              */
             height: number
         }
-        none
-        /**
-         */
-        abstract class DxvaVp8DecoderPrivate {
-            static readonly $gtype: GObject.GType<DxvaVp8DecoderPrivate>
 
-            
+        interface $Exports {
+            DxvaResolution: DxvaResolutionStruct
         }
-        none
-        /**
-         */
-        abstract class DxvaVp9DecoderPrivate {
-            static readonly $gtype: GObject.GType<DxvaVp9DecoderPrivate>
-
-            
-        }
-        /**
-         * @since 1.24
-         * @param codec a #GstDxvaCodec
-         * @returns the string representation of `codec`
-         */
-        function dxva_codec_to_string(codec: DxvaCodec): string
         
-        namespace DxvaCodec {
-            const $gtype: GObject.GType<DxvaCodec>
+
+        interface DxvaVp8DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<DxvaVp8DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DxvaVp8DecoderPrivate
         }
 
-        /**
-         * @since 1.24
-         */
-        enum DxvaCodec {
+        interface DxvaVp8DecoderPrivate {
+        }
+
+        interface $Exports {
+            DxvaVp8DecoderPrivate: DxvaVp8DecoderPrivateStruct
+        }
+        
+
+        interface DxvaVp9DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<DxvaVp9DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DxvaVp9DecoderPrivate
+        }
+
+        interface DxvaVp9DecoderPrivate {
+        }
+
+        interface $Exports {
+            DxvaVp9DecoderPrivate: DxvaVp9DecoderPrivateStruct
+        }
+        
+        interface DxvaCodecEnum {
+            readonly $gtype: GObject.GType<DxvaCodec>
             /**
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              */
-            "MPEG2" = 1,
+            readonly "MPEG2": 1
             /**
              */
-            "H264" = 2,
+            readonly "H264": 2
             /**
              */
-            "H265" = 3,
+            readonly "H265": 3
             /**
              */
-            "VP8" = 4,
+            readonly "VP8": 4
             /**
              */
-            "VP9" = 5,
+            readonly "VP9": 5
             /**
              */
-            "AV1" = 6,
+            readonly "AV1": 6
             /**
              */
-            "LAST" = 7,
+            readonly "LAST": 7
+        }
+        type DxvaCodec = DxvaCodecEnum[Exclude<keyof DxvaCodecEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 1.24
+             */
+            DxvaCodec: DxvaCodecEnum
+        }
+
+        interface $Exports {
+            __name__: "GstDxva"
+            __version: "1.0"
+            /**
+             * @since 1.24
+             * @param codec a #GstDxvaCodec
+             * @returns the string representation of `codec`
+             */
+            dxva_codec_to_string(codec: DxvaCodec): string
         }
     }
 
+    const GstDxva: GstDxva.$Exports
     export default GstDxva
 }

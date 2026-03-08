@@ -14,595 +14,7 @@ declare module "gi://Gst?version=1.0" {
 
     
 
-
     namespace Gst {
-        const __name__: "Gst"
-        const __version: "1.0"
-        
-
-        namespace ChildProxy {
-            interface SignalSignatures  {
-                /**
-                 * Will be emitted after the @object was added to the @child_proxy.
-                 * @param object the #GObject that was added
-                 * @param name the name of the new child
-                 */
-                "child-added"(object: GObject.Object, name: string): void
-                /**
-                 * Will be emitted after the @object was removed from the @child_proxy.
-                 * @param object the #GObject that was removed
-                 * @param name the name of the old child
-                 */
-                "child-removed"(object: GObject.Object, name: string): void
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * Emits the #GstChildProxy::child-added signal.
-                 * @param child the newly added child
-                 * @param name the name of the new child
-                 */
-                vfunc_child_added(child: GObject.Object, name: string): void
-                /**
-                 * Emits the #GstChildProxy::child-removed signal.
-                 * @param child the removed child
-                 * @param name the name of the old child
-                 */
-                vfunc_child_removed(child: GObject.Object, name: string): void
-                /**
-                 * Fetches a child by its number.
-                 * @param index the child's position in the child list
-                 * @returns the child object or %NULL if     not found (index too high).
-                 */
-                vfunc_get_child_by_index(index: number): GObject.Object | null
-                /**
-                 * Looks up a child element by the given name.
-                 *
-                 * This virtual method has a default implementation that uses #GstObject
-                 * together with gst_object_get_name(). If the interface is to be used with
-                 * #GObjects, this methods needs to be overridden.
-                 * @param name the child's name
-                 * @returns the child object or %NULL if     not found.
-                 */
-                vfunc_get_child_by_name(name: string): GObject.Object | null
-                /**
-                 * Gets the number of child objects this parent contains.
-                 * @returns the number of child objects
-                 */
-                vfunc_get_children_count(): number
-            }
-        }
-
-        /**
-         * This interface abstracts handling of property sets for elements with
-         * children. Imagine elements such as mixers or polyphonic generators. They all
-         * have multiple #GstPad or some kind of voice objects. Another use case are
-         * container elements like #GstBin.
-         * The element implementing the interface acts as a parent for those child
-         * objects.
-         *
-         * By implementing this interface the child properties can be accessed from the
-         * parent element by using gst_child_proxy_get() and gst_child_proxy_set().
-         *
-         * Property names are written as `child-name::property-name`. The whole naming
-         * scheme is recursive. Thus `child1::child2::property` is valid too, if
-         * `child1` and `child2` implement the #GstChildProxy interface.
-         */
-        interface ChildProxy extends ChildProxy.Interface {
-            readonly $signals: ChildProxy.SignalSignatures
-            readonly $readableProperties: ChildProxy.ReadableProperties
-            readonly $writableProperties: ChildProxy.WritableProperties
-            readonly $constructOnlyProperties: ChildProxy.ConstructOnlyProperties
-            /**
-             * Emits the #GstChildProxy::child-added signal.
-             * @param child the newly added child
-             * @param name the name of the new child
-             */
-            child_added(child: GObject.Object, name: string): void
-            /**
-             * Emits the #GstChildProxy::child-removed signal.
-             * @param child the removed child
-             * @param name the name of the old child
-             */
-            child_removed(child: GObject.Object, name: string): void
-            /**
-             * Fetches a child by its number.
-             * @param index the child's position in the child list
-             * @returns the child object or %NULL if     not found (index too high).
-             */
-            get_child_by_index(index: number): GObject.Object | null
-            /**
-             * Looks up a child element by the given name.
-             *
-             * This virtual method has a default implementation that uses #GstObject
-             * together with gst_object_get_name(). If the interface is to be used with
-             * #GObjects, this methods needs to be overridden.
-             * @param name the child's name
-             * @returns the child object or %NULL if     not found.
-             */
-            get_child_by_name(name: string): GObject.Object | null
-            /**
-             * Looks up a child element by the given full-path name.
-             *
-             * Similar to gst_child_proxy_get_child_by_name(), this method
-             * searches and returns a child given a name. The difference is that
-             * this method allows a hierarchical path in the form of
-             * child1::child2::child3. In the later example this method would
-             * return a reference to child3, if found. The name should be made of
-             * element names only and should not contain any property names.
-             * @since 1.22
-             * @param name the full-path child's name
-             * @returns the child object or %NULL if     not found.
-             */
-            get_child_by_name_recurse(name: string): GObject.Object | null
-            /**
-             * Gets the number of child objects this parent contains.
-             * @returns the number of child objects
-             */
-            get_children_count(): number
-            /**
-             * Gets a single property using the GstChildProxy mechanism.
-             * You are responsible for freeing it by calling g_value_unset()
-             * @param name name of the property
-             * @returns , a #GValue that should take the result.
-             */
-            get_property(name: string): GObject.Value
-            /**
-             * Looks up which object and #GParamSpec would be effected by the given @name.
-             * @param name name of the property to look up
-             * @returns %TRUE if `target` and `pspec` could be found. %FALSE otherwise. In that case the values for `pspec` and `target` are not modified. Unref `target` after usage. For plain #GObject `target` is the same as `object`., pointer to a #GObject that     takes the real object to set property on, pointer to take the #GParamSpec     describing the property
-             */
-            lookup(name: string): boolean
-            /**
-             * Sets a single property using the GstChildProxy mechanism.
-             * @param name name of the property to set
-             * @param value new #GValue for the property
-             */
-            set_property(name: string, value: GObject.Value): void
-        }
-
-
-        interface ChildProxyInterface {
-            readonly $gtype: GObject.GType<ChildProxy>
-            readonly prototype: ChildProxy
-
-            [Symbol.hasInstance](instance: unknown): instance is ChildProxy
-        }
-
-        const ChildProxy: ChildProxyInterface
-        
-
-        namespace Preset {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * Delete the given preset.
-                 * @param name preset name to remove
-                 * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
-                 */
-                vfunc_delete_preset(name: string): boolean
-                /**
-                 * Gets the @value for an existing meta data @tag. Meta data @tag names can be
-                 * something like e.g. "comment". Returned values need to be released when done.
-                 * @param name preset name
-                 * @param tag meta data item name
-                 * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name` or no value for the given `tag`, value
-                 */
-                vfunc_get_meta(name: string, tag: string): [boolean, string]
-                /**
-                 * Get a copy of preset names as a %NULL terminated string array.
-                 * @returns      list with names, use g_strfreev() after usage.
-                 */
-                vfunc_get_preset_names(): string[]
-                /**
-                 * Get a the names of the GObject properties that can be used for presets.
-                 * @returns an   array of property names which should be freed with g_strfreev() after use.
-                 */
-                vfunc_get_property_names(): string[]
-                /**
-                 * Load the given preset.
-                 * @param name preset name to load
-                 * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
-                 */
-                vfunc_load_preset(name: string): boolean
-                /**
-                 * Renames a preset. If there is already a preset by the @new_name it will be
-                 * overwritten.
-                 * @param old_name current preset name
-                 * @param new_name new preset name
-                 * @returns %TRUE for success, %FALSE if e.g. there is no preset with `old_name`
-                 */
-                vfunc_rename_preset(old_name: string, new_name: string): boolean
-                /**
-                 * Save the current object settings as a preset under the given name. If there
-                 * is already a preset by this @name it will be overwritten.
-                 * @param name preset name to save
-                 * @returns %TRUE for success, %FALSE
-                 */
-                vfunc_save_preset(name: string): boolean
-                /**
-                 * Sets a new @value for an existing meta data item or adds a new item. Meta
-                 * data @tag names can be something like e.g. "comment". Supplying %NULL for the
-                 * @value will unset an existing value.
-                 * @param name preset name
-                 * @param tag meta data item name
-                 * @param value new value
-                 * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
-                 */
-                vfunc_set_meta(name: string, tag: string, value: string | null): boolean
-            }
-        }
-
-        /**
-         * This interface offers methods to query and manipulate parameter preset sets.
-         * A preset is a bunch of property settings, together with meta data and a name.
-         * The name of a preset serves as key for subsequent method calls to manipulate
-         * single presets.
-         * All instances of one type will share the list of presets. The list is created
-         * on demand, if presets are not used, the list is not created.
-         *
-         * The interface comes with a default implementation that serves most plugins.
-         * Wrapper plugins will override most methods to implement support for the
-         * native preset format of those wrapped plugins.
-         * One method that is useful to be overridden is gst_preset_get_property_names().
-         * With that one can control which properties are saved and in which order.
-         * When implementing support for read-only presets, one should set the vmethods
-         * for gst_preset_save_preset() and gst_preset_delete_preset() to %NULL.
-         * Applications can use gst_preset_is_editable() to check for that.
-         *
-         * The default implementation supports presets located in a system directory,
-         * application specific directory and in the users home directory. When getting
-         * a list of presets individual presets are read and overlaid in 1) system,
-         * 2) application and 3) user order. Whenever an earlier entry is newer, the
-         * later entries will be updated. Since 1.8 you can also provide extra paths
-         * where to find presets through the GST_PRESET_PATH environment variable.
-         * Presets found in those paths will be considered as "app presets".
-         */
-        interface Preset extends Preset.Interface {
-            readonly $signals: Preset.SignalSignatures
-            readonly $readableProperties: Preset.ReadableProperties
-            readonly $writableProperties: Preset.WritableProperties
-            readonly $constructOnlyProperties: Preset.ConstructOnlyProperties
-            /**
-             * Delete the given preset.
-             * @param name preset name to remove
-             * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
-             */
-            delete_preset(name: string): boolean
-            /**
-             * Gets the @value for an existing meta data @tag. Meta data @tag names can be
-             * something like e.g. "comment". Returned values need to be released when done.
-             * @param name preset name
-             * @param tag meta data item name
-             * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name` or no value for the given `tag`, value
-             */
-            get_meta(name: string, tag: string): [boolean, string]
-            /**
-             * Get a copy of preset names as a %NULL terminated string array.
-             * @returns      list with names, use g_strfreev() after usage.
-             */
-            get_preset_names(): string[]
-            /**
-             * Get a the names of the GObject properties that can be used for presets.
-             * @returns an   array of property names which should be freed with g_strfreev() after use.
-             */
-            get_property_names(): string[]
-            /**
-             * Check if one can add new presets, change existing ones and remove presets.
-             * @since 1.6
-             * @returns %TRUE if presets are editable or %FALSE if they are static
-             */
-            is_editable(): boolean
-            /**
-             * Load the given preset.
-             * @param name preset name to load
-             * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
-             */
-            load_preset(name: string): boolean
-            /**
-             * Renames a preset. If there is already a preset by the @new_name it will be
-             * overwritten.
-             * @param old_name current preset name
-             * @param new_name new preset name
-             * @returns %TRUE for success, %FALSE if e.g. there is no preset with `old_name`
-             */
-            rename_preset(old_name: string, new_name: string): boolean
-            /**
-             * Save the current object settings as a preset under the given name. If there
-             * is already a preset by this @name it will be overwritten.
-             * @param name preset name to save
-             * @returns %TRUE for success, %FALSE
-             */
-            save_preset(name: string): boolean
-            /**
-             * Sets a new @value for an existing meta data item or adds a new item. Meta
-             * data @tag names can be something like e.g. "comment". Supplying %NULL for the
-             * @value will unset an existing value.
-             * @param name preset name
-             * @param tag meta data item name
-             * @param value new value
-             * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
-             */
-            set_meta(name: string, tag: string, value: string | null): boolean
-        }
-
-
-        interface PresetInterface {
-            readonly $gtype: GObject.GType<Preset>
-            readonly prototype: Preset
-            /**
-             * Gets the directory for application specific presets if set by the
-             * application.
-             * @returns the directory or %NULL, don't free or modify the string
-             */
-            get_app_dir(): string | null
-            /**
-             * Sets an extra directory as an absolute path that should be considered when
-             * looking for presets. Any presets in the application dir will shadow the
-             * system presets.
-             * @param app_dir the application specific preset dir
-             * @returns %TRUE for success, %FALSE if the dir already has been set
-             */
-            set_app_dir(app_dir: string): boolean
-
-            [Symbol.hasInstance](instance: unknown): instance is Preset
-        }
-
-        const Preset: PresetInterface
-        
-
-        namespace TagSetter {
-            interface SignalSignatures extends Element.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Element.ReadableProperties {
-            }
-
-            interface WritableProperties extends Element.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Element.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Element {
-            }
-        }
-
-        /**
-         * event_tags;
-         *
-         * GST_LOG_OBJECT (tagsetter, "merging tags, merge mode = %d", merge_mode);
-         * GST_LOG_OBJECT (tagsetter, "event tags: %" GST_PTR_FORMAT, event_tags);
-         * GST_LOG_OBJECT (tagsetter, "set   tags: %" GST_PTR_FORMAT, application_tags);
-         *
-         * result = gst_tag_list_merge (application_tags, event_tags, merge_mode);
-         *
-         * GST_LOG_OBJECT (tagsetter, "final tags: %" GST_PTR_FORMAT, result);
-         * ]|
-         */
-        interface TagSetter extends Element, TagSetter.Interface {
-            readonly $signals: TagSetter.SignalSignatures
-            readonly $readableProperties: TagSetter.ReadableProperties
-            readonly $writableProperties: TagSetter.WritableProperties
-            readonly $constructOnlyProperties: TagSetter.ConstructOnlyProperties
-            /**
-             * Adds the given tag / GValue pair on the setter using the given merge mode.
-             * @param mode the mode to use
-             * @param tag tag to set
-             * @param value GValue to set for the tag
-             */
-            add_tag_value(mode: TagMergeMode, tag: string, value: GObject.Value): void
-            /**
-             * Returns the current list of tags the setter uses.  The list should not be
-             * modified or freed.
-             *
-             * This function is not thread-safe.
-             * @returns a current snapshot of the          taglist used in the setter or %NULL if none is used.
-             */
-            get_tag_list(): TagList | null
-            /**
-             * Queries the mode by which tags inside the setter are overwritten by tags
-             * from events
-             * @returns the merge mode used inside the element.
-             */
-            get_tag_merge_mode(): TagMergeMode
-            /**
-             * Merges the given list into the setter's list using the given mode.
-             * @param list a tag list to merge from
-             * @param mode the mode to merge with
-             */
-            merge_tags(list: TagList, mode: TagMergeMode): void
-            /**
-             * Reset the internal taglist. Elements should call this from within the
-             * state-change handler.
-             */
-            reset_tags(): void
-            /**
-             * Sets the given merge mode that is used for adding tags from events to tags
-             * specified by this interface. The default is #GST_TAG_MERGE_KEEP, which keeps
-             * the tags set with this interface and discards tags from events.
-             * @param mode The mode with which tags are added
-             */
-            set_tag_merge_mode(mode: TagMergeMode): void
-        }
-
-
-        interface TagSetterInterface {
-            readonly $gtype: GObject.GType<TagSetter>
-            readonly prototype: TagSetter
-
-            [Symbol.hasInstance](instance: unknown): instance is TagSetter
-        }
-
-        const TagSetter: TagSetterInterface
-        
-
-        namespace TocSetter {
-            interface SignalSignatures extends Element.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Element.ReadableProperties {
-            }
-
-            interface WritableProperties extends Element.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Element.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Element {
-            }
-        }
-
-        /**
-         * Element interface that allows setting of the TOC.
-         *
-         * Elements that support some kind of chapters or editions (or tracks like in
-         * the FLAC cue sheet) will implement this interface.
-         *
-         * If you just want to retrieve the TOC in your application then all you
-         * need to do is watch for TOC messages on your pipeline's bus (or you can
-         * perform TOC query). This interface is only for setting TOC data, not for
-         * extracting it. To set TOC from the application, find proper tocsetter element
-         * and set TOC using gst_toc_setter_set_toc().
-         *
-         * Elements implementing the #GstTocSetter interface can extend existing TOC
-         * by getting extend UID for that (you can use gst_toc_find_entry() to retrieve it)
-         * with any TOC entries received from downstream.
-         */
-        interface TocSetter extends Element, TocSetter.Interface {
-            readonly $signals: TocSetter.SignalSignatures
-            readonly $readableProperties: TocSetter.ReadableProperties
-            readonly $writableProperties: TocSetter.WritableProperties
-            readonly $constructOnlyProperties: TocSetter.ConstructOnlyProperties
-            /**
-             * Return current TOC the setter uses. The TOC should not be
-             * modified without making it writable first.
-             * @returns TOC set, or %NULL. Unref with     gst_toc_unref() when no longer needed
-             */
-            get_toc(): Toc | null
-            /**
-             * Reset the internal TOC. Elements should call this from within the
-             * state-change handler.
-             */
-            reset(): void
-            /**
-             * Set the given TOC on the setter. Previously set TOC will be
-             * unreffed before setting a new one.
-             * @param toc a #GstToc to set.
-             */
-            set_toc(toc: Toc | null): void
-        }
-
-
-        interface TocSetterInterface {
-            readonly $gtype: GObject.GType<TocSetter>
-            readonly prototype: TocSetter
-
-            [Symbol.hasInstance](instance: unknown): instance is TocSetter
-        }
-
-        const TocSetter: TocSetterInterface
-        
-
-        namespace URIHandler {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * Gets the currently handled URI.
-                 * @returns the URI currently handled by   the `handler`.  Returns %NULL if there are no URI currently   handled. The returned string must be freed with g_free() when no   longer needed.
-                 */
-                vfunc_get_uri(): string | null
-                /**
-                 * Tries to set the URI of the given handler.
-                 * @throws {GLib.Error}
-                 * @param uri URI to set
-                 * @returns %TRUE if the URI was set successfully, else %FALSE.
-                 */
-                vfunc_set_uri(uri: string): boolean
-            }
-        }
-
-        /**
-         * The #GstURIHandler is an interface that is implemented by Source and Sink
-         * #GstElement to unify handling of URI.
-         *
-         * An application can use the following functions to quickly get an element
-         * that handles the given URI for reading or writing
-         * (gst_element_make_from_uri()).
-         *
-         * Source and Sink plugins should implement this interface when possible.
-         */
-        interface URIHandler extends URIHandler.Interface {
-            readonly $signals: URIHandler.SignalSignatures
-            readonly $readableProperties: URIHandler.ReadableProperties
-            readonly $writableProperties: URIHandler.WritableProperties
-            readonly $constructOnlyProperties: URIHandler.ConstructOnlyProperties
-            /**
-             * Gets the list of protocols supported by @handler. This list may not be
-             * modified.
-             * @returns the     supported protocols.  Returns %NULL if the `handler` isn't     implemented properly, or the `handler` doesn't support any     protocols.
-             */
-            get_protocols(): string[] | null
-            /**
-             * Gets the currently handled URI.
-             * @returns the URI currently handled by   the `handler`.  Returns %NULL if there are no URI currently   handled. The returned string must be freed with g_free() when no   longer needed.
-             */
-            get_uri(): string | null
-            /**
-             * Gets the type of the given URI handler
-             * @returns the #GstURIType of the URI handler. Returns #GST_URI_UNKNOWN if the `handler` isn't implemented correctly.
-             */
-            get_uri_type(): URIType
-            /**
-             * Tries to set the URI of the given handler.
-             * @throws {GLib.Error}
-             * @param uri URI to set
-             * @returns %TRUE if the URI was set successfully, else %FALSE.
-             */
-            set_uri(uri: string): boolean
-        }
-
-
-        interface URIHandlerInterface {
-            readonly $gtype: GObject.GType<URIHandler>
-            readonly prototype: URIHandler
-
-            [Symbol.hasInstance](instance: unknown): instance is URIHandler
-        }
-
-        const URIHandler: URIHandlerInterface
         
 
         namespace Allocator {
@@ -619,19 +31,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * Memory is usually created by allocators with a gst_allocator_alloc()
-         * method call. When %NULL is used as the allocator, the default allocator will
-         * be used.
-         *
-         * New allocators can be registered with gst_allocator_register().
-         * Allocators are identified by name and can be retrieved with
-         * gst_allocator_find(). gst_allocator_set_default() can be used to change the
-         * default allocator.
-         *
-         * New memory can be created with gst_memory_new_wrapped() that wraps the memory
-         * allocated elsewhere.
-         */
         interface Allocator extends Object {
             readonly $signals: Allocator.SignalSignatures
             readonly $readableProperties: Allocator.ReadableProperties
@@ -698,6 +97,7 @@ declare module "gi://Gst?version=1.0" {
         interface AllocatorClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Allocator>
             readonly prototype: Allocator
+
             new (props?: Partial<GObject.ConstructorProps<Allocator>>): Allocator
             /**
              * Find a previously registered allocator with @name. When @name is %NULL, the
@@ -714,7 +114,22 @@ declare module "gi://Gst?version=1.0" {
             register(name: string, allocator: Allocator): void
         }
 
-        const Allocator: AllocatorClass
+        interface $Exports {
+            /**
+             * Memory is usually created by allocators with a gst_allocator_alloc()
+             * method call. When %NULL is used as the allocator, the default allocator will
+             * be used.
+             *
+             * New allocators can be registered with gst_allocator_register().
+             * Allocators are identified by name and can be retrieved with
+             * gst_allocator_find(). gst_allocator_set_default() can be used to change the
+             * default allocator.
+             *
+             * New memory can be created with gst_memory_new_wrapped() that wraps the memory
+             * allocated elsewhere.
+             */
+            Allocator: AllocatorClass
+        }
         
 
         namespace Bin {
@@ -773,112 +188,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * #GstBin is an element that can contain other #GstElement, allowing them to be
-         * managed as a group.
-         * Pads from the child elements can be ghosted to the bin, see #GstGhostPad.
-         * This makes the bin look like any other elements and enables creation of
-         * higher-level abstraction elements.
-         *
-         * A new #GstBin is created with gst_bin_new(). Use a #GstPipeline instead if you
-         * want to create a toplevel bin because a normal bin doesn't have a bus or
-         * handle clock distribution of its own.
-         *
-         * After the bin has been created you will typically add elements to it with
-         * gst_bin_add(). You can remove elements with gst_bin_remove().
-         *
-         * An element can be retrieved from a bin with gst_bin_get_by_name(), using the
-         * elements name. gst_bin_get_by_name_recurse_up() is mainly used for internal
-         * purposes and will query the parent bins when the element is not found in the
-         * current bin.
-         *
-         * An iterator of elements in a bin can be retrieved with
-         * gst_bin_iterate_elements(). Various other iterators exist to retrieve the
-         * elements in a bin.
-         *
-         * gst_object_unref() is used to drop your reference to the bin.
-         *
-         * The #GstBin::element-added signal is fired whenever a new element is added to
-         * the bin. Likewise the #GstBin::element-removed signal is fired whenever an
-         * element is removed from the bin.
-         *
-         * A #GstBin internally intercepts every #GstMessage posted by its children and
-         * implements the following default behaviour for each of them:
-         *
-         * * %GST_MESSAGE_EOS: This message is only posted by sinks in the PLAYING
-         * state. If all sinks posted the EOS message, this bin will post and EOS
-         * message upwards.
-         *
-         * * %GST_MESSAGE_SEGMENT_START: Just collected and never forwarded upwards.
-         *   The messages are used to decide when all elements have completed playback
-         *   of their segment.
-         *
-         * * %GST_MESSAGE_SEGMENT_DONE: Is posted by #GstBin when all elements that posted
-         *   a SEGMENT_START have posted a SEGMENT_DONE.
-         *
-         * * %GST_MESSAGE_DURATION_CHANGED: Is posted by an element that detected a change
-         *   in the stream duration. The duration change is posted to the
-         *   application so that it can refetch the new duration with a duration
-         *   query.
-         *
-         *   Note that these messages can be posted before the bin is prerolled, in which
-         *   case the duration query might fail.
-         *
-         *   Note also that there might be a discrepancy (due to internal buffering/queueing)
-         *   between the stream being currently displayed and the returned duration query.
-         *
-         *   Applications might want to also query for duration (and changes) by
-         *   listening to the %GST_MESSAGE_STREAM_START message, signaling the active start
-         *   of a (new) stream.
-         *
-         * * %GST_MESSAGE_CLOCK_LOST: This message is posted by an element when it
-         *   can no longer provide a clock.
-         *
-         *   The default bin behaviour is to check if the lost clock was the one provided
-         *   by the bin. If so and the bin is currently in the PLAYING state, the message
-         *   is forwarded to the bin parent.
-         *
-         *   This message is also generated when a clock provider is removed from
-         *   the bin. If this message is received by the application, it should
-         *   PAUSE the pipeline and set it back to PLAYING to force a new clock
-         *   distribution.
-         *
-         * * %GST_MESSAGE_CLOCK_PROVIDE: This message is generated when an element
-         *   can provide a clock. This mostly happens when a new clock
-         *   provider is added to the bin.
-         *
-         *   The default behaviour of the bin is to mark the currently selected clock as
-         *   dirty, which will perform a clock recalculation the next time the bin is
-         *   asked to provide a clock.
-         *
-         *   This message is never sent to the application but is forwarded to
-         *   the parent of the bin.
-         *
-         * * OTHERS: posted upwards.
-         *
-         * A #GstBin implements the following default behaviour for answering to a
-         * #GstQuery:
-         *
-         * * %GST_QUERY_DURATION: The bin will forward the query to all sink
-         *   elements contained within and will return the maximum value.
-         *   If no sinks are available in the bin, the query fails.
-         *
-         * * %GST_QUERY_POSITION: The query is sent to all sink elements in the bin and the
-         *   MAXIMUM of all values is returned. If no sinks are available in the bin,
-         *   the query fails.
-         *
-         * * OTHERS: the query is forwarded to all sink elements, the result
-         *   of the first sink that answers the query successfully is returned. If no
-         *   sink is in the bin, the query fails.
-         *
-         * A #GstBin will by default forward any event sent to it to all sink
-         * ( %GST_EVENT_TYPE_UPSTREAM ) or source ( %GST_EVENT_TYPE_DOWNSTREAM ) elements
-         * depending on the event type.
-         *
-         * If all the elements return %TRUE, the bin will also return %TRUE, else %FALSE
-         * is returned. If no elements of the required type are in the bin, the event
-         * handler will return %TRUE.
-         */
         interface Bin extends Element, ChildProxy {
             readonly $signals: Bin.SignalSignatures
             readonly $readableProperties: Bin.ReadableProperties
@@ -905,7 +214,17 @@ declare module "gi://Gst?version=1.0" {
             get messageForward(): boolean
             set messageForward(value: boolean)
             /**
-             *  The bin or pipeline will not take care of this for you.
+             * Adds the given element to the bin.  Sets the element's parent, and thus
+             * takes ownership of the element. An element can only be added to one bin.
+             *
+             * If the element's pads are linked to other pads, the pads will be unlinked
+             * before the element is added to the bin.
+             *
+             * > When you add an element to an already-running pipeline, you will have to
+             * > take care to set the state of the newly-added element to the desired
+             * > state (usually PLAYING or PAUSED, same you set the pipeline to originally)
+             * > with gst_element_set_state(), or use gst_element_sync_state_with_parent().
+             * > The bin or pipeline will not take care of this for you.
              * @param element the #GstElement to add
              * @returns %TRUE if the element could be added, %FALSE if the bin does not want to accept the element.
              */
@@ -1089,16 +408,125 @@ declare module "gi://Gst?version=1.0" {
         interface BinClass extends Omit<ElementClass, "new"> {
             readonly $gtype: GObject.GType<Bin>
             readonly prototype: Bin
+
             new (props?: Partial<GObject.ConstructorProps<Bin>>): Bin
             /**
              * Creates a new bin with the given name.
              * @param name the name of the new bin
              * @returns a new #GstBin
              */
-            "new"(name: string | null): Element
+            "new"(name: string | null): Bin
         }
 
-        const Bin: BinClass
+        interface $Exports {
+            /**
+             * #GstBin is an element that can contain other #GstElement, allowing them to be
+             * managed as a group.
+             * Pads from the child elements can be ghosted to the bin, see #GstGhostPad.
+             * This makes the bin look like any other elements and enables creation of
+             * higher-level abstraction elements.
+             *
+             * A new #GstBin is created with gst_bin_new(). Use a #GstPipeline instead if you
+             * want to create a toplevel bin because a normal bin doesn't have a bus or
+             * handle clock distribution of its own.
+             *
+             * After the bin has been created you will typically add elements to it with
+             * gst_bin_add(). You can remove elements with gst_bin_remove().
+             *
+             * An element can be retrieved from a bin with gst_bin_get_by_name(), using the
+             * elements name. gst_bin_get_by_name_recurse_up() is mainly used for internal
+             * purposes and will query the parent bins when the element is not found in the
+             * current bin.
+             *
+             * An iterator of elements in a bin can be retrieved with
+             * gst_bin_iterate_elements(). Various other iterators exist to retrieve the
+             * elements in a bin.
+             *
+             * gst_object_unref() is used to drop your reference to the bin.
+             *
+             * The #GstBin::element-added signal is fired whenever a new element is added to
+             * the bin. Likewise the #GstBin::element-removed signal is fired whenever an
+             * element is removed from the bin.
+             *
+             * A #GstBin internally intercepts every #GstMessage posted by its children and
+             * implements the following default behaviour for each of them:
+             *
+             * * %GST_MESSAGE_EOS: This message is only posted by sinks in the PLAYING
+             * state. If all sinks posted the EOS message, this bin will post and EOS
+             * message upwards.
+             *
+             * * %GST_MESSAGE_SEGMENT_START: Just collected and never forwarded upwards.
+             *   The messages are used to decide when all elements have completed playback
+             *   of their segment.
+             *
+             * * %GST_MESSAGE_SEGMENT_DONE: Is posted by #GstBin when all elements that posted
+             *   a SEGMENT_START have posted a SEGMENT_DONE.
+             *
+             * * %GST_MESSAGE_DURATION_CHANGED: Is posted by an element that detected a change
+             *   in the stream duration. The duration change is posted to the
+             *   application so that it can refetch the new duration with a duration
+             *   query.
+             *
+             *   Note that these messages can be posted before the bin is prerolled, in which
+             *   case the duration query might fail.
+             *
+             *   Note also that there might be a discrepancy (due to internal buffering/queueing)
+             *   between the stream being currently displayed and the returned duration query.
+             *
+             *   Applications might want to also query for duration (and changes) by
+             *   listening to the %GST_MESSAGE_STREAM_START message, signaling the active start
+             *   of a (new) stream.
+             *
+             * * %GST_MESSAGE_CLOCK_LOST: This message is posted by an element when it
+             *   can no longer provide a clock.
+             *
+             *   The default bin behaviour is to check if the lost clock was the one provided
+             *   by the bin. If so and the bin is currently in the PLAYING state, the message
+             *   is forwarded to the bin parent.
+             *
+             *   This message is also generated when a clock provider is removed from
+             *   the bin. If this message is received by the application, it should
+             *   PAUSE the pipeline and set it back to PLAYING to force a new clock
+             *   distribution.
+             *
+             * * %GST_MESSAGE_CLOCK_PROVIDE: This message is generated when an element
+             *   can provide a clock. This mostly happens when a new clock
+             *   provider is added to the bin.
+             *
+             *   The default behaviour of the bin is to mark the currently selected clock as
+             *   dirty, which will perform a clock recalculation the next time the bin is
+             *   asked to provide a clock.
+             *
+             *   This message is never sent to the application but is forwarded to
+             *   the parent of the bin.
+             *
+             * * OTHERS: posted upwards.
+             *
+             * A #GstBin implements the following default behaviour for answering to a
+             * #GstQuery:
+             *
+             * * %GST_QUERY_DURATION: The bin will forward the query to all sink
+             *   elements contained within and will return the maximum value.
+             *   If no sinks are available in the bin, the query fails.
+             *
+             * * %GST_QUERY_POSITION: The query is sent to all sink elements in the bin and the
+             *   MAXIMUM of all values is returned. If no sinks are available in the bin,
+             *   the query fails.
+             *
+             * * OTHERS: the query is forwarded to all sink elements, the result
+             *   of the first sink that answers the query successfully is returned. If no
+             *   sink is in the bin, the query fails.
+             *
+             * A #GstBin will by default forward any event sent to it to all sink
+             * ( %GST_EVENT_TYPE_UPSTREAM ) or source ( %GST_EVENT_TYPE_DOWNSTREAM ) elements
+             * depending on the event type.
+             *
+             * If all the elements return %TRUE, the bin will also return %TRUE, else %FALSE
+             * is returned. If no elements of the required type are in the bin, the event
+             * handler will return %TRUE.
+             */
+            Bin: BinClass
+        }
         
 
         namespace Bitmask {
@@ -1115,9 +543,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A fundamental type that describes a 64-bit bitmask
-         */
         interface Bitmask  {
             readonly $signals: Bitmask.SignalSignatures
             readonly $readableProperties: Bitmask.ReadableProperties
@@ -1128,10 +553,16 @@ declare module "gi://Gst?version=1.0" {
         interface BitmaskClass {
             readonly $gtype: GObject.GType<Bitmask>
             readonly prototype: Bitmask
+
             new (props?: Partial<GObject.ConstructorProps<Bitmask>>): Bitmask
         }
 
-        const Bitmask: BitmaskClass
+        interface $Exports {
+            /**
+             * A fundamental type that describes a 64-bit bitmask
+             */
+            Bitmask: BitmaskClass
+        }
         
 
         namespace BufferPool {
@@ -1148,42 +579,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A #GstBufferPool is an object that can be used to pre-allocate and recycle
-         * buffers of the same size and with the same properties.
-         *
-         * A #GstBufferPool is created with gst_buffer_pool_new().
-         *
-         * Once a pool is created, it needs to be configured. A call to
-         * gst_buffer_pool_get_config() returns the current configuration structure from
-         * the pool. With gst_buffer_pool_config_set_params() and
-         * gst_buffer_pool_config_set_allocator() the bufferpool parameters and
-         * allocator can be configured. Other properties can be configured in the pool
-         * depending on the pool implementation.
-         *
-         * A bufferpool can have extra options that can be enabled with
-         * gst_buffer_pool_config_add_option(). The available options can be retrieved
-         * with gst_buffer_pool_get_options(). Some options allow for additional
-         * configuration properties to be set.
-         *
-         * After the configuration structure has been configured,
-         * gst_buffer_pool_set_config() updates the configuration in the pool. This can
-         * fail when the configuration structure is not accepted.
-         *
-         * After the pool has been configured, it can be activated with
-         * gst_buffer_pool_set_active(). This will preallocate the configured resources
-         * in the pool.
-         *
-         * When the pool is active, gst_buffer_pool_acquire_buffer() can be used to
-         * retrieve a buffer from the pool.
-         *
-         * Buffers allocated from a bufferpool will automatically be returned to the
-         * pool with gst_buffer_pool_release_buffer() when their refcount drops to 0.
-         *
-         * The bufferpool can be deactivated again with gst_buffer_pool_set_active().
-         * All further gst_buffer_pool_acquire_buffer() calls will return an error. When
-         * all buffers are returned to the pool they will be freed.
-         */
         interface BufferPool extends Object {
             readonly $signals: BufferPool.SignalSignatures
             readonly $readableProperties: BufferPool.ReadableProperties
@@ -1381,6 +776,7 @@ declare module "gi://Gst?version=1.0" {
         interface BufferPoolClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<BufferPool>
             readonly prototype: BufferPool
+
             new (props?: Partial<GObject.ConstructorProps<BufferPool>>): BufferPool
             /**
              * Creates a new #GstBufferPool instance.
@@ -1401,7 +797,7 @@ declare module "gi://Gst?version=1.0" {
              * @param config a #GstBufferPool configuration
              * @returns %TRUE, if the values are set., a #GstAllocator, or %NULL, #GstAllocationParams, or %NULL
              */
-            config_get_allocator(config: Structure): boolean
+            config_get_allocator(config: Structure): [boolean, Allocator | null, AllocationParams]
             /**
              * Parses an available @config and gets the option at @index of the options API
              * array.
@@ -1415,7 +811,7 @@ declare module "gi://Gst?version=1.0" {
              * @param config a #GstBufferPool configuration
              * @returns %TRUE if all parameters could be fetched., the caps of buffers, the size of each buffer, not including prefix and padding, the minimum amount of buffers to allocate., the maximum amount of buffers to allocate or 0 for unlimited.
              */
-            config_get_params(config: Structure): boolean
+            config_get_params(config: Structure): [boolean, Caps | null, number, number, number]
             /**
              * Checks if @config contains @option.
              * @param config a #GstBufferPool configuration
@@ -1477,7 +873,45 @@ declare module "gi://Gst?version=1.0" {
             config_validate_params(config: Structure, caps: Caps | null, size: number, min_buffers: number, max_buffers: number): boolean
         }
 
-        const BufferPool: BufferPoolClass
+        interface $Exports {
+            /**
+             * A #GstBufferPool is an object that can be used to pre-allocate and recycle
+             * buffers of the same size and with the same properties.
+             *
+             * A #GstBufferPool is created with gst_buffer_pool_new().
+             *
+             * Once a pool is created, it needs to be configured. A call to
+             * gst_buffer_pool_get_config() returns the current configuration structure from
+             * the pool. With gst_buffer_pool_config_set_params() and
+             * gst_buffer_pool_config_set_allocator() the bufferpool parameters and
+             * allocator can be configured. Other properties can be configured in the pool
+             * depending on the pool implementation.
+             *
+             * A bufferpool can have extra options that can be enabled with
+             * gst_buffer_pool_config_add_option(). The available options can be retrieved
+             * with gst_buffer_pool_get_options(). Some options allow for additional
+             * configuration properties to be set.
+             *
+             * After the configuration structure has been configured,
+             * gst_buffer_pool_set_config() updates the configuration in the pool. This can
+             * fail when the configuration structure is not accepted.
+             *
+             * After the pool has been configured, it can be activated with
+             * gst_buffer_pool_set_active(). This will preallocate the configured resources
+             * in the pool.
+             *
+             * When the pool is active, gst_buffer_pool_acquire_buffer() can be used to
+             * retrieve a buffer from the pool.
+             *
+             * Buffers allocated from a bufferpool will automatically be returned to the
+             * pool with gst_buffer_pool_release_buffer() when their refcount drops to 0.
+             *
+             * The bufferpool can be deactivated again with gst_buffer_pool_set_active().
+             * All further gst_buffer_pool_acquire_buffer() calls will return an error. When
+             * all buffers are returned to the pool they will be freed.
+             */
+            BufferPool: BufferPoolClass
+        }
         
 
         namespace Bus {
@@ -1504,54 +938,13 @@ declare module "gi://Gst?version=1.0" {
             }
 
             interface WritableProperties extends Object.WritableProperties {
-                "enable-async": boolean
             }
 
             interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                "enable-async": boolean
             }
         }
 
-        /**
-         * The #GstBus is an object responsible for delivering #GstMessage packets in
-         * a first-in first-out way from the streaming threads (see #GstTask) to the
-         * application.
-         *
-         * Since the application typically only wants to deal with delivery of these
-         * messages from one thread, the GstBus will marshall the messages between
-         * different threads. This is important since the actual streaming of media
-         * is done in another thread than the application.
-         *
-         * The GstBus provides support for #GSource based notifications. This makes it
-         * possible to handle the delivery in the glib #GMainLoop.
-         *
-         * The #GSource callback function gst_bus_async_signal_func() can be used to
-         * convert all bus messages into signal emissions.
-         *
-         * A message is posted on the bus with the gst_bus_post() method. With the
-         * gst_bus_peek() and gst_bus_pop() methods one can look at or retrieve a
-         * previously posted message.
-         *
-         * The bus can be polled with the gst_bus_poll() method. This methods blocks
-         * up to the specified timeout value until one of the specified messages types
-         * is posted on the bus. The application can then gst_bus_pop() the messages
-         * from the bus to handle them.
-         * Alternatively the application can register an asynchronous bus function
-         * using gst_bus_add_watch_full() or gst_bus_add_watch(). This function will
-         * install a #GSource in the default glib main loop and will deliver messages
-         * a short while after they have been posted. Note that the main loop should
-         * be running for the asynchronous callbacks.
-         *
-         * It is also possible to get messages from the bus without any thread
-         * marshalling with the gst_bus_set_sync_handler() method. This makes it
-         * possible to react to a message in the same thread that posted the
-         * message on the bus. This should only be used if the application is able
-         * to deal with messages from different threads.
-         *
-         * Every #GstPipeline has one bus.
-         *
-         * Note that a #GstPipeline will set its bus into flushing state when changing
-         * from READY to NULL state.
-         */
         interface Bus extends Object {
             readonly $signals: Bus.SignalSignatures
             readonly $readableProperties: Bus.ReadableProperties
@@ -1623,12 +1016,11 @@ declare module "gi://Gst?version=1.0" {
              *
              * The bus watch will take its own reference to the @bus, so it is safe to unref
              * @bus using gst_object_unref() after setting the bus watch.
-             * @override
              * @param priority The priority of the watch.
              * @param func A function to call when a message is received.
              * @returns The event source id or 0 if `bus` already got an event source.
              */
-            add_watch_full(priority: number, func: BusFunc): number
+            add_watch(priority: number, func: BusFunc): number
             /**
              * A helper #GstBusFunc that can be used to convert all asynchronous messages
              * into signals.
@@ -1841,6 +1233,7 @@ declare module "gi://Gst?version=1.0" {
         interface BusClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Bus>
             readonly prototype: Bus
+
             new (props?: Partial<GObject.ConstructorProps<Bus>>): Bus
             /**
              * Creates a new #GstBus instance.
@@ -1849,7 +1242,50 @@ declare module "gi://Gst?version=1.0" {
             "new"(): Bus
         }
 
-        const Bus: BusClass
+        interface $Exports {
+            /**
+             * The #GstBus is an object responsible for delivering #GstMessage packets in
+             * a first-in first-out way from the streaming threads (see #GstTask) to the
+             * application.
+             *
+             * Since the application typically only wants to deal with delivery of these
+             * messages from one thread, the GstBus will marshall the messages between
+             * different threads. This is important since the actual streaming of media
+             * is done in another thread than the application.
+             *
+             * The GstBus provides support for #GSource based notifications. This makes it
+             * possible to handle the delivery in the glib #GMainLoop.
+             *
+             * The #GSource callback function gst_bus_async_signal_func() can be used to
+             * convert all bus messages into signal emissions.
+             *
+             * A message is posted on the bus with the gst_bus_post() method. With the
+             * gst_bus_peek() and gst_bus_pop() methods one can look at or retrieve a
+             * previously posted message.
+             *
+             * The bus can be polled with the gst_bus_poll() method. This methods blocks
+             * up to the specified timeout value until one of the specified messages types
+             * is posted on the bus. The application can then gst_bus_pop() the messages
+             * from the bus to handle them.
+             * Alternatively the application can register an asynchronous bus function
+             * using gst_bus_add_watch_full() or gst_bus_add_watch(). This function will
+             * install a #GSource in the default glib main loop and will deliver messages
+             * a short while after they have been posted. Note that the main loop should
+             * be running for the asynchronous callbacks.
+             *
+             * It is also possible to get messages from the bus without any thread
+             * marshalling with the gst_bus_set_sync_handler() method. This makes it
+             * possible to react to a message in the same thread that posted the
+             * message on the bus. This should only be used if the application is able
+             * to deal with messages from different threads.
+             *
+             * Every #GstPipeline has one bus.
+             *
+             * Note that a #GstPipeline will set its bus into flushing state when changing
+             * from READY to NULL state.
+             */
+            Bus: BusClass
+        }
         
 
         namespace Clock {
@@ -1883,80 +1319,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * GStreamer uses a global clock to synchronize the plugins in a pipeline.
-         * Different clock implementations are possible by implementing this abstract
-         * base class or, more conveniently, by subclassing #GstSystemClock.
-         *
-         * The #GstClock returns a monotonically increasing time with the method
-         * gst_clock_get_time(). Its accuracy and base time depend on the specific
-         * clock implementation but time is always expressed in nanoseconds. Since the
-         * baseline of the clock is undefined, the clock time returned is not
-         * meaningful in itself, what matters are the deltas between two clock times.
-         * The time returned by a clock is called the absolute time.
-         *
-         * The pipeline uses the clock to calculate the running time. Usually all
-         * renderers synchronize to the global clock using the buffer timestamps, the
-         * #GST_EVENT_SEGMENT events and the element's base time, see #GstPipeline.
-         *
-         * A clock implementation can support periodic and single shot clock
-         * notifications both synchronous and asynchronous.
-         *
-         * One first needs to create a #GstClockID for the periodic or single shot
-         * notification using gst_clock_new_single_shot_id() or
-         * gst_clock_new_periodic_id().
-         *
-         * To perform a blocking wait for the specific time of the #GstClockID use
-         * gst_clock_id_wait(). To receive a callback when the specific time is reached
-         * in the clock use gst_clock_id_wait_async(). Both these calls can be
-         * interrupted with the gst_clock_id_unschedule() call. If the blocking wait is
-         * unscheduled a return value of #GST_CLOCK_UNSCHEDULED is returned.
-         *
-         * Periodic callbacks scheduled async will be repeatedly called automatically
-         * until they are unscheduled. To schedule a sync periodic callback,
-         * gst_clock_id_wait() should be called repeatedly.
-         *
-         * The async callbacks can happen from any thread, either provided by the core
-         * or from a streaming thread. The application should be prepared for this.
-         *
-         * A #GstClockID that has been unscheduled cannot be used again for any wait
-         * operation, a new #GstClockID should be created and the old unscheduled one
-         * should be destroyed with gst_clock_id_unref().
-         *
-         * It is possible to perform a blocking wait on the same #GstClockID from
-         * multiple threads. However, registering the same #GstClockID for multiple
-         * async notifications is not possible, the callback will only be called for
-         * the thread registering the entry last.
-         *
-         * None of the wait operations unref the #GstClockID, the owner is responsible
-         * for unreffing the ids itself. This holds for both periodic and single shot
-         * notifications. The reason being that the owner of the #GstClockID has to
-         * keep a handle to the #GstClockID to unblock the wait on FLUSHING events or
-         * state changes and if the entry would be unreffed automatically, the handle
-         * might become invalid without any notification.
-         *
-         * These clock operations do not operate on the running time, so the callbacks
-         * will also occur when not in PLAYING state as if the clock just keeps on
-         * running. Some clocks however do not progress when the element that provided
-         * the clock is not PLAYING.
-         *
-         * When a clock has the #GST_CLOCK_FLAG_CAN_SET_MASTER flag set, it can be
-         * slaved to another #GstClock with gst_clock_set_master(). The clock will
-         * then automatically be synchronized to this master clock by repeatedly
-         * sampling the master clock and the slave clock and recalibrating the slave
-         * clock with gst_clock_set_calibration(). This feature is mostly useful for
-         * plugins that have an internal clock but must operate with another clock
-         * selected by the #GstPipeline.  They can track the offset and rate difference
-         * of their internal clock relative to the master clock by using the
-         * gst_clock_get_calibration() function.
-         *
-         * The master/slave synchronisation can be tuned with the #GstClock:timeout,
-         * #GstClock:window-size and #GstClock:window-threshold properties.
-         * The #GstClock:timeout property defines the interval to sample the master
-         * clock and run the calibration functions. #GstClock:window-size defines the
-         * number of samples to use when calibrating and #GstClock:window-threshold
-         * defines the minimum number of samples before the calibration is performed.
-         */
         interface Clock extends Object {
             readonly $signals: Clock.SignalSignatures
             readonly $readableProperties: Clock.ReadableProperties
@@ -2005,7 +1367,7 @@ declare module "gi://Gst?version=1.0" {
              * @param observation_external a time on the external clock
              * @returns %TRUE if enough observations were added to run the regression algorithm., a pointer to hold the result, a location to store the internal time, a location to store the external time, a location to store the rate numerator, a location to store the rate denominator
              */
-            add_observation_unapplied(observation_internal: ClockTime, observation_external: ClockTime): [boolean, number]
+            add_observation_unapplied(observation_internal: ClockTime, observation_external: ClockTime): [boolean, number, ClockTime, ClockTime, ClockTime, ClockTime]
             /**
              * Converts the given @internal clock time to the external time, adjusting for the
              * rate and reference time set with gst_clock_set_calibration() and making sure
@@ -2043,7 +1405,7 @@ declare module "gi://Gst?version=1.0" {
              * caller is not interested in the values.
              * @returns , a location to store the internal time, a location to store the external time, a location to store the rate numerator, a location to store the rate denominator
              */
-            get_calibration(): void
+            get_calibration(): [ClockTime, ClockTime, ClockTime, ClockTime]
             /**
              * Gets the current internal time of the given clock. The time is returned
              * unadjusted for the offset and the rate.
@@ -2257,7 +1619,7 @@ declare module "gi://Gst?version=1.0" {
              * @param entry the entry to wait on
              * @returns the result of the blocking wait. #GST_CLOCK_EARLY will be returned if the current clock time is past the time of `id`, #GST_CLOCK_OK if `id` was scheduled in time. #GST_CLOCK_UNSCHEDULED if `id` was unscheduled with gst_clock_id_unschedule()., a pointer that will contain the jitter
              */
-            vfunc_wait(entry: ClockEntry): ClockReturn
+            vfunc_wait(entry: ClockEntry): [ClockReturn, ClockTimeDiff]
             /**
              * Perform an asynchronous wait on the given #GstClockEntry.
              * @param entry the entry to wait on
@@ -2269,13 +1631,14 @@ declare module "gi://Gst?version=1.0" {
         interface ClockClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Clock>
             readonly prototype: Clock
+
             new (props?: Partial<GObject.ConstructorProps<Clock>>): Clock
             /**
              * Compares the two #GstClockID instances. This function can be used
              * as a GCompareFunc when sorting ids.
              * @param id1 A #GstClockID
              * @param id2 A #GstClockID to compare with
-             * @returns  b`
+             * @returns negative value if `a < b`; zero if `a = b`; positive value if `a > b`
              */
             id_compare_func(id1: never | null, id2: never | null): number
             /**
@@ -2339,7 +1702,7 @@ declare module "gi://Gst?version=1.0" {
              * @param id The #GstClockID to wait on
              * @returns the result of the blocking wait. #GST_CLOCK_EARLY will be returned if the current clock time is past the time of `id`, #GST_CLOCK_OK if `id` was scheduled in time. #GST_CLOCK_UNSCHEDULED if `id` was unscheduled with gst_clock_id_unschedule()., a pointer that will contain the jitter,     can be %NULL.
              */
-            id_wait(id: ClockID): ClockReturn
+            id_wait(id: ClockID): [ClockReturn, ClockTimeDiff]
             /**
              * Registers a callback on the given #GstClockID @id with the given
              * function and user_data. When passing a #GstClockID with an invalid
@@ -2356,7 +1719,83 @@ declare module "gi://Gst?version=1.0" {
             id_wait_async(id: ClockID, func: ClockCallback): ClockReturn
         }
 
-        const Clock: ClockClass
+        interface $Exports {
+            /**
+             * GStreamer uses a global clock to synchronize the plugins in a pipeline.
+             * Different clock implementations are possible by implementing this abstract
+             * base class or, more conveniently, by subclassing #GstSystemClock.
+             *
+             * The #GstClock returns a monotonically increasing time with the method
+             * gst_clock_get_time(). Its accuracy and base time depend on the specific
+             * clock implementation but time is always expressed in nanoseconds. Since the
+             * baseline of the clock is undefined, the clock time returned is not
+             * meaningful in itself, what matters are the deltas between two clock times.
+             * The time returned by a clock is called the absolute time.
+             *
+             * The pipeline uses the clock to calculate the running time. Usually all
+             * renderers synchronize to the global clock using the buffer timestamps, the
+             * #GST_EVENT_SEGMENT events and the element's base time, see #GstPipeline.
+             *
+             * A clock implementation can support periodic and single shot clock
+             * notifications both synchronous and asynchronous.
+             *
+             * One first needs to create a #GstClockID for the periodic or single shot
+             * notification using gst_clock_new_single_shot_id() or
+             * gst_clock_new_periodic_id().
+             *
+             * To perform a blocking wait for the specific time of the #GstClockID use
+             * gst_clock_id_wait(). To receive a callback when the specific time is reached
+             * in the clock use gst_clock_id_wait_async(). Both these calls can be
+             * interrupted with the gst_clock_id_unschedule() call. If the blocking wait is
+             * unscheduled a return value of #GST_CLOCK_UNSCHEDULED is returned.
+             *
+             * Periodic callbacks scheduled async will be repeatedly called automatically
+             * until they are unscheduled. To schedule a sync periodic callback,
+             * gst_clock_id_wait() should be called repeatedly.
+             *
+             * The async callbacks can happen from any thread, either provided by the core
+             * or from a streaming thread. The application should be prepared for this.
+             *
+             * A #GstClockID that has been unscheduled cannot be used again for any wait
+             * operation, a new #GstClockID should be created and the old unscheduled one
+             * should be destroyed with gst_clock_id_unref().
+             *
+             * It is possible to perform a blocking wait on the same #GstClockID from
+             * multiple threads. However, registering the same #GstClockID for multiple
+             * async notifications is not possible, the callback will only be called for
+             * the thread registering the entry last.
+             *
+             * None of the wait operations unref the #GstClockID, the owner is responsible
+             * for unreffing the ids itself. This holds for both periodic and single shot
+             * notifications. The reason being that the owner of the #GstClockID has to
+             * keep a handle to the #GstClockID to unblock the wait on FLUSHING events or
+             * state changes and if the entry would be unreffed automatically, the handle
+             * might become invalid without any notification.
+             *
+             * These clock operations do not operate on the running time, so the callbacks
+             * will also occur when not in PLAYING state as if the clock just keeps on
+             * running. Some clocks however do not progress when the element that provided
+             * the clock is not PLAYING.
+             *
+             * When a clock has the #GST_CLOCK_FLAG_CAN_SET_MASTER flag set, it can be
+             * slaved to another #GstClock with gst_clock_set_master(). The clock will
+             * then automatically be synchronized to this master clock by repeatedly
+             * sampling the master clock and the slave clock and recalibrating the slave
+             * clock with gst_clock_set_calibration(). This feature is mostly useful for
+             * plugins that have an internal clock but must operate with another clock
+             * selected by the #GstPipeline.  They can track the offset and rate difference
+             * of their internal clock relative to the master clock by using the
+             * gst_clock_get_calibration() function.
+             *
+             * The master/slave synchronisation can be tuned with the #GstClock:timeout,
+             * #GstClock:window-size and #GstClock:window-threshold properties.
+             * The #GstClock:timeout property defines the interval to sample the master
+             * clock and run the calibration functions. #GstClock:window-size defines the
+             * number of samples to use when calibrating and #GstClock:window-threshold
+             * defines the minimum number of samples before the calibration is performed.
+             */
+            Clock: ClockClass
+        }
         
 
         namespace ControlBinding {
@@ -2369,20 +1808,14 @@ declare module "gi://Gst?version=1.0" {
             }
 
             interface WritableProperties extends Object.WritableProperties {
-                "name": string
-                "object": Object
             }
 
             interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                "name": string
+                "object": Object
             }
         }
 
-        /**
-         * A base class for value mapping objects that attaches control sources to #GObject
-         * properties. Such an object is taking one or more #GstControlSource instances,
-         * combines them and maps the resulting value to the type and value range of the
-         * bound property.
-         */
         interface ControlBinding extends Object {
             readonly $signals: ControlBinding.SignalSignatures
             readonly $readableProperties: ControlBinding.ReadableProperties
@@ -2476,10 +1909,19 @@ declare module "gi://Gst?version=1.0" {
         interface ControlBindingClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ControlBinding>
             readonly prototype: ControlBinding
+
             new (props?: Partial<GObject.ConstructorProps<ControlBinding>>): ControlBinding
         }
 
-        const ControlBinding: ControlBindingClass
+        interface $Exports {
+            /**
+             * A base class for value mapping objects that attaches control sources to #GObject
+             * properties. Such an object is taking one or more #GstControlSource instances,
+             * combines them and maps the resulting value to the type and value range of the
+             * bound property.
+             */
+            ControlBinding: ControlBindingClass
+        }
         
 
         namespace ControlSource {
@@ -2496,21 +1938,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * The #GstControlSource is a base class for control value sources that could
-         * be used to get timestamp-value pairs. A control source essentially is a
-         * function over time.
-         *
-         * A #GstControlSource is used by first getting an instance of a specific
-         * control-source, creating a binding for the control-source to the target property
-         * of the element and then adding the binding to the element. The binding will
-         * convert the data types and value range to fit to the bound property.
-         *
-         * For implementing a new #GstControlSource one has to implement
-         * #GstControlSourceGetValue and #GstControlSourceGetValueArray functions.
-         * These are then used by gst_control_source_get_value() and
-         * gst_control_source_get_value_array() to get values for specific timestamps.
-         */
         interface ControlSource extends Object {
             readonly $signals: ControlSource.SignalSignatures
             readonly $readableProperties: ControlSource.ReadableProperties
@@ -2536,10 +1963,28 @@ declare module "gi://Gst?version=1.0" {
         interface ControlSourceClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ControlSource>
             readonly prototype: ControlSource
+
             new (props?: Partial<GObject.ConstructorProps<ControlSource>>): ControlSource
         }
 
-        const ControlSource: ControlSourceClass
+        interface $Exports {
+            /**
+             * The #GstControlSource is a base class for control value sources that could
+             * be used to get timestamp-value pairs. A control source essentially is a
+             * function over time.
+             *
+             * A #GstControlSource is used by first getting an instance of a specific
+             * control-source, creating a binding for the control-source to the target property
+             * of the element and then adding the binding to the element. The binding will
+             * convert the data types and value range to fit to the bound property.
+             *
+             * For implementing a new #GstControlSource one has to implement
+             * #GstControlSourceGetValue and #GstControlSourceGetValueArray functions.
+             * These are then used by gst_control_source_get_value() and
+             * gst_control_source_get_value_array() to get values for specific timestamps.
+             */
+            ControlSource: ControlSourceClass
+        }
         
 
         namespace Device {
@@ -2557,25 +2002,16 @@ declare module "gi://Gst?version=1.0" {
             }
 
             interface WritableProperties extends Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
                 "caps": Caps | null
                 "device-class": string
                 "display-name": string
                 "properties": Structure | null
             }
-
-            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * #GstDevice are objects representing a device, they contain
-         * relevant metadata about the device, such as its class and the #GstCaps
-         * representing the media types it can produce or handle.
-         *
-         * #GstDevice are created by #GstDeviceProvider objects which can be
-         * aggregated by #GstDeviceMonitor objects.
-         * @since 1.4
-         */
         interface Device extends Object {
             readonly $signals: Device.SignalSignatures
             readonly $readableProperties: Device.ReadableProperties
@@ -2686,10 +2122,22 @@ declare module "gi://Gst?version=1.0" {
         interface DeviceClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Device>
             readonly prototype: Device
+
             new (props?: Partial<GObject.ConstructorProps<Device>>): Device
         }
 
-        const Device: DeviceClass
+        interface $Exports {
+            /**
+             * #GstDevice are objects representing a device, they contain
+             * relevant metadata about the device, such as its class and the #GstCaps
+             * representing the media types it can produce or handle.
+             *
+             * #GstDevice are created by #GstDeviceProvider objects which can be
+             * aggregated by #GstDeviceMonitor objects.
+             * @since 1.4
+             */
+            Device: DeviceClass
+        }
         
 
         namespace DeviceMonitor {
@@ -2708,43 +2156,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * device);
-         *          name = gst_device_get_display_name (device);
-         *          g_print("Device removed: %s\n", name);
-         *          g_free (name);
-         *          gst_object_unref (device);
-         *          break;
-         *        default:
-         *          break;
-         *      }
-         *
-         *      return G_SOURCE_CONTINUE;
-         *   }
-         *
-         *   GstDeviceMonitor *
-         *   setup_raw_video_source_device_monitor (void) {
-         *      GstDeviceMonitor *monitor;
-         *      GstBus *bus;
-         *      GstCaps *caps;
-         *
-         *      monitor = gst_device_monitor_new ();
-         *
-         *      bus = gst_device_monitor_get_bus (monitor);
-         *      gst_bus_add_watch (bus, my_bus_func, NULL);
-         *      gst_object_unref (bus);
-         *
-         *      caps = gst_caps_new_empty_simple ("video/x-raw");
-         *      gst_device_monitor_add_filter (monitor, "Video/Source", caps);
-         *      gst_caps_unref (caps);
-         *
-         *      gst_device_monitor_start (monitor);
-         *
-         *      return monitor;
-         *   }
-         * ]|
-         * @since 1.4
-         */
         interface DeviceMonitor extends Object {
             readonly $signals: DeviceMonitor.SignalSignatures
             readonly $readableProperties: DeviceMonitor.ReadableProperties
@@ -2834,6 +2245,7 @@ declare module "gi://Gst?version=1.0" {
         interface DeviceMonitorClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DeviceMonitor>
             readonly prototype: DeviceMonitor
+
             new (props?: Partial<GObject.ConstructorProps<DeviceMonitor>>): DeviceMonitor
             /**
              * Create a new #GstDeviceMonitor
@@ -2843,7 +2255,73 @@ declare module "gi://Gst?version=1.0" {
             "new"(): DeviceMonitor
         }
 
-        const DeviceMonitor: DeviceMonitorClass
+        interface $Exports {
+            /**
+             * Applications should create a #GstDeviceMonitor when they want
+             * to probe, list and monitor devices of a specific type. The
+             * #GstDeviceMonitor will create the appropriate
+             * #GstDeviceProvider objects and manage them. It will then post
+             * messages on its #GstBus for devices that have been added and
+             * removed.
+             *
+             * The device monitor will monitor all devices matching the filters that
+             * the application has set.
+             *
+             * The basic use pattern of a device monitor is as follows:
+             * |[
+             *   static gboolean
+             *   my_bus_func (GstBus * bus, GstMessage * message, gpointer user_data)
+             *   {
+             *      GstDevice *device;
+             *      gchar *name;
+             *
+             *      switch (GST_MESSAGE_TYPE (message)) {
+             *        case GST_MESSAGE_DEVICE_ADDED:
+             *          gst_message_parse_device_added (message, &device);
+             *          name = gst_device_get_display_name (device);
+             *          g_print("Device added: %s\n", name);
+             *          g_free (name);
+             *          gst_object_unref (device);
+             *          break;
+             *        case GST_MESSAGE_DEVICE_REMOVED:
+             *          gst_message_parse_device_removed (message, &device);
+             *          name = gst_device_get_display_name (device);
+             *          g_print("Device removed: %s\n", name);
+             *          g_free (name);
+             *          gst_object_unref (device);
+             *          break;
+             *        default:
+             *          break;
+             *      }
+             *
+             *      return G_SOURCE_CONTINUE;
+             *   }
+             *
+             *   GstDeviceMonitor *
+             *   setup_raw_video_source_device_monitor (void) {
+             *      GstDeviceMonitor *monitor;
+             *      GstBus *bus;
+             *      GstCaps *caps;
+             *
+             *      monitor = gst_device_monitor_new ();
+             *
+             *      bus = gst_device_monitor_get_bus (monitor);
+             *      gst_bus_add_watch (bus, my_bus_func, NULL);
+             *      gst_object_unref (bus);
+             *
+             *      caps = gst_caps_new_empty_simple ("video/x-raw");
+             *      gst_device_monitor_add_filter (monitor, "Video/Source", caps);
+             *      gst_caps_unref (caps);
+             *
+             *      gst_device_monitor_start (monitor);
+             *
+             *      return monitor;
+             *   }
+             * ]|
+             * @since 1.4
+             */
+            DeviceMonitor: DeviceMonitorClass
+        }
         
 
         namespace DeviceProvider {
@@ -2868,18 +2346,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A #GstDeviceProvider subclass is provided by a plugin that handles devices
-         * if there is a way to programmatically list connected devices. It can also
-         * optionally provide updates to the list of connected devices.
-         *
-         * Each #GstDeviceProvider subclass is a singleton, a plugin should
-         * normally provide a single subclass for all devices.
-         *
-         * Applications would normally use a #GstDeviceMonitor to monitor devices
-         * from all relevant providers.
-         * @since 1.4
-         */
         interface DeviceProvider extends Object {
             readonly $signals: DeviceProvider.SignalSignatures
             readonly $readableProperties: DeviceProvider.ReadableProperties
@@ -3035,6 +2501,7 @@ declare module "gi://Gst?version=1.0" {
         interface DeviceProviderClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DeviceProvider>
             readonly prototype: DeviceProvider
+
             new (props?: Partial<GObject.ConstructorProps<DeviceProvider>>): DeviceProvider
             /**
              * Create a new device providerfactory capable of instantiating objects of the
@@ -3075,7 +2542,9 @@ declare module "gi://Gst?version=1.0" {
              */
             get_metadata(key: string): string | null
             /**
-             *  This function is for use in _class_init functions only.
+             * Sets the detailed information for a #GstDeviceProviderClass.
+             *
+             * > This function is for use in _class_init functions only.
              * @since 1.4
              * @param longname The long English name of the device provider. E.g. "File Sink"
              * @param classification String describing the type of device provider, as an
@@ -3084,11 +2553,14 @@ declare module "gi://Gst?version=1.0" {
             for more details and common types. E.g: "Sink/File"
              * @param description Sentence describing the purpose of the device provider.
             E.g: "Write stream to a file"
-             * @param author gt;"
+             * @param author Name and contact details of the author(s). Use \n to separate
+            multiple author metadata. E.g: "Joe Bloggs &lt;joe.blogs at foo.com&gt;"
              */
             set_metadata(longname: string, classification: string, description: string, author: string): void
             /**
-             *  This function is for use in _class_init functions only.
+             * Sets the detailed information for a #GstDeviceProviderClass.
+             *
+             * > This function is for use in _class_init functions only.
              *
              * Same as gst_device_provider_class_set_metadata(), but @longname, @classification,
              * @description, and @author must be static strings or inlined strings, as
@@ -3101,12 +2573,28 @@ declare module "gi://Gst?version=1.0" {
             design docs for more details and common types. E.g: "Sink/File"
              * @param description Sentence describing the purpose of the
             element.  E.g: "Write stream to a file"
-             * @param author gt;"
+             * @param author Name and contact details of the author(s). Use \n
+            to separate multiple author metadata. E.g: "Joe Bloggs &lt;joe.blogs at
+            foo.com&gt;"
              */
             set_static_metadata(longname: string, classification: string, description: string, author: string): void
         }
 
-        const DeviceProvider: DeviceProviderClass
+        interface $Exports {
+            /**
+             * A #GstDeviceProvider subclass is provided by a plugin that handles devices
+             * if there is a way to programmatically list connected devices. It can also
+             * optionally provide updates to the list of connected devices.
+             *
+             * Each #GstDeviceProvider subclass is a singleton, a plugin should
+             * normally provide a single subclass for all devices.
+             *
+             * Applications would normally use a #GstDeviceMonitor to monitor devices
+             * from all relevant providers.
+             * @since 1.4
+             */
+            DeviceProvider: DeviceProviderClass
+        }
         
 
         namespace DeviceProviderFactory {
@@ -3123,17 +2611,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * #GstDeviceProviderFactory is used to create instances of device providers. A
-         * GstDeviceProviderfactory can be added to a #GstPlugin as it is also a
-         * #GstPluginFeature.
-         *
-         * Use the gst_device_provider_factory_find() and
-         * gst_device_provider_factory_get() functions to create device
-         * provider instances or use gst_device_provider_factory_get_by_name() as a
-         * convenient shortcut.
-         * @since 1.4
-         */
         interface DeviceProviderFactory extends PluginFeature {
             readonly $signals: DeviceProviderFactory.SignalSignatures
             readonly $readableProperties: DeviceProviderFactory.ReadableProperties
@@ -3188,6 +2665,7 @@ declare module "gi://Gst?version=1.0" {
         interface DeviceProviderFactoryClass extends Omit<PluginFeatureClass, "new"> {
             readonly $gtype: GObject.GType<DeviceProviderFactory>
             readonly prototype: DeviceProviderFactory
+
             new (props?: Partial<GObject.ConstructorProps<DeviceProviderFactory>>): DeviceProviderFactory
             /**
              * Search for an device provider factory of the given name. Refs the returned
@@ -3215,7 +2693,20 @@ declare module "gi://Gst?version=1.0" {
             list_get_device_providers(minrank: Rank): DeviceProviderFactory[]
         }
 
-        const DeviceProviderFactory: DeviceProviderFactoryClass
+        interface $Exports {
+            /**
+             * #GstDeviceProviderFactory is used to create instances of device providers. A
+             * GstDeviceProviderfactory can be added to a #GstPlugin as it is also a
+             * #GstPluginFeature.
+             *
+             * Use the gst_device_provider_factory_find() and
+             * gst_device_provider_factory_get() functions to create device
+             * provider instances or use gst_device_provider_factory_get_by_name() as a
+             * convenient shortcut.
+             * @since 1.4
+             */
+            DeviceProviderFactory: DeviceProviderFactoryClass
+        }
         
 
         namespace DoubleRange {
@@ -3232,9 +2723,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A fundamental type that describes a #gdouble range
-         */
         interface DoubleRange  {
             readonly $signals: DoubleRange.SignalSignatures
             readonly $readableProperties: DoubleRange.ReadableProperties
@@ -3245,10 +2733,16 @@ declare module "gi://Gst?version=1.0" {
         interface DoubleRangeClass {
             readonly $gtype: GObject.GType<DoubleRange>
             readonly prototype: DoubleRange
+
             new (props?: Partial<GObject.ConstructorProps<DoubleRange>>): DoubleRange
         }
 
-        const DoubleRange: DoubleRangeClass
+        interface $Exports {
+            /**
+             * A fundamental type that describes a #gdouble range
+             */
+            DoubleRange: DoubleRangeClass
+        }
         
 
         namespace DynamicTypeFactory {
@@ -3265,17 +2759,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         *
-         *
-         * static gboolean
-         * plugin_init (GstPlugin * plugin)
-         * {
-         *   return gst_dynamic_type_register (plugin, GST_TYPE_CUSTOM_CAPS_FIELD);
-         * }
-         * ]|
-         * @since 1.12
-         */
         interface DynamicTypeFactory extends PluginFeature {
             readonly $signals: DynamicTypeFactory.SignalSignatures
             readonly $readableProperties: DynamicTypeFactory.ReadableProperties
@@ -3286,6 +2769,7 @@ declare module "gi://Gst?version=1.0" {
         interface DynamicTypeFactoryClass extends Omit<PluginFeatureClass, "new"> {
             readonly $gtype: GObject.GType<DynamicTypeFactory>
             readonly prototype: DynamicTypeFactory
+
             new (props?: Partial<GObject.ConstructorProps<DynamicTypeFactory>>): DynamicTypeFactory
             /**
              * @param factoryname
@@ -3293,7 +2777,31 @@ declare module "gi://Gst?version=1.0" {
             load(factoryname: string): GObject.GType
         }
 
-        const DynamicTypeFactory: DynamicTypeFactoryClass
+        interface $Exports {
+            /**
+             * #GstDynamicTypeFactory is used to represent a type that can be
+             * automatically loaded the first time it is used. For example,
+             * a non-standard type for use in caps fields.
+             *
+             * In general, applications and plugins don't need to use the factory
+             * beyond registering the type in a plugin init function. Once that is
+             * done, the type is stored in the registry, and ready as soon as the
+             * registry is loaded.
+             *
+             * ## Registering a type for dynamic loading
+             *
+             * |[<!-- language="C" -->
+             *
+             * static gboolean
+             * plugin_init (GstPlugin * plugin)
+             * {
+             *   return gst_dynamic_type_register (plugin, GST_TYPE_CUSTOM_CAPS_FIELD);
+             * }
+             * ]|
+             * @since 1.12
+             */
+            DynamicTypeFactory: DynamicTypeFactoryClass
+        }
         
 
         namespace Element {
@@ -3330,57 +2838,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * GstElement is the abstract base class needed to construct an element that
-         * can be used in a GStreamer pipeline. Please refer to the plugin writers
-         * guide for more information on creating #GstElement subclasses.
-         *
-         * The name of a #GstElement can be get with gst_element_get_name() and set with
-         * gst_element_set_name().  For speed, GST_ELEMENT_NAME() can be used in the
-         * core when using the appropriate locking. Do not use this in plug-ins or
-         * applications in order to retain ABI compatibility.
-         *
-         * Elements can have pads (of the type #GstPad).  These pads link to pads on
-         * other elements.  #GstBuffer flow between these linked pads.
-         * A #GstElement has a #GList of #GstPad structures for all their input (or sink)
-         * and output (or source) pads.
-         * Core and plug-in writers can add and remove pads with gst_element_add_pad()
-         * and gst_element_remove_pad().
-         *
-         * An existing pad of an element can be retrieved by name with
-         * gst_element_get_static_pad(). A new dynamic pad can be created using
-         * gst_element_request_pad() with a #GstPadTemplate.
-         * An iterator of all pads can be retrieved with gst_element_iterate_pads().
-         *
-         * Elements can be linked through their pads.
-         * If the link is straightforward, use the gst_element_link()
-         * convenience function to link two elements, or gst_element_link_many()
-         * for more elements in a row.
-         * Use gst_element_link_filtered() to link two elements constrained by
-         * a specified set of #GstCaps.
-         * For finer control, use gst_element_link_pads() and
-         * gst_element_link_pads_filtered() to specify the pads to link on
-         * each element by name.
-         *
-         * Each element has a state (see #GstState).  You can get and set the state
-         * of an element with gst_element_get_state() and gst_element_set_state().
-         * Setting a state triggers a #GstStateChange. To get a string representation
-         * of a #GstState, use gst_element_state_get_name().
-         *
-         * You can get and set a #GstClock on an element using gst_element_get_clock()
-         * and gst_element_set_clock().
-         * Some elements can provide a clock for the pipeline if
-         * the #GST_ELEMENT_FLAG_PROVIDE_CLOCK flag is set. With the
-         * gst_element_provide_clock() method one can retrieve the clock provided by
-         * such an element.
-         * Not all elements require a clock to operate correctly. If the
-         * #GST_ELEMENT_FLAG_REQUIRE_CLOCK() flag is set, a clock should be set on the
-         * element with gst_element_set_clock().
-         *
-         * Note that clock selection and distribution is normally handled by the
-         * toplevel #GstPipeline so the clock functions are only to be used in very
-         * specific situations.
-         */
         interface Element extends Object {
             readonly $signals: Element.SignalSignatures
             readonly $readableProperties: Element.ReadableProperties
@@ -3683,7 +3140,7 @@ declare module "gi://Gst?version=1.0" {
                       state change or %GST_CLOCK_TIME_NONE for infinite timeout.
              * @returns %GST_STATE_CHANGE_SUCCESS if the element has no more pending state          and the last state change succeeded, %GST_STATE_CHANGE_ASYNC if the          element is still performing a state change or          %GST_STATE_CHANGE_FAILURE if the last state change failed.  MT safe., a pointer to #GstState to hold the state.     Can be %NULL., a pointer to #GstState to hold the pending     state. Can be %NULL.
              */
-            get_state(timeout: ClockTime): StateChangeReturn
+            get_state(timeout: ClockTime): [StateChangeReturn, State, State]
             /**
              * Retrieves a pad from @element by name. This version only retrieves
              * already-existing (i.e. 'static') pads.
@@ -3886,7 +3343,9 @@ declare module "gi://Gst?version=1.0" {
              */
             post_message(message: Message): boolean
             /**
-             *  state. Some elements can provide a clock in other states.
+             * Get the clock provided by the given element.
+             * > An element is only required to provide a clock in the PAUSED
+             * > state. Some elements can provide a clock in other states.
              * @returns the GstClock provided by the element or %NULL if no clock could be provided.  Unref after usage.  MT safe.
              */
             provide_clock(): Clock | null
@@ -3922,7 +3381,7 @@ declare module "gi://Gst?version=1.0" {
              * @param format the #GstFormat requested
              * @returns %TRUE if the query could be performed., A location in which to store the total duration, or %NULL.
              */
-            query_duration(format: Format): boolean
+            query_duration(format: Format): [boolean, number]
             /**
              * Queries an element (usually top-level pipeline or playbin element) for the
              * stream position in nanoseconds. This will be a value between 0 and the
@@ -3936,7 +3395,7 @@ declare module "gi://Gst?version=1.0" {
              * @param format the #GstFormat requested
              * @returns %TRUE if the query could be performed., a location in which to store the current     position, or %NULL.
              */
-            query_position(format: Format): boolean
+            query_position(format: Format): [boolean, number]
             /**
              * Makes the element free the previously requested pad as obtained
              * with gst_element_request_pad().
@@ -4196,7 +3655,7 @@ declare module "gi://Gst?version=1.0" {
                       state change or %GST_CLOCK_TIME_NONE for infinite timeout.
              * @returns %GST_STATE_CHANGE_SUCCESS if the element has no more pending state          and the last state change succeeded, %GST_STATE_CHANGE_ASYNC if the          element is still performing a state change or          %GST_STATE_CHANGE_FAILURE if the last state change failed.  MT safe., a pointer to #GstState to hold the state.     Can be %NULL., a pointer to #GstState to hold the pending     state. Can be %NULL.
              */
-            vfunc_get_state(timeout: ClockTime): StateChangeReturn
+            vfunc_get_state(timeout: ClockTime): [StateChangeReturn, State, State]
             /**
              * Use this function to signal that the element does not expect any more pads
              * to show up in the current pipeline. This function should be called whenever
@@ -4226,7 +3685,9 @@ declare module "gi://Gst?version=1.0" {
              */
             vfunc_post_message(message: Message): boolean
             /**
-             *  state. Some elements can provide a clock in other states.
+             * Get the clock provided by the given element.
+             * > An element is only required to provide a clock in the PAUSED
+             * > state. Some elements can provide a clock in other states.
              * @returns the GstClock provided by the element or %NULL if no clock could be provided.  Unref after usage.  MT safe.
              */
             vfunc_provide_clock(): Clock | null
@@ -4327,6 +3788,7 @@ declare module "gi://Gst?version=1.0" {
         interface ElementClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Element>
             readonly prototype: Element
+
             new (props?: Partial<GObject.ConstructorProps<Element>>): Element
             /**
              * Creates an element for handling the given URI.
@@ -4361,7 +3823,20 @@ declare module "gi://Gst?version=1.0" {
              */
             state_get_name(state: State): string
             /**
-             * my_type_info, 0);
+             * Marks @type as "documentation should be skipped".
+             * Can be useful for dynamically registered element to be excluded from
+             * plugin documentation system.
+             *
+             * Example:
+             * ```c
+             * GType my_type;
+             * GTypeInfo my_type_info;
+             *
+             * // Fill "my_type_info"
+             * ...
+             *
+             * my_type = g_type_register_static (GST_TYPE_MY_ELEMENT, "my-type-name",
+             *    &my_type_info, 0);
              * gst_element_type_set_skip_documentation (my_type);
              * gst_element_register (plugin, "my-plugin-feature-name", rank, my_type);
              * ```
@@ -4422,29 +3897,40 @@ declare module "gi://Gst?version=1.0" {
              */
             get_metadata(key: string): string
             /**
-             *  GInstanceInitFunc here.
+             * Retrieves a padtemplate from @element_class with the given name.
+             * > If you use this function in the GInstanceInitFunc of an object class
+             * > that has subclasses, make sure to pass the g_class parameter of the
+             * > GInstanceInitFunc here.
              * @param name the name of the #GstPadTemplate to get.
              * @returns the #GstPadTemplate with the     given name, or %NULL if none was found. No unreferencing is     necessary.
              */
             get_pad_template(name: string): PadTemplate | null
             /**
-             *  GInstanceInitFunc here.
+             * Retrieves a list of the pad templates associated with @element_class. The
+             * list must not be modified by the calling code.
+             * > If you use this function in the GInstanceInitFunc of an object class
+             * > that has subclasses, make sure to pass the g_class parameter of the
+             * > GInstanceInitFunc here.
              * @returns the #GList of     pad templates.
              */
             get_pad_template_list(): PadTemplate[]
             /**
-             *  This function is for use in _class_init functions only.
+             * Sets the detailed information for a #GstElementClass.
+             * > This function is for use in _class_init functions only.
              * @param longname The long English name of the element. E.g. "File Sink"
              * @param classification String describing the type of element, as an unordered list
             separated with slashes ('/'). See draft-klass.txt of the design docs
             for more details and common types. E.g: "Sink/File"
              * @param description Sentence describing the purpose of the element.
             E.g: "Write stream to a file"
-             * @param author gt;"
+             * @param author Name and contact details of the author(s). Use \n to separate
+            multiple author metadata. E.g: "Joe Bloggs &lt;joe.blogs at foo.com&gt;"
              */
             set_metadata(longname: string, classification: string, description: string, author: string): void
             /**
-             *  This function is for use in _class_init functions only.
+             * Sets the detailed information for a #GstElementClass.
+             *
+             * > This function is for use in _class_init functions only.
              *
              * Same as gst_element_class_set_metadata(), but @longname, @classification,
              * @description, and @author must be static strings or inlined strings, as
@@ -4456,12 +3942,66 @@ declare module "gi://Gst?version=1.0" {
             for more details and common types. E.g: "Sink/File"
              * @param description Sentence describing the purpose of the element.
             E.g: "Write stream to a file"
-             * @param author gt;"
+             * @param author Name and contact details of the author(s). Use \n to separate
+            multiple author metadata. E.g: "Joe Bloggs &lt;joe.blogs at foo.com&gt;"
              */
             set_static_metadata(longname: string, classification: string, description: string, author: string): void
         }
 
-        const Element: ElementClass
+        interface $Exports {
+            /**
+             * GstElement is the abstract base class needed to construct an element that
+             * can be used in a GStreamer pipeline. Please refer to the plugin writers
+             * guide for more information on creating #GstElement subclasses.
+             *
+             * The name of a #GstElement can be get with gst_element_get_name() and set with
+             * gst_element_set_name().  For speed, GST_ELEMENT_NAME() can be used in the
+             * core when using the appropriate locking. Do not use this in plug-ins or
+             * applications in order to retain ABI compatibility.
+             *
+             * Elements can have pads (of the type #GstPad).  These pads link to pads on
+             * other elements.  #GstBuffer flow between these linked pads.
+             * A #GstElement has a #GList of #GstPad structures for all their input (or sink)
+             * and output (or source) pads.
+             * Core and plug-in writers can add and remove pads with gst_element_add_pad()
+             * and gst_element_remove_pad().
+             *
+             * An existing pad of an element can be retrieved by name with
+             * gst_element_get_static_pad(). A new dynamic pad can be created using
+             * gst_element_request_pad() with a #GstPadTemplate.
+             * An iterator of all pads can be retrieved with gst_element_iterate_pads().
+             *
+             * Elements can be linked through their pads.
+             * If the link is straightforward, use the gst_element_link()
+             * convenience function to link two elements, or gst_element_link_many()
+             * for more elements in a row.
+             * Use gst_element_link_filtered() to link two elements constrained by
+             * a specified set of #GstCaps.
+             * For finer control, use gst_element_link_pads() and
+             * gst_element_link_pads_filtered() to specify the pads to link on
+             * each element by name.
+             *
+             * Each element has a state (see #GstState).  You can get and set the state
+             * of an element with gst_element_get_state() and gst_element_set_state().
+             * Setting a state triggers a #GstStateChange. To get a string representation
+             * of a #GstState, use gst_element_state_get_name().
+             *
+             * You can get and set a #GstClock on an element using gst_element_get_clock()
+             * and gst_element_set_clock().
+             * Some elements can provide a clock for the pipeline if
+             * the #GST_ELEMENT_FLAG_PROVIDE_CLOCK flag is set. With the
+             * gst_element_provide_clock() method one can retrieve the clock provided by
+             * such an element.
+             * Not all elements require a clock to operate correctly. If the
+             * #GST_ELEMENT_FLAG_REQUIRE_CLOCK() flag is set, a clock should be set on the
+             * element with gst_element_set_clock().
+             *
+             * Note that clock selection and distribution is normally handled by the
+             * toplevel #GstPipeline so the clock functions are only to be used in very
+             * specific situations.
+             */
+            Element: ElementClass
+        }
         
 
         namespace ElementFactory {
@@ -4478,16 +4018,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * argv);
-         *
-         *   srcfactory = gst_element_factory_find ("filesrc");
-         *   g_return_if_fail (srcfactory != NULL);
-         *   src = gst_element_factory_create (srcfactory, "src");
-         *   g_return_if_fail (src != NULL);
-         *   ...
-         * ]|
-         */
         interface ElementFactory extends PluginFeature {
             readonly $signals: ElementFactory.SignalSignatures
             readonly $readableProperties: ElementFactory.ReadableProperties
@@ -4600,6 +4130,7 @@ declare module "gi://Gst?version=1.0" {
         interface ElementFactoryClass extends Omit<PluginFeatureClass, "new"> {
             readonly $gtype: GObject.GType<ElementFactory>
             readonly prototype: ElementFactory
+
             new (props?: Partial<GObject.ConstructorProps<ElementFactory>>): ElementFactory
             /**
              * Search for an element factory of the given name. Refs the returned
@@ -4655,7 +4186,36 @@ declare module "gi://Gst?version=1.0" {
             make_with_properties(factoryname: string, names: string[] | null, values: GObject.Value[] | null): Element | null
         }
 
-        const ElementFactory: ElementFactoryClass
+        interface $Exports {
+            /**
+             * #GstElementFactory is used to create instances of elements. A
+             * GstElementFactory can be added to a #GstPlugin as it is also a
+             * #GstPluginFeature.
+             *
+             * Use the gst_element_factory_find() and gst_element_factory_create()
+             * functions to create element instances or use gst_element_factory_make() as a
+             * convenient shortcut.
+             *
+             * The following code example shows you how to create a GstFileSrc element.
+             *
+             * ## Using an element factory
+             * |[<!-- language="C" -->
+             *   #include <gst/gst.h>
+             *
+             *   GstElement *src;
+             *   GstElementFactory *srcfactory;
+             *
+             *   gst_init (&argc, &argv);
+             *
+             *   srcfactory = gst_element_factory_find ("filesrc");
+             *   g_return_if_fail (srcfactory != NULL);
+             *   src = gst_element_factory_create (srcfactory, "src");
+             *   g_return_if_fail (src != NULL);
+             *   ...
+             * ]|
+             */
+            ElementFactory: ElementFactoryClass
+        }
         
 
         namespace FlagSet {
@@ -4672,10 +4232,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A fundamental type that describes a 32-bit flag bitfield, with 32-bit
-         * mask indicating which of the bits in the field are explicitly set.
-         */
         interface FlagSet  {
             readonly $signals: FlagSet.SignalSignatures
             readonly $readableProperties: FlagSet.ReadableProperties
@@ -4686,6 +4242,7 @@ declare module "gi://Gst?version=1.0" {
         interface FlagSetClass {
             readonly $gtype: GObject.GType<FlagSet>
             readonly prototype: FlagSet
+
             new (props?: Partial<GObject.ConstructorProps<FlagSet>>): FlagSet
             /**
              * Create a new sub-class of #GST_TYPE_FLAG_SET
@@ -4697,7 +4254,13 @@ declare module "gi://Gst?version=1.0" {
             register(flags_type: (GObject.GType | { $gtype: GObject.GType })): GObject.GType
         }
 
-        const FlagSet: FlagSetClass
+        interface $Exports {
+            /**
+             * A fundamental type that describes a 32-bit flag bitfield, with 32-bit
+             * mask indicating which of the bits in the field are explicitly set.
+             */
+            FlagSet: FlagSetClass
+        }
         
 
         namespace Fraction {
@@ -4714,10 +4277,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A fundamental type that describes a fraction of an integer numerator
-         * over an integer denominator
-         */
         interface Fraction  {
             readonly $signals: Fraction.SignalSignatures
             readonly $readableProperties: Fraction.ReadableProperties
@@ -4728,10 +4287,17 @@ declare module "gi://Gst?version=1.0" {
         interface FractionClass {
             readonly $gtype: GObject.GType<Fraction>
             readonly prototype: Fraction
+
             new (props?: Partial<GObject.ConstructorProps<Fraction>>): Fraction
         }
 
-        const Fraction: FractionClass
+        interface $Exports {
+            /**
+             * A fundamental type that describes a fraction of an integer numerator
+             * over an integer denominator
+             */
+            Fraction: FractionClass
+        }
         
 
         namespace FractionRange {
@@ -4748,9 +4314,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A fundamental type that describes a #GstFractionRange range
-         */
         interface FractionRange  {
             readonly $signals: FractionRange.SignalSignatures
             readonly $readableProperties: FractionRange.ReadableProperties
@@ -4761,10 +4324,16 @@ declare module "gi://Gst?version=1.0" {
         interface FractionRangeClass {
             readonly $gtype: GObject.GType<FractionRange>
             readonly prototype: FractionRange
+
             new (props?: Partial<GObject.ConstructorProps<FractionRange>>): FractionRange
         }
 
-        const FractionRange: FractionRangeClass
+        interface $Exports {
+            /**
+             * A fundamental type that describes a #GstFractionRange range
+             */
+            FractionRange: FractionRangeClass
+        }
         
 
         namespace GhostPad {
@@ -4781,21 +4350,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * GhostPads are useful when organizing pipelines with #GstBin like elements.
-         * The idea here is to create hierarchical element graphs. The bin element
-         * contains a sub-graph. Now one would like to treat the bin-element like any
-         * other #GstElement. This is where GhostPads come into play. A GhostPad acts as
-         * a proxy for another pad. Thus the bin can have sink and source ghost-pads
-         * that are associated with sink and source pads of the child elements.
-         *
-         * If the target pad is known at creation time, gst_ghost_pad_new() is the
-         * function to use to get a ghost-pad. Otherwise one can use gst_ghost_pad_new_no_target()
-         * to create the ghost-pad and use gst_ghost_pad_set_target() to establish the
-         * association later on.
-         *
-         * Note that GhostPads add overhead to the data processing of a pipeline.
-         */
         interface GhostPad extends ProxyPad {
             readonly $signals: GhostPad.SignalSignatures
             readonly $readableProperties: GhostPad.ReadableProperties
@@ -4830,6 +4384,7 @@ declare module "gi://Gst?version=1.0" {
         interface GhostPadClass extends Omit<ProxyPadClass, "new"> {
             readonly $gtype: GObject.GType<GhostPad>
             readonly prototype: GhostPad
+
             new (props?: Partial<GObject.ConstructorProps<GhostPad>>): GhostPad
             /**
              * Create a new ghostpad with @target as the target. The direction will be taken
@@ -4840,7 +4395,7 @@ declare module "gi://Gst?version=1.0" {
              * @param target the pad to ghost.
              * @returns a new #GstPad, or %NULL in case of an error.
              */
-            "new"(name: string | null, target: Pad): Pad | null
+            "new"(name: string | null, target: Pad): GhostPad | null
             /**
              * Create a new ghostpad with @target as the target. The direction will be taken
              * from the target pad. The template used on the ghostpad will be @template.
@@ -4851,7 +4406,7 @@ declare module "gi://Gst?version=1.0" {
              * @param templ the #GstPadTemplate to use on the ghostpad.
              * @returns a new #GstPad, or %NULL in case of an error.
              */
-            new_from_template(name: string | null, target: Pad, templ: PadTemplate): Pad | null
+            new_from_template(name: string | null, target: Pad, templ: PadTemplate): GhostPad | null
             /**
              * Create a new ghostpad without a target with the given direction.
              * A target can be set on the ghostpad later with the
@@ -4862,7 +4417,7 @@ declare module "gi://Gst?version=1.0" {
              * @param dir the direction of the ghostpad
              * @returns a new #GstPad, or %NULL in case of an error.
              */
-            new_no_target(name: string | null, dir: PadDirection): Pad | null
+            new_no_target(name: string | null, dir: PadDirection): GhostPad | null
             /**
              * Create a new ghostpad based on @templ, without setting a target. The
              * direction will be taken from the @templ.
@@ -4870,7 +4425,7 @@ declare module "gi://Gst?version=1.0" {
              * @param templ the #GstPadTemplate to create the ghostpad from.
              * @returns a new #GstPad, or %NULL in case of an error.
              */
-            new_no_target_from_template(name: string | null, templ: PadTemplate): Pad | null
+            new_no_target_from_template(name: string | null, templ: PadTemplate): GhostPad | null
             /**
              * Invoke the default activate mode function of a ghost pad.
              * @param pad the #GstPad to activate or deactivate.
@@ -4892,7 +4447,24 @@ declare module "gi://Gst?version=1.0" {
             internal_activate_mode_default(pad: Pad, parent: Object | null, mode: PadMode, active: boolean): boolean
         }
 
-        const GhostPad: GhostPadClass
+        interface $Exports {
+            /**
+             * GhostPads are useful when organizing pipelines with #GstBin like elements.
+             * The idea here is to create hierarchical element graphs. The bin element
+             * contains a sub-graph. Now one would like to treat the bin-element like any
+             * other #GstElement. This is where GhostPads come into play. A GhostPad acts as
+             * a proxy for another pad. Thus the bin can have sink and source ghost-pads
+             * that are associated with sink and source pads of the child elements.
+             *
+             * If the target pad is known at creation time, gst_ghost_pad_new() is the
+             * function to use to get a ghost-pad. Otherwise one can use gst_ghost_pad_new_no_target()
+             * to create the ghost-pad and use gst_ghost_pad_set_target() to establish the
+             * association later on.
+             *
+             * Note that GhostPads add overhead to the data processing of a pipeline.
+             */
+            GhostPad: GhostPadClass
+        }
         
 
         namespace Int64Range {
@@ -4909,9 +4481,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A fundamental type that describes a #gint64 range
-         */
         interface Int64Range  {
             readonly $signals: Int64Range.SignalSignatures
             readonly $readableProperties: Int64Range.ReadableProperties
@@ -4922,10 +4491,16 @@ declare module "gi://Gst?version=1.0" {
         interface Int64RangeClass {
             readonly $gtype: GObject.GType<Int64Range>
             readonly prototype: Int64Range
+
             new (props?: Partial<GObject.ConstructorProps<Int64Range>>): Int64Range
         }
 
-        const Int64Range: Int64RangeClass
+        interface $Exports {
+            /**
+             * A fundamental type that describes a #gint64 range
+             */
+            Int64Range: Int64RangeClass
+        }
         
 
         namespace IntRange {
@@ -4942,9 +4517,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A fundamental type that describes a #gint range
-         */
         interface IntRange  {
             readonly $signals: IntRange.SignalSignatures
             readonly $readableProperties: IntRange.ReadableProperties
@@ -4955,10 +4527,16 @@ declare module "gi://Gst?version=1.0" {
         interface IntRangeClass {
             readonly $gtype: GObject.GType<IntRange>
             readonly prototype: IntRange
+
             new (props?: Partial<GObject.ConstructorProps<IntRange>>): IntRange
         }
 
-        const IntRange: IntRangeClass
+        interface $Exports {
+            /**
+             * A fundamental type that describes a #gint range
+             */
+            IntRange: IntRangeClass
+        }
         
 
         namespace Object {
@@ -4987,57 +4565,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * #GstObject provides a root for the object hierarchy tree filed in by the
-         * GStreamer library.  It is currently a thin wrapper on top of
-         * #GInitiallyUnowned. It is an abstract class that is not very usable on its own.
-         *
-         * #GstObject gives us basic refcounting, parenting functionality and locking.
-         * Most of the functions are just extended for special GStreamer needs and can be
-         * found under the same name in the base class of #GstObject which is #GObject
-         * (e.g. g_object_ref() becomes gst_object_ref()).
-         *
-         * Since #GstObject derives from #GInitiallyUnowned, it also inherits the
-         * floating reference. Be aware that functions such as gst_bin_add() and
-         * gst_element_add_pad() take ownership of the floating reference.
-         *
-         * In contrast to #GObject instances, #GstObject adds a name property. The functions
-         * gst_object_set_name() and gst_object_get_name() are used to set/get the name
-         * of the object.
-         *
-         * ## controlled properties
-         *
-         * Controlled properties offers a lightweight way to adjust gobject properties
-         * over stream-time. It works by using time-stamped value pairs that are queued
-         * for element-properties. At run-time the elements continuously pull value
-         * changes for the current stream-time.
-         *
-         * What needs to be changed in a #GstElement?
-         * Very little - it is just two steps to make a plugin controllable!
-         *
-         *   * mark gobject-properties paramspecs that make sense to be controlled,
-         *     by GST_PARAM_CONTROLLABLE.
-         *
-         *   * when processing data (get, chain, loop function) at the beginning call
-         *     gst_object_sync_values(element,timestamp).
-         *     This will make the controller update all GObject properties that are
-         *     under its control with the current values based on the timestamp.
-         *
-         * What needs to be done in applications? Again it's not a lot to change.
-         *
-         *   * create a #GstControlSource.
-         *     csource = gst_interpolation_control_source_new ();
-         *     g_object_set (csource, "mode", GST_INTERPOLATION_MODE_LINEAR, NULL);
-         *
-         *   * Attach the #GstControlSource on the controller to a property.
-         *     gst_object_add_control_binding (object, gst_direct_control_binding_new (object, "prop1", csource));
-         *
-         *   * Set the control values
-         *     gst_timed_value_control_source_set ((GstTimedValueControlSource *)csource,0 * GST_SECOND, value1);
-         *     gst_timed_value_control_source_set ((GstTimedValueControlSource *)csource,1 * GST_SECOND, value2);
-         *
-         *   * start your pipeline
-         */
         interface Object extends GObject.InitiallyUnowned {
             readonly $signals: Object.SignalSignatures
             readonly $readableProperties: Object.ReadableProperties
@@ -5171,7 +4698,13 @@ declare module "gi://Gst?version=1.0" {
              */
             has_as_parent(parent: Object): boolean
             /**
-             * parent);
+             * Increments the reference count on @object. This function
+             * does not take the lock on @object because it relies on
+             * atomic refcounting.
+             *
+             * This object returns the input parameter to ease writing
+             * constructs like :
+             *  result = gst_object_ref (object->parent);
              * @returns A pointer to `object`
              */
             ref(): Object
@@ -5268,6 +4801,7 @@ declare module "gi://Gst?version=1.0" {
         interface ObjectClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
             readonly $gtype: GObject.GType<Object>
             readonly prototype: Object
+
             new (props?: Partial<GObject.ConstructorProps<Object>>): Object
             /**
              * Checks to see if there is any object named @name in @list. This function
@@ -5309,7 +4843,60 @@ declare module "gi://Gst?version=1.0" {
             replace(newobj: Object | null): [boolean, Object | null]
         }
 
-        const Object: ObjectClass
+        interface $Exports {
+            /**
+             * #GstObject provides a root for the object hierarchy tree filed in by the
+             * GStreamer library.  It is currently a thin wrapper on top of
+             * #GInitiallyUnowned. It is an abstract class that is not very usable on its own.
+             *
+             * #GstObject gives us basic refcounting, parenting functionality and locking.
+             * Most of the functions are just extended for special GStreamer needs and can be
+             * found under the same name in the base class of #GstObject which is #GObject
+             * (e.g. g_object_ref() becomes gst_object_ref()).
+             *
+             * Since #GstObject derives from #GInitiallyUnowned, it also inherits the
+             * floating reference. Be aware that functions such as gst_bin_add() and
+             * gst_element_add_pad() take ownership of the floating reference.
+             *
+             * In contrast to #GObject instances, #GstObject adds a name property. The functions
+             * gst_object_set_name() and gst_object_get_name() are used to set/get the name
+             * of the object.
+             *
+             * ## controlled properties
+             *
+             * Controlled properties offers a lightweight way to adjust gobject properties
+             * over stream-time. It works by using time-stamped value pairs that are queued
+             * for element-properties. At run-time the elements continuously pull value
+             * changes for the current stream-time.
+             *
+             * What needs to be changed in a #GstElement?
+             * Very little - it is just two steps to make a plugin controllable!
+             *
+             *   * mark gobject-properties paramspecs that make sense to be controlled,
+             *     by GST_PARAM_CONTROLLABLE.
+             *
+             *   * when processing data (get, chain, loop function) at the beginning call
+             *     gst_object_sync_values(element,timestamp).
+             *     This will make the controller update all GObject properties that are
+             *     under its control with the current values based on the timestamp.
+             *
+             * What needs to be done in applications? Again it's not a lot to change.
+             *
+             *   * create a #GstControlSource.
+             *     csource = gst_interpolation_control_source_new ();
+             *     g_object_set (csource, "mode", GST_INTERPOLATION_MODE_LINEAR, NULL);
+             *
+             *   * Attach the #GstControlSource on the controller to a property.
+             *     gst_object_add_control_binding (object, gst_direct_control_binding_new (object, "prop1", csource));
+             *
+             *   * Set the control values
+             *     gst_timed_value_control_source_set ((GstTimedValueControlSource *)csource,0 * GST_SECOND, value1);
+             *     gst_timed_value_control_source_set ((GstTimedValueControlSource *)csource,1 * GST_SECOND, value2);
+             *
+             *   * start your pipeline
+             */
+            Object: ObjectClass
+        }
         
 
         namespace Pad {
@@ -5335,76 +4922,15 @@ declare module "gi://Gst?version=1.0" {
 
             interface WritableProperties extends Object.WritableProperties {
                 "caps": Caps
-                "direction": PadDirection
                 "offset": number
                 "template": PadTemplate
             }
 
             interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                "direction": PadDirection
             }
         }
 
-        /**
-         * A #GstElement is linked to other elements via "pads", which are extremely
-         * light-weight generic link points.
-         *
-         * Pads have a #GstPadDirection, source pads produce data, sink pads consume
-         * data.
-         *
-         * Pads are typically created from a #GstPadTemplate with
-         * gst_pad_new_from_template() and are then added to a #GstElement. This usually
-         * happens when the element is created but it can also happen dynamically based
-         * on the data that the element is processing or based on the pads that the
-         * application requests.
-         *
-         * Pads without pad templates can be created with gst_pad_new(),
-         * which takes a direction and a name as an argument.  If the name is %NULL,
-         * then a guaranteed unique name will be assigned to it.
-         *
-         * A #GstElement creating a pad will typically use the various
-         * gst_pad_set_*_function\() calls to register callbacks for events, queries or
-         * dataflow on the pads.
-         *
-         * gst_pad_get_parent() will retrieve the #GstElement that owns the pad.
-         *
-         * After two pads are retrieved from an element by gst_element_get_static_pad(),
-         * the pads can be linked with gst_pad_link(). (For quick links,
-         * you can also use gst_element_link(), which will make the obvious
-         * link for you if it's straightforward.). Pads can be unlinked again with
-         * gst_pad_unlink(). gst_pad_get_peer() can be used to check what the pad is
-         * linked to.
-         *
-         * Before dataflow is possible on the pads, they need to be activated with
-         * gst_pad_set_active().
-         *
-         * gst_pad_query() and gst_pad_peer_query() can be used to query various
-         * properties of the pad and the stream.
-         *
-         * To send a #GstEvent on a pad, use gst_pad_send_event() and
-         * gst_pad_push_event(). Some events will be sticky on the pad, meaning that
-         * after they pass on the pad they can be queried later with
-         * gst_pad_get_sticky_event() and gst_pad_sticky_events_foreach().
-         * gst_pad_get_current_caps() and gst_pad_has_current_caps() are convenience
-         * functions to query the current sticky CAPS event on a pad.
-         *
-         * GstElements will use gst_pad_push() and gst_pad_pull_range() to push out
-         * or pull in a buffer.
-         *
-         * The dataflow, events and queries that happen on a pad can be monitored with
-         * probes that can be installed with gst_pad_add_probe(). gst_pad_is_blocked()
-         * can be used to check if a block probe is installed on the pad.
-         * gst_pad_is_blocking() checks if the blocking probe is currently blocking the
-         * pad. gst_pad_remove_probe() is used to remove a previously installed probe
-         * and unblock blocking probes if any.
-         *
-         * Pad have an offset that can be retrieved with gst_pad_get_offset(). This
-         * offset will be applied to the running_time of all data passing over the pad.
-         * gst_pad_set_offset() can be used to change the offset.
-         *
-         * Convenience functions exist to start, pause and stop the task on a pad with
-         * gst_pad_start_task(), gst_pad_pause_task() and gst_pad_stop_task()
-         * respectively.
-         */
         interface Pad extends Object {
             readonly $signals: Pad.SignalSignatures
             readonly $readableProperties: Pad.ReadableProperties
@@ -5860,13 +5386,13 @@ declare module "gi://Gst?version=1.0" {
              * @param format the #GstFormat requested
              * @returns %TRUE if the query could be performed., a location in which to store the total     duration, or %NULL.
              */
-            peer_query_duration(format: Format): boolean
+            peer_query_duration(format: Format): [boolean, number]
             /**
              * Queries the peer of a given sink pad for the stream position.
              * @param format the #GstFormat requested
              * @returns %TRUE if the query could be performed., a location in which to store the current     position, or %NULL.
              */
-            peer_query_position(format: Format): boolean
+            peer_query_position(format: Format): [boolean, number]
             /**
              * Checks if all internally linked pads of @pad accepts the caps in @query and
              * returns the intersection of the results.
@@ -6032,13 +5558,13 @@ declare module "gi://Gst?version=1.0" {
              * @param format the #GstFormat requested
              * @returns %TRUE if the query could be performed., a location in which to store the total     duration, or %NULL.
              */
-            query_duration(format: Format): boolean
+            query_duration(format: Format): [boolean, number]
             /**
              * Queries a pad for the stream position.
              * @param format the #GstFormat requested
              * @returns %TRUE if the query could be performed., A location in which to store the current position, or %NULL.
              */
-            query_position(format: Format): boolean
+            query_position(format: Format): [boolean, number]
             /**
              * Remove the probe with @id from @pad.
              *
@@ -6247,6 +5773,7 @@ declare module "gi://Gst?version=1.0" {
         interface PadClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Pad>
             readonly prototype: Pad
+
             new (props?: Partial<GObject.ConstructorProps<Pad>>): Pad
             /**
              * Creates a new pad with the given name in the given direction.
@@ -6287,7 +5814,70 @@ declare module "gi://Gst?version=1.0" {
             link_get_name(ret: PadLinkReturn): string
         }
 
-        const Pad: PadClass
+        interface $Exports {
+            /**
+             * A #GstElement is linked to other elements via "pads", which are extremely
+             * light-weight generic link points.
+             *
+             * Pads have a #GstPadDirection, source pads produce data, sink pads consume
+             * data.
+             *
+             * Pads are typically created from a #GstPadTemplate with
+             * gst_pad_new_from_template() and are then added to a #GstElement. This usually
+             * happens when the element is created but it can also happen dynamically based
+             * on the data that the element is processing or based on the pads that the
+             * application requests.
+             *
+             * Pads without pad templates can be created with gst_pad_new(),
+             * which takes a direction and a name as an argument.  If the name is %NULL,
+             * then a guaranteed unique name will be assigned to it.
+             *
+             * A #GstElement creating a pad will typically use the various
+             * gst_pad_set_*_function\() calls to register callbacks for events, queries or
+             * dataflow on the pads.
+             *
+             * gst_pad_get_parent() will retrieve the #GstElement that owns the pad.
+             *
+             * After two pads are retrieved from an element by gst_element_get_static_pad(),
+             * the pads can be linked with gst_pad_link(). (For quick links,
+             * you can also use gst_element_link(), which will make the obvious
+             * link for you if it's straightforward.). Pads can be unlinked again with
+             * gst_pad_unlink(). gst_pad_get_peer() can be used to check what the pad is
+             * linked to.
+             *
+             * Before dataflow is possible on the pads, they need to be activated with
+             * gst_pad_set_active().
+             *
+             * gst_pad_query() and gst_pad_peer_query() can be used to query various
+             * properties of the pad and the stream.
+             *
+             * To send a #GstEvent on a pad, use gst_pad_send_event() and
+             * gst_pad_push_event(). Some events will be sticky on the pad, meaning that
+             * after they pass on the pad they can be queried later with
+             * gst_pad_get_sticky_event() and gst_pad_sticky_events_foreach().
+             * gst_pad_get_current_caps() and gst_pad_has_current_caps() are convenience
+             * functions to query the current sticky CAPS event on a pad.
+             *
+             * GstElements will use gst_pad_push() and gst_pad_pull_range() to push out
+             * or pull in a buffer.
+             *
+             * The dataflow, events and queries that happen on a pad can be monitored with
+             * probes that can be installed with gst_pad_add_probe(). gst_pad_is_blocked()
+             * can be used to check if a block probe is installed on the pad.
+             * gst_pad_is_blocking() checks if the blocking probe is currently blocking the
+             * pad. gst_pad_remove_probe() is used to remove a previously installed probe
+             * and unblock blocking probes if any.
+             *
+             * Pad have an offset that can be retrieved with gst_pad_get_offset(). This
+             * offset will be applied to the running_time of all data passing over the pad.
+             * gst_pad_set_offset() can be used to change the offset.
+             *
+             * Convenience functions exist to start, pause and stop the task on a pad with
+             * gst_pad_start_task(), gst_pad_pause_task() and gst_pad_stop_task()
+             * respectively.
+             */
+            Pad: PadClass
+        }
         
 
         namespace PadTemplate {
@@ -6308,22 +5898,17 @@ declare module "gi://Gst?version=1.0" {
             }
 
             interface WritableProperties extends Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
                 "caps": Caps
                 "direction": PadDirection
                 "gtype": GObject.GType
                 "name-template": string
                 "presence": PadPresence
             }
-
-            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * my_template);
-         *   }
-         * ]|
-         */
         interface PadTemplate extends Object {
             readonly $signals: PadTemplate.SignalSignatures
             readonly $readableProperties: PadTemplate.ReadableProperties
@@ -6393,6 +5978,7 @@ declare module "gi://Gst?version=1.0" {
         interface PadTemplateClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PadTemplate>
             readonly prototype: PadTemplate
+
             new (props?: Partial<GObject.ConstructorProps<PadTemplate>>): PadTemplate
             /**
              * Creates a new pad template with a name according to the given template
@@ -6426,7 +6012,71 @@ declare module "gi://Gst?version=1.0" {
             new_with_gtype(name_template: string, direction: PadDirection, presence: PadPresence, caps: Caps, pad_type: (GObject.GType | { $gtype: GObject.GType })): PadTemplate | null
         }
 
-        const PadTemplate: PadTemplateClass
+        interface $Exports {
+            /**
+             * Padtemplates describe the possible media types a pad or an elementfactory can
+             * handle. This allows for both inspection of handled types before loading the
+             * element plugin as well as identifying pads on elements that are not yet
+             * created (request or sometimes pads).
+             *
+             * Pad and PadTemplates have #GstCaps attached to it to describe the media type
+             * they are capable of dealing with. gst_pad_template_get_caps() or
+             * GST_PAD_TEMPLATE_CAPS() are used to get the caps of a padtemplate. It's not
+             * possible to modify the caps of a padtemplate after creation.
+             *
+             * PadTemplates have a #GstPadPresence property which identifies the lifetime
+             * of the pad and that can be retrieved with GST_PAD_TEMPLATE_PRESENCE(). Also
+             * the direction of the pad can be retrieved from the #GstPadTemplate with
+             * GST_PAD_TEMPLATE_DIRECTION().
+             *
+             * The GST_PAD_TEMPLATE_NAME_TEMPLATE () is important for GST_PAD_REQUEST pads
+             * because it has to be used as the name in the gst_element_request_pad_simple()
+             * call to instantiate a pad from this template.
+             *
+             * Padtemplates can be created with gst_pad_template_new() or with
+             * gst_static_pad_template_get (), which creates a #GstPadTemplate from a
+             * #GstStaticPadTemplate that can be filled with the
+             * convenient GST_STATIC_PAD_TEMPLATE() macro.
+             *
+             * A padtemplate can be used to create a pad (see gst_pad_new_from_template()
+             * or gst_pad_new_from_static_template ()) or to add to an element class
+             * (see gst_element_class_add_static_pad_template ()).
+             *
+             * The following code example shows the code to create a pad from a padtemplate.
+             * |[<!-- language="C" -->
+             *   GstStaticPadTemplate my_template =
+             *   GST_STATIC_PAD_TEMPLATE (
+             *     "sink",          // the name of the pad
+             *     GST_PAD_SINK,    // the direction of the pad
+             *     GST_PAD_ALWAYS,  // when this pad will be present
+             *     GST_STATIC_CAPS (        // the capabilities of the padtemplate
+             *       "audio/x-raw, "
+             *         "channels = (int) [ 1, 6 ]"
+             *     )
+             *   );
+             *   void
+             *   my_method (void)
+             *   {
+             *     GstPad *pad;
+             *     pad = gst_pad_new_from_static_template (&my_template, "sink");
+             *     ...
+             *   }
+             * ]|
+             *
+             * The following example shows you how to add the padtemplate to an
+             * element class, this is usually done in the class_init of the class:
+             * |[<!-- language="C" -->
+             *   static void
+             *   my_element_class_init (GstMyElementClass *klass)
+             *   {
+             *     GstElementClass *gstelement_class = GST_ELEMENT_CLASS (klass);
+             *
+             *     gst_element_class_add_static_pad_template (gstelement_class, &my_template);
+             *   }
+             * ]|
+             */
+            PadTemplate: PadTemplateClass
+        }
         
 
         namespace ParamArray {
@@ -6443,11 +6093,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A fundamental type that describes a #GParamSpec for arrays of
-         * values
-         * @since 1.12
-         */
         interface ParamArray extends GObject.ParamSpec {
             readonly $signals: ParamArray.SignalSignatures
             readonly $readableProperties: ParamArray.ReadableProperties
@@ -6458,10 +6103,18 @@ declare module "gi://Gst?version=1.0" {
         interface ParamArrayClass extends Omit<GObject.ParamSpecClass, "new"> {
             readonly $gtype: GObject.GType<ParamArray>
             readonly prototype: ParamArray
+
             new (props?: Partial<GObject.ConstructorProps<ParamArray>>): ParamArray
         }
 
-        const ParamArray: ParamArrayClass
+        interface $Exports {
+            /**
+             * A fundamental type that describes a #GParamSpec for arrays of
+             * values
+             * @since 1.12
+             */
+            ParamArray: ParamArrayClass
+        }
         
 
         namespace ParamFraction {
@@ -6478,10 +6131,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A fundamental type that describes a #GParamSpec for fractional
-         * properties
-         */
         interface ParamFraction extends GObject.ParamSpec {
             readonly $signals: ParamFraction.SignalSignatures
             readonly $readableProperties: ParamFraction.ReadableProperties
@@ -6492,10 +6141,17 @@ declare module "gi://Gst?version=1.0" {
         interface ParamFractionClass extends Omit<GObject.ParamSpecClass, "new"> {
             readonly $gtype: GObject.GType<ParamFraction>
             readonly prototype: ParamFraction
+
             new (props?: Partial<GObject.ConstructorProps<ParamFraction>>): ParamFraction
         }
 
-        const ParamFraction: ParamFractionClass
+        interface $Exports {
+            /**
+             * A fundamental type that describes a #GParamSpec for fractional
+             * properties
+             */
+            ParamFraction: ParamFractionClass
+        }
         
 
         namespace Pipeline {
@@ -6518,57 +6174,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A #GstPipeline is a special #GstBin used as the toplevel container for
-         * the filter graph. The #GstPipeline will manage the selection and
-         * distribution of a global #GstClock as well as provide a #GstBus to the
-         * application.
-         *
-         * gst_pipeline_new() is used to create a pipeline. when you are done with
-         * the pipeline, use gst_object_unref() to free its resources including all
-         * added #GstElement objects (if not otherwise referenced).
-         *
-         * Elements are added and removed from the pipeline using the #GstBin
-         * methods like gst_bin_add() and gst_bin_remove() (see #GstBin).
-         *
-         * Before changing the state of the #GstPipeline (see #GstElement) a #GstBus
-         * should be retrieved with gst_pipeline_get_bus(). This #GstBus should then
-         * be used to receive #GstMessage from the elements in the pipeline. Listening
-         * to the #GstBus is necessary for retrieving error messages from the
-         * #GstPipeline and otherwise the #GstPipeline might stop without any
-         * indication, why. Furthermore, the #GstPipeline posts messages even if
-         * nobody listens on the #GstBus, which will pile up and use up memory.
-         *
-         * By default, a #GstPipeline will automatically flush the pending #GstBus
-         * messages when going to the NULL state to ensure that no circular
-         * references exist when no messages are read from the #GstBus. This
-         * behaviour can be changed with gst_pipeline_set_auto_flush_bus().
-         *
-         * When the #GstPipeline performs the PAUSED to PLAYING state change it will
-         * select a clock for the elements. The clock selection algorithm will by
-         * default select a clock provided by an element that is most upstream
-         * (closest to the source). For live pipelines (ones that return
-         * #GST_STATE_CHANGE_NO_PREROLL from the gst_element_set_state() call) this
-         * will select the clock provided by the live source. For normal pipelines
-         * this will select a clock provided by the sinks (most likely the audio
-         * sink). If no element provides a clock, a default #GstSystemClock is used.
-         *
-         * The clock selection can be controlled with the gst_pipeline_use_clock()
-         * method, which will enforce a given clock on the pipeline. With
-         * gst_pipeline_auto_clock() the default clock selection algorithm can be
-         * restored.
-         *
-         * A #GstPipeline maintains a running time for the elements. The running
-         * time is defined as the difference between the current clock time and
-         * the base time. When the pipeline goes to READY or a flushing seek is
-         * performed on it, the running time is reset to 0. When the pipeline is
-         * set from PLAYING to PAUSED, the current clock time is sampled and used to
-         * configure the base time for the elements when the pipeline is set
-         * to PLAYING again. The effect is that the running time (as the difference
-         * between the clock time and the base time) will count how much time was spent
-         * in the PLAYING state. This default behaviour can be changed with the
-         * gst_element_set_start_time() method.
-         */
         interface Pipeline extends Bin, ChildProxy {
             readonly $signals: Pipeline.SignalSignatures
             readonly $readableProperties: Pipeline.ReadableProperties
@@ -6715,16 +6320,70 @@ declare module "gi://Gst?version=1.0" {
         interface PipelineClass extends Omit<BinClass, "new"> {
             readonly $gtype: GObject.GType<Pipeline>
             readonly prototype: Pipeline
+
             new (props?: Partial<GObject.ConstructorProps<Pipeline>>): Pipeline
             /**
              * Create a new pipeline with the given name.
              * @param name name of new pipeline
              * @returns newly created GstPipeline  MT safe.
              */
-            "new"(name: string | null): Element
+            "new"(name: string | null): Pipeline
         }
 
-        const Pipeline: PipelineClass
+        interface $Exports {
+            /**
+             * A #GstPipeline is a special #GstBin used as the toplevel container for
+             * the filter graph. The #GstPipeline will manage the selection and
+             * distribution of a global #GstClock as well as provide a #GstBus to the
+             * application.
+             *
+             * gst_pipeline_new() is used to create a pipeline. when you are done with
+             * the pipeline, use gst_object_unref() to free its resources including all
+             * added #GstElement objects (if not otherwise referenced).
+             *
+             * Elements are added and removed from the pipeline using the #GstBin
+             * methods like gst_bin_add() and gst_bin_remove() (see #GstBin).
+             *
+             * Before changing the state of the #GstPipeline (see #GstElement) a #GstBus
+             * should be retrieved with gst_pipeline_get_bus(). This #GstBus should then
+             * be used to receive #GstMessage from the elements in the pipeline. Listening
+             * to the #GstBus is necessary for retrieving error messages from the
+             * #GstPipeline and otherwise the #GstPipeline might stop without any
+             * indication, why. Furthermore, the #GstPipeline posts messages even if
+             * nobody listens on the #GstBus, which will pile up and use up memory.
+             *
+             * By default, a #GstPipeline will automatically flush the pending #GstBus
+             * messages when going to the NULL state to ensure that no circular
+             * references exist when no messages are read from the #GstBus. This
+             * behaviour can be changed with gst_pipeline_set_auto_flush_bus().
+             *
+             * When the #GstPipeline performs the PAUSED to PLAYING state change it will
+             * select a clock for the elements. The clock selection algorithm will by
+             * default select a clock provided by an element that is most upstream
+             * (closest to the source). For live pipelines (ones that return
+             * #GST_STATE_CHANGE_NO_PREROLL from the gst_element_set_state() call) this
+             * will select the clock provided by the live source. For normal pipelines
+             * this will select a clock provided by the sinks (most likely the audio
+             * sink). If no element provides a clock, a default #GstSystemClock is used.
+             *
+             * The clock selection can be controlled with the gst_pipeline_use_clock()
+             * method, which will enforce a given clock on the pipeline. With
+             * gst_pipeline_auto_clock() the default clock selection algorithm can be
+             * restored.
+             *
+             * A #GstPipeline maintains a running time for the elements. The running
+             * time is defined as the difference between the current clock time and
+             * the base time. When the pipeline goes to READY or a flushing seek is
+             * performed on it, the running time is reset to 0. When the pipeline is
+             * set from PLAYING to PAUSED, the current clock time is sampled and used to
+             * configure the base time for the elements when the pipeline is set
+             * to PLAYING again. The effect is that the running time (as the difference
+             * between the clock time and the base time) will count how much time was spent
+             * in the PLAYING state. This default behaviour can be changed with the
+             * gst_element_set_start_time() method.
+             */
+            Pipeline: PipelineClass
+        }
         
 
         namespace Plugin {
@@ -6741,27 +6400,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * GStreamer is extensible, so #GstElement instances can be loaded at runtime.
-         * A plugin system can provide one or more of the basic GStreamer
-         * #GstPluginFeature subclasses.
-         *
-         * A plugin should export a symbol `gst_plugin_desc` that is a
-         * struct of type #GstPluginDesc.
-         * the plugin loader will check the version of the core library the plugin was
-         * linked against and will create a new #GstPlugin. It will then call the
-         * #GstPluginInitFunc function that was provided in the
-         * `gst_plugin_desc`.
-         *
-         * Once you have a handle to a #GstPlugin (e.g. from the #GstRegistry), you
-         * can add any object that subclasses #GstPluginFeature.
-         *
-         * Usually plugins are always automatically loaded so you don't need to call
-         * gst_plugin_load() explicitly to bring it into memory. There are options to
-         * statically link plugins to an app or even use GStreamer without a plugin
-         * repository in which case gst_plugin_load() can be needed to bring the plugin
-         * into memory.
-         */
         interface Plugin extends Object {
             readonly $signals: Plugin.SignalSignatures
             readonly $readableProperties: Plugin.ReadableProperties
@@ -6937,6 +6575,7 @@ declare module "gi://Gst?version=1.0" {
         interface PluginClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Plugin>
             readonly prototype: Plugin
+
             new (props?: Partial<GObject.ConstructorProps<Plugin>>): Plugin
             /**
              * Unrefs each member of @list, then frees the list.
@@ -7011,7 +6650,30 @@ declare module "gi://Gst?version=1.0" {
             register_static_full(major_version: number, minor_version: number, name: string, description: string, init_full_func: PluginInitFullFunc, version: string, license: string, source: string, package: string, origin: string): boolean
         }
 
-        const Plugin: PluginClass
+        interface $Exports {
+            /**
+             * GStreamer is extensible, so #GstElement instances can be loaded at runtime.
+             * A plugin system can provide one or more of the basic GStreamer
+             * #GstPluginFeature subclasses.
+             *
+             * A plugin should export a symbol `gst_plugin_desc` that is a
+             * struct of type #GstPluginDesc.
+             * the plugin loader will check the version of the core library the plugin was
+             * linked against and will create a new #GstPlugin. It will then call the
+             * #GstPluginInitFunc function that was provided in the
+             * `gst_plugin_desc`.
+             *
+             * Once you have a handle to a #GstPlugin (e.g. from the #GstRegistry), you
+             * can add any object that subclasses #GstPluginFeature.
+             *
+             * Usually plugins are always automatically loaded so you don't need to call
+             * gst_plugin_load() explicitly to bring it into memory. There are options to
+             * statically link plugins to an app or even use GStreamer without a plugin
+             * repository in which case gst_plugin_load() can be needed to bring the plugin
+             * into memory.
+             */
+            Plugin: PluginClass
+        }
         
 
         namespace PluginFeature {
@@ -7028,9 +6690,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * This is a base class for anything that can be added to a #GstPlugin.
-         */
         interface PluginFeature extends Object {
             readonly $signals: PluginFeature.SignalSignatures
             readonly $readableProperties: PluginFeature.ReadableProperties
@@ -7067,7 +6726,11 @@ declare module "gi://Gst?version=1.0" {
              */
             get_rank(): number
             /**
+             * Loads the plugin containing @feature if it's not already loaded. @feature is
+             * unaffected; use the return value instead.
              *
+             * Normally this function is used like this:
+             * |[<!-- language="C" -->
              * GstPluginFeature *loaded_feature;
              *
              * loaded_feature = gst_plugin_feature_load (feature);
@@ -7089,6 +6752,7 @@ declare module "gi://Gst?version=1.0" {
         interface PluginFeatureClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PluginFeature>
             readonly prototype: PluginFeature
+
             new (props?: Partial<GObject.ConstructorProps<PluginFeature>>): PluginFeature
             /**
              * Copies the list of features. Caller should call @gst_plugin_feature_list_free
@@ -7115,12 +6779,17 @@ declare module "gi://Gst?version=1.0" {
              * used as a #GCompareFunc when sorting by rank and then by name.
              * @param p1 a #GstPluginFeature
              * @param p2 a #GstPluginFeature
-             * @returns  the rank of p2 or the ranks are equal but the name of p2 comes before the name of p1
+             * @returns negative value if the rank of p1 > the rank of p2 or the ranks are equal but the name of p1 comes before the name of p2; zero if the rank and names are equal; positive value if the rank of p1 < the rank of p2 or the ranks are equal but the name of p2 comes before the name of p1
              */
             rank_compare_func(p1: never | null, p2: never | null): number
         }
 
-        const PluginFeature: PluginFeatureClass
+        interface $Exports {
+            /**
+             * This is a base class for anything that can be added to a #GstPlugin.
+             */
+            PluginFeature: PluginFeatureClass
+        }
         
 
         namespace ProxyPad {
@@ -7137,8 +6806,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         */
         interface ProxyPad extends Pad {
             readonly $signals: ProxyPad.SignalSignatures
             readonly $readableProperties: ProxyPad.ReadableProperties
@@ -7157,6 +6824,7 @@ declare module "gi://Gst?version=1.0" {
         interface ProxyPadClass extends Omit<PadClass, "new"> {
             readonly $gtype: GObject.GType<ProxyPad>
             readonly prototype: ProxyPad
+
             new (props?: Partial<GObject.ConstructorProps<ProxyPad>>): ProxyPad
             /**
              * Invoke the default chain function of the proxy pad.
@@ -7194,7 +6862,11 @@ declare module "gi://Gst?version=1.0" {
             iterate_internal_links_default(pad: Pad, parent: Object | null): Iterator | null
         }
 
-        const ProxyPad: ProxyPadClass
+        interface $Exports {
+            /**
+             */
+            ProxyPad: ProxyPadClass
+        }
         
 
         namespace Registry {
@@ -7223,64 +6895,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         *
-         *
-         * The #GstRegistry object is a list of plugins and some functions for dealing
-         * with them. Each #GstPlugin is matched 1-1 with a file on disk, and may or may
-         * not be loaded at a given time.
-         *
-         * The primary source, at all times, of plugin information is each plugin file
-         * itself. Thus, if an application wants information about a particular plugin,
-         * or wants to search for a feature that satisfies given criteria, the primary
-         * means of doing so is to load every plugin and look at the resulting
-         * information that is gathered in the default registry. Clearly, this is a time
-         * consuming process, so we cache information in the registry file. The format
-         * and location of the cache file is internal to gstreamer.
-         *
-         * On startup, plugins are searched for in the plugin search path. The following
-         * locations are checked in this order:
-         *
-         * * location from --gst-plugin-path commandline option.
-         * * the GST_PLUGIN_PATH environment variable.
-         * * the GST_PLUGIN_SYSTEM_PATH environment variable.
-         * * default locations (if GST_PLUGIN_SYSTEM_PATH is not set).
-         *   Those default locations are:
-         *   `$XDG_DATA_HOME/gstreamer-$GST_API_VERSION/plugins/`
-         *   and `$prefix/libs/gstreamer-$GST_API_VERSION/`.
-         *   [$XDG_DATA_HOME](http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html) defaults to
-         *   `$HOME/.local/share`.
-         *
-         * The registry cache file is loaded from
-         * `$XDG_CACHE_HOME/gstreamer-$GST_API_VERSION/registry-$ARCH.bin`
-         * (where $XDG_CACHE_HOME defaults to `$HOME/.cache`) or the file listed in the `GST_REGISTRY`
-         * env var. One reason to change the registry location is for testing.
-         *
-         * For each plugin that is found in the plugin search path, there could be 3
-         * possibilities for cached information:
-         *
-         *   * the cache may not contain information about a given file.
-         *   * the cache may have stale information.
-         *   * the cache may have current information.
-         *
-         * In the first two cases, the plugin is loaded and the cache updated. In
-         * addition to these cases, the cache may have entries for plugins that are not
-         * relevant to the current process. These are marked as not available to the
-         * current process. If the cache is updated for whatever reason, it is marked
-         * dirty.
-         *
-         * A dirty cache is written out at the end of initialization. Each entry is
-         * checked to make sure the information is minimally valid. If not, the entry is
-         * simply dropped.
-         *
-         * ## Implementation notes:
-         *
-         * The "cache" and "registry" are different concepts and can represent
-         * different sets of plugins. For various reasons, at init time, the cache is
-         * stored in the default registry, and plugins not relevant to the current
-         * process are marked with the %GST_PLUGIN_FLAG_CACHED bit. These plugins are
-         * removed at the end of initialization.
-         */
         interface Registry extends Object {
             readonly $signals: Registry.SignalSignatures
             readonly $readableProperties: Registry.ReadableProperties
@@ -7413,6 +7027,7 @@ declare module "gi://Gst?version=1.0" {
         interface RegistryClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Registry>
             readonly prototype: Registry
+
             new (props?: Partial<GObject.ConstructorProps<Registry>>): Registry
             /**
              * By default GStreamer will perform scanning and rebuilding of the
@@ -7440,7 +7055,69 @@ declare module "gi://Gst?version=1.0" {
             get(): Registry
         }
 
-        const Registry: RegistryClass
+        interface $Exports {
+            /**
+             * One registry holds the metadata of a set of plugins.
+             *
+             * <emphasis role="bold">Design:</emphasis>
+             *
+             * The #GstRegistry object is a list of plugins and some functions for dealing
+             * with them. Each #GstPlugin is matched 1-1 with a file on disk, and may or may
+             * not be loaded at a given time.
+             *
+             * The primary source, at all times, of plugin information is each plugin file
+             * itself. Thus, if an application wants information about a particular plugin,
+             * or wants to search for a feature that satisfies given criteria, the primary
+             * means of doing so is to load every plugin and look at the resulting
+             * information that is gathered in the default registry. Clearly, this is a time
+             * consuming process, so we cache information in the registry file. The format
+             * and location of the cache file is internal to gstreamer.
+             *
+             * On startup, plugins are searched for in the plugin search path. The following
+             * locations are checked in this order:
+             *
+             * * location from --gst-plugin-path commandline option.
+             * * the GST_PLUGIN_PATH environment variable.
+             * * the GST_PLUGIN_SYSTEM_PATH environment variable.
+             * * default locations (if GST_PLUGIN_SYSTEM_PATH is not set).
+             *   Those default locations are:
+             *   `$XDG_DATA_HOME/gstreamer-$GST_API_VERSION/plugins/`
+             *   and `$prefix/libs/gstreamer-$GST_API_VERSION/`.
+             *   [$XDG_DATA_HOME](http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html) defaults to
+             *   `$HOME/.local/share`.
+             *
+             * The registry cache file is loaded from
+             * `$XDG_CACHE_HOME/gstreamer-$GST_API_VERSION/registry-$ARCH.bin`
+             * (where $XDG_CACHE_HOME defaults to `$HOME/.cache`) or the file listed in the `GST_REGISTRY`
+             * env var. One reason to change the registry location is for testing.
+             *
+             * For each plugin that is found in the plugin search path, there could be 3
+             * possibilities for cached information:
+             *
+             *   * the cache may not contain information about a given file.
+             *   * the cache may have stale information.
+             *   * the cache may have current information.
+             *
+             * In the first two cases, the plugin is loaded and the cache updated. In
+             * addition to these cases, the cache may have entries for plugins that are not
+             * relevant to the current process. These are marked as not available to the
+             * current process. If the cache is updated for whatever reason, it is marked
+             * dirty.
+             *
+             * A dirty cache is written out at the end of initialization. Each entry is
+             * checked to make sure the information is minimally valid. If not, the entry is
+             * simply dropped.
+             *
+             * ## Implementation notes:
+             *
+             * The "cache" and "registry" are different concepts and can represent
+             * different sets of plugins. For various reasons, at init time, the cache is
+             * stored in the default registry, and plugins not relevant to the current
+             * process are marked with the %GST_PLUGIN_FLAG_CACHED bit. These plugins are
+             * removed at the end of initialization.
+             */
+            Registry: RegistryClass
+        }
         
 
         namespace SharedTaskPool {
@@ -7457,10 +7134,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * The #GstSharedTaskPool object.
-         * @since 1.20
-         */
         interface SharedTaskPool extends TaskPool {
             readonly $signals: SharedTaskPool.SignalSignatures
             readonly $readableProperties: SharedTaskPool.ReadableProperties
@@ -7486,6 +7159,7 @@ declare module "gi://Gst?version=1.0" {
         interface SharedTaskPoolClass extends Omit<TaskPoolClass, "new"> {
             readonly $gtype: GObject.GType<SharedTaskPool>
             readonly prototype: SharedTaskPool
+
             new (props?: Partial<GObject.ConstructorProps<SharedTaskPool>>): SharedTaskPool
             /**
              * Create a new shared task pool. The shared task pool will queue tasks on
@@ -7497,10 +7171,16 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.20
              * @returns a new #GstSharedTaskPool. gst_object_unref() after usage.
              */
-            "new"(): TaskPool
+            "new"(): SharedTaskPool
         }
 
-        const SharedTaskPool: SharedTaskPoolClass
+        interface $Exports {
+            /**
+             * The #GstSharedTaskPool object.
+             * @since 1.20
+             */
+            SharedTaskPool: SharedTaskPoolClass
+        }
         
 
         namespace Stream {
@@ -7518,30 +7198,15 @@ declare module "gi://Gst?version=1.0" {
             interface WritableProperties extends Object.WritableProperties {
                 "caps": Caps | null
                 "stream-flags": StreamFlags
-                "stream-id": string | null
                 "stream-type": StreamType
                 "tags": TagList | null
             }
 
             interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                "stream-id": string | null
             }
         }
 
-        /**
-         * A high-level object representing a single stream. It might be backed, or
-         * not, by an actual flow of data in a pipeline (#GstPad).
-         *
-         * A #GstStream does not care about data changes (such as decoding, encoding,
-         * parsing,...) as long as the underlying data flow corresponds to the same
-         * high-level flow (ex: a certain audio track).
-         *
-         * A #GstStream contains all the information pertinent to a stream, such as
-         * stream-id, tags, caps, type, ...
-         *
-         * Elements can subclass a #GstStream for internal usage (to contain information
-         * pertinent to streams of data).
-         * @since 1.10
-         */
         interface Stream extends Object {
             readonly $signals: Stream.SignalSignatures
             readonly $readableProperties: Stream.ReadableProperties
@@ -7634,6 +7299,7 @@ declare module "gi://Gst?version=1.0" {
         interface StreamClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Stream>
             readonly prototype: Stream
+
             new (props?: Partial<GObject.ConstructorProps<Stream>>): Stream
             /**
              * Create a new #GstStream for the given @stream_id, @caps, @type
@@ -7649,7 +7315,24 @@ declare module "gi://Gst?version=1.0" {
             "new"(stream_id: string | null, caps: Caps | null, type: StreamType, flags: StreamFlags): Stream
         }
 
-        const Stream: StreamClass
+        interface $Exports {
+            /**
+             * A high-level object representing a single stream. It might be backed, or
+             * not, by an actual flow of data in a pipeline (#GstPad).
+             *
+             * A #GstStream does not care about data changes (such as decoding, encoding,
+             * parsing,...) as long as the underlying data flow corresponds to the same
+             * high-level flow (ex: a certain audio track).
+             *
+             * A #GstStream contains all the information pertinent to a stream, such as
+             * stream-id, tags, caps, type, ...
+             *
+             * Elements can subclass a #GstStream for internal usage (to contain information
+             * pertinent to streams of data).
+             * @since 1.10
+             */
+            Stream: StreamClass
+        }
         
 
         namespace StreamCollection {
@@ -7675,25 +7358,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A collection of #GstStream that are available.
-         *
-         * A #GstStreamCollection will be provided by elements that can make those
-         * streams available. Applications can use the collection to show the user
-         * what streams are available by using %gst_stream_collection_get_stream()
-         *
-         * Once posted, a #GstStreamCollection is immutable. Updates are made by sending
-         * a new #GstStreamCollection message, which may or may not share some of
-         * the #GstStream objects from the collection it replaces. The receiver can check
-         * the sender of a stream collection message to know which collection is
-         * obsoleted.
-         *
-         * Several elements in a pipeline can provide #GstStreamCollection.
-         *
-         * Applications can activate streams from a collection by using the
-         * #GST_EVENT_SELECT_STREAMS event on a pipeline, bin or element.
-         * @since 1.10
-         */
         interface StreamCollection extends Object {
             readonly $signals: StreamCollection.SignalSignatures
             readonly $readableProperties: StreamCollection.ReadableProperties
@@ -7744,6 +7408,7 @@ declare module "gi://Gst?version=1.0" {
         interface StreamCollectionClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<StreamCollection>
             readonly prototype: StreamCollection
+
             new (props?: Partial<GObject.ConstructorProps<StreamCollection>>): StreamCollection
             /**
              * Create a new #GstStreamCollection.
@@ -7754,7 +7419,28 @@ declare module "gi://Gst?version=1.0" {
             "new"(upstream_id: string | null): StreamCollection
         }
 
-        const StreamCollection: StreamCollectionClass
+        interface $Exports {
+            /**
+             * A collection of #GstStream that are available.
+             *
+             * A #GstStreamCollection will be provided by elements that can make those
+             * streams available. Applications can use the collection to show the user
+             * what streams are available by using %gst_stream_collection_get_stream()
+             *
+             * Once posted, a #GstStreamCollection is immutable. Updates are made by sending
+             * a new #GstStreamCollection message, which may or may not share some of
+             * the #GstStream objects from the collection it replaces. The receiver can check
+             * the sender of a stream collection message to know which collection is
+             * obsoleted.
+             *
+             * Several elements in a pipeline can provide #GstStreamCollection.
+             *
+             * Applications can activate streams from a collection by using the
+             * #GST_EVENT_SELECT_STREAMS event on a pipeline, bin or element.
+             * @since 1.10
+             */
+            StreamCollection: StreamCollectionClass
+        }
         
 
         namespace SystemClock {
@@ -7773,17 +7459,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * The GStreamer core provides a GstSystemClock based on the system time.
-         * Asynchronous callbacks are scheduled from an internal thread.
-         *
-         * Clock implementors are encouraged to subclass this systemclock as it
-         * implements the async notification.
-         *
-         * Subclasses can however override all of the important methods for sync and
-         * async notifications to implement their own callback methods or blocking
-         * wait operations.
-         */
         interface SystemClock extends Clock {
             readonly $signals: SystemClock.SignalSignatures
             readonly $readableProperties: SystemClock.ReadableProperties
@@ -7799,6 +7474,7 @@ declare module "gi://Gst?version=1.0" {
         interface SystemClockClass extends Omit<ClockClass, "new"> {
             readonly $gtype: GObject.GType<SystemClock>
             readonly prototype: SystemClock
+
             new (props?: Partial<GObject.ConstructorProps<SystemClock>>): SystemClock
             /**
              * Get a handle to the default system clock. The refcount of the
@@ -7822,7 +7498,20 @@ declare module "gi://Gst?version=1.0" {
             set_default(new_clock: Clock | null): void
         }
 
-        const SystemClock: SystemClockClass
+        interface $Exports {
+            /**
+             * The GStreamer core provides a GstSystemClock based on the system time.
+             * Asynchronous callbacks are scheduled from an internal thread.
+             *
+             * Clock implementors are encouraged to subclass this systemclock as it
+             * implements the async notification.
+             *
+             * Subclasses can however override all of the important methods for sync and
+             * async notifications to implement their own callback methods or blocking
+             * wait operations.
+             */
+            SystemClock: SystemClockClass
+        }
         
 
         namespace Task {
@@ -7839,47 +7528,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * #GstTask is used by #GstElement and #GstPad to provide the data passing
-         * threads in a #GstPipeline.
-         *
-         * A #GstPad will typically start a #GstTask to push or pull data to/from the
-         * peer pads. Most source elements start a #GstTask to push data. In some cases
-         * a demuxer element can start a #GstTask to pull data from a peer element. This
-         * is typically done when the demuxer can perform random access on the upstream
-         * peer element for improved performance.
-         *
-         * Although convenience functions exist on #GstPad to start/pause/stop tasks, it
-         * might sometimes be needed to create a #GstTask manually if it is not related to
-         * a #GstPad.
-         *
-         * Before the #GstTask can be run, it needs a #GRecMutex that can be set with
-         * gst_task_set_lock().
-         *
-         * The task can be started, paused and stopped with gst_task_start(), gst_task_pause()
-         * and gst_task_stop() respectively or with the gst_task_set_state() function.
-         *
-         * A #GstTask will repeatedly call the #GstTaskFunction with the user data
-         * that was provided when creating the task with gst_task_new(). While calling
-         * the function it will acquire the provided lock. The provided lock is released
-         * when the task pauses or stops.
-         *
-         * Stopping a task with gst_task_stop() will not immediately make sure the task is
-         * not running anymore. Use gst_task_join() to make sure the task is completely
-         * stopped and the thread is stopped.
-         *
-         * After creating a #GstTask, use gst_object_unref() to free its resources. This can
-         * only be done when the task is not running anymore.
-         *
-         * Task functions can send a #GstMessage to send out-of-band data to the
-         * application. The application can receive messages from the #GstBus in its
-         * mainloop.
-         *
-         * For debugging purposes, the task will configure its object name as the thread
-         * name on Linux. Please note that the object name should be configured before the
-         * task is started; changing the object name after the task has been started, has
-         * no effect on the thread name.
-         */
         interface Task extends Object {
             readonly $signals: Task.SignalSignatures
             readonly $readableProperties: Task.ReadableProperties
@@ -7988,6 +7636,7 @@ declare module "gi://Gst?version=1.0" {
         interface TaskClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Task>
             readonly prototype: Task
+
             new (props?: Partial<GObject.ConstructorProps<Task>>): Task
             /**
              * Create a new Task that will repeatedly call the provided @func
@@ -8016,7 +7665,50 @@ declare module "gi://Gst?version=1.0" {
             cleanup_all(): void
         }
 
-        const Task: TaskClass
+        interface $Exports {
+            /**
+             * #GstTask is used by #GstElement and #GstPad to provide the data passing
+             * threads in a #GstPipeline.
+             *
+             * A #GstPad will typically start a #GstTask to push or pull data to/from the
+             * peer pads. Most source elements start a #GstTask to push data. In some cases
+             * a demuxer element can start a #GstTask to pull data from a peer element. This
+             * is typically done when the demuxer can perform random access on the upstream
+             * peer element for improved performance.
+             *
+             * Although convenience functions exist on #GstPad to start/pause/stop tasks, it
+             * might sometimes be needed to create a #GstTask manually if it is not related to
+             * a #GstPad.
+             *
+             * Before the #GstTask can be run, it needs a #GRecMutex that can be set with
+             * gst_task_set_lock().
+             *
+             * The task can be started, paused and stopped with gst_task_start(), gst_task_pause()
+             * and gst_task_stop() respectively or with the gst_task_set_state() function.
+             *
+             * A #GstTask will repeatedly call the #GstTaskFunction with the user data
+             * that was provided when creating the task with gst_task_new(). While calling
+             * the function it will acquire the provided lock. The provided lock is released
+             * when the task pauses or stops.
+             *
+             * Stopping a task with gst_task_stop() will not immediately make sure the task is
+             * not running anymore. Use gst_task_join() to make sure the task is completely
+             * stopped and the thread is stopped.
+             *
+             * After creating a #GstTask, use gst_object_unref() to free its resources. This can
+             * only be done when the task is not running anymore.
+             *
+             * Task functions can send a #GstMessage to send out-of-band data to the
+             * application. The application can receive messages from the #GstBus in its
+             * mainloop.
+             *
+             * For debugging purposes, the task will configure its object name as the thread
+             * name on Linux. Please note that the object name should be configured before the
+             * task is started; changing the object name after the task has been started, has
+             * no effect on the thread name.
+             */
+            Task: TaskClass
+        }
         
 
         namespace TaskPool {
@@ -8033,12 +7725,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * This object provides an abstraction for creating threads. The default
-         * implementation uses a regular GThreadPool to start tasks.
-         *
-         * Subclasses can be made to create custom threads.
-         */
         interface TaskPool extends Object {
             readonly $signals: TaskPool.SignalSignatures
             readonly $readableProperties: TaskPool.ReadableProperties
@@ -8139,6 +7825,7 @@ declare module "gi://Gst?version=1.0" {
         interface TaskPoolClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<TaskPool>
             readonly prototype: TaskPool
+
             new (props?: Partial<GObject.ConstructorProps<TaskPool>>): TaskPool
             /**
              * Create a new default task pool. The default task pool will use a regular
@@ -8148,7 +7835,15 @@ declare module "gi://Gst?version=1.0" {
             "new"(): TaskPool
         }
 
-        const TaskPool: TaskPoolClass
+        interface $Exports {
+            /**
+             * This object provides an abstraction for creating threads. The default
+             * implementation uses a regular GThreadPool to start tasks.
+             *
+             * Subclasses can be made to create custom threads.
+             */
+            TaskPool: TaskPoolClass
+        }
         
 
         namespace Tracer {
@@ -8167,13 +7862,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * Tracing modules will subclass #GstTracer and register through
-         * gst_tracer_register(). Modules can attach to various hook-types - see
-         * gst_tracing_register_hook(). When invoked they receive hook specific
-         * contextual data, which they must not modify.
-         * @since 1.8
-         */
         interface Tracer extends Object {
             readonly $signals: Tracer.SignalSignatures
             readonly $readableProperties: Tracer.ReadableProperties
@@ -8189,6 +7877,7 @@ declare module "gi://Gst?version=1.0" {
         interface TracerClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Tracer>
             readonly prototype: Tracer
+
             new (props?: Partial<GObject.ConstructorProps<Tracer>>): Tracer
             /**
              * Create a new tracer-factory  capable of instantiating objects of the
@@ -8220,7 +7909,16 @@ declare module "gi://Gst?version=1.0" {
             uses_structure_params(): boolean
         }
 
-        const Tracer: TracerClass
+        interface $Exports {
+            /**
+             * Tracing modules will subclass #GstTracer and register through
+             * gst_tracer_register(). Modules can attach to various hook-types - see
+             * gst_tracing_register_hook(). When invoked they receive hook specific
+             * contextual data, which they must not modify.
+             * @since 1.8
+             */
+            Tracer: TracerClass
+        }
         
 
         namespace TracerFactory {
@@ -8237,11 +7935,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * Use gst_tracer_factory_get_list() to get a list of tracer factories known to
-         * GStreamer.
-         * @since 1.8
-         */
         interface TracerFactory extends PluginFeature {
             readonly $signals: TracerFactory.SignalSignatures
             readonly $readableProperties: TracerFactory.ReadableProperties
@@ -8260,6 +7953,7 @@ declare module "gi://Gst?version=1.0" {
         interface TracerFactoryClass extends Omit<PluginFeatureClass, "new"> {
             readonly $gtype: GObject.GType<TracerFactory>
             readonly prototype: TracerFactory
+
             new (props?: Partial<GObject.ConstructorProps<TracerFactory>>): TracerFactory
             /**
              * Gets the list of all registered tracer factories. You must free the
@@ -8274,7 +7968,14 @@ declare module "gi://Gst?version=1.0" {
             get_list(): TracerFactory[]
         }
 
-        const TracerFactory: TracerFactoryClass
+        interface $Exports {
+            /**
+             * Use gst_tracer_factory_get_list() to get a list of tracer factories known to
+             * GStreamer.
+             * @since 1.8
+             */
+            TracerFactory: TracerFactoryClass
+        }
         
 
         namespace TracerRecord {
@@ -8291,11 +7992,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * Tracing modules will create instances of this class to announce the data they
-         * will log and create a log formatter.
-         * @since 1.8
-         */
         interface TracerRecord extends Object {
             readonly $signals: TracerRecord.SignalSignatures
             readonly $readableProperties: TracerRecord.ReadableProperties
@@ -8306,10 +8002,18 @@ declare module "gi://Gst?version=1.0" {
         interface TracerRecordClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<TracerRecord>
             readonly prototype: TracerRecord
+
             new (props?: Partial<GObject.ConstructorProps<TracerRecord>>): TracerRecord
         }
 
-        const TracerRecord: TracerRecordClass
+        interface $Exports {
+            /**
+             * Tracing modules will create instances of this class to announce the data they
+             * will log and create a log formatter.
+             * @since 1.8
+             */
+            TracerRecord: TracerRecordClass
+        }
         
 
         namespace TypeFindFactory {
@@ -8326,14 +8030,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * gst_find);
-         *     }
-         *     g_list_free (type_list);
-         *     return find.caps;
-         *   };
-         * ]|
-         */
         interface TypeFindFactory extends PluginFeature {
             readonly $signals: TypeFindFactory.SignalSignatures
             readonly $readableProperties: TypeFindFactory.ReadableProperties
@@ -8370,6 +8066,7 @@ declare module "gi://Gst?version=1.0" {
         interface TypeFindFactoryClass extends Omit<PluginFeatureClass, "new"> {
             readonly $gtype: GObject.GType<TypeFindFactory>
             readonly prototype: TypeFindFactory
+
             new (props?: Partial<GObject.ConstructorProps<TypeFindFactory>>): TypeFindFactory
             /**
              * Gets the list of all registered typefind factories. You must free the
@@ -8384,7 +8081,60 @@ declare module "gi://Gst?version=1.0" {
             get_list(): TypeFindFactory[]
         }
 
-        const TypeFindFactory: TypeFindFactoryClass
+        interface $Exports {
+            /**
+             * These functions allow querying information about registered typefind
+             * functions. How to create and register these functions is described in
+             * the section <link linkend="gstreamer-Writing-typefind-functions">
+             * "Writing typefind functions"</link>.
+             *
+             * The following example shows how to write a very simple typefinder that
+             * identifies the given data. You can get quite a bit more complicated than
+             * that though.
+             * |[<!-- language="C" -->
+             *   typedef struct {
+             *     guint8 *data;
+             *     guint size;
+             *     guint probability;
+             *     GstCaps *data;
+             *   } MyTypeFind;
+             *   static void
+             *   my_peek (gpointer data, gint64 offset, guint size)
+             *   {
+             *     MyTypeFind *find = (MyTypeFind *) data;
+             *     if (offset >= 0 && offset + size <= find->size) {
+             *       return find->data + offset;
+             *     }
+             *     return NULL;
+             *   }
+             *   static void
+             *   my_suggest (gpointer data, guint probability, GstCaps *caps)
+             *   {
+             *     MyTypeFind *find = (MyTypeFind *) data;
+             *     if (probability > find->probability) {
+             *       find->probability = probability;
+             *       gst_caps_replace (&find->caps, caps);
+             *     }
+             *   }
+             *   static GstCaps *
+             *   find_type (guint8 *data, guint size)
+             *   {
+             *     GList *walk, *type_list;
+             *     MyTypeFind find = {data, size, 0, NULL};
+             *     GstTypeFind gst_find = {my_peek, my_suggest, &find, };
+             *     walk = type_list = gst_type_find_factory_get_list ();
+             *     while (walk) {
+             *       GstTypeFindFactory *factory = GST_TYPE_FIND_FACTORY (walk->data);
+             *       walk = g_list_next (walk)
+             *       gst_type_find_factory_call_function (factory, &gst_find);
+             *     }
+             *     g_list_free (type_list);
+             *     return find.caps;
+             *   };
+             * ]|
+             */
+            TypeFindFactory: TypeFindFactoryClass
+        }
         
 
         namespace ValueArray {
@@ -8401,9 +8151,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A fundamental type that describes an ordered list of #GValue
-         */
         interface ValueArray  {
             readonly $signals: ValueArray.SignalSignatures
             readonly $readableProperties: ValueArray.ReadableProperties
@@ -8414,6 +8161,7 @@ declare module "gi://Gst?version=1.0" {
         interface ValueArrayClass {
             readonly $gtype: GObject.GType<ValueArray>
             readonly prototype: ValueArray
+
             new (props?: Partial<GObject.ConstructorProps<ValueArray>>): ValueArray
             /**
              * Appends @append_value to the GstValueArray in @value.
@@ -8421,19 +8169,19 @@ declare module "gi://Gst?version=1.0" {
              * @param value a #GValue of type #GST_TYPE_ARRAY
              * @param append_value the value to append
              */
-            append_and_take_value(value: GObject.Value, append_value: GObject.Value): void
+            append_and_take_value(value: (GObject.Value | unknown), append_value: (GObject.Value | unknown)): void
             /**
              * Appends @append_value to the GstValueArray in @value.
              * @param value a #GValue of type #GST_TYPE_ARRAY
              * @param append_value the value to append
              */
-            append_value(value: GObject.Value, append_value: GObject.Value): void
+            append_value(value: (GObject.Value | unknown), append_value: (GObject.Value | unknown)): void
             /**
              * Gets the number of values contained in @value.
              * @param value a #GValue of type #GST_TYPE_ARRAY
              * @returns the number of values
              */
-            get_size(value: GObject.Value): number
+            get_size(value: (GObject.Value | unknown)): number
             /**
              * Gets the value that is a member of the array contained in @value and
              * has the index @index.
@@ -8441,7 +8189,7 @@ declare module "gi://Gst?version=1.0" {
              * @param index index of value to get from the array
              * @returns the value at the given index
              */
-            get_value(value: GObject.Value, index: number): GObject.Value
+            get_value(value: (GObject.Value | unknown), index: number): GObject.Value
             /**
              * Initializes and pre-allocates a #GValue of type #GST_TYPE_ARRAY.
              * @since 1.18
@@ -8449,16 +8197,21 @@ declare module "gi://Gst?version=1.0" {
              * @param prealloc The number of entries to pre-allocate in the array
              * @returns The #GValue structure that has been passed in
              */
-            init(value: GObject.Value, prealloc: number): GObject.Value
+            init(value: (GObject.Value | unknown), prealloc: number): GObject.Value
             /**
              * Prepends @prepend_value to the GstValueArray in @value.
              * @param value a #GValue of type #GST_TYPE_ARRAY
              * @param prepend_value the value to prepend
              */
-            prepend_value(value: GObject.Value, prepend_value: GObject.Value): void
+            prepend_value(value: (GObject.Value | unknown), prepend_value: (GObject.Value | unknown)): void
         }
 
-        const ValueArray: ValueArrayClass
+        interface $Exports {
+            /**
+             * A fundamental type that describes an ordered list of #GValue
+             */
+            ValueArray: ValueArrayClass
+        }
         
 
         namespace ValueList {
@@ -8475,9 +8228,6 @@ declare module "gi://Gst?version=1.0" {
             }
         }
 
-        /**
-         * A fundamental type that describes an unordered list of #GValue
-         */
         interface ValueList  {
             readonly $signals: ValueList.SignalSignatures
             readonly $readableProperties: ValueList.ReadableProperties
@@ -8488,6 +8238,7 @@ declare module "gi://Gst?version=1.0" {
         interface ValueListClass {
             readonly $gtype: GObject.GType<ValueList>
             readonly prototype: ValueList
+
             new (props?: Partial<GObject.ConstructorProps<ValueList>>): ValueList
             /**
              * Appends @append_value to the GstValueList in @value.
@@ -8495,13 +8246,13 @@ declare module "gi://Gst?version=1.0" {
              * @param value a #GValue of type #GST_TYPE_LIST
              * @param append_value the value to append
              */
-            append_and_take_value(value: GObject.Value, append_value: GObject.Value): void
+            append_and_take_value(value: (GObject.Value | unknown), append_value: (GObject.Value | unknown)): void
             /**
              * Appends @append_value to the GstValueList in @value.
              * @param value a #GValue of type #GST_TYPE_LIST
              * @param append_value the value to append
              */
-            append_value(value: GObject.Value, append_value: GObject.Value): void
+            append_value(value: (GObject.Value | unknown), append_value: (GObject.Value | unknown)): void
             /**
              * Concatenates copies of @value1 and @value2 into a list.  Values that are not
              * of type #GST_TYPE_LIST are treated as if they were lists of length 1.
@@ -8510,13 +8261,13 @@ declare module "gi://Gst?version=1.0" {
              * @param value2 a #GValue
              * @returns , an uninitialized #GValue to take the result
              */
-            concat(value1: GObject.Value, value2: GObject.Value): GObject.Value
+            concat(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): unknown
             /**
              * Gets the number of values contained in @value.
              * @param value a #GValue of type #GST_TYPE_LIST
              * @returns the number of values
              */
-            get_size(value: GObject.Value): number
+            get_size(value: (GObject.Value | unknown)): number
             /**
              * Gets the value that is a member of the list contained in @value and
              * has the index @index.
@@ -8524,7 +8275,7 @@ declare module "gi://Gst?version=1.0" {
              * @param index index of value to get from the list
              * @returns the value at the given index
              */
-            get_value(value: GObject.Value, index: number): GObject.Value
+            get_value(value: (GObject.Value | unknown), index: number): GObject.Value
             /**
              * Initializes and pre-allocates a #GValue of type #GST_TYPE_LIST.
              * @since 1.18
@@ -8532,7 +8283,7 @@ declare module "gi://Gst?version=1.0" {
              * @param prealloc The number of entries to pre-allocate in the list
              * @returns The #GValue structure that has been passed in
              */
-            init(value: GObject.Value, prealloc: number): GObject.Value
+            init(value: (GObject.Value | unknown), prealloc: number): GObject.Value
             /**
              * Merges copies of @value1 and @value2.  Values that are not
              * of type #GST_TYPE_LIST are treated as if they were lists of length 1.
@@ -8544,23 +8295,641 @@ declare module "gi://Gst?version=1.0" {
              * @param value2 a #GValue
              * @returns , an uninitialized #GValue to take the result
              */
-            merge(value1: GObject.Value, value2: GObject.Value): GObject.Value
+            merge(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): unknown
             /**
              * Prepends @prepend_value to the GstValueList in @value.
              * @param value a #GValue of type #GST_TYPE_LIST
              * @param prepend_value the value to prepend
              */
-            prepend_value(value: GObject.Value, prepend_value: GObject.Value): void
+            prepend_value(value: (GObject.Value | unknown), prepend_value: (GObject.Value | unknown)): void
         }
 
-        const ValueList: ValueListClass
-        /**
-         * Parameters to control the allocation of memory
-         */
-        abstract class AllocationParams {
-            static readonly $gtype: GObject.GType<AllocationParams>
+        interface $Exports {
+            /**
+             * A fundamental type that describes an unordered list of #GValue
+             */
+            ValueList: ValueListClass
+        }
+        
 
-            
+        namespace ChildProxy {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * Will be emitted after the @object was added to the @child_proxy.
+                 * @param object the #GObject that was added
+                 * @param name the name of the new child
+                 */
+                "child-added"(object: GObject.Object, name: string): void
+                /**
+                 * Will be emitted after the @object was removed from the @child_proxy.
+                 * @param object the #GObject that was removed
+                 * @param name the name of the old child
+                 */
+                "child-removed"(object: GObject.Object, name: string): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * Emits the #GstChildProxy::child-added signal.
+                 * @param child the newly added child
+                 * @param name the name of the new child
+                 */
+                vfunc_child_added(child: GObject.Object, name: string): void
+                /**
+                 * Emits the #GstChildProxy::child-removed signal.
+                 * @param child the removed child
+                 * @param name the name of the old child
+                 */
+                vfunc_child_removed(child: GObject.Object, name: string): void
+                /**
+                 * Fetches a child by its number.
+                 * @param index the child's position in the child list
+                 * @returns the child object or %NULL if     not found (index too high).
+                 */
+                vfunc_get_child_by_index(index: number): GObject.Object | null
+                /**
+                 * Looks up a child element by the given name.
+                 *
+                 * This virtual method has a default implementation that uses #GstObject
+                 * together with gst_object_get_name(). If the interface is to be used with
+                 * #GObjects, this methods needs to be overridden.
+                 * @param name the child's name
+                 * @returns the child object or %NULL if     not found.
+                 */
+                vfunc_get_child_by_name(name: string): GObject.Object | null
+                /**
+                 * Gets the number of child objects this parent contains.
+                 * @returns the number of child objects
+                 */
+                vfunc_get_children_count(): number
+            }
+        }
+
+        interface ChildProxy extends GObject.Object, ChildProxy.Interface {
+            readonly $signals: ChildProxy.SignalSignatures
+            readonly $readableProperties: ChildProxy.ReadableProperties
+            readonly $writableProperties: ChildProxy.WritableProperties
+            readonly $constructOnlyProperties: ChildProxy.ConstructOnlyProperties
+            /**
+             * Emits the #GstChildProxy::child-added signal.
+             * @param child the newly added child
+             * @param name the name of the new child
+             */
+            child_added(child: GObject.Object, name: string): void
+            /**
+             * Emits the #GstChildProxy::child-removed signal.
+             * @param child the removed child
+             * @param name the name of the old child
+             */
+            child_removed(child: GObject.Object, name: string): void
+            /**
+             * Fetches a child by its number.
+             * @param index the child's position in the child list
+             * @returns the child object or %NULL if     not found (index too high).
+             */
+            get_child_by_index(index: number): GObject.Object | null
+            /**
+             * Looks up a child element by the given name.
+             *
+             * This virtual method has a default implementation that uses #GstObject
+             * together with gst_object_get_name(). If the interface is to be used with
+             * #GObjects, this methods needs to be overridden.
+             * @param name the child's name
+             * @returns the child object or %NULL if     not found.
+             */
+            get_child_by_name(name: string): GObject.Object | null
+            /**
+             * Looks up a child element by the given full-path name.
+             *
+             * Similar to gst_child_proxy_get_child_by_name(), this method
+             * searches and returns a child given a name. The difference is that
+             * this method allows a hierarchical path in the form of
+             * child1::child2::child3. In the later example this method would
+             * return a reference to child3, if found. The name should be made of
+             * element names only and should not contain any property names.
+             * @since 1.22
+             * @param name the full-path child's name
+             * @returns the child object or %NULL if     not found.
+             */
+            get_child_by_name_recurse(name: string): GObject.Object | null
+            /**
+             * Gets the number of child objects this parent contains.
+             * @returns the number of child objects
+             */
+            get_children_count(): number
+            /**
+             * Gets a single property using the GstChildProxy mechanism.
+             * You are responsible for freeing it by calling g_value_unset()
+             * @param name name of the property
+             * @returns , a #GValue that should take the result.
+             */
+            get_property(name: string): unknown
+            /**
+             * Looks up which object and #GParamSpec would be effected by the given @name.
+             * @param name name of the property to look up
+             * @returns %TRUE if `target` and `pspec` could be found. %FALSE otherwise. In that case the values for `pspec` and `target` are not modified. Unref `target` after usage. For plain #GObject `target` is the same as `object`., pointer to a #GObject that     takes the real object to set property on, pointer to take the #GParamSpec     describing the property
+             */
+            lookup(name: string): [boolean, GObject.Object, GObject.ParamSpec]
+            /**
+             * Sets a single property using the GstChildProxy mechanism.
+             * @param name name of the property to set
+             * @param value new #GValue for the property
+             */
+            set_property(name: string, value: (GObject.Value | unknown)): void
+        }
+
+        interface ChildProxyInterface {
+            readonly $gtype: GObject.GType<ChildProxy>
+            readonly prototype: ChildProxy
+            [Symbol.hasInstance](instance: unknown): instance is ChildProxy
+        }
+
+        interface $Exports {
+            /**
+             * This interface abstracts handling of property sets for elements with
+             * children. Imagine elements such as mixers or polyphonic generators. They all
+             * have multiple #GstPad or some kind of voice objects. Another use case are
+             * container elements like #GstBin.
+             * The element implementing the interface acts as a parent for those child
+             * objects.
+             *
+             * By implementing this interface the child properties can be accessed from the
+             * parent element by using gst_child_proxy_get() and gst_child_proxy_set().
+             *
+             * Property names are written as `child-name::property-name`. The whole naming
+             * scheme is recursive. Thus `child1::child2::property` is valid too, if
+             * `child1` and `child2` implement the #GstChildProxy interface.
+             */
+            ChildProxy: ChildProxyInterface
+        }
+        
+
+        namespace Preset {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * Delete the given preset.
+                 * @param name preset name to remove
+                 * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
+                 */
+                vfunc_delete_preset(name: string): boolean
+                /**
+                 * Gets the @value for an existing meta data @tag. Meta data @tag names can be
+                 * something like e.g. "comment". Returned values need to be released when done.
+                 * @param name preset name
+                 * @param tag meta data item name
+                 * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name` or no value for the given `tag`, value
+                 */
+                vfunc_get_meta(name: string, tag: string): [boolean, string]
+                /**
+                 * Get a copy of preset names as a %NULL terminated string array.
+                 * @returns      list with names, use g_strfreev() after usage.
+                 */
+                vfunc_get_preset_names(): string[]
+                /**
+                 * Get a the names of the GObject properties that can be used for presets.
+                 * @returns an   array of property names which should be freed with g_strfreev() after use.
+                 */
+                vfunc_get_property_names(): string[]
+                /**
+                 * Load the given preset.
+                 * @param name preset name to load
+                 * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
+                 */
+                vfunc_load_preset(name: string): boolean
+                /**
+                 * Renames a preset. If there is already a preset by the @new_name it will be
+                 * overwritten.
+                 * @param old_name current preset name
+                 * @param new_name new preset name
+                 * @returns %TRUE for success, %FALSE if e.g. there is no preset with `old_name`
+                 */
+                vfunc_rename_preset(old_name: string, new_name: string): boolean
+                /**
+                 * Save the current object settings as a preset under the given name. If there
+                 * is already a preset by this @name it will be overwritten.
+                 * @param name preset name to save
+                 * @returns %TRUE for success, %FALSE
+                 */
+                vfunc_save_preset(name: string): boolean
+                /**
+                 * Sets a new @value for an existing meta data item or adds a new item. Meta
+                 * data @tag names can be something like e.g. "comment". Supplying %NULL for the
+                 * @value will unset an existing value.
+                 * @param name preset name
+                 * @param tag meta data item name
+                 * @param value new value
+                 * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
+                 */
+                vfunc_set_meta(name: string, tag: string, value: string | null): boolean
+            }
+        }
+
+        interface Preset extends GObject.Object, Preset.Interface {
+            readonly $signals: Preset.SignalSignatures
+            readonly $readableProperties: Preset.ReadableProperties
+            readonly $writableProperties: Preset.WritableProperties
+            readonly $constructOnlyProperties: Preset.ConstructOnlyProperties
+            /**
+             * Delete the given preset.
+             * @param name preset name to remove
+             * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
+             */
+            delete_preset(name: string): boolean
+            /**
+             * Gets the @value for an existing meta data @tag. Meta data @tag names can be
+             * something like e.g. "comment". Returned values need to be released when done.
+             * @param name preset name
+             * @param tag meta data item name
+             * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name` or no value for the given `tag`, value
+             */
+            get_meta(name: string, tag: string): [boolean, string]
+            /**
+             * Get a copy of preset names as a %NULL terminated string array.
+             * @returns      list with names, use g_strfreev() after usage.
+             */
+            get_preset_names(): string[]
+            /**
+             * Get a the names of the GObject properties that can be used for presets.
+             * @returns an   array of property names which should be freed with g_strfreev() after use.
+             */
+            get_property_names(): string[]
+            /**
+             * Check if one can add new presets, change existing ones and remove presets.
+             * @since 1.6
+             * @returns %TRUE if presets are editable or %FALSE if they are static
+             */
+            is_editable(): boolean
+            /**
+             * Load the given preset.
+             * @param name preset name to load
+             * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
+             */
+            load_preset(name: string): boolean
+            /**
+             * Renames a preset. If there is already a preset by the @new_name it will be
+             * overwritten.
+             * @param old_name current preset name
+             * @param new_name new preset name
+             * @returns %TRUE for success, %FALSE if e.g. there is no preset with `old_name`
+             */
+            rename_preset(old_name: string, new_name: string): boolean
+            /**
+             * Save the current object settings as a preset under the given name. If there
+             * is already a preset by this @name it will be overwritten.
+             * @param name preset name to save
+             * @returns %TRUE for success, %FALSE
+             */
+            save_preset(name: string): boolean
+            /**
+             * Sets a new @value for an existing meta data item or adds a new item. Meta
+             * data @tag names can be something like e.g. "comment". Supplying %NULL for the
+             * @value will unset an existing value.
+             * @param name preset name
+             * @param tag meta data item name
+             * @param value new value
+             * @returns %TRUE for success, %FALSE if e.g. there is no preset with that `name`
+             */
+            set_meta(name: string, tag: string, value: string | null): boolean
+        }
+
+        interface PresetInterface {
+            readonly $gtype: GObject.GType<Preset>
+            readonly prototype: Preset
+            [Symbol.hasInstance](instance: unknown): instance is Preset
+            /**
+             * Gets the directory for application specific presets if set by the
+             * application.
+             * @returns the directory or %NULL, don't free or modify the string
+             */
+            get_app_dir(): string | null
+            /**
+             * Sets an extra directory as an absolute path that should be considered when
+             * looking for presets. Any presets in the application dir will shadow the
+             * system presets.
+             * @param app_dir the application specific preset dir
+             * @returns %TRUE for success, %FALSE if the dir already has been set
+             */
+            set_app_dir(app_dir: string): boolean
+        }
+
+        interface $Exports {
+            /**
+             * This interface offers methods to query and manipulate parameter preset sets.
+             * A preset is a bunch of property settings, together with meta data and a name.
+             * The name of a preset serves as key for subsequent method calls to manipulate
+             * single presets.
+             * All instances of one type will share the list of presets. The list is created
+             * on demand, if presets are not used, the list is not created.
+             *
+             * The interface comes with a default implementation that serves most plugins.
+             * Wrapper plugins will override most methods to implement support for the
+             * native preset format of those wrapped plugins.
+             * One method that is useful to be overridden is gst_preset_get_property_names().
+             * With that one can control which properties are saved and in which order.
+             * When implementing support for read-only presets, one should set the vmethods
+             * for gst_preset_save_preset() and gst_preset_delete_preset() to %NULL.
+             * Applications can use gst_preset_is_editable() to check for that.
+             *
+             * The default implementation supports presets located in a system directory,
+             * application specific directory and in the users home directory. When getting
+             * a list of presets individual presets are read and overlaid in 1) system,
+             * 2) application and 3) user order. Whenever an earlier entry is newer, the
+             * later entries will be updated. Since 1.8 you can also provide extra paths
+             * where to find presets through the GST_PRESET_PATH environment variable.
+             * Presets found in those paths will be considered as "app presets".
+             */
+            Preset: PresetInterface
+        }
+        
+
+        namespace TagSetter {
+            interface SignalSignatures extends Element.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Element.ReadableProperties {
+            }
+
+            interface WritableProperties extends Element.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Element.ConstructOnlyProperties {
+            }
+
+            interface Interface extends Element {
+            }
+        }
+
+        interface TagSetter extends Element, TagSetter.Interface {
+            readonly $signals: TagSetter.SignalSignatures
+            readonly $readableProperties: TagSetter.ReadableProperties
+            readonly $writableProperties: TagSetter.WritableProperties
+            readonly $constructOnlyProperties: TagSetter.ConstructOnlyProperties
+            /**
+             * Adds the given tag / GValue pair on the setter using the given merge mode.
+             * @param mode the mode to use
+             * @param tag tag to set
+             * @param value GValue to set for the tag
+             */
+            add_tag_value(mode: TagMergeMode, tag: string, value: (GObject.Value | unknown)): void
+            /**
+             * Returns the current list of tags the setter uses.  The list should not be
+             * modified or freed.
+             *
+             * This function is not thread-safe.
+             * @returns a current snapshot of the          taglist used in the setter or %NULL if none is used.
+             */
+            get_tag_list(): TagList | null
+            /**
+             * Queries the mode by which tags inside the setter are overwritten by tags
+             * from events
+             * @returns the merge mode used inside the element.
+             */
+            get_tag_merge_mode(): TagMergeMode
+            /**
+             * Merges the given list into the setter's list using the given mode.
+             * @param list a tag list to merge from
+             * @param mode the mode to merge with
+             */
+            merge_tags(list: TagList, mode: TagMergeMode): void
+            /**
+             * Reset the internal taglist. Elements should call this from within the
+             * state-change handler.
+             */
+            reset_tags(): void
+            /**
+             * Sets the given merge mode that is used for adding tags from events to tags
+             * specified by this interface. The default is #GST_TAG_MERGE_KEEP, which keeps
+             * the tags set with this interface and discards tags from events.
+             * @param mode The mode with which tags are added
+             */
+            set_tag_merge_mode(mode: TagMergeMode): void
+        }
+
+        interface TagSetterInterface {
+            readonly $gtype: GObject.GType<TagSetter>
+            readonly prototype: TagSetter
+            [Symbol.hasInstance](instance: unknown): instance is TagSetter
+        }
+
+        interface $Exports {
+            /**
+             * Element interface that allows setting of media metadata.
+             *
+             * Elements that support changing a stream's metadata will implement this
+             * interface. Examples of such elements are 'vorbisenc', 'theoraenc' and
+             * 'id3v2mux'.
+             *
+             * If you just want to retrieve metadata in your application then all you
+             * need to do is watch for tag messages on your pipeline's bus. This
+             * interface is only for setting metadata, not for extracting it. To set tags
+             * from the application, find tagsetter elements and set tags using e.g.
+             * gst_tag_setter_merge_tags() or gst_tag_setter_add_tags(). Also consider
+             * setting the #GstTagMergeMode that is used for tag events that arrive at the
+             * tagsetter element (default mode is to keep existing tags).
+             * The application should do that before the element goes to %GST_STATE_PAUSED.
+             *
+             * Elements implementing the #GstTagSetter interface often have to merge
+             * any tags received from upstream and the tags set by the application via
+             * the interface. This can be done like this:
+             *
+             * |[<!-- language="C" -->
+             * GstTagMergeMode merge_mode;
+             * const GstTagList *application_tags;
+             * const GstTagList *event_tags;
+             * GstTagSetter *tagsetter;
+             * GstTagList *result;
+             *
+             * tagsetter = GST_TAG_SETTER (element);
+             *
+             * merge_mode = gst_tag_setter_get_tag_merge_mode (tagsetter);
+             * application_tags = gst_tag_setter_get_tag_list (tagsetter);
+             * event_tags = (const GstTagList *) element->event_tags;
+             *
+             * GST_LOG_OBJECT (tagsetter, "merging tags, merge mode = %d", merge_mode);
+             * GST_LOG_OBJECT (tagsetter, "event tags: %" GST_PTR_FORMAT, event_tags);
+             * GST_LOG_OBJECT (tagsetter, "set   tags: %" GST_PTR_FORMAT, application_tags);
+             *
+             * result = gst_tag_list_merge (application_tags, event_tags, merge_mode);
+             *
+             * GST_LOG_OBJECT (tagsetter, "final tags: %" GST_PTR_FORMAT, result);
+             * ]|
+             */
+            TagSetter: TagSetterInterface
+        }
+        
+
+        namespace TocSetter {
+            interface SignalSignatures extends Element.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Element.ReadableProperties {
+            }
+
+            interface WritableProperties extends Element.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Element.ConstructOnlyProperties {
+            }
+
+            interface Interface extends Element {
+            }
+        }
+
+        interface TocSetter extends Element, TocSetter.Interface {
+            readonly $signals: TocSetter.SignalSignatures
+            readonly $readableProperties: TocSetter.ReadableProperties
+            readonly $writableProperties: TocSetter.WritableProperties
+            readonly $constructOnlyProperties: TocSetter.ConstructOnlyProperties
+            /**
+             * Return current TOC the setter uses. The TOC should not be
+             * modified without making it writable first.
+             * @returns TOC set, or %NULL. Unref with     gst_toc_unref() when no longer needed
+             */
+            get_toc(): Toc | null
+            /**
+             * Reset the internal TOC. Elements should call this from within the
+             * state-change handler.
+             */
+            reset(): void
+            /**
+             * Set the given TOC on the setter. Previously set TOC will be
+             * unreffed before setting a new one.
+             * @param toc a #GstToc to set.
+             */
+            set_toc(toc: Toc | null): void
+        }
+
+        interface TocSetterInterface {
+            readonly $gtype: GObject.GType<TocSetter>
+            readonly prototype: TocSetter
+            [Symbol.hasInstance](instance: unknown): instance is TocSetter
+        }
+
+        interface $Exports {
+            /**
+             * Element interface that allows setting of the TOC.
+             *
+             * Elements that support some kind of chapters or editions (or tracks like in
+             * the FLAC cue sheet) will implement this interface.
+             *
+             * If you just want to retrieve the TOC in your application then all you
+             * need to do is watch for TOC messages on your pipeline's bus (or you can
+             * perform TOC query). This interface is only for setting TOC data, not for
+             * extracting it. To set TOC from the application, find proper tocsetter element
+             * and set TOC using gst_toc_setter_set_toc().
+             *
+             * Elements implementing the #GstTocSetter interface can extend existing TOC
+             * by getting extend UID for that (you can use gst_toc_find_entry() to retrieve it)
+             * with any TOC entries received from downstream.
+             */
+            TocSetter: TocSetterInterface
+        }
+        
+
+        namespace URIHandler {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * Gets the currently handled URI.
+                 * @returns the URI currently handled by   the `handler`.  Returns %NULL if there are no URI currently   handled. The returned string must be freed with g_free() when no   longer needed.
+                 */
+                vfunc_get_uri(): string | null
+                /**
+                 * Tries to set the URI of the given handler.
+                 * @throws {GLib.Error}
+                 * @param uri URI to set
+                 * @returns %TRUE if the URI was set successfully, else %FALSE.
+                 */
+                vfunc_set_uri(uri: string): boolean
+            }
+        }
+
+        interface URIHandler extends GObject.Object, URIHandler.Interface {
+            readonly $signals: URIHandler.SignalSignatures
+            readonly $readableProperties: URIHandler.ReadableProperties
+            readonly $writableProperties: URIHandler.WritableProperties
+            readonly $constructOnlyProperties: URIHandler.ConstructOnlyProperties
+            /**
+             * Gets the list of protocols supported by @handler. This list may not be
+             * modified.
+             * @returns the     supported protocols.  Returns %NULL if the `handler` isn't     implemented properly, or the `handler` doesn't support any     protocols.
+             */
+            get_protocols(): string[] | null
+            /**
+             * Gets the currently handled URI.
+             * @returns the URI currently handled by   the `handler`.  Returns %NULL if there are no URI currently   handled. The returned string must be freed with g_free() when no   longer needed.
+             */
+            get_uri(): string | null
+            /**
+             * Gets the type of the given URI handler
+             * @returns the #GstURIType of the URI handler. Returns #GST_URI_UNKNOWN if the `handler` isn't implemented correctly.
+             */
+            get_uri_type(): URIType
+            /**
+             * Tries to set the URI of the given handler.
+             * @throws {GLib.Error}
+             * @param uri URI to set
+             * @returns %TRUE if the URI was set successfully, else %FALSE.
+             */
+            set_uri(uri: string): boolean
+        }
+
+        interface URIHandlerInterface {
+            readonly $gtype: GObject.GType<URIHandler>
+            readonly prototype: URIHandler
+            [Symbol.hasInstance](instance: unknown): instance is URIHandler
+        }
+
+        interface $Exports {
+            /**
+             * The #GstURIHandler is an interface that is implemented by Source and Sink
+             * #GstElement to unify handling of URI.
+             *
+             * An application can use the following functions to quickly get an element
+             * that handles the given URI for reading or writing
+             * (gst_element_make_from_uri()).
+             *
+             * Source and Sink plugins should implement this interface when possible.
+             */
+            URIHandler: URIHandlerInterface
+        }
+        
+
+        interface AllocationParamsStruct {
+            readonly $gtype: GObject.GType<AllocationParams>
+            [Symbol.hasInstance](instance: unknown): instance is AllocationParams
             /**
              * Create a new #GstAllocationParams on the heap.  This function is for
              * use in GStreamer language bindings.  In your own code, you can just
@@ -8572,7 +8941,10 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.20
              * @returns a new #GstAllocationParams
              */
-            static "new"(): AllocationParams
+            "new"(): AllocationParams
+        }
+
+        interface AllocationParams {
             /**
              * flags to control allocation
              */
@@ -8603,29 +8975,38 @@ declare module "gi://Gst?version=1.0" {
              */
             init(): void
         }
-        none
-        /**
-         */
-        abstract class AllocatorPrivate {
-            static readonly $gtype: GObject.GType<AllocatorPrivate>
 
-            
+        interface $Exports {
+            AllocationParams: AllocationParamsStruct
         }
-        /**
-         * The #GstAtomicQueue object implements a queue that can be used from multiple
-         * threads without performing any blocking operations.
-         */
-        abstract class AtomicQueue {
-            static readonly $gtype: GObject.GType<AtomicQueue>
+        
 
-            
+        interface AllocatorPrivateStruct {
+            readonly $gtype: GObject.GType<AllocatorPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AllocatorPrivate
+        }
+
+        interface AllocatorPrivate {
+        }
+
+        interface $Exports {
+            AllocatorPrivate: AllocatorPrivateStruct
+        }
+        
+
+        interface AtomicQueueStruct {
+            readonly $gtype: GObject.GType<AtomicQueue>
+            [Symbol.hasInstance](instance: unknown): instance is AtomicQueue
             /**
              * Create a new atomic queue instance. @initial_size will be rounded up to the
              * nearest power of 2 and used as the initial size of the queue.
              * @param initial_size initial queue size
              * @returns a new #GstAtomicQueue
              */
-            static "new"(initial_size: number): AtomicQueue
+            "new"(initial_size: number): AtomicQueue
+        }
+
+        interface AtomicQueue {
             /**
              * Get the amount of items in the queue.
              * @returns the number of elements in the queue.
@@ -8655,114 +9036,33 @@ declare module "gi://Gst?version=1.0" {
              */
             unref(): void
         }
-        none
-        /**
-         */
-        abstract class BinPrivate {
-            static readonly $gtype: GObject.GType<BinPrivate>
 
-            
+        interface $Exports {
+            AtomicQueue: AtomicQueueStruct
         }
-        /**
-         * Buffers are the basic unit of data transfer in GStreamer. They contain the
-         * timing and offset along with other arbitrary metadata that is associated
-         * with the #GstMemory blocks that the buffer contains.
-         *
-         * Buffers are usually created with gst_buffer_new(). After a buffer has been
-         * created one will typically allocate memory for it and add it to the buffer.
-         * The following example creates a buffer that can hold a given video frame
-         * with a given width, height and bits per plane.
-         *
-         * ``` C
-         *   GstBuffer *buffer;
-         *   GstMemory *memory;
-         *   gint size, width, height, bpp;
-         *   ...
-         *   size = width * height * bpp;
-         *   buffer = gst_buffer_new ();
-         *   memory = gst_allocator_alloc (NULL, size, NULL);
-         *   gst_buffer_insert_memory (buffer, -1, memory);
-         *   ...
-         * ```
-         *
-         * Alternatively, use gst_buffer_new_allocate() to create a buffer with
-         * preallocated data of a given size.
-         *
-         * Buffers can contain a list of #GstMemory objects. You can retrieve how many
-         * memory objects with gst_buffer_n_memory() and you can get a pointer
-         * to memory with gst_buffer_peek_memory()
-         *
-         * A buffer will usually have timestamps, and a duration, but neither of these
-         * are guaranteed (they may be set to #GST_CLOCK_TIME_NONE). Whenever a
-         * meaningful value can be given for these, they should be set. The timestamps
-         * and duration are measured in nanoseconds (they are #GstClockTime values).
-         *
-         * The buffer DTS refers to the timestamp when the buffer should be decoded and
-         * is usually monotonically increasing. The buffer PTS refers to the timestamp when
-         * the buffer content should be presented to the user and is not always
-         * monotonically increasing.
-         *
-         * A buffer can also have one or both of a start and an end offset. These are
-         * media-type specific. For video buffers, the start offset will generally be
-         * the frame number. For audio buffers, it will be the number of samples
-         * produced so far. For compressed data, it could be the byte offset in a
-         * source or destination file. Likewise, the end offset will be the offset of
-         * the end of the buffer. These can only be meaningfully interpreted if you
-         * know the media type of the buffer (the preceding CAPS event). Either or both
-         * can be set to #GST_BUFFER_OFFSET_NONE.
-         *
-         * gst_buffer_ref() is used to increase the refcount of a buffer. This must be
-         * done when you want to keep a handle to the buffer after pushing it to the
-         * next element. The buffer refcount determines the writability of the buffer, a
-         * buffer is only writable when the refcount is exactly 1, i.e. when the caller
-         * has the only reference to the buffer.
-         *
-         * To efficiently create a smaller buffer out of an existing one, you can
-         * use gst_buffer_copy_region(). This method tries to share the memory objects
-         * between the two buffers.
-         *
-         * If a plug-in wants to modify the buffer data or metadata in-place, it should
-         * first obtain a buffer that is safe to modify by using
-         * gst_buffer_make_writable(). This function is optimized so that a copy will
-         * only be made when it is necessary.
-         *
-         * Several flags of the buffer can be set and unset with the
-         * GST_BUFFER_FLAG_SET() and GST_BUFFER_FLAG_UNSET() macros. Use
-         * GST_BUFFER_FLAG_IS_SET() to test if a certain #GstBufferFlags flag is set.
-         *
-         * Buffers can be efficiently merged into a larger buffer with
-         * gst_buffer_append(). Copying of memory will only be done when absolutely
-         * needed.
-         *
-         * Arbitrary extra metadata can be set on a buffer with gst_buffer_add_meta().
-         * Metadata can be retrieved with gst_buffer_get_meta(). See also #GstMeta.
-         *
-         * An element should either unref the buffer or push it out on a src pad
-         * using gst_pad_push() (see #GstPad).
-         *
-         * Buffers are usually freed by unreffing them with gst_buffer_unref(). When
-         * the refcount drops to 0, any memory and metadata pointed to by the buffer is
-         * unreffed as well. Buffers allocated from a #GstBufferPool will be returned to
-         * the pool when the refcount drops to 0.
-         *
-         * The #GstParentBufferMeta is a meta which can be attached to a #GstBuffer
-         * to hold a reference to another buffer that is only released when the child
-         * #GstBuffer is released.
-         *
-         * Typically, #GstParentBufferMeta is used when the child buffer is directly
-         * using the #GstMemory of the parent buffer, and wants to prevent the parent
-         * buffer from being returned to a buffer pool until the #GstMemory is available
-         * for re-use. (Since: 1.6)
-         */
-        abstract class Buffer {
-            static readonly $gtype: GObject.GType<Buffer>
+        
 
-            
+        interface BinPrivateStruct {
+            readonly $gtype: GObject.GType<BinPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is BinPrivate
+        }
+
+        interface BinPrivate {
+        }
+
+        interface $Exports {
+            BinPrivate: BinPrivateStruct
+        }
+        
+
+        interface BufferStruct {
+            readonly $gtype: GObject.GType<Buffer>
+            [Symbol.hasInstance](instance: unknown): instance is Buffer
             /**
              * Creates a newly allocated buffer without any data.
              * @returns the new #GstBuffer.
              */
-            static "new"(): Buffer
+            "new"(): Buffer
             /**
              * Tries to create a newly allocated buffer with data of the given size and
              * extra parameters from @allocator. If the requested amount of memory can't be
@@ -8777,21 +9077,21 @@ declare module "gi://Gst?version=1.0" {
              * @param params optional parameters
              * @returns a new #GstBuffer
              */
-            static new_allocate(allocator: Allocator | null, size: number, params: AllocationParams | null): Buffer | null
+            new_allocate(allocator: Allocator | null, size: number, params: AllocationParams | null): Buffer | null
             /**
              * Creates a new buffer of size @size and fills it with a copy of @data.
              * @since 1.20
              * @param data data to copy into new buffer
              * @returns a new #GstBuffer
              */
-            static new_memdup(data: Uint8Array): Buffer
+            new_memdup(data: Uint8Array): Buffer
             /**
              * Creates a new buffer that wraps the given @data. The memory will be freed
              * with g_free() and will be marked writable.
              * @param data data to wrap
              * @returns a new #GstBuffer
              */
-            static new_wrapped(data: Uint8Array): Buffer
+            new_wrapped(data: Uint8Array): Buffer
             /**
              * Creates a new #GstBuffer that wraps the given @bytes. The data inside
              * @bytes cannot be %NULL and the resulting buffer will be marked as read only.
@@ -8799,7 +9099,7 @@ declare module "gi://Gst?version=1.0" {
              * @param bytes a #GBytes to wrap
              * @returns a new #GstBuffer wrapping `bytes`
              */
-            static new_wrapped_bytes(bytes: GLib.Bytes): Buffer
+            new_wrapped_bytes(bytes: (GLib.Bytes | Uint8Array)): Buffer
             /**
              * Allocates a new buffer that wraps the given memory. @data must point to
              * @maxsize of memory, the wrapped buffer will have the region from @offset and
@@ -8816,7 +9116,7 @@ declare module "gi://Gst?version=1.0" {
              * @param notify called with @user_data when the memory is freed
              * @returns a new #GstBuffer
              */
-            static new_wrapped_full(flags: MemoryFlags, data: Uint8Array, maxsize: number, offset: number, notify: GLib.DestroyNotify | null): Buffer
+            new_wrapped_full(flags: MemoryFlags, data: Uint8Array, maxsize: number, offset: number, notify: GLib.DestroyNotify | null): Buffer
             /**
              * Gets the maximum amount of memory blocks that a buffer can hold. This is a
              * compile time constant that can be queried with the function.
@@ -8826,7 +9126,10 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.2
              * @returns the maximum amount of memory blocks that a buffer can hold.
              */
-            static get_max_memory(): number
+            get_max_memory(): number
+        }
+
+        interface Buffer {
             /**
              * the parent structure
              */
@@ -9056,7 +9359,11 @@ declare module "gi://Gst?version=1.0" {
              */
             get_memory_range(idx: number, length: number): Memory | null
             /**
-             * info.api` member for the API type.
+             * Gets the metadata for @api on buffer. When there is no such metadata, %NULL is
+             * returned. If multiple metadata with the given @api are attached to this
+             * buffer only the first one is returned.  To handle multiple metadata with a
+             * given API use gst_buffer_iterate_meta() or gst_buffer_foreach_meta() instead
+             * and check the `meta->info.api` member for the API type.
              * @param api the #GType of an API
              * @returns the metadata for `api` on `buffer`.
              */
@@ -9093,7 +9400,7 @@ declare module "gi://Gst?version=1.0" {
              * buffer memory blocks with gst_buffer_resize().
              * @returns total size of the memory blocks in `buffer`., a pointer to the offset, a pointer to the maxsize
              */
-            get_sizes(): number
+            get_sizes(): [number, number, number]
             /**
              * Gets the total size of @length memory blocks stating from @idx in @buffer.
              *
@@ -9107,7 +9414,7 @@ declare module "gi://Gst?version=1.0" {
              * @param length a length
              * @returns total size of `length` memory blocks starting at `idx` in `buffer`., a pointer to the offset, a pointer to the maxsize
              */
-            get_sizes_range(idx: number, length: number): number
+            get_sizes_range(idx: number, length: number): [number, number, number]
             /**
              * Gives the status of a specific flag on a buffer.
              * @since 1.10
@@ -9310,32 +9617,27 @@ declare module "gi://Gst?version=1.0" {
              */
             unset_flags(flags: BufferFlags): boolean
         }
-        /**
-         * Buffer lists are an object containing a list of buffers.
-         *
-         * Buffer lists are created with gst_buffer_list_new() and filled with data
-         * using gst_buffer_list_insert().
-         *
-         * Buffer lists can be pushed on a srcpad with gst_pad_push_list(). This is
-         * interesting when multiple buffers need to be pushed in one go because it
-         * can reduce the amount of overhead for pushing each buffer individually.
-         */
-        abstract class BufferList {
-            static readonly $gtype: GObject.GType<BufferList>
 
-            
+        interface $Exports {
+            Buffer: BufferStruct
+        }
+        
+
+        interface BufferListStruct {
+            readonly $gtype: GObject.GType<BufferList>
+            [Symbol.hasInstance](instance: unknown): instance is BufferList
             /**
              * Creates a new, empty #GstBufferList.
              * @returns the new #GstBufferList.
              */
-            static "new"(): BufferList
+            "new"(): BufferList
             /**
              * Creates a new, empty #GstBufferList. The list will have @size space
              * preallocated so that memory reallocations can be avoided.
              * @param size an initial reserved size
              * @returns the new #GstBufferList.
              */
-            static new_sized(size: number): BufferList
+            new_sized(size: number): BufferList
             /**
              * Modifies a pointer to a #GstBufferList to point to a different
              * #GstBufferList. The modification is done atomically (so this is useful for
@@ -9348,7 +9650,7 @@ declare module "gi://Gst?version=1.0" {
                 will replace the buffer list pointed to by @old_list.
              * @returns %TRUE if `new_list` was different from `old_list`, pointer to a pointer to a     #GstBufferList to be replaced.
              */
-            static replace(new_list: BufferList | null): [boolean, BufferList | null]
+            replace(new_list: BufferList | null): [boolean, BufferList | null]
             /**
              * Modifies a pointer to a #GstBufferList to point to a different
              * #GstBufferList. This function is similar to gst_buffer_list_replace() except
@@ -9358,7 +9660,10 @@ declare module "gi://Gst?version=1.0" {
                 that will replace the bufferlist pointed to by @old_list.
              * @returns %TRUE if `new_list` was different from `old_list`, pointer to a pointer to a #GstBufferList     to be replaced.
              */
-            static take(new_list: BufferList | null): [boolean, BufferList]
+            take(new_list: BufferList | null): [boolean, BufferList]
+        }
+
+        interface BufferList {
             /**
              * Calculates the size of the data contained in @list by adding the
              * size of all buffers.
@@ -9424,18 +9729,18 @@ declare module "gi://Gst?version=1.0" {
              */
             remove(idx: number, length: number): void
         }
-        /**
-         * Parameters passed to the gst_buffer_pool_acquire_buffer() function to control the
-         * allocation of the buffer.
-         *
-         * The default implementation ignores the @start and @stop members but other
-         * implementations can use this extra information to decide what buffer to
-         * return.
-         */
-        abstract class BufferPoolAcquireParams {
-            static readonly $gtype: GObject.GType<BufferPoolAcquireParams>
 
-            
+        interface $Exports {
+            BufferList: BufferListStruct
+        }
+        
+
+        interface BufferPoolAcquireParamsStruct {
+            readonly $gtype: GObject.GType<BufferPoolAcquireParams>
+            [Symbol.hasInstance](instance: unknown): instance is BufferPoolAcquireParams
+        }
+
+        interface BufferPoolAcquireParams {
             /**
              * the format of @start and @stop
              */
@@ -9453,34 +9758,44 @@ declare module "gi://Gst?version=1.0" {
              */
             flags: BufferPoolAcquireFlags
         }
-        none
-        /**
-         */
-        abstract class BufferPoolPrivate {
-            static readonly $gtype: GObject.GType<BufferPoolPrivate>
 
-            
+        interface $Exports {
+            BufferPoolAcquireParams: BufferPoolAcquireParamsStruct
         }
-        none
-        /**
-         */
-        abstract class BusPrivate {
-            static readonly $gtype: GObject.GType<BusPrivate>
+        
 
-            
+        interface BufferPoolPrivateStruct {
+            readonly $gtype: GObject.GType<BufferPoolPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is BufferPoolPrivate
         }
-        /**
-         * `.
-         *
-         * @resize implementation could allocate more than requested to avoid repeated
-         * reallocations. It can return %FALSE, or be set to %NULL, in the case the
-         * array cannot grow.
-         * @since 1.24
-         */
-        abstract class ByteArrayInterface {
-            static readonly $gtype: GObject.GType<ByteArrayInterface>
 
-            
+        interface BufferPoolPrivate {
+        }
+
+        interface $Exports {
+            BufferPoolPrivate: BufferPoolPrivateStruct
+        }
+        
+
+        interface BusPrivateStruct {
+            readonly $gtype: GObject.GType<BusPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is BusPrivate
+        }
+
+        interface BusPrivate {
+        }
+
+        interface $Exports {
+            BusPrivate: BusPrivateStruct
+        }
+        
+
+        interface ByteArrayInterfaceStruct {
+            readonly $gtype: GObject.GType<ByteArrayInterface>
+            [Symbol.hasInstance](instance: unknown): instance is ByteArrayInterface
+        }
+
+        interface ByteArrayInterface {
             /**
              * A pointer to an array of bytes.
              */
@@ -9490,67 +9805,35 @@ declare module "gi://Gst?version=1.0" {
              */
             len: number
         }
-        /**
-         * Caps (capabilities) are lightweight refcounted objects describing media types.
-         * They are composed of an array of #GstStructure.
-         *
-         * Caps are exposed on #GstPadTemplate to describe all possible types a
-         * given pad can handle. They are also stored in the #GstRegistry along with
-         * a description of the #GstElement.
-         *
-         * Caps are exposed on the element pads using the gst_pad_query_caps() pad
-         * function. This function describes the possible types that the pad can
-         * handle or produce at runtime.
-         *
-         * A #GstCaps can be constructed with the following code fragment:
-         *
-         * ``` C
-         *   GstCaps *caps = gst_caps_new_simple ("video/x-raw",
-         *      "format", G_TYPE_STRING, "I420",
-         *      "framerate", GST_TYPE_FRACTION, 25, 1,
-         *      "pixel-aspect-ratio", GST_TYPE_FRACTION, 1, 1,
-         *      "width", G_TYPE_INT, 320,
-         *      "height", G_TYPE_INT, 240,
-         *      NULL);
-         * ```
-         *
-         * A #GstCaps is fixed when it has no fields with ranges or lists. Use
-         * gst_caps_is_fixed() to test for fixed caps. Fixed caps can be used in a
-         * caps event to notify downstream elements of the current media type.
-         *
-         * Various methods exist to work with the media types such as subtracting
-         * or intersecting.
-         *
-         * Be aware that until 1.20 the #GstCaps / #GstStructure serialization into string
-         * had limited support for nested #GstCaps / #GstStructure fields. It could only
-         * support one level of nesting. Using more levels would lead to unexpected
-         * behavior when using serialization features, such as gst_caps_to_string() or
-         * gst_value_serialize() and their counterparts.
-         */
-        abstract class Caps {
-            static readonly $gtype: GObject.GType<Caps>
 
-            
+        interface $Exports {
+            ByteArrayInterface: ByteArrayInterfaceStruct
+        }
+        
+
+        interface CapsStruct {
+            readonly $gtype: GObject.GType<Caps>
+            [Symbol.hasInstance](instance: unknown): instance is Caps
             /**
              * Creates a new #GstCaps that indicates that it is compatible with
              * any media format.
              * @returns the new #GstCaps
              */
-            static new_any(): Caps
+            new_any(): Caps
             /**
              * Creates a new #GstCaps that is empty.  That is, the returned
              * #GstCaps contains no media formats.
              * The #GstCaps is guaranteed to be writable.
              * @returns the new #GstCaps
              */
-            static new_empty(): Caps
+            new_empty(): Caps
             /**
              * Creates a new #GstCaps that contains one #GstStructure with name
              * @media_type.
              * @param media_type the media type of the structure
              * @returns the new #GstCaps
              */
-            static new_empty_simple(media_type: string): Caps
+            new_empty_simple(media_type: string): Caps
             /**
              * Creates a new #GstCaps that contains one #GstStructure with name
              * @media_type.
@@ -9558,7 +9841,7 @@ declare module "gi://Gst?version=1.0" {
              * @param media_type the media type of the structure
              * @returns the new #GstCaps
              */
-            static new_id_str_empty_simple(media_type: IdStr): Caps
+            new_id_str_empty_simple(media_type: IdStr): Caps
             /**
              * Creates a new #GstCaps that contains one #GstStructure with name
              * @media_type.
@@ -9569,7 +9852,7 @@ declare module "gi://Gst?version=1.0" {
              * @param media_type the media type of the structure
              * @returns the new #GstCaps
              */
-            static new_static_str_empty_simple(media_type: string): Caps
+            new_static_str_empty_simple(media_type: string): Caps
             /**
              * Converts @caps from a string representation.
              *
@@ -9578,7 +9861,10 @@ declare module "gi://Gst?version=1.0" {
              * @param string a string to convert to #GstCaps
              * @returns a newly allocated #GstCaps
              */
-            static from_string(string: string): Caps | null
+            from_string(string: string): Caps | null
+        }
+
+        interface Caps {
             /**
              * the parent type
              */
@@ -9709,7 +9995,7 @@ declare module "gi://Gst?version=1.0" {
              * @param field name of the field to set
              * @param value value to set the field to
              */
-            id_str_set_value(field: IdStr, value: GObject.Value): void
+            id_str_set_value(field: IdStr, value: (GObject.Value | unknown)): void
             /**
              * Creates a new #GstCaps that contains all the formats that are common
              * to both @caps1 and @caps2. Defaults to %GST_CAPS_INTERSECT_ZIG_ZAG mode.
@@ -9876,7 +10162,7 @@ declare module "gi://Gst?version=1.0" {
              * @param field name of the field to set
              * @param value value to set the field to
              */
-            set_value(field: string, value: GObject.Value): void
+            set_value(field: string, value: (GObject.Value | unknown)): void
             /**
              * Sets the given @field on all structures of @caps to the given @value.
              * This is a convenience function for calling gst_structure_set_value() on
@@ -9888,7 +10174,7 @@ declare module "gi://Gst?version=1.0" {
              * @param field name of the field to set
              * @param value value to set the field to
              */
-            set_value_static_str(field: string, value: GObject.Value): void
+            set_value_static_str(field: string, value: (GObject.Value | unknown)): void
             /**
              * Converts the given @caps into a representation that represents the
              * same set of formats, but in a simpler form.  Component structures that are
@@ -9911,7 +10197,9 @@ declare module "gi://Gst?version=1.0" {
              */
             steal_structure(index: number): Structure | null
             /**
-             *  are included on one caps and omitted on the other.
+             * Subtracts the @subtrahend from the @minuend.
+             * > This function does not work reliably if optional properties for caps
+             * > are included on one caps and omitted on the other.
              * @param subtrahend #GstCaps to subtract
              * @returns the resulting caps
              */
@@ -9948,31 +10236,15 @@ declare module "gi://Gst?version=1.0" {
              */
             truncate(): Caps
         }
-        /**
-         * #GstCapsFeatures can optionally be set on a #GstCaps to add requirements
-         * for additional features for a specific #GstStructure. Caps structures with
-         * the same name but with a non-equal set of caps features are not compatible.
-         * If a pad supports multiple sets of features it has to add multiple equal
-         * structures with different feature sets to the caps.
-         *
-         * Empty #GstCapsFeatures are equivalent with the #GstCapsFeatures that only
-         * contain #GST_CAPS_FEATURE_MEMORY_SYSTEM_MEMORY. ANY #GstCapsFeatures as
-         * created by gst_caps_features_new_any() are equal to any other #GstCapsFeatures
-         * and can be used to specify that any #GstCapsFeatures would be supported, e.g.
-         * for elements that don't touch buffer memory. #GstCaps with ANY #GstCapsFeatures
-         * are considered non-fixed and during negotiation some #GstCapsFeatures have
-         * to be selected.
-         *
-         * Examples for caps features would be the requirement of a specific #GstMemory
-         * types or the requirement of having a specific #GstMeta on the buffer. Features
-         * are given as a string of the format `memory:GstMemoryTypeName` or
-         * `meta:GstMetaAPIName`.
-         * @since 1.2
-         */
-        abstract class CapsFeatures {
-            static readonly $gtype: GObject.GType<CapsFeatures>
 
-            
+        interface $Exports {
+            Caps: CapsStruct
+        }
+        
+
+        interface CapsFeaturesStruct {
+            readonly $gtype: GObject.GType<CapsFeatures>
+            [Symbol.hasInstance](instance: unknown): instance is CapsFeatures
             /**
              * Creates a new, ANY #GstCapsFeatures. This will be equal
              * to any other #GstCapsFeatures but caps with these are
@@ -9980,20 +10252,20 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.2
              * @returns a new, ANY #GstCapsFeatures
              */
-            static new_any(): CapsFeatures
+            new_any(): CapsFeatures
             /**
              * Creates a new, empty #GstCapsFeatures.
              * @since 1.2
              * @returns a new, empty #GstCapsFeatures
              */
-            static new_empty(): CapsFeatures
+            new_empty(): CapsFeatures
             /**
              * Creates a new #GstCapsFeatures with a single feature.
              * @since 1.20
              * @param feature The feature
              * @returns a new #GstCapsFeatures
              */
-            static new_single(feature: string): CapsFeatures
+            new_single(feature: string): CapsFeatures
             /**
              * Creates a new #GstCapsFeatures with a single feature.
              *
@@ -10003,14 +10275,17 @@ declare module "gi://Gst?version=1.0" {
              * @param feature The feature
              * @returns a new #GstCapsFeatures
              */
-            static new_single_static_str(feature: string): CapsFeatures
+            new_single_static_str(feature: string): CapsFeatures
             /**
              * Creates a #GstCapsFeatures from a string representation.
              * @since 1.2
              * @param features a string representation of a #GstCapsFeatures.
              * @returns a new #GstCapsFeatures or     %NULL when the string could not be parsed.
              */
-            static from_string(features: string): CapsFeatures | null
+            from_string(features: string): CapsFeatures | null
+        }
+
+        interface CapsFeatures {
             /**
              * Adds @feature to @features.
              * @since 1.2
@@ -10158,66 +10433,45 @@ declare module "gi://Gst?version=1.0" {
              */
             to_string(): string
         }
-        none
-        none
-        /**
-         * All pending timeouts or periodic notifies are converted into
-         * an entry.
-         * Note that GstClockEntry should be treated as an opaque structure. It must
-         * not be extended or allocated using a custom allocator.
-         */
-        abstract class ClockEntry {
-            static readonly $gtype: GObject.GType<ClockEntry>
 
-            
+        interface $Exports {
+            CapsFeatures: CapsFeaturesStruct
+        }
+        
+
+        interface ClockEntryStruct {
+            readonly $gtype: GObject.GType<ClockEntry>
+            [Symbol.hasInstance](instance: unknown): instance is ClockEntry
+        }
+
+        interface ClockEntry {
             /**
              * reference counter (read-only)
              */
             refcount: number
         }
-        /**
-         */
-        abstract class ClockPrivate {
-            static readonly $gtype: GObject.GType<ClockPrivate>
 
-            
+        interface $Exports {
+            ClockEntry: ClockEntryStruct
         }
-        /**
-         * #GstContext is a container object used to store contexts like a device
-         * context, a display server connection and similar concepts that should
-         * be shared between multiple elements.
-         *
-         * Applications can set a context on a complete pipeline by using
-         * gst_element_set_context(), which will then be propagated to all
-         * child elements. Elements can handle these in #GstElementClass::set_context
-         * and merge them with the context information they already have.
-         *
-         * When an element needs a context it will do the following actions in this
-         * order until one step succeeds:
-         *
-         * 1. Check if the element already has a context
-         * 2. Query downstream with %GST_QUERY_CONTEXT for the context
-         * 3. Query upstream with %GST_QUERY_CONTEXT for the context
-         * 4. Post a %GST_MESSAGE_NEED_CONTEXT message on the bus with the required
-         *    context types and afterwards check if a usable context was set now
-         * 5. Create a context by itself and post a %GST_MESSAGE_HAVE_CONTEXT message
-         *    on the bus.
-         *
-         * Bins will catch %GST_MESSAGE_NEED_CONTEXT messages and will set any previously
-         * known context on the element that asks for it if possible. Otherwise the
-         * application should provide one if it can.
-         *
-         * #GstContext can be persistent.
-         * A persistent #GstContext is kept in elements when they reach
-         * %GST_STATE_NULL, non-persistent ones will be removed.
-         * Also, a non-persistent context won't override a previous persistent
-         * context set to an element.
-         * @since 1.2
-         */
-        abstract class Context {
-            static readonly $gtype: GObject.GType<Context>
+        
 
-            
+        interface ClockPrivateStruct {
+            readonly $gtype: GObject.GType<ClockPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ClockPrivate
+        }
+
+        interface ClockPrivate {
+        }
+
+        interface $Exports {
+            ClockPrivate: ClockPrivateStruct
+        }
+        
+
+        interface ContextStruct {
+            readonly $gtype: GObject.GType<Context>
+            [Symbol.hasInstance](instance: unknown): instance is Context
             /**
              * Creates a new context.
              * @since 1.2
@@ -10225,7 +10479,7 @@ declare module "gi://Gst?version=1.0" {
              * @param persistent Persistent context
              * @returns The new context.
              */
-            static "new"(context_type: string, persistent: boolean): Context
+            "new"(context_type: string, persistent: boolean): Context
             /**
              * Modifies a pointer to a #GstContext to point to a different #GstContext. The
              * modification is done atomically (so this is useful for ensuring thread safety
@@ -10238,7 +10492,10 @@ declare module "gi://Gst?version=1.0" {
                 replace the context pointed to by @old_context.
              * @returns %TRUE if `new_context` was different from `old_context`, pointer to a pointer to a #GstContext     to be replaced.
              */
-            static replace(new_context: Context | null): [boolean, Context]
+            replace(new_context: Context | null): [boolean, Context]
+        }
+
+        interface Context {
             /**
              * Creates a copy of the context. Returns a copy of the context.
              * @since 1.2
@@ -10289,28 +10546,31 @@ declare module "gi://Gst?version=1.0" {
              */
             writable_structure(): Structure
         }
-        none
-        /**
-         */
-        abstract class ControlBindingPrivate {
-            static readonly $gtype: GObject.GType<ControlBindingPrivate>
 
-            
+        interface $Exports {
+            Context: ContextStruct
         }
-        none
-        /**
-         * Extra custom metadata. The @structure field is the same as returned by
-         * gst_custom_meta_get_structure().
-         *
-         * Since 1.24 it can be serialized using gst_meta_serialize() and
-         * gst_meta_deserialize(), but only if the #GstStructure does not contain any
-         * fields that cannot be serialized, see %GST_SERIALIZE_FLAG_STRICT.
-         * @since 1.20
-         */
-        abstract class CustomMeta {
-            static readonly $gtype: GObject.GType<CustomMeta>
+        
 
-            
+        interface ControlBindingPrivateStruct {
+            readonly $gtype: GObject.GType<ControlBindingPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ControlBindingPrivate
+        }
+
+        interface ControlBindingPrivate {
+        }
+
+        interface $Exports {
+            ControlBindingPrivate: ControlBindingPrivateStruct
+        }
+        
+
+        interface CustomMetaStruct {
+            readonly $gtype: GObject.GType<CustomMeta>
+            [Symbol.hasInstance](instance: unknown): instance is CustomMeta
+        }
+
+        interface CustomMeta {
             /**
              * parent #GstMeta
              */
@@ -10335,20 +10595,15 @@ declare module "gi://Gst?version=1.0" {
              */
             has_name(name: string): boolean
         }
-        /**
-         * Struct to store date, time and timezone information altogether.
-         * #GstDateTime is refcounted and immutable.
-         *
-         * Date information is handled using the [proleptic Gregorian calendar].
-         *
-         * Provides basic creation functions and accessor functions to its fields.
-         *
-         * [proleptic Gregorian calendar]: https://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar
-         */
-        abstract class DateTime {
-            static readonly $gtype: GObject.GType<DateTime>
 
-            
+        interface $Exports {
+            CustomMeta: CustomMetaStruct
+        }
+        
+
+        interface DateTimeStruct {
+            readonly $gtype: GObject.GType<DateTime>
+            [Symbol.hasInstance](instance: unknown): instance is DateTime
             /**
              * Creates a new #GstDateTime using the date and times in the gregorian calendar
              * in the supplied timezone.
@@ -10373,13 +10628,13 @@ declare module "gi://Gst?version=1.0" {
              * @param seconds the second of the minute
              * @returns the newly created #GstDateTime, or %NULL on error.
              */
-            static "new"(tzoffset: number, year: number, month: number, day: number, hour: number, minute: number, seconds: number): DateTime | null
+            "new"(tzoffset: number, year: number, month: number, day: number, hour: number, minute: number, seconds: number): DateTime | null
             /**
              * Creates a new #GstDateTime from a #GDateTime object.
              * @param dt the #GDateTime.
              * @returns a newly created #GstDateTime, or %NULL if `dt` is %NULL.
              */
-            static new_from_g_date_time(dt: GLib.DateTime | null): DateTime | null
+            new_from_g_date_time(dt: GLib.DateTime | null): DateTime | null
             /**
              * Tries to parse common variants of ISO-8601 datetime strings into a
              * #GstDateTime. Possible input formats are (for example):
@@ -10392,14 +10647,14 @@ declare module "gi://Gst?version=1.0" {
              * @param string ISO 8601-formatted datetime string.
              * @returns a newly created #GstDateTime, or %NULL on error
              */
-            static new_from_iso8601_string(string: string): DateTime | null
+            new_from_iso8601_string(string: string): DateTime | null
             /**
              * Creates a new #GstDateTime using the time since Jan 1, 1970 specified by
              * @secs. The #GstDateTime is in the local timezone.
              * @param secs seconds from the Unix epoch
              * @returns the newly created #GstDateTime, or %NULL on error.
              */
-            static new_from_unix_epoch_local_time(secs: number): DateTime | null
+            new_from_unix_epoch_local_time(secs: number): DateTime | null
             /**
              * Creates a new #GstDateTime using the time since Jan 1, 1970 specified by
              * @usecs. The #GstDateTime is in the local timezone.
@@ -10407,14 +10662,14 @@ declare module "gi://Gst?version=1.0" {
              * @param usecs microseconds from the Unix epoch
              * @returns a newly created #GstDateTime, or %NULL on error.
              */
-            static new_from_unix_epoch_local_time_usecs(usecs: number): DateTime | null
+            new_from_unix_epoch_local_time_usecs(usecs: number): DateTime | null
             /**
              * Creates a new #GstDateTime using the time since Jan 1, 1970 specified by
              * @secs. The #GstDateTime is in the UTC timezone.
              * @param secs seconds from the Unix epoch
              * @returns the newly created #GstDateTime, or %NULL on error.
              */
-            static new_from_unix_epoch_utc(secs: number): DateTime | null
+            new_from_unix_epoch_utc(secs: number): DateTime | null
             /**
              * Creates a new #GstDateTime using the time since Jan 1, 1970 specified by
              * @usecs. The #GstDateTime is in UTC.
@@ -10422,7 +10677,7 @@ declare module "gi://Gst?version=1.0" {
              * @param usecs microseconds from the Unix epoch
              * @returns a newly created #GstDateTime, or %NULL on error.
              */
-            static new_from_unix_epoch_utc_usecs(usecs: number): DateTime | null
+            new_from_unix_epoch_utc_usecs(usecs: number): DateTime | null
             /**
              * Creates a new #GstDateTime using the date and times in the gregorian calendar
              * in the local timezone.
@@ -10447,18 +10702,18 @@ declare module "gi://Gst?version=1.0" {
              * @param seconds the second of the minute, or -1
              * @returns the newly created #GstDateTime, or %NULL on error.
              */
-            static new_local_time(year: number, month: number, day: number, hour: number, minute: number, seconds: number): DateTime | null
+            new_local_time(year: number, month: number, day: number, hour: number, minute: number, seconds: number): DateTime | null
             /**
              * Creates a new #GstDateTime representing the current date and time.
              * @returns the newly created #GstDateTime which should     be freed with gst_date_time_unref(), or %NULL on error.
              */
-            static new_now_local_time(): DateTime | null
+            new_now_local_time(): DateTime | null
             /**
              * Creates a new #GstDateTime that represents the current instant at Universal
              * coordinated time.
              * @returns the newly created #GstDateTime which should   be freed with gst_date_time_unref(), or %NULL on error.
              */
-            static new_now_utc(): DateTime | null
+            new_now_utc(): DateTime | null
             /**
              * Creates a new #GstDateTime using the date and times in the gregorian calendar
              * in the local timezone.
@@ -10467,7 +10722,7 @@ declare module "gi://Gst?version=1.0" {
              * @param year the gregorian year
              * @returns the newly created #GstDateTime, or %NULL on error.
              */
-            static new_y(year: number): DateTime | null
+            new_y(year: number): DateTime | null
             /**
              * Creates a new #GstDateTime using the date and times in the gregorian calendar
              * in the local timezone.
@@ -10480,7 +10735,7 @@ declare module "gi://Gst?version=1.0" {
              * @param month the gregorian month
              * @returns the newly created #GstDateTime, or %NULL on error.
              */
-            static new_ym(year: number, month: number): DateTime | null
+            new_ym(year: number, month: number): DateTime | null
             /**
              * Creates a new #GstDateTime using the date and times in the gregorian calendar
              * in the local timezone.
@@ -10497,7 +10752,10 @@ declare module "gi://Gst?version=1.0" {
              * @param day the day of the gregorian month
              * @returns the newly created #GstDateTime, or %NULL on error.
              */
-            static new_ymd(year: number, month: number, day: number): DateTime | null
+            new_ymd(year: number, month: number, day: number): DateTime | null
+        }
+
+        interface DateTime {
             /**
              * Returns the day of the month of this #GstDateTime.
              * @returns The day of this #GstDateTime, or -1 if none is set.
@@ -10547,23 +10805,23 @@ declare module "gi://Gst?version=1.0" {
              */
             get_year(): number
             /**
-             * @returns 's day field is set, otherwise %FALSE
+             * @returns %TRUE if `datetime`<!-- -->'s day field is set, otherwise %FALSE
              */
             has_day(): boolean
             /**
-             * @returns 's month field is set, otherwise %FALSE
+             * @returns %TRUE if `datetime`<!-- -->'s month field is set, otherwise %FALSE
              */
             has_month(): boolean
             /**
-             * @returns 's second field is set, otherwise %FALSE
+             * @returns %TRUE if `datetime`<!-- -->'s second field is set, otherwise %FALSE
              */
             has_second(): boolean
             /**
-             * @returns 's hour and minute fields are set,     otherwise %FALSE
+             * @returns %TRUE if `datetime`<!-- -->'s hour and minute fields are set,     otherwise %FALSE
              */
             has_time(): boolean
             /**
-             * @returns 's year field is set (which should always     be the case), otherwise %FALSE
+             * @returns %TRUE if `datetime`<!-- -->'s year field is set (which should always     be the case), otherwise %FALSE
              */
             has_year(): boolean
             /**
@@ -10589,14 +10847,18 @@ declare module "gi://Gst?version=1.0" {
              */
             unref(): void
         }
-        /**
-         * This is the struct that describes the categories. Once initialized with
-         * #GST_DEBUG_CATEGORY_INIT, its values can't be changed anymore.
-         */
-        abstract class DebugCategory {
-            static readonly $gtype: GObject.GType<DebugCategory>
 
-            
+        interface $Exports {
+            DateTime: DateTimeStruct
+        }
+        
+
+        interface DebugCategoryStruct {
+            readonly $gtype: GObject.GType<DebugCategory>
+            [Symbol.hasInstance](instance: unknown): instance is DebugCategory
+        }
+
+        interface DebugCategory {
             /**
              * Removes and frees the category and all associated resources.
              * @deprecated This function can easily cause memory corruption, don't use it.
@@ -10632,17 +10894,28 @@ declare module "gi://Gst?version=1.0" {
              */
             reset_threshold(): void
             /**
-             *  function to use when debugging (even from gdb).
+             * Sets the threshold of the category to the given level. Debug information will
+             * only be output if the threshold is lower or equal to the level of the
+             * debugging message.
+             * > Do not use this function in production code, because other functions may
+             * > change the threshold of categories as side effect. It is however a nice
+             * > function to use when debugging (even from gdb).
              * @param level the #GstDebugLevel threshold to set.
              */
             set_threshold(level: DebugLevel): void
         }
-        /**
-         */
-        abstract class DebugMessage {
-            static readonly $gtype: GObject.GType<DebugMessage>
 
-            
+        interface $Exports {
+            DebugCategory: DebugCategoryStruct
+        }
+        
+
+        interface DebugMessageStruct {
+            readonly $gtype: GObject.GType<DebugMessage>
+            [Symbol.hasInstance](instance: unknown): instance is DebugMessage
+        }
+
+        interface DebugMessage {
             /**
              * Gets the string representation of a #GstDebugMessage. This function is used
              * in debug handlers to extract the message.
@@ -10657,57 +10930,54 @@ declare module "gi://Gst?version=1.0" {
              */
             get_id(): string | null
         }
-        none
-        none
-        /**
-         */
-        abstract class DeviceMonitorPrivate {
-            static readonly $gtype: GObject.GType<DeviceMonitorPrivate>
 
-            
+        interface $Exports {
+            DebugMessage: DebugMessageStruct
         }
-        /**
-         */
-        abstract class DevicePrivate {
-            static readonly $gtype: GObject.GType<DevicePrivate>
+        
 
-            
+        interface DeviceMonitorPrivateStruct {
+            readonly $gtype: GObject.GType<DeviceMonitorPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DeviceMonitorPrivate
         }
-        none
-        none
-        /**
-         */
-        abstract class DeviceProviderPrivate {
-            static readonly $gtype: GObject.GType<DeviceProviderPrivate>
 
-            
+        interface DeviceMonitorPrivate {
         }
-        none
-        none
-        none
-        /**
-         *
-         *   GstEvent *event;
-         *   gboolean result;
-         *   ...
-         *   // construct a seek event to play the media from second 2 to 5, flush
-         *   // the pipeline to decrease latency.
-         *   event = gst_event_new_seek (1.0,
-         *      GST_FORMAT_TIME,
-         *      GST_SEEK_FLAG_FLUSH,
-         *      GST_SEEK_TYPE_SET, 2 * GST_SECOND,
-         *      GST_SEEK_TYPE_SET, 5 * GST_SECOND);
-         *   ...
-         *   result = gst_element_send_event (pipeline, event);
-         *   if (!result)
-         *     g_warning ("seek failed");
-         *   ...
-         * ]|
-         */
-        abstract class Event {
-            static readonly $gtype: GObject.GType<Event>
 
-            
+        interface $Exports {
+            DeviceMonitorPrivate: DeviceMonitorPrivateStruct
+        }
+        
+
+        interface DevicePrivateStruct {
+            readonly $gtype: GObject.GType<DevicePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DevicePrivate
+        }
+
+        interface DevicePrivate {
+        }
+
+        interface $Exports {
+            DevicePrivate: DevicePrivateStruct
+        }
+        
+
+        interface DeviceProviderPrivateStruct {
+            readonly $gtype: GObject.GType<DeviceProviderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DeviceProviderPrivate
+        }
+
+        interface DeviceProviderPrivate {
+        }
+
+        interface $Exports {
+            DeviceProviderPrivate: DeviceProviderPrivateStruct
+        }
+        
+
+        interface EventStruct {
+            readonly $gtype: GObject.GType<Event>
+            [Symbol.hasInstance](instance: unknown): instance is Event
             /**
              * Create a new buffersize event. The event is sent downstream and notifies
              * elements that they should provide a buffer of the specified dimensions.
@@ -10719,7 +10989,7 @@ declare module "gi://Gst?version=1.0" {
              * @param async thread behavior
              * @returns a new #GstEvent
              */
-            static new_buffer_size(format: Format, minsize: number, maxsize: number, async: boolean): Event
+            new_buffer_size(format: Format, minsize: number, maxsize: number, async: boolean): Event
             /**
              * Create a new CAPS event for @caps. The caps event can only travel downstream
              * synchronized with the buffer flow and contains the format of the buffers
@@ -10727,7 +10997,7 @@ declare module "gi://Gst?version=1.0" {
              * @param caps a #GstCaps
              * @returns the new CAPS event.
              */
-            static new_caps(caps: Caps): Event
+            new_caps(caps: Caps): Event
             /**
              * Create a new custom-typed event. This can be used for anything not
              * handled by other event-specific functions to pass an event to another
@@ -10744,7 +11014,7 @@ declare module "gi://Gst?version=1.0" {
                 take ownership of the structure.
              * @returns the new custom event.
              */
-            static new_custom(type: EventType, structure: Structure): Event
+            new_custom(type: EventType, structure: Structure): Event
             /**
              * Create a new EOS event. The eos event can only travel downstream
              * synchronized with the buffer flow. Elements that receive the EOS
@@ -10761,7 +11031,7 @@ declare module "gi://Gst?version=1.0" {
              * The EOS event itself will not cause any state transitions of the pipeline.
              * @returns the new EOS event.
              */
-            static new_eos(): Event
+            new_eos(): Event
             /**
              * Allocate a new flush start event. The flush start event can be sent
              * upstream and downstream and travels out-of-bounds with the dataflow.
@@ -10779,7 +11049,7 @@ declare module "gi://Gst?version=1.0" {
              * in the pipeline so that the new media is played as soon as possible.
              * @returns a new flush start event.
              */
-            static new_flush_start(): Event
+            new_flush_start(): Event
             /**
              * Allocate a new flush stop event. The flush stop event can be sent
              * upstream and downstream and travels serialized with the dataflow.
@@ -10794,7 +11064,7 @@ declare module "gi://Gst?version=1.0" {
              * @param reset_time if time should be reset
              * @returns a new flush stop event.
              */
-            static new_flush_stop(reset_time: boolean): Event
+            new_flush_stop(reset_time: boolean): Event
             /**
              * Create a new GAP event. A gap event can be thought of as conceptually
              * equivalent to a buffer to signal that there is no data for a certain
@@ -10805,7 +11075,7 @@ declare module "gi://Gst?version=1.0" {
              * @param duration the duration of the gap
              * @returns the new GAP event.
              */
-            static new_gap(timestamp: ClockTime, duration: ClockTime): Event
+            new_gap(timestamp: ClockTime, duration: ClockTime): Event
             /**
              * Create a new instant-rate-change event. This event is sent by seek
              * handlers (e.g. demuxers) when receiving a seek with the
@@ -10821,7 +11091,7 @@ declare module "gi://Gst?version=1.0" {
              * @param new_flags A new subset of segment flags to replace in segments
              * @returns the new instant-rate-change event.
              */
-            static new_instant_rate_change(rate_multiplier: number, new_flags: SegmentFlags): Event
+            new_instant_rate_change(rate_multiplier: number, new_flags: SegmentFlags): Event
             /**
              * Create a new instant-rate-sync-time event. This event is sent by the
              * pipeline to notify elements handling the instant-rate-change event about
@@ -10842,7 +11112,7 @@ declare module "gi://Gst?version=1.0" {
                rate change should be applied.
              * @returns the new instant-rate-sync-time event.
              */
-            static new_instant_rate_sync_time(rate_multiplier: number, running_time: ClockTime, upstream_running_time: ClockTime): Event
+            new_instant_rate_sync_time(rate_multiplier: number, running_time: ClockTime, upstream_running_time: ClockTime): Event
             /**
              * Create a new latency event. The event is sent upstream from the sinks and
              * notifies elements that they should add an additional @latency to the
@@ -10853,7 +11123,7 @@ declare module "gi://Gst?version=1.0" {
              * @param latency the new latency value
              * @returns a new #GstEvent
              */
-            static new_latency(latency: ClockTime): Event
+            new_latency(latency: ClockTime): Event
             /**
              * Create a new navigation event from the given description.
              * @param structure description of the event. The event will take
@@ -10861,7 +11131,7 @@ declare module "gi://Gst?version=1.0" {
                 constructors.
              * @returns a new #GstEvent
              */
-            static new_navigation(structure: Structure): Event
+            new_navigation(structure: Structure): Event
             /**
              * Creates a new event containing information specific to a particular
              * protection system (uniquely identified by @system_id), by which that
@@ -10902,9 +11172,45 @@ declare module "gi://Gst?version=1.0" {
             of this string will depend upon the protection scheme.
              * @returns a #GST_EVENT_PROTECTION event.
              */
-            static new_protection(system_id: string, data: Buffer, origin: string): Event
+            new_protection(system_id: string, data: Buffer, origin: string): Event
             /**
-             * = @timestamp + @diff will certainly arrive late in the sink
+             * Allocate a new qos event with the given values.
+             * The QOS event is generated in an element that wants an upstream
+             * element to either reduce or increase its rate because of
+             * high/low CPU load or other resource usage such as network performance or
+             * throttling. Typically sinks generate these events for each buffer
+             * they receive.
+             *
+             * @type indicates the reason for the QoS event. #GST_QOS_TYPE_OVERFLOW is
+             * used when a buffer arrived in time or when the sink cannot keep up with
+             * the upstream datarate. #GST_QOS_TYPE_UNDERFLOW is when the sink is not
+             * receiving buffers fast enough and thus has to drop late buffers.
+             * #GST_QOS_TYPE_THROTTLE is used when the datarate is artificially limited
+             * by the application, for example to reduce power consumption.
+             *
+             * @proportion indicates the real-time performance of the streaming in the
+             * element that generated the QoS event (usually the sink). The value is
+             * generally computed based on more long term statistics about the streams
+             * timestamps compared to the clock.
+             * A value < 1.0 indicates that the upstream element is producing data faster
+             * than real-time. A value > 1.0 indicates that the upstream element is not
+             * producing data fast enough. 1.0 is the ideal @proportion value. The
+             * proportion value can safely be used to lower or increase the quality of
+             * the element.
+             *
+             * @diff is the difference against the clock in running time of the last
+             * buffer that caused the element to generate the QOS event. A negative value
+             * means that the buffer with @timestamp arrived in time. A positive value
+             * indicates how late the buffer with @timestamp was. When throttling is
+             * enabled, @diff will be set to the requested throttling interval.
+             *
+             * @timestamp is the timestamp of the last buffer that cause the element
+             * to generate the QOS event. It is expressed in running time and thus an ever
+             * increasing value.
+             *
+             * The upstream element can use the @diff and @timestamp values to decide
+             * whether to process more buffers. For positive @diff, all buffers with
+             * timestamp <= @timestamp + @diff will certainly arrive late in the sink
              * as well. A (negative) @diff value so that @timestamp + @diff would yield a
              * result smaller than 0 is not allowed.
              *
@@ -10916,7 +11222,7 @@ declare module "gi://Gst?version=1.0" {
              * @param timestamp The timestamp of the buffer
              * @returns a new QOS event.
              */
-            static new_qos(type: QOSType, proportion: number, diff: ClockTimeDiff, timestamp: ClockTime): Event
+            new_qos(type: QOSType, proportion: number, diff: ClockTimeDiff, timestamp: ClockTime): Event
             /**
              * Create a new reconfigure event. The purpose of the reconfigure event is
              * to travel upstream and make elements renegotiate their caps or reconfigure
@@ -10924,7 +11230,7 @@ declare module "gi://Gst?version=1.0" {
              * or changing the topology of the pipeline.
              * @returns a new #GstEvent
              */
-            static new_reconfigure(): Event
+            new_reconfigure(): Event
             /**
              * Allocate a new seek event with the given parameters.
              *
@@ -10966,9 +11272,27 @@ declare module "gi://Gst?version=1.0" {
              * @param stop The value of the new stop position
              * @returns a new seek event.
              */
-            static new_seek(rate: number, format: Format, flags: SeekFlags, start_type: SeekType, start: number, stop_type: SeekType, stop: number): Event
+            new_seek(rate: number, format: Format, flags: SeekFlags, start_type: SeekType, start: number, stop_type: SeekType, stop: number): Event
             /**
-             *  0.
+             * Create a new SEGMENT event for @segment. The segment event can only travel
+             * downstream synchronized with the buffer flow and contains timing information
+             * and playback properties for the buffers that will follow.
+             *
+             * The segment event marks the range of buffers to be processed. All
+             * data not within the segment range is not to be processed. This can be
+             * used intelligently by plugins to apply more efficient methods of skipping
+             * unneeded data. The valid range is expressed with the @start and @stop
+             * values.
+             *
+             * The time value of the segment is used in conjunction with the start
+             * value to convert the buffer timestamps into the stream time. This is
+             * usually done in sinks to report the current stream_time.
+             * @time represents the stream_time of a buffer carrying a timestamp of
+             * @start. @time cannot be -1.
+             *
+             * @start cannot be -1, @stop can be -1. If there
+             * is a valid @stop given, it must be greater or equal the @start, including
+             * when the indicated playback @rate is < 0.
              *
              * The @applied_rate value provides information about any rate adjustment that
              * has already been made to the timestamps and content on the buffers of the
@@ -10984,7 +11308,7 @@ declare module "gi://Gst?version=1.0" {
              * @param segment a #GstSegment
              * @returns the new SEGMENT event.
              */
-            static new_segment(segment: Segment): Event
+            new_segment(segment: Segment): Event
             /**
              * Create a new segment-done event. This event is sent by elements that
              * finish playback of a segment as a result of a segment seek.
@@ -10992,7 +11316,7 @@ declare module "gi://Gst?version=1.0" {
              * @param position The position of the segment being done
              * @returns a new #GstEvent
              */
-            static new_segment_done(format: Format, position: number): Event
+            new_segment_done(format: Format, position: number): Event
             /**
              * Allocate a new select-streams event.
              *
@@ -11009,7 +11333,7 @@ declare module "gi://Gst?version=1.0" {
             activate
              * @returns a new select-streams event.
              */
-            static new_select_streams(streams: string[]): Event
+            new_select_streams(streams: string[]): Event
             /**
              * Create a new sink-message event. The purpose of the sink-message event is
              * to instruct a sink to post the message contained in the event synchronized
@@ -11020,9 +11344,15 @@ declare module "gi://Gst?version=1.0" {
              * @param msg the #GstMessage to be posted
              * @returns a new #GstEvent
              */
-            static new_sink_message(name: string, msg: Message): Event
+            new_sink_message(name: string, msg: Message): Event
             /**
-             *  0.0.
+             * Create a new step event. The purpose of the step event is to instruct a sink
+             * to skip @amount (expressed in @format) of media. It can be used to implement
+             * stepping through the video frame by frame or for doing fast trick modes.
+             *
+             * A rate of <= 0.0 is not allowed. Pause the pipeline, for the effect of rate
+             * = 0.0 or first reverse the direction of playback using a seek event to get
+             * the same effect as rate < 0.0.
              *
              * The @flush flag will clear any pending data in the pipeline before starting
              * the step operation.
@@ -11036,7 +11366,7 @@ declare module "gi://Gst?version=1.0" {
              * @param intermediate intermediate steps
              * @returns a new #GstEvent
              */
-            static new_step(format: Format, amount: number, rate: number, flush: boolean, intermediate: boolean): Event
+            new_step(format: Format, amount: number, rate: number, flush: boolean, intermediate: boolean): Event
             /**
              * Create a new STREAM_COLLECTION event. The stream collection event can only
              * travel downstream synchronized with the buffer flow.
@@ -11050,7 +11380,7 @@ declare module "gi://Gst?version=1.0" {
              * @param collection Active collection for this data flow
              * @returns the new STREAM_COLLECTION event.
              */
-            static new_stream_collection(collection: StreamCollection): Event
+            new_stream_collection(collection: StreamCollection): Event
             /**
              * Create a new Stream Group Done event. The stream-group-done event can
              * only travel downstream synchronized with the buffer flow. Elements
@@ -11065,7 +11395,7 @@ declare module "gi://Gst?version=1.0" {
              * @param group_id the group id of the stream group which is ending
              * @returns the new stream-group-done event.
              */
-            static new_stream_group_done(group_id: number): Event
+            new_stream_group_done(group_id: number): Event
             /**
              * Create a new STREAM_START event. The stream start event can only
              * travel downstream synchronized with the buffer flow. It is expected
@@ -11091,7 +11421,7 @@ declare module "gi://Gst?version=1.0" {
              * @param stream_id Identifier for this stream
              * @returns the new STREAM_START event.
              */
-            static new_stream_start(stream_id: string): Event
+            new_stream_start(stream_id: string): Event
             /**
              * Generates a metadata tag event from the given @taglist.
              *
@@ -11104,7 +11434,7 @@ declare module "gi://Gst?version=1.0" {
                 of the taglist.
              * @returns a new #GstEvent
              */
-            static new_tag(taglist: TagList): Event
+            new_tag(taglist: TagList): Event
             /**
              * Generate a TOC event from the given @toc. The purpose of the TOC event is to
              * inform elements that some kind of the TOC was found.
@@ -11112,7 +11442,7 @@ declare module "gi://Gst?version=1.0" {
              * @param updated whether @toc was updated or not.
              * @returns a new #GstEvent.
              */
-            static new_toc(toc: Toc, updated: boolean): Event
+            new_toc(toc: Toc, updated: boolean): Event
             /**
              * Generate a TOC select event with the given @uid. The purpose of the
              * TOC select event is to start playback based on the TOC's entry with the
@@ -11120,7 +11450,10 @@ declare module "gi://Gst?version=1.0" {
              * @param uid UID in the TOC to start playback from.
              * @returns a new #GstEvent.
              */
-            static new_toc_select(uid: string): Event
+            new_toc_select(uid: string): Event
+        }
+
+        interface Event {
             /**
              * the parent structure
              */
@@ -11198,52 +11531,52 @@ declare module "gi://Gst?version=1.0" {
              * Get the format, minsize, maxsize and async-flag in the buffersize event.
              * @returns , A pointer to store the format in, A pointer to store the minsize in, A pointer to store the maxsize in, A pointer to store the async-flag in
              */
-            parse_buffer_size(): void
+            parse_buffer_size(): [Format, number, number, boolean]
             /**
              * Get the caps from @event. The caps remains valid as long as @event remains
              * valid.
              * @returns , A pointer to the caps
              */
-            parse_caps(): void
+            parse_caps(): Caps
             /**
              * Parse the FLUSH_STOP event and retrieve the @reset_time member.
              * @returns , if time should be reset
              */
-            parse_flush_stop(): void
+            parse_flush_stop(): boolean
             /**
              * Extract timestamp and duration from a new GAP event.
              * @returns , location where to store the     start time (pts) of the gap, or %NULL, location where to store the duration of     the gap, or %NULL
              */
-            parse_gap(): void
+            parse_gap(): [ClockTime, ClockTime]
             /**
              * Retrieve the gap flags that may have been set on a gap event with
              * gst_event_set_gap_flags().
              * @since 1.20
              * @returns , a #GstGapFlags or %NULL
              */
-            parse_gap_flags(): void
+            parse_gap_flags(): GapFlags
             /**
              * @since 1.2
              * @returns %TRUE if a group id was set on the event and could be parsed,   %FALSE otherwise., address of variable where to store the group id
              */
-            parse_group_id(): boolean
+            parse_group_id(): [boolean, number]
             /**
              * Extract rate and flags from an instant-rate-change event.
              * @since 1.18
              * @returns , location in which to store the rate     multiplier of the instant-rate-change event, or %NULL, location in which to store the new     segment flags of the instant-rate-change event, or %NULL
              */
-            parse_instant_rate_change(): void
+            parse_instant_rate_change(): [number, SegmentFlags]
             /**
              * Extract the rate multiplier and running times from an instant-rate-sync-time event.
              * @since 1.18
              * @returns , location where to store the rate of     the instant-rate-sync-time event, or %NULL, location in which to store the running time     of the instant-rate-sync-time event, or %NULL, location in which to store the     upstream running time of the instant-rate-sync-time event, or %NULL
              */
-            parse_instant_rate_sync_time(): void
+            parse_instant_rate_sync_time(): [number, ClockTime, ClockTime]
             /**
              * Get the latency in the latency event.
              * @returns , A pointer to store the latency in.
              */
-            parse_latency(): void
+            parse_latency(): ClockTime
             /**
              * Parses an event containing protection system specific information and stores
              * the results in @system_id, @data and @origin. The data stored in @system_id,
@@ -11251,7 +11584,7 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.6
              * @returns , pointer to store the UUID string uniquely identifying a content protection system., pointer to store a #GstBuffer holding protection system specific information., pointer to store a value that indicates where the protection information carried by `event` was extracted from.
              */
-            parse_protection(): void
+            parse_protection(): [string, Buffer, string]
             /**
              * Get the type, proportion, diff and timestamp in the qos event. See
              * gst_event_new_qos() for more information about the different QoS values.
@@ -11259,71 +11592,71 @@ declare module "gi://Gst?version=1.0" {
              * @timestamp will be adjusted for any pad offsets of pads it was passing through.
              * @returns , A pointer to store the QoS type in, A pointer to store the proportion in, A pointer to store the diff in, A pointer to store the timestamp in
              */
-            parse_qos(): void
+            parse_qos(): [QOSType, number, ClockTimeDiff, ClockTime]
             /**
              * Parses a seek @event and stores the results in the given result locations.
              * @returns , result location for the rate, result location for the stream format, result location for the #GstSeekFlags, result location for the #GstSeekType of the start position, result location for the start position expressed in `format`, result location for the #GstSeekType of the stop position, result location for the stop position expressed in `format`
              */
-            parse_seek(): void
+            parse_seek(): [number, Format, SeekFlags, SeekType, number, SeekType, number]
             /**
              * Retrieve the trickmode interval that may have been set on a
              * seek event with gst_event_set_seek_trickmode_interval().
              * @since 1.16
              * @returns , interval
              */
-            parse_seek_trickmode_interval(): void
+            parse_seek_trickmode_interval(): ClockTime
             /**
              * Parses a segment @event and stores the result in the given @segment location.
              * @segment remains valid only until the @event is freed. Don't modify the segment
              * and make a copy if you want to modify it or store it for later use.
              * @returns , a pointer to a #GstSegment
              */
-            parse_segment(): void
+            parse_segment(): Segment
             /**
              * Extracts the position and format from the segment done message.
              * @returns , Result location for the format, or %NULL, Result location for the position, or %NULL
              */
-            parse_segment_done(): void
+            parse_segment_done(): [Format, number]
             /**
              * Parse the SELECT_STREAMS event and retrieve the contained streams.
              * @since 1.10
              * @returns , the streams
              */
-            parse_select_streams(): void
+            parse_select_streams(): string[]
             /**
              * Parse the sink-message event. Unref @msg after usage.
              * @returns , a pointer to store the #GstMessage in.
              */
-            parse_sink_message(): void
+            parse_sink_message(): Message
             /**
              * Parse the step event.
              * @returns , a pointer to store the format in, a pointer to store the amount in, a pointer to store the rate in, a pointer to store the flush boolean in, a pointer to store the intermediate     boolean in
              */
-            parse_step(): void
+            parse_step(): [Format, number, number, boolean, boolean]
             /**
              * Parse a stream-start @event and extract the #GstStream from it.
              * @since 1.10
              * @returns , address of variable to store the stream
              */
-            parse_stream(): void
+            parse_stream(): Stream
             /**
              * Retrieve new #GstStreamCollection from STREAM_COLLECTION event @event.
              * @since 1.10
              * @returns , pointer to store the collection.
              */
-            parse_stream_collection(): void
+            parse_stream_collection(): StreamCollection
             /**
              * @since 1.2
              * @returns , address of variable where to store the stream flags
              */
-            parse_stream_flags(): void
+            parse_stream_flags(): StreamFlags
             /**
              * Parse a stream-group-done @event and store the result in the given
              * @group_id location.
              * @since 1.10
              * @returns , address of variable to store the group id into
              */
-            parse_stream_group_done(): void
+            parse_stream_group_done(): number
             /**
              * Parse a stream-id @event and store the result in the given @stream_id
              * location. The string stored in @stream_id must not be modified and will
@@ -11331,7 +11664,7 @@ declare module "gi://Gst?version=1.0" {
              * modify it or store it for later use.
              * @returns , pointer to store the stream-id
              */
-            parse_stream_start(): void
+            parse_stream_start(): string
             /**
              * Parses a tag @event and stores the results in the given @taglist location.
              * No reference to the taglist will be returned, it remains valid only until
@@ -11339,17 +11672,17 @@ declare module "gi://Gst?version=1.0" {
              * want to modify it or store it for later use.
              * @returns , pointer to metadata list
              */
-            parse_tag(): void
+            parse_tag(): TagList
             /**
              * Parse a TOC @event and store the results in the given @toc and @updated locations.
              * @returns , pointer to #GstToc structure., pointer to store TOC updated flag.
              */
-            parse_toc(): void
+            parse_toc(): [Toc, boolean]
             /**
              * Parse a TOC select @event and store the results in the given @uid location.
              * @returns , storage for the selection UID.
              */
-            parse_toc_select(): void
+            parse_toc_select(): string
             /**
              * Sets @flags on @event to give additional information about the reason for
              * the #GST_EVENT_GAP.
@@ -11414,13 +11747,18 @@ declare module "gi://Gst?version=1.0" {
              */
             writable_structure(): Structure
         }
-        /**
-         * A format definition
-         */
-        abstract class FormatDefinition {
-            static readonly $gtype: GObject.GType<FormatDefinition>
 
-            
+        interface $Exports {
+            Event: EventStruct
+        }
+        
+
+        interface FormatDefinitionStruct {
+            readonly $gtype: GObject.GType<FormatDefinition>
+            [Symbol.hasInstance](instance: unknown): instance is FormatDefinition
+        }
+
+        interface FormatDefinition {
             /**
              * The unique id of this format
              */
@@ -11438,29 +11776,37 @@ declare module "gi://Gst?version=1.0" {
              */
             quark: GLib.Quark
         }
-        none
-        /**
-         */
-        abstract class GhostPadPrivate {
-            static readonly $gtype: GObject.GType<GhostPadPrivate>
 
-            
+        interface $Exports {
+            FormatDefinition: FormatDefinitionStruct
         }
-        /**
-         * s);
-         * ```
-         * @since 1.26
-         */
-        abstract class IdStr {
-            static readonly $gtype: GObject.GType<IdStr>
+        
 
-            
+        interface GhostPadPrivateStruct {
+            readonly $gtype: GObject.GType<GhostPadPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is GhostPadPrivate
+        }
+
+        interface GhostPadPrivate {
+        }
+
+        interface $Exports {
+            GhostPadPrivate: GhostPadPrivateStruct
+        }
+        
+
+        interface IdStrStruct {
+            readonly $gtype: GObject.GType<IdStr>
+            [Symbol.hasInstance](instance: unknown): instance is IdStr
             /**
              * Returns a newly heap allocated empty string.
              * @since 1.26
              * @returns A heap-allocated string.
              */
-            static "new"(): IdStr
+            "new"(): IdStr
+        }
+
+        interface IdStr {
             /**
              * @since 1.26
              * @returns the NUL-terminated string representation of `s`.
@@ -11565,15 +11911,15 @@ declare module "gi://Gst?version=1.0" {
              */
             set_with_len(value: string, len: number): void
         }
-        /**
-         * item);
-         *   gst_iterator_free (it);
-         * ]|
-         */
-        abstract class Iterator {
-            static readonly $gtype: GObject.GType<Iterator>
 
-            
+        interface $Exports {
+            IdStr: IdStrStruct
+        }
+        
+
+        interface IteratorStruct {
+            readonly $gtype: GObject.GType<Iterator>
+            [Symbol.hasInstance](instance: unknown): instance is Iterator
             /**
              * This #GstIterator is a convenient iterator for the common
              * case where a #GstIterator needs to be returned but only
@@ -11583,7 +11929,10 @@ declare module "gi://Gst?version=1.0" {
              * @param object object that this iterator should return
              * @returns the new #GstIterator for `object`.
              */
-            static new_single(type: (GObject.GType | { $gtype: GObject.GType }), object: GObject.Value): Iterator
+            new_single(type: (GObject.GType | { $gtype: GObject.GType }), object: (GObject.Value | unknown)): Iterator
+        }
+
+        interface Iterator {
             /**
              * The function to copy the iterator
              */
@@ -11646,7 +11995,7 @@ declare module "gi://Gst?version=1.0" {
              * @param user_data user data passed to the compare function
              * @returns a new #GstIterator.  MT safe.
              */
-            filter(func: GLib.CompareFunc, user_data: GObject.Value): Iterator
+            filter(func: GLib.CompareFunc, user_data: (GObject.Value | unknown)): Iterator
             /**
              * Find the first element in @it that matches the compare function @func.
              * @func should return 0 when the element is found. The first parameter
@@ -11661,7 +12010,7 @@ declare module "gi://Gst?version=1.0" {
              * @param func the compare function to use
              * @returns Returns %TRUE if the element was found, else %FALSE.  MT safe., pointer to a #GValue where to store the result
              */
-            find_custom(func: GLib.CompareFunc): [boolean, GObject.Value]
+            find_custom(func: GLib.CompareFunc): [boolean, unknown]
             /**
              * Folds @func over the elements of @iter. That is to say, @func will be called
              * as @func (object, @ret, @user_data) for each object in @it. The normal use
@@ -11682,7 +12031,7 @@ declare module "gi://Gst?version=1.0" {
              * @param ret the seed value passed to the fold function
              * @returns A #GstIteratorResult, as described above.  MT safe.
              */
-            fold(func: IteratorFoldFunction, ret: GObject.Value): IteratorResult
+            fold(func: IteratorFoldFunction, ret: (GObject.Value | unknown)): IteratorResult
             /**
              * Iterate over all element of @it and call the given function @func for
              * each element.
@@ -11715,7 +12064,7 @@ declare module "gi://Gst?version=1.0" {
              * A return value of %GST_ITERATOR_ERROR indicates an unrecoverable fatal error.
              * @returns The result of the iteration. Unset `elem` after usage.  MT safe., pointer to hold next element
              */
-            next(): [IteratorResult, GObject.Value]
+            next(): [IteratorResult, unknown]
             /**
              * Pushes @other iterator onto @it. All calls performed on @it are
              * forwarded to @other. If @other returns %GST_ITERATOR_DONE, it is
@@ -11742,18 +12091,18 @@ declare module "gi://Gst?version=1.0" {
              */
             resync(): void
         }
-        /**
-         * A structure containing the result of a map operation such as
-         * gst_memory_map(). It contains the data and size.
-         *
-         * #GstMapInfo cannot be used with g_auto() because it is ambiguous whether it
-         * needs to be unmapped using gst_buffer_unmap() or gst_memory_unmap(). Instead,
-         * #GstBufferMapInfo and #GstMemoryMapInfo can be used in that case.
-         */
-        abstract class MapInfo {
-            static readonly $gtype: GObject.GType<MapInfo>
 
-            
+        interface $Exports {
+            Iterator: IteratorStruct
+        }
+        
+
+        interface MapInfoStruct {
+            readonly $gtype: GObject.GType<MapInfo>
+            [Symbol.hasInstance](instance: unknown): instance is MapInfo
+        }
+
+        interface MapInfo {
             /**
              * a pointer to the mapped memory
              */
@@ -11780,48 +12129,15 @@ declare module "gi://Gst?version=1.0" {
              */
             user_data: never[]
         }
-        /**
-         * GstMemory is a lightweight refcounted object that wraps a region of memory.
-         * They are typically used to manage the data of a #GstBuffer.
-         *
-         * A GstMemory object has an allocated region of memory of maxsize. The maximum
-         * size does not change during the lifetime of the memory object. The memory
-         * also has an offset and size property that specifies the valid range of memory
-         * in the allocated region.
-         *
-         * Memory is usually created by allocators with a gst_allocator_alloc()
-         * method call. When %NULL is used as the allocator, the default allocator will
-         * be used.
-         *
-         * New allocators can be registered with gst_allocator_register().
-         * Allocators are identified by name and can be retrieved with
-         * gst_allocator_find(). gst_allocator_set_default() can be used to change the
-         * default allocator.
-         *
-         * New memory can be created with gst_memory_new_wrapped() that wraps the memory
-         * allocated elsewhere.
-         *
-         * Refcounting of the memory block is performed with gst_memory_ref() and
-         * gst_memory_unref().
-         *
-         * The size of the memory can be retrieved and changed with
-         * gst_memory_get_sizes() and gst_memory_resize() respectively.
-         *
-         * Getting access to the data of the memory is performed with gst_memory_map().
-         * The call will return a pointer to offset bytes into the region of memory.
-         * After the memory access is completed, gst_memory_unmap() should be called.
-         *
-         * Memory can be copied with gst_memory_copy(), which will return a writable
-         * copy. gst_memory_share() will create a new memory block that shares the
-         * memory with an existing memory block at a custom offset and with a custom
-         * size.
-         *
-         * Memory can be efficiently merged when gst_memory_is_span() returns %TRUE.
-         */
-        abstract class Memory {
-            static readonly $gtype: GObject.GType<Memory>
 
-            
+        interface $Exports {
+            MapInfo: MapInfoStruct
+        }
+        
+
+        interface MemoryStruct {
+            readonly $gtype: GObject.GType<Memory>
+            [Symbol.hasInstance](instance: unknown): instance is Memory
             /**
              * Allocate a new memory block that wraps the given @data.
              *
@@ -11835,7 +12151,10 @@ declare module "gi://Gst?version=1.0" {
              * @param notify called with @user_data when the memory is freed
              * @returns a new #GstMemory.
              */
-            static new_wrapped(flags: MemoryFlags, data: Uint8Array, maxsize: number, offset: number, notify: GLib.DestroyNotify | null): Memory | null
+            new_wrapped(flags: MemoryFlags, data: Uint8Array, maxsize: number, offset: number, notify: GLib.DestroyNotify | null): Memory | null
+        }
+
+        interface Memory {
             /**
              * parent structure
              */
@@ -11877,7 +12196,7 @@ declare module "gi://Gst?version=1.0" {
              * Get the current @size, @offset and @maxsize of @mem.
              * @returns the current size of `mem`, pointer to offset, pointer to maxsize
              */
-            get_sizes(): number
+            get_sizes(): [number, number, number]
             /**
              * Check if @mem1 and mem2 share the memory with a common parent memory object
              * and that the memory is contiguous.
@@ -11950,18 +12269,15 @@ declare module "gi://Gst?version=1.0" {
              */
             unmap(info: MapInfo): void
         }
-        /**
-         *
-         *   gst_bus_post (bus, gst_message_new_eos());
-         * ]|
-         *
-         * A #GstElement usually posts messages on the bus provided by the parent
-         * container using gst_element_post_message().
-         */
-        abstract class Message {
-            static readonly $gtype: GObject.GType<Message>
 
-            
+        interface $Exports {
+            Memory: MemoryStruct
+        }
+        
+
+        interface MessageStruct {
+            readonly $gtype: GObject.GType<Message>
+            [Symbol.hasInstance](instance: unknown): instance is Message
             /**
              * Create a new application-typed message. GStreamer will never create these
              * messages; they are a gift from us to you. Enjoy.
@@ -11970,7 +12286,7 @@ declare module "gi://Gst?version=1.0" {
                 will take ownership of the structure.
              * @returns The new application message.  MT safe.
              */
-            static new_application(src: Object | null, structure: Structure): Message
+            new_application(src: Object | null, structure: Structure): Message
             /**
              * The message is posted when elements completed an ASYNC state change.
              * @running_time contains the time of the desired running_time when this
@@ -11981,15 +12297,19 @@ declare module "gi://Gst?version=1.0" {
              * @param running_time the desired running_time
              * @returns The new async_done message.  MT safe.
              */
-            static new_async_done(src: Object | null, running_time: ClockTime): Message
+            new_async_done(src: Object | null, running_time: ClockTime): Message
             /**
              * This message is posted by elements when they start an ASYNC state change.
              * @param src The object originating the message.
              * @returns The new async_start message.  MT safe.
              */
-            static new_async_start(src: Object | null): Message
+            new_async_start(src: Object | null): Message
             /**
-             *  100 the application should PAUSE a PLAYING pipeline. When
+             * Create a new buffering message. This message can be posted by an element that
+             * needs to buffer data before it can continue processing. @percent should be a
+             * value between 0 and 100. A value of 100 means that the buffering completed.
+             *
+             * When @percent is < 100 the application should PAUSE a PLAYING pipeline. When
              * @percent is 100, the application can set the pipeline (back) to PLAYING.
              * The application must be prepared to receive BUFFERING messages in the
              * PREROLLING state and may only set the pipeline to PLAYING after receiving a
@@ -12001,7 +12321,7 @@ declare module "gi://Gst?version=1.0" {
              * @param percent The buffering percent
              * @returns The new buffering message.
              */
-            static new_buffering(src: Object | null, percent: number): Message
+            new_buffering(src: Object | null, percent: number): Message
             /**
              * Create a clock lost message. This message is posted whenever the
              * clock is not valid anymore.
@@ -12013,7 +12333,7 @@ declare module "gi://Gst?version=1.0" {
              * @param clock the clock that was lost
              * @returns The new clock lost message.  MT safe.
              */
-            static new_clock_lost(src: Object | null, clock: Clock): Message
+            new_clock_lost(src: Object | null, clock: Clock): Message
             /**
              * Create a clock provide message. This message is posted whenever an
              * element is ready to provide a clock or lost its ability to provide
@@ -12026,7 +12346,7 @@ declare module "gi://Gst?version=1.0" {
              * @param ready %TRUE if the sender can provide a clock
              * @returns the new provide clock message.  MT safe.
              */
-            static new_clock_provide(src: Object | null, clock: Clock, ready: boolean): Message
+            new_clock_provide(src: Object | null, clock: Clock, ready: boolean): Message
             /**
              * Create a new custom-typed message. This can be used for anything not
              * handled by other message-specific functions to pass a message to the
@@ -12037,7 +12357,7 @@ declare module "gi://Gst?version=1.0" {
                 message. The message will take ownership of the structure.
              * @returns The new message.  MT safe.
              */
-            static new_custom(type: MessageType, src: Object | null, structure: Structure | null): Message
+            new_custom(type: MessageType, src: Object | null, structure: Structure | null): Message
             /**
              * Creates a new device-added message. The device-added message is produced by
              * #GstDeviceProvider or a #GstDeviceMonitor. They announce the appearance
@@ -12047,7 +12367,7 @@ declare module "gi://Gst?version=1.0" {
              * @param device The new #GstDevice
              * @returns a newly allocated #GstMessage
              */
-            static new_device_added(src: Object | null, device: Device): Message
+            new_device_added(src: Object | null, device: Device): Message
             /**
              * Creates a new device-changed message. The device-changed message is produced
              * by #GstDeviceProvider or a #GstDeviceMonitor. They announce that a device
@@ -12059,7 +12379,7 @@ declare module "gi://Gst?version=1.0" {
              * @param changed_device The old version of the device.
              * @returns a newly allocated #GstMessage
              */
-            static new_device_changed(src: Object | null, device: Device, changed_device: Device): Message
+            new_device_changed(src: Object | null, device: Device, changed_device: Device): Message
             /**
              * Creates a new device-removed message. The device-removed message is produced
              * by #GstDeviceProvider or a #GstDeviceMonitor. They announce the
@@ -12069,7 +12389,7 @@ declare module "gi://Gst?version=1.0" {
              * @param device The removed #GstDevice
              * @returns a newly allocated #GstMessage
              */
-            static new_device_removed(src: Object | null, device: Device): Message
+            new_device_removed(src: Object | null, device: Device): Message
             /**
              * Create a new duration changed message. This message is posted by elements
              * that know the duration of a stream when the duration changes. This message
@@ -12078,7 +12398,7 @@ declare module "gi://Gst?version=1.0" {
              * @param src The object originating the message.
              * @returns The new duration-changed message.  MT safe.
              */
-            static new_duration_changed(src: Object | null): Message
+            new_duration_changed(src: Object | null): Message
             /**
              * Create a new element-specific message. This is meant as a generic way of
              * allowing one-way communication from an element to an application, for example
@@ -12089,7 +12409,7 @@ declare module "gi://Gst?version=1.0" {
                 message. The message will take ownership of the structure.
              * @returns The new element message.  MT safe.
              */
-            static new_element(src: Object | null, structure: Structure): Message
+            new_element(src: Object | null, structure: Structure): Message
             /**
              * Create a new eos message. This message is generated and posted in
              * the sink elements of a GstBin. The bin will only forward the EOS
@@ -12097,7 +12417,7 @@ declare module "gi://Gst?version=1.0" {
              * @param src The object originating the message.
              * @returns The new eos message.  MT safe.
              */
-            static new_eos(src: Object | null): Message
+            new_eos(src: Object | null): Message
             /**
              * Create a new error message. The message will copy @error and
              * @debug. This message is posted by element when a fatal event
@@ -12108,7 +12428,7 @@ declare module "gi://Gst?version=1.0" {
              * @param debug A debugging string.
              * @returns the new error message.  MT safe.
              */
-            static new_error(src: Object | null, error: GLib.Error, debug: string): Message
+            new_error(src: Object | null, error: GLib.Error, debug: string): Message
             /**
              * Create a new error message. The message will copy @error and
              * @debug. This message is posted by element when a fatal event
@@ -12121,7 +12441,7 @@ declare module "gi://Gst?version=1.0" {
              * @param details A GstStructure with details
              * @returns the new error message.
              */
-            static new_error_with_details(src: Object | null, error: GLib.Error, debug: string, details: Structure | null): Message
+            new_error_with_details(src: Object | null, error: GLib.Error, debug: string, details: Structure | null): Message
             /**
              * This message is posted when an element has a new local #GstContext.
              * @since 1.2
@@ -12129,7 +12449,7 @@ declare module "gi://Gst?version=1.0" {
              * @param context the context
              * @returns The new have-context message.  MT safe.
              */
-            static new_have_context(src: Object | null, context: Context): Message
+            new_have_context(src: Object | null, context: Context): Message
             /**
              * Create a new info message. The message will make copies of @error and
              * @debug.
@@ -12138,7 +12458,7 @@ declare module "gi://Gst?version=1.0" {
              * @param debug A debugging string.
              * @returns the new info message.  MT safe.
              */
-            static new_info(src: Object | null, error: GLib.Error, debug: string): Message
+            new_info(src: Object | null, error: GLib.Error, debug: string): Message
             /**
              * Create a new info message. The message will make copies of @error and
              * @debug.
@@ -12149,7 +12469,7 @@ declare module "gi://Gst?version=1.0" {
              * @param details A GstStructure with details
              * @returns the new warning message.
              */
-            static new_info_with_details(src: Object | null, error: GLib.Error, debug: string, details: Structure | null): Message
+            new_info_with_details(src: Object | null, error: GLib.Error, debug: string, details: Structure | null): Message
             /**
              * Creates a new instant-rate-request message. Elements handling the
              * instant-rate-change event must post this message. The message is
@@ -12162,14 +12482,14 @@ declare module "gi://Gst?version=1.0" {
              * @param rate_multiplier the rate multiplier factor that should be applied
              * @returns a newly allocated #GstMessage
              */
-            static new_instant_rate_request(src: Object | null, rate_multiplier: number): Message
+            new_instant_rate_request(src: Object | null, rate_multiplier: number): Message
             /**
              * This message can be posted by elements when their latency requirements have
              * changed.
              * @param src The object originating the message.
              * @returns The new latency message.  MT safe.
              */
-            static new_latency(src: Object | null): Message
+            new_latency(src: Object | null): Message
             /**
              * This message is posted when an element needs a specific #GstContext.
              * @since 1.2
@@ -12177,7 +12497,7 @@ declare module "gi://Gst?version=1.0" {
              * @param context_type The context type that is needed
              * @returns The new need-context message.  MT safe.
              */
-            static new_need_context(src: Object | null, context_type: string): Message
+            new_need_context(src: Object | null, context_type: string): Message
             /**
              * Create a new clock message. This message is posted whenever the
              * pipeline selects a new clock for the pipeline.
@@ -12185,7 +12505,7 @@ declare module "gi://Gst?version=1.0" {
              * @param clock the new selected clock
              * @returns The new new clock message.  MT safe.
              */
-            static new_new_clock(src: Object | null, clock: Clock): Message
+            new_new_clock(src: Object | null, clock: Clock): Message
             /**
              * Progress messages are posted by elements when they use an asynchronous task
              * to perform actions triggered by a state change.
@@ -12198,7 +12518,7 @@ declare module "gi://Gst?version=1.0" {
              * @param text free, user visible text describing the progress
              * @returns The new qos message.
              */
-            static new_progress(src: Object | null, type: ProgressType, code: string, text: string): Message
+            new_progress(src: Object | null, type: ProgressType, code: string, text: string): Message
             /**
              * @since 1.10
              * @param src The #GstObject whose property changed (may or may not be a #GstElement)
@@ -12206,7 +12526,7 @@ declare module "gi://Gst?version=1.0" {
              * @param val new property value, or %NULL
              * @returns a newly allocated #GstMessage
              */
-            static new_property_notify(src: Object, property_name: string, val: GObject.Value | null): Message
+            new_property_notify(src: Object, property_name: string, val: GObject.Value | null): Message
             /**
              * A QOS message is posted on the bus whenever an element decides to drop a
              * buffer because of QoS reasons or whenever it changes its processing strategy
@@ -12229,7 +12549,7 @@ declare module "gi://Gst?version=1.0" {
              * @param duration the duration of the buffer that generated the message
              * @returns The new qos message.  MT safe.
              */
-            static new_qos(src: Object | null, live: boolean, running_time: number, stream_time: number, timestamp: number, duration: number): Message
+            new_qos(src: Object | null, live: boolean, running_time: number, stream_time: number, timestamp: number, duration: number): Message
             /**
              * Creates a new redirect message and adds a new entry to it. Redirect messages
              * are posted when an element detects that the actual data has to be retrieved
@@ -12263,7 +12583,7 @@ declare module "gi://Gst?version=1.0" {
              * @param entry_struct structure for the new entry
              * @returns a newly allocated #GstMessage
              */
-            static new_redirect(src: Object | null, location: string, tag_list: TagList | null, entry_struct: Structure | null): Message
+            new_redirect(src: Object | null, location: string, tag_list: TagList | null, entry_struct: Structure | null): Message
             /**
              * This message can be posted by elements when they want to have their state
              * changed. A typical use case would be an audio server that wants to pause the
@@ -12272,7 +12592,7 @@ declare module "gi://Gst?version=1.0" {
              * @param state The new requested state
              * @returns the new request state message.  MT safe.
              */
-            static new_request_state(src: Object | null, state: State): Message
+            new_request_state(src: Object | null, state: State): Message
             /**
              * This message is posted when the pipeline running-time should be reset to
              * @running_time, like after a flushing seek.
@@ -12280,7 +12600,7 @@ declare module "gi://Gst?version=1.0" {
              * @param running_time the requested running-time
              * @returns The new reset_time message.  MT safe.
              */
-            static new_reset_time(src: Object | null, running_time: ClockTime): Message
+            new_reset_time(src: Object | null, running_time: ClockTime): Message
             /**
              * Create a new segment done message. This message is posted by elements that
              * finish playback of a segment as a result of a segment seek. This message
@@ -12291,7 +12611,7 @@ declare module "gi://Gst?version=1.0" {
              * @param position The position of the segment being done
              * @returns the new segment done message.  MT safe.
              */
-            static new_segment_done(src: Object | null, format: Format, position: number): Message
+            new_segment_done(src: Object | null, format: Format, position: number): Message
             /**
              * Create a new segment message. This message is posted by elements that
              * start playback of a segment as a result of a segment seek. This message
@@ -12302,7 +12622,7 @@ declare module "gi://Gst?version=1.0" {
              * @param position The position of the segment being played
              * @returns the new segment start message.  MT safe.
              */
-            static new_segment_start(src: Object | null, format: Format, position: number): Message
+            new_segment_start(src: Object | null, format: Format, position: number): Message
             /**
              * Create a state change message. This message is posted whenever an element
              * changed its state.
@@ -12312,7 +12632,7 @@ declare module "gi://Gst?version=1.0" {
              * @param pending the pending (target) state
              * @returns the new state change message.  MT safe.
              */
-            static new_state_changed(src: Object | null, oldstate: State, newstate: State, pending: State): Message
+            new_state_changed(src: Object | null, oldstate: State, newstate: State, pending: State): Message
             /**
              * Create a state dirty message. This message is posted whenever an element
              * changed its state asynchronously and is used internally to update the
@@ -12320,7 +12640,7 @@ declare module "gi://Gst?version=1.0" {
              * @param src The object originating the message
              * @returns the new state dirty message.  MT safe.
              */
-            static new_state_dirty(src: Object | null): Message
+            new_state_dirty(src: Object | null): Message
             /**
              * This message is posted by elements when they complete a part, when @intermediate set
              * to %TRUE, or a complete step operation.
@@ -12337,7 +12657,7 @@ declare module "gi://Gst?version=1.0" {
              * @param eos the step caused EOS
              * @returns the new step_done message.  MT safe.
              */
-            static new_step_done(src: Object | null, format: Format, amount: number, rate: number, flush: boolean, intermediate: boolean, duration: number, eos: boolean): Message
+            new_step_done(src: Object | null, format: Format, amount: number, rate: number, flush: boolean, intermediate: boolean, duration: number, eos: boolean): Message
             /**
              * This message is posted by elements when they accept or activate a new step
              * event for @amount in @format.
@@ -12358,7 +12678,7 @@ declare module "gi://Gst?version=1.0" {
              * @param intermediate is this an intermediate step
              * @returns The new step_start message.  MT safe.
              */
-            static new_step_start(src: Object | null, active: boolean, format: Format, amount: number, rate: number, flush: boolean, intermediate: boolean): Message
+            new_step_start(src: Object | null, active: boolean, format: Format, amount: number, rate: number, flush: boolean, intermediate: boolean): Message
             /**
              * Creates a new stream-collection message. The message is used to announce new
              * #GstStreamCollection
@@ -12367,7 +12687,7 @@ declare module "gi://Gst?version=1.0" {
              * @param collection The #GstStreamCollection
              * @returns a newly allocated #GstMessage
              */
-            static new_stream_collection(src: Object | null, collection: StreamCollection): Message
+            new_stream_collection(src: Object | null, collection: StreamCollection): Message
             /**
              * Create a new stream_start message. This message is generated and posted in
              * the sink elements of a GstBin. The bin will only forward the STREAM_START
@@ -12375,7 +12695,7 @@ declare module "gi://Gst?version=1.0" {
              * @param src The object originating the message.
              * @returns The new stream_start message.  MT safe.
              */
-            static new_stream_start(src: Object | null): Message
+            new_stream_start(src: Object | null): Message
             /**
              * Create a new stream status message. This message is posted when a streaming
              * thread is created/destroyed or when the state changed.
@@ -12384,7 +12704,7 @@ declare module "gi://Gst?version=1.0" {
              * @param owner the owner element of @src.
              * @returns the new stream status message.  MT safe.
              */
-            static new_stream_status(src: Object | null, type: StreamStatusType, owner: Element): Message
+            new_stream_status(src: Object | null, type: StreamStatusType, owner: Element): Message
             /**
              * Creates a new steams-selected message. The message is used to announce
              * that an array of streams has been selected. This is generally in response
@@ -12401,7 +12721,7 @@ declare module "gi://Gst?version=1.0" {
              * @param collection The #GstStreamCollection
              * @returns a newly allocated #GstMessage
              */
-            static new_streams_selected(src: Object | null, collection: StreamCollection): Message
+            new_streams_selected(src: Object | null, collection: StreamCollection): Message
             /**
              * Create a new structure change message. This message is posted when the
              * structure of a pipeline is in the process of being changed, for example
@@ -12414,7 +12734,7 @@ declare module "gi://Gst?version=1.0" {
              * @param busy Whether the structure change is busy.
              * @returns the new structure change message.  MT safe.
              */
-            static new_structure_change(src: Object | null, type: StructureChangeType, owner: Element, busy: boolean): Message
+            new_structure_change(src: Object | null, type: StructureChangeType, owner: Element, busy: boolean): Message
             /**
              * Create a new tag message. The message will take ownership of the tag list.
              * The message is posted by elements that discovered a new taglist.
@@ -12422,7 +12742,7 @@ declare module "gi://Gst?version=1.0" {
              * @param tag_list the tag list for the message.
              * @returns the new tag message.  MT safe.
              */
-            static new_tag(src: Object | null, tag_list: TagList): Message
+            new_tag(src: Object | null, tag_list: TagList): Message
             /**
              * Create a new TOC message. The message is posted by elements
              * that discovered or updated a TOC.
@@ -12431,7 +12751,7 @@ declare module "gi://Gst?version=1.0" {
              * @param updated whether TOC was updated or not.
              * @returns a new TOC message.  MT safe.
              */
-            static new_toc(src: Object | null, toc: Toc, updated: boolean): Message
+            new_toc(src: Object | null, toc: Toc, updated: boolean): Message
             /**
              * Create a new warning message. The message will make copies of @error and
              * @debug.
@@ -12440,7 +12760,7 @@ declare module "gi://Gst?version=1.0" {
              * @param debug A debugging string.
              * @returns the new warning message.  MT safe.
              */
-            static new_warning(src: Object | null, error: GLib.Error, debug: string): Message
+            new_warning(src: Object | null, error: GLib.Error, debug: string): Message
             /**
              * Create a new warning message. The message will make copies of @error and
              * @debug.
@@ -12451,7 +12771,7 @@ declare module "gi://Gst?version=1.0" {
              * @param details A GstStructure with details
              * @returns the new warning message.
              */
-            static new_warning_with_details(src: Object | null, error: GLib.Error, debug: string, details: Structure | null): Message
+            new_warning_with_details(src: Object | null, error: GLib.Error, debug: string, details: Structure | null): Message
             /**
              * Modifies a pointer to a #GstMessage to point to a different #GstMessage. This
              * function is similar to gst_message_replace() except that it takes ownership
@@ -12461,7 +12781,10 @@ declare module "gi://Gst?version=1.0" {
                 will replace the message pointed to by @old_message.
              * @returns %TRUE if `new_message` was different from `old_message`, pointer to a pointer to a #GstMessage     to be replaced.
              */
-            static take(new_message: Message | null): [boolean, Message]
+            take(new_message: Message | null): [boolean, Message]
+        }
+
+        interface Message {
             /**
              * the parent structure
              */
@@ -12545,7 +12868,7 @@ declare module "gi://Gst?version=1.0" {
              * MT safe.
              * @returns , Result location for the running_time or %NULL
              */
-            parse_async_done(): void
+            parse_async_done(): ClockTime
             /**
              * Extracts the buffering percent from the GstMessage. see also
              * gst_message_new_buffering().
@@ -12553,12 +12876,12 @@ declare module "gi://Gst?version=1.0" {
              * MT safe.
              * @returns , Return location for the percent.
              */
-            parse_buffering(): void
+            parse_buffering(): number
             /**
              * Extracts the buffering stats values from @message.
              * @returns , a buffering mode, or %NULL, the average input rate, or %NULL, the average output rate, or %NULL, amount of buffering time left in     milliseconds, or %NULL
              */
-            parse_buffering_stats(): void
+            parse_buffering_stats(): [BufferingMode, number, number, number]
             /**
              * Extracts the lost clock from the GstMessage.
              * The clock object returned remains valid until the message is freed.
@@ -12566,7 +12889,7 @@ declare module "gi://Gst?version=1.0" {
              * MT safe.
              * @returns , a pointer to hold the lost clock
              */
-            parse_clock_lost(): void
+            parse_clock_lost(): Clock
             /**
              * Extracts the clock and ready flag from the GstMessage.
              * The clock object returned remains valid until the message is freed.
@@ -12574,13 +12897,13 @@ declare module "gi://Gst?version=1.0" {
              * MT safe.
              * @returns , a pointer to  hold a clock     object, or %NULL, a pointer to hold the ready flag, or %NULL
              */
-            parse_clock_provide(): void
+            parse_clock_provide(): [Clock, boolean]
             /**
              * Parse a context type from an existing GST_MESSAGE_NEED_CONTEXT message.
              * @since 1.2
              * @returns a #gboolean indicating if the parsing succeeded., the context type, or %NULL
              */
-            parse_context_type(): boolean
+            parse_context_type(): [boolean, string]
             /**
              * Parses a device-added message. The device-added message is produced by
              * #GstDeviceProvider or a #GstDeviceMonitor. It announces the appearance
@@ -12588,7 +12911,7 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.4
              * @returns , A location where to store a  pointer to the new #GstDevice, or %NULL
              */
-            parse_device_added(): void
+            parse_device_added(): Device
             /**
              * Parses a device-changed message. The device-changed message is produced by
              * #GstDeviceProvider or a #GstDeviceMonitor. It announces the
@@ -12597,7 +12920,7 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.16
              * @returns , A location where to store a  pointer to the updated version of the #GstDevice, or %NULL, A location where to store a  pointer to the old version of the #GstDevice, or %NULL
              */
-            parse_device_changed(): void
+            parse_device_changed(): [Device, Device]
             /**
              * Parses a device-removed message. The device-removed message is produced by
              * #GstDeviceProvider or a #GstDeviceMonitor. It announces the
@@ -12605,9 +12928,22 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.4
              * @returns , A location where to store a  pointer to the removed #GstDevice, or %NULL
              */
-            parse_device_removed(): void
+            parse_device_removed(): Device
             /**
-             * message);
+             * Extracts the GError and debug string from the GstMessage. The values returned
+             * in the output arguments are copies; the caller must free them when done.
+             *
+             * Typical usage of this function might be:
+             * |[<!-- language="C" -->
+             *   ...
+             *   switch (GST_MESSAGE_TYPE (msg)) {
+             *     case GST_MESSAGE_ERROR: {
+             *       GError *err = NULL;
+             *       gchar *dbg_info = NULL;
+             *
+             *       gst_message_parse_error (msg, &err, &dbg_info);
+             *       g_printerr ("ERROR from element %s: %s\n",
+             *           GST_OBJECT_NAME (msg->src), err->message);
              *       g_printerr ("Debugging info: %s\n", (dbg_info) ? dbg_info : "none");
              *       g_error_free (err);
              *       g_free (dbg_info);
@@ -12621,27 +12957,27 @@ declare module "gi://Gst?version=1.0" {
              * MT safe.
              * @returns , location for the GError, location for the debug message,     or %NULL
              */
-            parse_error(): void
+            parse_error(): [GLib.Error, string | null]
             /**
              * Returns the optional details structure, may be NULL if none.
              * The returned structure must not be freed.
              * @since 1.10
              * @returns , A pointer to the returned details
              */
-            parse_error_details(): void
+            parse_error_details(): Structure | null
             /**
              * Returns the details structure if present or will create one if not present.
              * The returned structure must not be freed.
              * @since 1.26
              * @returns , A pointer to the returned details
              */
-            parse_error_writable_details(): void
+            parse_error_writable_details(): Structure | null
             /**
              * Extract the group from the STREAM_START message.
              * @since 1.2
              * @returns %TRUE if the message had a group id set, %FALSE otherwise  MT safe., Result location for the group id or      %NULL
              */
-            parse_group_id(): boolean
+            parse_group_id(): [boolean, number]
             /**
              * Extract the context from the HAVE_CONTEXT message.
              *
@@ -12649,7 +12985,7 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.2
              * @returns , Result location for the      context or %NULL
              */
-            parse_have_context(): void
+            parse_have_context(): Context
             /**
              * Extracts the GError and debug string from the GstMessage. The values returned
              * in the output arguments are copies; the caller must free them when done.
@@ -12657,27 +12993,27 @@ declare module "gi://Gst?version=1.0" {
              * MT safe.
              * @returns , location for the GError, location for the debug message,     or %NULL
              */
-            parse_info(): void
+            parse_info(): [GLib.Error, string | null]
             /**
              * Returns the optional details structure, may be NULL if none
              * The returned structure must not be freed.
              * @since 1.10
              * @returns , A pointer to the returned details
              */
-            parse_info_details(): void
+            parse_info_details(): Structure | null
             /**
              * Returns the details structure if present or will create one if not present.
              * The returned structure must not be freed.
              * @since 1.26
              * @returns , A pointer to the returned details
              */
-            parse_info_writable_details(): void
+            parse_info_writable_details(): Structure | null
             /**
              * Parses the rate_multiplier from the instant-rate-request message.
              * @since 1.18
              * @returns , return location for the rate, or %NULL
              */
-            parse_instant_rate_request(): void
+            parse_instant_rate_request(): number
             /**
              * Extracts the new clock from the GstMessage.
              * The clock object returned remains valid until the message is freed.
@@ -12685,12 +13021,12 @@ declare module "gi://Gst?version=1.0" {
              * MT safe.
              * @returns , a pointer to hold the selected     new clock
              */
-            parse_new_clock(): void
+            parse_new_clock(): Clock
             /**
              * Parses the progress @type, @code and @text.
              * @returns , location for the type, location for the code, location for the text
              */
-            parse_progress(): void
+            parse_progress(): [ProgressType, string, string]
             /**
              * Parses a property-notify message. These will be posted on the bus only
              * when set up with gst_element_add_property_notify_watch() or
@@ -12698,7 +13034,7 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.10
              * @returns , location where to store a     pointer to the object whose property got changed, or %NULL, return location for     the name of the property that got changed, or %NULL, return location for     the new value of the property that got changed, or %NULL. This will     only be set if the property notify watch was told to include the value     when it was set up
              */
-            parse_property_notify(): void
+            parse_property_notify(): [Object, string, GObject.Value | null]
             /**
              * Extract the timestamps and live status from the QoS message.
              *
@@ -12709,7 +13045,7 @@ declare module "gi://Gst?version=1.0" {
              * MT safe.
              * @returns , if the message was generated by a live element, the running time of the buffer that     generated the message, the stream time of the buffer that     generated the message, the timestamps of the buffer that     generated the message, the duration of the buffer that     generated the message
              */
-            parse_qos(): void
+            parse_qos(): [boolean, number, number, number, number]
             /**
              * Extract the QoS stats representing the history of the current continuous
              * pipeline playback period.
@@ -12720,14 +13056,14 @@ declare module "gi://Gst?version=1.0" {
              * MT safe.
              * @returns , Units of the 'processed' and 'dropped' fields.     Video sinks and video filters will use GST_FORMAT_BUFFERS (frames).     Audio sinks and audio filters will likely use GST_FORMAT_DEFAULT     (samples)., Total number of units correctly processed     since the last state change to READY or a flushing operation., Total number of units dropped since the last     state change to READY or a flushing operation.
              */
-            parse_qos_stats(): void
+            parse_qos_stats(): [Format, number, number]
             /**
              * Extract the QoS values that have been calculated/analysed from the QoS data
              *
              * MT safe.
              * @returns , The difference of the running-time against     the deadline., Long term prediction of the ideal rate     relative to normal rate to get optimal quality., An element dependent integer value that     specifies the current quality level of the element. The default     maximum quality is 1000000.
              */
-            parse_qos_values(): void
+            parse_qos_values(): [number, number, number]
             /**
              * Parses the location and/or structure from the entry with the given index.
              * The index must be between 0 and gst_message_get_num_redirect_entries() - 1.
@@ -12736,37 +13072,48 @@ declare module "gi://Gst?version=1.0" {
              * @param entry_index index of the entry to parse
              * @returns , return location for     the pointer to the entry's location string, or %NULL, return location for     the pointer to the entry's tag list, or %NULL, return location     for the pointer to the entry's structure, or %NULL
              */
-            parse_redirect_entry(entry_index: number): void
+            parse_redirect_entry(entry_index: number): [string, TagList | null, Structure | null]
             /**
              * Extract the requested state from the request_state message.
              *
              * MT safe.
              * @returns , Result location for the requested state or %NULL
              */
-            parse_request_state(): void
+            parse_request_state(): State
             /**
              * Extract the running-time from the RESET_TIME message.
              *
              * MT safe.
              * @returns , Result location for the running_time or      %NULL
              */
-            parse_reset_time(): void
+            parse_reset_time(): ClockTime
             /**
              * Extracts the position and format from the segment done message.
              *
              * MT safe.
              * @returns , Result location for the format, or %NULL, Result location for the position, or %NULL
              */
-            parse_segment_done(): void
+            parse_segment_done(): [Format, number]
             /**
              * Extracts the position and format from the segment start message.
              *
              * MT safe.
              * @returns , Result location for the format, or %NULL, Result location for the position, or %NULL
              */
-            parse_segment_start(): void
+            parse_segment_start(): [Format, number]
             /**
-             * src),
+             * Extracts the old and new states from the GstMessage.
+             *
+             * Typical usage of this function might be:
+             * |[<!-- language="C" -->
+             *   ...
+             *   switch (GST_MESSAGE_TYPE (msg)) {
+             *     case GST_MESSAGE_STATE_CHANGED: {
+             *       GstState old_state, new_state;
+             *
+             *       gst_message_parse_state_changed (msg, &old_state, &new_state, NULL);
+             *       g_print ("Element %s changed state from %s to %s.\n",
+             *           GST_OBJECT_NAME (msg->src),
              *           gst_element_state_get_name (old_state),
              *           gst_element_state_get_name (new_state));
              *       break;
@@ -12779,27 +13126,27 @@ declare module "gi://Gst?version=1.0" {
              * MT safe.
              * @returns , the previous state, or %NULL, the new (current) state, or %NULL, the pending (target) state, or %NULL
              */
-            parse_state_changed(): void
+            parse_state_changed(): [State, State, State]
             /**
              * Extract the values the step_done message.
              *
              * MT safe.
              * @returns , result location for the format, result location for the amount, result location for the rate, result location for the flush flag, result location for the intermediate flag, result location for the duration, result location for the EOS flag
              */
-            parse_step_done(): void
+            parse_step_done(): [Format, number, number, boolean, boolean, number, boolean]
             /**
              * Extract the values from step_start message.
              *
              * MT safe.
              * @returns , result location for the active flag, result location for the format, result location for the amount, result location for the rate, result location for the flush flag, result location for the intermediate flag
              */
-            parse_step_start(): void
+            parse_step_start(): [boolean, Format, number, number, boolean, boolean]
             /**
              * Parses a stream-collection message.
              * @since 1.10
              * @returns , A location where to store a  pointer to the #GstStreamCollection, or %NULL
              */
-            parse_stream_collection(): void
+            parse_stream_collection(): StreamCollection
             /**
              * Extracts the stream status type and owner the GstMessage. The returned
              * owner remains valid for as long as the reference to @message is valid and
@@ -12814,16 +13161,27 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.10
              * @returns , A location where to store a  pointer to the #GstStreamCollection, or %NULL
              */
-            parse_streams_selected(): void
+            parse_streams_selected(): StreamCollection
             /**
              * Extracts the change type and completion status from the GstMessage.
              *
              * MT safe.
              * @returns , A pointer to hold the change type, The owner element of the     message source, a pointer to hold whether the change is in     progress or has been completed
              */
-            parse_structure_change(): StructureChangeType
+            parse_structure_change(): [StructureChangeType, Element, boolean]
             /**
-             * src));
+             * Extracts the tag list from the GstMessage. The tag list returned in the
+             * output argument is a copy; the caller must free it when done.
+             *
+             * Typical usage of this function might be:
+             * |[<!-- language="C" -->
+             *   ...
+             *   switch (GST_MESSAGE_TYPE (msg)) {
+             *     case GST_MESSAGE_TAG: {
+             *       GstTagList *tags = NULL;
+             *
+             *       gst_message_parse_tag (msg, &tags);
+             *       g_print ("Got tags from element %s\n", GST_OBJECT_NAME (msg->src));
              *       handle_tags (tags);
              *       gst_tag_list_unref (tags);
              *       break;
@@ -12853,21 +13211,21 @@ declare module "gi://Gst?version=1.0" {
              * MT safe.
              * @returns , location for the GError, location for the debug message,     or %NULL
              */
-            parse_warning(): void
+            parse_warning(): [GLib.Error, string | null]
             /**
              * Returns the optional details structure, may be NULL if none
              * The returned structure must not be freed.
              * @since 1.10
              * @returns , A pointer to the returned details
              */
-            parse_warning_details(): void
+            parse_warning_details(): Structure | null
             /**
              * Returns the details structure if present or will create one if not present.
              * The returned structure must not be freed.
              * @since 1.26
              * @returns , A pointer to the returned details
              */
-            parse_warning_writable_details(): void
+            parse_warning_writable_details(): Structure | null
             /**
              * Configures the buffering stats values in @message.
              * @param mode a buffering mode
@@ -12941,7 +13299,7 @@ declare module "gi://Gst?version=1.0" {
              * GstTask object but other objects might be added in the future.
              * @param object the object controlling the streaming
              */
-            set_stream_status_object(object: GObject.Value): void
+            set_stream_status_object(object: (GObject.Value | unknown)): void
             /**
              * Adds the @stream to the @message.
              * @since 1.10
@@ -12978,31 +13336,15 @@ declare module "gi://Gst?version=1.0" {
              */
             writable_structure(): Structure
         }
-        /**
-         * The #GstMeta structure should be included as the first member of a #GstBuffer
-         * metadata structure. The structure defines the API of the metadata and should
-         * be accessible to all elements using the metadata.
-         *
-         * A metadata API is registered with gst_meta_api_type_register() which takes a
-         * name for the metadata API and some tags associated with the metadata.
-         * With gst_meta_api_type_has_tag() one can check if a certain metadata API
-         * contains a given tag.
-         *
-         * Multiple implementations of a metadata API can be registered.
-         * To implement a metadata API, gst_meta_register() should be used. This
-         * function takes all parameters needed to create, free and transform metadata
-         * along with the size of the metadata. The function returns a #GstMetaInfo
-         * structure that contains the information for the implementation of the API.
-         *
-         * A specific implementation can be retrieved by name with gst_meta_get_info().
-         *
-         * See #GstBuffer for how the metadata can be added, retrieved and removed from
-         * buffers.
-         */
-        abstract class Meta {
-            static readonly $gtype: GObject.GType<Meta>
 
-            
+        interface $Exports {
+            Message: MessageStruct
+        }
+        
+
+        interface MetaStruct {
+            readonly $gtype: GObject.GType<Meta>
+            [Symbol.hasInstance](instance: unknown): instance is Meta
             /**
              * When a element like `tee` decides the allocation, each downstream element may
              * fill different parameters and pass them to gst_query_add_allocation_meta().
@@ -13017,20 +13359,20 @@ declare module "gi://Gst?version=1.0" {
              * @param params1 a #GstStructure containing the new parameters to be aggregated.
              * @returns %TRUE if the parameters were successfully aggregated, %FALSE otherwise.
              */
-            static api_type_aggregate_params(api: (GObject.GType | { $gtype: GObject.GType }), aggregated_params: Structure, params0: Structure, params1: Structure): boolean
+            api_type_aggregate_params(api: (GObject.GType | { $gtype: GObject.GType }), aggregated_params: Structure, params0: Structure, params1: Structure): boolean
             /**
              * @since 1.2
              * @param api an API
              * @returns an array of tags as strings.
              */
-            static api_type_get_tags(api: (GObject.GType | { $gtype: GObject.GType })): string[]
+            api_type_get_tags(api: (GObject.GType | { $gtype: GObject.GType })): string[]
             /**
              * Check if @api was registered with @tag.
              * @param api an API
              * @param tag the tag to check
              * @returns %TRUE if `api` was registered with `tag`.
              */
-            static api_type_has_tag(api: (GObject.GType | { $gtype: GObject.GType }), tag: GLib.Quark): boolean
+            api_type_has_tag(api: (GObject.GType | { $gtype: GObject.GType }), tag: GLib.Quark): boolean
             /**
              * Register and return a GType for the @api and associate it with
              * @tags.
@@ -13038,7 +13380,7 @@ declare module "gi://Gst?version=1.0" {
              * @param tags tags for @api
              * @returns a unique GType for `api`.
              */
-            static api_type_register(api: string, tags: string[]): GObject.GType
+            api_type_register(api: string, tags: string[]): GObject.GType
             /**
              * This function sets the aggregator function for a specific API type.
              * @since 1.26
@@ -13046,7 +13388,7 @@ declare module "gi://Gst?version=1.0" {
              * @param aggregator the aggregator function to be associated with the given API
                          type.
              */
-            static api_type_set_params_aggregator(api: (GObject.GType | { $gtype: GObject.GType }), aggregator: AllocationMetaParamsAggregator): void
+            api_type_set_params_aggregator(api: (GObject.GType | { $gtype: GObject.GType }), aggregator: AllocationMetaParamsAggregator): void
             /**
              * Recreate a #GstMeta from serialized data returned by
              * gst_meta_serialize() and add it to @buffer.
@@ -13063,14 +13405,14 @@ declare module "gi://Gst?version=1.0" {
              * @param size size of @data
              * @returns the metadata owned by `buffer`, or %NULL., total size used by this meta, could be less than `size`
              */
-            static deserialize(buffer: Buffer, data: number, size: number): [Meta | null, number]
+            deserialize(buffer: Buffer, data: number, size: number): [Meta | null, number]
             /**
              * Lookup a previously registered meta info structure by its implementation name
              * @impl.
              * @param impl the name
              * @returns a #GstMetaInfo with `impl`, or %NULL when no such metainfo exists.
              */
-            static get_info(impl: string): MetaInfo | null
+            get_info(impl: string): MetaInfo | null
             /**
              * Register a new custom #GstMeta implementation, backed by an opaque
              * structure holding a #GstStructure.
@@ -13091,7 +13433,7 @@ declare module "gi://Gst?version=1.0" {
              * @param transform_func a #GstMetaTransformFunction
              * @returns a #GstMetaInfo that can be used to access metadata.
              */
-            static register_custom(name: string, tags: string[], transform_func: CustomMetaTransformFunction | null): MetaInfo
+            register_custom(name: string, tags: string[], transform_func: CustomMetaTransformFunction | null): MetaInfo
             /**
              * Simplified version of gst_meta_register_custom(), with no tags and no
              * transform function.
@@ -13099,7 +13441,10 @@ declare module "gi://Gst?version=1.0" {
              * @param name the name of the #GstMeta implementation
              * @returns a #GstMetaInfo that can be used to access metadata.
              */
-            static register_custom_simple(name: string): MetaInfo
+            register_custom_simple(name: string): MetaInfo
+        }
+
+        interface Meta {
             /**
              * extra flags for the metadata
              */
@@ -13122,7 +13467,13 @@ declare module "gi://Gst?version=1.0" {
              */
             get_seqnum(): number
             /**
-             * len
+             * Serialize @meta into a format that can be stored or transmitted and later
+             * deserialized by gst_meta_deserialize().
+             *
+             * This is only supported for meta that implements #GstMetaInfo.serialize_func,
+             * %FALSE is returned otherwise.
+             *
+             * Upon failure, @data->data pointer could have been reallocated, but @data->len
              * won't be modified. This is intended to be able to append multiple metas
              * into the same #GByteArray.
              *
@@ -13142,14 +13493,18 @@ declare module "gi://Gst?version=1.0" {
              */
             serialize_simple(data: Uint8Array): boolean
         }
-        /**
-         * The #GstMetaInfo provides information about a specific metadata
-         * structure.
-         */
-        abstract class MetaInfo {
-            static readonly $gtype: GObject.GType<MetaInfo>
 
-            
+        interface $Exports {
+            Meta: MetaStruct
+        }
+        
+
+        interface MetaInfoStruct {
+            readonly $gtype: GObject.GType<MetaInfo>
+            [Symbol.hasInstance](instance: unknown): instance is MetaInfo
+        }
+
+        interface MetaInfo {
             /**
              * tag identifying the metadata structure and api
              */
@@ -13209,19 +13564,24 @@ declare module "gi://Gst?version=1.0" {
              */
             register(): MetaInfo
         }
-        /**
-         * Extra data passed to a "gst-copy" transform #GstMetaTransformFunction.
-         */
-        abstract class MetaTransformCopy {
-            static readonly $gtype: GObject.GType<MetaTransformCopy>
 
-            
+        interface $Exports {
+            MetaInfo: MetaInfoStruct
+        }
+        
+
+        interface MetaTransformCopyStruct {
+            readonly $gtype: GObject.GType<MetaTransformCopy>
+            [Symbol.hasInstance](instance: unknown): instance is MetaTransformCopy
+        }
+
+        interface MetaTransformCopy {
             /**
              * %TRUE if only region is copied
              */
             region: boolean
             /**
-             *  0
+             * the offset to copy, 0 if @region is %FALSE, otherwise > 0
              */
             offset: number
             /**
@@ -13229,38 +13589,15 @@ declare module "gi://Gst?version=1.0" {
              */
             size: number
         }
-        /**
-         * #GstMiniObject is a simple structure that can be used to implement refcounted
-         * types.
-         *
-         * Subclasses will include #GstMiniObject as the first member in their structure
-         * and then call gst_mini_object_init() to initialize the #GstMiniObject fields.
-         *
-         * gst_mini_object_ref() and gst_mini_object_unref() increment and decrement the
-         * refcount respectively. When the refcount of a mini-object reaches 0, the
-         * dispose function is called first and when this returns %TRUE, the free
-         * function of the miniobject is called.
-         *
-         * A copy can be made with gst_mini_object_copy().
-         *
-         * gst_mini_object_is_writable() will return %TRUE when the refcount of the
-         * object is exactly 1 and there is no parent or a single parent exists and is
-         * writable itself, meaning the current caller has the only reference to the
-         * object. gst_mini_object_make_writable() will return a writable version of
-         * the object, which might be a new copy when the refcount was not 1.
-         *
-         * Opaque data can be associated with a #GstMiniObject with
-         * gst_mini_object_set_qdata() and gst_mini_object_get_qdata(). The data is
-         * meant to be specific to the particular object and is not automatically copied
-         * with gst_mini_object_copy() or similar methods.
-         *
-         * A weak reference can be added and remove with gst_mini_object_weak_ref()
-         * and gst_mini_object_weak_unref() respectively.
-         */
-        abstract class MiniObject {
-            static readonly $gtype: GObject.GType<MiniObject>
 
-            
+        interface $Exports {
+            MetaTransformCopy: MetaTransformCopyStruct
+        }
+        
+
+        interface MiniObjectStruct {
+            readonly $gtype: GObject.GType<MiniObject>
+            [Symbol.hasInstance](instance: unknown): instance is MiniObject
             /**
              * Atomically modifies a pointer to point to a new mini-object.
              * The reference count of @olddata is decreased and the reference count of
@@ -13270,7 +13607,7 @@ declare module "gi://Gst?version=1.0" {
              * @param newdata pointer to new mini-object
              * @returns %TRUE if `newdata` was different from `olddata`, pointer to a pointer to a     mini-object to be replaced
              */
-            static replace(newdata: MiniObject | null): [boolean, MiniObject | null]
+            replace(newdata: MiniObject | null): [boolean, MiniObject | null]
             /**
              * Modifies a pointer to point to a new mini-object. The modification
              * is done atomically. This version is similar to gst_mini_object_replace()
@@ -13281,7 +13618,10 @@ declare module "gi://Gst?version=1.0" {
              * @param newdata pointer to new mini-object
              * @returns %TRUE if `newdata` was different from `olddata`, pointer to a pointer to a mini-object to     be replaced
              */
-            static take(newdata: MiniObject): [boolean, MiniObject]
+            take(newdata: MiniObject): [boolean, MiniObject]
+        }
+
+        interface MiniObject {
             /**
              * the GType of the object
              */
@@ -13390,22 +13730,31 @@ declare module "gi://Gst?version=1.0" {
              */
             unlock(flags: LockFlags): void
         }
-        none
-        none
-        /**
-         */
-        abstract class PadPrivate {
-            static readonly $gtype: GObject.GType<PadPrivate>
 
-            
+        interface $Exports {
+            MiniObject: MiniObjectStruct
         }
-        /**
-         * Info passed in the #GstPadProbeCallback.
-         */
-        abstract class PadProbeInfo {
-            static readonly $gtype: GObject.GType<PadProbeInfo>
+        
 
-            
+        interface PadPrivateStruct {
+            readonly $gtype: GObject.GType<PadPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is PadPrivate
+        }
+
+        interface PadPrivate {
+        }
+
+        interface $Exports {
+            PadPrivate: PadPrivateStruct
+        }
+        
+
+        interface PadProbeInfoStruct {
+            readonly $gtype: GObject.GType<PadProbeInfo>
+            [Symbol.hasInstance](instance: unknown): instance is PadProbeInfo
+        }
+
+        interface PadProbeInfo {
             /**
              * the current probe type
              */
@@ -13446,14 +13795,18 @@ declare module "gi://Gst?version=1.0" {
              */
             get_query(): Query | null
         }
-        none
-        /**
-         * A GParamSpec derived structure for arrays of values.
-         */
-        abstract class ParamSpecArray {
-            static readonly $gtype: GObject.GType<ParamSpecArray>
 
-            
+        interface $Exports {
+            PadProbeInfo: PadProbeInfoStruct
+        }
+        
+
+        interface ParamSpecArrayStruct {
+            readonly $gtype: GObject.GType<ParamSpecArray>
+            [Symbol.hasInstance](instance: unknown): instance is ParamSpecArray
+        }
+
+        interface ParamSpecArray {
             /**
              * super class
              */
@@ -13463,14 +13816,18 @@ declare module "gi://Gst?version=1.0" {
              */
             element_spec: GObject.ParamSpec
         }
-        /**
-         * A GParamSpec derived structure that contains the meta data for fractional
-         * properties.
-         */
-        abstract class ParamSpecFraction {
-            static readonly $gtype: GObject.GType<ParamSpecFraction>
 
-            
+        interface $Exports {
+            ParamSpecArray: ParamSpecArrayStruct
+        }
+        
+
+        interface ParamSpecFractionStruct {
+            readonly $gtype: GObject.GType<ParamSpecFraction>
+            [Symbol.hasInstance](instance: unknown): instance is ParamSpecFraction
+        }
+
+        interface ParamSpecFraction {
             /**
              * super class
              */
@@ -13500,27 +13857,24 @@ declare module "gi://Gst?version=1.0" {
              */
             def_den: number
         }
-        /**
-         * The #GstParentBufferMeta is a #GstMeta which can be attached to a #GstBuffer
-         * to hold a reference to another buffer that is only released when the child
-         * #GstBuffer is released.
-         *
-         * Typically, #GstParentBufferMeta is used when the child buffer is directly
-         * using the #GstMemory of the parent buffer, and wants to prevent the parent
-         * buffer from being returned to a buffer pool until the #GstMemory is available
-         * for re-use.
-         * @since 1.6
-         */
-        abstract class ParentBufferMeta {
-            static readonly $gtype: GObject.GType<ParentBufferMeta>
 
-            
+        interface $Exports {
+            ParamSpecFraction: ParamSpecFractionStruct
+        }
+        
+
+        interface ParentBufferMetaStruct {
+            readonly $gtype: GObject.GType<ParentBufferMeta>
+            [Symbol.hasInstance](instance: unknown): instance is ParentBufferMeta
             /**
              * Gets the global #GstMetaInfo describing  the #GstParentBufferMeta meta.
              * @since 1.6
              * @returns The #GstMetaInfo
              */
-            static get_info(): MetaInfo
+            get_info(): MetaInfo
+        }
+
+        interface ParentBufferMeta {
             /**
              * the parent #GstMeta structure
              */
@@ -13530,13 +13884,15 @@ declare module "gi://Gst?version=1.0" {
              */
             buffer: Buffer
         }
-        /**
-         * Opaque structure.
-         */
-        abstract class ParseContext {
-            static readonly $gtype: GObject.GType<ParseContext>
 
-            
+        interface $Exports {
+            ParentBufferMeta: ParentBufferMetaStruct
+        }
+        
+
+        interface ParseContextStruct {
+            readonly $gtype: GObject.GType<ParseContext>
+            [Symbol.hasInstance](instance: unknown): instance is ParseContext
             /**
              * Allocates a parse context for use with gst_parse_launch_full() or
              * gst_parse_launchv_full().
@@ -13544,7 +13900,10 @@ declare module "gi://Gst?version=1.0" {
              * Free-function: gst_parse_context_free
              * @returns a newly-allocated parse context. Free     with gst_parse_context_free() when no longer needed.
              */
-            static "new"(): ParseContext | null
+            "new"(): ParseContext | null
+        }
+
+        interface ParseContext {
             /**
              * Copies the @context.
              * @since 1.12.1
@@ -13563,26 +13922,31 @@ declare module "gi://Gst?version=1.0" {
              */
             get_missing_elements(): string[] | null
         }
-        none
-        /**
-         */
-        abstract class PipelinePrivate {
-            static readonly $gtype: GObject.GType<PipelinePrivate>
 
-            
+        interface $Exports {
+            ParseContext: ParseContextStruct
         }
-        none
-        /**
-         * A plugin should export a variable of this type called plugin_desc. The plugin
-         * loader will use the data provided there to initialize the plugin.
-         *
-         * The @licence parameter must be one of: LGPL, GPL, QPL, GPL/QPL, MPL,
-         * BSD, MIT/X11, Proprietary, unknown.
-         */
-        abstract class PluginDesc {
-            static readonly $gtype: GObject.GType<PluginDesc>
+        
 
-            
+        interface PipelinePrivateStruct {
+            readonly $gtype: GObject.GType<PipelinePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is PipelinePrivate
+        }
+
+        interface PipelinePrivate {
+        }
+
+        interface $Exports {
+            PipelinePrivate: PipelinePrivateStruct
+        }
+        
+
+        interface PluginDescStruct {
+            readonly $gtype: GObject.GType<PluginDesc>
+            [Symbol.hasInstance](instance: unknown): instance is PluginDesc
+        }
+
+        interface PluginDesc {
             /**
              * the major version number of core that plugin was compiled for
              */
@@ -13633,36 +13997,18 @@ declare module "gi://Gst?version=1.0" {
              */
             release_datetime: string
         }
-        none
-        /**
-         * A #GstPoll keeps track of file descriptors much like fd_set (used with
-         * select ()) or a struct pollfd array (used with poll ()). Once created with
-         * gst_poll_new(), the set can be used to wait for file descriptors to be
-         * readable and/or writable. It is possible to make this wait be controlled
-         * by specifying %TRUE for the @controllable flag when creating the set (or
-         * later calling gst_poll_set_controllable()).
-         *
-         * New file descriptors are added to the set using gst_poll_add_fd(), and
-         * removed using gst_poll_remove_fd(). Controlling which file descriptors
-         * should be waited for to become readable and/or writable are done using
-         * gst_poll_fd_ctl_read(), gst_poll_fd_ctl_write() and gst_poll_fd_ctl_pri().
-         *
-         * Use gst_poll_wait() to wait for the file descriptors to actually become
-         * readable and/or writable, or to timeout if no file descriptor is available
-         * in time. The wait can be controlled by calling gst_poll_restart() and
-         * gst_poll_set_flushing().
-         *
-         * Once the file descriptor set has been waited for, one can use
-         * gst_poll_fd_has_closed() to see if the file descriptor has been closed,
-         * gst_poll_fd_has_error() to see if it has generated an error,
-         * gst_poll_fd_can_read() to see if it is possible to read from the file
-         * descriptor, and gst_poll_fd_can_write() to see if it is possible to
-         * write to it.
-         */
-        abstract class Poll {
-            static readonly $gtype: GObject.GType<Poll>
 
-            
+        interface $Exports {
+            PluginDesc: PluginDescStruct
+        }
+        
+
+        interface PollStruct {
+            readonly $gtype: GObject.GType<Poll>
+            [Symbol.hasInstance](instance: unknown): instance is Poll
+        }
+
+        interface Poll {
             /**
              * Add a file descriptor to the file descriptor set.
              * @param fd a file descriptor.
@@ -13828,13 +14174,18 @@ declare module "gi://Gst?version=1.0" {
              */
             write_control(): boolean
         }
-        /**
-         * A file descriptor object.
-         */
-        abstract class PollFD {
-            static readonly $gtype: GObject.GType<PollFD>
 
-            
+        interface $Exports {
+            Poll: PollStruct
+        }
+        
+
+        interface PollFDStruct {
+            readonly $gtype: GObject.GType<PollFD>
+            [Symbol.hasInstance](instance: unknown): instance is PollFD
+        }
+
+        interface PollFD {
             /**
              * a file descriptor
              */
@@ -13845,51 +14196,20 @@ declare module "gi://Gst?version=1.0" {
              */
             init(): void
         }
-        none
-        /**
-         *
-         * const GstStructure *reply;
-         * GstPromise *p;
-         * if (gst_promise_wait (promise) != GST_PROMISE_RESULT_REPLIED)
-         *   return; // interrupted or expired value
-         * reply = gst_promise_get_reply (promise);
-         * if (error in reply)
-         *   return; // propagate error
-         * p = gst_promise_new_with_change_func (another_promise_change_func, user_data, notify);
-         * pass p to promise-using API
-         * ]|
-         *
-         * Each #GstPromise starts out with a #GstPromiseResult of
-         * %GST_PROMISE_RESULT_PENDING and only ever transitions once
-         * into one of the other #GstPromiseResult's.
-         *
-         * In order to support multi-threaded code, gst_promise_reply(),
-         * gst_promise_interrupt() and gst_promise_expire() may all be from
-         * different threads with some restrictions and the final result of the promise
-         * is whichever call is made first.  There are two restrictions on ordering:
-         *
-         * 1. That gst_promise_reply() and gst_promise_interrupt() cannot be called
-         * after gst_promise_expire()
-         * 2. That gst_promise_reply() and gst_promise_interrupt()
-         * cannot be called twice.
-         *
-         * The change function set with gst_promise_new_with_change_func() is
-         * called directly from either the gst_promise_reply(),
-         * gst_promise_interrupt() or gst_promise_expire() and can be called
-         * from an arbitrary thread.  #GstPromise using APIs can restrict this to
-         * a single thread or a subset of threads but that is entirely up to the API
-         * that uses #GstPromise.
-         * @since 1.14
-         */
-        abstract class Promise {
-            static readonly $gtype: GObject.GType<Promise>
 
-            
+        interface $Exports {
+            PollFD: PollFDStruct
+        }
+        
+
+        interface PromiseStruct {
+            readonly $gtype: GObject.GType<Promise>
+            [Symbol.hasInstance](instance: unknown): instance is Promise
             /**
              * @since 1.14
              * @returns a new #GstPromise
              */
-            static "new"(): Promise
+            "new"(): Promise
             /**
              * @func will be called exactly once when transitioning out of
              * %GST_PROMISE_RESULT_PENDING into any of the other #GstPromiseResult
@@ -13898,7 +14218,10 @@ declare module "gi://Gst?version=1.0" {
              * @param func a #GstPromiseChangeFunc to call
              * @returns a new #GstPromise
              */
-            static new_with_change_func(func: PromiseChangeFunc): Promise
+            new_with_change_func(func: PromiseChangeFunc): Promise
+        }
+
+        interface Promise {
             /**
              * parent #GstMiniObject
              */
@@ -13956,18 +14279,21 @@ declare module "gi://Gst?version=1.0" {
              */
             wait(): PromiseResult
         }
-        /**
-         * Metadata type that holds information about a sample from a protection-protected
-         * track, including the information needed to decrypt it (if it is encrypted).
-         * @since 1.6
-         */
-        abstract class ProtectionMeta {
-            static readonly $gtype: GObject.GType<ProtectionMeta>
 
-            
+        interface $Exports {
+            Promise: PromiseStruct
+        }
+        
+
+        interface ProtectionMetaStruct {
+            readonly $gtype: GObject.GType<ProtectionMeta>
+            [Symbol.hasInstance](instance: unknown): instance is ProtectionMeta
             /**
              */
-            static get_info(): MetaInfo
+            get_info(): MetaInfo
+        }
+
+        interface ProtectionMeta {
             /**
              * the parent #GstMeta.
              */
@@ -13977,27 +14303,28 @@ declare module "gi://Gst?version=1.0" {
              */
             info: Structure
         }
-        none
-        /**
-         */
-        abstract class ProxyPadPrivate {
-            static readonly $gtype: GObject.GType<ProxyPadPrivate>
 
-            
+        interface $Exports {
+            ProtectionMeta: ProtectionMetaStruct
         }
-        /**
-         * duration);
-         *     g_print ("duration = %"GST_TIME_FORMAT, GST_TIME_ARGS (duration));
-         *   } else {
-         *     g_print ("duration query failed...");
-         *   }
-         *   gst_query_unref (query);
-         * ]|
-         */
-        abstract class Query {
-            static readonly $gtype: GObject.GType<Query>
+        
 
-            
+        interface ProxyPadPrivateStruct {
+            readonly $gtype: GObject.GType<ProxyPadPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ProxyPadPrivate
+        }
+
+        interface ProxyPadPrivate {
+        }
+
+        interface $Exports {
+            ProxyPadPrivate: ProxyPadPrivateStruct
+        }
+        
+
+        interface QueryStruct {
+            readonly $gtype: GObject.GType<Query>
+            [Symbol.hasInstance](instance: unknown): instance is Query
             /**
              * Constructs a new query object for querying if @caps are accepted.
              *
@@ -14005,7 +14332,7 @@ declare module "gi://Gst?version=1.0" {
              * @param caps a fixed #GstCaps
              * @returns a new #GstQuery
              */
-            static new_accept_caps(caps: Caps): Query
+            new_accept_caps(caps: Caps): Query
             /**
              * Constructs a new query object for querying the allocation properties.
              *
@@ -14014,7 +14341,7 @@ declare module "gi://Gst?version=1.0" {
              * @param need_pool return a pool
              * @returns a new #GstQuery
              */
-            static new_allocation(caps: Caps | null, need_pool: boolean): Query
+            new_allocation(caps: Caps | null, need_pool: boolean): Query
             /**
              * Constructs a new query object for querying the bitrate.
              *
@@ -14022,7 +14349,7 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.16
              * @returns a new #GstQuery
              */
-            static new_bitrate(): Query
+            new_bitrate(): Query
             /**
              * Constructs a new query object for querying the buffering status of
              * a stream.
@@ -14031,7 +14358,7 @@ declare module "gi://Gst?version=1.0" {
              * @param format the default #GstFormat for the new query
              * @returns a new #GstQuery
              */
-            static new_buffering(format: Format): Query
+            new_buffering(format: Format): Query
             /**
              * Constructs a new query object for querying the caps.
              *
@@ -14056,7 +14383,7 @@ declare module "gi://Gst?version=1.0" {
              * @param filter a filter
              * @returns a new #GstQuery
              */
-            static new_caps(filter: Caps): Query
+            new_caps(filter: Caps): Query
             /**
              * Constructs a new query object for querying the pipeline-local context.
              *
@@ -14065,7 +14392,7 @@ declare module "gi://Gst?version=1.0" {
              * @param context_type Context type to query
              * @returns a new #GstQuery
              */
-            static new_context(context_type: string): Query
+            new_context(context_type: string): Query
             /**
              * Constructs a new convert query object. Use gst_query_unref()
              * when done with it. A convert query is used to ask for a conversion between
@@ -14077,7 +14404,7 @@ declare module "gi://Gst?version=1.0" {
              * @param dest_format the target #GstFormat
              * @returns a #GstQuery
              */
-            static new_convert(src_format: Format, value: number, dest_format: Format): Query
+            new_convert(src_format: Format, value: number, dest_format: Format): Query
             /**
              * Constructs a new custom query object. Use gst_query_unref()
              * when done with it.
@@ -14087,14 +14414,14 @@ declare module "gi://Gst?version=1.0" {
              * @param structure a structure for the query
              * @returns a new #GstQuery
              */
-            static new_custom(type: QueryType, structure: Structure | null): Query
+            new_custom(type: QueryType, structure: Structure | null): Query
             /**
              * Constructs a new query object for querying the drain state.
              *
              * Free-function: gst_query_unref()
              * @returns a new #GstQuery
              */
-            static new_drain(): Query
+            new_drain(): Query
             /**
              * Constructs a new stream duration query object to query in the given format.
              * Use gst_query_unref() when done with it. A duration query will give the
@@ -14104,7 +14431,7 @@ declare module "gi://Gst?version=1.0" {
              * @param format the #GstFormat for this duration query
              * @returns a new #GstQuery
              */
-            static new_duration(format: Format): Query
+            new_duration(format: Format): Query
             /**
              * Constructs a new query object for querying formats of
              * the stream.
@@ -14112,7 +14439,7 @@ declare module "gi://Gst?version=1.0" {
              * Free-function: gst_query_unref()
              * @returns a new #GstQuery
              */
-            static new_formats(): Query
+            new_formats(): Query
             /**
              * Constructs a new latency query object.
              * Use gst_query_unref() when done with it. A latency query is usually performed
@@ -14122,7 +14449,7 @@ declare module "gi://Gst?version=1.0" {
              * Free-function: gst_query_unref()
              * @returns a #GstQuery
              */
-            static new_latency(): Query
+            new_latency(): Query
             /**
              * Constructs a new query stream position query object. Use gst_query_unref()
              * when done with it. A position query is used to query the current position
@@ -14132,14 +14459,14 @@ declare module "gi://Gst?version=1.0" {
              * @param format the default #GstFormat for the new query
              * @returns a new #GstQuery
              */
-            static new_position(format: Format): Query
+            new_position(format: Format): Query
             /**
              * Constructs a new query object for querying the scheduling properties.
              *
              * Free-function: gst_query_unref()
              * @returns a new #GstQuery
              */
-            static new_scheduling(): Query
+            new_scheduling(): Query
             /**
              * Constructs a new query object for querying seeking properties of
              * the stream.
@@ -14148,7 +14475,7 @@ declare module "gi://Gst?version=1.0" {
              * @param format the default #GstFormat for the new query
              * @returns a new #GstQuery
              */
-            static new_seeking(format: Format): Query
+            new_seeking(format: Format): Query
             /**
              * Constructs a new segment query object. Use gst_query_unref()
              * when done with it. A segment query is used to discover information about the
@@ -14158,7 +14485,7 @@ declare module "gi://Gst?version=1.0" {
              * @param format the #GstFormat for the new query
              * @returns a new #GstQuery
              */
-            static new_segment(format: Format): Query
+            new_segment(format: Format): Query
             /**
              * Constructs a new query object for querying the stream selection capability.
              *
@@ -14166,7 +14493,7 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.22
              * @returns a new #GstQuery
              */
-            static new_selectable(): Query
+            new_selectable(): Query
             /**
              * Constructs a new query URI query object. Use gst_query_unref()
              * when done with it. An URI query is used to query the current URI
@@ -14175,7 +14502,7 @@ declare module "gi://Gst?version=1.0" {
              * Free-function: gst_query_unref()
              * @returns a new #GstQuery
              */
-            static new_uri(): Query
+            new_uri(): Query
             /**
              * Modifies a pointer to a #GstQuery to point to a different #GstQuery. This
              * function is similar to gst_query_replace() except that it takes ownership of
@@ -14187,7 +14514,10 @@ declare module "gi://Gst?version=1.0" {
                 replace the query pointed to by @old_query.
              * @returns %TRUE if `new_query` was different from `old_query`, pointer to a     pointer to a #GstQuery to be stolen.
              */
-            static take(new_query: Query | null): [boolean, Query | null]
+            take(new_query: Query | null): [boolean, Query | null]
+        }
+
+        interface Query {
             /**
              * The parent #GstMiniObject type
              */
@@ -14236,7 +14566,7 @@ declare module "gi://Gst?version=1.0" {
              * @param api the metadata API
              * @returns %TRUE when `api` is in the list of metadata., the index
              */
-            find_allocation_meta(api: (GObject.GType | { $gtype: GObject.GType })): boolean
+            find_allocation_meta(api: (GObject.GType | { $gtype: GObject.GType })): [boolean, number]
             /**
              * Retrieve the number of values currently stored in the
              * meta API array of the query's structure.
@@ -14278,7 +14608,13 @@ declare module "gi://Gst?version=1.0" {
              */
             get_structure(): Structure | null
             /**
-             *  random access is supported, not only sequential pulls).
+             * Check if @query has scheduling mode set.
+             *
+             * > When checking if upstream supports pull mode, it is usually not
+             * > enough to just check for GST_PAD_MODE_PULL with this function, you
+             * > also want to check whether the scheduling flags returned by
+             * > gst_query_parse_scheduling() have the seeking flag set (meaning
+             * > random access is supported, not only sequential pulls).
              * @param mode the scheduling mode
              * @returns %TRUE when `mode` is in the list of scheduling modes.
              */
@@ -14311,31 +14647,31 @@ declare module "gi://Gst?version=1.0" {
              * gst_query_parse_nth_allocation_pool().
              * @returns , The #GstCaps, Whether a #GstBufferPool is needed
              */
-            parse_allocation(): void
+            parse_allocation(): [Caps | null, boolean]
             /**
              * Get the results of a bitrate query. See also gst_query_set_bitrate().
              * @since 1.16
              * @returns , The resulting bitrate in bits per second
              */
-            parse_bitrate(): void
+            parse_bitrate(): number
             /**
              * Get the percentage of buffered data. This is a value between 0 and 100.
              * The @busy indicator is %TRUE when the buffering is in progress.
              * @returns , if buffering is busy, or %NULL, a buffering percent, or %NULL
              */
-            parse_buffering_percent(): void
+            parse_buffering_percent(): [boolean, number]
             /**
              * Parse an available query, writing the format into @format, and
              * other results into the passed parameters, if the respective parameters
              * are non-%NULL
              * @returns , the format to set for the `segment_start`     and `segment_end` values, or %NULL, the start to set, or %NULL, the stop to set, or %NULL, estimated total amount of download     time remaining in milliseconds, or %NULL
              */
-            parse_buffering_range(): void
+            parse_buffering_range(): [Format, number, number, number]
             /**
              * Extracts the buffering stats values from @query.
              * @returns , a buffering mode, or %NULL, the average input rate, or %NULL, the average output rat, or %NULL, amount of buffering time left in     milliseconds, or %NULL
              */
-            parse_buffering_stats(): void
+            parse_buffering_stats(): [BufferingMode, number, number, number]
             /**
              * Get the filter from the caps @query. The caps remains valid as long as
              * @query remains valid.
@@ -14360,43 +14696,43 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.2
              * @returns a #gboolean indicating if the parsing succeeded., the context type, or %NULL
              */
-            parse_context_type(): boolean
+            parse_context_type(): [boolean, string]
             /**
              * Parse a convert query answer. Any of @src_format, @src_value, @dest_format,
              * and @dest_value may be %NULL, in which case that value is omitted.
              * @returns , the storage for the #GstFormat of the     source value, or %NULL, the storage for the source value, or %NULL, the storage for the #GstFormat of the     destination value, or %NULL, the storage for the destination value,     or %NULL
              */
-            parse_convert(): void
+            parse_convert(): [Format, number, Format, number]
             /**
              * Parse a duration query answer. Write the format of the duration into @format,
              * and the value into @duration, if the respective variables are non-%NULL.
              * @returns , the storage for the #GstFormat of the duration     value, or %NULL., the storage for the total duration, or %NULL.
              */
-            parse_duration(): void
+            parse_duration(): [Format, number]
             /**
              * Parse a latency query answer.
              * @returns , storage for live or %NULL, the storage for the min latency or %NULL, the storage for the max latency or %NULL
              */
-            parse_latency(): void
+            parse_latency(): [boolean, ClockTime, ClockTime]
             /**
              * Parse the number of formats in the formats @query.
              * @returns , the number of formats in this query.
              */
-            parse_n_formats(): void
+            parse_n_formats(): number
             /**
              * Parse an available query and get the metadata API
              * at @index of the metadata API array.
              * @param index position in the metadata API array to read
              * @returns a #GType of the metadata API at `index`., API specific parameters
              */
-            parse_nth_allocation_meta(index: number): GObject.GType
+            parse_nth_allocation_meta(index: number): [GObject.GType, Structure]
             /**
              * Parse an available query and get the allocator and its params
              * at @index of the allocator array.
              * @param index position in the allocator array to read
              * @returns , variable to hold the result, parameters for the allocator
              */
-            parse_nth_allocation_param(index: number): void
+            parse_nth_allocation_param(index: number): [Allocator | null, AllocationParams]
             /**
              * Get the pool parameters in @query.
              *
@@ -14404,14 +14740,14 @@ declare module "gi://Gst?version=1.0" {
              * @param index index to parse
              * @returns , the #GstBufferPool, the buffer size, the min buffers, the max buffers
              */
-            parse_nth_allocation_pool(index: number): void
+            parse_nth_allocation_pool(index: number): [BufferPool | null, number, number, number]
             /**
              * Parse an available query and get the start and stop values stored
              * at the @index of the buffered ranges array.
              * @param index position in the buffered-ranges array to read
              * @returns a #gboolean indicating if the parsing succeeded., the start position to set, or %NULL, the stop position to set, or %NULL
              */
-            parse_nth_buffering_range(index: number): boolean
+            parse_nth_buffering_range(index: number): [boolean, number, number]
             /**
              * Parse the format query and retrieve the @nth format from it into
              * @format. If the list contains less elements than @nth, @format will be
@@ -14419,7 +14755,7 @@ declare module "gi://Gst?version=1.0" {
              * @param nth the nth format to retrieve.
              * @returns , a pointer to store the nth format
              */
-            parse_nth_format(nth: number): void
+            parse_nth_format(nth: number): Format
             /**
              * Parse an available query and get the scheduling mode
              * at @index of the scheduling modes array.
@@ -14432,19 +14768,19 @@ declare module "gi://Gst?version=1.0" {
              * into @cur, if the respective parameters are non-%NULL.
              * @returns , the storage for the #GstFormat of the     position values (may be %NULL), the storage for the current position (may be %NULL)
              */
-            parse_position(): void
+            parse_position(): [Format, number]
             /**
              * Set the scheduling properties.
              * @returns , #GstSchedulingFlags, the suggested minimum size of pull requests, the suggested maximum size of pull requests:, the suggested alignment of pull requests
              */
-            parse_scheduling(): void
+            parse_scheduling(): [SchedulingFlags, number, number, number]
             /**
              * Parse a seeking query, writing the format into @format, and
              * other results into the passed parameters, if the respective parameters
              * are non-%NULL
              * @returns , the format to set for the `segment_start`     and `segment_end` values, or %NULL, the seekable flag to set, or %NULL, the segment_start to set, or %NULL, the segment_end to set, or %NULL
              */
-            parse_seeking(): void
+            parse_seeking(): [Format, boolean, number, number]
             /**
              * Parse a segment query answer. Any of @rate, @format, @start_value, and
              * @stop_value may be %NULL, which will cause this value to be omitted.
@@ -14452,20 +14788,20 @@ declare module "gi://Gst?version=1.0" {
              * See gst_query_set_segment() for an explanation of the function arguments.
              * @returns , the storage for the rate of the segment, or %NULL, the storage for the #GstFormat of the values,     or %NULL, the storage for the start value, or %NULL, the storage for the stop value, or %NULL
              */
-            parse_segment(): void
+            parse_segment(): [number, Format, number, number]
             /**
              * Get the results of a selectable query. See also gst_query_set_selectable().
              * @since 1.22
              * @returns , The resulting stream selection capability
              */
-            parse_selectable(): void
+            parse_selectable(): boolean
             /**
              * Parse an URI query, writing the URI into @uri as a newly
              * allocated string, if the respective parameters are non-%NULL.
              * Free the string with g_free() after usage.
              * @returns , the storage for the current URI     (may be %NULL)
              */
-            parse_uri(): void
+            parse_uri(): string | null
             /**
              * Parse an URI query, writing the URI into @uri as a newly
              * allocated string, if the respective parameters are non-%NULL.
@@ -14473,7 +14809,7 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.2
              * @returns , the storage for the redirect URI     (may be %NULL)
              */
-            parse_uri_redirection(): void
+            parse_uri_redirection(): string | null
             /**
              * Parse an URI query, and set @permanent to %TRUE if there is a redirection
              * and it should be considered permanent. If a redirection is permanent,
@@ -14482,7 +14818,7 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.4
              * @returns , if the URI redirection is permanent     (may be %NULL)
              */
-            parse_uri_redirection_permanent(): void
+            parse_uri_redirection_permanent(): boolean
             /**
              * Increases the refcount of the given query by one.
              * @returns  `q`
@@ -14621,7 +14957,15 @@ declare module "gi://Gst?version=1.0" {
              */
             set_seeking(format: Format, seekable: boolean, segment_start: number, segment_end: number): void
             /**
-             * = @stop_value. @rate will contain the playback rate. For
+             * Answer a segment query by setting the requested values. The normal
+             * playback segment of a pipeline is 0 to duration at the default rate of
+             * 1.0. If a seek was performed on the pipeline to play a different
+             * segment, this query will return the range specified in the last seek.
+             *
+             * @start_value and @stop_value will respectively contain the configured
+             * playback range start and stop values expressed in @format.
+             * The values are always between 0 and the duration of the media and
+             * @start_value <= @stop_value. @rate will contain the playback rate. For
              * negative rates, playback will actually happen from @stop_value to
              * @start_value.
              * @param rate the rate of the segment
@@ -14662,40 +15006,24 @@ declare module "gi://Gst?version=1.0" {
              */
             writable_structure(): Structure
         }
-        /**
-         * #GstReferenceTimestampMeta can be used to attach alternative timestamps and
-         * possibly durations to a #GstBuffer. These are generally not according to
-         * the pipeline clock and could be e.g. the NTP timestamp when the media was
-         * captured.
-         *
-         * The reference is stored as a #GstCaps in @reference. Examples of valid
-         * references would be
-         *
-         *  * `timestamp/x-drivername-stream`: for timestamps that are locally
-         *    generated by some driver named `drivername` when generating the stream,
-         *    e.g. based on a frame counter
-         *  * `timestamp/x-ntp, host=pool.ntp.org, port=123`: for timestamps based on a
-         *    specific NTP server. Note that the host/port parameters might not always
-         *    be given.
-         *  * `timestamp/x-ptp, version=IEEE1588-2008, domain=1`: for timestamps based
-         *    on a given PTP clock.
-         *  * `timestamp/x-unix`: for timestamps based on the UNIX epoch according to
-         *    the local clock.
-         *
-         * Since 1.24 it can be serialized using gst_meta_serialize() and
-         * gst_meta_deserialize().
-         * @since 1.14
-         */
-        abstract class ReferenceTimestampMeta {
-            static readonly $gtype: GObject.GType<ReferenceTimestampMeta>
 
-            
+        interface $Exports {
+            Query: QueryStruct
+        }
+        
+
+        interface ReferenceTimestampMetaStruct {
+            readonly $gtype: GObject.GType<ReferenceTimestampMeta>
+            [Symbol.hasInstance](instance: unknown): instance is ReferenceTimestampMeta
             /**
              * Gets the global #GstMetaInfo describing the #GstReferenceTimestampMeta meta.
              * @since 1.14
              * @returns The #GstMetaInfo
              */
-            static get_info(): MetaInfo
+            get_info(): MetaInfo
+        }
+
+        interface ReferenceTimestampMeta {
             /**
              * the parent #GstMeta structure
              */
@@ -14713,22 +15041,28 @@ declare module "gi://Gst?version=1.0" {
              */
             duration: ClockTime
         }
-        none
-        /**
-         */
-        abstract class RegistryPrivate {
-            static readonly $gtype: GObject.GType<RegistryPrivate>
 
-            
+        interface $Exports {
+            ReferenceTimestampMeta: ReferenceTimestampMetaStruct
         }
-        /**
-         * A #GstSample is a small object containing data, a type, timing and
-         * extra arbitrary information.
-         */
-        abstract class Sample {
-            static readonly $gtype: GObject.GType<Sample>
+        
 
-            
+        interface RegistryPrivateStruct {
+            readonly $gtype: GObject.GType<RegistryPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is RegistryPrivate
+        }
+
+        interface RegistryPrivate {
+        }
+
+        interface $Exports {
+            RegistryPrivate: RegistryPrivateStruct
+        }
+        
+
+        interface SampleStruct {
+            readonly $gtype: GObject.GType<Sample>
+            [Symbol.hasInstance](instance: unknown): instance is Sample
             /**
              * Create a new #GstSample with the provided details.
              *
@@ -14739,7 +15073,10 @@ declare module "gi://Gst?version=1.0" {
              * @param info a #GstStructure, or %NULL
              * @returns the new #GstSample. gst_sample_unref()     after usage.
              */
-            static "new"(buffer: Buffer | null, caps: Caps | null, segment: Segment | null, info: Structure | null): Sample
+            "new"(buffer: Buffer | null, caps: Caps | null, segment: Segment | null, info: Structure | null): Sample
+        }
+
+        interface Sample {
             /**
              * Get the buffer associated with @sample
              * @returns the buffer of `sample` or %NULL  when there is no buffer. The buffer remains valid as long as  `sample` is valid.  If you need to hold on to it for longer than  that, take a ref to the buffer with gst_buffer_ref().
@@ -14798,58 +15135,15 @@ declare module "gi://Gst?version=1.0" {
              */
             set_segment(segment: Segment): void
         }
-        /**
-         * This helper structure holds the relevant values for tracking the region of
-         * interest in a media file, called a segment.
-         *
-         * The structure can be used for two purposes:
-         *
-         *   * performing seeks (handling seek events)
-         *   * tracking playback regions (handling newsegment events)
-         *
-         * The segment is usually configured by the application with a seek event which
-         * is propagated upstream and eventually handled by an element that performs the seek.
-         *
-         * The configured segment is then propagated back downstream with a newsegment event.
-         * This information is then used to clip media to the segment boundaries.
-         *
-         * A segment structure is initialized with gst_segment_init(), which takes a #GstFormat
-         * that will be used as the format of the segment values. The segment will be configured
-         * with a start value of 0 and a stop/duration of -1, which is undefined. The default
-         * rate and applied_rate is 1.0.
-         *
-         * The public duration field contains the duration of the segment. When using
-         * the segment for seeking, the start and time members should normally be left
-         * to their default 0 value. The stop position is left to -1 unless explicitly
-         * configured to a different value after a seek event.
-         *
-         * The current position in the segment should be set by changing the position
-         * member in the structure.
-         *
-         * For elements that perform seeks, the current segment should be updated with the
-         * gst_segment_do_seek() and the values from the seek event. This method will update
-         * all the segment fields. The position field will contain the new playback position.
-         * If the start_type was different from GST_SEEK_TYPE_NONE, playback continues from
-         * the position position, possibly with updated flags or rate.
-         *
-         * For elements that want to use #GstSegment to track the playback region,
-         * update the segment fields with the information from the newsegment event.
-         * The gst_segment_clip() method can be used to check and clip
-         * the media data to the segment boundaries.
-         *
-         * For elements that want to synchronize to the pipeline clock, gst_segment_to_running_time()
-         * can be used to convert a timestamp to a value that can be used to synchronize
-         * to the clock. This function takes into account the base as well as
-         * any rate or applied_rate conversions.
-         *
-         * For elements that need to perform operations on media data in stream_time,
-         * gst_segment_to_stream_time() can be used to convert a timestamp and the segment
-         * info to stream time (which is always between 0 and the duration of the stream).
-         */
-        abstract class Segment {
-            static readonly $gtype: GObject.GType<Segment>
 
-            
+        interface $Exports {
+            Sample: SampleStruct
+        }
+        
+
+        interface SegmentStruct {
+            readonly $gtype: GObject.GType<Segment>
+            [Symbol.hasInstance](instance: unknown): instance is Segment
             /**
              * Allocate a new #GstSegment structure and initialize it using
              * gst_segment_init().
@@ -14857,13 +15151,22 @@ declare module "gi://Gst?version=1.0" {
              * Free-function: gst_segment_free
              * @returns a new #GstSegment, free with gst_segment_free().
              */
-            static "new"(): Segment
+            "new"(): Segment
+        }
+
+        interface Segment {
             /**
              * flags for this segment
              */
             flags: SegmentFlags
             /**
-             *  1.0`) than normal playback speed. The rate also
+             * the playback rate of the segment is set in response to a seek
+             *                event and, without any seek, the value should be `1.0`. This
+             *                value is used by elements that synchronize buffer [running
+             *                times](additional/design/synchronisation.md#running-time) on
+             *                the clock (usually the sink elements), leading to consuming
+             *                buffers faster (for a value `> 1.0`) or slower (for `0.0 <
+             *                value < 1.0`) than normal playback speed. The rate also
              *                defines the playback direction, meaning that when the value is
              *                lower than `0.0`, the playback happens in reverse, and the
              *                [stream-time](additional/design/synchronisation.md#stream-time)
@@ -14871,7 +15174,18 @@ declare module "gi://Gst?version=1.0" {
              */
             rate: number
             /**
-             * .
+             * The applied rate is the rate that has been applied to the stream.
+             *                The effective/resulting playback rate of a stream is
+             *                `rate * applied_rate`.
+             *                The applied rate can be set by source elements when a server is
+             *                sending the stream with an already modified playback speed
+             *                rate. Filter elements that modify the stream in a way that
+             *                modifies the playback speed should also modify the applied
+             *                rate. For example the #videorate element when its
+             *                #videorate:rate property is set will set the applied rate of
+             *                the segment it pushed downstream. Also #scaletempo applies the
+             *                input segment rate to the stream and outputs a segment with
+             *                rate=1.0 and applied_rate=<inputsegment.rate>.
              */
             applied_rate: number
             /**
@@ -14879,11 +15193,14 @@ declare module "gi://Gst?version=1.0" {
              */
             format: Format
             /**
-             *  0.0).
+             * the running time (plus elapsed time, see offset) of the
+             *                segment [start](GstSegment.start) ([stop](GstSegment.stop) if
+             *                rate < 0.0).
              */
             base: number
             /**
-             *  0.0) seek type
+             * the offset expresses the elapsed time (in buffer timestamps)
+             *                before a seek with its start (stop if rate < 0.0) seek type
              *                set to #GST_SEEK_TYPE_NONE, the value is set to the position
              *                of the segment at the time of the seek.
              */
@@ -14906,7 +15223,8 @@ declare module "gi://Gst?version=1.0" {
              */
             stop: number
             /**
-             *  0.0).
+             * the stream time of the segment [start](GstSegment.start)
+             *                ([stop](GstSegment.stop) if rate < 0.0).
              */
             time: number
             /**
@@ -14947,7 +15265,7 @@ declare module "gi://Gst?version=1.0" {
              * @param stop the stop position in the segment
              * @returns %TRUE if the given `start` and `stop` times fall partially or     completely in `segment`, %FALSE if the values are completely outside     of the segment., the clipped start position in the segment, the clipped stop position in the segment
              */
-            clip(format: Format, start: number, stop: number): boolean
+            clip(format: Format, start: number, stop: number): [boolean, number, number]
             /**
              * Create a copy of given @segment.
              *
@@ -14997,7 +15315,7 @@ declare module "gi://Gst?version=1.0" {
              * @param stop the seek stop value
              * @returns %TRUE if the seek could be performed., boolean holding whether position was updated.
              */
-            do_seek(rate: number, format: Format, flags: SeekFlags, start_type: SeekType, start: number, stop_type: SeekType, stop: number): boolean
+            do_seek(rate: number, format: Format, flags: SeekFlags, start_type: SeekType, start: number, stop_type: SeekType, stop: number): [boolean, boolean]
             /**
              * Free the allocated segment @segment.
              */
@@ -15038,7 +15356,20 @@ declare module "gi://Gst?version=1.0" {
              */
             position_from_running_time(format: Format, running_time: number): number
             /**
-             *  0, and the value
+             * Translate @running_time to the segment position using the currently configured
+             * segment. Compared to gst_segment_position_from_running_time() this function can
+             * return negative segment position.
+             *
+             * This function is typically used by elements that need to synchronize buffers
+             * against the clock or each other.
+             *
+             * @running_time can be any value and the result of this function for values
+             * outside of the segment is extrapolated.
+             *
+             * When 1 is returned, @running_time resulted in a positive position returned
+             * in @position.
+             *
+             * When this function returns -1, the returned @position was < 0, and the value
              * in the position variable should be negated to get the real negative segment
              * position.
              * @since 1.8
@@ -15131,7 +15462,7 @@ declare module "gi://Gst?version=1.0" {
              * @param position the position in the segment
              * @returns a 1 or -1 on success, 0 on failure., result running-time
              */
-            to_running_time_full(format: Format, position: number): number
+            to_running_time_full(format: Format, position: number): [number, number]
             /**
              * Translate @position to stream time using the currently configured
              * segment. The @position value must be between @segment start and
@@ -15172,23 +15503,31 @@ declare module "gi://Gst?version=1.0" {
              */
             to_stream_time_full(format: Format, position: number): [number, number]
         }
-        none
-        /**
-         */
-        abstract class SharedTaskPoolPrivate {
-            static readonly $gtype: GObject.GType<SharedTaskPoolPrivate>
 
-            
+        interface $Exports {
+            Segment: SegmentStruct
         }
-        /**
-         * Data structure to initialize #GstCaps from a string description usually
-         * used in conjunction with GST_STATIC_CAPS() and gst_static_caps_get() to
-         * instantiate a #GstCaps.
-         */
-        abstract class StaticCaps {
-            static readonly $gtype: GObject.GType<StaticCaps>
+        
 
-            
+        interface SharedTaskPoolPrivateStruct {
+            readonly $gtype: GObject.GType<SharedTaskPoolPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is SharedTaskPoolPrivate
+        }
+
+        interface SharedTaskPoolPrivate {
+        }
+
+        interface $Exports {
+            SharedTaskPoolPrivate: SharedTaskPoolPrivateStruct
+        }
+        
+
+        interface StaticCapsStruct {
+            readonly $gtype: GObject.GType<StaticCaps>
+            [Symbol.hasInstance](instance: unknown): instance is StaticCaps
+        }
+
+        interface StaticCaps {
             /**
              * the cached #GstCaps
              */
@@ -15207,13 +15546,18 @@ declare module "gi://Gst?version=1.0" {
              */
             get(): Caps | null
         }
-        /**
-         * Structure describing the #GstStaticPadTemplate.
-         */
-        abstract class StaticPadTemplate {
-            static readonly $gtype: GObject.GType<StaticPadTemplate>
 
-            
+        interface $Exports {
+            StaticCaps: StaticCapsStruct
+        }
+        
+
+        interface StaticPadTemplateStruct {
+            readonly $gtype: GObject.GType<StaticPadTemplate>
+            [Symbol.hasInstance](instance: unknown): instance is StaticPadTemplate
+        }
+
+        interface StaticPadTemplate {
             /**
              * the name of the template
              */
@@ -15241,29 +15585,41 @@ declare module "gi://Gst?version=1.0" {
              */
             get_caps(): Caps
         }
-        none
-        none
-        /**
-         */
-        abstract class StreamCollectionPrivate {
-            static readonly $gtype: GObject.GType<StreamCollectionPrivate>
 
-            
+        interface $Exports {
+            StaticPadTemplate: StaticPadTemplateStruct
         }
-        /**
-         */
-        abstract class StreamPrivate {
-            static readonly $gtype: GObject.GType<StreamPrivate>
+        
 
-            
+        interface StreamCollectionPrivateStruct {
+            readonly $gtype: GObject.GType<StreamCollectionPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is StreamCollectionPrivate
         }
-        /**
-         *  that purpose.
-         */
-        abstract class Structure {
-            static readonly $gtype: GObject.GType<Structure>
 
-            
+        interface StreamCollectionPrivate {
+        }
+
+        interface $Exports {
+            StreamCollectionPrivate: StreamCollectionPrivateStruct
+        }
+        
+
+        interface StreamPrivateStruct {
+            readonly $gtype: GObject.GType<StreamPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is StreamPrivate
+        }
+
+        interface StreamPrivate {
+        }
+
+        interface $Exports {
+            StreamPrivate: StreamPrivateStruct
+        }
+        
+
+        interface StructureStruct {
+            readonly $gtype: GObject.GType<Structure>
+            [Symbol.hasInstance](instance: unknown): instance is Structure
             /**
              * Creates a #GstStructure from a string representation.
              * If end is not %NULL, a pointer to the place inside the given string
@@ -15273,7 +15629,7 @@ declare module "gi://Gst?version=1.0" {
              * @param string a string representation of a #GstStructure.
              * @returns a new #GstStructure or %NULL     when the string could not be parsed. Free with     gst_structure_free() after use., pointer to store the end of the string in.
              */
-            static from_string(string: string): Structure | null
+            from_string(string: string): [Structure | null, string]
             /**
              * Creates a new, empty #GstStructure with the given @name.
              *
@@ -15283,7 +15639,7 @@ declare module "gi://Gst?version=1.0" {
              * @param name name of new structure
              * @returns a new, empty #GstStructure
              */
-            static new_empty(name: string): Structure
+            new_empty(name: string): Structure
             /**
              * Creates a #GstStructure from a string representation.
              * If end is not %NULL, a pointer to the place inside the given string
@@ -15299,7 +15655,7 @@ declare module "gi://Gst?version=1.0" {
              * @param string a string representation of a #GstStructure
              * @returns a new #GstStructure or %NULL     when the string could not be parsed. Free with     gst_structure_free() after use.
              */
-            static new_from_string(string: string): Structure | null
+            new_from_string(string: string): Structure | null
             /**
              * Creates a new, empty #GstStructure with the given name as a GQuark.
              *
@@ -15308,7 +15664,7 @@ declare module "gi://Gst?version=1.0" {
              * @param quark name of new structure
              * @returns a new, empty #GstStructure
              */
-            static new_id_empty(quark: GLib.Quark): Structure
+            new_id_empty(quark: GLib.Quark): Structure
             /**
              * Creates a new, empty #GstStructure with the given name.
              *
@@ -15317,7 +15673,7 @@ declare module "gi://Gst?version=1.0" {
              * @param name name of new structure
              * @returns a new, empty #GstStructure
              */
-            static new_id_str_empty(name: IdStr): Structure
+            new_id_str_empty(name: IdStr): Structure
             /**
              * Creates a new, empty #GstStructure with the given @name.
              *
@@ -15331,7 +15687,7 @@ declare module "gi://Gst?version=1.0" {
              * @param name name of new structure
              * @returns a new, empty #GstStructure
              */
-            static new_static_str_empty(name: string): Structure
+            new_static_str_empty(name: string): Structure
             /**
              * Atomically modifies a pointer to point to a new structure.
              * The #GstStructure @oldstr_ptr is pointing to is freed and
@@ -15345,7 +15701,10 @@ declare module "gi://Gst?version=1.0" {
              * @param newstr a new #GstStructure
              * @returns %TRUE if `newstr` was different from `oldstr_ptr`, pointer to a place of     a #GstStructure to take
              */
-            static take(newstr: Structure | null): [boolean, Structure | null]
+            take(newstr: Structure | null): [boolean, Structure | null]
+        }
+
+        interface Structure {
             /**
              * the GType of a structure
              */
@@ -15555,7 +15914,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of a field
              * @returns %TRUE if the values could be set correctly. If there was no field with `fieldname` or the existing field did not contain a GstFlagSet, this function returns %FALSE., a pointer to a guint for the flags field, a pointer to a guint for the mask field
              */
-            get_flagset(fieldname: string): boolean
+            get_flagset(fieldname: string): [boolean, number, number]
             /**
              * Sets the integers pointed to by @value_numerator and @value_denominator
              * corresponding to the value of the given field.  Caller is responsible
@@ -15690,7 +16049,7 @@ declare module "gi://Gst?version=1.0" {
              * @param field a #GQuark representing a field
              * @param value the new value of the field
              */
-            id_set_value(field: GLib.Quark, value: GObject.Value): void
+            id_set_value(field: GLib.Quark, value: (GObject.Value | unknown)): void
             /**
              * Finds the field with the given name, and returns the type of the
              * value it contains.  If the field is not found, G_TYPE_INVALID is
@@ -15745,7 +16104,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            id_str_set_value(fieldname: IdStr, value: GObject.Value): void
+            id_str_set_value(fieldname: IdStr, value: (GObject.Value | unknown)): void
             /**
              * Sets the field with the given GstIdStr @field to @value.  If the field
              * does not exist, it is created.  If the field exists, the previous
@@ -15754,7 +16113,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            id_str_take_value(fieldname: IdStr, value: GObject.Value): void
+            id_str_take_value(fieldname: IdStr, value: (GObject.Value | unknown)): void
             /**
              * Sets the field with the given GQuark @field to @value.  If the field
              * does not exist, it is created.  If the field exists, the previous
@@ -15763,7 +16122,7 @@ declare module "gi://Gst?version=1.0" {
              * @param field a #GQuark representing a field
              * @param value the new value of the field
              */
-            id_take_value(field: GLib.Quark, value: GObject.Value): void
+            id_take_value(field: GLib.Quark, value: (GObject.Value | unknown)): void
             /**
              * Intersects @struct1 and @struct2 and returns the intersection.
              * @param struct2 a #GstStructure
@@ -15919,7 +16278,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            set_value(fieldname: string, value: GObject.Value): void
+            set_value(fieldname: string, value: (GObject.Value | unknown)): void
             /**
              * Sets the field with the given name @field to @value.  If the field
              * does not exist, it is created.  If the field exists, the previous
@@ -15931,7 +16290,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            set_value_static_str(fieldname: string, value: GObject.Value): void
+            set_value_static_str(fieldname: string, value: (GObject.Value | unknown)): void
             /**
              * Sets the field with the given name @field to @value.  If the field
              * does not exist, it is created.  If the field exists, the previous
@@ -15939,7 +16298,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            take_value(fieldname: string, value: GObject.Value): void
+            take_value(fieldname: string, value: (GObject.Value | unknown)): void
             /**
              * Sets the field with the given name @field to @value.  If the field
              * does not exist, it is created.  If the field exists, the previous
@@ -15951,9 +16310,12 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            take_value_static_str(fieldname: string, value: GObject.Value): void
+            take_value_static_str(fieldname: string, value: (GObject.Value | unknown)): void
             /**
-             *  GST_LOG ("structure is %" GST_PTR_FORMAT, structure);
+             * Converts @structure to a human-readable string representation.
+             *
+             * For debugging purposes its easier to do something like this: |[<!--
+             * language="C" --> GST_LOG ("structure is %" GST_PTR_FORMAT, structure);
              * ]|
              * This prints the structure in human readable form.
              *
@@ -15966,37 +16328,41 @@ declare module "gi://Gst?version=1.0" {
              */
             to_string(): string
         }
-        none
-        /**
-         */
-        abstract class SystemClockPrivate {
-            static readonly $gtype: GObject.GType<SystemClockPrivate>
 
-            
+        interface $Exports {
+            Structure: StructureStruct
         }
-        /**
-         * List of tags and values used to describe media metadata.
-         *
-         * Strings in structures must be ASCII or UTF-8 encoded. Other encodings are
-         * not allowed. Strings must not be empty or %NULL.
-         */
-        abstract class TagList {
-            static readonly $gtype: GObject.GType<TagList>
+        
 
-            
+        interface SystemClockPrivateStruct {
+            readonly $gtype: GObject.GType<SystemClockPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is SystemClockPrivate
+        }
+
+        interface SystemClockPrivate {
+        }
+
+        interface $Exports {
+            SystemClockPrivate: SystemClockPrivateStruct
+        }
+        
+
+        interface TagListStruct {
+            readonly $gtype: GObject.GType<TagList>
+            [Symbol.hasInstance](instance: unknown): instance is TagList
             /**
              * Creates a new empty GstTagList.
              *
              * Free-function: gst_tag_list_unref
              * @returns An empty tag list
              */
-            static new_empty(): TagList
+            new_empty(): TagList
             /**
              * Deserializes a tag list.
              * @param str a string created with gst_tag_list_to_string()
              * @returns a new #GstTagList, or %NULL in case of an error.
              */
-            static new_from_string(str: string): TagList | null
+            new_from_string(str: string): TagList | null
             /**
              * Copies the contents for the given tag into the value,
              * merging multiple values into one if multiple values are associated
@@ -16006,7 +16372,7 @@ declare module "gi://Gst?version=1.0" {
              * @param tag tag to read out
              * @returns %TRUE, if a value was copied, %FALSE if the tag didn't exist in the          given list., uninitialized #GValue to copy into
              */
-            static copy_value(list: TagList, tag: string): [boolean, GObject.Value]
+            copy_value(list: TagList, tag: string): [boolean, unknown]
             /**
              * Modifies a pointer to a #GstTagList to point to a different #GstTagList. The
              * modification is done atomically (so this is useful for ensuring thread
@@ -16020,7 +16386,7 @@ declare module "gi://Gst?version=1.0" {
                 will replace the tag list pointed to by @old_taglist.
              * @returns %TRUE if `new_taglist` was different from `old_taglist`, pointer to a pointer to a     #GstTagList to be replaced.
              */
-            static replace(new_taglist: TagList | null): [boolean, TagList | null]
+            replace(new_taglist: TagList | null): [boolean, TagList | null]
             /**
              * Modifies a pointer to a #GstTagList to point to a different #GstTagList.
              * This function is similar to gst_tag_list_replace() except that it takes
@@ -16030,7 +16396,10 @@ declare module "gi://Gst?version=1.0" {
                 will replace the taglist pointed to by @old_taglist.
              * @returns %TRUE if `new_taglist` was different from `old_taglist`, pointer to a pointer to a #GstTagList     to be replaced.
              */
-            static take(new_taglist: TagList | null): [boolean, TagList]
+            take(new_taglist: TagList | null): [boolean, TagList]
+        }
+
+        interface TagList {
             /**
              * the parent type
              */
@@ -16041,7 +16410,7 @@ declare module "gi://Gst?version=1.0" {
              * @param tag tag
              * @param value GValue for this tag
              */
-            add_value(mode: TagMergeMode, tag: string, value: GObject.Value): void
+            add_value(mode: TagMergeMode, tag: string, value: (GObject.Value | unknown)): void
             /**
              * Creates a new #GstTagList as a copy of the old @taglist. The new taglist
              * will have a refcount of 1, owned by the caller, and will be writable as
@@ -16364,23 +16733,31 @@ declare module "gi://Gst?version=1.0" {
              */
             to_string(): string
         }
-        none
-        none
-        none
-        /**
-         */
-        abstract class TaskPrivate {
-            static readonly $gtype: GObject.GType<TaskPrivate>
 
-            
+        interface $Exports {
+            TagList: TagListStruct
         }
-        /**
-         * Structure for storing a timestamp and a value.
-         */
-        abstract class TimedValue {
-            static readonly $gtype: GObject.GType<TimedValue>
+        
 
-            
+        interface TaskPrivateStruct {
+            readonly $gtype: GObject.GType<TaskPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is TaskPrivate
+        }
+
+        interface TaskPrivate {
+        }
+
+        interface $Exports {
+            TaskPrivate: TaskPrivateStruct
+        }
+        
+
+        interface TimedValueStruct {
+            readonly $gtype: GObject.GType<TimedValue>
+            [Symbol.hasInstance](instance: unknown): instance is TimedValue
+        }
+
+        interface TimedValue {
             /**
              * timestamp of the value change
              */
@@ -16390,63 +16767,24 @@ declare module "gi://Gst?version=1.0" {
              */
             value: number
         }
-        /**
-         * #GstToc functions are used to create/free #GstToc and #GstTocEntry structures.
-         * Also they are used to convert #GstToc into #GstStructure and vice versa.
-         *
-         * #GstToc lets you to inform other elements in pipeline or application that playing
-         * source has some kind of table of contents (TOC). These may be chapters, editions,
-         * angles or other types. For example: DVD chapters, Matroska chapters or cue sheet
-         * TOC. Such TOC will be useful for applications to display instead of just a
-         * playlist.
-         *
-         * Using TOC is very easy. Firstly, create #GstToc structure which represents root
-         * contents of the source. You can also attach TOC-specific tags to it. Then fill
-         * it with #GstTocEntry entries by appending them to the #GstToc using
-         * gst_toc_append_entry(), and appending subentries to a #GstTocEntry using
-         * gst_toc_entry_append_sub_entry().
-         *
-         * Note that root level of the TOC can contain only either editions or chapters. You
-         * should not mix them together at the same level. Otherwise you will get serialization
-         * /deserialization errors. Make sure that no one of the entries has negative start and
-         *  stop values.
-         *
-         * Use gst_event_new_toc() to create a new TOC #GstEvent, and gst_event_parse_toc() to
-         * parse received TOC event. Use gst_event_new_toc_select() to create a new TOC select #GstEvent,
-         * and gst_event_parse_toc_select() to parse received TOC select event. The same rule for
-         * the #GstMessage: gst_message_new_toc() to create new TOC #GstMessage, and
-         * gst_message_parse_toc() to parse received TOC message.
-         *
-         * TOCs can have global scope or current scope. Global scope TOCs contain
-         * all entries that can possibly be selected using a toc select event, and
-         * are what an application is usually interested in. TOCs with current scope
-         * only contain the parts of the TOC relevant to the currently selected/playing
-         * stream; the current scope TOC is used by downstream elements such as muxers
-         * to write correct TOC entries when transcoding files, for example. When
-         * playing a DVD, the global TOC would contain a hierarchy of all titles,
-         * chapters and angles, for example, while the current TOC would only contain
-         * the chapters for the currently playing title if playback of a specific
-         * title was requested.
-         *
-         * Applications and plugins should not rely on TOCs having a certain kind of
-         * structure, but should allow for different alternatives. For example, a
-         * simple CUE sheet embedded in a file may be presented as a flat list of
-         * track entries, or could have a top-level edition node (or some other
-         * alternative type entry) with track entries underneath that node; or even
-         * multiple top-level edition nodes (or some other alternative type entries)
-         * each with track entries underneath, in case the source file has extracted
-         * a track listing from different sources).
-         */
-        abstract class Toc {
-            static readonly $gtype: GObject.GType<Toc>
 
-            
+        interface $Exports {
+            TimedValue: TimedValueStruct
+        }
+        
+
+        interface TocStruct {
+            readonly $gtype: GObject.GType<Toc>
+            [Symbol.hasInstance](instance: unknown): instance is Toc
             /**
              * Create a new #GstToc structure.
              * @param scope scope of this TOC
              * @returns newly allocated #GstToc structure, free it     with gst_toc_unref().
              */
-            static "new"(scope: TocScope): Toc
+            "new"(scope: TocScope): Toc
+        }
+
+        interface Toc {
             /**
              * Appends the #GstTocEntry @entry to @toc.
              * @param entry A #GstTocEntry
@@ -16487,19 +16825,25 @@ declare module "gi://Gst?version=1.0" {
              */
             set_tags(tags: TagList | null): void
         }
-        /**
-         */
-        abstract class TocEntry {
-            static readonly $gtype: GObject.GType<TocEntry>
 
-            
+        interface $Exports {
+            Toc: TocStruct
+        }
+        
+
+        interface TocEntryStruct {
+            readonly $gtype: GObject.GType<TocEntry>
+            [Symbol.hasInstance](instance: unknown): instance is TocEntry
             /**
              * Create new #GstTocEntry structure.
              * @param type entry type.
              * @param uid unique ID (UID) in the whole TOC.
              * @returns newly allocated #GstTocEntry structure, free it with gst_toc_entry_unref().
              */
-            static "new"(type: TocEntryType, uid: string): TocEntry
+            "new"(type: TocEntryType, uid: string): TocEntry
+        }
+
+        interface TocEntry {
             /**
              * Appends the #GstTocEntry @subentry to @entry.
              * @param subentry A #GstTocEntry
@@ -16517,7 +16861,7 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.4
              * @returns %TRUE if all non-%NULL storage pointers were filled with appropriate values, %FALSE otherwise., the storage for the loop_type             value, leave %NULL if not need., the storage for the repeat_count                value, leave %NULL if not need.
              */
-            get_loop(): boolean
+            get_loop(): [boolean, TocLoopType, number]
             /**
              * Gets the parent #GstTocEntry of @entry.
              * @returns The parent #GstTocEntry of `entry`
@@ -16528,7 +16872,7 @@ declare module "gi://Gst?version=1.0" {
              * storages.
              * @returns %TRUE if all non-%NULL storage pointers were filled with appropriate values, %FALSE otherwise., the storage for the start value, leave   %NULL if not need., the storage for the stop value, leave   %NULL if not need.
              */
-            get_start_stop_times(): boolean
+            get_start_stop_times(): [boolean, number, number]
             /**
              * Gets the sub-entries of @entry.
              * @returns A #GList of #GstTocEntry of `entry`
@@ -16582,25 +16926,28 @@ declare module "gi://Gst?version=1.0" {
              */
             set_tags(tags: TagList | null): void
         }
-        none
-        none
-        none
-        /**
-         */
-        abstract class TracerPrivate {
-            static readonly $gtype: GObject.GType<TracerPrivate>
 
-            
+        interface $Exports {
+            TocEntry: TocEntryStruct
         }
-        none
-        /**
-         * The following functions allow you to detect the media type of an unknown
-         * stream.
-         */
-        abstract class TypeFind {
-            static readonly $gtype: GObject.GType<TypeFind>
+        
 
-            
+        interface TracerPrivateStruct {
+            readonly $gtype: GObject.GType<TracerPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is TracerPrivate
+        }
+
+        interface TracerPrivate {
+        }
+
+        interface $Exports {
+            TracerPrivate: TracerPrivateStruct
+        }
+        
+
+        interface TypeFindStruct {
+            readonly $gtype: GObject.GType<TypeFind>
+            [Symbol.hasInstance](instance: unknown): instance is TypeFind
             /**
              * Registers a new typefind function to be used for typefinding. After
              * registering this function will be available for typefinding.
@@ -16615,7 +16962,10 @@ declare module "gi://Gst?version=1.0" {
                             succeeds
              * @returns %TRUE on success, %FALSE otherwise
              */
-            static register(plugin: Plugin | null, name: string, rank: number, func: TypeFindFunction, extensions: string | null, possible_caps: Caps | null): boolean
+            register(plugin: Plugin | null, name: string, rank: number, func: TypeFindFunction, extensions: string | null, possible_caps: Caps | null): boolean
+        }
+
+        interface TypeFind {
             /**
              * The data used by the caller of the typefinding function.
              */
@@ -16657,17 +17007,15 @@ declare module "gi://Gst?version=1.0" {
              */
             suggest_empty_simple(probability: number, media_type: string): void
         }
-        none
-        none
-        /**
-         * A #GstUri object can be used to parse and split a URI string into its
-         * constituent parts. Two #GstUri objects can be joined to make a new #GstUri
-         * using the algorithm described in RFC3986.
-         */
-        abstract class Uri {
-            static readonly $gtype: GObject.GType<Uri>
 
-            
+        interface $Exports {
+            TypeFind: TypeFindStruct
+        }
+        
+
+        interface UriStruct {
+            readonly $gtype: GObject.GType<Uri>
+            [Symbol.hasInstance](instance: unknown): instance is Uri
             /**
              * Creates a new #GstUri object with the given URI parts. The path and query
              * strings will be broken down into their elements. All strings should not be
@@ -16679,11 +17027,13 @@ declare module "gi://Gst?version=1.0" {
              * @param port The port number for the new URI or %GST_URI_NO_PORT.
              * @param path The path for the new URI with '/' separating path
                                  elements.
-             * @param query percnt;26".
+             * @param query The query string for the new URI with '&' separating
+                                  query elements. Elements containing '&' characters
+                                  should encode them as "&percnt;26".
              * @param fragment The fragment name for the new URI.
              * @returns A new #GstUri object.
              */
-            static "new"(scheme: string | null, userinfo: string | null, host: string | null, port: number, path: string | null, query: string | null, fragment: string | null): Uri
+            "new"(scheme: string | null, userinfo: string | null, host: string | null, port: number, path: string | null, query: string | null, fragment: string | null): Uri
             /**
              * Constructs a URI for a given valid protocol and location.
              *
@@ -16693,7 +17043,7 @@ declare module "gi://Gst?version=1.0" {
              * @param location Location for URI
              * @returns a new string for this URI.
              */
-            static construct(protocol: string, location: string): string
+            construct(protocol: string, location: string): string
             /**
              * Parses a URI string into a new #GstUri object. Will return NULL if the URI
              * cannot be parsed.
@@ -16701,7 +17051,7 @@ declare module "gi://Gst?version=1.0" {
              * @param uri The URI string to parse.
              * @returns A new #GstUri object, or NULL.
              */
-            static from_string(uri: string): Uri | null
+            from_string(uri: string): Uri | null
             /**
              * Parses a URI string into a new #GstUri object. Will return NULL if the URI
              * cannot be parsed. This is identical to gst_uri_from_string() except that
@@ -16720,7 +17070,7 @@ declare module "gi://Gst?version=1.0" {
              * @param uri The URI string to parse.
              * @returns A new #GstUri object, or NULL.
              */
-            static from_string_escaped(uri: string): Uri | null
+            from_string_escaped(uri: string): Uri | null
             /**
              * Extracts the location out of a given valid URI, ie. the protocol and "://"
              * are stripped from the URI, which means that the location returned includes
@@ -16731,28 +17081,28 @@ declare module "gi://Gst?version=1.0" {
              * @param uri A URI string
              * @returns the location for this URI. Returns     %NULL if the URI isn't valid. If the URI does not contain a location, an     empty string is returned.
              */
-            static get_location(uri: string): string | null
+            get_location(uri: string): string | null
             /**
              * Extracts the protocol out of a given valid URI. The returned string must be
              * freed using g_free().
              * @param uri A URI string
              * @returns The protocol for this URI.
              */
-            static get_protocol(uri: string): string | null
+            get_protocol(uri: string): string | null
             /**
              * Checks if the protocol of a given valid URI matches @protocol.
              * @param uri a URI string
              * @param protocol a protocol string (e.g. "http")
              * @returns %TRUE if the protocol matches.
              */
-            static has_protocol(uri: string, protocol: string): boolean
+            has_protocol(uri: string, protocol: string): boolean
             /**
              * Tests if the given string is a valid URI identifier. URIs start with a valid
              * scheme followed by ":" and maybe a string identifying the location.
              * @param uri A URI string
              * @returns %TRUE if the string is a valid URI
              */
-            static is_valid(uri: string): boolean
+            is_valid(uri: string): boolean
             /**
              * This is a convenience function to join two URI strings and return the result.
              * The returned string should be g_free()'d after use.
@@ -16761,7 +17111,7 @@ declare module "gi://Gst?version=1.0" {
              * @param ref_uri The percent-encoded reference URI to join to the @base_uri.
              * @returns A string representing the percent-encoded join of          the two URIs.
              */
-            static join_strings(base_uri: string, ref_uri: string): string | null
+            join_strings(base_uri: string, ref_uri: string): string | null
             /**
              * Checks if an element exists that supports the given URI protocol. Note
              * that a positive return value does not imply that a subsequent call to
@@ -16770,7 +17120,7 @@ declare module "gi://Gst?version=1.0" {
              * @param protocol Protocol that should be checked for (e.g. "http" or "smb")
              * @returns %TRUE
              */
-            static protocol_is_supported(type: URIType, protocol: string): boolean
+            protocol_is_supported(type: URIType, protocol: string): boolean
             /**
              * Tests if the given string is a valid protocol identifier. Protocols
              * must consist of alphanumeric characters, '+', '-' and '.' and must
@@ -16778,7 +17128,10 @@ declare module "gi://Gst?version=1.0" {
              * @param protocol A string
              * @returns %TRUE if the string is a valid protocol identifier, %FALSE otherwise.
              */
-            static protocol_is_valid(protocol: string): boolean
+            protocol_is_valid(protocol: string): boolean
+        }
+
+        interface Uri {
             /**
              * Append a path onto the end of the path in the URI. The path is not
              * normalized, call #gst_uri_normalize() to normalize the path.
@@ -16831,7 +17184,9 @@ declare module "gi://Gst?version=1.0" {
              */
             get_host(): string | null
             /**
-             * " sub-delims, then "key"
+             * Get the media fragment table from the URI, as defined by "Media Fragments URI 1.0".
+             * Hash table returned by this API is a list of "key-value" pairs, and the each
+             * pair is generated by splitting "URI fragment" per "&" sub-delims, then "key"
              * and "value" are split by "=" sub-delims. The "key" returned by this API may
              * be undefined keyword by standard.
              * A value may be %NULL to indicate that the key should appear in the fragment
@@ -16977,7 +17332,9 @@ declare module "gi://Gst?version=1.0" {
              * @param port The port number for the new URI or %GST_URI_NO_PORT.
              * @param path The path for the new URI with '/' separating path
                                  elements.
-             * @param query percnt;26".
+             * @param query The query string for the new URI with '&' separating
+                                  query elements. Elements containing '&' characters
+                                  should encode them as "&percnt;26".
              * @param fragment The fragment name for the new URI.
              * @returns The new URI joined onto `base`.
              */
@@ -17135,13 +17492,18 @@ declare module "gi://Gst?version=1.0" {
              */
             unref(): void
         }
-        /**
-         * VTable for the #GValue @type.
-         */
-        abstract class ValueTable {
-            static readonly $gtype: GObject.GType<ValueTable>
 
-            
+        interface $Exports {
+            Uri: UriStruct
+        }
+        
+
+        interface ValueTableStruct {
+            readonly $gtype: GObject.GType<ValueTable>
+            [Symbol.hasInstance](instance: unknown): instance is ValueTable
+        }
+
+        interface ValueTable {
             /**
              * a #GType
              */
@@ -17164,2415 +17526,317 @@ declare module "gi://Gst?version=1.0" {
              */
             deserialize_with_pspec: ValueDeserializeWithPSpecFunc
         }
-        none
-        /**
-         * Gets the maximum amount of memory blocks that a buffer can hold. This is a
-         * compile time constant that can be queried with the function.
-         *
-         * When more memory blocks are added, existing memory blocks will be merged
-         * together to make room for the new block.
-         * @since 1.2
-         * @returns the maximum amount of memory blocks that a buffer can hold.
-         */
-        function buffer_get_max_memory(): number
-        /**
-         * Modifies a pointer to a #GstBufferList to point to a different
-         * #GstBufferList. The modification is done atomically (so this is useful for
-         * ensuring thread safety in some cases), and the reference counts are updated
-         * appropriately (the old buffer list is unreffed, the new is reffed).
-         *
-         * Either @new_list or the #GstBufferList pointed to by @old_list may be %NULL.
-         * @since 1.16
-         * @param new_list pointer to a #GstBufferList that
-            will replace the buffer list pointed to by @old_list.
-         * @returns %TRUE if `new_list` was different from `old_list`, pointer to a pointer to a     #GstBufferList to be replaced.
-         */
-        function buffer_list_replace(new_list: BufferList | null): [boolean, BufferList | null]
-        /**
-         * Modifies a pointer to a #GstBufferList to point to a different
-         * #GstBufferList. This function is similar to gst_buffer_list_replace() except
-         * that it takes ownership of @new_list.
-         * @since 1.16
-         * @param new_list pointer to a #GstBufferList
-            that will replace the bufferlist pointed to by @old_list.
-         * @returns %TRUE if `new_list` was different from `old_list`, pointer to a pointer to a #GstBufferList     to be replaced.
-         */
-        function buffer_list_take(new_list: BufferList | null): [boolean, BufferList]
-        none
-        none
-        /**
-         * Creates a #GstCapsFeatures from a string representation.
-         * @since 1.2
-         * @param features a string representation of a #GstCapsFeatures.
-         * @returns a new #GstCapsFeatures or     %NULL when the string could not be parsed.
-         */
-        function caps_features_from_string(features: string): CapsFeatures | null
-        /**
-         * Converts @caps from a string representation.
-         *
-         * The implementation of serialization up to 1.20 would lead to unexpected results
-         * when there were nested #GstCaps / #GstStructure deeper than one level.
-         * @param string a string to convert to #GstCaps
-         * @returns a newly allocated #GstCaps
-         */
-        function caps_from_string(string: string): Caps | null
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Modifies a pointer to a #GstContext to point to a different #GstContext. The
-         * modification is done atomically (so this is useful for ensuring thread safety
-         * in some cases), and the reference counts are updated appropriately (the old
-         * context is unreffed, the new one is reffed).
-         *
-         * Either @new_context or the #GstContext pointed to by @old_context may be %NULL.
-         * @since 1.2
-         * @param new_context pointer to a #GstContext that will
-            replace the context pointed to by @old_context.
-         * @returns %TRUE if `new_context` was different from `old_context`, pointer to a pointer to a #GstContext     to be replaced.
-         */
-        function context_replace(new_context: Context | null): [boolean, Context]
-        /**
-         */
-        function core_error_quark(): GLib.Quark
-        /**
-         * Adds the logging function to the list of logging functions.
-         * Be sure to use #G_GNUC_NO_INSTRUMENT on that function, it is needed.
-         * @param func the function to use
-         */
-        function debug_add_log_function(func: LogFunction): void
-        /**
-         * Adds a memory ringbuffer based debug logger that stores up to
-         * @max_size_per_thread bytes of logs per thread and times out threads after
-         * @thread_timeout seconds of inactivity.
-         *
-         * Logs can be fetched with gst_debug_ring_buffer_logger_get_logs() and the
-         * logger can be removed again with gst_debug_remove_ring_buffer_logger().
-         * Only one logger at a time is possible.
-         * @since 1.14
-         * @param max_size_per_thread Maximum size of log per thread in bytes
-         * @param thread_timeout Timeout for threads in seconds
-         */
-        function debug_add_ring_buffer_logger(max_size_per_thread: number, thread_timeout: number): void
-        /**
-         * To aid debugging applications one can use this method to obtain the whole
-         * network of gstreamer elements that form the pipeline into a dot file.
-         * This data can be processed with graphviz to get an image.
-         * @param bin the top-level pipeline that should be analyzed
-         * @param details type of #GstDebugGraphDetails to use
-         * @returns a string containing the pipeline in graphviz dot format.
-         */
-        function debug_bin_to_dot_data(bin: Bin, details: DebugGraphDetails): string
-        /**
-         * To aid debugging applications one can use this method to write out the whole
-         * network of gstreamer elements that form the pipeline into a dot file.
-         * This file can be processed with graphviz to get an image.
-         *
-         * ``` shell
-         *  dot -Tpng -oimage.png graph_lowlevel.dot
-         * ```
-         * @param bin the top-level pipeline that should be analyzed
-         * @param details type of #GstDebugGraphDetails to use
-         * @param file_name output base filename (e.g. "myplayer")
-         */
-        function debug_bin_to_dot_file(bin: Bin, details: DebugGraphDetails, file_name: string): void
-        /**
-         * This works like gst_debug_bin_to_dot_file(), but adds the current timestamp
-         * to the filename, so that it can be used to take multiple snapshots.
-         * @param bin the top-level pipeline that should be analyzed
-         * @param details type of #GstDebugGraphDetails to use
-         * @param file_name output base filename (e.g. "myplayer")
-         */
-        function debug_bin_to_dot_file_with_ts(bin: Bin, details: DebugGraphDetails, file_name: string): void
-        /**
-         * Constructs a string that can be used for getting the desired color in color
-         * terminals.
-         * You need to free the string after use.
-         * @param colorinfo the color info
-         * @returns a string containing the color     definition
-         */
-        function debug_construct_term_color(colorinfo: number): string
-        /**
-         * Constructs an integer that can be used for getting the desired color in
-         * windows' terminals (cmd.exe). As there is no mean to underline, we simply
-         * ignore this attribute.
-         *
-         * This function returns 0 on non-windows machines.
-         * @param colorinfo the color info
-         * @returns an integer containing the color definition
-         */
-        function debug_construct_win_color(colorinfo: number): number
-        /**
-         * Returns a snapshot of a all categories that are currently in use . This list
-         * may change anytime.
-         * The caller has to free the list after use.
-         * @returns the list of     debug categories
-         */
-        function debug_get_all_categories(): DebugCategory[]
-        /**
-         * Changes the coloring mode for debug output.
-         * @since 1.2
-         * @returns see `GstDebugColorMode` for possible values.
-         */
-        function debug_get_color_mode(): DebugColorMode
-        /**
-         * Returns the default threshold that is used for new categories.
-         * @returns the default threshold level
-         */
-        function debug_get_default_threshold(): DebugLevel
-        /**
-         * @since 1.12
-         * @param flags A set of #GstStackTraceFlags to determine how the stack trace should
-        look like. Pass #GST_STACK_TRACE_SHOW_NONE to retrieve a minimal backtrace.
-         * @returns a stack trace, if libunwind or glibc backtrace are present, else %NULL.
-         */
-        function debug_get_stack_trace(flags: StackTraceFlags): string | null
-        /**
-         * Checks if debugging output is activated.
-         * @returns %TRUE, if debugging is activated
-         */
-        function debug_is_active(): boolean
-        /**
-         * Checks if the debugging output should be colored.
-         * @returns %TRUE, if the debug output should be colored.
-         */
-        function debug_is_colored(): boolean
-        /**
-         * Get the string representation of a debugging level
-         * @param level the level to get the name for
-         * @returns the name
-         */
-        function debug_level_get_name(level: DebugLevel): string
-        none
-        /**
-         * The default logging handler used by GStreamer. Logging functions get called
-         * whenever a macro like GST_DEBUG or similar is used. By default this function
-         * is setup to output the message and additional info to stderr (or the log file
-         * specified via the GST_DEBUG_FILE environment variable) as received via
-         * @user_data.
-         *
-         * You can add other handlers by using gst_debug_add_log_function().
-         * And you can remove this handler by calling
-         * gst_debug_remove_log_function(gst_debug_log_default);
-         * @param category category to log
-         * @param level level of the message
-         * @param file the file that emitted the message, usually the __FILE__ identifier
-         * @param function the function that emitted the message
-         * @param line the line from that the message was emitted, usually __LINE__
-         * @param object the object this message relates to,
-            or %NULL if none
-         * @param message the actual message
-         * @param user_data the FILE* to log to
-         */
-        function debug_log_default(category: DebugCategory, level: DebugLevel, file: string, func: string, line: number, object: GObject.Object | null, message: DebugMessage, user_data: never | null): void
-        /**
-         * Returns the string representation for the specified debug log message
-         * formatted in the same way as gst_debug_log_default() (the default handler),
-         * without color. The purpose is to make it easy for custom log output
-         * handlers to get a log output that is identical to what the default handler
-         * would write out.
-         * @since 1.18
-         * @param category category to log
-         * @param level level of the message
-         * @param file the file that emitted the message, usually the __FILE__ identifier
-         * @param function the function that emitted the message
-         * @param line the line from that the message was emitted, usually __LINE__
-         * @param object the object this message relates to,
-            or %NULL if none
-         * @param message the actual message
-         */
-        function debug_log_get_line(category: DebugCategory, level: DebugLevel, file: string, func: string, line: number, object: GObject.Object | null, message: DebugMessage): string
-        none
-        /**
-         * Logs the given message using the currently registered debugging handlers.
-         * @since 1.22
-         * @param category category to log
-         * @param level level of the message is in
-         * @param file the file that emitted the message, usually the __FILE__ identifier
-         * @param function the function that emitted the message
-         * @param line the line from that the message was emitted, usually __LINE__
-         * @param id the identifier of the object this message relates to
-           or %NULL if none
-         * @param message_string a message string
-         */
-        function debug_log_id_literal(category: DebugCategory, level: DebugLevel, file: string, func: string, line: number, id: string | null, message_string: string): void
-        none
-        /**
-         * Logs the given message using the currently registered debugging handlers.
-         * @since 1.20
-         * @param category category to log
-         * @param level level of the message is in
-         * @param file the file that emitted the message, usually the __FILE__ identifier
-         * @param function the function that emitted the message
-         * @param line the line from that the message was emitted, usually __LINE__
-         * @param object the object this message relates to,
-            or %NULL if none
-         * @param message_string a message string
-         */
-        function debug_log_literal(category: DebugCategory, level: DebugLevel, file: string, func: string, line: number, object: GObject.Object | null, message_string: string): void
-        none
-        /**
-         * Returns a string that represents @ptr. This is safe to call with
-         * %GstStructure, %GstCapsFeatures, %GstMiniObject s (e.g. %GstCaps,
-         * %GstBuffer or %GstMessage), and %GObjects (e.g. %GstElement or %GstPad).
-         *
-         * The string representation is meant to be used for debugging purposes and
-         * might change between GStreamer versions.
-         *
-         * Passing other kind of pointers might or might not work and is generally
-         * unsafe to do.
-         * @since 1.26
-         * @param ptr the object
-         * @returns a string containing a string     representation of the object
-         */
-        function debug_print_object(ptr: never | null): string
-        /**
-         * Returns a string that represents @segments.
-         *
-         * The string representation is meant to be used for debugging purposes and
-         * might change between GStreamer versions.
-         * @since 1.26
-         * @param segment the %GstSegment
-         * @returns a string containing a string     representation of the segment
-         */
-        function debug_print_segment(segment: Segment | null): string
-        /**
-         * If libunwind, glibc backtrace or DbgHelp are present
-         * a stack trace is printed.
-         */
-        function debug_print_stack_trace(): void
-        /**
-         * Removes all registered instances of the given logging functions.
-         * @param func the log function to remove, or %NULL to
-            remove the default log function
-         * @returns How many instances of the function were removed
-         */
-        function debug_remove_log_function(func: LogFunction | null): number
-        /**
-         * Removes all registered instances of log functions with the given user data.
-         * @param data user data of the log function to remove
-         * @returns How many instances of the function were removed
-         */
-        function debug_remove_log_function_by_data(data: never | null): number
-        /**
-         * Removes any previously added ring buffer logger with
-         * gst_debug_add_ring_buffer_logger().
-         * @since 1.14
-         */
-        function debug_remove_ring_buffer_logger(): void
-        /**
-         * Fetches the current logs per thread from the ring buffer logger. See
-         * gst_debug_add_ring_buffer_logger() for details.
-         * @since 1.14
-         * @returns NULL-terminated array of strings with the debug output per thread
-         */
-        function debug_ring_buffer_logger_get_logs(): string[]
-        /**
-         *  This function is not threadsafe. It makes sense to only call it
-         * during initialization.
-         * @param active Whether to use debugging output or not
-         */
-        function debug_set_active(active: boolean): void
-        /**
-         * Changes the coloring mode for debug output.
-         *
-         * This function may be called before gst_init().
-         * @since 1.2
-         * @param mode The coloring mode for debug output. See @GstDebugColorMode.
-         */
-        function debug_set_color_mode(mode: DebugColorMode): void
-        /**
-         * Changes the coloring mode for debug output.
-         *
-         * This function may be called before gst_init().
-         * @since 1.2
-         * @param mode The coloring mode for debug output. One of the following:
-        "on", "auto", "off", "disable", "unix".
-         */
-        function debug_set_color_mode_from_string(mode: string): void
-        /**
-         * Sets or unsets the use of coloured debugging output.
-         * Same as gst_debug_set_color_mode () with the argument being
-         * being GST_DEBUG_COLOR_MODE_ON or GST_DEBUG_COLOR_MODE_OFF.
-         *
-         * This function may be called before gst_init().
-         * @param colored Whether to use colored output or not
-         */
-        function debug_set_colored(colored: boolean): void
-        /**
-         * Sets the default threshold to the given level and updates all categories to
-         * use this threshold.
-         *
-         * This function may be called before gst_init().
-         * @param level level to set
-         */
-        function debug_set_default_threshold(level: DebugLevel): void
-        /**
-         * Sets all categories which match the given glob style pattern to the given
-         * level.
-         * @param name name of the categories to set
-         * @param level level to set them to
-         */
-        function debug_set_threshold_for_name(name: string, level: DebugLevel): void
-        /**
-         * Sets the debug logging wanted in the same form as with the GST_DEBUG
-         * environment variable. You can use wildcards such as `*`, but note that
-         * the order matters when you use wild cards, e.g. `foosrc:6,*src:3,*:2` sets
-         * everything to log level 2.
-         * @since 1.2
-         * @param list comma-separated list of "category:level" pairs to be used
-            as debug logging levels
-         * @param reset %TRUE to clear all previously-set debug levels before setting
-            new thresholds
-        %FALSE if adding the threshold described by @list to the one already set.
-         */
-        function debug_set_threshold_from_string(list: string, reset: boolean): void
-        /**
-         * Resets all categories with the given name back to the default level.
-         * @param name name of the categories to set
-         */
-        function debug_unset_threshold_for_name(name: string): void
-        /**
-         * Clean up any resources created by GStreamer in gst_init().
-         *
-         * It is normally not needed to call this function in a normal application
-         * as the resources will automatically be freed when the program terminates.
-         * This function is therefore mostly used by testsuites and other memory
-         * profiling tools.
-         *
-         * After this call GStreamer (including this method) should not be used anymore.
-         */
-        function deinit(): void
-        /**
-         * Registers a new #GstDynamicTypeFactory in the registry
-         * @since 1.12
-         * @param plugin The #GstPlugin to register @dyn_type for
-         * @param type The #GType to register dynamically
-         */
-        function dynamic_type_register(plugin: Plugin, type: (GObject.GType | { $gtype: GObject.GType })): boolean
-        /**
-         * Get a string describing the error message in the current locale.
-         * @param domain the GStreamer error domain this error belongs to.
-         * @param code the error code belonging to the domain.
-         * @returns a newly allocated string describing     the error message (in UTF-8 encoding)
-         */
-        function error_get_message(domain: GLib.Quark, code: number): string
-        none
-        none
-        none
-        /**
-         * Gets the #GstEventTypeFlags associated with @type.
-         * @param type a #GstEventType
-         * @returns a #GstEventTypeFlags.
-         */
-        function event_type_get_flags(type: EventType): EventTypeFlags
-        /**
-         * Get a printable name for the given event type. Do not modify or free.
-         * @param type the event type
-         * @returns a reference to the static name of the event.
-         */
-        function event_type_get_name(type: EventType): string
-        /**
-         * Get the unique quark for the given event type.
-         * @param type the event type
-         * @returns the quark associated with the event type
-         */
-        function event_type_to_quark(type: EventType): GLib.Quark
-        /**
-         * Converts the #GstEventType to an unsigned integer that
-         * represents the ordering of sticky events when re-sending them.
-         * A lower value represents a higher-priority event.
-         * @since 1.22
-         * @param type a #GstEventType
-         * @returns an unsigned integer
-         */
-        function event_type_to_sticky_ordering(type: EventType): number
-        /**
-         * Similar to g_filename_to_uri(), but attempts to handle relative file paths
-         * as well. Before converting @filename into an URI, it will be prefixed by
-         * the current working directory if it is a relative path, and then the path
-         * will be canonicalised so that it doesn't contain any './' or '../' segments.
-         *
-         * On Windows @filename should be in UTF-8 encoding.
-         * @throws {GLib.Error}
-         * @param filename absolute or relative file name path
-         * @returns newly-allocated URI string, or NULL on error. The caller must   free the URI string with g_free() when no longer needed.
-         */
-        function filename_to_uri(filename: string): string | null
-        /**
-         * Gets a string representing the given flow return.
-         * @param ret a #GstFlowReturn to get the name of.
-         * @returns a static string with the name of the flow return.
-         */
-        function flow_get_name(ret: FlowReturn): string
-        /**
-         * Get the unique quark for the given GstFlowReturn.
-         * @param ret a #GstFlowReturn to get the quark of.
-         * @returns the quark associated with the flow return or 0 if an invalid return was specified.
-         */
-        function flow_to_quark(ret: FlowReturn): GLib.Quark
-        /**
-         * Return the format registered with the given nick.
-         * @param nick The nick of the format
-         * @returns The format with `nick` or GST_FORMAT_UNDEFINED if the format was not registered.
-         */
-        function format_get_by_nick(nick: string): Format
-        /**
-         * Get details about the given format.
-         * @param format The format to get details of
-         * @returns The #GstFormatDefinition for `format` or %NULL on failure.  MT safe.
-         */
-        function format_get_details(format: Format): FormatDefinition | null
-        /**
-         * Get a printable name for the given format. Do not modify or free.
-         * @param format a #GstFormat
-         * @returns a reference to the static name of the format or %NULL if the format is unknown.
-         */
-        function format_get_name(format: Format): string | null
-        /**
-         * Iterate all the registered formats. The format definition is read
-         * only.
-         * @returns a GstIterator of #GstFormatDefinition.
-         */
-        function format_iterate_definitions(): Iterator
-        /**
-         * Create a new GstFormat based on the nick or return an
-         * already registered format with that nick.
-         * @param nick The nick of the new format
-         * @param description The description of the new format
-         * @returns A new GstFormat or an already registered format with the same nick.  MT safe.
-         */
-        function format_register(nick: string, description: string): Format
-        /**
-         * Get the unique quark for the given format.
-         * @param format a #GstFormat
-         * @returns the quark associated with the format or 0 if the format is unknown.
-         */
-        function format_to_quark(format: Format): GLib.Quark
-        /**
-         * See if the given format is inside the format array.
-         * @param formats The format array to search
-         * @param format the format to find
-         * @returns %TRUE if the format is found inside the array
-         */
-        function formats_contains(formats: Format[], format: Format): boolean
-        /**
-         * This helper is mostly helpful for plugins that need to
-         * inspect the folder of the main executable to determine
-         * their set of features.
-         *
-         * When a plugin is initialized from the gst-plugin-scanner
-         * external process, the returned path will be the same as from the
-         * parent process.
-         * @since 1.14
-         * @returns The path of the executable that   initialized GStreamer, or %NULL if it could not be determined.
-         */
-        function get_main_executable_path(): string | null
-        none
-        none
-        none
-        /**
-         *
-         * for how to disable automatic registry updates.
-         *
-         * WARNING: This function will terminate your program if it was unable to
-         * initialize GStreamer for some reason. If you want your program to fall back,
-         * use gst_init_check() instead.
-         * @returns , pointer to application's argv
-         */
-        function init(): string[] | null
-        /**
-         * Initializes the GStreamer library, setting up internal path lists,
-         * registering built-in elements, and loading standard plugins.
-         *
-         * This function will return %FALSE if GStreamer could not be initialized
-         * for some reason.  If you want your program to fail fatally,
-         * use gst_init() instead.
-         * @throws {GLib.Error}
-         * @returns %TRUE if GStreamer could be initialized., pointer to application's argv
-         */
-        function init_check(): [boolean, string[] | null]
-        none
-        /**
-         * Checks if @obj is a #GstCapsFeatures
-         * @param obj
-         * @returns %TRUE if `obj` is a #GstCapsFeatures %FALSE otherwise
-         */
-        function is_caps_features(obj: never | null): boolean
-        /**
-         * Use this function to check if GStreamer has been initialized with gst_init()
-         * or gst_init_check().
-         * @returns %TRUE if initialization has been done, %FALSE otherwise.
-         */
-        function is_initialized(): boolean
-        /**
-         */
-        function library_error_quark(): GLib.Quark
-        none
-        none
-        /**
-         * Modifies a pointer to a #GstMessage to point to a different #GstMessage. This
-         * function is similar to gst_message_replace() except that it takes ownership
-         * of @new_message.
-         * @since 1.16
-         * @param new_message pointer to a #GstMessage that
-            will replace the message pointed to by @old_message.
-         * @returns %TRUE if `new_message` was different from `old_message`, pointer to a pointer to a #GstMessage     to be replaced.
-         */
-        function message_take(new_message: Message | null): [boolean, Message]
-        /**
-         * Get a printable name for the given message type. Do not modify or free.
-         * @param type the message type
-         * @returns a reference to the static name of the message.
-         */
-        function message_type_get_name(type: MessageType): string
-        /**
-         * Get the unique quark for the given message type.
-         * @param type the message type
-         * @returns the quark associated with the message type
-         */
-        function message_type_to_quark(type: MessageType): GLib.Quark
-        /**
-         * When a element like `tee` decides the allocation, each downstream element may
-         * fill different parameters and pass them to gst_query_add_allocation_meta().
-         * In order to keep these parameters, a merge operation is needed. This
-         * aggregate function can combine the parameters from @params0 and @param1, and
-         * write the result back into @aggregated_params.
-         * @since 1.26
-         * @param api the GType of the API for which the parameters are being aggregated.
-         * @param aggregated_params This structure will be updated with the
-                            combined parameters from both @params0 and @params1.
-         * @param params0 a #GstStructure containing the new parameters to be aggregated.
-         * @param params1 a #GstStructure containing the new parameters to be aggregated.
-         * @returns %TRUE if the parameters were successfully aggregated, %FALSE otherwise.
-         */
-        function meta_api_type_aggregate_params(api: (GObject.GType | { $gtype: GObject.GType }), aggregated_params: Structure, params0: Structure, params1: Structure): boolean
-        /**
-         * @since 1.2
-         * @param api an API
-         * @returns an array of tags as strings.
-         */
-        function meta_api_type_get_tags(api: (GObject.GType | { $gtype: GObject.GType })): string[]
-        /**
-         * Check if @api was registered with @tag.
-         * @param api an API
-         * @param tag the tag to check
-         * @returns %TRUE if `api` was registered with `tag`.
-         */
-        function meta_api_type_has_tag(api: (GObject.GType | { $gtype: GObject.GType }), tag: GLib.Quark): boolean
-        /**
-         * Register and return a GType for the @api and associate it with
-         * @tags.
-         * @param api an API to register
-         * @param tags tags for @api
-         * @returns a unique GType for `api`.
-         */
-        function meta_api_type_register(api: string, tags: string[]): GObject.GType
-        /**
-         * This function sets the aggregator function for a specific API type.
-         * @since 1.26
-         * @param api the #GType of the API for which the aggregator function is being set.
-         * @param aggregator the aggregator function to be associated with the given API
-                     type.
-         */
-        function meta_api_type_set_params_aggregator(api: (GObject.GType | { $gtype: GObject.GType }), aggregator: AllocationMetaParamsAggregator): void
-        /**
-         * Recreate a #GstMeta from serialized data returned by
-         * gst_meta_serialize() and add it to @buffer.
-         *
-         * Note that the meta must have been previously registered by calling one of
-         * `gst_*_meta_get_info ()` functions.
-         *
-         * @consumed is set to the number of bytes that can be skipped from @data to
-         * find the next meta serialization, if any. In case of parsing error that does
-         * not allow to determine that size, @consumed is set to 0.
-         * @since 1.24
-         * @param buffer a #GstBuffer
-         * @param data serialization data obtained from gst_meta_serialize()
-         * @param size size of @data
-         * @returns the metadata owned by `buffer`, or %NULL., total size used by this meta, could be less than `size`
-         */
-        function meta_deserialize(buffer: Buffer, data: number, size: number): [Meta | null, number]
-        /**
-         * Lookup a previously registered meta info structure by its implementation name
-         * @impl.
-         * @param impl the name
-         * @returns a #GstMetaInfo with `impl`, or %NULL when no such metainfo exists.
-         */
-        function meta_get_info(impl: string): MetaInfo | null
-        none
-        none
-        /**
-         * Register a new custom #GstMeta implementation, backed by an opaque
-         * structure holding a #GstStructure.
-         *
-         * The registered info can be retrieved later with gst_meta_get_info() by using
-         * @name as the key.
-         *
-         * The backing #GstStructure can be retrieved with
-         * gst_custom_meta_get_structure(), its mutability is conditioned by the
-         * writability of the buffer the meta is attached to.
-         *
-         * When @transform_func is %NULL, the meta and its backing #GstStructure
-         * will always be copied when the transform operation is copy, other operations
-         * are discarded, copy regions are ignored.
-         * @since 1.20
-         * @param name the name of the #GstMeta implementation
-         * @param tags tags for @api
-         * @param transform_func a #GstMetaTransformFunction
-         * @returns a #GstMetaInfo that can be used to access metadata.
-         */
-        function meta_register_custom(name: string, tags: string[], transform_func: CustomMetaTransformFunction | null): MetaInfo
-        /**
-         * Simplified version of gst_meta_register_custom(), with no tags and no
-         * transform function.
-         * @since 1.24
-         * @param name the name of the #GstMeta implementation
-         * @returns a #GstMetaInfo that can be used to access metadata.
-         */
-        function meta_register_custom_simple(name: string): MetaInfo
-        /**
-         * Atomically modifies a pointer to point to a new mini-object.
-         * The reference count of @olddata is decreased and the reference count of
-         * @newdata is increased.
-         *
-         * Either @newdata and the value pointed to by @olddata may be %NULL.
-         * @param newdata pointer to new mini-object
-         * @returns %TRUE if `newdata` was different from `olddata`, pointer to a pointer to a     mini-object to be replaced
-         */
-        function mini_object_replace(newdata: MiniObject | null): [boolean, MiniObject | null]
-        none
-        /**
-         * Modifies a pointer to point to a new mini-object. The modification
-         * is done atomically. This version is similar to gst_mini_object_replace()
-         * except that it does not increase the refcount of @newdata and thus
-         * takes ownership of @newdata.
-         *
-         * Either @newdata and the value pointed to by @olddata may be %NULL.
-         * @param newdata pointer to new mini-object
-         * @returns %TRUE if `newdata` was different from `olddata`, pointer to a pointer to a mini-object to     be replaced
-         */
-        function mini_object_take(newdata: MiniObject): [boolean, MiniObject]
-        /**
-         * Return the name of a pad mode, for use in debug messages mostly.
-         * @param mode the pad mode
-         * @returns short mnemonic for pad mode `mode`
-         */
-        function pad_mode_get_name(mode: PadMode): string
-        /**
-         * This function creates a GstArray GParamSpec for use by objects/elements
-         * that want to expose properties of GstArray type. This function is
-         * typically * used in connection with g_object_class_install_property() in a
-         * GObjects's instance_init function.
-         * @since 1.14
-         * @param name canonical name of the property specified
-         * @param nick nick name for the property specified
-         * @param blurb description of the property specified
-         * @param element_spec GParamSpec of the array
-         * @param flags flags for the property specified
-         * @returns a newly created parameter specification
-         */
-        function param_spec_array(name: string, nick: string, blurb: string, element_spec: GObject.ParamSpec, flags: GObject.ParamFlags): GObject.ParamSpec
-        /**
-         * This function creates a fraction GParamSpec for use by objects/elements
-         * that want to expose properties of fraction type. This function is typically
-         * used in connection with g_object_class_install_property() in a GObjects's
-         * instance_init function.
-         * @param name canonical name of the property specified
-         * @param nick nick name for the property specified
-         * @param blurb description of the property specified
-         * @param min_num minimum value (fraction numerator)
-         * @param min_denom minimum value (fraction denominator)
-         * @param max_num maximum value (fraction numerator)
-         * @param max_denom maximum value (fraction denominator)
-         * @param default_num default value (fraction numerator)
-         * @param default_denom default value (fraction denominator)
-         * @param flags flags for the property specified
-         * @returns a newly created parameter specification
-         */
-        function param_spec_fraction(name: string, nick: string, blurb: string, min_num: number, min_denom: number, max_num: number, max_denom: number, default_num: number, default_denom: number, flags: GObject.ParamFlags): GObject.ParamSpec | null
-        /**
-         */
-        function parent_buffer_meta_api_get_type(): GObject.GType
-        /**
-         * Gets the global #GstMetaInfo describing  the #GstParentBufferMeta meta.
-         * @since 1.6
-         * @returns The #GstMetaInfo
-         */
-        function parent_buffer_meta_get_info(): MetaInfo
-        /**
-         * This is a convenience wrapper around gst_parse_launch() to create a
-         * #GstBin from a gst-launch-style pipeline description. See
-         * gst_parse_launch() and the gst-launch man page for details about the
-         * syntax. Ghost pads on the bin for unlinked source or sink pads
-         * within the bin can automatically be created (but only a maximum of
-         * one ghost pad for each direction will be created; if you expect
-         * multiple unlinked source pads or multiple unlinked sink pads
-         * and want them all ghosted, you will have to create the ghost pads
-         * yourself).
-         * @throws {GLib.Error}
-         * @param bin_description command line describing the bin
-         * @param ghost_unlinked_pads whether to automatically create ghost pads
-            for unlinked source or sink pads within the bin
-         * @returns a   newly-created bin, or %NULL if an error occurred.
-         */
-        function parse_bin_from_description(bin_description: string, ghost_unlinked_pads: boolean): Bin
-        /**
-         * This is a convenience wrapper around gst_parse_launch() to create a
-         * #GstBin from a gst-launch-style pipeline description. See
-         * gst_parse_launch() and the gst-launch man page for details about the
-         * syntax. Ghost pads on the bin for unlinked source or sink pads
-         * within the bin can automatically be created (but only a maximum of
-         * one ghost pad for each direction will be created; if you expect
-         * multiple unlinked source pads or multiple unlinked sink pads
-         * and want them all ghosted, you will have to create the ghost pads
-         * yourself).
-         * @throws {GLib.Error}
-         * @param bin_description command line describing the bin
-         * @param ghost_unlinked_pads whether to automatically create ghost pads
-            for unlinked source or sink pads within the bin
-         * @param context a parse context allocated with
-            gst_parse_context_new(), or %NULL
-         * @param flags parsing options, or #GST_PARSE_FLAG_NONE
-         * @returns a newly-created   element, which is guaranteed to be a bin unless   #GST_PARSE_FLAG_NO_SINGLE_ELEMENT_BINS was passed, or %NULL if an error   occurred.
-         */
-        function parse_bin_from_description_full(bin_description: string, ghost_unlinked_pads: boolean, context: ParseContext | null, flags: ParseFlags): Element
-        /**
-         * Get the error quark used by the parsing subsystem.
-         * @returns the quark of the parse errors.
-         */
-        function parse_error_quark(): GLib.Quark
-        /**
-         * Create a new pipeline based on command line syntax.
-         * Please note that you might get a return value that is not %NULL even though
-         * the @error is set. In this case there was a recoverable parsing error and you
-         * can try to play the pipeline.
-         *
-         * To create a sub-pipeline (bin) for embedding into an existing pipeline
-         * use gst_parse_bin_from_description().
-         * @throws {GLib.Error}
-         * @param pipeline_description the command line describing the pipeline
-         * @returns a new element on success, %NULL on   failure. If more than one toplevel element is specified by the   `pipeline_description`, all elements are put into a #GstPipeline, which   than is returned.
-         */
-        function parse_launch(pipeline_description: string): Element
-        /**
-         * Create a new pipeline based on command line syntax.
-         * Please note that you might get a return value that is not %NULL even though
-         * the @error is set. In this case there was a recoverable parsing error and you
-         * can try to play the pipeline.
-         *
-         * To create a sub-pipeline (bin) for embedding into an existing pipeline
-         * use gst_parse_bin_from_description_full().
-         * @throws {GLib.Error}
-         * @param pipeline_description the command line describing the pipeline
-         * @param context a parse context allocated with
-             gst_parse_context_new(), or %NULL
-         * @param flags parsing options, or #GST_PARSE_FLAG_NONE
-         * @returns a new element on success, %NULL on    failure. If more than one toplevel element is specified by the    `pipeline_description`, all elements are put into a #GstPipeline, which    then is returned (unless the GST_PARSE_FLAG_PLACE_IN_BIN flag is set, in    which case they are put in a #GstBin instead).
-         */
-        function parse_launch_full(pipeline_description: string, context: ParseContext | null, flags: ParseFlags): Element
-        /**
-         * Create a new element based on command line syntax.
-         * @error will contain an error message if an erroneous pipeline is specified.
-         * An error does not mean that the pipeline could not be constructed.
-         * @throws {GLib.Error}
-         * @param argv null-terminated array of arguments
-         * @returns a new element on success and %NULL on failure.
-         */
-        function parse_launchv(argv: string[]): Element
-        /**
-         * Create a new element based on command line syntax.
-         * @error will contain an error message if an erroneous pipeline is specified.
-         * An error does not mean that the pipeline could not be constructed.
-         * @throws {GLib.Error}
-         * @param argv null-terminated array of arguments
-         * @param context a parse context allocated with
-            gst_parse_context_new(), or %NULL
-         * @param flags parsing options, or #GST_PARSE_FLAG_NONE
-         * @returns a new element on success; on   failure, either %NULL or a partially-constructed bin or element will be   returned and `error` will be set (unless you passed   #GST_PARSE_FLAG_FATAL_ERRORS in `flags`, then %NULL will always be returned   on failure)
-         */
-        function parse_launchv_full(argv: string[], context: ParseContext | null, flags: ParseFlags): Element
-        /**
-         * Get the error quark.
-         * @returns The error quark used in GError messages
-         */
-        function plugin_error_quark(): GLib.Quark
-        none
-        none
-        /**
-         * Gets the directory for application specific presets if set by the
-         * application.
-         * @returns the directory or %NULL, don't free or modify the string
-         */
-        function preset_get_app_dir(): string | null
-        /**
-         * Sets an extra directory as an absolute path that should be considered when
-         * looking for presets. Any presets in the application dir will shadow the
-         * system presets.
-         * @param app_dir the application specific preset dir
-         * @returns %TRUE for success, %FALSE if the dir already has been set
-         */
-        function preset_set_app_dir(app_dir: string): boolean
-        none
-        none
-        none
-        none
-        /**
-         * Iterates the supplied list of UUIDs and checks the GstRegistry for
-         * all the decryptors supporting one of the supplied UUIDs.
-         * @since 1.14
-         * @param system_identifiers 
-        A null terminated array of strings that contains the UUID values of each
-        protection system that is to be checked.
-         * @returns  A null terminated array containing all the `system_identifiers` supported by the set of available decryptors, or %NULL if no matches were found.
-         */
-        function protection_filter_systems_by_available_decryptors(system_identifiers: string[]): string[] | null
-        /**
-         */
-        function protection_meta_api_get_type(): GObject.GType
-        /**
-         */
-        function protection_meta_get_info(): MetaInfo
-        /**
-         * Iterates the supplied list of UUIDs and checks the GstRegistry for
-         * an element that supports one of the supplied UUIDs. If more than one
-         * element matches, the system ID of the highest ranked element is selected.
-         * @since 1.6
-         * @param system_identifiers A null terminated array of strings
-        that contains the UUID values of each protection system that is to be
-        checked.
-         * @returns One of the strings from `system_identifiers` that indicates the highest ranked element that implements the protection system indicated by that system ID, or %NULL if no element has been found.
-         */
-        function protection_select_system(system_identifiers: string[]): string | null
-        none
-        /**
-         * Modifies a pointer to a #GstQuery to point to a different #GstQuery. This
-         * function is similar to gst_query_replace() except that it takes ownership of
-         * @new_query.
-         *
-         * Either @new_query or the #GstQuery pointed to by @old_query may be %NULL.
-         * @since 1.16
-         * @param new_query pointer to a #GstQuery that will
-            replace the query pointed to by @old_query.
-         * @returns %TRUE if `new_query` was different from `old_query`, pointer to a     pointer to a #GstQuery to be stolen.
-         */
-        function query_take(new_query: Query | null): [boolean, Query | null]
-        /**
-         * Gets the #GstQueryTypeFlags associated with @type.
-         * @param type a #GstQueryType
-         * @returns a #GstQueryTypeFlags.
-         */
-        function query_type_get_flags(type: QueryType): QueryTypeFlags
-        /**
-         * Get a printable name for the given query type. Do not modify or free.
-         * @param type the query type
-         * @returns a reference to the static name of the query.
-         */
-        function query_type_get_name(type: QueryType): string
-        /**
-         * Get the unique quark for the given query type.
-         * @param type the query type
-         * @returns the quark associated with the query type
-         */
-        function query_type_to_quark(type: QueryType): GLib.Quark
-        /**
-         */
-        function reference_timestamp_meta_api_get_type(): GObject.GType
-        /**
-         * Gets the global #GstMetaInfo describing the #GstReferenceTimestampMeta meta.
-         * @since 1.14
-         * @returns The #GstMetaInfo
-         */
-        function reference_timestamp_meta_get_info(): MetaInfo
-        /**
-         */
-        function resource_error_quark(): GLib.Quark
-        /**
-         * Some functions in the GStreamer core might install a custom SIGSEGV handler
-         * to better catch and report errors to the application. Currently this feature
-         * is enabled by default when loading plugins.
-         *
-         * Applications might want to disable this behaviour with the
-         * gst_segtrap_set_enabled() function. This is typically done if the application
-         * wants to install its own handler without GStreamer interfering.
-         * @returns %TRUE if GStreamer is allowed to install a custom SIGSEGV handler.
-         */
-        function segtrap_is_enabled(): boolean
-        /**
-         * Applications might want to disable/enable the SIGSEGV handling of
-         * the GStreamer core. See gst_segtrap_is_enabled() for more information.
-         * @param enabled whether a custom SIGSEGV handler should be installed.
-         */
-        function segtrap_set_enabled(enabled: boolean): void
-        /**
-         * Gets a string representing the given state transition.
-         * @since 1.14
-         * @param transition a #GstStateChange to get the name of.
-         * @returns a string with the name of the state    result.
-         */
-        function state_change_get_name(transition: StateChange): string
-        /**
-         */
-        function stream_error_quark(): GLib.Quark
-        /**
-         * Get a descriptive string for a given #GstStreamType
-         * @since 1.10
-         * @param stype a #GstStreamType
-         * @returns A string describing the stream type
-         */
-        function stream_type_get_name(stype: StreamType): string
-        /**
-         * Atomically modifies a pointer to point to a new structure.
-         * The #GstStructure @oldstr_ptr is pointing to is freed and
-         * @newstr is taken ownership over.
-         *
-         * Either @newstr and the value pointed to by @oldstr_ptr may be %NULL.
-         *
-         * It is a programming error if both @newstr and the value pointed to by
-         * @oldstr_ptr refer to the same, non-%NULL structure.
-         * @since 1.18
-         * @param newstr a new #GstStructure
-         * @returns %TRUE if `newstr` was different from `oldstr_ptr`, pointer to a place of     a #GstStructure to take
-         */
-        function structure_take(newstr: Structure | null): [boolean, Structure | null]
-        /**
-         * Checks if the given type is already registered.
-         * @param tag name of the tag
-         * @returns %TRUE if the type is already registered
-         */
-        function tag_exists(tag: string): boolean
-        /**
-         * Returns the human-readable description of this tag, You must not change or
-         * free this string.
-         * @param tag the tag
-         * @returns the human-readable description of this tag
-         */
-        function tag_get_description(tag: string): string
-        /**
-         * Gets the flag of @tag.
-         * @param tag the tag
-         * @returns the flag of this tag.
-         */
-        function tag_get_flag(tag: string): TagFlag
-        /**
-         * Returns the human-readable name of this tag, You must not change or free
-         * this string.
-         * @param tag the tag
-         * @returns the human-readable name of this tag
-         */
-        function tag_get_nick(tag: string): string
-        /**
-         * Gets the #GType used for this tag.
-         * @param tag the tag
-         * @returns the #GType of this tag
-         */
-        function tag_get_type(tag: string): GObject.GType
-        /**
-         * Checks if the given tag is fixed. A fixed tag can only contain one value.
-         * Unfixed tags can contain lists of values.
-         * @param tag tag to check
-         * @returns %TRUE, if the given tag is fixed.
-         */
-        function tag_is_fixed(tag: string): boolean
-        /**
-         * Copies the contents for the given tag into the value,
-         * merging multiple values into one if multiple values are associated
-         * with the tag.
-         * You must g_value_unset() the value after use.
-         * @param list list to get the tag from
-         * @param tag tag to read out
-         * @returns %TRUE, if a value was copied, %FALSE if the tag didn't exist in the          given list., uninitialized #GValue to copy into
-         */
-        function tag_list_copy_value(list: TagList, tag: string): [boolean, GObject.Value]
-        /**
-         * Modifies a pointer to a #GstTagList to point to a different #GstTagList. The
-         * modification is done atomically (so this is useful for ensuring thread
-         * safety in some cases), and the reference counts are updated appropriately
-         * (the old tag list is unreffed, the new is reffed).
-         *
-         * Either @new_taglist or the #GstTagList pointed to by @old_taglist may be
-         * %NULL.
-         * @since 1.16
-         * @param new_taglist pointer to a #GstTagList that
-            will replace the tag list pointed to by @old_taglist.
-         * @returns %TRUE if `new_taglist` was different from `old_taglist`, pointer to a pointer to a     #GstTagList to be replaced.
-         */
-        function tag_list_replace(new_taglist: TagList | null): [boolean, TagList | null]
-        /**
-         * Modifies a pointer to a #GstTagList to point to a different #GstTagList.
-         * This function is similar to gst_tag_list_replace() except that it takes
-         * ownership of @new_taglist.
-         * @since 1.16
-         * @param new_taglist pointer to a #GstTagList that
-            will replace the taglist pointed to by @old_taglist.
-         * @returns %TRUE if `new_taglist` was different from `old_taglist`, pointer to a pointer to a #GstTagList     to be replaced.
-         */
-        function tag_list_take(new_taglist: TagList | null): [boolean, TagList]
-        /**
-         * This is a convenience function for the func argument of gst_tag_register().
-         * It concatenates all given strings using a comma. The tag must be registered
-         * as a G_TYPE_STRING or this function will fail.
-         * @param src GValue to copy from
-         * @returns , uninitialized GValue to store result in
-         */
-        function tag_merge_strings_with_comma(src: GObject.Value): GObject.Value
-        /**
-         * This is a convenience function for the func argument of gst_tag_register().
-         * It creates a copy of the first value from the list.
-         * @param src GValue to copy from
-         * @returns , uninitialized GValue to store result in
-         */
-        function tag_merge_use_first(src: GObject.Value): GObject.Value
-        none
-        none
-        /**
-         * Converts @type to a string representation.
-         * @param type a #GstTocEntryType.
-         * @returns Returns a human-readable string for `type`. This string is    only for debugging purpose and should not be displayed in a user    interface.
-         */
-        function toc_entry_type_get_nick(type: TocEntryType): string
-        /**
-         * Get a list of all active tracer objects owned by the tracing framework for
-         * the entirety of the run-time of the process or till gst_deinit() is called.
-         * @since 1.18
-         * @returns A #GList of #GstTracer objects
-         */
-        function tracing_get_active_tracers(): Tracer[]
-        /**
-         * Register @func to be called when the trace hook @detail is getting invoked.
-         * Use %NULL for @detail to register to all hooks.
-         * @since 1.8
-         * @param tracer the tracer
-         * @param detail the detailed hook
-         * @param func the callback
-         */
-        function tracing_register_hook(tracer: Tracer, detail: string, func: GObject.Callback): void
-        /**
-         * Registers a new typefind function to be used for typefinding. After
-         * registering this function will be available for typefinding.
-         * This function is typically called during an element's plugin initialization.
-         * @param plugin A #GstPlugin, or %NULL for a static typefind function
-         * @param name The name for registering
-         * @param rank The rank (or importance) of this typefind function
-         * @param func The #GstTypeFindFunction to use
-         * @param extensions Optional comma-separated list of extensions
-            that could belong to this type
-         * @param possible_caps Optionally the caps that could be returned when typefinding
-                        succeeds
-         * @returns %TRUE on success, %FALSE otherwise
-         */
-        function type_find_register(plugin: Plugin | null, name: string, rank: number, func: TypeFindFunction, extensions: string | null, possible_caps: Caps | null): boolean
-        /**
-         * Checks if @type is plugin API. See gst_type_mark_as_plugin_api() for
-         * details.
-         * @since 1.18
-         * @param type a GType
-         * @returns %TRUE if `type` is plugin API or %FALSE otherwise., What #GstPluginAPIFlags the plugin was marked with
-         */
-        function type_is_plugin_api(type: (GObject.GType | { $gtype: GObject.GType })): boolean
-        /**
-         * Marks @type as plugin API. This should be called in `class_init` of
-         * elements that expose new types (i.e. enums, flags or internal GObjects) via
-         * properties, signals or pad templates.
-         *
-         * Types exposed by plugins are not automatically added to the documentation
-         * as they might originate from another library and should in that case be
-         * documented via that library instead.
-         *
-         * By marking a type as plugin API it will be included in the documentation of
-         * the plugin that defines it.
-         * @since 1.18
-         * @param type a GType
-         * @param flags a set of #GstPluginAPIFlags to further inform cache generation.
-         */
-        function type_mark_as_plugin_api(type: (GObject.GType | { $gtype: GObject.GType }), flags: PluginAPIFlags): void
-        /**
-         * Forces GStreamer to re-scan its plugin paths and update the default
-         * plugin registry.
-         *
-         * Applications will almost never need to call this function, it is only
-         * useful if the application knows new plugins have been installed (or old
-         * ones removed) since the start of the application (or, to be precise, the
-         * first call to gst_init()) and the application wants to make use of any
-         * newly-installed plugins without restarting the application.
-         *
-         * Applications should assume that the registry update is neither atomic nor
-         * thread-safe and should therefore not have any dynamic pipelines running
-         * (including the playbin and decodebin elements) and should also not create
-         * any elements or access the GStreamer registry while the update is in
-         * progress.
-         *
-         * Note that this function may block for a significant amount of time.
-         * @returns %TRUE if the registry has been updated successfully (does not          imply that there were changes), otherwise %FALSE.
-         */
-        function update_registry(): boolean
-        /**
-         * Constructs a URI for a given valid protocol and location.
-         *
-         * Free-function: g_free
-         * @deprecated Use GstURI instead.
-         * @param protocol Protocol for URI
-         * @param location Location for URI
-         * @returns a new string for this URI.
-         */
-        function uri_construct(protocol: string, location: string): string
-        /**
-         */
-        function uri_error_quark(): GLib.Quark
-        /**
-         * Parses a URI string into a new #GstUri object. Will return NULL if the URI
-         * cannot be parsed.
-         * @since 1.6
-         * @param uri The URI string to parse.
-         * @returns A new #GstUri object, or NULL.
-         */
-        function uri_from_string(uri: string): Uri | null
-        /**
-         * Parses a URI string into a new #GstUri object. Will return NULL if the URI
-         * cannot be parsed. This is identical to gst_uri_from_string() except that
-         * the userinfo and fragment components of the URI will not be unescaped while
-         * parsing.
-         *
-         * Use this when you need to extract a username and password from the userinfo
-         * such as https://user:password@example.com since either may contain
-         * a URI-escaped ':' character. gst_uri_from_string() will unescape the entire
-         * userinfo component, which will make it impossible to know which ':'
-         * delineates the username and password.
-         *
-         * The same applies to the fragment component of the URI, such as
-         * https://example.com/path#fragment which may contain a URI-escaped '#'.
-         * @since 1.18
-         * @param uri The URI string to parse.
-         * @returns A new #GstUri object, or NULL.
-         */
-        function uri_from_string_escaped(uri: string): Uri | null
-        /**
-         * Extracts the location out of a given valid URI, ie. the protocol and "://"
-         * are stripped from the URI, which means that the location returned includes
-         * the hostname if one is specified. The returned string must be freed using
-         * g_free().
-         *
-         * Free-function: g_free
-         * @param uri A URI string
-         * @returns the location for this URI. Returns     %NULL if the URI isn't valid. If the URI does not contain a location, an     empty string is returned.
-         */
-        function uri_get_location(uri: string): string | null
-        /**
-         * Extracts the protocol out of a given valid URI. The returned string must be
-         * freed using g_free().
-         * @param uri A URI string
-         * @returns The protocol for this URI.
-         */
-        function uri_get_protocol(uri: string): string | null
-        /**
-         * Checks if the protocol of a given valid URI matches @protocol.
-         * @param uri a URI string
-         * @param protocol a protocol string (e.g. "http")
-         * @returns %TRUE if the protocol matches.
-         */
-        function uri_has_protocol(uri: string, protocol: string): boolean
-        /**
-         * Tests if the given string is a valid URI identifier. URIs start with a valid
-         * scheme followed by ":" and maybe a string identifying the location.
-         * @param uri A URI string
-         * @returns %TRUE if the string is a valid URI
-         */
-        function uri_is_valid(uri: string): boolean
-        /**
-         * This is a convenience function to join two URI strings and return the result.
-         * The returned string should be g_free()'d after use.
-         * @since 1.6
-         * @param base_uri The percent-encoded base URI.
-         * @param ref_uri The percent-encoded reference URI to join to the @base_uri.
-         * @returns A string representing the percent-encoded join of          the two URIs.
-         */
-        function uri_join_strings(base_uri: string, ref_uri: string): string | null
-        /**
-         * Checks if an element exists that supports the given URI protocol. Note
-         * that a positive return value does not imply that a subsequent call to
-         * gst_element_make_from_uri() is guaranteed to work.
-         * @param type Whether to check for a source or a sink
-         * @param protocol Protocol that should be checked for (e.g. "http" or "smb")
-         * @returns %TRUE
-         */
-        function uri_protocol_is_supported(type: URIType, protocol: string): boolean
-        /**
-         * Tests if the given string is a valid protocol identifier. Protocols
-         * must consist of alphanumeric characters, '+', '-' and '.' and must
-         * start with a alphabetic character. See RFC 3986 Section 3.1.
-         * @param protocol A string
-         * @returns %TRUE if the string is a valid protocol identifier, %FALSE otherwise.
-         */
-        function uri_protocol_is_valid(protocol: string): boolean
-        /**
-         * Searches inside @array for @search_data by using the comparison function
-         * @search_func. @array must be sorted ascending.
-         *
-         * As @search_data is always passed as second argument to @search_func it's
-         * not required that @search_data has the same type as the array elements.
-         *
-         * The complexity of this search function is O(log (num_elements)).
-         * @param array the sorted input array
-         * @param num_elements number of elements in the array
-         * @param element_size size of every element in bytes
-         * @param search_func function to compare two
-           elements, @search_data will always be passed as second argument
-         * @param mode search mode that should be used
-         * @param search_data element that should be found
-         * @returns The address of the found element or %NULL if nothing was found
-         */
-        function util_array_binary_search(array: never | null, num_elements: number, element_size: number, search_func: GLib.CompareDataFunc, mode: SearchMode, search_data: never | null): never | null
-        /**
-         * Returns smallest integral value not less than log2(v).
-         * @since 1.24
-         * @param v a #guint32 value.
-         * @returns a computed #guint val.
-         */
-        function util_ceil_log2(v: number): number
-        /**
-         * Transforms a #gdouble to a fraction and simplifies
-         * the result.
-         * @param src #gdouble to transform
-         * @returns , pointer to a #gint to hold the result numerator, pointer to a #gint to hold the result denominator
-         */
-        function util_double_to_fraction(src: number): [number, number]
-        /**
-         * Dumps the buffer memory into a hex representation. Useful for debugging.
-         * @since 1.14
-         * @param buf a #GstBuffer whose memory to dump
-         */
-        function util_dump_buffer(buf: Buffer): void
-        /**
-         * Dumps the memory block into a hex representation. Useful for debugging.
-         * @param mem a pointer to the memory to dump
-         */
-        function util_dump_mem(mem: Uint8Array): void
-        /**
-         * Compares the given filenames using natural ordering.
-         * @since 1.24
-         * @param a a filename to compare with @b
-         * @param b a filename to compare with @a
-         */
-        function util_filename_compare(a: string, b: string): number
-        /**
-         * Returns smallest integral value not bigger than log2(v).
-         * @since 1.26
-         * @param v a #guint32 value.
-         * @returns a computed #guint val.
-         */
-        function util_floor_log2(v: number): number
-        /**
-         * Adds the fractions @a_n/@a_d and @b_n/@b_d and stores
-         * the result in @res_n and @res_d.
-         * @param a_n Numerator of first value
-         * @param a_d Denominator of first value
-         * @param b_n Numerator of second value
-         * @param b_d Denominator of second value
-         * @returns %FALSE on overflow, %TRUE otherwise., Pointer to #gint to hold the result numerator, Pointer to #gint to hold the result denominator
-         */
-        function util_fraction_add(a_n: number, a_d: number, b_n: number, b_d: number): [boolean, number, number]
-        /**
-         *  b.
-         * @param a_n Numerator of first value
-         * @param a_d Denominator of first value
-         * @param b_n Numerator of second value
-         * @param b_d Denominator of second value
-         * @returns  b.
-         */
-        function util_fraction_compare(a_n: number, a_d: number, b_n: number, b_d: number): number
-        /**
-         * Multiplies the fractions @a_n/@a_d and @b_n/@b_d and stores
-         * the result in @res_n and @res_d.
-         * @param a_n Numerator of first value
-         * @param a_d Denominator of first value
-         * @param b_n Numerator of second value
-         * @param b_d Denominator of second value
-         * @returns %FALSE on overflow, %TRUE otherwise., Pointer to #gint to hold the result numerator, Pointer to #gint to hold the result denominator
-         */
-        function util_fraction_multiply(a_n: number, a_d: number, b_n: number, b_d: number): [boolean, number, number]
-        /**
-         * Multiplies the fractions @a_n/@a_d and @b_n/@b_d and stores
-         * the result in @res_n and @res_d.
-         * @since 1.26
-         * @param a_n Numerator of first value
-         * @param a_d Denominator of first value
-         * @param b_n Numerator of second value
-         * @param b_d Denominator of second value
-         * @returns %FALSE on overflow, %TRUE otherwise., Pointer to #gint to hold the result numerator, Pointer to #gint to hold the result denominator
-         */
-        function util_fraction_multiply_int64(a_n: number, a_d: number, b_n: number, b_d: number): [boolean, number, number]
-        /**
-         * Transforms a fraction to a #gdouble.
-         * @param src_n Fraction numerator as #gint
-         * @param src_d Fraction denominator #gint
-         * @returns , pointer to a #gdouble for the result
-         */
-        function util_fraction_to_double(src_n: number, src_d: number): number
-        /**
-         * @param value The #gdouble value to convert guint64 double
-         * @returns  `value` casted to #guint64
-         */
-        function util_gdouble_to_guint64(value: number): number
-        /**
-         * Get a property of type %GST_TYPE_ARRAY and transform it into a
-         * #GValueArray. This allow language bindings to get GST_TYPE_ARRAY
-         * properties which are otherwise not an accessible type.
-         * @since 1.12
-         * @param object the object to set the array to
-         * @param name the name of the property to set
-         * @returns , a return #GValueArray
-         */
-        function util_get_object_array(object: GObject.Object, name: string): [boolean, GObject.ValueArray]
-        /**
-         * Get a timestamp as GstClockTime to be used for interval measurements.
-         * The timestamp should not be interpreted in any other way.
-         * @returns the timestamp
-         */
-        function util_get_timestamp(): ClockTime
-        /**
-         * Calculates the greatest common divisor of @a
-         * and @b.
-         * @param a First value as #gint
-         * @param b Second value as #gint
-         * @returns Greatest common divisor of `a` and `b`
-         */
-        function util_greatest_common_divisor(a: number, b: number): number
-        /**
-         * Calculates the greatest common divisor of @a
-         * and @b.
-         * @param a First value as #gint64
-         * @param b Second value as #gint64
-         * @returns Greatest common divisor of `a` and `b`
-         */
-        function util_greatest_common_divisor_int64(a: number, b: number): number
-        /**
-         * Return a constantly incrementing group id.
-         *
-         * This function is used to generate a new group-id for the
-         * stream-start event.
-         *
-         * This function never returns %GST_GROUP_ID_INVALID (which is 0)
-         * @returns A constantly incrementing unsigned integer, which might overflow back to 0 at some point.
-         */
-        function util_group_id_next(): number
-        /**
-         * @param value The #guint64 value to convert to double
-         * @returns  `value` casted to #gdouble
-         */
-        function util_guint64_to_gdouble(value: number): number
-        /**
-         * Compare two sequence numbers, handling wraparound.
-         *
-         * The current implementation just returns (gint32)(@s1 - @s2).
-         * @param s1 A sequence number.
-         * @param s2 Another sequence number.
-         * @returns A negative number if `s1` is before `s2`, 0 if they are equal, or a positive number if `s1` is after `s2`.
-         */
-        function util_seqnum_compare(s1: number, s2: number): number
-        /**
-         * Return a constantly incrementing sequence number.
-         *
-         * This function is used internally to GStreamer to be able to determine which
-         * events and messages are "the same". For example, elements may set the seqnum
-         * on a segment-done message to be the same as that of the last seek event, to
-         * indicate that event and the message correspond to the same segment.
-         *
-         * This function never returns %GST_SEQNUM_INVALID (which is 0).
-         * @returns A constantly incrementing 32-bit unsigned integer, which might overflow at some point. Use gst_util_seqnum_compare() to make sure you handle wraparound correctly.
-         */
-        function util_seqnum_next(): number
-        /**
-         * Converts the string value to the type of the objects argument and
-         * sets the argument with it.
-         *
-         * Note that this function silently returns if @object has no property named
-         * @name or when @value cannot be converted to the type of the property.
-         * @param object the object to set the argument of
-         * @param name the name of the argument to set
-         * @param value the string value to set
-         */
-        function util_set_object_arg(object: GObject.Object, name: string, value: string): void
-        /**
-         * Transfer a #GValueArray to %GST_TYPE_ARRAY and set this value on the
-         * specified property name. This allow language bindings to set GST_TYPE_ARRAY
-         * properties which are otherwise not an accessible type.
-         * @since 1.12
-         * @param object the object to set the array to
-         * @param name the name of the property to set
-         * @param array a #GValueArray containing the values
-         */
-        function util_set_object_array(object: GObject.Object, name: string, array: GObject.ValueArray): boolean
-        /**
-         * Converts the string to the type of the value and
-         * sets the value with it.
-         *
-         * Note that this function is dangerous as it does not return any indication
-         * if the conversion worked or not.
-         * @param value_str the string to get the value from
-         * @returns , the value to set
-         */
-        function util_set_value_from_string(value_str: string): GObject.Value
-        /**
-         * Calculates the simpler representation of @numerator and @denominator and
-         * update both values with the resulting simplified fraction.
-         *
-         * Simplify a fraction using a simple continued fraction decomposition.
-         * The idea here is to convert fractions such as 333333/10000000 to 1/30
-         * using 32 bit arithmetic only. The algorithm is not perfect and relies
-         * upon two arbitrary parameters to remove non-significative terms from
-         * the simple continued fraction decomposition. Using 8 and 333 for
-         * @n_terms and @threshold respectively seems to give nice results.
-         * @since 1.24
-         * @param numerator First value as #gint
-         * @param denominator Second value as #gint
-         * @param n_terms non-significative terms (typical value: 8)
-         * @param threshold threshold (typical value: 333)
-         */
-        function util_simplify_fraction(numerator: number, denominator: number, n_terms: number, threshold: number): void
-        /**
-         * Scale @val by the rational number @num / @denom, avoiding overflows and
-         * underflows and without loss of precision.
-         *
-         * This function can potentially be very slow if val and num are both
-         * greater than G_MAXUINT32.
-         * @param val the number to scale
-         * @param num the numerator of the scale ratio
-         * @param denom the denominator of the scale ratio
-         * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer it is truncated.  See also gst_util_uint64_scale_round(), gst_util_uint64_scale_ceil(), gst_util_uint64_scale_int(), gst_util_uint64_scale_int_round(), gst_util_uint64_scale_int_ceil().
-         */
-        function util_uint64_scale(val: number, num: number, denom: number): number
-        /**
-         * Scale @val by the rational number @num / @denom, avoiding overflows and
-         * underflows and without loss of precision.
-         *
-         * This function can potentially be very slow if val and num are both
-         * greater than G_MAXUINT32.
-         * @param val the number to scale
-         * @param num the numerator of the scale ratio
-         * @param denom the denominator of the scale ratio
-         * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer, it is rounded up.  See also gst_util_uint64_scale(), gst_util_uint64_scale_round(), gst_util_uint64_scale_int(), gst_util_uint64_scale_int_round(), gst_util_uint64_scale_int_ceil().
-         */
-        function util_uint64_scale_ceil(val: number, num: number, denom: number): number
-        /**
-         * Scale @val by the rational number @num / @denom, avoiding overflows and
-         * underflows and without loss of precision.  @num must be non-negative and
-         * @denom must be positive.
-         * @param val guint64 (such as a #GstClockTime) to scale.
-         * @param num numerator of the scale factor.
-         * @param denom denominator of the scale factor.
-         * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer, it is truncated.  See also gst_util_uint64_scale_int_round(), gst_util_uint64_scale_int_ceil(), gst_util_uint64_scale(), gst_util_uint64_scale_round(), gst_util_uint64_scale_ceil().
-         */
-        function util_uint64_scale_int(val: number, num: number, denom: number): number
-        /**
-         * Scale @val by the rational number @num / @denom, avoiding overflows and
-         * underflows and without loss of precision.  @num must be non-negative and
-         * @denom must be positive.
-         * @param val guint64 (such as a #GstClockTime) to scale.
-         * @param num numerator of the scale factor.
-         * @param denom denominator of the scale factor.
-         * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer, it is rounded up.  See also gst_util_uint64_scale_int(), gst_util_uint64_scale_int_round(), gst_util_uint64_scale(), gst_util_uint64_scale_round(), gst_util_uint64_scale_ceil().
-         */
-        function util_uint64_scale_int_ceil(val: number, num: number, denom: number): number
-        /**
-         * Scale @val by the rational number @num / @denom, avoiding overflows and
-         * underflows and without loss of precision.  @num must be non-negative and
-         * @denom must be positive.
-         * @param val guint64 (such as a #GstClockTime) to scale.
-         * @param num numerator of the scale factor.
-         * @param denom denominator of the scale factor.
-         * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer, it is rounded to the nearest integer (half-way cases are rounded up).  See also gst_util_uint64_scale_int(), gst_util_uint64_scale_int_ceil(), gst_util_uint64_scale(), gst_util_uint64_scale_round(), gst_util_uint64_scale_ceil().
-         */
-        function util_uint64_scale_int_round(val: number, num: number, denom: number): number
-        /**
-         * Scale @val by the rational number @num / @denom, avoiding overflows and
-         * underflows and without loss of precision.
-         *
-         * This function can potentially be very slow if val and num are both
-         * greater than G_MAXUINT32.
-         * @param val the number to scale
-         * @param num the numerator of the scale ratio
-         * @param denom the denominator of the scale ratio
-         * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer, it is rounded to the nearest integer (half-way cases are rounded up).  See also gst_util_uint64_scale(), gst_util_uint64_scale_ceil(), gst_util_uint64_scale_int(), gst_util_uint64_scale_int_round(), gst_util_uint64_scale_int_ceil().
-         */
-        function util_uint64_scale_round(val: number, num: number, denom: number): number
-        /**
-         * Determines if @value1 and @value2 can be compared.
-         * @param value1 a value to compare
-         * @param value2 another value to compare
-         * @returns %TRUE if the values can be compared
-         */
-        function value_can_compare(value1: GObject.Value, value2: GObject.Value): boolean
-        /**
-         * Determines if intersecting two values will produce a valid result.
-         * Two values will produce a valid intersection if they have the same
-         * type.
-         * @param value1 a value to intersect
-         * @param value2 another value to intersect
-         * @returns %TRUE if the values can intersect
-         */
-        function value_can_intersect(value1: GObject.Value, value2: GObject.Value): boolean
-        /**
-         * Checks if it's possible to subtract @subtrahend from @minuend.
-         * @param minuend the value to subtract from
-         * @param subtrahend the value to subtract
-         * @returns %TRUE if a subtraction is possible
-         */
-        function value_can_subtract(minuend: GObject.Value, subtrahend: GObject.Value): boolean
-        /**
-         * Determines if @value1 and @value2 can be non-trivially unioned.
-         * Any two values can be trivially unioned by adding both of them
-         * to a GstValueList.  However, certain types have the possibility
-         * to be unioned in a simpler way.  For example, an integer range
-         * and an integer can be unioned if the integer is a subset of the
-         * integer range.  If there is the possibility that two values can
-         * be unioned, this function returns %TRUE.
-         * @param value1 a value to union
-         * @param value2 another value to union
-         * @returns %TRUE if there is a function allowing the two values to be unioned.
-         */
-        function value_can_union(value1: GObject.Value, value2: GObject.Value): boolean
-        /**
-         * Compares @value1 and @value2.  If @value1 and @value2 cannot be
-         * compared, the function returns GST_VALUE_UNORDERED.  Otherwise,
-         * if @value1 is greater than @value2, GST_VALUE_GREATER_THAN is returned.
-         * If @value1 is less than @value2, GST_VALUE_LESS_THAN is returned.
-         * If the values are equal, GST_VALUE_EQUAL is returned.
-         * @param value1 a value to compare
-         * @param value2 another value to compare
-         * @returns comparison result
-         */
-        function value_compare(value1: GObject.Value, value2: GObject.Value): number
-        /**
-         * Tries to deserialize a string into the type specified by the given GValue.
-         * If the operation succeeds, %TRUE is returned, %FALSE otherwise.
-         * @param src string to deserialize
-         * @returns %TRUE on success, #GValue to fill with contents of     deserialization
-         */
-        function value_deserialize(src: string): [boolean, GObject.Value]
-        /**
-         * Tries to deserialize a string into the type specified by the given GValue.
-         * @pspec may be used to guide the deserializing of nested members.
-         * If the operation succeeds, %TRUE is returned, %FALSE otherwise.
-         * @since 1.20
-         * @param src string to deserialize
-         * @param pspec the #GParamSpec describing the expected value
-         * @returns %TRUE on success, #GValue to fill with contents of     deserialization
-         */
-        function value_deserialize_with_pspec(src: string, pspec: GObject.ParamSpec | null): [boolean, GObject.Value]
-        /**
-         * Fixate @src into a new value @dest.
-         * For ranges, the first element is taken. For lists and arrays, the
-         * first item is fixated and returned.
-         * If @src is already fixed, this function returns %FALSE.
-         * @param dest the #GValue destination
-         * @param src the #GValue to fixate
-         * @returns %TRUE if `dest` contains a fixated version of `src`.
-         */
-        function value_fixate(dest: GObject.Value, src: GObject.Value): boolean
-        /**
-         * Multiplies the two #GValue items containing a #GST_TYPE_FRACTION and sets
-         * @product to the product of the two fractions.
-         * @param product a GValue initialized to #GST_TYPE_FRACTION
-         * @param factor1 a GValue initialized to #GST_TYPE_FRACTION
-         * @param factor2 a GValue initialized to #GST_TYPE_FRACTION
-         * @returns %FALSE in case of an error (like integer overflow), %TRUE otherwise.
-         */
-        function value_fraction_multiply(product: GObject.Value, factor1: GObject.Value, factor2: GObject.Value): boolean
-        /**
-         * Subtracts the @subtrahend from the @minuend and sets @dest to the result.
-         * @param dest a GValue initialized to #GST_TYPE_FRACTION
-         * @param minuend a GValue initialized to #GST_TYPE_FRACTION
-         * @param subtrahend a GValue initialized to #GST_TYPE_FRACTION
-         * @returns %FALSE in case of an error (like integer overflow), %TRUE otherwise.
-         */
-        function value_fraction_subtract(dest: GObject.Value, minuend: GObject.Value, subtrahend: GObject.Value): boolean
-        /**
-         * Gets the bitmask specified by @value.
-         * @param value a GValue initialized to #GST_TYPE_BITMASK
-         * @returns the bitmask.
-         */
-        function value_get_bitmask(value: GObject.Value): number
-        /**
-         * Gets the contents of @value. The reference count of the returned
-         * #GstCaps will not be modified, therefore the caller must take one
-         * before getting rid of the @value.
-         * @param value a GValue initialized to GST_TYPE_CAPS
-         * @returns the contents of `value`
-         */
-        function value_get_caps(value: GObject.Value): Caps
-        /**
-         * Gets the contents of @value.
-         * @param value a GValue initialized to GST_TYPE_CAPS_FEATURES
-         * @returns the contents of `value`
-         */
-        function value_get_caps_features(value: GObject.Value): CapsFeatures
-        /**
-         * Gets the maximum of the range specified by @value.
-         * @param value a GValue initialized to GST_TYPE_DOUBLE_RANGE
-         * @returns the maximum of the range
-         */
-        function value_get_double_range_max(value: GObject.Value): number
-        /**
-         * Gets the minimum of the range specified by @value.
-         * @param value a GValue initialized to GST_TYPE_DOUBLE_RANGE
-         * @returns the minimum of the range
-         */
-        function value_get_double_range_min(value: GObject.Value): number
-        /**
-         * Retrieve the flags field of a GstFlagSet @value.
-         * @since 1.6
-         * @param value a GValue initialized to #GST_TYPE_FLAG_SET
-         * @returns the flags field of the flagset instance.
-         */
-        function value_get_flagset_flags(value: GObject.Value): number
-        /**
-         * Retrieve the mask field of a GstFlagSet @value.
-         * @since 1.6
-         * @param value a GValue initialized to #GST_TYPE_FLAG_SET
-         * @returns the mask field of the flagset instance.
-         */
-        function value_get_flagset_mask(value: GObject.Value): number
-        /**
-         * Gets the denominator of the fraction specified by @value.
-         * @param value a GValue initialized to #GST_TYPE_FRACTION
-         * @returns the denominator of the fraction.
-         */
-        function value_get_fraction_denominator(value: GObject.Value): number
-        /**
-         * Gets the numerator of the fraction specified by @value.
-         * @param value a GValue initialized to #GST_TYPE_FRACTION
-         * @returns the numerator of the fraction.
-         */
-        function value_get_fraction_numerator(value: GObject.Value): number
-        /**
-         * Gets the maximum of the range specified by @value.
-         * @param value a GValue initialized to GST_TYPE_FRACTION_RANGE
-         * @returns the maximum of the range
-         */
-        function value_get_fraction_range_max(value: GObject.Value): GObject.Value | null
-        /**
-         * Gets the minimum of the range specified by @value.
-         * @param value a GValue initialized to GST_TYPE_FRACTION_RANGE
-         * @returns the minimum of the range
-         */
-        function value_get_fraction_range_min(value: GObject.Value): GObject.Value | null
-        /**
-         * Gets the maximum of the range specified by @value.
-         * @param value a GValue initialized to GST_TYPE_INT64_RANGE
-         * @returns the maximum of the range
-         */
-        function value_get_int64_range_max(value: GObject.Value): number
-        /**
-         * Gets the minimum of the range specified by @value.
-         * @param value a GValue initialized to GST_TYPE_INT64_RANGE
-         * @returns the minimum of the range
-         */
-        function value_get_int64_range_min(value: GObject.Value): number
-        /**
-         * Gets the step of the range specified by @value.
-         * @param value a GValue initialized to GST_TYPE_INT64_RANGE
-         * @returns the step of the range
-         */
-        function value_get_int64_range_step(value: GObject.Value): number
-        /**
-         * Gets the maximum of the range specified by @value.
-         * @param value a GValue initialized to GST_TYPE_INT_RANGE
-         * @returns the maximum of the range
-         */
-        function value_get_int_range_max(value: GObject.Value): number
-        /**
-         * Gets the minimum of the range specified by @value.
-         * @param value a GValue initialized to GST_TYPE_INT_RANGE
-         * @returns the minimum of the range
-         */
-        function value_get_int_range_min(value: GObject.Value): number
-        /**
-         * Gets the step of the range specified by @value.
-         * @param value a GValue initialized to GST_TYPE_INT_RANGE
-         * @returns the step of the range
-         */
-        function value_get_int_range_step(value: GObject.Value): number
-        /**
-         * Gets the contents of @value.
-         * @param value a GValue initialized to GST_TYPE_STRUCTURE
-         * @returns the contents of `value`
-         */
-        function value_get_structure(value: GObject.Value): Structure
-        /**
-         * Initialises the target value to be of the same type as source and then copies
-         * the contents from source to target.
-         * @param src the source value
-         * @returns , the target value
-         */
-        function value_init_and_copy(src: GObject.Value): GObject.Value
-        /**
-         * Calculates the intersection of two values.  If the values have
-         * a non-empty intersection, the value representing the intersection
-         * is placed in @dest, unless %NULL.  If the intersection is non-empty,
-         * @dest is not modified.
-         * @param value1 a value to intersect
-         * @param value2 another value to intersect
-         * @returns %TRUE if the intersection is non-empty,    a uninitialized #GValue that will hold the calculated   intersection value. May be %NULL if the resulting set if not   needed.
-         */
-        function value_intersect(value1: GObject.Value, value2: GObject.Value): boolean
-        /**
-         * Tests if the given GValue, if available in a GstStructure (or any other
-         * container) contains a "fixed" (which means: one value) or an "unfixed"
-         * (which means: multiple possible values, such as data lists or data
-         * ranges) value.
-         * @param value the #GValue to check
-         * @returns true if the value is "fixed".
-         */
-        function value_is_fixed(value: GObject.Value): boolean
-        /**
-         * Check that @value1 is a subset of @value2.
-         * @param value1 a #GValue
-         * @param value2 a #GValue
-         * @returns %TRUE is `value1` is a subset of `value2`
-         */
-        function value_is_subset(value1: GObject.Value, value2: GObject.Value): boolean
-        /**
-         * Registers functions to perform calculations on #GValue items of a given
-         * type. Each type can only be added once.
-         * @param table structure containing functions to register
-         */
-        function value_register(table: ValueTable): void
-        /**
-         * tries to transform the given @value into a string representation that allows
-         * getting back this string later on using gst_value_deserialize().
-         *
-         * Free-function: g_free
-         * @param value a #GValue to serialize
-         * @returns the serialization for `value` or %NULL if none exists
-         */
-        function value_serialize(value: GObject.Value): string | null
-        /**
-         * Sets @value to the bitmask specified by @bitmask.
-         * @param value a GValue initialized to #GST_TYPE_BITMASK
-         * @param bitmask the bitmask
-         */
-        function value_set_bitmask(value: GObject.Value, bitmask: number): void
-        /**
-         * Sets the contents of @value to @caps. A reference to the
-         * provided @caps will be taken by the @value.
-         * @param value a GValue initialized to GST_TYPE_CAPS
-         * @param caps the caps to set the value to
-         */
-        function value_set_caps(value: GObject.Value, caps: Caps): void
-        /**
-         * Sets the contents of @value to @features.
-         * @param value a GValue initialized to GST_TYPE_CAPS_FEATURES
-         * @param features the features to set the value to
-         */
-        function value_set_caps_features(value: GObject.Value, features: CapsFeatures): void
-        /**
-         * Sets @value to the range specified by @start and @end.
-         * @param value a GValue initialized to GST_TYPE_DOUBLE_RANGE
-         * @param start the start of the range
-         * @param end the end of the range
-         */
-        function value_set_double_range(value: GObject.Value, start: number, end: number): void
-        /**
-         * Sets @value to the flags and mask values provided in @flags and @mask.
-         * The @flags value indicates the values of flags, the @mask represents
-         * which bits in the flag value have been set, and which are "don't care"
-         * @since 1.6
-         * @param value a GValue initialized to %GST_TYPE_FLAG_SET
-         * @param flags The value of the flags set or unset
-         * @param mask The mask indicate which flags bits must match for comparisons
-         */
-        function value_set_flagset(value: GObject.Value, flags: number, mask: number): void
-        /**
-         * Sets @value to the fraction specified by @numerator over @denominator.
-         * The fraction gets reduced to the smallest numerator and denominator,
-         * and if necessary the sign is moved to the numerator.
-         * @param value a GValue initialized to #GST_TYPE_FRACTION
-         * @param numerator the numerator of the fraction
-         * @param denominator the denominator of the fraction
-         */
-        function value_set_fraction(value: GObject.Value, numerator: number, denominator: number): void
-        /**
-         * Sets @value to the range specified by @start and @end.
-         * @param value a GValue initialized to GST_TYPE_FRACTION_RANGE
-         * @param start the start of the range (a GST_TYPE_FRACTION GValue)
-         * @param end the end of the range (a GST_TYPE_FRACTION GValue)
-         */
-        function value_set_fraction_range(value: GObject.Value, start: GObject.Value, end: GObject.Value): void
-        /**
-         * Sets @value to the range specified by @numerator_start/@denominator_start
-         * and @numerator_end/@denominator_end.
-         * @param value a GValue initialized to GST_TYPE_FRACTION_RANGE
-         * @param numerator_start the numerator start of the range
-         * @param denominator_start the denominator start of the range
-         * @param numerator_end the numerator end of the range
-         * @param denominator_end the denominator end of the range
-         */
-        function value_set_fraction_range_full(value: GObject.Value, numerator_start: number, denominator_start: number, numerator_end: number, denominator_end: number): void
-        /**
-         * Sets @value to the range specified by @start and @end.
-         * @param value a GValue initialized to GST_TYPE_INT64_RANGE
-         * @param start the start of the range
-         * @param end the end of the range
-         */
-        function value_set_int64_range(value: GObject.Value, start: number, end: number): void
-        /**
-         * Sets @value to the range specified by @start, @end and @step.
-         * @param value a GValue initialized to GST_TYPE_INT64_RANGE
-         * @param start the start of the range
-         * @param end the end of the range
-         * @param step the step of the range
-         */
-        function value_set_int64_range_step(value: GObject.Value, start: number, end: number, step: number): void
-        /**
-         * Sets @value to the range specified by @start and @end.
-         * @param value a GValue initialized to GST_TYPE_INT_RANGE
-         * @param start the start of the range
-         * @param end the end of the range
-         */
-        function value_set_int_range(value: GObject.Value, start: number, end: number): void
-        /**
-         * Sets @value to the range specified by @start, @end and @step.
-         * @param value a GValue initialized to GST_TYPE_INT_RANGE
-         * @param start the start of the range
-         * @param end the end of the range
-         * @param step the step of the range
-         */
-        function value_set_int_range_step(value: GObject.Value, start: number, end: number, step: number): void
-        /**
-         * Sets the contents of @value to @structure.
-         * @param value a GValue initialized to GST_TYPE_STRUCTURE
-         * @param structure the structure to set the value to
-         */
-        function value_set_structure(value: GObject.Value, structure: Structure): void
-        /**
-         * Subtracts @subtrahend from @minuend and stores the result in @dest.
-         * Note that this means subtraction as in sets, not as in mathematics.
-         * @param minuend the value to subtract from
-         * @param subtrahend the value to subtract
-         * @returns %TRUE if the subtraction is not empty, the destination value     for the result if the subtraction is not empty. May be %NULL,     in which case the resulting set will not be computed, which can     give a fair speedup.
-         */
-        function value_subtract(minuend: GObject.Value, subtrahend: GObject.Value): boolean
-        /**
-         * Creates a GValue corresponding to the union of @value1 and @value2.
-         * @param value1 a value to union
-         * @param value2 another value to union
-         * @returns %TRUE if the union succeeded., the destination value
-         */
-        function value_union(value1: GObject.Value, value2: GObject.Value): [boolean, GObject.Value]
-        none
-        none
-        /**
-         * Gets the version number of the GStreamer library.
-         * @returns , pointer to a guint to store the major version number, pointer to a guint to store the minor version number, pointer to a guint to store the micro version number, pointer to a guint to store the nano version number
-         */
-        function version(): [number, number, number, number]
-        /**
-         * This function returns a string that is useful for describing this version
-         * of GStreamer to the outside world: user agent strings, logging, ...
-         * @returns a newly allocated string describing this version     of GStreamer.
-         */
-        function version_string(): string
-        const ALLOCATOR_SYSMEM: "SystemMemory"
-        const BUFFER_COPY_ALL: BufferCopyFlags
-        const BUFFER_COPY_METADATA: BufferCopyFlags
-        const BUFFER_OFFSET_NONE: 18446744073709551615
-        const CAN_INLINE: 1
-        const CAPS_FEATURE_MEMORY_SYSTEM_MEMORY: "memory:SystemMemory"
-        const CLOCK_TIME_NONE: ClockTime
-        const DEBUG_BG_MASK: 240
-        const DEBUG_FG_MASK: 15
-        const DEBUG_FORMAT_MASK: 65280
-        const ELEMENT_FACTORY_KLASS_DECODER: "Decoder"
-        const ELEMENT_FACTORY_KLASS_DECRYPTOR: "Decryptor"
-        const ELEMENT_FACTORY_KLASS_DEMUXER: "Demuxer"
-        const ELEMENT_FACTORY_KLASS_DEPAYLOADER: "Depayloader"
-        const ELEMENT_FACTORY_KLASS_ENCODER: "Encoder"
-        const ELEMENT_FACTORY_KLASS_ENCRYPTOR: "Encryptor"
-        const ELEMENT_FACTORY_KLASS_FORMATTER: "Formatter"
-        const ELEMENT_FACTORY_KLASS_HARDWARE: "Hardware"
-        const ELEMENT_FACTORY_KLASS_MEDIA_AUDIO: "Audio"
-        const ELEMENT_FACTORY_KLASS_MEDIA_IMAGE: "Image"
-        const ELEMENT_FACTORY_KLASS_MEDIA_METADATA: "Metadata"
-        const ELEMENT_FACTORY_KLASS_MEDIA_SUBTITLE: "Subtitle"
-        const ELEMENT_FACTORY_KLASS_MEDIA_VIDEO: "Video"
-        const ELEMENT_FACTORY_KLASS_MUXER: "Muxer"
-        const ELEMENT_FACTORY_KLASS_PARSER: "Parser"
-        const ELEMENT_FACTORY_KLASS_PAYLOADER: "Payloader"
-        const ELEMENT_FACTORY_KLASS_SINK: "Sink"
-        const ELEMENT_FACTORY_KLASS_SRC: "Source"
-        const ELEMENT_FACTORY_TYPE_ANY: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_AUDIOVIDEO_SINKS: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_AUDIO_ENCODER: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_DECODABLE: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_DECODER: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_DECRYPTOR: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_DEMUXER: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_DEPAYLOADER: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_ENCODER: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_ENCRYPTOR: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_FORMATTER: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_HARDWARE: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_MAX_ELEMENTS: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_MEDIA_ANY: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_MEDIA_AUDIO: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_MEDIA_IMAGE: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_MEDIA_METADATA: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_MEDIA_SUBTITLE: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_MEDIA_VIDEO: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_MUXER: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_PARSER: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_PAYLOADER: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_SINK: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_SRC: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_TIMESTAMPER: ElementFactoryListType
-        const ELEMENT_FACTORY_TYPE_VIDEO_ENCODER: ElementFactoryListType
-        const ELEMENT_METADATA_AUTHOR: "author"
-        const ELEMENT_METADATA_DESCRIPTION: "description"
-        const ELEMENT_METADATA_DOC_URI: "doc-uri"
-        const ELEMENT_METADATA_ICON_NAME: "icon-name"
-        const ELEMENT_METADATA_KLASS: "klass"
-        const ELEMENT_METADATA_LONGNAME: "long-name"
-        none
-        const EVENT_NUM_SHIFT: 8
-        const EVENT_TYPE_BOTH: EventTypeFlags
-        const FLAG_SET_MASK_EXACT: 4294967295
-        const FORMAT_PERCENT_MAX: 1000000
-        const FORMAT_PERCENT_SCALE: 10000
-        none
-        const GROUP_ID_INVALID: 0
-        const LICENSE_UNKNOWN: "unknown"
-        const LOCK_FLAG_READWRITE: LockFlags
-        const MAP_READWRITE: MapFlags
-        const META_TAG_MEMORY_REFERENCE_STR: "memory-reference"
-        const META_TAG_MEMORY_STR: "memory"
-        const MSECOND: ClockTimeDiff
-        const NSECOND: ClockTimeDiff
-        const PARAM_CONDITIONALLY_AVAILABLE: 16384
-        const PARAM_CONTROLLABLE: 512
-        const PARAM_DOC_SHOW_DEFAULT: 8192
-        const PARAM_MUTABLE_PAUSED: 2048
-        const PARAM_MUTABLE_PLAYING: 4096
-        const PARAM_MUTABLE_READY: 1024
-        const PARAM_USER_SHIFT: 65536
-        const PROTECTION_SYSTEM_ID_CAPS_FIELD: "protection-system"
-        const PROTECTION_UNSPECIFIED_SYSTEM_ID: "unspecified-system-id"
-        none
-        const QUERY_NUM_SHIFT: 8
-        const QUERY_TYPE_BOTH: QueryTypeFlags
-        const SECOND: ClockTimeDiff
-        none
-        const SEGMENT_INSTANT_FLAGS: 912
-        const SEQNUM_INVALID: 0
-        none
-        none
-        const TAG_ALBUM: "album"
-        const TAG_ALBUM_ARTIST: "album-artist"
-        const TAG_ALBUM_ARTIST_SORTNAME: "album-artist-sortname"
-        const TAG_ALBUM_GAIN: "replaygain-album-gain"
-        const TAG_ALBUM_PEAK: "replaygain-album-peak"
-        const TAG_ALBUM_SORTNAME: "album-sortname"
-        const TAG_ALBUM_VOLUME_COUNT: "album-disc-count"
-        const TAG_ALBUM_VOLUME_NUMBER: "album-disc-number"
-        const TAG_APPLICATION_DATA: "application-data"
-        const TAG_APPLICATION_NAME: "application-name"
-        const TAG_ARTIST: "artist"
-        const TAG_ARTIST_SORTNAME: "artist-sortname"
-        const TAG_ATTACHMENT: "attachment"
-        const TAG_AUDIO_CODEC: "audio-codec"
-        const TAG_BEATS_PER_MINUTE: "beats-per-minute"
-        const TAG_BITRATE: "bitrate"
-        const TAG_CODEC: "codec"
-        const TAG_COMMENT: "comment"
-        const TAG_COMPOSER: "composer"
-        const TAG_COMPOSER_SORTNAME: "composer-sortname"
-        const TAG_CONDUCTOR: "conductor"
-        const TAG_CONTACT: "contact"
-        const TAG_CONTAINER_FORMAT: "container-format"
-        const TAG_CONTAINER_SPECIFIC_TRACK_ID: "container-specific-track-id"
-        const TAG_COPYRIGHT: "copyright"
-        const TAG_COPYRIGHT_URI: "copyright-uri"
-        const TAG_DATE: "date"
-        const TAG_DATE_TIME: "datetime"
-        const TAG_DESCRIPTION: "description"
-        const TAG_DEVICE_MANUFACTURER: "device-manufacturer"
-        const TAG_DEVICE_MODEL: "device-model"
-        const TAG_DURATION: "duration"
-        const TAG_ENCODED_BY: "encoded-by"
-        const TAG_ENCODER: "encoder"
-        const TAG_ENCODER_VERSION: "encoder-version"
-        const TAG_EXTENDED_COMMENT: "extended-comment"
-        const TAG_GENRE: "genre"
-        const TAG_GEO_LOCATION_CAPTURE_DIRECTION: "geo-location-capture-direction"
-        const TAG_GEO_LOCATION_CITY: "geo-location-city"
-        const TAG_GEO_LOCATION_COUNTRY: "geo-location-country"
-        const TAG_GEO_LOCATION_ELEVATION: "geo-location-elevation"
-        const TAG_GEO_LOCATION_HORIZONTAL_ERROR: "geo-location-horizontal-error"
-        const TAG_GEO_LOCATION_LATITUDE: "geo-location-latitude"
-        const TAG_GEO_LOCATION_LONGITUDE: "geo-location-longitude"
-        const TAG_GEO_LOCATION_MOVEMENT_DIRECTION: "geo-location-movement-direction"
-        const TAG_GEO_LOCATION_MOVEMENT_SPEED: "geo-location-movement-speed"
-        const TAG_GEO_LOCATION_NAME: "geo-location-name"
-        const TAG_GEO_LOCATION_SUBLOCATION: "geo-location-sublocation"
-        const TAG_GROUPING: "grouping"
-        const TAG_HOMEPAGE: "homepage"
-        const TAG_IMAGE: "image"
-        const TAG_IMAGE_ORIENTATION: "image-orientation"
-        const TAG_INTERPRETED_BY: "interpreted-by"
-        const TAG_ISRC: "isrc"
-        const TAG_KEYWORDS: "keywords"
-        const TAG_LANGUAGE_CODE: "language-code"
-        const TAG_LANGUAGE_NAME: "language-name"
-        const TAG_LICENSE: "license"
-        const TAG_LICENSE_URI: "license-uri"
-        const TAG_LOCATION: "location"
-        const TAG_LYRICS: "lyrics"
-        const TAG_MAXIMUM_BITRATE: "maximum-bitrate"
-        const TAG_MIDI_BASE_NOTE: "midi-base-note"
-        const TAG_MINIMUM_BITRATE: "minimum-bitrate"
-        const TAG_NOMINAL_BITRATE: "nominal-bitrate"
-        const TAG_ORGANIZATION: "organization"
-        const TAG_PERFORMER: "performer"
-        const TAG_PREVIEW_IMAGE: "preview-image"
-        const TAG_PRIVATE_DATA: "private-data"
-        const TAG_PUBLISHER: "publisher"
-        const TAG_REFERENCE_LEVEL: "replaygain-reference-level"
-        const TAG_SERIAL: "serial"
-        const TAG_SHOW_EPISODE_NUMBER: "show-episode-number"
-        const TAG_SHOW_NAME: "show-name"
-        const TAG_SHOW_SEASON_NUMBER: "show-season-number"
-        const TAG_SHOW_SORTNAME: "show-sortname"
-        const TAG_SUBTITLE_CODEC: "subtitle-codec"
-        const TAG_TITLE: "title"
-        const TAG_TITLE_SORTNAME: "title-sortname"
-        const TAG_TRACK_COUNT: "track-count"
-        const TAG_TRACK_GAIN: "replaygain-track-gain"
-        const TAG_TRACK_NUMBER: "track-number"
-        const TAG_TRACK_PEAK: "replaygain-track-peak"
-        const TAG_USER_RATING: "user-rating"
-        const TAG_VERSION: "version"
-        const TAG_VIDEO_CODEC: "video-codec"
-        none
-        none
-        const TOC_REPEAT_COUNT_INFINITE: -1
-        const URI_NO_PORT: 0
-        const USECOND: ClockTimeDiff
-        const VALUE_EQUAL: 0
-        const VALUE_GREATER_THAN: 1
-        const VALUE_LESS_THAN: -1
-        const VALUE_UNORDERED: 2
-        const VERSION_MAJOR: 1
-        const VERSION_MICRO: 10
-        const VERSION_MINOR: 26
-        const VERSION_NANO: 0
-        
-        namespace BufferingMode {
-            const $gtype: GObject.GType<BufferingMode>
-        }
 
-        /**
-         * The different types of buffering methods.
-         */
-        enum BufferingMode {
+        interface $Exports {
+            ValueTable: ValueTableStruct
+        }
+        
+        interface BufferingModeEnum {
+            readonly $gtype: GObject.GType<BufferingMode>
             /**
              * a small amount of data is buffered
              */
-            "STREAM" = 0,
+            readonly "STREAM": 0
             /**
              * the stream is being downloaded
              */
-            "DOWNLOAD" = 1,
+            readonly "DOWNLOAD": 1
             /**
              * the stream is being downloaded in a ringbuffer
              */
-            "TIMESHIFT" = 2,
+            readonly "TIMESHIFT": 2
             /**
              * the stream is a live stream
              */
-            "LIVE" = 3,
+            readonly "LIVE": 3
+        }
+        type BufferingMode = BufferingModeEnum[Exclude<keyof BufferingModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different types of buffering methods.
+             */
+            BufferingMode: BufferingModeEnum
         }
         
-        namespace BusSyncReply {
-            const $gtype: GObject.GType<BusSyncReply>
-        }
-
-        /**
-         * The result values for a GstBusSyncHandler.
-         */
-        enum BusSyncReply {
+        interface BusSyncReplyEnum {
+            readonly $gtype: GObject.GType<BusSyncReply>
             /**
              * drop the message
              */
-            "DROP" = 0,
+            readonly "DROP": 0
             /**
              * pass the message to the async queue
              */
-            "PASS" = 1,
+            readonly "PASS": 1
             /**
              * pass message to async queue, continue if message is handled
              */
-            "ASYNC" = 2,
+            readonly "ASYNC": 2
+        }
+        type BusSyncReply = BusSyncReplyEnum[Exclude<keyof BusSyncReplyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The result values for a GstBusSyncHandler.
+             */
+            BusSyncReply: BusSyncReplyEnum
         }
         
-        namespace CapsIntersectMode {
-            const $gtype: GObject.GType<CapsIntersectMode>
-        }
-
-        /**
-         * Modes of caps intersection
-         *
-         * %GST_CAPS_INTERSECT_ZIG_ZAG tries to preserve overall order of both caps
-         * by iterating on the caps' structures as the following matrix shows:
-         *
-         * ```
-         *          caps1
-         *       +-------------
-         *       | 1  2  4  7
-         * caps2 | 3  5  8 10
-         *       | 6  9 11 12
-         * ```
-         *
-         * Used when there is no explicit precedence of one caps over the other. e.g.
-         * tee's sink pad getcaps function, it will probe its src pad peers' for their
-         * caps and intersect them with this mode.
-         *
-         * %GST_CAPS_INTERSECT_FIRST is useful when an element wants to preserve
-         * another element's caps priority order when intersecting with its own caps.
-         * Example: If caps1 is `[A, B, C]` and caps2 is `[E, B, D, A]`, the result
-         * would be `[A, B]`, maintaining the first caps priority on the intersection.
-         */
-        enum CapsIntersectMode {
+        interface CapsIntersectModeEnum {
+            readonly $gtype: GObject.GType<CapsIntersectMode>
             /**
              * Zig-zags over both caps.
              */
-            "ZIG_ZAG" = 0,
+            readonly "ZIG_ZAG": 0
             /**
              * Keeps the first caps order.
              */
-            "FIRST" = 1,
+            readonly "FIRST": 1
+        }
+        type CapsIntersectMode = CapsIntersectModeEnum[Exclude<keyof CapsIntersectModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Modes of caps intersection
+             *
+             * %GST_CAPS_INTERSECT_ZIG_ZAG tries to preserve overall order of both caps
+             * by iterating on the caps' structures as the following matrix shows:
+             *
+             * ```
+             *          caps1
+             *       +-------------
+             *       | 1  2  4  7
+             * caps2 | 3  5  8 10
+             *       | 6  9 11 12
+             * ```
+             *
+             * Used when there is no explicit precedence of one caps over the other. e.g.
+             * tee's sink pad getcaps function, it will probe its src pad peers' for their
+             * caps and intersect them with this mode.
+             *
+             * %GST_CAPS_INTERSECT_FIRST is useful when an element wants to preserve
+             * another element's caps priority order when intersecting with its own caps.
+             * Example: If caps1 is `[A, B, C]` and caps2 is `[E, B, D, A]`, the result
+             * would be `[A, B]`, maintaining the first caps priority on the intersection.
+             */
+            CapsIntersectMode: CapsIntersectModeEnum
         }
         
-        namespace ClockEntryType {
-            const $gtype: GObject.GType<ClockEntryType>
-        }
-
-        /**
-         * The type of the clock entry
-         */
-        enum ClockEntryType {
+        interface ClockEntryTypeEnum {
+            readonly $gtype: GObject.GType<ClockEntryType>
             /**
              * a single shot timeout
              */
-            "SINGLE" = 0,
+            readonly "SINGLE": 0
             /**
              * a periodic timeout request
              */
-            "PERIODIC" = 1,
+            readonly "PERIODIC": 1
+        }
+        type ClockEntryType = ClockEntryTypeEnum[Exclude<keyof ClockEntryTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of the clock entry
+             */
+            ClockEntryType: ClockEntryTypeEnum
         }
         
-        namespace ClockReturn {
-            const $gtype: GObject.GType<ClockReturn>
-        }
-
-        /**
-         * The return value of a clock operation.
-         */
-        enum ClockReturn {
+        interface ClockReturnEnum {
+            readonly $gtype: GObject.GType<ClockReturn>
             /**
              * The operation succeeded.
              */
-            "OK" = 0,
+            readonly "OK": 0
             /**
              * The operation was scheduled too late.
              */
-            "EARLY" = 1,
+            readonly "EARLY": 1
             /**
              * The clockID was unscheduled
              */
-            "UNSCHEDULED" = 2,
+            readonly "UNSCHEDULED": 2
             /**
              * The ClockID is busy
              */
-            "BUSY" = 3,
+            readonly "BUSY": 3
             /**
              * A bad time was provided to a function.
              */
-            "BADTIME" = 4,
+            readonly "BADTIME": 4
             /**
              * An error occurred
              */
-            "ERROR" = 5,
+            readonly "ERROR": 5
             /**
              * Operation is not supported
              */
-            "UNSUPPORTED" = 6,
+            readonly "UNSUPPORTED": 6
             /**
              * The ClockID is done waiting
              */
-            "DONE" = 7,
+            readonly "DONE": 7
+        }
+        type ClockReturn = ClockReturnEnum[Exclude<keyof ClockReturnEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The return value of a clock operation.
+             */
+            ClockReturn: ClockReturnEnum
         }
         
-        namespace ClockType {
-            const $gtype: GObject.GType<ClockType>
-        }
-
-        /**
-         * The different kind of clocks.
-         */
-        enum ClockType {
+        interface ClockTypeEnum {
+            readonly $gtype: GObject.GType<ClockType>
             /**
              * time since Epoch
              */
-            "REALTIME" = 0,
+            readonly "REALTIME": 0
             /**
              * monotonic time since some unspecified starting
              *                            point
              */
-            "MONOTONIC" = 1,
+            readonly "MONOTONIC": 1
             /**
              * some other time source is used (Since: 1.0.5)
              */
-            "OTHER" = 2,
+            readonly "OTHER": 2
             /**
              * time since Epoch, but using International Atomic Time
              *                      as reference (Since: 1.18)
              */
-            "TAI" = 3,
+            readonly "TAI": 3
+        }
+        type ClockType = ClockTypeEnum[Exclude<keyof ClockTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different kind of clocks.
+             */
+            ClockType: ClockTypeEnum
         }
         
-        abstract class CoreError extends GLib.Error {
-            static readonly $gtype: GObject.GType<CoreError>
+        interface CoreError extends GLib.Error {}
+
+        interface CoreErrorEnum {
+            readonly $gtype: GObject.GType<CoreError>
+
+            new(props: { message: string, code: number }): CoreError
             /**
              * a general error which doesn't fit in any other
              * category.  Make sure you add a custom message to the error call.
              */
-            static readonly "FAILED": 1
+            readonly "FAILED": 1
             /**
              * do not use this except as a placeholder for
              * deciding where to go while developing code.
              */
-            static readonly "TOO_LAZY": 2
+            readonly "TOO_LAZY": 2
             /**
              * use this when you do not want to implement
              * this functionality yet.
              */
-            static readonly "NOT_IMPLEMENTED": 3
+            readonly "NOT_IMPLEMENTED": 3
             /**
              * used for state change errors.
              */
-            static readonly "STATE_CHANGE": 4
+            readonly "STATE_CHANGE": 4
             /**
              * used for pad-related errors.
              */
-            static readonly "PAD": 5
+            readonly "PAD": 5
             /**
              * used for thread-related errors.
              */
-            static readonly "THREAD": 6
+            readonly "THREAD": 6
             /**
              * used for negotiation-related errors.
              */
-            static readonly "NEGOTIATION": 7
+            readonly "NEGOTIATION": 7
             /**
              * used for event-related errors.
              */
-            static readonly "EVENT": 8
+            readonly "EVENT": 8
             /**
              * used for seek-related errors.
              */
-            static readonly "SEEK": 9
+            readonly "SEEK": 9
             /**
              * used for caps-related errors.
              */
-            static readonly "CAPS": 10
+            readonly "CAPS": 10
             /**
              * used for negotiation-related errors.
              */
-            static readonly "TAG": 11
+            readonly "TAG": 11
             /**
              * used if a plugin is missing.
              */
-            static readonly "MISSING_PLUGIN": 12
+            readonly "MISSING_PLUGIN": 12
             /**
              * used for clock related errors.
              */
-            static readonly "CLOCK": 13
+            readonly "CLOCK": 13
             /**
              * used if functionality has been disabled at
              *                           compile time.
              */
-            static readonly "DISABLED": 14
+            readonly "DISABLED": 14
             /**
              * the number of core error types.
              */
-            static readonly "NUM_ERRORS": 15
-        }
-        /**
+            readonly "NUM_ERRORS": 15
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace DebugColorMode {
-            const $gtype: GObject.GType<DebugColorMode>
+        quark: () => GLib.Quark
         }
 
-        /**
-         */
-        enum DebugColorMode {
+        interface $Exports {
+            /**
+             * Core errors are errors inside the core GStreamer library.
+             */
+            CoreError: CoreErrorEnum
+        }
+        
+        interface DebugColorModeEnum {
+            readonly $gtype: GObject.GType<DebugColorMode>
             /**
              * Do not use colors in logs.
              */
-            "OFF" = 0,
+            readonly "OFF": 0
             /**
              * Paint logs in a platform-specific way.
              */
-            "ON" = 1,
+            readonly "ON": 1
             /**
              * Paint logs with UNIX terminal color codes
              *                             no matter what platform GStreamer is running on.
              */
-            "UNIX" = 2,
+            readonly "UNIX": 2
+        }
+        type DebugColorMode = DebugColorModeEnum[Exclude<keyof DebugColorModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            DebugColorMode: DebugColorModeEnum
         }
         
-        namespace DebugLevel {
-            const $gtype: GObject.GType<DebugLevel>
-        }
-
-        /**
-         * The level defines the importance of a debugging message. The more important a
-         * message is, the greater the probability that the debugging system outputs it.
-         */
-        enum DebugLevel {
+        interface DebugLevelEnum {
+            readonly $gtype: GObject.GType<DebugLevel>
             /**
              * No debugging level specified or desired. Used to deactivate
              *  debugging output.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Error messages are to be used only when an error occurred
              *  that stops the application from keeping working correctly.
              *  An examples is gst_element_error, which outputs a message with this priority.
              *  It does not mean that the application is terminating as with g_error.
              */
-            "ERROR" = 1,
+            readonly "ERROR": 1
             /**
              * Warning messages are to inform about abnormal behaviour
              *  that could lead to problems or weird behaviour later on. An example of this
              *  would be clocking issues ("your computer is pretty slow") or broken input
              *  data ("Can't synchronize to stream.")
              */
-            "WARNING" = 2,
+            readonly "WARNING": 2
             /**
              * Fixme messages are messages that indicate that something
              *  in the executed code path is not fully implemented or handled yet. Note
@@ -19580,7 +17844,7 @@ declare module "gi://Gst?version=1.0" {
              *  of this message is to make it easier to spot incomplete/unfinished pieces
              *  of code when reading the debug log.
              */
-            "FIXME" = 3,
+            readonly "FIXME": 3
             /**
              * Informational messages should be used to keep the developer
              *  updated about what is happening.
@@ -19588,7 +17852,7 @@ declare module "gi://Gst?version=1.0" {
              *  successfully determined the type of the stream or when an mp3 plugin detects
              *  the format to be used. ("This file has mono sound.")
              */
-            "INFO" = 4,
+            readonly "INFO": 4
             /**
              * Debugging messages should be used when something common
              *  happens that is not the expected default behavior, or something that's
@@ -19597,7 +17861,7 @@ declare module "gi://Gst?version=1.0" {
              *  An example would be notifications about state changes or receiving/sending
              *  of events.
              */
-            "DEBUG" = 5,
+            readonly "DEBUG": 5
             /**
              * Log messages are messages that are very common but might be
              *  useful to know. As a rule of thumb a pipeline that is running as expected
@@ -19605,220 +17869,228 @@ declare module "gi://Gst?version=1.0" {
              *  Use this log level to log recurring information in chain functions and
              *  loop functions, for example.
              */
-            "LOG" = 6,
+            readonly "LOG": 6
             /**
              * Tracing-related messages.
              *  Examples for this are referencing/dereferencing of objects.
              */
-            "TRACE" = 7,
+            readonly "TRACE": 7
             /**
              * memory dump messages are used to log (small) chunks of
              *  data as memory dumps in the log. They will be displayed as hexdump with
              *  ASCII characters.
              */
-            "MEMDUMP" = 9,
+            readonly "MEMDUMP": 9
             /**
              * The number of defined debugging levels.
              */
-            "COUNT" = 10,
+            readonly "COUNT": 10
         }
-        /**
+        type DebugLevel = DebugLevelEnum[Exclude<keyof DebugLevelEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The level defines the importance of a debugging message. The more important a
+             * message is, the greater the probability that the debugging system outputs it.
+             */
+            DebugLevel: DebugLevelEnum
+            /**
          * Get the string representation of a debugging level
          * @param level the level to get the name for
          * @returns the name
          */
-        function get_name(level: DebugLevel): string
-        
-        namespace EventType {
-            const $gtype: GObject.GType<EventType>
+        get_name: (level: DebugLevel) => string
         }
-
-        /**
-         * #GstEventType lists the standard event types that can be sent in a pipeline.
-         *
-         * The custom event types can be used for private messages between elements
-         * that can't be expressed using normal
-         * GStreamer buffer passing semantics. Custom events carry an arbitrary
-         * #GstStructure.
-         * Specific custom events are distinguished by the name of the structure.
-         */
-        enum EventType {
+        
+        interface EventTypeEnum {
+            readonly $gtype: GObject.GType<EventType>
             /**
              * unknown event.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Start a flush operation. This event clears all data
              *                 from the pipeline and unblock all streaming threads.
              */
-            "FLUSH_START" = 2563,
+            readonly "FLUSH_START": 2563
             /**
              * Stop a flush operation. This event resets the
              *                 running-time of the pipeline.
              */
-            "FLUSH_STOP" = 5127,
+            readonly "FLUSH_STOP": 5127
             /**
              * Event to mark the start of a new stream. Sent before any
              *                 other serialized event and only sent at the start of a new stream,
              *                 not after flushing seeks.
              */
-            "STREAM_START" = 10254,
+            readonly "STREAM_START": 10254
             /**
              * #GstCaps event. Notify the pad of a new media type.
              */
-            "CAPS" = 12814,
+            readonly "CAPS": 12814
             /**
              * A new media segment follows in the dataflow. The
              *                 segment events contains information for clipping buffers and
              *                 converting buffer timestamps to running-time and
              *                 stream-time.
              */
-            "SEGMENT" = 17934,
+            readonly "SEGMENT": 17934
             /**
              * A new #GstStreamCollection is available (Since: 1.10)
              */
-            "STREAM_COLLECTION" = 19230,
+            readonly "STREAM_COLLECTION": 19230
             /**
              * A new set of metadata tags has been found in the stream.
              */
-            "TAG" = 20510,
+            readonly "TAG": 20510
             /**
              * Notification of buffering requirements. Currently not
              *                 used yet.
              */
-            "BUFFERSIZE" = 23054,
+            readonly "BUFFERSIZE": 23054
             /**
              * An event that sinks turn into a message. Used to
              *                          send messages that should be emitted in sync with
              *                          rendering.
              */
-            "SINK_MESSAGE" = 25630,
+            readonly "SINK_MESSAGE": 25630
             /**
              * Indicates that there is no more data for
              *                 the stream group ID in the message. Sent before EOS
              *                 in some instances and should be handled mostly the same. (Since: 1.10)
              */
-            "STREAM_GROUP_DONE" = 26894,
+            readonly "STREAM_GROUP_DONE": 26894
             /**
              * End-Of-Stream. No more data is to be expected to follow
              *                 without either a STREAM_START event, or a FLUSH_STOP and a SEGMENT
              *                 event.
              */
-            "EOS" = 28174,
+            readonly "EOS": 28174
             /**
              * An event which indicates that a new table of contents (TOC)
              *                 was found or updated.
              */
-            "TOC" = 30750,
+            readonly "TOC": 30750
             /**
              * An event which indicates that new or updated
              *                 encryption information has been found in the stream.
              */
-            "PROTECTION" = 33310,
+            readonly "PROTECTION": 33310
             /**
              * Marks the end of a segment playback.
              */
-            "SEGMENT_DONE" = 38406,
+            readonly "SEGMENT_DONE": 38406
             /**
              * Marks a gap in the datastream.
              */
-            "GAP" = 40966,
+            readonly "GAP": 40966
             /**
              * Notify downstream that a playback rate override
              *                                 should be applied as soon as possible. (Since: 1.18)
              */
-            "INSTANT_RATE_CHANGE" = 46090,
+            readonly "INSTANT_RATE_CHANGE": 46090
             /**
              * A quality message. Used to indicate to upstream elements
              *                 that the downstream elements should adjust their processing
              *                 rate.
              */
-            "QOS" = 48641,
+            readonly "QOS": 48641
             /**
              * A request for a new playback position and rate.
              */
-            "SEEK" = 51201,
+            readonly "SEEK": 51201
             /**
              * Navigation events are usually used for communicating
              *                        user requests, such as mouse or keyboard movements,
              *                        to upstream elements.
              */
-            "NAVIGATION" = 53761,
+            readonly "NAVIGATION": 53761
             /**
              * Notification of new latency adjustment. Sinks will use
              *                     the latency information to adjust their synchronisation.
              */
-            "LATENCY" = 56321,
+            readonly "LATENCY": 56321
             /**
              * A request for stepping through the media. Sinks will usually
              *                  execute the step operation.
              */
-            "STEP" = 58881,
+            readonly "STEP": 58881
             /**
              * A request for upstream renegotiating caps and reconfiguring.
              */
-            "RECONFIGURE" = 61441,
+            readonly "RECONFIGURE": 61441
             /**
              * A request for a new playback position based on TOC
              *                        entry's UID.
              */
-            "TOC_SELECT" = 64001,
+            readonly "TOC_SELECT": 64001
             /**
              * A request to select one or more streams (Since: 1.10)
              */
-            "SELECT_STREAMS" = 66561,
+            readonly "SELECT_STREAMS": 66561
             /**
              * Sent by the pipeline to notify elements that handle the
              *                                    instant-rate-change event about the running-time when
              *                                    the rate multiplier should be applied (or was applied). (Since: 1.18)
              */
-            "INSTANT_RATE_SYNC_TIME" = 66817,
+            readonly "INSTANT_RATE_SYNC_TIME": 66817
             /**
              * Upstream custom event
              */
-            "CUSTOM_UPSTREAM" = 69121,
+            readonly "CUSTOM_UPSTREAM": 69121
             /**
              * Downstream custom event that travels in the
              *                        data flow.
              */
-            "CUSTOM_DOWNSTREAM" = 71686,
+            readonly "CUSTOM_DOWNSTREAM": 71686
             /**
              * Custom out-of-band downstream event.
              */
-            "CUSTOM_DOWNSTREAM_OOB" = 74242,
+            readonly "CUSTOM_DOWNSTREAM_OOB": 74242
             /**
              * Custom sticky downstream event.
              */
-            "CUSTOM_DOWNSTREAM_STICKY" = 76830,
+            readonly "CUSTOM_DOWNSTREAM_STICKY": 76830
             /**
              * Custom upstream or downstream event.
              *                         In-band when travelling downstream.
              */
-            "CUSTOM_BOTH" = 79367,
+            readonly "CUSTOM_BOTH": 79367
             /**
              * Custom upstream or downstream out-of-band event.
              */
-            "CUSTOM_BOTH_OOB" = 81923,
+            readonly "CUSTOM_BOTH_OOB": 81923
         }
-        /**
+        type EventType = EventTypeEnum[Exclude<keyof EventTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * #GstEventType lists the standard event types that can be sent in a pipeline.
+             *
+             * The custom event types can be used for private messages between elements
+             * that can't be expressed using normal
+             * GStreamer buffer passing semantics. Custom events carry an arbitrary
+             * #GstStructure.
+             * Specific custom events are distinguished by the name of the structure.
+             */
+            EventType: EventTypeEnum
+            /**
          * Gets the #GstEventTypeFlags associated with @type.
          * @param type a #GstEventType
          * @returns a #GstEventTypeFlags.
          */
-        function get_flags(type: EventType): EventTypeFlags
-        /**
+        get_flags: (type: EventType) => EventTypeFlags
+            /**
          * Get a printable name for the given event type. Do not modify or free.
          * @param type the event type
          * @returns a reference to the static name of the event.
          */
-        function get_name(type: EventType): string
-        /**
+        get_name: (type: EventType) => string
+            /**
          * Get the unique quark for the given event type.
          * @param type the event type
          * @returns the quark associated with the event type
          */
-        function to_quark(type: EventType): GLib.Quark
-        /**
+        to_quark: (type: EventType) => GLib.Quark
+            /**
          * Converts the #GstEventType to an unsigned integer that
          * represents the ordering of sticky events when re-sending them.
          * A lower value represents a higher-priority event.
@@ -19826,365 +18098,380 @@ declare module "gi://Gst?version=1.0" {
          * @param type a #GstEventType
          * @returns an unsigned integer
          */
-        function to_sticky_ordering(type: EventType): number
-        
-        namespace FlowReturn {
-            const $gtype: GObject.GType<FlowReturn>
+        to_sticky_ordering: (type: EventType) => number
         }
-
-        /**
-         * The result of passing data to a pad.
-         *
-         * Note that the custom return values should not be exposed outside of the
-         * element scope.
-         */
-        enum FlowReturn {
+        
+        interface FlowReturnEnum {
+            readonly $gtype: GObject.GType<FlowReturn>
             /**
              * Pre-defined custom success code.
              */
-            "CUSTOM_SUCCESS_2" = 102,
+            readonly "CUSTOM_SUCCESS_2": 102
             /**
              * Pre-defined custom success code (define your
              *                               custom success code to this to avoid compiler
              *                               warnings).
              */
-            "CUSTOM_SUCCESS_1" = 101,
+            readonly "CUSTOM_SUCCESS_1": 101
             /**
              * Elements can use values starting from
              *                               this (and higher) to define custom success
              *                               codes.
              */
-            "CUSTOM_SUCCESS" = 100,
+            readonly "CUSTOM_SUCCESS": 100
             /**
              * Data passing was ok.
              */
-            "OK" = 0,
+            readonly "OK": 0
             /**
              * Pad is not linked.
              */
-            "NOT_LINKED" = -1,
+            readonly "NOT_LINKED": -1
             /**
              * Pad is flushing.
              */
-            "FLUSHING" = -2,
+            readonly "FLUSHING": -2
             /**
              * Pad is EOS.
              */
-            "EOS" = -3,
+            readonly "EOS": -3
             /**
              * Pad is not negotiated.
              */
-            "NOT_NEGOTIATED" = -4,
+            readonly "NOT_NEGOTIATED": -4
             /**
              * Some (fatal) error occurred. Element generating
              *                               this error should post an error message using
              *                               GST_ELEMENT_ERROR() with more details.
              */
-            "ERROR" = -5,
+            readonly "ERROR": -5
             /**
              * This operation is not supported.
              */
-            "NOT_SUPPORTED" = -6,
+            readonly "NOT_SUPPORTED": -6
             /**
              * Elements can use values starting from
              *                               this (and lower) to define custom error codes.
              */
-            "CUSTOM_ERROR" = -100,
+            readonly "CUSTOM_ERROR": -100
             /**
              * Pre-defined custom error code (define your
              *                               custom error code to this to avoid compiler
              *                               warnings).
              */
-            "CUSTOM_ERROR_1" = -101,
+            readonly "CUSTOM_ERROR_1": -101
             /**
              * Pre-defined custom error code.
              */
-            "CUSTOM_ERROR_2" = -102,
+            readonly "CUSTOM_ERROR_2": -102
+        }
+        type FlowReturn = FlowReturnEnum[Exclude<keyof FlowReturnEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The result of passing data to a pad.
+             *
+             * Note that the custom return values should not be exposed outside of the
+             * element scope.
+             */
+            FlowReturn: FlowReturnEnum
         }
         
-        namespace Format {
-            const $gtype: GObject.GType<Format>
-        }
-
-        /**
-         * Standard predefined formats
-         */
-        enum Format {
+        interface FormatEnum {
+            readonly $gtype: GObject.GType<Format>
             /**
              * undefined format
              */
-            "UNDEFINED" = 0,
+            readonly "UNDEFINED": 0
             /**
              * the default format of the pad/element. This can be
              *    samples for raw audio, frames/fields for raw video (some, but not all,
              *    elements support this; use @GST_FORMAT_TIME if you don't have a good
              *    reason to query for samples/frames)
              */
-            "DEFAULT" = 1,
+            readonly "DEFAULT": 1
             /**
              * bytes
              */
-            "BYTES" = 2,
+            readonly "BYTES": 2
             /**
              * time in nanoseconds
              */
-            "TIME" = 3,
+            readonly "TIME": 3
             /**
              * buffers (few, if any, elements implement this as of
              *     May 2009)
              */
-            "BUFFERS" = 4,
+            readonly "BUFFERS": 4
             /**
              * percentage of stream (few, if any, elements implement
              *     this as of May 2009)
              */
-            "PERCENT" = 5,
+            readonly "PERCENT": 5
         }
-        /**
+        type Format = FormatEnum[Exclude<keyof FormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Standard predefined formats
+             */
+            Format: FormatEnum
+            /**
          * Return the format registered with the given nick.
          * @param nick The nick of the format
          * @returns The format with `nick` or GST_FORMAT_UNDEFINED if the format was not registered.
          */
-        function get_by_nick(nick: string): Format
-        /**
+        get_by_nick: (nick: string) => Format
+            /**
          * Get details about the given format.
          * @param format The format to get details of
          * @returns The #GstFormatDefinition for `format` or %NULL on failure.  MT safe.
          */
-        function get_details(format: Format): FormatDefinition | null
-        /**
+        get_details: (format: Format) => FormatDefinition | null
+            /**
          * Get a printable name for the given format. Do not modify or free.
          * @param format a #GstFormat
          * @returns a reference to the static name of the format or %NULL if the format is unknown.
          */
-        function get_name(format: Format): string | null
-        /**
+        get_name: (format: Format) => string | null
+            /**
          * Iterate all the registered formats. The format definition is read
          * only.
          * @returns a GstIterator of #GstFormatDefinition.
          */
-        function iterate_definitions(): Iterator
-        /**
+        iterate_definitions: () => Iterator
+            /**
          * Create a new GstFormat based on the nick or return an
          * already registered format with that nick.
          * @param nick The nick of the new format
          * @param description The description of the new format
          * @returns A new GstFormat or an already registered format with the same nick.  MT safe.
          */
-        function register(nick: string, description: string): Format
-        /**
+        register: (nick: string, description: string) => Format
+            /**
          * Get the unique quark for the given format.
          * @param format a #GstFormat
          * @returns the quark associated with the format or 0 if the format is unknown.
          */
-        function to_quark(format: Format): GLib.Quark
-        
-        namespace IteratorItem {
-            const $gtype: GObject.GType<IteratorItem>
+        to_quark: (format: Format) => GLib.Quark
         }
-
-        /**
-         * The result of a #GstIteratorItemFunction.
-         */
-        enum IteratorItem {
+        
+        interface IteratorItemEnum {
+            readonly $gtype: GObject.GType<IteratorItem>
             /**
              * Skip this item
              */
-            "SKIP" = 0,
+            readonly "SKIP": 0
             /**
              * Return item
              */
-            "PASS" = 1,
+            readonly "PASS": 1
             /**
              * Stop after this item.
              */
-            "END" = 2,
+            readonly "END": 2
+        }
+        type IteratorItem = IteratorItemEnum[Exclude<keyof IteratorItemEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The result of a #GstIteratorItemFunction.
+             */
+            IteratorItem: IteratorItemEnum
         }
         
-        namespace IteratorResult {
-            const $gtype: GObject.GType<IteratorResult>
-        }
-
-        /**
-         * The result of gst_iterator_next().
-         */
-        enum IteratorResult {
+        interface IteratorResultEnum {
+            readonly $gtype: GObject.GType<IteratorResult>
             /**
              * No more items in the iterator
              */
-            "DONE" = 0,
+            readonly "DONE": 0
             /**
              * An item was retrieved
              */
-            "OK" = 1,
+            readonly "OK": 1
             /**
              * Datastructure changed while iterating
              */
-            "RESYNC" = 2,
+            readonly "RESYNC": 2
             /**
              * An error happened
              */
-            "ERROR" = 3,
+            readonly "ERROR": 3
+        }
+        type IteratorResult = IteratorResultEnum[Exclude<keyof IteratorResultEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The result of gst_iterator_next().
+             */
+            IteratorResult: IteratorResultEnum
         }
         
-        abstract class LibraryError extends GLib.Error {
-            static readonly $gtype: GObject.GType<LibraryError>
+        interface LibraryError extends GLib.Error {}
+
+        interface LibraryErrorEnum {
+            readonly $gtype: GObject.GType<LibraryError>
+
+            new(props: { message: string, code: number }): LibraryError
             /**
              * a general error which doesn't fit in any other
              * category.  Make sure you add a custom message to the error call.
              */
-            static readonly "FAILED": 1
+            readonly "FAILED": 1
             /**
              * do not use this except as a placeholder for
              * deciding where to go while developing code.
              */
-            static readonly "TOO_LAZY": 2
+            readonly "TOO_LAZY": 2
             /**
              * used when the library could not be opened.
              */
-            static readonly "INIT": 3
+            readonly "INIT": 3
             /**
              * used when the library could not be closed.
              */
-            static readonly "SHUTDOWN": 4
+            readonly "SHUTDOWN": 4
             /**
              * used when the library doesn't accept settings.
              */
-            static readonly "SETTINGS": 5
+            readonly "SETTINGS": 5
             /**
              * used when the library generated an encoding error.
              */
-            static readonly "ENCODE": 6
+            readonly "ENCODE": 6
             /**
              * the number of library error types.
              */
-            static readonly "NUM_ERRORS": 7
-        }
-        /**
+            readonly "NUM_ERRORS": 7
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace PadDirection {
-            const $gtype: GObject.GType<PadDirection>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The direction of a pad.
-         */
-        enum PadDirection {
+        interface $Exports {
+            /**
+             * Library errors are for errors from the library being used by elements
+             * (initializing, finalizing, settings, ...)
+             */
+            LibraryError: LibraryErrorEnum
+        }
+        
+        interface PadDirectionEnum {
+            readonly $gtype: GObject.GType<PadDirection>
             /**
              * direction is unknown.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * the pad is a source pad.
              */
-            "SRC" = 1,
+            readonly "SRC": 1
             /**
              * the pad is a sink pad.
              */
-            "SINK" = 2,
+            readonly "SINK": 2
+        }
+        type PadDirection = PadDirectionEnum[Exclude<keyof PadDirectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The direction of a pad.
+             */
+            PadDirection: PadDirectionEnum
         }
         
-        namespace PadLinkReturn {
-            const $gtype: GObject.GType<PadLinkReturn>
-        }
-
-        /**
-         * Result values from gst_pad_link and friends.
-         */
-        enum PadLinkReturn {
+        interface PadLinkReturnEnum {
+            readonly $gtype: GObject.GType<PadLinkReturn>
             /**
              * link succeeded
              */
-            "OK" = 0,
+            readonly "OK": 0
             /**
              * pads have no common grandparent
              */
-            "WRONG_HIERARCHY" = -1,
+            readonly "WRONG_HIERARCHY": -1
             /**
              * pad was already linked
              */
-            "WAS_LINKED" = -2,
+            readonly "WAS_LINKED": -2
             /**
              * pads have wrong direction
              */
-            "WRONG_DIRECTION" = -3,
+            readonly "WRONG_DIRECTION": -3
             /**
              * pads do not have common format
              */
-            "NOFORMAT" = -4,
+            readonly "NOFORMAT": -4
             /**
              * pads cannot cooperate in scheduling
              */
-            "NOSCHED" = -5,
+            readonly "NOSCHED": -5
             /**
              * refused for some reason
              */
-            "REFUSED" = -6,
+            readonly "REFUSED": -6
+        }
+        type PadLinkReturn = PadLinkReturnEnum[Exclude<keyof PadLinkReturnEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Result values from gst_pad_link and friends.
+             */
+            PadLinkReturn: PadLinkReturnEnum
         }
         
-        namespace PadMode {
-            const $gtype: GObject.GType<PadMode>
-        }
-
-        /**
-         * The status of a GstPad. After activating a pad, which usually happens when the
-         * parent element goes from READY to PAUSED, the GstPadMode defines if the
-         * pad operates in push or pull mode.
-         */
-        enum PadMode {
+        interface PadModeEnum {
+            readonly $gtype: GObject.GType<PadMode>
             /**
              * Pad will not handle dataflow
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Pad handles dataflow in downstream push mode
              */
-            "PUSH" = 1,
+            readonly "PUSH": 1
             /**
              * Pad handles dataflow in upstream pull mode
              */
-            "PULL" = 2,
+            readonly "PULL": 2
         }
-        /**
+        type PadMode = PadModeEnum[Exclude<keyof PadModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The status of a GstPad. After activating a pad, which usually happens when the
+             * parent element goes from READY to PAUSED, the GstPadMode defines if the
+             * pad operates in push or pull mode.
+             */
+            PadMode: PadModeEnum
+            /**
          * Return the name of a pad mode, for use in debug messages mostly.
          * @param mode the pad mode
          * @returns short mnemonic for pad mode `mode`
          */
-        function get_name(mode: PadMode): string
-        
-        namespace PadPresence {
-            const $gtype: GObject.GType<PadPresence>
+        get_name: (mode: PadMode) => string
         }
-
-        /**
-         * Indicates when this pad will become available.
-         */
-        enum PadPresence {
+        
+        interface PadPresenceEnum {
+            readonly $gtype: GObject.GType<PadPresence>
             /**
              * the pad is always available
              */
-            "ALWAYS" = 0,
+            readonly "ALWAYS": 0
             /**
              * the pad will become available depending on the media stream
              */
-            "SOMETIMES" = 1,
+            readonly "SOMETIMES": 1
             /**
              * the pad is only available on request with
              *  gst_element_request_pad().
              */
-            "REQUEST" = 2,
+            readonly "REQUEST": 2
+        }
+        type PadPresence = PadPresenceEnum[Exclude<keyof PadPresenceEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Indicates when this pad will become available.
+             */
+            PadPresence: PadPresenceEnum
         }
         
-        namespace PadProbeReturn {
-            const $gtype: GObject.GType<PadProbeReturn>
-        }
-
-        /**
-         * Different return values for the #GstPadProbeCallback.
-         */
-        enum PadProbeReturn {
+        interface PadProbeReturnEnum {
+            readonly $gtype: GObject.GType<PadProbeReturn>
             /**
              * drop data in data probes. For push mode this means that
              *        the data item is not sent downstream. For pull mode, it means that
@@ -20192,7 +18479,7 @@ declare module "gi://Gst?version=1.0" {
              *        are called for this item and %GST_FLOW_OK or %TRUE is returned to the
              *        caller.
              */
-            "DROP" = 0,
+            readonly "DROP": 0
             /**
              * normal probe return value. This leaves the probe in
              *        place, and defers decisions about dropping or passing data to other
@@ -20200,19 +18487,19 @@ declare module "gi://Gst?version=1.0" {
              *        for the probe type applies ('block' for blocking probes,
              *        and 'pass' for non-blocking probes).
              */
-            "OK" = 1,
+            readonly "OK": 1
             /**
              * remove this probe, passing the data. For blocking probes
              *        this will cause data flow to unblock, unless there are also other
              *        blocking probes installed.
              */
-            "REMOVE" = 2,
+            readonly "REMOVE": 2
             /**
              * pass the data item in the block probe and block on the
              *        next item. Note, that if there are multiple pad probes installed and
              *        any probe returns PASS, the data will be passed.
              */
-            "PASS" = 3,
+            readonly "PASS": 3
             /**
              * Data has been handled in the probe and will not be
              *        forwarded further. For events and buffers this is the same behaviour as
@@ -20223,471 +18510,515 @@ declare module "gi://Gst?version=1.0" {
              *        Note that the resulting query must contain valid entries.
              *        Since: 1.6
              */
-            "HANDLED" = 4,
+            readonly "HANDLED": 4
+        }
+        type PadProbeReturn = PadProbeReturnEnum[Exclude<keyof PadProbeReturnEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Different return values for the #GstPadProbeCallback.
+             */
+            PadProbeReturn: PadProbeReturnEnum
         }
         
-        abstract class ParseError extends GLib.Error {
-            static readonly $gtype: GObject.GType<ParseError>
+        interface ParseError extends GLib.Error {}
+
+        interface ParseErrorEnum {
+            readonly $gtype: GObject.GType<ParseError>
+
+            new(props: { message: string, code: number }): ParseError
             /**
              * A syntax error occurred.
              */
-            static readonly "SYNTAX": 0
+            readonly "SYNTAX": 0
             /**
              * The description contained an unknown element
              */
-            static readonly "NO_SUCH_ELEMENT": 1
+            readonly "NO_SUCH_ELEMENT": 1
             /**
              * An element did not have a specified property
              */
-            static readonly "NO_SUCH_PROPERTY": 2
+            readonly "NO_SUCH_PROPERTY": 2
             /**
              * There was an error linking two pads.
              */
-            static readonly "LINK": 3
+            readonly "LINK": 3
             /**
              * There was an error setting a property
              */
-            static readonly "COULD_NOT_SET_PROPERTY": 4
+            readonly "COULD_NOT_SET_PROPERTY": 4
             /**
              * An empty bin was specified.
              */
-            static readonly "EMPTY_BIN": 5
+            readonly "EMPTY_BIN": 5
             /**
              * An empty description was specified
              */
-            static readonly "EMPTY": 6
+            readonly "EMPTY": 6
             /**
              * A delayed link did not get resolved.
              */
-            static readonly "DELAYED_LINK": 7
-        }
-        /**
+            readonly "DELAYED_LINK": 7
+            /**
          * Get the error quark used by the parsing subsystem.
          * @returns the quark of the parse errors.
          */
-        function quark(): GLib.Quark
+        quark: () => GLib.Quark
+        }
+
+        interface $Exports {
+            /**
+             * The different parsing errors that can occur.
+             */
+            ParseError: ParseErrorEnum
+        }
         
-        abstract class PluginError extends GLib.Error {
-            static readonly $gtype: GObject.GType<PluginError>
+        interface PluginError extends GLib.Error {}
+
+        interface PluginErrorEnum {
+            readonly $gtype: GObject.GType<PluginError>
+
+            new(props: { message: string, code: number }): PluginError
             /**
              * The plugin could not be loaded
              */
-            static readonly "MODULE": 0
+            readonly "MODULE": 0
             /**
              * The plugin has unresolved dependencies
              */
-            static readonly "DEPENDENCIES": 1
+            readonly "DEPENDENCIES": 1
             /**
              * The plugin has already be loaded from a different file
              */
-            static readonly "NAME_MISMATCH": 2
-        }
-        /**
+            readonly "NAME_MISMATCH": 2
+            /**
          * Get the error quark.
          * @returns The error quark used in GError messages
          */
-        function quark(): GLib.Quark
-        
-        namespace ProgressType {
-            const $gtype: GObject.GType<ProgressType>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The type of a %GST_MESSAGE_PROGRESS. The progress messages inform the
-         * application of the status of asynchronous tasks.
-         */
-        enum ProgressType {
+        interface $Exports {
+            /**
+             * The plugin loading errors
+             */
+            PluginError: PluginErrorEnum
+        }
+        
+        interface ProgressTypeEnum {
+            readonly $gtype: GObject.GType<ProgressType>
             /**
              * A new task started.
              */
-            "START" = 0,
+            readonly "START": 0
             /**
              * A task completed and a new one continues.
              */
-            "CONTINUE" = 1,
+            readonly "CONTINUE": 1
             /**
              * A task completed.
              */
-            "COMPLETE" = 2,
+            readonly "COMPLETE": 2
             /**
              * A task was canceled.
              */
-            "CANCELED" = 3,
+            readonly "CANCELED": 3
             /**
              * A task caused an error. An error message is also
              *          posted on the bus.
              */
-            "ERROR" = 4,
+            readonly "ERROR": 4
+        }
+        type ProgressType = ProgressTypeEnum[Exclude<keyof ProgressTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of a %GST_MESSAGE_PROGRESS. The progress messages inform the
+             * application of the status of asynchronous tasks.
+             */
+            ProgressType: ProgressTypeEnum
         }
         
-        namespace PromiseResult {
-            const $gtype: GObject.GType<PromiseResult>
-        }
-
-        /**
-         * The result of a #GstPromise
-         * @since 1.14
-         */
-        enum PromiseResult {
+        interface PromiseResultEnum {
+            readonly $gtype: GObject.GType<PromiseResult>
             /**
              * Initial state. Waiting for transition to any
              * 	other state.
              */
-            "PENDING" = 0,
+            readonly "PENDING": 0
             /**
              * Interrupted by the consumer as it doesn't
              * 	want the value anymore.
              */
-            "INTERRUPTED" = 1,
+            readonly "INTERRUPTED": 1
             /**
              * A producer marked a reply
              */
-            "REPLIED" = 2,
+            readonly "REPLIED": 2
             /**
              * The promise expired (the carrying object
              * 	lost all refs) and the promise will never be fulfilled.
              */
-            "EXPIRED" = 3,
+            readonly "EXPIRED": 3
+        }
+        type PromiseResult = PromiseResultEnum[Exclude<keyof PromiseResultEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The result of a #GstPromise
+             * @since 1.14
+             */
+            PromiseResult: PromiseResultEnum
         }
         
-        namespace QOSType {
-            const $gtype: GObject.GType<QOSType>
-        }
-
-        /**
-         * The different types of QoS events that can be given to the
-         * gst_event_new_qos() method.
-         */
-        enum QOSType {
+        interface QOSTypeEnum {
+            readonly $gtype: GObject.GType<QOSType>
             /**
              * The QoS event type that is produced when upstream
              *    elements are producing data too quickly and the element can't keep up
              *    processing the data. Upstream should reduce their production rate. This
              *    type is also used when buffers arrive early or in time.
              */
-            "OVERFLOW" = 0,
+            readonly "OVERFLOW": 0
             /**
              * The QoS event type that is produced when upstream
              *    elements are producing data too slowly and need to speed up their
              *    production rate.
              */
-            "UNDERFLOW" = 1,
+            readonly "UNDERFLOW": 1
             /**
              * The QoS event type that is produced when the
              *    application enabled throttling to limit the data rate.
              */
-            "THROTTLE" = 2,
+            readonly "THROTTLE": 2
+        }
+        type QOSType = QOSTypeEnum[Exclude<keyof QOSTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different types of QoS events that can be given to the
+             * gst_event_new_qos() method.
+             */
+            QOSType: QOSTypeEnum
         }
         
-        namespace QueryType {
-            const $gtype: GObject.GType<QueryType>
-        }
-
-        /**
-         * Standard predefined Query types
-         */
-        enum QueryType {
+        interface QueryTypeEnum {
+            readonly $gtype: GObject.GType<QueryType>
             /**
              * unknown query type
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * current position in stream
              */
-            "POSITION" = 2563,
+            readonly "POSITION": 2563
             /**
              * total duration of the stream
              */
-            "DURATION" = 5123,
+            readonly "DURATION": 5123
             /**
              * latency of stream
              */
-            "LATENCY" = 7683,
+            readonly "LATENCY": 7683
             /**
              * current jitter of stream
              */
-            "JITTER" = 10243,
+            readonly "JITTER": 10243
             /**
              * current rate of the stream
              */
-            "RATE" = 12803,
+            readonly "RATE": 12803
             /**
              * seeking capabilities
              */
-            "SEEKING" = 15363,
+            readonly "SEEKING": 15363
             /**
              * segment start/stop positions
              */
-            "SEGMENT" = 17923,
+            readonly "SEGMENT": 17923
             /**
              * convert values between formats
              */
-            "CONVERT" = 20483,
+            readonly "CONVERT": 20483
             /**
              * query supported formats for convert
              */
-            "FORMATS" = 23043,
+            readonly "FORMATS": 23043
             /**
              * query available media for efficient seeking.
              */
-            "BUFFERING" = 28163,
+            readonly "BUFFERING": 28163
             /**
              * a custom application or element defined query.
              */
-            "CUSTOM" = 30723,
+            readonly "CUSTOM": 30723
             /**
              * query the URI of the source or sink.
              */
-            "URI" = 33283,
+            readonly "URI": 33283
             /**
              * the buffer allocation properties
              */
-            "ALLOCATION" = 35846,
+            readonly "ALLOCATION": 35846
             /**
              * the scheduling properties
              */
-            "SCHEDULING" = 38401,
+            readonly "SCHEDULING": 38401
             /**
              * the accept caps query
              */
-            "ACCEPT_CAPS" = 40963,
+            readonly "ACCEPT_CAPS": 40963
             /**
              * the caps query
              */
-            "CAPS" = 43523,
+            readonly "CAPS": 43523
             /**
              * wait till all serialized data is consumed downstream
              */
-            "DRAIN" = 46086,
+            readonly "DRAIN": 46086
             /**
              * query the pipeline-local context from
              *     downstream or upstream (since 1.2)
              */
-            "CONTEXT" = 48643,
+            readonly "CONTEXT": 48643
             /**
              * the bitrate query (since 1.16)
              */
-            "BITRATE" = 51202,
+            readonly "BITRATE": 51202
             /**
              * Query stream selection capability.
              * @since 1.22
              */
-            "SELECTABLE" = 53763,
+            readonly "SELECTABLE": 53763
         }
-        /**
+        type QueryType = QueryTypeEnum[Exclude<keyof QueryTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Standard predefined Query types
+             */
+            QueryType: QueryTypeEnum
+            /**
          * Gets the #GstQueryTypeFlags associated with @type.
          * @param type a #GstQueryType
          * @returns a #GstQueryTypeFlags.
          */
-        function get_flags(type: QueryType): QueryTypeFlags
-        /**
+        get_flags: (type: QueryType) => QueryTypeFlags
+            /**
          * Get a printable name for the given query type. Do not modify or free.
          * @param type the query type
          * @returns a reference to the static name of the query.
          */
-        function get_name(type: QueryType): string
-        /**
+        get_name: (type: QueryType) => string
+            /**
          * Get the unique quark for the given query type.
          * @param type the query type
          * @returns the quark associated with the query type
          */
-        function to_quark(type: QueryType): GLib.Quark
-        
-        namespace Rank {
-            const $gtype: GObject.GType<Rank>
+        to_quark: (type: QueryType) => GLib.Quark
         }
-
-        /**
-         * Element priority ranks. Defines the order in which the autoplugger (or
-         * similar rank-picking mechanisms, such as e.g. gst_element_make_from_uri())
-         * will choose this element over an alternative one with the same function.
-         *
-         * These constants serve as a rough guidance for defining the rank of a
-         * #GstPluginFeature. Any value is valid, including values bigger than
-         * @GST_RANK_PRIMARY.
-         */
-        enum Rank {
+        
+        interface RankEnum {
+            readonly $gtype: GObject.GType<Rank>
             /**
              * will be chosen last or not at all
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * unlikely to be chosen
              */
-            "MARGINAL" = 64,
+            readonly "MARGINAL": 64
             /**
              * likely to be chosen
              */
-            "SECONDARY" = 128,
+            readonly "SECONDARY": 128
             /**
              * will be chosen first
              */
-            "PRIMARY" = 256,
+            readonly "PRIMARY": 256
+        }
+        type Rank = RankEnum[Exclude<keyof RankEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Element priority ranks. Defines the order in which the autoplugger (or
+             * similar rank-picking mechanisms, such as e.g. gst_element_make_from_uri())
+             * will choose this element over an alternative one with the same function.
+             *
+             * These constants serve as a rough guidance for defining the rank of a
+             * #GstPluginFeature. Any value is valid, including values bigger than
+             * @GST_RANK_PRIMARY.
+             */
+            Rank: RankEnum
         }
         
-        abstract class ResourceError extends GLib.Error {
-            static readonly $gtype: GObject.GType<ResourceError>
+        interface ResourceError extends GLib.Error {}
+
+        interface ResourceErrorEnum {
+            readonly $gtype: GObject.GType<ResourceError>
+
+            new(props: { message: string, code: number }): ResourceError
             /**
              * a general error which doesn't fit in any other
              * category.  Make sure you add a custom message to the error call.
              */
-            static readonly "FAILED": 1
+            readonly "FAILED": 1
             /**
              * do not use this except as a placeholder for
              * deciding where to go while developing code.
              */
-            static readonly "TOO_LAZY": 2
+            readonly "TOO_LAZY": 2
             /**
              * used when the resource could not be found.
              */
-            static readonly "NOT_FOUND": 3
+            readonly "NOT_FOUND": 3
             /**
              * used when resource is busy.
              */
-            static readonly "BUSY": 4
+            readonly "BUSY": 4
             /**
              * used when resource fails to open for reading.
              */
-            static readonly "OPEN_READ": 5
+            readonly "OPEN_READ": 5
             /**
              * used when resource fails to open for writing.
              */
-            static readonly "OPEN_WRITE": 6
+            readonly "OPEN_WRITE": 6
             /**
              * used when resource cannot be opened for
              * both reading and writing, or either (but unspecified which).
              */
-            static readonly "OPEN_READ_WRITE": 7
+            readonly "OPEN_READ_WRITE": 7
             /**
              * used when the resource can't be closed.
              */
-            static readonly "CLOSE": 8
+            readonly "CLOSE": 8
             /**
              * used when the resource can't be read from.
              */
-            static readonly "READ": 9
+            readonly "READ": 9
             /**
              * used when the resource can't be written to.
              */
-            static readonly "WRITE": 10
+            readonly "WRITE": 10
             /**
              * used when a seek on the resource fails.
              */
-            static readonly "SEEK": 11
+            readonly "SEEK": 11
             /**
              * used when a synchronize on the resource fails.
              */
-            static readonly "SYNC": 12
+            readonly "SYNC": 12
             /**
              * used when settings can't be manipulated on.
              */
-            static readonly "SETTINGS": 13
+            readonly "SETTINGS": 13
             /**
              * used when the resource has no space left.
              */
-            static readonly "NO_SPACE_LEFT": 14
+            readonly "NO_SPACE_LEFT": 14
             /**
              * used when the resource can't be opened
              *                                     due to missing authorization.
              *                                     (Since: 1.2.4)
              */
-            static readonly "NOT_AUTHORIZED": 15
+            readonly "NOT_AUTHORIZED": 15
             /**
              * the number of resource error types.
              */
-            static readonly "NUM_ERRORS": 16
-        }
-        /**
+            readonly "NUM_ERRORS": 16
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace SearchMode {
-            const $gtype: GObject.GType<SearchMode>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The different search modes.
-         */
-        enum SearchMode {
+        interface $Exports {
+            /**
+             * Resource errors are for any resource used by an element:
+             * memory, files, network connections, process space, ...
+             * They're typically used by source and sink elements.
+             */
+            ResourceError: ResourceErrorEnum
+        }
+        
+        interface SearchModeEnum {
+            readonly $gtype: GObject.GType<SearchMode>
             /**
              * Only search for exact matches.
              */
-            "EXACT" = 0,
+            readonly "EXACT": 0
             /**
              * Search for an exact match or the element just before.
              */
-            "BEFORE" = 1,
+            readonly "BEFORE": 1
             /**
              * Search for an exact match or the element just after.
              */
-            "AFTER" = 2,
+            readonly "AFTER": 2
+        }
+        type SearchMode = SearchModeEnum[Exclude<keyof SearchModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different search modes.
+             */
+            SearchMode: SearchModeEnum
         }
         
-        namespace SeekType {
-            const $gtype: GObject.GType<SeekType>
-        }
-
-        /**
-         * The different types of seek events. When constructing a seek event with
-         * gst_event_new_seek() or when doing gst_segment_do_seek ().
-         */
-        enum SeekType {
+        interface SeekTypeEnum {
+            readonly $gtype: GObject.GType<SeekType>
             /**
              * no change in position is required
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * absolute position is requested
              */
-            "SET" = 1,
+            readonly "SET": 1
             /**
              * relative position to duration is requested
              */
-            "END" = 2,
+            readonly "END": 2
+        }
+        type SeekType = SeekTypeEnum[Exclude<keyof SeekTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different types of seek events. When constructing a seek event with
+             * gst_event_new_seek() or when doing gst_segment_do_seek ().
+             */
+            SeekType: SeekTypeEnum
         }
         
-        namespace State {
-            const $gtype: GObject.GType<State>
-        }
-
-        /**
-         * The possible states an element can be in. States can be changed using
-         * gst_element_set_state() and checked using gst_element_get_state().
-         */
-        enum State {
+        interface StateEnum {
+            readonly $gtype: GObject.GType<State>
             /**
              * no pending state.
              */
-            "VOID_PENDING" = 0,
+            readonly "VOID_PENDING": 0
             /**
              * the NULL state or initial state of an element.
              */
-            "NULL" = 1,
+            readonly "NULL": 1
             /**
              * the element is ready to go to PAUSED.
              */
-            "READY" = 2,
+            readonly "READY": 2
             /**
              * the element is PAUSED, it is ready to accept and
              *                          process data. Sink elements however only accept one
              *                          buffer and then block.
              */
-            "PAUSED" = 3,
+            readonly "PAUSED": 3
             /**
              * the element is PLAYING, the #GstClock is running and
              *                          the data is flowing.
              */
-            "PLAYING" = 4,
+            readonly "PLAYING": 4
+        }
+        type State = StateEnum[Exclude<keyof StateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The possible states an element can be in. States can be changed using
+             * gst_element_set_state() and checked using gst_element_get_state().
+             */
+            State: StateEnum
         }
         
-        namespace StateChange {
-            const $gtype: GObject.GType<StateChange>
-        }
-
-        /**
-         * rArr; %GST_STATE_NULL a downwards state change.
-         */
-        enum StateChange {
+        interface StateChangeEnum {
+            readonly $gtype: GObject.GType<StateChange>
             /**
              * state change from NULL to READY.
              *   * The element must check if the resources it needs are available. Device
@@ -20695,7 +19026,7 @@ declare module "gi://Gst?version=1.0" {
              *     caps.
              *   * The element opens the device (in case feature need to be probed).
              */
-            "NULL_TO_READY" = 10,
+            readonly "NULL_TO_READY": 10
             /**
              * state change from READY to PAUSED.
              *   * The element pads are activated in order to receive data in PAUSED.
@@ -20708,7 +19039,7 @@ declare module "gi://Gst?version=1.0" {
              *   * A pipeline resets the running_time to 0.
              *   * Live sources return %GST_STATE_CHANGE_NO_PREROLL and don't generate data.
              */
-            "READY_TO_PAUSED" = 19,
+            readonly "READY_TO_PAUSED": 19
             /**
              * state change from PAUSED to PLAYING.
              *   * Most elements ignore this state change.
@@ -20726,7 +19057,7 @@ declare module "gi://Gst?version=1.0" {
              *     sometimes pads.
              *   * Live sources start generating data and return %GST_STATE_CHANGE_SUCCESS.
              */
-            "PAUSED_TO_PLAYING" = 28,
+            readonly "PAUSED_TO_PLAYING": 28
             /**
              * state change from PLAYING to PAUSED.
              *   * Most elements ignore this state change.
@@ -20742,7 +19073,7 @@ declare module "gi://Gst?version=1.0" {
              *     #GstBin containers.
              *   * Live sources stop generating data and return %GST_STATE_CHANGE_NO_PREROLL.
              */
-            "PLAYING_TO_PAUSED" = 35,
+            readonly "PLAYING_TO_PAUSED": 35
             /**
              * state change from PAUSED to READY.
              *   * Sinks unblock any waits in the preroll.
@@ -20753,415 +19084,440 @@ declare module "gi://Gst?version=1.0" {
              *   * The sink forgets all negotiated formats
              *   * Elements remove all sometimes pads
              */
-            "PAUSED_TO_READY" = 26,
+            readonly "PAUSED_TO_READY": 26
             /**
              * state change from READY to NULL.
              *   * Elements close devices
              *   * Elements reset any internal state.
              */
-            "READY_TO_NULL" = 17,
+            readonly "READY_TO_NULL": 17
             /**
              * state change from NULL to NULL. (Since: 1.14)
              */
-            "NULL_TO_NULL" = 9,
+            readonly "NULL_TO_NULL": 9
             /**
              * state change from READY to READY,
              * This might happen when going to PAUSED asynchronously failed, in that case
              * elements should make sure they are in a proper, coherent READY state. (Since: 1.14)
              */
-            "READY_TO_READY" = 18,
+            readonly "READY_TO_READY": 18
             /**
              * state change from PAUSED to PAUSED.
              * This might happen when elements were in PLAYING state and 'lost state',
              * they should make sure to go back to real 'PAUSED' state (prerolling for example). (Since: 1.14)
              */
-            "PAUSED_TO_PAUSED" = 27,
+            readonly "PAUSED_TO_PAUSED": 27
             /**
              * state change from PLAYING to PLAYING. (Since: 1.14)
              */
-            "PLAYING_TO_PLAYING" = 36,
+            readonly "PLAYING_TO_PLAYING": 36
         }
-        /**
+        type StateChange = StateChangeEnum[Exclude<keyof StateChangeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * These are the different state changes an element goes through.
+             * %GST_STATE_NULL &rArr; %GST_STATE_PLAYING is called an upwards state change
+             * and %GST_STATE_PLAYING &rArr; %GST_STATE_NULL a downwards state change.
+             */
+            StateChange: StateChangeEnum
+            /**
          * Gets a string representing the given state transition.
          * @since 1.14
          * @param transition a #GstStateChange to get the name of.
          * @returns a string with the name of the state    result.
          */
-        function get_name(transition: StateChange): string
-        
-        namespace StateChangeReturn {
-            const $gtype: GObject.GType<StateChangeReturn>
+        get_name: (transition: StateChange) => string
         }
-
-        /**
-         * The possible return values from a state change function such as
-         * gst_element_set_state(). Only @GST_STATE_CHANGE_FAILURE is a real failure.
-         */
-        enum StateChangeReturn {
+        
+        interface StateChangeReturnEnum {
+            readonly $gtype: GObject.GType<StateChangeReturn>
             /**
              * the state change failed
              */
-            "FAILURE" = 0,
+            readonly "FAILURE": 0
             /**
              * the state change succeeded
              */
-            "SUCCESS" = 1,
+            readonly "SUCCESS": 1
             /**
              * the state change will happen asynchronously
              */
-            "ASYNC" = 2,
+            readonly "ASYNC": 2
             /**
              * the state change succeeded but the element
              *                               cannot produce data in %GST_STATE_PAUSED.
              *                               This typically happens with live sources.
              */
-            "NO_PREROLL" = 3,
+            readonly "NO_PREROLL": 3
+        }
+        type StateChangeReturn = StateChangeReturnEnum[Exclude<keyof StateChangeReturnEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The possible return values from a state change function such as
+             * gst_element_set_state(). Only @GST_STATE_CHANGE_FAILURE is a real failure.
+             */
+            StateChangeReturn: StateChangeReturnEnum
         }
         
-        abstract class StreamError extends GLib.Error {
-            static readonly $gtype: GObject.GType<StreamError>
+        interface StreamError extends GLib.Error {}
+
+        interface StreamErrorEnum {
+            readonly $gtype: GObject.GType<StreamError>
+
+            new(props: { message: string, code: number }): StreamError
             /**
              * a general error which doesn't fit in any other
              * category.  Make sure you add a custom message to the error call.
              */
-            static readonly "FAILED": 1
+            readonly "FAILED": 1
             /**
              * do not use this except as a placeholder for
              * deciding where to go while developing code.
              */
-            static readonly "TOO_LAZY": 2
+            readonly "TOO_LAZY": 2
             /**
              * use this when you do not want to implement
              * this functionality yet.
              */
-            static readonly "NOT_IMPLEMENTED": 3
+            readonly "NOT_IMPLEMENTED": 3
             /**
              * used when the element doesn't know the
              * stream's type.
              */
-            static readonly "TYPE_NOT_FOUND": 4
+            readonly "TYPE_NOT_FOUND": 4
             /**
              * used when the element doesn't handle this type
              * of stream.
              */
-            static readonly "WRONG_TYPE": 5
+            readonly "WRONG_TYPE": 5
             /**
              * used when there's no codec to handle the
              * stream's type.
              */
-            static readonly "CODEC_NOT_FOUND": 6
+            readonly "CODEC_NOT_FOUND": 6
             /**
              * used when decoding fails.
              */
-            static readonly "DECODE": 7
+            readonly "DECODE": 7
             /**
              * used when encoding fails.
              */
-            static readonly "ENCODE": 8
+            readonly "ENCODE": 8
             /**
              * used when demuxing fails.
              */
-            static readonly "DEMUX": 9
+            readonly "DEMUX": 9
             /**
              * used when muxing fails.
              */
-            static readonly "MUX": 10
+            readonly "MUX": 10
             /**
              * used when the stream is of the wrong format
              * (for example, wrong caps).
              */
-            static readonly "FORMAT": 11
+            readonly "FORMAT": 11
             /**
              * used when the stream is encrypted and can't be
              * decrypted because this is not supported by the element.
              */
-            static readonly "DECRYPT": 12
+            readonly "DECRYPT": 12
             /**
              * used when the stream is encrypted and
              * can't be decrypted because no suitable key is available.
              */
-            static readonly "DECRYPT_NOKEY": 13
+            readonly "DECRYPT_NOKEY": 13
             /**
              * the number of stream error types.
              */
-            static readonly "NUM_ERRORS": 14
-        }
-        /**
+            readonly "NUM_ERRORS": 14
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace StreamStatusType {
-            const $gtype: GObject.GType<StreamStatusType>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The type of a %GST_MESSAGE_STREAM_STATUS. The stream status messages inform the
-         * application of new streaming threads and their status.
-         */
-        enum StreamStatusType {
+        interface $Exports {
+            /**
+             * Stream errors are for anything related to the stream being processed:
+             * format errors, media type errors, ...
+             * They're typically used by decoders, demuxers, converters, ...
+             */
+            StreamError: StreamErrorEnum
+        }
+        
+        interface StreamStatusTypeEnum {
+            readonly $gtype: GObject.GType<StreamStatusType>
             /**
              * A new thread need to be created.
              */
-            "CREATE" = 0,
+            readonly "CREATE": 0
             /**
              * a thread entered its loop function
              */
-            "ENTER" = 1,
+            readonly "ENTER": 1
             /**
              * a thread left its loop function
              */
-            "LEAVE" = 2,
+            readonly "LEAVE": 2
             /**
              * a thread is destroyed
              */
-            "DESTROY" = 3,
+            readonly "DESTROY": 3
             /**
              * a thread is started
              */
-            "START" = 8,
+            readonly "START": 8
             /**
              * a thread is paused
              */
-            "PAUSE" = 9,
+            readonly "PAUSE": 9
             /**
              * a thread is stopped
              */
-            "STOP" = 10,
+            readonly "STOP": 10
+        }
+        type StreamStatusType = StreamStatusTypeEnum[Exclude<keyof StreamStatusTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of a %GST_MESSAGE_STREAM_STATUS. The stream status messages inform the
+             * application of new streaming threads and their status.
+             */
+            StreamStatusType: StreamStatusTypeEnum
         }
         
-        namespace StructureChangeType {
-            const $gtype: GObject.GType<StructureChangeType>
-        }
-
-        /**
-         * The type of a %GST_MESSAGE_STRUCTURE_CHANGE.
-         */
-        enum StructureChangeType {
+        interface StructureChangeTypeEnum {
+            readonly $gtype: GObject.GType<StructureChangeType>
             /**
              * Pad linking is starting or done.
              */
-            "LINK" = 0,
+            readonly "LINK": 0
             /**
              * Pad unlinking is starting or done.
              */
-            "UNLINK" = 1,
+            readonly "UNLINK": 1
+        }
+        type StructureChangeType = StructureChangeTypeEnum[Exclude<keyof StructureChangeTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of a %GST_MESSAGE_STRUCTURE_CHANGE.
+             */
+            StructureChangeType: StructureChangeTypeEnum
         }
         
-        namespace TagFlag {
-            const $gtype: GObject.GType<TagFlag>
-        }
-
-        /**
-         * Extra tag flags used when registering tags.
-         */
-        enum TagFlag {
+        interface TagFlagEnum {
+            readonly $gtype: GObject.GType<TagFlag>
             /**
              * undefined flag
              */
-            "UNDEFINED" = 0,
+            readonly "UNDEFINED": 0
             /**
              * tag is meta data
              */
-            "META" = 1,
+            readonly "META": 1
             /**
              * tag is encoded
              */
-            "ENCODED" = 2,
+            readonly "ENCODED": 2
             /**
              * tag is decoded
              */
-            "DECODED" = 3,
+            readonly "DECODED": 3
             /**
              * number of tag flags
              */
-            "COUNT" = 4,
+            readonly "COUNT": 4
+        }
+        type TagFlag = TagFlagEnum[Exclude<keyof TagFlagEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Extra tag flags used when registering tags.
+             */
+            TagFlag: TagFlagEnum
         }
         
-        namespace TagMergeMode {
-            const $gtype: GObject.GType<TagMergeMode>
-        }
-
-        /**
-         * The different tag merging modes are basically replace, overwrite and append,
-         * but they can be seen from two directions. Given two taglists: (A) the tags
-         * already in the element and (B) the ones that are supplied to the element (
-         * e.g. via gst_tag_setter_merge_tags() / gst_tag_setter_add_tags() or a
-         * %GST_EVENT_TAG), how are these tags merged?
-         * In the table below this is shown for the cases that a tag exists in the list
-         * (A) or does not exists (!A) and combinations thereof.
-         *
-         * | merge mode  | A + B | A + !B | !A + B | !A + !B |
-         * | ----------- | ----- | ------ | ------ | ------- |
-         * | REPLACE_ALL | B     | ø      | B      | ø       |
-         * | REPLACE     | B     | A      | B      | ø       |
-         * | APPEND      | A, B  | A      | B      | ø       |
-         * | PREPEND     | B, A  | A      | B      | ø       |
-         * | KEEP        | A     | A      | B      | ø       |
-         * | KEEP_ALL    | A     | A      | ø      | ø       |
-         */
-        enum TagMergeMode {
+        interface TagMergeModeEnum {
+            readonly $gtype: GObject.GType<TagMergeMode>
             /**
              * undefined merge mode
              */
-            "UNDEFINED" = 0,
+            readonly "UNDEFINED": 0
             /**
              * replace all tags (clear list and append)
              */
-            "REPLACE_ALL" = 1,
+            readonly "REPLACE_ALL": 1
             /**
              * replace tags
              */
-            "REPLACE" = 2,
+            readonly "REPLACE": 2
             /**
              * append tags
              */
-            "APPEND" = 3,
+            readonly "APPEND": 3
             /**
              * prepend tags
              */
-            "PREPEND" = 4,
+            readonly "PREPEND": 4
             /**
              * keep existing tags
              */
-            "KEEP" = 5,
+            readonly "KEEP": 5
             /**
              * keep all existing tags
              */
-            "KEEP_ALL" = 6,
+            readonly "KEEP_ALL": 6
             /**
              * the number of merge modes
              */
-            "COUNT" = 7,
+            readonly "COUNT": 7
+        }
+        type TagMergeMode = TagMergeModeEnum[Exclude<keyof TagMergeModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different tag merging modes are basically replace, overwrite and append,
+             * but they can be seen from two directions. Given two taglists: (A) the tags
+             * already in the element and (B) the ones that are supplied to the element (
+             * e.g. via gst_tag_setter_merge_tags() / gst_tag_setter_add_tags() or a
+             * %GST_EVENT_TAG), how are these tags merged?
+             * In the table below this is shown for the cases that a tag exists in the list
+             * (A) or does not exists (!A) and combinations thereof.
+             *
+             * | merge mode  | A + B | A + !B | !A + B | !A + !B |
+             * | ----------- | ----- | ------ | ------ | ------- |
+             * | REPLACE_ALL | B     | ø      | B      | ø       |
+             * | REPLACE     | B     | A      | B      | ø       |
+             * | APPEND      | A, B  | A      | B      | ø       |
+             * | PREPEND     | B, A  | A      | B      | ø       |
+             * | KEEP        | A     | A      | B      | ø       |
+             * | KEEP_ALL    | A     | A      | ø      | ø       |
+             */
+            TagMergeMode: TagMergeModeEnum
         }
         
-        namespace TagScope {
-            const $gtype: GObject.GType<TagScope>
-        }
-
-        /**
-         * GstTagScope specifies if a taglist applies to the complete
-         * medium or only to one single stream.
-         */
-        enum TagScope {
+        interface TagScopeEnum {
+            readonly $gtype: GObject.GType<TagScope>
             /**
              * tags specific to this single stream
              */
-            "STREAM" = 0,
+            readonly "STREAM": 0
             /**
              * global tags for the complete medium
              */
-            "GLOBAL" = 1,
+            readonly "GLOBAL": 1
+        }
+        type TagScope = TagScopeEnum[Exclude<keyof TagScopeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * GstTagScope specifies if a taglist applies to the complete
+             * medium or only to one single stream.
+             */
+            TagScope: TagScopeEnum
         }
         
-        namespace TaskState {
-            const $gtype: GObject.GType<TaskState>
-        }
-
-        /**
-         * The different states a task can be in
-         */
-        enum TaskState {
+        interface TaskStateEnum {
+            readonly $gtype: GObject.GType<TaskState>
             /**
              * the task is started and running
              */
-            "STARTED" = 0,
+            readonly "STARTED": 0
             /**
              * the task is stopped
              */
-            "STOPPED" = 1,
+            readonly "STOPPED": 1
             /**
              * the task is paused
              */
-            "PAUSED" = 2,
+            readonly "PAUSED": 2
+        }
+        type TaskState = TaskStateEnum[Exclude<keyof TaskStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different states a task can be in
+             */
+            TaskState: TaskStateEnum
         }
         
-        namespace TocEntryType {
-            const $gtype: GObject.GType<TocEntryType>
-        }
-
-        /**
-         * The different types of TOC entries (see #GstTocEntry).
-         *
-         * There are two types of TOC entries: alternatives or parts in a sequence.
-         */
-        enum TocEntryType {
+        interface TocEntryTypeEnum {
+            readonly $gtype: GObject.GType<TocEntryType>
             /**
              * entry is an angle (i.e. an alternative)
              */
-            "ANGLE" = -3,
+            readonly "ANGLE": -3
             /**
              * entry is a version (i.e. alternative)
              */
-            "VERSION" = -2,
+            readonly "VERSION": -2
             /**
              * entry is an edition (i.e. alternative)
              */
-            "EDITION" = -1,
+            readonly "EDITION": -1
             /**
              * invalid entry type value
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * entry is a title (i.e. a part of a sequence)
              */
-            "TITLE" = 1,
+            readonly "TITLE": 1
             /**
              * entry is a track (i.e. a part of a sequence)
              */
-            "TRACK" = 2,
+            readonly "TRACK": 2
             /**
              * entry is a chapter (i.e. a part of a sequence)
              */
-            "CHAPTER" = 3,
+            readonly "CHAPTER": 3
         }
-        /**
+        type TocEntryType = TocEntryTypeEnum[Exclude<keyof TocEntryTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different types of TOC entries (see #GstTocEntry).
+             *
+             * There are two types of TOC entries: alternatives or parts in a sequence.
+             */
+            TocEntryType: TocEntryTypeEnum
+            /**
          * Converts @type to a string representation.
          * @param type a #GstTocEntryType.
          * @returns Returns a human-readable string for `type`. This string is    only for debugging purpose and should not be displayed in a user    interface.
          */
-        function get_nick(type: TocEntryType): string
-        
-        namespace TocLoopType {
-            const $gtype: GObject.GType<TocLoopType>
+        get_nick: (type: TocEntryType) => string
         }
-
-        /**
-         * How a #GstTocEntry should be repeated. By default, entries are played a
-         * single time.
-         * @since 1.4
-         */
-        enum TocLoopType {
+        
+        interface TocLoopTypeEnum {
+            readonly $gtype: GObject.GType<TocLoopType>
             /**
              * single forward playback
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * repeat forward
              */
-            "FORWARD" = 1,
+            readonly "FORWARD": 1
             /**
              * repeat backward
              */
-            "REVERSE" = 2,
+            readonly "REVERSE": 2
             /**
              * repeat forward and backward
              */
-            "PING_PONG" = 3,
+            readonly "PING_PONG": 3
+        }
+        type TocLoopType = TocLoopTypeEnum[Exclude<keyof TocLoopTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * How a #GstTocEntry should be repeated. By default, entries are played a
+             * single time.
+             * @since 1.4
+             */
+            TocLoopType: TocLoopTypeEnum
         }
         
-        namespace TocScope {
-            const $gtype: GObject.GType<TocScope>
-        }
-
-        /**
-         * The scope of a TOC.
-         */
-        enum TocScope {
+        interface TocScopeEnum {
+            readonly $gtype: GObject.GType<TocScope>
             /**
              * global TOC representing all selectable options
              *     (this is what applications are usually interested in)
              */
-            "GLOBAL" = 1,
+            readonly "GLOBAL": 1
             /**
              * TOC for the currently active/selected stream
              *     (this is a TOC representing the current stream from start to EOS,
@@ -21170,137 +19526,152 @@ declare module "gi://Gst?version=1.0" {
              *     the current title, or the chapters selected for playback from the
              *     current title)
              */
-            "CURRENT" = 2,
+            readonly "CURRENT": 2
+        }
+        type TocScope = TocScopeEnum[Exclude<keyof TocScopeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The scope of a TOC.
+             */
+            TocScope: TocScopeEnum
         }
         
-        namespace TracerValueScope {
-            const $gtype: GObject.GType<TracerValueScope>
-        }
-
-        /**
-         * Tracing record will contain fields that contain a measured value or extra
-         * meta-data. One such meta data are values that tell where a measurement was
-         * taken. This enumerating declares to which scope such a meta data field
-         * relates to. If it is e.g. %GST_TRACER_VALUE_SCOPE_PAD, then each of the log
-         * events may contain values for different #GstPads.
-         * @since 1.8
-         */
-        enum TracerValueScope {
+        interface TracerValueScopeEnum {
+            readonly $gtype: GObject.GType<TracerValueScope>
             /**
              * the value is related to the process
              */
-            "PROCESS" = 0,
+            readonly "PROCESS": 0
             /**
              * the value is related to a thread
              */
-            "THREAD" = 1,
+            readonly "THREAD": 1
             /**
              * the value is related to an #GstElement
              */
-            "ELEMENT" = 2,
+            readonly "ELEMENT": 2
             /**
              * the value is related to a #GstPad
              */
-            "PAD" = 3,
+            readonly "PAD": 3
+        }
+        type TracerValueScope = TracerValueScopeEnum[Exclude<keyof TracerValueScopeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Tracing record will contain fields that contain a measured value or extra
+             * meta-data. One such meta data are values that tell where a measurement was
+             * taken. This enumerating declares to which scope such a meta data field
+             * relates to. If it is e.g. %GST_TRACER_VALUE_SCOPE_PAD, then each of the log
+             * events may contain values for different #GstPads.
+             * @since 1.8
+             */
+            TracerValueScope: TracerValueScopeEnum
         }
         
-        namespace TypeFindProbability {
-            const $gtype: GObject.GType<TypeFindProbability>
-        }
-
-        /**
-         * The probability of the typefind function. Higher values have more certainty
-         * in doing a reliable typefind.
-         */
-        enum TypeFindProbability {
+        interface TypeFindProbabilityEnum {
+            readonly $gtype: GObject.GType<TypeFindProbability>
             /**
              * type undetected.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * unlikely typefind.
              */
-            "MINIMUM" = 1,
+            readonly "MINIMUM": 1
             /**
              * possible type detected.
              */
-            "POSSIBLE" = 50,
+            readonly "POSSIBLE": 50
             /**
              * likely a type was detected.
              */
-            "LIKELY" = 80,
+            readonly "LIKELY": 80
             /**
              * nearly certain that a type was detected.
              */
-            "NEARLY_CERTAIN" = 99,
+            readonly "NEARLY_CERTAIN": 99
             /**
              * very certain a type was detected.
              */
-            "MAXIMUM" = 100,
+            readonly "MAXIMUM": 100
+        }
+        type TypeFindProbability = TypeFindProbabilityEnum[Exclude<keyof TypeFindProbabilityEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The probability of the typefind function. Higher values have more certainty
+             * in doing a reliable typefind.
+             */
+            TypeFindProbability: TypeFindProbabilityEnum
         }
         
-        abstract class URIError extends GLib.Error {
-            static readonly $gtype: GObject.GType<URIError>
+        interface URIError extends GLib.Error {}
+
+        interface URIErrorEnum {
+            readonly $gtype: GObject.GType<URIError>
+
+            new(props: { message: string, code: number }): URIError
             /**
              * The protocol is not supported
              */
-            static readonly "UNSUPPORTED_PROTOCOL": 0
+            readonly "UNSUPPORTED_PROTOCOL": 0
             /**
              * There was a problem with the URI
              */
-            static readonly "BAD_URI": 1
+            readonly "BAD_URI": 1
             /**
              * Could not set or change the URI because the
              *     URI handler was in a state where that is not possible or not permitted
              */
-            static readonly "BAD_STATE": 2
+            readonly "BAD_STATE": 2
             /**
              * There was a problem with the entity that
              *     the URI references
              */
-            static readonly "BAD_REFERENCE": 3
-        }
-        /**
+            readonly "BAD_REFERENCE": 3
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace URIType {
-            const $gtype: GObject.GType<URIType>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * The different types of URI direction.
-         */
-        enum URIType {
+        interface $Exports {
+            /**
+             * Different URI-related errors that can occur.
+             */
+            URIError: URIErrorEnum
+        }
+        
+        interface URITypeEnum {
+            readonly $gtype: GObject.GType<URIType>
             /**
              * The URI direction is unknown
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * The URI is a consumer.
              */
-            "SINK" = 1,
+            readonly "SINK": 1
             /**
              * The URI is a producer.
              */
-            "SRC" = 2,
+            readonly "SRC": 2
+        }
+        type URIType = URITypeEnum[Exclude<keyof URITypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different types of URI direction.
+             */
+            URIType: URITypeEnum
         }
         
-        namespace AllocatorFlags {
-            const $gtype: GObject.GType<AllocatorFlags>
-        }
-
-        /**
-         * Flags for allocators.
-         */
-        enum AllocatorFlags {
+        interface AllocatorFlagsBitfield {
+            readonly $gtype: GObject.GType<AllocatorFlags>
             /**
              * The allocator has a custom alloc function.
              *    Only elements designed to work with this allocator should be using it,
              *    other elements should ignore it from allocation propositions.
              *    This implies %GST_ALLOCATOR_FLAG_NO_COPY.
              */
-            "CUSTOM_ALLOC" = 16,
+            readonly "CUSTOM_ALLOC": 16
             /**
              * When copying a #GstMemory allocated with this allocator, the copy will
              * instead be allocated using the default allocator. Use this when allocating a
@@ -21308,122 +19679,125 @@ declare module "gi://Gst?version=1.0" {
              * #GstBufferPool for example.
              * @since 1.24
              */
-            "NO_COPY" = 32,
+            readonly "NO_COPY": 32
             /**
              * first flag that can be used for custom purposes
              */
-            "LAST" = 1048576,
+            readonly "LAST": 1048576
+        }
+        type AllocatorFlags = number
+        interface $Exports {
+            /**
+             * Flags for allocators.
+             */
+            AllocatorFlags: AllocatorFlagsBitfield
         }
         
-        namespace BinFlags {
-            const $gtype: GObject.GType<BinFlags>
-        }
-
-        /**
-         * GstBinFlags are a set of flags specific to bins. Most are set/used
-         * internally. They can be checked using the GST_OBJECT_FLAG_IS_SET() macro,
-         * and (un)set using GST_OBJECT_FLAG_SET() and GST_OBJECT_FLAG_UNSET().
-         */
-        enum BinFlags {
+        interface BinFlagsBitfield {
+            readonly $gtype: GObject.GType<BinFlags>
             /**
              * Don't resync a state change when elements are added or linked in the bin
              * @since 1.0.5
              */
-            "NO_RESYNC" = 16384,
+            readonly "NO_RESYNC": 16384
             /**
              * Indicates whether the bin can handle elements that add/remove source pads
              * at any point in time without first posting a no-more-pads signal.
              * @since 1.10
              */
-            "STREAMS_AWARE" = 32768,
+            readonly "STREAMS_AWARE": 32768
             /**
              * The last enum in the series of flags for bins. Derived classes can use this
              * as first value in a list of flags.
              */
-            "LAST" = 524288,
+            readonly "LAST": 524288
+        }
+        type BinFlags = number
+        interface $Exports {
+            /**
+             * GstBinFlags are a set of flags specific to bins. Most are set/used
+             * internally. They can be checked using the GST_OBJECT_FLAG_IS_SET() macro,
+             * and (un)set using GST_OBJECT_FLAG_SET() and GST_OBJECT_FLAG_UNSET().
+             */
+            BinFlags: BinFlagsBitfield
         }
         
-        namespace BufferCopyFlags {
-            const $gtype: GObject.GType<BufferCopyFlags>
-        }
-
-        /**
-         * A set of flags that can be provided to the gst_buffer_copy_into()
-         * function to specify which items should be copied.
-         */
-        enum BufferCopyFlags {
+        interface BufferCopyFlagsBitfield {
+            readonly $gtype: GObject.GType<BufferCopyFlags>
             /**
              * copy nothing
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * flag indicating that buffer flags should be copied
              */
-            "FLAGS" = 1,
+            readonly "FLAGS": 1
             /**
              * flag indicating that buffer pts, dts,
              *   duration, offset and offset_end should be copied
              */
-            "TIMESTAMPS" = 2,
+            readonly "TIMESTAMPS": 2
             /**
              * flag indicating that buffer meta should be
              *   copied
              */
-            "META" = 4,
+            readonly "META": 4
             /**
              * flag indicating that buffer memory should be reffed
              *   and appended to already existing memory. Unless the memory is marked as
              *   NO_SHARE, no actual copy of the memory is made but it is simply reffed.
              *   Add @GST_BUFFER_COPY_DEEP to force a real copy.
              */
-            "MEMORY" = 8,
+            readonly "MEMORY": 8
             /**
              * flag indicating that buffer memory should be
              *   merged
              */
-            "MERGE" = 16,
+            readonly "MERGE": 16
             /**
              * flag indicating that memory should always be copied instead of reffed
              * @since 1.2
              */
-            "DEEP" = 32,
+            readonly "DEEP": 32
+        }
+        type BufferCopyFlags = number
+        interface $Exports {
+            /**
+             * A set of flags that can be provided to the gst_buffer_copy_into()
+             * function to specify which items should be copied.
+             */
+            BufferCopyFlags: BufferCopyFlagsBitfield
         }
         
-        namespace BufferFlags {
-            const $gtype: GObject.GType<BufferFlags>
-        }
-
-        /**
-         * A set of buffer flags used to describe properties of a #GstBuffer.
-         */
-        enum BufferFlags {
+        interface BufferFlagsBitfield {
+            readonly $gtype: GObject.GType<BufferFlags>
             /**
              * the buffer is live data and should be discarded in
              *                                 the PAUSED state.
              */
-            "LIVE" = 16,
+            readonly "LIVE": 16
             /**
              * the buffer contains data that should be dropped
              *                                 because it will be clipped against the segment
              *                                 boundaries or because it does not contain data
              *                                 that should be shown to the user.
              */
-            "DECODE_ONLY" = 32,
+            readonly "DECODE_ONLY": 32
             /**
              * the buffer marks a data discontinuity in the stream.
              *                                 This typically occurs after a seek or a dropped buffer
              *                                 from a live or network source.
              */
-            "DISCONT" = 64,
+            readonly "DISCONT": 64
             /**
              * the buffer timestamps might have a discontinuity
              *                                 and this buffer is a good point to resynchronize.
              */
-            "RESYNC" = 128,
+            readonly "RESYNC": 128
             /**
              * the buffer data is corrupted.
              */
-            "CORRUPTED" = 256,
+            readonly "CORRUPTED": 256
             /**
              * the buffer contains a media specific marker. for
              *                                 video this is the end of a frame boundary, for audio
@@ -21431,39 +19805,39 @@ declare module "gi://Gst?version=1.0" {
              *                                 packets this matches the marker flag in the
              *                                 RTP packet header.
              */
-            "MARKER" = 512,
+            readonly "MARKER": 512
             /**
              * the buffer contains header information that is
              *                                 needed to decode the following data.
              */
-            "HEADER" = 1024,
+            readonly "HEADER": 1024
             /**
              * the buffer has been created to fill a gap in the
              *                                 stream and contains media neutral data (elements can
              *                                 switch to optimized code path that ignores the buffer
              *                                 content).
              */
-            "GAP" = 2048,
+            readonly "GAP": 2048
             /**
              * the buffer can be dropped without breaking the
              *                                 stream, for example to reduce bandwidth.
              */
-            "DROPPABLE" = 4096,
+            readonly "DROPPABLE": 4096
             /**
              * this unit cannot be decoded independently.
              */
-            "DELTA_UNIT" = 8192,
+            readonly "DELTA_UNIT": 8192
             /**
              * this flag is set when memory of the buffer
              *                                 is added/removed
              */
-            "TAG_MEMORY" = 16384,
+            readonly "TAG_MEMORY": 16384
             /**
              * Elements which write to disk or permanent storage should ensure the data
              * is synced after writing the contents of this buffer.
              * @since 1.6
              */
-            "SYNC_AFTER" = 32768,
+            readonly "SYNC_AFTER": 32768
             /**
              * This buffer is important and should not be dropped.
              *
@@ -21473,398 +19847,410 @@ declare module "gi://Gst?version=1.0" {
              * due to QoS.
              * @since 1.14
              */
-            "NON_DROPPABLE" = 65536,
+            readonly "NON_DROPPABLE": 65536
             /**
              * additional media specific flags can be added starting from
              *                                 this flag.
              */
-            "LAST" = 1048576,
+            readonly "LAST": 1048576
+        }
+        type BufferFlags = number
+        interface $Exports {
+            /**
+             * A set of buffer flags used to describe properties of a #GstBuffer.
+             */
+            BufferFlags: BufferFlagsBitfield
         }
         
-        namespace BufferPoolAcquireFlags {
-            const $gtype: GObject.GType<BufferPoolAcquireFlags>
-        }
-
-        /**
-         * Additional flags to control the allocation of a buffer
-         */
-        enum BufferPoolAcquireFlags {
+        interface BufferPoolAcquireFlagsBitfield {
+            readonly $gtype: GObject.GType<BufferPoolAcquireFlags>
             /**
              * no flags
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * buffer is keyframe
              */
-            "KEY_UNIT" = 1,
+            readonly "KEY_UNIT": 1
             /**
              * when the bufferpool is empty, acquire_buffer
              * will by default block until a buffer is released into the pool again. Setting
              * this flag makes acquire_buffer return #GST_FLOW_EOS instead of blocking.
              */
-            "DONTWAIT" = 2,
+            readonly "DONTWAIT": 2
             /**
              * buffer is discont
              */
-            "DISCONT" = 4,
+            readonly "DISCONT": 4
             /**
              * last flag, subclasses can use private flags
              *    starting from this value.
              */
-            "LAST" = 65536,
+            readonly "LAST": 65536
+        }
+        type BufferPoolAcquireFlags = number
+        interface $Exports {
+            /**
+             * Additional flags to control the allocation of a buffer
+             */
+            BufferPoolAcquireFlags: BufferPoolAcquireFlagsBitfield
         }
         
-        namespace BusFlags {
-            const $gtype: GObject.GType<BusFlags>
-        }
-
-        /**
-         * The standard flags that a bus may have.
-         */
-        enum BusFlags {
+        interface BusFlagsBitfield {
+            readonly $gtype: GObject.GType<BusFlags>
             /**
              * The bus is currently dropping all messages
              */
-            "FLUSHING" = 16,
+            readonly "FLUSHING": 16
             /**
              * offset to define more flags
              */
-            "FLAG_LAST" = 32,
+            readonly "FLAG_LAST": 32
+        }
+        type BusFlags = number
+        interface $Exports {
+            /**
+             * The standard flags that a bus may have.
+             */
+            BusFlags: BusFlagsBitfield
         }
         
-        namespace CapsFlags {
-            const $gtype: GObject.GType<CapsFlags>
-        }
-
-        /**
-         * Extra flags for a caps.
-         */
-        enum CapsFlags {
+        interface CapsFlagsBitfield {
+            readonly $gtype: GObject.GType<CapsFlags>
             /**
              * Caps has no specific content, but can contain
              *    anything.
              */
-            "ANY" = 16,
+            readonly "ANY": 16
+        }
+        type CapsFlags = number
+        interface $Exports {
+            /**
+             * Extra flags for a caps.
+             */
+            CapsFlags: CapsFlagsBitfield
         }
         
-        namespace ClockFlags {
-            const $gtype: GObject.GType<ClockFlags>
-        }
-
-        /**
-         * The capabilities of this clock
-         */
-        enum ClockFlags {
+        interface ClockFlagsBitfield {
+            readonly $gtype: GObject.GType<ClockFlags>
             /**
              * clock can do a single sync timeout request
              */
-            "CAN_DO_SINGLE_SYNC" = 16,
+            readonly "CAN_DO_SINGLE_SYNC": 16
             /**
              * clock can do a single async timeout request
              */
-            "CAN_DO_SINGLE_ASYNC" = 32,
+            readonly "CAN_DO_SINGLE_ASYNC": 32
             /**
              * clock can do sync periodic timeout requests
              */
-            "CAN_DO_PERIODIC_SYNC" = 64,
+            readonly "CAN_DO_PERIODIC_SYNC": 64
             /**
              * clock can do async periodic timeout callbacks
              */
-            "CAN_DO_PERIODIC_ASYNC" = 128,
+            readonly "CAN_DO_PERIODIC_ASYNC": 128
             /**
              * clock's resolution can be changed
              */
-            "CAN_SET_RESOLUTION" = 256,
+            readonly "CAN_SET_RESOLUTION": 256
             /**
              * clock can be slaved to a master clock
              */
-            "CAN_SET_MASTER" = 512,
+            readonly "CAN_SET_MASTER": 512
             /**
              * clock needs to be synced before it can be used
              * @since 1.6
              */
-            "NEEDS_STARTUP_SYNC" = 1024,
+            readonly "NEEDS_STARTUP_SYNC": 1024
             /**
              * subclasses can add additional flags starting from this flag
              */
-            "LAST" = 4096,
+            readonly "LAST": 4096
+        }
+        type ClockFlags = number
+        interface $Exports {
+            /**
+             * The capabilities of this clock
+             */
+            ClockFlags: ClockFlagsBitfield
         }
         
-        namespace DebugColorFlags {
-            const $gtype: GObject.GType<DebugColorFlags>
-        }
-
-        /**
-         * These are some terminal style flags you can use when creating your
-         * debugging categories to make them stand out in debugging output.
-         */
-        enum DebugColorFlags {
+        interface DebugColorFlagsBitfield {
+            readonly $gtype: GObject.GType<DebugColorFlags>
             /**
              * Use black as foreground color.
              */
-            "FG_BLACK" = 0,
+            readonly "FG_BLACK": 0
             /**
              * Use red as foreground color.
              */
-            "FG_RED" = 1,
+            readonly "FG_RED": 1
             /**
              * Use green as foreground color.
              */
-            "FG_GREEN" = 2,
+            readonly "FG_GREEN": 2
             /**
              * Use yellow as foreground color.
              */
-            "FG_YELLOW" = 3,
+            readonly "FG_YELLOW": 3
             /**
              * Use blue as foreground color.
              */
-            "FG_BLUE" = 4,
+            readonly "FG_BLUE": 4
             /**
              * Use magenta as foreground color.
              */
-            "FG_MAGENTA" = 5,
+            readonly "FG_MAGENTA": 5
             /**
              * Use cyan as foreground color.
              */
-            "FG_CYAN" = 6,
+            readonly "FG_CYAN": 6
             /**
              * Use white as foreground color.
              */
-            "FG_WHITE" = 7,
+            readonly "FG_WHITE": 7
             /**
              * Use black as background color.
              */
-            "BG_BLACK" = 0,
+            readonly "BG_BLACK": 0
             /**
              * Use red as background color.
              */
-            "BG_RED" = 16,
+            readonly "BG_RED": 16
             /**
              * Use green as background color.
              */
-            "BG_GREEN" = 32,
+            readonly "BG_GREEN": 32
             /**
              * Use yellow as background color.
              */
-            "BG_YELLOW" = 48,
+            readonly "BG_YELLOW": 48
             /**
              * Use blue as background color.
              */
-            "BG_BLUE" = 64,
+            readonly "BG_BLUE": 64
             /**
              * Use magenta as background color.
              */
-            "BG_MAGENTA" = 80,
+            readonly "BG_MAGENTA": 80
             /**
              * Use cyan as background color.
              */
-            "BG_CYAN" = 96,
+            readonly "BG_CYAN": 96
             /**
              * Use white as background color.
              */
-            "BG_WHITE" = 112,
+            readonly "BG_WHITE": 112
             /**
              * Make the output bold.
              */
-            "BOLD" = 256,
+            readonly "BOLD": 256
             /**
              * Underline the output.
              */
-            "UNDERLINE" = 512,
+            readonly "UNDERLINE": 512
+        }
+        type DebugColorFlags = number
+        interface $Exports {
+            /**
+             * These are some terminal style flags you can use when creating your
+             * debugging categories to make them stand out in debugging output.
+             */
+            DebugColorFlags: DebugColorFlagsBitfield
         }
         
-        namespace DebugGraphDetails {
-            const $gtype: GObject.GType<DebugGraphDetails>
-        }
-
-        /**
-         * Available details for pipeline graphs produced by GST_DEBUG_BIN_TO_DOT_FILE()
-         * and GST_DEBUG_BIN_TO_DOT_FILE_WITH_TS().
-         */
-        enum DebugGraphDetails {
+        interface DebugGraphDetailsBitfield {
+            readonly $gtype: GObject.GType<DebugGraphDetails>
             /**
              * show caps-name on edges
              */
-            "MEDIA_TYPE" = 1,
+            readonly "MEDIA_TYPE": 1
             /**
              * show caps-details on edges
              */
-            "CAPS_DETAILS" = 2,
+            readonly "CAPS_DETAILS": 2
             /**
              * show modified parameters on
              *                                           elements
              */
-            "NON_DEFAULT_PARAMS" = 4,
+            readonly "NON_DEFAULT_PARAMS": 4
             /**
              * show element states
              */
-            "STATES" = 8,
+            readonly "STATES": 8
             /**
              * show full element parameter values even
              *                                    if they are very long
              */
-            "FULL_PARAMS" = 16,
+            readonly "FULL_PARAMS": 16
             /**
              * show all the typical details that one might want
              */
-            "ALL" = 15,
+            readonly "ALL": 15
             /**
              * show all details regardless of how large or
              *                                verbose they make the resulting output
              */
-            "VERBOSE" = 4294967295,
+            readonly "VERBOSE": 4294967295
+        }
+        type DebugGraphDetails = number
+        interface $Exports {
+            /**
+             * Available details for pipeline graphs produced by GST_DEBUG_BIN_TO_DOT_FILE()
+             * and GST_DEBUG_BIN_TO_DOT_FILE_WITH_TS().
+             */
+            DebugGraphDetails: DebugGraphDetailsBitfield
         }
         
-        namespace ElementFlags {
-            const $gtype: GObject.GType<ElementFlags>
-        }
-
-        /**
-         * The standard flags that an element may have.
-         */
-        enum ElementFlags {
+        interface ElementFlagsBitfield {
+            readonly $gtype: GObject.GType<ElementFlags>
             /**
              * ignore state changes from parent
              */
-            "LOCKED_STATE" = 16,
+            readonly "LOCKED_STATE": 16
             /**
              * the element is a sink
              */
-            "SINK" = 32,
+            readonly "SINK": 32
             /**
              * the element is a source.
              */
-            "SOURCE" = 64,
+            readonly "SOURCE": 64
             /**
              * the element can provide a clock
              */
-            "PROVIDE_CLOCK" = 128,
+            readonly "PROVIDE_CLOCK": 128
             /**
              * the element requires a clock
              */
-            "REQUIRE_CLOCK" = 256,
+            readonly "REQUIRE_CLOCK": 256
             /**
              * the element can use an index
              */
-            "INDEXABLE" = 512,
+            readonly "INDEXABLE": 512
             /**
              * offset to define more flags
              */
-            "LAST" = 16384,
+            readonly "LAST": 16384
+        }
+        type ElementFlags = number
+        interface $Exports {
+            /**
+             * The standard flags that an element may have.
+             */
+            ElementFlags: ElementFlagsBitfield
         }
         
-        namespace EventTypeFlags {
-            const $gtype: GObject.GType<EventTypeFlags>
-        }
-
-        /**
-         * #GstEventTypeFlags indicate the aspects of the different #GstEventType
-         * values. You can get the type flags of a #GstEventType with the
-         * gst_event_type_get_flags() function.
-         */
-        enum EventTypeFlags {
+        interface EventTypeFlagsBitfield {
+            readonly $gtype: GObject.GType<EventTypeFlags>
             /**
              * Set if the event can travel upstream.
              */
-            "UPSTREAM" = 1,
+            readonly "UPSTREAM": 1
             /**
              * Set if the event can travel downstream.
              */
-            "DOWNSTREAM" = 2,
+            readonly "DOWNSTREAM": 2
             /**
              * Set if the event should be serialized with data
              *                               flow.
              */
-            "SERIALIZED" = 4,
+            readonly "SERIALIZED": 4
             /**
              * Set if the event is sticky on the pads.
              */
-            "STICKY" = 8,
+            readonly "STICKY": 8
             /**
              * Multiple sticky events can be on a pad, each
              *                               identified by the event name.
              */
-            "STICKY_MULTI" = 16,
+            readonly "STICKY_MULTI": 16
+        }
+        type EventTypeFlags = number
+        interface $Exports {
+            /**
+             * #GstEventTypeFlags indicate the aspects of the different #GstEventType
+             * values. You can get the type flags of a #GstEventType with the
+             * gst_event_type_get_flags() function.
+             */
+            EventTypeFlags: EventTypeFlagsBitfield
         }
         
-        namespace GapFlags {
-            const $gtype: GObject.GType<GapFlags>
-        }
-
-        /**
-         * The different flags that can be set on #GST_EVENT_GAP events. See
-         * gst_event_set_gap_flags() for details.
-         * @since 1.20
-         */
-        enum GapFlags {
+        interface GapFlagsBitfield {
+            readonly $gtype: GObject.GType<GapFlags>
             /**
              * The #GST_EVENT_GAP signals missing data,
              *    for example because of packet loss.
              */
-            "DATA" = 1,
+            readonly "DATA": 1
+        }
+        type GapFlags = number
+        interface $Exports {
+            /**
+             * The different flags that can be set on #GST_EVENT_GAP events. See
+             * gst_event_set_gap_flags() for details.
+             * @since 1.20
+             */
+            GapFlags: GapFlagsBitfield
         }
         
-        namespace LockFlags {
-            const $gtype: GObject.GType<LockFlags>
-        }
-
-        /**
-         * Flags used when locking miniobjects
-         */
-        enum LockFlags {
+        interface LockFlagsBitfield {
+            readonly $gtype: GObject.GType<LockFlags>
             /**
              * lock for read access
              */
-            "READ" = 1,
+            readonly "READ": 1
             /**
              * lock for write access
              */
-            "WRITE" = 2,
+            readonly "WRITE": 2
             /**
              * lock for exclusive access
              */
-            "EXCLUSIVE" = 4,
+            readonly "EXCLUSIVE": 4
             /**
              * first flag that can be used for custom purposes
              */
-            "LAST" = 256,
+            readonly "LAST": 256
+        }
+        type LockFlags = number
+        interface $Exports {
+            /**
+             * Flags used when locking miniobjects
+             */
+            LockFlags: LockFlagsBitfield
         }
         
-        namespace MapFlags {
-            const $gtype: GObject.GType<MapFlags>
-        }
-
-        /**
-         * Flags used when mapping memory
-         */
-        enum MapFlags {
+        interface MapFlagsBitfield {
+            readonly $gtype: GObject.GType<MapFlags>
             /**
              * map for read access
              */
-            "READ" = 1,
+            readonly "READ": 1
             /**
              * map for write access
              */
-            "WRITE" = 2,
+            readonly "WRITE": 2
             /**
              * first flag that can be used for custom purposes
              */
-            "FLAG_LAST" = 65536,
+            readonly "FLAG_LAST": 65536
+        }
+        type MapFlags = number
+        interface $Exports {
+            /**
+             * Flags used when mapping memory
+             */
+            MapFlags: MapFlagsBitfield
         }
         
-        namespace MemoryFlags {
-            const $gtype: GObject.GType<MemoryFlags>
-        }
-
-        /**
-         * Flags for wrapped memory.
-         */
-        enum MemoryFlags {
+        interface MemoryFlagsBitfield {
+            readonly $gtype: GObject.GType<MemoryFlags>
             /**
              * memory is readonly. It is not allowed to map the
              * memory with #GST_MAP_WRITE.
              */
-            "READONLY" = 2,
+            readonly "READONLY": 2
             /**
              * memory must not be shared. Copies will have to be
              * made when this memory needs to be shared between buffers. (DEPRECATED:
@@ -21872,50 +20258,51 @@ declare module "gi://Gst?version=1.0" {
              * memory pooling instead of relying on the GstBuffer they were originally
              * attached to.)
              */
-            "NO_SHARE" = 16,
+            readonly "NO_SHARE": 16
             /**
              * the memory prefix is filled with 0 bytes
              */
-            "ZERO_PREFIXED" = 32,
+            readonly "ZERO_PREFIXED": 32
             /**
              * the memory padding is filled with 0 bytes
              */
-            "ZERO_PADDED" = 64,
+            readonly "ZERO_PADDED": 64
             /**
              * the memory is physically
              * contiguous. (Since: 1.2)
              */
-            "PHYSICALLY_CONTIGUOUS" = 128,
+            readonly "PHYSICALLY_CONTIGUOUS": 128
             /**
              * the memory can't be mapped via
              * gst_memory_map() without any preconditions. (Since: 1.2)
              */
-            "NOT_MAPPABLE" = 256,
+            readonly "NOT_MAPPABLE": 256
             /**
              * first flag that can be used for custom purposes
              */
-            "LAST" = 1048576,
+            readonly "LAST": 1048576
+        }
+        type MemoryFlags = number
+        interface $Exports {
+            /**
+             * Flags for wrapped memory.
+             */
+            MemoryFlags: MemoryFlagsBitfield
         }
         
-        namespace MessageType {
-            const $gtype: GObject.GType<MessageType>
-        }
-
-        /**
-         * The different message types that are available.
-         */
-        enum MessageType {
+        interface MessageTypeBitfield {
+            readonly $gtype: GObject.GType<MessageType>
             /**
              * an undefined message
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * end-of-stream reached in a pipeline. The application will
              * only receive this message in the PLAYING state and every time it sets a
              * pipeline to PLAYING that is in the EOS state. The application can perform a
              * flushing seek in the pipeline, which will undo the EOS state again.
              */
-            "EOS" = 1,
+            readonly "EOS": 1
             /**
              * an error occurred. When the application receives an error
              * message it should stop playback of the pipeline and not assume that more
@@ -21923,19 +20310,19 @@ declare module "gi://Gst?version=1.0" {
              * messages by setting a `redirect-location` field into the error message, application
              * or high level bins might use the information as required.
              */
-            "ERROR" = 2,
+            readonly "ERROR": 2
             /**
              * a warning occurred.
              */
-            "WARNING" = 4,
+            readonly "WARNING": 4
             /**
              * an info message occurred
              */
-            "INFO" = 8,
+            readonly "INFO": 8
             /**
              * a tag was found.
              */
-            "TAG" = 16,
+            readonly "TAG": 16
             /**
              * the pipeline is buffering. When the application
              * receives a buffering message in the PLAYING state for a non-live pipeline it
@@ -21944,26 +20331,26 @@ declare module "gi://Gst?version=1.0" {
              * performed and the buffering percentage can be used to inform the user about
              * the progress.
              */
-            "BUFFERING" = 32,
+            readonly "BUFFERING": 32
             /**
              * a state change happened
              */
-            "STATE_CHANGED" = 64,
+            readonly "STATE_CHANGED": 64
             /**
              * an element changed state in a streaming thread.
              * This message is deprecated.
              */
-            "STATE_DIRTY" = 128,
+            readonly "STATE_DIRTY": 128
             /**
              * a stepping operation finished.
              */
-            "STEP_DONE" = 256,
+            readonly "STEP_DONE": 256
             /**
              * an element notifies its capability of providing
              *                             a clock. This message is used internally and
              *                             never forwarded to the application.
              */
-            "CLOCK_PROVIDE" = 512,
+            readonly "CLOCK_PROVIDE": 512
             /**
              * The current clock as selected by the pipeline became
              *                          unusable. The pipeline will select a new clock on
@@ -21971,109 +20358,109 @@ declare module "gi://Gst?version=1.0" {
              *                          should set the pipeline to PAUSED and back to
              *                          PLAYING when this message is received.
              */
-            "CLOCK_LOST" = 1024,
+            readonly "CLOCK_LOST": 1024
             /**
              * a new clock was selected in the pipeline.
              */
-            "NEW_CLOCK" = 2048,
+            readonly "NEW_CLOCK": 2048
             /**
              * the structure of the pipeline changed. This
              * message is used internally and never forwarded to the application.
              */
-            "STRUCTURE_CHANGE" = 4096,
+            readonly "STRUCTURE_CHANGE": 4096
             /**
              * status about a stream, emitted when it starts,
              *                             stops, errors, etc..
              */
-            "STREAM_STATUS" = 8192,
+            readonly "STREAM_STATUS": 8192
             /**
              * message posted by the application, possibly
              *                           via an application-specific element.
              */
-            "APPLICATION" = 16384,
+            readonly "APPLICATION": 16384
             /**
              * element-specific message, see the specific element's
              *                       documentation
              */
-            "ELEMENT" = 32768,
+            readonly "ELEMENT": 32768
             /**
              * pipeline started playback of a segment. This
              * message is used internally and never forwarded to the application.
              */
-            "SEGMENT_START" = 65536,
+            readonly "SEGMENT_START": 65536
             /**
              * pipeline completed playback of a segment. This
              * message is forwarded to the application after all elements that posted
              * @GST_MESSAGE_SEGMENT_START posted a GST_MESSAGE_SEGMENT_DONE message.
              */
-            "SEGMENT_DONE" = 131072,
+            readonly "SEGMENT_DONE": 131072
             /**
              * The duration of a pipeline changed. The
              * application can get the new duration with a duration query.
              */
-            "DURATION_CHANGED" = 262144,
+            readonly "DURATION_CHANGED": 262144
             /**
              * Posted by elements when their latency changes. The
              * application should recalculate and distribute a new latency.
              */
-            "LATENCY" = 524288,
+            readonly "LATENCY": 524288
             /**
              * Posted by elements when they start an ASYNC
              * #GstStateChange. This message is not forwarded to the application but is used
              * internally.
              */
-            "ASYNC_START" = 1048576,
+            readonly "ASYNC_START": 1048576
             /**
              * Posted by elements when they complete an ASYNC
              * #GstStateChange. The application will only receive this message from the toplevel
              * pipeline.
              */
-            "ASYNC_DONE" = 2097152,
+            readonly "ASYNC_DONE": 2097152
             /**
              * Posted by elements when they want the pipeline to
              * change state. This message is a suggestion to the application which can
              * decide to perform the state change on (part of) the pipeline.
              */
-            "REQUEST_STATE" = 4194304,
+            readonly "REQUEST_STATE": 4194304
             /**
              * A stepping operation was started.
              */
-            "STEP_START" = 8388608,
+            readonly "STEP_START": 8388608
             /**
              * A buffer was dropped or an element changed its processing
              * strategy for Quality of Service reasons.
              */
-            "QOS" = 16777216,
+            readonly "QOS": 16777216
             /**
              * A progress message.
              */
-            "PROGRESS" = 33554432,
+            readonly "PROGRESS": 33554432
             /**
              * A new table of contents (TOC) was found or previously found TOC
              * was updated.
              */
-            "TOC" = 67108864,
+            readonly "TOC": 67108864
             /**
              * Message to request resetting the pipeline's
              *     running time from the pipeline. This is an internal message which
              *     applications will likely never receive.
              */
-            "RESET_TIME" = 134217728,
+            readonly "RESET_TIME": 134217728
             /**
              * Message indicating start of a new stream. Useful
              *     e.g. when using playbin in gapless playback mode, to get notified when
              *     the next title actually starts playing (which will be some time after
              *     the URI for the next title has been set).
              */
-            "STREAM_START" = 268435456,
+            readonly "STREAM_START": 268435456
             /**
              * Message indicating that an element wants a specific context (Since: 1.2)
              */
-            "NEED_CONTEXT" = 536870912,
+            readonly "NEED_CONTEXT": 536870912
             /**
              * Message indicating that an element created a context (Since: 1.2)
              */
-            "HAVE_CONTEXT" = 1073741824,
+            readonly "HAVE_CONTEXT": 1073741824
             /**
              * Message is an extended message type (see below).
              *     These extended message IDs can't be used directly with mask-based API
@@ -22081,141 +20468,144 @@ declare module "gi://Gst?version=1.0" {
              *     filter for GST_MESSAGE_EXTENDED and then check the result for the
              *     specific type. (Since: 1.4)
              */
-            "EXTENDED" = 2147483648,
+            readonly "EXTENDED": 2147483648
             /**
              * Message indicating a #GstDevice was added to
              *     a #GstDeviceProvider (Since: 1.4)
              */
-            "DEVICE_ADDED" = 2147483649,
+            readonly "DEVICE_ADDED": 2147483649
             /**
              * Message indicating a #GstDevice was removed
              *     from a #GstDeviceProvider (Since: 1.4)
              */
-            "DEVICE_REMOVED" = 2147483650,
+            readonly "DEVICE_REMOVED": 2147483650
             /**
              * Message indicating a #GObject property has
              *     changed (Since: 1.10)
              */
-            "PROPERTY_NOTIFY" = 2147483651,
+            readonly "PROPERTY_NOTIFY": 2147483651
             /**
              * Message indicating a new #GstStreamCollection
              *     is available (Since: 1.10)
              */
-            "STREAM_COLLECTION" = 2147483652,
+            readonly "STREAM_COLLECTION": 2147483652
             /**
              * Message indicating the active selection of
              *     #GstStreams has changed (Since: 1.10)
              */
-            "STREAMS_SELECTED" = 2147483653,
+            readonly "STREAMS_SELECTED": 2147483653
             /**
              * Message indicating to request the application to
              *     try to play the given URL(s). Useful if for example a HTTP 302/303
              *     response is received with a non-HTTP URL inside. (Since: 1.10)
              */
-            "REDIRECT" = 2147483654,
+            readonly "REDIRECT": 2147483654
             /**
              * Message indicating a #GstDevice was changed
              *     a #GstDeviceProvider (Since: 1.16)
              */
-            "DEVICE_CHANGED" = 2147483655,
+            readonly "DEVICE_CHANGED": 2147483655
             /**
              * Message sent by elements to request the
              *     running time from the pipeline when an instant rate change should
              *     be applied (which may be in the past when the answer arrives). (Since: 1.18)
              */
-            "INSTANT_RATE_REQUEST" = 2147483656,
+            readonly "INSTANT_RATE_REQUEST": 2147483656
             /**
              * mask for all of the above messages.
              */
-            "ANY" = 4294967295,
+            readonly "ANY": 4294967295
         }
-        /**
+        type MessageType = number
+        interface $Exports {
+            /**
+             * The different message types that are available.
+             */
+            MessageType: MessageTypeBitfield
+            /**
          * Get a printable name for the given message type. Do not modify or free.
          * @param type the message type
          * @returns a reference to the static name of the message.
          */
-        function get_name(type: MessageType): string
-        /**
+        get_name: (type: MessageType) => string
+            /**
          * Get the unique quark for the given message type.
          * @param type the message type
          * @returns the quark associated with the message type
          */
-        function to_quark(type: MessageType): GLib.Quark
-        
-        namespace MetaFlags {
-            const $gtype: GObject.GType<MetaFlags>
+        to_quark: (type: MessageType) => GLib.Quark
         }
-
-        /**
-         * Extra metadata flags.
-         */
-        enum MetaFlags {
+        
+        interface MetaFlagsBitfield {
+            readonly $gtype: GObject.GType<MetaFlags>
             /**
              * no flags
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * metadata should not be modified
              */
-            "READONLY" = 1,
+            readonly "READONLY": 1
             /**
              * metadata is managed by a bufferpool
              */
-            "POOLED" = 2,
+            readonly "POOLED": 2
             /**
              * metadata should not be removed
              */
-            "LOCKED" = 4,
+            readonly "LOCKED": 4
             /**
              * additional flags can be added starting from this flag.
              */
-            "LAST" = 65536,
+            readonly "LAST": 65536
+        }
+        type MetaFlags = number
+        interface $Exports {
+            /**
+             * Extra metadata flags.
+             */
+            MetaFlags: MetaFlagsBitfield
         }
         
-        namespace MiniObjectFlags {
-            const $gtype: GObject.GType<MiniObjectFlags>
-        }
-
-        /**
-         * Flags for the mini object
-         */
-        enum MiniObjectFlags {
+        interface MiniObjectFlagsBitfield {
+            readonly $gtype: GObject.GType<MiniObjectFlags>
             /**
              * the object can be locked and unlocked with
              * gst_mini_object_lock() and gst_mini_object_unlock().
              */
-            "LOCKABLE" = 1,
+            readonly "LOCKABLE": 1
             /**
              * the object is permanently locked in
              * READONLY mode. Only read locks can be performed on the object.
              */
-            "LOCK_READONLY" = 2,
+            readonly "LOCK_READONLY": 2
             /**
              * the object is expected to stay alive
              * even after gst_deinit() has been called and so should be ignored by leak
              * detection tools. (Since: 1.10)
              */
-            "MAY_BE_LEAKED" = 4,
+            readonly "MAY_BE_LEAKED": 4
             /**
              * first flag that can be used by subclasses.
              */
-            "LAST" = 16,
+            readonly "LAST": 16
+        }
+        type MiniObjectFlags = number
+        interface $Exports {
+            /**
+             * Flags for the mini object
+             */
+            MiniObjectFlags: MiniObjectFlagsBitfield
         }
         
-        namespace ObjectFlags {
-            const $gtype: GObject.GType<ObjectFlags>
-        }
-
-        /**
-         * The standard flags that an gstobject may have.
-         */
-        enum ObjectFlags {
+        interface ObjectFlagsBitfield {
+            readonly $gtype: GObject.GType<ObjectFlags>
             /**
              * the object is expected to stay alive even
              * after gst_deinit() has been called and so should be ignored by leak
              * detection tools. (Since: 1.10)
              */
-            "MAY_BE_LEAKED" = 1,
+            readonly "MAY_BE_LEAKED": 1
             /**
              * Flag that's set when the object has been constructed. This can be used by
              * API such as base class setters to differentiate between the case where
@@ -22225,521 +20615,517 @@ declare module "gi://Gst?version=1.0" {
              * constructed.
              * @since 1.24
              */
-            "CONSTRUCTED" = 2,
+            readonly "CONSTRUCTED": 2
             /**
              * subclasses can add additional flags starting from this flag
              */
-            "LAST" = 16,
+            readonly "LAST": 16
+        }
+        type ObjectFlags = number
+        interface $Exports {
+            /**
+             * The standard flags that an gstobject may have.
+             */
+            ObjectFlags: ObjectFlagsBitfield
         }
         
-        namespace PadFlags {
-            const $gtype: GObject.GType<PadFlags>
-        }
-
-        /**
-         * Pad state flags
-         */
-        enum PadFlags {
+        interface PadFlagsBitfield {
+            readonly $gtype: GObject.GType<PadFlags>
             /**
              * is dataflow on a pad blocked
              */
-            "BLOCKED" = 16,
+            readonly "BLOCKED": 16
             /**
              * is pad flushing
              */
-            "FLUSHING" = 32,
+            readonly "FLUSHING": 32
             /**
              * is pad in EOS state
              */
-            "EOS" = 64,
+            readonly "EOS": 64
             /**
              * is pad currently blocking on a buffer or event
              */
-            "BLOCKING" = 128,
+            readonly "BLOCKING": 128
             /**
              * ensure that there is a parent object before calling
              *                       into the pad callbacks.
              */
-            "NEED_PARENT" = 256,
+            readonly "NEED_PARENT": 256
             /**
              * the pad should be reconfigured/renegotiated.
              *                            The flag has to be unset manually after
              *                            reconfiguration happened.
              */
-            "NEED_RECONFIGURE" = 512,
+            readonly "NEED_RECONFIGURE": 512
             /**
              * the pad has pending events
              */
-            "PENDING_EVENTS" = 1024,
+            readonly "PENDING_EVENTS": 1024
             /**
              * the pad is using fixed caps. This means that
              *     once the caps are set on the pad, the default caps query function
              *     will only return those caps.
              */
-            "FIXED_CAPS" = 2048,
+            readonly "FIXED_CAPS": 2048
             /**
              * the default event and query handler will forward
              *                      all events and queries to the internally linked pads
              *                      instead of discarding them.
              */
-            "PROXY_CAPS" = 4096,
+            readonly "PROXY_CAPS": 4096
             /**
              * the default query handler will forward
              *                      allocation queries to the internally linked pads
              *                      instead of discarding them.
              */
-            "PROXY_ALLOCATION" = 8192,
+            readonly "PROXY_ALLOCATION": 8192
             /**
              * the default query handler will forward
              *                      scheduling queries to the internally linked pads
              *                      instead of discarding them.
              */
-            "PROXY_SCHEDULING" = 16384,
+            readonly "PROXY_SCHEDULING": 16384
             /**
              * the default accept-caps handler will check
              *                      it the caps intersect the query-caps result instead
              *                      of checking for a subset. This is interesting for
              *                      parsers that can accept incompletely specified caps.
              */
-            "ACCEPT_INTERSECT" = 32768,
+            readonly "ACCEPT_INTERSECT": 32768
             /**
              * the default accept-caps handler will use
              *                      the template pad caps instead of query caps to
              *                      compare with the accept caps. Use this in combination
              *                      with %GST_PAD_FLAG_ACCEPT_INTERSECT. (Since: 1.6)
              */
-            "ACCEPT_TEMPLATE" = 65536,
+            readonly "ACCEPT_TEMPLATE": 65536
             /**
              * offset to define more flags
              */
-            "LAST" = 1048576,
+            readonly "LAST": 1048576
+        }
+        type PadFlags = number
+        interface $Exports {
+            /**
+             * Pad state flags
+             */
+            PadFlags: PadFlagsBitfield
         }
         
-        namespace PadLinkCheck {
-            const $gtype: GObject.GType<PadLinkCheck>
-        }
-
-        /**
-         *  for linking the pads.
-         */
-        enum PadLinkCheck {
+        interface PadLinkCheckBitfield {
+            readonly $gtype: GObject.GType<PadLinkCheck>
             /**
              * Don't check hierarchy or caps compatibility.
              */
-            "NOTHING" = 0,
+            readonly "NOTHING": 0
             /**
              * Check the pads have same parents/grandparents.
              *   Could be omitted if it is already known that the two elements that own the
              *   pads are in the same bin.
              */
-            "HIERARCHY" = 1,
+            readonly "HIERARCHY": 1
             /**
              * Check if the pads are compatible by using
              *   their template caps. This is much faster than @GST_PAD_LINK_CHECK_CAPS, but
              *   would be unsafe e.g. if one pad has %GST_CAPS_ANY.
              */
-            "TEMPLATE_CAPS" = 2,
+            readonly "TEMPLATE_CAPS": 2
             /**
              * Check if the pads are compatible by comparing the
              *   caps returned by gst_pad_query_caps().
              */
-            "CAPS" = 4,
+            readonly "CAPS": 4
             /**
              * Disables pushing a reconfigure event when pads are
              *   linked.
              */
-            "NO_RECONFIGURE" = 8,
+            readonly "NO_RECONFIGURE": 8
             /**
              * The default checks done when linking
              *   pads (i.e. the ones used by gst_pad_link()).
              */
-            "DEFAULT" = 5,
+            readonly "DEFAULT": 5
+        }
+        type PadLinkCheck = number
+        interface $Exports {
+            /**
+             * The amount of checking to be done when linking pads. @GST_PAD_LINK_CHECK_CAPS
+             * and @GST_PAD_LINK_CHECK_TEMPLATE_CAPS are mutually exclusive. If both are
+             * specified, expensive but safe @GST_PAD_LINK_CHECK_CAPS are performed.
+             *
+             * > Only disable some of the checks if you are 100% certain you know the link
+             * > will not fail because of hierarchy/caps compatibility failures. If uncertain,
+             * > use the default checks (%GST_PAD_LINK_CHECK_DEFAULT) or the regular methods
+             * > for linking the pads.
+             */
+            PadLinkCheck: PadLinkCheckBitfield
         }
         
-        namespace PadProbeType {
-            const $gtype: GObject.GType<PadProbeType>
-        }
-
-        /**
-         * The different probing types that can occur. When either one of
-         * @GST_PAD_PROBE_TYPE_IDLE or @GST_PAD_PROBE_TYPE_BLOCK is used, the probe will be a
-         * blocking probe.
-         */
-        enum PadProbeType {
+        interface PadProbeTypeBitfield {
+            readonly $gtype: GObject.GType<PadProbeType>
             /**
              * invalid probe type
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * probe idle pads and block while the callback is called
              */
-            "IDLE" = 1,
+            readonly "IDLE": 1
             /**
              * probe and block pads
              */
-            "BLOCK" = 2,
+            readonly "BLOCK": 2
             /**
              * probe buffers
              */
-            "BUFFER" = 16,
+            readonly "BUFFER": 16
             /**
              * probe buffer lists
              */
-            "BUFFER_LIST" = 32,
+            readonly "BUFFER_LIST": 32
             /**
              * probe downstream events
              */
-            "EVENT_DOWNSTREAM" = 64,
+            readonly "EVENT_DOWNSTREAM": 64
             /**
              * probe upstream events
              */
-            "EVENT_UPSTREAM" = 128,
+            readonly "EVENT_UPSTREAM": 128
             /**
              * probe flush events. This probe has to be
              *     explicitly enabled and is not included in the
              *     @@GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM or
              *     @@GST_PAD_PROBE_TYPE_EVENT_UPSTREAM probe types.
              */
-            "EVENT_FLUSH" = 256,
+            readonly "EVENT_FLUSH": 256
             /**
              * probe downstream queries
              */
-            "QUERY_DOWNSTREAM" = 512,
+            readonly "QUERY_DOWNSTREAM": 512
             /**
              * probe upstream queries
              */
-            "QUERY_UPSTREAM" = 1024,
+            readonly "QUERY_UPSTREAM": 1024
             /**
              * probe push
              */
-            "PUSH" = 4096,
+            readonly "PUSH": 4096
             /**
              * probe pull
              */
-            "PULL" = 8192,
+            readonly "PULL": 8192
             /**
              * probe and block at the next opportunity, at data flow or when idle
              */
-            "BLOCKING" = 3,
+            readonly "BLOCKING": 3
             /**
              * probe downstream data (buffers, buffer lists, and events)
              */
-            "DATA_DOWNSTREAM" = 112,
+            readonly "DATA_DOWNSTREAM": 112
             /**
              * probe upstream data (events)
              */
-            "DATA_UPSTREAM" = 128,
+            readonly "DATA_UPSTREAM": 128
             /**
              * probe upstream and downstream data (buffers, buffer lists, and events)
              */
-            "DATA_BOTH" = 240,
+            readonly "DATA_BOTH": 240
             /**
              * probe and block downstream data (buffers, buffer lists, and events)
              */
-            "BLOCK_DOWNSTREAM" = 114,
+            readonly "BLOCK_DOWNSTREAM": 114
             /**
              * probe and block upstream data (events)
              */
-            "BLOCK_UPSTREAM" = 130,
+            readonly "BLOCK_UPSTREAM": 130
             /**
              * probe upstream and downstream events
              */
-            "EVENT_BOTH" = 192,
+            readonly "EVENT_BOTH": 192
             /**
              * probe upstream and downstream queries
              */
-            "QUERY_BOTH" = 1536,
+            readonly "QUERY_BOTH": 1536
             /**
              * probe upstream events and queries and downstream buffers, buffer lists, events and queries
              */
-            "ALL_BOTH" = 1776,
+            readonly "ALL_BOTH": 1776
             /**
              * probe push and pull
              */
-            "SCHEDULING" = 12288,
+            readonly "SCHEDULING": 12288
+        }
+        type PadProbeType = number
+        interface $Exports {
+            /**
+             * The different probing types that can occur. When either one of
+             * @GST_PAD_PROBE_TYPE_IDLE or @GST_PAD_PROBE_TYPE_BLOCK is used, the probe will be a
+             * blocking probe.
+             */
+            PadProbeType: PadProbeTypeBitfield
         }
         
-        namespace PadTemplateFlags {
-            const $gtype: GObject.GType<PadTemplateFlags>
-        }
-
-        /**
-         * Flags for the padtemplate
-         */
-        enum PadTemplateFlags {
+        interface PadTemplateFlagsBitfield {
+            readonly $gtype: GObject.GType<PadTemplateFlags>
             /**
              * first flag that can be used by subclasses.
              */
-            "LAST" = 256,
+            readonly "LAST": 256
+        }
+        type PadTemplateFlags = number
+        interface $Exports {
+            /**
+             * Flags for the padtemplate
+             */
+            PadTemplateFlags: PadTemplateFlagsBitfield
         }
         
-        namespace ParseFlags {
-            const $gtype: GObject.GType<ParseFlags>
-        }
-
-        /**
-         * Parsing options.
-         */
-        enum ParseFlags {
+        interface ParseFlagsBitfield {
+            readonly $gtype: GObject.GType<ParseFlags>
             /**
              * Do not use any special parsing options.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Always return %NULL when an error occurs
              *     (default behaviour is to return partially constructed bins or elements
              *      in some cases)
              */
-            "FATAL_ERRORS" = 1,
+            readonly "FATAL_ERRORS": 1
             /**
              * If a bin only has a single element,
              *     just return the element.
              */
-            "NO_SINGLE_ELEMENT_BINS" = 2,
+            readonly "NO_SINGLE_ELEMENT_BINS": 2
             /**
              * If more than one toplevel element is described
              *     by the pipeline description string, put them in a #GstBin instead of a
              *     #GstPipeline. (Since: 1.10)
              */
-            "PLACE_IN_BIN" = 4,
+            readonly "PLACE_IN_BIN": 4
+        }
+        type ParseFlags = number
+        interface $Exports {
+            /**
+             * Parsing options.
+             */
+            ParseFlags: ParseFlagsBitfield
         }
         
-        namespace PipelineFlags {
-            const $gtype: GObject.GType<PipelineFlags>
-        }
-
-        /**
-         * Pipeline flags
-         */
-        enum PipelineFlags {
+        interface PipelineFlagsBitfield {
+            readonly $gtype: GObject.GType<PipelineFlags>
             /**
              * this pipeline works with a fixed clock
              */
-            "FIXED_CLOCK" = 524288,
+            readonly "FIXED_CLOCK": 524288
             /**
              * offset to define more flags
              */
-            "LAST" = 8388608,
+            readonly "LAST": 8388608
+        }
+        type PipelineFlags = number
+        interface $Exports {
+            /**
+             * Pipeline flags
+             */
+            PipelineFlags: PipelineFlagsBitfield
         }
         
-        namespace PluginAPIFlags {
-            const $gtype: GObject.GType<PluginAPIFlags>
-        }
-
-        /**
-         * @since 1.18
-         */
-        enum PluginAPIFlags {
+        interface PluginAPIFlagsBitfield {
+            readonly $gtype: GObject.GType<PluginAPIFlags>
             /**
              * Ignore enum members when generating
              *   the plugins cache. This is useful if the members of the enum are generated
              *   dynamically, in order not to expose incorrect documentation to the end user.
              */
-            "MEMBERS" = 1,
+            readonly "MEMBERS": 1
+        }
+        type PluginAPIFlags = number
+        interface $Exports {
+            /**
+             * @since 1.18
+             */
+            PluginAPIFlags: PluginAPIFlagsBitfield
         }
         
-        namespace PluginDependencyFlags {
-            const $gtype: GObject.GType<PluginDependencyFlags>
-        }
-
-        /**
-         * Flags used in connection with gst_plugin_add_dependency().
-         */
-        enum PluginDependencyFlags {
+        interface PluginDependencyFlagsBitfield {
+            readonly $gtype: GObject.GType<PluginDependencyFlags>
             /**
              * no special flags
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * recurse into subdirectories
              */
-            "RECURSE" = 1,
+            readonly "RECURSE": 1
             /**
              * use paths
              *         argument only if none of the environment variables is set
              */
-            "PATHS_ARE_DEFAULT_ONLY" = 2,
+            readonly "PATHS_ARE_DEFAULT_ONLY": 2
             /**
              * interpret
              *         filename argument as filter suffix and check all matching files in
              *         the directory
              */
-            "FILE_NAME_IS_SUFFIX" = 4,
+            readonly "FILE_NAME_IS_SUFFIX": 4
             /**
              * interpret
              *         filename argument as filter prefix and check all matching files in
              *         the directory. Since: 1.8.
              */
-            "FILE_NAME_IS_PREFIX" = 8,
+            readonly "FILE_NAME_IS_PREFIX": 8
             /**
              * interpret
              *   non-absolute paths as relative to the main executable directory. Since
              *   1.14.
              */
-            "PATHS_ARE_RELATIVE_TO_EXE" = 16,
+            readonly "PATHS_ARE_RELATIVE_TO_EXE": 16
+        }
+        type PluginDependencyFlags = number
+        interface $Exports {
+            /**
+             * Flags used in connection with gst_plugin_add_dependency().
+             */
+            PluginDependencyFlags: PluginDependencyFlagsBitfield
         }
         
-        namespace PluginFlags {
-            const $gtype: GObject.GType<PluginFlags>
-        }
-
-        /**
-         * The plugin loading state
-         */
-        enum PluginFlags {
+        interface PluginFlagsBitfield {
+            readonly $gtype: GObject.GType<PluginFlags>
             /**
              * Temporarily loaded plugins
              */
-            "CACHED" = 16,
+            readonly "CACHED": 16
             /**
              * The plugin won't be scanned (again)
              */
-            "BLACKLISTED" = 32,
+            readonly "BLACKLISTED": 32
+        }
+        type PluginFlags = number
+        interface $Exports {
+            /**
+             * The plugin loading state
+             */
+            PluginFlags: PluginFlagsBitfield
         }
         
-        namespace QueryTypeFlags {
-            const $gtype: GObject.GType<QueryTypeFlags>
-        }
-
-        /**
-         * #GstQueryTypeFlags indicate the aspects of the different #GstQueryType
-         * values. You can get the type flags of a #GstQueryType with the
-         * gst_query_type_get_flags() function.
-         */
-        enum QueryTypeFlags {
+        interface QueryTypeFlagsBitfield {
+            readonly $gtype: GObject.GType<QueryTypeFlags>
             /**
              * Set if the query can travel upstream.
              */
-            "UPSTREAM" = 1,
+            readonly "UPSTREAM": 1
             /**
              * Set if the query can travel downstream.
              */
-            "DOWNSTREAM" = 2,
+            readonly "DOWNSTREAM": 2
             /**
              * Set if the query should be serialized with data
              *                               flow.
              */
-            "SERIALIZED" = 4,
+            readonly "SERIALIZED": 4
+        }
+        type QueryTypeFlags = number
+        interface $Exports {
+            /**
+             * #GstQueryTypeFlags indicate the aspects of the different #GstQueryType
+             * values. You can get the type flags of a #GstQueryType with the
+             * gst_query_type_get_flags() function.
+             */
+            QueryTypeFlags: QueryTypeFlagsBitfield
         }
         
-        namespace SchedulingFlags {
-            const $gtype: GObject.GType<SchedulingFlags>
-        }
-
-        /**
-         * The different scheduling flags.
-         */
-        enum SchedulingFlags {
+        interface SchedulingFlagsBitfield {
+            readonly $gtype: GObject.GType<SchedulingFlags>
             /**
              * if seeking is possible
              */
-            "SEEKABLE" = 1,
+            readonly "SEEKABLE": 1
             /**
              * if sequential access is recommended
              */
-            "SEQUENTIAL" = 2,
+            readonly "SEQUENTIAL": 2
             /**
              * if bandwidth is limited and buffering possible (since 1.2)
              */
-            "BANDWIDTH_LIMITED" = 4,
+            readonly "BANDWIDTH_LIMITED": 4
+        }
+        type SchedulingFlags = number
+        interface $Exports {
+            /**
+             * The different scheduling flags.
+             */
+            SchedulingFlags: SchedulingFlagsBitfield
         }
         
-        namespace SeekFlags {
-            const $gtype: GObject.GType<SeekFlags>
-        }
-
-        /**
-         *  -1.0) trickmode
-         * playback, the %GST_SEEK_FLAG_TRICKMODE flag can be used to instruct decoders
-         * and demuxers to adjust the playback rate by skipping frames. This can improve
-         * performance and decrease CPU usage because not all frames need to be decoded.
-         *
-         * Beyond that, the %GST_SEEK_FLAG_TRICKMODE_KEY_UNITS flag can be used to
-         * request that decoders skip all frames except key units, and
-         * %GST_SEEK_FLAG_TRICKMODE_NO_AUDIO flags can be used to request that audio
-         * decoders do no decoding at all, and simple output silence.
-         *
-         * The %GST_SEEK_FLAG_SNAP_BEFORE flag can be used to snap to the previous
-         * relevant location, and the %GST_SEEK_FLAG_SNAP_AFTER flag can be used to
-         * select the next relevant location. If %GST_SEEK_FLAG_KEY_UNIT is specified,
-         * the relevant location is a keyframe. If both flags are specified, the nearest
-         * of these locations will be selected. If none are specified, the implementation is
-         * free to select whichever it wants.
-         *
-         * The before and after here are in running time, so when playing backwards,
-         * the next location refers to the one that will played in next, and not the
-         * one that is located after in the actual source stream.
-         *
-         * Also see part-seeking.txt in the GStreamer design documentation for more
-         * details on the meaning of these flags and the behaviour expected of
-         * elements that handle them.
-         */
-        enum SeekFlags {
+        interface SeekFlagsBitfield {
+            readonly $gtype: GObject.GType<SeekFlags>
             /**
              * no flag
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * flush pipeline
              */
-            "FLUSH" = 1,
+            readonly "FLUSH": 1
             /**
              * accurate position is requested, this might
              *                     be considerably slower for some formats.
              */
-            "ACCURATE" = 2,
+            readonly "ACCURATE": 2
             /**
              * seek to the nearest keyframe. This might be
              *                     faster but less accurate.
              */
-            "KEY_UNIT" = 4,
+            readonly "KEY_UNIT": 4
             /**
              * perform a segment seek.
              */
-            "SEGMENT" = 8,
+            readonly "SEGMENT": 8
             /**
              * when doing fast forward or fast reverse playback, allow
              *                     elements to skip frames instead of generating all
              *                     frames. (Since: 1.6)
              */
-            "TRICKMODE" = 16,
+            readonly "TRICKMODE": 16
             /**
              * Deprecated backward compatibility flag, replaced
              *                     by %GST_SEEK_FLAG_TRICKMODE
              */
-            "SKIP" = 16,
+            readonly "SKIP": 16
             /**
              * go to a location before the requested position,
              *                     if %GST_SEEK_FLAG_KEY_UNIT this means the keyframe at or before
              *                     the requested position the one at or before the seek target.
              */
-            "SNAP_BEFORE" = 32,
+            readonly "SNAP_BEFORE": 32
             /**
              * go to a location after the requested position,
              *                     if %GST_SEEK_FLAG_KEY_UNIT this means the keyframe at of after the
              *                     requested position.
              */
-            "SNAP_AFTER" = 64,
+            readonly "SNAP_AFTER": 64
             /**
              * go to a position near the requested position,
              *                     if %GST_SEEK_FLAG_KEY_UNIT this means the keyframe closest
              *                     to the requested position, if both keyframes are at an equal
              *                     distance, behaves like %GST_SEEK_FLAG_SNAP_BEFORE.
              */
-            "SNAP_NEAREST" = 96,
+            readonly "SNAP_NEAREST": 96
             /**
              * when doing fast forward or fast reverse
              *                     playback, request that elements only decode keyframes
              *                     and skip all other content, for formats that have
              *                     keyframes. (Since: 1.6)
              */
-            "TRICKMODE_KEY_UNITS" = 128,
+            readonly "TRICKMODE_KEY_UNITS": 128
             /**
              * when doing fast forward or fast reverse
              *                     playback, request that audio decoder elements skip
              *                     decoding and output only gap events or silence. (Since: 1.6)
              */
-            "TRICKMODE_NO_AUDIO" = 256,
+            readonly "TRICKMODE_NO_AUDIO": 256
             /**
              * When doing fast forward or fast reverse
              *                     playback, request that elements only decode keyframes and
@@ -22747,135 +21133,189 @@ declare module "gi://Gst?version=1.0" {
              *                     B-Frames), for formats that have keyframes and forward predicted
              *                     frames. (Since: 1.18)
              */
-            "TRICKMODE_FORWARD_PREDICTED" = 512,
+            readonly "TRICKMODE_FORWARD_PREDICTED": 512
             /**
              * Signals that a rate change should be
              *                     applied immediately. Only valid if start/stop position
              *                     are GST_CLOCK_TIME_NONE, the playback direction does not change
              *                     and the seek is not flushing. (Since: 1.18)
              */
-            "INSTANT_RATE_CHANGE" = 1024,
+            readonly "INSTANT_RATE_CHANGE": 1024
+        }
+        type SeekFlags = number
+        interface $Exports {
+            /**
+             * Flags to be used with gst_element_seek() or gst_event_new_seek(). All flags
+             * can be used together.
+             *
+             * A non flushing seek might take some time to perform as the currently
+             * playing data in the pipeline will not be cleared.
+             *
+             * An accurate seek might be slower for formats that don't have any indexes
+             * or timestamp markers in the stream. Specifying this flag might require a
+             * complete scan of the file in those cases.
+             *
+             * When performing a segment seek: after the playback of the segment completes,
+             * no EOS will be emitted by the element that performed the seek, but a
+             * %GST_MESSAGE_SEGMENT_DONE message will be posted on the bus by the element.
+             * When this message is posted, it is possible to send a new seek event to
+             * continue playback. With this seek method it is possible to perform seamless
+             * looping or simple linear editing.
+             *
+             * When only changing the playback rate and not the direction, the
+             * %GST_SEEK_FLAG_INSTANT_RATE_CHANGE flag can be used for a non-flushing seek
+             * to signal that the rate change should be applied immediately. This requires
+             * special support in the seek handlers (e.g. demuxers) and any elements
+             * synchronizing to the clock, and in general can't work in all cases (for example
+             * UDP streaming where the delivery rate is controlled by a remote server). The
+             * instant-rate-change mode supports changing the trickmode-related GST_SEEK_ flags,
+             * but can't be used in conjunction with other seek flags that affect the new
+             * playback position - as the playback position will not be changing.
+             *
+             * When doing fast forward (rate > 1.0) or fast reverse (rate < -1.0) trickmode
+             * playback, the %GST_SEEK_FLAG_TRICKMODE flag can be used to instruct decoders
+             * and demuxers to adjust the playback rate by skipping frames. This can improve
+             * performance and decrease CPU usage because not all frames need to be decoded.
+             *
+             * Beyond that, the %GST_SEEK_FLAG_TRICKMODE_KEY_UNITS flag can be used to
+             * request that decoders skip all frames except key units, and
+             * %GST_SEEK_FLAG_TRICKMODE_NO_AUDIO flags can be used to request that audio
+             * decoders do no decoding at all, and simple output silence.
+             *
+             * The %GST_SEEK_FLAG_SNAP_BEFORE flag can be used to snap to the previous
+             * relevant location, and the %GST_SEEK_FLAG_SNAP_AFTER flag can be used to
+             * select the next relevant location. If %GST_SEEK_FLAG_KEY_UNIT is specified,
+             * the relevant location is a keyframe. If both flags are specified, the nearest
+             * of these locations will be selected. If none are specified, the implementation is
+             * free to select whichever it wants.
+             *
+             * The before and after here are in running time, so when playing backwards,
+             * the next location refers to the one that will played in next, and not the
+             * one that is located after in the actual source stream.
+             *
+             * Also see part-seeking.txt in the GStreamer design documentation for more
+             * details on the meaning of these flags and the behaviour expected of
+             * elements that handle them.
+             */
+            SeekFlags: SeekFlagsBitfield
         }
         
-        namespace SegmentFlags {
-            const $gtype: GObject.GType<SegmentFlags>
-        }
-
-        /**
-         * Flags for the GstSegment structure. Currently mapped to the corresponding
-         * values of the seek flags.
-         */
-        enum SegmentFlags {
+        interface SegmentFlagsBitfield {
+            readonly $gtype: GObject.GType<SegmentFlags>
             /**
              * no flags
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * reset the pipeline running_time to the segment
              *                          running_time
              */
-            "RESET" = 1,
+            readonly "RESET": 1
             /**
              * perform skip playback (Since: 1.6)
              */
-            "TRICKMODE" = 16,
+            readonly "TRICKMODE": 16
             /**
              * Deprecated backward compatibility flag, replaced
              *                         by @GST_SEGMENT_FLAG_TRICKMODE
              */
-            "SKIP" = 16,
+            readonly "SKIP": 16
             /**
              * send SEGMENT_DONE instead of EOS
              */
-            "SEGMENT" = 8,
+            readonly "SEGMENT": 8
             /**
              * Decode only keyframes, where
              *                                        possible (Since: 1.6)
              */
-            "TRICKMODE_KEY_UNITS" = 128,
+            readonly "TRICKMODE_KEY_UNITS": 128
             /**
              * Decode only keyframes or forward
              *                                        predicted frames, where possible (Since: 1.18)
              */
-            "TRICKMODE_FORWARD_PREDICTED" = 512,
+            readonly "TRICKMODE_FORWARD_PREDICTED": 512
             /**
              * Do not decode any audio, where
              *                                        possible (Since: 1.6)
              */
-            "TRICKMODE_NO_AUDIO" = 256,
+            readonly "TRICKMODE_NO_AUDIO": 256
+        }
+        type SegmentFlags = number
+        interface $Exports {
+            /**
+             * Flags for the GstSegment structure. Currently mapped to the corresponding
+             * values of the seek flags.
+             */
+            SegmentFlags: SegmentFlagsBitfield
         }
         
-        namespace SerializeFlags {
-            const $gtype: GObject.GType<SerializeFlags>
-        }
-
-        /**
-         * @since 1.20
-         */
-        enum SerializeFlags {
+        interface SerializeFlagsBitfield {
+            readonly $gtype: GObject.GType<SerializeFlags>
             /**
              * No special flags specified.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Serialize using the old format for
              *                                      nested structures.
              */
-            "BACKWARD_COMPAT" = 1,
+            readonly "BACKWARD_COMPAT": 1
             /**
              * Serialization fails if a value cannot be serialized instead of using
              * placeholder "NULL" value (e.g. pointers, objects).
              * @since 1.24
              */
-            "STRICT" = 2,
+            readonly "STRICT": 2
+        }
+        type SerializeFlags = number
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            SerializeFlags: SerializeFlagsBitfield
         }
         
-        namespace StackTraceFlags {
-            const $gtype: GObject.GType<StackTraceFlags>
-        }
-
-        /**
-         * @since 1.12
-         */
-        enum StackTraceFlags {
+        interface StackTraceFlagsBitfield {
+            readonly $gtype: GObject.GType<StackTraceFlags>
             /**
              * Try to retrieve the minimum information
              *                             available, which may be none on some platforms
              *                             (Since: 1.18)
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Try to retrieve as much information as possible,
              *                             including source information when getting the
              *                             stack trace
              */
-            "FULL" = 1,
+            readonly "FULL": 1
+        }
+        type StackTraceFlags = number
+        interface $Exports {
+            /**
+             * @since 1.12
+             */
+            StackTraceFlags: StackTraceFlagsBitfield
         }
         
-        namespace StreamFlags {
-            const $gtype: GObject.GType<StreamFlags>
-        }
-
-        /**
-         * @since 1.2
-         */
-        enum StreamFlags {
+        interface StreamFlagsBitfield {
+            readonly $gtype: GObject.GType<StreamFlags>
             /**
              * This stream has no special attributes
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * This stream is a sparse stream (e.g. a subtitle
              *    stream), data may flow only in irregular intervals with large gaps in
              *    between.
              */
-            "SPARSE" = 1,
+            readonly "SPARSE": 1
             /**
              * This stream should be selected by default. This
              *    flag may be used by demuxers to signal that a stream should be selected
              *    by default in a playback scenario.
              */
-            "SELECT" = 2,
+            readonly "SELECT": 2
             /**
              * This stream should not be selected by default.
              *    This flag may be used by demuxers to signal that a stream should not
@@ -22883,76 +21323,85 @@ declare module "gi://Gst?version=1.0" {
              *    selected by the user (e.g. an audio track for the hard of hearing or
              *    a director's commentary track).
              */
-            "UNSELECT" = 4,
+            readonly "UNSELECT": 4
+        }
+        type StreamFlags = number
+        interface $Exports {
+            /**
+             * @since 1.2
+             */
+            StreamFlags: StreamFlagsBitfield
         }
         
-        namespace StreamType {
-            const $gtype: GObject.GType<StreamType>
-        }
-
-        /**
-         * #GstStreamType describes a high level classification set for
-         * flows of data in #GstStream objects.
-         *
-         * Note that this is a flag, and therefore users should not assume it
-         * will be a single value. Do not use the equality operator for checking
-         * whether a stream is of a certain type.
-         * @since 1.10
-         */
-        enum StreamType {
+        interface StreamTypeBitfield {
+            readonly $gtype: GObject.GType<StreamType>
             /**
              * The stream is of unknown (unclassified) type.
              */
-            "UNKNOWN" = 1,
+            readonly "UNKNOWN": 1
             /**
              * The stream is of audio data
              */
-            "AUDIO" = 2,
+            readonly "AUDIO": 2
             /**
              * The stream carries video data
              */
-            "VIDEO" = 4,
+            readonly "VIDEO": 4
             /**
              * The stream is a muxed container type
              */
-            "CONTAINER" = 8,
+            readonly "CONTAINER": 8
             /**
              * The stream contains subtitle / subpicture data.
              */
-            "TEXT" = 16,
+            readonly "TEXT": 16
         }
-        /**
+        type StreamType = number
+        interface $Exports {
+            /**
+             * #GstStreamType describes a high level classification set for
+             * flows of data in #GstStream objects.
+             *
+             * Note that this is a flag, and therefore users should not assume it
+             * will be a single value. Do not use the equality operator for checking
+             * whether a stream is of a certain type.
+             * @since 1.10
+             */
+            StreamType: StreamTypeBitfield
+            /**
          * Get a descriptive string for a given #GstStreamType
          * @since 1.10
          * @param stype a #GstStreamType
          * @returns A string describing the stream type
          */
-        function get_name(stype: StreamType): string
-        
-        namespace TracerValueFlags {
-            const $gtype: GObject.GType<TracerValueFlags>
+        get_name: (stype: StreamType) => string
         }
-
-        /**
-         * Flag that describe the value. These flags help applications processing the
-         * logs to understand the values.
-         */
-        enum TracerValueFlags {
+        
+        interface TracerValueFlagsBitfield {
+            readonly $gtype: GObject.GType<TracerValueFlags>
             /**
              * no flags
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * the value is optional. When using this flag
              *   one need to have an additional boolean arg before this value in the
              *   var-args list passed to  gst_tracer_record_log().
              */
-            "OPTIONAL" = 1,
+            readonly "OPTIONAL": 1
             /**
              * the value is a combined figure, since the
              *   start of tracing. Examples are averages or timestamps.
              */
-            "AGGREGATED" = 2,
+            readonly "AGGREGATED": 2
+        }
+        type TracerValueFlags = number
+        interface $Exports {
+            /**
+             * Flag that describe the value. These flags help applications processing the
+             * logs to understand the values.
+             */
+            TracerValueFlags: TracerValueFlagsBitfield
         }
         /**
          * The aggregator function will combine the parameters from @params0 and @param1
@@ -23061,7 +21510,7 @@ declare module "gi://Gst?version=1.0" {
          * @param src_value
          * @param dest_value
          */
-        type ControlBindingConvert = (binding: ControlBinding, src_value: number, dest_value: GObject.Value) => void
+        type ControlBindingConvert = (binding: ControlBinding, src_value: number, dest_value: (GObject.Value | unknown)) => void
         /**
          * Function for returning a value for a given timestamp.
          * @param self the #GstControlSource instance
@@ -23131,12 +21580,12 @@ declare module "gi://Gst?version=1.0" {
          * @param ret a #GValue collecting the result
          * @returns %TRUE if the fold should continue, %FALSE if it should stop.
          */
-        type IteratorFoldFunction = (item: GObject.Value, ret: GObject.Value) => boolean
+        type IteratorFoldFunction = (item: (GObject.Value | unknown), ret: (GObject.Value | unknown)) => boolean
         /**
          * A function that is called by gst_iterator_foreach() for every element.
          * @param item The item
          */
-        type IteratorForeachFunction = (item: GObject.Value) => void
+        type IteratorForeachFunction = (item: (GObject.Value | unknown)) => void
         /**
          * This function will be called when the iterator is freed.
          *
@@ -23156,7 +21605,7 @@ declare module "gi://Gst?version=1.0" {
          * @param item the item being retrieved.
          * @returns the result of the operation.
          */
-        type IteratorItemFunction = (it: Iterator, item: GObject.Value) => IteratorItem
+        type IteratorItemFunction = (it: Iterator, item: (GObject.Value | unknown)) => IteratorItem
         /**
          * The function that will be called when the next element of the iterator
          * should be retrieved.
@@ -23168,7 +21617,7 @@ declare module "gi://Gst?version=1.0" {
          * @param result a pointer to hold the next item
          * @returns the result of the operation.
          */
-        type IteratorNextFunction = (it: Iterator, result: GObject.Value) => IteratorResult
+        type IteratorNextFunction = (it: Iterator, result: (GObject.Value | unknown)) => IteratorResult
         /**
          * This function will be called whenever a concurrent update happened
          * to the iterated datastructure. The implementor of the iterator should
@@ -23587,7 +22036,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the field should be preserved, %FALSE if it should be removed.
          */
-        type StructureFilterMapFunc = (field_id: GLib.Quark, value: GObject.Value) => boolean
+        type StructureFilterMapFunc = (field_id: GLib.Quark, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_structure_filter_and_map_in_place_id_str().
          * The function may modify @value, and the value will be removed from the
@@ -23597,7 +22046,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the field should be preserved, %FALSE if it should be removed.
          */
-        type StructureFilterMapIdStrFunc = (fieldname: IdStr, value: GObject.Value) => boolean
+        type StructureFilterMapIdStrFunc = (fieldname: IdStr, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_structure_foreach(). The function may
          * not modify @value.
@@ -23605,7 +22054,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the foreach operation should continue, %FALSE if the foreach operation should stop with %FALSE.
          */
-        type StructureForeachFunc = (field_id: GLib.Quark, value: GObject.Value) => boolean
+        type StructureForeachFunc = (field_id: GLib.Quark, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_structure_foreach_id_str(). The
          * function may not modify @value.
@@ -23614,7 +22063,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the foreach operation should continue, %FALSE if the foreach operation should stop with %FALSE.
          */
-        type StructureForeachIdStrFunc = (fieldname: IdStr, value: GObject.Value) => boolean
+        type StructureForeachIdStrFunc = (fieldname: IdStr, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_structure_map_in_place(). The function
          * may modify @value.
@@ -23622,7 +22071,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the map operation should continue, %FALSE if the map operation should stop with %FALSE.
          */
-        type StructureMapFunc = (field_id: GLib.Quark, value: GObject.Value) => boolean
+        type StructureMapFunc = (field_id: GLib.Quark, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_structure_map_in_place_id_str(). The
          * function may modify @value.
@@ -23631,7 +22080,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the map operation should continue, %FALSE if the map operation should stop with %FALSE.
          */
-        type StructureMapIdStrFunc = (fieldname: IdStr, value: GObject.Value) => boolean
+        type StructureMapIdStrFunc = (fieldname: IdStr, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_tag_list_foreach(). The function may
          * not modify the tag list.
@@ -23645,7 +22094,7 @@ declare module "gi://Gst?version=1.0" {
          * @param dest the destination #GValue
          * @param src the source #GValue
          */
-        type TagMergeFunc = (dest: GObject.Value, src: GObject.Value) => void
+        type TagMergeFunc = (dest: (GObject.Value | unknown), src: (GObject.Value | unknown)) => void
         /**
          * A function that will repeatedly be called in the thread created by
          * a #GstTask.
@@ -23672,14 +22121,14 @@ declare module "gi://Gst?version=1.0" {
          * @param value2 second value for comparison
          * @returns one of GST_VALUE_LESS_THAN, GST_VALUE_EQUAL, GST_VALUE_GREATER_THAN or GST_VALUE_UNORDERED
          */
-        type ValueCompareFunc = (value1: GObject.Value, value2: GObject.Value) => number
+        type ValueCompareFunc = (value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)) => number
         /**
          * Used by gst_value_deserialize() to parse a non-binary form into the #GValue.
          * @param dest a #GValue
          * @param s a string
          * @returns %TRUE for success
          */
-        type ValueDeserializeFunc = (dest: GObject.Value, s: string) => boolean
+        type ValueDeserializeFunc = (dest: (GObject.Value | unknown), s: string) => boolean
         /**
          * Used by gst_value_deserialize_with_pspec() to parse a non-binary form into the #GValue.
          * @since 1.20
@@ -23688,7 +22137,7 @@ declare module "gi://Gst?version=1.0" {
          * @param pspec a #GParamSpec describing the expected value
          * @returns %TRUE for success
          */
-        type ValueDeserializeWithPSpecFunc = (dest: GObject.Value, s: string, pspec: GObject.ParamSpec) => boolean
+        type ValueDeserializeWithPSpecFunc = (dest: (GObject.Value | unknown), s: string, pspec: GObject.ParamSpec) => boolean
         /**
          * Used by gst_value_serialize() to obtain a non-binary form of the #GValue.
          *
@@ -23696,21 +22145,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value1 a #GValue
          * @returns the string representation of the value
          */
-        type ValueSerializeFunc = (value1: GObject.Value) => string
-        /**
-         * map, GST_MAP_READWRITE))
-         *     return;
-         *   ...
-         *   // No need to call gst_buffer_unmap()
-         * }
-         * ```
-         *
-         * #GstMapInfo cannot be used with g_auto() because it is ambiguous whether it
-         * needs to be unmapped using gst_buffer_unmap() or gst_memory_unmap().
-         *
-         * See also #GstMemoryMapInfo.
-         */
-        type BufferMapInfo = MapInfo
+        type ValueSerializeFunc = (value1: (GObject.Value | unknown)) => string
         /**
          * A datatype to hold the handle to an outstanding sync or async clock callback.
          */
@@ -23727,21 +22162,2083 @@ declare module "gi://Gst?version=1.0" {
          * A type defining the type of an element factory.
          */
         type ElementFactoryListType = number
-        /**
-         * map, GST_MAP_READWRITE))
-         *     return;
-         *   ...
-         *   // No need to call gst_memory_unmap()
-         * }
-         * ```
-         *
-         * #GstMapInfo cannot be used with g_auto() because it is ambiguous whether it
-         * needs to be unmapped using gst_buffer_unmap() or gst_memory_unmap().
-         *
-         * See also #GstBufferMapInfo.
-         */
-        type MemoryMapInfo = MapInfo
+
+        interface $Exports {
+            __name__: "Gst"
+            __version: "1.0"
+            ALLOCATOR_SYSMEM: "SystemMemory"
+            BUFFER_COPY_ALL: BufferCopyFlags
+            BUFFER_COPY_METADATA: BufferCopyFlags
+            BUFFER_OFFSET_NONE: 18446744073709551615
+            CAN_INLINE: 1
+            CAPS_FEATURE_MEMORY_SYSTEM_MEMORY: "memory:SystemMemory"
+            CLOCK_TIME_NONE: ClockTime
+            DEBUG_BG_MASK: 240
+            DEBUG_FG_MASK: 15
+            DEBUG_FORMAT_MASK: 65280
+            ELEMENT_FACTORY_KLASS_DECODER: "Decoder"
+            ELEMENT_FACTORY_KLASS_DECRYPTOR: "Decryptor"
+            ELEMENT_FACTORY_KLASS_DEMUXER: "Demuxer"
+            ELEMENT_FACTORY_KLASS_DEPAYLOADER: "Depayloader"
+            ELEMENT_FACTORY_KLASS_ENCODER: "Encoder"
+            ELEMENT_FACTORY_KLASS_ENCRYPTOR: "Encryptor"
+            ELEMENT_FACTORY_KLASS_FORMATTER: "Formatter"
+            ELEMENT_FACTORY_KLASS_HARDWARE: "Hardware"
+            ELEMENT_FACTORY_KLASS_MEDIA_AUDIO: "Audio"
+            ELEMENT_FACTORY_KLASS_MEDIA_IMAGE: "Image"
+            ELEMENT_FACTORY_KLASS_MEDIA_METADATA: "Metadata"
+            ELEMENT_FACTORY_KLASS_MEDIA_SUBTITLE: "Subtitle"
+            ELEMENT_FACTORY_KLASS_MEDIA_VIDEO: "Video"
+            ELEMENT_FACTORY_KLASS_MUXER: "Muxer"
+            ELEMENT_FACTORY_KLASS_PARSER: "Parser"
+            ELEMENT_FACTORY_KLASS_PAYLOADER: "Payloader"
+            ELEMENT_FACTORY_KLASS_SINK: "Sink"
+            ELEMENT_FACTORY_KLASS_SRC: "Source"
+            ELEMENT_FACTORY_TYPE_ANY: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_AUDIOVIDEO_SINKS: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_AUDIO_ENCODER: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_DECODABLE: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_DECODER: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_DECRYPTOR: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_DEMUXER: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_DEPAYLOADER: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_ENCODER: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_ENCRYPTOR: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_FORMATTER: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_HARDWARE: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_MAX_ELEMENTS: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_MEDIA_ANY: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_MEDIA_AUDIO: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_MEDIA_IMAGE: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_MEDIA_METADATA: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_MEDIA_SUBTITLE: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_MEDIA_VIDEO: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_MUXER: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_PARSER: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_PAYLOADER: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_SINK: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_SRC: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_TIMESTAMPER: ElementFactoryListType
+            ELEMENT_FACTORY_TYPE_VIDEO_ENCODER: ElementFactoryListType
+            ELEMENT_METADATA_AUTHOR: "author"
+            ELEMENT_METADATA_DESCRIPTION: "description"
+            ELEMENT_METADATA_DOC_URI: "doc-uri"
+            ELEMENT_METADATA_ICON_NAME: "icon-name"
+            ELEMENT_METADATA_KLASS: "klass"
+            ELEMENT_METADATA_LONGNAME: "long-name"
+            EVENT_NUM_SHIFT: 8
+            EVENT_TYPE_BOTH: EventTypeFlags
+            FLAG_SET_MASK_EXACT: 4294967295
+            FORMAT_PERCENT_MAX: 1000000
+            FORMAT_PERCENT_SCALE: 10000
+            GROUP_ID_INVALID: 0
+            LICENSE_UNKNOWN: "unknown"
+            LOCK_FLAG_READWRITE: LockFlags
+            MAP_READWRITE: MapFlags
+            META_TAG_MEMORY_REFERENCE_STR: "memory-reference"
+            META_TAG_MEMORY_STR: "memory"
+            MSECOND: ClockTimeDiff
+            NSECOND: ClockTimeDiff
+            PARAM_CONDITIONALLY_AVAILABLE: 16384
+            PARAM_CONTROLLABLE: 512
+            PARAM_DOC_SHOW_DEFAULT: 8192
+            PARAM_MUTABLE_PAUSED: 2048
+            PARAM_MUTABLE_PLAYING: 4096
+            PARAM_MUTABLE_READY: 1024
+            PARAM_USER_SHIFT: 65536
+            PROTECTION_SYSTEM_ID_CAPS_FIELD: "protection-system"
+            PROTECTION_UNSPECIFIED_SYSTEM_ID: "unspecified-system-id"
+            QUERY_NUM_SHIFT: 8
+            QUERY_TYPE_BOTH: QueryTypeFlags
+            SECOND: ClockTimeDiff
+            SEGMENT_INSTANT_FLAGS: 912
+            SEQNUM_INVALID: 0
+            TAG_ALBUM: "album"
+            TAG_ALBUM_ARTIST: "album-artist"
+            TAG_ALBUM_ARTIST_SORTNAME: "album-artist-sortname"
+            TAG_ALBUM_GAIN: "replaygain-album-gain"
+            TAG_ALBUM_PEAK: "replaygain-album-peak"
+            TAG_ALBUM_SORTNAME: "album-sortname"
+            TAG_ALBUM_VOLUME_COUNT: "album-disc-count"
+            TAG_ALBUM_VOLUME_NUMBER: "album-disc-number"
+            TAG_APPLICATION_DATA: "application-data"
+            TAG_APPLICATION_NAME: "application-name"
+            TAG_ARTIST: "artist"
+            TAG_ARTIST_SORTNAME: "artist-sortname"
+            TAG_ATTACHMENT: "attachment"
+            TAG_AUDIO_CODEC: "audio-codec"
+            TAG_BEATS_PER_MINUTE: "beats-per-minute"
+            TAG_BITRATE: "bitrate"
+            TAG_CODEC: "codec"
+            TAG_COMMENT: "comment"
+            TAG_COMPOSER: "composer"
+            TAG_COMPOSER_SORTNAME: "composer-sortname"
+            TAG_CONDUCTOR: "conductor"
+            TAG_CONTACT: "contact"
+            TAG_CONTAINER_FORMAT: "container-format"
+            TAG_CONTAINER_SPECIFIC_TRACK_ID: "container-specific-track-id"
+            TAG_COPYRIGHT: "copyright"
+            TAG_COPYRIGHT_URI: "copyright-uri"
+            TAG_DATE: "date"
+            TAG_DATE_TIME: "datetime"
+            TAG_DESCRIPTION: "description"
+            TAG_DEVICE_MANUFACTURER: "device-manufacturer"
+            TAG_DEVICE_MODEL: "device-model"
+            TAG_DURATION: "duration"
+            TAG_ENCODED_BY: "encoded-by"
+            TAG_ENCODER: "encoder"
+            TAG_ENCODER_VERSION: "encoder-version"
+            TAG_EXTENDED_COMMENT: "extended-comment"
+            TAG_GENRE: "genre"
+            TAG_GEO_LOCATION_CAPTURE_DIRECTION: "geo-location-capture-direction"
+            TAG_GEO_LOCATION_CITY: "geo-location-city"
+            TAG_GEO_LOCATION_COUNTRY: "geo-location-country"
+            TAG_GEO_LOCATION_ELEVATION: "geo-location-elevation"
+            TAG_GEO_LOCATION_HORIZONTAL_ERROR: "geo-location-horizontal-error"
+            TAG_GEO_LOCATION_LATITUDE: "geo-location-latitude"
+            TAG_GEO_LOCATION_LONGITUDE: "geo-location-longitude"
+            TAG_GEO_LOCATION_MOVEMENT_DIRECTION: "geo-location-movement-direction"
+            TAG_GEO_LOCATION_MOVEMENT_SPEED: "geo-location-movement-speed"
+            TAG_GEO_LOCATION_NAME: "geo-location-name"
+            TAG_GEO_LOCATION_SUBLOCATION: "geo-location-sublocation"
+            TAG_GROUPING: "grouping"
+            TAG_HOMEPAGE: "homepage"
+            TAG_IMAGE: "image"
+            TAG_IMAGE_ORIENTATION: "image-orientation"
+            TAG_INTERPRETED_BY: "interpreted-by"
+            TAG_ISRC: "isrc"
+            TAG_KEYWORDS: "keywords"
+            TAG_LANGUAGE_CODE: "language-code"
+            TAG_LANGUAGE_NAME: "language-name"
+            TAG_LICENSE: "license"
+            TAG_LICENSE_URI: "license-uri"
+            TAG_LOCATION: "location"
+            TAG_LYRICS: "lyrics"
+            TAG_MAXIMUM_BITRATE: "maximum-bitrate"
+            TAG_MIDI_BASE_NOTE: "midi-base-note"
+            TAG_MINIMUM_BITRATE: "minimum-bitrate"
+            TAG_NOMINAL_BITRATE: "nominal-bitrate"
+            TAG_ORGANIZATION: "organization"
+            TAG_PERFORMER: "performer"
+            TAG_PREVIEW_IMAGE: "preview-image"
+            TAG_PRIVATE_DATA: "private-data"
+            TAG_PUBLISHER: "publisher"
+            TAG_REFERENCE_LEVEL: "replaygain-reference-level"
+            TAG_SERIAL: "serial"
+            TAG_SHOW_EPISODE_NUMBER: "show-episode-number"
+            TAG_SHOW_NAME: "show-name"
+            TAG_SHOW_SEASON_NUMBER: "show-season-number"
+            TAG_SHOW_SORTNAME: "show-sortname"
+            TAG_SUBTITLE_CODEC: "subtitle-codec"
+            TAG_TITLE: "title"
+            TAG_TITLE_SORTNAME: "title-sortname"
+            TAG_TRACK_COUNT: "track-count"
+            TAG_TRACK_GAIN: "replaygain-track-gain"
+            TAG_TRACK_NUMBER: "track-number"
+            TAG_TRACK_PEAK: "replaygain-track-peak"
+            TAG_USER_RATING: "user-rating"
+            TAG_VERSION: "version"
+            TAG_VIDEO_CODEC: "video-codec"
+            TOC_REPEAT_COUNT_INFINITE: -1
+            URI_NO_PORT: 0
+            USECOND: ClockTimeDiff
+            VALUE_EQUAL: 0
+            VALUE_GREATER_THAN: 1
+            VALUE_LESS_THAN: -1
+            VALUE_UNORDERED: 2
+            VERSION_MAJOR: 1
+            VERSION_MICRO: 10
+            VERSION_MINOR: 26
+            VERSION_NANO: 0
+            /**
+             * Gets the maximum amount of memory blocks that a buffer can hold. This is a
+             * compile time constant that can be queried with the function.
+             *
+             * When more memory blocks are added, existing memory blocks will be merged
+             * together to make room for the new block.
+             * @since 1.2
+             * @returns the maximum amount of memory blocks that a buffer can hold.
+             */
+            buffer_get_max_memory(): number
+            /**
+             * Modifies a pointer to a #GstBufferList to point to a different
+             * #GstBufferList. The modification is done atomically (so this is useful for
+             * ensuring thread safety in some cases), and the reference counts are updated
+             * appropriately (the old buffer list is unreffed, the new is reffed).
+             *
+             * Either @new_list or the #GstBufferList pointed to by @old_list may be %NULL.
+             * @since 1.16
+             * @param new_list pointer to a #GstBufferList that
+                will replace the buffer list pointed to by @old_list.
+             * @returns %TRUE if `new_list` was different from `old_list`, pointer to a pointer to a     #GstBufferList to be replaced.
+             */
+            buffer_list_replace(new_list: BufferList | null): [boolean, BufferList | null]
+            /**
+             * Modifies a pointer to a #GstBufferList to point to a different
+             * #GstBufferList. This function is similar to gst_buffer_list_replace() except
+             * that it takes ownership of @new_list.
+             * @since 1.16
+             * @param new_list pointer to a #GstBufferList
+                that will replace the bufferlist pointed to by @old_list.
+             * @returns %TRUE if `new_list` was different from `old_list`, pointer to a pointer to a #GstBufferList     to be replaced.
+             */
+            buffer_list_take(new_list: BufferList | null): [boolean, BufferList]
+            /**
+             * Creates a #GstCapsFeatures from a string representation.
+             * @since 1.2
+             * @param features a string representation of a #GstCapsFeatures.
+             * @returns a new #GstCapsFeatures or     %NULL when the string could not be parsed.
+             */
+            caps_features_from_string(features: string): CapsFeatures | null
+            /**
+             * Converts @caps from a string representation.
+             *
+             * The implementation of serialization up to 1.20 would lead to unexpected results
+             * when there were nested #GstCaps / #GstStructure deeper than one level.
+             * @param string a string to convert to #GstCaps
+             * @returns a newly allocated #GstCaps
+             */
+            caps_from_string(string: string): Caps | null
+            /**
+             * Modifies a pointer to a #GstContext to point to a different #GstContext. The
+             * modification is done atomically (so this is useful for ensuring thread safety
+             * in some cases), and the reference counts are updated appropriately (the old
+             * context is unreffed, the new one is reffed).
+             *
+             * Either @new_context or the #GstContext pointed to by @old_context may be %NULL.
+             * @since 1.2
+             * @param new_context pointer to a #GstContext that will
+                replace the context pointed to by @old_context.
+             * @returns %TRUE if `new_context` was different from `old_context`, pointer to a pointer to a #GstContext     to be replaced.
+             */
+            context_replace(new_context: Context | null): [boolean, Context]
+            /**
+             */
+            core_error_quark(): GLib.Quark
+            /**
+             * Adds the logging function to the list of logging functions.
+             * Be sure to use #G_GNUC_NO_INSTRUMENT on that function, it is needed.
+             * @param func the function to use
+             */
+            debug_add_log_function(func: LogFunction): void
+            /**
+             * Adds a memory ringbuffer based debug logger that stores up to
+             * @max_size_per_thread bytes of logs per thread and times out threads after
+             * @thread_timeout seconds of inactivity.
+             *
+             * Logs can be fetched with gst_debug_ring_buffer_logger_get_logs() and the
+             * logger can be removed again with gst_debug_remove_ring_buffer_logger().
+             * Only one logger at a time is possible.
+             * @since 1.14
+             * @param max_size_per_thread Maximum size of log per thread in bytes
+             * @param thread_timeout Timeout for threads in seconds
+             */
+            debug_add_ring_buffer_logger(max_size_per_thread: number, thread_timeout: number): void
+            /**
+             * To aid debugging applications one can use this method to obtain the whole
+             * network of gstreamer elements that form the pipeline into a dot file.
+             * This data can be processed with graphviz to get an image.
+             * @param bin the top-level pipeline that should be analyzed
+             * @param details type of #GstDebugGraphDetails to use
+             * @returns a string containing the pipeline in graphviz dot format.
+             */
+            debug_bin_to_dot_data(bin: Bin, details: DebugGraphDetails): string
+            /**
+             * To aid debugging applications one can use this method to write out the whole
+             * network of gstreamer elements that form the pipeline into a dot file.
+             * This file can be processed with graphviz to get an image.
+             *
+             * ``` shell
+             *  dot -Tpng -oimage.png graph_lowlevel.dot
+             * ```
+             * @param bin the top-level pipeline that should be analyzed
+             * @param details type of #GstDebugGraphDetails to use
+             * @param file_name output base filename (e.g. "myplayer")
+             */
+            debug_bin_to_dot_file(bin: Bin, details: DebugGraphDetails, file_name: string): void
+            /**
+             * This works like gst_debug_bin_to_dot_file(), but adds the current timestamp
+             * to the filename, so that it can be used to take multiple snapshots.
+             * @param bin the top-level pipeline that should be analyzed
+             * @param details type of #GstDebugGraphDetails to use
+             * @param file_name output base filename (e.g. "myplayer")
+             */
+            debug_bin_to_dot_file_with_ts(bin: Bin, details: DebugGraphDetails, file_name: string): void
+            /**
+             * Constructs a string that can be used for getting the desired color in color
+             * terminals.
+             * You need to free the string after use.
+             * @param colorinfo the color info
+             * @returns a string containing the color     definition
+             */
+            debug_construct_term_color(colorinfo: number): string
+            /**
+             * Constructs an integer that can be used for getting the desired color in
+             * windows' terminals (cmd.exe). As there is no mean to underline, we simply
+             * ignore this attribute.
+             *
+             * This function returns 0 on non-windows machines.
+             * @param colorinfo the color info
+             * @returns an integer containing the color definition
+             */
+            debug_construct_win_color(colorinfo: number): number
+            /**
+             * Returns a snapshot of a all categories that are currently in use . This list
+             * may change anytime.
+             * The caller has to free the list after use.
+             * @returns the list of     debug categories
+             */
+            debug_get_all_categories(): DebugCategory[]
+            /**
+             * Changes the coloring mode for debug output.
+             * @since 1.2
+             * @returns see `GstDebugColorMode` for possible values.
+             */
+            debug_get_color_mode(): DebugColorMode
+            /**
+             * Returns the default threshold that is used for new categories.
+             * @returns the default threshold level
+             */
+            debug_get_default_threshold(): DebugLevel
+            /**
+             * @since 1.12
+             * @param flags A set of #GstStackTraceFlags to determine how the stack trace should
+            look like. Pass #GST_STACK_TRACE_SHOW_NONE to retrieve a minimal backtrace.
+             * @returns a stack trace, if libunwind or glibc backtrace are present, else %NULL.
+             */
+            debug_get_stack_trace(flags: StackTraceFlags): string | null
+            /**
+             * Checks if debugging output is activated.
+             * @returns %TRUE, if debugging is activated
+             */
+            debug_is_active(): boolean
+            /**
+             * Checks if the debugging output should be colored.
+             * @returns %TRUE, if the debug output should be colored.
+             */
+            debug_is_colored(): boolean
+            /**
+             * Get the string representation of a debugging level
+             * @param level the level to get the name for
+             * @returns the name
+             */
+            debug_level_get_name(level: DebugLevel): string
+            /**
+             * The default logging handler used by GStreamer. Logging functions get called
+             * whenever a macro like GST_DEBUG or similar is used. By default this function
+             * is setup to output the message and additional info to stderr (or the log file
+             * specified via the GST_DEBUG_FILE environment variable) as received via
+             * @user_data.
+             *
+             * You can add other handlers by using gst_debug_add_log_function().
+             * And you can remove this handler by calling
+             * gst_debug_remove_log_function(gst_debug_log_default);
+             * @param category category to log
+             * @param level level of the message
+             * @param file the file that emitted the message, usually the __FILE__ identifier
+             * @param function the function that emitted the message
+             * @param line the line from that the message was emitted, usually __LINE__
+             * @param object the object this message relates to,
+                or %NULL if none
+             * @param message the actual message
+             * @param user_data the FILE* to log to
+             */
+            debug_log_default(category: DebugCategory, level: DebugLevel, file: string, func: string, line: number, object: GObject.Object | null, message: DebugMessage, user_data: never | null): void
+            /**
+             * Returns the string representation for the specified debug log message
+             * formatted in the same way as gst_debug_log_default() (the default handler),
+             * without color. The purpose is to make it easy for custom log output
+             * handlers to get a log output that is identical to what the default handler
+             * would write out.
+             * @since 1.18
+             * @param category category to log
+             * @param level level of the message
+             * @param file the file that emitted the message, usually the __FILE__ identifier
+             * @param function the function that emitted the message
+             * @param line the line from that the message was emitted, usually __LINE__
+             * @param object the object this message relates to,
+                or %NULL if none
+             * @param message the actual message
+             */
+            debug_log_get_line(category: DebugCategory, level: DebugLevel, file: string, func: string, line: number, object: GObject.Object | null, message: DebugMessage): string
+            /**
+             * Logs the given message using the currently registered debugging handlers.
+             * @since 1.22
+             * @param category category to log
+             * @param level level of the message is in
+             * @param file the file that emitted the message, usually the __FILE__ identifier
+             * @param function the function that emitted the message
+             * @param line the line from that the message was emitted, usually __LINE__
+             * @param id the identifier of the object this message relates to
+               or %NULL if none
+             * @param message_string a message string
+             */
+            debug_log_id_literal(category: DebugCategory, level: DebugLevel, file: string, func: string, line: number, id: string | null, message_string: string): void
+            /**
+             * Logs the given message using the currently registered debugging handlers.
+             * @since 1.20
+             * @param category category to log
+             * @param level level of the message is in
+             * @param file the file that emitted the message, usually the __FILE__ identifier
+             * @param function the function that emitted the message
+             * @param line the line from that the message was emitted, usually __LINE__
+             * @param object the object this message relates to,
+                or %NULL if none
+             * @param message_string a message string
+             */
+            debug_log_literal(category: DebugCategory, level: DebugLevel, file: string, func: string, line: number, object: GObject.Object | null, message_string: string): void
+            /**
+             * Returns a string that represents @ptr. This is safe to call with
+             * %GstStructure, %GstCapsFeatures, %GstMiniObject s (e.g. %GstCaps,
+             * %GstBuffer or %GstMessage), and %GObjects (e.g. %GstElement or %GstPad).
+             *
+             * The string representation is meant to be used for debugging purposes and
+             * might change between GStreamer versions.
+             *
+             * Passing other kind of pointers might or might not work and is generally
+             * unsafe to do.
+             * @since 1.26
+             * @param ptr the object
+             * @returns a string containing a string     representation of the object
+             */
+            debug_print_object(ptr: never | null): string
+            /**
+             * Returns a string that represents @segments.
+             *
+             * The string representation is meant to be used for debugging purposes and
+             * might change between GStreamer versions.
+             * @since 1.26
+             * @param segment the %GstSegment
+             * @returns a string containing a string     representation of the segment
+             */
+            debug_print_segment(segment: Segment | null): string
+            /**
+             * If libunwind, glibc backtrace or DbgHelp are present
+             * a stack trace is printed.
+             */
+            debug_print_stack_trace(): void
+            /**
+             * Removes all registered instances of the given logging functions.
+             * @param func the log function to remove, or %NULL to
+                remove the default log function
+             * @returns How many instances of the function were removed
+             */
+            debug_remove_log_function(func: LogFunction | null): number
+            /**
+             * Removes all registered instances of log functions with the given user data.
+             * @param data user data of the log function to remove
+             * @returns How many instances of the function were removed
+             */
+            debug_remove_log_function_by_data(data: never | null): number
+            /**
+             * Removes any previously added ring buffer logger with
+             * gst_debug_add_ring_buffer_logger().
+             * @since 1.14
+             */
+            debug_remove_ring_buffer_logger(): void
+            /**
+             * Fetches the current logs per thread from the ring buffer logger. See
+             * gst_debug_add_ring_buffer_logger() for details.
+             * @since 1.14
+             * @returns NULL-terminated array of strings with the debug output per thread
+             */
+            debug_ring_buffer_logger_get_logs(): string[]
+            /**
+             * If activated, debugging messages are sent to the debugging
+             * handlers.
+             * It makes sense to deactivate it for speed issues.
+             * > This function is not threadsafe. It makes sense to only call it
+             * during initialization.
+             * @param active Whether to use debugging output or not
+             */
+            debug_set_active(active: boolean): void
+            /**
+             * Changes the coloring mode for debug output.
+             *
+             * This function may be called before gst_init().
+             * @since 1.2
+             * @param mode The coloring mode for debug output. See @GstDebugColorMode.
+             */
+            debug_set_color_mode(mode: DebugColorMode): void
+            /**
+             * Changes the coloring mode for debug output.
+             *
+             * This function may be called before gst_init().
+             * @since 1.2
+             * @param mode The coloring mode for debug output. One of the following:
+            "on", "auto", "off", "disable", "unix".
+             */
+            debug_set_color_mode_from_string(mode: string): void
+            /**
+             * Sets or unsets the use of coloured debugging output.
+             * Same as gst_debug_set_color_mode () with the argument being
+             * being GST_DEBUG_COLOR_MODE_ON or GST_DEBUG_COLOR_MODE_OFF.
+             *
+             * This function may be called before gst_init().
+             * @param colored Whether to use colored output or not
+             */
+            debug_set_colored(colored: boolean): void
+            /**
+             * Sets the default threshold to the given level and updates all categories to
+             * use this threshold.
+             *
+             * This function may be called before gst_init().
+             * @param level level to set
+             */
+            debug_set_default_threshold(level: DebugLevel): void
+            /**
+             * Sets all categories which match the given glob style pattern to the given
+             * level.
+             * @param name name of the categories to set
+             * @param level level to set them to
+             */
+            debug_set_threshold_for_name(name: string, level: DebugLevel): void
+            /**
+             * Sets the debug logging wanted in the same form as with the GST_DEBUG
+             * environment variable. You can use wildcards such as `*`, but note that
+             * the order matters when you use wild cards, e.g. `foosrc:6,*src:3,*:2` sets
+             * everything to log level 2.
+             * @since 1.2
+             * @param list comma-separated list of "category:level" pairs to be used
+                as debug logging levels
+             * @param reset %TRUE to clear all previously-set debug levels before setting
+                new thresholds
+            %FALSE if adding the threshold described by @list to the one already set.
+             */
+            debug_set_threshold_from_string(list: string, reset: boolean): void
+            /**
+             * Resets all categories with the given name back to the default level.
+             * @param name name of the categories to set
+             */
+            debug_unset_threshold_for_name(name: string): void
+            /**
+             * Clean up any resources created by GStreamer in gst_init().
+             *
+             * It is normally not needed to call this function in a normal application
+             * as the resources will automatically be freed when the program terminates.
+             * This function is therefore mostly used by testsuites and other memory
+             * profiling tools.
+             *
+             * After this call GStreamer (including this method) should not be used anymore.
+             */
+            deinit(): void
+            /**
+             * Registers a new #GstDynamicTypeFactory in the registry
+             * @since 1.12
+             * @param plugin The #GstPlugin to register @dyn_type for
+             * @param type The #GType to register dynamically
+             */
+            dynamic_type_register(plugin: Plugin, type: (GObject.GType | { $gtype: GObject.GType })): boolean
+            /**
+             * Get a string describing the error message in the current locale.
+             * @param domain the GStreamer error domain this error belongs to.
+             * @param code the error code belonging to the domain.
+             * @returns a newly allocated string describing     the error message (in UTF-8 encoding)
+             */
+            error_get_message(domain: GLib.Quark, code: number): string
+            /**
+             * Gets the #GstEventTypeFlags associated with @type.
+             * @param type a #GstEventType
+             * @returns a #GstEventTypeFlags.
+             */
+            event_type_get_flags(type: EventType): EventTypeFlags
+            /**
+             * Get a printable name for the given event type. Do not modify or free.
+             * @param type the event type
+             * @returns a reference to the static name of the event.
+             */
+            event_type_get_name(type: EventType): string
+            /**
+             * Get the unique quark for the given event type.
+             * @param type the event type
+             * @returns the quark associated with the event type
+             */
+            event_type_to_quark(type: EventType): GLib.Quark
+            /**
+             * Converts the #GstEventType to an unsigned integer that
+             * represents the ordering of sticky events when re-sending them.
+             * A lower value represents a higher-priority event.
+             * @since 1.22
+             * @param type a #GstEventType
+             * @returns an unsigned integer
+             */
+            event_type_to_sticky_ordering(type: EventType): number
+            /**
+             * Similar to g_filename_to_uri(), but attempts to handle relative file paths
+             * as well. Before converting @filename into an URI, it will be prefixed by
+             * the current working directory if it is a relative path, and then the path
+             * will be canonicalised so that it doesn't contain any './' or '../' segments.
+             *
+             * On Windows @filename should be in UTF-8 encoding.
+             * @throws {GLib.Error}
+             * @param filename absolute or relative file name path
+             * @returns newly-allocated URI string, or NULL on error. The caller must   free the URI string with g_free() when no longer needed.
+             */
+            filename_to_uri(filename: string): string | null
+            /**
+             * Gets a string representing the given flow return.
+             * @param ret a #GstFlowReturn to get the name of.
+             * @returns a static string with the name of the flow return.
+             */
+            flow_get_name(ret: FlowReturn): string
+            /**
+             * Get the unique quark for the given GstFlowReturn.
+             * @param ret a #GstFlowReturn to get the quark of.
+             * @returns the quark associated with the flow return or 0 if an invalid return was specified.
+             */
+            flow_to_quark(ret: FlowReturn): GLib.Quark
+            /**
+             * Return the format registered with the given nick.
+             * @param nick The nick of the format
+             * @returns The format with `nick` or GST_FORMAT_UNDEFINED if the format was not registered.
+             */
+            format_get_by_nick(nick: string): Format
+            /**
+             * Get details about the given format.
+             * @param format The format to get details of
+             * @returns The #GstFormatDefinition for `format` or %NULL on failure.  MT safe.
+             */
+            format_get_details(format: Format): FormatDefinition | null
+            /**
+             * Get a printable name for the given format. Do not modify or free.
+             * @param format a #GstFormat
+             * @returns a reference to the static name of the format or %NULL if the format is unknown.
+             */
+            format_get_name(format: Format): string | null
+            /**
+             * Iterate all the registered formats. The format definition is read
+             * only.
+             * @returns a GstIterator of #GstFormatDefinition.
+             */
+            format_iterate_definitions(): Iterator
+            /**
+             * Create a new GstFormat based on the nick or return an
+             * already registered format with that nick.
+             * @param nick The nick of the new format
+             * @param description The description of the new format
+             * @returns A new GstFormat or an already registered format with the same nick.  MT safe.
+             */
+            format_register(nick: string, description: string): Format
+            /**
+             * Get the unique quark for the given format.
+             * @param format a #GstFormat
+             * @returns the quark associated with the format or 0 if the format is unknown.
+             */
+            format_to_quark(format: Format): GLib.Quark
+            /**
+             * See if the given format is inside the format array.
+             * @param formats The format array to search
+             * @param format the format to find
+             * @returns %TRUE if the format is found inside the array
+             */
+            formats_contains(formats: Format[], format: Format): boolean
+            /**
+             * This helper is mostly helpful for plugins that need to
+             * inspect the folder of the main executable to determine
+             * their set of features.
+             *
+             * When a plugin is initialized from the gst-plugin-scanner
+             * external process, the returned path will be the same as from the
+             * parent process.
+             * @since 1.14
+             * @returns The path of the executable that   initialized GStreamer, or %NULL if it could not be determined.
+             */
+            get_main_executable_path(): string | null
+            /**
+             * Initializes the GStreamer library, setting up internal path lists,
+             * registering built-in elements, and loading standard plugins.
+             *
+             * Unless the plugin registry is disabled at compile time, the registry will be
+             * loaded. By default this will also check if the registry cache needs to be
+             * updated and rescan all plugins if needed. See gst_update_registry() for
+             * details and section
+             * <link linkend="gst-running">Running GStreamer Applications</link>
+             * for how to disable automatic registry updates.
+             *
+             * WARNING: This function will terminate your program if it was unable to
+             * initialize GStreamer for some reason. If you want your program to fall back,
+             * use gst_init_check() instead.
+             * @returns , pointer to application's argv
+             */
+            init(): string[] | null
+            /**
+             * Initializes the GStreamer library, setting up internal path lists,
+             * registering built-in elements, and loading standard plugins.
+             *
+             * This function will return %FALSE if GStreamer could not be initialized
+             * for some reason.  If you want your program to fail fatally,
+             * use gst_init() instead.
+             * @throws {GLib.Error}
+             * @returns %TRUE if GStreamer could be initialized., pointer to application's argv
+             */
+            init_check(): [boolean, string[] | null]
+            /**
+             * Checks if @obj is a #GstCapsFeatures
+             * @param obj
+             * @returns %TRUE if `obj` is a #GstCapsFeatures %FALSE otherwise
+             */
+            is_caps_features(obj: never | null): boolean
+            /**
+             * Use this function to check if GStreamer has been initialized with gst_init()
+             * or gst_init_check().
+             * @returns %TRUE if initialization has been done, %FALSE otherwise.
+             */
+            is_initialized(): boolean
+            /**
+             */
+            library_error_quark(): GLib.Quark
+            /**
+             * Modifies a pointer to a #GstMessage to point to a different #GstMessage. This
+             * function is similar to gst_message_replace() except that it takes ownership
+             * of @new_message.
+             * @since 1.16
+             * @param new_message pointer to a #GstMessage that
+                will replace the message pointed to by @old_message.
+             * @returns %TRUE if `new_message` was different from `old_message`, pointer to a pointer to a #GstMessage     to be replaced.
+             */
+            message_take(new_message: Message | null): [boolean, Message]
+            /**
+             * Get a printable name for the given message type. Do not modify or free.
+             * @param type the message type
+             * @returns a reference to the static name of the message.
+             */
+            message_type_get_name(type: MessageType): string
+            /**
+             * Get the unique quark for the given message type.
+             * @param type the message type
+             * @returns the quark associated with the message type
+             */
+            message_type_to_quark(type: MessageType): GLib.Quark
+            /**
+             * When a element like `tee` decides the allocation, each downstream element may
+             * fill different parameters and pass them to gst_query_add_allocation_meta().
+             * In order to keep these parameters, a merge operation is needed. This
+             * aggregate function can combine the parameters from @params0 and @param1, and
+             * write the result back into @aggregated_params.
+             * @since 1.26
+             * @param api the GType of the API for which the parameters are being aggregated.
+             * @param aggregated_params This structure will be updated with the
+                                combined parameters from both @params0 and @params1.
+             * @param params0 a #GstStructure containing the new parameters to be aggregated.
+             * @param params1 a #GstStructure containing the new parameters to be aggregated.
+             * @returns %TRUE if the parameters were successfully aggregated, %FALSE otherwise.
+             */
+            meta_api_type_aggregate_params(api: (GObject.GType | { $gtype: GObject.GType }), aggregated_params: Structure, params0: Structure, params1: Structure): boolean
+            /**
+             * @since 1.2
+             * @param api an API
+             * @returns an array of tags as strings.
+             */
+            meta_api_type_get_tags(api: (GObject.GType | { $gtype: GObject.GType })): string[]
+            /**
+             * Check if @api was registered with @tag.
+             * @param api an API
+             * @param tag the tag to check
+             * @returns %TRUE if `api` was registered with `tag`.
+             */
+            meta_api_type_has_tag(api: (GObject.GType | { $gtype: GObject.GType }), tag: GLib.Quark): boolean
+            /**
+             * Register and return a GType for the @api and associate it with
+             * @tags.
+             * @param api an API to register
+             * @param tags tags for @api
+             * @returns a unique GType for `api`.
+             */
+            meta_api_type_register(api: string, tags: string[]): GObject.GType
+            /**
+             * This function sets the aggregator function for a specific API type.
+             * @since 1.26
+             * @param api the #GType of the API for which the aggregator function is being set.
+             * @param aggregator the aggregator function to be associated with the given API
+                         type.
+             */
+            meta_api_type_set_params_aggregator(api: (GObject.GType | { $gtype: GObject.GType }), aggregator: AllocationMetaParamsAggregator): void
+            /**
+             * Recreate a #GstMeta from serialized data returned by
+             * gst_meta_serialize() and add it to @buffer.
+             *
+             * Note that the meta must have been previously registered by calling one of
+             * `gst_*_meta_get_info ()` functions.
+             *
+             * @consumed is set to the number of bytes that can be skipped from @data to
+             * find the next meta serialization, if any. In case of parsing error that does
+             * not allow to determine that size, @consumed is set to 0.
+             * @since 1.24
+             * @param buffer a #GstBuffer
+             * @param data serialization data obtained from gst_meta_serialize()
+             * @param size size of @data
+             * @returns the metadata owned by `buffer`, or %NULL., total size used by this meta, could be less than `size`
+             */
+            meta_deserialize(buffer: Buffer, data: number, size: number): [Meta | null, number]
+            /**
+             * Lookup a previously registered meta info structure by its implementation name
+             * @impl.
+             * @param impl the name
+             * @returns a #GstMetaInfo with `impl`, or %NULL when no such metainfo exists.
+             */
+            meta_get_info(impl: string): MetaInfo | null
+            /**
+             * Register a new custom #GstMeta implementation, backed by an opaque
+             * structure holding a #GstStructure.
+             *
+             * The registered info can be retrieved later with gst_meta_get_info() by using
+             * @name as the key.
+             *
+             * The backing #GstStructure can be retrieved with
+             * gst_custom_meta_get_structure(), its mutability is conditioned by the
+             * writability of the buffer the meta is attached to.
+             *
+             * When @transform_func is %NULL, the meta and its backing #GstStructure
+             * will always be copied when the transform operation is copy, other operations
+             * are discarded, copy regions are ignored.
+             * @since 1.20
+             * @param name the name of the #GstMeta implementation
+             * @param tags tags for @api
+             * @param transform_func a #GstMetaTransformFunction
+             * @returns a #GstMetaInfo that can be used to access metadata.
+             */
+            meta_register_custom(name: string, tags: string[], transform_func: CustomMetaTransformFunction | null): MetaInfo
+            /**
+             * Simplified version of gst_meta_register_custom(), with no tags and no
+             * transform function.
+             * @since 1.24
+             * @param name the name of the #GstMeta implementation
+             * @returns a #GstMetaInfo that can be used to access metadata.
+             */
+            meta_register_custom_simple(name: string): MetaInfo
+            /**
+             * Atomically modifies a pointer to point to a new mini-object.
+             * The reference count of @olddata is decreased and the reference count of
+             * @newdata is increased.
+             *
+             * Either @newdata and the value pointed to by @olddata may be %NULL.
+             * @param newdata pointer to new mini-object
+             * @returns %TRUE if `newdata` was different from `olddata`, pointer to a pointer to a     mini-object to be replaced
+             */
+            mini_object_replace(newdata: MiniObject | null): [boolean, MiniObject | null]
+            /**
+             * Modifies a pointer to point to a new mini-object. The modification
+             * is done atomically. This version is similar to gst_mini_object_replace()
+             * except that it does not increase the refcount of @newdata and thus
+             * takes ownership of @newdata.
+             *
+             * Either @newdata and the value pointed to by @olddata may be %NULL.
+             * @param newdata pointer to new mini-object
+             * @returns %TRUE if `newdata` was different from `olddata`, pointer to a pointer to a mini-object to     be replaced
+             */
+            mini_object_take(newdata: MiniObject): [boolean, MiniObject]
+            /**
+             * Return the name of a pad mode, for use in debug messages mostly.
+             * @param mode the pad mode
+             * @returns short mnemonic for pad mode `mode`
+             */
+            pad_mode_get_name(mode: PadMode): string
+            /**
+             * This function creates a GstArray GParamSpec for use by objects/elements
+             * that want to expose properties of GstArray type. This function is
+             * typically * used in connection with g_object_class_install_property() in a
+             * GObjects's instance_init function.
+             * @since 1.14
+             * @param name canonical name of the property specified
+             * @param nick nick name for the property specified
+             * @param blurb description of the property specified
+             * @param element_spec GParamSpec of the array
+             * @param flags flags for the property specified
+             * @returns a newly created parameter specification
+             */
+            param_spec_array(name: string, nick: string, blurb: string, element_spec: GObject.ParamSpec, flags: GObject.ParamFlags): GObject.ParamSpec
+            /**
+             * This function creates a fraction GParamSpec for use by objects/elements
+             * that want to expose properties of fraction type. This function is typically
+             * used in connection with g_object_class_install_property() in a GObjects's
+             * instance_init function.
+             * @param name canonical name of the property specified
+             * @param nick nick name for the property specified
+             * @param blurb description of the property specified
+             * @param min_num minimum value (fraction numerator)
+             * @param min_denom minimum value (fraction denominator)
+             * @param max_num maximum value (fraction numerator)
+             * @param max_denom maximum value (fraction denominator)
+             * @param default_num default value (fraction numerator)
+             * @param default_denom default value (fraction denominator)
+             * @param flags flags for the property specified
+             * @returns a newly created parameter specification
+             */
+            param_spec_fraction(name: string, nick: string, blurb: string, min_num: number, min_denom: number, max_num: number, max_denom: number, default_num: number, default_denom: number, flags: GObject.ParamFlags): GObject.ParamSpec | null
+            /**
+             */
+            parent_buffer_meta_api_get_type(): GObject.GType
+            /**
+             * Gets the global #GstMetaInfo describing  the #GstParentBufferMeta meta.
+             * @since 1.6
+             * @returns The #GstMetaInfo
+             */
+            parent_buffer_meta_get_info(): MetaInfo
+            /**
+             * This is a convenience wrapper around gst_parse_launch() to create a
+             * #GstBin from a gst-launch-style pipeline description. See
+             * gst_parse_launch() and the gst-launch man page for details about the
+             * syntax. Ghost pads on the bin for unlinked source or sink pads
+             * within the bin can automatically be created (but only a maximum of
+             * one ghost pad for each direction will be created; if you expect
+             * multiple unlinked source pads or multiple unlinked sink pads
+             * and want them all ghosted, you will have to create the ghost pads
+             * yourself).
+             * @throws {GLib.Error}
+             * @param bin_description command line describing the bin
+             * @param ghost_unlinked_pads whether to automatically create ghost pads
+                for unlinked source or sink pads within the bin
+             * @returns a   newly-created bin, or %NULL if an error occurred.
+             */
+            parse_bin_from_description(bin_description: string, ghost_unlinked_pads: boolean): Bin
+            /**
+             * This is a convenience wrapper around gst_parse_launch() to create a
+             * #GstBin from a gst-launch-style pipeline description. See
+             * gst_parse_launch() and the gst-launch man page for details about the
+             * syntax. Ghost pads on the bin for unlinked source or sink pads
+             * within the bin can automatically be created (but only a maximum of
+             * one ghost pad for each direction will be created; if you expect
+             * multiple unlinked source pads or multiple unlinked sink pads
+             * and want them all ghosted, you will have to create the ghost pads
+             * yourself).
+             * @throws {GLib.Error}
+             * @param bin_description command line describing the bin
+             * @param ghost_unlinked_pads whether to automatically create ghost pads
+                for unlinked source or sink pads within the bin
+             * @param context a parse context allocated with
+                gst_parse_context_new(), or %NULL
+             * @param flags parsing options, or #GST_PARSE_FLAG_NONE
+             * @returns a newly-created   element, which is guaranteed to be a bin unless   #GST_PARSE_FLAG_NO_SINGLE_ELEMENT_BINS was passed, or %NULL if an error   occurred.
+             */
+            parse_bin_from_description_full(bin_description: string, ghost_unlinked_pads: boolean, context: ParseContext | null, flags: ParseFlags): Element
+            /**
+             * Get the error quark used by the parsing subsystem.
+             * @returns the quark of the parse errors.
+             */
+            parse_error_quark(): GLib.Quark
+            /**
+             * Create a new pipeline based on command line syntax.
+             * Please note that you might get a return value that is not %NULL even though
+             * the @error is set. In this case there was a recoverable parsing error and you
+             * can try to play the pipeline.
+             *
+             * To create a sub-pipeline (bin) for embedding into an existing pipeline
+             * use gst_parse_bin_from_description().
+             * @throws {GLib.Error}
+             * @param pipeline_description the command line describing the pipeline
+             * @returns a new element on success, %NULL on   failure. If more than one toplevel element is specified by the   `pipeline_description`, all elements are put into a #GstPipeline, which   than is returned.
+             */
+            parse_launch(pipeline_description: string): Element
+            /**
+             * Create a new pipeline based on command line syntax.
+             * Please note that you might get a return value that is not %NULL even though
+             * the @error is set. In this case there was a recoverable parsing error and you
+             * can try to play the pipeline.
+             *
+             * To create a sub-pipeline (bin) for embedding into an existing pipeline
+             * use gst_parse_bin_from_description_full().
+             * @throws {GLib.Error}
+             * @param pipeline_description the command line describing the pipeline
+             * @param context a parse context allocated with
+                 gst_parse_context_new(), or %NULL
+             * @param flags parsing options, or #GST_PARSE_FLAG_NONE
+             * @returns a new element on success, %NULL on    failure. If more than one toplevel element is specified by the    `pipeline_description`, all elements are put into a #GstPipeline, which    then is returned (unless the GST_PARSE_FLAG_PLACE_IN_BIN flag is set, in    which case they are put in a #GstBin instead).
+             */
+            parse_launch_full(pipeline_description: string, context: ParseContext | null, flags: ParseFlags): Element
+            /**
+             * Create a new element based on command line syntax.
+             * @error will contain an error message if an erroneous pipeline is specified.
+             * An error does not mean that the pipeline could not be constructed.
+             * @throws {GLib.Error}
+             * @param argv null-terminated array of arguments
+             * @returns a new element on success and %NULL on failure.
+             */
+            parse_launchv(argv: string[]): Element
+            /**
+             * Create a new element based on command line syntax.
+             * @error will contain an error message if an erroneous pipeline is specified.
+             * An error does not mean that the pipeline could not be constructed.
+             * @throws {GLib.Error}
+             * @param argv null-terminated array of arguments
+             * @param context a parse context allocated with
+                gst_parse_context_new(), or %NULL
+             * @param flags parsing options, or #GST_PARSE_FLAG_NONE
+             * @returns a new element on success; on   failure, either %NULL or a partially-constructed bin or element will be   returned and `error` will be set (unless you passed   #GST_PARSE_FLAG_FATAL_ERRORS in `flags`, then %NULL will always be returned   on failure)
+             */
+            parse_launchv_full(argv: string[], context: ParseContext | null, flags: ParseFlags): Element
+            /**
+             * Get the error quark.
+             * @returns The error quark used in GError messages
+             */
+            plugin_error_quark(): GLib.Quark
+            /**
+             * Gets the directory for application specific presets if set by the
+             * application.
+             * @returns the directory or %NULL, don't free or modify the string
+             */
+            preset_get_app_dir(): string | null
+            /**
+             * Sets an extra directory as an absolute path that should be considered when
+             * looking for presets. Any presets in the application dir will shadow the
+             * system presets.
+             * @param app_dir the application specific preset dir
+             * @returns %TRUE for success, %FALSE if the dir already has been set
+             */
+            preset_set_app_dir(app_dir: string): boolean
+            /**
+             * Iterates the supplied list of UUIDs and checks the GstRegistry for
+             * all the decryptors supporting one of the supplied UUIDs.
+             * @since 1.14
+             * @param system_identifiers 
+            A null terminated array of strings that contains the UUID values of each
+            protection system that is to be checked.
+             * @returns  A null terminated array containing all the `system_identifiers` supported by the set of available decryptors, or %NULL if no matches were found.
+             */
+            protection_filter_systems_by_available_decryptors(system_identifiers: string[]): string[] | null
+            /**
+             */
+            protection_meta_api_get_type(): GObject.GType
+            /**
+             */
+            protection_meta_get_info(): MetaInfo
+            /**
+             * Iterates the supplied list of UUIDs and checks the GstRegistry for
+             * an element that supports one of the supplied UUIDs. If more than one
+             * element matches, the system ID of the highest ranked element is selected.
+             * @since 1.6
+             * @param system_identifiers A null terminated array of strings
+            that contains the UUID values of each protection system that is to be
+            checked.
+             * @returns One of the strings from `system_identifiers` that indicates the highest ranked element that implements the protection system indicated by that system ID, or %NULL if no element has been found.
+             */
+            protection_select_system(system_identifiers: string[]): string | null
+            /**
+             * Modifies a pointer to a #GstQuery to point to a different #GstQuery. This
+             * function is similar to gst_query_replace() except that it takes ownership of
+             * @new_query.
+             *
+             * Either @new_query or the #GstQuery pointed to by @old_query may be %NULL.
+             * @since 1.16
+             * @param new_query pointer to a #GstQuery that will
+                replace the query pointed to by @old_query.
+             * @returns %TRUE if `new_query` was different from `old_query`, pointer to a     pointer to a #GstQuery to be stolen.
+             */
+            query_take(new_query: Query | null): [boolean, Query | null]
+            /**
+             * Gets the #GstQueryTypeFlags associated with @type.
+             * @param type a #GstQueryType
+             * @returns a #GstQueryTypeFlags.
+             */
+            query_type_get_flags(type: QueryType): QueryTypeFlags
+            /**
+             * Get a printable name for the given query type. Do not modify or free.
+             * @param type the query type
+             * @returns a reference to the static name of the query.
+             */
+            query_type_get_name(type: QueryType): string
+            /**
+             * Get the unique quark for the given query type.
+             * @param type the query type
+             * @returns the quark associated with the query type
+             */
+            query_type_to_quark(type: QueryType): GLib.Quark
+            /**
+             */
+            reference_timestamp_meta_api_get_type(): GObject.GType
+            /**
+             * Gets the global #GstMetaInfo describing the #GstReferenceTimestampMeta meta.
+             * @since 1.14
+             * @returns The #GstMetaInfo
+             */
+            reference_timestamp_meta_get_info(): MetaInfo
+            /**
+             */
+            resource_error_quark(): GLib.Quark
+            /**
+             * Some functions in the GStreamer core might install a custom SIGSEGV handler
+             * to better catch and report errors to the application. Currently this feature
+             * is enabled by default when loading plugins.
+             *
+             * Applications might want to disable this behaviour with the
+             * gst_segtrap_set_enabled() function. This is typically done if the application
+             * wants to install its own handler without GStreamer interfering.
+             * @returns %TRUE if GStreamer is allowed to install a custom SIGSEGV handler.
+             */
+            segtrap_is_enabled(): boolean
+            /**
+             * Applications might want to disable/enable the SIGSEGV handling of
+             * the GStreamer core. See gst_segtrap_is_enabled() for more information.
+             * @param enabled whether a custom SIGSEGV handler should be installed.
+             */
+            segtrap_set_enabled(enabled: boolean): void
+            /**
+             * Gets a string representing the given state transition.
+             * @since 1.14
+             * @param transition a #GstStateChange to get the name of.
+             * @returns a string with the name of the state    result.
+             */
+            state_change_get_name(transition: StateChange): string
+            /**
+             */
+            stream_error_quark(): GLib.Quark
+            /**
+             * Get a descriptive string for a given #GstStreamType
+             * @since 1.10
+             * @param stype a #GstStreamType
+             * @returns A string describing the stream type
+             */
+            stream_type_get_name(stype: StreamType): string
+            /**
+             * Atomically modifies a pointer to point to a new structure.
+             * The #GstStructure @oldstr_ptr is pointing to is freed and
+             * @newstr is taken ownership over.
+             *
+             * Either @newstr and the value pointed to by @oldstr_ptr may be %NULL.
+             *
+             * It is a programming error if both @newstr and the value pointed to by
+             * @oldstr_ptr refer to the same, non-%NULL structure.
+             * @since 1.18
+             * @param newstr a new #GstStructure
+             * @returns %TRUE if `newstr` was different from `oldstr_ptr`, pointer to a place of     a #GstStructure to take
+             */
+            structure_take(newstr: Structure | null): [boolean, Structure | null]
+            /**
+             * Checks if the given type is already registered.
+             * @param tag name of the tag
+             * @returns %TRUE if the type is already registered
+             */
+            tag_exists(tag: string): boolean
+            /**
+             * Returns the human-readable description of this tag, You must not change or
+             * free this string.
+             * @param tag the tag
+             * @returns the human-readable description of this tag
+             */
+            tag_get_description(tag: string): string
+            /**
+             * Gets the flag of @tag.
+             * @param tag the tag
+             * @returns the flag of this tag.
+             */
+            tag_get_flag(tag: string): TagFlag
+            /**
+             * Returns the human-readable name of this tag, You must not change or free
+             * this string.
+             * @param tag the tag
+             * @returns the human-readable name of this tag
+             */
+            tag_get_nick(tag: string): string
+            /**
+             * Gets the #GType used for this tag.
+             * @param tag the tag
+             * @returns the #GType of this tag
+             */
+            tag_get_type(tag: string): GObject.GType
+            /**
+             * Checks if the given tag is fixed. A fixed tag can only contain one value.
+             * Unfixed tags can contain lists of values.
+             * @param tag tag to check
+             * @returns %TRUE, if the given tag is fixed.
+             */
+            tag_is_fixed(tag: string): boolean
+            /**
+             * Copies the contents for the given tag into the value,
+             * merging multiple values into one if multiple values are associated
+             * with the tag.
+             * You must g_value_unset() the value after use.
+             * @param list list to get the tag from
+             * @param tag tag to read out
+             * @returns %TRUE, if a value was copied, %FALSE if the tag didn't exist in the          given list., uninitialized #GValue to copy into
+             */
+            tag_list_copy_value(list: TagList, tag: string): [boolean, unknown]
+            /**
+             * Modifies a pointer to a #GstTagList to point to a different #GstTagList. The
+             * modification is done atomically (so this is useful for ensuring thread
+             * safety in some cases), and the reference counts are updated appropriately
+             * (the old tag list is unreffed, the new is reffed).
+             *
+             * Either @new_taglist or the #GstTagList pointed to by @old_taglist may be
+             * %NULL.
+             * @since 1.16
+             * @param new_taglist pointer to a #GstTagList that
+                will replace the tag list pointed to by @old_taglist.
+             * @returns %TRUE if `new_taglist` was different from `old_taglist`, pointer to a pointer to a     #GstTagList to be replaced.
+             */
+            tag_list_replace(new_taglist: TagList | null): [boolean, TagList | null]
+            /**
+             * Modifies a pointer to a #GstTagList to point to a different #GstTagList.
+             * This function is similar to gst_tag_list_replace() except that it takes
+             * ownership of @new_taglist.
+             * @since 1.16
+             * @param new_taglist pointer to a #GstTagList that
+                will replace the taglist pointed to by @old_taglist.
+             * @returns %TRUE if `new_taglist` was different from `old_taglist`, pointer to a pointer to a #GstTagList     to be replaced.
+             */
+            tag_list_take(new_taglist: TagList | null): [boolean, TagList]
+            /**
+             * This is a convenience function for the func argument of gst_tag_register().
+             * It concatenates all given strings using a comma. The tag must be registered
+             * as a G_TYPE_STRING or this function will fail.
+             * @param src GValue to copy from
+             * @returns , uninitialized GValue to store result in
+             */
+            tag_merge_strings_with_comma(src: (GObject.Value | unknown)): unknown
+            /**
+             * This is a convenience function for the func argument of gst_tag_register().
+             * It creates a copy of the first value from the list.
+             * @param src GValue to copy from
+             * @returns , uninitialized GValue to store result in
+             */
+            tag_merge_use_first(src: (GObject.Value | unknown)): unknown
+            /**
+             * Converts @type to a string representation.
+             * @param type a #GstTocEntryType.
+             * @returns Returns a human-readable string for `type`. This string is    only for debugging purpose and should not be displayed in a user    interface.
+             */
+            toc_entry_type_get_nick(type: TocEntryType): string
+            /**
+             * Get a list of all active tracer objects owned by the tracing framework for
+             * the entirety of the run-time of the process or till gst_deinit() is called.
+             * @since 1.18
+             * @returns A #GList of #GstTracer objects
+             */
+            tracing_get_active_tracers(): Tracer[]
+            /**
+             * Register @func to be called when the trace hook @detail is getting invoked.
+             * Use %NULL for @detail to register to all hooks.
+             * @since 1.8
+             * @param tracer the tracer
+             * @param detail the detailed hook
+             * @param func the callback
+             */
+            tracing_register_hook(tracer: Tracer, detail: string, func: GObject.Callback): void
+            /**
+             * Registers a new typefind function to be used for typefinding. After
+             * registering this function will be available for typefinding.
+             * This function is typically called during an element's plugin initialization.
+             * @param plugin A #GstPlugin, or %NULL for a static typefind function
+             * @param name The name for registering
+             * @param rank The rank (or importance) of this typefind function
+             * @param func The #GstTypeFindFunction to use
+             * @param extensions Optional comma-separated list of extensions
+                that could belong to this type
+             * @param possible_caps Optionally the caps that could be returned when typefinding
+                            succeeds
+             * @returns %TRUE on success, %FALSE otherwise
+             */
+            type_find_register(plugin: Plugin | null, name: string, rank: number, func: TypeFindFunction, extensions: string | null, possible_caps: Caps | null): boolean
+            /**
+             * Checks if @type is plugin API. See gst_type_mark_as_plugin_api() for
+             * details.
+             * @since 1.18
+             * @param type a GType
+             * @returns %TRUE if `type` is plugin API or %FALSE otherwise., What #GstPluginAPIFlags the plugin was marked with
+             */
+            type_is_plugin_api(type: (GObject.GType | { $gtype: GObject.GType })): [boolean, PluginAPIFlags]
+            /**
+             * Marks @type as plugin API. This should be called in `class_init` of
+             * elements that expose new types (i.e. enums, flags or internal GObjects) via
+             * properties, signals or pad templates.
+             *
+             * Types exposed by plugins are not automatically added to the documentation
+             * as they might originate from another library and should in that case be
+             * documented via that library instead.
+             *
+             * By marking a type as plugin API it will be included in the documentation of
+             * the plugin that defines it.
+             * @since 1.18
+             * @param type a GType
+             * @param flags a set of #GstPluginAPIFlags to further inform cache generation.
+             */
+            type_mark_as_plugin_api(type: (GObject.GType | { $gtype: GObject.GType }), flags: PluginAPIFlags): void
+            /**
+             * Forces GStreamer to re-scan its plugin paths and update the default
+             * plugin registry.
+             *
+             * Applications will almost never need to call this function, it is only
+             * useful if the application knows new plugins have been installed (or old
+             * ones removed) since the start of the application (or, to be precise, the
+             * first call to gst_init()) and the application wants to make use of any
+             * newly-installed plugins without restarting the application.
+             *
+             * Applications should assume that the registry update is neither atomic nor
+             * thread-safe and should therefore not have any dynamic pipelines running
+             * (including the playbin and decodebin elements) and should also not create
+             * any elements or access the GStreamer registry while the update is in
+             * progress.
+             *
+             * Note that this function may block for a significant amount of time.
+             * @returns %TRUE if the registry has been updated successfully (does not          imply that there were changes), otherwise %FALSE.
+             */
+            update_registry(): boolean
+            /**
+             * Constructs a URI for a given valid protocol and location.
+             *
+             * Free-function: g_free
+             * @deprecated Use GstURI instead.
+             * @param protocol Protocol for URI
+             * @param location Location for URI
+             * @returns a new string for this URI.
+             */
+            uri_construct(protocol: string, location: string): string
+            /**
+             */
+            uri_error_quark(): GLib.Quark
+            /**
+             * Parses a URI string into a new #GstUri object. Will return NULL if the URI
+             * cannot be parsed.
+             * @since 1.6
+             * @param uri The URI string to parse.
+             * @returns A new #GstUri object, or NULL.
+             */
+            uri_from_string(uri: string): Uri | null
+            /**
+             * Parses a URI string into a new #GstUri object. Will return NULL if the URI
+             * cannot be parsed. This is identical to gst_uri_from_string() except that
+             * the userinfo and fragment components of the URI will not be unescaped while
+             * parsing.
+             *
+             * Use this when you need to extract a username and password from the userinfo
+             * such as https://user:password@example.com since either may contain
+             * a URI-escaped ':' character. gst_uri_from_string() will unescape the entire
+             * userinfo component, which will make it impossible to know which ':'
+             * delineates the username and password.
+             *
+             * The same applies to the fragment component of the URI, such as
+             * https://example.com/path#fragment which may contain a URI-escaped '#'.
+             * @since 1.18
+             * @param uri The URI string to parse.
+             * @returns A new #GstUri object, or NULL.
+             */
+            uri_from_string_escaped(uri: string): Uri | null
+            /**
+             * Extracts the location out of a given valid URI, ie. the protocol and "://"
+             * are stripped from the URI, which means that the location returned includes
+             * the hostname if one is specified. The returned string must be freed using
+             * g_free().
+             *
+             * Free-function: g_free
+             * @param uri A URI string
+             * @returns the location for this URI. Returns     %NULL if the URI isn't valid. If the URI does not contain a location, an     empty string is returned.
+             */
+            uri_get_location(uri: string): string | null
+            /**
+             * Extracts the protocol out of a given valid URI. The returned string must be
+             * freed using g_free().
+             * @param uri A URI string
+             * @returns The protocol for this URI.
+             */
+            uri_get_protocol(uri: string): string | null
+            /**
+             * Checks if the protocol of a given valid URI matches @protocol.
+             * @param uri a URI string
+             * @param protocol a protocol string (e.g. "http")
+             * @returns %TRUE if the protocol matches.
+             */
+            uri_has_protocol(uri: string, protocol: string): boolean
+            /**
+             * Tests if the given string is a valid URI identifier. URIs start with a valid
+             * scheme followed by ":" and maybe a string identifying the location.
+             * @param uri A URI string
+             * @returns %TRUE if the string is a valid URI
+             */
+            uri_is_valid(uri: string): boolean
+            /**
+             * This is a convenience function to join two URI strings and return the result.
+             * The returned string should be g_free()'d after use.
+             * @since 1.6
+             * @param base_uri The percent-encoded base URI.
+             * @param ref_uri The percent-encoded reference URI to join to the @base_uri.
+             * @returns A string representing the percent-encoded join of          the two URIs.
+             */
+            uri_join_strings(base_uri: string, ref_uri: string): string | null
+            /**
+             * Checks if an element exists that supports the given URI protocol. Note
+             * that a positive return value does not imply that a subsequent call to
+             * gst_element_make_from_uri() is guaranteed to work.
+             * @param type Whether to check for a source or a sink
+             * @param protocol Protocol that should be checked for (e.g. "http" or "smb")
+             * @returns %TRUE
+             */
+            uri_protocol_is_supported(type: URIType, protocol: string): boolean
+            /**
+             * Tests if the given string is a valid protocol identifier. Protocols
+             * must consist of alphanumeric characters, '+', '-' and '.' and must
+             * start with a alphabetic character. See RFC 3986 Section 3.1.
+             * @param protocol A string
+             * @returns %TRUE if the string is a valid protocol identifier, %FALSE otherwise.
+             */
+            uri_protocol_is_valid(protocol: string): boolean
+            /**
+             * Searches inside @array for @search_data by using the comparison function
+             * @search_func. @array must be sorted ascending.
+             *
+             * As @search_data is always passed as second argument to @search_func it's
+             * not required that @search_data has the same type as the array elements.
+             *
+             * The complexity of this search function is O(log (num_elements)).
+             * @param array the sorted input array
+             * @param num_elements number of elements in the array
+             * @param element_size size of every element in bytes
+             * @param search_func function to compare two
+               elements, @search_data will always be passed as second argument
+             * @param mode search mode that should be used
+             * @param search_data element that should be found
+             * @returns The address of the found element or %NULL if nothing was found
+             */
+            util_array_binary_search(array: never | null, num_elements: number, element_size: number, search_func: GLib.CompareDataFunc, mode: SearchMode, search_data: never | null): never | null
+            /**
+             * Returns smallest integral value not less than log2(v).
+             * @since 1.24
+             * @param v a #guint32 value.
+             * @returns a computed #guint val.
+             */
+            util_ceil_log2(v: number): number
+            /**
+             * Transforms a #gdouble to a fraction and simplifies
+             * the result.
+             * @param src #gdouble to transform
+             * @returns , pointer to a #gint to hold the result numerator, pointer to a #gint to hold the result denominator
+             */
+            util_double_to_fraction(src: number): [number, number]
+            /**
+             * Dumps the buffer memory into a hex representation. Useful for debugging.
+             * @since 1.14
+             * @param buf a #GstBuffer whose memory to dump
+             */
+            util_dump_buffer(buf: Buffer): void
+            /**
+             * Dumps the memory block into a hex representation. Useful for debugging.
+             * @param mem a pointer to the memory to dump
+             */
+            util_dump_mem(mem: Uint8Array): void
+            /**
+             * Compares the given filenames using natural ordering.
+             * @since 1.24
+             * @param a a filename to compare with @b
+             * @param b a filename to compare with @a
+             */
+            util_filename_compare(a: string, b: string): number
+            /**
+             * Returns smallest integral value not bigger than log2(v).
+             * @since 1.26
+             * @param v a #guint32 value.
+             * @returns a computed #guint val.
+             */
+            util_floor_log2(v: number): number
+            /**
+             * Adds the fractions @a_n/@a_d and @b_n/@b_d and stores
+             * the result in @res_n and @res_d.
+             * @param a_n Numerator of first value
+             * @param a_d Denominator of first value
+             * @param b_n Numerator of second value
+             * @param b_d Denominator of second value
+             * @returns %FALSE on overflow, %TRUE otherwise., Pointer to #gint to hold the result numerator, Pointer to #gint to hold the result denominator
+             */
+            util_fraction_add(a_n: number, a_d: number, b_n: number, b_d: number): [boolean, number, number]
+            /**
+             * Compares the fractions @a_n/@a_d and @b_n/@b_d and returns
+             * -1 if a < b, 0 if a = b and 1 if a > b.
+             * @param a_n Numerator of first value
+             * @param a_d Denominator of first value
+             * @param b_n Numerator of second value
+             * @param b_d Denominator of second value
+             * @returns -1 if a < b; 0 if a = b; 1 if a > b.
+             */
+            util_fraction_compare(a_n: number, a_d: number, b_n: number, b_d: number): number
+            /**
+             * Multiplies the fractions @a_n/@a_d and @b_n/@b_d and stores
+             * the result in @res_n and @res_d.
+             * @param a_n Numerator of first value
+             * @param a_d Denominator of first value
+             * @param b_n Numerator of second value
+             * @param b_d Denominator of second value
+             * @returns %FALSE on overflow, %TRUE otherwise., Pointer to #gint to hold the result numerator, Pointer to #gint to hold the result denominator
+             */
+            util_fraction_multiply(a_n: number, a_d: number, b_n: number, b_d: number): [boolean, number, number]
+            /**
+             * Multiplies the fractions @a_n/@a_d and @b_n/@b_d and stores
+             * the result in @res_n and @res_d.
+             * @since 1.26
+             * @param a_n Numerator of first value
+             * @param a_d Denominator of first value
+             * @param b_n Numerator of second value
+             * @param b_d Denominator of second value
+             * @returns %FALSE on overflow, %TRUE otherwise., Pointer to #gint to hold the result numerator, Pointer to #gint to hold the result denominator
+             */
+            util_fraction_multiply_int64(a_n: number, a_d: number, b_n: number, b_d: number): [boolean, number, number]
+            /**
+             * Transforms a fraction to a #gdouble.
+             * @param src_n Fraction numerator as #gint
+             * @param src_d Fraction denominator #gint
+             * @returns , pointer to a #gdouble for the result
+             */
+            util_fraction_to_double(src_n: number, src_d: number): number
+            /**
+             * @param value The #gdouble value to convert guint64 double
+             * @returns  `value` casted to #guint64
+             */
+            util_gdouble_to_guint64(value: number): number
+            /**
+             * Get a property of type %GST_TYPE_ARRAY and transform it into a
+             * #GValueArray. This allow language bindings to get GST_TYPE_ARRAY
+             * properties which are otherwise not an accessible type.
+             * @since 1.12
+             * @param object the object to set the array to
+             * @param name the name of the property to set
+             * @returns , a return #GValueArray
+             */
+            util_get_object_array(object: GObject.Object, name: string): [boolean, GObject.ValueArray]
+            /**
+             * Get a timestamp as GstClockTime to be used for interval measurements.
+             * The timestamp should not be interpreted in any other way.
+             * @returns the timestamp
+             */
+            util_get_timestamp(): ClockTime
+            /**
+             * Calculates the greatest common divisor of @a
+             * and @b.
+             * @param a First value as #gint
+             * @param b Second value as #gint
+             * @returns Greatest common divisor of `a` and `b`
+             */
+            util_greatest_common_divisor(a: number, b: number): number
+            /**
+             * Calculates the greatest common divisor of @a
+             * and @b.
+             * @param a First value as #gint64
+             * @param b Second value as #gint64
+             * @returns Greatest common divisor of `a` and `b`
+             */
+            util_greatest_common_divisor_int64(a: number, b: number): number
+            /**
+             * Return a constantly incrementing group id.
+             *
+             * This function is used to generate a new group-id for the
+             * stream-start event.
+             *
+             * This function never returns %GST_GROUP_ID_INVALID (which is 0)
+             * @returns A constantly incrementing unsigned integer, which might overflow back to 0 at some point.
+             */
+            util_group_id_next(): number
+            /**
+             * @param value The #guint64 value to convert to double
+             * @returns  `value` casted to #gdouble
+             */
+            util_guint64_to_gdouble(value: number): number
+            /**
+             * Compare two sequence numbers, handling wraparound.
+             *
+             * The current implementation just returns (gint32)(@s1 - @s2).
+             * @param s1 A sequence number.
+             * @param s2 Another sequence number.
+             * @returns A negative number if `s1` is before `s2`, 0 if they are equal, or a positive number if `s1` is after `s2`.
+             */
+            util_seqnum_compare(s1: number, s2: number): number
+            /**
+             * Return a constantly incrementing sequence number.
+             *
+             * This function is used internally to GStreamer to be able to determine which
+             * events and messages are "the same". For example, elements may set the seqnum
+             * on a segment-done message to be the same as that of the last seek event, to
+             * indicate that event and the message correspond to the same segment.
+             *
+             * This function never returns %GST_SEQNUM_INVALID (which is 0).
+             * @returns A constantly incrementing 32-bit unsigned integer, which might overflow at some point. Use gst_util_seqnum_compare() to make sure you handle wraparound correctly.
+             */
+            util_seqnum_next(): number
+            /**
+             * Converts the string value to the type of the objects argument and
+             * sets the argument with it.
+             *
+             * Note that this function silently returns if @object has no property named
+             * @name or when @value cannot be converted to the type of the property.
+             * @param object the object to set the argument of
+             * @param name the name of the argument to set
+             * @param value the string value to set
+             */
+            util_set_object_arg(object: GObject.Object, name: string, value: string): void
+            /**
+             * Transfer a #GValueArray to %GST_TYPE_ARRAY and set this value on the
+             * specified property name. This allow language bindings to set GST_TYPE_ARRAY
+             * properties which are otherwise not an accessible type.
+             * @since 1.12
+             * @param object the object to set the array to
+             * @param name the name of the property to set
+             * @param array a #GValueArray containing the values
+             */
+            util_set_object_array(object: GObject.Object, name: string, array: GObject.ValueArray): boolean
+            /**
+             * Converts the string to the type of the value and
+             * sets the value with it.
+             *
+             * Note that this function is dangerous as it does not return any indication
+             * if the conversion worked or not.
+             * @param value_str the string to get the value from
+             * @returns , the value to set
+             */
+            util_set_value_from_string(value_str: string): unknown
+            /**
+             * Calculates the simpler representation of @numerator and @denominator and
+             * update both values with the resulting simplified fraction.
+             *
+             * Simplify a fraction using a simple continued fraction decomposition.
+             * The idea here is to convert fractions such as 333333/10000000 to 1/30
+             * using 32 bit arithmetic only. The algorithm is not perfect and relies
+             * upon two arbitrary parameters to remove non-significative terms from
+             * the simple continued fraction decomposition. Using 8 and 333 for
+             * @n_terms and @threshold respectively seems to give nice results.
+             * @since 1.24
+             * @param numerator First value as #gint
+             * @param denominator Second value as #gint
+             * @param n_terms non-significative terms (typical value: 8)
+             * @param threshold threshold (typical value: 333)
+             */
+            util_simplify_fraction(numerator: number, denominator: number, n_terms: number, threshold: number): void
+            /**
+             * Scale @val by the rational number @num / @denom, avoiding overflows and
+             * underflows and without loss of precision.
+             *
+             * This function can potentially be very slow if val and num are both
+             * greater than G_MAXUINT32.
+             * @param val the number to scale
+             * @param num the numerator of the scale ratio
+             * @param denom the denominator of the scale ratio
+             * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer it is truncated.  See also gst_util_uint64_scale_round(), gst_util_uint64_scale_ceil(), gst_util_uint64_scale_int(), gst_util_uint64_scale_int_round(), gst_util_uint64_scale_int_ceil().
+             */
+            util_uint64_scale(val: number, num: number, denom: number): number
+            /**
+             * Scale @val by the rational number @num / @denom, avoiding overflows and
+             * underflows and without loss of precision.
+             *
+             * This function can potentially be very slow if val and num are both
+             * greater than G_MAXUINT32.
+             * @param val the number to scale
+             * @param num the numerator of the scale ratio
+             * @param denom the denominator of the scale ratio
+             * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer, it is rounded up.  See also gst_util_uint64_scale(), gst_util_uint64_scale_round(), gst_util_uint64_scale_int(), gst_util_uint64_scale_int_round(), gst_util_uint64_scale_int_ceil().
+             */
+            util_uint64_scale_ceil(val: number, num: number, denom: number): number
+            /**
+             * Scale @val by the rational number @num / @denom, avoiding overflows and
+             * underflows and without loss of precision.  @num must be non-negative and
+             * @denom must be positive.
+             * @param val guint64 (such as a #GstClockTime) to scale.
+             * @param num numerator of the scale factor.
+             * @param denom denominator of the scale factor.
+             * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer, it is truncated.  See also gst_util_uint64_scale_int_round(), gst_util_uint64_scale_int_ceil(), gst_util_uint64_scale(), gst_util_uint64_scale_round(), gst_util_uint64_scale_ceil().
+             */
+            util_uint64_scale_int(val: number, num: number, denom: number): number
+            /**
+             * Scale @val by the rational number @num / @denom, avoiding overflows and
+             * underflows and without loss of precision.  @num must be non-negative and
+             * @denom must be positive.
+             * @param val guint64 (such as a #GstClockTime) to scale.
+             * @param num numerator of the scale factor.
+             * @param denom denominator of the scale factor.
+             * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer, it is rounded up.  See also gst_util_uint64_scale_int(), gst_util_uint64_scale_int_round(), gst_util_uint64_scale(), gst_util_uint64_scale_round(), gst_util_uint64_scale_ceil().
+             */
+            util_uint64_scale_int_ceil(val: number, num: number, denom: number): number
+            /**
+             * Scale @val by the rational number @num / @denom, avoiding overflows and
+             * underflows and without loss of precision.  @num must be non-negative and
+             * @denom must be positive.
+             * @param val guint64 (such as a #GstClockTime) to scale.
+             * @param num numerator of the scale factor.
+             * @param denom denominator of the scale factor.
+             * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer, it is rounded to the nearest integer (half-way cases are rounded up).  See also gst_util_uint64_scale_int(), gst_util_uint64_scale_int_ceil(), gst_util_uint64_scale(), gst_util_uint64_scale_round(), gst_util_uint64_scale_ceil().
+             */
+            util_uint64_scale_int_round(val: number, num: number, denom: number): number
+            /**
+             * Scale @val by the rational number @num / @denom, avoiding overflows and
+             * underflows and without loss of precision.
+             *
+             * This function can potentially be very slow if val and num are both
+             * greater than G_MAXUINT32.
+             * @param val the number to scale
+             * @param num the numerator of the scale ratio
+             * @param denom the denominator of the scale ratio
+             * @returns  `val` * `num` / `denom`.  In the case of an overflow, this function returns G_MAXUINT64.  If the result is not exactly representable as an integer, it is rounded to the nearest integer (half-way cases are rounded up).  See also gst_util_uint64_scale(), gst_util_uint64_scale_ceil(), gst_util_uint64_scale_int(), gst_util_uint64_scale_int_round(), gst_util_uint64_scale_int_ceil().
+             */
+            util_uint64_scale_round(val: number, num: number, denom: number): number
+            /**
+             * Determines if @value1 and @value2 can be compared.
+             * @param value1 a value to compare
+             * @param value2 another value to compare
+             * @returns %TRUE if the values can be compared
+             */
+            value_can_compare(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): boolean
+            /**
+             * Determines if intersecting two values will produce a valid result.
+             * Two values will produce a valid intersection if they have the same
+             * type.
+             * @param value1 a value to intersect
+             * @param value2 another value to intersect
+             * @returns %TRUE if the values can intersect
+             */
+            value_can_intersect(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): boolean
+            /**
+             * Checks if it's possible to subtract @subtrahend from @minuend.
+             * @param minuend the value to subtract from
+             * @param subtrahend the value to subtract
+             * @returns %TRUE if a subtraction is possible
+             */
+            value_can_subtract(minuend: (GObject.Value | unknown), subtrahend: (GObject.Value | unknown)): boolean
+            /**
+             * Determines if @value1 and @value2 can be non-trivially unioned.
+             * Any two values can be trivially unioned by adding both of them
+             * to a GstValueList.  However, certain types have the possibility
+             * to be unioned in a simpler way.  For example, an integer range
+             * and an integer can be unioned if the integer is a subset of the
+             * integer range.  If there is the possibility that two values can
+             * be unioned, this function returns %TRUE.
+             * @param value1 a value to union
+             * @param value2 another value to union
+             * @returns %TRUE if there is a function allowing the two values to be unioned.
+             */
+            value_can_union(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): boolean
+            /**
+             * Compares @value1 and @value2.  If @value1 and @value2 cannot be
+             * compared, the function returns GST_VALUE_UNORDERED.  Otherwise,
+             * if @value1 is greater than @value2, GST_VALUE_GREATER_THAN is returned.
+             * If @value1 is less than @value2, GST_VALUE_LESS_THAN is returned.
+             * If the values are equal, GST_VALUE_EQUAL is returned.
+             * @param value1 a value to compare
+             * @param value2 another value to compare
+             * @returns comparison result
+             */
+            value_compare(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): number
+            /**
+             * Tries to deserialize a string into the type specified by the given GValue.
+             * If the operation succeeds, %TRUE is returned, %FALSE otherwise.
+             * @param src string to deserialize
+             * @returns %TRUE on success, #GValue to fill with contents of     deserialization
+             */
+            value_deserialize(src: string): [boolean, unknown]
+            /**
+             * Tries to deserialize a string into the type specified by the given GValue.
+             * @pspec may be used to guide the deserializing of nested members.
+             * If the operation succeeds, %TRUE is returned, %FALSE otherwise.
+             * @since 1.20
+             * @param src string to deserialize
+             * @param pspec the #GParamSpec describing the expected value
+             * @returns %TRUE on success, #GValue to fill with contents of     deserialization
+             */
+            value_deserialize_with_pspec(src: string, pspec: GObject.ParamSpec | null): [boolean, unknown]
+            /**
+             * Fixate @src into a new value @dest.
+             * For ranges, the first element is taken. For lists and arrays, the
+             * first item is fixated and returned.
+             * If @src is already fixed, this function returns %FALSE.
+             * @param dest the #GValue destination
+             * @param src the #GValue to fixate
+             * @returns %TRUE if `dest` contains a fixated version of `src`.
+             */
+            value_fixate(dest: (GObject.Value | unknown), src: (GObject.Value | unknown)): boolean
+            /**
+             * Multiplies the two #GValue items containing a #GST_TYPE_FRACTION and sets
+             * @product to the product of the two fractions.
+             * @param product a GValue initialized to #GST_TYPE_FRACTION
+             * @param factor1 a GValue initialized to #GST_TYPE_FRACTION
+             * @param factor2 a GValue initialized to #GST_TYPE_FRACTION
+             * @returns %FALSE in case of an error (like integer overflow), %TRUE otherwise.
+             */
+            value_fraction_multiply(product: (GObject.Value | unknown), factor1: (GObject.Value | unknown), factor2: (GObject.Value | unknown)): boolean
+            /**
+             * Subtracts the @subtrahend from the @minuend and sets @dest to the result.
+             * @param dest a GValue initialized to #GST_TYPE_FRACTION
+             * @param minuend a GValue initialized to #GST_TYPE_FRACTION
+             * @param subtrahend a GValue initialized to #GST_TYPE_FRACTION
+             * @returns %FALSE in case of an error (like integer overflow), %TRUE otherwise.
+             */
+            value_fraction_subtract(dest: (GObject.Value | unknown), minuend: (GObject.Value | unknown), subtrahend: (GObject.Value | unknown)): boolean
+            /**
+             * Gets the bitmask specified by @value.
+             * @param value a GValue initialized to #GST_TYPE_BITMASK
+             * @returns the bitmask.
+             */
+            value_get_bitmask(value: (GObject.Value | unknown)): number
+            /**
+             * Gets the contents of @value. The reference count of the returned
+             * #GstCaps will not be modified, therefore the caller must take one
+             * before getting rid of the @value.
+             * @param value a GValue initialized to GST_TYPE_CAPS
+             * @returns the contents of `value`
+             */
+            value_get_caps(value: (GObject.Value | unknown)): Caps
+            /**
+             * Gets the contents of @value.
+             * @param value a GValue initialized to GST_TYPE_CAPS_FEATURES
+             * @returns the contents of `value`
+             */
+            value_get_caps_features(value: (GObject.Value | unknown)): CapsFeatures
+            /**
+             * Gets the maximum of the range specified by @value.
+             * @param value a GValue initialized to GST_TYPE_DOUBLE_RANGE
+             * @returns the maximum of the range
+             */
+            value_get_double_range_max(value: (GObject.Value | unknown)): number
+            /**
+             * Gets the minimum of the range specified by @value.
+             * @param value a GValue initialized to GST_TYPE_DOUBLE_RANGE
+             * @returns the minimum of the range
+             */
+            value_get_double_range_min(value: (GObject.Value | unknown)): number
+            /**
+             * Retrieve the flags field of a GstFlagSet @value.
+             * @since 1.6
+             * @param value a GValue initialized to #GST_TYPE_FLAG_SET
+             * @returns the flags field of the flagset instance.
+             */
+            value_get_flagset_flags(value: (GObject.Value | unknown)): number
+            /**
+             * Retrieve the mask field of a GstFlagSet @value.
+             * @since 1.6
+             * @param value a GValue initialized to #GST_TYPE_FLAG_SET
+             * @returns the mask field of the flagset instance.
+             */
+            value_get_flagset_mask(value: (GObject.Value | unknown)): number
+            /**
+             * Gets the denominator of the fraction specified by @value.
+             * @param value a GValue initialized to #GST_TYPE_FRACTION
+             * @returns the denominator of the fraction.
+             */
+            value_get_fraction_denominator(value: (GObject.Value | unknown)): number
+            /**
+             * Gets the numerator of the fraction specified by @value.
+             * @param value a GValue initialized to #GST_TYPE_FRACTION
+             * @returns the numerator of the fraction.
+             */
+            value_get_fraction_numerator(value: (GObject.Value | unknown)): number
+            /**
+             * Gets the maximum of the range specified by @value.
+             * @param value a GValue initialized to GST_TYPE_FRACTION_RANGE
+             * @returns the maximum of the range
+             */
+            value_get_fraction_range_max(value: (GObject.Value | unknown)): GObject.Value | null
+            /**
+             * Gets the minimum of the range specified by @value.
+             * @param value a GValue initialized to GST_TYPE_FRACTION_RANGE
+             * @returns the minimum of the range
+             */
+            value_get_fraction_range_min(value: (GObject.Value | unknown)): GObject.Value | null
+            /**
+             * Gets the maximum of the range specified by @value.
+             * @param value a GValue initialized to GST_TYPE_INT64_RANGE
+             * @returns the maximum of the range
+             */
+            value_get_int64_range_max(value: (GObject.Value | unknown)): number
+            /**
+             * Gets the minimum of the range specified by @value.
+             * @param value a GValue initialized to GST_TYPE_INT64_RANGE
+             * @returns the minimum of the range
+             */
+            value_get_int64_range_min(value: (GObject.Value | unknown)): number
+            /**
+             * Gets the step of the range specified by @value.
+             * @param value a GValue initialized to GST_TYPE_INT64_RANGE
+             * @returns the step of the range
+             */
+            value_get_int64_range_step(value: (GObject.Value | unknown)): number
+            /**
+             * Gets the maximum of the range specified by @value.
+             * @param value a GValue initialized to GST_TYPE_INT_RANGE
+             * @returns the maximum of the range
+             */
+            value_get_int_range_max(value: (GObject.Value | unknown)): number
+            /**
+             * Gets the minimum of the range specified by @value.
+             * @param value a GValue initialized to GST_TYPE_INT_RANGE
+             * @returns the minimum of the range
+             */
+            value_get_int_range_min(value: (GObject.Value | unknown)): number
+            /**
+             * Gets the step of the range specified by @value.
+             * @param value a GValue initialized to GST_TYPE_INT_RANGE
+             * @returns the step of the range
+             */
+            value_get_int_range_step(value: (GObject.Value | unknown)): number
+            /**
+             * Gets the contents of @value.
+             * @param value a GValue initialized to GST_TYPE_STRUCTURE
+             * @returns the contents of `value`
+             */
+            value_get_structure(value: (GObject.Value | unknown)): Structure
+            /**
+             * Initialises the target value to be of the same type as source and then copies
+             * the contents from source to target.
+             * @param src the source value
+             * @returns , the target value
+             */
+            value_init_and_copy(src: (GObject.Value | unknown)): unknown
+            /**
+             * Calculates the intersection of two values.  If the values have
+             * a non-empty intersection, the value representing the intersection
+             * is placed in @dest, unless %NULL.  If the intersection is non-empty,
+             * @dest is not modified.
+             * @param value1 a value to intersect
+             * @param value2 another value to intersect
+             * @returns %TRUE if the intersection is non-empty,    a uninitialized #GValue that will hold the calculated   intersection value. May be %NULL if the resulting set if not   needed.
+             */
+            value_intersect(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): [boolean, unknown]
+            /**
+             * Tests if the given GValue, if available in a GstStructure (or any other
+             * container) contains a "fixed" (which means: one value) or an "unfixed"
+             * (which means: multiple possible values, such as data lists or data
+             * ranges) value.
+             * @param value the #GValue to check
+             * @returns true if the value is "fixed".
+             */
+            value_is_fixed(value: (GObject.Value | unknown)): boolean
+            /**
+             * Check that @value1 is a subset of @value2.
+             * @param value1 a #GValue
+             * @param value2 a #GValue
+             * @returns %TRUE is `value1` is a subset of `value2`
+             */
+            value_is_subset(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): boolean
+            /**
+             * Registers functions to perform calculations on #GValue items of a given
+             * type. Each type can only be added once.
+             * @param table structure containing functions to register
+             */
+            value_register(table: ValueTable): void
+            /**
+             * tries to transform the given @value into a string representation that allows
+             * getting back this string later on using gst_value_deserialize().
+             *
+             * Free-function: g_free
+             * @param value a #GValue to serialize
+             * @returns the serialization for `value` or %NULL if none exists
+             */
+            value_serialize(value: (GObject.Value | unknown)): string | null
+            /**
+             * Sets @value to the bitmask specified by @bitmask.
+             * @param value a GValue initialized to #GST_TYPE_BITMASK
+             * @param bitmask the bitmask
+             */
+            value_set_bitmask(value: (GObject.Value | unknown), bitmask: number): void
+            /**
+             * Sets the contents of @value to @caps. A reference to the
+             * provided @caps will be taken by the @value.
+             * @param value a GValue initialized to GST_TYPE_CAPS
+             * @param caps the caps to set the value to
+             */
+            value_set_caps(value: (GObject.Value | unknown), caps: Caps): void
+            /**
+             * Sets the contents of @value to @features.
+             * @param value a GValue initialized to GST_TYPE_CAPS_FEATURES
+             * @param features the features to set the value to
+             */
+            value_set_caps_features(value: (GObject.Value | unknown), features: CapsFeatures): void
+            /**
+             * Sets @value to the range specified by @start and @end.
+             * @param value a GValue initialized to GST_TYPE_DOUBLE_RANGE
+             * @param start the start of the range
+             * @param end the end of the range
+             */
+            value_set_double_range(value: (GObject.Value | unknown), start: number, end: number): void
+            /**
+             * Sets @value to the flags and mask values provided in @flags and @mask.
+             * The @flags value indicates the values of flags, the @mask represents
+             * which bits in the flag value have been set, and which are "don't care"
+             * @since 1.6
+             * @param value a GValue initialized to %GST_TYPE_FLAG_SET
+             * @param flags The value of the flags set or unset
+             * @param mask The mask indicate which flags bits must match for comparisons
+             */
+            value_set_flagset(value: (GObject.Value | unknown), flags: number, mask: number): void
+            /**
+             * Sets @value to the fraction specified by @numerator over @denominator.
+             * The fraction gets reduced to the smallest numerator and denominator,
+             * and if necessary the sign is moved to the numerator.
+             * @param value a GValue initialized to #GST_TYPE_FRACTION
+             * @param numerator the numerator of the fraction
+             * @param denominator the denominator of the fraction
+             */
+            value_set_fraction(value: (GObject.Value | unknown), numerator: number, denominator: number): void
+            /**
+             * Sets @value to the range specified by @start and @end.
+             * @param value a GValue initialized to GST_TYPE_FRACTION_RANGE
+             * @param start the start of the range (a GST_TYPE_FRACTION GValue)
+             * @param end the end of the range (a GST_TYPE_FRACTION GValue)
+             */
+            value_set_fraction_range(value: (GObject.Value | unknown), start: (GObject.Value | unknown), end: (GObject.Value | unknown)): void
+            /**
+             * Sets @value to the range specified by @numerator_start/@denominator_start
+             * and @numerator_end/@denominator_end.
+             * @param value a GValue initialized to GST_TYPE_FRACTION_RANGE
+             * @param numerator_start the numerator start of the range
+             * @param denominator_start the denominator start of the range
+             * @param numerator_end the numerator end of the range
+             * @param denominator_end the denominator end of the range
+             */
+            value_set_fraction_range_full(value: (GObject.Value | unknown), numerator_start: number, denominator_start: number, numerator_end: number, denominator_end: number): void
+            /**
+             * Sets @value to the range specified by @start and @end.
+             * @param value a GValue initialized to GST_TYPE_INT64_RANGE
+             * @param start the start of the range
+             * @param end the end of the range
+             */
+            value_set_int64_range(value: (GObject.Value | unknown), start: number, end: number): void
+            /**
+             * Sets @value to the range specified by @start, @end and @step.
+             * @param value a GValue initialized to GST_TYPE_INT64_RANGE
+             * @param start the start of the range
+             * @param end the end of the range
+             * @param step the step of the range
+             */
+            value_set_int64_range_step(value: (GObject.Value | unknown), start: number, end: number, step: number): void
+            /**
+             * Sets @value to the range specified by @start and @end.
+             * @param value a GValue initialized to GST_TYPE_INT_RANGE
+             * @param start the start of the range
+             * @param end the end of the range
+             */
+            value_set_int_range(value: (GObject.Value | unknown), start: number, end: number): void
+            /**
+             * Sets @value to the range specified by @start, @end and @step.
+             * @param value a GValue initialized to GST_TYPE_INT_RANGE
+             * @param start the start of the range
+             * @param end the end of the range
+             * @param step the step of the range
+             */
+            value_set_int_range_step(value: (GObject.Value | unknown), start: number, end: number, step: number): void
+            /**
+             * Sets the contents of @value to @structure.
+             * @param value a GValue initialized to GST_TYPE_STRUCTURE
+             * @param structure the structure to set the value to
+             */
+            value_set_structure(value: (GObject.Value | unknown), structure: Structure): void
+            /**
+             * Subtracts @subtrahend from @minuend and stores the result in @dest.
+             * Note that this means subtraction as in sets, not as in mathematics.
+             * @param minuend the value to subtract from
+             * @param subtrahend the value to subtract
+             * @returns %TRUE if the subtraction is not empty, the destination value     for the result if the subtraction is not empty. May be %NULL,     in which case the resulting set will not be computed, which can     give a fair speedup.
+             */
+            value_subtract(minuend: (GObject.Value | unknown), subtrahend: (GObject.Value | unknown)): [boolean, unknown]
+            /**
+             * Creates a GValue corresponding to the union of @value1 and @value2.
+             * @param value1 a value to union
+             * @param value2 another value to union
+             * @returns %TRUE if the union succeeded., the destination value
+             */
+            value_union(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): [boolean, unknown]
+            /**
+             * Gets the version number of the GStreamer library.
+             * @returns , pointer to a guint to store the major version number, pointer to a guint to store the minor version number, pointer to a guint to store the micro version number, pointer to a guint to store the nano version number
+             */
+            version(): [number, number, number, number]
+            /**
+             * This function returns a string that is useful for describing this version
+             * of GStreamer to the outside world: user agent strings, logging, ...
+             * @returns a newly allocated string describing this version     of GStreamer.
+             */
+            version_string(): string
+        }
     }
 
+    const Gst: Gst.$Exports
     export default Gst
 }

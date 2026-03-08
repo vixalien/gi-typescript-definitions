@@ -32,10 +32,7 @@ declare module "gi://GdkX11?version=4.0" {
 
     
 
-
     namespace GdkX11 {
-        const __name__: "GdkX11"
-        const __version: "4.0"
         
 
         namespace X11AppLaunchContext {
@@ -52,8 +49,6 @@ declare module "gi://GdkX11?version=4.0" {
             }
         }
 
-        /**
-         */
         interface X11AppLaunchContext extends Gdk.AppLaunchContext {
             readonly $signals: X11AppLaunchContext.SignalSignatures
             readonly $readableProperties: X11AppLaunchContext.ReadableProperties
@@ -64,10 +59,15 @@ declare module "gi://GdkX11?version=4.0" {
         interface X11AppLaunchContextClass extends Omit<Gdk.AppLaunchContextClass, "new"> {
             readonly $gtype: GObject.GType<X11AppLaunchContext>
             readonly prototype: X11AppLaunchContext
+
             new (props?: Partial<GObject.ConstructorProps<X11AppLaunchContext>>): X11AppLaunchContext
         }
 
-        const X11AppLaunchContext: X11AppLaunchContextClass
+        interface $Exports {
+            /**
+             */
+            X11AppLaunchContext: X11AppLaunchContextClass
+        }
         
 
         namespace X11DeviceManagerXI2 {
@@ -82,18 +82,16 @@ declare module "gi://GdkX11?version=4.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "display": Gdk.Display
                 "major": number
                 "minor": number
                 "opcode": number
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         */
         interface X11DeviceManagerXI2 extends GObject.Object {
             readonly $signals: X11DeviceManagerXI2.SignalSignatures
             readonly $readableProperties: X11DeviceManagerXI2.ReadableProperties
@@ -123,10 +121,15 @@ declare module "gi://GdkX11?version=4.0" {
         interface X11DeviceManagerXI2Class extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<X11DeviceManagerXI2>
             readonly prototype: X11DeviceManagerXI2
+
             new (props?: Partial<GObject.ConstructorProps<X11DeviceManagerXI2>>): X11DeviceManagerXI2
         }
 
-        const X11DeviceManagerXI2: X11DeviceManagerXI2Class
+        interface $Exports {
+            /**
+             */
+            X11DeviceManagerXI2: X11DeviceManagerXI2Class
+        }
         
 
         namespace X11DeviceXI2 {
@@ -138,15 +141,13 @@ declare module "gi://GdkX11?version=4.0" {
             }
 
             interface WritableProperties extends Gdk.Device.WritableProperties {
-                "device-id": number
             }
 
             interface ConstructOnlyProperties extends Gdk.Device.ConstructOnlyProperties {
+                "device-id": number
             }
         }
 
-        /**
-         */
         interface X11DeviceXI2 extends Gdk.Device {
             readonly $signals: X11DeviceXI2.SignalSignatures
             readonly $readableProperties: X11DeviceXI2.ReadableProperties
@@ -162,10 +163,15 @@ declare module "gi://GdkX11?version=4.0" {
         interface X11DeviceXI2Class extends Omit<Gdk.DeviceClass, "new"> {
             readonly $gtype: GObject.GType<X11DeviceXI2>
             readonly prototype: X11DeviceXI2
+
             new (props?: Partial<GObject.ConstructorProps<X11DeviceXI2>>): X11DeviceXI2
         }
 
-        const X11DeviceXI2: X11DeviceXI2Class
+        interface $Exports {
+            /**
+             */
+            X11DeviceXI2: X11DeviceXI2Class
+        }
         
 
         namespace X11Display {
@@ -202,8 +208,6 @@ declare module "gi://GdkX11?version=4.0" {
             }
         }
 
-        /**
-         */
         interface X11Display extends Gdk.Display {
             readonly $signals: X11Display.SignalSignatures
             readonly $readableProperties: X11Display.ReadableProperties
@@ -420,6 +424,7 @@ declare module "gi://GdkX11?version=4.0" {
         interface X11DisplayClass extends Omit<Gdk.DisplayClass, "new"> {
             readonly $gtype: GObject.GType<X11Display>
             readonly prototype: X11Display
+
             new (props?: Partial<GObject.ConstructorProps<X11Display>>): X11Display
             /**
              * Tries to open a new display to the X server given by
@@ -442,7 +447,11 @@ declare module "gi://GdkX11?version=4.0" {
             set_program_class(display: Gdk.Display, program_class: string): void
         }
 
-        const X11Display: X11DisplayClass
+        interface $Exports {
+            /**
+             */
+            X11Display: X11DisplayClass
+        }
         
 
         namespace X11Drag {
@@ -459,8 +468,6 @@ declare module "gi://GdkX11?version=4.0" {
             }
         }
 
-        /**
-         */
         interface X11Drag extends Gdk.Drag {
             readonly $signals: X11Drag.SignalSignatures
             readonly $readableProperties: X11Drag.ReadableProperties
@@ -471,10 +478,15 @@ declare module "gi://GdkX11?version=4.0" {
         interface X11DragClass extends Omit<Gdk.DragClass, "new"> {
             readonly $gtype: GObject.GType<X11Drag>
             readonly prototype: X11Drag
+
             new (props?: Partial<GObject.ConstructorProps<X11Drag>>): X11Drag
         }
 
-        const X11Drag: X11DragClass
+        interface $Exports {
+            /**
+             */
+            X11Drag: X11DragClass
+        }
         
 
         namespace X11GLContext {
@@ -491,8 +503,6 @@ declare module "gi://GdkX11?version=4.0" {
             }
         }
 
-        /**
-         */
         interface X11GLContext extends Gdk.GLContext {
             readonly $signals: X11GLContext.SignalSignatures
             readonly $readableProperties: X11GLContext.ReadableProperties
@@ -503,10 +513,15 @@ declare module "gi://GdkX11?version=4.0" {
         interface X11GLContextClass extends Omit<Gdk.GLContextClass, "new"> {
             readonly $gtype: GObject.GType<X11GLContext>
             readonly prototype: X11GLContext
+
             new (props?: Partial<GObject.ConstructorProps<X11GLContext>>): X11GLContext
         }
 
-        const X11GLContext: X11GLContextClass
+        interface $Exports {
+            /**
+             */
+            X11GLContext: X11GLContextClass
+        }
         
 
         namespace X11Monitor {
@@ -523,8 +538,6 @@ declare module "gi://GdkX11?version=4.0" {
             }
         }
 
-        /**
-         */
         interface X11Monitor extends Gdk.Monitor {
             readonly $signals: X11Monitor.SignalSignatures
             readonly $readableProperties: X11Monitor.ReadableProperties
@@ -551,10 +564,15 @@ declare module "gi://GdkX11?version=4.0" {
         interface X11MonitorClass extends Omit<Gdk.MonitorClass, "new"> {
             readonly $gtype: GObject.GType<X11Monitor>
             readonly prototype: X11Monitor
+
             new (props?: Partial<GObject.ConstructorProps<X11Monitor>>): X11Monitor
         }
 
-        const X11Monitor: X11MonitorClass
+        interface $Exports {
+            /**
+             */
+            X11Monitor: X11MonitorClass
+        }
         
 
         namespace X11Screen {
@@ -574,8 +592,6 @@ declare module "gi://GdkX11?version=4.0" {
             }
         }
 
-        /**
-         */
         interface X11Screen extends GObject.Object {
             readonly $signals: X11Screen.SignalSignatures
             readonly $readableProperties: X11Screen.ReadableProperties
@@ -649,10 +665,15 @@ declare module "gi://GdkX11?version=4.0" {
         interface X11ScreenClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<X11Screen>
             readonly prototype: X11Screen
+
             new (props?: Partial<GObject.ConstructorProps<X11Screen>>): X11Screen
         }
 
-        const X11Screen: X11ScreenClass
+        interface $Exports {
+            /**
+             */
+            X11Screen: X11ScreenClass
+        }
         
 
         namespace X11Surface {
@@ -669,8 +690,6 @@ declare module "gi://GdkX11?version=4.0" {
             }
         }
 
-        /**
-         */
         interface X11Surface extends Gdk.Surface {
             readonly $signals: X11Surface.SignalSignatures
             readonly $readableProperties: X11Surface.ReadableProperties
@@ -794,6 +813,7 @@ declare module "gi://GdkX11?version=4.0" {
         interface X11SurfaceClass extends Omit<Gdk.SurfaceClass, "new"> {
             readonly $gtype: GObject.GType<X11Surface>
             readonly prototype: X11Surface
+
             new (props?: Partial<GObject.ConstructorProps<X11Surface>>): X11Surface
             /**
              * Looks up the `GdkSurface` that wraps the given native window handle.
@@ -806,112 +826,114 @@ declare module "gi://GdkX11?version=4.0" {
             lookup_for_display(display: X11Display, window: xlib.Window): X11Surface
         }
 
-        const X11Surface: X11SurfaceClass
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Returns the device ID as seen by XInput2.
-         * @deprecated since 4.18
-         * @param device a `GdkDevice`
-         * @returns the XInput2 device ID
-         */
-        function x11_device_get_id(device: X11DeviceXI2): number
-        /**
-         * Returns the `GdkDevice` that wraps the given device ID.
-         * @deprecated since 4.18
-         * @param device_manager a `GdkDeviceManager`
-         * @param device_id a device ID, as understood by the XInput2 protocol
-         * @returns The   `GdkDevice` wrapping the device ID, or %NULL if the given ID   doesn’t currently represent a device.
-         */
-        function x11_device_manager_lookup(device_manager: X11DeviceManagerXI2, device_id: number): X11DeviceXI2 | null
-        /**
-         * Frees the data returned from gdk_x11_display_string_to_compound_text().
-         * @deprecated since 4.18
-         * @param ctext The pointer stored in @ctext from a call to
-          gdk_x11_display_string_to_compound_text().
-         */
-        function x11_free_compound_text(ctext: number): void
-        /**
-         * Frees the array of strings created by
-         * gdk_x11_display_text_property_to_text_list().
-         * @deprecated since 4.18
-         * @param list the value stored in the @list parameter by
-          a call to gdk_x11_display_text_property_to_text_list().
-         */
-        function x11_free_text_list(list: string): void
-        /**
-         * Routine to get the current X server time stamp.
-         * @deprecated since 4.18
-         * @param surface a `GdkSurface`, used for communication
-          with the server. The surface must have `GDK_PROPERTY_CHANGE_MASK` in
-          its events mask or a hang will result.
-         * @returns the time stamp
-         */
-        function x11_get_server_time(surface: X11Surface): number
-        /**
-         * Returns the X atom for a `GdkDisplay` corresponding to @atom_name.
-         * This function caches the result, so if called repeatedly it is much
-         * faster than XInternAtom(), which is a round trip to the server each time.
-         * @deprecated since 4.18
-         * @param display a `GdkDisplay`
-         * @param atom_name a string
-         * @returns a X atom for a `GdkDisplay`
-         */
-        function x11_get_xatom_by_name_for_display(display: X11Display, atom_name: string): xlib.Atom
-        /**
-         * Returns the name of an X atom for its display. This
-         * function is meant mainly for debugging, so for convenience, unlike
-         * XAtomName() and the result doesn’t need to
-         * be freed.
-         * @deprecated since 4.18
-         * @param display the `GdkDisplay` where @xatom is defined
-         * @param xatom an X atom
-         * @returns name of the X atom; this string is owned by GDK,   so it shouldn’t be modified or freed.
-         */
-        function x11_get_xatom_name_for_display(display: X11Display, xatom: xlib.Atom): string
-        /**
-         * Find the `GdkDisplay` corresponding to @xdisplay, if any exists.
-         * @param xdisplay a pointer to an X Display
-         * @returns the `GdkDisplay`, if found, otherwise %NULL.
-         */
-        function x11_lookup_xdisplay(xdisplay: xlib.Display): X11Display
-        /**
-         * Sets the `SM_CLIENT_ID` property on the application’s leader window so that
-         * the window manager can save the application’s state using the X11R6 ICCCM
-         * session management protocol.
-         *
-         * See the X Session Management Library documentation for more information on
-         * session management and the Inter-Client Communication Conventions Manual
-         * @param sm_client_id the client id assigned by the session manager
-           when the connection was opened, or %NULL to remove the property.
-         */
-        function x11_set_sm_client_id(sm_client_id: string | null): void
+        interface $Exports {
+            /**
+             */
+            X11Surface: X11SurfaceClass
+        }
         
-        namespace X11DeviceType {
-            const $gtype: GObject.GType<X11DeviceType>
+        interface X11DeviceTypeEnum {
+            readonly $gtype: GObject.GType<X11DeviceType>
+            /**
+             */
+            readonly "LOGICAL": 0
+            /**
+             */
+            readonly "PHYSICAL": 1
+            /**
+             */
+            readonly "FLOATING": 2
+        }
+        type X11DeviceType = X11DeviceTypeEnum[Exclude<keyof X11DeviceTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            X11DeviceType: X11DeviceTypeEnum
         }
 
-        /**
-         */
-        enum X11DeviceType {
+        interface $Exports {
+            __name__: "GdkX11"
+            __version: "4.0"
             /**
+             * Returns the device ID as seen by XInput2.
+             * @deprecated since 4.18
+             * @param device a `GdkDevice`
+             * @returns the XInput2 device ID
              */
-            "LOGICAL" = 0,
+            x11_device_get_id(device: X11DeviceXI2): number
             /**
+             * Returns the `GdkDevice` that wraps the given device ID.
+             * @deprecated since 4.18
+             * @param device_manager a `GdkDeviceManager`
+             * @param device_id a device ID, as understood by the XInput2 protocol
+             * @returns The   `GdkDevice` wrapping the device ID, or %NULL if the given ID   doesn’t currently represent a device.
              */
-            "PHYSICAL" = 1,
+            x11_device_manager_lookup(device_manager: X11DeviceManagerXI2, device_id: number): X11DeviceXI2 | null
             /**
+             * Frees the data returned from gdk_x11_display_string_to_compound_text().
+             * @deprecated since 4.18
+             * @param ctext The pointer stored in @ctext from a call to
+              gdk_x11_display_string_to_compound_text().
              */
-            "FLOATING" = 2,
+            x11_free_compound_text(ctext: number): void
+            /**
+             * Frees the array of strings created by
+             * gdk_x11_display_text_property_to_text_list().
+             * @deprecated since 4.18
+             * @param list the value stored in the @list parameter by
+              a call to gdk_x11_display_text_property_to_text_list().
+             */
+            x11_free_text_list(list: string): void
+            /**
+             * Routine to get the current X server time stamp.
+             * @deprecated since 4.18
+             * @param surface a `GdkSurface`, used for communication
+              with the server. The surface must have `GDK_PROPERTY_CHANGE_MASK` in
+              its events mask or a hang will result.
+             * @returns the time stamp
+             */
+            x11_get_server_time(surface: X11Surface): number
+            /**
+             * Returns the X atom for a `GdkDisplay` corresponding to @atom_name.
+             * This function caches the result, so if called repeatedly it is much
+             * faster than XInternAtom(), which is a round trip to the server each time.
+             * @deprecated since 4.18
+             * @param display a `GdkDisplay`
+             * @param atom_name a string
+             * @returns a X atom for a `GdkDisplay`
+             */
+            x11_get_xatom_by_name_for_display(display: X11Display, atom_name: string): xlib.Atom
+            /**
+             * Returns the name of an X atom for its display. This
+             * function is meant mainly for debugging, so for convenience, unlike
+             * XAtomName() and the result doesn’t need to
+             * be freed.
+             * @deprecated since 4.18
+             * @param display the `GdkDisplay` where @xatom is defined
+             * @param xatom an X atom
+             * @returns name of the X atom; this string is owned by GDK,   so it shouldn’t be modified or freed.
+             */
+            x11_get_xatom_name_for_display(display: X11Display, xatom: xlib.Atom): string
+            /**
+             * Find the `GdkDisplay` corresponding to @xdisplay, if any exists.
+             * @param xdisplay a pointer to an X Display
+             * @returns the `GdkDisplay`, if found, otherwise %NULL.
+             */
+            x11_lookup_xdisplay(xdisplay: xlib.Display): X11Display
+            /**
+             * Sets the `SM_CLIENT_ID` property on the application’s leader window so that
+             * the window manager can save the application’s state using the X11R6 ICCCM
+             * session management protocol.
+             *
+             * See the X Session Management Library documentation for more information on
+             * session management and the Inter-Client Communication Conventions Manual
+             * @param sm_client_id the client id assigned by the session manager
+               when the connection was opened, or %NULL to remove the property.
+             */
+            x11_set_sm_client_id(sm_client_id: string | null): void
         }
     }
 
+    const GdkX11: GdkX11.$Exports
     export default GdkX11
 }

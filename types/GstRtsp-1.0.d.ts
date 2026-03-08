@@ -22,14 +22,11 @@ declare module "gi://GstRtsp?version=1.0" {
 
     
 
-
     namespace GstRtsp {
-        const __name__: "GstRtsp"
-        const __version: "1.0"
         
 
         namespace RTSPExtension {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * @param object
                  * @param p0
@@ -37,16 +34,16 @@ declare module "gi://GstRtsp?version=1.0" {
                 "send"(object: never | null, p0: never | null): RTSPResult
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * @param req
                  * @param resp
@@ -94,11 +91,7 @@ declare module "gi://GstRtsp?version=1.0" {
             }
         }
 
-        /**
-         * This interface is implemented e.g. by the Windows Media Streaming RTSP
-         *  exentension (rtspwms) and the RealMedia RTSP extension (rtspreal).
-         */
-        interface RTSPExtension extends RTSPExtension.Interface {
+        interface RTSPExtension extends GObject.Object, RTSPExtension.Interface {
             readonly $signals: RTSPExtension.SignalSignatures
             readonly $readableProperties: RTSPExtension.ReadableProperties
             readonly $writableProperties: RTSPExtension.WritableProperties
@@ -149,23 +142,27 @@ declare module "gi://GstRtsp?version=1.0" {
             stream_select(url: RTSPUrl): RTSPResult
         }
 
-
         interface RTSPExtensionInterface {
             readonly $gtype: GObject.GType<RTSPExtension>
             readonly prototype: RTSPExtension
-
             [Symbol.hasInstance](instance: unknown): instance is RTSPExtension
         }
 
-        const RTSPExtension: RTSPExtensionInterface
-        /**
-         * RTSP Authentication credentials
-         * @since 1.12
-         */
-        abstract class RTSPAuthCredential {
-            static readonly $gtype: GObject.GType<RTSPAuthCredential>
+        interface $Exports {
+            /**
+             * This interface is implemented e.g. by the Windows Media Streaming RTSP
+             *  exentension (rtspwms) and the RealMedia RTSP extension (rtspreal).
+             */
+            RTSPExtension: RTSPExtensionInterface
+        }
+        
 
-            
+        interface RTSPAuthCredentialStruct {
+            readonly $gtype: GObject.GType<RTSPAuthCredential>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPAuthCredential
+        }
+
+        interface RTSPAuthCredential {
             /**
              * a #GstRTSPAuthMethod
              */
@@ -179,14 +176,18 @@ declare module "gi://GstRtsp?version=1.0" {
              */
             authorization: string
         }
-        /**
-         * RTSP Authentication parameter
-         * @since 1.12
-         */
-        abstract class RTSPAuthParam {
-            static readonly $gtype: GObject.GType<RTSPAuthParam>
 
-            
+        interface $Exports {
+            RTSPAuthCredential: RTSPAuthCredentialStruct
+        }
+        
+
+        interface RTSPAuthParamStruct {
+            readonly $gtype: GObject.GType<RTSPAuthParam>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPAuthParam
+        }
+
+        interface RTSPAuthParam {
             /**
              * The name of the parameter
              */
@@ -202,14 +203,15 @@ declare module "gi://GstRtsp?version=1.0" {
              */
             free(): void
         }
-        /**
-         * This object manages the RTSP connection to the server. It provides function
-         * to receive and send bytes and messages.
-         */
-        abstract class RTSPConnection {
-            static readonly $gtype: GObject.GType<RTSPConnection>
 
-            
+        interface $Exports {
+            RTSPAuthParam: RTSPAuthParamStruct
+        }
+        
+
+        interface RTSPConnectionStruct {
+            readonly $gtype: GObject.GType<RTSPConnection>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPConnection
             /**
              * Accept a new connection on @socket and create a new #GstRTSPConnection for
              * handling communication on new socket.
@@ -217,7 +219,7 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param cancellable a #GCancellable to cancel the operation
              * @returns #GST_RTSP_OK when `conn` contains a valid connection., storage for a #GstRTSPConnection
              */
-            static accept(socket: Gio.Socket, cancellable: Gio.Cancellable | null): [RTSPResult, RTSPConnection | null]
+            accept(socket: Gio.Socket, cancellable: Gio.Cancellable | null): [RTSPResult, RTSPConnection | null]
             /**
              * Create a newly allocated #GstRTSPConnection from @url and store it in @conn.
              * The connection will not yet attempt to connect to @url, use
@@ -227,7 +229,7 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param url a #GstRTSPUrl
              * @returns #GST_RTSP_OK when `conn` contains a valid connection., storage for a #GstRTSPConnection
              */
-            static create(url: RTSPUrl): [RTSPResult, RTSPConnection]
+            create(url: RTSPUrl): [RTSPResult, RTSPConnection]
             /**
              * Create a new #GstRTSPConnection for handling communication on the existing
              * socket @socket. The @initial_buffer contains zero terminated data already
@@ -238,7 +240,10 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param initial_buffer data already read from @fd
              * @returns #GST_RTSP_OK when `conn` contains a valid connection., storage for a #GstRTSPConnection
              */
-            static create_from_socket(socket: Gio.Socket, ip: string, port: number, initial_buffer: string): [RTSPResult, RTSPConnection | null]
+            create_from_socket(socket: Gio.Socket, ip: string, port: number, initial_buffer: string): [RTSPResult, RTSPConnection | null]
+        }
+
+        interface RTSPConnection {
             /**
              * Add header to be appended to any HTTP request made by connection.
              * If the header already exists then the old header is replaced by the new header.
@@ -713,14 +718,18 @@ declare module "gi://GstRtsp?version=1.0" {
              */
             write_usec(data: Uint8Array, timeout: number): RTSPResult
         }
-        none
-        /**
-         * Provides methods for creating and parsing request, response and data messages.
-         */
-        abstract class RTSPMessage {
-            static readonly $gtype: GObject.GType<RTSPMessage>
 
-            
+        interface $Exports {
+            RTSPConnection: RTSPConnectionStruct
+        }
+        
+
+        interface RTSPMessageStruct {
+            readonly $gtype: GObject.GType<RTSPMessage>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPMessage
+        }
+
+        interface RTSPMessage {
             /**
              * the message type
              */
@@ -794,7 +803,7 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param indx the index of the header
              * @returns #GST_RTSP_OK when `field` was found, #GST_RTSP_ENOTIMPL if the key was not found., pointer to hold the result
              */
-            get_header(field: RTSPHeaderField, indx: number): RTSPResult
+            get_header(field: RTSPHeaderField, indx: number): [RTSPResult, string | null]
             /**
              * Get the @index header value with key @header from @msg. The result in @value
              * stays valid as long as it remains present in @msg.
@@ -803,7 +812,7 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param index the index of the header
              * @returns #GST_RTSP_OK when `field` was found, #GST_RTSP_ENOTIMPL if the key was not found., pointer to hold the result
              */
-            get_header_by_name(header: string, index: number): RTSPResult
+            get_header_by_name(header: string, index: number): [RTSPResult, string | null]
             /**
              * Get the message type of @msg.
              * @returns the message type.
@@ -859,7 +868,7 @@ declare module "gi://GstRtsp?version=1.0" {
              * Parse the data message @msg and store the channel in @channel.
              * @returns a #GstRTSPResult., location to hold the channel
              */
-            parse_data(): RTSPResult
+            parse_data(): [RTSPResult, number]
             /**
              * Parse the request message @msg and store the values @method, @uri and
              * @version. The result locations can be %NULL if one is not interested in its
@@ -868,7 +877,7 @@ declare module "gi://GstRtsp?version=1.0" {
              * @uri remains valid for as long as @msg is valid and unchanged.
              * @returns a #GstRTSPResult., location to hold the method, location to hold the uri, location to hold the version
              */
-            parse_request(): RTSPResult
+            parse_request(): [RTSPResult, RTSPMethod, string, RTSPVersion]
             /**
              * Parse the response message @msg and store the values @code, @reason and
              * @version. The result locations can be %NULL if one is not interested in its
@@ -877,7 +886,7 @@ declare module "gi://GstRtsp?version=1.0" {
              * @reason remains valid for as long as @msg is valid and unchanged.
              * @returns a #GstRTSPResult., location to hold the status code, location to hold the status reason, location to hold the version
              */
-            parse_response(): RTSPResult
+            parse_response(): [RTSPResult, RTSPStatusCode, string, RTSPVersion]
             /**
              * Remove the @indx header with key @field from @msg. If @indx equals -1, all
              * headers will be removed.
@@ -968,13 +977,15 @@ declare module "gi://GstRtsp?version=1.0" {
              */
             unset(): RTSPResult
         }
-        /**
-         * Provides helper functions to deal with time ranges.
-         */
-        abstract class RTSPRange {
-            static readonly $gtype: GObject.GType<RTSPRange>
 
-            
+        interface $Exports {
+            RTSPMessage: RTSPMessageStruct
+        }
+        
+
+        interface RTSPRangeStruct {
+            readonly $gtype: GObject.GType<RTSPRange>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPRange
             /**
              * Converts the range in-place between different types of units.
              * Ranges containing the special value #GST_RTSP_TIME_NOW can not be
@@ -983,12 +994,12 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param unit the unit to convert the range into
              * @returns %TRUE if the range could be converted
              */
-            static convert_units(range: RTSPTimeRange, unit: RTSPRangeUnit): boolean
+            convert_units(range: RTSPTimeRange, unit: RTSPRangeUnit): boolean
             /**
              * Free the memory allocated by @range.
              * @param range a #GstRTSPTimeRange
              */
-            static free(range: RTSPTimeRange): void
+            free(range: RTSPTimeRange): void
             /**
              * Retrieve the minimum and maximum values from @range converted to
              * #GstClockTime in @min and @max.
@@ -1001,19 +1012,22 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param range a #GstRTSPTimeRange
              * @returns %TRUE on success., result minimum #GstClockTime, result maximum #GstClockTime
              */
-            static get_times(range: RTSPTimeRange): [boolean, Gst.ClockTime, Gst.ClockTime]
+            get_times(range: RTSPTimeRange): [boolean, Gst.ClockTime, Gst.ClockTime]
             /**
              * Parse @rangestr to a #GstRTSPTimeRange.
              * @param rangestr a range string to parse
              * @returns #GST_RTSP_OK on success., location to hold the #GstRTSPTimeRange result
              */
-            static parse(rangestr: string): [RTSPResult, RTSPTimeRange]
+            parse(rangestr: string): [RTSPResult, RTSPTimeRange]
             /**
              * Convert @range into a string representation.
              * @param range a #GstRTSPTimeRange
              * @returns The string representation of `range`. g_free() after usage.
              */
-            static to_string(range: RTSPTimeRange): string
+            to_string(range: RTSPTimeRange): string
+        }
+
+        interface RTSPRange {
             /**
              * minimum value of the range
              */
@@ -1023,13 +1037,18 @@ declare module "gi://GstRtsp?version=1.0" {
              */
             max: number
         }
-        /**
-         * A time indication.
-         */
-        abstract class RTSPTime {
-            static readonly $gtype: GObject.GType<RTSPTime>
 
-            
+        interface $Exports {
+            RTSPRange: RTSPRangeStruct
+        }
+        
+
+        interface RTSPTimeStruct {
+            readonly $gtype: GObject.GType<RTSPTime>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPTime
+        }
+
+        interface RTSPTime {
             /**
              * the time of the time
              */
@@ -1040,14 +1059,18 @@ declare module "gi://GstRtsp?version=1.0" {
              */
             seconds: number
         }
-        /**
-         * Extra fields for a time indication.
-         * @since 1.2
-         */
-        abstract class RTSPTime2 {
-            static readonly $gtype: GObject.GType<RTSPTime2>
 
-            
+        interface $Exports {
+            RTSPTime: RTSPTimeStruct
+        }
+        
+
+        interface RTSPTime2Struct {
+            readonly $gtype: GObject.GType<RTSPTime2>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPTime2
+        }
+
+        interface RTSPTime2 {
             /**
              * frames and subframes when type in GstRTSPTime is
              *          GST_RTSP_TIME_FRAMES
@@ -1066,13 +1089,18 @@ declare module "gi://GstRtsp?version=1.0" {
              */
             day: number
         }
-        /**
-         * A time range.
-         */
-        abstract class RTSPTimeRange {
-            static readonly $gtype: GObject.GType<RTSPTimeRange>
 
-            
+        interface $Exports {
+            RTSPTime2: RTSPTime2Struct
+        }
+        
+
+        interface RTSPTimeRangeStruct {
+            readonly $gtype: GObject.GType<RTSPTimeRange>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPTimeRange
+        }
+
+        interface RTSPTimeRange {
             /**
              * the time units used
              */
@@ -1094,13 +1122,15 @@ declare module "gi://GstRtsp?version=1.0" {
              */
             max2: RTSPTime2
         }
-        /**
-         * Provides helper functions to deal with RTSP transport strings.
-         */
-        abstract class RTSPTransport {
-            static readonly $gtype: GObject.GType<RTSPTransport>
 
-            
+        interface $Exports {
+            RTSPTimeRange: RTSPTimeRangeStruct
+        }
+        
+
+        interface RTSPTransportStruct {
+            readonly $gtype: GObject.GType<RTSPTransport>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPTransport
             /**
              * Get the #GstElement that can handle the buffers transported over @trans.
              *
@@ -1113,7 +1143,7 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param option option index.
              * @returns #GST_RTSP_OK., location to hold the result
              */
-            static get_manager(trans: RTSPTransMode, option: number): [RTSPResult, string | null]
+            get_manager(trans: RTSPTransMode, option: number): [RTSPResult, string | null]
             /**
              * Get the mime type of the transport mode @trans. This mime type is typically
              * used to generate #GstCaps events.
@@ -1121,24 +1151,27 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param trans a #GstRTSPTransMode
              * @returns #GST_RTSP_OK., location to hold the result
              */
-            static get_mime(trans: RTSPTransMode): [RTSPResult, string]
+            get_mime(trans: RTSPTransMode): [RTSPResult, string]
             /**
              * Initialize @transport so that it can be used.
              * @returns #GST_RTSP_OK., a #GstRTSPTransport
              */
-            static init(): [RTSPResult, RTSPTransport]
+            init(): [RTSPResult, RTSPTransport]
             /**
              * Allocate a new initialized #GstRTSPTransport. Use gst_rtsp_transport_free()
              * after usage.
              * @returns a #GstRTSPResult., location to hold the new #GstRTSPTransport
              */
-            static "new"(): [RTSPResult, RTSPTransport]
+            "new"(): [RTSPResult, RTSPTransport]
             /**
              * Parse the RTSP transport string @str into @transport.
              * @param str a transport string
              * @returns a #GstRTSPResult., a #GstRTSPTransport
              */
-            static parse(str: string): [RTSPResult, RTSPTransport]
+            parse(str: string): [RTSPResult, RTSPTransport]
+        }
+
+        interface RTSPTransport {
             /**
              * the transport mode
              */
@@ -1222,20 +1255,25 @@ declare module "gi://GstRtsp?version=1.0" {
              */
             get_media_type(): [RTSPResult, string]
         }
-        /**
-         * Provides helper functions to handle RTSP urls.
-         */
-        abstract class RTSPUrl {
-            static readonly $gtype: GObject.GType<RTSPUrl>
 
-            
+        interface $Exports {
+            RTSPTransport: RTSPTransportStruct
+        }
+        
+
+        interface RTSPUrlStruct {
+            readonly $gtype: GObject.GType<RTSPUrl>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPUrl
             /**
              * Parse the RTSP @urlstr into a newly allocated #GstRTSPUrl. Free after usage
              * with gst_rtsp_url_free().
              * @param urlstr the url string to parse
              * @returns a #GstRTSPResult., location to hold the result.
              */
-            static parse(urlstr: string): [RTSPResult, RTSPUrl | null]
+            parse(urlstr: string): [RTSPResult, RTSPUrl | null]
+        }
+
+        interface RTSPUrl {
             /**
              * the transports allowed
              */
@@ -1317,14 +1355,18 @@ declare module "gi://GstRtsp?version=1.0" {
              */
             set_port(port: number): RTSPResult
         }
-        /**
-         * Opaque RTSP watch object that can be used for asynchronous RTSP
-         * operations.
-         */
-        abstract class RTSPWatch {
-            static readonly $gtype: GObject.GType<RTSPWatch>
 
-            
+        interface $Exports {
+            RTSPUrl: RTSPUrlStruct
+        }
+        
+
+        interface RTSPWatchStruct {
+            readonly $gtype: GObject.GType<RTSPWatch>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPWatch
+        }
+
+        interface RTSPWatch {
             /**
              * Adds a #GstRTSPWatch to a context so that it will be executed within that context.
              * @param context a GMainContext (if NULL, the default context will be used)
@@ -1337,7 +1379,7 @@ declare module "gi://GstRtsp?version=1.0" {
              * @since 1.2
              * @returns , maximum bytes, maximum messages
              */
-            get_send_backlog(): void
+            get_send_backlog(): [number, number]
             /**
              * Reset @watch, this is usually called after gst_rtsp_connection_do_tunnel()
              * when the file descriptors of the connection might have changed.
@@ -1353,7 +1395,7 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param message a #GstRTSPMessage
              * @returns #GST_RTSP_OK on success., location for a message ID or %NULL
              */
-            send_message(message: RTSPMessage): RTSPResult
+            send_message(message: RTSPMessage): [RTSPResult, number]
             /**
              * Sends @messages using the connection of the @watch. If they cannot be sent
              * immediately, they will be queued for transmission in @watch. The contents of
@@ -1366,7 +1408,7 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param messages the messages to send
              * @returns #GST_RTSP_OK on success., location for a message ID or %NULL
              */
-            send_messages(messages: RTSPMessage[]): RTSPResult
+            send_messages(messages: RTSPMessage[]): [RTSPResult, number]
             /**
              * When @flushing is %TRUE, abort a call to gst_rtsp_watch_wait_backlog()
              * and make sure gst_rtsp_watch_write_data() returns immediately with
@@ -1440,1171 +1482,944 @@ declare module "gi://GstRtsp?version=1.0" {
              * @param data the data to queue
              * @returns #GST_RTSP_OK on success. #GST_RTSP_ENOMEM when the backlog limits are reached. #GST_RTSP_EINTR when `watch` was flushing., location for a message ID or %NULL
              */
-            write_data(data: Uint8Array): RTSPResult
+            write_data(data: Uint8Array): [RTSPResult, number]
         }
-        /**
-         * Callback functions from a #GstRTSPWatch.
-         */
-        abstract class RTSPWatchFuncs {
-            static readonly $gtype: GObject.GType<RTSPWatchFuncs>
 
-            
+        interface $Exports {
+            RTSPWatch: RTSPWatchStruct
         }
-        /**
-         * Free a %NULL-terminated array of credentials returned from
-         * gst_rtsp_message_parse_auth_credentials().
-         * @since 1.12
-         * @param credentials a %NULL-terminated array of #GstRTSPAuthCredential
-         */
-        function rtsp_auth_credentials_free(credentials: RTSPAuthCredential): void
-        /**
-         * Accept a new connection on @socket and create a new #GstRTSPConnection for
-         * handling communication on new socket.
-         * @param socket a socket
-         * @param cancellable a #GCancellable to cancel the operation
-         * @returns #GST_RTSP_OK when `conn` contains a valid connection., storage for a #GstRTSPConnection
-         */
-        function rtsp_connection_accept(socket: Gio.Socket, cancellable: Gio.Cancellable | null): [RTSPResult, RTSPConnection | null]
-        /**
-         * Create a newly allocated #GstRTSPConnection from @url and store it in @conn.
-         * The connection will not yet attempt to connect to @url, use
-         * gst_rtsp_connection_connect().
-         *
-         * A copy of @url will be made.
-         * @param url a #GstRTSPUrl
-         * @returns #GST_RTSP_OK when `conn` contains a valid connection., storage for a #GstRTSPConnection
-         */
-        function rtsp_connection_create(url: RTSPUrl): [RTSPResult, RTSPConnection]
-        /**
-         * Create a new #GstRTSPConnection for handling communication on the existing
-         * socket @socket. The @initial_buffer contains zero terminated data already
-         * read from @socket which should be used before starting to read new data.
-         * @param socket a #GSocket
-         * @param ip the IP address of the other end
-         * @param port the port used by the other end
-         * @param initial_buffer data already read from @fd
-         * @returns #GST_RTSP_OK when `conn` contains a valid connection., storage for a #GstRTSPConnection
-         */
-        function rtsp_connection_create_from_socket(socket: Gio.Socket, ip: string, port: number, initial_buffer: string): [RTSPResult, RTSPConnection | null]
-        /**
-         * Convert @header to a #GstRTSPHeaderField.
-         * @param header a header string
-         * @returns a #GstRTSPHeaderField for `header` or #GST_RTSP_HDR_INVALID if the header field is unknown.
-         */
-        function rtsp_find_header_field(header: string): RTSPHeaderField
-        /**
-         * Convert @method to a #GstRTSPMethod.
-         * @param method a method
-         * @returns a #GstRTSPMethod for `method` or #GST_RTSP_INVALID if the method is unknown.
-         */
-        function rtsp_find_method(method: string): RTSPMethod
-        /**
-         * Calculates the digest auth response from the values given by the server and
-         * the username and password. See RFC2069 for details.
-         *
-         * Currently only supported algorithm "md5".
-         * @since 1.12
-         * @param algorithm Hash algorithm to use, or %NULL for MD5
-         * @param method Request method, e.g. PLAY
-         * @param realm Realm
-         * @param username Username
-         * @param password Password
-         * @param uri Original request URI
-         * @param nonce Nonce
-         * @returns Authentication response or %NULL if unsupported
-         */
-        function rtsp_generate_digest_auth_response(algorithm: string | null, method: string, realm: string, username: string, password: string, uri: string, nonce: string): string | null
-        /**
-         * Calculates the digest auth response from the values given by the server and
-         * the md5sum. See RFC2069 for details.
-         *
-         * This function is useful when the passwords are not stored in clear text,
-         * but instead in the same format as the .htdigest file.
-         *
-         * Currently only supported algorithm "md5".
-         * @since 1.16
-         * @param algorithm Hash algorithm to use, or %NULL for MD5
-         * @param method Request method, e.g. PLAY
-         * @param md5 The md5 sum of username:realm:password
-         * @param uri Original request URI
-         * @param nonce Nonce
-         * @returns Authentication response or %NULL if unsupported
-         */
-        function rtsp_generate_digest_auth_response_from_md5(algorithm: string | null, method: string, md5: string, uri: string, nonce: string): string | null
-        /**
-         * Check whether @field may appear multiple times in a message.
-         * @param field a #GstRTSPHeaderField
-         * @returns %TRUE if multiple headers are allowed.
-         */
-        function rtsp_header_allow_multiple(field: RTSPHeaderField): boolean
-        /**
-         * Convert @field to a string.
-         * @param field a #GstRTSPHeaderField
-         * @returns a string representation of `field`.
-         */
-        function rtsp_header_as_text(field: RTSPHeaderField): string | null
-        /**
-         * Create a new initialized #GstRTSPMessage. Free with gst_rtsp_message_free().
-         * @returns a #GstRTSPResult., a location for the new #GstRTSPMessage
-         */
-        function rtsp_message_new(): [RTSPResult, RTSPMessage]
-        /**
-         * Create a new data #GstRTSPMessage with @channel and store the
-         * result message in @msg. Free with gst_rtsp_message_free().
-         * @param channel the channel
-         * @returns a #GstRTSPResult., a location for the new #GstRTSPMessage
-         */
-        function rtsp_message_new_data(channel: number): [RTSPResult, RTSPMessage]
-        /**
-         * Create a new #GstRTSPMessage with @method and @uri and store the result
-         * request message in @msg. Free with gst_rtsp_message_free().
-         * @param method the request method to use
-         * @param uri the uri of the request
-         * @returns a #GstRTSPResult., a location for the new #GstRTSPMessage
-         */
-        function rtsp_message_new_request(method: RTSPMethod, uri: string): [RTSPResult, RTSPMessage]
-        /**
-         * Create a new response #GstRTSPMessage with @code and @reason and store the
-         * result message in @msg. Free with gst_rtsp_message_free().
-         *
-         * When @reason is %NULL, the default reason for @code will be used.
-         *
-         * When @request is not %NULL, the relevant headers will be copied to the new
-         * response message.
-         * @param code the status code
-         * @param reason the status reason or %NULL
-         * @param request the request that triggered the response or %NULL
-         * @returns a #GstRTSPResult., a location for the new #GstRTSPMessage
-         */
-        function rtsp_message_new_response(code: RTSPStatusCode, reason: string | null, request: RTSPMessage | null): [RTSPResult, RTSPMessage]
-        /**
-         * Convert @method to a string.
-         * @param method a #GstRTSPMethod
-         * @returns a string representation of `method`.
-         */
-        function rtsp_method_as_text(method: RTSPMethod): string | null
-        /**
-         * Convert @options to a string.
-         * @param options one or more #GstRTSPMethod
-         * @returns a new string of `options`. g_free() after usage.
-         */
-        function rtsp_options_as_text(options: RTSPMethod): string
-        /**
-         * Convert the comma separated list @options to a #GstRTSPMethod bitwise or
-         * of methods. This functions is the reverse of gst_rtsp_options_as_text().
-         * @since 1.2
-         * @param options a comma separated list of options
-         * @returns a #GstRTSPMethod
-         */
-        function rtsp_options_from_text(options: string): RTSPMethod
-        /**
-         * Converts the range in-place between different types of units.
-         * Ranges containing the special value #GST_RTSP_TIME_NOW can not be
-         * converted as these are only valid for #GST_RTSP_RANGE_NPT.
-         * @param range a #GstRTSPTimeRange
-         * @param unit the unit to convert the range into
-         * @returns %TRUE if the range could be converted
-         */
-        function rtsp_range_convert_units(range: RTSPTimeRange, unit: RTSPRangeUnit): boolean
-        /**
-         * Free the memory allocated by @range.
-         * @param range a #GstRTSPTimeRange
-         */
-        function rtsp_range_free(range: RTSPTimeRange): void
-        /**
-         * Retrieve the minimum and maximum values from @range converted to
-         * #GstClockTime in @min and @max.
-         *
-         * A value of %GST_CLOCK_TIME_NONE will be used to signal #GST_RTSP_TIME_NOW
-         * and #GST_RTSP_TIME_END for @min and @max respectively.
-         *
-         * UTC times will be converted to nanoseconds since 1900.
-         * @since 1.2
-         * @param range a #GstRTSPTimeRange
-         * @returns %TRUE on success., result minimum #GstClockTime, result maximum #GstClockTime
-         */
-        function rtsp_range_get_times(range: RTSPTimeRange): [boolean, Gst.ClockTime, Gst.ClockTime]
-        /**
-         * Parse @rangestr to a #GstRTSPTimeRange.
-         * @param rangestr a range string to parse
-         * @returns #GST_RTSP_OK on success., location to hold the #GstRTSPTimeRange result
-         */
-        function rtsp_range_parse(rangestr: string): [RTSPResult, RTSPTimeRange]
-        /**
-         * Convert @range into a string representation.
-         * @param range a #GstRTSPTimeRange
-         * @returns The string representation of `range`. g_free() after usage.
-         */
-        function rtsp_range_to_string(range: RTSPTimeRange): string
-        /**
-         * Convert @code to a string.
-         * @param code a #GstRTSPStatusCode
-         * @returns a string representation of `code`.
-         */
-        function rtsp_status_as_text(code: RTSPStatusCode): string
-        /**
-         * Convert @result in a human readable string.
-         * @param result a #GstRTSPResult
-         * @returns a newly allocated string. g_free() after usage.
-         */
-        function rtsp_strresult(result: RTSPResult): string
-        /**
-         * Get the #GstElement that can handle the buffers transported over @trans.
-         *
-         * It is possible that there are several managers available, use @option to
-         * selected one.
-         *
-         * @manager will contain an element name or %NULL when no manager is
-         * needed/available for @trans.
-         * @param trans a #GstRTSPTransMode
-         * @param option option index.
-         * @returns #GST_RTSP_OK., location to hold the result
-         */
-        function rtsp_transport_get_manager(trans: RTSPTransMode, option: number): [RTSPResult, string | null]
-        /**
-         * Get the mime type of the transport mode @trans. This mime type is typically
-         * used to generate #GstCaps events.
-         * @deprecated This functions only deals with the GstRTSPTransMode and only    returns the mime type for #GST_RTSP_PROFILE_AVP. Use    gst_rtsp_transport_get_media_type() instead.
-         * @param trans a #GstRTSPTransMode
-         * @returns #GST_RTSP_OK., location to hold the result
-         */
-        function rtsp_transport_get_mime(trans: RTSPTransMode): [RTSPResult, string]
-        /**
-         * Initialize @transport so that it can be used.
-         * @returns #GST_RTSP_OK., a #GstRTSPTransport
-         */
-        function rtsp_transport_init(): [RTSPResult, RTSPTransport]
-        /**
-         * Allocate a new initialized #GstRTSPTransport. Use gst_rtsp_transport_free()
-         * after usage.
-         * @returns a #GstRTSPResult., location to hold the new #GstRTSPTransport
-         */
-        function rtsp_transport_new(): [RTSPResult, RTSPTransport]
-        /**
-         * Parse the RTSP transport string @str into @transport.
-         * @param str a transport string
-         * @returns a #GstRTSPResult., a #GstRTSPTransport
-         */
-        function rtsp_transport_parse(str: string): [RTSPResult, RTSPTransport]
-        /**
-         * Parse the RTSP @urlstr into a newly allocated #GstRTSPUrl. Free after usage
-         * with gst_rtsp_url_free().
-         * @param urlstr the url string to parse
-         * @returns a #GstRTSPResult., location to hold the result.
-         */
-        function rtsp_url_parse(urlstr: string): [RTSPResult, RTSPUrl | null]
-        /**
-         * Convert @version to a string.
-         * @param version a #GstRTSPVersion
-         * @returns a string representation of `version`.
-         */
-        function rtsp_version_as_text(version: RTSPVersion): string
-        none
-        const RTSP_DEFAULT_PORT: 554
         
-        namespace RTSPAuthMethod {
-            const $gtype: GObject.GType<RTSPAuthMethod>
+
+        interface RTSPWatchFuncsStruct {
+            readonly $gtype: GObject.GType<RTSPWatchFuncs>
+            [Symbol.hasInstance](instance: unknown): instance is RTSPWatchFuncs
         }
 
-        /**
-         * Authentication methods, ordered by strength
-         */
-        enum RTSPAuthMethod {
+        interface RTSPWatchFuncs {
+        }
+
+        interface $Exports {
+            RTSPWatchFuncs: RTSPWatchFuncsStruct
+        }
+        
+        interface RTSPAuthMethodEnum {
+            readonly $gtype: GObject.GType<RTSPAuthMethod>
             /**
              * no authentication
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * basic authentication
              */
-            "BASIC" = 1,
+            readonly "BASIC": 1
             /**
              * digest authentication
              */
-            "DIGEST" = 2,
+            readonly "DIGEST": 2
+        }
+        type RTSPAuthMethod = RTSPAuthMethodEnum[Exclude<keyof RTSPAuthMethodEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Authentication methods, ordered by strength
+             */
+            RTSPAuthMethod: RTSPAuthMethodEnum
         }
         
-        namespace RTSPFamily {
-            const $gtype: GObject.GType<RTSPFamily>
-        }
-
-        /**
-         * The possible network families.
-         */
-        enum RTSPFamily {
+        interface RTSPFamilyEnum {
+            readonly $gtype: GObject.GType<RTSPFamily>
             /**
              * unknown network family
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * internet
              */
-            "INET" = 1,
+            readonly "INET": 1
             /**
              * internet V6
              */
-            "INET6" = 2,
+            readonly "INET6": 2
+        }
+        type RTSPFamily = RTSPFamilyEnum[Exclude<keyof RTSPFamilyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The possible network families.
+             */
+            RTSPFamily: RTSPFamilyEnum
         }
         
-        namespace RTSPHeaderField {
-            const $gtype: GObject.GType<RTSPHeaderField>
+        interface RTSPHeaderFieldEnum {
+            readonly $gtype: GObject.GType<RTSPHeaderField>
+            /**
+             */
+            readonly "INVALID": 0
+            /**
+             */
+            readonly "ACCEPT": 1
+            /**
+             */
+            readonly "ACCEPT_ENCODING": 2
+            /**
+             */
+            readonly "ACCEPT_LANGUAGE": 3
+            /**
+             */
+            readonly "ALLOW": 4
+            /**
+             */
+            readonly "AUTHORIZATION": 5
+            /**
+             */
+            readonly "BANDWIDTH": 6
+            /**
+             */
+            readonly "BLOCKSIZE": 7
+            /**
+             */
+            readonly "CACHE_CONTROL": 8
+            /**
+             */
+            readonly "CONFERENCE": 9
+            /**
+             */
+            readonly "CONNECTION": 10
+            /**
+             */
+            readonly "CONTENT_BASE": 11
+            /**
+             */
+            readonly "CONTENT_ENCODING": 12
+            /**
+             */
+            readonly "CONTENT_LANGUAGE": 13
+            /**
+             */
+            readonly "CONTENT_LENGTH": 14
+            /**
+             */
+            readonly "CONTENT_LOCATION": 15
+            /**
+             */
+            readonly "CONTENT_TYPE": 16
+            /**
+             */
+            readonly "CSEQ": 17
+            /**
+             */
+            readonly "DATE": 18
+            /**
+             */
+            readonly "EXPIRES": 19
+            /**
+             */
+            readonly "FROM": 20
+            /**
+             */
+            readonly "IF_MODIFIED_SINCE": 21
+            /**
+             */
+            readonly "LAST_MODIFIED": 22
+            /**
+             */
+            readonly "PROXY_AUTHENTICATE": 23
+            /**
+             */
+            readonly "PROXY_REQUIRE": 24
+            /**
+             */
+            readonly "PUBLIC": 25
+            /**
+             */
+            readonly "RANGE": 26
+            /**
+             */
+            readonly "REFERER": 27
+            /**
+             */
+            readonly "REQUIRE": 28
+            /**
+             */
+            readonly "RETRY_AFTER": 29
+            /**
+             */
+            readonly "RTP_INFO": 30
+            /**
+             */
+            readonly "SCALE": 31
+            /**
+             */
+            readonly "SESSION": 32
+            /**
+             */
+            readonly "SERVER": 33
+            /**
+             */
+            readonly "SPEED": 34
+            /**
+             */
+            readonly "TRANSPORT": 35
+            /**
+             */
+            readonly "UNSUPPORTED": 36
+            /**
+             */
+            readonly "USER_AGENT": 37
+            /**
+             */
+            readonly "VIA": 38
+            /**
+             */
+            readonly "WWW_AUTHENTICATE": 39
+            /**
+             */
+            readonly "CLIENT_CHALLENGE": 40
+            /**
+             */
+            readonly "REAL_CHALLENGE1": 41
+            /**
+             */
+            readonly "REAL_CHALLENGE2": 42
+            /**
+             */
+            readonly "REAL_CHALLENGE3": 43
+            /**
+             */
+            readonly "SUBSCRIBE": 44
+            /**
+             */
+            readonly "ALERT": 45
+            /**
+             */
+            readonly "CLIENT_ID": 46
+            /**
+             */
+            readonly "COMPANY_ID": 47
+            /**
+             */
+            readonly "GUID": 48
+            /**
+             */
+            readonly "REGION_DATA": 49
+            /**
+             */
+            readonly "MAX_ASM_WIDTH": 50
+            /**
+             */
+            readonly "LANGUAGE": 51
+            /**
+             */
+            readonly "PLAYER_START_TIME": 52
+            /**
+             */
+            readonly "LOCATION": 53
+            /**
+             */
+            readonly "ETAG": 54
+            /**
+             */
+            readonly "IF_MATCH": 55
+            /**
+             */
+            readonly "ACCEPT_CHARSET": 56
+            /**
+             */
+            readonly "SUPPORTED": 57
+            /**
+             */
+            readonly "VARY": 58
+            /**
+             */
+            readonly "X_ACCELERATE_STREAMING": 59
+            /**
+             */
+            readonly "X_ACCEPT_AUTHENT": 60
+            /**
+             */
+            readonly "X_ACCEPT_PROXY_AUTHENT": 61
+            /**
+             */
+            readonly "X_BROADCAST_ID": 62
+            /**
+             */
+            readonly "X_BURST_STREAMING": 63
+            /**
+             */
+            readonly "X_NOTICE": 64
+            /**
+             */
+            readonly "X_PLAYER_LAG_TIME": 65
+            /**
+             */
+            readonly "X_PLAYLIST": 66
+            /**
+             */
+            readonly "X_PLAYLIST_CHANGE_NOTICE": 67
+            /**
+             */
+            readonly "X_PLAYLIST_GEN_ID": 68
+            /**
+             */
+            readonly "X_PLAYLIST_SEEK_ID": 69
+            /**
+             */
+            readonly "X_PROXY_CLIENT_AGENT": 70
+            /**
+             */
+            readonly "X_PROXY_CLIENT_VERB": 71
+            /**
+             */
+            readonly "X_RECEDING_PLAYLISTCHANGE": 72
+            /**
+             */
+            readonly "X_RTP_INFO": 73
+            /**
+             */
+            readonly "X_STARTUPPROFILE": 74
+            /**
+             */
+            readonly "TIMESTAMP": 75
+            /**
+             */
+            readonly "AUTHENTICATION_INFO": 76
+            /**
+             */
+            readonly "HOST": 77
+            /**
+             */
+            readonly "PRAGMA": 78
+            /**
+             */
+            readonly "X_SERVER_IP_ADDRESS": 79
+            /**
+             */
+            readonly "X_SESSIONCOOKIE": 80
+            /**
+             */
+            readonly "RTCP_INTERVAL": 81
+            /**
+             */
+            readonly "KEYMGMT": 82
+            /**
+             */
+            readonly "PIPELINED_REQUESTS": 83
+            /**
+             */
+            readonly "MEDIA_PROPERTIES": 84
+            /**
+             */
+            readonly "SEEK_STYLE": 85
+            /**
+             */
+            readonly "ACCEPT_RANGES": 86
+            /**
+             */
+            readonly "FRAMES": 87
+            /**
+             */
+            readonly "RATE_CONTROL": 88
+            /**
+             */
+            readonly "LAST": 89
         }
-
-        /**
-         * Enumeration of rtsp header fields
-         */
-        enum RTSPHeaderField {
+        type RTSPHeaderField = RTSPHeaderFieldEnum[Exclude<keyof RTSPHeaderFieldEnum, "$gtype">]
+        interface $Exports {
             /**
+             * Enumeration of rtsp header fields
              */
-            "INVALID" = 0,
-            /**
-             */
-            "ACCEPT" = 1,
-            /**
-             */
-            "ACCEPT_ENCODING" = 2,
-            /**
-             */
-            "ACCEPT_LANGUAGE" = 3,
-            /**
-             */
-            "ALLOW" = 4,
-            /**
-             */
-            "AUTHORIZATION" = 5,
-            /**
-             */
-            "BANDWIDTH" = 6,
-            /**
-             */
-            "BLOCKSIZE" = 7,
-            /**
-             */
-            "CACHE_CONTROL" = 8,
-            /**
-             */
-            "CONFERENCE" = 9,
-            /**
-             */
-            "CONNECTION" = 10,
-            /**
-             */
-            "CONTENT_BASE" = 11,
-            /**
-             */
-            "CONTENT_ENCODING" = 12,
-            /**
-             */
-            "CONTENT_LANGUAGE" = 13,
-            /**
-             */
-            "CONTENT_LENGTH" = 14,
-            /**
-             */
-            "CONTENT_LOCATION" = 15,
-            /**
-             */
-            "CONTENT_TYPE" = 16,
-            /**
-             */
-            "CSEQ" = 17,
-            /**
-             */
-            "DATE" = 18,
-            /**
-             */
-            "EXPIRES" = 19,
-            /**
-             */
-            "FROM" = 20,
-            /**
-             */
-            "IF_MODIFIED_SINCE" = 21,
-            /**
-             */
-            "LAST_MODIFIED" = 22,
-            /**
-             */
-            "PROXY_AUTHENTICATE" = 23,
-            /**
-             */
-            "PROXY_REQUIRE" = 24,
-            /**
-             */
-            "PUBLIC" = 25,
-            /**
-             */
-            "RANGE" = 26,
-            /**
-             */
-            "REFERER" = 27,
-            /**
-             */
-            "REQUIRE" = 28,
-            /**
-             */
-            "RETRY_AFTER" = 29,
-            /**
-             */
-            "RTP_INFO" = 30,
-            /**
-             */
-            "SCALE" = 31,
-            /**
-             */
-            "SESSION" = 32,
-            /**
-             */
-            "SERVER" = 33,
-            /**
-             */
-            "SPEED" = 34,
-            /**
-             */
-            "TRANSPORT" = 35,
-            /**
-             */
-            "UNSUPPORTED" = 36,
-            /**
-             */
-            "USER_AGENT" = 37,
-            /**
-             */
-            "VIA" = 38,
-            /**
-             */
-            "WWW_AUTHENTICATE" = 39,
-            /**
-             */
-            "CLIENT_CHALLENGE" = 40,
-            /**
-             */
-            "REAL_CHALLENGE1" = 41,
-            /**
-             */
-            "REAL_CHALLENGE2" = 42,
-            /**
-             */
-            "REAL_CHALLENGE3" = 43,
-            /**
-             */
-            "SUBSCRIBE" = 44,
-            /**
-             */
-            "ALERT" = 45,
-            /**
-             */
-            "CLIENT_ID" = 46,
-            /**
-             */
-            "COMPANY_ID" = 47,
-            /**
-             */
-            "GUID" = 48,
-            /**
-             */
-            "REGION_DATA" = 49,
-            /**
-             */
-            "MAX_ASM_WIDTH" = 50,
-            /**
-             */
-            "LANGUAGE" = 51,
-            /**
-             */
-            "PLAYER_START_TIME" = 52,
-            /**
-             */
-            "LOCATION" = 53,
-            /**
-             */
-            "ETAG" = 54,
-            /**
-             */
-            "IF_MATCH" = 55,
-            /**
-             */
-            "ACCEPT_CHARSET" = 56,
-            /**
-             */
-            "SUPPORTED" = 57,
-            /**
-             */
-            "VARY" = 58,
-            /**
-             */
-            "X_ACCELERATE_STREAMING" = 59,
-            /**
-             */
-            "X_ACCEPT_AUTHENT" = 60,
-            /**
-             */
-            "X_ACCEPT_PROXY_AUTHENT" = 61,
-            /**
-             */
-            "X_BROADCAST_ID" = 62,
-            /**
-             */
-            "X_BURST_STREAMING" = 63,
-            /**
-             */
-            "X_NOTICE" = 64,
-            /**
-             */
-            "X_PLAYER_LAG_TIME" = 65,
-            /**
-             */
-            "X_PLAYLIST" = 66,
-            /**
-             */
-            "X_PLAYLIST_CHANGE_NOTICE" = 67,
-            /**
-             */
-            "X_PLAYLIST_GEN_ID" = 68,
-            /**
-             */
-            "X_PLAYLIST_SEEK_ID" = 69,
-            /**
-             */
-            "X_PROXY_CLIENT_AGENT" = 70,
-            /**
-             */
-            "X_PROXY_CLIENT_VERB" = 71,
-            /**
-             */
-            "X_RECEDING_PLAYLISTCHANGE" = 72,
-            /**
-             */
-            "X_RTP_INFO" = 73,
-            /**
-             */
-            "X_STARTUPPROFILE" = 74,
-            /**
-             */
-            "TIMESTAMP" = 75,
-            /**
-             */
-            "AUTHENTICATION_INFO" = 76,
-            /**
-             */
-            "HOST" = 77,
-            /**
-             */
-            "PRAGMA" = 78,
-            /**
-             */
-            "X_SERVER_IP_ADDRESS" = 79,
-            /**
-             */
-            "X_SESSIONCOOKIE" = 80,
-            /**
-             */
-            "RTCP_INTERVAL" = 81,
-            /**
-             */
-            "KEYMGMT" = 82,
-            /**
-             */
-            "PIPELINED_REQUESTS" = 83,
-            /**
-             */
-            "MEDIA_PROPERTIES" = 84,
-            /**
-             */
-            "SEEK_STYLE" = 85,
-            /**
-             */
-            "ACCEPT_RANGES" = 86,
-            /**
-             */
-            "FRAMES" = 87,
-            /**
-             */
-            "RATE_CONTROL" = 88,
-            /**
-             */
-            "LAST" = 89,
+            RTSPHeaderField: RTSPHeaderFieldEnum
         }
         
-        namespace RTSPMsgType {
-            const $gtype: GObject.GType<RTSPMsgType>
-        }
-
-        /**
-         * The type of a message.
-         */
-        enum RTSPMsgType {
+        interface RTSPMsgTypeEnum {
+            readonly $gtype: GObject.GType<RTSPMsgType>
             /**
              * invalid message type
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * RTSP request message
              */
-            "REQUEST" = 1,
+            readonly "REQUEST": 1
             /**
              * RTSP response message
              */
-            "RESPONSE" = 2,
+            readonly "RESPONSE": 2
             /**
              * HTTP request message.
              */
-            "HTTP_REQUEST" = 3,
+            readonly "HTTP_REQUEST": 3
             /**
              * HTTP response message.
              */
-            "HTTP_RESPONSE" = 4,
+            readonly "HTTP_RESPONSE": 4
             /**
              * data message
              */
-            "DATA" = 5,
+            readonly "DATA": 5
+        }
+        type RTSPMsgType = RTSPMsgTypeEnum[Exclude<keyof RTSPMsgTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The type of a message.
+             */
+            RTSPMsgType: RTSPMsgTypeEnum
         }
         
-        namespace RTSPRangeUnit {
-            const $gtype: GObject.GType<RTSPRangeUnit>
-        }
-
-        /**
-         * Different possible time range units.
-         */
-        enum RTSPRangeUnit {
+        interface RTSPRangeUnitEnum {
+            readonly $gtype: GObject.GType<RTSPRangeUnit>
             /**
              * SMPTE timecode
              */
-            "SMPTE" = 0,
+            readonly "SMPTE": 0
             /**
              * 29.97 frames per second
              */
-            "SMPTE_30_DROP" = 1,
+            readonly "SMPTE_30_DROP": 1
             /**
              * 25 frames per second
              */
-            "SMPTE_25" = 2,
+            readonly "SMPTE_25": 2
             /**
              * Normal play time
              */
-            "NPT" = 3,
+            readonly "NPT": 3
             /**
              * Absolute time expressed as ISO 8601 timestamps
              */
-            "CLOCK" = 4,
+            readonly "CLOCK": 4
+        }
+        type RTSPRangeUnit = RTSPRangeUnitEnum[Exclude<keyof RTSPRangeUnitEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Different possible time range units.
+             */
+            RTSPRangeUnit: RTSPRangeUnitEnum
         }
         
-        namespace RTSPResult {
-            const $gtype: GObject.GType<RTSPResult>
-        }
-
-        /**
-         * Result codes from the RTSP functions.
-         */
-        enum RTSPResult {
+        interface RTSPResultEnum {
+            readonly $gtype: GObject.GType<RTSPResult>
             /**
              * no error
              */
-            "OK" = 0,
+            readonly "OK": 0
             /**
              * RTSP request is successful, but was redirected.
              * @since 1.24
              */
-            "OK_REDIRECT" = 1,
+            readonly "OK_REDIRECT": 1
             /**
              * some unspecified error occurred
              */
-            "ERROR" = -1,
+            readonly "ERROR": -1
             /**
              * invalid arguments were provided to a function
              */
-            "EINVAL" = -2,
+            readonly "EINVAL": -2
             /**
              * an operation was canceled
              */
-            "EINTR" = -3,
+            readonly "EINTR": -3
             /**
              * no memory was available for the operation
              */
-            "ENOMEM" = -4,
+            readonly "ENOMEM": -4
             /**
              * a host resolve error occurred
              */
-            "ERESOLV" = -5,
+            readonly "ERESOLV": -5
             /**
              * function not implemented
              */
-            "ENOTIMPL" = -6,
+            readonly "ENOTIMPL": -6
             /**
              * a system error occurred, errno contains more details
              */
-            "ESYS" = -7,
+            readonly "ESYS": -7
             /**
              * a parsing error occurred
              */
-            "EPARSE" = -8,
+            readonly "EPARSE": -8
             /**
              * windows networking could not start
              */
-            "EWSASTART" = -9,
+            readonly "EWSASTART": -9
             /**
              * windows networking stack has wrong version
              */
-            "EWSAVERSION" = -10,
+            readonly "EWSAVERSION": -10
             /**
              * end-of-file was reached
              */
-            "EEOF" = -11,
+            readonly "EEOF": -11
             /**
              * a network problem occurred, h_errno contains more details
              */
-            "ENET" = -12,
+            readonly "ENET": -12
             /**
              * the host is not an IP host
              */
-            "ENOTIP" = -13,
+            readonly "ENOTIP": -13
             /**
              * a timeout occurred
              */
-            "ETIMEOUT" = -14,
+            readonly "ETIMEOUT": -14
             /**
              * the tunnel GET request has been performed
              */
-            "ETGET" = -15,
+            readonly "ETGET": -15
             /**
              * the tunnel POST request has been performed
              */
-            "ETPOST" = -16,
+            readonly "ETPOST": -16
             /**
              * last error
              */
-            "ELAST" = -17,
+            readonly "ELAST": -17
+        }
+        type RTSPResult = RTSPResultEnum[Exclude<keyof RTSPResultEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Result codes from the RTSP functions.
+             */
+            RTSPResult: RTSPResultEnum
         }
         
-        namespace RTSPState {
-            const $gtype: GObject.GType<RTSPState>
-        }
-
-        /**
-         * The different RTSP states.
-         */
-        enum RTSPState {
+        interface RTSPStateEnum {
+            readonly $gtype: GObject.GType<RTSPState>
             /**
              * invalid state
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * initializing
              */
-            "INIT" = 1,
+            readonly "INIT": 1
             /**
              * ready for operation
              */
-            "READY" = 2,
+            readonly "READY": 2
             /**
              * seeking in progress
              */
-            "SEEKING" = 3,
+            readonly "SEEKING": 3
             /**
              * playing
              */
-            "PLAYING" = 4,
+            readonly "PLAYING": 4
             /**
              * recording
              */
-            "RECORDING" = 5,
+            readonly "RECORDING": 5
+        }
+        type RTSPState = RTSPStateEnum[Exclude<keyof RTSPStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The different RTSP states.
+             */
+            RTSPState: RTSPStateEnum
         }
         
-        namespace RTSPStatusCode {
-            const $gtype: GObject.GType<RTSPStatusCode>
-        }
-
-        /**
-         * Enumeration of rtsp status codes
-         */
-        enum RTSPStatusCode {
+        interface RTSPStatusCodeEnum {
+            readonly $gtype: GObject.GType<RTSPStatusCode>
             /**
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              */
-            "CONTINUE" = 100,
+            readonly "CONTINUE": 100
             /**
              */
-            "OK" = 200,
+            readonly "OK": 200
             /**
              */
-            "CREATED" = 201,
+            readonly "CREATED": 201
             /**
              */
-            "LOW_ON_STORAGE" = 250,
+            readonly "LOW_ON_STORAGE": 250
             /**
              */
-            "MULTIPLE_CHOICES" = 300,
+            readonly "MULTIPLE_CHOICES": 300
             /**
              */
-            "MOVED_PERMANENTLY" = 301,
+            readonly "MOVED_PERMANENTLY": 301
             /**
              */
-            "MOVE_TEMPORARILY" = 302,
+            readonly "MOVE_TEMPORARILY": 302
             /**
              */
-            "SEE_OTHER" = 303,
+            readonly "SEE_OTHER": 303
             /**
              */
-            "NOT_MODIFIED" = 304,
+            readonly "NOT_MODIFIED": 304
             /**
              */
-            "USE_PROXY" = 305,
+            readonly "USE_PROXY": 305
             /**
              * RTSP request is temporarily redirected
              * @since 1.24
              */
-            "REDIRECT_TEMPORARILY" = 307,
+            readonly "REDIRECT_TEMPORARILY": 307
             /**
              * RTSP request is permanently redirected
              * @since 1.24
              */
-            "REDIRECT_PERMANENTLY" = 308,
+            readonly "REDIRECT_PERMANENTLY": 308
             /**
              */
-            "BAD_REQUEST" = 400,
+            readonly "BAD_REQUEST": 400
             /**
              */
-            "UNAUTHORIZED" = 401,
+            readonly "UNAUTHORIZED": 401
             /**
              */
-            "PAYMENT_REQUIRED" = 402,
+            readonly "PAYMENT_REQUIRED": 402
             /**
              */
-            "FORBIDDEN" = 403,
+            readonly "FORBIDDEN": 403
             /**
              */
-            "NOT_FOUND" = 404,
+            readonly "NOT_FOUND": 404
             /**
              */
-            "METHOD_NOT_ALLOWED" = 405,
+            readonly "METHOD_NOT_ALLOWED": 405
             /**
              */
-            "NOT_ACCEPTABLE" = 406,
+            readonly "NOT_ACCEPTABLE": 406
             /**
              */
-            "PROXY_AUTH_REQUIRED" = 407,
+            readonly "PROXY_AUTH_REQUIRED": 407
             /**
              */
-            "REQUEST_TIMEOUT" = 408,
+            readonly "REQUEST_TIMEOUT": 408
             /**
              */
-            "GONE" = 410,
+            readonly "GONE": 410
             /**
              */
-            "LENGTH_REQUIRED" = 411,
+            readonly "LENGTH_REQUIRED": 411
             /**
              */
-            "PRECONDITION_FAILED" = 412,
+            readonly "PRECONDITION_FAILED": 412
             /**
              */
-            "REQUEST_ENTITY_TOO_LARGE" = 413,
+            readonly "REQUEST_ENTITY_TOO_LARGE": 413
             /**
              */
-            "REQUEST_URI_TOO_LARGE" = 414,
+            readonly "REQUEST_URI_TOO_LARGE": 414
             /**
              */
-            "UNSUPPORTED_MEDIA_TYPE" = 415,
+            readonly "UNSUPPORTED_MEDIA_TYPE": 415
             /**
              */
-            "PARAMETER_NOT_UNDERSTOOD" = 451,
+            readonly "PARAMETER_NOT_UNDERSTOOD": 451
             /**
              */
-            "CONFERENCE_NOT_FOUND" = 452,
+            readonly "CONFERENCE_NOT_FOUND": 452
             /**
              */
-            "NOT_ENOUGH_BANDWIDTH" = 453,
+            readonly "NOT_ENOUGH_BANDWIDTH": 453
             /**
              */
-            "SESSION_NOT_FOUND" = 454,
+            readonly "SESSION_NOT_FOUND": 454
             /**
              */
-            "METHOD_NOT_VALID_IN_THIS_STATE" = 455,
+            readonly "METHOD_NOT_VALID_IN_THIS_STATE": 455
             /**
              */
-            "HEADER_FIELD_NOT_VALID_FOR_RESOURCE" = 456,
+            readonly "HEADER_FIELD_NOT_VALID_FOR_RESOURCE": 456
             /**
              */
-            "INVALID_RANGE" = 457,
+            readonly "INVALID_RANGE": 457
             /**
              */
-            "PARAMETER_IS_READONLY" = 458,
+            readonly "PARAMETER_IS_READONLY": 458
             /**
              */
-            "AGGREGATE_OPERATION_NOT_ALLOWED" = 459,
+            readonly "AGGREGATE_OPERATION_NOT_ALLOWED": 459
             /**
              */
-            "ONLY_AGGREGATE_OPERATION_ALLOWED" = 460,
+            readonly "ONLY_AGGREGATE_OPERATION_ALLOWED": 460
             /**
              */
-            "UNSUPPORTED_TRANSPORT" = 461,
+            readonly "UNSUPPORTED_TRANSPORT": 461
             /**
              */
-            "DESTINATION_UNREACHABLE" = 462,
+            readonly "DESTINATION_UNREACHABLE": 462
             /**
              */
-            "KEY_MANAGEMENT_FAILURE" = 463,
+            readonly "KEY_MANAGEMENT_FAILURE": 463
             /**
              */
-            "INTERNAL_SERVER_ERROR" = 500,
+            readonly "INTERNAL_SERVER_ERROR": 500
             /**
              */
-            "NOT_IMPLEMENTED" = 501,
+            readonly "NOT_IMPLEMENTED": 501
             /**
              */
-            "BAD_GATEWAY" = 502,
+            readonly "BAD_GATEWAY": 502
             /**
              */
-            "SERVICE_UNAVAILABLE" = 503,
+            readonly "SERVICE_UNAVAILABLE": 503
             /**
              */
-            "GATEWAY_TIMEOUT" = 504,
+            readonly "GATEWAY_TIMEOUT": 504
             /**
              */
-            "RTSP_VERSION_NOT_SUPPORTED" = 505,
+            readonly "RTSP_VERSION_NOT_SUPPORTED": 505
             /**
              */
-            "OPTION_NOT_SUPPORTED" = 551,
+            readonly "OPTION_NOT_SUPPORTED": 551
+        }
+        type RTSPStatusCode = RTSPStatusCodeEnum[Exclude<keyof RTSPStatusCodeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enumeration of rtsp status codes
+             */
+            RTSPStatusCode: RTSPStatusCodeEnum
         }
         
-        namespace RTSPTimeType {
-            const $gtype: GObject.GType<RTSPTimeType>
-        }
-
-        /**
-         * Possible time types.
-         */
-        enum RTSPTimeType {
+        interface RTSPTimeTypeEnum {
+            readonly $gtype: GObject.GType<RTSPTimeType>
             /**
              * seconds
              */
-            "SECONDS" = 0,
+            readonly "SECONDS": 0
             /**
              * now
              */
-            "NOW" = 1,
+            readonly "NOW": 1
             /**
              * end
              */
-            "END" = 2,
+            readonly "END": 2
             /**
              * frames and subframes
              */
-            "FRAMES" = 3,
+            readonly "FRAMES": 3
             /**
              * UTC time
              */
-            "UTC" = 4,
+            readonly "UTC": 4
+        }
+        type RTSPTimeType = RTSPTimeTypeEnum[Exclude<keyof RTSPTimeTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Possible time types.
+             */
+            RTSPTimeType: RTSPTimeTypeEnum
         }
         
-        namespace RTSPVersion {
-            const $gtype: GObject.GType<RTSPVersion>
-        }
-
-        /**
-         * The supported RTSP versions.
-         */
-        enum RTSPVersion {
+        interface RTSPVersionEnum {
+            readonly $gtype: GObject.GType<RTSPVersion>
             /**
              * unknown/invalid version
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * version 1.0
              */
-            "1_0" = 16,
+            readonly "1_0": 16
             /**
              * version 1.1.
              */
-            "1_1" = 17,
+            readonly "1_1": 17
             /**
              * version 2.0.
              */
-            "2_0" = 32,
+            readonly "2_0": 32
         }
-        /**
+        type RTSPVersion = RTSPVersionEnum[Exclude<keyof RTSPVersionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The supported RTSP versions.
+             */
+            RTSPVersion: RTSPVersionEnum
+            /**
          * Convert @version to a string.
          * @param version a #GstRTSPVersion
          * @returns a string representation of `version`.
          */
-        function as_text(version: RTSPVersion): string
-        
-        namespace RTSPEvent {
-            const $gtype: GObject.GType<RTSPEvent>
+        as_text: (version: RTSPVersion) => string
         }
-
-        /**
-         * The possible events for the connection.
-         */
-        enum RTSPEvent {
+        
+        interface RTSPEventBitfield {
+            readonly $gtype: GObject.GType<RTSPEvent>
             /**
              * connection is readable
              */
-            "READ" = 1,
+            readonly "READ": 1
             /**
              * connection is writable
              */
-            "WRITE" = 2,
+            readonly "WRITE": 2
+        }
+        type RTSPEvent = number
+        interface $Exports {
+            /**
+             * The possible events for the connection.
+             */
+            RTSPEvent: RTSPEventBitfield
         }
         
-        namespace RTSPLowerTrans {
-            const $gtype: GObject.GType<RTSPLowerTrans>
-        }
-
-        /**
-         * The different transport methods.
-         */
-        enum RTSPLowerTrans {
+        interface RTSPLowerTransBitfield {
+            readonly $gtype: GObject.GType<RTSPLowerTrans>
             /**
              * invalid transport flag
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * stream data over UDP
              */
-            "UDP" = 1,
+            readonly "UDP": 1
             /**
              * stream data over UDP multicast
              */
-            "UDP_MCAST" = 2,
+            readonly "UDP_MCAST": 2
             /**
              * stream data over TCP
              */
-            "TCP" = 4,
+            readonly "TCP": 4
             /**
              * stream data tunneled over HTTP.
              */
-            "HTTP" = 16,
+            readonly "HTTP": 16
             /**
              * encrypt TCP and HTTP with TLS
              */
-            "TLS" = 32,
+            readonly "TLS": 32
+        }
+        type RTSPLowerTrans = number
+        interface $Exports {
+            /**
+             * The different transport methods.
+             */
+            RTSPLowerTrans: RTSPLowerTransBitfield
         }
         
-        namespace RTSPMethod {
-            const $gtype: GObject.GType<RTSPMethod>
-        }
-
-        /**
-         * The different supported RTSP methods.
-         */
-        enum RTSPMethod {
+        interface RTSPMethodBitfield {
+            readonly $gtype: GObject.GType<RTSPMethod>
             /**
              * invalid method
              */
-            "INVALID" = 0,
+            readonly "INVALID": 0
             /**
              * the DESCRIBE method
              */
-            "DESCRIBE" = 1,
+            readonly "DESCRIBE": 1
             /**
              * the ANNOUNCE method
              */
-            "ANNOUNCE" = 2,
+            readonly "ANNOUNCE": 2
             /**
              * the GET_PARAMETER method
              */
-            "GET_PARAMETER" = 4,
+            readonly "GET_PARAMETER": 4
             /**
              * the OPTIONS method
              */
-            "OPTIONS" = 8,
+            readonly "OPTIONS": 8
             /**
              * the PAUSE method
              */
-            "PAUSE" = 16,
+            readonly "PAUSE": 16
             /**
              * the PLAY method
              */
-            "PLAY" = 32,
+            readonly "PLAY": 32
             /**
              * the RECORD method
              */
-            "RECORD" = 64,
+            readonly "RECORD": 64
             /**
              * the REDIRECT method
              */
-            "REDIRECT" = 128,
+            readonly "REDIRECT": 128
             /**
              * the SETUP method
              */
-            "SETUP" = 256,
+            readonly "SETUP": 256
             /**
              * the SET_PARAMETER method
              */
-            "SET_PARAMETER" = 512,
+            readonly "SET_PARAMETER": 512
             /**
              * the TEARDOWN method
              */
-            "TEARDOWN" = 1024,
+            readonly "TEARDOWN": 1024
             /**
              * the GET method (HTTP).
              */
-            "GET" = 2048,
+            readonly "GET": 2048
             /**
              * the POST method (HTTP).
              */
-            "POST" = 4096,
+            readonly "POST": 4096
         }
-        /**
+        type RTSPMethod = number
+        interface $Exports {
+            /**
+             * The different supported RTSP methods.
+             */
+            RTSPMethod: RTSPMethodBitfield
+            /**
          * Convert @method to a string.
          * @param method a #GstRTSPMethod
          * @returns a string representation of `method`.
          */
-        function as_text(method: RTSPMethod): string | null
-        
-        namespace RTSPProfile {
-            const $gtype: GObject.GType<RTSPProfile>
+        as_text: (method: RTSPMethod) => string | null
         }
-
-        /**
-         * The transfer profile to use.
-         */
-        enum RTSPProfile {
+        
+        interface RTSPProfileBitfield {
+            readonly $gtype: GObject.GType<RTSPProfile>
             /**
              * invalid profile
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * the Audio/Visual profile (RFC 3551)
              */
-            "AVP" = 1,
+            readonly "AVP": 1
             /**
              * the secure Audio/Visual profile (RFC 3711)
              */
-            "SAVP" = 2,
+            readonly "SAVP": 2
             /**
              * the Audio/Visual profile with feedback (RFC 4585)
              */
-            "AVPF" = 4,
+            readonly "AVPF": 4
             /**
              * the secure Audio/Visual profile with feedback (RFC 5124)
              */
-            "SAVPF" = 8,
+            readonly "SAVPF": 8
+        }
+        type RTSPProfile = number
+        interface $Exports {
+            /**
+             * The transfer profile to use.
+             */
+            RTSPProfile: RTSPProfileBitfield
         }
         
-        namespace RTSPTransMode {
-            const $gtype: GObject.GType<RTSPTransMode>
-        }
-
-        /**
-         * The transfer mode to use.
-         */
-        enum RTSPTransMode {
+        interface RTSPTransModeBitfield {
+            readonly $gtype: GObject.GType<RTSPTransMode>
             /**
              * invalid tansport mode
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * transfer RTP data
              */
-            "RTP" = 1,
+            readonly "RTP": 1
             /**
              * transfer RDT (RealMedia) data
              */
-            "RDT" = 2,
+            readonly "RDT": 2
+        }
+        type RTSPTransMode = number
+        interface $Exports {
+            /**
+             * The transfer mode to use.
+             */
+            RTSPTransMode: RTSPTransModeBitfield
         }
         /**
          * @param conn
@@ -2612,7 +2427,263 @@ declare module "gi://GstRtsp?version=1.0" {
          * @param errors
          */
         type RTSPConnectionAcceptCertificateFunc = (conn: Gio.TlsConnection, peer_cert: Gio.TlsCertificate, errors: Gio.TlsCertificateFlags) => boolean
+
+        interface $Exports {
+            __name__: "GstRtsp"
+            __version: "1.0"
+            RTSP_DEFAULT_PORT: 554
+            /**
+             * Free a %NULL-terminated array of credentials returned from
+             * gst_rtsp_message_parse_auth_credentials().
+             * @since 1.12
+             * @param credentials a %NULL-terminated array of #GstRTSPAuthCredential
+             */
+            rtsp_auth_credentials_free(credentials: RTSPAuthCredential): void
+            /**
+             * Accept a new connection on @socket and create a new #GstRTSPConnection for
+             * handling communication on new socket.
+             * @param socket a socket
+             * @param cancellable a #GCancellable to cancel the operation
+             * @returns #GST_RTSP_OK when `conn` contains a valid connection., storage for a #GstRTSPConnection
+             */
+            rtsp_connection_accept(socket: Gio.Socket, cancellable: Gio.Cancellable | null): [RTSPResult, RTSPConnection | null]
+            /**
+             * Create a newly allocated #GstRTSPConnection from @url and store it in @conn.
+             * The connection will not yet attempt to connect to @url, use
+             * gst_rtsp_connection_connect().
+             *
+             * A copy of @url will be made.
+             * @param url a #GstRTSPUrl
+             * @returns #GST_RTSP_OK when `conn` contains a valid connection., storage for a #GstRTSPConnection
+             */
+            rtsp_connection_create(url: RTSPUrl): [RTSPResult, RTSPConnection]
+            /**
+             * Create a new #GstRTSPConnection for handling communication on the existing
+             * socket @socket. The @initial_buffer contains zero terminated data already
+             * read from @socket which should be used before starting to read new data.
+             * @param socket a #GSocket
+             * @param ip the IP address of the other end
+             * @param port the port used by the other end
+             * @param initial_buffer data already read from @fd
+             * @returns #GST_RTSP_OK when `conn` contains a valid connection., storage for a #GstRTSPConnection
+             */
+            rtsp_connection_create_from_socket(socket: Gio.Socket, ip: string, port: number, initial_buffer: string): [RTSPResult, RTSPConnection | null]
+            /**
+             * Convert @header to a #GstRTSPHeaderField.
+             * @param header a header string
+             * @returns a #GstRTSPHeaderField for `header` or #GST_RTSP_HDR_INVALID if the header field is unknown.
+             */
+            rtsp_find_header_field(header: string): RTSPHeaderField
+            /**
+             * Convert @method to a #GstRTSPMethod.
+             * @param method a method
+             * @returns a #GstRTSPMethod for `method` or #GST_RTSP_INVALID if the method is unknown.
+             */
+            rtsp_find_method(method: string): RTSPMethod
+            /**
+             * Calculates the digest auth response from the values given by the server and
+             * the username and password. See RFC2069 for details.
+             *
+             * Currently only supported algorithm "md5".
+             * @since 1.12
+             * @param algorithm Hash algorithm to use, or %NULL for MD5
+             * @param method Request method, e.g. PLAY
+             * @param realm Realm
+             * @param username Username
+             * @param password Password
+             * @param uri Original request URI
+             * @param nonce Nonce
+             * @returns Authentication response or %NULL if unsupported
+             */
+            rtsp_generate_digest_auth_response(algorithm: string | null, method: string, realm: string, username: string, password: string, uri: string, nonce: string): string | null
+            /**
+             * Calculates the digest auth response from the values given by the server and
+             * the md5sum. See RFC2069 for details.
+             *
+             * This function is useful when the passwords are not stored in clear text,
+             * but instead in the same format as the .htdigest file.
+             *
+             * Currently only supported algorithm "md5".
+             * @since 1.16
+             * @param algorithm Hash algorithm to use, or %NULL for MD5
+             * @param method Request method, e.g. PLAY
+             * @param md5 The md5 sum of username:realm:password
+             * @param uri Original request URI
+             * @param nonce Nonce
+             * @returns Authentication response or %NULL if unsupported
+             */
+            rtsp_generate_digest_auth_response_from_md5(algorithm: string | null, method: string, md5: string, uri: string, nonce: string): string | null
+            /**
+             * Check whether @field may appear multiple times in a message.
+             * @param field a #GstRTSPHeaderField
+             * @returns %TRUE if multiple headers are allowed.
+             */
+            rtsp_header_allow_multiple(field: RTSPHeaderField): boolean
+            /**
+             * Convert @field to a string.
+             * @param field a #GstRTSPHeaderField
+             * @returns a string representation of `field`.
+             */
+            rtsp_header_as_text(field: RTSPHeaderField): string | null
+            /**
+             * Create a new initialized #GstRTSPMessage. Free with gst_rtsp_message_free().
+             * @returns a #GstRTSPResult., a location for the new #GstRTSPMessage
+             */
+            rtsp_message_new(): [RTSPResult, RTSPMessage]
+            /**
+             * Create a new data #GstRTSPMessage with @channel and store the
+             * result message in @msg. Free with gst_rtsp_message_free().
+             * @param channel the channel
+             * @returns a #GstRTSPResult., a location for the new #GstRTSPMessage
+             */
+            rtsp_message_new_data(channel: number): [RTSPResult, RTSPMessage]
+            /**
+             * Create a new #GstRTSPMessage with @method and @uri and store the result
+             * request message in @msg. Free with gst_rtsp_message_free().
+             * @param method the request method to use
+             * @param uri the uri of the request
+             * @returns a #GstRTSPResult., a location for the new #GstRTSPMessage
+             */
+            rtsp_message_new_request(method: RTSPMethod, uri: string): [RTSPResult, RTSPMessage]
+            /**
+             * Create a new response #GstRTSPMessage with @code and @reason and store the
+             * result message in @msg. Free with gst_rtsp_message_free().
+             *
+             * When @reason is %NULL, the default reason for @code will be used.
+             *
+             * When @request is not %NULL, the relevant headers will be copied to the new
+             * response message.
+             * @param code the status code
+             * @param reason the status reason or %NULL
+             * @param request the request that triggered the response or %NULL
+             * @returns a #GstRTSPResult., a location for the new #GstRTSPMessage
+             */
+            rtsp_message_new_response(code: RTSPStatusCode, reason: string | null, request: RTSPMessage | null): [RTSPResult, RTSPMessage]
+            /**
+             * Convert @method to a string.
+             * @param method a #GstRTSPMethod
+             * @returns a string representation of `method`.
+             */
+            rtsp_method_as_text(method: RTSPMethod): string | null
+            /**
+             * Convert @options to a string.
+             * @param options one or more #GstRTSPMethod
+             * @returns a new string of `options`. g_free() after usage.
+             */
+            rtsp_options_as_text(options: RTSPMethod): string
+            /**
+             * Convert the comma separated list @options to a #GstRTSPMethod bitwise or
+             * of methods. This functions is the reverse of gst_rtsp_options_as_text().
+             * @since 1.2
+             * @param options a comma separated list of options
+             * @returns a #GstRTSPMethod
+             */
+            rtsp_options_from_text(options: string): RTSPMethod
+            /**
+             * Converts the range in-place between different types of units.
+             * Ranges containing the special value #GST_RTSP_TIME_NOW can not be
+             * converted as these are only valid for #GST_RTSP_RANGE_NPT.
+             * @param range a #GstRTSPTimeRange
+             * @param unit the unit to convert the range into
+             * @returns %TRUE if the range could be converted
+             */
+            rtsp_range_convert_units(range: RTSPTimeRange, unit: RTSPRangeUnit): boolean
+            /**
+             * Free the memory allocated by @range.
+             * @param range a #GstRTSPTimeRange
+             */
+            rtsp_range_free(range: RTSPTimeRange): void
+            /**
+             * Retrieve the minimum and maximum values from @range converted to
+             * #GstClockTime in @min and @max.
+             *
+             * A value of %GST_CLOCK_TIME_NONE will be used to signal #GST_RTSP_TIME_NOW
+             * and #GST_RTSP_TIME_END for @min and @max respectively.
+             *
+             * UTC times will be converted to nanoseconds since 1900.
+             * @since 1.2
+             * @param range a #GstRTSPTimeRange
+             * @returns %TRUE on success., result minimum #GstClockTime, result maximum #GstClockTime
+             */
+            rtsp_range_get_times(range: RTSPTimeRange): [boolean, Gst.ClockTime, Gst.ClockTime]
+            /**
+             * Parse @rangestr to a #GstRTSPTimeRange.
+             * @param rangestr a range string to parse
+             * @returns #GST_RTSP_OK on success., location to hold the #GstRTSPTimeRange result
+             */
+            rtsp_range_parse(rangestr: string): [RTSPResult, RTSPTimeRange]
+            /**
+             * Convert @range into a string representation.
+             * @param range a #GstRTSPTimeRange
+             * @returns The string representation of `range`. g_free() after usage.
+             */
+            rtsp_range_to_string(range: RTSPTimeRange): string
+            /**
+             * Convert @code to a string.
+             * @param code a #GstRTSPStatusCode
+             * @returns a string representation of `code`.
+             */
+            rtsp_status_as_text(code: RTSPStatusCode): string
+            /**
+             * Convert @result in a human readable string.
+             * @param result a #GstRTSPResult
+             * @returns a newly allocated string. g_free() after usage.
+             */
+            rtsp_strresult(result: RTSPResult): string
+            /**
+             * Get the #GstElement that can handle the buffers transported over @trans.
+             *
+             * It is possible that there are several managers available, use @option to
+             * selected one.
+             *
+             * @manager will contain an element name or %NULL when no manager is
+             * needed/available for @trans.
+             * @param trans a #GstRTSPTransMode
+             * @param option option index.
+             * @returns #GST_RTSP_OK., location to hold the result
+             */
+            rtsp_transport_get_manager(trans: RTSPTransMode, option: number): [RTSPResult, string | null]
+            /**
+             * Get the mime type of the transport mode @trans. This mime type is typically
+             * used to generate #GstCaps events.
+             * @deprecated This functions only deals with the GstRTSPTransMode and only    returns the mime type for #GST_RTSP_PROFILE_AVP. Use    gst_rtsp_transport_get_media_type() instead.
+             * @param trans a #GstRTSPTransMode
+             * @returns #GST_RTSP_OK., location to hold the result
+             */
+            rtsp_transport_get_mime(trans: RTSPTransMode): [RTSPResult, string]
+            /**
+             * Initialize @transport so that it can be used.
+             * @returns #GST_RTSP_OK., a #GstRTSPTransport
+             */
+            rtsp_transport_init(): [RTSPResult, RTSPTransport]
+            /**
+             * Allocate a new initialized #GstRTSPTransport. Use gst_rtsp_transport_free()
+             * after usage.
+             * @returns a #GstRTSPResult., location to hold the new #GstRTSPTransport
+             */
+            rtsp_transport_new(): [RTSPResult, RTSPTransport]
+            /**
+             * Parse the RTSP transport string @str into @transport.
+             * @param str a transport string
+             * @returns a #GstRTSPResult., a #GstRTSPTransport
+             */
+            rtsp_transport_parse(str: string): [RTSPResult, RTSPTransport]
+            /**
+             * Parse the RTSP @urlstr into a newly allocated #GstRTSPUrl. Free after usage
+             * with gst_rtsp_url_free().
+             * @param urlstr the url string to parse
+             * @returns a #GstRTSPResult., location to hold the result.
+             */
+            rtsp_url_parse(urlstr: string): [RTSPResult, RTSPUrl | null]
+            /**
+             * Convert @version to a string.
+             * @param version a #GstRTSPVersion
+             * @returns a string representation of `version`.
+             */
+            rtsp_version_as_text(version: RTSPVersion): string
+        }
     }
 
+    const GstRtsp: GstRtsp.$Exports
     export default GstRtsp
 }

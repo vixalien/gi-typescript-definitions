@@ -16,109 +16,7 @@ declare module "gi://Gck?version=2" {
 
     
 
-
     namespace Gck {
-        const __name__: "Gck"
-        const __version: "2"
-        
-
-        namespace ObjectCache {
-            interface SignalSignatures extends Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Object.ReadableProperties {
-                "attributes": Attributes | null
-            }
-
-            interface WritableProperties extends Object.WritableProperties {
-                "attributes": Attributes | null
-            }
-
-            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Object {
-                /**
-                 * Adds the attributes to the set cached on this object. If an attribute is
-                 * already present in the cache it will be overridden by this value.
-                 *
-                 * This will be done in a thread-safe manner.
-                 * @param attrs the attributes to cache
-                 */
-                vfunc_fill(attrs: Attributes): void
-            }
-        }
-
-        /**
-         * An interface implemented by derived classes of [class@Object] to indicate
-         * which attributes they'd like an enumerator to retrieve.
-         *
-         * These attributes are then cached on the object and can be retrieved through
-         * the [property@ObjectCache:attributes] property.
-         */
-        interface ObjectCache extends Object, ObjectCache.Interface {
-            readonly $signals: ObjectCache.SignalSignatures
-            readonly $readableProperties: ObjectCache.ReadableProperties
-            readonly $writableProperties: ObjectCache.WritableProperties
-            readonly $constructOnlyProperties: ObjectCache.ConstructOnlyProperties
-            /**
-             * The attributes cached on this object.
-             */
-            get attributes(): Attributes | null
-            set attributes(value: Attributes | null)
-            /**
-             * Adds the attributes to the set cached on this object. If an attribute is
-             * already present in the cache it will be overridden by this value.
-             *
-             * This will be done in a thread-safe manner.
-             * @param attrs the attributes to cache
-             */
-            fill(attrs: Attributes): void
-            /**
-             * Sets the attributes cached on this object.
-             * @param attrs the attributes to set
-             */
-            set_attributes(attrs: Attributes | null): void
-            /**
-             * Update the object cache with given attributes. If an attribute already
-             * exists in the cache, it will be updated, and if it doesn't it will be added.
-             *
-             * This may block, use the asynchronous version when this is not desirable
-             * @throws {GLib.Error}
-             * @param attr_types the types of attributes to update
-             * @param cancellable optional cancellation object
-             * @returns whether the cache update was successful
-             */
-            update(attr_types: number[], cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Update the object cache with given attributes. If an attribute already
-             * exists in the cache, it will be updated, and if it doesn't it will be added.
-             *
-             * This call will return immediately and complete asynchronously.
-             * @param attr_types the types of attributes to update
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            update_async(attr_types: number[], cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete an asynchronous operation to update the object cache with given
-             * attributes.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns whether the cache update was successful
-             */
-            update_finish(result: Gio.AsyncResult): boolean
-        }
-
-
-        interface ObjectCacheInterface {
-            readonly $gtype: GObject.GType<ObjectCache>
-            readonly prototype: ObjectCache
-
-            [Symbol.hasInstance](instance: unknown): instance is ObjectCache
-        }
-
-        const ObjectCache: ObjectCacheInterface
         
 
         namespace Enumerator {
@@ -139,14 +37,6 @@ declare module "gi://Gck?version=2" {
             }
         }
 
-        /**
-         * Can be used to enumerate through PKCS#11 objects. It will automatically
-         * create sessions as necessary.
-         *
-         * Use [func@modules_enumerate_objects] or [func@modules_enumerate_uri] to
-         * create an enumerator. To get the objects, use [method@Enumerator.next] or
-         * [method@Enumerator.next_async] functions.
-         */
         interface Enumerator extends GObject.Object {
             readonly $signals: Enumerator.SignalSignatures
             readonly $readableProperties: Enumerator.ReadableProperties
@@ -243,20 +133,30 @@ declare module "gi://Gck?version=2" {
              * If @attr_types and @attr_count are non-NULL and non-zero respectively,
              * then the #GckObjectCache interface is expected to be implemented on the
              * derived class, then the enumerator will retrieve attributes for each object.
-             * @override
              * @param object_type the type of objects to create
              * @param attr_types types of attributes to retrieve for objects
              */
-            set_object_type_full(object_type: (GObject.GType | { $gtype: GObject.GType }), attr_types: number[]): void
+            set_object_type(object_type: (GObject.GType | { $gtype: GObject.GType }), attr_types: number[]): void
         }
 
         interface EnumeratorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Enumerator>
             readonly prototype: Enumerator
+
             new (props?: Partial<GObject.ConstructorProps<Enumerator>>): Enumerator
         }
 
-        const Enumerator: EnumeratorClass
+        interface $Exports {
+            /**
+             * Can be used to enumerate through PKCS#11 objects. It will automatically
+             * create sessions as necessary.
+             *
+             * Use [func@modules_enumerate_objects] or [func@modules_enumerate_uri] to
+             * create an enumerator. To get the objects, use [method@Enumerator.next] or
+             * [method@Enumerator.next_async] functions.
+             */
+            Enumerator: EnumeratorClass
+        }
         
 
         namespace Module {
@@ -269,36 +169,28 @@ declare module "gi://Gck?version=2" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "functions": never
-                "path": string
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "functions": never
+                "path": string
             }
         }
 
-        /**
-         * Holds a loaded PKCS#11 module. A PKCS#11 module is a shared library.
-         *
-         * You can load and initialize a PKCS#11 module with the
-         * [func@Module.initialize] call. If you already have a loaded and
-         * initialized module that you'd like to use with the various Gck functions,
-         * then you can use [ctor@Module.new].
-         */
         interface Module extends GObject.Object {
             readonly $signals: Module.SignalSignatures
             readonly $readableProperties: Module.ReadableProperties
             readonly $writableProperties: Module.WritableProperties
             readonly $constructOnlyProperties: Module.ConstructOnlyProperties
             /**
-             * num;11 function list for the module.
+             * The raw PKCS&num;11 function list for the module.
              *
              * This points to a CK_FUNCTION_LIST structure.
              */
             get functions(): never
             set functions(value: never)
             /**
-             * num;11 module file path.
+             * The PKCS&num;11 module file path.
              *
              * This may be set to NULL if this object was created from an already
              * initialized module via the gck_module_new() function.
@@ -361,6 +253,7 @@ declare module "gi://Gck?version=2" {
         interface ModuleClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Module>
             readonly prototype: Module
+
             new (props?: Partial<GObject.ConstructorProps<Module>>): Module
             /**
              * Load and initialize a PKCS#11 module represented by a GckModule object.
@@ -387,7 +280,17 @@ declare module "gi://Gck?version=2" {
             initialize_finish(result: Gio.AsyncResult): Module | null
         }
 
-        const Module: ModuleClass
+        interface $Exports {
+            /**
+             * Holds a loaded PKCS#11 module. A PKCS#11 module is a shared library.
+             *
+             * You can load and initialize a PKCS#11 module with the
+             * [func@Module.initialize] call. If you already have a loaded and
+             * initialized module that you'd like to use with the various Gck functions,
+             * then you can use [ctor@Module.new].
+             */
+            Module: ModuleClass
+        }
         
 
         namespace Object {
@@ -401,20 +304,15 @@ declare module "gi://Gck?version=2" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "handle": number
                 "module": Module
                 "session": Session
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Holds a handle to a PKCS11 object such as a key or certificate. Token
-         * objects are stored on the token persistently. Others are transient and are
-         * called session objects.
-         */
         interface Object extends GObject.Object {
             readonly $signals: Object.SignalSignatures
             readonly $readableProperties: Object.ReadableProperties
@@ -696,6 +594,7 @@ declare module "gi://Gck?version=2" {
         interface ObjectClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Object>
             readonly prototype: Object
+
             new (props?: Partial<GObject.ConstructorProps<Object>>): Object
             /**
              * Initialize a GckObject from a raw PKCS#11 handle. Normally you would use
@@ -708,7 +607,14 @@ declare module "gi://Gck?version=2" {
             from_handle(session: Session, object_handle: number): Object
         }
 
-        const Object: ObjectClass
+        interface $Exports {
+            /**
+             * Holds a handle to a PKCS11 object such as a key or certificate. Token
+             * objects are stored on the token persistently. Others are transient and are
+             * called session objects.
+             */
+            Object: ObjectClass
+        }
         
 
         namespace Password {
@@ -722,22 +628,15 @@ declare module "gi://Gck?version=2" {
             }
 
             interface WritableProperties extends Gio.TlsPassword.WritableProperties {
-                "key": Object
                 "module": Module
-                "token": Slot
             }
 
             interface ConstructOnlyProperties extends Gio.TlsPassword.ConstructOnlyProperties {
+                "key": Object
+                "token": Slot
             }
         }
 
-        /**
-         * Represents a password which is requested of the user.
-         *
-         * This is used in conjuction with [class@Gio.TlsInteraction]. `GckPassword` is
-         * a [class@Gio.TlsPassword] which contains additional information about which
-         * PKCS#11 token or key the password is being requested for.
-         */
         interface Password extends Gio.TlsPassword {
             readonly $signals: Password.SignalSignatures
             readonly $readableProperties: Password.ReadableProperties
@@ -782,10 +681,20 @@ declare module "gi://Gck?version=2" {
         interface PasswordClass extends Omit<Gio.TlsPasswordClass, "new"> {
             readonly $gtype: GObject.GType<Password>
             readonly prototype: Password
+
             new (props?: Partial<GObject.ConstructorProps<Password>>): Password
         }
 
-        const Password: PasswordClass
+        interface $Exports {
+            /**
+             * Represents a password which is requested of the user.
+             *
+             * This is used in conjuction with [class@Gio.TlsInteraction]. `GckPassword` is
+             * a [class@Gio.TlsPassword] which contains additional information about which
+             * PKCS#11 token or key the password is being requested for.
+             */
+            Password: PasswordClass
+        }
         
 
         namespace Session {
@@ -810,25 +719,19 @@ declare module "gi://Gck?version=2" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.Initable.WritableProperties {
-                "app-data": never
-                "handle": number
                 "interaction": Gio.TlsInteraction | null
                 "module": Module
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
+                "app-data": never
+                "handle": number
                 "opening-flags": number
                 "options": SessionOptions
                 "slot": Slot
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Represents an open PKCS11 session.
-         *
-         * Before performing any PKCS11 operations, a session must be opened. This is
-         * analogous to an open database handle, or a file handle.
-         */
         interface Session extends GObject.Object, Gio.AsyncInitable, Gio.Initable {
             readonly $signals: Session.SignalSignatures
             readonly $readableProperties: Session.ReadableProperties
@@ -1092,7 +995,7 @@ declare module "gi://Gck?version=2" {
              * @param cancellable Optional cancellation object, or %NULL.
              * @returns %TRUE if the operation succeeded., location to return the resulting public key, location to return the resulting private key.
              */
-            generate_key_pair(mech_type: number, public_attrs: Attributes, private_attrs: Attributes, cancellable: Gio.Cancellable | null): boolean
+            generate_key_pair(mech_type: number, public_attrs: Attributes, private_attrs: Attributes, cancellable: Gio.Cancellable | null): [boolean, Object, Object]
             /**
              * Generate a new key pair of public and private keys. This call will
              * return immediately and complete asynchronously.
@@ -1112,7 +1015,7 @@ declare module "gi://Gck?version=2" {
              * @param result The async result passed to the callback.
              * @returns %TRUE if the operation succeeded., a location to return the resulting public key, a location to return the resulting private key
              */
-            generate_key_pair_finish(result: Gio.AsyncResult): boolean
+            generate_key_pair_finish(result: Gio.AsyncResult): [boolean, Object, Object]
             /**
              * Generate a new key pair of public and private keys. This call may block for an
              * indefinite period.
@@ -1123,7 +1026,7 @@ declare module "gi://Gck?version=2" {
              * @param cancellable Optional cancellation object, or %NULL.
              * @returns %TRUE if the operation succeeded., a location to return the resulting public key, a location to return the resulting private key
              */
-            generate_key_pair_full(mechanism: Mechanism, public_attrs: Attributes, private_attrs: Attributes, cancellable: Gio.Cancellable | null): boolean
+            generate_key_pair_full(mechanism: Mechanism, public_attrs: Attributes, private_attrs: Attributes, cancellable: Gio.Cancellable | null): [boolean, Object, Object]
             /**
              * Get the raw PKCS#11 session handle from a session object.
              * @returns The raw session handle.
@@ -1473,6 +1376,7 @@ declare module "gi://Gck?version=2" {
         interface SessionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Session>
             readonly prototype: Session
+
             new (props?: Partial<GObject.ConstructorProps<Session>>): Session
             /**
              * Initialize a session object from a raw PKCS#11 session handle.
@@ -1513,7 +1417,15 @@ declare module "gi://Gck?version=2" {
             open_finish(result: Gio.AsyncResult): Session
         }
 
-        const Session: SessionClass
+        interface $Exports {
+            /**
+             * Represents an open PKCS11 session.
+             *
+             * Before performing any PKCS11 operations, a session must be opened. This is
+             * analogous to an open database handle, or a file handle.
+             */
+            Session: SessionClass
+        }
         
 
         namespace Slot {
@@ -1526,21 +1438,14 @@ declare module "gi://Gck?version=2" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "handle": number
-                "module": Module
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "handle": number
+                "module": Module
             }
         }
 
-        /**
-         * Represents a PKCS#11 slot that can contain a token.
-         *
-         * A PKCS#11 slot can contain a token. As an example, a slot might be a card
-         * reader, and the token the card. If the PKCS#11 module is not a hardware
-         * driver, often the slot and token are equivalent.
-         */
         interface Slot extends GObject.Object {
             readonly $signals: Slot.SignalSignatures
             readonly $readableProperties: Slot.ReadableProperties
@@ -1662,6 +1567,7 @@ declare module "gi://Gck?version=2" {
         interface SlotClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Slot>
             readonly prototype: Slot
+
             new (props?: Partial<GObject.ConstructorProps<Slot>>): Slot
             /**
              * Create a new GckSlot object for a raw PKCS#11 handle.
@@ -1672,19 +1578,120 @@ declare module "gi://Gck?version=2" {
             from_handle(module: Module, slot_id: number): Slot
         }
 
-        const Slot: SlotClass
-        /**
-         * This structure represents a PKCS#11 `CK_ATTRIBUTE`. These attributes contain
-         * information about a PKCS#11 object. Use [method@Object.get] or
-         * [method@Object.set] to set and attributes on an object.
-         *
-         * Although you are free to allocate a `GckAttribute` in your own code, no
-         * functions in this library will operate on such an attribute.
-         */
-        abstract class Attribute {
-            static readonly $gtype: GObject.GType<Attribute>
+        interface $Exports {
+            /**
+             * Represents a PKCS#11 slot that can contain a token.
+             *
+             * A PKCS#11 slot can contain a token. As an example, a slot might be a card
+             * reader, and the token the card. If the PKCS#11 module is not a hardware
+             * driver, often the slot and token are equivalent.
+             */
+            Slot: SlotClass
+        }
+        
 
-            
+        namespace ObjectCache {
+            interface SignalSignatures extends Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Object.ReadableProperties {
+                "attributes": Attributes | null
+            }
+
+            interface WritableProperties extends Object.WritableProperties {
+                "attributes": Attributes | null
+            }
+
+            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends Object {
+                /**
+                 * Adds the attributes to the set cached on this object. If an attribute is
+                 * already present in the cache it will be overridden by this value.
+                 *
+                 * This will be done in a thread-safe manner.
+                 * @param attrs the attributes to cache
+                 */
+                vfunc_fill(attrs: Attributes): void
+            }
+        }
+
+        interface ObjectCache extends Object, ObjectCache.Interface {
+            readonly $signals: ObjectCache.SignalSignatures
+            readonly $readableProperties: ObjectCache.ReadableProperties
+            readonly $writableProperties: ObjectCache.WritableProperties
+            readonly $constructOnlyProperties: ObjectCache.ConstructOnlyProperties
+            /**
+             * The attributes cached on this object.
+             */
+            get attributes(): Attributes | null
+            set attributes(value: Attributes | null)
+            /**
+             * Adds the attributes to the set cached on this object. If an attribute is
+             * already present in the cache it will be overridden by this value.
+             *
+             * This will be done in a thread-safe manner.
+             * @param attrs the attributes to cache
+             */
+            fill(attrs: Attributes): void
+            /**
+             * Sets the attributes cached on this object.
+             * @param attrs the attributes to set
+             */
+            set_attributes(attrs: Attributes | null): void
+            /**
+             * Update the object cache with given attributes. If an attribute already
+             * exists in the cache, it will be updated, and if it doesn't it will be added.
+             *
+             * This may block, use the asynchronous version when this is not desirable
+             * @throws {GLib.Error}
+             * @param attr_types the types of attributes to update
+             * @param cancellable optional cancellation object
+             * @returns whether the cache update was successful
+             */
+            update(attr_types: number[], cancellable: Gio.Cancellable | null): boolean
+            /**
+             * Update the object cache with given attributes. If an attribute already
+             * exists in the cache, it will be updated, and if it doesn't it will be added.
+             *
+             * This call will return immediately and complete asynchronously.
+             * @param attr_types the types of attributes to update
+             * @param cancellable optional cancellation object
+             * @param callback called when the operation completes
+             */
+            update_async(attr_types: number[], cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Complete an asynchronous operation to update the object cache with given
+             * attributes.
+             * @throws {GLib.Error}
+             * @param result the asynchronous result passed to the callback
+             * @returns whether the cache update was successful
+             */
+            update_finish(result: Gio.AsyncResult): boolean
+        }
+
+        interface ObjectCacheInterface {
+            readonly $gtype: GObject.GType<ObjectCache>
+            readonly prototype: ObjectCache
+            [Symbol.hasInstance](instance: unknown): instance is ObjectCache
+        }
+
+        interface $Exports {
+            /**
+             * An interface implemented by derived classes of [class@Object] to indicate
+             * which attributes they'd like an enumerator to retrieve.
+             *
+             * These attributes are then cached on the object and can be retrieved through
+             * the [property@ObjectCache:attributes] property.
+             */
+            ObjectCache: ObjectCacheInterface
+        }
+        
+
+        interface AttributeStruct {
+            readonly $gtype: GObject.GType<Attribute>
+            [Symbol.hasInstance](instance: unknown): instance is Attribute
             /**
              * Create a new PKCS#11 attribute. The value will be copied
              * into the new attribute.
@@ -1693,7 +1700,7 @@ declare module "gi://Gck?version=2" {
              * @param length the length of the attribute
              * @returns the new attribute; when done with the attribute          use gck_attribute_free() to free it
              */
-            static "new"(attr_type: number, value: number, length: number): Attribute
+            "new"(attr_type: number, value: number, length: number): Attribute
             /**
              * Initialize a PKCS#11 attribute to boolean. This will result
              * in a CK_BBOOL attribute from the PKCS#11 specs.
@@ -1701,7 +1708,7 @@ declare module "gi://Gck?version=2" {
              * @param value the boolean value of the attribute
              * @returns the new attribute; when done with the attribute u          gck_attribute_free() to free it
              */
-            static new_boolean(attr_type: number, value: boolean): Attribute
+            new_boolean(attr_type: number, value: boolean): Attribute
             /**
              * Initialize a PKCS#11 attribute to a date. This will result
              * in a CK_DATE attribute from the PKCS#11 specs.
@@ -1709,13 +1716,13 @@ declare module "gi://Gck?version=2" {
              * @param value the date value of the attribute
              * @returns the new attribute; when done with the attribute u          gck_attribute_free() to free it
              */
-            static new_date(attr_type: number, value: GLib.Date): Attribute
+            new_date(attr_type: number, value: GLib.Date): Attribute
             /**
              * Create a new PKCS#11 attribute with empty data.
              * @param attr_type the PKCS#11 attribute type to set on the attribute
              * @returns the new attribute; when done with the attribute          use gck_attribute_free() to free it
              */
-            static new_empty(attr_type: number): Attribute
+            new_empty(attr_type: number): Attribute
             /**
              * Create a new PKCS#11 attribute as 'invalid' or 'not found'
              * state. Specifically this sets the value length to (CK_ULONG)-1
@@ -1723,7 +1730,7 @@ declare module "gi://Gck?version=2" {
              * @param attr_type the PKCS#11 attribute type to set on the attribute
              * @returns the new attribute; when done with the attribute          use gck_attribute_free() to free it
              */
-            static new_invalid(attr_type: number): Attribute
+            new_invalid(attr_type: number): Attribute
             /**
              * Initialize a PKCS#11 attribute to a string. This will result
              * in an attribute containing the text, but not the null terminator.
@@ -1733,7 +1740,7 @@ declare module "gi://Gck?version=2" {
              * @param value the null-terminated string value of the attribute
              * @returns the new attribute; when done with the attribute u          gck_attribute_free() to free it
              */
-            static new_string(attr_type: number, value: string): Attribute
+            new_string(attr_type: number, value: string): Attribute
             /**
              * Initialize a PKCS#11 attribute to a unsigned long. This will result
              * in a `CK_ULONG` attribute from the PKCS#11 specs.
@@ -1741,7 +1748,10 @@ declare module "gi://Gck?version=2" {
              * @param value the ulong value of the attribute
              * @returns the new attribute; when done with the attribute u          gck_attribute_free() to free it
              */
-            static new_ulong(attr_type: number, value: number): Attribute
+            new_ulong(attr_type: number, value: number): Attribute
+        }
+
+        interface Attribute {
             /**
              * The attribute type, such as `CKA_LABEL`.
              */
@@ -1778,7 +1788,7 @@ declare module "gi://Gck?version=2" {
              */
             dup(): Attribute
             /**
-             * .
+             * Compare two attributes. Useful with <code>GHashTable</code>.
              * @param attr2 second attribute to compare
              * @returns %TRUE if the attributes are equal.
              */
@@ -1834,7 +1844,7 @@ declare module "gi://Gck?version=2" {
              */
             get_ulong(): number
             /**
-             *  keys.
+             * Hash an attribute for use in <code>GHashTable</code> keys.
              * @returns the hash code
              */
             hash(): number
@@ -1855,22 +1865,23 @@ declare module "gi://Gck?version=2" {
              */
             is_invalid(): boolean
         }
-        /**
-         * A set of [struct@Attribute] structures.
-         *
-         * These attributes contain information about a PKCS11 object. Use
-         * [method@Object.get] or [method@Object.set] to set and retrieve attributes on
-         * an object.
-         */
-        abstract class Attributes {
-            static readonly $gtype: GObject.GType<Attributes>
 
-            
+        interface $Exports {
+            Attribute: AttributeStruct
+        }
+        
+
+        interface AttributesStruct {
+            readonly $gtype: GObject.GType<Attributes>
+            [Symbol.hasInstance](instance: unknown): instance is Attributes
             /**
              * Create a new empty `GckAttributes` array.
              * @returns a reference to the new attributes array;          when done with the array release it with gck_attributes_unref().
              */
-            static "new"(): Attributes
+            "new"(): Attributes
+        }
+
+        interface Attributes {
             /**
              * Get attribute at the specified index in the attribute array.
              *
@@ -1961,16 +1972,15 @@ declare module "gi://Gck?version=2" {
              */
             unref(): void
         }
-        /**
-         * A builder for a set of attributes. Add attributes to a builder, and then use
-         * [method@Builder.end] to get the completed [struct@Attributes].
-         *
-         * The fields of #GckBuilder are private and not to be accessed directly.
-         */
-        abstract class Builder {
-            static readonly $gtype: GObject.GType<Builder>
 
-            
+        interface $Exports {
+            Attributes: AttributesStruct
+        }
+        
+
+        interface BuilderStruct {
+            readonly $gtype: GObject.GType<Builder>
+            [Symbol.hasInstance](instance: unknown): instance is Builder
             /**
              * Create a new `GckBuilder` not allocated on the stack, so it can be shared
              * across a single scope, and referenced / unreferenced.
@@ -1982,7 +1992,10 @@ declare module "gi://Gck?version=2" {
              * @param flags flags for the new builder
              * @returns a new builder, to be freed with gck_builder_unref()
              */
-            static "new"(flags: BuilderFlags): Builder
+            "new"(flags: BuilderFlags): Builder
+        }
+
+        interface Builder {
             /**
              * Add all the @attrs attributes to the builder. The attributes are added
              * uncondititionally whether or not attributes with the same types already
@@ -2061,11 +2074,10 @@ declare module "gi://Gck?version=2" {
              *
              * As an optimization, the attribute memory values are automatically shared
              * between the attributes and the builder.
-             * @override
              * @param attrs the attributes to add
              * @param only_types the types of attributes to add
              */
-            add_onlyv(attrs: Attributes, only_types: number[]): void
+            add_only(attrs: Attributes, only_types: number[]): void
             /**
              * Add a new attribute to the builder for the string @value or %NULL.
              * Unconditionally adds a new attribute, even if one with the same @attr_type
@@ -2154,7 +2166,20 @@ declare module "gi://Gck?version=2" {
              */
             find_ulong(attr_type: number): [boolean, number]
             /**
-             * builder3, 0, sizeof (builder3));
+             * Initialize a stack allocated builder, with the default flags.
+             *
+             * This is equivalent to initializing a builder variable with the
+             * %GCK_BUILDER_INIT constant, or setting it to zeroed memory.
+             *
+             * ```c
+             * // Equivalent ways of initializing a GckBuilder
+             * GckBuilder builder = GCK_BUILDER_INIT;
+             * GckBuilder builder2;
+             * GckBuilder builder3;
+             *
+             * gck_builder_init (&builder2);
+             *
+             * memset (&builder3, 0, sizeof (builder3));
              * ```
              */
             init(): void
@@ -2270,14 +2295,18 @@ declare module "gi://Gck?version=2" {
              */
             unref(): void
         }
-        none
-        /**
-         * Represents a mechanism used with crypto operations.
-         */
-        abstract class Mechanism {
-            static readonly $gtype: GObject.GType<Mechanism>
 
-            
+        interface $Exports {
+            Builder: BuilderStruct
+        }
+        
+
+        interface MechanismStruct {
+            readonly $gtype: GObject.GType<Mechanism>
+            [Symbol.hasInstance](instance: unknown): instance is Mechanism
+        }
+
+        interface Mechanism {
             /**
              * The mechanism type
              */
@@ -2291,18 +2320,18 @@ declare module "gi://Gck?version=2" {
              */
             n_parameter: number
         }
-        /**
-         * Represents information about a PKCS11 mechanism.
-         *
-         * This is analogous to a CK_MECHANISM_INFO structure.
-         *
-         * When you're done with this structure it should be released with
-         * gck_mechanism_info_free().
-         */
-        abstract class MechanismInfo {
-            static readonly $gtype: GObject.GType<MechanismInfo>
 
-            
+        interface $Exports {
+            Mechanism: MechanismStruct
+        }
+        
+
+        interface MechanismInfoStruct {
+            readonly $gtype: GObject.GType<MechanismInfo>
+            [Symbol.hasInstance](instance: unknown): instance is MechanismInfo
+        }
+
+        interface MechanismInfo {
             /**
              * The minimum key size that can be used with this mechanism.
              */
@@ -2325,19 +2354,18 @@ declare module "gi://Gck?version=2" {
              */
             free(): void
         }
-        none
-        /**
-         * Holds information about the PKCS#11 module.
-         *
-         * This structure corresponds to `CK_MODULE_INFO` in the PKCS#11 standard. The
-         * strings are %NULL terminated for easier use.
-         *
-         * Use gck_module_info_free() to release this structure when done with it.
-         */
-        abstract class ModuleInfo {
-            static readonly $gtype: GObject.GType<ModuleInfo>
 
-            
+        interface $Exports {
+            MechanismInfo: MechanismInfoStruct
+        }
+        
+
+        interface ModuleInfoStruct {
+            readonly $gtype: GObject.GType<ModuleInfo>
+            [Symbol.hasInstance](instance: unknown): instance is ModuleInfo
+        }
+
+        interface ModuleInfo {
             /**
              * The major version of the module.
              */
@@ -2351,7 +2379,7 @@ declare module "gi://Gck?version=2" {
              */
             manufacturer_id: string
             /**
-             * num;11 flags.
+             * The module PKCS&num;11 flags.
              */
             flags: number
             /**
@@ -2376,19 +2404,18 @@ declare module "gi://Gck?version=2" {
              */
             free(): void
         }
-        none
-        none
-        none
-        none
-        /**
-         * Information about the session. This is analogous to a CK_SESSION_INFO structure.
-         *
-         * When done with this structure, release it using gck_session_info_free().
-         */
-        abstract class SessionInfo {
-            static readonly $gtype: GObject.GType<SessionInfo>
 
-            
+        interface $Exports {
+            ModuleInfo: ModuleInfoStruct
+        }
+        
+
+        interface SessionInfoStruct {
+            readonly $gtype: GObject.GType<SessionInfo>
+            [Symbol.hasInstance](instance: unknown): instance is SessionInfo
+        }
+
+        interface SessionInfo {
             /**
              * The handle of the PKCS11 slot that this session is opened on.
              */
@@ -2415,20 +2442,18 @@ declare module "gi://Gck?version=2" {
              */
             free(): void
         }
-        none
-        /**
-         * Represents information about a PKCS11 slot.
-         *
-         * This is analogous to a CK_SLOT_INFO structure, but the
-         * strings are far more usable.
-         *
-         * When you're done with this structure it should be released with
-         * gck_slot_info_free().
-         */
-        abstract class SlotInfo {
-            static readonly $gtype: GObject.GType<SlotInfo>
 
-            
+        interface $Exports {
+            SessionInfo: SessionInfoStruct
+        }
+        
+
+        interface SlotInfoStruct {
+            readonly $gtype: GObject.GType<SlotInfo>
+            [Symbol.hasInstance](instance: unknown): instance is SlotInfo
+        }
+
+        interface SlotInfo {
             /**
              * Description of the slot.
              */
@@ -2467,19 +2492,18 @@ declare module "gi://Gck?version=2" {
              */
             free(): void
         }
-        /**
-         * Represents information about a PKCS#11 token.
-         *
-         * This is analogous to a `CK_TOKEN_INFO` structure, but the fields are far
-         * more usable.
-         *
-         * When you're done with this structure it should be released with
-         * gck_token_info_free().
-         */
-        abstract class TokenInfo {
-            static readonly $gtype: GObject.GType<TokenInfo>
 
-            
+        interface $Exports {
+            SlotInfo: SlotInfoStruct
+        }
+        
+
+        interface TokenInfoStruct {
+            readonly $gtype: GObject.GType<TokenInfo>
+            [Symbol.hasInstance](instance: unknown): instance is TokenInfo
+        }
+
+        interface TokenInfo {
             /**
              * The displayable token label.
              */
@@ -2570,24 +2594,21 @@ declare module "gi://Gck?version=2" {
              */
             free(): void
         }
-        /**
-         * Information about the contents of a PKCS#11 URI. Various fields may be %NULL
-         * depending on the context that the URI was parsed for.
-         *
-         * Since PKCS#11 URIs represent a set which results from the intersections of
-         * all of the URI parts, if @any_recognized is set to %TRUE then usually the URI
-         * should be treated as not matching anything.
-         */
-        abstract class UriData {
-            static readonly $gtype: GObject.GType<UriData>
 
-            
+        interface $Exports {
+            TokenInfo: TokenInfoStruct
+        }
+        
+
+        interface UriDataStruct {
+            readonly $gtype: GObject.GType<UriData>
+            [Symbol.hasInstance](instance: unknown): instance is UriData
             /**
              * Allocate a new GckUriData structure. None of the fields
              * will be set.
              * @returns a newly allocated GckUriData, free with          gck_uri_data_free()
              */
-            static "new"(): UriData
+            "new"(): UriData
             /**
              * Parse a PKCS#11 URI for use in a given context.
              *
@@ -2599,7 +2620,10 @@ declare module "gi://Gck?version=2" {
              * @param flags the context in which the URI will be used.
              * @returns a newly allocated #GckUriData; which should be          freed with gck_uri_data_free()
              */
-            static parse(string: string, flags: UriFlags): UriData
+            parse(string: string, flags: UriFlags): UriData
+        }
+
+        interface UriData {
             /**
              * whether any parts of the PKCS#11 URI were unsupported or unrecognized.
              */
@@ -2633,275 +2657,152 @@ declare module "gi://Gck?version=2" {
              */
             free(): void
         }
-        /**
-         */
-        function error_quark(): GLib.Quark
-        none
-        /**
-         * Get a message for a PKCS#11 return value or error code. Do not
-         * pass `CKR_OK` or other non-errors to this function.
-         * @param rv The PKCS#11 return value to get a message for.
-         * @returns The user readable message.
-         */
-        function message_from_rv(rv: number): string
-        /**
-         * Setup an enumerator for listing matching objects on the modules.
-         *
-         * This call will not block but will return an enumerator immediately.
-         * @param modules The modules
-         * @param attrs attributes that the objects must have, or empty for all objects
-         * @param session_options Options from GckSessionOptions
-         * @returns A new enumerator, which should be released with g_object_unref().
-         */
-        function modules_enumerate_objects(modules: Module[], attrs: Attributes, session_options: SessionOptions): Enumerator
-        /**
-         * Enumerate objects that match a URI.
-         *
-         * This call will not block. Use the [class@Enumerator] functions in order to
-         * get at the actual objects that match.
-         * @throws {GLib.Error}
-         * @param modules The modules
-         * @param uri The URI that the enumerator will match
-         * @param session_options Options from GckSessionOptions
-         * @returns A new #GckEnumerator, or %NULL if an error occurs.
-         */
-        function modules_enumerate_uri(modules: Module[], uri: string, session_options: SessionOptions): Enumerator
-        /**
-         * Get a list of slots for across all of the modules.
-         * @param modules The modules
-         * @param token_present Whether to only list slots with token present
-         * @returns A list of #GckSlot objects.
-         */
-        function modules_get_slots(modules: Module[], token_present: boolean): Slot[]
-        /**
-         * Load and initialize all the registered modules.
-         * @throws {GLib.Error}
-         * @param cancellable optional cancellation object
-         * @returns A newly allocated list of #GckModule objects.
-         */
-        function modules_initialize_registered(cancellable: Gio.Cancellable | null): Module[]
-        /**
-         * Load and initialize all the registered modules asynchronously.
-         * @param cancellable optional cancellation object
-         * @param callback a callback which will be called when the operation completes
-         */
-        function modules_initialize_registered_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-        /**
-         * Finishes the asynchronous operation to initialize the registered
-         * PKCS#11 modules.
-         * @throws {GLib.Error}
-         * @param result the asynchronous result
-         * @returns a list of newly initialized #GckModule objects
-         */
-        function modules_initialize_registered_finish(result: Gio.AsyncResult): Module[]
-        /**
-         * Find an object that matches a URI.
-         *
-         * This call can block. Use [func@modules_enumerate_uri] for a non-blocking
-         * version.
-         * @throws {GLib.Error}
-         * @param modules The modules
-         * @param uri The URI the objects must match
-         * @param session_options Options from GckSessionOptions
-         * @returns A new #GckObject which should be released with g_object_unref(), or %NULL if no matching object was found.
-         */
-        function modules_object_for_uri(modules: Module[], uri: string, session_options: SessionOptions): Object | null
-        /**
-         * Find objects that match a URI.
-         *
-         * This call can block. Use [func@modules_enumerate_uri] for a non-blocking
-         * version.
-         * @throws {GLib.Error}
-         * @param modules The modules
-         * @param uri The URI the objects must match
-         * @param session_options Options from GckSessionOptions
-         * @returns A (possibly empty) list of `Gck.Object`s.
-         */
-        function modules_objects_for_uri(modules: Module[], uri: string, session_options: SessionOptions): Object[]
-        /**
-         * Lookup a token that matches the URI.
-         * @throws {GLib.Error}
-         * @param modules The modules
-         * @param uri The URI that the token must match
-         * @returns A newly allocated #GckSlot or %NULL if no such token was found.
-         */
-        function modules_token_for_uri(modules: Module[], uri: string): Slot
-        /**
-         * Lookup a token that matches the URI.
-         * @throws {GLib.Error}
-         * @param modules The modules
-         * @param uri The URI that the token must match
-         * @returns A list of newly allocated #GckSlot objects.
-         */
-        function modules_tokens_for_uri(modules: Module[], uri: string): Slot[]
-        /**
-         * Initialize a list of GckObject from raw PKCS#11 handles. The handles argument must contain
-         * contiguous CK_OBJECT_HANDLE handles in an array.
-         * @param session The session for these objects
-         * @param object_handles The raw object handles.
-         * @returns The list of #GckObject          objects.
-         */
-        function objects_from_handle_array(session: Session, object_handles: number[]): Object[]
-        /**
-         * Setup an enumerator for listing matching objects on the slots.
-         *
-         * This call will not block but will return an enumerator immediately.
-         * @param slots a list of #GckSlot to enumerate objects on.
-         * @param match attributes that the objects must match, or empty for all objects
-         * @param options options for opening a session
-         * @returns a new enumerator
-         */
-        function slots_enumerate_objects(slots: Slot[], match: Attributes, options: SessionOptions): Enumerator
-        none
-        none
-        /**
-         * Parse a PKCS#11 URI for use in a given context.
-         *
-         * The result will contain the fields that are relevant for
-         * the given context. See #GckUriData  for more info.
-         * Other fields will be set to %NULL.
-         * @throws {GLib.Error}
-         * @param string the URI to parse.
-         * @param flags the context in which the URI will be used.
-         * @returns a newly allocated #GckUriData; which should be          freed with gck_uri_data_free()
-         */
-        function uri_data_parse(string: string, flags: UriFlags): UriData
-        /**
-         */
-        function uri_error_quark(): GLib.Quark
-        /**
-         * Convert `CK_BBOOL` type memory to a boolean.
-         * @param value memory to convert
-         * @returns Whether the conversion was successful., A location to store the result
-         */
-        function value_to_boolean(value: Uint8Array): [boolean, boolean]
-        /**
-         * Convert `CK_ULONG` type memory to a boolean.
-         * @param value memory to convert
-         * @returns Whether the conversion was successful., A location to store the result
-         */
-        function value_to_ulong(value: Uint8Array): [boolean, number]
-        const INVALID: -1
-        const MAJOR_VERSION: 4
-        const MICRO_VERSION: 0
-        const MINOR_VERSION: 4
-        const URI_FOR_MODULE_WITH_VERSION: 24
-        const URI_FOR_OBJECT_ON_TOKEN: 6
-        const URI_FOR_OBJECT_ON_TOKEN_AND_MODULE: 8
-        const VENDOR_CODE: 1195592448
-        
-        namespace BuilderFlags {
-            const $gtype: GObject.GType<BuilderFlags>
-        }
 
-        /**
-         * Flags to be used with a [method@Builder.init_full] and [ctor@Builder.new].
-         */
-        enum BuilderFlags {
+        interface $Exports {
+            UriData: UriDataStruct
+        }
+        
+        interface BuilderFlagsEnum {
+            readonly $gtype: GObject.GType<BuilderFlags>
             /**
              * no special flags
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * use non-pageable memory for the values of the attributes
              */
-            "SECURE_MEMORY" = 1,
+            readonly "SECURE_MEMORY": 1
+        }
+        type BuilderFlags = BuilderFlagsEnum[Exclude<keyof BuilderFlagsEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Flags to be used with a [method@Builder.init_full] and [ctor@Builder.new].
+             */
+            BuilderFlags: BuilderFlagsEnum
         }
         
-        abstract class Error extends GLib.Error {
-            static readonly $gtype: GObject.GType<Error>
+        interface Error extends GLib.Error {}
+
+        interface ErrorEnum {
+            readonly $gtype: GObject.GType<Error>
+
+            new(props: { message: string, code: number }): Error
             /**
              * a result code that signifies there was a problem
              *                            loading a PKCS#11 module, usually a shared library
              */
-            static readonly "PROBLEM": -951891199
-        }
-        /**
+            readonly "PROBLEM": -951891199
+            /**
          */
-        function quark(): GLib.Quark
+        quark: () => GLib.Quark
+        }
+
+        interface $Exports {
+            /**
+             * Various error codes. All the `CKR_XXX` error codes from PKCS#11 are also
+             * relevant error codes.
+             *
+             * Note that errors are returned as [struct@GLib.Error] structures. The `code`
+             * member of the error then contains the raw PKCS#11 `CK_RV` result value.
+             */
+            Error: ErrorEnum
+        }
         
-        abstract class UriError extends GLib.Error {
-            static readonly $gtype: GObject.GType<UriError>
+        interface UriError extends GLib.Error {}
+
+        interface UriErrorEnum {
+            readonly $gtype: GObject.GType<UriError>
+
+            new(props: { message: string, code: number }): UriError
             /**
              * invalid URI scheme
              */
-            static readonly "BAD_SCHEME": 1
+            readonly "BAD_SCHEME": 1
             /**
              * bad URI encoding
              */
-            static readonly "BAD_ENCODING": 2
+            readonly "BAD_ENCODING": 2
             /**
              * bad URI syntax
              */
-            static readonly "BAD_SYNTAX": 3
+            readonly "BAD_SYNTAX": 3
             /**
              * bad URI version component
              */
-            static readonly "BAD_VERSION": 4
+            readonly "BAD_VERSION": 4
             /**
              * piece of the URI was not found
              */
-            static readonly "NOT_FOUND": 5
-        }
-        /**
+            readonly "NOT_FOUND": 5
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace SessionOptions {
-            const $gtype: GObject.GType<SessionOptions>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Options for creating sessions.
-         */
-        enum SessionOptions {
+        interface $Exports {
+            /**
+             * Various error codes used with PKCS#11 URIs
+             */
+            UriError: UriErrorEnum
+        }
+        
+        interface SessionOptionsBitfield {
+            readonly $gtype: GObject.GType<SessionOptions>
             /**
              * Open session as read only
              */
-            "READ_ONLY" = 0,
+            readonly "READ_ONLY": 0
             /**
              * Open sessions as read/write
              */
-            "READ_WRITE" = 2,
+            readonly "READ_WRITE": 2
             /**
              * Login as user on new sessions
              */
-            "LOGIN_USER" = 4,
+            readonly "LOGIN_USER": 4
             /**
              * Authenticate as necessary
              */
-            "AUTHENTICATE" = 8,
+            readonly "AUTHENTICATE": 8
+        }
+        type SessionOptions = number
+        interface $Exports {
+            /**
+             * Options for creating sessions.
+             */
+            SessionOptions: SessionOptionsBitfield
         }
         
-        namespace UriFlags {
-            const $gtype: GObject.GType<UriFlags>
-        }
-
-        /**
-         * Which parts of the PKCS#11 URI will be parsed or formatted. These can be
-         * combined.
-         */
-        enum UriFlags {
+        interface UriFlagsBitfield {
+            readonly $gtype: GObject.GType<UriFlags>
             /**
              * the URI will be used to match objects.
              */
-            "FOR_OBJECT" = 2,
+            readonly "FOR_OBJECT": 2
             /**
              * the URI will be used to match tokens.
              */
-            "FOR_TOKEN" = 4,
+            readonly "FOR_TOKEN": 4
             /**
              * the URI will be used to match modules.
              */
-            "FOR_MODULE" = 8,
+            readonly "FOR_MODULE": 8
             /**
              * the URI has specific version numbers for module and/or token
              */
-            "WITH_VERSION" = 16,
+            readonly "WITH_VERSION": 16
             /**
              * parse all recognized components of the URI.
              */
-            "FOR_ANY" = 65535,
+            readonly "FOR_ANY": 65535
+        }
+        type UriFlags = number
+        interface $Exports {
+            /**
+             * Which parts of the PKCS#11 URI will be parsed or formatted. These can be
+             * combined.
+             */
+            UriFlags: UriFlagsBitfield
         }
         /**
          * An allocator used to allocate data for the attributes in this
@@ -2915,7 +2816,166 @@ declare module "gi://Gck?version=2" {
          * @returns The allocated memory, or %NULL when freeing.
          */
         type Allocator = (data: never | null, length: number) => never | null
+
+        interface $Exports {
+            __name__: "Gck"
+            __version: "2"
+            INVALID: -1
+            MAJOR_VERSION: 4
+            MICRO_VERSION: 0
+            MINOR_VERSION: 4
+            URI_FOR_MODULE_WITH_VERSION: 24
+            URI_FOR_OBJECT_ON_TOKEN: 6
+            URI_FOR_OBJECT_ON_TOKEN_AND_MODULE: 8
+            VENDOR_CODE: 1195592448
+            /**
+             */
+            error_quark(): GLib.Quark
+            /**
+             * Get a message for a PKCS#11 return value or error code. Do not
+             * pass `CKR_OK` or other non-errors to this function.
+             * @param rv The PKCS#11 return value to get a message for.
+             * @returns The user readable message.
+             */
+            message_from_rv(rv: number): string
+            /**
+             * Setup an enumerator for listing matching objects on the modules.
+             *
+             * This call will not block but will return an enumerator immediately.
+             * @param modules The modules
+             * @param attrs attributes that the objects must have, or empty for all objects
+             * @param session_options Options from GckSessionOptions
+             * @returns A new enumerator, which should be released with g_object_unref().
+             */
+            modules_enumerate_objects(modules: Module[], attrs: Attributes, session_options: SessionOptions): Enumerator
+            /**
+             * Enumerate objects that match a URI.
+             *
+             * This call will not block. Use the [class@Enumerator] functions in order to
+             * get at the actual objects that match.
+             * @throws {GLib.Error}
+             * @param modules The modules
+             * @param uri The URI that the enumerator will match
+             * @param session_options Options from GckSessionOptions
+             * @returns A new #GckEnumerator, or %NULL if an error occurs.
+             */
+            modules_enumerate_uri(modules: Module[], uri: string, session_options: SessionOptions): Enumerator
+            /**
+             * Get a list of slots for across all of the modules.
+             * @param modules The modules
+             * @param token_present Whether to only list slots with token present
+             * @returns A list of #GckSlot objects.
+             */
+            modules_get_slots(modules: Module[], token_present: boolean): Slot[]
+            /**
+             * Load and initialize all the registered modules.
+             * @throws {GLib.Error}
+             * @param cancellable optional cancellation object
+             * @returns A newly allocated list of #GckModule objects.
+             */
+            modules_initialize_registered(cancellable: Gio.Cancellable | null): Module[]
+            /**
+             * Load and initialize all the registered modules asynchronously.
+             * @param cancellable optional cancellation object
+             * @param callback a callback which will be called when the operation completes
+             */
+            modules_initialize_registered_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            /**
+             * Finishes the asynchronous operation to initialize the registered
+             * PKCS#11 modules.
+             * @throws {GLib.Error}
+             * @param result the asynchronous result
+             * @returns a list of newly initialized #GckModule objects
+             */
+            modules_initialize_registered_finish(result: Gio.AsyncResult): Module[]
+            /**
+             * Find an object that matches a URI.
+             *
+             * This call can block. Use [func@modules_enumerate_uri] for a non-blocking
+             * version.
+             * @throws {GLib.Error}
+             * @param modules The modules
+             * @param uri The URI the objects must match
+             * @param session_options Options from GckSessionOptions
+             * @returns A new #GckObject which should be released with g_object_unref(), or %NULL if no matching object was found.
+             */
+            modules_object_for_uri(modules: Module[], uri: string, session_options: SessionOptions): Object | null
+            /**
+             * Find objects that match a URI.
+             *
+             * This call can block. Use [func@modules_enumerate_uri] for a non-blocking
+             * version.
+             * @throws {GLib.Error}
+             * @param modules The modules
+             * @param uri The URI the objects must match
+             * @param session_options Options from GckSessionOptions
+             * @returns A (possibly empty) list of `Gck.Object`s.
+             */
+            modules_objects_for_uri(modules: Module[], uri: string, session_options: SessionOptions): Object[]
+            /**
+             * Lookup a token that matches the URI.
+             * @throws {GLib.Error}
+             * @param modules The modules
+             * @param uri The URI that the token must match
+             * @returns A newly allocated #GckSlot or %NULL if no such token was found.
+             */
+            modules_token_for_uri(modules: Module[], uri: string): Slot
+            /**
+             * Lookup a token that matches the URI.
+             * @throws {GLib.Error}
+             * @param modules The modules
+             * @param uri The URI that the token must match
+             * @returns A list of newly allocated #GckSlot objects.
+             */
+            modules_tokens_for_uri(modules: Module[], uri: string): Slot[]
+            /**
+             * Initialize a list of GckObject from raw PKCS#11 handles. The handles argument must contain
+             * contiguous CK_OBJECT_HANDLE handles in an array.
+             * @param session The session for these objects
+             * @param object_handles The raw object handles.
+             * @returns The list of #GckObject          objects.
+             */
+            objects_from_handle_array(session: Session, object_handles: number[]): Object[]
+            /**
+             * Setup an enumerator for listing matching objects on the slots.
+             *
+             * This call will not block but will return an enumerator immediately.
+             * @param slots a list of #GckSlot to enumerate objects on.
+             * @param match attributes that the objects must match, or empty for all objects
+             * @param options options for opening a session
+             * @returns a new enumerator
+             */
+            slots_enumerate_objects(slots: Slot[], match: Attributes, options: SessionOptions): Enumerator
+            /**
+             * Parse a PKCS#11 URI for use in a given context.
+             *
+             * The result will contain the fields that are relevant for
+             * the given context. See #GckUriData  for more info.
+             * Other fields will be set to %NULL.
+             * @throws {GLib.Error}
+             * @param string the URI to parse.
+             * @param flags the context in which the URI will be used.
+             * @returns a newly allocated #GckUriData; which should be          freed with gck_uri_data_free()
+             */
+            uri_data_parse(string: string, flags: UriFlags): UriData
+            /**
+             */
+            uri_error_quark(): GLib.Quark
+            /**
+             * Convert `CK_BBOOL` type memory to a boolean.
+             * @param value memory to convert
+             * @returns Whether the conversion was successful., A location to store the result
+             */
+            value_to_boolean(value: Uint8Array): [boolean, boolean]
+            /**
+             * Convert `CK_ULONG` type memory to a boolean.
+             * @param value memory to convert
+             * @returns Whether the conversion was successful., A location to store the result
+             */
+            value_to_ulong(value: Uint8Array): [boolean, number]
+        }
     }
 
+    const Gck: Gck.$Exports
     export default Gck
 }

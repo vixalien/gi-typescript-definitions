@@ -12,64 +12,98 @@ declare module "gi://DBus?version=1.0" {
 
     
 
-
     namespace DBus {
-        const __name__: "DBus"
-        const __version: "1.0"
-        /**
-         */
-        abstract class Connection {
-            static readonly $gtype: GObject.GType<Connection>
+        
 
-            
+        interface ConnectionStruct {
+            readonly $gtype: GObject.GType<Connection>
+            [Symbol.hasInstance](instance: unknown): instance is Connection
         }
-        /**
-         */
-        abstract class Error {
-            static readonly $gtype: GObject.GType<Error>
 
-            
+        interface Connection {
         }
-        /**
-         */
-        abstract class Message {
-            static readonly $gtype: GObject.GType<Message>
 
-            
-        }
-        /**
-         */
-        abstract class MessageIter {
-            static readonly $gtype: GObject.GType<MessageIter>
-
-            
-        }
-        /**
-         */
-        abstract class PendingCall {
-            static readonly $gtype: GObject.GType<PendingCall>
-
-            
+        interface $Exports {
+            Connection: ConnectionStruct
         }
         
-        namespace BusType {
-            const $gtype: GObject.GType<BusType>
+
+        interface ErrorStruct {
+            readonly $gtype: GObject.GType<Error>
+            [Symbol.hasInstance](instance: unknown): instance is Error
         }
 
-        /**
-         */
-        enum BusType {
+        interface Error {
+        }
+
+        interface $Exports {
+            Error: ErrorStruct
+        }
+        
+
+        interface MessageStruct {
+            readonly $gtype: GObject.GType<Message>
+            [Symbol.hasInstance](instance: unknown): instance is Message
+        }
+
+        interface Message {
+        }
+
+        interface $Exports {
+            Message: MessageStruct
+        }
+        
+
+        interface MessageIterStruct {
+            readonly $gtype: GObject.GType<MessageIter>
+            [Symbol.hasInstance](instance: unknown): instance is MessageIter
+        }
+
+        interface MessageIter {
+        }
+
+        interface $Exports {
+            MessageIter: MessageIterStruct
+        }
+        
+
+        interface PendingCallStruct {
+            readonly $gtype: GObject.GType<PendingCall>
+            [Symbol.hasInstance](instance: unknown): instance is PendingCall
+        }
+
+        interface PendingCall {
+        }
+
+        interface $Exports {
+            PendingCall: PendingCallStruct
+        }
+        
+        interface BusTypeEnum {
+            readonly $gtype: GObject.GType<BusType>
             /**
              */
-            "SESSION" = 0,
+            readonly "SESSION": 0
             /**
              */
-            "SYSTEM" = 1,
+            readonly "SYSTEM": 1
             /**
              */
-            "STARTER" = 2,
+            readonly "STARTER": 2
+        }
+        type BusType = BusTypeEnum[Exclude<keyof BusTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            BusType: BusTypeEnum
+        }
+
+        interface $Exports {
+            __name__: "DBus"
+            __version: "1.0"
         }
     }
 
+    const DBus: DBus.$Exports
     export default DBus
 }

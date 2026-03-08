@@ -32,19 +32,22 @@ declare module "gi://GlyGtk4?version=2" {
 
     
 
-
     namespace GlyGtk4 {
-        const __name__: "GlyGtk4"
-        const __version: "2"
-        /**
-         * Gets the actual image from a frame. See the [class@Gly.Loader] docs
-         * for a complete example.
-         * @since 2.0
-         * @param frame Frame
-         * @returns A GDK Texture
-         */
-        function frame_get_texture(frame: Gly.Frame): Gdk.Texture
+
+        interface $Exports {
+            __name__: "GlyGtk4"
+            __version: "2"
+            /**
+             * Gets the actual image from a frame. See the [class@Gly.Loader] docs
+             * for a complete example.
+             * @since 2.0
+             * @param frame Frame
+             * @returns A GDK Texture
+             */
+            frame_get_texture(frame: Gly.Frame): Gdk.Texture
+        }
     }
 
+    const GlyGtk4: GlyGtk4.$Exports
     export default GlyGtk4
 }

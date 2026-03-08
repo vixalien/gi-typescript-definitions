@@ -38,253 +38,7 @@ declare module "gi://GcrUi?version=3" {
 
     
 
-
     namespace GcrUi {
-        const __name__: "GcrUi"
-        const __version: "3"
-        
-
-        namespace Renderer {
-            interface SignalSignatures  {
-                /**
-                 * A signal that is emitted by the renderer when it's data
-                 * changed and should be rerendered.
-                 */
-                "data-changed"(): void
-            }
-
-            interface ReadableProperties  {
-                "attributes": Gck.Attributes | null
-                "label": string
-            }
-
-            interface WritableProperties  {
-                "attributes": Gck.Attributes | null
-                "label": string
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * signal emitted when data being rendered changes
-                 */
-                vfunc_data_changed(): void
-                /**
-                 * method invoked to populate a popup menu with additional
-                 *                  renderer options
-                 * @param viewer
-                 * @param menu
-                 */
-                vfunc_populate_popup(viewer: Viewer, menu: Gtk.Menu): void
-                /**
-                 * Render the contents of the renderer to the given viewer.
-                 * @param viewer The viewer to render to.
-                 */
-                vfunc_render_view(viewer: Viewer): void
-            }
-        }
-
-        /**
-         * An interface that's implemented by renderers which wish to render data to a
-         * [iface@Viewer].
-         *
-         * The interaction between [iface@Renderer] and [iface@Viewer] is not stable
-         * yet, and so new renderers cannot be implemented outside the Gcr library at
-         * this time.
-         *
-         * To lookup a renderer for a given set of attributes, use the gcr_renderer_create()
-         * function. This will create and initialize a renderer that's capable of viewing
-         * the data in those attributes.
-         */
-        interface Renderer extends Renderer.Interface {
-            readonly $signals: Renderer.SignalSignatures
-            readonly $readableProperties: Renderer.ReadableProperties
-            readonly $writableProperties: Renderer.WritableProperties
-            readonly $constructOnlyProperties: Renderer.ConstructOnlyProperties
-            /**
-             * The attributes to display.
-             */
-            get attributes(): Gck.Attributes | null
-            set attributes(value: Gck.Attributes | null)
-            /**
-             * The label to display.
-             */
-            get label(): string
-            set label(value: string)
-            /**
-             * Emit the #GcrRenderer::data-changed signal on the renderer. This is used by
-             * renderer implementations.
-             */
-            emit_data_changed(): void
-            /**
-             * Get the PKCS#11 attributes, if any, set for this renderer to display.
-             * @returns the attributes, owned by the renderer
-             */
-            get_attributes(): Gck.Attributes | null
-            /**
-             * Called by #GcrViewer when about to display a popup menu for the content
-             * displayed by the renderer. The renderer can add a menu item if desired.
-             * @param viewer The viewer that is displaying a popup
-             * @param menu The popup menu being displayed
-             */
-            popuplate_popup(viewer: Viewer, menu: Gtk.Menu): void
-            /**
-             * Render the contents of the renderer to the given viewer.
-             * @param viewer The viewer to render to.
-             */
-            render_view(viewer: Viewer): void
-            /**
-             * Set the PKCS#11 attributes for this renderer to display.
-             * @param attrs attributes to set
-             */
-            set_attributes(attrs: Gck.Attributes | null): void
-        }
-
-
-        interface RendererIface {
-            readonly $gtype: GObject.GType<Renderer>
-            readonly prototype: Renderer
-            /**
-             * Create and initialize a renderer for the given attributes and label. These
-             * renderers should have been preregistered via gcr_renderer_register().
-             * @param label The label for the renderer
-             * @param attrs The attributes to render
-             * @returns a new renderer, or %NULL if no renderer          matched the attributes; the render should be released with g_object_unref()
-             */
-            create(label: string | null, attrs: Gck.Attributes): Renderer | null
-            /**
-             * Register a renderer to be created when matching attributes are passed to
-             * gcr_renderer_create().
-             * @param renderer_type The renderer class type
-             * @param attrs The attributes to match
-             */
-            register(renderer_type: (GObject.GType | { $gtype: GObject.GType }), attrs: Gck.Attributes): void
-            /**
-             * Register all the well known renderers for certificates and keys known to the
-             * Gcr library.
-             */
-            register_well_known(): void
-
-            [Symbol.hasInstance](instance: unknown): instance is Renderer
-        }
-
-        const Renderer: RendererIface
-        
-
-        namespace Viewer {
-            interface SignalSignatures extends Gtk.Widget.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gtk.Widget.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gtk.Widget.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gtk.Widget {
-                /**
-                 * Add a renderer to this viewer.
-                 * @param renderer The renderer to add
-                 */
-                vfunc_add_renderer(renderer: Renderer): void
-                /**
-                 * Get the number of renderers present in the viewer.
-                 * @returns The number of renderers.
-                 */
-                vfunc_count_renderers(): number
-                /**
-                 * Get a pointer to the renderer at the given index. It is an error to request
-                 * an index that is out of bounds.
-                 * @param index_ The index of the renderer to get
-                 * @returns the render, owned by the viewer
-                 */
-                vfunc_get_renderer(index_: number): Renderer
-                /**
-                 * Insert a renderer at a specific point in the viewer
-                 * @param renderer the renderer to insert
-                 * @param before the renderer to insert before
-                 */
-                vfunc_insert_renderer(renderer: Renderer, before: Renderer | null): void
-                /**
-                 * Remove a renderer from this viewer.
-                 * @param renderer The renderer to remove
-                 */
-                vfunc_remove_renderer(renderer: Renderer): void
-            }
-        }
-
-        /**
-         * An abstract interface that represents a widget that can hold
-         * various renderers and display their contents.
-         *
-         * The interaction between [iface@Renderer] and [iface@Viewer] is not stable
-         * yet, and so viewers cannot be implemented outside the Gcr library at this
-         * time.
-         *
-         * Use the [func@Viewer.new] and [func@Viewer.new_scrolled] to get default
-         * implementations of viewers.
-         */
-        interface Viewer extends Gtk.Widget, Viewer.Interface {
-            readonly $signals: Viewer.SignalSignatures
-            readonly $readableProperties: Viewer.ReadableProperties
-            readonly $writableProperties: Viewer.WritableProperties
-            readonly $constructOnlyProperties: Viewer.ConstructOnlyProperties
-            /**
-             * Add a renderer to this viewer.
-             * @param renderer The renderer to add
-             */
-            add_renderer(renderer: Renderer): void
-            /**
-             * Get the number of renderers present in the viewer.
-             * @returns The number of renderers.
-             */
-            count_renderers(): number
-            /**
-             * Get a pointer to the renderer at the given index. It is an error to request
-             * an index that is out of bounds.
-             * @param index_ The index of the renderer to get
-             * @returns the render, owned by the viewer
-             */
-            get_renderer(index_: number): Renderer
-            /**
-             * Insert a renderer at a specific point in the viewer
-             * @param renderer the renderer to insert
-             * @param before the renderer to insert before
-             */
-            insert_renderer(renderer: Renderer, before: Renderer | null): void
-            /**
-             * Remove a renderer from this viewer.
-             * @param renderer The renderer to remove
-             */
-            remove_renderer(renderer: Renderer): void
-        }
-
-
-        interface ViewerIface {
-            readonly $gtype: GObject.GType<Viewer>
-            readonly prototype: Viewer
-            /**
-             * Get an implementation of #GcrViewer that supports a view
-             * of multiple renderers.
-             * @returns a newly allocated #GcrViewer, which should be          released with g_object_unref()
-             */
-            "new"(): Viewer
-            /**
-             * Get an implementation of #GcrViewer that supports a scrolled view
-             * of multiple renderers.
-             * @returns a #GcrViewer which is also a #GtkWidget
-             */
-            new_scrolled(): Viewer
-
-            [Symbol.hasInstance](instance: unknown): instance is Viewer
-        }
-
-        const Viewer: ViewerIface
         
 
         namespace CertificateRenderer {
@@ -307,9 +61,6 @@ declare module "gi://GcrUi?version=3" {
             }
         }
 
-        /**
-         * An implementation of #GcrRenderer which renders certificates.
-         */
         interface CertificateRenderer extends GObject.Object, Gcr.Certificate, Gcr.Comparable, Renderer {
             readonly $signals: CertificateRenderer.SignalSignatures
             readonly $readableProperties: CertificateRenderer.ReadableProperties
@@ -348,6 +99,7 @@ declare module "gi://GcrUi?version=3" {
         interface CertificateRendererClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<CertificateRenderer>
             readonly prototype: CertificateRenderer
+
             new (props?: Partial<GObject.ConstructorProps<CertificateRenderer>>): CertificateRenderer
             /**
              * Create a new certificate renderer to display the certificate.
@@ -366,7 +118,12 @@ declare module "gi://GcrUi?version=3" {
             new_for_attributes(label: string | null, attrs: never | null): CertificateRenderer
         }
 
-        const CertificateRenderer: CertificateRendererClass
+        interface $Exports {
+            /**
+             * An implementation of #GcrRenderer which renders certificates.
+             */
+            CertificateRenderer: CertificateRendererClass
+        }
         
 
         namespace CertificateWidget {
@@ -387,20 +144,6 @@ declare module "gi://GcrUi?version=3" {
             }
         }
 
-        /**
-         * A widget that can be used to display a certificate.
-         *
-         * A certificate widget is normally in a collapsed state showing only
-         * details, but can be expanded by the user.
-         *
-         * Use [ctor@CertificateWidget.new] to create a new certificate widget. Only
-         * one certificate can be displayed. It contains a [iface@Viewer] internally
-         * and [class@CertificateRenderer] is used to render the certificate to the
-         * viewer.
-         *
-         * To show more than one certificate in a view, create the viewer and
-         * add renderers to it.
-         */
         interface CertificateWidget extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: CertificateWidget.SignalSignatures
             readonly $readableProperties: CertificateWidget.ReadableProperties
@@ -441,6 +184,7 @@ declare module "gi://GcrUi?version=3" {
         interface CertificateWidgetClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<CertificateWidget>
             readonly prototype: CertificateWidget
+
             new (props?: Partial<GObject.ConstructorProps<CertificateWidget>>): CertificateWidget
             /**
              * Create a new certificate widget which displays a given certificate.
@@ -450,7 +194,23 @@ declare module "gi://GcrUi?version=3" {
             "new"(certificate: Gcr.Certificate | null): CertificateWidget
         }
 
-        const CertificateWidget: CertificateWidgetClass
+        interface $Exports {
+            /**
+             * A widget that can be used to display a certificate.
+             *
+             * A certificate widget is normally in a collapsed state showing only
+             * details, but can be expanded by the user.
+             *
+             * Use [ctor@CertificateWidget.new] to create a new certificate widget. Only
+             * one certificate can be displayed. It contains a [iface@Viewer] internally
+             * and [class@CertificateRenderer] is used to render the certificate to the
+             * viewer.
+             *
+             * To show more than one certificate in a view, create the viewer and
+             * add renderers to it.
+             */
+            CertificateWidget: CertificateWidgetClass
+        }
         
 
         namespace CollectionModel {
@@ -464,35 +224,13 @@ declare module "gi://GcrUi?version=3" {
 
             interface WritableProperties extends GObject.Object.WritableProperties, Gtk.TreeModel.WritableProperties, Gtk.TreeSortable.WritableProperties {
                 "collection": Gcr.Collection
-                "columns": never
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gtk.TreeModel.ConstructOnlyProperties, Gtk.TreeSortable.ConstructOnlyProperties {
+                "columns": never
             }
         }
 
-        /**
-         * Ain implementation of a [iface@Gtk.TreeModel] which contains a row for each
-         * object in a [iface@Gcr.Collection].
-         *
-         * As objects are added or removed from the collection, rows are added and
-         * removed from this model.
-         *
-         * The row values come from the properties of the objects in the collection. Use
-         * [ctor@CollectionModel.new] to create a new collection model. To have more
-         * control over the values use a set of [struct@Gcr.Column] structures to
-         * define the columns. This can be done with [ctor@CollectionModel.new_full] or
-         * [method@CollectionModel.set_columns].
-         *
-         * Each row can have a selected state, which is represented by a boolean column.
-         * The selected state can be toggled with gcr_collection_model_toggle_selected()
-         * or set with gcr_collection_model_set_selected_objects() and retrieved with
-         * [method@CollectionModel.get_selected_objects].
-         *
-         * To determine which object a row represents and vice versa, use the
-         * [method@CollectionModel.iter_for_object] or
-         * [method@CollectionModel.object_for_iter] functions.
-         */
         interface CollectionModel extends GObject.Object, Gtk.TreeModel, Gtk.TreeSortable {
             readonly $signals: CollectionModel.SignalSignatures
             readonly $readableProperties: CollectionModel.ReadableProperties
@@ -568,10 +306,35 @@ declare module "gi://GcrUi?version=3" {
         interface CollectionModelClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<CollectionModel>
             readonly prototype: CollectionModel
+
             new (props?: Partial<GObject.ConstructorProps<CollectionModel>>): CollectionModel
         }
 
-        const CollectionModel: CollectionModelClass
+        interface $Exports {
+            /**
+             * Ain implementation of a [iface@Gtk.TreeModel] which contains a row for each
+             * object in a [iface@Gcr.Collection].
+             *
+             * As objects are added or removed from the collection, rows are added and
+             * removed from this model.
+             *
+             * The row values come from the properties of the objects in the collection. Use
+             * [ctor@CollectionModel.new] to create a new collection model. To have more
+             * control over the values use a set of [struct@Gcr.Column] structures to
+             * define the columns. This can be done with [ctor@CollectionModel.new_full] or
+             * [method@CollectionModel.set_columns].
+             *
+             * Each row can have a selected state, which is represented by a boolean column.
+             * The selected state can be toggled with gcr_collection_model_toggle_selected()
+             * or set with gcr_collection_model_set_selected_objects() and retrieved with
+             * [method@CollectionModel.get_selected_objects].
+             *
+             * To determine which object a row represents and vice versa, use the
+             * [method@CollectionModel.iter_for_object] or
+             * [method@CollectionModel.object_for_iter] functions.
+             */
+            CollectionModel: CollectionModelClass
+        }
         
 
         namespace ComboSelector {
@@ -583,17 +346,13 @@ declare module "gi://GcrUi?version=3" {
             }
 
             interface WritableProperties extends Gtk.ComboBox.WritableProperties, Atk.ImplementorIface.WritableProperties, Gtk.Buildable.WritableProperties, Gtk.CellEditable.WritableProperties, Gtk.CellLayout.WritableProperties {
-                "collection": Gcr.Collection
             }
 
             interface ConstructOnlyProperties extends Gtk.ComboBox.ConstructOnlyProperties, Atk.ImplementorIface.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties, Gtk.CellEditable.ConstructOnlyProperties, Gtk.CellLayout.ConstructOnlyProperties {
+                "collection": Gcr.Collection
             }
         }
 
-        /**
-         * A widget that can be used to select a certificate or key. It allows
-         * the user to select one object from the selector at a time.
-         */
         interface ComboSelector extends Gtk.ComboBox, Atk.ImplementorIface, Gtk.Buildable, Gtk.CellEditable, Gtk.CellLayout {
             readonly $signals: ComboSelector.SignalSignatures
             readonly $readableProperties: ComboSelector.ReadableProperties
@@ -625,6 +384,7 @@ declare module "gi://GcrUi?version=3" {
         interface ComboSelectorClass extends Omit<Gtk.ComboBoxClass, "new"> {
             readonly $gtype: GObject.GType<ComboSelector>
             readonly prototype: ComboSelector
+
             new (props?: Partial<GObject.ConstructorProps<ComboSelector>>): ComboSelector
             /**
              * Create a new #GcrTreeSelector.
@@ -634,7 +394,13 @@ declare module "gi://GcrUi?version=3" {
             "new"(collection: Gcr.Collection): ComboSelector
         }
 
-        const ComboSelector: ComboSelectorClass
+        interface $Exports {
+            /**
+             * A widget that can be used to select a certificate or key. It allows
+             * the user to select one object from the selector at a time.
+             */
+            ComboSelector: ComboSelectorClass
+        }
         
 
         namespace FailureRenderer {
@@ -655,9 +421,6 @@ declare module "gi://GcrUi?version=3" {
             }
         }
 
-        /**
-         * A renderer that can be used for unsupported data.
-         */
         interface FailureRenderer extends GObject.Object, Renderer {
             readonly $signals: FailureRenderer.SignalSignatures
             readonly $readableProperties: FailureRenderer.ReadableProperties
@@ -676,6 +439,7 @@ declare module "gi://GcrUi?version=3" {
         interface FailureRendererClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FailureRenderer>
             readonly prototype: FailureRenderer
+
             new (props?: Partial<GObject.ConstructorProps<FailureRenderer>>): FailureRenderer
             /**
              * Create a new renderer for an error.
@@ -692,7 +456,12 @@ declare module "gi://GcrUi?version=3" {
             new_unsupported(label: string): Renderer
         }
 
-        const FailureRenderer: FailureRendererClass
+        interface $Exports {
+            /**
+             * A renderer that can be used for unsupported data.
+             */
+            FailureRenderer: FailureRendererClass
+        }
         
 
         namespace ImportButton {
@@ -720,13 +489,6 @@ declare module "gi://GcrUi?version=3" {
             }
         }
 
-        /**
-         * A button which imports keys and certificates.
-         *
-         * The import button shows a spinner when the button is activated. When more
-         * than one importer is available, it shows a drop down to select which to
-         * import to.
-         */
         interface ImportButton extends Gtk.Button, Atk.ImplementorIface, Gtk.Actionable, Gtk.Activatable, Gtk.Buildable {
             readonly $signals: ImportButton.SignalSignatures
             readonly $readableProperties: ImportButton.ReadableProperties
@@ -753,6 +515,7 @@ declare module "gi://GcrUi?version=3" {
         interface ImportButtonClass extends Omit<Gtk.ButtonClass, "new"> {
             readonly $gtype: GObject.GType<ImportButton>
             readonly prototype: ImportButton
+
             new (props?: Partial<GObject.ConstructorProps<ImportButton>>): ImportButton
             /**
              * Create a new #GcrImportButton.
@@ -762,7 +525,16 @@ declare module "gi://GcrUi?version=3" {
             "new"(label: string | null): ImportButton
         }
 
-        const ImportButton: ImportButtonClass
+        interface $Exports {
+            /**
+             * A button which imports keys and certificates.
+             *
+             * The import button shows a spinner when the button is activated. When more
+             * than one importer is available, it shows a drop down to select which to
+             * import to.
+             */
+            ImportButton: ImportButtonClass
+        }
         
 
         namespace KeyRenderer {
@@ -781,9 +553,6 @@ declare module "gi://GcrUi?version=3" {
             }
         }
 
-        /**
-         * An implementation of #GcrRenderer which renders keys.
-         */
         interface KeyRenderer extends GObject.Object, Renderer {
             readonly $signals: KeyRenderer.SignalSignatures
             readonly $readableProperties: KeyRenderer.ReadableProperties
@@ -809,6 +578,7 @@ declare module "gi://GcrUi?version=3" {
         interface KeyRendererClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<KeyRenderer>
             readonly prototype: KeyRenderer
+
             new (props?: Partial<GObject.ConstructorProps<KeyRenderer>>): KeyRenderer
             /**
              * Create a new key renderer which renders a given key in the attributes.
@@ -819,7 +589,12 @@ declare module "gi://GcrUi?version=3" {
             "new"(label: string | null, attrs: Gck.Attributes | null): KeyRenderer
         }
 
-        const KeyRenderer: KeyRendererClass
+        interface $Exports {
+            /**
+             * An implementation of #GcrRenderer which renders keys.
+             */
+            KeyRenderer: KeyRendererClass
+        }
         
 
         namespace KeyWidget {
@@ -838,18 +613,6 @@ declare module "gi://GcrUi?version=3" {
             }
         }
 
-        /**
-         * A key widget and renderer
-         *
-         * A key widget can be used to display a RSA, DSA or EC key. The widget is
-         * normally in a collapsed state showing only details, but can be expanded by
-         * the user.
-         *
-         * Use [ctor@KeyWidget.new] to create a new key widget. Only one key can be
-         * displayed. A key widget contains a [iface@Viewer] internally and
-         * [class@KeyRenderer] is used to render the key to the viewer. To show more
-         * than one key in a view, create the viewer and add renderers to it.
-         */
         interface KeyWidget extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: KeyWidget.SignalSignatures
             readonly $readableProperties: KeyWidget.ReadableProperties
@@ -875,6 +638,7 @@ declare module "gi://GcrUi?version=3" {
         interface KeyWidgetClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<KeyWidget>
             readonly prototype: KeyWidget
+
             new (props?: Partial<GObject.ConstructorProps<KeyWidget>>): KeyWidget
             /**
              * Create a new key widget which displays a given key in the attributes.
@@ -884,7 +648,21 @@ declare module "gi://GcrUi?version=3" {
             "new"(attrs: Gck.Attributes | null): KeyWidget
         }
 
-        const KeyWidget: KeyWidgetClass
+        interface $Exports {
+            /**
+             * A key widget and renderer
+             *
+             * A key widget can be used to display a RSA, DSA or EC key. The widget is
+             * normally in a collapsed state showing only details, but can be expanded by
+             * the user.
+             *
+             * Use [ctor@KeyWidget.new] to create a new key widget. Only one key can be
+             * displayed. A key widget contains a [iface@Viewer] internally and
+             * [class@KeyRenderer] is used to render the key to the viewer. To show more
+             * than one key in a view, create the viewer and add renderers to it.
+             */
+            KeyWidget: KeyWidgetClass
+        }
         
 
         namespace ListSelector {
@@ -896,18 +674,13 @@ declare module "gi://GcrUi?version=3" {
             }
 
             interface WritableProperties extends Gtk.TreeView.WritableProperties, Atk.ImplementorIface.WritableProperties, Gtk.Buildable.WritableProperties, Gtk.Scrollable.WritableProperties {
-                "collection": Gcr.Collection
             }
 
             interface ConstructOnlyProperties extends Gtk.TreeView.ConstructOnlyProperties, Atk.ImplementorIface.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties, Gtk.Scrollable.ConstructOnlyProperties {
+                "collection": Gcr.Collection
             }
         }
 
-        /**
-         * A selector widget to select 1 or more certificates or keys from a list.
-         *
-         * Live search is available for quick filtering.
-         */
         interface ListSelector extends Gtk.TreeView, Atk.ImplementorIface, Gtk.Buildable, Gtk.Scrollable {
             readonly $signals: ListSelector.SignalSignatures
             readonly $readableProperties: ListSelector.ReadableProperties
@@ -938,6 +711,7 @@ declare module "gi://GcrUi?version=3" {
         interface ListSelectorClass extends Omit<Gtk.TreeViewClass, "new"> {
             readonly $gtype: GObject.GType<ListSelector>
             readonly prototype: ListSelector
+
             new (props?: Partial<GObject.ConstructorProps<ListSelector>>): ListSelector
             /**
              * Create a new #GcrListSelector.
@@ -947,7 +721,14 @@ declare module "gi://GcrUi?version=3" {
             "new"(collection: Gcr.Collection): ListSelector
         }
 
-        const ListSelector: ListSelectorClass
+        interface $Exports {
+            /**
+             * A selector widget to select 1 or more certificates or keys from a list.
+             *
+             * Live search is available for quick filtering.
+             */
+            ListSelector: ListSelectorClass
+        }
         
 
         namespace PromptDialog {
@@ -972,11 +753,6 @@ declare module "gi://GcrUi?version=3" {
             }
         }
 
-        /**
-         * A [iface@Gcr.Prompt] implementation which shows a GTK dialog. The dialog
-         * will remain visible (but insensitive) between prompts. If the user cancels
-         * the dialog between prompts, then the dialog will be hidden.
-         */
         interface PromptDialog extends Gtk.Dialog, Atk.ImplementorIface, Gcr.Prompt, Gtk.Buildable {
             readonly $signals: PromptDialog.SignalSignatures
             readonly $readableProperties: PromptDialog.ReadableProperties
@@ -1011,10 +787,18 @@ declare module "gi://GcrUi?version=3" {
         interface PromptDialogClass extends Omit<Gtk.DialogClass, "new"> {
             readonly $gtype: GObject.GType<PromptDialog>
             readonly prototype: PromptDialog
+
             new (props?: Partial<GObject.ConstructorProps<PromptDialog>>): PromptDialog
         }
 
-        const PromptDialog: PromptDialogClass
+        interface $Exports {
+            /**
+             * A [iface@Gcr.Prompt] implementation which shows a GTK dialog. The dialog
+             * will remain visible (but insensitive) between prompts. If the user cancels
+             * the dialog between prompts, then the dialog will be hidden.
+             */
+            PromptDialog: PromptDialogClass
+        }
         
 
         namespace SecureEntryBuffer {
@@ -1031,21 +815,6 @@ declare module "gi://GcrUi?version=3" {
             }
         }
 
-        /**
-         * A [class@Gtk.EntryBuffer] that uses non-pageable memory.
-         *
-         * It's good practice to try to keep passwords or sensitive secrets out of
-         * pageable memory whenever possible, so that they don't get written to disk.
-         *
-         * A [class@SecureEntryBuffer] is a [class@Gtk.EntryBuffer] to be used with
-         * [class@Gtk.Entry] which uses non-pageable memory to store a password placed
-         * in the entry. In order to make any sense at all, the entry must have it's
-         * visibility turned off, and just be displaying place holder characters for
-         * the text. That is, a password style entry.
-         *
-         * Use [ctor@Gtk.Entry.new_with_buffer] or [method@Gtk.Entry.set_buffer] to set this buffer
-         * on an entry.
-         */
         interface SecureEntryBuffer extends Gtk.EntryBuffer {
             readonly $signals: SecureEntryBuffer.SignalSignatures
             readonly $readableProperties: SecureEntryBuffer.ReadableProperties
@@ -1056,15 +825,33 @@ declare module "gi://GcrUi?version=3" {
         interface SecureEntryBufferClass extends Omit<Gtk.EntryBufferClass, "new"> {
             readonly $gtype: GObject.GType<SecureEntryBuffer>
             readonly prototype: SecureEntryBuffer
+
             new (props?: Partial<GObject.ConstructorProps<SecureEntryBuffer>>): SecureEntryBuffer
             /**
              * Create a new secure entry buffer.
              * @returns the new entry buffer
              */
-            "new"(): Gtk.EntryBuffer
+            "new"(): SecureEntryBuffer
         }
 
-        const SecureEntryBuffer: SecureEntryBufferClass
+        interface $Exports {
+            /**
+             * A [class@Gtk.EntryBuffer] that uses non-pageable memory.
+             *
+             * It's good practice to try to keep passwords or sensitive secrets out of
+             * pageable memory whenever possible, so that they don't get written to disk.
+             *
+             * A [class@SecureEntryBuffer] is a [class@Gtk.EntryBuffer] to be used with
+             * [class@Gtk.Entry] which uses non-pageable memory to store a password placed
+             * in the entry. In order to make any sense at all, the entry must have it's
+             * visibility turned off, and just be displaying place holder characters for
+             * the text. That is, a password style entry.
+             *
+             * Use [ctor@Gtk.Entry.new_with_buffer] or [method@Gtk.Entry.set_buffer] to set this buffer
+             * on an entry.
+             */
+            SecureEntryBuffer: SecureEntryBufferClass
+        }
         
 
         namespace TreeSelector {
@@ -1077,18 +864,14 @@ declare module "gi://GcrUi?version=3" {
             }
 
             interface WritableProperties extends Gtk.TreeView.WritableProperties, Atk.ImplementorIface.WritableProperties, Gtk.Buildable.WritableProperties, Gtk.Scrollable.WritableProperties {
-                "collection": Gcr.Collection
-                "columns": never
             }
 
             interface ConstructOnlyProperties extends Gtk.TreeView.ConstructOnlyProperties, Atk.ImplementorIface.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties, Gtk.Scrollable.ConstructOnlyProperties {
+                "collection": Gcr.Collection
+                "columns": never
             }
         }
 
-        /**
-         * A tree selector can be used to select certificates or keys. It allows
-         * the user to select multiple objects from a tree.
-         */
         interface TreeSelector extends Gtk.TreeView, Atk.ImplementorIface, Gtk.Buildable, Gtk.Scrollable {
             readonly $signals: TreeSelector.SignalSignatures
             readonly $readableProperties: TreeSelector.ReadableProperties
@@ -1124,10 +907,17 @@ declare module "gi://GcrUi?version=3" {
         interface TreeSelectorClass extends Omit<Gtk.TreeViewClass, "new"> {
             readonly $gtype: GObject.GType<TreeSelector>
             readonly prototype: TreeSelector
+
             new (props?: Partial<GObject.ConstructorProps<TreeSelector>>): TreeSelector
         }
 
-        const TreeSelector: TreeSelectorClass
+        interface $Exports {
+            /**
+             * A tree selector can be used to select certificates or keys. It allows
+             * the user to select multiple objects from a tree.
+             */
+            TreeSelector: TreeSelectorClass
+        }
         
 
         namespace UnlockOptionsWidget {
@@ -1148,16 +938,6 @@ declare module "gi://GcrUi?version=3" {
             }
         }
 
-        /**
-         * This widget displays a set of unlock options for the user to select.
-         *
-         * The user can choose between keeping caching the unlock indefinitely, or for
-         * a given amount of time.
-         *
-         * Each option has a different name, for example #GCR_UNLOCK_OPTION_ALWAYS. These
-         * names are used together with the various functions like
-         * [method@UnlockOptionsWidget.get_choice].
-         */
         interface UnlockOptionsWidget extends Gtk.Bin, Atk.ImplementorIface, Gtk.Buildable {
             readonly $signals: UnlockOptionsWidget.SignalSignatures
             readonly $readableProperties: UnlockOptionsWidget.ReadableProperties
@@ -1231,6 +1011,7 @@ declare module "gi://GcrUi?version=3" {
         interface UnlockOptionsWidgetClass extends Omit<Gtk.BinClass, "new"> {
             readonly $gtype: GObject.GType<UnlockOptionsWidget>
             readonly prototype: UnlockOptionsWidget
+
             new (props?: Partial<GObject.ConstructorProps<UnlockOptionsWidget>>): UnlockOptionsWidget
             /**
              * Create a new #GcrUnlockOptionsWidget.
@@ -1239,7 +1020,19 @@ declare module "gi://GcrUi?version=3" {
             "new"(): UnlockOptionsWidget
         }
 
-        const UnlockOptionsWidget: UnlockOptionsWidgetClass
+        interface $Exports {
+            /**
+             * This widget displays a set of unlock options for the user to select.
+             *
+             * The user can choose between keeping caching the unlock indefinitely, or for
+             * a given amount of time.
+             *
+             * Each option has a different name, for example #GCR_UNLOCK_OPTION_ALWAYS. These
+             * names are used together with the various functions like
+             * [method@UnlockOptionsWidget.get_choice].
+             */
+            UnlockOptionsWidget: UnlockOptionsWidgetClass
+        }
         
 
         namespace ViewerWidget {
@@ -1266,10 +1059,6 @@ declare module "gi://GcrUi?version=3" {
             }
         }
 
-        /**
-         * A viewer widget which can display certificates and keys that are
-         * located in files.
-         */
         interface ViewerWidget extends Gtk.Box, Atk.ImplementorIface, Gtk.Buildable, Gtk.Orientable {
             readonly $signals: ViewerWidget.SignalSignatures
             readonly $readableProperties: ViewerWidget.ReadableProperties
@@ -1320,7 +1109,7 @@ declare module "gi://GcrUi?version=3" {
              * @param display_name label for the loaded data
              * @param data data to load
              */
-            load_bytes(display_name: string | null, data: GLib.Bytes): void
+            load_bytes(display_name: string | null, data: (GLib.Bytes | Uint8Array)): void
             /**
              * Parse and load some data to be displayed into the viewer widgets. The data
              * may contain multiple parseable items if the format can contain multiple
@@ -1359,6 +1148,7 @@ declare module "gi://GcrUi?version=3" {
         interface ViewerWidgetClass extends Omit<Gtk.BoxClass, "new"> {
             readonly $gtype: GObject.GType<ViewerWidget>
             readonly prototype: ViewerWidget
+
             new (props?: Partial<GObject.ConstructorProps<ViewerWidget>>): ViewerWidget
             /**
              * Create a new viewer widget.
@@ -1367,168 +1157,486 @@ declare module "gi://GcrUi?version=3" {
             "new"(): ViewerWidget
         }
 
-        const ViewerWidget: ViewerWidgetClass
-        none
-        /**
-         */
-        abstract class CertificateRendererPrivate {
-            static readonly $gtype: GObject.GType<CertificateRendererPrivate>
-
-            
+        interface $Exports {
+            /**
+             * A viewer widget which can display certificates and keys that are
+             * located in files.
+             */
+            ViewerWidget: ViewerWidgetClass
         }
-        none
-        /**
-         */
-        abstract class CertificateWidgetPrivate {
-            static readonly $gtype: GObject.GType<CertificateWidgetPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class CollectionModelPrivate {
-            static readonly $gtype: GObject.GType<CollectionModelPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class ComboSelectorPrivate {
-            static readonly $gtype: GObject.GType<ComboSelectorPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class FailureRendererPrivate {
-            static readonly $gtype: GObject.GType<FailureRendererPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class ImportButtonPrivate {
-            static readonly $gtype: GObject.GType<ImportButtonPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class KeyRendererPrivate {
-            static readonly $gtype: GObject.GType<KeyRendererPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class KeyWidgetPrivate {
-            static readonly $gtype: GObject.GType<KeyWidgetPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class ListSelectorPrivate {
-            static readonly $gtype: GObject.GType<ListSelectorPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class PromptDialogPrivate {
-            static readonly $gtype: GObject.GType<PromptDialogPrivate>
-
-            
-        }
-        none
-        none
-        /**
-         */
-        abstract class SecureEntryBufferPrivate {
-            static readonly $gtype: GObject.GType<SecureEntryBufferPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class TreeSelectorPrivate {
-            static readonly $gtype: GObject.GType<TreeSelectorPrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class UnlockOptionsWidgetPrivate {
-            static readonly $gtype: GObject.GType<UnlockOptionsWidgetPrivate>
-
-            
-        }
-        none
-        none
-        /**
-         * Create and initialize a renderer for the given attributes and label. These
-         * renderers should have been preregistered via gcr_renderer_register().
-         * @param label The label for the renderer
-         * @param attrs The attributes to render
-         * @returns a new renderer, or %NULL if no renderer          matched the attributes; the render should be released with g_object_unref()
-         */
-        function renderer_create(label: string | null, attrs: Gck.Attributes): Renderer | null
-        /**
-         * Register a renderer to be created when matching attributes are passed to
-         * gcr_renderer_create().
-         * @param renderer_type The renderer class type
-         * @param attrs The attributes to match
-         */
-        function renderer_register(renderer_type: (GObject.GType | { $gtype: GObject.GType }), attrs: Gck.Attributes): void
-        /**
-         * Register all the well known renderers for certificates and keys known to the
-         * Gcr library.
-         */
-        function renderer_register_well_known(): void
-        /**
-         * Get an implementation of #GcrViewer that supports a view
-         * of multiple renderers.
-         * @returns a newly allocated #GcrViewer, which should be          released with g_object_unref()
-         */
-        function viewer_new(): Viewer
-        /**
-         * Get an implementation of #GcrViewer that supports a scrolled view
-         * of multiple renderers.
-         * @returns a #GcrViewer which is also a #GtkWidget
-         */
-        function viewer_new_scrolled(): Viewer
         
-        namespace CollectionModelMode {
-            const $gtype: GObject.GType<CollectionModelMode>
+
+        namespace Renderer {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                /**
+                 * A signal that is emitted by the renderer when it's data
+                 * changed and should be rerendered.
+                 */
+                "data-changed"(): void
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+                "attributes": Gck.Attributes | null
+                "label": string
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+                "attributes": Gck.Attributes | null
+                "label": string
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * signal emitted when data being rendered changes
+                 */
+                vfunc_data_changed(): void
+                /**
+                 * method invoked to populate a popup menu with additional
+                 *                  renderer options
+                 * @param viewer
+                 * @param menu
+                 */
+                vfunc_populate_popup(viewer: Viewer, menu: Gtk.Menu): void
+                /**
+                 * Render the contents of the renderer to the given viewer.
+                 * @param viewer The viewer to render to.
+                 */
+                vfunc_render_view(viewer: Viewer): void
+            }
         }
 
-        /**
-         * If a [class@CollectionModel] is created with a mode of
-         * %GCR_COLLECTION_MODEL_TREE, then any included objects that are themselves a
-         * [iface@Gcr.Collection], will have all child
-         * objects include as child rows in a tree form.
-         */
-        enum CollectionModelMode {
+        interface Renderer extends GObject.Object, Renderer.Interface {
+            readonly $signals: Renderer.SignalSignatures
+            readonly $readableProperties: Renderer.ReadableProperties
+            readonly $writableProperties: Renderer.WritableProperties
+            readonly $constructOnlyProperties: Renderer.ConstructOnlyProperties
+            /**
+             * The attributes to display.
+             */
+            get attributes(): Gck.Attributes | null
+            set attributes(value: Gck.Attributes | null)
+            /**
+             * The label to display.
+             */
+            get label(): string
+            set label(value: string)
+            /**
+             * Emit the #GcrRenderer::data-changed signal on the renderer. This is used by
+             * renderer implementations.
+             */
+            emit_data_changed(): void
+            /**
+             * Get the PKCS#11 attributes, if any, set for this renderer to display.
+             * @returns the attributes, owned by the renderer
+             */
+            get_attributes(): Gck.Attributes | null
+            /**
+             * Called by #GcrViewer when about to display a popup menu for the content
+             * displayed by the renderer. The renderer can add a menu item if desired.
+             * @param viewer The viewer that is displaying a popup
+             * @param menu The popup menu being displayed
+             */
+            popuplate_popup(viewer: Viewer, menu: Gtk.Menu): void
+            /**
+             * Render the contents of the renderer to the given viewer.
+             * @param viewer The viewer to render to.
+             */
+            render_view(viewer: Viewer): void
+            /**
+             * Set the PKCS#11 attributes for this renderer to display.
+             * @param attrs attributes to set
+             */
+            set_attributes(attrs: Gck.Attributes | null): void
+        }
+
+        interface RendererIface {
+            readonly $gtype: GObject.GType<Renderer>
+            readonly prototype: Renderer
+            [Symbol.hasInstance](instance: unknown): instance is Renderer
+            /**
+             * Create and initialize a renderer for the given attributes and label. These
+             * renderers should have been preregistered via gcr_renderer_register().
+             * @param label The label for the renderer
+             * @param attrs The attributes to render
+             * @returns a new renderer, or %NULL if no renderer          matched the attributes; the render should be released with g_object_unref()
+             */
+            create(label: string | null, attrs: Gck.Attributes): Renderer | null
+            /**
+             * Register a renderer to be created when matching attributes are passed to
+             * gcr_renderer_create().
+             * @param renderer_type The renderer class type
+             * @param attrs The attributes to match
+             */
+            register(renderer_type: (GObject.GType | { $gtype: GObject.GType }), attrs: Gck.Attributes): void
+            /**
+             * Register all the well known renderers for certificates and keys known to the
+             * Gcr library.
+             */
+            register_well_known(): void
+        }
+
+        interface $Exports {
+            /**
+             * An interface that's implemented by renderers which wish to render data to a
+             * [iface@Viewer].
+             *
+             * The interaction between [iface@Renderer] and [iface@Viewer] is not stable
+             * yet, and so new renderers cannot be implemented outside the Gcr library at
+             * this time.
+             *
+             * To lookup a renderer for a given set of attributes, use the gcr_renderer_create()
+             * function. This will create and initialize a renderer that's capable of viewing
+             * the data in those attributes.
+             */
+            Renderer: RendererIface
+        }
+        
+
+        namespace Viewer {
+            interface SignalSignatures extends Gtk.Widget.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Gtk.Widget.ReadableProperties {
+            }
+
+            interface WritableProperties extends Gtk.Widget.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties {
+            }
+
+            interface Interface extends Gtk.Widget {
+                /**
+                 * Add a renderer to this viewer.
+                 * @param renderer The renderer to add
+                 */
+                vfunc_add_renderer(renderer: Renderer): void
+                /**
+                 * Get the number of renderers present in the viewer.
+                 * @returns The number of renderers.
+                 */
+                vfunc_count_renderers(): number
+                /**
+                 * Get a pointer to the renderer at the given index. It is an error to request
+                 * an index that is out of bounds.
+                 * @param index_ The index of the renderer to get
+                 * @returns the render, owned by the viewer
+                 */
+                vfunc_get_renderer(index_: number): Renderer
+                /**
+                 * Insert a renderer at a specific point in the viewer
+                 * @param renderer the renderer to insert
+                 * @param before the renderer to insert before
+                 */
+                vfunc_insert_renderer(renderer: Renderer, before: Renderer | null): void
+                /**
+                 * Remove a renderer from this viewer.
+                 * @param renderer The renderer to remove
+                 */
+                vfunc_remove_renderer(renderer: Renderer): void
+            }
+        }
+
+        interface Viewer extends Gtk.Widget, Viewer.Interface {
+            readonly $signals: Viewer.SignalSignatures
+            readonly $readableProperties: Viewer.ReadableProperties
+            readonly $writableProperties: Viewer.WritableProperties
+            readonly $constructOnlyProperties: Viewer.ConstructOnlyProperties
+            /**
+             * Add a renderer to this viewer.
+             * @param renderer The renderer to add
+             */
+            add_renderer(renderer: Renderer): void
+            /**
+             * Get the number of renderers present in the viewer.
+             * @returns The number of renderers.
+             */
+            count_renderers(): number
+            /**
+             * Get a pointer to the renderer at the given index. It is an error to request
+             * an index that is out of bounds.
+             * @param index_ The index of the renderer to get
+             * @returns the render, owned by the viewer
+             */
+            get_renderer(index_: number): Renderer
+            /**
+             * Insert a renderer at a specific point in the viewer
+             * @param renderer the renderer to insert
+             * @param before the renderer to insert before
+             */
+            insert_renderer(renderer: Renderer, before: Renderer | null): void
+            /**
+             * Remove a renderer from this viewer.
+             * @param renderer The renderer to remove
+             */
+            remove_renderer(renderer: Renderer): void
+        }
+
+        interface ViewerIface {
+            readonly $gtype: GObject.GType<Viewer>
+            readonly prototype: Viewer
+            [Symbol.hasInstance](instance: unknown): instance is Viewer
+            /**
+             * Get an implementation of #GcrViewer that supports a view
+             * of multiple renderers.
+             * @returns a newly allocated #GcrViewer, which should be          released with g_object_unref()
+             */
+            "new"(): Viewer
+            /**
+             * Get an implementation of #GcrViewer that supports a scrolled view
+             * of multiple renderers.
+             * @returns a #GcrViewer which is also a #GtkWidget
+             */
+            new_scrolled(): Viewer
+        }
+
+        interface $Exports {
+            /**
+             * An abstract interface that represents a widget that can hold
+             * various renderers and display their contents.
+             *
+             * The interaction between [iface@Renderer] and [iface@Viewer] is not stable
+             * yet, and so viewers cannot be implemented outside the Gcr library at this
+             * time.
+             *
+             * Use the [func@Viewer.new] and [func@Viewer.new_scrolled] to get default
+             * implementations of viewers.
+             */
+            Viewer: ViewerIface
+        }
+        
+
+        interface CertificateRendererPrivateStruct {
+            readonly $gtype: GObject.GType<CertificateRendererPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is CertificateRendererPrivate
+        }
+
+        interface CertificateRendererPrivate {
+        }
+
+        interface $Exports {
+            CertificateRendererPrivate: CertificateRendererPrivateStruct
+        }
+        
+
+        interface CertificateWidgetPrivateStruct {
+            readonly $gtype: GObject.GType<CertificateWidgetPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is CertificateWidgetPrivate
+        }
+
+        interface CertificateWidgetPrivate {
+        }
+
+        interface $Exports {
+            CertificateWidgetPrivate: CertificateWidgetPrivateStruct
+        }
+        
+
+        interface CollectionModelPrivateStruct {
+            readonly $gtype: GObject.GType<CollectionModelPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is CollectionModelPrivate
+        }
+
+        interface CollectionModelPrivate {
+        }
+
+        interface $Exports {
+            CollectionModelPrivate: CollectionModelPrivateStruct
+        }
+        
+
+        interface ComboSelectorPrivateStruct {
+            readonly $gtype: GObject.GType<ComboSelectorPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ComboSelectorPrivate
+        }
+
+        interface ComboSelectorPrivate {
+        }
+
+        interface $Exports {
+            ComboSelectorPrivate: ComboSelectorPrivateStruct
+        }
+        
+
+        interface FailureRendererPrivateStruct {
+            readonly $gtype: GObject.GType<FailureRendererPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is FailureRendererPrivate
+        }
+
+        interface FailureRendererPrivate {
+        }
+
+        interface $Exports {
+            FailureRendererPrivate: FailureRendererPrivateStruct
+        }
+        
+
+        interface ImportButtonPrivateStruct {
+            readonly $gtype: GObject.GType<ImportButtonPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ImportButtonPrivate
+        }
+
+        interface ImportButtonPrivate {
+        }
+
+        interface $Exports {
+            ImportButtonPrivate: ImportButtonPrivateStruct
+        }
+        
+
+        interface KeyRendererPrivateStruct {
+            readonly $gtype: GObject.GType<KeyRendererPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is KeyRendererPrivate
+        }
+
+        interface KeyRendererPrivate {
+        }
+
+        interface $Exports {
+            KeyRendererPrivate: KeyRendererPrivateStruct
+        }
+        
+
+        interface KeyWidgetPrivateStruct {
+            readonly $gtype: GObject.GType<KeyWidgetPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is KeyWidgetPrivate
+        }
+
+        interface KeyWidgetPrivate {
+        }
+
+        interface $Exports {
+            KeyWidgetPrivate: KeyWidgetPrivateStruct
+        }
+        
+
+        interface ListSelectorPrivateStruct {
+            readonly $gtype: GObject.GType<ListSelectorPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ListSelectorPrivate
+        }
+
+        interface ListSelectorPrivate {
+        }
+
+        interface $Exports {
+            ListSelectorPrivate: ListSelectorPrivateStruct
+        }
+        
+
+        interface PromptDialogPrivateStruct {
+            readonly $gtype: GObject.GType<PromptDialogPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is PromptDialogPrivate
+        }
+
+        interface PromptDialogPrivate {
+        }
+
+        interface $Exports {
+            PromptDialogPrivate: PromptDialogPrivateStruct
+        }
+        
+
+        interface SecureEntryBufferPrivateStruct {
+            readonly $gtype: GObject.GType<SecureEntryBufferPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is SecureEntryBufferPrivate
+        }
+
+        interface SecureEntryBufferPrivate {
+        }
+
+        interface $Exports {
+            SecureEntryBufferPrivate: SecureEntryBufferPrivateStruct
+        }
+        
+
+        interface TreeSelectorPrivateStruct {
+            readonly $gtype: GObject.GType<TreeSelectorPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is TreeSelectorPrivate
+        }
+
+        interface TreeSelectorPrivate {
+        }
+
+        interface $Exports {
+            TreeSelectorPrivate: TreeSelectorPrivateStruct
+        }
+        
+
+        interface UnlockOptionsWidgetPrivateStruct {
+            readonly $gtype: GObject.GType<UnlockOptionsWidgetPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is UnlockOptionsWidgetPrivate
+        }
+
+        interface UnlockOptionsWidgetPrivate {
+        }
+
+        interface $Exports {
+            UnlockOptionsWidgetPrivate: UnlockOptionsWidgetPrivateStruct
+        }
+        
+        interface CollectionModelModeEnum {
+            readonly $gtype: GObject.GType<CollectionModelMode>
             /**
              * only objects in the top collection, no child objects
              */
-            "LIST" = 0,
+            readonly "LIST": 0
             /**
              * show objects in the collection, and child objects in a tree form
              */
-            "TREE" = 1,
+            readonly "TREE": 1
+        }
+        type CollectionModelMode = CollectionModelModeEnum[Exclude<keyof CollectionModelModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * If a [class@CollectionModel] is created with a mode of
+             * %GCR_COLLECTION_MODEL_TREE, then any included objects that are themselves a
+             * [iface@Gcr.Collection], will have all child
+             * objects include as child rows in a tree form.
+             */
+            CollectionModelMode: CollectionModelModeEnum
+        }
+
+        interface $Exports {
+            __name__: "GcrUi"
+            __version: "3"
+            /**
+             * Create and initialize a renderer for the given attributes and label. These
+             * renderers should have been preregistered via gcr_renderer_register().
+             * @param label The label for the renderer
+             * @param attrs The attributes to render
+             * @returns a new renderer, or %NULL if no renderer          matched the attributes; the render should be released with g_object_unref()
+             */
+            renderer_create(label: string | null, attrs: Gck.Attributes): Renderer | null
+            /**
+             * Register a renderer to be created when matching attributes are passed to
+             * gcr_renderer_create().
+             * @param renderer_type The renderer class type
+             * @param attrs The attributes to match
+             */
+            renderer_register(renderer_type: (GObject.GType | { $gtype: GObject.GType }), attrs: Gck.Attributes): void
+            /**
+             * Register all the well known renderers for certificates and keys known to the
+             * Gcr library.
+             */
+            renderer_register_well_known(): void
+            /**
+             * Get an implementation of #GcrViewer that supports a view
+             * of multiple renderers.
+             * @returns a newly allocated #GcrViewer, which should be          released with g_object_unref()
+             */
+            viewer_new(): Viewer
+            /**
+             * Get an implementation of #GcrViewer that supports a scrolled view
+             * of multiple renderers.
+             * @returns a #GcrViewer which is also a #GtkWidget
+             */
+            viewer_new_scrolled(): Viewer
         }
     }
 
+    const GcrUi: GcrUi.$Exports
     export default GcrUi
 }

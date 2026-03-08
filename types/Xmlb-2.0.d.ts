@@ -16,10 +16,7 @@ declare module "gi://Xmlb?version=2.0" {
 
     
 
-
     namespace Xmlb {
-        const __name__: "Xmlb"
-        const __version: "2.0"
         
 
         namespace Builder {
@@ -36,8 +33,6 @@ declare module "gi://Xmlb?version=2.0" {
             }
         }
 
-        /**
-         */
         interface Builder extends GObject.Object {
             readonly $signals: Builder.SignalSignatures
             readonly $readableProperties: Builder.ReadableProperties
@@ -122,6 +117,7 @@ declare module "gi://Xmlb?version=2.0" {
         interface BuilderClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Builder>
             readonly prototype: Builder
+
             new (props?: Partial<GObject.ConstructorProps<Builder>>): Builder
             /**
              * Creates a new builder.
@@ -135,7 +131,11 @@ declare module "gi://Xmlb?version=2.0" {
             "new"(): Builder
         }
 
-        const Builder: BuilderClass
+        interface $Exports {
+            /**
+             */
+            Builder: BuilderClass
+        }
         
 
         namespace BuilderFixup {
@@ -152,8 +152,6 @@ declare module "gi://Xmlb?version=2.0" {
             }
         }
 
-        /**
-         */
         interface BuilderFixup extends GObject.Object {
             readonly $signals: BuilderFixup.SignalSignatures
             readonly $readableProperties: BuilderFixup.ReadableProperties
@@ -180,6 +178,7 @@ declare module "gi://Xmlb?version=2.0" {
         interface BuilderFixupClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<BuilderFixup>
             readonly prototype: BuilderFixup
+
             new (props?: Partial<GObject.ConstructorProps<BuilderFixup>>): BuilderFixup
             /**
              * Creates a function that will get run on every #XbBuilderNode compile creates.
@@ -191,7 +190,11 @@ declare module "gi://Xmlb?version=2.0" {
             "new"(id: string, func: BuilderFixupFunc): BuilderFixup
         }
 
-        const BuilderFixup: BuilderFixupClass
+        interface $Exports {
+            /**
+             */
+            BuilderFixup: BuilderFixupClass
+        }
         
 
         namespace BuilderNode {
@@ -208,8 +211,6 @@ declare module "gi://Xmlb?version=2.0" {
             }
         }
 
-        /**
-         */
         interface BuilderNode extends GObject.Object {
             readonly $signals: BuilderNode.SignalSignatures
             readonly $readableProperties: BuilderNode.ReadableProperties
@@ -419,6 +420,7 @@ declare module "gi://Xmlb?version=2.0" {
         interface BuilderNodeClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<BuilderNode>
             readonly prototype: BuilderNode
+
             new (props?: Partial<GObject.ConstructorProps<BuilderNode>>): BuilderNode
             /**
              * Creates a new builder node.
@@ -429,7 +431,11 @@ declare module "gi://Xmlb?version=2.0" {
             "new"(element: string): BuilderNode
         }
 
-        const BuilderNode: BuilderNodeClass
+        interface $Exports {
+            /**
+             */
+            BuilderNode: BuilderNodeClass
+        }
         
 
         namespace BuilderSource {
@@ -446,8 +452,6 @@ declare module "gi://Xmlb?version=2.0" {
             }
         }
 
-        /**
-         */
         interface BuilderSource extends GObject.Object {
             readonly $signals: BuilderSource.SignalSignatures
             readonly $readableProperties: BuilderSource.ReadableProperties
@@ -468,7 +472,7 @@ declare module "gi://Xmlb?version=2.0" {
              * @param flags some #XbBuilderSourceFlags, e.g. %XB_BUILDER_SOURCE_FLAG_LITERAL_TEXT
              * @returns %TRUE for success
              */
-            load_bytes(bytes: GLib.Bytes, flags: BuilderSourceFlags): boolean
+            load_bytes(bytes: (GLib.Bytes | Uint8Array), flags: BuilderSourceFlags): boolean
             /**
              * Loads an optionally compressed XML file to build a #XbSilo.
              * @throws {GLib.Error}
@@ -506,6 +510,7 @@ declare module "gi://Xmlb?version=2.0" {
         interface BuilderSourceClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<BuilderSource>
             readonly prototype: BuilderSource
+
             new (props?: Partial<GObject.ConstructorProps<BuilderSource>>): BuilderSource
             /**
              * Creates a new builder source.
@@ -515,7 +520,11 @@ declare module "gi://Xmlb?version=2.0" {
             "new"(): BuilderSource
         }
 
-        const BuilderSource: BuilderSourceClass
+        interface $Exports {
+            /**
+             */
+            BuilderSource: BuilderSourceClass
+        }
         
 
         namespace BuilderSourceCtx {
@@ -532,8 +541,6 @@ declare module "gi://Xmlb?version=2.0" {
             }
         }
 
-        /**
-         */
         interface BuilderSourceCtx extends GObject.Object {
             readonly $signals: BuilderSourceCtx.SignalSignatures
             readonly $readableProperties: BuilderSourceCtx.ReadableProperties
@@ -568,10 +575,15 @@ declare module "gi://Xmlb?version=2.0" {
         interface BuilderSourceCtxClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<BuilderSourceCtx>
             readonly prototype: BuilderSourceCtx
+
             new (props?: Partial<GObject.ConstructorProps<BuilderSourceCtx>>): BuilderSourceCtx
         }
 
-        const BuilderSourceCtx: BuilderSourceCtxClass
+        interface $Exports {
+            /**
+             */
+            BuilderSourceCtx: BuilderSourceCtxClass
+        }
         
 
         namespace Machine {
@@ -588,8 +600,6 @@ declare module "gi://Xmlb?version=2.0" {
             }
         }
 
-        /**
-         */
         interface Machine extends GObject.Object {
             readonly $signals: Machine.SignalSignatures
             readonly $readableProperties: Machine.ReadableProperties
@@ -621,7 +631,11 @@ declare module "gi://Xmlb?version=2.0" {
              */
             add_opcode_fixup(opcodes_sig: string, fixup_cb: MachineOpcodeFixupFunc): void
             /**
-             * =` and `=` are built-in
+             * Adds a new operator to the virtual machine. Operators can then be used
+             * instead of explicit methods like `eq()`.
+             *
+             * You need to add a custom operator using xb_machine_add_operator() before
+             * using xb_machine_parse(). Common operators like `<=` and `=` are built-in
              * and do not have to be added manually.
              * @since 0.1.1
              * @param str operator string, e.g. `==`
@@ -724,7 +738,7 @@ declare module "gi://Xmlb?version=2.0" {
              * @param stack a #XbStack
              * @returns %TRUE if popping succeeded, %FALSE if the stack was empty already, return location for the popped #XbOpcode
              */
-            stack_pop(stack: Stack): boolean
+            stack_pop(stack: Stack): [boolean, Opcode]
             /**
              * Pushes a new empty opcode onto the end of the stack. A pointer to the opcode
              * is returned in @opcode_out so that the caller can initialise it.
@@ -785,6 +799,7 @@ declare module "gi://Xmlb?version=2.0" {
         interface MachineClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Machine>
             readonly prototype: Machine
+
             new (props?: Partial<GObject.ConstructorProps<Machine>>): Machine
             /**
              * Creates a new virtual machine.
@@ -794,7 +809,11 @@ declare module "gi://Xmlb?version=2.0" {
             "new"(): Machine
         }
 
-        const Machine: MachineClass
+        interface $Exports {
+            /**
+             */
+            Machine: MachineClass
+        }
         
 
         namespace Node {
@@ -811,8 +830,6 @@ declare module "gi://Xmlb?version=2.0" {
             }
         }
 
-        /**
-         */
         interface Node extends GObject.Object {
             readonly $signals: Node.SignalSignatures
             readonly $readableProperties: Node.ReadableProperties
@@ -1083,7 +1100,7 @@ declare module "gi://Xmlb?version=2.0" {
              * @param key a string key, e.g. `fwupd::RemoteId`
              * @param data a #GBytes
              */
-            set_data(key: string, data: GLib.Bytes): void
+            set_data(key: string, data: (GLib.Bytes | Uint8Array)): void
             /**
              * Traverses a tree starting from @self. It calls the given functions for each
              * node visited. This allows transmogrification of the source, for instance
@@ -1102,10 +1119,15 @@ declare module "gi://Xmlb?version=2.0" {
         interface NodeClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Node>
             readonly prototype: Node
+
             new (props?: Partial<GObject.ConstructorProps<Node>>): Node
         }
 
-        const Node: NodeClass
+        interface $Exports {
+            /**
+             */
+            Node: NodeClass
+        }
         
 
         namespace Query {
@@ -1122,8 +1144,6 @@ declare module "gi://Xmlb?version=2.0" {
             }
         }
 
-        /**
-         */
         interface Query extends GObject.Object {
             readonly $signals: Query.SignalSignatures
             readonly $readableProperties: Query.ReadableProperties
@@ -1188,6 +1208,7 @@ declare module "gi://Xmlb?version=2.0" {
         interface QueryClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Query>
             readonly prototype: Query
+
             new (props?: Partial<GObject.ConstructorProps<Query>>): Query
             /**
              * Creates a query to be used by @silo. It may be quicker to create a query
@@ -1215,7 +1236,11 @@ declare module "gi://Xmlb?version=2.0" {
             new_full(silo: Silo, xpath: string, flags: QueryFlags): Query
         }
 
-        const Query: QueryClass
+        interface $Exports {
+            /**
+             */
+            Query: QueryClass
+        }
         
 
         namespace Silo {
@@ -1238,8 +1263,6 @@ declare module "gi://Xmlb?version=2.0" {
             }
         }
 
-        /**
-         */
         interface Silo extends GObject.Object {
             readonly $signals: Silo.SignalSignatures
             readonly $readableProperties: Silo.ReadableProperties
@@ -1353,7 +1376,7 @@ declare module "gi://Xmlb?version=2.0" {
              * @param flags #XbSiloLoadFlags, e.g. %XB_SILO_LOAD_FLAG_NONE
              * @returns %TRUE for success, otherwise `error` is set.
              */
-            load_from_bytes(blob: GLib.Bytes, flags: SiloLoadFlags): boolean
+            load_from_bytes(blob: (GLib.Bytes | Uint8Array), flags: SiloLoadFlags): boolean
             /**
              * Loads a silo from file.
              * @throws {GLib.Error}
@@ -1522,6 +1545,7 @@ declare module "gi://Xmlb?version=2.0" {
         interface SiloClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Silo>
             readonly prototype: Silo
+
             new (props?: Partial<GObject.ConstructorProps<Silo>>): Silo
             /**
              * Creates a new silo.
@@ -1539,26 +1563,19 @@ declare module "gi://Xmlb?version=2.0" {
             new_from_xml(xml: string): Silo
         }
 
-        const Silo: SiloClass
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * A #XbNodeAttrIter structure represents an iterator that can be used
-         * to iterate over the attributes of a #XbNode. #XbNodeAttrIter
-         * structures are typically allocated on the stack and then initialized
-         * with xb_node_attr_iter_init().
-         *
-         * The iteration order of a #XbNodeAttrIter is not defined.
-         * @since 0.3.4
-         */
-        abstract class NodeAttrIter {
-            static readonly $gtype: GObject.GType<NodeAttrIter>
+        interface $Exports {
+            /**
+             */
+            Silo: SiloClass
+        }
+        
 
-            
+        interface NodeAttrIterStruct {
+            readonly $gtype: GObject.GType<NodeAttrIter>
+            [Symbol.hasInstance](instance: unknown): instance is NodeAttrIter
+        }
+
+        interface NodeAttrIter {
             /**
              * Initializes a name/value pair iterator for the node attributes
              * and associates it with @self.
@@ -1569,26 +1586,35 @@ declare module "gi://Xmlb?version=2.0" {
              */
             init(self: Node): void
             /**
-             * attr_value)) {
+             * Returns the current attribute name and value and advances the iterator.
+             * Example:
+             * |[<!-- language="C" -->
+             * XbNodeAttrIter iter;
+             * const gchar *attr_name;
+             * const gchar *attr_value;
+             *
+             * xb_node_attr_iter_init (&iter, node);
+             * while (xb_node_attr_iter_next (&iter, &attr_name, &attr_value)) {
              *     // use attr_name and attr_value; no need to free them
              * }
              * ]|
              * @since 0.3.4
              * @returns %TRUE if there are more attributes., Destination of the returned attribute name, Destination of the returned attribute value
              */
-            next(): boolean
+            next(): [boolean, string, string]
         }
-        /**
-         * A #XbNodeChildIter structure represents an iterator that can be used
-         * to iterate over the children of a #XbNode. #XbNodeChildIter
-         * structures are typically allocated on the stack and then initialized
-         * with xb_node_child_iter_init().
-         * @since 0.3.4
-         */
-        abstract class NodeChildIter {
-            static readonly $gtype: GObject.GType<NodeChildIter>
 
-            
+        interface $Exports {
+            NodeAttrIter: NodeAttrIterStruct
+        }
+        
+
+        interface NodeChildIterStruct {
+            readonly $gtype: GObject.GType<NodeChildIter>
+            [Symbol.hasInstance](instance: unknown): instance is NodeChildIter
+        }
+
+        interface NodeChildIter {
             /**
              * Initializes a child iterator for the node's children and associates
              * it with @self.
@@ -1599,35 +1625,50 @@ declare module "gi://Xmlb?version=2.0" {
              */
             init(self: Node): void
             /**
-             * child, g_object_unref);
+             * Returns the current child and advances the iterator.
+             * The retrieved #XbNode child needs to be dereferenced with g_object_unref().
+             * Example:
+             * |[<!-- language="C" -->
+             * XbNodeChildIter iter;
+             * g_autoptr(XbNode) child = NULL;
+             *
+             * xb_node_child_iter_init (&iter, node);
+             * while (xb_node_child_iter_next (&iter, &child)) {
+             *     // do something with the node child
+             *     g_clear_pointer (&child, g_object_unref);
              * }
              * ]|
              * @since 0.3.4
              * @returns %FALSE if the last child has been reached., Destination of the returned child
              */
-            next(): boolean
+            next(): [boolean, Node]
         }
-        none
-        /**
-         */
-        abstract class Opcode {
-            static readonly $gtype: GObject.GType<Opcode>
 
-            
+        interface $Exports {
+            NodeChildIter: NodeChildIterStruct
+        }
+        
+
+        interface OpcodeStruct {
+            readonly $gtype: GObject.GType<Opcode>
+            [Symbol.hasInstance](instance: unknown): instance is Opcode
             /**
              * Converts a string to an opcode kind.
              * @since 0.1.1
              * @param str a string, e.g. `FUNC`
              * @returns a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_TEXT
              */
-            static kind_from_string(str: string): OpcodeKind
+            kind_from_string(str: string): OpcodeKind
             /**
              * Converts the opcode kind to a string.
              * @since 0.1.1
              * @param kind a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_FUNCTION
              * @returns opcode kind, e.g. `FUNC`
              */
-            static kind_to_string(kind: OpcodeKind): string
+            kind_to_string(kind: OpcodeKind): string
+        }
+
+        interface Opcode {
             /**
              * Checks if the opcode can be compared using the string value.
              * @since 0.1.1
@@ -1702,16 +1743,18 @@ declare module "gi://Xmlb?version=2.0" {
              */
             to_string(): string
         }
-        none
-        /**
-         * An opaque struct which contains context for executing a query in, such as the
-         * number of results to return, or values to bind to query placeholders.
-         * @since 0.3.0
-         */
-        abstract class QueryContext {
-            static readonly $gtype: GObject.GType<QueryContext>
 
-            
+        interface $Exports {
+            Opcode: OpcodeStruct
+        }
+        
+
+        interface QueryContextStruct {
+            readonly $gtype: GObject.GType<QueryContext>
+            [Symbol.hasInstance](instance: unknown): instance is QueryContext
+        }
+
+        interface QueryContext {
             /**
              * Clear an #XbQueryContext, freeing any allocated memory it points to.
              *
@@ -1776,20 +1819,25 @@ declare module "gi://Xmlb?version=2.0" {
              */
             set_limit(limit: number): void
         }
-        none
-        /**
-         */
-        abstract class Stack {
-            static readonly $gtype: GObject.GType<Stack>
 
-            
+        interface $Exports {
+            QueryContext: QueryContextStruct
+        }
+        
+
+        interface StackStruct {
+            readonly $gtype: GObject.GType<Stack>
+            [Symbol.hasInstance](instance: unknown): instance is Stack
+        }
+
+        interface Stack {
             /**
              * Pops an opcode off the stack.
              * @throws {GLib.Error}
              * @since 0.2.0
              * @returns %TRUE if popping succeeded, %FALSE if the stack was empty already, return location for the popped #XbOpcode
              */
-            pop(): boolean
+            pop(): [boolean, Opcode]
             /**
              * Pushes a new empty opcode onto the end of the stack. A pointer to the opcode
              * is returned in @opcode_out so that the caller can initialise it. This must be
@@ -1807,14 +1855,18 @@ declare module "gi://Xmlb?version=2.0" {
              */
             to_string(): string
         }
-        /**
-         * An opaque struct which contains values bound to a query.
-         * @since 0.3.0
-         */
-        abstract class ValueBindings {
-            static readonly $gtype: GObject.GType<ValueBindings>
 
-            
+        interface $Exports {
+            Stack: StackStruct
+        }
+        
+
+        interface ValueBindingsStruct {
+            readonly $gtype: GObject.GType<ValueBindings>
+            [Symbol.hasInstance](instance: unknown): instance is ValueBindings
+        }
+
+        interface ValueBindings {
             /**
              * Bind @str to @idx in the value bindings.
              *
@@ -1903,400 +1955,384 @@ declare module "gi://Xmlb?version=2.0" {
              */
             lookup_opcode(idx: number): [boolean, Opcode]
         }
-        /**
-         * Converts a string to an opcode kind.
-         * @since 0.1.1
-         * @param str a string, e.g. `FUNC`
-         * @returns a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_TEXT
-         */
-        function opcode_kind_from_string(str: string): OpcodeKind
-        /**
-         * Converts the opcode kind to a string.
-         * @since 0.1.1
-         * @param kind a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_FUNCTION
-         * @returns opcode kind, e.g. `FUNC`
-         */
-        function opcode_kind_to_string(kind: OpcodeKind): string
-        none
-        /**
-         * Escapes XPath control sequences such as newlines, tabs, and forward slashes.
-         * @since 0.1.2
-         * @param str string, e.g. `app/org.gnome.ghex/x86_64/stable`
-         * @returns new string that is safe to use for queries
-         */
-        function string_escape(str: string): string
-        /**
-         * Gets the XMLb installed runtime version.
-         * @since 0.3.19
-         * @returns a version number, e.g. "0.3.19"
-         */
-        function version_string(): string
-        const MAJOR_VERSION: 0
-        const MICRO_VERSION: 24
-        const MINOR_VERSION: 3
-        
-        namespace OpcodeKind {
-            const $gtype: GObject.GType<OpcodeKind>
-        }
 
-        /**
-         */
-        enum OpcodeKind {
+        interface $Exports {
+            ValueBindings: ValueBindingsStruct
+        }
+        
+        interface OpcodeKindEnum {
+            readonly $gtype: GObject.GType<OpcodeKind>
             /**
              * Unknown opcode
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * A literal integer value
              */
-            "INTEGER" = 1,
+            readonly "INTEGER": 1
             /**
              * A literal text value
              */
-            "TEXT" = 2,
+            readonly "TEXT": 2
             /**
              * An operator
              */
-            "FUNCTION" = 5,
+            readonly "FUNCTION": 5
             /**
              */
-            "BOUND_UNSET" = 8,
+            readonly "BOUND_UNSET": 8
             /**
              * A bound integer value
              */
-            "BOUND_INTEGER" = 9,
+            readonly "BOUND_INTEGER": 9
             /**
              * A bound text value
              */
-            "BOUND_TEXT" = 10,
+            readonly "BOUND_TEXT": 10
             /**
              * An indexed text value
              */
-            "INDEXED_TEXT" = 3,
+            readonly "INDEXED_TEXT": 3
             /**
              */
-            "BOOLEAN" = 17,
+            readonly "BOOLEAN": 17
             /**
              * An bound indexed text value
              */
-            "BOUND_INDEXED_TEXT" = 11,
+            readonly "BOUND_INDEXED_TEXT": 11
+        }
+        type OpcodeKind = OpcodeKindEnum[Exclude<keyof OpcodeKindEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            OpcodeKind: OpcodeKindEnum
         }
         
-        namespace BuilderCompileFlags {
-            const $gtype: GObject.GType<BuilderCompileFlags>
-        }
-
-        /**
-         * The flags for converting to XML.
-         */
-        enum BuilderCompileFlags {
+        interface BuilderCompileFlagsBitfield {
+            readonly $gtype: GObject.GType<BuilderCompileFlags>
             /**
              * No extra flags to use
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Only load native languages
              */
-            "NATIVE_LANGS" = 2,
+            readonly "NATIVE_LANGS": 2
             /**
              * Ignore invalid files without an error
              */
-            "IGNORE_INVALID" = 4,
+            readonly "IGNORE_INVALID": 4
             /**
              * Only store a single language
              */
-            "SINGLE_LANG" = 8,
+            readonly "SINGLE_LANG": 8
             /**
              * Watch the XMLB file for changes
              */
-            "WATCH_BLOB" = 16,
+            readonly "WATCH_BLOB": 16
             /**
              * Ignore the cache GUID value
              */
-            "IGNORE_GUID" = 32,
+            readonly "IGNORE_GUID": 32
             /**
              * Require at most one root node
              */
-            "SINGLE_ROOT" = 64,
+            readonly "SINGLE_ROOT": 64
+        }
+        type BuilderCompileFlags = number
+        interface $Exports {
+            /**
+             * The flags for converting to XML.
+             */
+            BuilderCompileFlags: BuilderCompileFlagsBitfield
         }
         
-        namespace BuilderNodeFlags {
-            const $gtype: GObject.GType<BuilderNodeFlags>
-        }
-
-        /**
-         * The flags used when building a node.
-         */
-        enum BuilderNodeFlags {
+        interface BuilderNodeFlagsBitfield {
+            readonly $gtype: GObject.GType<BuilderNodeFlags>
             /**
              * No extra flags to use
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Do not include this node in the silo
              */
-            "IGNORE" = 1,
+            readonly "IGNORE": 1
             /**
              * Assume the node CDATA is already valid
              */
-            "LITERAL_TEXT" = 2,
+            readonly "LITERAL_TEXT": 2
             /**
              * If the node has leading text
              */
-            "HAS_TEXT" = 4,
+            readonly "HAS_TEXT": 4
             /**
              * If the node has trailing text
              */
-            "HAS_TAIL" = 8,
+            readonly "HAS_TAIL": 8
             /**
              * Tokenize and fold text to ASCII (Since: 0.3.1)
              */
-            "TOKENIZE_TEXT" = 16,
+            readonly "TOKENIZE_TEXT": 16
             /**
              * Strip leading and trailing spaces from text (Since:
              * 0.3.4)
              */
-            "STRIP_TEXT" = 32,
+            readonly "STRIP_TEXT": 32
+        }
+        type BuilderNodeFlags = number
+        interface $Exports {
+            /**
+             * The flags used when building a node.
+             */
+            BuilderNodeFlags: BuilderNodeFlagsBitfield
         }
         
-        namespace BuilderSourceFlags {
-            const $gtype: GObject.GType<BuilderSourceFlags>
-        }
-
-        /**
-         * The flags for converting to XML.
-         */
-        enum BuilderSourceFlags {
+        interface BuilderSourceFlagsBitfield {
+            readonly $gtype: GObject.GType<BuilderSourceFlags>
             /**
              * No extra flags to use
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Do not attempt to repair XML whitespace
              */
-            "LITERAL_TEXT" = 1,
+            readonly "LITERAL_TEXT": 1
             /**
              * Watch the source file for changes
              */
-            "WATCH_FILE" = 2,
+            readonly "WATCH_FILE": 2
             /**
              * Watch the directory containing the source file for
              * changes (for example, if watching all the sources in a directory — this allows the file monitors
              * to be shared)
              */
-            "WATCH_DIRECTORY" = 4,
+            readonly "WATCH_DIRECTORY": 4
+        }
+        type BuilderSourceFlags = number
+        interface $Exports {
+            /**
+             * The flags for converting to XML.
+             */
+            BuilderSourceFlags: BuilderSourceFlagsBitfield
         }
         
-        namespace MachineDebugFlags {
-            const $gtype: GObject.GType<MachineDebugFlags>
-        }
-
-        /**
-         * The flags to control the amount of debugging is generated.
-         */
-        enum MachineDebugFlags {
+        interface MachineDebugFlagsBitfield {
+            readonly $gtype: GObject.GType<MachineDebugFlags>
             /**
              * No debug flags to use
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Show the stack addition and removal
              */
-            "SHOW_STACK" = 1,
+            readonly "SHOW_STACK": 1
             /**
              * Show the XPath predicate parsing
              */
-            "SHOW_PARSING" = 2,
+            readonly "SHOW_PARSING": 2
             /**
              * Show the optimizer operation
              */
-            "SHOW_OPTIMIZER" = 4,
+            readonly "SHOW_OPTIMIZER": 4
             /**
              * Show the query slow paths
              */
-            "SHOW_SLOW_PATH" = 8,
+            readonly "SHOW_SLOW_PATH": 8
+        }
+        type MachineDebugFlags = number
+        interface $Exports {
+            /**
+             * The flags to control the amount of debugging is generated.
+             */
+            MachineDebugFlags: MachineDebugFlagsBitfield
         }
         
-        namespace MachineParseFlags {
-            const $gtype: GObject.GType<MachineParseFlags>
-        }
-
-        /**
-         * The flags to control the parsing behaviour.
-         */
-        enum MachineParseFlags {
+        interface MachineParseFlagsBitfield {
+            readonly $gtype: GObject.GType<MachineParseFlags>
             /**
              * No flags set
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Run an optimization pass on the predicate
              */
-            "OPTIMIZE" = 1,
+            readonly "OPTIMIZE": 1
+        }
+        type MachineParseFlags = number
+        interface $Exports {
+            /**
+             * The flags to control the parsing behaviour.
+             */
+            MachineParseFlags: MachineParseFlagsBitfield
         }
         
-        namespace NodeExportFlags {
-            const $gtype: GObject.GType<NodeExportFlags>
-        }
-
-        /**
-         * The flags for converting to XML.
-         */
-        enum NodeExportFlags {
+        interface NodeExportFlagsBitfield {
+            readonly $gtype: GObject.GType<NodeExportFlags>
             /**
              * No extra flags to use
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Add an XML header to the data
              */
-            "ADD_HEADER" = 1,
+            readonly "ADD_HEADER": 1
             /**
              * Split up children with a newline
              */
-            "FORMAT_MULTILINE" = 2,
+            readonly "FORMAT_MULTILINE": 2
             /**
              * Indent the XML by child depth
              */
-            "FORMAT_INDENT" = 4,
+            readonly "FORMAT_INDENT": 4
             /**
              * Include the siblings when converting
              */
-            "INCLUDE_SIBLINGS" = 8,
+            readonly "INCLUDE_SIBLINGS": 8
             /**
              * Only export the children of the node
              */
-            "ONLY_CHILDREN" = 16,
+            readonly "ONLY_CHILDREN": 16
             /**
              * If node has no children, collapse open and close
              * tags
              */
-            "COLLAPSE_EMPTY" = 32,
+            readonly "COLLAPSE_EMPTY": 32
+        }
+        type NodeExportFlags = number
+        interface $Exports {
+            /**
+             * The flags for converting to XML.
+             */
+            NodeExportFlags: NodeExportFlagsBitfield
         }
         
-        namespace OpcodeFlags {
-            const $gtype: GObject.GType<OpcodeFlags>
-        }
-
-        /**
-         * The opcode flags. The values have been carefully chosen so that a simple
-         * bitmask can be done to know how to compare for equality.
-         *
-         * function─┐ ┌─string
-         * bound──┐ │ │ ┌──integer
-         * token┐ │ │ │ │
-         *  X X X X X X X
-         *        8 4 2 1
-         */
-        enum OpcodeFlags {
+        interface OpcodeFlagsBitfield {
+            readonly $gtype: GObject.GType<OpcodeFlags>
             /**
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Integer value set
              */
-            "INTEGER" = 1,
+            readonly "INTEGER": 1
             /**
              * Text value set
              */
-            "TEXT" = 2,
+            readonly "TEXT": 2
             /**
              * An operator
              */
-            "FUNCTION" = 4,
+            readonly "FUNCTION": 4
             /**
              * A bound value, assigned later
              */
-            "BOUND" = 8,
+            readonly "BOUND": 8
             /**
              */
-            "BOOLEAN" = 16,
+            readonly "BOOLEAN": 16
             /**
              * Tokenized text
              */
-            "TOKENIZED" = 32,
+            readonly "TOKENIZED": 32
+        }
+        type OpcodeFlags = number
+        interface $Exports {
+            /**
+             * The opcode flags. The values have been carefully chosen so that a simple
+             * bitmask can be done to know how to compare for equality.
+             *
+             * function─┐ ┌─string
+             * bound──┐ │ │ ┌──integer
+             * token┐ │ │ │ │
+             *  X X X X X X X
+             *        8 4 2 1
+             */
+            OpcodeFlags: OpcodeFlagsBitfield
         }
         
-        namespace QueryFlags {
-            const $gtype: GObject.GType<QueryFlags>
-        }
-
-        /**
-         * The flags used for queries.
-         */
-        enum QueryFlags {
+        interface QueryFlagsBitfield {
+            readonly $gtype: GObject.GType<QueryFlags>
             /**
              * No extra flags to use
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Optimize the query when possible
              */
-            "OPTIMIZE" = 1,
+            readonly "OPTIMIZE": 1
             /**
              * Use the indexed parameters
              */
-            "USE_INDEXES" = 2,
+            readonly "USE_INDEXES": 2
             /**
              * Reverse the results order
              */
-            "REVERSE" = 4,
+            readonly "REVERSE": 4
             /**
              * Always cache the #XbNode objects
              */
-            "FORCE_NODE_CACHE" = 8,
+            readonly "FORCE_NODE_CACHE": 8
+        }
+        type QueryFlags = number
+        interface $Exports {
+            /**
+             * The flags used for queries.
+             */
+            QueryFlags: QueryFlagsBitfield
         }
         
-        namespace SiloLoadFlags {
-            const $gtype: GObject.GType<SiloLoadFlags>
-        }
-
-        /**
-         * The flags for loading a silo.
-         */
-        enum SiloLoadFlags {
+        interface SiloLoadFlagsBitfield {
+            readonly $gtype: GObject.GType<SiloLoadFlags>
             /**
              * No extra flags to use
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * No not check header signature
              */
-            "NO_MAGIC" = 1,
+            readonly "NO_MAGIC": 1
             /**
              * Watch the XMLB file for changes
              */
-            "WATCH_BLOB" = 2,
+            readonly "WATCH_BLOB": 2
+        }
+        type SiloLoadFlags = number
+        interface $Exports {
+            /**
+             * The flags for loading a silo.
+             */
+            SiloLoadFlags: SiloLoadFlagsBitfield
         }
         
-        namespace SiloProfileFlags {
-            const $gtype: GObject.GType<SiloProfileFlags>
-        }
-
-        /**
-         * The flags used when profiling a silo.
-         */
-        enum SiloProfileFlags {
+        interface SiloProfileFlagsBitfield {
+            readonly $gtype: GObject.GType<SiloProfileFlags>
             /**
              * No extra flags to use
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Output profiling as debug
              */
-            "DEBUG" = 1,
+            readonly "DEBUG": 1
             /**
              * Save profiling in an appended string
              */
-            "APPEND" = 2,
+            readonly "APPEND": 2
             /**
              * Save XPATH queries
              */
-            "XPATH" = 4,
+            readonly "XPATH": 4
             /**
              * Output the machine optimizer as debug
              */
-            "OPTIMIZER" = 8,
+            readonly "OPTIMIZER": 8
+        }
+        type SiloProfileFlags = number
+        interface $Exports {
+            /**
+             * The flags used when profiling a silo.
+             */
+            SiloProfileFlags: SiloProfileFlagsBitfield
         }
         /**
          * @throws {GLib.Error}
@@ -2313,7 +2349,6 @@ declare module "gi://Xmlb?version=2.0" {
          * @param bn
          */
         type BuilderNodeTraverseFunc = (bn: BuilderNode) => boolean
-        none
         /**
          * @throws {GLib.Error}
          * @param self
@@ -2346,7 +2381,43 @@ declare module "gi://Xmlb?version=2.0" {
          * @param self
          */
         type NodeTransmogrifyFunc = (self: Node) => boolean
+
+        interface $Exports {
+            __name__: "Xmlb"
+            __version: "2.0"
+            MAJOR_VERSION: 0
+            MICRO_VERSION: 24
+            MINOR_VERSION: 3
+            /**
+             * Converts a string to an opcode kind.
+             * @since 0.1.1
+             * @param str a string, e.g. `FUNC`
+             * @returns a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_TEXT
+             */
+            opcode_kind_from_string(str: string): OpcodeKind
+            /**
+             * Converts the opcode kind to a string.
+             * @since 0.1.1
+             * @param kind a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_FUNCTION
+             * @returns opcode kind, e.g. `FUNC`
+             */
+            opcode_kind_to_string(kind: OpcodeKind): string
+            /**
+             * Escapes XPath control sequences such as newlines, tabs, and forward slashes.
+             * @since 0.1.2
+             * @param str string, e.g. `app/org.gnome.ghex/x86_64/stable`
+             * @returns new string that is safe to use for queries
+             */
+            string_escape(str: string): string
+            /**
+             * Gets the XMLb installed runtime version.
+             * @since 0.3.19
+             * @returns a version number, e.g. "0.3.19"
+             */
+            version_string(): string
+        }
     }
 
+    const Xmlb: Xmlb.$Exports
     export default Xmlb
 }

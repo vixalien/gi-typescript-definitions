@@ -12,35 +12,56 @@ declare module "gi://fontconfig?version=2.0" {
 
     
 
-
     namespace fontconfig {
-        const __name__: "fontconfig"
-        const __version: "2.0"
-        /**
-         */
-        abstract class Pattern {
-            static readonly $gtype: GObject.GType<Pattern>
+        
 
-            
+        interface PatternStruct {
+            readonly $gtype: GObject.GType<Pattern>
+            [Symbol.hasInstance](instance: unknown): instance is Pattern
         }
-        /**
-         */
-        abstract class CharSet {
-            static readonly $gtype: GObject.GType<CharSet>
 
-            
+        interface Pattern {
         }
-        /**
-         */
-        abstract class Config {
-            static readonly $gtype: GObject.GType<Config>
 
-            
+        interface $Exports {
+            Pattern: PatternStruct
         }
-        /**
-         */
-        function init(): void
+        
+
+        interface CharSetStruct {
+            readonly $gtype: GObject.GType<CharSet>
+            [Symbol.hasInstance](instance: unknown): instance is CharSet
+        }
+
+        interface CharSet {
+        }
+
+        interface $Exports {
+            CharSet: CharSetStruct
+        }
+        
+
+        interface ConfigStruct {
+            readonly $gtype: GObject.GType<Config>
+            [Symbol.hasInstance](instance: unknown): instance is Config
+        }
+
+        interface Config {
+        }
+
+        interface $Exports {
+            Config: ConfigStruct
+        }
+
+        interface $Exports {
+            __name__: "fontconfig"
+            __version: "2.0"
+            /**
+             */
+            init(): void
+        }
     }
 
+    const fontconfig: fontconfig.$Exports
     export default fontconfig
 }

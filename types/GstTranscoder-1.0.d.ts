@@ -24,10 +24,7 @@ declare module "gi://GstTranscoder?version=1.0" {
 
     
 
-
     namespace GstTranscoder {
-        const __name__: "GstTranscoder"
-        const __version: "1.0"
         
 
         namespace Transcoder {
@@ -47,21 +44,19 @@ declare module "gi://GstTranscoder?version=1.0" {
 
             interface WritableProperties extends Gst.Object.WritableProperties {
                 "avoid-reencoding": boolean
-                "dest-uri": string
                 "duration": number
                 "pipeline": Gst.Element
                 "position": number
                 "position-update-interval": number
-                "profile": GstPbutils.EncodingProfile
-                "src-uri": string
             }
 
             interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                "dest-uri": string
+                "profile": GstPbutils.EncodingProfile
+                "src-uri": string
             }
         }
 
-        /**
-         */
         interface Transcoder extends Gst.Object {
             readonly $signals: Transcoder.SignalSignatures
             readonly $readableProperties: Transcoder.ReadableProperties
@@ -212,6 +207,7 @@ declare module "gi://GstTranscoder?version=1.0" {
         interface TranscoderClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Transcoder>
             readonly prototype: Transcoder
+
             new (props?: Partial<GObject.ConstructorProps<Transcoder>>): Transcoder
             /**
              * @param source_uri The URI of the media stream to transcode
@@ -239,7 +235,11 @@ declare module "gi://GstTranscoder?version=1.0" {
             is_transcoder_message(msg: Gst.Message): boolean
         }
 
-        const Transcoder: TranscoderClass
+        interface $Exports {
+            /**
+             */
+            Transcoder: TranscoderClass
+        }
         
 
         namespace TranscoderSignalAdapter {
@@ -283,10 +283,6 @@ declare module "gi://GstTranscoder?version=1.0" {
             }
         }
 
-        /**
-         * Transforms #GstTranscoder bus messages to signals from the adapter object.
-         * @since 1.20
-         */
         interface TranscoderSignalAdapter extends GObject.Object {
             readonly $signals: TranscoderSignalAdapter.SignalSignatures
             readonly $readableProperties: TranscoderSignalAdapter.ReadableProperties
@@ -308,196 +304,219 @@ declare module "gi://GstTranscoder?version=1.0" {
         interface TranscoderSignalAdapterClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<TranscoderSignalAdapter>
             readonly prototype: TranscoderSignalAdapter
+
             new (props?: Partial<GObject.ConstructorProps<TranscoderSignalAdapter>>): TranscoderSignalAdapter
         }
 
-        const TranscoderSignalAdapter: TranscoderSignalAdapterClass
-        none
-        none
-        /**
-         * Gets a string representing the given error.
-         * @param error a #GstTranscoderError
-         * @returns a string with the given error.
-         */
-        function transcoder_error_get_name(error: TranscoderError): string
-        /**
-         */
-        function transcoder_error_quark(): GLib.Quark
-        /**
-         * Returns (transfer none): The message name
-         * @since 1.20
-         * @param message a #GstTranscoderMessage
-         */
-        function transcoder_message_get_name(message: TranscoderMessage): string
-        /**
-         * Parse the given duration @msg and extract the corresponding #GstClockTime
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting duration
-         */
-        function transcoder_message_parse_duration(msg: Gst.Message): Gst.ClockTime
-        /**
-         * Parse the given error @msg and extract the corresponding #GError
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting error, (transfer full): A GstStructure containing extra details about the error
-         */
-        function transcoder_message_parse_error(msg: Gst.Message): Gst.Structure
-        /**
-         * Parse the given position @msg and extract the corresponding #GstClockTime
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting position
-         */
-        function transcoder_message_parse_position(msg: Gst.Message): Gst.ClockTime
-        /**
-         * Parse the given state @msg and extract the corresponding #GstTranscoderState
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting state
-         */
-        function transcoder_message_parse_state(msg: Gst.Message): TranscoderState
-        /**
-         * Parse the given error @msg and extract the corresponding #GError warning
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting warning, (transfer full): A GstStructure containing extra details about the warning
-         */
-        function transcoder_message_parse_warning(msg: Gst.Message): Gst.Structure
-        /**
-         * Gets a string representing the given state.
-         * @since 1.20
-         * @param state a #GstTranscoderState
-         * @returns a string with the name of the state.
-         */
-        function transcoder_state_get_name(state: TranscoderState): string
+        interface $Exports {
+            /**
+             * Transforms #GstTranscoder bus messages to signals from the adapter object.
+             * @since 1.20
+             */
+            TranscoderSignalAdapter: TranscoderSignalAdapterClass
+        }
         
-        abstract class TranscoderError extends GLib.Error {
-            static readonly $gtype: GObject.GType<TranscoderError>
+        interface TranscoderError extends GLib.Error {}
+
+        interface TranscoderErrorEnum {
+            readonly $gtype: GObject.GType<TranscoderError>
+
+            new(props: { message: string, code: number }): TranscoderError
             /**
              * generic error.
              */
-            static readonly "FAILED": 0
-        }
-        /**
+            readonly "FAILED": 0
+            /**
          * Gets a string representing the given error.
          * @param error a #GstTranscoderError
          * @returns a string with the given error.
          */
-        function get_name(error: TranscoderError): string
-        /**
+        get_name: (error: TranscoderError) => string
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace TranscoderMessage {
-            const $gtype: GObject.GType<TranscoderMessage>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Types of messages that will be posted on the transcoder API bus.
-         *
-         * See also #gst_transcoder_get_message_bus()
-         * @since 1.20
-         */
-        enum TranscoderMessage {
+        interface $Exports {
+            /**
+             */
+            TranscoderError: TranscoderErrorEnum
+        }
+        
+        interface TranscoderMessageEnum {
+            readonly $gtype: GObject.GType<TranscoderMessage>
             /**
              * Sink position changed
              */
-            "POSITION_UPDATED" = 0,
+            readonly "POSITION_UPDATED": 0
             /**
              * Duration of stream changed
              */
-            "DURATION_CHANGED" = 1,
+            readonly "DURATION_CHANGED": 1
             /**
              * Pipeline state changed
              */
-            "STATE_CHANGED" = 2,
+            readonly "STATE_CHANGED": 2
             /**
              * Transcoding is done
              */
-            "DONE" = 3,
+            readonly "DONE": 3
             /**
              * Message contains an error
              */
-            "ERROR" = 4,
+            readonly "ERROR": 4
             /**
              * Message contains an error
              */
-            "WARNING" = 5,
+            readonly "WARNING": 5
         }
-        /**
+        type TranscoderMessage = TranscoderMessageEnum[Exclude<keyof TranscoderMessageEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Types of messages that will be posted on the transcoder API bus.
+             *
+             * See also #gst_transcoder_get_message_bus()
+             * @since 1.20
+             */
+            TranscoderMessage: TranscoderMessageEnum
+            /**
          * Returns (transfer none): The message name
          * @since 1.20
          * @param message a #GstTranscoderMessage
          */
-        function get_name(message: TranscoderMessage): string
-        /**
+        get_name: (message: TranscoderMessage) => string
+            /**
          * Parse the given duration @msg and extract the corresponding #GstClockTime
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting duration
          */
-        function parse_duration(msg: Gst.Message): Gst.ClockTime
-        /**
+        parse_duration: (msg: Gst.Message) => Gst.ClockTime
+            /**
          * Parse the given error @msg and extract the corresponding #GError
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting error, (transfer full): A GstStructure containing extra details about the error
          */
-        function parse_error(msg: Gst.Message): Gst.Structure
-        /**
+        parse_error: (msg: Gst.Message) => [GLib.Error, Gst.Structure]
+            /**
          * Parse the given position @msg and extract the corresponding #GstClockTime
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting position
          */
-        function parse_position(msg: Gst.Message): Gst.ClockTime
-        /**
+        parse_position: (msg: Gst.Message) => Gst.ClockTime
+            /**
          * Parse the given state @msg and extract the corresponding #GstTranscoderState
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting state
          */
-        function parse_state(msg: Gst.Message): TranscoderState
-        /**
+        parse_state: (msg: Gst.Message) => TranscoderState
+            /**
          * Parse the given error @msg and extract the corresponding #GError warning
          * @since 1.20
          * @param msg A #GstMessage
          * @returns , the resulting warning, (transfer full): A GstStructure containing extra details about the warning
          */
-        function parse_warning(msg: Gst.Message): Gst.Structure
-        
-        namespace TranscoderState {
-            const $gtype: GObject.GType<TranscoderState>
+        parse_warning: (msg: Gst.Message) => [GLib.Error, Gst.Structure]
         }
-
-        /**
-         * High level representation of the transcoder pipeline state.
-         * @since 1.20
-         */
-        enum TranscoderState {
+        
+        interface TranscoderStateEnum {
+            readonly $gtype: GObject.GType<TranscoderState>
             /**
              * the transcoder is stopped.
              */
-            "STOPPED" = 0,
+            readonly "STOPPED": 0
             /**
              * the transcoder is paused.
              */
-            "PAUSED" = 1,
+            readonly "PAUSED": 1
             /**
              * the transcoder is currently transcoding a
              * stream.
              */
-            "PLAYING" = 2,
+            readonly "PLAYING": 2
         }
-        /**
+        type TranscoderState = TranscoderStateEnum[Exclude<keyof TranscoderStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * High level representation of the transcoder pipeline state.
+             * @since 1.20
+             */
+            TranscoderState: TranscoderStateEnum
+            /**
          * Gets a string representing the given state.
          * @since 1.20
          * @param state a #GstTranscoderState
          * @returns a string with the name of the state.
          */
-        function get_name(state: TranscoderState): string
+        get_name: (state: TranscoderState) => string
+        }
+
+        interface $Exports {
+            __name__: "GstTranscoder"
+            __version: "1.0"
+            /**
+             * Gets a string representing the given error.
+             * @param error a #GstTranscoderError
+             * @returns a string with the given error.
+             */
+            transcoder_error_get_name(error: TranscoderError): string
+            /**
+             */
+            transcoder_error_quark(): GLib.Quark
+            /**
+             * Returns (transfer none): The message name
+             * @since 1.20
+             * @param message a #GstTranscoderMessage
+             */
+            transcoder_message_get_name(message: TranscoderMessage): string
+            /**
+             * Parse the given duration @msg and extract the corresponding #GstClockTime
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting duration
+             */
+            transcoder_message_parse_duration(msg: Gst.Message): Gst.ClockTime
+            /**
+             * Parse the given error @msg and extract the corresponding #GError
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting error, (transfer full): A GstStructure containing extra details about the error
+             */
+            transcoder_message_parse_error(msg: Gst.Message): [GLib.Error, Gst.Structure]
+            /**
+             * Parse the given position @msg and extract the corresponding #GstClockTime
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting position
+             */
+            transcoder_message_parse_position(msg: Gst.Message): Gst.ClockTime
+            /**
+             * Parse the given state @msg and extract the corresponding #GstTranscoderState
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting state
+             */
+            transcoder_message_parse_state(msg: Gst.Message): TranscoderState
+            /**
+             * Parse the given error @msg and extract the corresponding #GError warning
+             * @since 1.20
+             * @param msg A #GstMessage
+             * @returns , the resulting warning, (transfer full): A GstStructure containing extra details about the warning
+             */
+            transcoder_message_parse_warning(msg: Gst.Message): [GLib.Error, Gst.Structure]
+            /**
+             * Gets a string representing the given state.
+             * @since 1.20
+             * @param state a #GstTranscoderState
+             * @returns a string with the name of the state.
+             */
+            transcoder_state_get_name(state: TranscoderState): string
+        }
     }
 
+    const GstTranscoder: GstTranscoder.$Exports
     export default GstTranscoder
 }

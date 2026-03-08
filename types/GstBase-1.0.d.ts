@@ -16,10 +16,7 @@ declare module "gi://GstBase?version=1.0" {
 
     
 
-
     namespace GstBase {
-        const __name__: "GstBase"
-        const __version: "1.0"
         
 
         namespace Adapter {
@@ -36,70 +33,6 @@ declare module "gi://GstBase?version=1.0" {
             }
         }
 
-        /**
-         *  ret == GST_FLOW_OK) {
-         *     const guint8 *data = gst_adapter_map (adapter, 512);
-         *     // use flowreturn as an error value
-         *     ret = my_library_foo (data);
-         *     gst_adapter_unmap (adapter);
-         *     gst_adapter_flush (adapter, 512);
-         *   }
-         *   return ret;
-         * }
-         * ]|
-         *
-         * For another example, a simple element inside GStreamer that uses #GstAdapter
-         * is the libvisual element.
-         *
-         * An element using #GstAdapter in its sink pad chain function should ensure that
-         * when the FLUSH_STOP event is received, that any queued data is cleared using
-         * gst_adapter_clear(). Data should also be cleared or processed on EOS and
-         * when changing state from %GST_STATE_PAUSED to %GST_STATE_READY.
-         *
-         * Also check the GST_BUFFER_FLAG_DISCONT flag on the buffer. Some elements might
-         * need to clear the adapter after a discontinuity.
-         *
-         * The adapter will keep track of the timestamps of the buffers
-         * that were pushed. The last seen timestamp before the current position
-         * can be queried with gst_adapter_prev_pts(). This function can
-         * optionally return the number of bytes between the start of the buffer that
-         * carried the timestamp and the current adapter position. The distance is
-         * useful when dealing with, for example, raw audio samples because it allows
-         * you to calculate the timestamp of the current adapter position by using the
-         * last seen timestamp and the amount of bytes since.  Additionally, the
-         * gst_adapter_prev_pts_at_offset() can be used to determine the last
-         * seen timestamp at a particular offset in the adapter.
-         *
-         * The adapter will also keep track of the offset of the buffers
-         * (#GST_BUFFER_OFFSET) that were pushed. The last seen offset before the
-         * current position can be queried with gst_adapter_prev_offset(). This function
-         * can optionally return the number of bytes between the start of the buffer
-         * that carried the offset and the current adapter position.
-         *
-         * Additionally the adapter also keeps track of the PTS, DTS and buffer offset
-         * at the last discontinuity, which can be retrieved with
-         * gst_adapter_pts_at_discont(), gst_adapter_dts_at_discont() and
-         * gst_adapter_offset_at_discont(). The number of bytes that were consumed
-         * since then can be queried with gst_adapter_distance_from_discont().
-         *
-         * A last thing to note is that while #GstAdapter is pretty optimized,
-         * merging buffers still might be an operation that requires a `malloc()` and
-         * `memcpy()` operation, and these operations are not the fastest. Because of
-         * this, some functions like gst_adapter_available_fast() are provided to help
-         * speed up such cases should you want to. To avoid repeated memory allocations,
-         * gst_adapter_copy() can be used to copy data into a (statically allocated)
-         * user provided buffer.
-         *
-         * #GstAdapter is not MT safe. All operations on an adapter must be serialized by
-         * the caller. This is not normally a problem, however, as the normal use case
-         * of #GstAdapter is inside one pad's chain function, in which case access is
-         * serialized via the pad's STREAM_LOCK.
-         *
-         * Note that gst_adapter_push() takes ownership of the buffer passed. Use
-         * gst_buffer_ref() before pushing it into the adapter if you still want to
-         * access the buffer later. The adapter will never modify the data in the
-         * buffer pushed in it.
-         */
         interface Adapter extends GObject.Object {
             readonly $signals: Adapter.SignalSignatures
             readonly $readableProperties: Adapter.ReadableProperties
@@ -135,13 +68,12 @@ declare module "gi://GstBase?version=1.0" {
              * bytes of data starting at @offset will be copied out of the buffers contained
              * in @adapter and into a new #GBytes structure which is returned. Depending on
              * the value of the @size argument an empty #GBytes structure may be returned.
-             * @override
              * @since 1.4
              * @param offset the bytes offset in the adapter to start from
              * @param size the number of bytes to copy
              * @returns A new #GBytes structure containing the copied data.
              */
-            copy_bytes(offset: number, size: number): GLib.Bytes
+            copy(offset: number, size: number): GLib.Bytes
             /**
              * Get the distance in bytes since the last buffer with the
              * %GST_BUFFER_FLAG_DISCONT flag.
@@ -255,7 +187,7 @@ declare module "gi://GstBase?version=1.0" {
              * @param offset offset into the adapter data from which to start scanning, returns
                      the last scanned position.
              * @param size number of bytes to scan from offset
-             * @returns  returns -1 ]|
+             * @returns offset of the first match, or -1 if no match was found.  Example: |[ // Assume the adapter contains 0x00 0x01 0x02 ... 0xfe 0xff  gst_adapter_masked_scan_uint32 (adapter, 0xffffffff, 0x00010203, 0, 256); // -> returns 0 gst_adapter_masked_scan_uint32 (adapter, 0xffffffff, 0x00010203, 1, 255); // -> returns -1 gst_adapter_masked_scan_uint32 (adapter, 0xffffffff, 0x01020304, 1, 255); // -> returns 1 gst_adapter_masked_scan_uint32 (adapter, 0xffff, 0x0001, 0, 256); // -> returns -1 gst_adapter_masked_scan_uint32 (adapter, 0xffff, 0x0203, 0, 256); // -> returns 0 gst_adapter_masked_scan_uint32 (adapter, 0xffff0000, 0x02030000, 0, 256); // -> returns 2 gst_adapter_masked_scan_uint32 (adapter, 0xffff0000, 0x02030000, 0, 4); // -> returns -1 ]|
              */
             masked_scan_uint32(mask: number, pattern: number, offset: number, size: number): number
             /**
@@ -276,7 +208,7 @@ declare module "gi://GstBase?version=1.0" {
              * @param size number of bytes to scan from offset
              * @returns offset of the first match, or -1 if no match was found., pointer to uint32 to return matching data
              */
-            masked_scan_uint32_peek(mask: number, pattern: number, offset: number, size: number): number
+            masked_scan_uint32_peek(mask: number, pattern: number, offset: number, size: number): [number, number]
             /**
              * Get the offset that was on the last buffer with the GST_BUFFER_FLAG_DISCONT
              * flag, or GST_BUFFER_OFFSET_NONE.
@@ -295,7 +227,7 @@ declare module "gi://GstBase?version=1.0" {
              * and distance returned are GST_CLOCK_TIME_NONE and 0 respectively.
              * @returns The previously seen dts., pointer to location for distance, or %NULL
              */
-            prev_dts(): Gst.ClockTime
+            prev_dts(): [Gst.ClockTime, number]
             /**
              * Get the dts that was before the byte at offset @offset in the adapter. When
              * @distance is given, the amount of bytes between the dts and the current
@@ -309,7 +241,7 @@ declare module "gi://GstBase?version=1.0" {
              * @param offset the offset in the adapter at which to get timestamp
              * @returns The previously seen dts at given offset., pointer to location for distance, or %NULL
              */
-            prev_dts_at_offset(offset: number): Gst.ClockTime
+            prev_dts_at_offset(offset: number): [Gst.ClockTime, number]
             /**
              * Get the offset that was before the current byte in the adapter. When
              * @distance is given, the amount of bytes between the offset and the current
@@ -322,7 +254,7 @@ declare module "gi://GstBase?version=1.0" {
              * @since 1.10
              * @returns The previous seen offset., pointer to a location for distance, or %NULL
              */
-            prev_offset(): number
+            prev_offset(): [number, number]
             /**
              * Get the pts that was before the current byte in the adapter. When
              * @distance is given, the amount of bytes between the pts and the current
@@ -334,7 +266,7 @@ declare module "gi://GstBase?version=1.0" {
              * and distance returned are GST_CLOCK_TIME_NONE and 0 respectively.
              * @returns The previously seen pts., pointer to location for distance, or %NULL
              */
-            prev_pts(): Gst.ClockTime
+            prev_pts(): [Gst.ClockTime, number]
             /**
              * Get the pts that was before the byte at offset @offset in the adapter. When
              * @distance is given, the amount of bytes between the pts and the current
@@ -348,7 +280,7 @@ declare module "gi://GstBase?version=1.0" {
              * @param offset the offset in the adapter at which to get timestamp
              * @returns The previously seen pts at given offset., pointer to location for distance, or %NULL
              */
-            prev_pts_at_offset(offset: number): Gst.ClockTime
+            prev_pts_at_offset(offset: number): [Gst.ClockTime, number]
             /**
              * Get the PTS that was on the last buffer with the GST_BUFFER_FLAG_DISCONT
              * flag, or GST_CLOCK_TIME_NONE.
@@ -459,6 +391,7 @@ declare module "gi://GstBase?version=1.0" {
         interface AdapterClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Adapter>
             readonly prototype: Adapter
+
             new (props?: Partial<GObject.ConstructorProps<Adapter>>): Adapter
             /**
              * Creates a new #GstAdapter. Free with g_object_unref().
@@ -467,7 +400,110 @@ declare module "gi://GstBase?version=1.0" {
             "new"(): Adapter
         }
 
-        const Adapter: AdapterClass
+        interface $Exports {
+            /**
+             * This class is for elements that receive buffers in an undesired size.
+             * While for example raw video contains one image per buffer, the same is not
+             * true for a lot of other formats, especially those that come directly from
+             * a file. So if you have undefined buffer sizes and require a specific size,
+             * this object is for you.
+             *
+             * An adapter is created with gst_adapter_new(). It can be freed again with
+             * g_object_unref().
+             *
+             * The theory of operation is like this: All buffers received are put
+             * into the adapter using gst_adapter_push() and the data is then read back
+             * in chunks of the desired size using gst_adapter_map()/gst_adapter_unmap()
+             * and/or gst_adapter_copy(). After the data has been processed, it is freed
+             * using gst_adapter_unmap().
+             *
+             * Other methods such as gst_adapter_take() and gst_adapter_take_buffer()
+             * combine gst_adapter_map() and gst_adapter_unmap() in one method and are
+             * potentially more convenient for some use cases.
+             *
+             * For example, a sink pad's chain function that needs to pass data to a library
+             * in 512-byte chunks could be implemented like this:
+             * |[<!-- language="C" -->
+             * static GstFlowReturn
+             * sink_pad_chain (GstPad *pad, GstObject *parent, GstBuffer *buffer)
+             * {
+             *   MyElement *this;
+             *   GstAdapter *adapter;
+             *   GstFlowReturn ret = GST_FLOW_OK;
+             *
+             *   this = MY_ELEMENT (parent);
+             *
+             *   adapter = this->adapter;
+             *
+             *   // put buffer into adapter
+             *   gst_adapter_push (adapter, buffer);
+             *
+             *   // while we can read out 512 bytes, process them
+             *   while (gst_adapter_available (adapter) >= 512 && ret == GST_FLOW_OK) {
+             *     const guint8 *data = gst_adapter_map (adapter, 512);
+             *     // use flowreturn as an error value
+             *     ret = my_library_foo (data);
+             *     gst_adapter_unmap (adapter);
+             *     gst_adapter_flush (adapter, 512);
+             *   }
+             *   return ret;
+             * }
+             * ]|
+             *
+             * For another example, a simple element inside GStreamer that uses #GstAdapter
+             * is the libvisual element.
+             *
+             * An element using #GstAdapter in its sink pad chain function should ensure that
+             * when the FLUSH_STOP event is received, that any queued data is cleared using
+             * gst_adapter_clear(). Data should also be cleared or processed on EOS and
+             * when changing state from %GST_STATE_PAUSED to %GST_STATE_READY.
+             *
+             * Also check the GST_BUFFER_FLAG_DISCONT flag on the buffer. Some elements might
+             * need to clear the adapter after a discontinuity.
+             *
+             * The adapter will keep track of the timestamps of the buffers
+             * that were pushed. The last seen timestamp before the current position
+             * can be queried with gst_adapter_prev_pts(). This function can
+             * optionally return the number of bytes between the start of the buffer that
+             * carried the timestamp and the current adapter position. The distance is
+             * useful when dealing with, for example, raw audio samples because it allows
+             * you to calculate the timestamp of the current adapter position by using the
+             * last seen timestamp and the amount of bytes since.  Additionally, the
+             * gst_adapter_prev_pts_at_offset() can be used to determine the last
+             * seen timestamp at a particular offset in the adapter.
+             *
+             * The adapter will also keep track of the offset of the buffers
+             * (#GST_BUFFER_OFFSET) that were pushed. The last seen offset before the
+             * current position can be queried with gst_adapter_prev_offset(). This function
+             * can optionally return the number of bytes between the start of the buffer
+             * that carried the offset and the current adapter position.
+             *
+             * Additionally the adapter also keeps track of the PTS, DTS and buffer offset
+             * at the last discontinuity, which can be retrieved with
+             * gst_adapter_pts_at_discont(), gst_adapter_dts_at_discont() and
+             * gst_adapter_offset_at_discont(). The number of bytes that were consumed
+             * since then can be queried with gst_adapter_distance_from_discont().
+             *
+             * A last thing to note is that while #GstAdapter is pretty optimized,
+             * merging buffers still might be an operation that requires a `malloc()` and
+             * `memcpy()` operation, and these operations are not the fastest. Because of
+             * this, some functions like gst_adapter_available_fast() are provided to help
+             * speed up such cases should you want to. To avoid repeated memory allocations,
+             * gst_adapter_copy() can be used to copy data into a (statically allocated)
+             * user provided buffer.
+             *
+             * #GstAdapter is not MT safe. All operations on an adapter must be serialized by
+             * the caller. This is not normally a problem, however, as the normal use case
+             * of #GstAdapter is inside one pad's chain function, in which case access is
+             * serialized via the pad's STREAM_LOCK.
+             *
+             * Note that gst_adapter_push() takes ownership of the buffer passed. Use
+             * gst_buffer_ref() before pushing it into the adapter if you still want to
+             * access the buffer later. The adapter will never modify the data in the
+             * buffer pushed in it.
+             */
+            Adapter: AdapterClass
+        }
         
 
         namespace Aggregator {
@@ -506,70 +542,6 @@ declare module "gi://GstBase?version=1.0" {
             }
         }
 
-        /**
-         * Manages a set of pads with the purpose of aggregating their buffers.
-         * Control is given to the subclass when all pads have data.
-         *
-         *  * Base class for mixers and muxers. Subclasses should at least implement
-         *    the #GstAggregatorClass::aggregate virtual method.
-         *
-         *  * Installs a #GstPadChainFunction, a #GstPadEventFullFunction and a
-         *    #GstPadQueryFunction to queue all serialized data packets per sink pad.
-         *    Subclasses should not overwrite those, but instead implement
-         *    #GstAggregatorClass::sink_event and #GstAggregatorClass::sink_query as
-         *    needed.
-         *
-         *  * When data is queued on all pads, the aggregate vmethod is called.
-         *
-         *  * One can peek at the data on any given GstAggregatorPad with the
-         *    gst_aggregator_pad_peek_buffer() method, and remove it from the pad
-         *    with the gst_aggregator_pad_pop_buffer () method. When a buffer
-         *    has been taken with pop_buffer (), a new buffer can be queued
-         *    on that pad.
-         *
-         *  * When gst_aggregator_pad_peek_buffer() or gst_aggregator_pad_has_buffer()
-         *    are called, a reference is taken to the returned buffer, which stays
-         *    valid until either:
-         *
-         *      - gst_aggregator_pad_pop_buffer() is called, in which case the caller
-         *        is guaranteed that the buffer they receive is the same as the peeked
-         *        buffer.
-         *      - gst_aggregator_pad_drop_buffer() is called, in which case the caller
-         *        is guaranteed that the dropped buffer is the one that was peeked.
-         *      - the subclass implementation of #GstAggregatorClass.aggregate returns.
-         *
-         *    Subsequent calls to gst_aggregator_pad_peek_buffer() or
-         *    gst_aggregator_pad_has_buffer() return / check the same buffer that was
-         *    returned / checked, until one of the conditions listed above is met.
-         *
-         *    Subclasses are only allowed to call these methods from the aggregate
-         *    thread.
-         *
-         *  * If the subclass wishes to push a buffer downstream in its aggregate
-         *    implementation, it should do so through the
-         *    gst_aggregator_finish_buffer() method. This method will take care
-         *    of sending and ordering mandatory events such as stream start, caps
-         *    and segment. Buffer lists can also be pushed out with
-         *    gst_aggregator_finish_buffer_list().
-         *
-         *  * Same goes for EOS events, which should not be pushed directly by the
-         *    subclass, it should instead return GST_FLOW_EOS in its aggregate
-         *    implementation.
-         *
-         *  * Note that the aggregator logic regarding gap event handling is to turn
-         *    these into gap buffers with matching PTS and duration. It will also
-         *    flag these buffers with GST_BUFFER_FLAG_GAP and GST_BUFFER_FLAG_DROPPABLE
-         *    to ease their identification and subsequent processing.
-         *    In addition, if the gap event was flagged with GST_GAP_FLAG_MISSING_DATA,
-         *    a custom meta is added to the resulting gap buffer (GstAggregatorMissingDataMeta).
-         *
-         *  * Subclasses must use (a subclass of) #GstAggregatorPad for both their
-         *    sink and source pads.
-         *    See gst_element_class_add_static_pad_template_with_gtype().
-         *
-         * This class used to live in gst-plugins-bad and was moved to core.
-         * @since 1.14
-         */
         interface Aggregator extends Gst.Element {
             readonly $signals: Aggregator.SignalSignatures
             readonly $readableProperties: Aggregator.ReadableProperties
@@ -630,7 +602,7 @@ declare module "gi://GstBase?version=1.0" {
              * Unref the @allocator after use it.
              * @returns , the #GstAllocator used, the #GstAllocationParams of `allocator`
              */
-            get_allocator(): void
+            get_allocator(): [Gst.Allocator | null, Gst.AllocationParams]
             /**
              * @returns the instance of the #GstBufferPool used by `trans`; free it after use it
              */
@@ -758,7 +730,9 @@ declare module "gi://GstBase?version=1.0" {
              */
             update_segment(segment: Gst.Segment): void
             /**
-             * sinkpads and peek or steal
+             * Mandatory.
+             *                  Called when buffers are queued on all sinkpads. Classes
+             *                  should iterate the GstElement->sinkpads and peek or steal
              *                  buffers from the #GstAggregatorPads. If the subclass returns
              *                  GST_FLOW_EOS, sending of the eos event will be taken care
              *                  of. Once / if a buffer has been constructed from the
@@ -812,7 +786,10 @@ declare module "gi://GstBase?version=1.0" {
              */
             vfunc_fixate_src_caps(caps: Gst.Caps): Gst.Caps
             /**
-             * flush.
+             * Optional.
+             *                  Called after a successful flushing seek, once all the flush
+             *                  stops have been received. Flush pad-specific data in
+             *                  #GstAggregatorPad->flush.
              */
             vfunc_flush(): Gst.FlowReturn
             /**
@@ -927,16 +904,83 @@ declare module "gi://GstBase?version=1.0" {
              * @param caps
              * @returns , 
              */
-            vfunc_update_src_caps(caps: Gst.Caps): Gst.FlowReturn
+            vfunc_update_src_caps(caps: Gst.Caps): [Gst.FlowReturn, Gst.Caps]
         }
 
         interface AggregatorClass extends Omit<Gst.ElementClass, "new"> {
             readonly $gtype: GObject.GType<Aggregator>
             readonly prototype: Aggregator
+
             new (props?: Partial<GObject.ConstructorProps<Aggregator>>): Aggregator
         }
 
-        const Aggregator: AggregatorClass
+        interface $Exports {
+            /**
+             * Manages a set of pads with the purpose of aggregating their buffers.
+             * Control is given to the subclass when all pads have data.
+             *
+             *  * Base class for mixers and muxers. Subclasses should at least implement
+             *    the #GstAggregatorClass::aggregate virtual method.
+             *
+             *  * Installs a #GstPadChainFunction, a #GstPadEventFullFunction and a
+             *    #GstPadQueryFunction to queue all serialized data packets per sink pad.
+             *    Subclasses should not overwrite those, but instead implement
+             *    #GstAggregatorClass::sink_event and #GstAggregatorClass::sink_query as
+             *    needed.
+             *
+             *  * When data is queued on all pads, the aggregate vmethod is called.
+             *
+             *  * One can peek at the data on any given GstAggregatorPad with the
+             *    gst_aggregator_pad_peek_buffer() method, and remove it from the pad
+             *    with the gst_aggregator_pad_pop_buffer () method. When a buffer
+             *    has been taken with pop_buffer (), a new buffer can be queued
+             *    on that pad.
+             *
+             *  * When gst_aggregator_pad_peek_buffer() or gst_aggregator_pad_has_buffer()
+             *    are called, a reference is taken to the returned buffer, which stays
+             *    valid until either:
+             *
+             *      - gst_aggregator_pad_pop_buffer() is called, in which case the caller
+             *        is guaranteed that the buffer they receive is the same as the peeked
+             *        buffer.
+             *      - gst_aggregator_pad_drop_buffer() is called, in which case the caller
+             *        is guaranteed that the dropped buffer is the one that was peeked.
+             *      - the subclass implementation of #GstAggregatorClass.aggregate returns.
+             *
+             *    Subsequent calls to gst_aggregator_pad_peek_buffer() or
+             *    gst_aggregator_pad_has_buffer() return / check the same buffer that was
+             *    returned / checked, until one of the conditions listed above is met.
+             *
+             *    Subclasses are only allowed to call these methods from the aggregate
+             *    thread.
+             *
+             *  * If the subclass wishes to push a buffer downstream in its aggregate
+             *    implementation, it should do so through the
+             *    gst_aggregator_finish_buffer() method. This method will take care
+             *    of sending and ordering mandatory events such as stream start, caps
+             *    and segment. Buffer lists can also be pushed out with
+             *    gst_aggregator_finish_buffer_list().
+             *
+             *  * Same goes for EOS events, which should not be pushed directly by the
+             *    subclass, it should instead return GST_FLOW_EOS in its aggregate
+             *    implementation.
+             *
+             *  * Note that the aggregator logic regarding gap event handling is to turn
+             *    these into gap buffers with matching PTS and duration. It will also
+             *    flag these buffers with GST_BUFFER_FLAG_GAP and GST_BUFFER_FLAG_DROPPABLE
+             *    to ease their identification and subsequent processing.
+             *    In addition, if the gap event was flagged with GST_GAP_FLAG_MISSING_DATA,
+             *    a custom meta is added to the resulting gap buffer (GstAggregatorMissingDataMeta).
+             *
+             *  * Subclasses must use (a subclass of) #GstAggregatorPad for both their
+             *    sink and source pads.
+             *    See gst_element_class_add_static_pad_template_with_gtype().
+             *
+             * This class used to live in gst-plugins-bad and was moved to core.
+             * @since 1.14
+             */
+            Aggregator: AggregatorClass
+        }
         
 
         namespace AggregatorPad {
@@ -959,12 +1003,6 @@ declare module "gi://GstBase?version=1.0" {
             }
         }
 
-        /**
-         * Pads managed by a #GstAggregator subclass.
-         *
-         * This class used to live in gst-plugins-bad and was moved to core.
-         * @since 1.14
-         */
         interface AggregatorPad extends Gst.Pad {
             readonly $signals: AggregatorPad.SignalSignatures
             readonly $readableProperties: AggregatorPad.ReadableProperties
@@ -1030,10 +1068,19 @@ declare module "gi://GstBase?version=1.0" {
         interface AggregatorPadClass extends Omit<Gst.PadClass, "new"> {
             readonly $gtype: GObject.GType<AggregatorPad>
             readonly prototype: AggregatorPad
+
             new (props?: Partial<GObject.ConstructorProps<AggregatorPad>>): AggregatorPad
         }
 
-        const AggregatorPad: AggregatorPadClass
+        interface $Exports {
+            /**
+             * Pads managed by a #GstAggregator subclass.
+             *
+             * This class used to live in gst-plugins-bad and was moved to core.
+             * @since 1.14
+             */
+            AggregatorPad: AggregatorPadClass
+        }
         
 
         namespace BaseParse {
@@ -1052,143 +1099,6 @@ declare module "gi://GstBase?version=1.0" {
             }
         }
 
-        /**
-         * This base class is for parser elements that process data and splits it
-         * into separate audio/video/whatever frames.
-         *
-         * It provides for:
-         *
-         *   * provides one sink pad and one source pad
-         *   * handles state changes
-         *   * can operate in pull mode or push mode
-         *   * handles seeking in both modes
-         *   * handles events (SEGMENT/EOS/FLUSH)
-         *   * handles queries (POSITION/DURATION/SEEKING/FORMAT/CONVERT)
-         *   * handles flushing
-         *
-         * The purpose of this base class is to provide the basic functionality of
-         * a parser and share a lot of rather complex code.
-         *
-         * # Description of the parsing mechanism:
-         *
-         * ## Set-up phase
-         *
-         *  * #GstBaseParse calls #GstBaseParseClass::start to inform subclass
-         *    that data processing is about to start now.
-         *
-         *  * #GstBaseParse class calls #GstBaseParseClass::set_sink_caps to
-         *    inform the subclass about incoming sinkpad caps. Subclass could
-         *    already set the srcpad caps accordingly, but this might be delayed
-         *    until calling gst_base_parse_finish_frame() with a non-queued frame.
-         *
-         *  * At least at this point subclass needs to tell the #GstBaseParse class
-         *    how big data chunks it wants to receive (minimum frame size ). It can
-         *    do this with gst_base_parse_set_min_frame_size().
-         *
-         *  * #GstBaseParse class sets up appropriate data passing mode (pull/push)
-         *    and starts to process the data.
-         *
-         * ## Parsing phase
-         *
-         *  * #GstBaseParse gathers at least min_frame_size bytes of data either
-         *    by pulling it from upstream or collecting buffers in an internal
-         *    #GstAdapter.
-         *
-         *  * A buffer of (at least) min_frame_size bytes is passed to subclass
-         *    with #GstBaseParseClass::handle_frame. Subclass checks the contents
-         *    and can optionally return #GST_FLOW_OK along with an amount of data
-         *    to be skipped to find a valid frame (which will result in a
-         *    subsequent DISCONT).  If, otherwise, the buffer does not hold a
-         *    complete frame, #GstBaseParseClass::handle_frame can merely return
-         *    and will be called again when additional data is available.  In push
-         *    mode this amounts to an additional input buffer (thus minimal
-         *    additional latency), in pull mode this amounts to some arbitrary
-         *    reasonable buffer size increase.
-         *
-         *    Of course, gst_base_parse_set_min_frame_size() could also be used if
-         *    a very specific known amount of additional data is required.  If,
-         *    however, the buffer holds a complete valid frame, it can pass the
-         *    size of this frame to gst_base_parse_finish_frame().
-         *
-         *    If acting as a converter, it can also merely indicate consumed input
-         *    data while simultaneously providing custom output data.  Note that
-         *    baseclass performs some processing (such as tracking overall consumed
-         *    data rate versus duration) for each finished frame, but other state
-         *    is only updated upon each call to #GstBaseParseClass::handle_frame
-         *    (such as tracking upstream input timestamp).
-         *
-         *    Subclass is also responsible for setting the buffer metadata
-         *    (e.g. buffer timestamp and duration, or keyframe if applicable).
-         *    (although the latter can also be done by #GstBaseParse if it is
-         *    appropriately configured, see below).  Frame is provided with
-         *    timestamp derived from upstream (as much as generally possible),
-         *    duration obtained from configuration (see below), and offset
-         *    if meaningful (in pull mode).
-         *
-         *    Note that #GstBaseParseClass::handle_frame might receive any small
-         *    amount of input data when leftover data is being drained (e.g. at
-         *    EOS).
-         *
-         *  * As part of finish frame processing, just prior to actually pushing
-         *    the buffer in question, it is passed to
-         *    #GstBaseParseClass::pre_push_frame which gives subclass yet one last
-         *    chance to examine buffer metadata, or to send some custom (tag)
-         *    events, or to perform custom (segment) filtering.
-         *
-         *  * During the parsing process #GstBaseParseClass will handle both srcpad
-         *    and sinkpad events. They will be passed to subclass if
-         *    #GstBaseParseClass::sink_event or #GstBaseParseClass::src_event
-         *    implementations have been provided.
-         *
-         * ## Shutdown phase
-         *
-         * * #GstBaseParse class calls #GstBaseParseClass::stop to inform the
-         *   subclass that data parsing will be stopped.
-         *
-         * Subclass is responsible for providing pad template caps for source and
-         * sink pads. The pads need to be named "sink" and "src". It also needs to
-         * set the fixed caps on srcpad, when the format is ensured (e.g.  when
-         * base class calls subclass' #GstBaseParseClass::set_sink_caps function).
-         *
-         * This base class uses %GST_FORMAT_DEFAULT as a meaning of frames. So,
-         * subclass conversion routine needs to know that conversion from
-         * %GST_FORMAT_TIME to %GST_FORMAT_DEFAULT must return the
-         * frame number that can be found from the given byte position.
-         *
-         * #GstBaseParse uses subclasses conversion methods also for seeking (or
-         * otherwise uses its own default one, see also below).
-         *
-         * Subclass @start and @stop functions will be called to inform the beginning
-         * and end of data processing.
-         *
-         * Things that subclass need to take care of:
-         *
-         * * Provide pad templates
-         * * Fixate the source pad caps when appropriate
-         * * Inform base class how big data chunks should be retrieved. This is
-         *   done with gst_base_parse_set_min_frame_size() function.
-         * * Examine data chunks passed to subclass with
-         *   #GstBaseParseClass::handle_frame and pass proper frame(s) to
-         *   gst_base_parse_finish_frame(), and setting src pad caps and timestamps
-         *   on frame.
-         * * Provide conversion functions
-         * * Update the duration information with gst_base_parse_set_duration()
-         * * Optionally passthrough using gst_base_parse_set_passthrough()
-         * * Configure various baseparse parameters using
-         *   gst_base_parse_set_average_bitrate(), gst_base_parse_set_syncable()
-         *   and gst_base_parse_set_frame_rate().
-         *
-         * * In particular, if subclass is unable to determine a duration, but
-         *   parsing (or specs) yields a frames per seconds rate, then this can be
-         *   provided to #GstBaseParse to enable it to cater for buffer time
-         *   metadata (which will be taken from upstream as much as
-         *   possible). Internally keeping track of frame durations and respective
-         *   sizes that have been pushed provides #GstBaseParse with an estimated
-         *   bitrate. A default #GstBaseParseClass::convert (used if not
-         *   overridden) will then use these rates to perform obvious conversions.
-         *   These rates are also used to update (estimated) duration at regular
-         *   frame intervals.
-         */
         interface BaseParse extends Gst.Element {
             readonly $signals: BaseParse.SignalSignatures
             readonly $readableProperties: BaseParse.ReadableProperties
@@ -1483,10 +1393,150 @@ declare module "gi://GstBase?version=1.0" {
         interface BaseParseClass extends Omit<Gst.ElementClass, "new"> {
             readonly $gtype: GObject.GType<BaseParse>
             readonly prototype: BaseParse
+
             new (props?: Partial<GObject.ConstructorProps<BaseParse>>): BaseParse
         }
 
-        const BaseParse: BaseParseClass
+        interface $Exports {
+            /**
+             * This base class is for parser elements that process data and splits it
+             * into separate audio/video/whatever frames.
+             *
+             * It provides for:
+             *
+             *   * provides one sink pad and one source pad
+             *   * handles state changes
+             *   * can operate in pull mode or push mode
+             *   * handles seeking in both modes
+             *   * handles events (SEGMENT/EOS/FLUSH)
+             *   * handles queries (POSITION/DURATION/SEEKING/FORMAT/CONVERT)
+             *   * handles flushing
+             *
+             * The purpose of this base class is to provide the basic functionality of
+             * a parser and share a lot of rather complex code.
+             *
+             * # Description of the parsing mechanism:
+             *
+             * ## Set-up phase
+             *
+             *  * #GstBaseParse calls #GstBaseParseClass::start to inform subclass
+             *    that data processing is about to start now.
+             *
+             *  * #GstBaseParse class calls #GstBaseParseClass::set_sink_caps to
+             *    inform the subclass about incoming sinkpad caps. Subclass could
+             *    already set the srcpad caps accordingly, but this might be delayed
+             *    until calling gst_base_parse_finish_frame() with a non-queued frame.
+             *
+             *  * At least at this point subclass needs to tell the #GstBaseParse class
+             *    how big data chunks it wants to receive (minimum frame size ). It can
+             *    do this with gst_base_parse_set_min_frame_size().
+             *
+             *  * #GstBaseParse class sets up appropriate data passing mode (pull/push)
+             *    and starts to process the data.
+             *
+             * ## Parsing phase
+             *
+             *  * #GstBaseParse gathers at least min_frame_size bytes of data either
+             *    by pulling it from upstream or collecting buffers in an internal
+             *    #GstAdapter.
+             *
+             *  * A buffer of (at least) min_frame_size bytes is passed to subclass
+             *    with #GstBaseParseClass::handle_frame. Subclass checks the contents
+             *    and can optionally return #GST_FLOW_OK along with an amount of data
+             *    to be skipped to find a valid frame (which will result in a
+             *    subsequent DISCONT).  If, otherwise, the buffer does not hold a
+             *    complete frame, #GstBaseParseClass::handle_frame can merely return
+             *    and will be called again when additional data is available.  In push
+             *    mode this amounts to an additional input buffer (thus minimal
+             *    additional latency), in pull mode this amounts to some arbitrary
+             *    reasonable buffer size increase.
+             *
+             *    Of course, gst_base_parse_set_min_frame_size() could also be used if
+             *    a very specific known amount of additional data is required.  If,
+             *    however, the buffer holds a complete valid frame, it can pass the
+             *    size of this frame to gst_base_parse_finish_frame().
+             *
+             *    If acting as a converter, it can also merely indicate consumed input
+             *    data while simultaneously providing custom output data.  Note that
+             *    baseclass performs some processing (such as tracking overall consumed
+             *    data rate versus duration) for each finished frame, but other state
+             *    is only updated upon each call to #GstBaseParseClass::handle_frame
+             *    (such as tracking upstream input timestamp).
+             *
+             *    Subclass is also responsible for setting the buffer metadata
+             *    (e.g. buffer timestamp and duration, or keyframe if applicable).
+             *    (although the latter can also be done by #GstBaseParse if it is
+             *    appropriately configured, see below).  Frame is provided with
+             *    timestamp derived from upstream (as much as generally possible),
+             *    duration obtained from configuration (see below), and offset
+             *    if meaningful (in pull mode).
+             *
+             *    Note that #GstBaseParseClass::handle_frame might receive any small
+             *    amount of input data when leftover data is being drained (e.g. at
+             *    EOS).
+             *
+             *  * As part of finish frame processing, just prior to actually pushing
+             *    the buffer in question, it is passed to
+             *    #GstBaseParseClass::pre_push_frame which gives subclass yet one last
+             *    chance to examine buffer metadata, or to send some custom (tag)
+             *    events, or to perform custom (segment) filtering.
+             *
+             *  * During the parsing process #GstBaseParseClass will handle both srcpad
+             *    and sinkpad events. They will be passed to subclass if
+             *    #GstBaseParseClass::sink_event or #GstBaseParseClass::src_event
+             *    implementations have been provided.
+             *
+             * ## Shutdown phase
+             *
+             * * #GstBaseParse class calls #GstBaseParseClass::stop to inform the
+             *   subclass that data parsing will be stopped.
+             *
+             * Subclass is responsible for providing pad template caps for source and
+             * sink pads. The pads need to be named "sink" and "src". It also needs to
+             * set the fixed caps on srcpad, when the format is ensured (e.g.  when
+             * base class calls subclass' #GstBaseParseClass::set_sink_caps function).
+             *
+             * This base class uses %GST_FORMAT_DEFAULT as a meaning of frames. So,
+             * subclass conversion routine needs to know that conversion from
+             * %GST_FORMAT_TIME to %GST_FORMAT_DEFAULT must return the
+             * frame number that can be found from the given byte position.
+             *
+             * #GstBaseParse uses subclasses conversion methods also for seeking (or
+             * otherwise uses its own default one, see also below).
+             *
+             * Subclass @start and @stop functions will be called to inform the beginning
+             * and end of data processing.
+             *
+             * Things that subclass need to take care of:
+             *
+             * * Provide pad templates
+             * * Fixate the source pad caps when appropriate
+             * * Inform base class how big data chunks should be retrieved. This is
+             *   done with gst_base_parse_set_min_frame_size() function.
+             * * Examine data chunks passed to subclass with
+             *   #GstBaseParseClass::handle_frame and pass proper frame(s) to
+             *   gst_base_parse_finish_frame(), and setting src pad caps and timestamps
+             *   on frame.
+             * * Provide conversion functions
+             * * Update the duration information with gst_base_parse_set_duration()
+             * * Optionally passthrough using gst_base_parse_set_passthrough()
+             * * Configure various baseparse parameters using
+             *   gst_base_parse_set_average_bitrate(), gst_base_parse_set_syncable()
+             *   and gst_base_parse_set_frame_rate().
+             *
+             * * In particular, if subclass is unable to determine a duration, but
+             *   parsing (or specs) yields a frames per seconds rate, then this can be
+             *   provided to #GstBaseParse to enable it to cater for buffer time
+             *   metadata (which will be taken from upstream as much as
+             *   possible). Internally keeping track of frame durations and respective
+             *   sizes that have been pushed provides #GstBaseParse with an estimated
+             *   bitrate. A default #GstBaseParseClass::convert (used if not
+             *   overridden) will then use these rates to perform obvious conversions.
+             *   These rates are also used to update (estimated) duration at regular
+             *   frame intervals.
+             */
+            BaseParse: BaseParseClass
+        }
         
 
         namespace BaseSink {
@@ -1529,94 +1579,6 @@ declare module "gi://GstBase?version=1.0" {
             }
         }
 
-        /**
-         * ");
-         * }
-         * ]|
-         *
-         * #GstBaseSink will handle the prerolling correctly. This means that it will
-         * return %GST_STATE_CHANGE_ASYNC from a state change to PAUSED until the first
-         * buffer arrives in this element. The base class will call the
-         * #GstBaseSinkClass::preroll vmethod with this preroll buffer and will then
-         * commit the state change to the next asynchronously pending state.
-         *
-         * When the element is set to PLAYING, #GstBaseSink will synchronise on the
-         * clock using the times returned from #GstBaseSinkClass::get_times. If this
-         * function returns %GST_CLOCK_TIME_NONE for the start time, no synchronisation
-         * will be done. Synchronisation can be disabled entirely by setting the object
-         * #GstBaseSink:sync property to %FALSE.
-         *
-         * After synchronisation the virtual method #GstBaseSinkClass::render will be
-         * called. Subclasses should minimally implement this method.
-         *
-         * Subclasses that synchronise on the clock in the #GstBaseSinkClass::render
-         * method are supported as well. These classes typically receive a buffer in
-         * the render method and can then potentially block on the clock while
-         * rendering. A typical example is an audiosink.
-         * These subclasses can use gst_base_sink_wait_preroll() to perform the
-         * blocking wait.
-         *
-         * Upon receiving the EOS event in the PLAYING state, #GstBaseSink will wait
-         * for the clock to reach the time indicated by the stop time of the last
-         * #GstBaseSinkClass::get_times call before posting an EOS message. When the
-         * element receives EOS in PAUSED, preroll completes, the event is queued and an
-         * EOS message is posted when going to PLAYING.
-         *
-         * #GstBaseSink will internally use the %GST_EVENT_SEGMENT events to schedule
-         * synchronisation and clipping of buffers. Buffers that fall completely outside
-         * of the current segment are dropped. Buffers that fall partially in the
-         * segment are rendered (and prerolled). Subclasses should do any subbuffer
-         * clipping themselves when needed.
-         *
-         * #GstBaseSink will by default report the current playback position in
-         * %GST_FORMAT_TIME based on the current clock time and segment information.
-         * If no clock has been set on the element, the query will be forwarded
-         * upstream.
-         *
-         * The #GstBaseSinkClass::set_caps function will be called when the subclass
-         * should configure itself to process a specific media type.
-         *
-         * The #GstBaseSinkClass::start and #GstBaseSinkClass::stop virtual methods
-         * will be called when resources should be allocated. Any
-         * #GstBaseSinkClass::preroll, #GstBaseSinkClass::render and
-         * #GstBaseSinkClass::set_caps function will be called between the
-         * #GstBaseSinkClass::start and #GstBaseSinkClass::stop calls.
-         *
-         * The #GstBaseSinkClass::event virtual method will be called when an event is
-         * received by #GstBaseSink. Normally this method should only be overridden by
-         * very specific elements (such as file sinks) which need to handle the
-         * newsegment event specially.
-         *
-         * The #GstBaseSinkClass::unlock method is called when the elements should
-         * unblock any blocking operations they perform in the
-         * #GstBaseSinkClass::render method. This is mostly useful when the
-         * #GstBaseSinkClass::render method performs a blocking write on a file
-         * descriptor, for example.
-         *
-         * The #GstBaseSink:max-lateness property affects how the sink deals with
-         * buffers that arrive too late in the sink. A buffer arrives too late in the
-         * sink when the presentation time (as a combination of the last segment, buffer
-         * timestamp and element base_time) plus the duration is before the current
-         * time of the clock.
-         * If the frame is later than max-lateness, the sink will drop the buffer
-         * without calling the render method.
-         * This feature is disabled if sync is disabled, the
-         * #GstBaseSinkClass::get_times method does not return a valid start time or
-         * max-lateness is set to -1 (the default).
-         * Subclasses can use gst_base_sink_set_max_lateness() to configure the
-         * max-lateness value.
-         *
-         * The #GstBaseSink:qos property will enable the quality-of-service features of
-         * the basesink which gather statistics about the real-time performance of the
-         * clock synchronisation. For each buffer received in the sink, statistics are
-         * gathered and a QOS event is sent upstream with these numbers. This
-         * information can then be used by upstream elements to reduce their processing
-         * rate, for example.
-         *
-         * The #GstBaseSink:async property can be used to instruct the sink to never
-         * perform an ASYNC state change. This feature is mostly usable when dealing
-         * with non-synchronized streams or sparse streams.
-         */
         interface BaseSink extends Gst.Element {
             readonly $signals: BaseSink.SignalSignatures
             readonly $readableProperties: BaseSink.ReadableProperties
@@ -1845,7 +1807,7 @@ declare module "gi://GstBase?version=1.0" {
              * This function is mostly used by subclasses.
              * @returns %TRUE if the query succeeded., if the sink is live, if an upstream element is live, the min latency of the upstream elements, the max latency of the upstream elements
              */
-            query_latency(): boolean
+            query_latency(): [boolean, boolean, boolean, Gst.ClockTime, Gst.ClockTime]
             /**
              * Configures @sink to perform all state changes asynchronously. When async is
              * disabled, the sink will immediately go to PAUSED instead of waiting for a
@@ -1953,7 +1915,7 @@ declare module "gi://GstBase?version=1.0" {
              * @param time the running_time to be reached
              * @returns #GstFlowReturn, the jitter to be filled with time diff, or %NULL
              */
-            wait(time: Gst.ClockTime): Gst.FlowReturn
+            wait(time: Gst.ClockTime): [Gst.FlowReturn, Gst.ClockTimeDiff]
             /**
              * This function will block until @time is reached. It is usually called by
              * subclasses that use their own internal synchronisation.
@@ -1973,7 +1935,7 @@ declare module "gi://GstBase?version=1.0" {
              * @param time the running_time to be reached
              * @returns #GstClockReturn, the jitter to be filled with time diff, or %NULL
              */
-            wait_clock(time: Gst.ClockTime): Gst.ClockReturn
+            wait_clock(time: Gst.ClockTime): [Gst.ClockReturn, Gst.ClockTimeDiff]
             /**
              * If the #GstBaseSinkClass::render method performs its own synchronisation
              * against the clock it must unblock when going from PLAYING to the PAUSED state
@@ -2104,10 +2066,128 @@ declare module "gi://GstBase?version=1.0" {
         interface BaseSinkClass extends Omit<Gst.ElementClass, "new"> {
             readonly $gtype: GObject.GType<BaseSink>
             readonly prototype: BaseSink
+
             new (props?: Partial<GObject.ConstructorProps<BaseSink>>): BaseSink
         }
 
-        const BaseSink: BaseSinkClass
+        interface $Exports {
+            /**
+             * #GstBaseSink is the base class for sink elements in GStreamer, such as
+             * xvimagesink or filesink. It is a layer on top of #GstElement that provides a
+             * simplified interface to plugin writers. #GstBaseSink handles many details
+             * for you, for example: preroll, clock synchronization, state changes,
+             * activation in push or pull mode, and queries.
+             *
+             * In most cases, when writing sink elements, there is no need to implement
+             * class methods from #GstElement or to set functions on pads, because the
+             * #GstBaseSink infrastructure should be sufficient.
+             *
+             * #GstBaseSink provides support for exactly one sink pad, which should be
+             * named "sink". A sink implementation (subclass of #GstBaseSink) should
+             * install a pad template in its class_init function, like so:
+             * |[<!-- language="C" -->
+             * static void
+             * my_element_class_init (GstMyElementClass *klass)
+             * {
+             *   GstElementClass *gstelement_class = GST_ELEMENT_CLASS (klass);
+             *
+             *   // sinktemplate should be a #GstStaticPadTemplate with direction
+             *   // %GST_PAD_SINK and name "sink"
+             *   gst_element_class_add_static_pad_template (gstelement_class, &sinktemplate);
+             *
+             *   gst_element_class_set_static_metadata (gstelement_class,
+             *       "Sink name",
+             *       "Sink",
+             *       "My Sink element",
+             *       "The author <my.sink@my.email>");
+             * }
+             * ]|
+             *
+             * #GstBaseSink will handle the prerolling correctly. This means that it will
+             * return %GST_STATE_CHANGE_ASYNC from a state change to PAUSED until the first
+             * buffer arrives in this element. The base class will call the
+             * #GstBaseSinkClass::preroll vmethod with this preroll buffer and will then
+             * commit the state change to the next asynchronously pending state.
+             *
+             * When the element is set to PLAYING, #GstBaseSink will synchronise on the
+             * clock using the times returned from #GstBaseSinkClass::get_times. If this
+             * function returns %GST_CLOCK_TIME_NONE for the start time, no synchronisation
+             * will be done. Synchronisation can be disabled entirely by setting the object
+             * #GstBaseSink:sync property to %FALSE.
+             *
+             * After synchronisation the virtual method #GstBaseSinkClass::render will be
+             * called. Subclasses should minimally implement this method.
+             *
+             * Subclasses that synchronise on the clock in the #GstBaseSinkClass::render
+             * method are supported as well. These classes typically receive a buffer in
+             * the render method and can then potentially block on the clock while
+             * rendering. A typical example is an audiosink.
+             * These subclasses can use gst_base_sink_wait_preroll() to perform the
+             * blocking wait.
+             *
+             * Upon receiving the EOS event in the PLAYING state, #GstBaseSink will wait
+             * for the clock to reach the time indicated by the stop time of the last
+             * #GstBaseSinkClass::get_times call before posting an EOS message. When the
+             * element receives EOS in PAUSED, preroll completes, the event is queued and an
+             * EOS message is posted when going to PLAYING.
+             *
+             * #GstBaseSink will internally use the %GST_EVENT_SEGMENT events to schedule
+             * synchronisation and clipping of buffers. Buffers that fall completely outside
+             * of the current segment are dropped. Buffers that fall partially in the
+             * segment are rendered (and prerolled). Subclasses should do any subbuffer
+             * clipping themselves when needed.
+             *
+             * #GstBaseSink will by default report the current playback position in
+             * %GST_FORMAT_TIME based on the current clock time and segment information.
+             * If no clock has been set on the element, the query will be forwarded
+             * upstream.
+             *
+             * The #GstBaseSinkClass::set_caps function will be called when the subclass
+             * should configure itself to process a specific media type.
+             *
+             * The #GstBaseSinkClass::start and #GstBaseSinkClass::stop virtual methods
+             * will be called when resources should be allocated. Any
+             * #GstBaseSinkClass::preroll, #GstBaseSinkClass::render and
+             * #GstBaseSinkClass::set_caps function will be called between the
+             * #GstBaseSinkClass::start and #GstBaseSinkClass::stop calls.
+             *
+             * The #GstBaseSinkClass::event virtual method will be called when an event is
+             * received by #GstBaseSink. Normally this method should only be overridden by
+             * very specific elements (such as file sinks) which need to handle the
+             * newsegment event specially.
+             *
+             * The #GstBaseSinkClass::unlock method is called when the elements should
+             * unblock any blocking operations they perform in the
+             * #GstBaseSinkClass::render method. This is mostly useful when the
+             * #GstBaseSinkClass::render method performs a blocking write on a file
+             * descriptor, for example.
+             *
+             * The #GstBaseSink:max-lateness property affects how the sink deals with
+             * buffers that arrive too late in the sink. A buffer arrives too late in the
+             * sink when the presentation time (as a combination of the last segment, buffer
+             * timestamp and element base_time) plus the duration is before the current
+             * time of the clock.
+             * If the frame is later than max-lateness, the sink will drop the buffer
+             * without calling the render method.
+             * This feature is disabled if sync is disabled, the
+             * #GstBaseSinkClass::get_times method does not return a valid start time or
+             * max-lateness is set to -1 (the default).
+             * Subclasses can use gst_base_sink_set_max_lateness() to configure the
+             * max-lateness value.
+             *
+             * The #GstBaseSink:qos property will enable the quality-of-service features of
+             * the basesink which gather statistics about the real-time performance of the
+             * clock synchronisation. For each buffer received in the sink, statistics are
+             * gathered and a QOS event is sent upstream with these numbers. This
+             * information can then be used by upstream elements to reduce their processing
+             * rate, for example.
+             *
+             * The #GstBaseSink:async property can be used to instruct the sink to never
+             * perform an ASYNC state change. This feature is mostly usable when dealing
+             * with non-synchronized streams or sparse streams.
+             */
+            BaseSink: BaseSinkClass
+        }
         
 
         namespace BaseSrc {
@@ -2134,31 +2214,6 @@ declare module "gi://GstBase?version=1.0" {
             }
         }
 
-        /**
-         * ");
-         * }
-         * ]|
-         *
-         * ## Controlled shutdown of live sources in applications
-         *
-         * Applications that record from a live source may want to stop recording
-         * in a controlled way, so that the recording is stopped, but the data
-         * already in the pipeline is processed to the end (remember that many live
-         * sources would go on recording forever otherwise). For that to happen the
-         * application needs to make the source stop recording and send an EOS
-         * event down the pipeline. The application would then wait for an
-         * EOS message posted on the pipeline's bus to know when all data has
-         * been processed and the pipeline can safely be stopped.
-         *
-         * An application may send an EOS event to a source element to make it
-         * perform the EOS logic (send EOS event downstream or post a
-         * %GST_MESSAGE_SEGMENT_DONE on the bus). This can typically be done
-         * with the gst_element_send_event() function on the element or its parent bin.
-         *
-         * After the EOS has been sent to the element, the application should wait for
-         * an EOS message to be posted on the pipeline's bus. Once this EOS message is
-         * received, it may safely shut down the entire pipeline.
-         */
         interface BaseSrc extends Gst.Element {
             readonly $signals: BaseSrc.SignalSignatures
             readonly $readableProperties: BaseSrc.ReadableProperties
@@ -2198,7 +2253,7 @@ declare module "gi://GstBase?version=1.0" {
              * Unref the @allocator after usage.
              * @returns , the #GstAllocator used, the #GstAllocationParams of `allocator`
              */
-            get_allocator(): void
+            get_allocator(): [Gst.Allocator | null, Gst.AllocationParams]
             /**
              * Get the number of bytes that @src will push out with each buffer.
              * @returns the number of bytes pushed with each buffer.
@@ -2293,7 +2348,7 @@ declare module "gi://GstBase?version=1.0" {
              * This function is mostly used by subclasses.
              * @returns %TRUE if the query succeeded., if the source is live, the min latency of the source, the max latency of the source
              */
-            query_latency(): boolean
+            query_latency(): [boolean, boolean, Gst.ClockTime, Gst.ClockTime]
             /**
              * Configure async behaviour in @src, no state change will block. The open,
              * close, start, stop, play and pause virtual methods will be executed in a
@@ -2344,7 +2399,13 @@ declare module "gi://GstBase?version=1.0" {
              */
             set_dynamic_size(dynamic: boolean): void
             /**
-             *  %GST_STATE_PAUSED.
+             * Sets the default format of the source. This will be the format used
+             * for sending SEGMENT events and for performing seeks.
+             *
+             * If a format of GST_FORMAT_BYTES is set, the element will be able to
+             * operate in pull mode if the #GstBaseSrcClass::is_seekable returns %TRUE.
+             *
+             * This function must only be called in states < %GST_STATE_PAUSED.
              * @param format the format to use
              */
             set_format(format: Gst.Format): void
@@ -2538,10 +2599,127 @@ declare module "gi://GstBase?version=1.0" {
         interface BaseSrcClass extends Omit<Gst.ElementClass, "new"> {
             readonly $gtype: GObject.GType<BaseSrc>
             readonly prototype: BaseSrc
+
             new (props?: Partial<GObject.ConstructorProps<BaseSrc>>): BaseSrc
         }
 
-        const BaseSrc: BaseSrcClass
+        interface $Exports {
+            /**
+             * This is a generic base class for source elements. The following
+             * types of sources are supported:
+             *
+             *   * random access sources like files
+             *   * seekable sources
+             *   * live sources
+             *
+             * The source can be configured to operate in any #GstFormat with the
+             * gst_base_src_set_format() method. The currently set format determines
+             * the format of the internal #GstSegment and any %GST_EVENT_SEGMENT
+             * events. The default format for #GstBaseSrc is %GST_FORMAT_BYTES.
+             *
+             * #GstBaseSrc always supports push mode scheduling. If the following
+             * conditions are met, it also supports pull mode scheduling:
+             *
+             *   * The format is set to %GST_FORMAT_BYTES (default).
+             *   * #GstBaseSrcClass::is_seekable returns %TRUE.
+             *
+             * If all the conditions are met for operating in pull mode, #GstBaseSrc is
+             * automatically seekable in push mode as well. The following conditions must
+             * be met to make the element seekable in push mode when the format is not
+             * %GST_FORMAT_BYTES:
+             *
+             * * #GstBaseSrcClass::is_seekable returns %TRUE.
+             * * #GstBaseSrcClass::query can convert all supported seek formats to the
+             *   internal format as set with gst_base_src_set_format().
+             * * #GstBaseSrcClass::do_seek is implemented, performs the seek and returns
+             *    %TRUE.
+             *
+             * When the element does not meet the requirements to operate in pull mode, the
+             * offset and length in the #GstBaseSrcClass::create method should be ignored.
+             * It is recommended to subclass #GstPushSrc instead, in this situation. If the
+             * element can operate in pull mode but only with specific offsets and
+             * lengths, it is allowed to generate an error when the wrong values are passed
+             * to the #GstBaseSrcClass::create function.
+             *
+             * #GstBaseSrc has support for live sources. Live sources are sources that when
+             * paused discard data, such as audio or video capture devices. A typical live
+             * source also produces data at a fixed rate and thus provides a clock to publish
+             * this rate.
+             * Use gst_base_src_set_live() to activate the live source mode.
+             *
+             * A live source does not produce data in the PAUSED state. This means that the
+             * #GstBaseSrcClass::create method will not be called in PAUSED but only in
+             * PLAYING. To signal the pipeline that the element will not produce data, the
+             * return value from the READY to PAUSED state will be
+             * %GST_STATE_CHANGE_NO_PREROLL.
+             *
+             * A typical live source will timestamp the buffers it creates with the
+             * current running time of the pipeline. This is one reason why a live source
+             * can only produce data in the PLAYING state, when the clock is actually
+             * distributed and running.
+             *
+             * Live sources that synchronize and block on the clock (an audio source, for
+             * example) can use gst_base_src_wait_playing() when the
+             * #GstBaseSrcClass::create function was interrupted by a state change to
+             * PAUSED.
+             *
+             * The #GstBaseSrcClass::get_times method can be used to implement pseudo-live
+             * sources. It only makes sense to implement the #GstBaseSrcClass::get_times
+             * function if the source is a live source. The #GstBaseSrcClass::get_times
+             * function should return timestamps starting from 0, as if it were a non-live
+             * source. The base class will make sure that the timestamps are transformed
+             * into the current running_time. The base source will then wait for the
+             * calculated running_time before pushing out the buffer.
+             *
+             * For live sources, the base class will by default report a latency of 0.
+             * For pseudo live sources, the base class will by default measure the difference
+             * between the first buffer timestamp and the start time of get_times and will
+             * report this value as the latency.
+             * Subclasses should override the query function when this behaviour is not
+             * acceptable.
+             *
+             * There is only support in #GstBaseSrc for exactly one source pad, which
+             * should be named "src". A source implementation (subclass of #GstBaseSrc)
+             * should install a pad template in its class_init function, like so:
+             * |[<!-- language="C" -->
+             * static void
+             * my_element_class_init (GstMyElementClass *klass)
+             * {
+             *   GstElementClass *gstelement_class = GST_ELEMENT_CLASS (klass);
+             *   // srctemplate should be a #GstStaticPadTemplate with direction
+             *   // %GST_PAD_SRC and name "src"
+             *   gst_element_class_add_static_pad_template (gstelement_class, &srctemplate);
+             *
+             *   gst_element_class_set_static_metadata (gstelement_class,
+             *      "Source name",
+             *      "Source",
+             *      "My Source element",
+             *      "The author <my.sink@my.email>");
+             * }
+             * ]|
+             *
+             * ## Controlled shutdown of live sources in applications
+             *
+             * Applications that record from a live source may want to stop recording
+             * in a controlled way, so that the recording is stopped, but the data
+             * already in the pipeline is processed to the end (remember that many live
+             * sources would go on recording forever otherwise). For that to happen the
+             * application needs to make the source stop recording and send an EOS
+             * event down the pipeline. The application would then wait for an
+             * EOS message posted on the pipeline's bus to know when all data has
+             * been processed and the pipeline can safely be stopped.
+             *
+             * An application may send an EOS event to a source element to make it
+             * perform the EOS logic (send EOS event downstream or post a
+             * %GST_MESSAGE_SEGMENT_DONE on the bus). This can typically be done
+             * with the gst_element_send_event() function on the element or its parent bin.
+             *
+             * After the EOS has been sent to the element, the application should wait for
+             * an EOS message to be posted on the pipeline's bus. Once this EOS message is
+             * received, it may safely shut down the entire pipeline.
+             */
+            BaseSrc: BaseSrcClass
+        }
         
 
         namespace BaseTransform {
@@ -2560,66 +2738,6 @@ declare module "gi://GstBase?version=1.0" {
             }
         }
 
-        /**
-         * = input buffer size
-         * * If the always_in_place flag is set, non-writable buffers will be copied
-         *   and passed to the transform_ip function, otherwise a new buffer will be
-         *   created and the transform function called.
-         *
-         * * Incoming writable buffers will be passed to the transform_ip function
-         *   immediately.
-         * * only implementing transform_ip and not transform implies always_in_place = %TRUE
-         *
-         *   * Example elements:
-         *     * Volume
-         *     * Audioconvert in certain modes (signed/unsigned conversion)
-         *     * videoconvert in certain modes (endianness swapping)
-         *
-         * ## Modifications only to the caps/metadata of a buffer
-         *
-         * * The element does not require writable data, but non-writable buffers
-         *   should be subbuffered so that the meta-information can be replaced.
-         *
-         * * Elements wishing to operate in this mode should replace the
-         *   prepare_output_buffer method to create subbuffers of the input buffer
-         *   and set always_in_place to %TRUE
-         *
-         * * Example elements
-         *   * Capsfilter when setting caps on outgoing buffers that have
-         *     none.
-         *   * identity when it is going to re-timestamp buffers by
-         *     datarate.
-         *
-         * ## Normal mode
-         *   * always_in_place flag is not set, or there is no transform_ip function
-         *   * Element will receive an input buffer and output buffer to operate on.
-         *   * Output buffer is allocated by calling the prepare_output_buffer function.
-         *   * Example elements:
-         *     * Videoscale, videoconvert, audioconvert when doing
-         *     scaling/conversions
-         *
-         * ## Special output buffer allocations
-         *   * Elements which need to do special allocation of their output buffers
-         *     beyond allocating output buffers via the negotiated allocator or
-         *     buffer pool should implement the prepare_output_buffer method.
-         *
-         *   * Example elements:
-         *     * efence
-         *
-         * # Sub-class settable flags on GstBaseTransform
-         *
-         * * passthrough
-         *
-         *   * Implies that in the current configuration, the sub-class is not interested in modifying the buffers.
-         *   * Elements which are always in passthrough mode whenever the same caps has been negotiated on both pads can set the class variable passthrough_on_same_caps to have this behaviour automatically.
-         *
-         * * always_in_place
-         *   * Determines whether a non-writable buffer will be copied before passing
-         *     to the transform_ip function.
-         *
-         *   * Implied %TRUE if no transform function is implemented.
-         *   * Implied %FALSE if ONLY transform function is implemented.
-         */
         interface BaseTransform extends Gst.Element {
             readonly $signals: BaseTransform.SignalSignatures
             readonly $readableProperties: BaseTransform.ReadableProperties
@@ -2637,7 +2755,7 @@ declare module "gi://GstBase?version=1.0" {
              * Unref the @allocator after use.
              * @returns , the #GstAllocator used, the #GstAllocationParams of `allocator`
              */
-            get_allocator(): void
+            get_allocator(): [Gst.Allocator | null, Gst.AllocationParams]
             /**
              * @returns the instance of the #GstBufferPool used by `trans`; free it after use
              */
@@ -2944,10 +3062,119 @@ declare module "gi://GstBase?version=1.0" {
         interface BaseTransformClass extends Omit<Gst.ElementClass, "new"> {
             readonly $gtype: GObject.GType<BaseTransform>
             readonly prototype: BaseTransform
+
             new (props?: Partial<GObject.ConstructorProps<BaseTransform>>): BaseTransform
         }
 
-        const BaseTransform: BaseTransformClass
+        interface $Exports {
+            /**
+             * This base class is for filter elements that process data. Elements
+             * that are suitable for implementation using #GstBaseTransform are ones
+             * where the size and caps of the output is known entirely from the input
+             * caps and buffer sizes. These include elements that directly transform
+             * one buffer into another, modify the contents of a buffer in-place, as
+             * well as elements that collate multiple input buffers into one output buffer,
+             * or that expand one input buffer into multiple output buffers. See below
+             * for more concrete use cases.
+             *
+             * It provides for:
+             *
+             * * one sinkpad and one srcpad
+             * * Possible formats on sink and source pad implemented
+             *   with custom transform_caps function. By default uses
+             *   same format on sink and source.
+             *
+             * * Handles state changes
+             * * Does flushing
+             * * Push mode
+             * * Pull mode if the sub-class transform can operate on arbitrary data
+             *
+             * # Use Cases
+             *
+             * ## Passthrough mode
+             *
+             *   * Element has no interest in modifying the buffer. It may want to inspect it,
+             *     in which case the element should have a transform_ip function. If there
+             *     is no transform_ip function in passthrough mode, the buffer is pushed
+             *     intact.
+             *
+             *   * The #GstBaseTransformClass.passthrough_on_same_caps variable
+             *     will automatically set/unset passthrough based on whether the
+             *     element negotiates the same caps on both pads.
+             *
+             *   * #GstBaseTransformClass.passthrough_on_same_caps on an element that
+             *     doesn't implement a transform_caps function is useful for elements that
+             *     only inspect data (such as level)
+             *
+             *   * Example elements
+             *
+             *     * Level
+             *     * Videoscale, audioconvert, videoconvert, audioresample in certain modes.
+             *
+             * ## Modifications in-place - input buffer and output buffer are the same thing.
+             *
+             * * The element must implement a transform_ip function.
+             * * Output buffer size must <= input buffer size
+             * * If the always_in_place flag is set, non-writable buffers will be copied
+             *   and passed to the transform_ip function, otherwise a new buffer will be
+             *   created and the transform function called.
+             *
+             * * Incoming writable buffers will be passed to the transform_ip function
+             *   immediately.
+             * * only implementing transform_ip and not transform implies always_in_place = %TRUE
+             *
+             *   * Example elements:
+             *     * Volume
+             *     * Audioconvert in certain modes (signed/unsigned conversion)
+             *     * videoconvert in certain modes (endianness swapping)
+             *
+             * ## Modifications only to the caps/metadata of a buffer
+             *
+             * * The element does not require writable data, but non-writable buffers
+             *   should be subbuffered so that the meta-information can be replaced.
+             *
+             * * Elements wishing to operate in this mode should replace the
+             *   prepare_output_buffer method to create subbuffers of the input buffer
+             *   and set always_in_place to %TRUE
+             *
+             * * Example elements
+             *   * Capsfilter when setting caps on outgoing buffers that have
+             *     none.
+             *   * identity when it is going to re-timestamp buffers by
+             *     datarate.
+             *
+             * ## Normal mode
+             *   * always_in_place flag is not set, or there is no transform_ip function
+             *   * Element will receive an input buffer and output buffer to operate on.
+             *   * Output buffer is allocated by calling the prepare_output_buffer function.
+             *   * Example elements:
+             *     * Videoscale, videoconvert, audioconvert when doing
+             *     scaling/conversions
+             *
+             * ## Special output buffer allocations
+             *   * Elements which need to do special allocation of their output buffers
+             *     beyond allocating output buffers via the negotiated allocator or
+             *     buffer pool should implement the prepare_output_buffer method.
+             *
+             *   * Example elements:
+             *     * efence
+             *
+             * # Sub-class settable flags on GstBaseTransform
+             *
+             * * passthrough
+             *
+             *   * Implies that in the current configuration, the sub-class is not interested in modifying the buffers.
+             *   * Elements which are always in passthrough mode whenever the same caps has been negotiated on both pads can set the class variable passthrough_on_same_caps to have this behaviour automatically.
+             *
+             * * always_in_place
+             *   * Determines whether a non-writable buffer will be copied before passing
+             *     to the transform_ip function.
+             *
+             *   * Implied %TRUE if no transform function is implemented.
+             *   * Implied %FALSE if ONLY transform function is implemented.
+             */
+            BaseTransform: BaseTransformClass
+        }
         
 
         namespace CollectPads {
@@ -2964,44 +3191,6 @@ declare module "gi://GstBase?version=1.0" {
             }
         }
 
-        /**
-         * Manages a set of pads that operate in collect mode. This means that control
-         * is given to the manager of this object when all pads have data.
-         *
-         *   * Collectpads are created with gst_collect_pads_new(). A callback should then
-         *     be installed with gst_collect_pads_set_function ().
-         *
-         *   * Pads are added to the collection with gst_collect_pads_add_pad()/
-         *     gst_collect_pads_remove_pad(). The pad has to be a sinkpad. When added,
-         *     the chain, event and query functions of the pad are overridden. The
-         *     element_private of the pad is used to store private information for the
-         *     collectpads.
-         *
-         *   * For each pad, data is queued in the _chain function or by
-         *     performing a pull_range.
-         *
-         *   * When data is queued on all pads in waiting mode, the callback function is called.
-         *
-         *   * Data can be dequeued from the pad with the gst_collect_pads_pop() method.
-         *     One can peek at the data with the gst_collect_pads_peek() function.
-         *     These functions will return %NULL if the pad received an EOS event. When all
-         *     pads return %NULL from a gst_collect_pads_peek(), the element can emit an EOS
-         *     event itself.
-         *
-         *   * Data can also be dequeued in byte units using the gst_collect_pads_available(),
-         *     gst_collect_pads_read_buffer() and gst_collect_pads_flush() calls.
-         *
-         *   * Elements should call gst_collect_pads_start() and gst_collect_pads_stop() in
-         *     their state change functions to start and stop the processing of the collectpads.
-         *     The gst_collect_pads_stop() call should be called before calling the parent
-         *     element state change function in the PAUSED_TO_READY state change to ensure
-         *     no pad is blocked and the element can finish streaming.
-         *
-         *   * gst_collect_pads_set_waiting() sets a pad to waiting or non-waiting mode.
-         *     CollectPads element is not waiting for data to be collected on non-waiting pads.
-         *     Thus these pads may but need not have data when the callback is called.
-         *     All pads are in waiting mode by default.
-         */
         interface CollectPads extends Gst.Object {
             readonly $signals: CollectPads.SignalSignatures
             readonly $readableProperties: CollectPads.ReadableProperties
@@ -3065,7 +3254,7 @@ declare module "gi://GstBase?version=1.0" {
              * @param user_data user data (unused)
              * @returns , output buffer with running time, or NULL if clipped
              */
-            clip_running_time(cdata: CollectData, buf: Gst.Buffer, user_data: never | null): Gst.FlowReturn
+            clip_running_time(cdata: CollectData, buf: Gst.Buffer, user_data: never | null): [Gst.FlowReturn, Gst.Buffer]
             /**
              * Default #GstCollectPads event handling that elements should always
              * chain up to to ensure proper operation.  Element might however indicate
@@ -3275,6 +3464,7 @@ declare module "gi://GstBase?version=1.0" {
         interface CollectPadsClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<CollectPads>
             readonly prototype: CollectPads
+
             new (props?: Partial<GObject.ConstructorProps<CollectPads>>): CollectPads
             /**
              * Create a new instance of #GstCollectPads.
@@ -3285,7 +3475,47 @@ declare module "gi://GstBase?version=1.0" {
             "new"(): CollectPads
         }
 
-        const CollectPads: CollectPadsClass
+        interface $Exports {
+            /**
+             * Manages a set of pads that operate in collect mode. This means that control
+             * is given to the manager of this object when all pads have data.
+             *
+             *   * Collectpads are created with gst_collect_pads_new(). A callback should then
+             *     be installed with gst_collect_pads_set_function ().
+             *
+             *   * Pads are added to the collection with gst_collect_pads_add_pad()/
+             *     gst_collect_pads_remove_pad(). The pad has to be a sinkpad. When added,
+             *     the chain, event and query functions of the pad are overridden. The
+             *     element_private of the pad is used to store private information for the
+             *     collectpads.
+             *
+             *   * For each pad, data is queued in the _chain function or by
+             *     performing a pull_range.
+             *
+             *   * When data is queued on all pads in waiting mode, the callback function is called.
+             *
+             *   * Data can be dequeued from the pad with the gst_collect_pads_pop() method.
+             *     One can peek at the data with the gst_collect_pads_peek() function.
+             *     These functions will return %NULL if the pad received an EOS event. When all
+             *     pads return %NULL from a gst_collect_pads_peek(), the element can emit an EOS
+             *     event itself.
+             *
+             *   * Data can also be dequeued in byte units using the gst_collect_pads_available(),
+             *     gst_collect_pads_read_buffer() and gst_collect_pads_flush() calls.
+             *
+             *   * Elements should call gst_collect_pads_start() and gst_collect_pads_stop() in
+             *     their state change functions to start and stop the processing of the collectpads.
+             *     The gst_collect_pads_stop() call should be called before calling the parent
+             *     element state change function in the PAUSED_TO_READY state change to ensure
+             *     no pad is blocked and the element can finish streaming.
+             *
+             *   * gst_collect_pads_set_waiting() sets a pad to waiting or non-waiting mode.
+             *     CollectPads element is not waiting for data to be collected on non-waiting pads.
+             *     Thus these pads may but need not have data when the callback is called.
+             *     All pads are in waiting mode by default.
+             */
+            CollectPads: CollectPadsClass
+        }
         
 
         namespace DataQueue {
@@ -3308,11 +3538,6 @@ declare module "gi://GstBase?version=1.0" {
             }
         }
 
-        /**
-         * #GstDataQueue is an object that handles threadsafe queueing of objects. It
-         * also provides size-related functionality. This object should be used for
-         * any #GstElement that wishes to provide some sort of queueing functionality.
-         */
         interface DataQueue extends GObject.Object {
             readonly $signals: DataQueue.SignalSignatures
             readonly $readableProperties: DataQueue.ReadableProperties
@@ -3344,10 +3569,18 @@ declare module "gi://GstBase?version=1.0" {
         interface DataQueueClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DataQueue>
             readonly prototype: DataQueue
+
             new (props?: Partial<GObject.ConstructorProps<DataQueue>>): DataQueue
         }
 
-        const DataQueue: DataQueueClass
+        interface $Exports {
+            /**
+             * #GstDataQueue is an object that handles threadsafe queueing of objects. It
+             * also provides size-related functionality. This object should be used for
+             * any #GstElement that wishes to provide some sort of queueing functionality.
+             */
+            DataQueue: DataQueueClass
+        }
         
 
         namespace PushSrc {
@@ -3364,27 +3597,6 @@ declare module "gi://GstBase?version=1.0" {
             }
         }
 
-        /**
-         * This class is mostly useful for elements that cannot do
-         * random access, or at least very slowly. The source usually
-         * prefers to push out a fixed size buffer.
-         *
-         * Subclasses usually operate in a format that is different from the
-         * default GST_FORMAT_BYTES format of #GstBaseSrc.
-         *
-         * Classes extending this base class will usually be scheduled
-         * in a push based mode. If the peer accepts to operate without
-         * offsets and within the limits of the allowed block size, this
-         * class can operate in getrange based mode automatically. To make
-         * this possible, the subclass should implement and override the
-         * SCHEDULING query.
-         *
-         * The subclass should extend the methods from the baseclass in
-         * addition to the ::create method.
-         *
-         * Seeking, flushing, scheduling and sync is all handled by this
-         * base class.
-         */
         interface PushSrc extends BaseSrc {
             readonly $signals: PushSrc.SignalSignatures
             readonly $readableProperties: PushSrc.ReadableProperties
@@ -3411,41 +3623,65 @@ declare module "gi://GstBase?version=1.0" {
         interface PushSrcClass extends Omit<BaseSrcClass, "new"> {
             readonly $gtype: GObject.GType<PushSrc>
             readonly prototype: PushSrc
+
             new (props?: Partial<GObject.ConstructorProps<PushSrc>>): PushSrc
         }
 
-        const PushSrc: PushSrcClass
-        none
-        none
-        none
-        /**
-         */
-        abstract class AggregatorPadPrivate {
-            static readonly $gtype: GObject.GType<AggregatorPadPrivate>
-
-            
+        interface $Exports {
+            /**
+             * This class is mostly useful for elements that cannot do
+             * random access, or at least very slowly. The source usually
+             * prefers to push out a fixed size buffer.
+             *
+             * Subclasses usually operate in a format that is different from the
+             * default GST_FORMAT_BYTES format of #GstBaseSrc.
+             *
+             * Classes extending this base class will usually be scheduled
+             * in a push based mode. If the peer accepts to operate without
+             * offsets and within the limits of the allowed block size, this
+             * class can operate in getrange based mode automatically. To make
+             * this possible, the subclass should implement and override the
+             * SCHEDULING query.
+             *
+             * The subclass should extend the methods from the baseclass in
+             * addition to the ::create method.
+             *
+             * Seeking, flushing, scheduling and sync is all handled by this
+             * base class.
+             */
+            PushSrc: PushSrcClass
         }
-        /**
-         */
-        abstract class AggregatorPrivate {
-            static readonly $gtype: GObject.GType<AggregatorPrivate>
+        
 
-            
+        interface AggregatorPadPrivateStruct {
+            readonly $gtype: GObject.GType<AggregatorPadPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AggregatorPadPrivate
         }
-        none
-        /**
-         * Frame (context) data passed to each frame parsing virtual methods.  In
-         * addition to providing the data to be checked for a valid frame or an already
-         * identified frame, it conveys additional metadata or control information
-         * from and to the subclass w.r.t. the particular frame in question (rather
-         * than global parameters).  Some of these may apply to each parsing stage, others
-         * only to some a particular one.  These parameters are effectively zeroed at start
-         * of each frame's processing, i.e. parsing virtual method invocation sequence.
-         */
-        abstract class BaseParseFrame {
-            static readonly $gtype: GObject.GType<BaseParseFrame>
 
-            
+        interface AggregatorPadPrivate {
+        }
+
+        interface $Exports {
+            AggregatorPadPrivate: AggregatorPadPrivateStruct
+        }
+        
+
+        interface AggregatorPrivateStruct {
+            readonly $gtype: GObject.GType<AggregatorPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AggregatorPrivate
+        }
+
+        interface AggregatorPrivate {
+        }
+
+        interface $Exports {
+            AggregatorPrivate: AggregatorPrivateStruct
+        }
+        
+
+        interface BaseParseFrameStruct {
+            readonly $gtype: GObject.GType<BaseParseFrame>
+            [Symbol.hasInstance](instance: unknown): instance is BaseParseFrame
             /**
              * Allocates a new #GstBaseParseFrame. This function is mainly for bindings,
              * elements written in C should usually allocate the frame on the stack and
@@ -3457,7 +3693,10 @@ declare module "gi://GstBase?version=1.0" {
                 Set to -1 to mark the entire frame as metadata. If in doubt, set to 0.
              * @returns a newly-allocated #GstBaseParseFrame. Free with     gst_base_parse_frame_free() when no longer needed.
              */
-            static "new"(buffer: Gst.Buffer, flags: BaseParseFrameFlags, overhead: number): BaseParseFrame
+            "new"(buffer: Gst.Buffer, flags: BaseParseFrameFlags, overhead: number): BaseParseFrame
+        }
+
+        interface BaseParseFrame {
             /**
              * input data to be parsed for frames.
              */
@@ -3503,46 +3742,70 @@ declare module "gi://GstBase?version=1.0" {
              */
             init(): void
         }
-        /**
-         */
-        abstract class BaseParsePrivate {
-            static readonly $gtype: GObject.GType<BaseParsePrivate>
 
-            
+        interface $Exports {
+            BaseParseFrame: BaseParseFrameStruct
         }
-        none
-        /**
-         */
-        abstract class BaseSinkPrivate {
-            static readonly $gtype: GObject.GType<BaseSinkPrivate>
+        
 
-            
+        interface BaseParsePrivateStruct {
+            readonly $gtype: GObject.GType<BaseParsePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is BaseParsePrivate
         }
-        none
-        /**
-         */
-        abstract class BaseSrcPrivate {
-            static readonly $gtype: GObject.GType<BaseSrcPrivate>
 
-            
+        interface BaseParsePrivate {
         }
-        none
-        /**
-         */
-        abstract class BaseTransformPrivate {
-            static readonly $gtype: GObject.GType<BaseTransformPrivate>
 
-            
+        interface $Exports {
+            BaseParsePrivate: BaseParsePrivateStruct
         }
-        /**
-         * #GstBitReader provides a bit reader that can read any number of bits
-         * from a memory buffer. It provides functions for reading any number of bits
-         * into 8, 16, 32 and 64 bit variables.
-         */
-        abstract class BitReader {
-            static readonly $gtype: GObject.GType<BitReader>
+        
 
-            
+        interface BaseSinkPrivateStruct {
+            readonly $gtype: GObject.GType<BaseSinkPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is BaseSinkPrivate
+        }
+
+        interface BaseSinkPrivate {
+        }
+
+        interface $Exports {
+            BaseSinkPrivate: BaseSinkPrivateStruct
+        }
+        
+
+        interface BaseSrcPrivateStruct {
+            readonly $gtype: GObject.GType<BaseSrcPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is BaseSrcPrivate
+        }
+
+        interface BaseSrcPrivate {
+        }
+
+        interface $Exports {
+            BaseSrcPrivate: BaseSrcPrivateStruct
+        }
+        
+
+        interface BaseTransformPrivateStruct {
+            readonly $gtype: GObject.GType<BaseTransformPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is BaseTransformPrivate
+        }
+
+        interface BaseTransformPrivate {
+        }
+
+        interface $Exports {
+            BaseTransformPrivate: BaseTransformPrivateStruct
+        }
+        
+
+        interface BitReaderStruct {
+            readonly $gtype: GObject.GType<BitReader>
+            [Symbol.hasInstance](instance: unknown): instance is BitReader
+        }
+
+        interface BitReader {
             /**
              * Data from which the bit reader will
              *   read
@@ -3652,16 +3915,18 @@ declare module "gi://GstBase?version=1.0" {
              */
             skip_to_byte(): boolean
         }
-        /**
-         * #GstBitWriter provides a bit writer that can write any number of
-         * bits into a memory buffer. It provides functions for writing any
-         * number of bits into 8, 16, 32 and 64 bit variables.
-         * @since 1.16
-         */
-        abstract class BitWriter {
-            static readonly $gtype: GObject.GType<BitWriter>
 
-            
+        interface $Exports {
+            BitReader: BitReaderStruct
+        }
+        
+
+        interface BitWriterStruct {
+            readonly $gtype: GObject.GType<BitWriter>
+            [Symbol.hasInstance](instance: unknown): instance is BitWriter
+        }
+
+        interface BitWriter {
             /**
              * Allocated @data for bit writer to write
              */
@@ -3768,18 +4033,18 @@ declare module "gi://GstBase?version=1.0" {
              */
             set_pos(pos: number): boolean
         }
-        /**
-         * #GstByteReader provides a byte reader that can read different integer and
-         * floating point types from a memory buffer. It provides functions for reading
-         * signed/unsigned, little/big endian integers of 8, 16, 24, 32 and 64 bits
-         * and functions for reading little/big endian floating points numbers of
-         * 32 and 64 bits. It also provides functions to read NUL-terminated strings
-         * in various character encodings.
-         */
-        abstract class ByteReader {
-            static readonly $gtype: GObject.GType<ByteReader>
 
-            
+        interface $Exports {
+            BitWriter: BitWriterStruct
+        }
+        
+
+        interface ByteReaderStruct {
+            readonly $gtype: GObject.GType<ByteReader>
+            [Symbol.hasInstance](instance: unknown): instance is ByteReader
+        }
+
+        interface ByteReader {
             /**
              * Data from which the bit reader will
              *   read
@@ -4043,7 +4308,7 @@ declare module "gi://GstBase?version=1.0" {
              * @param offset offset from which to start scanning, relative to the current
                 position
              * @param size number of bytes to scan from offset
-             * @returns  returns -1 ]|
+             * @returns offset of the first match, or -1 if no match was found.  Example: |[ // Assume the reader contains 0x00 0x01 0x02 ... 0xfe 0xff  gst_byte_reader_masked_scan_uint32 (reader, 0xffffffff, 0x00010203, 0, 256); // -> returns 0 gst_byte_reader_masked_scan_uint32 (reader, 0xffffffff, 0x00010203, 1, 255); // -> returns -1 gst_byte_reader_masked_scan_uint32 (reader, 0xffffffff, 0x01020304, 1, 255); // -> returns 1 gst_byte_reader_masked_scan_uint32 (reader, 0xffff, 0x0001, 0, 256); // -> returns -1 gst_byte_reader_masked_scan_uint32 (reader, 0xffff, 0x0203, 0, 256); // -> returns 0 gst_byte_reader_masked_scan_uint32 (reader, 0xffff0000, 0x02030000, 0, 256); // -> returns 2 gst_byte_reader_masked_scan_uint32 (reader, 0xffff0000, 0x02030000, 0, 4); // -> returns -1 ]|
              */
             masked_scan_uint32(mask: number, pattern: number, offset: number, size: number): number
             /**
@@ -4259,18 +4524,18 @@ declare module "gi://GstBase?version=1.0" {
              */
             skip_string_utf8(): boolean
         }
-        /**
-         * #GstByteWriter provides a byte writer and reader that can write/read different
-         * integer and floating point types to/from a memory buffer. It provides functions
-         * for writing/reading signed/unsigned, little/big endian integers of 8, 16, 24,
-         * 32 and 64 bits and functions for reading little/big endian floating points numbers of
-         * 32 and 64 bits. It also provides functions to write/read NUL-terminated strings
-         * in various character encodings.
-         */
-        abstract class ByteWriter {
-            static readonly $gtype: GObject.GType<ByteWriter>
 
-            
+        interface $Exports {
+            ByteReader: ByteReaderStruct
+        }
+        
+
+        interface ByteWriterStruct {
+            readonly $gtype: GObject.GType<ByteWriter>
+            [Symbol.hasInstance](instance: unknown): instance is ByteWriter
+        }
+
+        interface ByteWriter {
             /**
              * #GstByteReader parent
              */
@@ -4529,13 +4794,18 @@ declare module "gi://GstBase?version=1.0" {
              */
             reset_and_get_data(): Uint8Array
         }
-        /**
-         * Structure used by the collect_pads.
-         */
-        abstract class CollectData {
-            static readonly $gtype: GObject.GType<CollectData>
 
-            
+        interface $Exports {
+            ByteWriter: ByteWriterStruct
+        }
+        
+
+        interface CollectDataStruct {
+            readonly $gtype: GObject.GType<CollectData>
+            [Symbol.hasInstance](instance: unknown): instance is CollectData
+        }
+
+        interface CollectData {
             /**
              * owner #GstCollectPads
              */
@@ -4557,59 +4827,63 @@ declare module "gi://GstBase?version=1.0" {
              */
             segment: Gst.Segment
         }
-        /**
-         */
-        abstract class CollectDataPrivate {
-            static readonly $gtype: GObject.GType<CollectDataPrivate>
 
-            
+        interface $Exports {
+            CollectData: CollectDataStruct
         }
-        none
-        /**
-         */
-        abstract class CollectPadsPrivate {
-            static readonly $gtype: GObject.GType<CollectPadsPrivate>
+        
 
-            
+        interface CollectDataPrivateStruct {
+            readonly $gtype: GObject.GType<CollectDataPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is CollectDataPrivate
         }
-        none
-        none
-        /**
-         */
-        abstract class DataQueuePrivate {
-            static readonly $gtype: GObject.GType<DataQueuePrivate>
 
-            
+        interface CollectDataPrivate {
         }
-        none
-        /**
-         * s.
-         *
-         * Aside from reducing the user's code size, the main advantage of using this
-         * helper struct is to follow the standard rules for #GstFlowReturn combination.
-         * These rules are:
-         *
-         * * %GST_FLOW_EOS: only if all returns are EOS too
-         * * %GST_FLOW_NOT_LINKED: only if all returns are NOT_LINKED too
-         * * %GST_FLOW_ERROR or below: if at least one returns an error return
-         * * %GST_FLOW_NOT_NEGOTIATED: if at least one returns a not-negotiated return
-         * * %GST_FLOW_FLUSHING: if at least one returns flushing
-         * * %GST_FLOW_OK: otherwise
-         *
-         * %GST_FLOW_ERROR or below, GST_FLOW_NOT_NEGOTIATED and GST_FLOW_FLUSHING are
-         * returned immediately from the gst_flow_combiner_update_flow() function.
-         * @since 1.4
-         */
-        abstract class FlowCombiner {
-            static readonly $gtype: GObject.GType<FlowCombiner>
 
-            
+        interface $Exports {
+            CollectDataPrivate: CollectDataPrivateStruct
+        }
+        
+
+        interface CollectPadsPrivateStruct {
+            readonly $gtype: GObject.GType<CollectPadsPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is CollectPadsPrivate
+        }
+
+        interface CollectPadsPrivate {
+        }
+
+        interface $Exports {
+            CollectPadsPrivate: CollectPadsPrivateStruct
+        }
+        
+
+        interface DataQueuePrivateStruct {
+            readonly $gtype: GObject.GType<DataQueuePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DataQueuePrivate
+        }
+
+        interface DataQueuePrivate {
+        }
+
+        interface $Exports {
+            DataQueuePrivate: DataQueuePrivateStruct
+        }
+        
+
+        interface FlowCombinerStruct {
+            readonly $gtype: GObject.GType<FlowCombiner>
+            [Symbol.hasInstance](instance: unknown): instance is FlowCombiner
             /**
              * Creates a new #GstFlowCombiner, use gst_flow_combiner_free() to free it.
              * @since 1.4
              * @returns A new #GstFlowCombiner
              */
-            static "new"(): FlowCombiner
+            "new"(): FlowCombiner
+        }
+
+        interface FlowCombiner {
             /**
              * Adds a new #GstPad to the #GstFlowCombiner.
              * @since 1.4
@@ -4675,357 +4949,149 @@ declare module "gi://GstBase?version=1.0" {
              */
             update_pad_flow(pad: Gst.Pad, fret: Gst.FlowReturn): Gst.FlowReturn
         }
-        none
-        none
-        /**
-         * The opaque #GstTypeFindData structure.
-         * @since 1.22
-         */
-        abstract class TypeFindData {
-            static readonly $gtype: GObject.GType<TypeFindData>
 
-            
+        interface $Exports {
+            FlowCombiner: FlowCombinerStruct
         }
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Tries to find what type of data is flowing from the given source #GstPad.
-         *
-         * Free-function: gst_caps_unref
-         * @param src A source #GstPad
-         * @param size The length in bytes
-         * @returns the #GstCaps corresponding to the data     stream.  Returns %NULL if no #GstCaps matches the data stream.
-         */
-        function type_find_helper(src: Gst.Pad, size: number): Gst.Caps | null
-        /**
-         * Tries to find what type of data is contained in the given #GstBuffer, the
-         * assumption being that the buffer represents the beginning of the stream or
-         * file.
-         *
-         * All available typefinders will be called on the data in order of rank. If
-         * a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
-         * typefinding is stopped immediately and the found caps will be returned
-         * right away. Otherwise, all available typefind functions will the tried,
-         * and the caps with the highest probability will be returned, or %NULL if
-         * the content of the buffer could not be identified.
-         *
-         * Free-function: gst_caps_unref
-         * @param obj object doing the typefinding, or %NULL (used for logging)
-         * @param buf a #GstBuffer with data to typefind
-         * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
-         */
-        function type_find_helper_for_buffer(obj: Gst.Object | null, buf: Gst.Buffer): Gst.Caps | null
-        /**
-         * Tries to find if type of media contained in the given #GstBuffer, matches
-         * @caps specified, assumption being that the buffer represents the beginning
-         * of the stream or file.
-         *
-         * Tries to find what type of data is contained in the given @data, the
-         * assumption being that the data represents the beginning of the stream or
-         * file.
-         *
-         * Only the typefinder matching the given caps will be called, if found. The
-         * caps with the highest probability will be returned, or %NULL if the content
-         * of the @data could not be identified.
-         *
-         * Free-function: gst_caps_unref
-         * @since 1.22
-         * @param obj object doing the typefinding, or %NULL (used for logging)
-         * @param buf a #GstBuffer with data to typefind
-         * @param caps caps of the media
-         * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
-         */
-        function type_find_helper_for_buffer_with_caps(obj: Gst.Object | null, buf: Gst.Buffer, caps: Gst.Caps): Gst.Caps | null
-        /**
-         * Tries to find what type of data is contained in the given #GstBuffer, the
-         * assumption being that the buffer represents the beginning of the stream or
-         * file.
-         *
-         * All available typefinders will be called on the data in order of rank. If
-         * a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
-         * typefinding is stopped immediately and the found caps will be returned
-         * right away. Otherwise, all available typefind functions will the tried,
-         * and the caps with the highest probability will be returned, or %NULL if
-         * the content of the buffer could not be identified.
-         *
-         * When @extension is not %NULL, this function will first try the typefind
-         * functions for the given extension, which might speed up the typefinding
-         * in many cases.
-         *
-         * Free-function: gst_caps_unref
-         * @since 1.16
-         * @param obj object doing the typefinding, or %NULL (used for logging)
-         * @param buf a #GstBuffer with data to typefind
-         * @param extension extension of the media, or %NULL
-         * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
-         */
-        function type_find_helper_for_buffer_with_extension(obj: Gst.Object | null, buf: Gst.Buffer, extension: string | null): Gst.Caps | null
-        /**
-         * Tries to find what type of data is contained in the given @data, the
-         * assumption being that the data represents the beginning of the stream or
-         * file.
-         *
-         * All available typefinders will be called on the data in order of rank. If
-         * a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
-         * typefinding is stopped immediately and the found caps will be returned
-         * right away. Otherwise, all available typefind functions will the tried,
-         * and the caps with the highest probability will be returned, or %NULL if
-         * the content of @data could not be identified.
-         *
-         * Free-function: gst_caps_unref
-         * @param obj object doing the typefinding, or %NULL (used for logging)
-         * @param data * a pointer with data to typefind
-         * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
-         */
-        function type_find_helper_for_data(obj: Gst.Object | null, data: Uint8Array): Gst.Caps | null
-        /**
-         * Tries to find if type of media contained in the given @data, matches the
-         * @caps specified, assumption being that the data represents the beginning
-         * of the stream or file.
-         *
-         * Only the typefinder matching the given caps will be called, if found. The
-         * caps with the highest probability will be returned, or %NULL if the content
-         * of the @data could not be identified.
-         *
-         * Free-function: gst_caps_unref
-         * @since 1.22
-         * @param obj object doing the typefinding, or %NULL (used for logging)
-         * @param data a pointer with data to typefind
-         * @param caps caps of the media
-         * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
-         */
-        function type_find_helper_for_data_with_caps(obj: Gst.Object | null, data: Uint8Array, caps: Gst.Caps): Gst.Caps | null
-        /**
-         * Tries to find what type of data is contained in the given @data, the
-         * assumption being that the data represents the beginning of the stream or
-         * file.
-         *
-         * All available typefinders will be called on the data in order of rank. If
-         * a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
-         * typefinding is stopped immediately and the found caps will be returned
-         * right away. Otherwise, all available typefind functions will the tried,
-         * and the caps with the highest probability will be returned, or %NULL if
-         * the content of @data could not be identified.
-         *
-         * When @extension is not %NULL, this function will first try the typefind
-         * functions for the given extension, which might speed up the typefinding
-         * in many cases.
-         *
-         * Free-function: gst_caps_unref
-         * @since 1.16
-         * @param obj object doing the typefinding, or %NULL (used for logging)
-         * @param data * a pointer with data to typefind
-         * @param extension extension of the media, or %NULL
-         * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
-         */
-        function type_find_helper_for_data_with_extension(obj: Gst.Object | null, data: Uint8Array, extension: string | null): Gst.Caps | null
-        /**
-         * Tries to find the best #GstCaps associated with @extension.
-         *
-         * All available typefinders will be checked against the extension in order
-         * of rank. The caps of the first typefinder that can handle @extension will be
-         * returned.
-         *
-         * Free-function: gst_caps_unref
-         * @param obj object doing the typefinding, or %NULL (used for logging)
-         * @param extension an extension
-         * @returns the #GstCaps corresponding to     `extension`, or %NULL if no type could be found. The caller should free     the caps returned with gst_caps_unref().
-         */
-        function type_find_helper_for_extension(obj: Gst.Object | null, extension: string): Gst.Caps | null
-        /**
-         * Utility function to do pull-based typefinding. Unlike gst_type_find_helper()
-         * however, this function will use the specified function @func to obtain the
-         * data needed by the typefind functions, rather than operating on a given
-         * source pad. This is useful mostly for elements like tag demuxers which
-         * strip off data at the beginning and/or end of a file and want to typefind
-         * the stripped data stream before adding their own source pad (the specified
-         * callback can then call the upstream peer pad with offsets adjusted for the
-         * tag size, for example).
-         *
-         * When @extension is not %NULL, this function will first try the typefind
-         * functions for the given extension, which might speed up the typefinding
-         * in many cases.
-         *
-         * Free-function: gst_caps_unref
-         * @param obj A #GstObject that will be passed as first argument to @func
-         * @param parent the parent of @obj or %NULL
-         * @param func A generic #GstTypeFindHelperGetRangeFunction that will
-               be used to access data at random offsets when doing the typefinding
-         * @param size The length in bytes
-         * @param extension extension of the media, or %NULL
-         * @returns the #GstCaps corresponding to the data     stream.  Returns %NULL if no #GstCaps matches the data stream., location to store the probability of the found     caps, or %NULL
-         */
-        function type_find_helper_get_range(obj: Gst.Object, parent: Gst.Object | null, func: TypeFindHelperGetRangeFunction, size: number, extension: string | null): Gst.Caps | null
-        /**
-         * Utility function to do pull-based typefinding. Unlike gst_type_find_helper()
-         * however, this function will use the specified function @func to obtain the
-         * data needed by the typefind functions, rather than operating on a given
-         * source pad. This is useful mostly for elements like tag demuxers which
-         * strip off data at the beginning and/or end of a file and want to typefind
-         * the stripped data stream before adding their own source pad (the specified
-         * callback can then call the upstream peer pad with offsets adjusted for the
-         * tag size, for example).
-         *
-         * When @extension is not %NULL, this function will first try the typefind
-         * functions for the given extension, which might speed up the typefinding
-         * in many cases.
-         * @since 1.14.3
-         * @param obj A #GstObject that will be passed as first argument to @func
-         * @param parent the parent of @obj or %NULL
-         * @param func A generic #GstTypeFindHelperGetRangeFunction that will
-               be used to access data at random offsets when doing the typefinding
-         * @param size The length in bytes
-         * @param extension extension of the media, or %NULL
-         * @returns the last %GstFlowReturn from pulling a buffer or %GST_FLOW_OK if          typefinding was successful., returned caps, location to store the probability of the found     caps, or %NULL
-         */
-        function type_find_helper_get_range_full(obj: Gst.Object, parent: Gst.Object | null, func: TypeFindHelperGetRangeFunction, size: number, extension: string | null): [Gst.FlowReturn, Gst.Caps]
-        /**
-         * Tries to find the best #GstTypeFindFactory associated with @caps.
-         *
-         * The typefinder that can handle @caps will be returned.
-         *
-         * Free-function: g_list_free
-         * @since 1.22
-         * @param obj object doing the typefinding, or %NULL (used for logging)
-         * @param caps caps of the media
-         * @returns the list of #GstTypeFindFactory          corresponding to `caps`, or %NULL if no typefinder could be          found. Caller should free the returned list with g_list_free()          and list elements with gst_object_unref().
-         */
-        function type_find_list_factories_for_caps(obj: Gst.Object | null, caps: Gst.Caps): Gst.TypeFindFactory[] | null
-        const BASE_PARSE_FLAG_DRAINING: 2
-        const BASE_PARSE_FLAG_LOST_SYNC: 1
-        const BASE_TRANSFORM_SINK_NAME: "sink"
-        const BASE_TRANSFORM_SRC_NAME: "src"
         
-        namespace AggregatorStartTimeSelection {
-            const $gtype: GObject.GType<AggregatorStartTimeSelection>
+
+        interface TypeFindDataStruct {
+            readonly $gtype: GObject.GType<TypeFindData>
+            [Symbol.hasInstance](instance: unknown): instance is TypeFindData
         }
 
-        /**
-         * @since 1.18
-         */
-        enum AggregatorStartTimeSelection {
+        interface TypeFindData {
+        }
+
+        interface $Exports {
+            TypeFindData: TypeFindDataStruct
+        }
+        
+        interface AggregatorStartTimeSelectionEnum {
+            readonly $gtype: GObject.GType<AggregatorStartTimeSelection>
             /**
              * Start at running time 0.
              */
-            "ZERO" = 0,
+            readonly "ZERO": 0
             /**
              * Start at the running time of
              * the first buffer that is received.
              */
-            "FIRST" = 1,
+            readonly "FIRST": 1
             /**
              * Start at the running time
              * selected by the `start-time` property.
              */
-            "SET" = 2,
+            readonly "SET": 2
+        }
+        type AggregatorStartTimeSelection = AggregatorStartTimeSelectionEnum[Exclude<keyof AggregatorStartTimeSelectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 1.18
+             */
+            AggregatorStartTimeSelection: AggregatorStartTimeSelectionEnum
         }
         
-        namespace BaseParseFrameFlags {
-            const $gtype: GObject.GType<BaseParseFrameFlags>
-        }
-
-        /**
-         * Flags to be used in a #GstBaseParseFrame.
-         */
-        enum BaseParseFrameFlags {
+        interface BaseParseFrameFlagsBitfield {
+            readonly $gtype: GObject.GType<BaseParseFrameFlags>
             /**
              * no flag
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * set by baseclass if current frame
              *   is passed for processing to the subclass for the first time
              *   (and not set on subsequent calls with same data).
              */
-            "NEW_FRAME" = 1,
+            readonly "NEW_FRAME": 1
             /**
              * set to indicate this buffer should not be
              *   counted as frame, e.g. if this frame is dependent on a previous one.
              *   As it is not counted as a frame, bitrate increases but frame to time
              *   conversions are maintained.
              */
-            "NO_FRAME" = 2,
+            readonly "NO_FRAME": 2
             /**
              * @pre_push_frame can set this to indicate
              *    that regular segment clipping can still be performed (as opposed to
              *    any custom one having been done).
              */
-            "CLIP" = 4,
+            readonly "CLIP": 4
             /**
              * indicates to @finish_frame that the
              *    the frame should be dropped (and might be handled internally by subclass)
              */
-            "DROP" = 8,
+            readonly "DROP": 8
             /**
              * indicates to @finish_frame that the
              *    the frame should be queued for now and processed fully later
              *    when the first non-queued frame is finished
              */
-            "QUEUE" = 16,
+            readonly "QUEUE": 16
+        }
+        type BaseParseFrameFlags = number
+        interface $Exports {
+            /**
+             * Flags to be used in a #GstBaseParseFrame.
+             */
+            BaseParseFrameFlags: BaseParseFrameFlagsBitfield
         }
         
-        namespace BaseSrcFlags {
-            const $gtype: GObject.GType<BaseSrcFlags>
-        }
-
-        /**
-         * The #GstElement flags that a basesrc element may have.
-         */
-        enum BaseSrcFlags {
+        interface BaseSrcFlagsBitfield {
+            readonly $gtype: GObject.GType<BaseSrcFlags>
             /**
              * has source is starting
              */
-            "STARTING" = 16384,
+            readonly "STARTING": 16384
             /**
              * has source been started
              */
-            "STARTED" = 32768,
+            readonly "STARTED": 32768
             /**
              * offset to define more flags
              */
-            "LAST" = 1048576,
+            readonly "LAST": 1048576
+        }
+        type BaseSrcFlags = number
+        interface $Exports {
+            /**
+             * The #GstElement flags that a basesrc element may have.
+             */
+            BaseSrcFlags: BaseSrcFlagsBitfield
         }
         
-        namespace CollectPadsStateFlags {
-            const $gtype: GObject.GType<CollectPadsStateFlags>
-        }
-
-        /**
-         */
-        enum CollectPadsStateFlags {
+        interface CollectPadsStateFlagsBitfield {
+            readonly $gtype: GObject.GType<CollectPadsStateFlags>
             /**
              * Set if collectdata's pad is EOS.
              */
-            "EOS" = 1,
+            readonly "EOS": 1
             /**
              * Set if collectdata's pad is flushing.
              */
-            "FLUSHING" = 2,
+            readonly "FLUSHING": 2
             /**
              * Set if collectdata's pad received a
              *                                      new_segment event.
              */
-            "NEW_SEGMENT" = 4,
+            readonly "NEW_SEGMENT": 4
             /**
              * Set if collectdata's pad must be waited
              *                                      for when collecting.
              */
-            "WAITING" = 8,
+            readonly "WAITING": 8
             /**
              * Set collectdata's pad WAITING state must
              *                                      not be changed.
              * #GstCollectPadsStateFlags indicate private state of a collectdata('s pad).
              */
-            "LOCKED" = 16,
+            readonly "LOCKED": 16
+        }
+        type CollectPadsStateFlags = number
+        interface $Exports {
+            /**
+             */
+            CollectPadsStateFlags: CollectPadsStateFlagsBitfield
         }
         /**
          * A function that will be called when the #GstCollectData will be freed.
@@ -5107,7 +5173,6 @@ declare module "gi://GstBase?version=1.0" {
          * @returns %TRUE if the pad could handle the event
          */
         type CollectPadsQueryFunction = (pads: CollectPads, pad: CollectData, query: Gst.Query) => boolean
-        none
         /**
          * @param queue
          * @param checkdata
@@ -5133,7 +5198,220 @@ declare module "gi://GstBase?version=1.0" {
          * @returns GST_FLOW_OK for success, a memory location to hold the result buffer
          */
         type TypeFindHelperGetRangeFunction = (obj: Gst.Object, parent: Gst.Object | null, offset: number, length: number) => [Gst.FlowReturn, Gst.Buffer]
+
+        interface $Exports {
+            __name__: "GstBase"
+            __version: "1.0"
+            BASE_PARSE_FLAG_DRAINING: 2
+            BASE_PARSE_FLAG_LOST_SYNC: 1
+            BASE_TRANSFORM_SINK_NAME: "sink"
+            BASE_TRANSFORM_SRC_NAME: "src"
+            /**
+             * Tries to find what type of data is flowing from the given source #GstPad.
+             *
+             * Free-function: gst_caps_unref
+             * @param src A source #GstPad
+             * @param size The length in bytes
+             * @returns the #GstCaps corresponding to the data     stream.  Returns %NULL if no #GstCaps matches the data stream.
+             */
+            type_find_helper(src: Gst.Pad, size: number): Gst.Caps | null
+            /**
+             * Tries to find what type of data is contained in the given #GstBuffer, the
+             * assumption being that the buffer represents the beginning of the stream or
+             * file.
+             *
+             * All available typefinders will be called on the data in order of rank. If
+             * a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
+             * typefinding is stopped immediately and the found caps will be returned
+             * right away. Otherwise, all available typefind functions will the tried,
+             * and the caps with the highest probability will be returned, or %NULL if
+             * the content of the buffer could not be identified.
+             *
+             * Free-function: gst_caps_unref
+             * @param obj object doing the typefinding, or %NULL (used for logging)
+             * @param buf a #GstBuffer with data to typefind
+             * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
+             */
+            type_find_helper_for_buffer(obj: Gst.Object | null, buf: Gst.Buffer): [Gst.Caps | null, Gst.TypeFindProbability]
+            /**
+             * Tries to find if type of media contained in the given #GstBuffer, matches
+             * @caps specified, assumption being that the buffer represents the beginning
+             * of the stream or file.
+             *
+             * Tries to find what type of data is contained in the given @data, the
+             * assumption being that the data represents the beginning of the stream or
+             * file.
+             *
+             * Only the typefinder matching the given caps will be called, if found. The
+             * caps with the highest probability will be returned, or %NULL if the content
+             * of the @data could not be identified.
+             *
+             * Free-function: gst_caps_unref
+             * @since 1.22
+             * @param obj object doing the typefinding, or %NULL (used for logging)
+             * @param buf a #GstBuffer with data to typefind
+             * @param caps caps of the media
+             * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
+             */
+            type_find_helper_for_buffer_with_caps(obj: Gst.Object | null, buf: Gst.Buffer, caps: Gst.Caps): [Gst.Caps | null, Gst.TypeFindProbability]
+            /**
+             * Tries to find what type of data is contained in the given #GstBuffer, the
+             * assumption being that the buffer represents the beginning of the stream or
+             * file.
+             *
+             * All available typefinders will be called on the data in order of rank. If
+             * a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
+             * typefinding is stopped immediately and the found caps will be returned
+             * right away. Otherwise, all available typefind functions will the tried,
+             * and the caps with the highest probability will be returned, or %NULL if
+             * the content of the buffer could not be identified.
+             *
+             * When @extension is not %NULL, this function will first try the typefind
+             * functions for the given extension, which might speed up the typefinding
+             * in many cases.
+             *
+             * Free-function: gst_caps_unref
+             * @since 1.16
+             * @param obj object doing the typefinding, or %NULL (used for logging)
+             * @param buf a #GstBuffer with data to typefind
+             * @param extension extension of the media, or %NULL
+             * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
+             */
+            type_find_helper_for_buffer_with_extension(obj: Gst.Object | null, buf: Gst.Buffer, extension: string | null): [Gst.Caps | null, Gst.TypeFindProbability]
+            /**
+             * Tries to find what type of data is contained in the given @data, the
+             * assumption being that the data represents the beginning of the stream or
+             * file.
+             *
+             * All available typefinders will be called on the data in order of rank. If
+             * a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
+             * typefinding is stopped immediately and the found caps will be returned
+             * right away. Otherwise, all available typefind functions will the tried,
+             * and the caps with the highest probability will be returned, or %NULL if
+             * the content of @data could not be identified.
+             *
+             * Free-function: gst_caps_unref
+             * @param obj object doing the typefinding, or %NULL (used for logging)
+             * @param data * a pointer with data to typefind
+             * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
+             */
+            type_find_helper_for_data(obj: Gst.Object | null, data: Uint8Array): [Gst.Caps | null, Gst.TypeFindProbability]
+            /**
+             * Tries to find if type of media contained in the given @data, matches the
+             * @caps specified, assumption being that the data represents the beginning
+             * of the stream or file.
+             *
+             * Only the typefinder matching the given caps will be called, if found. The
+             * caps with the highest probability will be returned, or %NULL if the content
+             * of the @data could not be identified.
+             *
+             * Free-function: gst_caps_unref
+             * @since 1.22
+             * @param obj object doing the typefinding, or %NULL (used for logging)
+             * @param data a pointer with data to typefind
+             * @param caps caps of the media
+             * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
+             */
+            type_find_helper_for_data_with_caps(obj: Gst.Object | null, data: Uint8Array, caps: Gst.Caps): [Gst.Caps | null, Gst.TypeFindProbability]
+            /**
+             * Tries to find what type of data is contained in the given @data, the
+             * assumption being that the data represents the beginning of the stream or
+             * file.
+             *
+             * All available typefinders will be called on the data in order of rank. If
+             * a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
+             * typefinding is stopped immediately and the found caps will be returned
+             * right away. Otherwise, all available typefind functions will the tried,
+             * and the caps with the highest probability will be returned, or %NULL if
+             * the content of @data could not be identified.
+             *
+             * When @extension is not %NULL, this function will first try the typefind
+             * functions for the given extension, which might speed up the typefinding
+             * in many cases.
+             *
+             * Free-function: gst_caps_unref
+             * @since 1.16
+             * @param obj object doing the typefinding, or %NULL (used for logging)
+             * @param data * a pointer with data to typefind
+             * @param extension extension of the media, or %NULL
+             * @returns the #GstCaps corresponding to the data,     or %NULL if no type could be found. The caller should free the caps     returned with gst_caps_unref()., location to store the probability of the found     caps, or %NULL
+             */
+            type_find_helper_for_data_with_extension(obj: Gst.Object | null, data: Uint8Array, extension: string | null): [Gst.Caps | null, Gst.TypeFindProbability]
+            /**
+             * Tries to find the best #GstCaps associated with @extension.
+             *
+             * All available typefinders will be checked against the extension in order
+             * of rank. The caps of the first typefinder that can handle @extension will be
+             * returned.
+             *
+             * Free-function: gst_caps_unref
+             * @param obj object doing the typefinding, or %NULL (used for logging)
+             * @param extension an extension
+             * @returns the #GstCaps corresponding to     `extension`, or %NULL if no type could be found. The caller should free     the caps returned with gst_caps_unref().
+             */
+            type_find_helper_for_extension(obj: Gst.Object | null, extension: string): Gst.Caps | null
+            /**
+             * Utility function to do pull-based typefinding. Unlike gst_type_find_helper()
+             * however, this function will use the specified function @func to obtain the
+             * data needed by the typefind functions, rather than operating on a given
+             * source pad. This is useful mostly for elements like tag demuxers which
+             * strip off data at the beginning and/or end of a file and want to typefind
+             * the stripped data stream before adding their own source pad (the specified
+             * callback can then call the upstream peer pad with offsets adjusted for the
+             * tag size, for example).
+             *
+             * When @extension is not %NULL, this function will first try the typefind
+             * functions for the given extension, which might speed up the typefinding
+             * in many cases.
+             *
+             * Free-function: gst_caps_unref
+             * @param obj A #GstObject that will be passed as first argument to @func
+             * @param parent the parent of @obj or %NULL
+             * @param func A generic #GstTypeFindHelperGetRangeFunction that will
+                   be used to access data at random offsets when doing the typefinding
+             * @param size The length in bytes
+             * @param extension extension of the media, or %NULL
+             * @returns the #GstCaps corresponding to the data     stream.  Returns %NULL if no #GstCaps matches the data stream., location to store the probability of the found     caps, or %NULL
+             */
+            type_find_helper_get_range(obj: Gst.Object, parent: Gst.Object | null, func: TypeFindHelperGetRangeFunction, size: number, extension: string | null): [Gst.Caps | null, Gst.TypeFindProbability]
+            /**
+             * Utility function to do pull-based typefinding. Unlike gst_type_find_helper()
+             * however, this function will use the specified function @func to obtain the
+             * data needed by the typefind functions, rather than operating on a given
+             * source pad. This is useful mostly for elements like tag demuxers which
+             * strip off data at the beginning and/or end of a file and want to typefind
+             * the stripped data stream before adding their own source pad (the specified
+             * callback can then call the upstream peer pad with offsets adjusted for the
+             * tag size, for example).
+             *
+             * When @extension is not %NULL, this function will first try the typefind
+             * functions for the given extension, which might speed up the typefinding
+             * in many cases.
+             * @since 1.14.3
+             * @param obj A #GstObject that will be passed as first argument to @func
+             * @param parent the parent of @obj or %NULL
+             * @param func A generic #GstTypeFindHelperGetRangeFunction that will
+                   be used to access data at random offsets when doing the typefinding
+             * @param size The length in bytes
+             * @param extension extension of the media, or %NULL
+             * @returns the last %GstFlowReturn from pulling a buffer or %GST_FLOW_OK if          typefinding was successful., returned caps, location to store the probability of the found     caps, or %NULL
+             */
+            type_find_helper_get_range_full(obj: Gst.Object, parent: Gst.Object | null, func: TypeFindHelperGetRangeFunction, size: number, extension: string | null): [Gst.FlowReturn, Gst.Caps, Gst.TypeFindProbability]
+            /**
+             * Tries to find the best #GstTypeFindFactory associated with @caps.
+             *
+             * The typefinder that can handle @caps will be returned.
+             *
+             * Free-function: g_list_free
+             * @since 1.22
+             * @param obj object doing the typefinding, or %NULL (used for logging)
+             * @param caps caps of the media
+             * @returns the list of #GstTypeFindFactory          corresponding to `caps`, or %NULL if no typefinder could be          found. Caller should free the returned list with g_list_free()          and list elements with gst_object_unref().
+             */
+            type_find_list_factories_for_caps(obj: Gst.Object | null, caps: Gst.Caps): Gst.TypeFindFactory[] | null
+        }
     }
 
+    const GstBase: GstBase.$Exports
     export default GstBase
 }

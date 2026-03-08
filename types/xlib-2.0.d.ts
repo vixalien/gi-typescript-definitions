@@ -12,82 +12,136 @@ declare module "gi://xlib?version=2.0" {
 
     
 
-
     namespace xlib {
-        const __name__: "xlib"
-        const __version: "2.0"
-        /**
-         */
-        abstract class Display {
-            static readonly $gtype: GObject.GType<Display>
+        
 
-            
+        interface DisplayStruct {
+            readonly $gtype: GObject.GType<Display>
+            [Symbol.hasInstance](instance: unknown): instance is Display
         }
-        /**
-         */
-        abstract class Screen {
-            static readonly $gtype: GObject.GType<Screen>
 
-            
+        interface Display {
         }
-        /**
-         */
-        abstract class Visual {
-            static readonly $gtype: GObject.GType<Visual>
 
-            
+        interface $Exports {
+            Display: DisplayStruct
         }
-        /**
-         */
-        abstract class XConfigureEvent {
-            static readonly $gtype: GObject.GType<XConfigureEvent>
+        
 
-            
+        interface ScreenStruct {
+            readonly $gtype: GObject.GType<Screen>
+            [Symbol.hasInstance](instance: unknown): instance is Screen
         }
-        /**
-         */
-        abstract class XImage {
-            static readonly $gtype: GObject.GType<XImage>
 
-            
+        interface Screen {
         }
-        /**
-         */
-        abstract class XFontStruct {
-            static readonly $gtype: GObject.GType<XFontStruct>
 
-            
+        interface $Exports {
+            Screen: ScreenStruct
         }
-        /**
-         */
-        abstract class XTrapezoid {
-            static readonly $gtype: GObject.GType<XTrapezoid>
+        
 
-            
+        interface VisualStruct {
+            readonly $gtype: GObject.GType<Visual>
+            [Symbol.hasInstance](instance: unknown): instance is Visual
         }
-        /**
-         */
-        abstract class XVisualInfo {
-            static readonly $gtype: GObject.GType<XVisualInfo>
 
-            
+        interface Visual {
         }
-        /**
-         */
-        abstract class XWindowAttributes {
-            static readonly $gtype: GObject.GType<XWindowAttributes>
 
-            
+        interface $Exports {
+            Visual: VisualStruct
         }
-        /**
-         */
-        function open_display(): void
-        /**
-         */
-        abstract class XEvent {
-            static readonly $gtype: GObject.GType<XEvent>
+        
 
-            
+        interface XConfigureEventStruct {
+            readonly $gtype: GObject.GType<XConfigureEvent>
+            [Symbol.hasInstance](instance: unknown): instance is XConfigureEvent
+        }
+
+        interface XConfigureEvent {
+        }
+
+        interface $Exports {
+            XConfigureEvent: XConfigureEventStruct
+        }
+        
+
+        interface XImageStruct {
+            readonly $gtype: GObject.GType<XImage>
+            [Symbol.hasInstance](instance: unknown): instance is XImage
+        }
+
+        interface XImage {
+        }
+
+        interface $Exports {
+            XImage: XImageStruct
+        }
+        
+
+        interface XFontStructStruct {
+            readonly $gtype: GObject.GType<XFontStruct>
+            [Symbol.hasInstance](instance: unknown): instance is XFontStruct
+        }
+
+        interface XFontStruct {
+        }
+
+        interface $Exports {
+            XFontStruct: XFontStructStruct
+        }
+        
+
+        interface XTrapezoidStruct {
+            readonly $gtype: GObject.GType<XTrapezoid>
+            [Symbol.hasInstance](instance: unknown): instance is XTrapezoid
+        }
+
+        interface XTrapezoid {
+        }
+
+        interface $Exports {
+            XTrapezoid: XTrapezoidStruct
+        }
+        
+
+        interface XVisualInfoStruct {
+            readonly $gtype: GObject.GType<XVisualInfo>
+            [Symbol.hasInstance](instance: unknown): instance is XVisualInfo
+        }
+
+        interface XVisualInfo {
+        }
+
+        interface $Exports {
+            XVisualInfo: XVisualInfoStruct
+        }
+        
+
+        interface XWindowAttributesStruct {
+            readonly $gtype: GObject.GType<XWindowAttributes>
+            [Symbol.hasInstance](instance: unknown): instance is XWindowAttributes
+        }
+
+        interface XWindowAttributes {
+        }
+
+        interface $Exports {
+            XWindowAttributes: XWindowAttributesStruct
+        }
+        
+
+        interface XEventStruct {
+            readonly $gtype: GObject.GType<XEvent>
+            [Symbol.hasInstance](instance: unknown): instance is XEvent
+        }
+
+        interface XEvent {
+        }
+
+        interface $Exports {
+            XEvent: XEventStruct
         }
         /**
          */
@@ -128,7 +182,16 @@ declare module "gi://xlib?version=2.0" {
         /**
          */
         type Pixmap = number
+
+        interface $Exports {
+            __name__: "xlib"
+            __version: "2.0"
+            /**
+             */
+            open_display(): void
+        }
     }
 
+    const xlib: xlib.$Exports
     export default xlib
 }

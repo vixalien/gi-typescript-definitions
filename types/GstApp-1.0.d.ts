@@ -18,10 +18,7 @@ declare module "gi://GstApp?version=1.0" {
 
     
 
-
     namespace GstApp {
-        const __name__: "GstApp"
-        const __version: "1.0"
         
 
         namespace AppSink {
@@ -233,44 +230,6 @@ declare module "gi://GstApp?version=1.0" {
             }
         }
 
-        /**
-         * Appsink is a sink plugin that supports many different methods for making
-         * the application get a handle on the GStreamer data in a pipeline. Unlike
-         * most GStreamer elements, Appsink provides external API functions.
-         *
-         * appsink can be used by linking to the gstappsink.h header file to access the
-         * methods or by using the appsink action signals and properties.
-         *
-         * The normal way of retrieving samples from appsink is by using the
-         * gst_app_sink_pull_sample() and gst_app_sink_pull_preroll() methods.
-         * These methods block until a sample becomes available in the sink or when the
-         * sink is shut down or reaches EOS. There are also timed variants of these
-         * methods, gst_app_sink_try_pull_sample() and gst_app_sink_try_pull_preroll(),
-         * which accept a timeout parameter to limit the amount of time to wait.
-         *
-         * Appsink will internally use a queue to collect buffers from the streaming
-         * thread. If the application is not pulling samples fast enough, this queue
-         * will consume a lot of memory over time. The "max-buffers", "max-time" and "max-bytes"
-         * properties can be used to limit the queue size. The "drop" property controls whether the
-         * streaming thread blocks or if older buffers are dropped when the maximum
-         * queue size is reached. Note that blocking the streaming thread can negatively
-         * affect real-time performance and should be avoided.
-         *
-         * If a blocking behaviour is not desirable, setting the "emit-signals" property
-         * to %TRUE will make appsink emit the "new-sample" and "new-preroll" signals
-         * when a sample can be pulled without blocking.
-         *
-         * The "caps" property on appsink can be used to control the formats that
-         * appsink can receive. This property can contain non-fixed caps, the format of
-         * the pulled samples can be obtained by getting the sample caps.
-         *
-         * If one of the pull-preroll or pull-sample methods return %NULL, the appsink
-         * is stopped or in the EOS state. You can check for the EOS state with the
-         * "eos" property or with the gst_app_sink_is_eos() method.
-         *
-         * The eos signal can also be used to be informed when the EOS state is reached
-         * to avoid polling.
-         */
         interface AppSink extends GstBase.BaseSink, Gst.URIHandler {
             readonly $signals: AppSink.SignalSignatures
             readonly $readableProperties: AppSink.ReadableProperties
@@ -693,10 +652,51 @@ declare module "gi://GstApp?version=1.0" {
         interface AppSinkClass extends Omit<GstBase.BaseSinkClass, "new"> {
             readonly $gtype: GObject.GType<AppSink>
             readonly prototype: AppSink
+
             new (props?: Partial<GObject.ConstructorProps<AppSink>>): AppSink
         }
 
-        const AppSink: AppSinkClass
+        interface $Exports {
+            /**
+             * Appsink is a sink plugin that supports many different methods for making
+             * the application get a handle on the GStreamer data in a pipeline. Unlike
+             * most GStreamer elements, Appsink provides external API functions.
+             *
+             * appsink can be used by linking to the gstappsink.h header file to access the
+             * methods or by using the appsink action signals and properties.
+             *
+             * The normal way of retrieving samples from appsink is by using the
+             * gst_app_sink_pull_sample() and gst_app_sink_pull_preroll() methods.
+             * These methods block until a sample becomes available in the sink or when the
+             * sink is shut down or reaches EOS. There are also timed variants of these
+             * methods, gst_app_sink_try_pull_sample() and gst_app_sink_try_pull_preroll(),
+             * which accept a timeout parameter to limit the amount of time to wait.
+             *
+             * Appsink will internally use a queue to collect buffers from the streaming
+             * thread. If the application is not pulling samples fast enough, this queue
+             * will consume a lot of memory over time. The "max-buffers", "max-time" and "max-bytes"
+             * properties can be used to limit the queue size. The "drop" property controls whether the
+             * streaming thread blocks or if older buffers are dropped when the maximum
+             * queue size is reached. Note that blocking the streaming thread can negatively
+             * affect real-time performance and should be avoided.
+             *
+             * If a blocking behaviour is not desirable, setting the "emit-signals" property
+             * to %TRUE will make appsink emit the "new-sample" and "new-preroll" signals
+             * when a sample can be pulled without blocking.
+             *
+             * The "caps" property on appsink can be used to control the formats that
+             * appsink can receive. This property can contain non-fixed caps, the format of
+             * the pulled samples can be obtained by getting the sample caps.
+             *
+             * If one of the pull-preroll or pull-sample methods return %NULL, the appsink
+             * is stopped or in the EOS state. You can check for the EOS state with the
+             * "eos" property or with the gst_app_sink_is_eos() method.
+             *
+             * The eos signal can also be used to be informed when the EOS state is reached
+             * to avoid polling.
+             */
+            AppSink: AppSinkClass
+        }
         
 
         namespace AppSrc {
@@ -826,73 +826,6 @@ declare module "gi://GstApp?version=1.0" {
             }
         }
 
-        /**
-         * The appsrc element can be used by applications to insert data into a
-         * GStreamer pipeline. Unlike most GStreamer elements, appsrc provides
-         * external API functions.
-         *
-         * appsrc can be used by linking with the libgstapp library to access the
-         * methods directly or by using the appsrc action signals.
-         *
-         * Before operating appsrc, the caps property must be set to fixed caps
-         * describing the format of the data that will be pushed with appsrc. An
-         * exception to this is when pushing buffers with unknown caps, in which case no
-         * caps should be set. This is typically true of file-like sources that push raw
-         * byte buffers. If you don't want to explicitly set the caps, you can use
-         * gst_app_src_push_sample. This method gets the caps associated with the
-         * sample and sets them on the appsrc replacing any previously set caps (if
-         * different from sample's caps).
-         *
-         * The main way of handing data to the appsrc element is by calling the
-         * gst_app_src_push_buffer() method or by emitting the push-buffer action signal.
-         * This will put the buffer onto a queue from which appsrc will read from in its
-         * streaming thread. It is important to note that data transport will not happen
-         * from the thread that performed the push-buffer call.
-         *
-         * The "max-bytes", "max-buffers" and "max-time" properties control how much
-         * data can be queued in appsrc before appsrc considers the queue full. A
-         * filled internal queue will always signal the "enough-data" signal, which
-         * signals the application that it should stop pushing data into appsrc. The
-         * "block" property will cause appsrc to block the push-buffer method until
-         * free data becomes available again.
-         *
-         * When the internal queue is running out of data, the "need-data" signal is
-         * emitted, which signals the application that it should start pushing more data
-         * into appsrc.
-         *
-         * In addition to the "need-data" and "enough-data" signals, appsrc can emit the
-         * "seek-data" signal when the "stream-mode" property is set to "seekable" or
-         * "random-access". The signal argument will contain the new desired position in
-         * the stream expressed in the unit set with the "format" property. After
-         * receiving the seek-data signal, the application should push-buffers from the
-         * new position.
-         *
-         * These signals allow the application to operate the appsrc in two different
-         * ways:
-         *
-         * The push mode, in which the application repeatedly calls the push-buffer/push-sample
-         * method with a new buffer/sample. Optionally, the queue size in the appsrc
-         * can be controlled with the enough-data and need-data signals by respectively
-         * stopping/starting the push-buffer/push-sample calls. This is a typical
-         * mode of operation for the stream-type "stream" and "seekable". Use this
-         * mode when implementing various network protocols or hardware devices.
-         *
-         * The pull mode, in which the need-data signal triggers the next push-buffer call.
-         * This mode is typically used in the "random-access" stream-type. Use this
-         * mode for file access or other randomly accessible sources. In this mode, a
-         * buffer of exactly the amount of bytes given by the need-data signal should be
-         * pushed into appsrc.
-         *
-         * In all modes, the size property on appsrc should contain the total stream
-         * size in bytes. Setting this property is mandatory in the random-access mode.
-         * For the stream and seekable modes, setting this property is optional but
-         * recommended.
-         *
-         * When the application has finished pushing data into appsrc, it should call
-         * gst_app_src_end_of_stream() or emit the end-of-stream action signal. After
-         * this call, no more buffers can be pushed into appsrc until a flushing seek
-         * occurs or the state of the appsrc has gone through READY.
-         */
         interface AppSrc extends GstBase.BaseSrc, Gst.URIHandler {
             readonly $signals: AppSrc.SignalSignatures
             readonly $readableProperties: AppSrc.ReadableProperties
@@ -1303,78 +1236,164 @@ declare module "gi://GstApp?version=1.0" {
         interface AppSrcClass extends Omit<GstBase.BaseSrcClass, "new"> {
             readonly $gtype: GObject.GType<AppSrc>
             readonly prototype: AppSrc
+
             new (props?: Partial<GObject.ConstructorProps<AppSrc>>): AppSrc
         }
 
-        const AppSrc: AppSrcClass
-        none
-        none
-        /**
-         */
-        abstract class AppSinkPrivate {
-            static readonly $gtype: GObject.GType<AppSinkPrivate>
-
-            
-        }
-        none
-        none
-        /**
-         */
-        abstract class AppSrcPrivate {
-            static readonly $gtype: GObject.GType<AppSrcPrivate>
-
-            
+        interface $Exports {
+            /**
+             * The appsrc element can be used by applications to insert data into a
+             * GStreamer pipeline. Unlike most GStreamer elements, appsrc provides
+             * external API functions.
+             *
+             * appsrc can be used by linking with the libgstapp library to access the
+             * methods directly or by using the appsrc action signals.
+             *
+             * Before operating appsrc, the caps property must be set to fixed caps
+             * describing the format of the data that will be pushed with appsrc. An
+             * exception to this is when pushing buffers with unknown caps, in which case no
+             * caps should be set. This is typically true of file-like sources that push raw
+             * byte buffers. If you don't want to explicitly set the caps, you can use
+             * gst_app_src_push_sample. This method gets the caps associated with the
+             * sample and sets them on the appsrc replacing any previously set caps (if
+             * different from sample's caps).
+             *
+             * The main way of handing data to the appsrc element is by calling the
+             * gst_app_src_push_buffer() method or by emitting the push-buffer action signal.
+             * This will put the buffer onto a queue from which appsrc will read from in its
+             * streaming thread. It is important to note that data transport will not happen
+             * from the thread that performed the push-buffer call.
+             *
+             * The "max-bytes", "max-buffers" and "max-time" properties control how much
+             * data can be queued in appsrc before appsrc considers the queue full. A
+             * filled internal queue will always signal the "enough-data" signal, which
+             * signals the application that it should stop pushing data into appsrc. The
+             * "block" property will cause appsrc to block the push-buffer method until
+             * free data becomes available again.
+             *
+             * When the internal queue is running out of data, the "need-data" signal is
+             * emitted, which signals the application that it should start pushing more data
+             * into appsrc.
+             *
+             * In addition to the "need-data" and "enough-data" signals, appsrc can emit the
+             * "seek-data" signal when the "stream-mode" property is set to "seekable" or
+             * "random-access". The signal argument will contain the new desired position in
+             * the stream expressed in the unit set with the "format" property. After
+             * receiving the seek-data signal, the application should push-buffers from the
+             * new position.
+             *
+             * These signals allow the application to operate the appsrc in two different
+             * ways:
+             *
+             * The push mode, in which the application repeatedly calls the push-buffer/push-sample
+             * method with a new buffer/sample. Optionally, the queue size in the appsrc
+             * can be controlled with the enough-data and need-data signals by respectively
+             * stopping/starting the push-buffer/push-sample calls. This is a typical
+             * mode of operation for the stream-type "stream" and "seekable". Use this
+             * mode when implementing various network protocols or hardware devices.
+             *
+             * The pull mode, in which the need-data signal triggers the next push-buffer call.
+             * This mode is typically used in the "random-access" stream-type. Use this
+             * mode for file access or other randomly accessible sources. In this mode, a
+             * buffer of exactly the amount of bytes given by the need-data signal should be
+             * pushed into appsrc.
+             *
+             * In all modes, the size property on appsrc should contain the total stream
+             * size in bytes. Setting this property is mandatory in the random-access mode.
+             * For the stream and seekable modes, setting this property is optional but
+             * recommended.
+             *
+             * When the application has finished pushing data into appsrc, it should call
+             * gst_app_src_end_of_stream() or emit the end-of-stream action signal. After
+             * this call, no more buffers can be pushed into appsrc until a flushing seek
+             * occurs or the state of the appsrc has gone through READY.
+             */
+            AppSrc: AppSrcClass
         }
         
-        namespace AppLeakyType {
-            const $gtype: GObject.GType<AppLeakyType>
+
+        interface AppSinkPrivateStruct {
+            readonly $gtype: GObject.GType<AppSinkPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AppSinkPrivate
         }
 
-        /**
-         * Buffer dropping scheme to avoid the element's internal queue to block when
-         * full.
-         * @since 1.20
-         */
-        enum AppLeakyType {
+        interface AppSinkPrivate {
+        }
+
+        interface $Exports {
+            AppSinkPrivate: AppSinkPrivateStruct
+        }
+        
+
+        interface AppSrcPrivateStruct {
+            readonly $gtype: GObject.GType<AppSrcPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AppSrcPrivate
+        }
+
+        interface AppSrcPrivate {
+        }
+
+        interface $Exports {
+            AppSrcPrivate: AppSrcPrivateStruct
+        }
+        
+        interface AppLeakyTypeEnum {
+            readonly $gtype: GObject.GType<AppLeakyType>
             /**
              * Not Leaky
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Leaky on upstream (new buffers)
              */
-            "UPSTREAM" = 1,
+            readonly "UPSTREAM": 1
             /**
              * Leaky on downstream (old buffers)
              */
-            "DOWNSTREAM" = 2,
+            readonly "DOWNSTREAM": 2
+        }
+        type AppLeakyType = AppLeakyTypeEnum[Exclude<keyof AppLeakyTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Buffer dropping scheme to avoid the element's internal queue to block when
+             * full.
+             * @since 1.20
+             */
+            AppLeakyType: AppLeakyTypeEnum
         }
         
-        namespace AppStreamType {
-            const $gtype: GObject.GType<AppStreamType>
-        }
-
-        /**
-         * The stream type.
-         */
-        enum AppStreamType {
+        interface AppStreamTypeEnum {
+            readonly $gtype: GObject.GType<AppStreamType>
             /**
              * No seeking is supported in the stream, such as a
              * live stream.
              */
-            "STREAM" = 0,
+            readonly "STREAM": 0
             /**
              * The stream is seekable but seeking might not
              * be very fast, such as data from a webserver.
              */
-            "SEEKABLE" = 1,
+            readonly "SEEKABLE": 1
             /**
              * The stream is seekable and seeking is fast,
              * such as in a local file.
              */
-            "RANDOM_ACCESS" = 2,
+            readonly "RANDOM_ACCESS": 2
+        }
+        type AppStreamType = AppStreamTypeEnum[Exclude<keyof AppStreamTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The stream type.
+             */
+            AppStreamType: AppStreamTypeEnum
+        }
+
+        interface $Exports {
+            __name__: "GstApp"
+            __version: "1.0"
         }
     }
 
+    const GstApp: GstApp.$Exports
     export default GstApp
 }

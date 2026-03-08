@@ -20,10 +20,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
 
     
 
-
     namespace AppStreamCompose {
-        const __name__: "AppStreamCompose"
-        const __version: "1.0"
         
 
         namespace Canvas {
@@ -40,8 +37,6 @@ declare module "gi://AppStreamCompose?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Canvas extends GObject.Object {
             readonly $signals: Canvas.SignalSignatures
             readonly $readableProperties: Canvas.ReadableProperties
@@ -72,6 +67,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
         interface CanvasClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Canvas>
             readonly prototype: Canvas
+
             new (props?: Partial<GObject.ConstructorProps<Canvas>>): Canvas
             /**
              * Creates a new #AscFont.
@@ -82,7 +78,11 @@ declare module "gi://AppStreamCompose?version=1.0" {
             "new"(width: number, height: number): Canvas
         }
 
-        const Canvas: CanvasClass
+        interface $Exports {
+            /**
+             */
+            Canvas: CanvasClass
+        }
         
 
         namespace Compose {
@@ -99,8 +99,6 @@ declare module "gi://AppStreamCompose?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Compose extends GObject.Object {
             readonly $signals: Compose.SignalSignatures
             readonly $readableProperties: Compose.ReadableProperties
@@ -180,7 +178,8 @@ declare module "gi://AppStreamCompose?version=1.0" {
              */
             get_locale_unit(): Unit | null
             /**
-             *  0 may be returned for no limit, setting a limit of 0
+             * Get the maximum size a screenshot video or image can have.
+             * A size < 0 may be returned for no limit, setting a limit of 0
              * will disable screenshots.
              */
             get_max_screenshot_size(): number
@@ -212,7 +211,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
              */
             has_errors(): boolean
             /**
-             * ` tag entries.
+             * Remove a key from the allowlist used to filter the `<custom/>` tag entries.
              * @param key_id the custom key to drop from the allowed list.
              */
             remove_custom_allowed(key_id: string): void
@@ -292,7 +291,8 @@ declare module "gi://AppStreamCompose?version=1.0" {
              */
             set_locale_unit(locale_unit: Unit): void
             /**
-             *  0 may be set to allow unlimited sizes, setting a limit of 0
+             * Set the maximum size a screenshot video or image can have.
+             * A size < 0 may be set to allow unlimited sizes, setting a limit of 0
              * will disable screenshot caching entirely.
              * @param size_bytes maximum size of a screenshot image or video in bytes
              */
@@ -324,6 +324,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
         interface ComposeClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Compose>
             readonly prototype: Compose
+
             new (props?: Partial<GObject.ConstructorProps<Compose>>): Compose
             /**
              * Creates a new #AscCompose.
@@ -331,7 +332,11 @@ declare module "gi://AppStreamCompose?version=1.0" {
             "new"(): Compose
         }
 
-        const Compose: ComposeClass
+        interface $Exports {
+            /**
+             */
+            Compose: ComposeClass
+        }
         
 
         namespace DirectoryUnit {
@@ -348,8 +353,6 @@ declare module "gi://AppStreamCompose?version=1.0" {
             }
         }
 
-        /**
-         */
         interface DirectoryUnit extends Unit {
             readonly $signals: DirectoryUnit.SignalSignatures
             readonly $readableProperties: DirectoryUnit.ReadableProperties
@@ -369,6 +372,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
         interface DirectoryUnitClass extends Omit<UnitClass, "new"> {
             readonly $gtype: GObject.GType<DirectoryUnit>
             readonly prototype: DirectoryUnit
+
             new (props?: Partial<GObject.ConstructorProps<DirectoryUnit>>): DirectoryUnit
             /**
              * Creates a new #AscDirectoryUnit.
@@ -377,7 +381,11 @@ declare module "gi://AppStreamCompose?version=1.0" {
             "new"(root_dir: string): DirectoryUnit
         }
 
-        const DirectoryUnit: DirectoryUnitClass
+        interface $Exports {
+            /**
+             */
+            DirectoryUnit: DirectoryUnitClass
+        }
         
 
         namespace Hint {
@@ -394,8 +402,6 @@ declare module "gi://AppStreamCompose?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Hint extends GObject.Object {
             readonly $signals: Hint.SignalSignatures
             readonly $readableProperties: Hint.ReadableProperties
@@ -461,6 +467,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
         interface HintClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Hint>
             readonly prototype: Hint
+
             new (props?: Partial<GObject.ConstructorProps<Hint>>): Hint
             /**
              * Creates a new #AscHint.
@@ -475,7 +482,11 @@ declare module "gi://AppStreamCompose?version=1.0" {
             new_for_tag(tag: string): Hint
         }
 
-        const Hint: HintClass
+        interface $Exports {
+            /**
+             */
+            Hint: HintClass
+        }
         
 
         namespace IconPolicy {
@@ -492,8 +503,6 @@ declare module "gi://AppStreamCompose?version=1.0" {
             }
         }
 
-        /**
-         */
         interface IconPolicy extends GObject.Object {
             readonly $signals: IconPolicy.SignalSignatures
             readonly $readableProperties: IconPolicy.ReadableProperties
@@ -522,6 +531,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
         interface IconPolicyClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<IconPolicy>
             readonly prototype: IconPolicy
+
             new (props?: Partial<GObject.ConstructorProps<IconPolicy>>): IconPolicy
             /**
              * Creates a new #AscIconPolicy.
@@ -529,7 +539,11 @@ declare module "gi://AppStreamCompose?version=1.0" {
             "new"(): IconPolicy
         }
 
-        const IconPolicy: IconPolicyClass
+        interface $Exports {
+            /**
+             */
+            IconPolicy: IconPolicyClass
+        }
         
 
         namespace Image {
@@ -546,8 +560,6 @@ declare module "gi://AppStreamCompose?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Image extends GObject.Object {
             readonly $signals: Image.SignalSignatures
             readonly $readableProperties: Image.ReadableProperties
@@ -628,6 +640,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
         interface ImageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Image>
             readonly prototype: Image
+
             new (props?: Partial<GObject.ConstructorProps<Image>>): Image
             /**
              * Creates a new #AscImage.
@@ -659,7 +672,11 @@ declare module "gi://AppStreamCompose?version=1.0" {
             supported_format_names(): Record<never, never>
         }
 
-        const Image: ImageClass
+        interface $Exports {
+            /**
+             */
+            Image: ImageClass
+        }
         
 
         namespace Result {
@@ -676,8 +693,6 @@ declare module "gi://AppStreamCompose?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Result extends GObject.Object {
             readonly $signals: Result.SignalSignatures
             readonly $readableProperties: Result.ReadableProperties
@@ -690,7 +705,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
              * @param bytes Source data used to generate the GCID hash, or %NULL if nonexistent.
              * @returns %TRUE on success.
              */
-            add_component(cpt: AppStream.Component, bytes: GLib.Bytes): boolean
+            add_component(cpt: AppStream.Component, bytes: (GLib.Bytes | Uint8Array)): boolean
             /**
              * Add component to the results set, using string data.
              * @throws {GLib.Error}
@@ -701,22 +716,20 @@ declare module "gi://AppStreamCompose?version=1.0" {
             add_component_with_string(cpt: AppStream.Component, data: string): boolean
             /**
              * Add an issue hint for a component.
-             * @override
              * @param component_id The component-ID of the affected #AsComponent
              * @param tag AppStream Compose Issue hint tag
              * @param kv List of key-value pairs for replacement variables.
              * @returns %TRUE if the added hint did not cause the component to be invalidated.
              */
-            add_hint_by_cid_v(component_id: string, tag: string, kv: string): boolean
+            add_hint_by_cid(component_id: string, tag: string, kv: string): boolean
             /**
              * Add an issue hint for a component.
-             * @override
              * @param cpt The affected #AsComponent
              * @param tag AppStream Compose Issue hint tag
              * @param kv List of key-value pairs for replacement variables.
              * @returns %TRUE if the added hint did not cause the component to be invalidated.
              */
-            add_hint_v(cpt: AppStream.Component, tag: string, kv: string): boolean
+            add_hint(cpt: AppStream.Component, tag: string, kv: string): boolean
             /**
              * @returns The amount of components found for this unit.
              */
@@ -835,7 +848,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
              * @param bytes The data to include in the global component ID, or %NULL
              * @returns %TRUE if the component existed and was updated.
              */
-            update_component_gcid(cpt: AppStream.Component, bytes: GLib.Bytes | null): boolean
+            update_component_gcid(cpt: AppStream.Component, bytes: (GLib.Bytes | Uint8Array | null)): boolean
             /**
              * Update the global component ID for the given component.
              * This is a convenience method for %asc_result_update_component_gcid
@@ -849,6 +862,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
         interface ResultClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Result>
             readonly prototype: Result
+
             new (props?: Partial<GObject.ConstructorProps<Result>>): Result
             /**
              * Creates a new #AscResult.
@@ -856,7 +870,11 @@ declare module "gi://AppStreamCompose?version=1.0" {
             "new"(): Result
         }
 
-        const Result: ResultClass
+        interface $Exports {
+            /**
+             */
+            Result: ResultClass
+        }
         
 
         namespace Unit {
@@ -873,8 +891,6 @@ declare module "gi://AppStreamCompose?version=1.0" {
             }
         }
 
-        /**
-         */
         interface Unit extends GObject.Object {
             readonly $signals: Unit.SignalSignatures
             readonly $readableProperties: Unit.ReadableProperties
@@ -994,6 +1010,7 @@ declare module "gi://AppStreamCompose?version=1.0" {
         interface UnitClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Unit>
             readonly prototype: Unit
+
             new (props?: Partial<GObject.ConstructorProps<Unit>>): Unit
             /**
              * Creates a new #AscUnit.
@@ -1001,22 +1018,19 @@ declare module "gi://AppStreamCompose?version=1.0" {
             "new"(): Unit
         }
 
-        const Unit: UnitClass
-        none
-        none
-        none
-        none
-        none
-        /**
-         * A #AscIconPolicyIter structure represents an iterator that can be used
-         * to iterate over the icon sizes / policy entries of an #AscIconPolicy.
-         * #AscIconPolicyIter structures are typically allocated on the stack and
-         * then initialized with asc_icon_policy_iter_init().
-         */
-        abstract class IconPolicyIter {
-            static readonly $gtype: GObject.GType<IconPolicyIter>
+        interface $Exports {
+            /**
+             */
+            Unit: UnitClass
+        }
+        
 
-            
+        interface IconPolicyIterStruct {
+            readonly $gtype: GObject.GType<IconPolicyIter>
+            [Symbol.hasInstance](instance: unknown): instance is IconPolicyIter
+        }
+
+        interface IconPolicyIter {
             /**
              * Initializes a policy iterator for the policy entry list and associates it
              * it with @ipolicy.
@@ -1026,431 +1040,325 @@ declare module "gi://AppStreamCompose?version=1.0" {
              */
             init(ipolicy: IconPolicy): void
             /**
-             * istate)) {
+             * Returns the current icon policy entry and advances the iterator.
+             * Example:
+             * |[<!-- language="C" -->
+             * AscIconPolicyIter iter;
+             * guint icon_size;
+             * guint icon_scale;
+             * AscIconState istate;
+             *
+             * asc_icon_policy_iter_init (&iter, ipolicy);
+             * while (asc_icon_policy_iter_next (&iter, &icon_size, &icon_scale, &istate)) {
              *     // do something with the icon entry data
              * }
              * ]|
              * @returns %FALSE if the last entry has been reached., Destination of the returned icon size, Destination of the returned icon scale factor, Destination of the returned designated icon state.
              */
-            next(): boolean
+            next(): [boolean, number, number, IconState | null]
         }
-        none
-        none
-        none
-        /**
-         * Builds a global component ID from a component-id
-         * and a (usually MD5) checksum generated from the component data.
-         *
-         * The global-id is used as a global, unique identifier for a component.
-         * (while the component-ID is local, e.g. for one source).
-         * Its primary usecase is to identify a media directory on the filesystem which is
-         * associated with this component.
-         * @param component_id an AppStream component ID.
-         * @param checksum a MD5 hashsum as string generated from the component's combined metadata.
-         */
-        function build_component_global_id(component_id: string, checksum: string): string
-        /**
-         * @returns An error quark.
-         */
-        function canvas_error_quark(): GLib.Quark
-        /**
-         * @returns An error quark.
-         */
-        function compose_error_quark(): GLib.Quark
-        /**
-         * Generate a filename from a web-URL that can be used to store the
-         * file on disk after download.
-         * @param url The URL to extract a filename from.
-         */
-        function filename_from_url(url: string): string
-        /**
-         * Register a new hint tag. If a previous tag with the given name
-         * already existed, the existing tag will not be replaced unless
-         * @overrideExisting is set to %TRUE.
-         * Please be careful when overriding tags! Tag severities can not
-         * be lowered by overriding a tag.
-         * @param tag the tag-ID to add
-         * @param severity the tag severity as #AsIssueSeverity
-         * @param explanation the tag explanatory message
-         * @param overrideExisting whether an existing tag should be replaced
-         * @returns %TRUE if the tag was registered and did not exist previously.
-         */
-        function globals_add_hint_tag(tag: string, severity: AppStream.IssueSeverity, explanation: string, overrideExisting: boolean): boolean
-        /**
-         * Clear all global state and restore defaults.
-         */
-        function globals_clear(): void
-        /**
-         * Get path to the "ffprobe" binary we should use.
-         */
-        function globals_get_ffprobe_binary(): string
-        /**
-         * Retrieve all hint tags that we know.
-         * @returns A list of valid hint tags. Free with %g_strfreev
-         */
-        function globals_get_hint_tags(): string[]
-        /**
-         * Get path to the "optipng" binary we should use.
-         */
-        function globals_get_optipng_binary(): string
-        /**
-         * Get temporary directory used by appstream-compose.
-         */
-        function globals_get_tmp_dir(): string
-        /**
-         * Get temporary directory used by appstream-compose
-         * and try to create it if it does not exist.
-         */
-        function globals_get_tmp_dir_create(): string
-        /**
-         * Get whether images should be optimized using optipng.
-         */
-        function globals_get_use_optipng(): boolean
-        /**
-         * Retrieve the explanation template of the given hint tag.
-         * @param tag
-         * @returns An explanation template, or %NULL if the tag was not found.
-         */
-        function globals_hint_tag_explanation(tag: string): string
-        /**
-         * Retrieve the severity of the given hint tag.
-         * @param tag
-         * @returns An #AsIssueSeverity or %AS_ISSUE_SEVERITY_UNKNOWN if the tag did not exist          or has an unknown severity.
-         */
-        function globals_hint_tag_severity(tag: string): AppStream.IssueSeverity
-        /**
-         * Set path to the "ffprobe" binary we should use.
-         * @param path
-         */
-        function globals_set_ffprobe_binary(path: string): void
-        /**
-         * Set path to the "optipng" binary we should use.
-         * @param path
-         */
-        function globals_set_optipng_binary(path: string): void
-        /**
-         * Set temporary directory used by appstream-compose.
-         * @param path
-         */
-        function globals_set_tmp_dir(path: string): void
-        /**
-         * Set whether images should be optimized using optipng.
-         * @param enabled
-         */
-        function globals_set_use_optipng(enabled: boolean): void
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param state_str the string.
-         * @returns a #AscIconState
-         */
-        function icon_state_from_string(state_str: string): IconState
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param istate the #AscIconState.
-         * @returns string version of `istate`
-         */
-        function icon_state_to_string(istate: IconState): string
-        /**
-         * @returns An error quark.
-         */
-        function image_error_quark(): GLib.Quark
-        /**
-         * Returns the image format type based on the given file's filename.
-         * @param fname the filename.
-         * @returns a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
-         */
-        function image_format_from_filename(fname: string): ImageFormat
-        /**
-         * Converts the text representation to an enumerated value.
-         * @param str the string.
-         * @returns a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
-         */
-        function image_format_from_string(str: string): ImageFormat
-        /**
-         * Converts the enumerated value to an text representation.
-         * @param format the %AscImageFormat.
-         * @returns string version of `format`
-         */
-        function image_format_to_string(format: ImageFormat): string
-        /**
-         * Optimizes a PNG graphic for size with optipng, if its binary
-         * is available and this feature is enabled.
-         * @throws {GLib.Error}
-         * @param fname Filename of the PNG image to optimize.
-         */
-        function optimize_png(fname: string): boolean
-        /**
-         * @param src
-         * @param radius
-         * @param iterations
-         */
-        function pixbuf_blur(src: GdkPixbuf.Pixbuf, radius: number, iterations: number): void
-        /**
-         * @param src
-         * @param radius
-         * @param amount
-         */
-        function pixbuf_sharpen(src: GdkPixbuf.Pixbuf, radius: number, amount: number): void
+
+        interface $Exports {
+            IconPolicyIter: IconPolicyIterStruct
+        }
         
-        abstract class CanvasError extends GLib.Error {
-            static readonly $gtype: GObject.GType<CanvasError>
+        interface CanvasError extends GLib.Error {}
+
+        interface CanvasErrorEnum {
+            readonly $gtype: GObject.GType<CanvasError>
+
+            new(props: { message: string, code: number }): CanvasError
             /**
              * Generic failure.
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * Drawing operation failed.
              */
-            static readonly "DRAWING": 1
+            readonly "DRAWING": 1
             /**
              * Issue with font or font selection.
              */
-            static readonly "FONT": 2
+            readonly "FONT": 2
             /**
              * The requested action was not supported.
              */
-            static readonly "UNSUPPORTED": 3
-        }
-        /**
+            readonly "UNSUPPORTED": 3
+            /**
          * @returns An error quark.
          */
-        function quark(): GLib.Quark
+        quark: () => GLib.Quark
+        }
+
+        interface $Exports {
+            /**
+             * A drawing error.
+             */
+            CanvasError: CanvasErrorEnum
+        }
         
-        abstract class ComposeError extends GLib.Error {
-            static readonly $gtype: GObject.GType<ComposeError>
+        interface ComposeError extends GLib.Error {}
+
+        interface ComposeErrorEnum {
+            readonly $gtype: GObject.GType<ComposeError>
+
+            new(props: { message: string, code: number }): ComposeError
             /**
              * Generic failure.
              */
-            static readonly "FAILED": 0
-        }
-        /**
+            readonly "FAILED": 0
+            /**
          * @returns An error quark.
          */
-        function quark(): GLib.Quark
-        
-        namespace IconState {
-            const $gtype: GObject.GType<IconState>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Designated state for an icon of a given size.
-         */
-        enum IconState {
+        interface $Exports {
+            /**
+             * A metadata composition error.
+             */
+            ComposeError: ComposeErrorEnum
+        }
+        
+        interface IconStateEnum {
+            readonly $gtype: GObject.GType<IconState>
             /**
              * Ignore icons of this size.
              */
-            "IGNORED" = 0,
+            readonly "IGNORED": 0
             /**
              * Create cache for the icon, and provide remote link as well.
              */
-            "CACHED_REMOTE" = 1,
+            readonly "CACHED_REMOTE": 1
             /**
              * Set if the icon should be stored in an icon tarball and be cached locally.
              */
-            "CACHED_ONLY" = 2,
+            readonly "CACHED_ONLY": 2
             /**
              * Set if this icon should be stored remotely and fetched on demand.
              */
-            "REMOTE_ONLY" = 3,
+            readonly "REMOTE_ONLY": 3
         }
-        /**
+        type IconState = IconStateEnum[Exclude<keyof IconStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Designated state for an icon of a given size.
+             */
+            IconState: IconStateEnum
+            /**
          * Converts the text representation to an enumerated value.
          * @param state_str the string.
          * @returns a #AscIconState
          */
-        function from_string(state_str: string): IconState
-        /**
+        from_string: (state_str: string) => IconState
+            /**
          * Converts the enumerated value to an text representation.
          * @param istate the #AscIconState.
          * @returns string version of `istate`
          */
-        function to_string(istate: IconState): string
+        to_string: (istate: IconState) => string
+        }
         
-        abstract class ImageError extends GLib.Error {
-            static readonly $gtype: GObject.GType<ImageError>
+        interface ImageError extends GLib.Error {}
+
+        interface ImageErrorEnum {
+            readonly $gtype: GObject.GType<ImageError>
+
+            new(props: { message: string, code: number }): ImageError
             /**
              * Generic failure.
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * The graphic type is not supported.
              */
-            static readonly "UNSUPPORTED": 1
-        }
-        /**
+            readonly "UNSUPPORTED": 1
+            /**
          * @returns An error quark.
          */
-        function quark(): GLib.Quark
-        
-        namespace ImageFormat {
-            const $gtype: GObject.GType<ImageFormat>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * File format of an image.
-         */
-        enum ImageFormat {
+        interface $Exports {
+            /**
+             * An image processing error.
+             */
+            ImageError: ImageErrorEnum
+        }
+        
+        interface ImageFormatEnum {
+            readonly $gtype: GObject.GType<ImageFormat>
             /**
              * Unknown image format.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * PNG format
              */
-            "PNG" = 1,
+            readonly "PNG": 1
             /**
              * JPEG format
              */
-            "JPEG" = 2,
+            readonly "JPEG": 2
             /**
              * GIF format
              */
-            "GIF" = 3,
+            readonly "GIF": 3
             /**
              * SVG format
              */
-            "SVG" = 4,
+            readonly "SVG": 4
             /**
              * Compressed SVG format
              */
-            "SVGZ" = 5,
+            readonly "SVGZ": 5
             /**
              * WebP format
              */
-            "WEBP" = 6,
+            readonly "WEBP": 6
             /**
              * AVIF format
              */
-            "AVIF" = 7,
+            readonly "AVIF": 7
             /**
              * XPM format
              */
-            "XPM" = 8,
+            readonly "XPM": 8
         }
-        /**
+        type ImageFormat = ImageFormatEnum[Exclude<keyof ImageFormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * File format of an image.
+             */
+            ImageFormat: ImageFormatEnum
+            /**
          * Returns the image format type based on the given file's filename.
          * @param fname the filename.
          * @returns a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
          */
-        function from_filename(fname: string): ImageFormat
-        /**
+        from_filename: (fname: string) => ImageFormat
+            /**
          * Converts the text representation to an enumerated value.
          * @param str the string.
          * @returns a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
          */
-        function from_string(str: string): ImageFormat
-        /**
+        from_string: (str: string) => ImageFormat
+            /**
          * Converts the enumerated value to an text representation.
          * @param format the %AscImageFormat.
          * @returns string version of `format`
          */
-        function to_string(format: ImageFormat): string
-        
-        namespace ComposeFlags {
-            const $gtype: GObject.GType<ComposeFlags>
-        }
-
-        /**
-         */
-        enum ComposeFlags {
-            /**
-             */
-            "NONE" = 0,
-            /**
-             */
-            "USE_THREADS" = 1,
-            /**
-             */
-            "ALLOW_NET" = 2,
-            /**
-             */
-            "VALIDATE" = 4,
-            /**
-             */
-            "STORE_SCREENSHOTS" = 8,
-            /**
-             */
-            "ALLOW_SCREENCASTS" = 16,
-            /**
-             */
-            "PROCESS_FONTS" = 32,
-            /**
-             */
-            "PROCESS_TRANSLATIONS" = 64,
-            /**
-             */
-            "IGNORE_ICONS" = 128,
-            /**
-             */
-            "PROCESS_UNPAIRED_DESKTOP" = 256,
-            /**
-             */
-            "PROPAGATE_CUSTOM" = 512,
-            /**
-             */
-            "PROPAGATE_ARTIFACTS" = 1024,
-            /**
-             */
-            "NO_FINAL_CHECK" = 2048,
-            /**
-             */
-            "NO_PARTIAL_URLS" = 4096,
+        to_string: (format: ImageFormat) => string
         }
         
-        namespace ImageLoadFlags {
-            const $gtype: GObject.GType<ImageLoadFlags>
+        interface ComposeFlagsBitfield {
+            readonly $gtype: GObject.GType<ComposeFlags>
+            /**
+             */
+            readonly "NONE": 0
+            /**
+             */
+            readonly "USE_THREADS": 1
+            /**
+             */
+            readonly "ALLOW_NET": 2
+            /**
+             */
+            readonly "VALIDATE": 4
+            /**
+             */
+            readonly "STORE_SCREENSHOTS": 8
+            /**
+             */
+            readonly "ALLOW_SCREENCASTS": 16
+            /**
+             */
+            readonly "PROCESS_FONTS": 32
+            /**
+             */
+            readonly "PROCESS_TRANSLATIONS": 64
+            /**
+             */
+            readonly "IGNORE_ICONS": 128
+            /**
+             */
+            readonly "PROCESS_UNPAIRED_DESKTOP": 256
+            /**
+             */
+            readonly "PROPAGATE_CUSTOM": 512
+            /**
+             */
+            readonly "PROPAGATE_ARTIFACTS": 1024
+            /**
+             */
+            readonly "NO_FINAL_CHECK": 2048
+            /**
+             */
+            readonly "NO_PARTIAL_URLS": 4096
         }
-
-        /**
-         * The flags used for loading images.
-         */
-        enum ImageLoadFlags {
+        type ComposeFlags = number
+        interface $Exports {
+            /**
+             */
+            ComposeFlags: ComposeFlagsBitfield
+        }
+        
+        interface ImageLoadFlagsBitfield {
+            readonly $gtype: GObject.GType<ImageLoadFlags>
             /**
              * No special flags set
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Sharpen the resulting image
              */
-            "SHARPEN" = 1,
+            readonly "SHARPEN": 1
             /**
              * Allow loading of unsupported image types.
              */
-            "ALLOW_UNSUPPORTED" = 2,
+            readonly "ALLOW_UNSUPPORTED": 2
             /**
              * Always resize the source image to the perfect size
              */
-            "ALWAYS_RESIZE" = 4,
+            readonly "ALWAYS_RESIZE": 4
+        }
+        type ImageLoadFlags = number
+        interface $Exports {
+            /**
+             * The flags used for loading images.
+             */
+            ImageLoadFlags: ImageLoadFlagsBitfield
         }
         
-        namespace ImageSaveFlags {
-            const $gtype: GObject.GType<ImageSaveFlags>
-        }
-
-        /**
-         * The flags used for saving images.
-         */
-        enum ImageSaveFlags {
+        interface ImageSaveFlagsBitfield {
+            readonly $gtype: GObject.GType<ImageSaveFlags>
             /**
              * No special flags set
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Optimize generated PNG for size
              */
-            "OPTIMIZE" = 1,
+            readonly "OPTIMIZE": 1
             /**
              * Pad with alpha to 16:9 aspect
              */
-            "PAD_16_9" = 2,
+            readonly "PAD_16_9": 2
             /**
              * Sharpen the image to clarify detail
              */
-            "SHARPEN" = 4,
+            readonly "SHARPEN": 4
             /**
              * Blur the image to clear detail
              */
-            "BLUR" = 8,
+            readonly "BLUR": 8
+        }
+        type ImageSaveFlags = number
+        interface $Exports {
+            /**
+             * The flags used for saving images.
+             */
+            ImageSaveFlags: ImageSaveFlagsBitfield
         }
         /**
          * Function which is called after all metainfo and related data (e.g. desktop-entry files)
@@ -1468,8 +1376,167 @@ declare module "gi://AppStreamCompose?version=1.0" {
          * @param unit The unit we are currently processing.
          */
         type CheckMetadataEarlyFn = (cres: Result, unit: Unit) => void
-        none
+
+        interface $Exports {
+            __name__: "AppStreamCompose"
+            __version: "1.0"
+            /**
+             * Builds a global component ID from a component-id
+             * and a (usually MD5) checksum generated from the component data.
+             *
+             * The global-id is used as a global, unique identifier for a component.
+             * (while the component-ID is local, e.g. for one source).
+             * Its primary usecase is to identify a media directory on the filesystem which is
+             * associated with this component.
+             * @param component_id an AppStream component ID.
+             * @param checksum a MD5 hashsum as string generated from the component's combined metadata.
+             */
+            build_component_global_id(component_id: string, checksum: string): string
+            /**
+             * @returns An error quark.
+             */
+            canvas_error_quark(): GLib.Quark
+            /**
+             * @returns An error quark.
+             */
+            compose_error_quark(): GLib.Quark
+            /**
+             * Generate a filename from a web-URL that can be used to store the
+             * file on disk after download.
+             * @param url The URL to extract a filename from.
+             */
+            filename_from_url(url: string): string
+            /**
+             * Register a new hint tag. If a previous tag with the given name
+             * already existed, the existing tag will not be replaced unless
+             * @overrideExisting is set to %TRUE.
+             * Please be careful when overriding tags! Tag severities can not
+             * be lowered by overriding a tag.
+             * @param tag the tag-ID to add
+             * @param severity the tag severity as #AsIssueSeverity
+             * @param explanation the tag explanatory message
+             * @param overrideExisting whether an existing tag should be replaced
+             * @returns %TRUE if the tag was registered and did not exist previously.
+             */
+            globals_add_hint_tag(tag: string, severity: AppStream.IssueSeverity, explanation: string, overrideExisting: boolean): boolean
+            /**
+             * Clear all global state and restore defaults.
+             */
+            globals_clear(): void
+            /**
+             * Get path to the "ffprobe" binary we should use.
+             */
+            globals_get_ffprobe_binary(): string
+            /**
+             * Retrieve all hint tags that we know.
+             * @returns A list of valid hint tags. Free with %g_strfreev
+             */
+            globals_get_hint_tags(): string[]
+            /**
+             * Get path to the "optipng" binary we should use.
+             */
+            globals_get_optipng_binary(): string
+            /**
+             * Get temporary directory used by appstream-compose.
+             */
+            globals_get_tmp_dir(): string
+            /**
+             * Get temporary directory used by appstream-compose
+             * and try to create it if it does not exist.
+             */
+            globals_get_tmp_dir_create(): string
+            /**
+             * Get whether images should be optimized using optipng.
+             */
+            globals_get_use_optipng(): boolean
+            /**
+             * Retrieve the explanation template of the given hint tag.
+             * @param tag
+             * @returns An explanation template, or %NULL if the tag was not found.
+             */
+            globals_hint_tag_explanation(tag: string): string
+            /**
+             * Retrieve the severity of the given hint tag.
+             * @param tag
+             * @returns An #AsIssueSeverity or %AS_ISSUE_SEVERITY_UNKNOWN if the tag did not exist          or has an unknown severity.
+             */
+            globals_hint_tag_severity(tag: string): AppStream.IssueSeverity
+            /**
+             * Set path to the "ffprobe" binary we should use.
+             * @param path
+             */
+            globals_set_ffprobe_binary(path: string): void
+            /**
+             * Set path to the "optipng" binary we should use.
+             * @param path
+             */
+            globals_set_optipng_binary(path: string): void
+            /**
+             * Set temporary directory used by appstream-compose.
+             * @param path
+             */
+            globals_set_tmp_dir(path: string): void
+            /**
+             * Set whether images should be optimized using optipng.
+             * @param enabled
+             */
+            globals_set_use_optipng(enabled: boolean): void
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param state_str the string.
+             * @returns a #AscIconState
+             */
+            icon_state_from_string(state_str: string): IconState
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param istate the #AscIconState.
+             * @returns string version of `istate`
+             */
+            icon_state_to_string(istate: IconState): string
+            /**
+             * @returns An error quark.
+             */
+            image_error_quark(): GLib.Quark
+            /**
+             * Returns the image format type based on the given file's filename.
+             * @param fname the filename.
+             * @returns a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
+             */
+            image_format_from_filename(fname: string): ImageFormat
+            /**
+             * Converts the text representation to an enumerated value.
+             * @param str the string.
+             * @returns a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
+             */
+            image_format_from_string(str: string): ImageFormat
+            /**
+             * Converts the enumerated value to an text representation.
+             * @param format the %AscImageFormat.
+             * @returns string version of `format`
+             */
+            image_format_to_string(format: ImageFormat): string
+            /**
+             * Optimizes a PNG graphic for size with optipng, if its binary
+             * is available and this feature is enabled.
+             * @throws {GLib.Error}
+             * @param fname Filename of the PNG image to optimize.
+             */
+            optimize_png(fname: string): boolean
+            /**
+             * @param src
+             * @param radius
+             * @param iterations
+             */
+            pixbuf_blur(src: GdkPixbuf.Pixbuf, radius: number, iterations: number): void
+            /**
+             * @param src
+             * @param radius
+             * @param amount
+             */
+            pixbuf_sharpen(src: GdkPixbuf.Pixbuf, radius: number, amount: number): void
+        }
     }
 
+    const AppStreamCompose: AppStreamCompose.$Exports
     export default AppStreamCompose
 }

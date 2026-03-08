@@ -22,10 +22,7 @@ declare module "gi://GstGLX11?version=1.0" {
 
     
 
-
     namespace GstGLX11 {
-        const __name__: "GstGLX11"
-        const __version: "1.0"
         
 
         namespace GLDisplayX11 {
@@ -42,10 +39,6 @@ declare module "gi://GstGLX11?version=1.0" {
             }
         }
 
-        /**
-         * the contents of a #GstGLDisplayX11 are private and should only be accessed
-         * through the provided API
-         */
         interface GLDisplayX11 extends GstGL.GLDisplay {
             readonly $signals: GLDisplayX11.SignalSignatures
             readonly $readableProperties: GLDisplayX11.ReadableProperties
@@ -56,6 +49,7 @@ declare module "gi://GstGLX11?version=1.0" {
         interface GLDisplayX11Class extends Omit<GstGL.GLDisplayClass, "new"> {
             readonly $gtype: GObject.GType<GLDisplayX11>
             readonly prototype: GLDisplayX11
+
             new (props?: Partial<GObject.ConstructorProps<GLDisplayX11>>): GLDisplayX11
             /**
              * Create a new #GstGLDisplayX11 from the x11 display name.  See `XOpenDisplay`()
@@ -66,9 +60,20 @@ declare module "gi://GstGLX11?version=1.0" {
             "new"(name: string | null): GLDisplayX11 | null
         }
 
-        const GLDisplayX11: GLDisplayX11Class
-        none
+        interface $Exports {
+            /**
+             * the contents of a #GstGLDisplayX11 are private and should only be accessed
+             * through the provided API
+             */
+            GLDisplayX11: GLDisplayX11Class
+        }
+
+        interface $Exports {
+            __name__: "GstGLX11"
+            __version: "1.0"
+        }
     }
 
+    const GstGLX11: GstGLX11.$Exports
     export default GstGLX11
 }

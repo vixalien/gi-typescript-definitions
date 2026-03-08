@@ -12,35 +12,56 @@ declare module "gi://freetype2?version=2.0" {
 
     
 
-
     namespace freetype2 {
-        const __name__: "freetype2"
-        const __version: "2.0"
-        /**
-         */
-        abstract class Bitmap {
-            static readonly $gtype: GObject.GType<Bitmap>
+        
 
-            
+        interface BitmapStruct {
+            readonly $gtype: GObject.GType<Bitmap>
+            [Symbol.hasInstance](instance: unknown): instance is Bitmap
         }
-        /**
-         */
-        abstract class Face {
-            static readonly $gtype: GObject.GType<Face>
 
-            
+        interface Bitmap {
         }
-        /**
-         */
-        abstract class Library {
-            static readonly $gtype: GObject.GType<Library>
 
-            
+        interface $Exports {
+            Bitmap: BitmapStruct
+        }
+        
+
+        interface FaceStruct {
+            readonly $gtype: GObject.GType<Face>
+            [Symbol.hasInstance](instance: unknown): instance is Face
+        }
+
+        interface Face {
+        }
+
+        interface $Exports {
+            Face: FaceStruct
+        }
+        
+
+        interface LibraryStruct {
+            readonly $gtype: GObject.GType<Library>
+            [Symbol.hasInstance](instance: unknown): instance is Library
+        }
+
+        interface Library {
+        }
+
+        interface $Exports {
+            Library: LibraryStruct
         }
         /**
          */
         type Int32 = number
+
+        interface $Exports {
+            __name__: "freetype2"
+            __version: "2.0"
+        }
     }
 
+    const freetype2: freetype2.$Exports
     export default freetype2
 }

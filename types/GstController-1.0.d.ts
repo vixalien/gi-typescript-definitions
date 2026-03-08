@@ -16,10 +16,7 @@ declare module "gi://GstController?version=1.0" {
 
     
 
-
     namespace GstController {
-        const __name__: "GstController"
-        const __version: "1.0"
         
 
         namespace ARGBControlBinding {
@@ -44,11 +41,6 @@ declare module "gi://GstController?version=1.0" {
             }
         }
 
-        /**
-         * A value mapping object that attaches multiple control sources to a guint
-         * gobject properties representing a color. A control value of 0.0 will turn the
-         * color component off and a value of 1.0 will be the color level.
-         */
         interface ARGBControlBinding extends Gst.ControlBinding {
             readonly $signals: ARGBControlBinding.SignalSignatures
             readonly $readableProperties: ARGBControlBinding.ReadableProperties
@@ -75,6 +67,7 @@ declare module "gi://GstController?version=1.0" {
         interface ARGBControlBindingClass extends Omit<Gst.ControlBindingClass, "new"> {
             readonly $gtype: GObject.GType<ARGBControlBinding>
             readonly prototype: ARGBControlBinding
+
             new (props?: Partial<GObject.ConstructorProps<ARGBControlBinding>>): ARGBControlBinding
             /**
              * Create a new control-binding that attaches the given #GstControlSource to the
@@ -87,10 +80,17 @@ declare module "gi://GstController?version=1.0" {
              * @param cs_b the control source for the blue channel
              * @returns the new #GstARGBControlBinding
              */
-            "new"(object: Gst.Object, property_name: string, cs_a: Gst.ControlSource, cs_r: Gst.ControlSource, cs_g: Gst.ControlSource, cs_b: Gst.ControlSource): Gst.ControlBinding
+            "new"(object: Gst.Object, property_name: string, cs_a: Gst.ControlSource, cs_r: Gst.ControlSource, cs_g: Gst.ControlSource, cs_b: Gst.ControlSource): ARGBControlBinding
         }
 
-        const ARGBControlBinding: ARGBControlBindingClass
+        interface $Exports {
+            /**
+             * A value mapping object that attaches multiple control sources to a guint
+             * gobject properties representing a color. A control value of 0.0 will turn the
+             * color component off and a value of 1.0 will be the color level.
+             */
+            ARGBControlBinding: ARGBControlBindingClass
+        }
         
 
         namespace DirectControlBinding {
@@ -103,22 +103,14 @@ declare module "gi://GstController?version=1.0" {
             }
 
             interface WritableProperties extends Gst.ControlBinding.WritableProperties {
-                "absolute": boolean
                 "control-source": Gst.ControlSource
             }
 
             interface ConstructOnlyProperties extends Gst.ControlBinding.ConstructOnlyProperties {
+                "absolute": boolean
             }
         }
 
-        /**
-         * A value mapping object that attaches control sources to gobject properties. It
-         * will map the control values directly to the target property range. If a
-         * non-absolute direct control binding is used, the value range [0.0 ... 1.0]
-         * is mapped to full target property range, and all values outside the range
-         * will be clipped. An absolute control binding will not do any value
-         * transformations.
-         */
         interface DirectControlBinding extends Gst.ControlBinding {
             readonly $signals: DirectControlBinding.SignalSignatures
             readonly $readableProperties: DirectControlBinding.ReadableProperties
@@ -138,6 +130,7 @@ declare module "gi://GstController?version=1.0" {
         interface DirectControlBindingClass extends Omit<Gst.ControlBindingClass, "new"> {
             readonly $gtype: GObject.GType<DirectControlBinding>
             readonly prototype: DirectControlBinding
+
             new (props?: Partial<GObject.ConstructorProps<DirectControlBinding>>): DirectControlBinding
             /**
              * Create a new control-binding that attaches the #GstControlSource to the
@@ -148,7 +141,7 @@ declare module "gi://GstController?version=1.0" {
              * @param cs the control source
              * @returns the new #GstDirectControlBinding
              */
-            "new"(object: Gst.Object, property_name: string, cs: Gst.ControlSource): Gst.ControlBinding
+            "new"(object: Gst.Object, property_name: string, cs: Gst.ControlSource): DirectControlBinding
             /**
              * Create a new control-binding that attaches the #GstControlSource to the
              * #GObject property. It will directly map the control source values to the
@@ -159,10 +152,20 @@ declare module "gi://GstController?version=1.0" {
              * @param cs the control source
              * @returns the new #GstDirectControlBinding
              */
-            new_absolute(object: Gst.Object, property_name: string, cs: Gst.ControlSource): Gst.ControlBinding
+            new_absolute(object: Gst.Object, property_name: string, cs: Gst.ControlSource): DirectControlBinding
         }
 
-        const DirectControlBinding: DirectControlBindingClass
+        interface $Exports {
+            /**
+             * A value mapping object that attaches control sources to gobject properties. It
+             * will map the control values directly to the target property range. If a
+             * non-absolute direct control binding is used, the value range [0.0 ... 1.0]
+             * is mapped to full target property range, and all values outside the range
+             * will be clipped. An absolute control binding will not do any value
+             * transformations.
+             */
+            DirectControlBinding: DirectControlBindingClass
+        }
         
 
         namespace InterpolationControlSource {
@@ -181,16 +184,6 @@ declare module "gi://GstController?version=1.0" {
             }
         }
 
-        /**
-         * #GstInterpolationControlSource is a #GstControlSource, that interpolates values between user-given
-         * control points. It supports several interpolation modes and property types.
-         *
-         * To use #GstInterpolationControlSource get a new instance by calling
-         * gst_interpolation_control_source_new(), bind it to a #GParamSpec and set some
-         * control points by calling gst_timed_value_control_source_set().
-         *
-         * All functions are MT-safe.
-         */
         interface InterpolationControlSource extends TimedValueControlSource {
             readonly $signals: InterpolationControlSource.SignalSignatures
             readonly $readableProperties: InterpolationControlSource.ReadableProperties
@@ -206,15 +199,28 @@ declare module "gi://GstController?version=1.0" {
         interface InterpolationControlSourceClass extends Omit<TimedValueControlSourceClass, "new"> {
             readonly $gtype: GObject.GType<InterpolationControlSource>
             readonly prototype: InterpolationControlSource
+
             new (props?: Partial<GObject.ConstructorProps<InterpolationControlSource>>): InterpolationControlSource
             /**
              * This returns a new, unbound #GstInterpolationControlSource.
              * @returns a new, unbound #GstInterpolationControlSource.
              */
-            "new"(): Gst.ControlSource
+            "new"(): InterpolationControlSource
         }
 
-        const InterpolationControlSource: InterpolationControlSourceClass
+        interface $Exports {
+            /**
+             * #GstInterpolationControlSource is a #GstControlSource, that interpolates values between user-given
+             * control points. It supports several interpolation modes and property types.
+             *
+             * To use #GstInterpolationControlSource get a new instance by calling
+             * gst_interpolation_control_source_new(), bind it to a #GParamSpec and set some
+             * control points by calling gst_timed_value_control_source_set().
+             *
+             * All functions are MT-safe.
+             */
+            InterpolationControlSource: InterpolationControlSourceClass
+        }
         
 
         namespace LFOControlSource {
@@ -241,16 +247,6 @@ declare module "gi://GstController?version=1.0" {
             }
         }
 
-        /**
-         * #GstLFOControlSource is a #GstControlSource, that provides several periodic
-         * waveforms as control values.
-         *
-         * To use #GstLFOControlSource get a new instance by calling
-         * gst_lfo_control_source_new(), bind it to a #GParamSpec and set the relevant
-         * properties.
-         *
-         * All functions are MT-safe.
-         */
         interface LFOControlSource extends Gst.ControlSource {
             readonly $signals: LFOControlSource.SignalSignatures
             readonly $readableProperties: LFOControlSource.ReadableProperties
@@ -297,15 +293,28 @@ declare module "gi://GstController?version=1.0" {
         interface LFOControlSourceClass extends Omit<Gst.ControlSourceClass, "new"> {
             readonly $gtype: GObject.GType<LFOControlSource>
             readonly prototype: LFOControlSource
+
             new (props?: Partial<GObject.ConstructorProps<LFOControlSource>>): LFOControlSource
             /**
              * This returns a new, unbound #GstLFOControlSource.
              * @returns a new, unbound #GstLFOControlSource.
              */
-            "new"(): Gst.ControlSource
+            "new"(): LFOControlSource
         }
 
-        const LFOControlSource: LFOControlSourceClass
+        interface $Exports {
+            /**
+             * #GstLFOControlSource is a #GstControlSource, that provides several periodic
+             * waveforms as control values.
+             *
+             * To use #GstLFOControlSource get a new instance by calling
+             * gst_lfo_control_source_new(), bind it to a #GParamSpec and set the relevant
+             * properties.
+             *
+             * All functions are MT-safe.
+             */
+            LFOControlSource: LFOControlSourceClass
+        }
         
 
         namespace ProxyControlBinding {
@@ -322,9 +331,6 @@ declare module "gi://GstController?version=1.0" {
             }
         }
 
-        /**
-         * A #GstControlBinding that forwards requests to another #GstControlBinding
-         */
         interface ProxyControlBinding extends Gst.ControlBinding {
             readonly $signals: ProxyControlBinding.SignalSignatures
             readonly $readableProperties: ProxyControlBinding.ReadableProperties
@@ -335,6 +341,7 @@ declare module "gi://GstController?version=1.0" {
         interface ProxyControlBindingClass extends Omit<Gst.ControlBindingClass, "new"> {
             readonly $gtype: GObject.GType<ProxyControlBinding>
             readonly prototype: ProxyControlBinding
+
             new (props?: Partial<GObject.ConstructorProps<ProxyControlBinding>>): ProxyControlBinding
             /**
              * #GstProxyControlBinding forwards all access to data or `sync_values()`
@@ -348,10 +355,15 @@ declare module "gi://GstController?version=1.0" {
              * @param ref_property_name the property_name in @ref_object to control
              * @returns a new #GstControlBinding that proxies the control interface between properties on different #GstObject's
              */
-            "new"(object: Gst.Object, property_name: string, ref_object: Gst.Object, ref_property_name: string): Gst.ControlBinding
+            "new"(object: Gst.Object, property_name: string, ref_object: Gst.Object, ref_property_name: string): ProxyControlBinding
         }
 
-        const ProxyControlBinding: ProxyControlBindingClass
+        interface $Exports {
+            /**
+             * A #GstControlBinding that forwards requests to another #GstControlBinding
+             */
+            ProxyControlBinding: ProxyControlBindingClass
+        }
         
 
         namespace TimedValueControlSource {
@@ -386,14 +398,6 @@ declare module "gi://GstController?version=1.0" {
             }
         }
 
-        /**
-         * Base class for #GstControlSource that use time-stamped values.
-         *
-         * When overriding bind, chain up first to give this bind implementation a
-         * chance to setup things.
-         *
-         * All functions are MT-safe.
-         */
         interface TimedValueControlSource extends Gst.ControlSource {
             readonly $signals: TimedValueControlSource.SignalSignatures
             readonly $readableProperties: TimedValueControlSource.ReadableProperties
@@ -450,10 +454,21 @@ declare module "gi://GstController?version=1.0" {
         interface TimedValueControlSourceClass extends Omit<Gst.ControlSourceClass, "new"> {
             readonly $gtype: GObject.GType<TimedValueControlSource>
             readonly prototype: TimedValueControlSource
+
             new (props?: Partial<GObject.ConstructorProps<TimedValueControlSource>>): TimedValueControlSource
         }
 
-        const TimedValueControlSource: TimedValueControlSourceClass
+        interface $Exports {
+            /**
+             * Base class for #GstControlSource that use time-stamped values.
+             *
+             * When overriding bind, chain up first to give this bind implementation a
+             * chance to setup things.
+             *
+             * All functions are MT-safe.
+             */
+            TimedValueControlSource: TimedValueControlSourceClass
+        }
         
 
         namespace TriggerControlSource {
@@ -472,16 +487,6 @@ declare module "gi://GstController?version=1.0" {
             }
         }
 
-        /**
-         * #GstTriggerControlSource is a #GstControlSource, that returns values from user-given
-         * control points. It allows for a tolerance on the time-stamps.
-         *
-         * To use #GstTriggerControlSource get a new instance by calling
-         * gst_trigger_control_source_new(), bind it to a #GParamSpec and set some
-         * control points by calling gst_timed_value_control_source_set().
-         *
-         * All functions are MT-safe.
-         */
         interface TriggerControlSource extends TimedValueControlSource {
             readonly $signals: TriggerControlSource.SignalSignatures
             readonly $readableProperties: TriggerControlSource.ReadableProperties
@@ -497,25 +502,36 @@ declare module "gi://GstController?version=1.0" {
         interface TriggerControlSourceClass extends Omit<TimedValueControlSourceClass, "new"> {
             readonly $gtype: GObject.GType<TriggerControlSource>
             readonly prototype: TriggerControlSource
+
             new (props?: Partial<GObject.ConstructorProps<TriggerControlSource>>): TriggerControlSource
             /**
              * This returns a new, unbound #GstTriggerControlSource.
              * @returns a new, unbound #GstTriggerControlSource.
              */
-            "new"(): Gst.ControlSource
+            "new"(): TriggerControlSource
         }
 
-        const TriggerControlSource: TriggerControlSourceClass
-        none
-        /**
-         * An internal structure for value+time and various temporary
-         * values used for interpolation. This "inherits" from
-         * GstTimedValue.
-         */
-        abstract class ControlPoint {
-            static readonly $gtype: GObject.GType<ControlPoint>
+        interface $Exports {
+            /**
+             * #GstTriggerControlSource is a #GstControlSource, that returns values from user-given
+             * control points. It allows for a tolerance on the time-stamps.
+             *
+             * To use #GstTriggerControlSource get a new instance by calling
+             * gst_trigger_control_source_new(), bind it to a #GParamSpec and set some
+             * control points by calling gst_timed_value_control_source_set().
+             *
+             * All functions are MT-safe.
+             */
+            TriggerControlSource: TriggerControlSourceClass
+        }
+        
 
-            
+        interface ControlPointStruct {
+            readonly $gtype: GObject.GType<ControlPoint>
+            [Symbol.hasInstance](instance: unknown): instance is ControlPoint
+        }
+
+        interface ControlPoint {
             /**
              * timestamp of the value change
              */
@@ -534,103 +550,122 @@ declare module "gi://GstController?version=1.0" {
              */
             free(): void
         }
-        none
-        none
-        /**
-         */
-        abstract class InterpolationControlSourcePrivate {
-            static readonly $gtype: GObject.GType<InterpolationControlSourcePrivate>
 
-            
+        interface $Exports {
+            ControlPoint: ControlPointStruct
         }
-        none
-        /**
-         */
-        abstract class LFOControlSourcePrivate {
-            static readonly $gtype: GObject.GType<LFOControlSourcePrivate>
-
-            
-        }
-        none
-        none
-        /**
-         */
-        abstract class TimedValueControlSourcePrivate {
-            static readonly $gtype: GObject.GType<TimedValueControlSourcePrivate>
-
-            
-        }
-        none
-        /**
-         */
-        abstract class TriggerControlSourcePrivate {
-            static readonly $gtype: GObject.GType<TriggerControlSourcePrivate>
-
-            
-        }
-        /**
-         * Reset the controlled value cache.
-         * @param self the #GstTimedValueControlSource
-         */
-        function timed_value_control_invalidate_cache(self: TimedValueControlSource): void
         
-        namespace InterpolationMode {
-            const $gtype: GObject.GType<InterpolationMode>
+
+        interface InterpolationControlSourcePrivateStruct {
+            readonly $gtype: GObject.GType<InterpolationControlSourcePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is InterpolationControlSourcePrivate
         }
 
-        /**
-         * The various interpolation modes available.
-         */
-        enum InterpolationMode {
+        interface InterpolationControlSourcePrivate {
+        }
+
+        interface $Exports {
+            InterpolationControlSourcePrivate: InterpolationControlSourcePrivateStruct
+        }
+        
+
+        interface LFOControlSourcePrivateStruct {
+            readonly $gtype: GObject.GType<LFOControlSourcePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is LFOControlSourcePrivate
+        }
+
+        interface LFOControlSourcePrivate {
+        }
+
+        interface $Exports {
+            LFOControlSourcePrivate: LFOControlSourcePrivateStruct
+        }
+        
+
+        interface TimedValueControlSourcePrivateStruct {
+            readonly $gtype: GObject.GType<TimedValueControlSourcePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is TimedValueControlSourcePrivate
+        }
+
+        interface TimedValueControlSourcePrivate {
+        }
+
+        interface $Exports {
+            TimedValueControlSourcePrivate: TimedValueControlSourcePrivateStruct
+        }
+        
+
+        interface TriggerControlSourcePrivateStruct {
+            readonly $gtype: GObject.GType<TriggerControlSourcePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is TriggerControlSourcePrivate
+        }
+
+        interface TriggerControlSourcePrivate {
+        }
+
+        interface $Exports {
+            TriggerControlSourcePrivate: TriggerControlSourcePrivateStruct
+        }
+        
+        interface InterpolationModeEnum {
+            readonly $gtype: GObject.GType<InterpolationMode>
             /**
              * steps-like interpolation, default
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * linear interpolation
              */
-            "LINEAR" = 1,
+            readonly "LINEAR": 1
             /**
              * cubic interpolation (natural), may overshoot
              *   the min or max values set by the control point, but is more 'curvy'
              */
-            "CUBIC" = 2,
+            readonly "CUBIC": 2
             /**
              * monotonic cubic interpolation, will not
              *   produce any values outside of the min-max range set by the control points
              *   (Since: 1.8)
              */
-            "CUBIC_MONOTONIC" = 3,
+            readonly "CUBIC_MONOTONIC": 3
+        }
+        type InterpolationMode = InterpolationModeEnum[Exclude<keyof InterpolationModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The various interpolation modes available.
+             */
+            InterpolationMode: InterpolationModeEnum
         }
         
-        namespace LFOWaveform {
-            const $gtype: GObject.GType<LFOWaveform>
-        }
-
-        /**
-         * The various waveform modes available.
-         */
-        enum LFOWaveform {
+        interface LFOWaveformEnum {
+            readonly $gtype: GObject.GType<LFOWaveform>
             /**
              * sine waveform
              */
-            "SINE" = 0,
+            readonly "SINE": 0
             /**
              * square waveform
              */
-            "SQUARE" = 1,
+            readonly "SQUARE": 1
             /**
              * saw waveform
              */
-            "SAW" = 2,
+            readonly "SAW": 2
             /**
              * reverse saw waveform
              */
-            "REVERSE_SAW" = 3,
+            readonly "REVERSE_SAW": 3
             /**
              * triangle waveform
              */
-            "TRIANGLE" = 4,
+            readonly "TRIANGLE": 4
+        }
+        type LFOWaveform = LFOWaveformEnum[Exclude<keyof LFOWaveformEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * The various waveform modes available.
+             */
+            LFOWaveform: LFOWaveformEnum
         }
         /**
          * Function to map a control-value to the target GValue.
@@ -638,7 +673,7 @@ declare module "gi://GstController?version=1.0" {
          * @param src_value the value returned by the cotnrol source
          * @param dest_value the target GValue
          */
-        type DirectControlBindingConvertGValue = (self: DirectControlBinding, src_value: number, dest_value: GObject.Value) => void
+        type DirectControlBindingConvertGValue = (self: DirectControlBinding, src_value: number, dest_value: (GObject.Value | unknown)) => void
         /**
          * Function to map a control-value to the target plain data type.
          * @param self the #GstDirectControlBinding instance
@@ -646,7 +681,18 @@ declare module "gi://GstController?version=1.0" {
          * @param dest_value the target location
          */
         type DirectControlBindingConvertValue = (self: DirectControlBinding, src_value: number, dest_value: never | null) => void
+
+        interface $Exports {
+            __name__: "GstController"
+            __version: "1.0"
+            /**
+             * Reset the controlled value cache.
+             * @param self the #GstTimedValueControlSource
+             */
+            timed_value_control_invalidate_cache(self: TimedValueControlSource): void
+        }
     }
 
+    const GstController: GstController.$Exports
     export default GstController
 }

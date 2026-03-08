@@ -16,10 +16,7 @@ declare module "gi://GstMse?version=1.0" {
 
     
 
-
     namespace GstMse {
-        const __name__: "GstMse"
-        const __version: "1.0"
         
 
         namespace MediaSource {
@@ -64,18 +61,6 @@ declare module "gi://GstMse?version=1.0" {
             }
         }
 
-        /**
-         * #GstMediaSource is the entry point into the W3C Media Source API. It offers
-         * functionality similar to #GstAppSrc for client-side web or JavaScript
-         * applications decoupling the source of media from its processing and playback.
-         *
-         * To interact with a Media Source, connect it to a #GstMseSrc that is in some
-         * #GstPipeline using gst_media_source_attach(). Then create at least one
-         * #GstSourceBuffer using gst_media_source_add_source_buffer(). Finally, feed
-         * some media data to the Source Buffer(s) using
-         * gst_source_buffer_append_buffer() and play the pipeline.
-         * @since 1.24
-         */
         interface MediaSource extends Gst.Object {
             readonly $signals: MediaSource.SignalSignatures
             readonly $readableProperties: MediaSource.ReadableProperties
@@ -270,6 +255,7 @@ declare module "gi://GstMse?version=1.0" {
         interface MediaSourceClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<MediaSource>
             readonly prototype: MediaSource
+
             new (props?: Partial<GObject.ConstructorProps<MediaSource>>): MediaSource
             /**
              * Creates a new #GstMediaSource instance. The instance is in the
@@ -291,7 +277,21 @@ declare module "gi://GstMse?version=1.0" {
             is_type_supported(type: string): boolean
         }
 
-        const MediaSource: MediaSourceClass
+        interface $Exports {
+            /**
+             * #GstMediaSource is the entry point into the W3C Media Source API. It offers
+             * functionality similar to #GstAppSrc for client-side web or JavaScript
+             * applications decoupling the source of media from its processing and playback.
+             *
+             * To interact with a Media Source, connect it to a #GstMseSrc that is in some
+             * #GstPipeline using gst_media_source_attach(). Then create at least one
+             * #GstSourceBuffer using gst_media_source_add_source_buffer(). Finally, feed
+             * some media data to the Source Buffer(s) using
+             * gst_source_buffer_append_buffer() and play the pipeline.
+             * @since 1.24
+             */
+            MediaSource: MediaSourceClass
+        }
         
 
         namespace MseSrc {
@@ -320,18 +320,6 @@ declare module "gi://GstMse?version=1.0" {
             }
         }
 
-        /**
-         * s processed by the Media Source and supplies them
-         * to the containing #GstPipeline. In the perspective of the Media Source API,
-         * this element fulfills the basis of the Media Element's role relating to
-         * working with a Media Source. The remaining responsibilities are meant to be
-         * fulfilled by the application and #GstPlay can be used to satisfy many of
-         * them.
-         *
-         * Once added to a Pipeline, this element should be attached to a Media Source
-         * using gst_media_source_attach().
-         * @since 1.24
-         */
         interface MseSrc extends Gst.Element, Gst.URIHandler {
             readonly $signals: MseSrc.SignalSignatures
             readonly $readableProperties: MseSrc.ReadableProperties
@@ -435,10 +423,26 @@ declare module "gi://GstMse?version=1.0" {
         interface MseSrcClass extends Omit<Gst.ElementClass, "new"> {
             readonly $gtype: GObject.GType<MseSrc>
             readonly prototype: MseSrc
+
             new (props?: Partial<GObject.ConstructorProps<MseSrc>>): MseSrc
         }
 
-        const MseSrc: MseSrcClass
+        interface $Exports {
+            /**
+             * #GstMseSrc is a source Element that interacts with a #GstMediaSource to
+             * consume #GstSample<!-- -->s processed by the Media Source and supplies them
+             * to the containing #GstPipeline. In the perspective of the Media Source API,
+             * this element fulfills the basis of the Media Element's role relating to
+             * working with a Media Source. The remaining responsibilities are meant to be
+             * fulfilled by the application and #GstPlay can be used to satisfy many of
+             * them.
+             *
+             * Once added to a Pipeline, this element should be attached to a Media Source
+             * using gst_media_source_attach().
+             * @since 1.24
+             */
+            MseSrc: MseSrcClass
+        }
         
 
         namespace MseSrcPad {
@@ -455,9 +459,6 @@ declare module "gi://GstMse?version=1.0" {
             }
         }
 
-        /**
-         * @since 1.24
-         */
         interface MseSrcPad extends Gst.Pad {
             readonly $signals: MseSrcPad.SignalSignatures
             readonly $readableProperties: MseSrcPad.ReadableProperties
@@ -468,10 +469,16 @@ declare module "gi://GstMse?version=1.0" {
         interface MseSrcPadClass extends Omit<Gst.PadClass, "new"> {
             readonly $gtype: GObject.GType<MseSrcPad>
             readonly prototype: MseSrcPad
+
             new (props?: Partial<GObject.ConstructorProps<MseSrcPad>>): MseSrcPad
         }
 
-        const MseSrcPad: MseSrcPadClass
+        interface $Exports {
+            /**
+             * @since 1.24
+             */
+            MseSrcPad: MseSrcPadClass
+        }
         
 
         namespace SourceBuffer {
@@ -542,33 +549,6 @@ declare module "gi://GstMse?version=1.0" {
             }
         }
 
-        /**
-         * The Source Buffer is the primary means of data flow between an application
-         * and the Media Source API. It represents a single timeline of media,
-         * containing some combination of audio, video, and text tracks.
-         * An application is responsible for feeding raw data into the Source Buffer
-         * using gst_source_buffer_append_buffer() and the Source Buffer will
-         * asynchronously process the data into tracks of time-coded multimedia samples.
-         *
-         * The application as well as the associated playback component can then select
-         * to play media from any subset of tracks across all Source Buffers of a Media
-         * Source.
-         *
-         * A few control points are also provided to customize the behavior.
-         *
-         *  - #GstSourceBuffer:append-mode controls how timestamps of processed samples are
-         *  interpreted. They are either inserted in the timeline directly where the
-         *  decoded media states they should, or inserted directly after the previously
-         *  encountered sample.
-         *
-         *  - #GstSourceBuffer:append-window-start / #GstSourceBuffer:append-window-end
-         *  control the planned time window where media from appended data can be added
-         *  to the current timeline. Any samples outside that range may be ignored.
-         *
-         *  - #GstSourceBuffer:timestamp-offset is added to the start time of any sample
-         *  processed.
-         * @since 1.24
-         */
         interface SourceBuffer extends Gst.Object {
             readonly $signals: SourceBuffer.SignalSignatures
             readonly $readableProperties: SourceBuffer.ReadableProperties
@@ -793,10 +773,40 @@ declare module "gi://GstMse?version=1.0" {
         interface SourceBufferClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SourceBuffer>
             readonly prototype: SourceBuffer
+
             new (props?: Partial<GObject.ConstructorProps<SourceBuffer>>): SourceBuffer
         }
 
-        const SourceBuffer: SourceBufferClass
+        interface $Exports {
+            /**
+             * The Source Buffer is the primary means of data flow between an application
+             * and the Media Source API. It represents a single timeline of media,
+             * containing some combination of audio, video, and text tracks.
+             * An application is responsible for feeding raw data into the Source Buffer
+             * using gst_source_buffer_append_buffer() and the Source Buffer will
+             * asynchronously process the data into tracks of time-coded multimedia samples.
+             *
+             * The application as well as the associated playback component can then select
+             * to play media from any subset of tracks across all Source Buffers of a Media
+             * Source.
+             *
+             * A few control points are also provided to customize the behavior.
+             *
+             *  - #GstSourceBuffer:append-mode controls how timestamps of processed samples are
+             *  interpreted. They are either inserted in the timeline directly where the
+             *  decoded media states they should, or inserted directly after the previously
+             *  encountered sample.
+             *
+             *  - #GstSourceBuffer:append-window-start / #GstSourceBuffer:append-window-end
+             *  control the planned time window where media from appended data can be added
+             *  to the current timeline. Any samples outside that range may be ignored.
+             *
+             *  - #GstSourceBuffer:timestamp-offset is added to the start time of any sample
+             *  processed.
+             * @since 1.24
+             */
+            SourceBuffer: SourceBufferClass
+        }
         
 
         namespace SourceBufferList {
@@ -829,19 +839,13 @@ declare module "gi://GstMse?version=1.0" {
             }
         }
 
-        /**
-         * s through #GstMediaSource:source-buffers as well as
-         * informing clients which of the Source Buffers are active through
-         * #GstMediaSource:active-source-buffers.
-         * @since 1.24
-         */
         interface SourceBufferList extends Gst.Object {
             readonly $signals: SourceBufferList.SignalSignatures
             readonly $readableProperties: SourceBufferList.ReadableProperties
             readonly $writableProperties: SourceBufferList.WritableProperties
             readonly $constructOnlyProperties: SourceBufferList.ConstructOnlyProperties
             /**
-             * s contained by this structure
+             * The number of #GstSourceBuffer<!-- -->s contained by this structure
              *
              * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebufferlist-length)
              * @since 1.24
@@ -870,22 +874,33 @@ declare module "gi://GstMse?version=1.0" {
         interface SourceBufferListClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SourceBufferList>
             readonly prototype: SourceBufferList
+
             new (props?: Partial<GObject.ConstructorProps<SourceBufferList>>): SourceBufferList
         }
 
-        const SourceBufferList: SourceBufferListClass
-        none
-        /**
-         * A structure describing a simplified version of the TimeRanges concept in the
-         * HTML specification, only representing a single @start and @end time.
-         *
-         * [Specification](https://html.spec.whatwg.org/multipage/media.html#timeranges)
-         * @since 1.24
-         */
-        abstract class MediaSourceRange {
-            static readonly $gtype: GObject.GType<MediaSourceRange>
+        interface $Exports {
+            /**
+             * The Source Buffer List is a list of #GstSourceBuffer<!-- -->s that can be
+             * indexed numerically and monitored for changes. The list itself cannot be
+             * modified through this interface, though the Source Buffers it holds can be
+             * modified after retrieval.
+             *
+             * It is used by #GstMediaSource to provide direct access to its child
+             * #GstSourceBuffer<!-- -->s through #GstMediaSource:source-buffers as well as
+             * informing clients which of the Source Buffers are active through
+             * #GstMediaSource:active-source-buffers.
+             * @since 1.24
+             */
+            SourceBufferList: SourceBufferListClass
+        }
+        
 
-            
+        interface MediaSourceRangeStruct {
+            readonly $gtype: GObject.GType<MediaSourceRange>
+            [Symbol.hasInstance](instance: unknown): instance is MediaSourceRange
+        }
+
+        interface MediaSourceRange {
             /**
              * The start of this range.
              */
@@ -895,16 +910,18 @@ declare module "gi://GstMse?version=1.0" {
              */
             end: Gst.ClockTime
         }
-        none
-        none
-        none
-        /**
-         * @since 1.24
-         */
-        abstract class SourceBufferInterval {
-            static readonly $gtype: GObject.GType<SourceBufferInterval>
 
-            
+        interface $Exports {
+            MediaSourceRange: MediaSourceRangeStruct
+        }
+        
+
+        interface SourceBufferIntervalStruct {
+            readonly $gtype: GObject.GType<SourceBufferInterval>
+            [Symbol.hasInstance](instance: unknown): instance is SourceBufferInterval
+        }
+
+        interface SourceBufferInterval {
             /**
              */
             start: Gst.ClockTime
@@ -912,149 +929,177 @@ declare module "gi://GstMse?version=1.0" {
              */
             end: Gst.ClockTime
         }
-        none
-        /**
-         * Any error type that can be reported by the Media Source API.
-         * @since 1.24
-         */
-        function media_source_error_quark(): GLib.Quark
-        
-        namespace MediaSourceEOSError {
-            const $gtype: GObject.GType<MediaSourceEOSError>
-        }
 
-        /**
-         * Reasons for ending a #GstMediaSource using gst_media_source_end_of_stream().
-         *
-         * [Specification](https://www.w3.org/TR/media-source-2/#dom-endofstreamerror)
-         * @since 1.24
-         */
-        enum MediaSourceEOSError {
+        interface $Exports {
+            SourceBufferInterval: SourceBufferIntervalStruct
+        }
+        
+        interface MediaSourceEOSErrorEnum {
+            readonly $gtype: GObject.GType<MediaSourceEOSError>
             /**
              * End the stream successfully
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * End the stream due to a networking error
              */
-            "NETWORK" = 1,
+            readonly "NETWORK": 1
             /**
              * End the stream due to a decoding error
              */
-            "DECODE" = 2,
+            readonly "DECODE": 2
+        }
+        type MediaSourceEOSError = MediaSourceEOSErrorEnum[Exclude<keyof MediaSourceEOSErrorEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Reasons for ending a #GstMediaSource using gst_media_source_end_of_stream().
+             *
+             * [Specification](https://www.w3.org/TR/media-source-2/#dom-endofstreamerror)
+             * @since 1.24
+             */
+            MediaSourceEOSError: MediaSourceEOSErrorEnum
         }
         
-        abstract class MediaSourceError extends GLib.Error {
-            static readonly $gtype: GObject.GType<MediaSourceError>
+        interface MediaSourceError extends GLib.Error {}
+
+        interface MediaSourceErrorEnum {
+            readonly $gtype: GObject.GType<MediaSourceError>
+
+            new(props: { message: string, code: number }): MediaSourceError
             /**
              */
-            static readonly "INVALID_STATE": 0
+            readonly "INVALID_STATE": 0
             /**
              */
-            static readonly "TYPE": 1
+            readonly "TYPE": 1
             /**
              */
-            static readonly "NOT_SUPPORTED": 2
+            readonly "NOT_SUPPORTED": 2
             /**
              */
-            static readonly "NOT_FOUND": 3
+            readonly "NOT_FOUND": 3
             /**
              */
-            static readonly "QUOTA_EXCEEDED": 4
-        }
-        /**
+            readonly "QUOTA_EXCEEDED": 4
+            /**
          * Any error type that can be reported by the Media Source API.
          * @since 1.24
          */
-        function quark(): GLib.Quark
-        
-        namespace MediaSourceReadyState {
-            const $gtype: GObject.GType<MediaSourceReadyState>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Describes the possible states of the Media Source.
-         *
-         * [Specification](https://www.w3.org/TR/media-source-2/#dom-readystate)
-         * @since 1.24
-         */
-        enum MediaSourceReadyState {
+        interface $Exports {
+            /**
+             * Any error that can occur within #GstMediaSource or #GstSourceBuffer APIs.
+             * These values correspond directly to those in the Web IDL specification.
+             *
+             * [Specification](https://webidl.spec.whatwg.org/#idl-DOMException-error-names)
+             * @since 1.24
+             */
+            MediaSourceError: MediaSourceErrorEnum
+        }
+        
+        interface MediaSourceReadyStateEnum {
+            readonly $gtype: GObject.GType<MediaSourceReadyState>
             /**
              * The #GstMediaSource is not connected to
              * any playback element.
              */
-            "CLOSED" = 0,
+            readonly "CLOSED": 0
             /**
              * The #GstMediaSource is connected to a
              * playback element and ready to append data to its #GstSourceBuffer (s).
              */
-            "OPEN" = 1,
+            readonly "OPEN": 1
             /**
              * gst_media_source_end_of_stream() has
              * been called on the current #GstMediaSource
              */
-            "ENDED" = 2,
+            readonly "ENDED": 2
+        }
+        type MediaSourceReadyState = MediaSourceReadyStateEnum[Exclude<keyof MediaSourceReadyStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the possible states of the Media Source.
+             *
+             * [Specification](https://www.w3.org/TR/media-source-2/#dom-readystate)
+             * @since 1.24
+             */
+            MediaSourceReadyState: MediaSourceReadyStateEnum
         }
         
-        namespace MseSrcReadyState {
-            const $gtype: GObject.GType<MseSrcReadyState>
-        }
-
-        /**
-         * Describes how much information a #GstMseSrc has about the media it is playing
-         * back at the current playback #GstMseSrc:position. This type corresponds
-         * directly to the ready state of a HTML Media Element and is a separate concept
-         * from #GstMediaSourceReadyState.
-         *
-         * [Specification](https://html.spec.whatwg.org/multipage/media.html#ready-states)
-         * @since 1.24
-         */
-        enum MseSrcReadyState {
+        interface MseSrcReadyStateEnum {
+            readonly $gtype: GObject.GType<MseSrcReadyState>
             /**
              * No information is available about the
              * stream
              */
-            "NOTHING" = 0,
+            readonly "NOTHING": 0
             /**
              * The duration is available and video
              * dimensions are available if the stream contains video
              */
-            "METADATA" = 1,
+            readonly "METADATA": 1
             /**
              * The current playback position can
              * be presented but future information is not available
              */
-            "CURRENT_DATA" = 2,
+            readonly "CURRENT_DATA": 2
             /**
              * There is data for the current
              * position and some amount in the future and any text tracks are ready.
              */
-            "FUTURE_DATA" = 3,
+            readonly "FUTURE_DATA": 3
             /**
              * Either there is enough data to
              * play the stream through at the current playback and input rate or the input
              * buffer is full.
              */
-            "ENOUGH_DATA" = 4,
+            readonly "ENOUGH_DATA": 4
+        }
+        type MseSrcReadyState = MseSrcReadyStateEnum[Exclude<keyof MseSrcReadyStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes how much information a #GstMseSrc has about the media it is playing
+             * back at the current playback #GstMseSrc:position. This type corresponds
+             * directly to the ready state of a HTML Media Element and is a separate concept
+             * from #GstMediaSourceReadyState.
+             *
+             * [Specification](https://html.spec.whatwg.org/multipage/media.html#ready-states)
+             * @since 1.24
+             */
+            MseSrcReadyState: MseSrcReadyStateEnum
         }
         
-        namespace SourceBufferAppendMode {
-            const $gtype: GObject.GType<SourceBufferAppendMode>
+        interface SourceBufferAppendModeEnum {
+            readonly $gtype: GObject.GType<SourceBufferAppendMode>
+            /**
+             */
+            readonly "SEGMENTS": 0
+            /**
+             */
+            readonly "SEQUENCE": 1
+        }
+        type SourceBufferAppendMode = SourceBufferAppendModeEnum[Exclude<keyof SourceBufferAppendModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * [Specification](https://www.w3.org/TR/media-source-2/#dom-appendmode)
+             * @since 1.24
+             */
+            SourceBufferAppendMode: SourceBufferAppendModeEnum
         }
 
-        /**
-         * [Specification](https://www.w3.org/TR/media-source-2/#dom-appendmode)
-         * @since 1.24
-         */
-        enum SourceBufferAppendMode {
+        interface $Exports {
+            __name__: "GstMse"
+            __version: "1.0"
             /**
+             * Any error type that can be reported by the Media Source API.
+             * @since 1.24
              */
-            "SEGMENTS" = 0,
-            /**
-             */
-            "SEQUENCE" = 1,
+            media_source_error_quark(): GLib.Quark
         }
     }
 
+    const GstMse: GstMse.$Exports
     export default GstMse
 }

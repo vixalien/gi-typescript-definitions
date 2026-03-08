@@ -16,10 +16,7 @@ declare module "gi://GstInsertBin?version=1.0" {
 
     
 
-
     namespace GstInsertBin {
-        const __name__: "GstInsertBin"
-        const __version: "1.0"
         
 
         namespace InsertBin {
@@ -98,44 +95,6 @@ declare module "gi://GstInsertBin?version=1.0" {
             }
         }
 
-        /**
-         * This element is a #GstBin that has a single source and sink pad. It allows
-         * the user (the application) to easily add and remove filter-like element
-         * (that has a single source and sink pad), to the pipeline while it is running.
-         * It features a fully asynchronous API inspired by GLib's GAsyncResult based
-         * APIs.
-         *
-         * Each operation (addition or removal) can take a callback, this callback
-         * is guaranteed to be called. Unlike GIO, there is no guarantee about where
-         * this callback will be called from, it could be called before the action
-         * returns or it could be called later from another thread. The signature of
-         * this callback GstInsertBinCallback().
-         *
-         * Apart from the library API, since 1.24 insertbin can also be found in the
-         * registry:
-         *
-         * ``` C
-         *   GstElement *pipeline, *insertbin, *videoflip;
-         *
-         *   gst_init (NULL, NULL);
-         *   pipeline =
-         *       gst_parse_launch ("videotestsrc ! insertbin name=i ! autovideosink",
-         *       NULL);
-         *
-         *   ...
-         *
-         *   insertbin = gst_bin_get_by_name (GST_BIN (pipeline), "i");
-         *   videoflip = gst_element_factory_make ("videoflip", NULL);
-         *
-         *   ...
-         *
-         *   g_object_set (videoflip, "method", 1, NULL);
-         *   g_signal_emit_by_name (insertbin, "append", videoflip, NULL, NULL);
-         *
-         *   ...
-         * ```
-         * @since 1.2
-         */
         interface InsertBin extends Gst.Bin, Gst.ChildProxy {
             readonly $signals: InsertBin.SignalSignatures
             readonly $readableProperties: InsertBin.ReadableProperties
@@ -202,6 +161,7 @@ declare module "gi://GstInsertBin?version=1.0" {
         interface InsertBinClass extends Omit<Gst.BinClass, "new"> {
             readonly $gtype: GObject.GType<InsertBin>
             readonly prototype: InsertBin
+
             new (props?: Partial<GObject.ConstructorProps<InsertBin>>): InsertBin
             /**
              * Creates a new #GstInsertBin
@@ -209,17 +169,62 @@ declare module "gi://GstInsertBin?version=1.0" {
              * @param name The name of the new #GstInsertBin element (or %NULL)
              * @returns The new #GstInsertBin
              */
-            "new"(name: string | null): Gst.Element
+            "new"(name: string | null): InsertBin
         }
 
-        const InsertBin: InsertBinClass
-        none
-        /**
-         */
-        abstract class InsertBinPrivate {
-            static readonly $gtype: GObject.GType<InsertBinPrivate>
+        interface $Exports {
+            /**
+             * This element is a #GstBin that has a single source and sink pad. It allows
+             * the user (the application) to easily add and remove filter-like element
+             * (that has a single source and sink pad), to the pipeline while it is running.
+             * It features a fully asynchronous API inspired by GLib's GAsyncResult based
+             * APIs.
+             *
+             * Each operation (addition or removal) can take a callback, this callback
+             * is guaranteed to be called. Unlike GIO, there is no guarantee about where
+             * this callback will be called from, it could be called before the action
+             * returns or it could be called later from another thread. The signature of
+             * this callback GstInsertBinCallback().
+             *
+             * Apart from the library API, since 1.24 insertbin can also be found in the
+             * registry:
+             *
+             * ``` C
+             *   GstElement *pipeline, *insertbin, *videoflip;
+             *
+             *   gst_init (NULL, NULL);
+             *   pipeline =
+             *       gst_parse_launch ("videotestsrc ! insertbin name=i ! autovideosink",
+             *       NULL);
+             *
+             *   ...
+             *
+             *   insertbin = gst_bin_get_by_name (GST_BIN (pipeline), "i");
+             *   videoflip = gst_element_factory_make ("videoflip", NULL);
+             *
+             *   ...
+             *
+             *   g_object_set (videoflip, "method", 1, NULL);
+             *   g_signal_emit_by_name (insertbin, "append", videoflip, NULL, NULL);
+             *
+             *   ...
+             * ```
+             * @since 1.2
+             */
+            InsertBin: InsertBinClass
+        }
+        
 
-            
+        interface InsertBinPrivateStruct {
+            readonly $gtype: GObject.GType<InsertBinPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is InsertBinPrivate
+        }
+
+        interface InsertBinPrivate {
+        }
+
+        interface $Exports {
+            InsertBinPrivate: InsertBinPrivateStruct
         }
         /**
          * This is the prototype of callbacks to be called when the operation completes.
@@ -231,7 +236,13 @@ declare module "gi://GstInsertBin?version=1.0" {
          * @param success %TRUE if the operation was successful
          */
         type InsertBinCallback = (insertbin: InsertBin, element: Gst.Element, success: boolean) => void
+
+        interface $Exports {
+            __name__: "GstInsertBin"
+            __version: "1.0"
+        }
     }
 
+    const GstInsertBin: GstInsertBin.$Exports
     export default GstInsertBin
 }

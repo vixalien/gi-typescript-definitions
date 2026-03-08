@@ -14,42 +14,69 @@ declare module "gi://xft?version=2.0" {
 
     
 
-
     namespace xft {
-        const __name__: "xft"
-        const __version: "2.0"
-        /**
-         */
-        abstract class Color {
-            static readonly $gtype: GObject.GType<Color>
+        
 
-            
+        interface ColorStruct {
+            readonly $gtype: GObject.GType<Color>
+            [Symbol.hasInstance](instance: unknown): instance is Color
         }
-        /**
-         */
-        abstract class Draw {
-            static readonly $gtype: GObject.GType<Draw>
 
-            
+        interface Color {
         }
-        /**
-         */
-        abstract class Font {
-            static readonly $gtype: GObject.GType<Font>
 
-            
+        interface $Exports {
+            Color: ColorStruct
         }
-        /**
-         */
-        abstract class GlyphSpec {
-            static readonly $gtype: GObject.GType<GlyphSpec>
+        
 
-            
+        interface DrawStruct {
+            readonly $gtype: GObject.GType<Draw>
+            [Symbol.hasInstance](instance: unknown): instance is Draw
         }
-        /**
-         */
-        function init(): void
+
+        interface Draw {
+        }
+
+        interface $Exports {
+            Draw: DrawStruct
+        }
+        
+
+        interface FontStruct {
+            readonly $gtype: GObject.GType<Font>
+            [Symbol.hasInstance](instance: unknown): instance is Font
+        }
+
+        interface Font {
+        }
+
+        interface $Exports {
+            Font: FontStruct
+        }
+        
+
+        interface GlyphSpecStruct {
+            readonly $gtype: GObject.GType<GlyphSpec>
+            [Symbol.hasInstance](instance: unknown): instance is GlyphSpec
+        }
+
+        interface GlyphSpec {
+        }
+
+        interface $Exports {
+            GlyphSpec: GlyphSpecStruct
+        }
+
+        interface $Exports {
+            __name__: "xft"
+            __version: "2.0"
+            /**
+             */
+            init(): void
+        }
     }
 
+    const xft: xft.$Exports
     export default xft
 }

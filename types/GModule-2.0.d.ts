@@ -12,23 +12,12 @@ declare module "gi://GModule?version=2.0" {
 
     
 
-
     namespace GModule {
-        const __name__: "GModule"
-        const __version: "2.0"
-        /**
-         * The #GModule struct is an opaque data structure to represent a
-         * [dynamically-loaded module](modules.html#dynamic-loading-of-modules).
-         * It should only be accessed via the following functions.
-         *
-         * To ensure correct lock ordering, these functions must not be called from
-         * global constructors (for example, those using GCC’s
-         * `__attribute__((constructor))` attribute).
-         */
-        abstract class Module {
-            static readonly $gtype: GObject.GType<Module>
+        
 
-            
+        interface ModuleStruct {
+            readonly $gtype: GObject.GType<Module>
+            [Symbol.hasInstance](instance: unknown): instance is Module
             /**
              * A portable way to build the filename of a module. The platform-specific
              * prefix and suffix are added to the filename, if needed, and the result
@@ -50,20 +39,23 @@ declare module "gi://GModule?version=2.0" {
              * @param module_name the name of the module
              * @returns the complete path of the module, including the standard library     prefix and suffix. This should be freed when no longer needed
              */
-            static build_path(directory: string | null, module_name: string): string
+            build_path(directory: string | null, module_name: string): string
             /**
              * Gets a string describing the last module error.
              * @returns a string describing the last module error
              */
-            static error(): string
+            error(): string
             /**
              */
-            static error_quark(): GLib.Quark
+            error_quark(): GLib.Quark
             /**
              * Checks if modules are supported on the current platform.
              * @returns %TRUE if modules are supported
              */
-            static supported(): boolean
+            supported(): boolean
+        }
+
+        interface Module {
             /**
              * Closes a module.
              * @returns %TRUE on success
@@ -89,84 +81,62 @@ declare module "gi://GModule?version=2.0" {
              */
             symbol(symbol_name: string): [boolean, never | null]
         }
-        /**
-         * A portable way to build the filename of a module. The platform-specific
-         * prefix and suffix are added to the filename, if needed, and the result
-         * is added to the directory, using the correct separator character.
-         *
-         * The directory should specify the directory where the module can be found.
-         * It can be %NULL or an empty string to indicate that the module is in a
-         * standard platform-specific directory, though this is not recommended
-         * since the wrong module may be found.
-         *
-         * For example, calling g_module_build_path() on a Linux system with a
-         * @directory of `/lib` and a @module_name of "mylibrary" will return
-         * `/lib/libmylibrary.so`. On a Windows system, using `\Windows` as the
-         * directory it will return `\Windows\mylibrary.dll`.
-         * @deprecated since 2.76 Use g_module_open() instead with `module_name` as the basename of the file_name argument. See %G_MODULE_SUFFIX for why.
-         * @param directory the directory where the module is. This can be
-            %NULL or the empty string to indicate that the standard platform-specific
-            directories will be used, though that is not recommended
-         * @param module_name the name of the module
-         * @returns the complete path of the module, including the standard library     prefix and suffix. This should be freed when no longer needed
-         */
-        function module_build_path(directory: string | null, module_name: string): string
-        /**
-         * Gets a string describing the last module error.
-         * @returns a string describing the last module error
-         */
-        function module_error(): string
-        /**
-         */
-        function module_error_quark(): GLib.Quark
-        /**
-         * Checks if modules are supported on the current platform.
-         * @returns %TRUE if modules are supported
-         */
-        function module_supported(): boolean
-        const MODULE_IMPL_AR: 7
-        const MODULE_IMPL_DL: 1
-        const MODULE_IMPL_NONE: 0
-        const MODULE_IMPL_WIN32: 3
+
+        interface $Exports {
+            Module: ModuleStruct
+        }
         
-        abstract class ModuleError extends GLib.Error {
-            static readonly $gtype: GObject.GType<ModuleError>
+        interface ModuleError extends GLib.Error {}
+
+        interface ModuleErrorEnum {
+            readonly $gtype: GObject.GType<ModuleError>
+
+            new(props: { message: string, code: number }): ModuleError
             /**
              * there was an error loading or opening a module file
              */
-            static readonly "FAILED": 0
+            readonly "FAILED": 0
             /**
              * a module returned an error from its `g_module_check_init()` function
              */
-            static readonly "CHECK_FAILED": 1
-        }
-        
-        namespace ModuleFlags {
-            const $gtype: GObject.GType<ModuleFlags>
+            readonly "CHECK_FAILED": 1
         }
 
-        /**
-         * Flags passed to g_module_open().
-         * Note that these flags are not supported on all platforms.
-         */
-        enum ModuleFlags {
+        interface $Exports {
+            /**
+             * Errors returned by g_module_open_full().
+             * @since 2.70
+             */
+            ModuleError: ModuleErrorEnum
+        }
+        
+        interface ModuleFlagsBitfield {
+            readonly $gtype: GObject.GType<ModuleFlags>
             /**
              * specifies that symbols are only resolved when
              *     needed. The default action is to bind all symbols when the module
              *     is loaded.
              */
-            "LAZY" = 1,
+            readonly "LAZY": 1
             /**
              * specifies that symbols in the module should
              *     not be added to the global name space. The default action on most
              *     platforms is to place symbols in the module in the global name space,
              *     which may cause conflicts with existing symbols.
              */
-            "LOCAL" = 2,
+            readonly "LOCAL": 2
             /**
              * mask for all flags.
              */
-            "MASK" = 3,
+            readonly "MASK": 3
+        }
+        type ModuleFlags = number
+        interface $Exports {
+            /**
+             * Flags passed to g_module_open().
+             * Note that these flags are not supported on all platforms.
+             */
+            ModuleFlags: ModuleFlagsBitfield
         }
         /**
          * Specifies the type of the module initialization function.
@@ -186,7 +156,52 @@ declare module "gi://GModule?version=2.0" {
          * @param module the #GModule about to be unloaded
          */
         type ModuleUnload = (module: Module) => void
+
+        interface $Exports {
+            __name__: "GModule"
+            __version: "2.0"
+            MODULE_IMPL_AR: 7
+            MODULE_IMPL_DL: 1
+            MODULE_IMPL_NONE: 0
+            MODULE_IMPL_WIN32: 3
+            /**
+             * A portable way to build the filename of a module. The platform-specific
+             * prefix and suffix are added to the filename, if needed, and the result
+             * is added to the directory, using the correct separator character.
+             *
+             * The directory should specify the directory where the module can be found.
+             * It can be %NULL or an empty string to indicate that the module is in a
+             * standard platform-specific directory, though this is not recommended
+             * since the wrong module may be found.
+             *
+             * For example, calling g_module_build_path() on a Linux system with a
+             * @directory of `/lib` and a @module_name of "mylibrary" will return
+             * `/lib/libmylibrary.so`. On a Windows system, using `\Windows` as the
+             * directory it will return `\Windows\mylibrary.dll`.
+             * @deprecated since 2.76 Use g_module_open() instead with `module_name` as the basename of the file_name argument. See %G_MODULE_SUFFIX for why.
+             * @param directory the directory where the module is. This can be
+                %NULL or the empty string to indicate that the standard platform-specific
+                directories will be used, though that is not recommended
+             * @param module_name the name of the module
+             * @returns the complete path of the module, including the standard library     prefix and suffix. This should be freed when no longer needed
+             */
+            module_build_path(directory: string | null, module_name: string): string
+            /**
+             * Gets a string describing the last module error.
+             * @returns a string describing the last module error
+             */
+            module_error(): string
+            /**
+             */
+            module_error_quark(): GLib.Quark
+            /**
+             * Checks if modules are supported on the current platform.
+             * @returns %TRUE if modules are supported
+             */
+            module_supported(): boolean
+        }
     }
 
+    const GModule: GModule.$Exports
     export default GModule
 }

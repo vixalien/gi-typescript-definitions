@@ -40,71 +40,7 @@ declare module "gi://WebKit?version=6.0" {
 
     
 
-
     namespace WebKit {
-        const __name__: "WebKit"
-        const __version: "6.0"
-        
-
-        namespace PermissionRequest {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * Allow the action which triggered this request.
-                 */
-                vfunc_allow(): void
-                /**
-                 * Deny the action which triggered this request.
-                 */
-                vfunc_deny(): void
-            }
-        }
-
-        /**
-         * A permission request.
-         *
-         * There are situations where an embedder would need to ask the user
-         * for permission to do certain types of operations, such as switching
-         * to fullscreen mode or reporting the user's location through the
-         * standard Geolocation API. In those cases, WebKit will emit a
-         * #WebKitWebView::permission-request signal with a
-         * #WebKitPermissionRequest object attached to it.
-         */
-        interface PermissionRequest extends PermissionRequest.Interface {
-            readonly $signals: PermissionRequest.SignalSignatures
-            readonly $readableProperties: PermissionRequest.ReadableProperties
-            readonly $writableProperties: PermissionRequest.WritableProperties
-            readonly $constructOnlyProperties: PermissionRequest.ConstructOnlyProperties
-            /**
-             * Allow the action which triggered this request.
-             */
-            allow(): void
-            /**
-             * Deny the action which triggered this request.
-             */
-            deny(): void
-        }
-
-
-        interface PermissionRequestInterface {
-            readonly $gtype: GObject.GType<PermissionRequest>
-            readonly prototype: PermissionRequest
-
-            [Symbol.hasInstance](instance: unknown): instance is PermissionRequest
-        }
-
-        const PermissionRequest: PermissionRequestInterface
         
 
         namespace AuthenticationRequest {
@@ -136,22 +72,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Represents an authentication request.
-         *
-         * Whenever a client attempts to load a page protected by HTTP
-         * authentication, credentials will need to be provided to authorize access.
-         * To allow the client to decide how it wishes to handle authentication,
-         * WebKit will fire a #WebKitWebView::authenticate signal with a
-         * WebKitAuthenticationRequest object to provide client side
-         * authentication support. Credentials are exposed through the
-         * #WebKitCredential object.
-         *
-         * In case the client application does not wish
-         * to handle this signal WebKit will provide a default handler. To handle
-         * authentication asynchronously, simply increase the reference count of the
-         * WebKitAuthenticationRequest object.
-         */
         interface AuthenticationRequest extends GObject.Object {
             readonly $signals: AuthenticationRequest.SignalSignatures
             readonly $readableProperties: AuthenticationRequest.ReadableProperties
@@ -280,10 +200,29 @@ declare module "gi://WebKit?version=6.0" {
         interface AuthenticationRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<AuthenticationRequest>
             readonly prototype: AuthenticationRequest
+
             new (props?: Partial<GObject.ConstructorProps<AuthenticationRequest>>): AuthenticationRequest
         }
 
-        const AuthenticationRequest: AuthenticationRequestClass
+        interface $Exports {
+            /**
+             * Represents an authentication request.
+             *
+             * Whenever a client attempts to load a page protected by HTTP
+             * authentication, credentials will need to be provided to authorize access.
+             * To allow the client to decide how it wishes to handle authentication,
+             * WebKit will fire a #WebKitWebView::authenticate signal with a
+             * WebKitAuthenticationRequest object to provide client side
+             * authentication support. Credentials are exposed through the
+             * #WebKitCredential object.
+             *
+             * In case the client application does not wish
+             * to handle this signal WebKit will provide a default handler. To handle
+             * authentication asynchronously, simply increase the reference count of the
+             * WebKitAuthenticationRequest object.
+             */
+            AuthenticationRequest: AuthenticationRequestClass
+        }
         
 
         namespace AutomationSession {
@@ -318,24 +257,13 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "id": string
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "id": string
             }
         }
 
-        /**
-         * Automation Session.
-         *
-         * WebKitAutomationSession represents an automation session of a WebKitWebContext.
-         * When a new session is requested, a WebKitAutomationSession is created and the signal
-         * WebKitWebContext::automation-started is emitted with the WebKitAutomationSession as
-         * argument. Then, the automation client can request the session to create a new
-         * #WebKitWebView to interact with it. When this happens the signal #WebKitAutomationSession::create-web-view
-         * is emitted.
-         * @since 2.18
-         */
         interface AutomationSession extends GObject.Object {
             readonly $signals: AutomationSession.SignalSignatures
             readonly $readableProperties: AutomationSession.ReadableProperties
@@ -380,10 +308,24 @@ declare module "gi://WebKit?version=6.0" {
         interface AutomationSessionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<AutomationSession>
             readonly prototype: AutomationSession
+
             new (props?: Partial<GObject.ConstructorProps<AutomationSession>>): AutomationSession
         }
 
-        const AutomationSession: AutomationSessionClass
+        interface $Exports {
+            /**
+             * Automation Session.
+             *
+             * WebKitAutomationSession represents an automation session of a WebKitWebContext.
+             * When a new session is requested, a WebKitAutomationSession is created and the signal
+             * WebKitWebContext::automation-started is emitted with the WebKitAutomationSession as
+             * argument. Then, the automation client can request the session to create a new
+             * #WebKitWebView to interact with it. When this happens the signal #WebKitAutomationSession::create-web-view
+             * is emitted.
+             * @since 2.18
+             */
+            AutomationSession: AutomationSessionClass
+        }
         
 
         namespace BackForwardList {
@@ -395,7 +337,7 @@ declare module "gi://WebKit?version=6.0" {
                  * %NULL when only the current item is updated. Items are only removed
                  * when the list is cleared or the maximum items limit is reached.
                  * @param item_added the #WebKitBackForwardListItem added or %NULL
-                 * @param items_removed s
+                 * @param items_removed a #GList of #WebKitBackForwardListItem<!-- -->s
                  */
                 "changed"(item_added: BackForwardListItem | null, items_removed: never | null): void
             }
@@ -410,11 +352,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * s
-         * do not change the value of the current item, they just return the requested
-         * item or items.
-         */
         interface BackForwardList extends GObject.Object {
             readonly $signals: BackForwardList.SignalSignatures
             readonly $readableProperties: BackForwardList.ReadableProperties
@@ -473,10 +410,30 @@ declare module "gi://WebKit?version=6.0" {
         interface BackForwardListClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<BackForwardList>
             readonly prototype: BackForwardList
+
             new (props?: Partial<GObject.ConstructorProps<BackForwardList>>): BackForwardList
         }
 
-        const BackForwardList: BackForwardListClass
+        interface $Exports {
+            /**
+             * List of visited pages.
+             *
+             * WebKitBackForwardList maintains a list of visited pages used to
+             * navigate to recent pages. Items are inserted in the list in the
+             * order they are visited.
+             *
+             * WebKitBackForwardList also maintains the notion of the current item
+             * (which is always at index 0), the preceding item (which is at index -1),
+             * and the following item (which is at index 1).
+             * Methods webkit_web_view_go_back() and webkit_web_view_go_forward() move
+             * the current item backward or forward by one. Method
+             * webkit_web_view_go_to_back_forward_list_item() sets the current item to the
+             * specified item. All other methods returning #WebKitBackForwardListItem<!-- -->s
+             * do not change the value of the current item, they just return the requested
+             * item or items.
+             */
+            BackForwardList: BackForwardListClass
+        }
         
 
         namespace BackForwardListItem {
@@ -493,12 +450,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * One item of the #WebKitBackForwardList.
-         *
-         * A history item is part of the #WebKitBackForwardList and consists
-         * out of a title and a URI.
-         */
         interface BackForwardListItem extends GObject.InitiallyUnowned {
             readonly $signals: BackForwardListItem.SignalSignatures
             readonly $readableProperties: BackForwardListItem.ReadableProperties
@@ -530,10 +481,19 @@ declare module "gi://WebKit?version=6.0" {
         interface BackForwardListItemClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
             readonly $gtype: GObject.GType<BackForwardListItem>
             readonly prototype: BackForwardListItem
+
             new (props?: Partial<GObject.ConstructorProps<BackForwardListItem>>): BackForwardListItem
         }
 
-        const BackForwardListItem: BackForwardListItemClass
+        interface $Exports {
+            /**
+             * One item of the #WebKitBackForwardList.
+             *
+             * A history item is part of the #WebKitBackForwardList and consists
+             * out of a title and a URI.
+             */
+            BackForwardListItem: BackForwardListItemClass
+        }
         
 
         namespace ClipboardPermissionRequest {
@@ -550,17 +510,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A permission request for reading clipboard contents.
-         *
-         * WebKitClipboardPermissionRequest represents a request for
-         * permission to decide whether WebKit can access the clipboard to read
-         * its contents through the Async Clipboard API.
-         *
-         * When a WebKitClipboardPermissionRequest is not handled by the user,
-         * it is denied by default.
-         * @since 2.42
-         */
         interface ClipboardPermissionRequest extends GObject.Object, PermissionRequest {
             readonly $signals: ClipboardPermissionRequest.SignalSignatures
             readonly $readableProperties: ClipboardPermissionRequest.ReadableProperties
@@ -571,10 +520,24 @@ declare module "gi://WebKit?version=6.0" {
         interface ClipboardPermissionRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ClipboardPermissionRequest>
             readonly prototype: ClipboardPermissionRequest
+
             new (props?: Partial<GObject.ConstructorProps<ClipboardPermissionRequest>>): ClipboardPermissionRequest
         }
 
-        const ClipboardPermissionRequest: ClipboardPermissionRequestClass
+        interface $Exports {
+            /**
+             * A permission request for reading clipboard contents.
+             *
+             * WebKitClipboardPermissionRequest represents a request for
+             * permission to decide whether WebKit can access the clipboard to read
+             * its contents through the Async Clipboard API.
+             *
+             * When a WebKitClipboardPermissionRequest is not handled by the user,
+             * it is denied by default.
+             * @since 2.42
+             */
+            ClipboardPermissionRequest: ClipboardPermissionRequestClass
+        }
         
 
         namespace ColorChooserRequest {
@@ -601,21 +564,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         *
-         * HTML element, WebKit will need to show a dialog to choose a color. For that
-         * to happen in a general way, instead of just opening a #GtkColorChooser
-         * (which might be not desirable in some cases, which could prefer to use their
-         * own color chooser dialog), WebKit will fire the
-         * #WebKitWebView::run-color-chooser signal with a #WebKitColorChooserRequest
-         * object, which will allow the client application to specify the color to be
-         * selected, to inspect the details of the request (e.g. to get initial color)
-         * and to cancel the request, in case nothing was selected.
-         *
-         * In case the client application does not wish to handle this signal,
-         * WebKit will provide a default handler which will asynchronously run
-         * a regular #GtkColorChooserDialog for the user to interact with.
-         */
         interface ColorChooserRequest extends GObject.Object {
             readonly $signals: ColorChooserRequest.SignalSignatures
             readonly $readableProperties: ColorChooserRequest.ReadableProperties
@@ -671,10 +619,30 @@ declare module "gi://WebKit?version=6.0" {
         interface ColorChooserRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ColorChooserRequest>
             readonly prototype: ColorChooserRequest
+
             new (props?: Partial<GObject.ConstructorProps<ColorChooserRequest>>): ColorChooserRequest
         }
 
-        const ColorChooserRequest: ColorChooserRequestClass
+        interface $Exports {
+            /**
+             * A request to open a color chooser.
+             *
+             * Whenever the user interacts with an <input type='color' />
+             * HTML element, WebKit will need to show a dialog to choose a color. For that
+             * to happen in a general way, instead of just opening a #GtkColorChooser
+             * (which might be not desirable in some cases, which could prefer to use their
+             * own color chooser dialog), WebKit will fire the
+             * #WebKitWebView::run-color-chooser signal with a #WebKitColorChooserRequest
+             * object, which will allow the client application to specify the color to be
+             * selected, to inspect the details of the request (e.g. to get initial color)
+             * and to cancel the request, in case nothing was selected.
+             *
+             * In case the client application does not wish to handle this signal,
+             * WebKit will provide a default handler which will asynchronously run
+             * a regular #GtkColorChooserDialog for the user to interact with.
+             */
+            ColorChooserRequest: ColorChooserRequestClass
+        }
         
 
         namespace ContextMenu {
@@ -691,12 +659,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * s with
-         * webkit_context_menu_prepend(), webkit_context_menu_append() or
-         * webkit_context_menu_insert(), maybe after having removed the
-         * existing ones with webkit_context_menu_remove_all().
-         */
         interface ContextMenu extends GObject.Object {
             readonly $signals: ContextMenu.SignalSignatures
             readonly $readableProperties: ContextMenu.ReadableProperties
@@ -713,7 +675,22 @@ declare module "gi://WebKit?version=6.0" {
              */
             first(): ContextMenuItem
             /**
-             * >
+             * Gets the #GdkEvent that triggered the context menu. This function only returns a valid
+             * #GdkEvent when called for a #WebKitContextMenu passed to #WebKitWebView::context-menu
+             * signal; in all other cases, %NULL is returned.
+             *
+             * The returned #GdkEvent is expected to be one of the following types:
+             * <itemizedlist>
+             * <listitem><para>
+             * a #GdkEventButton of type %GDK_BUTTON_PRESS when the context menu was triggered with mouse.
+             * </para></listitem>
+             * <listitem><para>
+             * a #GdkEventKey of type %GDK_KEY_PRESS if the keyboard was used to show the menu.
+             * </para></listitem>
+             * <listitem><para>
+             * a generic #GdkEvent of type %GDK_NOTHING when the #GtkWidget::popup-menu signal was used to show the context menu.
+             * </para></listitem>
+             * </itemizedlist>
              * @since 2.40
              * @returns the menu event or %NULL.
              */
@@ -726,12 +703,12 @@ declare module "gi://WebKit?version=6.0" {
             get_item_at_position(position: number): ContextMenuItem
             /**
              * Returns the item list of @menu.
-             * @returns s
+             * @returns a #GList of    #WebKitContextMenuItem<!-- -->s
              */
             get_items(): ContextMenuItem[]
             /**
              * Gets the length of the @menu.
-             * @returns s in `menu`
+             * @returns the number of #WebKitContextMenuItem<!-- -->s in `menu`
              */
             get_n_items(): number
             /**
@@ -742,7 +719,7 @@ declare module "gi://WebKit?version=6.0" {
              * @since 2.52
              * @returns %TRUE if valid position coordinates are available, %FALSE otherwise, return location for the x coordinate, return location for the y coordinate
              */
-            get_position(): boolean
+            get_position(): [boolean, number, number]
             /**
              * Gets the user data of @menu.
              *
@@ -809,6 +786,7 @@ declare module "gi://WebKit?version=6.0" {
         interface ContextMenuClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<ContextMenu>
             readonly prototype: ContextMenu
+
             new (props?: Partial<GObject.ConstructorProps<ContextMenu>>): ContextMenu
             /**
              * Creates a new #WebKitContextMenu object.
@@ -835,7 +813,24 @@ declare module "gi://WebKit?version=6.0" {
             new_with_items(items: ContextMenuItem[]): ContextMenu
         }
 
-        const ContextMenu: ContextMenuClass
+        interface $Exports {
+            /**
+             * Represents the context menu in a #WebKitWebView.
+             *
+             * #WebKitContextMenu represents a context menu containing
+             * #WebKitContextMenuItem<!-- -->s in a #WebKitWebView.
+             *
+             * When a #WebKitWebView is about to display the context menu, it
+             * emits the #WebKitWebView::context-menu signal, which has the
+             * #WebKitContextMenu as an argument. You can modify it, adding new
+             * submenus that you can create with webkit_context_menu_new(), adding
+             * new #WebKitContextMenuItem<!-- -->s with
+             * webkit_context_menu_prepend(), webkit_context_menu_append() or
+             * webkit_context_menu_insert(), maybe after having removed the
+             * existing ones with webkit_context_menu_remove_all().
+             */
+            ContextMenu: ContextMenuClass
+        }
         
 
         namespace ContextMenuItem {
@@ -852,10 +847,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * s denote stock actions
-         * for the items. You can also create separators and submenus.
-         */
         interface ContextMenuItem extends GObject.InitiallyUnowned {
             readonly $signals: ContextMenuItem.SignalSignatures
             readonly $readableProperties: ContextMenuItem.ReadableProperties
@@ -912,6 +903,7 @@ declare module "gi://WebKit?version=6.0" {
         interface ContextMenuItemClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
             readonly $gtype: GObject.GType<ContextMenuItem>
             readonly prototype: ContextMenuItem
+
             new (props?: Partial<GObject.ConstructorProps<ContextMenuItem>>): ContextMenuItem
             /**
              * Creates a new #WebKitContextMenuItem for the given @action and @label.
@@ -964,7 +956,18 @@ declare module "gi://WebKit?version=6.0" {
             new_with_submenu(label: string, submenu: ContextMenu): ContextMenuItem
         }
 
-        const ContextMenuItem: ContextMenuItemClass
+        interface $Exports {
+            /**
+             * One item of a #WebKitContextMenu.
+             *
+             * The #WebKitContextMenu is composed of #WebKitContextMenuItem<!--
+             * -->s. These items can be created from a #GtkAction, from a
+             * #WebKitContextMenuAction or from a #WebKitContextMenuAction and a
+             * label. These #WebKitContextMenuAction<!-- -->s denote stock actions
+             * for the items. You can also create separators and submenus.
+             */
+            ContextMenuItem: ContextMenuItemClass
+        }
         
 
         namespace CookieManager {
@@ -985,15 +988,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Defines how to handle cookies in a #WebKitWebContext.
-         *
-         * The WebKitCookieManager defines how to set up and handle cookies.
-         * You can get it from a #WebKitWebsiteDataManager with
-         * webkit_website_data_manager_get_cookie_manager(), and use it to set where to
-         * store cookies with webkit_cookie_manager_set_persistent_storage(),
-         * or to set the acceptance policy, with webkit_cookie_manager_get_accept_policy().
-         */
         interface CookieManager extends GObject.Object {
             readonly $signals: CookieManager.SignalSignatures
             readonly $readableProperties: CookieManager.ReadableProperties
@@ -1153,10 +1147,22 @@ declare module "gi://WebKit?version=6.0" {
         interface CookieManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<CookieManager>
             readonly prototype: CookieManager
+
             new (props?: Partial<GObject.ConstructorProps<CookieManager>>): CookieManager
         }
 
-        const CookieManager: CookieManagerClass
+        interface $Exports {
+            /**
+             * Defines how to handle cookies in a #WebKitWebContext.
+             *
+             * The WebKitCookieManager defines how to set up and handle cookies.
+             * You can get it from a #WebKitWebsiteDataManager with
+             * webkit_website_data_manager_get_cookie_manager(), and use it to set where to
+             * store cookies with webkit_cookie_manager_set_persistent_storage(),
+             * or to set the acceptance policy, with webkit_cookie_manager_get_accept_policy().
+             */
+            CookieManager: CookieManagerClass
+        }
         
 
         namespace DeviceInfoPermissionRequest {
@@ -1173,18 +1179,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A permission request for enumerating the user's media devices
-         *
-         * WebKitDeviceInfoPermissionRequest represents a request for
-         * permission to whether WebKit should be allowed to access the user's
-         * devices information when requested through the MediaDevices.enumerateDevices
-         * API.
-         *
-         * When a WebKitDeviceInfoPermissionRequest is not handled by the user,
-         * it is denied by default.
-         * @since 2.24
-         */
         interface DeviceInfoPermissionRequest extends GObject.Object, PermissionRequest {
             readonly $signals: DeviceInfoPermissionRequest.SignalSignatures
             readonly $readableProperties: DeviceInfoPermissionRequest.ReadableProperties
@@ -1195,10 +1189,25 @@ declare module "gi://WebKit?version=6.0" {
         interface DeviceInfoPermissionRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DeviceInfoPermissionRequest>
             readonly prototype: DeviceInfoPermissionRequest
+
             new (props?: Partial<GObject.ConstructorProps<DeviceInfoPermissionRequest>>): DeviceInfoPermissionRequest
         }
 
-        const DeviceInfoPermissionRequest: DeviceInfoPermissionRequestClass
+        interface $Exports {
+            /**
+             * A permission request for enumerating the user's media devices
+             *
+             * WebKitDeviceInfoPermissionRequest represents a request for
+             * permission to whether WebKit should be allowed to access the user's
+             * devices information when requested through the MediaDevices.enumerateDevices
+             * API.
+             *
+             * When a WebKitDeviceInfoPermissionRequest is not handled by the user,
+             * it is denied by default.
+             * @since 2.24
+             */
+            DeviceInfoPermissionRequest: DeviceInfoPermissionRequestClass
+        }
         
 
         namespace Download {
@@ -1268,15 +1277,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Object used to communicate with the application when downloading.
-         *
-         * #WebKitDownload carries information about a download request and
-         * response, including a #WebKitURIRequest and a #WebKitURIResponse
-         * objects. The application may use this object to control the
-         * download process, or to simply figure out what is to be downloaded,
-         * and handle the download process itself.
-         */
         interface Download extends GObject.Object {
             readonly $signals: Download.SignalSignatures
             readonly $readableProperties: Download.ReadableProperties
@@ -1419,10 +1419,22 @@ declare module "gi://WebKit?version=6.0" {
         interface DownloadClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Download>
             readonly prototype: Download
+
             new (props?: Partial<GObject.ConstructorProps<Download>>): Download
         }
 
-        const Download: DownloadClass
+        interface $Exports {
+            /**
+             * Object used to communicate with the application when downloading.
+             *
+             * #WebKitDownload carries information about a download request and
+             * response, including a #WebKitURIRequest and a #WebKitURIResponse
+             * objects. The application may use this object to control the
+             * download process, or to simply figure out what is to be downloaded,
+             * and handle the download process itself.
+             */
+            Download: DownloadClass
+        }
         
 
         namespace EditorState {
@@ -1446,14 +1458,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Web editor state.
-         *
-         * WebKitEditorState represents the state of a #WebKitWebView editor.
-         * Use webkit_web_view_get_editor_state() to get the WebKitEditorState
-         * of a #WebKitWebView.
-         * @since 2.10
-         */
         interface EditorState extends GObject.Object {
             readonly $signals: EditorState.SignalSignatures
             readonly $readableProperties: EditorState.ReadableProperties
@@ -1513,10 +1517,21 @@ declare module "gi://WebKit?version=6.0" {
         interface EditorStateClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<EditorState>
             readonly prototype: EditorState
+
             new (props?: Partial<GObject.ConstructorProps<EditorState>>): EditorState
         }
 
-        const EditorState: EditorStateClass
+        interface $Exports {
+            /**
+             * Web editor state.
+             *
+             * WebKitEditorState represents the state of a #WebKitWebView editor.
+             * Use webkit_web_view_get_editor_state() to get the WebKitEditorState
+             * of a #WebKitWebView.
+             * @since 2.10
+             */
+            EditorState: EditorStateClass
+        }
         
 
         namespace FaviconDatabase {
@@ -1544,17 +1559,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         *
-         * elements on opened pages as well as an existing favicon.ico and
-         * load the images found into a memory cache if possible. That cache
-         * is frozen to an on-disk database for persistence.
-         *
-         * If #WebKitSettings:enable-private-browsing is %TRUE, new icons
-         * won't be added to the on-disk database and no existing icons will
-         * be deleted from it. Nevertheless, WebKit will still store them in
-         * the in-memory cache during the current execution.
-         */
         interface FaviconDatabase extends GObject.Object {
             readonly $signals: FaviconDatabase.SignalSignatures
             readonly $readableProperties: FaviconDatabase.ReadableProperties
@@ -1598,10 +1602,26 @@ declare module "gi://WebKit?version=6.0" {
         interface FaviconDatabaseClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FaviconDatabase>
             readonly prototype: FaviconDatabase
+
             new (props?: Partial<GObject.ConstructorProps<FaviconDatabase>>): FaviconDatabase
         }
 
-        const FaviconDatabase: FaviconDatabaseClass
+        interface $Exports {
+            /**
+             * Provides access to the icons associated with web sites.
+             *
+             * WebKit will automatically look for available icons in <link>
+             * elements on opened pages as well as an existing favicon.ico and
+             * load the images found into a memory cache if possible. That cache
+             * is frozen to an on-disk database for persistence.
+             *
+             * If #WebKitSettings:enable-private-browsing is %TRUE, new icons
+             * won't be added to the on-disk database and no existing icons will
+             * be deleted from it. Nevertheless, WebKit will still store them in
+             * the in-memory cache during the current execution.
+             */
+            FaviconDatabase: FaviconDatabaseClass
+        }
         
 
         namespace FileChooserRequest {
@@ -1626,26 +1646,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A request to open a file chooser.
-         *
-         * Whenever the user interacts with an HTML input element with
-         * file type, WebKit will need to show a dialog to choose one or
-         * more files to be uploaded to the server along with the rest of the
-         * form data. For that to happen in a general way, instead of just
-         * opening a #GtkFileChooserDialog (which might be not desirable in
-         * some cases, which could prefer to use their own file chooser
-         * dialog), WebKit will fire the #WebKitWebView::run-file-chooser
-         * signal with a #WebKitFileChooserRequest object, which will allow
-         * the client application to specify the files to be selected, to
-         * inspect the details of the request (e.g. if multiple selection
-         * should be allowed) and to cancel the request, in case nothing was
-         * selected.
-         *
-         * In case the client application does not wish to handle this signal,
-         * WebKit will provide a default handler which will asynchronously run
-         * a regular #GtkFileChooserDialog for the user to interact with.
-         */
         interface FileChooserRequest extends GObject.Object {
             readonly $signals: FileChooserRequest.SignalSignatures
             readonly $readableProperties: FileChooserRequest.ReadableProperties
@@ -1753,10 +1753,33 @@ declare module "gi://WebKit?version=6.0" {
         interface FileChooserRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FileChooserRequest>
             readonly prototype: FileChooserRequest
+
             new (props?: Partial<GObject.ConstructorProps<FileChooserRequest>>): FileChooserRequest
         }
 
-        const FileChooserRequest: FileChooserRequestClass
+        interface $Exports {
+            /**
+             * A request to open a file chooser.
+             *
+             * Whenever the user interacts with an HTML input element with
+             * file type, WebKit will need to show a dialog to choose one or
+             * more files to be uploaded to the server along with the rest of the
+             * form data. For that to happen in a general way, instead of just
+             * opening a #GtkFileChooserDialog (which might be not desirable in
+             * some cases, which could prefer to use their own file chooser
+             * dialog), WebKit will fire the #WebKitWebView::run-file-chooser
+             * signal with a #WebKitFileChooserRequest object, which will allow
+             * the client application to specify the files to be selected, to
+             * inspect the details of the request (e.g. if multiple selection
+             * should be allowed) and to cancel the request, in case nothing was
+             * selected.
+             *
+             * In case the client application does not wish to handle this signal,
+             * WebKit will provide a default handler which will asynchronously run
+             * a regular #GtkFileChooserDialog for the user to interact with.
+             */
+            FileChooserRequest: FileChooserRequestClass
+        }
         
 
         namespace FindController {
@@ -1798,16 +1821,13 @@ declare module "gi://WebKit?version=6.0" {
                 "max-match-count": number
                 "options": FindOptions
                 "text": string
-                "web-view": WebView
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "web-view": WebView
             }
         }
 
-        /**
-         * .
-         */
         interface FindController extends GObject.Object {
             readonly $signals: FindController.SignalSignatures
             readonly $readableProperties: FindController.ReadableProperties
@@ -1942,10 +1962,26 @@ declare module "gi://WebKit?version=6.0" {
         interface FindControllerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FindController>
             readonly prototype: FindController
+
             new (props?: Partial<GObject.ConstructorProps<FindController>>): FindController
         }
 
-        const FindController: FindControllerClass
+        interface $Exports {
+            /**
+             * Controls text search in a #WebKitWebView.
+             *
+             * A #WebKitFindController is used to search text in a #WebKitWebView. You
+             * can get a #WebKitWebView<!-- -->'s #WebKitFindController with
+             * webkit_web_view_get_find_controller(), and later use it to search
+             * for text using webkit_find_controller_search(), or get the
+             * number of matches using webkit_find_controller_count_matches(). The
+             * operations are asynchronous and trigger signals when ready, such as
+             * #WebKitFindController::found-text,
+             * #WebKitFindController::failed-to-find-text or
+             * #WebKitFindController::counted-matches<!-- -->.
+             */
+            FindController: FindControllerClass
+        }
         
 
         namespace FormSubmissionRequest {
@@ -1962,16 +1998,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Represents a form submission request.
-         *
-         * When a form is about to be submitted in a #WebKitWebView, the
-         * #WebKitWebView::submit-form signal is emitted. Its request argument
-         * contains information about the text fields of the form, that are
-         * typically used to store login information, returned as lists by
-         * webkit_form_submission_request_list_text_fields(). You can submit the
-         * form with webkit_form_submission_request_submit().
-         */
         interface FormSubmissionRequest extends GObject.Object {
             readonly $signals: FormSubmissionRequest.SignalSignatures
             readonly $readableProperties: FormSubmissionRequest.ReadableProperties
@@ -1989,7 +2015,7 @@ declare module "gi://WebKit?version=6.0" {
              * @since 2.20
              * @returns %TRUE if the form contains text fields, or %FALSE otherwise,     names of the text fields in the form,     values of the text fields in the form
              */
-            list_text_fields(): boolean
+            list_text_fields(): [boolean, string[], string[]]
             /**
              * Continue the form submission.
              */
@@ -1999,10 +2025,23 @@ declare module "gi://WebKit?version=6.0" {
         interface FormSubmissionRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FormSubmissionRequest>
             readonly prototype: FormSubmissionRequest
+
             new (props?: Partial<GObject.ConstructorProps<FormSubmissionRequest>>): FormSubmissionRequest
         }
 
-        const FormSubmissionRequest: FormSubmissionRequestClass
+        interface $Exports {
+            /**
+             * Represents a form submission request.
+             *
+             * When a form is about to be submitted in a #WebKitWebView, the
+             * #WebKitWebView::submit-form signal is emitted. Its request argument
+             * contains information about the text fields of the form, that are
+             * typically used to store login information, returned as lists by
+             * webkit_form_submission_request_list_text_fields(). You can submit the
+             * form with webkit_form_submission_request_submit().
+             */
+            FormSubmissionRequest: FormSubmissionRequestClass
+        }
         
 
         namespace GeolocationManager {
@@ -2040,17 +2079,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Geolocation manager.
-         *
-         * WebKitGeolocationManager provides API to get the geographical position of the user.
-         * Once a #WebKitGeolocationPermissionRequest is allowed, when WebKit needs to know the
-         * user location #WebKitGeolocationManager::start signal is emitted. If the signal is handled
-         * and returns %TRUE, the application is responsible for providing the position every time it's
-         * updated by calling webkit_geolocation_manager_update_position(). The signal #WebKitGeolocationManager::stop
-         * will be emitted when location updates are no longer needed.
-         * @since 2.26
-         */
         interface GeolocationManager extends GObject.Object {
             readonly $signals: GeolocationManager.SignalSignatures
             readonly $readableProperties: GeolocationManager.ReadableProperties
@@ -2088,10 +2116,24 @@ declare module "gi://WebKit?version=6.0" {
         interface GeolocationManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GeolocationManager>
             readonly prototype: GeolocationManager
+
             new (props?: Partial<GObject.ConstructorProps<GeolocationManager>>): GeolocationManager
         }
 
-        const GeolocationManager: GeolocationManagerClass
+        interface $Exports {
+            /**
+             * Geolocation manager.
+             *
+             * WebKitGeolocationManager provides API to get the geographical position of the user.
+             * Once a #WebKitGeolocationPermissionRequest is allowed, when WebKit needs to know the
+             * user location #WebKitGeolocationManager::start signal is emitted. If the signal is handled
+             * and returns %TRUE, the application is responsible for providing the position every time it's
+             * updated by calling webkit_geolocation_manager_update_position(). The signal #WebKitGeolocationManager::stop
+             * will be emitted when location updates are no longer needed.
+             * @since 2.26
+             */
+            GeolocationManager: GeolocationManagerClass
+        }
         
 
         namespace GeolocationPermissionRequest {
@@ -2108,32 +2150,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A permission request for sharing the user's location.
-         *
-         * WebKitGeolocationPermissionRequest represents a request for
-         * permission to decide whether WebKit should provide the user's
-         * location to a website when requested through the Geolocation API.
-         *
-         * When a WebKitGeolocationPermissionRequest is not handled by the user,
-         * it is denied by default.
-         *
-         * When embedding web views in your application, you *must* configure an
-         * application identifier to allow web content to use geolocation services.
-         * The identifier *must* match the name of the `.desktop` file which describes
-         * the application, sans the suffix.
-         *
-         * If your application uses #GApplication (or any subclass like
-         * #GtkApplication), WebKit will automatically use the identifier returned by
-         * g_application_get_application_id(). This is the recommended approach for
-         * enabling geolocation in applications.
-         *
-         * If an identifier cannot be obtained through #GApplication, the value
-         * returned by g_get_prgname() will be used instead as a fallback. For
-         * programs which cannot use #GApplication, calling g_set_prgname() early
-         * during initialization is needed when the name of the executable on disk
-         * does not match the name of a valid `.desktop` file.
-         */
         interface GeolocationPermissionRequest extends GObject.Object, PermissionRequest {
             readonly $signals: GeolocationPermissionRequest.SignalSignatures
             readonly $readableProperties: GeolocationPermissionRequest.ReadableProperties
@@ -2144,10 +2160,39 @@ declare module "gi://WebKit?version=6.0" {
         interface GeolocationPermissionRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GeolocationPermissionRequest>
             readonly prototype: GeolocationPermissionRequest
+
             new (props?: Partial<GObject.ConstructorProps<GeolocationPermissionRequest>>): GeolocationPermissionRequest
         }
 
-        const GeolocationPermissionRequest: GeolocationPermissionRequestClass
+        interface $Exports {
+            /**
+             * A permission request for sharing the user's location.
+             *
+             * WebKitGeolocationPermissionRequest represents a request for
+             * permission to decide whether WebKit should provide the user's
+             * location to a website when requested through the Geolocation API.
+             *
+             * When a WebKitGeolocationPermissionRequest is not handled by the user,
+             * it is denied by default.
+             *
+             * When embedding web views in your application, you *must* configure an
+             * application identifier to allow web content to use geolocation services.
+             * The identifier *must* match the name of the `.desktop` file which describes
+             * the application, sans the suffix.
+             *
+             * If your application uses #GApplication (or any subclass like
+             * #GtkApplication), WebKit will automatically use the identifier returned by
+             * g_application_get_application_id(). This is the recommended approach for
+             * enabling geolocation in applications.
+             *
+             * If an identifier cannot be obtained through #GApplication, the value
+             * returned by g_get_prgname() will be used instead as a fallback. For
+             * programs which cannot use #GApplication, calling g_set_prgname() early
+             * during initialization is needed when the name of the executable on disk
+             * does not match the name of a valid `.desktop` file.
+             */
+            GeolocationPermissionRequest: GeolocationPermissionRequestClass
+        }
         
 
         namespace HitTestResult {
@@ -2164,6 +2209,9 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "context": number
                 "image-uri": string
                 "link-label": string
@@ -2171,33 +2219,8 @@ declare module "gi://WebKit?version=6.0" {
                 "link-uri": string
                 "media-uri": string
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Result of a Hit Test.
-         *
-         * A Hit Test is an operation to get context information about a given
-         * point in a #WebKitWebView. #WebKitHitTestResult represents the
-         * result of a Hit Test. It provides context information about what is
-         * at the coordinates of the Hit Test, such as if there's a link,
-         * an image or a media.
-         *
-         * You can get the context of the HitTestResult with
-         * webkit_hit_test_result_get_context() that returns a bitmask of
-         * #WebKitHitTestResultContext flags. You can also use
-         * webkit_hit_test_result_context_is_link(), webkit_hit_test_result_context_is_image() and
-         * webkit_hit_test_result_context_is_media() to determine whether there's
-         * a link, image or a media element at the coordinates of the Hit Test.
-         * Note that it's possible that several #WebKitHitTestResultContext flags
-         * are active at the same time, for example if there's a link containing an image.
-         *
-         * When the mouse is moved over a #WebKitWebView a Hit Test is performed
-         * for the mouse coordinates and #WebKitWebView::mouse-target-changed
-         * signal is emitted with a #WebKitHitTestResult.
-         */
         interface HitTestResult extends GObject.Object {
             readonly $signals: HitTestResult.SignalSignatures
             readonly $readableProperties: HitTestResult.ReadableProperties
@@ -2317,10 +2340,35 @@ declare module "gi://WebKit?version=6.0" {
         interface HitTestResultClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<HitTestResult>
             readonly prototype: HitTestResult
+
             new (props?: Partial<GObject.ConstructorProps<HitTestResult>>): HitTestResult
         }
 
-        const HitTestResult: HitTestResultClass
+        interface $Exports {
+            /**
+             * Result of a Hit Test.
+             *
+             * A Hit Test is an operation to get context information about a given
+             * point in a #WebKitWebView. #WebKitHitTestResult represents the
+             * result of a Hit Test. It provides context information about what is
+             * at the coordinates of the Hit Test, such as if there's a link,
+             * an image or a media.
+             *
+             * You can get the context of the HitTestResult with
+             * webkit_hit_test_result_get_context() that returns a bitmask of
+             * #WebKitHitTestResultContext flags. You can also use
+             * webkit_hit_test_result_context_is_link(), webkit_hit_test_result_context_is_image() and
+             * webkit_hit_test_result_context_is_media() to determine whether there's
+             * a link, image or a media element at the coordinates of the Hit Test.
+             * Note that it's possible that several #WebKitHitTestResultContext flags
+             * are active at the same time, for example if there's a link containing an image.
+             *
+             * When the mouse is moved over a #WebKitWebView a Hit Test is performed
+             * for the mouse coordinates and #WebKitWebView::mouse-target-changed
+             * signal is emitted with a #WebKitHitTestResult.
+             */
+            HitTestResult: HitTestResultClass
+        }
         
 
         namespace Image {
@@ -2334,23 +2382,15 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
                 "height": number
                 "stride": number
                 "width": number
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Represents an image as a buffer containing pixel data.
-         *
-         * Image objects are always created by WebKit, and considered immutable:
-         * a copy of the image data needs to be made before modifying the image.
-         * Pixel data can be obtained with [id@webkit_image_as_bytes].
-         * @since 2.52
-         */
         interface Image extends GObject.Object, Gio.Icon, Gio.LoadableIcon {
             readonly $signals: Image.SignalSignatures
             readonly $readableProperties: Image.ReadableProperties
@@ -2413,10 +2453,21 @@ declare module "gi://WebKit?version=6.0" {
         interface ImageClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Image>
             readonly prototype: Image
+
             new (props?: Partial<GObject.ConstructorProps<Image>>): Image
         }
 
-        const Image: ImageClass
+        interface $Exports {
+            /**
+             * Represents an image as a buffer containing pixel data.
+             *
+             * Image objects are always created by WebKit, and considered immutable:
+             * a copy of the image data needs to be made before modifying the image.
+             * Pixel data can be obtained with [id@webkit_image_as_bytes].
+             * @since 2.52
+             */
+            Image: ImageClass
+        }
         
 
         namespace InputMethodContext {
@@ -2470,19 +2521,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Base class for input method contexts.
-         *
-         * WebKitInputMethodContext defines the interface to implement WebKit input methods.
-         * The input methods are used by WebKit, when editable content is focused, to map from
-         * key events to Unicode character strings.
-         *
-         * An input method may consume multiple key events in sequence and finally
-         * output the composed result. This is called preediting, and an input method
-         * may provide feedback about this process by displaying the intermediate
-         * composition states as preedit text.
-         * @since 2.28
-         */
         interface InputMethodContext extends GObject.Object {
             readonly $signals: InputMethodContext.SignalSignatures
             readonly $readableProperties: InputMethodContext.ReadableProperties
@@ -2673,10 +2711,26 @@ declare module "gi://WebKit?version=6.0" {
         interface InputMethodContextClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<InputMethodContext>
             readonly prototype: InputMethodContext
+
             new (props?: Partial<GObject.ConstructorProps<InputMethodContext>>): InputMethodContext
         }
 
-        const InputMethodContext: InputMethodContextClass
+        interface $Exports {
+            /**
+             * Base class for input method contexts.
+             *
+             * WebKitInputMethodContext defines the interface to implement WebKit input methods.
+             * The input methods are used by WebKit, when editable content is focused, to map from
+             * key events to Unicode character strings.
+             *
+             * An input method may consume multiple key events in sequence and finally
+             * output the composed result. This is called preediting, and an input method
+             * may provide feedback about this process by displaying the intermediate
+             * composition states as preedit text.
+             * @since 2.28
+             */
+            InputMethodContext: InputMethodContextClass
+        }
         
 
         namespace MediaKeySystemPermissionRequest {
@@ -2693,19 +2747,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A permission request for using an EME Content Decryption Module.
-         *
-         * WebKitMediaKeySystemPermissionRequest represents a request for permission to decide whether
-         * WebKit should use the given CDM to access protected media when requested through the
-         * MediaKeySystem API.
-         *
-         * When a WebKitMediaKeySystemPermissionRequest is not handled by the user,
-         * it is denied by default.
-         *
-         * When handling this permission request the application may perform additional installation of the
-         * requested CDM, unless it is already present on the host system.
-         */
         interface MediaKeySystemPermissionRequest extends GObject.Object, PermissionRequest {
             readonly $signals: MediaKeySystemPermissionRequest.SignalSignatures
             readonly $readableProperties: MediaKeySystemPermissionRequest.ReadableProperties
@@ -2716,10 +2757,26 @@ declare module "gi://WebKit?version=6.0" {
         interface MediaKeySystemPermissionRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<MediaKeySystemPermissionRequest>
             readonly prototype: MediaKeySystemPermissionRequest
+
             new (props?: Partial<GObject.ConstructorProps<MediaKeySystemPermissionRequest>>): MediaKeySystemPermissionRequest
         }
 
-        const MediaKeySystemPermissionRequest: MediaKeySystemPermissionRequestClass
+        interface $Exports {
+            /**
+             * A permission request for using an EME Content Decryption Module.
+             *
+             * WebKitMediaKeySystemPermissionRequest represents a request for permission to decide whether
+             * WebKit should use the given CDM to access protected media when requested through the
+             * MediaKeySystem API.
+             *
+             * When a WebKitMediaKeySystemPermissionRequest is not handled by the user,
+             * it is denied by default.
+             *
+             * When handling this permission request the application may perform additional installation of the
+             * requested CDM, unless it is already present on the host system.
+             */
+            MediaKeySystemPermissionRequest: MediaKeySystemPermissionRequestClass
+        }
         
 
         namespace NavigationPolicyDecision {
@@ -2738,13 +2795,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A policy decision for navigation actions.
-         *
-         * WebKitNavigationPolicyDecision represents a policy decision for events associated with
-         * navigations. If the value of #WebKitNavigationPolicyDecision:mouse-button is not 0, then
-         * the navigation was triggered by a mouse event.
-         */
         interface NavigationPolicyDecision extends PolicyDecision {
             readonly $signals: NavigationPolicyDecision.SignalSignatures
             readonly $readableProperties: NavigationPolicyDecision.ReadableProperties
@@ -2767,10 +2817,20 @@ declare module "gi://WebKit?version=6.0" {
         interface NavigationPolicyDecisionClass extends Omit<PolicyDecisionClass, "new"> {
             readonly $gtype: GObject.GType<NavigationPolicyDecision>
             readonly prototype: NavigationPolicyDecision
+
             new (props?: Partial<GObject.ConstructorProps<NavigationPolicyDecision>>): NavigationPolicyDecision
         }
 
-        const NavigationPolicyDecision: NavigationPolicyDecisionClass
+        interface $Exports {
+            /**
+             * A policy decision for navigation actions.
+             *
+             * WebKitNavigationPolicyDecision represents a policy decision for events associated with
+             * navigations. If the value of #WebKitNavigationPolicyDecision:mouse-button is not 0, then
+             * the navigation was triggered by a mouse event.
+             */
+            NavigationPolicyDecision: NavigationPolicyDecisionClass
+        }
         
 
         namespace NetworkSession {
@@ -2788,19 +2848,15 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "cache-directory": string
                 "data-directory": string
                 "is-ephemeral": boolean
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Manages network configuration.
-         * @since 2.40
-         */
         interface NetworkSession extends GObject.Object {
             readonly $signals: NetworkSession.SignalSignatures
             readonly $readableProperties: NetworkSession.ReadableProperties
@@ -2876,7 +2932,7 @@ declare module "gi://WebKit?version=6.0" {
              * @throws {GLib.Error}
              * @since 2.40
              * @param result a #GAsyncResult
-             * @returns s with    webkit_itp_third_party_unref() when you're done with them.
+             * @returns a #GList of #WebKitITPThirdParty.    You must free the #GList with g_list_free() and unref the #WebKitITPThirdParty<!-- -->s with    webkit_itp_third_party_unref() when you're done with them.
              */
             get_itp_summary_finish(result: Gio.AsyncResult): ITPThirdParty[]
             /**
@@ -2961,6 +3017,7 @@ declare module "gi://WebKit?version=6.0" {
         interface NetworkSessionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<NetworkSession>
             readonly prototype: NetworkSession
+
             new (props?: Partial<GObject.ConstructorProps<NetworkSession>>): NetworkSession
             /**
              * Creates a new #WebKitNetworkSession with a persistent #WebKitWebsiteDataManager.
@@ -3011,7 +3068,13 @@ declare module "gi://WebKit?version=6.0" {
             set_memory_pressure_settings(settings: MemoryPressureSettings): void
         }
 
-        const NetworkSession: NetworkSessionClass
+        interface $Exports {
+            /**
+             * Manages network configuration.
+             * @since 2.40
+             */
+            NetworkSession: NetworkSessionClass
+        }
         
 
         namespace Notification {
@@ -3049,10 +3112,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Holds information about a notification that should be shown to the user.
-         * @since 2.8
-         */
         interface Notification extends GObject.Object {
             readonly $signals: Notification.SignalSignatures
             readonly $readableProperties: Notification.ReadableProperties
@@ -3128,10 +3187,17 @@ declare module "gi://WebKit?version=6.0" {
         interface NotificationClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Notification>
             readonly prototype: Notification
+
             new (props?: Partial<GObject.ConstructorProps<Notification>>): Notification
         }
 
-        const Notification: NotificationClass
+        interface $Exports {
+            /**
+             * Holds information about a notification that should be shown to the user.
+             * @since 2.8
+             */
+            Notification: NotificationClass
+        }
         
 
         namespace NotificationPermissionRequest {
@@ -3148,17 +3214,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A permission request for displaying web notifications.
-         *
-         * WebKitNotificationPermissionRequest represents a request for
-         * permission to decide whether WebKit should provide the user with
-         * notifications through the Web Notification API.
-         *
-         * When a WebKitNotificationPermissionRequest is not handled by the user,
-         * it is denied by default.
-         * @since 2.8
-         */
         interface NotificationPermissionRequest extends GObject.Object, PermissionRequest {
             readonly $signals: NotificationPermissionRequest.SignalSignatures
             readonly $readableProperties: NotificationPermissionRequest.ReadableProperties
@@ -3169,10 +3224,24 @@ declare module "gi://WebKit?version=6.0" {
         interface NotificationPermissionRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<NotificationPermissionRequest>
             readonly prototype: NotificationPermissionRequest
+
             new (props?: Partial<GObject.ConstructorProps<NotificationPermissionRequest>>): NotificationPermissionRequest
         }
 
-        const NotificationPermissionRequest: NotificationPermissionRequestClass
+        interface $Exports {
+            /**
+             * A permission request for displaying web notifications.
+             *
+             * WebKitNotificationPermissionRequest represents a request for
+             * permission to decide whether WebKit should provide the user with
+             * notifications through the Web Notification API.
+             *
+             * When a WebKitNotificationPermissionRequest is not handled by the user,
+             * it is denied by default.
+             * @since 2.8
+             */
+            NotificationPermissionRequest: NotificationPermissionRequestClass
+        }
         
 
         namespace OptionMenu {
@@ -3196,10 +3265,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * s that should be displayed.
-         * @since 2.18
-         */
         interface OptionMenu extends GObject.Object {
             readonly $signals: OptionMenu.SignalSignatures
             readonly $readableProperties: OptionMenu.ReadableProperties
@@ -3245,7 +3310,7 @@ declare module "gi://WebKit?version=6.0" {
             /**
              * Gets the length of the @menu.
              * @since 2.18
-             * @returns s in `menu`
+             * @returns the number of #WebKitOptionMenuItem<!-- -->s in `menu`
              */
             get_n_items(): number
             /**
@@ -3264,10 +3329,21 @@ declare module "gi://WebKit?version=6.0" {
         interface OptionMenuClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<OptionMenu>
             readonly prototype: OptionMenu
+
             new (props?: Partial<GObject.ConstructorProps<OptionMenu>>): OptionMenu
         }
 
-        const OptionMenu: OptionMenuClass
+        interface $Exports {
+            /**
+             * Represents the dropdown menu of a `select` element in a #WebKitWebView.
+             *
+             * When a select element in a #WebKitWebView needs to display a dropdown menu, the signal
+             * #WebKitWebView::show-option-menu is emitted, providing a WebKitOptionMenu with the
+             * #WebKitOptionMenuItem<!-- -->s that should be displayed.
+             * @since 2.18
+             */
+            OptionMenu: OptionMenuClass
+        }
         
 
         namespace PointerLockPermissionRequest {
@@ -3284,17 +3360,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A permission request for locking the pointer.
-         *
-         * WebKitPointerLockPermissionRequest represents a request for
-         * permission to decide whether WebKit can lock the pointer device when
-         * requested by web content.
-         *
-         * When a WebKitPointerLockPermissionRequest is not handled by the user,
-         * it is allowed by default.
-         * @since 2.28
-         */
         interface PointerLockPermissionRequest extends GObject.Object, PermissionRequest {
             readonly $signals: PointerLockPermissionRequest.SignalSignatures
             readonly $readableProperties: PointerLockPermissionRequest.ReadableProperties
@@ -3305,10 +3370,24 @@ declare module "gi://WebKit?version=6.0" {
         interface PointerLockPermissionRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PointerLockPermissionRequest>
             readonly prototype: PointerLockPermissionRequest
+
             new (props?: Partial<GObject.ConstructorProps<PointerLockPermissionRequest>>): PointerLockPermissionRequest
         }
 
-        const PointerLockPermissionRequest: PointerLockPermissionRequestClass
+        interface $Exports {
+            /**
+             * A permission request for locking the pointer.
+             *
+             * WebKitPointerLockPermissionRequest represents a request for
+             * permission to decide whether WebKit can lock the pointer device when
+             * requested by web content.
+             *
+             * When a WebKitPointerLockPermissionRequest is not handled by the user,
+             * it is allowed by default.
+             * @since 2.28
+             */
+            PointerLockPermissionRequest: PointerLockPermissionRequestClass
+        }
         
 
         namespace PolicyDecision {
@@ -3325,19 +3404,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A pending policy decision.
-         *
-         * Often WebKit allows the client to decide the policy for certain
-         * operations. For instance, a client may want to open a link in a new
-         * tab, block a navigation entirely, query the user or trigger a download
-         * instead of a navigation. In these cases WebKit will fire the
-         * #WebKitWebView::decide-policy signal with a #WebKitPolicyDecision
-         * object. If the signal handler does nothing, WebKit will act as if
-         * webkit_policy_decision_use() was called as soon as signal handling
-         * completes. To make a policy decision asynchronously, simply increment
-         * the reference count of the #WebKitPolicyDecision object.
-         */
         interface PolicyDecision extends GObject.Object {
             readonly $signals: PolicyDecision.SignalSignatures
             readonly $readableProperties: PolicyDecision.ReadableProperties
@@ -3377,10 +3443,26 @@ declare module "gi://WebKit?version=6.0" {
         interface PolicyDecisionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PolicyDecision>
             readonly prototype: PolicyDecision
+
             new (props?: Partial<GObject.ConstructorProps<PolicyDecision>>): PolicyDecision
         }
 
-        const PolicyDecision: PolicyDecisionClass
+        interface $Exports {
+            /**
+             * A pending policy decision.
+             *
+             * Often WebKit allows the client to decide the policy for certain
+             * operations. For instance, a client may want to open a link in a new
+             * tab, block a navigation entirely, query the user or trigger a download
+             * instead of a navigation. In these cases WebKit will fire the
+             * #WebKitWebView::decide-policy signal with a #WebKitPolicyDecision
+             * object. If the signal handler does nothing, WebKit will act as if
+             * webkit_policy_decision_use() was called as soon as signal handling
+             * completes. To make a policy decision asynchronously, simply increment
+             * the reference count of the #WebKitPolicyDecision object.
+             */
+            PolicyDecision: PolicyDecisionClass
+        }
         
 
         namespace PrintOperation {
@@ -3408,21 +3490,13 @@ declare module "gi://WebKit?version=6.0" {
             interface WritableProperties extends GObject.Object.WritableProperties {
                 "page-setup": Gtk.PageSetup
                 "print-settings": Gtk.PrintSettings
-                "web-view": WebView
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "web-view": WebView
             }
         }
 
-        /**
-         * Controls a print operation.
-         *
-         * A #WebKitPrintOperation controls a print operation in WebKit. With
-         * a similar API to #GtkPrintOperation, it lets you set the print
-         * settings with webkit_print_operation_set_print_settings() or
-         * display the print dialog with webkit_print_operation_run_dialog().
-         */
         interface PrintOperation extends GObject.Object {
             readonly $signals: PrintOperation.SignalSignatures
             readonly $readableProperties: PrintOperation.ReadableProperties
@@ -3519,6 +3593,7 @@ declare module "gi://WebKit?version=6.0" {
         interface PrintOperationClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PrintOperation>
             readonly prototype: PrintOperation
+
             new (props?: Partial<GObject.ConstructorProps<PrintOperation>>): PrintOperation
             /**
              * Create a new #WebKitPrintOperation to print @web_view contents.
@@ -3528,7 +3603,17 @@ declare module "gi://WebKit?version=6.0" {
             "new"(web_view: WebView): PrintOperation
         }
 
-        const PrintOperation: PrintOperationClass
+        interface $Exports {
+            /**
+             * Controls a print operation.
+             *
+             * A #WebKitPrintOperation controls a print operation in WebKit. With
+             * a similar API to #GtkPrintOperation, it lets you set the print
+             * settings with webkit_print_operation_set_print_settings() or
+             * display the print dialog with webkit_print_operation_run_dialog().
+             */
+            PrintOperation: PrintOperationClass
+        }
         
 
         namespace ResponsePolicyDecision {
@@ -3549,15 +3634,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A policy decision for resource responses.
-         *
-         * WebKitResponsePolicyDecision represents a policy decision for a
-         * resource response, whether from the network or the local system.
-         * A very common use case for these types of decision is deciding
-         * whether or not to download a particular resource or to load it
-         * normally.
-         */
         interface ResponsePolicyDecision extends PolicyDecision {
             readonly $signals: ResponsePolicyDecision.SignalSignatures
             readonly $readableProperties: ResponsePolicyDecision.ReadableProperties
@@ -3576,7 +3652,9 @@ declare module "gi://WebKit?version=6.0" {
             get response(): URIResponse
             set response(value: URIResponse)
             /**
-             *  taken
+             * Return the #WebKitURIRequest associated with the response decision.
+             *
+             * Modifications to the returned object are <emphasis>not</emphasis> taken
              * into account when the request is sent over the network, and is intended
              * only to aid in evaluating whether a response decision should be taken or
              * not. To modify requests before they are sent over the network the
@@ -3609,10 +3687,22 @@ declare module "gi://WebKit?version=6.0" {
         interface ResponsePolicyDecisionClass extends Omit<PolicyDecisionClass, "new"> {
             readonly $gtype: GObject.GType<ResponsePolicyDecision>
             readonly prototype: ResponsePolicyDecision
+
             new (props?: Partial<GObject.ConstructorProps<ResponsePolicyDecision>>): ResponsePolicyDecision
         }
 
-        const ResponsePolicyDecision: ResponsePolicyDecisionClass
+        interface $Exports {
+            /**
+             * A policy decision for resource responses.
+             *
+             * WebKitResponsePolicyDecision represents a policy decision for a
+             * resource response, whether from the network or the local system.
+             * A very common use case for these types of decision is deciding
+             * whether or not to download a particular resource or to load it
+             * normally.
+             */
+            ResponsePolicyDecision: ResponsePolicyDecisionClass
+        }
         
 
         namespace SecurityManager {
@@ -3629,15 +3719,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Controls security settings in a #WebKitWebContext.
-         *
-         * The #WebKitSecurityManager defines security settings for URI
-         * schemes in a #WebKitWebContext. Get it from the context with
-         * webkit_web_context_get_security_manager(), and use it to register a
-         * URI scheme with a certain security level, or to check if it already
-         * has it.
-         */
         interface SecurityManager extends GObject.Object {
             readonly $signals: SecurityManager.SignalSignatures
             readonly $readableProperties: SecurityManager.ReadableProperties
@@ -3745,10 +3826,22 @@ declare module "gi://WebKit?version=6.0" {
         interface SecurityManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<SecurityManager>
             readonly prototype: SecurityManager
+
             new (props?: Partial<GObject.ConstructorProps<SecurityManager>>): SecurityManager
         }
 
-        const SecurityManager: SecurityManagerClass
+        interface $Exports {
+            /**
+             * Controls security settings in a #WebKitWebContext.
+             *
+             * The #WebKitSecurityManager defines security settings for URI
+             * schemes in a #WebKitWebContext. Get it from the context with
+             * webkit_web_context_get_security_manager(), and use it to register a
+             * URI scheme with a certain security level, or to check if it already
+             * has it.
+             */
+            SecurityManager: SecurityManagerClass
+        }
         
 
         namespace Settings {
@@ -3881,20 +3974,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Control the behaviour of a #WebKitWebView.
-         *
-         * #WebKitSettings can be applied to a #WebKitWebView to control text charset,
-         * color, font sizes, printing mode, script support, loading of images and various
-         * other things on a #WebKitWebView. After creation, a #WebKitSettings object
-         * contains default settings.
-         *
-         * ```c
-         * // Disable JavaScript
-         * WebKitSettings *settings = webkit_web_view_group_get_settings (my_view_group);
-         * webkit_settings_set_enable_javascript (settings, FALSE);
-         * ```
-         */
         interface Settings extends GObject.Object {
             readonly $signals: Settings.SignalSignatures
             readonly $readableProperties: Settings.ReadableProperties
@@ -3912,7 +3991,9 @@ declare module "gi://WebKit?version=6.0" {
             get allowFileAccessFromFileUrls(): boolean
             set allowFileAccessFromFileUrls(value: boolean)
             /**
-             * . If it's set to
+             * Determine whether it's allowed to create and run modal dialogs
+             * from a #WebKitWebView through JavaScript with
+             * <function>window.showModalDialog</function>. If it's set to
              * %FALSE, the associated #WebKitWebView won't be able to create
              * new modal dialogs, so not even the #WebKitWebView::create
              * signal will be emitted.
@@ -4102,7 +4183,8 @@ declare module "gi://WebKit?version=6.0" {
             get enableJavascriptMarkup(): boolean
             set enableJavascriptMarkup(value: boolean)
             /**
-             * ` elements will have
+             * Enable or disable support for media playback on pages. This setting is enabled by
+             * default. Disabling it means `<audio>`, `<track>` and `<video>` elements will have
              * playback support disabled.
              * @since 2.26
              * @default TRUE
@@ -4303,7 +4385,8 @@ declare module "gi://WebKit?version=6.0" {
             get mathFontFamily(): string | null
             set mathFontFamily(value: string | null)
             /**
-             * ast; codecs="av1*"'.
+             * List of media content types requiring hardware support, split by semicolons (:).
+             * For example: 'video/webm; codecs="vp*":video/mp4; codecs="avc*":video/&ast; codecs="av1*"'.
              * @since 2.30
              * @default NULL
              */
@@ -5080,6 +5163,7 @@ declare module "gi://WebKit?version=6.0" {
         interface SettingsClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Settings>
             readonly prototype: Settings
+
             new (props?: Partial<GObject.ConstructorProps<Settings>>): Settings
             /**
              * Creates a new #WebKitSettings instance with default values.
@@ -5150,7 +5234,23 @@ declare module "gi://WebKit?version=6.0" {
             get_experimental_features(): FeatureList
         }
 
-        const Settings: SettingsClass
+        interface $Exports {
+            /**
+             * Control the behaviour of a #WebKitWebView.
+             *
+             * #WebKitSettings can be applied to a #WebKitWebView to control text charset,
+             * color, font sizes, printing mode, script support, loading of images and various
+             * other things on a #WebKitWebView. After creation, a #WebKitSettings object
+             * contains default settings.
+             *
+             * ```c
+             * // Disable JavaScript
+             * WebKitSettings *settings = webkit_web_view_group_get_settings (my_view_group);
+             * webkit_settings_set_enable_javascript (settings, FALSE);
+             * ```
+             */
+            Settings: SettingsClass
+        }
         
 
         namespace URIRequest {
@@ -5169,13 +5269,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Represents a URI request.
-         *
-         * A #WebKitURIRequest can be created with a URI using the
-         * webkit_uri_request_new() method, and you can get the URI of an
-         * existing request with the webkit_uri_request_get_uri() one.
-         */
         interface URIRequest extends GObject.Object {
             readonly $signals: URIRequest.SignalSignatures
             readonly $readableProperties: URIRequest.ReadableProperties
@@ -5213,6 +5306,7 @@ declare module "gi://WebKit?version=6.0" {
         interface URIRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<URIRequest>
             readonly prototype: URIRequest
+
             new (props?: Partial<GObject.ConstructorProps<URIRequest>>): URIRequest
             /**
              * Creates a new #WebKitURIRequest for the given URI.
@@ -5222,7 +5316,16 @@ declare module "gi://WebKit?version=6.0" {
             "new"(uri: string): URIRequest
         }
 
-        const URIRequest: URIRequestClass
+        interface $Exports {
+            /**
+             * Represents a URI request.
+             *
+             * A #WebKitURIRequest can be created with a URI using the
+             * webkit_uri_request_new() method, and you can get the URI of an
+             * existing request with the webkit_uri_request_get_uri() one.
+             */
+            URIRequest: URIRequestClass
+        }
         
 
         namespace URIResponse {
@@ -5251,13 +5354,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Represents an URI response.
-         *
-         * A #WebKitURIResponse contains information such as the URI, the
-         * status code, the content length, the mime type, the HTTP status or
-         * the suggested filename.
-         */
         interface URIResponse extends GObject.Object {
             readonly $signals: URIResponse.SignalSignatures
             readonly $readableProperties: URIResponse.ReadableProperties
@@ -5346,10 +5442,20 @@ declare module "gi://WebKit?version=6.0" {
         interface URIResponseClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<URIResponse>
             readonly prototype: URIResponse
+
             new (props?: Partial<GObject.ConstructorProps<URIResponse>>): URIResponse
         }
 
-        const URIResponse: URIResponseClass
+        interface $Exports {
+            /**
+             * Represents an URI response.
+             *
+             * A #WebKitURIResponse contains information such as the URI, the
+             * status code, the content length, the mime type, the HTTP status or
+             * the suggested filename.
+             */
+            URIResponse: URIResponseClass
+        }
         
 
         namespace URISchemeRequest {
@@ -5366,18 +5472,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Represents a URI scheme request.
-         *
-         * If you register a particular URI scheme in a #WebKitWebContext,
-         * using webkit_web_context_register_uri_scheme(), you have to provide
-         * a #WebKitURISchemeRequestCallback. After that, when a URI request
-         * is made with that particular scheme, your callback will be
-         * called. There you will be able to access properties such as the
-         * scheme, the URI and path, and the #WebKitWebView that initiated the
-         * request, and also finish the request with
-         * webkit_uri_scheme_request_finish().
-         */
         interface URISchemeRequest extends GObject.Object {
             readonly $signals: URISchemeRequest.SignalSignatures
             readonly $readableProperties: URISchemeRequest.ReadableProperties
@@ -5445,10 +5539,25 @@ declare module "gi://WebKit?version=6.0" {
         interface URISchemeRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<URISchemeRequest>
             readonly prototype: URISchemeRequest
+
             new (props?: Partial<GObject.ConstructorProps<URISchemeRequest>>): URISchemeRequest
         }
 
-        const URISchemeRequest: URISchemeRequestClass
+        interface $Exports {
+            /**
+             * Represents a URI scheme request.
+             *
+             * If you register a particular URI scheme in a #WebKitWebContext,
+             * using webkit_web_context_register_uri_scheme(), you have to provide
+             * a #WebKitURISchemeRequestCallback. After that, when a URI request
+             * is made with that particular scheme, your callback will be
+             * called. There you will be able to access properties such as the
+             * scheme, the URI and path, and the #WebKitWebView that initiated the
+             * request, and also finish the request with
+             * webkit_uri_scheme_request_finish().
+             */
+            URISchemeRequest: URISchemeRequestClass
+        }
         
 
         namespace URISchemeResponse {
@@ -5459,28 +5568,14 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "stream": Gio.InputStream
-                "stream-length": number
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "stream": Gio.InputStream
+                "stream-length": number
             }
         }
 
-        /**
-         * Represents a URI scheme response.
-         *
-         * If you register a particular URI scheme in a #WebKitWebContext,
-         * using webkit_web_context_register_uri_scheme(), you have to provide
-         * a #WebKitURISchemeRequestCallback. After that, when a URI response
-         * is made with that particular scheme, your callback will be
-         * called. There you will be able to provide more response parameters
-         * when the methods and properties of a #WebKitURISchemeRequest is not
-         * enough.
-         *
-         * When you finished setting up your #WebKitURISchemeResponse, call
-         * webkit_uri_request_finish_with_response() with it to return the response.
-         */
         interface URISchemeResponse extends GObject.Object {
             readonly $signals: URISchemeResponse.SignalSignatures
             readonly $readableProperties: URISchemeResponse.ReadableProperties
@@ -5526,6 +5621,7 @@ declare module "gi://WebKit?version=6.0" {
         interface URISchemeResponseClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<URISchemeResponse>
             readonly prototype: URISchemeResponse
+
             new (props?: Partial<GObject.ConstructorProps<URISchemeResponse>>): URISchemeResponse
             /**
              * Create a new #WebKitURISchemeResponse
@@ -5537,7 +5633,23 @@ declare module "gi://WebKit?version=6.0" {
             "new"(input_stream: Gio.InputStream, stream_length: number): URISchemeResponse
         }
 
-        const URISchemeResponse: URISchemeResponseClass
+        interface $Exports {
+            /**
+             * Represents a URI scheme response.
+             *
+             * If you register a particular URI scheme in a #WebKitWebContext,
+             * using webkit_web_context_register_uri_scheme(), you have to provide
+             * a #WebKitURISchemeRequestCallback. After that, when a URI response
+             * is made with that particular scheme, your callback will be
+             * called. There you will be able to provide more response parameters
+             * when the methods and properties of a #WebKitURISchemeRequest is not
+             * enough.
+             *
+             * When you finished setting up your #WebKitURISchemeResponse, call
+             * webkit_uri_request_finish_with_response() with it to return the response.
+             */
+            URISchemeResponse: URISchemeResponseClass
+        }
         
 
         namespace UserContentFilterStore {
@@ -5549,30 +5661,13 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "path": string
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "path": string
             }
         }
 
-        /**
-         * Handles storage of user content filters on disk.
-         *
-         * The WebKitUserContentFilterStore provides the means to import and save
-         * [JSON rule sets](https://webkit.org/blog/3476/content-blockers-first-look/),
-         * which can be loaded later in an efficient manner. Once filters are stored,
-         * the #WebKitUserContentFilter objects which represent them can be added to
-         * a #WebKitUserContentManager with webkit_user_content_manager_add_filter().
-         *
-         * JSON rule sets are imported using webkit_user_content_filter_store_save() and stored
-         * on disk in an implementation defined format. The contents of a filter store must be
-         * managed using the #WebKitUserContentFilterStore: a list of all the stored filters
-         * can be obtained with webkit_user_content_filter_store_fetch_identifiers(),
-         * webkit_user_content_filter_store_load() can be used to retrieve a previously saved
-         * filter, and removed from the store with webkit_user_content_filter_store_remove().
-         * @since 2.24
-         */
         interface UserContentFilterStore extends GObject.Object {
             readonly $signals: UserContentFilterStore.SignalSignatures
             readonly $readableProperties: UserContentFilterStore.ReadableProperties
@@ -5676,7 +5771,7 @@ declare module "gi://WebKit?version=6.0" {
              * @param cancellable a #GCancellable or %NULL to ignore
              * @param callback a #GAsyncReadyCallback to call when saving is completed
              */
-            save(identifier: string, source: GLib.Bytes, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            save(identifier: string, source: (GLib.Bytes | Uint8Array), cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
             /**
              * Finishes an asynchronous filter save previously started with
              * webkit_user_content_filter_store_save().
@@ -5716,6 +5811,7 @@ declare module "gi://WebKit?version=6.0" {
         interface UserContentFilterStoreClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<UserContentFilterStore>
             readonly prototype: UserContentFilterStore
+
             new (props?: Partial<GObject.ConstructorProps<UserContentFilterStore>>): UserContentFilterStore
             /**
              * Create a new #WebKitUserContentFilterStore to manipulate filters stored at @storage_path.
@@ -5728,20 +5824,43 @@ declare module "gi://WebKit?version=6.0" {
             "new"(storage_path: string): UserContentFilterStore
         }
 
-        const UserContentFilterStore: UserContentFilterStoreClass
+        interface $Exports {
+            /**
+             * Handles storage of user content filters on disk.
+             *
+             * The WebKitUserContentFilterStore provides the means to import and save
+             * [JSON rule sets](https://webkit.org/blog/3476/content-blockers-first-look/),
+             * which can be loaded later in an efficient manner. Once filters are stored,
+             * the #WebKitUserContentFilter objects which represent them can be added to
+             * a #WebKitUserContentManager with webkit_user_content_manager_add_filter().
+             *
+             * JSON rule sets are imported using webkit_user_content_filter_store_save() and stored
+             * on disk in an implementation defined format. The contents of a filter store must be
+             * managed using the #WebKitUserContentFilterStore: a list of all the stored filters
+             * can be obtained with webkit_user_content_filter_store_fetch_identifiers(),
+             * webkit_user_content_filter_store_load() can be used to retrieve a previously saved
+             * filter, and removed from the store with webkit_user_content_filter_store_remove().
+             * @since 2.24
+             */
+            UserContentFilterStore: UserContentFilterStoreClass
+        }
         
 
         namespace UserContentManager {
             interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
-                 *  using
+                 * This signal is emitted when JavaScript in a web view calls
+                 * <code>window.webkit.messageHandlers.<name>.postMessage()</code>, after registering
+                 * <code><name></code> using
                  * webkit_user_content_manager_register_script_message_handler()
                  * @since 2.8
                  * @param value the value received from the JavaScript world.
                  */
                 "script-message-received::{}"(value: JavaScriptCore.Value): void
                 /**
-                 *  using
+                 * This signal is emitted when JavaScript in a web view calls
+                 * <code>window.webkit.messageHandlers.<name>.postMessage()</code>, after registering
+                 * <code><name></code> using
                  * webkit_user_content_manager_register_script_message_handler_with_reply()
                  *
                  * The given @reply can be used to send a return value with
@@ -5769,22 +5888,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Manages user-defined content which affects web pages.
-         *
-         * Using a #WebKitUserContentManager user CSS style sheets can be set to
-         * be injected in the web pages loaded by a #WebKitWebView, by
-         * webkit_user_content_manager_add_style_sheet().
-         *
-         * To use a #WebKitUserContentManager, it must be created using
-         * webkit_user_content_manager_new(), and then used to construct
-         * a #WebKitWebView. User style sheets can be created with
-         * webkit_user_style_sheet_new().
-         *
-         * User style sheets can be added and removed at any time, but
-         * they will affect the web pages loaded afterwards.
-         * @since 2.6
-         */
         interface UserContentManager extends GObject.Object {
             readonly $signals: UserContentManager.SignalSignatures
             readonly $readableProperties: UserContentManager.ReadableProperties
@@ -5820,7 +5923,10 @@ declare module "gi://WebKit?version=6.0" {
              */
             add_style_sheet(stylesheet: UserStyleSheet): void
             /**
-             * .postMessage(value)`
+             * Registers a new user script message handler in script world.
+             *
+             * After it is registered,
+             * scripts can use `window.webkit.messageHandlers.<name>.postMessage(value)`
              * to send messages. Those messages are received by connecting handlers
              * to the #WebKitUserContentManager::script-message-received signal. The
              * handler name is used as the detail of the signal. To avoid race
@@ -5941,6 +6047,7 @@ declare module "gi://WebKit?version=6.0" {
         interface UserContentManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<UserContentManager>
             readonly prototype: UserContentManager
+
             new (props?: Partial<GObject.ConstructorProps<UserContentManager>>): UserContentManager
             /**
              * Creates a new user content manager.
@@ -5950,7 +6057,25 @@ declare module "gi://WebKit?version=6.0" {
             "new"(): UserContentManager
         }
 
-        const UserContentManager: UserContentManagerClass
+        interface $Exports {
+            /**
+             * Manages user-defined content which affects web pages.
+             *
+             * Using a #WebKitUserContentManager user CSS style sheets can be set to
+             * be injected in the web pages loaded by a #WebKitWebView, by
+             * webkit_user_content_manager_add_style_sheet().
+             *
+             * To use a #WebKitUserContentManager, it must be created using
+             * webkit_user_content_manager_new(), and then used to construct
+             * a #WebKitWebView. User style sheets can be created with
+             * webkit_user_style_sheet_new().
+             *
+             * User style sheets can be added and removed at any time, but
+             * they will affect the web pages loaded afterwards.
+             * @since 2.6
+             */
+            UserContentManager: UserContentManagerClass
+        }
         
 
         namespace UserMediaPermissionRequest {
@@ -5971,17 +6096,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A permission request for accessing user's audio/video devices.
-         *
-         * WebKitUserMediaPermissionRequest represents a request for
-         * permission to decide whether WebKit should be allowed to access the user's
-         * audio and video source devices when requested through the getUserMedia API.
-         *
-         * When a WebKitUserMediaPermissionRequest is not handled by the user,
-         * it is denied by default.
-         * @since 2.8
-         */
         interface UserMediaPermissionRequest extends GObject.Object, PermissionRequest {
             readonly $signals: UserMediaPermissionRequest.SignalSignatures
             readonly $readableProperties: UserMediaPermissionRequest.ReadableProperties
@@ -6006,10 +6120,24 @@ declare module "gi://WebKit?version=6.0" {
         interface UserMediaPermissionRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<UserMediaPermissionRequest>
             readonly prototype: UserMediaPermissionRequest
+
             new (props?: Partial<GObject.ConstructorProps<UserMediaPermissionRequest>>): UserMediaPermissionRequest
         }
 
-        const UserMediaPermissionRequest: UserMediaPermissionRequestClass
+        interface $Exports {
+            /**
+             * A permission request for accessing user's audio/video devices.
+             *
+             * WebKitUserMediaPermissionRequest represents a request for
+             * permission to decide whether WebKit should be allowed to access the user's
+             * audio and video source devices when requested through the getUserMedia API.
+             *
+             * When a WebKitUserMediaPermissionRequest is not handled by the user,
+             * it is denied by default.
+             * @since 2.8
+             */
+            UserMediaPermissionRequest: UserMediaPermissionRequestClass
+        }
         
 
         namespace UserMessage {
@@ -6023,26 +6151,15 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends GObject.InitiallyUnowned.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.InitiallyUnowned.ConstructOnlyProperties {
                 "fd-list": Gio.UnixFDList | null
                 "name": string
                 "parameters": GLib.Variant | null
             }
-
-            interface ConstructOnlyProperties extends GObject.InitiallyUnowned.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Message that can be sent between the UI process and web process extensions.
-         *
-         * A WebKitUserMessage is a message that can be used for the communication between the UI process
-         * and web process extensions. A WebKitUserMessage always has a name, and it can also include parameters and
-         * UNIX file descriptors. Messages can be sent from a #WebKitWebContext to all web process extensions,
-         * from a web process extension to its corresponding #WebKitWebContext, and from a #WebKitWebView to its
-         * corresponding #WebKitWebPage (and vice versa). One to one messages can be replied to directly with
-         * webkit_user_message_send_reply().
-         * @since 2.28
-         */
         interface UserMessage extends GObject.InitiallyUnowned {
             readonly $signals: UserMessage.SignalSignatures
             readonly $readableProperties: UserMessage.ReadableProperties
@@ -6102,6 +6219,7 @@ declare module "gi://WebKit?version=6.0" {
         interface UserMessageClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
             readonly $gtype: GObject.GType<UserMessage>
             readonly prototype: UserMessage
+
             new (props?: Partial<GObject.ConstructorProps<UserMessage>>): UserMessage
             /**
              * Create a new #WebKitUserMessage with @name.
@@ -6122,7 +6240,20 @@ declare module "gi://WebKit?version=6.0" {
             new_with_fd_list(name: string, parameters: GLib.Variant | null, fd_list: Gio.UnixFDList | null): UserMessage
         }
 
-        const UserMessage: UserMessageClass
+        interface $Exports {
+            /**
+             * Message that can be sent between the UI process and web process extensions.
+             *
+             * A WebKitUserMessage is a message that can be used for the communication between the UI process
+             * and web process extensions. A WebKitUserMessage always has a name, and it can also include parameters and
+             * UNIX file descriptors. Messages can be sent from a #WebKitWebContext to all web process extensions,
+             * from a web process extension to its corresponding #WebKitWebContext, and from a #WebKitWebView to its
+             * corresponding #WebKitWebPage (and vice versa). One to one messages can be replied to directly with
+             * webkit_user_message_send_reply().
+             * @since 2.28
+             */
+            UserMessage: UserMessageClass
+        }
         
 
         namespace WebContext {
@@ -6174,38 +6305,14 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "memory-pressure-settings": MemoryPressureSettings
-                "time-zone-override": string
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "memory-pressure-settings": MemoryPressureSettings
+                "time-zone-override": string
             }
         }
 
-        /**
-         * s.
-         *
-         * You can define the #WebKitCacheModel with
-         * webkit_web_context_set_cache_model(), depending on the needs of
-         * your application. You can access the #WebKitSecurityManager to specify
-         * the behaviour of your application regarding security using
-         * webkit_web_context_get_security_manager().
-         *
-         * It is also possible to change your preferred language or enable
-         * spell checking, using webkit_web_context_set_preferred_languages(),
-         * webkit_web_context_set_spell_checking_languages() and
-         * webkit_web_context_set_spell_checking_enabled().
-         *
-         * You can use webkit_web_context_register_uri_scheme() to register
-         * custom URI schemes, and manage several other settings.
-         *
-         * TLS certificate validation failure is now treated as a transport
-         * error by default. To handle TLS failures differently, you can
-         * connect to #WebKitWebView::load-failed-with-tls-errors.
-         * Alternatively, you can use webkit_web_context_set_tls_errors_policy()
-         * to set the policy %WEBKIT_TLS_ERRORS_POLICY_IGNORE; however, this is
-         * not appropriate for Internet applications.
-         */
         interface WebContext extends GObject.Object {
             readonly $signals: WebContext.SignalSignatures
             readonly $readableProperties: WebContext.ReadableProperties
@@ -6324,7 +6431,31 @@ declare module "gi://WebKit?version=6.0" {
              */
             is_automation_allowed(): boolean
             /**
-             * ");
+             * Register @scheme in @context.
+             *
+             * Register @scheme in @context, so that when an URI request with @scheme is made in the
+             * #WebKitWebContext, the #WebKitURISchemeRequestCallback registered will be called with a
+             * #WebKitURISchemeRequest.
+             * It is possible to handle URI scheme requests asynchronously, by calling g_object_ref() on the
+             * #WebKitURISchemeRequest and calling webkit_uri_scheme_request_finish() later
+             * when the data of the request is available or
+             * webkit_uri_scheme_request_finish_error() in case of error.
+             *
+             * ```c
+             * static void
+             * about_uri_scheme_request_cb (WebKitURISchemeRequest *request,
+             *                              gpointer                user_data)
+             * {
+             *     GInputStream *stream;
+             *     gsize         stream_length;
+             *     const gchar  *path = webkit_uri_scheme_request_get_path (request);
+             *
+             *     if (!g_strcmp0 (path, "memory")) {
+             *         // Create a GInputStream with the contents of memory about page, and set its length to stream_length
+             *     } else if (!g_strcmp0 (path, "applications")) {
+             *         // Create a GInputStream with the contents of applications about page, and set its length to stream_length
+             *     } else if (!g_strcmp0 (path, "example")) {
+             *         gchar *contents = g_strdup_printf ("<html><body><p>Example about page</p></body></html>");
              *         stream_length = strlen (contents);
              *         stream = g_memory_input_stream_new_from_data (contents, stream_length, g_free);
              *     } else {
@@ -6453,6 +6584,7 @@ declare module "gi://WebKit?version=6.0" {
         interface WebContextClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebContext>
             readonly prototype: WebContext
+
             new (props?: Partial<GObject.ConstructorProps<WebContext>>): WebContext
             /**
              * Create a new #WebKitWebContext.
@@ -6467,7 +6599,36 @@ declare module "gi://WebKit?version=6.0" {
             get_default(): WebContext
         }
 
-        const WebContext: WebContextClass
+        interface $Exports {
+            /**
+             * Manages aspects common to all #WebKitWebView<!-- -->s
+             *
+             * The #WebKitWebContext manages all aspects common to all
+             * #WebKitWebView<!-- -->s.
+             *
+             * You can define the #WebKitCacheModel with
+             * webkit_web_context_set_cache_model(), depending on the needs of
+             * your application. You can access the #WebKitSecurityManager to specify
+             * the behaviour of your application regarding security using
+             * webkit_web_context_get_security_manager().
+             *
+             * It is also possible to change your preferred language or enable
+             * spell checking, using webkit_web_context_set_preferred_languages(),
+             * webkit_web_context_set_spell_checking_languages() and
+             * webkit_web_context_set_spell_checking_enabled().
+             *
+             * You can use webkit_web_context_register_uri_scheme() to register
+             * custom URI schemes, and manage several other settings.
+             *
+             * TLS certificate validation failure is now treated as a transport
+             * error by default. To handle TLS failures differently, you can
+             * connect to #WebKitWebView::load-failed-with-tls-errors.
+             * Alternatively, you can use webkit_web_context_set_tls_errors_policy()
+             * to set the policy %WEBKIT_TLS_ERRORS_POLICY_IGNORE; however, this is
+             * not appropriate for Internet applications.
+             */
+            WebContext: WebContextClass
+        }
         
 
         namespace WebExtension {
@@ -6511,25 +6672,15 @@ declare module "gi://WebKit?version=6.0" {
                 "has-persistent-background-content": boolean
                 "manifest-version": string
                 "optional-permissions": string[] | null
-                "path": string
                 "requested-permissions": string[] | null
                 "version": string | null
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
+                "path": string
             }
         }
 
-        /**
-         * Represents a [WebExtension](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions).
-         *
-         * A #WebKitWebExtension object encapsulates a web extension’s
-         * resources that are defined by a [`manifest.json` file](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json).
-         *
-         * This class handles the reading and parsing of the manifest file
-         * along with the supporting resources like icons and localizations.
-         * @since 2.52
-         */
         interface WebExtension extends GObject.Object, Gio.Initable {
             readonly $signals: WebExtension.SignalSignatures
             readonly $readableProperties: WebExtension.ReadableProperties
@@ -6875,6 +7026,7 @@ declare module "gi://WebKit?version=6.0" {
         interface WebExtensionClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebExtension>
             readonly prototype: WebExtension
+
             new (props?: Partial<GObject.ConstructorProps<WebExtension>>): WebExtension
             /**
              * Creates a new WebKitWebExtension from a folder containing the extension contents. The folder must
@@ -6887,7 +7039,19 @@ declare module "gi://WebKit?version=6.0" {
             "new"(extension_path: string): WebExtension | null
         }
 
-        const WebExtension: WebExtensionClass
+        interface $Exports {
+            /**
+             * Represents a [WebExtension](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions).
+             *
+             * A #WebKitWebExtension object encapsulates a web extension’s
+             * resources that are defined by a [`manifest.json` file](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json).
+             *
+             * This class handles the reading and parsing of the manifest file
+             * along with the supporting resources like icons and localizations.
+             * @since 2.52
+             */
+            WebExtension: WebExtensionClass
+        }
         
 
         namespace WebInspector {
@@ -6970,31 +7134,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Access to the WebKit inspector.
-         *
-         * The WebKit Inspector is a graphical tool to inspect and change the
-         * content of a #WebKitWebView. It also includes an interactive
-         * JavaScript debugger. Using this class one can get a #GtkWidget
-         * which can be embedded into an application to show the inspector.
-         *
-         * The inspector is available when the #WebKitSettings of the
-         * #WebKitWebView has set the #WebKitSettings:enable-developer-extras
-         * to true, otherwise no inspector is available.
-         *
-         * ```c
-         * // Enable the developer extras
-         * WebKitSettings *settings = webkit_web_view_get_settings (WEBKIT_WEB_VIEW(my_webview));
-         * g_object_set (G_OBJECT(settings), "enable-developer-extras", TRUE, NULL);
-         *
-         * // Load some data or reload to be able to inspect the page
-         * webkit_web_view_load_uri (WEBKIT_WEB_VIEW(my_webview), "http://www.gnome.org");
-         *
-         * // Show the inspector
-         * WebKitWebInspector *inspector = webkit_web_view_get_inspector (WEBKIT_WEB_VIEW(my_webview));
-         * webkit_web_inspector_show (WEBKIT_WEB_INSPECTOR(inspector));
-         * ```
-         */
         interface WebInspector extends GObject.Object {
             readonly $signals: WebInspector.SignalSignatures
             readonly $readableProperties: WebInspector.ReadableProperties
@@ -7087,10 +7226,38 @@ declare module "gi://WebKit?version=6.0" {
         interface WebInspectorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebInspector>
             readonly prototype: WebInspector
+
             new (props?: Partial<GObject.ConstructorProps<WebInspector>>): WebInspector
         }
 
-        const WebInspector: WebInspectorClass
+        interface $Exports {
+            /**
+             * Access to the WebKit inspector.
+             *
+             * The WebKit Inspector is a graphical tool to inspect and change the
+             * content of a #WebKitWebView. It also includes an interactive
+             * JavaScript debugger. Using this class one can get a #GtkWidget
+             * which can be embedded into an application to show the inspector.
+             *
+             * The inspector is available when the #WebKitSettings of the
+             * #WebKitWebView has set the #WebKitSettings:enable-developer-extras
+             * to true, otherwise no inspector is available.
+             *
+             * ```c
+             * // Enable the developer extras
+             * WebKitSettings *settings = webkit_web_view_get_settings (WEBKIT_WEB_VIEW(my_webview));
+             * g_object_set (G_OBJECT(settings), "enable-developer-extras", TRUE, NULL);
+             *
+             * // Load some data or reload to be able to inspect the page
+             * webkit_web_view_load_uri (WEBKIT_WEB_VIEW(my_webview), "http://www.gnome.org");
+             *
+             * // Show the inspector
+             * WebKitWebInspector *inspector = webkit_web_view_get_inspector (WEBKIT_WEB_VIEW(my_webview));
+             * webkit_web_inspector_show (WEBKIT_WEB_INSPECTOR(inspector));
+             * ```
+             */
+            WebInspector: WebInspectorClass
+        }
         
 
         namespace WebResource {
@@ -7141,19 +7308,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * Represents a resource at the end of a URI.
-         *
-         * A #WebKitWebResource encapsulates content for each resource at the
-         * end of a particular URI. For example, one #WebKitWebResource will
-         * be created for each separate image and stylesheet when a page is
-         * loaded.
-         *
-         * You can access the response and the URI for a given
-         * #WebKitWebResource, using webkit_web_resource_get_uri() and
-         * webkit_web_resource_get_response(), as well as the raw data, using
-         * webkit_web_resource_get_data().
-         */
         interface WebResource extends GObject.Object {
             readonly $signals: WebResource.SignalSignatures
             readonly $readableProperties: WebResource.ReadableProperties
@@ -7197,7 +7351,30 @@ declare module "gi://WebKit?version=6.0" {
              */
             get_response(): URIResponse
             /**
+             * Returns the current active URI of @resource.
              *
+             * The active URI might change during
+             * a load operation:
+             *
+             * <orderedlist>
+             * <listitem><para>
+             *   When the resource load starts, the active URI is the requested URI
+             * </para></listitem>
+             * <listitem><para>
+             *   When the initial request is sent to the server, #WebKitWebResource::sent-request
+             *   signal is emitted without a redirected response, the active URI is the URI of
+             *   the request sent to the server.
+             * </para></listitem>
+             * <listitem><para>
+             *   In case of a server redirection, #WebKitWebResource::sent-request signal
+             *   is emitted again with a redirected response, the active URI is the URI the request
+             *   was redirected to.
+             * </para></listitem>
+             * <listitem><para>
+             *   When the response is received from the server, the active URI is the final
+             *   one and it will not change again.
+             * </para></listitem>
+             * </orderedlist>
              *
              * You can monitor the active URI by connecting to the notify::uri
              * signal of @resource.
@@ -7209,10 +7386,26 @@ declare module "gi://WebKit?version=6.0" {
         interface WebResourceClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebResource>
             readonly prototype: WebResource
+
             new (props?: Partial<GObject.ConstructorProps<WebResource>>): WebResource
         }
 
-        const WebResource: WebResourceClass
+        interface $Exports {
+            /**
+             * Represents a resource at the end of a URI.
+             *
+             * A #WebKitWebResource encapsulates content for each resource at the
+             * end of a particular URI. For example, one #WebKitWebResource will
+             * be created for each separate image and stylesheet when a page is
+             * loaded.
+             *
+             * You can access the response and the URI for a given
+             * #WebKitWebResource, using webkit_web_resource_get_uri() and
+             * webkit_web_resource_get_response(), as well as the raw data, using
+             * webkit_web_resource_get_data().
+             */
+            WebResource: WebResourceClass
+        }
         
 
         namespace WebView {
@@ -7236,14 +7429,41 @@ declare module "gi://WebKit?version=6.0" {
                  */
                 "authenticate"(request: AuthenticationRequest): boolean
                 /**
-                 *  function or
+                 * Emitted when closing a #WebKitWebView is requested. This occurs when a
+                 * call is made from JavaScript's <function>window.close</function> function or
                  * after trying to close the @web_view with webkit_web_view_try_close().
                  * It is the owner's responsibility to handle this signal to hide or
                  * destroy the #WebKitWebView, if necessary.
                  */
                 "close"(): void
                 /**
-                 *
+                 * Emitted when a context menu is about to be displayed to give the application
+                 * a chance to customize the proposed menu, prevent the menu from being displayed,
+                 * or build its own context menu.
+                 * <itemizedlist>
+                 * <listitem><para>
+                 *  To customize the proposed menu you can use webkit_context_menu_prepend(),
+                 *  webkit_context_menu_append() or webkit_context_menu_insert() to add new
+                 *  #WebKitContextMenuItem<!-- -->s to @context_menu, webkit_context_menu_move_item()
+                 *  to reorder existing items, or webkit_context_menu_remove() to remove an
+                 *  existing item. The signal handler should return %FALSE, and the menu represented
+                 *  by @context_menu will be shown.
+                 * </para></listitem>
+                 * <listitem><para>
+                 *  To prevent the menu from being displayed you can just connect to this signal
+                 *  and return %TRUE so that the proposed menu will not be shown.
+                 * </para></listitem>
+                 * <listitem><para>
+                 *  To build your own menu, you can remove all items from the proposed menu with
+                 *  webkit_context_menu_remove_all(), add your own items and return %FALSE so
+                 *  that the menu will be shown. You can also ignore the proposed #WebKitContextMenu,
+                 *  build your own #GtkMenu and return %TRUE to prevent the proposed menu from being shown.
+                 * </para></listitem>
+                 * <listitem><para>
+                 *  If you just want the default menu to be shown always, simply don't connect to this
+                 *  signal because showing the proposed context menu is the default behaviour.
+                 * </para></listitem>
+                 * </itemizedlist>
                  *
                  * If the signal handler returns %FALSE the context menu represented by @context_menu
                  * will be shown, if it return %TRUE the context menu will not be shown.
@@ -7328,7 +7548,8 @@ declare module "gi://WebKit?version=6.0" {
                  */
                 "decide-policy"(decision: PolicyDecision, decision_type: PolicyDecisionType): boolean
                 /**
-                 * . If the
+                 * Emitted when JavaScript code calls
+                 * <function>element.webkitRequestFullScreen</function>. If the
                  * signal is not handled the #WebKitWebView will proceed to full screen
                  * its top level window. This signal can be used by client code to
                  * request permission to the user prior doing the full screen
@@ -7546,7 +7767,9 @@ declare module "gi://WebKit?version=6.0" {
                  */
                 "resource-load-started"(resource: WebResource, request: URIRequest): void
                 /**
-                 * . The purpose of
+                 * Emitted after #WebKitWebView::ready-to-show on the newly
+                 * created #WebKitWebView when JavaScript code calls
+                 * <function>window.showModalDialog</function>. The purpose of
                  * this signal is to allow the client application to prepare the
                  * new view to behave as modal. Once the signal is emitted a new
                  * main loop will be run to block user interaction in the parent
@@ -7554,7 +7777,8 @@ declare module "gi://WebKit?version=6.0" {
                  */
                 "run-as-modal"(): void
                 /**
-                 *  HTML element, requesting from WebKit to show
+                 * This signal is emitted when the user interacts with a <input
+                 * type='color' /> HTML element, requesting from WebKit to show
                  * a dialog to select a color. To let the application know the details of
                  * the color chooser, as well as to allow the client application to either
                  * cancel the request or perform an actual color selection, the signal will
@@ -7572,7 +7796,8 @@ declare module "gi://WebKit?version=6.0" {
                  */
                 "run-color-chooser"(request: ColorChooserRequest): boolean
                 /**
-                 *  HTML element, requesting from WebKit to show
+                 * This signal is emitted when the user interacts with a <input
+                 * type='file' /> HTML element, requesting from WebKit to show
                  * a dialog to select one or more files to be uploaded. To let the
                  * application know the details of the file chooser, as well as to
                  * allow the client application to either cancel the request or
@@ -7587,7 +7812,27 @@ declare module "gi://WebKit?version=6.0" {
                  */
                 "run-file-chooser"(request: FileChooserRequest): boolean
                 /**
-                 *
+                 * Emitted when JavaScript code calls <function>window.alert</function>,
+                 * <function>window.confirm</function> or <function>window.prompt</function>,
+                 * or when <function>onbeforeunload</function> event is fired.
+                 * The @dialog parameter should be used to build the dialog.
+                 * If the signal is not handled a different dialog will be built and shown depending
+                 * on the dialog type:
+                 * <itemizedlist>
+                 * <listitem><para>
+                 *  %WEBKIT_SCRIPT_DIALOG_ALERT: message dialog with a single Close button.
+                 * </para></listitem>
+                 * <listitem><para>
+                 *  %WEBKIT_SCRIPT_DIALOG_CONFIRM: message dialog with OK and Cancel buttons.
+                 * </para></listitem>
+                 * <listitem><para>
+                 *  %WEBKIT_SCRIPT_DIALOG_PROMPT: message dialog with OK and Cancel buttons and
+                 *  a text entry with the default text.
+                 * </para></listitem>
+                 * <listitem><para>
+                 *  %WEBKIT_SCRIPT_DIALOG_BEFORE_UNLOAD_CONFIRM: message dialog with Stay and Leave buttons.
+                 * </para></listitem>
+                 * </itemizedlist>
                  *
                  * It is possible to handle the script dialog request asynchronously, by simply
                  * caling webkit_script_dialog_ref() on the @dialog argument and calling
@@ -7691,50 +7936,38 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends WebViewBase.WritableProperties, Gtk.Accessible.WritableProperties, Gtk.Buildable.WritableProperties, Gtk.ConstraintTarget.WritableProperties {
-                "automation-presentation-type": AutomationBrowsingContextPresentation
                 "camera-capture-state": MediaCaptureState
-                "default-content-security-policy": string | null
                 "display-capture-state": MediaCaptureState
                 "editable": boolean
                 "estimated-load-progress": number
                 "favicon": Gdk.Texture
-                "is-controlled-by-automation": boolean
                 "is-immersive-mode-enabled": boolean
                 "is-loading": boolean
                 "is-muted": boolean
                 "is-playing-audio": boolean
                 "is-web-process-responsive": boolean
                 "microphone-capture-state": MediaCaptureState
-                "network-session": NetworkSession
                 "page-id": number
-                "related-view": WebView
                 "settings": Settings
                 "theme-color": Gdk.RGBA
                 "title": string
                 "uri": string
-                "user-content-manager": UserContentManager
-                "web-context": WebContext
-                "web-extension-mode": WebExtensionMode
-                "website-policies": WebsitePolicies
                 "zoom-level": number
             }
 
             interface ConstructOnlyProperties extends WebViewBase.ConstructOnlyProperties, Gtk.Accessible.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties, Gtk.ConstraintTarget.ConstructOnlyProperties {
+                "automation-presentation-type": AutomationBrowsingContextPresentation
+                "default-content-security-policy": string | null
+                "is-controlled-by-automation": boolean
+                "network-session": NetworkSession
+                "related-view": WebView
+                "user-content-manager": UserContentManager
+                "web-context": WebContext
+                "web-extension-mode": WebExtensionMode
+                "website-policies": WebsitePolicies
             }
         }
 
-        /**
-         * The central class of the WPE WebKit and WebKitGTK APIs.
-         *
-         * #WebKitWebView is the central class of the WPE WebKit and WebKitGTK
-         * APIs. It is responsible for managing the drawing of the content and
-         * forwarding of events. You can load any URI into the #WebKitWebView or
-         * a data string. With #WebKitSettings you can control various aspects
-         * of the rendering and loading of the content.
-         *
-         * Note that in WebKitGTK, #WebKitWebView is scrollable by itself, so
-         * you don't need to embed it in a #GtkScrolledWindow.
-         */
         interface WebView extends WebViewBase, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: WebView.SignalSignatures
             readonly $readableProperties: WebView.ReadableProperties
@@ -7985,7 +8218,61 @@ declare module "gi://WebKit?version=6.0" {
             get zoomLevel(): number
             set zoomLevel(value: number)
             /**
-             *  { resolve(count); });";
+             * Asynchronously call @body with @arguments in the script world with name @world_name of the main frame current context in @web_view.
+             * The @arguments values must be one of the following types, or contain only the following GVariant types: number, string and dictionary.
+             * The result of the operation can be a Promise that will be properly passed to the callback.
+             * If @world_name is %NULL, the default world is used. Any value that is not %NULL is a distin ct world.
+             * The @source_uri will be shown in exceptions and doesn't affect the behavior of the script.
+             * When not provided, the document URL is used.
+             *
+             * Note that if #WebKitSettings:enable-javascript is %FALSE, this method will do nothing.
+             * If you want to use this method but still prevent web content from executing its own
+             * JavaScript, then use #WebKitSettings:enable-javascript-markup.
+             *
+             * When the operation is finished, @callback will be called. You can then call
+             * webkit_web_view_call_async_javascript_function_finish() to get the result of the operation.
+             *
+             * This is an example that shows how to pass arguments to a JS function that returns a Promise
+             * that resolves with the passed argument:
+             *
+             * ```c
+             * static void
+             * web_view_javascript_finished (GObject      *object,
+             *                               GAsyncResult *result,
+             *                               gpointer      user_data)
+             * {
+             *     JSCValue               *value;
+             *     GError                 *error = NULL;
+             *
+             *     value = webkit_web_view_call_async_javascript_function_finish (WEBKIT_WEB_VIEW (object), result, &error);
+             *     if (!value) {
+             *         g_warning ("Error running javascript: %s", error->message);
+             *         g_error_free (error);
+             *         return;
+             *     }
+             *
+             *     if (jsc_value_is_number (value)) {
+             *         gint32        int_value = jsc_value_to_string (value);
+             *         JSCException *exception = jsc_context_get_exception (jsc_value_get_context (value));
+             *         if (exception)
+             *             g_warning ("Error running javascript: %s", jsc_exception_get_message (exception));
+             *         else
+             *             g_print ("Script result: %d\n", int_value);
+             *         g_free (str_value);
+             *     } else {
+             *         g_warning ("Error running javascript: unexpected return value");
+             *     }
+             *     g_object_unref (value);
+             * }
+             *
+             * static void
+             * web_view_evaluate_promise (WebKitWebView *web_view)
+             * {
+             *     GVariantDict dict;
+             *     g_variant_dict_init (&dict, NULL);
+             *     g_variant_dict_insert (&dict, "count", "u", 42);
+             *     GVariant *args = g_variant_dict_end (&dict);
+             *     const gchar *body = "return new Promise((resolve) => { resolve(count); });";
              *     webkit_web_view_call_async_javascript_function (web_view, body, -1, arguments, NULL, NULL, NULL, web_view_javascript_finished, NULL);
              * }
              * ```
@@ -8047,7 +8334,33 @@ declare module "gi://WebKit?version=6.0" {
              */
             download_uri(uri: string): Download
             /**
-             * message);
+             * Asynchronously evaluate @script in the script world with name @world_name of the main frame current context in @web_view.
+             * If @world_name is %NULL, the default world is used. Any value that is not %NULL is a distinct world.
+             * The @source_uri will be shown in exceptions and doesn't affect the behavior of the script.
+             * When not provided, the document URL is used.
+             *
+             * Note that if #WebKitSettings:enable-javascript is %FALSE, this method will do nothing.
+             * If you want to use this method but still prevent web content from executing its own
+             * JavaScript, then use #WebKitSettings:enable-javascript-markup.
+             *
+             * When the operation is finished, @callback will be called. You can then call
+             * webkit_web_view_evaluate_javascript_finish() to get the result of the operation.
+             *
+             * This is an example of using webkit_web_view_evaluate_javascript() with a script returning
+             * a string:
+             *
+             * ```c
+             * static void
+             * web_view_javascript_finished (GObject      *object,
+             *                               GAsyncResult *result,
+             *                               gpointer      user_data)
+             * {
+             *     JSCValue               *value;
+             *     GError                 *error = NULL;
+             *
+             *     value = webkit_web_view_evaluate_javascript_finish (WEBKIT_WEB_VIEW (object), result, &error);
+             *     if (!value) {
+             *         g_warning ("Error running javascript: %s", error->message);
              *         g_error_free (error);
              *         return;
              *     }
@@ -8248,7 +8561,20 @@ declare module "gi://WebKit?version=6.0" {
              */
             get_session_state(): WebViewSessionState
             /**
-             * s using the same #WebKitSettings.
+             * Gets the #WebKitSettings currently applied to @web_view.
+             *
+             * If no other #WebKitSettings have been explicitly applied to
+             * @web_view with webkit_web_view_set_settings(), the default
+             * #WebKitSettings will be returned. This method always returns
+             * a valid #WebKitSettings object.
+             * To modify any of the @web_view settings, you can either create
+             * a new #WebKitSettings object with webkit_settings_new(), setting
+             * the desired preferences, and then replace the existing @web_view
+             * settings with webkit_web_view_set_settings() or get the existing
+             * @web_view settings and update it directly. #WebKitSettings objects
+             * can be shared by multiple #WebKitWebView<!-- -->s, so modifying
+             * the settings of a #WebKitWebView would affect other
+             * #WebKitWebView<!-- -->s using the same #WebKitSettings.
              * @returns the #WebKitSettings attached to `web_view`
              */
             get_settings(): Settings
@@ -8311,7 +8637,55 @@ declare module "gi://WebKit?version=6.0" {
              */
             get_tls_info(): [boolean, Gio.TlsCertificate, Gio.TlsCertificateFlags]
             /**
+             * Returns the current active URI of @web_view.
              *
+             * The active URI might change during
+             * a load operation:
+             *
+             * <orderedlist>
+             * <listitem><para>
+             *   When nothing has been loaded yet on @web_view the active URI is %NULL.
+             * </para></listitem>
+             * <listitem><para>
+             *   When a new load operation starts the active URI is the requested URI:
+             *   <itemizedlist>
+             *   <listitem><para>
+             *     If the load operation was started by webkit_web_view_load_uri(),
+             *     the requested URI is the given one.
+             *   </para></listitem>
+             *   <listitem><para>
+             *     If the load operation was started by webkit_web_view_load_html(),
+             *     the requested URI is "about:blank".
+             *   </para></listitem>
+             *   <listitem><para>
+             *     If the load operation was started by webkit_web_view_load_alternate_html(),
+             *     the requested URI is content URI provided.
+             *   </para></listitem>
+             *   <listitem><para>
+             *     If the load operation was started by webkit_web_view_go_back() or
+             *     webkit_web_view_go_forward(), the requested URI is the original URI
+             *     of the previous/next item in the #WebKitBackForwardList of @web_view.
+             *   </para></listitem>
+             *   <listitem><para>
+             *     If the load operation was started by
+             *     webkit_web_view_go_to_back_forward_list_item(), the requested URI
+             *     is the opriginal URI of the given #WebKitBackForwardListItem.
+             *   </para></listitem>
+             *   </itemizedlist>
+             * </para></listitem>
+             * <listitem><para>
+             *   If there is a server redirection during the load operation,
+             *   the active URI is the redirected URI. When the signal
+             *   #WebKitWebView::load-changed is emitted with %WEBKIT_LOAD_REDIRECTED
+             *   event, the active URI is already updated to the redirected URI.
+             * </para></listitem>
+             * <listitem><para>
+             *   When the signal #WebKitWebView::load-changed is emitted
+             *   with %WEBKIT_LOAD_COMMITTED event, the active URI is the final
+             *   one and it will not change unless a new load operation is started
+             *   or a navigation action within the same page is performed.
+             * </para></listitem>
+             * </orderedlist>
              *
              * You can monitor the active URI by connecting to the notify::uri
              * signal of @web_view.
@@ -8381,7 +8755,10 @@ declare module "gi://WebKit?version=6.0" {
              */
             go_to_back_forward_list_item(list_item: BackForwardListItem): void
             /**
-             * s controlled by automation can be used in an
+             * Get whether a #WebKitWebView was created with #WebKitWebView:is-controlled-by-automation
+             * property enabled.
+             *
+             * Only #WebKitWebView<!-- -->s controlled by automation can be used in an
              * automation session.
              * @since 2.18
              * @returns %TRUE if `web_view` is controlled by automation, or %FALSE otherwise.
@@ -8467,7 +8844,7 @@ declare module "gi://WebKit?version=6.0" {
              * @param encoding the character encoding of @bytes, or %NULL
              * @param base_uri the base URI for relative locations or %NULL
              */
-            load_bytes(bytes: GLib.Bytes, mime_type: string | null, encoding: string | null, base_uri: string | null): void
+            load_bytes(bytes: (GLib.Bytes | Uint8Array), mime_type: string | null, encoding: string | null, base_uri: string | null): void
             /**
              * Load the given @content string with the specified @base_uri.
              *
@@ -8693,7 +9070,13 @@ declare module "gi://WebKit?version=6.0" {
              */
             set_microphone_capture_state(state: MediaCaptureState): void
             /**
-             * s.
+             * Sets the #WebKitSettings to be applied to @web_view.
+             *
+             * The
+             * existing #WebKitSettings of @web_view will be replaced by
+             * @settings. New settings are applied immediately on @web_view.
+             * The same #WebKitSettings object can be shared
+             * by multiple #WebKitWebView<!-- -->s.
              * @param settings a #WebKitSettings
              */
             set_settings(settings: Settings): void
@@ -8848,6 +9231,7 @@ declare module "gi://WebKit?version=6.0" {
         interface WebViewClass extends Omit<WebViewBaseClass, "new"> {
             readonly $gtype: GObject.GType<WebView>
             readonly prototype: WebView
+
             new (props?: Partial<GObject.ConstructorProps<WebView>>): WebView
             /**
              * Creates a new #WebKitWebView with the default #WebKitWebContext.
@@ -8859,10 +9243,24 @@ declare module "gi://WebKit?version=6.0" {
              * webkit_web_view_new_with_settings().
              * @returns The newly created #WebKitWebView widget
              */
-            "new"(): Gtk.Widget
+            "new"(): WebView
         }
 
-        const WebView: WebViewClass
+        interface $Exports {
+            /**
+             * The central class of the WPE WebKit and WebKitGTK APIs.
+             *
+             * #WebKitWebView is the central class of the WPE WebKit and WebKitGTK
+             * APIs. It is responsible for managing the drawing of the content and
+             * forwarding of events. You can load any URI into the #WebKitWebView or
+             * a data string. With #WebKitSettings you can control various aspects
+             * of the rendering and loading of the content.
+             *
+             * Note that in WebKitGTK, #WebKitWebView is scrollable by itself, so
+             * you don't need to embed it in a #GtkScrolledWindow.
+             */
+            WebView: WebViewClass
+        }
         
 
         namespace WebViewBase {
@@ -8879,8 +9277,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         */
         interface WebViewBase extends Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget {
             readonly $signals: WebViewBase.SignalSignatures
             readonly $readableProperties: WebViewBase.ReadableProperties
@@ -8891,10 +9287,15 @@ declare module "gi://WebKit?version=6.0" {
         interface WebViewBaseClass extends Omit<Gtk.WidgetClass, "new"> {
             readonly $gtype: GObject.GType<WebViewBase>
             readonly prototype: WebViewBase
+
             new (props?: Partial<GObject.ConstructorProps<WebViewBase>>): WebViewBase
         }
 
-        const WebViewBase: WebViewBaseClass
+        interface $Exports {
+            /**
+             */
+            WebViewBase: WebViewBaseClass
+        }
         
 
         namespace WebsiteDataAccessPermissionRequest {
@@ -8911,16 +9312,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A permission request for accessing website data from third-party domains.
-         *
-         * WebKitWebsiteDataAccessPermissionRequest represents a request for
-         * permission to allow a third-party domain access its cookies.
-         *
-         * When a WebKitWebsiteDataAccessPermissionRequest is not handled by the user,
-         * it is denied by default.
-         * @since 2.30
-         */
         interface WebsiteDataAccessPermissionRequest extends GObject.Object, PermissionRequest {
             readonly $signals: WebsiteDataAccessPermissionRequest.SignalSignatures
             readonly $readableProperties: WebsiteDataAccessPermissionRequest.ReadableProperties
@@ -8943,10 +9334,23 @@ declare module "gi://WebKit?version=6.0" {
         interface WebsiteDataAccessPermissionRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebsiteDataAccessPermissionRequest>
             readonly prototype: WebsiteDataAccessPermissionRequest
+
             new (props?: Partial<GObject.ConstructorProps<WebsiteDataAccessPermissionRequest>>): WebsiteDataAccessPermissionRequest
         }
 
-        const WebsiteDataAccessPermissionRequest: WebsiteDataAccessPermissionRequestClass
+        interface $Exports {
+            /**
+             * A permission request for accessing website data from third-party domains.
+             *
+             * WebKitWebsiteDataAccessPermissionRequest represents a request for
+             * permission to allow a third-party domain access its cookies.
+             *
+             * When a WebKitWebsiteDataAccessPermissionRequest is not handled by the user,
+             * it is denied by default.
+             * @since 2.30
+             */
+            WebsiteDataAccessPermissionRequest: WebsiteDataAccessPermissionRequestClass
+        }
         
 
         namespace WebsiteDataManager {
@@ -8960,34 +9364,17 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "base-cache-directory": string | null
                 "base-data-directory": string | null
                 "is-ephemeral": boolean
                 "origin-storage-ratio": number
                 "total-storage-ratio": number
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * Manages data stored locally by web sites.
-         *
-         * You can use WebKitWebsiteDataManager to configure the local directories
-         * where website data will be stored. Use #WebKitWebsiteDataManager:base-data-directory
-         * and #WebKitWebsiteDataManager:base-cache-directory set a common base directory for all
-         * website data and caches.
-         *
-         * A WebKitWebsiteDataManager can be ephemeral, in which case all the directory configuration
-         * is not needed because website data will never persist. You can create an ephemeral WebKitWebsiteDataManager
-         * with webkit_website_data_manager_new_ephemeral().
-         *
-         * WebKitWebsiteDataManager can also be used to fetch website data, remove data
-         * stored by particular websites, or clear data for all websites modified since a given
-         * period of time.
-         * @since 2.10
-         */
         interface WebsiteDataManager extends GObject.Object {
             readonly $signals: WebsiteDataManager.SignalSignatures
             readonly $readableProperties: WebsiteDataManager.ReadableProperties
@@ -9077,7 +9464,7 @@ declare module "gi://WebKit?version=6.0" {
              * @throws {GLib.Error}
              * @since 2.16
              * @param result a #GAsyncResult
-             * @returns s with webkit_website_data_unref() when you're done with them.
+             * @returns a #GList of #WebKitWebsiteData. You must free the #GList with    g_list_free() and unref the #WebKitWebsiteData<!-- -->s with webkit_website_data_unref() when you're done with them.
              */
             fetch_finish(result: Gio.AsyncResult): WebsiteData[]
             /**
@@ -9122,7 +9509,7 @@ declare module "gi://WebKit?version=6.0" {
              * @throws {GLib.Error}
              * @since 2.30
              * @param result a #GAsyncResult
-             * @returns s with    webkit_itp_third_party_unref() when you're done with them.
+             * @returns a #GList of #WebKitITPThirdParty.    You must free the #GList with g_list_free() and unref the #WebKitITPThirdParty<!-- -->s with    webkit_itp_third_party_unref() when you're done with them.
              */
             get_itp_summary_finish(result: Gio.AsyncResult): ITPThirdParty[]
             /**
@@ -9171,10 +9558,30 @@ declare module "gi://WebKit?version=6.0" {
         interface WebsiteDataManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebsiteDataManager>
             readonly prototype: WebsiteDataManager
+
             new (props?: Partial<GObject.ConstructorProps<WebsiteDataManager>>): WebsiteDataManager
         }
 
-        const WebsiteDataManager: WebsiteDataManagerClass
+        interface $Exports {
+            /**
+             * Manages data stored locally by web sites.
+             *
+             * You can use WebKitWebsiteDataManager to configure the local directories
+             * where website data will be stored. Use #WebKitWebsiteDataManager:base-data-directory
+             * and #WebKitWebsiteDataManager:base-cache-directory set a common base directory for all
+             * website data and caches.
+             *
+             * A WebKitWebsiteDataManager can be ephemeral, in which case all the directory configuration
+             * is not needed because website data will never persist. You can create an ephemeral WebKitWebsiteDataManager
+             * with webkit_website_data_manager_new_ephemeral().
+             *
+             * WebKitWebsiteDataManager can also be used to fetch website data, remove data
+             * stored by particular websites, or clear data for all websites modified since a given
+             * period of time.
+             * @since 2.10
+             */
+            WebsiteDataManager: WebsiteDataManagerClass
+        }
         
 
         namespace WebsitePolicies {
@@ -9186,20 +9593,13 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "autoplay": AutoplayPolicy
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "autoplay": AutoplayPolicy
             }
         }
 
-        /**
-         * View specific website policies.
-         *
-         * WebKitWebsitePolicies allows you to configure per-page policies,
-         * currently only autoplay policies are supported.
-         * @since 2.30
-         */
         interface WebsitePolicies extends GObject.Object {
             readonly $signals: WebsitePolicies.SignalSignatures
             readonly $readableProperties: WebsitePolicies.ReadableProperties
@@ -9223,6 +9623,7 @@ declare module "gi://WebKit?version=6.0" {
         interface WebsitePoliciesClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WebsitePolicies>
             readonly prototype: WebsitePolicies
+
             new (props?: Partial<GObject.ConstructorProps<WebsitePolicies>>): WebsitePolicies
             /**
              * Create a new #WebKitWebsitePolicies.
@@ -9232,7 +9633,16 @@ declare module "gi://WebKit?version=6.0" {
             "new"(): WebsitePolicies
         }
 
-        const WebsitePolicies: WebsitePoliciesClass
+        interface $Exports {
+            /**
+             * View specific website policies.
+             *
+             * WebKitWebsitePolicies allows you to configure per-page policies,
+             * currently only autoplay policies are supported.
+             * @since 2.30
+             */
+            WebsitePolicies: WebsitePoliciesClass
+        }
         
 
         namespace WindowProperties {
@@ -9251,6 +9661,9 @@ declare module "gi://WebKit?version=6.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "fullscreen": boolean
                 "geometry": Gdk.Rectangle
                 "locationbar-visible": boolean
@@ -9260,21 +9673,8 @@ declare module "gi://WebKit?version=6.0" {
                 "statusbar-visible": boolean
                 "toolbar-visible": boolean
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * geometry);
-         *         gtk_window_move (GTK_WINDOW (window), geometry.x, geometry.y);
-         *         gtk_window_resize (GTK_WINDOW (window), geometry.width, geometry.height);
-         *     }
-         *
-         *     gtk_widget_show (window);
-         * }
-         * ```
-         */
         interface WindowProperties extends GObject.Object {
             readonly $signals: WindowProperties.SignalSignatures
             readonly $readableProperties: WindowProperties.ReadableProperties
@@ -9372,10 +9772,69 @@ declare module "gi://WebKit?version=6.0" {
         interface WindowPropertiesClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<WindowProperties>
             readonly prototype: WindowProperties
+
             new (props?: Partial<GObject.ConstructorProps<WindowProperties>>): WindowProperties
         }
 
-        const WindowProperties: WindowPropertiesClass
+        interface $Exports {
+            /**
+             * Window properties of a #WebKitWebView.
+             *
+             * The content of a #WebKitWebView can request to change certain
+             * properties of the window containing the view. This can include the x, y position
+             * of the window, the width and height but also if a toolbar,
+             * scrollbar, statusbar, locationbar should be visible to the user,
+             * and the request to show the #WebKitWebView fullscreen.
+             *
+             * The #WebKitWebView::ready-to-show signal handler is the proper place
+             * to apply the initial window properties. Then you can monitor the
+             * #WebKitWindowProperties by connecting to ::notify signal.
+             *
+             * ```c
+             * static void ready_to_show_cb (WebKitWebView *web_view, gpointer user_data)
+             * {
+             *     GtkWidget *window;
+             *     WebKitWindowProperties *window_properties;
+             *     gboolean visible;
+             *
+             *     // Create the window to contain the WebKitWebView.
+             *     window = browser_window_new ();
+             *     gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (web_view));
+             *     gtk_widget_show (GTK_WIDGET (web_view));
+             *
+             *     // Get the WebKitWindowProperties of the web view and monitor it.
+             *     window_properties = webkit_web_view_get_window_properties (web_view);
+             *     g_signal_connect (window_properties, "notify::geometry",
+             *                       G_CALLBACK (window_geometry_changed), window);
+             *     g_signal_connect (window_properties, "notify::toolbar-visible",
+             *                       G_CALLBACK (window_toolbar_visibility_changed), window);
+             *     g_signal_connect (window_properties, "notify::menubar-visible",
+             *                       G_CALLBACK (window_menubar_visibility_changed), window);
+             *
+             *     // Apply the window properties before showing the window.
+             *     visible = webkit_window_properties_get_toolbar_visible (window_properties);
+             *     browser_window_set_toolbar_visible (BROWSER_WINDOW (window), visible);
+             *     visible = webkit_window_properties_get_menubar_visible (window_properties);
+             *     browser_window_set_menubar_visible (BROWSER_WINDOW (window), visible);
+             *
+             *     if (webkit_window_properties_get_fullscreen (window_properties)) {
+             *         gtk_window_fullscreen (GTK_WINDOW (window));
+             *     } else {
+             *         GdkRectangle geometry;
+             *
+             *         gtk_window_set_resizable (GTK_WINDOW (window),
+             *                                   webkit_window_properties_get_resizable (window_properties));
+             *         webkit_window_properties_get_geometry (window_properties, &geometry);
+             *         gtk_window_move (GTK_WINDOW (window), geometry.x, geometry.y);
+             *         gtk_window_resize (GTK_WINDOW (window), geometry.width, geometry.height);
+             *     }
+             *
+             *     gtk_widget_show (window);
+             * }
+             * ```
+             */
+            WindowProperties: WindowPropertiesClass
+        }
         
 
         namespace XRPermissionRequest {
@@ -9392,19 +9851,6 @@ declare module "gi://WebKit?version=6.0" {
             }
         }
 
-        /**
-         * A permission request for accessing virtual reality (VR) and
-         * augmented reality (AR) devices, including sensors and head-mounted
-         * displays.
-         *
-         * WebKitXRPermissionRequest represents a request for permission to
-         * decide whether WebKit can initialize an XR session through the
-         * WebXR API.
-         *
-         * When a WebKitXRPermissionRequest is not handled by the user,
-         * it is denied by default.
-         * @since 2.52
-         */
         interface XRPermissionRequest extends GObject.Object, PermissionRequest {
             readonly $signals: XRPermissionRequest.SignalSignatures
             readonly $readableProperties: XRPermissionRequest.ReadableProperties
@@ -9481,23 +9927,101 @@ declare module "gi://WebKit?version=6.0" {
         interface XRPermissionRequestClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<XRPermissionRequest>
             readonly prototype: XRPermissionRequest
+
             new (props?: Partial<GObject.ConstructorProps<XRPermissionRequest>>): XRPermissionRequest
         }
 
-        const XRPermissionRequest: XRPermissionRequestClass
-        /**
-         * Information about an application running in automation mode.
-         */
-        abstract class ApplicationInfo {
-            static readonly $gtype: GObject.GType<ApplicationInfo>
+        interface $Exports {
+            /**
+             * A permission request for accessing virtual reality (VR) and
+             * augmented reality (AR) devices, including sensors and head-mounted
+             * displays.
+             *
+             * WebKitXRPermissionRequest represents a request for permission to
+             * decide whether WebKit can initialize an XR session through the
+             * WebXR API.
+             *
+             * When a WebKitXRPermissionRequest is not handled by the user,
+             * it is denied by default.
+             * @since 2.52
+             */
+            XRPermissionRequest: XRPermissionRequestClass
+        }
+        
 
-            
+        namespace PermissionRequest {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * Allow the action which triggered this request.
+                 */
+                vfunc_allow(): void
+                /**
+                 * Deny the action which triggered this request.
+                 */
+                vfunc_deny(): void
+            }
+        }
+
+        interface PermissionRequest extends GObject.Object, PermissionRequest.Interface {
+            readonly $signals: PermissionRequest.SignalSignatures
+            readonly $readableProperties: PermissionRequest.ReadableProperties
+            readonly $writableProperties: PermissionRequest.WritableProperties
+            readonly $constructOnlyProperties: PermissionRequest.ConstructOnlyProperties
+            /**
+             * Allow the action which triggered this request.
+             */
+            allow(): void
+            /**
+             * Deny the action which triggered this request.
+             */
+            deny(): void
+        }
+
+        interface PermissionRequestInterface {
+            readonly $gtype: GObject.GType<PermissionRequest>
+            readonly prototype: PermissionRequest
+            [Symbol.hasInstance](instance: unknown): instance is PermissionRequest
+        }
+
+        interface $Exports {
+            /**
+             * A permission request.
+             *
+             * There are situations where an embedder would need to ask the user
+             * for permission to do certain types of operations, such as switching
+             * to fullscreen mode or reporting the user's location through the
+             * standard Geolocation API. In those cases, WebKit will emit a
+             * #WebKitWebView::permission-request signal with a
+             * #WebKitPermissionRequest object attached to it.
+             */
+            PermissionRequest: PermissionRequestInterface
+        }
+        
+
+        interface ApplicationInfoStruct {
+            readonly $gtype: GObject.GType<ApplicationInfo>
+            [Symbol.hasInstance](instance: unknown): instance is ApplicationInfo
             /**
              * Creates a new #WebKitApplicationInfo
              * @since 2.18
              * @returns the newly created #WebKitApplicationInfo.
              */
-            static "new"(): ApplicationInfo
+            "new"(): ApplicationInfo
+        }
+
+        interface ApplicationInfo {
             /**
              * Get the name of the application.
              *
@@ -9512,7 +10036,7 @@ declare module "gi://WebKit?version=6.0" {
              * @since 2.18
              * @returns , return location for the major version number, return location for the minor version number, return location for the micro version number
              */
-            get_version(): number
+            get_version(): [number, number, number]
             /**
              * Atomically increments the reference count of @info by one.
              *
@@ -9555,23 +10079,15 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Groups information used for user authentication.
-         * @since 2.2
-         */
-        abstract class Credential {
-            static readonly $gtype: GObject.GType<Credential>
 
-            
+        interface $Exports {
+            ApplicationInfo: ApplicationInfoStruct
+        }
+        
+
+        interface CredentialStruct {
+            readonly $gtype: GObject.GType<Credential>
+            [Symbol.hasInstance](instance: unknown): instance is Credential
             /**
              * Create a new credential from the provided username, password and persistence mode.
              * @since 2.2
@@ -9580,7 +10096,7 @@ declare module "gi://WebKit?version=6.0" {
              * @param persistence The #WebKitCredentialPersistence of the new credential
              * @returns A #WebKitCredential.
              */
-            static "new"(username: string, password: string, persistence: CredentialPersistence): Credential
+            "new"(username: string, password: string, persistence: CredentialPersistence): Credential
             /**
              * Create a new credential from the @certificate and persistence mode.
              *
@@ -9590,7 +10106,7 @@ declare module "gi://WebKit?version=6.0" {
              * @param persistence The #WebKitCredentialPersistence of the new credential
              * @returns A #WebKitCredential.
              */
-            static new_for_certificate(certificate: Gio.TlsCertificate | null, persistence: CredentialPersistence): Credential
+            new_for_certificate(certificate: Gio.TlsCertificate | null, persistence: CredentialPersistence): Credential
             /**
              * Create a new credential from the provided PIN and persistence mode.
              *
@@ -9600,7 +10116,10 @@ declare module "gi://WebKit?version=6.0" {
              * @param persistence The #WebKitCredentialPersistence of the new credential
              * @returns A #WebKitCredential.
              */
-            static new_for_certificate_pin(pin: string, persistence: CredentialPersistence): Credential
+            new_for_certificate_pin(pin: string, persistence: CredentialPersistence): Credential
+        }
+
+        interface Credential {
             /**
              * Make a copy of the #WebKitCredential.
              * @since 2.2
@@ -9643,50 +10162,18 @@ declare module "gi://WebKit?version=6.0" {
              */
             has_password(): boolean
         }
-        none
-        none
-        none
-        none
-        /**
-         * Describes a web engine feature that may be toggled at runtime.
-         *
-         * The WebKit web engine includes a set of features which may be toggled
-         * programmatically, each one represented by a #WebKitFeature that provides
-         * information about it:
-         *
-         * - A unique “identifier”: [method@Feature.get_identifier].
-         * - A “default value”, which indicates whether the option is enabled
-         *   automatically: [method@Feature.get_default_value].
-         * - Its “status”, which determines whether it should be considered
-         *   user-settable and its development stage (see [enum@FeatureStatus]
-         *   for details): [method@Feature.get_status].
-         * - A category, which may be used to group features together:
-         *   [method@Feature.get_category].
-         * - An optional short “name” which can be presented to an user:
-         *   [method@Feature.get_name].
-         * - An optional longer “detailed” description:
-         *   [method@Feature.get_details].
-         *
-         * The lists of available features can be obtained with
-         * [func@Settings.get_all_features], [func@Settings.get_experimental_features],
-         * and [func@Settings.get_development_features]). As a rule of thumb,
-         * applications which may want to allow users (i.e. web developers) to test
-         * WebKit features should use the list of experimental features. Additionally,
-         * applications might want to expose development features *when targeting
-         * technically inclined users* for early testing of in-development features
-         * (i.e. in “technology preview” or “canary” builds).
-         *
-         * Applications **must not** expose the list of all features to end users
-         * because they often lack descriptions and control parts of the web engine
-         * which are either intended to be used during development of WebKit itself,
-         * or in specific scenarios to tweak how WebKit integrates with the
-         * application.
-         * @since 2.42
-         */
-        abstract class Feature {
-            static readonly $gtype: GObject.GType<Feature>
 
-            
+        interface $Exports {
+            Credential: CredentialStruct
+        }
+        
+
+        interface FeatureStruct {
+            readonly $gtype: GObject.GType<Feature>
+            [Symbol.hasInstance](instance: unknown): instance is Feature
+        }
+
+        interface Feature {
             /**
              * Gets the category of the feature.
              *
@@ -9764,23 +10251,18 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        /**
-         *  webkit_feature_list_get_length(list): i++) {
-         *     WebKitFeature *feature = webkit_feature_list_get(list, i);
-         *     // Do something with "feature".
-         * }
-         * ```
-         *
-         * Lists of features can be obtained with
-         * [func@Settings.get_experimental_features],
-         * [func@Settings.get_development_features], and
-         * [func@Settings.get_all_features].
-         * @since 2.42
-         */
-        abstract class FeatureList {
-            static readonly $gtype: GObject.GType<FeatureList>
 
-            
+        interface $Exports {
+            Feature: FeatureStruct
+        }
+        
+
+        interface FeatureListStruct {
+            readonly $gtype: GObject.GType<FeatureList>
+            [Symbol.hasInstance](instance: unknown): instance is FeatureList
+        }
+
+        interface FeatureList {
             /**
              * Gets a feature given its index.
              * @since 2.42
@@ -9811,22 +10293,15 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        none
-        none
-        none
-        none
-        none
-        /**
-         * An opaque struct to provide position updates to a #WebKitGeolocationManager.
-         *
-         * WebKitGeolocationPosition is an opaque struct used to provide position updates to a
-         * #WebKitGeolocationManager using webkit_geolocation_manager_update_position().
-         * @since 2.26
-         */
-        abstract class GeolocationPosition {
-            static readonly $gtype: GObject.GType<GeolocationPosition>
 
-            
+        interface $Exports {
+            FeatureList: FeatureListStruct
+        }
+        
+
+        interface GeolocationPositionStruct {
+            readonly $gtype: GObject.GType<GeolocationPosition>
+            [Symbol.hasInstance](instance: unknown): instance is GeolocationPosition
             /**
              * Create a new #WebKitGeolocationPosition.
              * @since 2.26
@@ -9835,7 +10310,10 @@ declare module "gi://WebKit?version=6.0" {
              * @param accuracy accuracy of location in meters
              * @returns a newly created #WebKitGeolocationPosition
              */
-            static "new"(latitude: number, longitude: number, accuracy: number): GeolocationPosition
+            "new"(latitude: number, longitude: number, accuracy: number): GeolocationPosition
+        }
+
+        interface GeolocationPosition {
             /**
              * Make a copy of the #WebKitGeolocationPosition.
              * @since 2.26
@@ -9883,15 +10361,18 @@ declare module "gi://WebKit?version=6.0" {
              */
             set_timestamp(timestamp: number): void
         }
-        none
-        /**
-         * Describes a first party origin.
-         * @since 2.30
-         */
-        abstract class ITPFirstParty {
-            static readonly $gtype: GObject.GType<ITPFirstParty>
 
-            
+        interface $Exports {
+            GeolocationPosition: GeolocationPositionStruct
+        }
+        
+
+        interface ITPFirstPartyStruct {
+            readonly $gtype: GObject.GType<ITPFirstParty>
+            [Symbol.hasInstance](instance: unknown): instance is ITPFirstParty
+        }
+
+        interface ITPFirstParty {
             /**
              * Get the domain name of @itp_first_party.
              * @since 2.30
@@ -9934,14 +10415,18 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        /**
-         * Describes a third party origin.
-         * @since 2.30
-         */
-        abstract class ITPThirdParty {
-            static readonly $gtype: GObject.GType<ITPThirdParty>
 
-            
+        interface $Exports {
+            ITPFirstParty: ITPFirstPartyStruct
+        }
+        
+
+        interface ITPThirdPartyStruct {
+            readonly $gtype: GObject.GType<ITPThirdParty>
+            [Symbol.hasInstance](instance: unknown): instance is ITPThirdParty
+        }
+
+        interface ITPThirdParty {
             /**
              * Get the domain name of @itp_third_party.
              * @since 2.30
@@ -9972,23 +10457,28 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        none
-        none
-        /**
-         */
-        abstract class InputMethodContextPrivate {
-            static readonly $gtype: GObject.GType<InputMethodContextPrivate>
 
-            
+        interface $Exports {
+            ITPThirdParty: ITPThirdPartyStruct
         }
-        /**
-         * Range of text in an preedit string to be shown underlined.
-         * @since 2.28
-         */
-        abstract class InputMethodUnderline {
-            static readonly $gtype: GObject.GType<InputMethodUnderline>
+        
 
-            
+        interface InputMethodContextPrivateStruct {
+            readonly $gtype: GObject.GType<InputMethodContextPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is InputMethodContextPrivate
+        }
+
+        interface InputMethodContextPrivate {
+        }
+
+        interface $Exports {
+            InputMethodContextPrivate: InputMethodContextPrivateStruct
+        }
+        
+
+        interface InputMethodUnderlineStruct {
+            readonly $gtype: GObject.GType<InputMethodUnderline>
+            [Symbol.hasInstance](instance: unknown): instance is InputMethodUnderline
             /**
              * Create a new #WebKitInputMethodUnderline for the given range in preedit string
              * @since 2.28
@@ -9996,7 +10486,10 @@ declare module "gi://WebKit?version=6.0" {
              * @param end_offset the end offset in preedit string
              * @returns A newly created #WebKitInputMethodUnderline
              */
-            static "new"(start_offset: number, end_offset: number): InputMethodUnderline
+            "new"(start_offset: number, end_offset: number): InputMethodUnderline
+        }
+
+        interface InputMethodUnderline {
             /**
              * Make a copy of the #WebKitInputMethodUnderline.
              * @since 2.28
@@ -10018,40 +10511,24 @@ declare module "gi://WebKit?version=6.0" {
              */
             set_color(rgba: Gdk.RGBA | null): void
         }
-        none
-        /**
-         * A boxed type representing the settings for the memory pressure handler
-         *
-         * #WebKitMemoryPressureSettings is a boxed type that can be used to provide some custom settings
-         * to control how the memory pressure situations are handled by the different processes.
-         *
-         * The memory pressure system implemented inside the different process will try to keep the memory usage
-         * under the defined memory limit. In order to do that, it will check the used memory with a user defined
-         * frequency and decide whether it should try to release memory. The thresholds passed will define how urgent
-         * is to release that memory.
-         *
-         * Take into account that badly defined parameters can greatly reduce the performance of the engine. For
-         * example, setting memory limit too low with a fast poll interval can cause the process to constantly
-         * be trying to release memory.
-         *
-         * A #WebKitMemoryPressureSettings can be passed to a #WebKitWebContext constructor, and the settings will
-         * be applied to all the web processes created by that context.
-         *
-         * A #WebKitMemoryPressureSettings can be passed to webkit_website_data_manager_set_memory_pressure_settings(),
-         * and the settings will be applied to all the network processes created after that call by any instance of
-         * #WebKitWebsiteDataManager.
-         * @since 2.34
-         */
-        abstract class MemoryPressureSettings {
-            static readonly $gtype: GObject.GType<MemoryPressureSettings>
 
-            
+        interface $Exports {
+            InputMethodUnderline: InputMethodUnderlineStruct
+        }
+        
+
+        interface MemoryPressureSettingsStruct {
+            readonly $gtype: GObject.GType<MemoryPressureSettings>
+            [Symbol.hasInstance](instance: unknown): instance is MemoryPressureSettings
             /**
              * Create a new #WebKitMemoryPressureSettings with the default values.
              * @since 2.34
              * @returns A new #WebKitMemoryPressureSettings instance filled with the default values.
              */
-            static "new"(): MemoryPressureSettings
+            "new"(): MemoryPressureSettings
+        }
+
+        interface MemoryPressureSettings {
             /**
              * Make a copy of @settings.
              * @since 2.34
@@ -10149,13 +10626,18 @@ declare module "gi://WebKit?version=6.0" {
              */
             set_strict_threshold(value: number): void
         }
-        /**
-         * Provides details about interaction resulting in a resource load.
-         */
-        abstract class NavigationAction {
-            static readonly $gtype: GObject.GType<NavigationAction>
 
-            
+        interface $Exports {
+            MemoryPressureSettings: MemoryPressureSettingsStruct
+        }
+        
+
+        interface NavigationActionStruct {
+            readonly $gtype: GObject.GType<NavigationAction>
+            [Symbol.hasInstance](instance: unknown): instance is NavigationAction
+        }
+
+        interface NavigationAction {
             /**
              * Make a copy of @navigation.
              * @since 2.6
@@ -10200,7 +10682,9 @@ declare module "gi://WebKit?version=6.0" {
              */
             get_navigation_type(): NavigationType
             /**
-             *  taken
+             * Return the #WebKitURIRequest associated with the navigation action.
+             *
+             * Modifications to the returned object are <emphasis>not</emphasis> taken
              * into account when the request is sent over the network, and is intended
              * only to aid in evaluating whether a navigation action should be taken or
              * not. To modify requests before they are sent over the network the
@@ -10222,21 +10706,42 @@ declare module "gi://WebKit?version=6.0" {
              */
             is_user_gesture(): boolean
         }
-        none
-        /**
-         * Configures network proxies.
-         *
-         * WebKitNetworkProxySettings can be used to provide a custom proxy configuration
-         * to a #WebKitNetworkSession. You need to call webkit_network_session_set_network_proxy_settings()
-         * with %WEBKIT_NETWORK_PROXY_MODE_CUSTOM and a WebKitNetworkProxySettings.
-         * @since 2.16
-         */
-        abstract class NetworkProxySettings {
-            static readonly $gtype: GObject.GType<NetworkProxySettings>
 
-            
+        interface $Exports {
+            NavigationAction: NavigationActionStruct
+        }
+        
+
+        interface NetworkProxySettingsStruct {
+            readonly $gtype: GObject.GType<NetworkProxySettings>
+            [Symbol.hasInstance](instance: unknown): instance is NetworkProxySettings
             /**
+             * Create a new #WebKitNetworkProxySettings with the given @default_proxy_uri and @ignore_hosts.
              *
+             * The default proxy URI will be used for any URI that doesn't match @ignore_hosts, and doesn't match any
+             * of the schemes added with webkit_network_proxy_settings_add_proxy_for_scheme().
+             * If @default_proxy_uri starts with "socks://", it will be treated as referring to all three of the
+             * socks5, socks4a, and socks4 proxy types.
+             *
+             * @ignore_hosts is a list of hostnames and IP addresses that the resolver should allow direct connections to.
+             * Entries can be in one of 4 formats:
+             * <itemizedlist>
+             * <listitem><para>
+             * A hostname, such as "example.com", ".example.com", or "*.example.com", any of which match "example.com" or
+             * any subdomain of it.
+             * </para></listitem>
+             * <listitem><para>
+             * An IPv4 or IPv6 address, such as "192.168.1.1", which matches only that address.
+             * </para></listitem>
+             * <listitem><para>
+             * A hostname or IP address followed by a port, such as "example.com:80", which matches whatever the hostname or IP
+             * address would match, but only for URLs with the (explicitly) indicated port. In the case of an IPv6 address, the address
+             * part must appear in brackets: "[::1]:443"
+             * </para></listitem>
+             * <listitem><para>
+             * An IP address range, given by a base address and prefix length, such as "fe80::/10", which matches any address in that range.
+             * </para></listitem>
+             * </itemizedlist>
              *
              * Note that when dealing with Unicode hostnames, the matching is done against the ASCII form of the name.
              * Also note that hostname exclusions apply only to connections made to hosts identified by name, and IP address exclusions apply only
@@ -10247,7 +10752,10 @@ declare module "gi://WebKit?version=6.0" {
              * @param ignore_hosts an optional list of hosts/IP addresses to not use a proxy for.
              * @returns A new #WebKitNetworkProxySettings.
              */
-            static "new"(default_proxy_uri: string | null, ignore_hosts: string[] | null): NetworkProxySettings
+            "new"(default_proxy_uri: string | null, ignore_hosts: string[] | null): NetworkProxySettings
+        }
+
+        interface NetworkProxySettings {
             /**
              * Adds a URI-scheme-specific proxy.
              *
@@ -10271,21 +10779,18 @@ declare module "gi://WebKit?version=6.0" {
              */
             free(): void
         }
-        none
-        none
-        none
-        none
-        /**
-         * s.
-         * A WebKitOptionMenuItem always has a label and can contain a tooltip text.
-         * You can use the WebKitOptionMenuItem of a #WebKitOptionMenu to build your
-         * own menus.
-         * @since 2.18
-         */
-        abstract class OptionMenuItem {
-            static readonly $gtype: GObject.GType<OptionMenuItem>
 
-            
+        interface $Exports {
+            NetworkProxySettings: NetworkProxySettingsStruct
+        }
+        
+
+        interface OptionMenuItemStruct {
+            readonly $gtype: GObject.GType<OptionMenuItem>
+            [Symbol.hasInstance](instance: unknown): instance is OptionMenuItem
+        }
+
+        interface OptionMenuItem {
             /**
              * Make a copy of the #WebKitOptionMenuItem.
              * @since 2.18
@@ -10334,23 +10839,18 @@ declare module "gi://WebKit?version=6.0" {
              */
             is_selected(): boolean
         }
-        none
-        /**
-         * This query represents a user's choice to allow or deny access to "powerful features" of the
-         * platform, as specified in the [Permissions W3C
-         * Specification](https://w3c.github.io/permissions/).
-         *
-         * When signalled by the #WebKitWebView through the `query-permission-state` signal, the application
-         * has to eventually respond, via `webkit_permission_state_query_finish()`, whether it grants,
-         * denies or requests a dedicated permission prompt for the given query.
-         *
-         * When a #WebKitPermissionStateQuery is not handled by the user, the user-agent is instructed to
-         * `prompt` the user for the given permission.
-         */
-        abstract class PermissionStateQuery {
-            static readonly $gtype: GObject.GType<PermissionStateQuery>
 
-            
+        interface $Exports {
+            OptionMenuItem: OptionMenuItemStruct
+        }
+        
+
+        interface PermissionStateQueryStruct {
+            readonly $gtype: GObject.GType<PermissionStateQuery>
+            [Symbol.hasInstance](instance: unknown): instance is PermissionStateQuery
+        }
+
+        interface PermissionStateQuery {
             /**
              * Notify the web-engine of the selected permission state for the given query. This function should
              * only be called as a response to the `WebKitWebView::query-permission-state` signal.
@@ -10387,24 +10887,31 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        none
-        none
-        /**
-         */
-        abstract class PolicyDecisionPrivate {
-            static readonly $gtype: GObject.GType<PolicyDecisionPrivate>
 
-            
+        interface $Exports {
+            PermissionStateQuery: PermissionStateQueryStruct
         }
-        none
-        none
-        /**
-         * Carries details to be shown in user-facing dialogs.
-         */
-        abstract class ScriptDialog {
-            static readonly $gtype: GObject.GType<ScriptDialog>
+        
 
-            
+        interface PolicyDecisionPrivateStruct {
+            readonly $gtype: GObject.GType<PolicyDecisionPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is PolicyDecisionPrivate
+        }
+
+        interface PolicyDecisionPrivate {
+        }
+
+        interface $Exports {
+            PolicyDecisionPrivate: PolicyDecisionPrivateStruct
+        }
+        
+
+        interface ScriptDialogStruct {
+            readonly $gtype: GObject.GType<ScriptDialog>
+            [Symbol.hasInstance](instance: unknown): instance is ScriptDialog
+        }
+
+        interface ScriptDialog {
             /**
              * Close @dialog.
              *
@@ -10477,16 +10984,18 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        /**
-         * A reply for a script message received.
-         * If no reply has been sent by the user, an automatically generated reply with
-         * undefined value with be sent.
-         * @since 2.40
-         */
-        abstract class ScriptMessageReply {
-            static readonly $gtype: GObject.GType<ScriptMessageReply>
 
-            
+        interface $Exports {
+            ScriptDialog: ScriptDialogStruct
+        }
+        
+
+        interface ScriptMessageReplyStruct {
+            readonly $gtype: GObject.GType<ScriptMessageReply>
+            [Symbol.hasInstance](instance: unknown): instance is ScriptMessageReply
+        }
+
+        interface ScriptMessageReply {
             /**
              * Atomically increments the reference count of @script_message_reply by one.
              * @since 2.40
@@ -10517,24 +11026,15 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        none
-        /**
-         * A security boundary for websites.
-         *
-         * #WebKitSecurityOrigin is a representation of a security domain
-         * defined by websites. A security origin consists of a protocol, a
-         * hostname, and an optional port number.
-         *
-         * Resources with the same security origin can generally access each
-         * other for client-side scripting or database access. When comparing
-         * origins, beware that if both protocol and host are %NULL, the origins
-         * should not be treated as equal.
-         * @since 2.16
-         */
-        abstract class SecurityOrigin {
-            static readonly $gtype: GObject.GType<SecurityOrigin>
 
-            
+        interface $Exports {
+            ScriptMessageReply: ScriptMessageReplyStruct
+        }
+        
+
+        interface SecurityOriginStruct {
+            readonly $gtype: GObject.GType<SecurityOrigin>
+            [Symbol.hasInstance](instance: unknown): instance is SecurityOrigin
             /**
              * Create a new security origin from the provided protocol, host and
              * port.
@@ -10545,7 +11045,7 @@ declare module "gi://WebKit?version=6.0" {
                    default port for @protocol
              * @returns A #WebKitSecurityOrigin.
              */
-            static "new"(protocol: string, host: string, port: number): SecurityOrigin
+            "new"(protocol: string, host: string, port: number): SecurityOrigin
             /**
              * Create a new security origin from the provided.
              *
@@ -10556,7 +11056,10 @@ declare module "gi://WebKit?version=6.0" {
              * @param uri The URI for the new origin
              * @returns A #WebKitSecurityOrigin.
              */
-            static new_for_uri(uri: string): SecurityOrigin
+            new_for_uri(uri: string): SecurityOrigin
+        }
+
+        interface SecurityOrigin {
             /**
              * Gets the hostname of @origin.
              *
@@ -10612,19 +11115,18 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        none
-        none
-        none
-        none
-        none
-        /**
-         * A compiled set of rules which applied to resource loads.
-         * @since 2.24
-         */
-        abstract class UserContentFilter {
-            static readonly $gtype: GObject.GType<UserContentFilter>
 
-            
+        interface $Exports {
+            SecurityOrigin: SecurityOriginStruct
+        }
+        
+
+        interface UserContentFilterStruct {
+            readonly $gtype: GObject.GType<UserContentFilter>
+            [Symbol.hasInstance](instance: unknown): instance is UserContentFilter
+        }
+
+        interface UserContentFilter {
             /**
              * Obtain the identifier previously used to save the @user_content_filter.
              *
@@ -10652,18 +11154,15 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        none
-        none
-        none
-        none
-        /**
-         * A JavaScript snippet which can be injected in loaded pages.
-         * @since 2.6
-         */
-        abstract class UserScript {
-            static readonly $gtype: GObject.GType<UserScript>
 
-            
+        interface $Exports {
+            UserContentFilter: UserContentFilterStruct
+        }
+        
+
+        interface UserScriptStruct {
+            readonly $gtype: GObject.GType<UserScript>
+            [Symbol.hasInstance](instance: unknown): instance is UserScript
             /**
              * Creates a new user script.
              *
@@ -10682,7 +11181,7 @@ declare module "gi://WebKit?version=6.0" {
              * @param block_list A block_list of URI patterns or %NULL
              * @returns A new #WebKitUserScript
              */
-            static "new"(source: string, injected_frames: UserContentInjectedFrames, injection_time: UserScriptInjectionTime, allow_list: string[] | null, block_list: string[] | null): UserScript
+            "new"(source: string, injected_frames: UserContentInjectedFrames, injection_time: UserScriptInjectionTime, allow_list: string[] | null, block_list: string[] | null): UserScript
             /**
              * Creates a new user script for script world with name @world_name.
              *
@@ -10696,7 +11195,10 @@ declare module "gi://WebKit?version=6.0" {
              * @param block_list A block_list of URI patterns or %NULL
              * @returns A new #WebKitUserScript
              */
-            static new_for_world(source: string, injected_frames: UserContentInjectedFrames, injection_time: UserScriptInjectionTime, world_name: string, allow_list: string[] | null, block_list: string[] | null): UserScript
+            new_for_world(source: string, injected_frames: UserContentInjectedFrames, injection_time: UserScriptInjectionTime, world_name: string, allow_list: string[] | null, block_list: string[] | null): UserScript
+        }
+
+        interface UserScript {
             /**
              * Atomically increments the reference count of @user_script by one.
              *
@@ -10715,14 +11217,15 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        /**
-         * A CSS style sheet which can be injected in loaded pages.
-         * @since 2.6
-         */
-        abstract class UserStyleSheet {
-            static readonly $gtype: GObject.GType<UserStyleSheet>
 
-            
+        interface $Exports {
+            UserScript: UserScriptStruct
+        }
+        
+
+        interface UserStyleSheetStruct {
+            readonly $gtype: GObject.GType<UserStyleSheet>
+            [Symbol.hasInstance](instance: unknown): instance is UserStyleSheet
             /**
              * Creates a new user style sheet.
              *
@@ -10741,7 +11244,7 @@ declare module "gi://WebKit?version=6.0" {
              * @param block_list A block_list of URI patterns or %NULL
              * @returns A new #WebKitUserStyleSheet
              */
-            static "new"(source: string, injected_frames: UserContentInjectedFrames, level: UserStyleLevel, allow_list: string[] | null, block_list: string[] | null): UserStyleSheet
+            "new"(source: string, injected_frames: UserContentInjectedFrames, level: UserStyleLevel, allow_list: string[] | null, block_list: string[] | null): UserStyleSheet
             /**
              * Creates a new user style sheet for script world.
              *
@@ -10756,7 +11259,10 @@ declare module "gi://WebKit?version=6.0" {
              * @param block_list A block_list of URI patterns or %NULL
              * @returns A new #WebKitUserStyleSheet
              */
-            static new_for_world(source: string, injected_frames: UserContentInjectedFrames, level: UserStyleLevel, world_name: string, allow_list: string[] | null, block_list: string[] | null): UserStyleSheet
+            new_for_world(source: string, injected_frames: UserContentInjectedFrames, level: UserStyleLevel, world_name: string, allow_list: string[] | null, block_list: string[] | null): UserStyleSheet
+        }
+
+        interface UserStyleSheet {
             /**
              * Atomically increments the reference count of @user_style_sheet by one.
              *
@@ -10775,31 +11281,27 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        none
-        none
-        /**
-         * ` pattern, match patterns
-         * consist of three parts: scheme, host, and path.
-         *
-         * Generally, match patterns are returned from a #WebKitWebExtension.
-         * @since 2.48
-         */
-        abstract class WebExtensionMatchPattern {
-            static readonly $gtype: GObject.GType<WebExtensionMatchPattern>
 
-            
+        interface $Exports {
+            UserStyleSheet: UserStyleSheetStruct
+        }
+        
+
+        interface WebExtensionMatchPatternStruct {
+            readonly $gtype: GObject.GType<WebExtensionMatchPattern>
+            [Symbol.hasInstance](instance: unknown): instance is WebExtensionMatchPattern
             /**
              * Returns a new #WebKitWebExtensionMatchPattern that has `*` for scheme, host, and path.
              * @since 2.48
              * @returns a newly created #WebKitWebExtensionMatchPattern
              */
-            static new_all_hosts_and_schemes(): WebExtensionMatchPattern
+            new_all_hosts_and_schemes(): WebExtensionMatchPattern
             /**
-             * `.
+             * Returns a new #WebKitWebExtensionMatchPattern for `<all_urls>`.
              * @since 2.48
              * @returns a newly created #WebKitWebExtensionMatchPattern
              */
-            static new_all_urls(): WebExtensionMatchPattern
+            new_all_urls(): WebExtensionMatchPattern
             /**
              * Returns a new #WebKitWebExtensionMatchPattern for the specified @scheme, @host, and @path strings.
              * @throws {GLib.Error}
@@ -10809,7 +11311,7 @@ declare module "gi://WebKit?version=6.0" {
              * @param path A pattern URL path
              * @returns a newly created #WebKitWebExtensionMatchPattern, or %NULL if any of the pattern strings are invalid.
              */
-            static new_with_scheme(scheme: string, host: string, path: string): WebExtensionMatchPattern | null
+            new_with_scheme(scheme: string, host: string, path: string): WebExtensionMatchPattern | null
             /**
              * Returns a new #WebKitWebExtensionMatchPattern for the specified @string.
              * @throws {GLib.Error}
@@ -10817,20 +11319,29 @@ declare module "gi://WebKit?version=6.0" {
              * @param string A pattern string
              * @returns a newly created #WebKitWebExtensionMatchPattern, or %NULL if the pattern string is invalid.
              */
-            static new_with_string(string: string): WebExtensionMatchPattern | null
+            new_with_string(string: string): WebExtensionMatchPattern | null
             /**
-             * `.
+             * Registers a custom URL scheme that can be used in match patterns.
+             *
+             * This method should be used to register any custom URL schemes used by the app for the extension base URLs,
+             * other than `webkit-extension`, or if extensions should have access to other supported URL schemes when using `<all_urls>`.
              * @since 2.48
              * @deprecated since 2.52 Use webkit_web_extension_match_pattern_register_custom_url_scheme() instead.
              * @param urlScheme The custom URL scheme to register
              */
-            static register_custom_URL_scheme(urlScheme: string): void
+            register_custom_URL_scheme(urlScheme: string): void
             /**
-             * `.
+             * Registers a custom URL scheme that can be used in match patterns.
+             *
+             * This method should be used to register any custom URL schemes used by the app for the extension base URLs,
+             * other than `webkit-extension`, or if extensions should have access to other supported URL schemes when using `<all_urls>`.
              * @since 2.52
              * @param urlScheme The custom URL scheme to register
              */
-            static register_custom_url_scheme(urlScheme: string): void
+            register_custom_url_scheme(urlScheme: string): void
+        }
+
+        interface WebExtensionMatchPattern {
             /**
              * Gets the host part of the pattern string, unless `webkit_web_extension_match_pattern_get_matches_all_urls` is %TRUE.
              * @since 2.48
@@ -10838,13 +11349,15 @@ declare module "gi://WebKit?version=6.0" {
              */
             get_host(): string
             /**
-             * `, or if `*` is set as the host string.
+             * Gets whether the match pattern matches all host. This happens when
+             * the pattern is `<all_urls>`, or if `*` is set as the host string.
              * @since 2.48
              * @returns Whether this match pattern matches all hosts.
              */
             get_matches_all_hosts(): boolean
             /**
-             * `.
+             * Gets whether the match pattern matches all URLs, in other words, whether
+             * the pattern is `<all_urls>`.
              * @since 2.48
              * @returns Whether this match pattern matches all URLs.
              */
@@ -10901,39 +11414,51 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        none
-        none
-        none
-        /**
-         */
-        abstract class WebViewBasePrivate {
-            static readonly $gtype: GObject.GType<WebViewBasePrivate>
 
-            
+        interface $Exports {
+            WebExtensionMatchPattern: WebExtensionMatchPatternStruct
         }
-        none
-        /**
-         */
-        abstract class WebViewPrivate {
-            static readonly $gtype: GObject.GType<WebViewPrivate>
+        
 
-            
+        interface WebViewBasePrivateStruct {
+            readonly $gtype: GObject.GType<WebViewBasePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is WebViewBasePrivate
         }
-        /**
-         * Handles serialization of a web view's browsing state.
-         * @since 2.12
-         */
-        abstract class WebViewSessionState {
-            static readonly $gtype: GObject.GType<WebViewSessionState>
 
-            
+        interface WebViewBasePrivate {
+        }
+
+        interface $Exports {
+            WebViewBasePrivate: WebViewBasePrivateStruct
+        }
+        
+
+        interface WebViewPrivateStruct {
+            readonly $gtype: GObject.GType<WebViewPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is WebViewPrivate
+        }
+
+        interface WebViewPrivate {
+        }
+
+        interface $Exports {
+            WebViewPrivate: WebViewPrivateStruct
+        }
+        
+
+        interface WebViewSessionStateStruct {
+            readonly $gtype: GObject.GType<WebViewSessionState>
+            [Symbol.hasInstance](instance: unknown): instance is WebViewSessionState
             /**
              * Creates a new #WebKitWebViewSessionState from serialized data.
              * @since 2.12
              * @param data a #GBytes
              * @returns a new #WebKitWebViewSessionState, or %NULL if `data` doesn't contain a     valid serialized #WebKitWebViewSessionState.
              */
-            static "new"(data: GLib.Bytes): WebViewSessionState
+            "new"(data: (GLib.Bytes | Uint8Array)): WebViewSessionState
+        }
+
+        interface WebViewSessionState {
             /**
              * Atomically increments the reference count of @state by one.
              *
@@ -10959,28 +11484,18 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        /**
-         * Data stored locally by a web site.
-         *
-         * WebKitWebsiteData represents data stored in the client by a particular website.
-         * A website is normally a set of URLs grouped by domain name. You can get the website name,
-         * which is usually the domain, with webkit_website_data_get_name().
-         * Documents loaded from the file system, like file:// URIs, are all grouped in the same WebKitWebsiteData
-         * with the name "Local files".
-         *
-         * A website can store different types of data in the client side. #WebKitWebsiteDataTypes is an enum containing
-         * all the possible data types; use webkit_website_data_get_types() to get the bitmask of data types.
-         * It's also possible to know the size of the data stored for some of the #WebKitWebsiteDataTypes by using
-         * webkit_website_data_get_size().
-         *
-         * A list of WebKitWebsiteData can be retrieved with webkit_website_data_manager_fetch(). See #WebKitWebsiteDataManager
-         * for more information.
-         * @since 2.16
-         */
-        abstract class WebsiteData {
-            static readonly $gtype: GObject.GType<WebsiteData>
 
-            
+        interface $Exports {
+            WebViewSessionState: WebViewSessionStateStruct
+        }
+        
+
+        interface WebsiteDataStruct {
+            readonly $gtype: GObject.GType<WebsiteData>
+            [Symbol.hasInstance](instance: unknown): instance is WebsiteData
+        }
+
+        interface WebsiteData {
             /**
              * Gets the name of #WebKitWebsiteData.
              *
@@ -11028,778 +11543,651 @@ declare module "gi://WebKit?version=6.0" {
              */
             unref(): void
         }
-        none
-        none
-        none
-        none
-        none
-        /**
-         * Gets the quark for the domain of download errors.
-         * @returns download error domain.
-         */
-        function download_error_quark(): GLib.Quark
-        /**
-         * Gets the quark for the domain of favicon database errors.
-         * @returns favicon database error domain.
-         */
-        function favicon_database_error_quark(): GLib.Quark
-        /**
-         * Returns the major version number of the WebKit library.
-         *
-         * (e.g. in WebKit version 1.8.3 this is 1.)
-         *
-         * This function is in the library, so it represents the WebKit library
-         * your code is running against. Contrast with the #WEBKIT_MAJOR_VERSION
-         * macro, which represents the major version of the WebKit headers you
-         * have included when compiling your code.
-         * @returns the major version number of the WebKit library
-         */
-        function get_major_version(): number
-        /**
-         * Returns the micro version number of the WebKit library.
-         *
-         * (e.g. in WebKit version 1.8.3 this is 3.)
-         *
-         * This function is in the library, so it represents the WebKit library
-         * your code is running against. Contrast with the #WEBKIT_MICRO_VERSION
-         * macro, which represents the micro version of the WebKit headers you
-         * have included when compiling your code.
-         * @returns the micro version number of the WebKit library
-         */
-        function get_micro_version(): number
-        /**
-         * Returns the minor version number of the WebKit library.
-         *
-         * (e.g. in WebKit version 1.8.3 this is 8.)
-         *
-         * This function is in the library, so it represents the WebKit library
-         * your code is running against. Contrast with the #WEBKIT_MINOR_VERSION
-         * macro, which represents the minor version of the WebKit headers you
-         * have included when compiling your code.
-         * @returns the minor version number of the WebKit library
-         */
-        function get_minor_version(): number
-        /**
-         * Gets the quark for the domain of JavaScript errors.
-         * @returns JavaScript error domain.
-         */
-        function javascript_error_quark(): GLib.Quark
-        /**
-         * Gets the quark for the domain of media errors.
-         * @since 2.40
-         * @returns media error domin.
-         */
-        function media_error_quark(): GLib.Quark
-        /**
-         * Get the key system for which access permission is being requested.
-         * @since 2.32
-         * @param request a #WebKitMediaKeySystemPermissionRequest
-         * @returns the key system name for `request`
-         */
-        function media_key_system_permission_get_name(request: MediaKeySystemPermissionRequest): string
-        /**
-         * Gets the quark for the domain of networking errors.
-         * @returns network error domain.
-         */
-        function network_error_quark(): GLib.Quark
-        /**
-         * Gets the quark for the domain of policy errors.
-         * @returns policy error domain.
-         */
-        function policy_error_quark(): GLib.Quark
-        /**
-         * Gets the quark for the domain of printing errors.
-         * @returns print error domain.
-         */
-        function print_error_quark(): GLib.Quark
-        /**
-         * Gets the quark for the domain of page snapshot errors.
-         * @returns snapshot error domain.
-         */
-        function snapshot_error_quark(): GLib.Quark
-        /**
-         * Use this function to format a URI for display.
-         *
-         * The URIs used internally by
-         * WebKit may contain percent-encoded characters or Punycode, which are not
-         * generally suitable to display to users. This function provides protection
-         * against IDN homograph attacks, so in some cases the host part of the returned
-         * URI may be in Punycode if the safety check fails.
-         * @since 2.24
-         * @param uri the URI to be converted
-         * @returns  `uri` suitable for display, or %NULL in    case of error.
-         */
-        function uri_for_display(uri: string): string | null
-        /**
-         * Gets the quark for the domain of user content filter errors.
-         * @returns user content filter error domain.
-         */
-        function user_content_filter_error_quark(): GLib.Quark
-        /**
-         * Check whether the permission request is for an audio device.
-         * @since 2.8
-         * @param request a #WebKitUserMediaPermissionRequest
-         * @returns %TRUE if access to an audio device was requested.
-         */
-        function user_media_permission_is_for_audio_device(request: UserMediaPermissionRequest): boolean
-        /**
-         * Check whether the permission request is for a display device.
-         * @since 2.34
-         * @param request a #WebKitUserMediaPermissionRequest
-         * @returns %TRUE if access to a display device was requested.
-         */
-        function user_media_permission_is_for_display_device(request: UserMediaPermissionRequest): boolean
-        /**
-         * Check whether the permission request is for a video device.
-         * @since 2.8
-         * @param request a #WebKitUserMediaPermissionRequest
-         * @returns %TRUE if access to a video device was requested.
-         */
-        function user_media_permission_is_for_video_device(request: UserMediaPermissionRequest): boolean
-        /**
-         * Gets the quark for the domain of user message errors.
-         * @returns user message error domain.
-         */
-        function user_message_error_quark(): GLib.Quark
-        /**
-         * Gets the quark for the domain of Web Extension errors.
-         * @since 2.52
-         * @returns web extension error domain.
-         */
-        function web_extension_error_quark(): GLib.Quark
-        /**
-         * Gets the quark for the domain of Web Extension Match Pattern errors.
-         * @since 2.48
-         * @returns web extension match pattern error domain.
-         */
-        function web_extension_match_pattern_error_quark(): GLib.Quark
-        /**
-         * `.
-         * @since 2.48
-         * @deprecated since 2.52 Use webkit_web_extension_match_pattern_register_custom_url_scheme() instead.
-         * @param urlScheme The custom URL scheme to register
-         */
-        function web_extension_match_pattern_register_custom_URL_scheme(urlScheme: string): void
-        /**
-         * `.
-         * @since 2.52
-         * @param urlScheme The custom URL scheme to register
-         */
-        function web_extension_match_pattern_register_custom_url_scheme(urlScheme: string): void
-        const EDITING_COMMAND_COPY: "Copy"
-        const EDITING_COMMAND_CREATE_LINK: "CreateLink"
-        const EDITING_COMMAND_CUT: "Cut"
-        const EDITING_COMMAND_INSERT_IMAGE: "InsertImage"
-        const EDITING_COMMAND_PASTE: "Paste"
-        const EDITING_COMMAND_PASTE_AS_PLAIN_TEXT: "PasteAsPlainText"
-        const EDITING_COMMAND_REDO: "Redo"
-        const EDITING_COMMAND_SELECT_ALL: "SelectAll"
-        const EDITING_COMMAND_UNDO: "Undo"
-        const MAJOR_VERSION: 2
-        const MICRO_VERSION: 93
-        const MINOR_VERSION: 51
-        
-        namespace AuthenticationScheme {
-            const $gtype: GObject.GType<AuthenticationScheme>
-        }
 
-        /**
-         * Enum values representing the authentication scheme.
-         * @since 2.2
-         */
-        enum AuthenticationScheme {
+        interface $Exports {
+            WebsiteData: WebsiteDataStruct
+        }
+        
+        interface AuthenticationSchemeEnum {
+            readonly $gtype: GObject.GType<AuthenticationScheme>
             /**
              * The default authentication scheme of WebKit.
              */
-            "DEFAULT" = 1,
+            readonly "DEFAULT": 1
             /**
              * Basic authentication scheme as defined in RFC 2617.
              */
-            "HTTP_BASIC" = 2,
+            readonly "HTTP_BASIC": 2
             /**
              * Digest authentication scheme as defined in RFC 2617.
              */
-            "HTTP_DIGEST" = 3,
+            readonly "HTTP_DIGEST": 3
             /**
              * HTML Form authentication.
              */
-            "HTML_FORM" = 4,
+            readonly "HTML_FORM": 4
             /**
              * NTLM Microsoft proprietary authentication scheme.
              */
-            "NTLM" = 5,
+            readonly "NTLM": 5
             /**
              * Negotiate (or SPNEGO) authentication scheme as defined in RFC 4559.
              */
-            "NEGOTIATE" = 6,
+            readonly "NEGOTIATE": 6
             /**
              * Client Certificate Authentication (see RFC 2246).
              */
-            "CLIENT_CERTIFICATE_REQUESTED" = 7,
+            readonly "CLIENT_CERTIFICATE_REQUESTED": 7
             /**
              * Server Trust Authentication.
              */
-            "SERVER_TRUST_EVALUATION_REQUESTED" = 8,
+            readonly "SERVER_TRUST_EVALUATION_REQUESTED": 8
             /**
              * Client certificate PIN required for use. Since: 2.34
              */
-            "CLIENT_CERTIFICATE_PIN_REQUESTED" = 9,
+            readonly "CLIENT_CERTIFICATE_PIN_REQUESTED": 9
             /**
              * Authentication scheme unknown.
              */
-            "UNKNOWN" = 100,
+            readonly "UNKNOWN": 100
+        }
+        type AuthenticationScheme = AuthenticationSchemeEnum[Exclude<keyof AuthenticationSchemeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values representing the authentication scheme.
+             * @since 2.2
+             */
+            AuthenticationScheme: AuthenticationSchemeEnum
         }
         
-        namespace AutomationBrowsingContextPresentation {
-            const $gtype: GObject.GType<AutomationBrowsingContextPresentation>
-        }
-
-        /**
-         * Enum values used for determining the automation browsing context presentation.
-         * @since 2.28
-         */
-        enum AutomationBrowsingContextPresentation {
+        interface AutomationBrowsingContextPresentationEnum {
+            readonly $gtype: GObject.GType<AutomationBrowsingContextPresentation>
             /**
              * a window
              */
-            "WINDOW" = 0,
+            readonly "WINDOW": 0
             /**
              * a tab
              */
-            "TAB" = 1,
+            readonly "TAB": 1
+        }
+        type AutomationBrowsingContextPresentation = AutomationBrowsingContextPresentationEnum[Exclude<keyof AutomationBrowsingContextPresentationEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used for determining the automation browsing context presentation.
+             * @since 2.28
+             */
+            AutomationBrowsingContextPresentation: AutomationBrowsingContextPresentationEnum
         }
         
-        namespace AutoplayPolicy {
-            const $gtype: GObject.GType<AutoplayPolicy>
-        }
-
-        /**
-         * Enum values used to specify autoplay policies.
-         * @since 2.30
-         */
-        enum AutoplayPolicy {
+        interface AutoplayPolicyEnum {
+            readonly $gtype: GObject.GType<AutoplayPolicy>
             /**
              * Do not restrict autoplay.
              */
-            "ALLOW" = 0,
+            readonly "ALLOW": 0
             /**
              * Allow videos to autoplay if
              *     they have no audio track, or if their audio track is muted.
              */
-            "ALLOW_WITHOUT_SOUND" = 1,
+            readonly "ALLOW_WITHOUT_SOUND": 1
             /**
              * Never allow autoplay.
              */
-            "DENY" = 2,
+            readonly "DENY": 2
+        }
+        type AutoplayPolicy = AutoplayPolicyEnum[Exclude<keyof AutoplayPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to specify autoplay policies.
+             * @since 2.30
+             */
+            AutoplayPolicy: AutoplayPolicyEnum
         }
         
-        namespace CacheModel {
-            const $gtype: GObject.GType<CacheModel>
-        }
-
-        /**
-         * Enum values used for determining the #WebKitWebContext cache model.
-         */
-        enum CacheModel {
+        interface CacheModelEnum {
+            readonly $gtype: GObject.GType<CacheModel>
             /**
              * Disable the cache completely, which
              *   substantially reduces memory usage. Useful for applications that only
              *   access a single local file, with no navigation to other pages. No remote
              *   resources will be cached.
              */
-            "DOCUMENT_VIEWER" = 0,
+            readonly "DOCUMENT_VIEWER": 0
             /**
              * Improve document load speed substantially
              *   by caching a very large number of resources and previously viewed content.
              */
-            "WEB_BROWSER" = 1,
+            readonly "WEB_BROWSER": 1
             /**
              * A cache model optimized for viewing
              *   a series of local files -- for example, a documentation viewer or a website
              *   designer. WebKit will cache a moderate number of resources.
              */
-            "DOCUMENT_BROWSER" = 2,
+            readonly "DOCUMENT_BROWSER": 2
+        }
+        type CacheModel = CacheModelEnum[Exclude<keyof CacheModelEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used for determining the #WebKitWebContext cache model.
+             */
+            CacheModel: CacheModelEnum
         }
         
-        namespace ContextMenuAction {
-            const $gtype: GObject.GType<ContextMenuAction>
-        }
-
-        /**
-         * s
-         */
-        enum ContextMenuAction {
+        interface ContextMenuActionEnum {
+            readonly $gtype: GObject.GType<ContextMenuAction>
             /**
              * No action, used by separator menu items.
              */
-            "NO_ACTION" = 0,
+            readonly "NO_ACTION": 0
             /**
              * Open current link.
              */
-            "OPEN_LINK" = 1,
+            readonly "OPEN_LINK": 1
             /**
              * Open current link in a new window.
              */
-            "OPEN_LINK_IN_NEW_WINDOW" = 2,
+            readonly "OPEN_LINK_IN_NEW_WINDOW": 2
             /**
              * Download link destination.
              */
-            "DOWNLOAD_LINK_TO_DISK" = 3,
+            readonly "DOWNLOAD_LINK_TO_DISK": 3
             /**
              * Copy link location to the clipboard.
              */
-            "COPY_LINK_TO_CLIPBOARD" = 4,
+            readonly "COPY_LINK_TO_CLIPBOARD": 4
             /**
              * Open current image in a new window.
              */
-            "OPEN_IMAGE_IN_NEW_WINDOW" = 5,
+            readonly "OPEN_IMAGE_IN_NEW_WINDOW": 5
             /**
              * Download current image.
              */
-            "DOWNLOAD_IMAGE_TO_DISK" = 6,
+            readonly "DOWNLOAD_IMAGE_TO_DISK": 6
             /**
              * Copy current image to the clipboard.
              */
-            "COPY_IMAGE_TO_CLIPBOARD" = 7,
+            readonly "COPY_IMAGE_TO_CLIPBOARD": 7
             /**
              * Copy current image location to the clipboard.
              */
-            "COPY_IMAGE_URL_TO_CLIPBOARD" = 8,
+            readonly "COPY_IMAGE_URL_TO_CLIPBOARD": 8
             /**
              * Open current frame in a new window.
              */
-            "OPEN_FRAME_IN_NEW_WINDOW" = 9,
+            readonly "OPEN_FRAME_IN_NEW_WINDOW": 9
             /**
              * Load the previous history item.
              */
-            "GO_BACK" = 10,
+            readonly "GO_BACK": 10
             /**
              * Load the next history item.
              */
-            "GO_FORWARD" = 11,
+            readonly "GO_FORWARD": 11
             /**
              * Stop any ongoing loading operation.
              */
-            "STOP" = 12,
+            readonly "STOP": 12
             /**
              * Reload the contents of current view.
              */
-            "RELOAD" = 13,
+            readonly "RELOAD": 13
             /**
              * Copy current selection the clipboard.
              */
-            "COPY" = 14,
+            readonly "COPY": 14
             /**
              * Cut current selection to the clipboard.
              */
-            "CUT" = 15,
+            readonly "CUT": 15
             /**
              * Paste clipboard contents.
              */
-            "PASTE" = 16,
+            readonly "PASTE": 16
             /**
              * Delete current selection.
              */
-            "DELETE" = 17,
+            readonly "DELETE": 17
             /**
              * Select all text.
              */
-            "SELECT_ALL" = 18,
+            readonly "SELECT_ALL": 18
             /**
              * Input methods menu.
              */
-            "INPUT_METHODS" = 19,
+            readonly "INPUT_METHODS": 19
             /**
              * Unicode menu.
              */
-            "UNICODE" = 20,
+            readonly "UNICODE": 20
             /**
              * A proposed replacement for a misspelled word.
              */
-            "SPELLING_GUESS" = 21,
+            readonly "SPELLING_GUESS": 21
             /**
              * An indicator that spellchecking found no proposed replacements.
              */
-            "NO_GUESSES_FOUND" = 22,
+            readonly "NO_GUESSES_FOUND": 22
             /**
              * Causes the spellchecker to ignore the word for this session.
              */
-            "IGNORE_SPELLING" = 23,
+            readonly "IGNORE_SPELLING": 23
             /**
              * Causes the spellchecker to add the word to the dictionary.
              */
-            "LEARN_SPELLING" = 24,
+            readonly "LEARN_SPELLING": 24
             /**
              * Ignore grammar.
              */
-            "IGNORE_GRAMMAR" = 25,
+            readonly "IGNORE_GRAMMAR": 25
             /**
              * Font options menu.
              */
-            "FONT_MENU" = 26,
+            readonly "FONT_MENU": 26
             /**
              * Bold.
              */
-            "BOLD" = 27,
+            readonly "BOLD": 27
             /**
              * Italic.
              */
-            "ITALIC" = 28,
+            readonly "ITALIC": 28
             /**
              * Underline.
              */
-            "UNDERLINE" = 29,
+            readonly "UNDERLINE": 29
             /**
              * Outline.
              */
-            "OUTLINE" = 30,
+            readonly "OUTLINE": 30
             /**
              * Open current element in the inspector.
              */
-            "INSPECT_ELEMENT" = 31,
+            readonly "INSPECT_ELEMENT": 31
             /**
              * Open current video element in a new window.
              */
-            "OPEN_VIDEO_IN_NEW_WINDOW" = 32,
+            readonly "OPEN_VIDEO_IN_NEW_WINDOW": 32
             /**
              * Open current audio element in a new window.
              */
-            "OPEN_AUDIO_IN_NEW_WINDOW" = 33,
+            readonly "OPEN_AUDIO_IN_NEW_WINDOW": 33
             /**
              * Copy video link location in to the clipboard.
              */
-            "COPY_VIDEO_LINK_TO_CLIPBOARD" = 34,
+            readonly "COPY_VIDEO_LINK_TO_CLIPBOARD": 34
             /**
              * Copy audio link location in to the clipboard.
              */
-            "COPY_AUDIO_LINK_TO_CLIPBOARD" = 35,
+            readonly "COPY_AUDIO_LINK_TO_CLIPBOARD": 35
             /**
              * Enable or disable media controls.
              */
-            "TOGGLE_MEDIA_CONTROLS" = 36,
+            readonly "TOGGLE_MEDIA_CONTROLS": 36
             /**
              * Enable or disable media loop.
              */
-            "TOGGLE_MEDIA_LOOP" = 37,
+            readonly "TOGGLE_MEDIA_LOOP": 37
             /**
              * Show current video element in fullscreen mode.
              */
-            "ENTER_VIDEO_FULLSCREEN" = 38,
+            readonly "ENTER_VIDEO_FULLSCREEN": 38
             /**
              * Play current media element.
              */
-            "MEDIA_PLAY" = 39,
+            readonly "MEDIA_PLAY": 39
             /**
              * Pause current media element.
              */
-            "MEDIA_PAUSE" = 40,
+            readonly "MEDIA_PAUSE": 40
             /**
              * Mute current media element.
              */
-            "MEDIA_MUTE" = 41,
+            readonly "MEDIA_MUTE": 41
             /**
              * Download video to disk. Since 2.2
              */
-            "DOWNLOAD_VIDEO_TO_DISK" = 42,
+            readonly "DOWNLOAD_VIDEO_TO_DISK": 42
             /**
              * Download audio to disk. Since 2.2
              */
-            "DOWNLOAD_AUDIO_TO_DISK" = 43,
+            readonly "DOWNLOAD_AUDIO_TO_DISK": 43
             /**
              * Insert an emoji. Since 2.26
              */
-            "INSERT_EMOJI" = 44,
+            readonly "INSERT_EMOJI": 44
             /**
              * Paste clipboard contents as plain text. Since 2.30
              */
-            "PASTE_AS_PLAIN_TEXT" = 45,
+            readonly "PASTE_AS_PLAIN_TEXT": 45
             /**
              * Custom action defined by applications.
              */
-            "CUSTOM" = 10000,
+            readonly "CUSTOM": 10000
+        }
+        type ContextMenuAction = ContextMenuActionEnum[Exclude<keyof ContextMenuActionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the stock actions for
+             * #WebKitContextMenuItem<!-- -->s
+             */
+            ContextMenuAction: ContextMenuActionEnum
         }
         
-        namespace CookieAcceptPolicy {
-            const $gtype: GObject.GType<CookieAcceptPolicy>
-        }
-
-        /**
-         * Enum values used to denote the cookie acceptance policies.
-         */
-        enum CookieAcceptPolicy {
+        interface CookieAcceptPolicyEnum {
+            readonly $gtype: GObject.GType<CookieAcceptPolicy>
             /**
              * Accept all cookies unconditionally.
              */
-            "ALWAYS" = 0,
+            readonly "ALWAYS": 0
             /**
              * Reject all cookies unconditionally.
              */
-            "NEVER" = 1,
+            readonly "NEVER": 1
             /**
              * Accept only cookies set by the main document loaded.
              */
-            "NO_THIRD_PARTY" = 2,
+            readonly "NO_THIRD_PARTY": 2
+        }
+        type CookieAcceptPolicy = CookieAcceptPolicyEnum[Exclude<keyof CookieAcceptPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the cookie acceptance policies.
+             */
+            CookieAcceptPolicy: CookieAcceptPolicyEnum
         }
         
-        namespace CookiePersistentStorage {
-            const $gtype: GObject.GType<CookiePersistentStorage>
-        }
-
-        /**
-         * Enum values used to denote the cookie persistent storage types.
-         */
-        enum CookiePersistentStorage {
+        interface CookiePersistentStorageEnum {
+            readonly $gtype: GObject.GType<CookiePersistentStorage>
             /**
              * Cookies are stored in a text
              *  file in the Mozilla "cookies.txt" format.
              */
-            "TEXT" = 0,
+            readonly "TEXT": 0
             /**
              * Cookies are stored in a SQLite
              *  file in the current Mozilla format.
              */
-            "SQLITE" = 1,
+            readonly "SQLITE": 1
+        }
+        type CookiePersistentStorage = CookiePersistentStorageEnum[Exclude<keyof CookiePersistentStorageEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the cookie persistent storage types.
+             */
+            CookiePersistentStorage: CookiePersistentStorageEnum
         }
         
-        namespace CredentialPersistence {
-            const $gtype: GObject.GType<CredentialPersistence>
-        }
-
-        /**
-         * Enum values representing the duration for which a credential persists.
-         * @since 2.2
-         */
-        enum CredentialPersistence {
+        interface CredentialPersistenceEnum {
+            readonly $gtype: GObject.GType<CredentialPersistence>
             /**
              * Credential does not persist
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Credential persists for session only
              */
-            "FOR_SESSION" = 1,
+            readonly "FOR_SESSION": 1
             /**
              * Credential persists permanently
              */
-            "PERMANENT" = 2,
+            readonly "PERMANENT": 2
+        }
+        type CredentialPersistence = CredentialPersistenceEnum[Exclude<keyof CredentialPersistenceEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values representing the duration for which a credential persists.
+             * @since 2.2
+             */
+            CredentialPersistence: CredentialPersistenceEnum
         }
         
-        abstract class DownloadError extends GLib.Error {
-            static readonly $gtype: GObject.GType<DownloadError>
+        interface DownloadError extends GLib.Error {}
+
+        interface DownloadErrorEnum {
+            readonly $gtype: GObject.GType<DownloadError>
+
+            new(props: { message: string, code: number }): DownloadError
             /**
              * Download failure due to network error
              */
-            static readonly "NETWORK": 499
+            readonly "NETWORK": 499
             /**
              * Download was cancelled by user
              */
-            static readonly "CANCELLED_BY_USER": 400
+            readonly "CANCELLED_BY_USER": 400
             /**
              * Download failure due to destination error
              */
-            static readonly "DESTINATION": 401
-        }
-        /**
+            readonly "DESTINATION": 401
+            /**
          * Gets the quark for the domain of download errors.
          * @returns download error domain.
          */
-        function quark(): GLib.Quark
+        quark: () => GLib.Quark
+        }
+
+        interface $Exports {
+            /**
+             * Enum values used to denote the various download errors.
+             */
+            DownloadError: DownloadErrorEnum
+        }
         
-        abstract class FaviconDatabaseError extends GLib.Error {
-            static readonly $gtype: GObject.GType<FaviconDatabaseError>
+        interface FaviconDatabaseError extends GLib.Error {}
+
+        interface FaviconDatabaseErrorEnum {
+            readonly $gtype: GObject.GType<FaviconDatabaseError>
+
+            new(props: { message: string, code: number }): FaviconDatabaseError
             /**
              * The #WebKitFaviconDatabase is closed
              */
-            static readonly "NOT_INITIALIZED": 0
+            readonly "NOT_INITIALIZED": 0
             /**
              * There is not an icon available for the requested URL
              */
-            static readonly "FAVICON_NOT_FOUND": 1
+            readonly "FAVICON_NOT_FOUND": 1
             /**
              * There might be an icon for the requested URL, but its data is unknown at the moment
              */
-            static readonly "FAVICON_UNKNOWN": 2
-        }
-        /**
+            readonly "FAVICON_UNKNOWN": 2
+            /**
          * Gets the quark for the domain of favicon database errors.
          * @returns favicon database error domain.
          */
-        function quark(): GLib.Quark
-        
-        namespace FeatureStatus {
-            const $gtype: GObject.GType<FeatureStatus>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Describes the status of a [struct@WebKitFeature].
-         *
-         * The status for a given feature can be obtained with
-         * [id@webkit_feature_get_status].
-         * @since 2.42
-         */
-        enum FeatureStatus {
+        interface $Exports {
+            /**
+             * Enum values used to denote the various errors related to the #WebKitFaviconDatabase.
+             */
+            FaviconDatabaseError: FaviconDatabaseErrorEnum
+        }
+        
+        interface FeatureStatusEnum {
+            readonly $gtype: GObject.GType<FeatureStatus>
             /**
              * Feature that adjust behaviour for
              *   specific application needs. The feature is not part of a Web platform
              *   feature, not a mature feature intended to be always on.
              */
-            "EMBEDDER" = 0,
+            readonly "EMBEDDER": 0
             /**
              * Feature in development. The feature
              *   may be unfinished, and there are no guarantees about its safety and
              *   stability.
              */
-            "UNSTABLE" = 1,
+            readonly "UNSTABLE": 1
             /**
              * Feature for debugging the WebKit engine.
              *   The feature is not generally useful for user or web developers, and
              *   always disabled by default.
              */
-            "INTERNAL" = 2,
+            readonly "INTERNAL": 2
             /**
              * Feature for web developers. The feature
              *   is not generally useful for end users, and always disabled by default.
              */
-            "DEVELOPER" = 3,
+            readonly "DEVELOPER": 3
             /**
              * Feature in active development and
              *   complete enough for testing. The feature may not be yet ready to
              *   ship and is disabled by default.
              */
-            "TESTABLE" = 4,
+            readonly "TESTABLE": 4
             /**
              * Feature ready to be tested by users.
              *   The feature is disabled by default, but may be enabled by applications
              *   automatically e.g. in their “technology preview” or “beta” versions.
              */
-            "PREVIEW" = 5,
+            readonly "PREVIEW": 5
             /**
              * Feature ready for general use. The
              *   feature is enabled by default, but it may still be toggled to support
              *   debugging and testing.
              */
-            "STABLE" = 6,
+            readonly "STABLE": 6
             /**
              * Feature in general use. The feature is
              *   always enabled and in general there should be no user-facing interface
              *   to toggle it.
              */
-            "MATURE" = 7,
+            readonly "MATURE": 7
+        }
+        type FeatureStatus = FeatureStatusEnum[Exclude<keyof FeatureStatusEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the status of a [struct@WebKitFeature].
+             *
+             * The status for a given feature can be obtained with
+             * [id@webkit_feature_get_status].
+             * @since 2.42
+             */
+            FeatureStatus: FeatureStatusEnum
         }
         
-        namespace HardwareAccelerationPolicy {
-            const $gtype: GObject.GType<HardwareAccelerationPolicy>
-        }
-
-        /**
-         * Enum values used for determining the hardware acceleration policy.
-         * @since 2.16
-         */
-        enum HardwareAccelerationPolicy {
+        interface HardwareAccelerationPolicyEnum {
+            readonly $gtype: GObject.GType<HardwareAccelerationPolicy>
             /**
              * Hardware acceleration is always enabled, even for websites not requesting it.
              */
-            "ALWAYS" = 0,
+            readonly "ALWAYS": 0
             /**
              * Hardware acceleration is always disabled, even for websites requesting it.
              */
-            "NEVER" = 1,
+            readonly "NEVER": 1
+        }
+        type HardwareAccelerationPolicy = HardwareAccelerationPolicyEnum[Exclude<keyof HardwareAccelerationPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used for determining the hardware acceleration policy.
+             * @since 2.16
+             */
+            HardwareAccelerationPolicy: HardwareAccelerationPolicyEnum
         }
         
-        namespace InputPurpose {
-            const $gtype: GObject.GType<InputPurpose>
-        }
-
-        /**
-         * Enum values used to describe the primary purpose of the active editable element.
-         * @since 2.28
-         */
-        enum InputPurpose {
+        interface InputPurposeEnum {
+            readonly $gtype: GObject.GType<InputPurpose>
             /**
              * Editable element expects any characters
              */
-            "FREE_FORM" = 0,
+            readonly "FREE_FORM": 0
             /**
              * Editable element expects digits
              */
-            "DIGITS" = 1,
+            readonly "DIGITS": 1
             /**
              * Editable element expects a number
              */
-            "NUMBER" = 2,
+            readonly "NUMBER": 2
             /**
              * Editable element expects a telephone
              */
-            "PHONE" = 3,
+            readonly "PHONE": 3
             /**
              * Editable element expects a URL
              */
-            "URL" = 4,
+            readonly "URL": 4
             /**
              * Editable element expects an email
              */
-            "EMAIL" = 5,
+            readonly "EMAIL": 5
             /**
              * Editable element expects a password
              */
-            "PASSWORD" = 6,
+            readonly "PASSWORD": 6
+        }
+        type InputPurpose = InputPurposeEnum[Exclude<keyof InputPurposeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to describe the primary purpose of the active editable element.
+             * @since 2.28
+             */
+            InputPurpose: InputPurposeEnum
         }
         
-        namespace InsecureContentEvent {
-            const $gtype: GObject.GType<InsecureContentEvent>
-        }
-
-        /**
-         * Enum values previously used to denote the different events which can trigger
-         * the detection of insecure content. Since 2.46, WebKit generally no longer
-         * loads insecure content in secure contexts.
-         * @deprecated since 2.46
-         */
-        enum InsecureContentEvent {
+        interface InsecureContentEventEnum {
+            readonly $gtype: GObject.GType<InsecureContentEvent>
             /**
              * Insecure content has been detected by
              * trying to execute any kind of logic (e.g. a script) from an
              * untrusted source.
              */
-            "RUN" = 0,
+            readonly "RUN": 0
             /**
              * Insecure content has been
              * detected by trying to display any kind of resource (e.g. an image)
              * from an untrusted source.
              */
-            "DISPLAYED" = 1,
+            readonly "DISPLAYED": 1
+        }
+        type InsecureContentEvent = InsecureContentEventEnum[Exclude<keyof InsecureContentEventEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values previously used to denote the different events which can trigger
+             * the detection of insecure content. Since 2.46, WebKit generally no longer
+             * loads insecure content in secure contexts.
+             * @deprecated since 2.46
+             */
+            InsecureContentEvent: InsecureContentEventEnum
         }
         
-        abstract class JavascriptError extends GLib.Error {
-            static readonly $gtype: GObject.GType<JavascriptError>
+        interface JavascriptError extends GLib.Error {}
+
+        interface JavascriptErrorEnum {
+            readonly $gtype: GObject.GType<JavascriptError>
+
+            new(props: { message: string, code: number }): JavascriptError
             /**
              * An exception was raised in JavaScript execution
              */
-            static readonly "SCRIPT_FAILED": 699
+            readonly "SCRIPT_FAILED": 699
             /**
              * An unsupported parameter has been used to call and async function from API. Since 2.40
              */
-            static readonly "INVALID_PARAMETER": 600
+            readonly "INVALID_PARAMETER": 600
             /**
              * The result of JavaScript execution could not be returned. Since 2.40
              */
-            static readonly "INVALID_RESULT": 601
-        }
-        /**
+            readonly "INVALID_RESULT": 601
+            /**
          * Gets the quark for the domain of JavaScript errors.
          * @returns JavaScript error domain.
          */
-        function quark(): GLib.Quark
-        
-        namespace LoadEvent {
-            const $gtype: GObject.GType<LoadEvent>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Enum values used to denote the different events that happen during a
-         * #WebKitWebView load operation.
-         */
-        enum LoadEvent {
+        interface $Exports {
+            /**
+             * Enum values used to denote errors happening when executing JavaScript
+             */
+            JavascriptError: JavascriptErrorEnum
+        }
+        
+        interface LoadEventEnum {
+            readonly $gtype: GObject.GType<LoadEvent>
             /**
              * A new load request has been made.
              * No data has been received yet, empty structures have
@@ -11807,180 +12195,208 @@ declare module "gi://WebKit?version=6.0" {
              * fail due to transport issues such as not being able to
              * resolve a name, or connect to a port.
              */
-            "STARTED" = 0,
+            readonly "STARTED": 0
             /**
              * A provisional data source received
              * a server redirect.
              */
-            "REDIRECTED" = 1,
+            readonly "REDIRECTED": 1
             /**
              * The content started arriving for a page load.
              * The necessary transport requirements are established, and the
              * load is being performed.
              */
-            "COMMITTED" = 2,
+            readonly "COMMITTED": 2
             /**
              * Load completed. All resources are done loading
              * or there was an error during the load operation.
              */
-            "FINISHED" = 3,
+            readonly "FINISHED": 3
+        }
+        type LoadEvent = LoadEventEnum[Exclude<keyof LoadEventEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the different events that happen during a
+             * #WebKitWebView load operation.
+             */
+            LoadEvent: LoadEventEnum
         }
         
-        namespace MediaCaptureState {
-            const $gtype: GObject.GType<MediaCaptureState>
-        }
-
-        /**
-         * Enum values used to specify the capture state of a media device.
-         * @since 2.34
-         */
-        enum MediaCaptureState {
+        interface MediaCaptureStateEnum {
+            readonly $gtype: GObject.GType<MediaCaptureState>
             /**
              * Media capture is disabled.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Media capture is active.
              */
-            "ACTIVE" = 1,
+            readonly "ACTIVE": 1
             /**
              * Media capture is muted.
              */
-            "MUTED" = 2,
+            readonly "MUTED": 2
+        }
+        type MediaCaptureState = MediaCaptureStateEnum[Exclude<keyof MediaCaptureStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to specify the capture state of a media device.
+             * @since 2.34
+             */
+            MediaCaptureState: MediaCaptureStateEnum
         }
         
-        abstract class MediaError extends GLib.Error {
-            static readonly $gtype: GObject.GType<MediaError>
+        interface MediaError extends GLib.Error {}
+
+        interface MediaErrorEnum {
+            readonly $gtype: GObject.GType<MediaError>
+
+            new(props: { message: string, code: number }): MediaError
             /**
              * Preliminary load failure for media content types. A new load will be started to perform the media load. Since: 2.40
              */
-            static readonly "LOAD": 204
-        }
-        /**
+            readonly "LOAD": 204
+            /**
          * Gets the quark for the domain of media errors.
          * @since 2.40
          * @returns media error domin.
          */
-        function quark(): GLib.Quark
-        
-        namespace NavigationType {
-            const $gtype: GObject.GType<NavigationType>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Enum values used to denote the various navigation types.
-         */
-        enum NavigationType {
+        interface $Exports {
+            /**
+             * Enum values used to denote the various media errors.
+             * @since 2.40
+             */
+            MediaError: MediaErrorEnum
+        }
+        
+        interface NavigationTypeEnum {
+            readonly $gtype: GObject.GType<NavigationType>
             /**
              * The navigation was triggered by clicking a link.
              */
-            "LINK_CLICKED" = 0,
+            readonly "LINK_CLICKED": 0
             /**
              * The navigation was triggered by submitting a form.
              */
-            "FORM_SUBMITTED" = 1,
+            readonly "FORM_SUBMITTED": 1
             /**
              * The navigation was triggered by navigating forward or backward.
              */
-            "BACK_FORWARD" = 2,
+            readonly "BACK_FORWARD": 2
             /**
              * The navigation was triggered by reloading.
              */
-            "RELOAD" = 3,
+            readonly "RELOAD": 3
             /**
              * The navigation was triggered by resubmitting a form.
              */
-            "FORM_RESUBMITTED" = 4,
+            readonly "FORM_RESUBMITTED": 4
             /**
              * The navigation was triggered by some other action.
              */
-            "OTHER" = 5,
+            readonly "OTHER": 5
+        }
+        type NavigationType = NavigationTypeEnum[Exclude<keyof NavigationTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the various navigation types.
+             */
+            NavigationType: NavigationTypeEnum
         }
         
-        abstract class NetworkError extends GLib.Error {
-            static readonly $gtype: GObject.GType<NetworkError>
+        interface NetworkError extends GLib.Error {}
+
+        interface NetworkErrorEnum {
+            readonly $gtype: GObject.GType<NetworkError>
+
+            new(props: { message: string, code: number }): NetworkError
             /**
              * Generic load failure
              */
-            static readonly "FAILED": 399
+            readonly "FAILED": 399
             /**
              * Load failure due to transport error
              */
-            static readonly "TRANSPORT": 300
+            readonly "TRANSPORT": 300
             /**
              * Load failure due to unknown protocol
              */
-            static readonly "UNKNOWN_PROTOCOL": 301
+            readonly "UNKNOWN_PROTOCOL": 301
             /**
              * Load failure due to cancellation
              */
-            static readonly "CANCELLED": 302
+            readonly "CANCELLED": 302
             /**
              * Load failure due to missing file
              */
-            static readonly "FILE_DOES_NOT_EXIST": 303
-        }
-        /**
+            readonly "FILE_DOES_NOT_EXIST": 303
+            /**
          * Gets the quark for the domain of networking errors.
          * @returns network error domain.
          */
-        function quark(): GLib.Quark
-        
-        namespace NetworkProxyMode {
-            const $gtype: GObject.GType<NetworkProxyMode>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Enum values used to set the network proxy mode.
-         * @since 2.16
-         */
-        enum NetworkProxyMode {
+        interface $Exports {
+            /**
+             * Enum values used to denote the various network errors.
+             */
+            NetworkError: NetworkErrorEnum
+        }
+        
+        interface NetworkProxyModeEnum {
+            readonly $gtype: GObject.GType<NetworkProxyMode>
             /**
              * Use the default proxy of the system.
              */
-            "DEFAULT" = 0,
+            readonly "DEFAULT": 0
             /**
              * Do not use any proxy.
              */
-            "NO_PROXY" = 1,
+            readonly "NO_PROXY": 1
             /**
              * Use custom proxy settings.
              */
-            "CUSTOM" = 2,
+            readonly "CUSTOM": 2
+        }
+        type NetworkProxyMode = NetworkProxyModeEnum[Exclude<keyof NetworkProxyModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to set the network proxy mode.
+             * @since 2.16
+             */
+            NetworkProxyMode: NetworkProxyModeEnum
         }
         
-        namespace PermissionState {
-            const $gtype: GObject.GType<PermissionState>
-        }
-
-        /**
-         * Enum values representing query permission results.
-         * @since 2.40
-         */
-        enum PermissionState {
+        interface PermissionStateEnum {
+            readonly $gtype: GObject.GType<PermissionState>
             /**
              * Access to the feature is granted.
              */
-            "GRANTED" = 0,
+            readonly "GRANTED": 0
             /**
              * Access to the feature is denied.
              */
-            "DENIED" = 1,
+            readonly "DENIED": 1
             /**
              * Access to the feature has to be requested via user prompt.
              */
-            "PROMPT" = 2,
+            readonly "PROMPT": 2
+        }
+        type PermissionState = PermissionStateEnum[Exclude<keyof PermissionStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values representing query permission results.
+             * @since 2.40
+             */
+            PermissionState: PermissionStateEnum
         }
         
-        namespace PolicyDecisionType {
-            const $gtype: GObject.GType<PolicyDecisionType>
-        }
-
-        /**
-         * Enum values used for determining the type of a policy decision during
-         * #WebKitWebView::decide-policy.
-         */
-        enum PolicyDecisionType {
+        interface PolicyDecisionTypeEnum {
+            readonly $gtype: GObject.GType<PolicyDecisionType>
             /**
              * This type of policy decision
              *   is requested when WebKit is about to navigate to a new page in either the
@@ -11988,11 +12404,18 @@ declare module "gi://WebKit?version=6.0" {
              *   webkit_policy_decision_use() or webkit_policy_decision_ignore(). This
              *   type of policy decision is always a #WebKitNavigationPolicyDecision.
              */
-            "NAVIGATION_ACTION" = 0,
+            readonly "NAVIGATION_ACTION": 0
             /**
-             *  elements.
+             * This type of policy decision
+             *   is requested when WebKit is about to create a new window. Acceptable policy
+             *   decisions are either webkit_policy_decision_use() or
+             *   webkit_policy_decision_ignore(). This type of policy decision is always
+             *   a #WebKitNavigationPolicyDecision. These decisions are useful for implementing
+             *   special actions for new windows, such as forcing the new window to open
+             *   in a tab when a keyboard modifier is active or handling a special
+             *   target attribute on <a> elements.
              */
-            "NEW_WINDOW_ACTION" = 1,
+            readonly "NEW_WINDOW_ACTION": 1
             /**
              * This type of decision is used when WebKit has
              *   received a response for a network resource and is about to start the load.
@@ -12004,717 +12427,830 @@ declare module "gi://WebKit?version=6.0" {
              *   some types of resources to be downloaded rather than rendered in the WebView
              *   or to block the transfer of resources entirely.
              */
-            "RESPONSE" = 2,
+            readonly "RESPONSE": 2
+        }
+        type PolicyDecisionType = PolicyDecisionTypeEnum[Exclude<keyof PolicyDecisionTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used for determining the type of a policy decision during
+             * #WebKitWebView::decide-policy.
+             */
+            PolicyDecisionType: PolicyDecisionTypeEnum
         }
         
-        abstract class PolicyError extends GLib.Error {
-            static readonly $gtype: GObject.GType<PolicyError>
+        interface PolicyError extends GLib.Error {}
+
+        interface PolicyErrorEnum {
+            readonly $gtype: GObject.GType<PolicyError>
+
+            new(props: { message: string, code: number }): PolicyError
             /**
              * Generic load failure due to policy error
              */
-            static readonly "FAILED": 199
+            readonly "FAILED": 199
             /**
              * Load failure due to unsupported mime type
              */
-            static readonly "CANNOT_SHOW_MIME_TYPE": 100
+            readonly "CANNOT_SHOW_MIME_TYPE": 100
             /**
              * Load failure due to URI that can not be shown
              */
-            static readonly "CANNOT_SHOW_URI": 101
+            readonly "CANNOT_SHOW_URI": 101
             /**
              * Load failure due to frame load interruption by policy change
              */
-            static readonly "FRAME_LOAD_INTERRUPTED_BY_POLICY_CHANGE": 102
+            readonly "FRAME_LOAD_INTERRUPTED_BY_POLICY_CHANGE": 102
             /**
              * Load failure due to port restriction
              */
-            static readonly "CANNOT_USE_RESTRICTED_PORT": 103
-        }
-        /**
+            readonly "CANNOT_USE_RESTRICTED_PORT": 103
+            /**
          * Gets the quark for the domain of policy errors.
          * @returns policy error domain.
          */
-        function quark(): GLib.Quark
+        quark: () => GLib.Quark
+        }
+
+        interface $Exports {
+            /**
+             * Enum values used to denote the various policy errors.
+             */
+            PolicyError: PolicyErrorEnum
+        }
         
-        abstract class PrintError extends GLib.Error {
-            static readonly $gtype: GObject.GType<PrintError>
+        interface PrintError extends GLib.Error {}
+
+        interface PrintErrorEnum {
+            readonly $gtype: GObject.GType<PrintError>
+
+            new(props: { message: string, code: number }): PrintError
             /**
              * Unspecified error during a print operation
              */
-            static readonly "GENERAL": 599
+            readonly "GENERAL": 599
             /**
              * Selected printer cannot be found
              */
-            static readonly "PRINTER_NOT_FOUND": 500
+            readonly "PRINTER_NOT_FOUND": 500
             /**
              * Invalid page range
              */
-            static readonly "INVALID_PAGE_RANGE": 501
-        }
-        /**
+            readonly "INVALID_PAGE_RANGE": 501
+            /**
          * Gets the quark for the domain of printing errors.
          * @returns print error domain.
          */
-        function quark(): GLib.Quark
-        
-        namespace PrintOperationResponse {
-            const $gtype: GObject.GType<PrintOperationResponse>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Enum values representing the response of the print dialog shown with
-         * webkit_print_operation_run_dialog().
-         */
-        enum PrintOperationResponse {
+        interface $Exports {
+            /**
+             * Enum values used to denote the various print errors.
+             */
+            PrintError: PrintErrorEnum
+        }
+        
+        interface PrintOperationResponseEnum {
+            readonly $gtype: GObject.GType<PrintOperationResponse>
             /**
              * Print button was clicked in print dialog
              */
-            "PRINT" = 0,
+            readonly "PRINT": 0
             /**
              * Print dialog was cancelled
              */
-            "CANCEL" = 1,
+            readonly "CANCEL": 1
+        }
+        type PrintOperationResponse = PrintOperationResponseEnum[Exclude<keyof PrintOperationResponseEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values representing the response of the print dialog shown with
+             * webkit_print_operation_run_dialog().
+             */
+            PrintOperationResponse: PrintOperationResponseEnum
         }
         
-        namespace SaveMode {
-            const $gtype: GObject.GType<SaveMode>
-        }
-
-        /**
-         * Enum values to specify the different ways in which a #WebKitWebView
-         * can save its current web page into a self-contained file.
-         */
-        enum SaveMode {
+        interface SaveModeEnum {
+            readonly $gtype: GObject.GType<SaveMode>
             /**
              * Save the current page using the MHTML format.
              */
-            "MHTML" = 0,
+            readonly "MHTML": 0
+        }
+        type SaveMode = SaveModeEnum[Exclude<keyof SaveModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values to specify the different ways in which a #WebKitWebView
+             * can save its current web page into a self-contained file.
+             */
+            SaveMode: SaveModeEnum
         }
         
-        namespace ScriptDialogType {
-            const $gtype: GObject.GType<ScriptDialogType>
-        }
-
-        /**
-         * Enum values used for determining the type of #WebKitScriptDialog
-         */
-        enum ScriptDialogType {
+        interface ScriptDialogTypeEnum {
+            readonly $gtype: GObject.GType<ScriptDialogType>
             /**
              * Alert script dialog, used to show a
              * message to the user.
              */
-            "ALERT" = 0,
+            readonly "ALERT": 0
             /**
              * Confirm script dialog, used to ask
              * confirmation to the user.
              */
-            "CONFIRM" = 1,
+            readonly "CONFIRM": 1
             /**
              * Prompt script dialog, used to ask
              * information to the user.
              */
-            "PROMPT" = 2,
+            readonly "PROMPT": 2
             /**
              * Before unload confirm dialog,
              * used to ask confirmation to leave the current page to the user. Since 2.12
              */
-            "BEFORE_UNLOAD_CONFIRM" = 3,
+            readonly "BEFORE_UNLOAD_CONFIRM": 3
+        }
+        type ScriptDialogType = ScriptDialogTypeEnum[Exclude<keyof ScriptDialogTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used for determining the type of #WebKitScriptDialog
+             */
+            ScriptDialogType: ScriptDialogTypeEnum
         }
         
-        abstract class SnapshotError extends GLib.Error {
-            static readonly $gtype: GObject.GType<SnapshotError>
+        interface SnapshotError extends GLib.Error {}
+
+        interface SnapshotErrorEnum {
+            readonly $gtype: GObject.GType<SnapshotError>
+
+            new(props: { message: string, code: number }): SnapshotError
             /**
              * An error occurred when creating a webpage snapshot.
              */
-            static readonly "CREATE": 799
-        }
-        /**
+            readonly "CREATE": 799
+            /**
          * Gets the quark for the domain of page snapshot errors.
          * @returns snapshot error domain.
          */
-        function quark(): GLib.Quark
-        
-        namespace SnapshotRegion {
-            const $gtype: GObject.GType<SnapshotRegion>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Enum values used to specify the region from which to get a #WebKitWebView
-         * snapshot
-         */
-        enum SnapshotRegion {
+        interface $Exports {
+            /**
+             * Enum values used to denote errors happening when creating snapshots of #WebKitWebView
+             */
+            SnapshotError: SnapshotErrorEnum
+        }
+        
+        interface SnapshotRegionEnum {
+            readonly $gtype: GObject.GType<SnapshotRegion>
             /**
              * Specifies a snapshot only for the area that is
              * visible in the webview
              */
-            "VISIBLE" = 0,
+            readonly "VISIBLE": 0
             /**
              * A snapshot of the entire document.
              */
-            "FULL_DOCUMENT" = 1,
+            readonly "FULL_DOCUMENT": 1
+        }
+        type SnapshotRegion = SnapshotRegionEnum[Exclude<keyof SnapshotRegionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to specify the region from which to get a #WebKitWebView
+             * snapshot
+             */
+            SnapshotRegion: SnapshotRegionEnum
         }
         
-        namespace TLSErrorsPolicy {
-            const $gtype: GObject.GType<TLSErrorsPolicy>
-        }
-
-        /**
-         * Enum values used to denote the TLS errors policy.
-         */
-        enum TLSErrorsPolicy {
+        interface TLSErrorsPolicyEnum {
+            readonly $gtype: GObject.GType<TLSErrorsPolicy>
             /**
              * Ignore TLS errors.
              */
-            "IGNORE" = 0,
+            readonly "IGNORE": 0
             /**
              * TLS errors will emit
              *   #WebKitWebView::load-failed-with-tls-errors and, if the signal is handled,
              *   finish the load. In case the signal is not handled,
              *   #WebKitWebView::load-failed is emitted before the load finishes.
              */
-            "FAIL" = 1,
+            readonly "FAIL": 1
+        }
+        type TLSErrorsPolicy = TLSErrorsPolicyEnum[Exclude<keyof TLSErrorsPolicyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to denote the TLS errors policy.
+             */
+            TLSErrorsPolicy: TLSErrorsPolicyEnum
         }
         
-        abstract class UserContentFilterError extends GLib.Error {
-            static readonly $gtype: GObject.GType<UserContentFilterError>
+        interface UserContentFilterError extends GLib.Error {}
+
+        interface UserContentFilterErrorEnum {
+            readonly $gtype: GObject.GType<UserContentFilterError>
+
+            new(props: { message: string, code: number }): UserContentFilterError
             /**
              * The JSON source for a content filter is invalid.
              */
-            static readonly "INVALID_SOURCE": 0
+            readonly "INVALID_SOURCE": 0
             /**
              * The requested content filter could not be found.
              */
-            static readonly "NOT_FOUND": 1
-        }
-        /**
+            readonly "NOT_FOUND": 1
+            /**
          * Gets the quark for the domain of user content filter errors.
          * @returns user content filter error domain.
          */
-        function quark(): GLib.Quark
-        
-        namespace UserContentInjectedFrames {
-            const $gtype: GObject.GType<UserContentInjectedFrames>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Specifies in which frames user style sheets are to be inserted in.
-         * @since 2.6
-         */
-        enum UserContentInjectedFrames {
+        interface $Exports {
+            /**
+             * Errors that can occur while compiling content filters.
+             * @since 2.24
+             */
+            UserContentFilterError: UserContentFilterErrorEnum
+        }
+        
+        interface UserContentInjectedFramesEnum {
+            readonly $gtype: GObject.GType<UserContentInjectedFrames>
             /**
              * Insert the user style
              *   sheet in all the frames loaded by the web view, including
              *   nested frames. This is the default.
              */
-            "ALL_FRAMES" = 0,
+            readonly "ALL_FRAMES": 0
             /**
              * Insert the user style
              *   sheet *only* in the top-level frame loaded by the web view,
              *   and *not* in the nested frames.
              */
-            "TOP_FRAME" = 1,
+            readonly "TOP_FRAME": 1
+        }
+        type UserContentInjectedFrames = UserContentInjectedFramesEnum[Exclude<keyof UserContentInjectedFramesEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies in which frames user style sheets are to be inserted in.
+             * @since 2.6
+             */
+            UserContentInjectedFrames: UserContentInjectedFramesEnum
         }
         
-        abstract class UserMessageError extends GLib.Error {
-            static readonly $gtype: GObject.GType<UserMessageError>
+        interface UserMessageError extends GLib.Error {}
+
+        interface UserMessageErrorEnum {
+            readonly $gtype: GObject.GType<UserMessageError>
+
+            new(props: { message: string, code: number }): UserMessageError
             /**
              * The message was not handled by the receiver.
              */
-            static readonly "MESSAGE": 0
-        }
-        /**
+            readonly "MESSAGE": 0
+            /**
          * Gets the quark for the domain of user message errors.
          * @returns user message error domain.
          */
-        function quark(): GLib.Quark
-        
-        namespace UserScriptInjectionTime {
-            const $gtype: GObject.GType<UserScriptInjectionTime>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Specifies at which place of documents an user script will be inserted.
-         * @since 2.6
-         */
-        enum UserScriptInjectionTime {
+        interface $Exports {
+            /**
+             * Enum values used to denote errors happening when sending user messages.
+             * @since 2.28
+             */
+            UserMessageError: UserMessageErrorEnum
+        }
+        
+        interface UserScriptInjectionTimeEnum {
+            readonly $gtype: GObject.GType<UserScriptInjectionTime>
             /**
              * Insert the code of the user
              *   script at the beginning of loaded documents. This is the default.
              */
-            "START" = 0,
+            readonly "START": 0
             /**
              * Insert the code of the user
              *   script at the end of the loaded documents.
              */
-            "END" = 1,
+            readonly "END": 1
+        }
+        type UserScriptInjectionTime = UserScriptInjectionTimeEnum[Exclude<keyof UserScriptInjectionTimeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies at which place of documents an user script will be inserted.
+             * @since 2.6
+             */
+            UserScriptInjectionTime: UserScriptInjectionTimeEnum
         }
         
-        namespace UserStyleLevel {
-            const $gtype: GObject.GType<UserStyleLevel>
-        }
-
-        /**
-         * Specifies how to treat an user style sheet.
-         * @since 2.6
-         */
-        enum UserStyleLevel {
+        interface UserStyleLevelEnum {
+            readonly $gtype: GObject.GType<UserStyleLevel>
             /**
              * The style sheet is an user style sheet,
              *   its contents always override other style sheets. This is the default.
              */
-            "USER" = 0,
+            readonly "USER": 0
             /**
              * The style sheet will be treated as if
              *   it was provided by the loaded documents. That means other user style
              *   sheets may still override it.
              */
-            "AUTHOR" = 1,
+            readonly "AUTHOR": 1
+        }
+        type UserStyleLevel = UserStyleLevelEnum[Exclude<keyof UserStyleLevelEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies how to treat an user style sheet.
+             * @since 2.6
+             */
+            UserStyleLevel: UserStyleLevelEnum
         }
         
-        abstract class WebExtensionError extends GLib.Error {
-            static readonly $gtype: GObject.GType<WebExtensionError>
+        interface WebExtensionError extends GLib.Error {}
+
+        interface WebExtensionErrorEnum {
+            readonly $gtype: GObject.GType<WebExtensionError>
+
+            new(props: { message: string, code: number }): WebExtensionError
             /**
              * An unknown error occured.
              */
-            static readonly "UNKNOWN": 899
+            readonly "UNKNOWN": 899
             /**
              * A specified resource was not found on disk.
              */
-            static readonly "RESOURCE_NOT_FOUND": 800
+            readonly "RESOURCE_NOT_FOUND": 800
             /**
              * A resource failed the bundle's code signature checks.
              */
-            static readonly "INVALID_RESOURCE_CODE_SIGNATURE": 801
+            readonly "INVALID_RESOURCE_CODE_SIGNATURE": 801
             /**
              * An invalid `manifest.json` was encountered.
              */
-            static readonly "INVALID_MANIFEST": 802
+            readonly "INVALID_MANIFEST": 802
             /**
              * The manifest version is not supported.
              */
-            static readonly "UNSUPPORTED_MANIFEST_VERSION": 803
+            readonly "UNSUPPORTED_MANIFEST_VERSION": 803
             /**
              * An invalid manifest entry was encountered.
              */
-            static readonly "INVALID_MANIFEST_ENTRY": 804
+            readonly "INVALID_MANIFEST_ENTRY": 804
             /**
              * An invalid declarative net request entry was encountered.
              */
-            static readonly "INVALID_DECLARATIVE_NET_REQUEST_ENTRY": 805
+            readonly "INVALID_DECLARATIVE_NET_REQUEST_ENTRY": 805
             /**
              * The extension specified background persistence that was not compatible with the platform or features requested.
              */
-            static readonly "INVALID_BACKGROUND_PERSISTENCE": 806
+            readonly "INVALID_BACKGROUND_PERSISTENCE": 806
             /**
              * The archive file is invalid or corrupt.
              */
-            static readonly "INVALID_ARCHIVE": 807
-        }
-        /**
+            readonly "INVALID_ARCHIVE": 807
+            /**
          * Gets the quark for the domain of Web Extension errors.
          * @since 2.52
          * @returns web extension error domain.
          */
-        function quark(): GLib.Quark
+        quark: () => GLib.Quark
+        }
+
+        interface $Exports {
+            /**
+             * Enum values used to denote errors happening when parsing a #WebKitWebExtension
+             * @since 2.52
+             */
+            WebExtensionError: WebExtensionErrorEnum
+        }
         
-        abstract class WebExtensionMatchPatternError extends GLib.Error {
-            static readonly $gtype: GObject.GType<WebExtensionMatchPatternError>
+        interface WebExtensionMatchPatternError extends GLib.Error {}
+
+        interface WebExtensionMatchPatternErrorEnum {
+            readonly $gtype: GObject.GType<WebExtensionMatchPatternError>
+
+            new(props: { message: string, code: number }): WebExtensionMatchPatternError
             /**
              * An unknown error occured.
              */
-            static readonly "UNKNOWN": 899
+            readonly "UNKNOWN": 899
             /**
              * The scheme component was invalid.
              */
-            static readonly "INVALID_SCHEME": 808
+            readonly "INVALID_SCHEME": 808
             /**
              * The host component was invalid.
              */
-            static readonly "INVALID_HOST": 809
+            readonly "INVALID_HOST": 809
             /**
              * The path component was invalid.
              */
-            static readonly "INVALID_PATH": 810
-        }
-        /**
+            readonly "INVALID_PATH": 810
+            /**
          * Gets the quark for the domain of Web Extension Match Pattern errors.
          * @since 2.48
          * @returns web extension match pattern error domain.
          */
-        function quark(): GLib.Quark
-        
-        namespace WebExtensionMode {
-            const $gtype: GObject.GType<WebExtensionMode>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Enum values used for setting if a #WebKitWebView is intended for
-         * WebExtensions.
-         * @since 2.38
-         */
-        enum WebExtensionMode {
+        interface $Exports {
+            /**
+             * Enum values used to denote errors happening when creating a #WebKitWebExtensionMatchPattern
+             * @since 2.52
+             */
+            WebExtensionMatchPatternError: WebExtensionMatchPatternErrorEnum
+        }
+        
+        interface WebExtensionModeEnum {
+            readonly $gtype: GObject.GType<WebExtensionMode>
             /**
              * Not for an extension.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * For a ManifestV2 extension.
              */
-            "MANIFESTV2" = 1,
+            readonly "MANIFESTV2": 1
             /**
              * For a ManifestV3 extension.
              */
-            "MANIFESTV3" = 2,
+            readonly "MANIFESTV3": 2
+        }
+        type WebExtensionMode = WebExtensionModeEnum[Exclude<keyof WebExtensionModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used for setting if a #WebKitWebView is intended for
+             * WebExtensions.
+             * @since 2.38
+             */
+            WebExtensionMode: WebExtensionModeEnum
         }
         
-        namespace WebProcessTerminationReason {
-            const $gtype: GObject.GType<WebProcessTerminationReason>
-        }
-
-        /**
-         * Enum values used to specify the reason why the web process terminated abnormally.
-         * @since 2.20
-         */
-        enum WebProcessTerminationReason {
+        interface WebProcessTerminationReasonEnum {
+            readonly $gtype: GObject.GType<WebProcessTerminationReason>
             /**
              * the web process crashed.
              */
-            "CRASHED" = 0,
+            readonly "CRASHED": 0
             /**
              * the web process exceeded the memory limit.
              */
-            "EXCEEDED_MEMORY_LIMIT" = 1,
+            readonly "EXCEEDED_MEMORY_LIMIT": 1
             /**
              * the web process termination was requested by an API call. Since: 2.34
              */
-            "TERMINATED_BY_API" = 2,
+            readonly "TERMINATED_BY_API": 2
+        }
+        type WebProcessTerminationReason = WebProcessTerminationReasonEnum[Exclude<keyof WebProcessTerminationReasonEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values used to specify the reason why the web process terminated abnormally.
+             * @since 2.20
+             */
+            WebProcessTerminationReason: WebProcessTerminationReasonEnum
         }
         
-        namespace XRSessionMode {
-            const $gtype: GObject.GType<XRSessionMode>
-        }
-
-        /**
-         * >
-         * @since 2.52
-         */
-        enum XRSessionMode {
+        interface XRSessionModeEnum {
+            readonly $gtype: GObject.GType<XRSessionMode>
             /**
              * inline session mode.
              */
-            "INLINE" = 0,
+            readonly "INLINE": 0
             /**
              * immersive-vr session mode.
              */
-            "IMMERSIVE_VR" = 1,
+            readonly "IMMERSIVE_VR": 1
             /**
              * immersive-ar session mode.
              */
-            "IMMERSIVE_AR" = 2,
+            readonly "IMMERSIVE_AR": 2
+        }
+        type XRSessionMode = XRSessionModeEnum[Exclude<keyof XRSessionModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Enum values representing the XR session mode.
+             *
+             * See <https://immersive-web.github.io/webxr/#xrsessionmode-enum>
+             * @since 2.52
+             */
+            XRSessionMode: XRSessionModeEnum
         }
         
-        namespace EditorTypingAttributes {
-            const $gtype: GObject.GType<EditorTypingAttributes>
-        }
-
-        /**
-         * Enum values with flags representing typing attributes.
-         * @since 2.10
-         */
-        enum EditorTypingAttributes {
+        interface EditorTypingAttributesBitfield {
+            readonly $gtype: GObject.GType<EditorTypingAttributes>
             /**
              * No typing attributes.
              */
-            "NONE" = 2,
+            readonly "NONE": 2
             /**
              * Bold typing attribute.
              */
-            "BOLD" = 4,
+            readonly "BOLD": 4
             /**
              * Italic typing attribute.
              */
-            "ITALIC" = 8,
+            readonly "ITALIC": 8
             /**
              * Underline typing attribute.
              */
-            "UNDERLINE" = 16,
+            readonly "UNDERLINE": 16
             /**
              * Strikethrough typing attribute.
              */
-            "STRIKETHROUGH" = 32,
+            readonly "STRIKETHROUGH": 32
+        }
+        type EditorTypingAttributes = number
+        interface $Exports {
+            /**
+             * Enum values with flags representing typing attributes.
+             * @since 2.10
+             */
+            EditorTypingAttributes: EditorTypingAttributesBitfield
         }
         
-        namespace FindOptions {
-            const $gtype: GObject.GType<FindOptions>
-        }
-
-        /**
-         * Enum values used to specify search options.
-         */
-        enum FindOptions {
+        interface FindOptionsBitfield {
+            readonly $gtype: GObject.GType<FindOptions>
             /**
              * no search flags, this means a case
              *   sensitive, no wrap, forward only search.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * case insensitive search.
              */
-            "CASE_INSENSITIVE" = 1,
+            readonly "CASE_INSENSITIVE": 1
             /**
              * search text only at the
              *   begining of the words.
              */
-            "AT_WORD_STARTS" = 2,
+            readonly "AT_WORD_STARTS": 2
             /**
              * treat
              *   capital letters in the middle of words as word start.
              */
-            "TREAT_MEDIAL_CAPITAL_AS_WORD_START" = 4,
+            readonly "TREAT_MEDIAL_CAPITAL_AS_WORD_START": 4
             /**
              * search backwards.
              */
-            "BACKWARDS" = 8,
+            readonly "BACKWARDS": 8
             /**
              * if not present search will stop
              *   at the end of the document.
              */
-            "WRAP_AROUND" = 16,
+            readonly "WRAP_AROUND": 16
+        }
+        type FindOptions = number
+        interface $Exports {
+            /**
+             * Enum values used to specify search options.
+             */
+            FindOptions: FindOptionsBitfield
         }
         
-        namespace HitTestResultContext {
-            const $gtype: GObject.GType<HitTestResultContext>
-        }
-
-        /**
-         * Enum values with flags representing the context of a #WebKitHitTestResult.
-         */
-        enum HitTestResultContext {
+        interface HitTestResultContextBitfield {
+            readonly $gtype: GObject.GType<HitTestResultContext>
             /**
              * anywhere in the document.
              */
-            "DOCUMENT" = 2,
+            readonly "DOCUMENT": 2
             /**
              * a hyperlink element.
              */
-            "LINK" = 4,
+            readonly "LINK": 4
             /**
              * an image element.
              */
-            "IMAGE" = 8,
+            readonly "IMAGE": 8
             /**
              * a video or audio element.
              */
-            "MEDIA" = 16,
+            readonly "MEDIA": 16
             /**
              * an editable element
              */
-            "EDITABLE" = 32,
+            readonly "EDITABLE": 32
             /**
              * a scrollbar element.
              */
-            "SCROLLBAR" = 64,
+            readonly "SCROLLBAR": 64
             /**
              * a selected element. Since 2.8
              */
-            "SELECTION" = 128,
+            readonly "SELECTION": 128
+        }
+        type HitTestResultContext = number
+        interface $Exports {
+            /**
+             * Enum values with flags representing the context of a #WebKitHitTestResult.
+             */
+            HitTestResultContext: HitTestResultContextBitfield
         }
         
-        namespace InputHints {
-            const $gtype: GObject.GType<InputHints>
-        }
-
-        /**
-         * Enum values used to describe hints that might be taken into account by input methods.
-         * @since 2.28
-         */
-        enum InputHints {
+        interface InputHintsBitfield {
+            readonly $gtype: GObject.GType<InputHints>
             /**
              * No special behavior suggested
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Suggest spell checking
              */
-            "SPELLCHECK" = 1,
+            readonly "SPELLCHECK": 1
             /**
              * Suggest to not autocapitlize
              */
-            "LOWERCASE" = 2,
+            readonly "LOWERCASE": 2
             /**
              * Suggest to capitalize all text
              */
-            "UPPERCASE_CHARS" = 4,
+            readonly "UPPERCASE_CHARS": 4
             /**
              * Suggest to capitalize the first character of each word
              */
-            "UPPERCASE_WORDS" = 8,
+            readonly "UPPERCASE_WORDS": 8
             /**
              * Suggest to capitalize the first word of each sentence
              */
-            "UPPERCASE_SENTENCES" = 16,
+            readonly "UPPERCASE_SENTENCES": 16
             /**
              * Suggest to not show an onscreen keyboard
              */
-            "INHIBIT_OSK" = 32,
+            readonly "INHIBIT_OSK": 32
+        }
+        type InputHints = number
+        interface $Exports {
+            /**
+             * Enum values used to describe hints that might be taken into account by input methods.
+             * @since 2.28
+             */
+            InputHints: InputHintsBitfield
         }
         
-        namespace SnapshotOptions {
-            const $gtype: GObject.GType<SnapshotOptions>
-        }
-
-        /**
-         * Enum values used to specify options when taking a snapshot
-         * from a #WebKitWebView.
-         */
-        enum SnapshotOptions {
+        interface SnapshotOptionsBitfield {
+            readonly $gtype: GObject.GType<SnapshotOptions>
             /**
              * Do not include any special options.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Whether to include in the
              * snapshot the highlight of the selected content.
              */
-            "INCLUDE_SELECTION_HIGHLIGHTING" = 1,
+            readonly "INCLUDE_SELECTION_HIGHLIGHTING": 1
             /**
              * Do not fill the background with white before
              * rendering the snapshot. Since 2.8
              */
-            "TRANSPARENT_BACKGROUND" = 2,
+            readonly "TRANSPARENT_BACKGROUND": 2
+        }
+        type SnapshotOptions = number
+        interface $Exports {
+            /**
+             * Enum values used to specify options when taking a snapshot
+             * from a #WebKitWebView.
+             */
+            SnapshotOptions: SnapshotOptionsBitfield
         }
         
-        namespace WebExtensionMatchPatternOptions {
-            const $gtype: GObject.GType<WebExtensionMatchPatternOptions>
-        }
-
-        /**
-         * Enum values representing matching options.
-         * @since 2.48
-         */
-        enum WebExtensionMatchPatternOptions {
+        interface WebExtensionMatchPatternOptionsBitfield {
+            readonly $gtype: GObject.GType<WebExtensionMatchPatternOptions>
             /**
              * No special matching options.
              */
-            "NONE" = 1,
+            readonly "NONE": 1
             /**
              * The scheme components should be ignored while matching.
              */
-            "IGNORE_SCHEMES" = 2,
+            readonly "IGNORE_SCHEMES": 2
             /**
              * The host components should be ignored while matching.
              */
-            "IGNORE_PATHS" = 4,
+            readonly "IGNORE_PATHS": 4
             /**
              * Two patterns should be checked in either direction while matching (A matches B, or B matches A). Invalid for matching URLs.
              */
-            "MATCH_BIDIRECTIONALLY" = 8,
+            readonly "MATCH_BIDIRECTIONALLY": 8
+        }
+        type WebExtensionMatchPatternOptions = number
+        interface $Exports {
+            /**
+             * Enum values representing matching options.
+             * @since 2.48
+             */
+            WebExtensionMatchPatternOptions: WebExtensionMatchPatternOptionsBitfield
         }
         
-        namespace WebsiteDataTypes {
-            const $gtype: GObject.GType<WebsiteDataTypes>
-        }
-
-        /**
-         * Enum values with flags representing types of Website data.
-         * @since 2.16
-         */
-        enum WebsiteDataTypes {
+        interface WebsiteDataTypesBitfield {
+            readonly $gtype: GObject.GType<WebsiteDataTypes>
             /**
              * Memory cache.
              */
-            "MEMORY_CACHE" = 1,
+            readonly "MEMORY_CACHE": 1
             /**
              * HTTP disk cache.
              */
-            "DISK_CACHE" = 2,
+            readonly "DISK_CACHE": 2
             /**
              * Offline web application cache.
              */
-            "OFFLINE_APPLICATION_CACHE" = 4,
+            readonly "OFFLINE_APPLICATION_CACHE": 4
             /**
              * Session storage data.
              */
-            "SESSION_STORAGE" = 8,
+            readonly "SESSION_STORAGE": 8
             /**
              * Local storage data.
              */
-            "LOCAL_STORAGE" = 16,
+            readonly "LOCAL_STORAGE": 16
             /**
              * IndexedDB databases.
              */
-            "INDEXEDDB_DATABASES" = 32,
+            readonly "INDEXEDDB_DATABASES": 32
             /**
              * Cookies.
              */
-            "COOKIES" = 64,
+            readonly "COOKIES": 64
             /**
              * Hash salt used to generate the device ids used by webpages.
              */
-            "DEVICE_ID_HASH_SALT" = 128,
+            readonly "DEVICE_ID_HASH_SALT": 128
             /**
              * HSTS cache.
              */
-            "HSTS_CACHE" = 256,
+            readonly "HSTS_CACHE": 256
             /**
              * Intelligent Tracking Prevention data.
              */
-            "ITP" = 512,
+            readonly "ITP": 512
             /**
              * Service worker registrations.
              */
-            "SERVICE_WORKER_REGISTRATIONS" = 1024,
+            readonly "SERVICE_WORKER_REGISTRATIONS": 1024
             /**
              * DOM (CacheStorage) cache.
              */
-            "DOM_CACHE" = 2048,
+            readonly "DOM_CACHE": 2048
             /**
              * All types.
              */
-            "ALL" = 4095,
+            readonly "ALL": 4095
+        }
+        type WebsiteDataTypes = number
+        interface $Exports {
+            /**
+             * Enum values with flags representing types of Website data.
+             * @since 2.16
+             */
+            WebsiteDataTypes: WebsiteDataTypesBitfield
         }
         
-        namespace XRSessionFeatures {
-            const $gtype: GObject.GType<XRSessionFeatures>
-        }
-
-        /**
-         *  for hand tracking.
-         * @since 2.52
-         */
-        enum XRSessionFeatures {
+        interface XRSessionFeaturesBitfield {
+            readonly $gtype: GObject.GType<XRSessionFeatures>
             /**
              * viewer feature.
              */
-            "VIEWER" = 1,
+            readonly "VIEWER": 1
             /**
              * local feature.
              */
-            "LOCAL" = 2,
+            readonly "LOCAL": 2
             /**
              * local-floor feature.
              */
-            "LOCAL_FLOOR" = 4,
+            readonly "LOCAL_FLOOR": 4
             /**
              * bounded-floor feature.
              */
-            "BOUNDED_FLOOR" = 8,
+            readonly "BOUNDED_FLOOR": 8
             /**
              * unbounded feature.
              */
-            "UNBOUNDED" = 16,
+            readonly "UNBOUNDED": 16
             /**
              * hand tracking feature.
              */
-            "HAND_TRACKING" = 32,
+            readonly "HAND_TRACKING": 32
             /**
              * hit test feature.
              */
-            "HIT_TEST" = 64,
+            readonly "HIT_TEST": 64
             /**
              * WebXR Layers feature.
              */
-            "LAYERS" = 128,
+            readonly "LAYERS": 128
+        }
+        type XRSessionFeatures = number
+        interface $Exports {
+            /**
+             * Enum values representing the XR session features.
+             *
+             * See <https://immersive-web.github.io/webxr/#xrreferencespace-interface>.
+             * And, see <https://immersive-web.github.io/webxr-hand-input/> for hand tracking.
+             * @since 2.52
+             */
+            XRSessionFeatures: XRSessionFeaturesBitfield
         }
         /**
          * Type definition for a function that will be called back when an URI request is
@@ -12722,7 +13258,184 @@ declare module "gi://WebKit?version=6.0" {
          * @param request the #WebKitURISchemeRequest
          */
         type URISchemeRequestCallback = (request: URISchemeRequest) => void
+
+        interface $Exports {
+            __name__: "WebKit"
+            __version: "6.0"
+            EDITING_COMMAND_COPY: "Copy"
+            EDITING_COMMAND_CREATE_LINK: "CreateLink"
+            EDITING_COMMAND_CUT: "Cut"
+            EDITING_COMMAND_INSERT_IMAGE: "InsertImage"
+            EDITING_COMMAND_PASTE: "Paste"
+            EDITING_COMMAND_PASTE_AS_PLAIN_TEXT: "PasteAsPlainText"
+            EDITING_COMMAND_REDO: "Redo"
+            EDITING_COMMAND_SELECT_ALL: "SelectAll"
+            EDITING_COMMAND_UNDO: "Undo"
+            MAJOR_VERSION: 2
+            MICRO_VERSION: 93
+            MINOR_VERSION: 51
+            /**
+             * Gets the quark for the domain of download errors.
+             * @returns download error domain.
+             */
+            download_error_quark(): GLib.Quark
+            /**
+             * Gets the quark for the domain of favicon database errors.
+             * @returns favicon database error domain.
+             */
+            favicon_database_error_quark(): GLib.Quark
+            /**
+             * Returns the major version number of the WebKit library.
+             *
+             * (e.g. in WebKit version 1.8.3 this is 1.)
+             *
+             * This function is in the library, so it represents the WebKit library
+             * your code is running against. Contrast with the #WEBKIT_MAJOR_VERSION
+             * macro, which represents the major version of the WebKit headers you
+             * have included when compiling your code.
+             * @returns the major version number of the WebKit library
+             */
+            get_major_version(): number
+            /**
+             * Returns the micro version number of the WebKit library.
+             *
+             * (e.g. in WebKit version 1.8.3 this is 3.)
+             *
+             * This function is in the library, so it represents the WebKit library
+             * your code is running against. Contrast with the #WEBKIT_MICRO_VERSION
+             * macro, which represents the micro version of the WebKit headers you
+             * have included when compiling your code.
+             * @returns the micro version number of the WebKit library
+             */
+            get_micro_version(): number
+            /**
+             * Returns the minor version number of the WebKit library.
+             *
+             * (e.g. in WebKit version 1.8.3 this is 8.)
+             *
+             * This function is in the library, so it represents the WebKit library
+             * your code is running against. Contrast with the #WEBKIT_MINOR_VERSION
+             * macro, which represents the minor version of the WebKit headers you
+             * have included when compiling your code.
+             * @returns the minor version number of the WebKit library
+             */
+            get_minor_version(): number
+            /**
+             * Gets the quark for the domain of JavaScript errors.
+             * @returns JavaScript error domain.
+             */
+            javascript_error_quark(): GLib.Quark
+            /**
+             * Gets the quark for the domain of media errors.
+             * @since 2.40
+             * @returns media error domin.
+             */
+            media_error_quark(): GLib.Quark
+            /**
+             * Get the key system for which access permission is being requested.
+             * @since 2.32
+             * @param request a #WebKitMediaKeySystemPermissionRequest
+             * @returns the key system name for `request`
+             */
+            media_key_system_permission_get_name(request: MediaKeySystemPermissionRequest): string
+            /**
+             * Gets the quark for the domain of networking errors.
+             * @returns network error domain.
+             */
+            network_error_quark(): GLib.Quark
+            /**
+             * Gets the quark for the domain of policy errors.
+             * @returns policy error domain.
+             */
+            policy_error_quark(): GLib.Quark
+            /**
+             * Gets the quark for the domain of printing errors.
+             * @returns print error domain.
+             */
+            print_error_quark(): GLib.Quark
+            /**
+             * Gets the quark for the domain of page snapshot errors.
+             * @returns snapshot error domain.
+             */
+            snapshot_error_quark(): GLib.Quark
+            /**
+             * Use this function to format a URI for display.
+             *
+             * The URIs used internally by
+             * WebKit may contain percent-encoded characters or Punycode, which are not
+             * generally suitable to display to users. This function provides protection
+             * against IDN homograph attacks, so in some cases the host part of the returned
+             * URI may be in Punycode if the safety check fails.
+             * @since 2.24
+             * @param uri the URI to be converted
+             * @returns  `uri` suitable for display, or %NULL in    case of error.
+             */
+            uri_for_display(uri: string): string | null
+            /**
+             * Gets the quark for the domain of user content filter errors.
+             * @returns user content filter error domain.
+             */
+            user_content_filter_error_quark(): GLib.Quark
+            /**
+             * Check whether the permission request is for an audio device.
+             * @since 2.8
+             * @param request a #WebKitUserMediaPermissionRequest
+             * @returns %TRUE if access to an audio device was requested.
+             */
+            user_media_permission_is_for_audio_device(request: UserMediaPermissionRequest): boolean
+            /**
+             * Check whether the permission request is for a display device.
+             * @since 2.34
+             * @param request a #WebKitUserMediaPermissionRequest
+             * @returns %TRUE if access to a display device was requested.
+             */
+            user_media_permission_is_for_display_device(request: UserMediaPermissionRequest): boolean
+            /**
+             * Check whether the permission request is for a video device.
+             * @since 2.8
+             * @param request a #WebKitUserMediaPermissionRequest
+             * @returns %TRUE if access to a video device was requested.
+             */
+            user_media_permission_is_for_video_device(request: UserMediaPermissionRequest): boolean
+            /**
+             * Gets the quark for the domain of user message errors.
+             * @returns user message error domain.
+             */
+            user_message_error_quark(): GLib.Quark
+            /**
+             * Gets the quark for the domain of Web Extension errors.
+             * @since 2.52
+             * @returns web extension error domain.
+             */
+            web_extension_error_quark(): GLib.Quark
+            /**
+             * Gets the quark for the domain of Web Extension Match Pattern errors.
+             * @since 2.48
+             * @returns web extension match pattern error domain.
+             */
+            web_extension_match_pattern_error_quark(): GLib.Quark
+            /**
+             * Registers a custom URL scheme that can be used in match patterns.
+             *
+             * This method should be used to register any custom URL schemes used by the app for the extension base URLs,
+             * other than `webkit-extension`, or if extensions should have access to other supported URL schemes when using `<all_urls>`.
+             * @since 2.48
+             * @deprecated since 2.52 Use webkit_web_extension_match_pattern_register_custom_url_scheme() instead.
+             * @param urlScheme The custom URL scheme to register
+             */
+            web_extension_match_pattern_register_custom_URL_scheme(urlScheme: string): void
+            /**
+             * Registers a custom URL scheme that can be used in match patterns.
+             *
+             * This method should be used to register any custom URL schemes used by the app for the extension base URLs,
+             * other than `webkit-extension`, or if extensions should have access to other supported URL schemes when using `<all_urls>`.
+             * @since 2.52
+             * @param urlScheme The custom URL scheme to register
+             */
+            web_extension_match_pattern_register_custom_url_scheme(urlScheme: string): void
+        }
     }
 
+    const WebKit: WebKit.$Exports
     export default WebKit
 }

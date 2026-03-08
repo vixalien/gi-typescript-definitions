@@ -22,10 +22,7 @@ declare module "gi://GstPbutils?version=1.0" {
 
     
 
-
     namespace GstPbutils {
-        const __name__: "GstPbutils"
-        const __version: "1.0"
         
 
         namespace AudioVisualizer {
@@ -46,15 +43,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * A baseclass for scopes (visualizers). It takes care of re-fitting the
-         * audio-rate to video-rate and handles renegotiation (downstream video size
-         * changes).
-         *
-         * It also provides several background shading effects. These effects are
-         * applied to a previous picture before the `render()` implementation can draw a
-         * new frame.
-         */
         interface AudioVisualizer extends Gst.Element {
             readonly $signals: AudioVisualizer.SignalSignatures
             readonly $readableProperties: AudioVisualizer.ReadableProperties
@@ -87,10 +75,22 @@ declare module "gi://GstPbutils?version=1.0" {
         interface AudioVisualizerClass extends Omit<Gst.ElementClass, "new"> {
             readonly $gtype: GObject.GType<AudioVisualizer>
             readonly prototype: AudioVisualizer
+
             new (props?: Partial<GObject.ConstructorProps<AudioVisualizer>>): AudioVisualizer
         }
 
-        const AudioVisualizer: AudioVisualizerClass
+        interface $Exports {
+            /**
+             * A baseclass for scopes (visualizers). It takes care of re-fitting the
+             * audio-rate to video-rate and handles renegotiation (downstream video size
+             * changes).
+             *
+             * It also provides several background shading effects. These effects are
+             * applied to a previous picture before the `render()` implementation can draw a
+             * new frame.
+             */
+            AudioVisualizer: AudioVisualizerClass
+        }
         
 
         namespace Discoverer {
@@ -153,24 +153,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * The #GstDiscoverer is a utility object which allows to get as much
-         * information as possible from one or many URIs.
-         *
-         * It provides two APIs, allowing usage in blocking or non-blocking mode.
-         *
-         * The blocking mode just requires calling gst_discoverer_discover_uri()
-         * with the URI one wishes to discover.
-         *
-         * The non-blocking mode requires a running #GMainLoop iterating a
-         * #GMainContext, where one connects to the various signals, appends the
-         * URIs to be processed (through gst_discoverer_discover_uri_async()) and then
-         * asks for the discovery to begin (through gst_discoverer_start()).
-         * By default this will use the GLib default main context unless you have
-         * set a custom context using g_main_context_push_thread_default().
-         *
-         * All the information is returned in a #GstDiscovererInfo structure.
-         */
         interface Discoverer extends GObject.Object {
             readonly $signals: Discoverer.SignalSignatures
             readonly $readableProperties: Discoverer.ReadableProperties
@@ -250,6 +232,7 @@ declare module "gi://GstPbutils?version=1.0" {
         interface DiscovererClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Discoverer>
             readonly prototype: Discoverer
+
             new (props?: Partial<GObject.ConstructorProps<Discoverer>>): Discoverer
             /**
              * Creates a new #GstDiscoverer with the provided timeout.
@@ -261,7 +244,27 @@ declare module "gi://GstPbutils?version=1.0" {
             "new"(timeout: Gst.ClockTime): Discoverer
         }
 
-        const Discoverer: DiscovererClass
+        interface $Exports {
+            /**
+             * The #GstDiscoverer is a utility object which allows to get as much
+             * information as possible from one or many URIs.
+             *
+             * It provides two APIs, allowing usage in blocking or non-blocking mode.
+             *
+             * The blocking mode just requires calling gst_discoverer_discover_uri()
+             * with the URI one wishes to discover.
+             *
+             * The non-blocking mode requires a running #GMainLoop iterating a
+             * #GMainContext, where one connects to the various signals, appends the
+             * URIs to be processed (through gst_discoverer_discover_uri_async()) and then
+             * asks for the discovery to begin (through gst_discoverer_start()).
+             * By default this will use the GLib default main context unless you have
+             * set a custom context using g_main_context_push_thread_default().
+             *
+             * All the information is returned in a #GstDiscovererInfo structure.
+             */
+            Discoverer: DiscovererClass
+        }
         
 
         namespace DiscovererAudioInfo {
@@ -278,9 +281,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * #GstDiscovererStreamInfo specific to audio streams.
-         */
         interface DiscovererAudioInfo extends DiscovererStreamInfo {
             readonly $signals: DiscovererAudioInfo.SignalSignatures
             readonly $readableProperties: DiscovererAudioInfo.ReadableProperties
@@ -320,10 +320,16 @@ declare module "gi://GstPbutils?version=1.0" {
         interface DiscovererAudioInfoClass extends Omit<DiscovererStreamInfoClass, "new"> {
             readonly $gtype: GObject.GType<DiscovererAudioInfo>
             readonly prototype: DiscovererAudioInfo
+
             new (props?: Partial<GObject.ConstructorProps<DiscovererAudioInfo>>): DiscovererAudioInfo
         }
 
-        const DiscovererAudioInfo: DiscovererAudioInfoClass
+        interface $Exports {
+            /**
+             * #GstDiscovererStreamInfo specific to audio streams.
+             */
+            DiscovererAudioInfo: DiscovererAudioInfoClass
+        }
         
 
         namespace DiscovererContainerInfo {
@@ -340,9 +346,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * #GstDiscovererStreamInfo specific to container streams.
-         */
         interface DiscovererContainerInfo extends DiscovererStreamInfo {
             readonly $signals: DiscovererContainerInfo.SignalSignatures
             readonly $readableProperties: DiscovererContainerInfo.ReadableProperties
@@ -362,10 +365,16 @@ declare module "gi://GstPbutils?version=1.0" {
         interface DiscovererContainerInfoClass extends Omit<DiscovererStreamInfoClass, "new"> {
             readonly $gtype: GObject.GType<DiscovererContainerInfo>
             readonly prototype: DiscovererContainerInfo
+
             new (props?: Partial<GObject.ConstructorProps<DiscovererContainerInfo>>): DiscovererContainerInfo
         }
 
-        const DiscovererContainerInfo: DiscovererContainerInfoClass
+        interface $Exports {
+            /**
+             * #GstDiscovererStreamInfo specific to container streams.
+             */
+            DiscovererContainerInfo: DiscovererContainerInfoClass
+        }
         
 
         namespace DiscovererInfo {
@@ -382,9 +391,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * Structure containing the information of a URI analyzed by #GstDiscoverer.
-         */
         interface DiscovererInfo extends GObject.Object {
             readonly $signals: DiscovererInfo.SignalSignatures
             readonly $readableProperties: DiscovererInfo.ReadableProperties
@@ -487,6 +493,7 @@ declare module "gi://GstPbutils?version=1.0" {
         interface DiscovererInfoClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DiscovererInfo>
             readonly prototype: DiscovererInfo
+
             new (props?: Partial<GObject.ConstructorProps<DiscovererInfo>>): DiscovererInfo
             /**
              * Parses a #GVariant as produced by gst_discoverer_info_to_variant()
@@ -498,7 +505,12 @@ declare module "gi://GstPbutils?version=1.0" {
             from_variant(variant: GLib.Variant): DiscovererInfo
         }
 
-        const DiscovererInfo: DiscovererInfoClass
+        interface $Exports {
+            /**
+             * Structure containing the information of a URI analyzed by #GstDiscoverer.
+             */
+            DiscovererInfo: DiscovererInfoClass
+        }
         
 
         namespace DiscovererStreamInfo {
@@ -515,23 +527,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * Base structure for information concerning a media stream. Depending on the
-         * stream type, one can find more media-specific information in
-         * #GstDiscovererAudioInfo, #GstDiscovererVideoInfo, and
-         * #GstDiscovererContainerInfo.
-         *
-         * The #GstDiscovererStreamInfo represents the topology of the stream. Siblings
-         * can be iterated over with gst_discoverer_stream_info_get_next() and
-         * gst_discoverer_stream_info_get_previous(). Children (sub-streams) of a
-         * stream can be accessed using the #GstDiscovererContainerInfo API.
-         *
-         * As a simple example, if you run #GstDiscoverer on an AVI file with one audio
-         * and one video stream, you will get a #GstDiscovererContainerInfo
-         * corresponding to the AVI container, which in turn will have a
-         * #GstDiscovererAudioInfo sub-stream and a #GstDiscovererVideoInfo sub-stream
-         * for the audio and video streams respectively.
-         */
         interface DiscovererStreamInfo extends GObject.Object {
             readonly $signals: DiscovererStreamInfo.SignalSignatures
             readonly $readableProperties: DiscovererStreamInfo.ReadableProperties
@@ -580,6 +575,7 @@ declare module "gi://GstPbutils?version=1.0" {
         interface DiscovererStreamInfoClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DiscovererStreamInfo>
             readonly prototype: DiscovererStreamInfo
+
             new (props?: Partial<GObject.ConstructorProps<DiscovererStreamInfo>>): DiscovererStreamInfo
             /**
              * Decrements the reference count of all contained #GstDiscovererStreamInfo
@@ -589,7 +585,26 @@ declare module "gi://GstPbutils?version=1.0" {
             list_free(infos: DiscovererStreamInfo[]): void
         }
 
-        const DiscovererStreamInfo: DiscovererStreamInfoClass
+        interface $Exports {
+            /**
+             * Base structure for information concerning a media stream. Depending on the
+             * stream type, one can find more media-specific information in
+             * #GstDiscovererAudioInfo, #GstDiscovererVideoInfo, and
+             * #GstDiscovererContainerInfo.
+             *
+             * The #GstDiscovererStreamInfo represents the topology of the stream. Siblings
+             * can be iterated over with gst_discoverer_stream_info_get_next() and
+             * gst_discoverer_stream_info_get_previous(). Children (sub-streams) of a
+             * stream can be accessed using the #GstDiscovererContainerInfo API.
+             *
+             * As a simple example, if you run #GstDiscoverer on an AVI file with one audio
+             * and one video stream, you will get a #GstDiscovererContainerInfo
+             * corresponding to the AVI container, which in turn will have a
+             * #GstDiscovererAudioInfo sub-stream and a #GstDiscovererVideoInfo sub-stream
+             * for the audio and video streams respectively.
+             */
+            DiscovererStreamInfo: DiscovererStreamInfoClass
+        }
         
 
         namespace DiscovererSubtitleInfo {
@@ -606,10 +621,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * #GstDiscovererStreamInfo specific to subtitle streams (this includes text and
-         * image based ones).
-         */
         interface DiscovererSubtitleInfo extends DiscovererStreamInfo {
             readonly $signals: DiscovererSubtitleInfo.SignalSignatures
             readonly $readableProperties: DiscovererSubtitleInfo.ReadableProperties
@@ -624,10 +635,17 @@ declare module "gi://GstPbutils?version=1.0" {
         interface DiscovererSubtitleInfoClass extends Omit<DiscovererStreamInfoClass, "new"> {
             readonly $gtype: GObject.GType<DiscovererSubtitleInfo>
             readonly prototype: DiscovererSubtitleInfo
+
             new (props?: Partial<GObject.ConstructorProps<DiscovererSubtitleInfo>>): DiscovererSubtitleInfo
         }
 
-        const DiscovererSubtitleInfo: DiscovererSubtitleInfoClass
+        interface $Exports {
+            /**
+             * #GstDiscovererStreamInfo specific to subtitle streams (this includes text and
+             * image based ones).
+             */
+            DiscovererSubtitleInfo: DiscovererSubtitleInfoClass
+        }
         
 
         namespace DiscovererVideoInfo {
@@ -644,9 +662,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * #GstDiscovererStreamInfo specific to video streams (this includes images).
-         */
         interface DiscovererVideoInfo extends DiscovererStreamInfo {
             readonly $signals: DiscovererVideoInfo.SignalSignatures
             readonly $readableProperties: DiscovererVideoInfo.ReadableProperties
@@ -701,10 +716,16 @@ declare module "gi://GstPbutils?version=1.0" {
         interface DiscovererVideoInfoClass extends Omit<DiscovererStreamInfoClass, "new"> {
             readonly $gtype: GObject.GType<DiscovererVideoInfo>
             readonly prototype: DiscovererVideoInfo
+
             new (props?: Partial<GObject.ConstructorProps<DiscovererVideoInfo>>): DiscovererVideoInfo
         }
 
-        const DiscovererVideoInfo: DiscovererVideoInfoClass
+        interface $Exports {
+            /**
+             * #GstDiscovererStreamInfo specific to video streams (this includes images).
+             */
+            DiscovererVideoInfo: DiscovererVideoInfoClass
+        }
         
 
         namespace EncodingAudioProfile {
@@ -721,9 +742,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * Variant of #GstEncodingProfile for audio streams.
-         */
         interface EncodingAudioProfile extends EncodingProfile {
             readonly $signals: EncodingAudioProfile.SignalSignatures
             readonly $readableProperties: EncodingAudioProfile.ReadableProperties
@@ -734,6 +752,7 @@ declare module "gi://GstPbutils?version=1.0" {
         interface EncodingAudioProfileClass extends Omit<EncodingProfileClass, "new"> {
             readonly $gtype: GObject.GType<EncodingAudioProfile>
             readonly prototype: EncodingAudioProfile
+
             new (props?: Partial<GObject.ConstructorProps<EncodingAudioProfile>>): EncodingAudioProfile
             /**
              * Creates a new #GstEncodingAudioProfile
@@ -751,7 +770,12 @@ declare module "gi://GstPbutils?version=1.0" {
             "new"(format: Gst.Caps, preset: string | null, restriction: Gst.Caps | null, presence: number): EncodingAudioProfile
         }
 
-        const EncodingAudioProfile: EncodingAudioProfileClass
+        interface $Exports {
+            /**
+             * Variant of #GstEncodingProfile for audio streams.
+             */
+            EncodingAudioProfile: EncodingAudioProfileClass
+        }
         
 
         namespace EncodingContainerProfile {
@@ -768,9 +792,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * Encoding profiles for containers. Keeps track of a list of #GstEncodingProfile
-         */
         interface EncodingContainerProfile extends EncodingProfile {
             readonly $signals: EncodingContainerProfile.SignalSignatures
             readonly $readableProperties: EncodingContainerProfile.ReadableProperties
@@ -801,6 +822,7 @@ declare module "gi://GstPbutils?version=1.0" {
         interface EncodingContainerProfileClass extends Omit<EncodingProfileClass, "new"> {
             readonly $gtype: GObject.GType<EncodingContainerProfile>
             readonly prototype: EncodingContainerProfile
+
             new (props?: Partial<GObject.ConstructorProps<EncodingContainerProfile>>): EncodingContainerProfile
             /**
              * Creates a new #GstEncodingContainerProfile.
@@ -814,7 +836,12 @@ declare module "gi://GstPbutils?version=1.0" {
             "new"(name: string | null, description: string | null, format: Gst.Caps, preset: string | null): EncodingContainerProfile
         }
 
-        const EncodingContainerProfile: EncodingContainerProfileClass
+        interface $Exports {
+            /**
+             * Encoding profiles for containers. Keeps track of a list of #GstEncodingProfile
+             */
+            EncodingContainerProfile: EncodingContainerProfileClass
+        }
         
 
         namespace EncodingProfile {
@@ -835,10 +862,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * The opaque base class object for all encoding profiles. This contains generic
-         * information like name, description, format and preset.
-         */
         interface EncodingProfile extends GObject.Object {
             readonly $signals: EncodingProfile.SignalSignatures
             readonly $readableProperties: EncodingProfile.ReadableProperties
@@ -1029,7 +1052,11 @@ declare module "gi://GstPbutils?version=1.0" {
              */
             set_restriction(restriction: Gst.Caps | null): void
             /**
-             *  #encodebin:avoid-reencoding
+             * If using a single segment, buffers will be retimestamped and segments will be
+             * eat so as to appear as one segment.
+             *
+             * > *NOTE*: Single segment is not property supported when using
+             * > #encodebin:avoid-reencoding
              * @since 1.18
              * @param single_segment #TRUE if the stream represented by @profile should use a
             single segment before the encoder, #FALSE otherwise.
@@ -1047,6 +1074,7 @@ declare module "gi://GstPbutils?version=1.0" {
         interface EncodingProfileClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<EncodingProfile>
             readonly prototype: EncodingProfile
+
             new (props?: Partial<GObject.ConstructorProps<EncodingProfile>>): EncodingProfile
             /**
              * Find the #GstEncodingProfile with the specified name and category.
@@ -1076,7 +1104,13 @@ declare module "gi://GstPbutils?version=1.0" {
             from_string(string: string): EncodingProfile | null
         }
 
-        const EncodingProfile: EncodingProfileClass
+        interface $Exports {
+            /**
+             * The opaque base class object for all encoding profiles. This contains generic
+             * information like name, description, format and preset.
+             */
+            EncodingProfile: EncodingProfileClass
+        }
         
 
         namespace EncodingTarget {
@@ -1093,12 +1127,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * Collection of #GstEncodingProfile for a specific target or use-case.
-         *
-         * When being stored/loaded, targets come from a specific category, like
-         * #GST_ENCODING_CATEGORY_DEVICE.
-         */
         interface EncodingTarget extends GObject.Object {
             readonly $signals: EncodingTarget.SignalSignatures
             readonly $readableProperties: EncodingTarget.ReadableProperties
@@ -1159,6 +1187,7 @@ declare module "gi://GstPbutils?version=1.0" {
         interface EncodingTargetClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<EncodingTarget>
             readonly prototype: EncodingTarget
+
             new (props?: Partial<GObject.ConstructorProps<EncodingTarget>>): EncodingTarget
             /**
              * Creates a new #GstEncodingTarget.
@@ -1205,7 +1234,15 @@ declare module "gi://GstPbutils?version=1.0" {
             load_from_file(filepath: string): EncodingTarget
         }
 
-        const EncodingTarget: EncodingTargetClass
+        interface $Exports {
+            /**
+             * Collection of #GstEncodingProfile for a specific target or use-case.
+             *
+             * When being stored/loaded, targets come from a specific category, like
+             * #GST_ENCODING_CATEGORY_DEVICE.
+             */
+            EncodingTarget: EncodingTargetClass
+        }
         
 
         namespace EncodingVideoProfile {
@@ -1222,9 +1259,6 @@ declare module "gi://GstPbutils?version=1.0" {
             }
         }
 
-        /**
-         * Variant of #GstEncodingProfile for video streams, allows specifying the @pass.
-         */
         interface EncodingVideoProfile extends EncodingProfile {
             readonly $signals: EncodingVideoProfile.SignalSignatures
             readonly $readableProperties: EncodingVideoProfile.ReadableProperties
@@ -1236,7 +1270,8 @@ declare module "gi://GstPbutils?version=1.0" {
              */
             get_pass(): number
             /**
-             *  is set.
+             * > *NOTE*: Fixed framerate won't be enforced when #encodebin:avoid-reencoding
+             * > is set.
              * @returns Whether non-constant video framerate is allowed for encoding.
              */
             get_variableframerate(): boolean
@@ -1260,6 +1295,7 @@ declare module "gi://GstPbutils?version=1.0" {
         interface EncodingVideoProfileClass extends Omit<EncodingProfileClass, "new"> {
             readonly $gtype: GObject.GType<EncodingVideoProfile>
             readonly prototype: EncodingVideoProfile
+
             new (props?: Partial<GObject.ConstructorProps<EncodingVideoProfile>>): EncodingVideoProfile
             /**
              * Creates a new #GstEncodingVideoProfile
@@ -1283,40 +1319,51 @@ declare module "gi://GstPbutils?version=1.0" {
             "new"(format: Gst.Caps, preset: string | null, restriction: Gst.Caps | null, presence: number): EncodingVideoProfile
         }
 
-        const EncodingVideoProfile: EncodingVideoProfileClass
-        none
-        /**
-         */
-        abstract class AudioVisualizerPrivate {
-            static readonly $gtype: GObject.GType<AudioVisualizerPrivate>
-
-            
+        interface $Exports {
+            /**
+             * Variant of #GstEncodingProfile for video streams, allows specifying the @pass.
+             */
+            EncodingVideoProfile: EncodingVideoProfileClass
         }
-        none
-        /**
-         */
-        abstract class DiscovererPrivate {
-            static readonly $gtype: GObject.GType<DiscovererPrivate>
+        
 
-            
+        interface AudioVisualizerPrivateStruct {
+            readonly $gtype: GObject.GType<AudioVisualizerPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AudioVisualizerPrivate
         }
-        none
-        none
-        none
-        none
-        /**
-         * Opaque context structure for the plugin installation. Use the provided
-         * API to set details on it.
-         */
-        abstract class InstallPluginsContext {
-            static readonly $gtype: GObject.GType<InstallPluginsContext>
 
-            
+        interface AudioVisualizerPrivate {
+        }
+
+        interface $Exports {
+            AudioVisualizerPrivate: AudioVisualizerPrivateStruct
+        }
+        
+
+        interface DiscovererPrivateStruct {
+            readonly $gtype: GObject.GType<DiscovererPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is DiscovererPrivate
+        }
+
+        interface DiscovererPrivate {
+        }
+
+        interface $Exports {
+            DiscovererPrivate: DiscovererPrivateStruct
+        }
+        
+
+        interface InstallPluginsContextStruct {
+            readonly $gtype: GObject.GType<InstallPluginsContext>
+            [Symbol.hasInstance](instance: unknown): instance is InstallPluginsContext
             /**
              * Creates a new #GstInstallPluginsContext.
              * @returns a new #GstInstallPluginsContext. Free with gst_install_plugins_context_free() when no longer needed
              */
-            static "new"(): InstallPluginsContext
+            "new"(): InstallPluginsContext
+        }
+
+        interface InstallPluginsContext {
             /**
              * Copies a #GstInstallPluginsContext.
              * @since 1.12.1
@@ -1374,7 +1421,25 @@ declare module "gi://GstPbutils?version=1.0" {
              */
             set_startup_notification_id(startup_id: string): void
             /**
-             * window);
+             * This function is for X11-based applications (such as most Gtk/Qt
+             * applications on linux/unix) only. You can use it to tell the external
+             * installer the XID of your main application window. That way the installer
+             * can make its own window transient to your application window during the
+             * installation.
+             *
+             * If set, the XID will be passed to the installer via a --transient-for=XID
+             * command line option.
+             *
+             * Gtk+/Gnome application should be able to obtain the XID of the top-level
+             * window like this:
+             * |[
+             * ##include <gtk/gtk.h>
+             * ##ifdef GDK_WINDOWING_X11
+             * ##include <gdk/gdkx.h>
+             * ##endif
+             * ...
+             * ##ifdef GDK_WINDOWING_X11
+             *   xid = GDK_WINDOW_XWINDOW (GTK_WIDGET (application_window)->window);
              * ##endif
              * ...
              * ]|
@@ -1382,886 +1447,169 @@ declare module "gi://GstPbutils?version=1.0" {
              */
             set_xid(xid: number): void
         }
-        /**
-         * Sets the level and profile on @caps if it can be determined from
-         * @audio_config. See gst_codec_utils_aac_get_level() and
-         * gst_codec_utils_aac_get_profile() for more details on the parameters.
-         * @caps must be audio/mpeg caps with an "mpegversion" field of either 2 or 4.
-         * If mpegversion is 4, the "base-profile" field is also set in @caps.
-         * @param caps the #GstCaps to which level and profile fields are to be added
-         * @param audio_config a pointer to the AudioSpecificConfig
-                       as specified in the Elementary Stream Descriptor (esds)
-                       in ISO/IEC 14496-1. (See below for more details)
-         * @returns %TRUE if the level and profile could be set, %FALSE otherwise.
-         */
-        function codec_utils_aac_caps_set_level_and_profile(caps: Gst.Caps, audio_config: Uint8Array): boolean
-        /**
-         * Returns the channels of the given AAC stream.
-         * @since 1.10
-         * @param audio_config a pointer to the AudioSpecificConfig
-                       as specified in the Elementary Stream Descriptor (esds)
-                       in ISO/IEC 14496-1.
-         * @returns The channels or 0 if the channel could not be determined.
-         */
-        function codec_utils_aac_get_channels(audio_config: Uint8Array): number
-        /**
-         * Translates the sample rate to the index corresponding to it in AAC spec.
-         * @param rate Sample rate
-         * @returns The AAC index for this sample rate, -1 if the rate is not a valid AAC sample rate.
-         */
-        function codec_utils_aac_get_index_from_sample_rate(rate: number): number
-        /**
-         * Determines the level of a stream as defined in ISO/IEC 14496-3. For AAC LC
-         * streams, the constraints from the AAC audio profile are applied. For AAC
-         * Main, LTP, SSR and others, the Main profile is used.
-         *
-         * The @audio_config parameter follows the following format, starting from the
-         * most significant bit of the first byte:
-         *
-         *   * Bit 0:4 contains the AudioObjectType (if this is 0x5, then the
-         *     real AudioObjectType is carried after the rate and channel data)
-         *   * Bit 5:8 contains the sample frequency index (if this is 0xf, then the
-         *     next 24 bits define the actual sample frequency, and subsequent
-         *     fields are appropriately shifted).
-         *   * Bit 9:12 contains the channel configuration
-         * @param audio_config a pointer to the AudioSpecificConfig
-                       as specified in the Elementary Stream Descriptor (esds)
-                       in ISO/IEC 14496-1.
-         * @returns The level as a const string and %NULL if the level could not be determined.
-         */
-        function codec_utils_aac_get_level(audio_config: Uint8Array): string | null
-        /**
-         * Returns the profile of the given AAC stream as a string. The profile is
-         * normally determined using the AudioObjectType field which is in the first
-         * 5 bits of @audio_config
-         * @param audio_config a pointer to the AudioSpecificConfig
-                       as specified in the Elementary Stream Descriptor (esds)
-                       in ISO/IEC 14496-1.
-         * @returns The profile as a const string and %NULL if the profile could not be determined.
-         */
-        function codec_utils_aac_get_profile(audio_config: Uint8Array): string | null
-        /**
-         * Translates the sample rate index found in AAC headers to the actual sample
-         * rate.
-         * @since 1.10
-         * @param audio_config a pointer to the AudioSpecificConfig
-                       as specified in the Elementary Stream Descriptor (esds)
-                       in ISO/IEC 14496-1.
-         * @returns The sample rate if sr_idx is valid, 0 otherwise.
-         */
-        function codec_utils_aac_get_sample_rate(audio_config: Uint8Array): number
-        /**
-         * Translates the sample rate index found in AAC headers to the actual sample
-         * rate.
-         * @param sr_idx Sample rate index as from the AudioSpecificConfig (MPEG-4
-                 container) or ADTS frame header
-         * @returns The sample rate if `sr_idx` is valid, 0 otherwise.
-         */
-        function codec_utils_aac_get_sample_rate_from_index(sr_idx: number): number
-        /**
-         * Creates the corresponding AV1 Codec Configuration Record
-         * @since 1.26
-         * @param caps a video/x-av1 #GstCaps
-         * @returns The AV1 Codec Configuration Record, or %NULL if there was an error.
-         */
-        function codec_utils_av1_create_av1c_from_caps(caps: Gst.Caps): Gst.Buffer | null
-        /**
-         * Parses the provided @av1c and returns the corresponding caps
-         * @since 1.26
-         * @param av1c a #GstBuffer containing a AV1CodecConfigurationRecord
-         * @returns The parsed AV1 caps, or %NULL if there is an error
-         */
-        function codec_utils_av1_create_caps_from_av1c(av1c: Gst.Buffer): Gst.Caps | null
-        /**
-         * Transform a seq_level_idx into the level string
-         * @since 1.26
-         * @param seq_level_idx A seq_level_idx
-         * @returns the level string or %NULL if the seq_level_idx is unknown
-         */
-        function codec_utils_av1_get_level(seq_level_idx: number): string | null
-        /**
-         * Transform a level string from the caps into the seq_level_idx
-         * @since 1.26
-         * @param level A level string from caps
-         * @returns the seq_level_idx or 31 (max-level) if the level is unknown
-         */
-        function codec_utils_av1_get_seq_level_idx(level: string): number
-        /**
-         * Converts a RFC 6381 compatible codec string to #GstCaps. More than one codec
-         * string can be present (separated by `,`).
-         *
-         * Registered codecs can be found at http://mp4ra.org/#/codecs
-         * @since 1.22
-         * @param codecs_field A mime codec string field
-         * @returns The corresponding #GstCaps or %NULL
-         */
-        function codec_utils_caps_from_mime_codec(codecs_field: string): Gst.Caps | null
-        /**
-         * Converts @caps to a RFC 6381 compatible codec string if possible.
-         *
-         * Useful for providing the 'codecs' field inside the 'Content-Type' HTTP
-         * header for containerized formats, such as mp4 or matroska.
-         *
-         * Registered codecs can be found at http://mp4ra.org/#/codecs
-         * @since 1.20
-         * @param caps A #GstCaps to convert to mime codec
-         * @returns a RFC 6381 compatible codec string or %NULL
-         */
-        function codec_utils_caps_get_mime_codec(caps: Gst.Caps): string | null
-        /**
-         * Sets the level and profile in @caps if it can be determined from @sps. See
-         * gst_codec_utils_h264_get_level() and gst_codec_utils_h264_get_profile()
-         * for more details on the parameters.
-         * @param caps the #GstCaps to which the level and profile are to be added
-         * @param sps Pointer to the sequence parameter set for the stream.
-         * @returns %TRUE if the level and profile could be set, %FALSE otherwise.
-         */
-        function codec_utils_h264_caps_set_level_and_profile(caps: Gst.Caps, sps: Uint8Array): boolean
-        /**
-         * Converts the level indication (level_idc) in the stream's
-         * sequence parameter set into a string. The SPS is expected to have the
-         * same format as for gst_codec_utils_h264_get_profile().
-         * @param sps Pointer to the sequence parameter set for the stream.
-         * @returns The level as a const string, or %NULL if there is an error.
-         */
-        function codec_utils_h264_get_level(sps: Uint8Array): string | null
-        /**
-         * Transform a level string from the caps into the level_idc
-         * @param level A level string from caps
-         * @returns the level_idc or 0 if the level is unknown
-         */
-        function codec_utils_h264_get_level_idc(level: string): number
-        /**
-         * Converts the profile indication (profile_idc) in the stream's
-         * sequence parameter set into a string. The SPS is expected to have the
-         * following format, as defined in the H.264 specification. The SPS is viewed
-         * as a bitstream here, with bit 0 being the most significant bit of the first
-         * byte.
-         *
-         * * Bit 0:7   - Profile indication
-         * * Bit 8     - constraint_set0_flag
-         * * Bit 9     - constraint_set1_flag
-         * * Bit 10    - constraint_set2_flag
-         * * Bit 11    - constraint_set3_flag
-         * * Bit 12    - constraint_set3_flag
-         * * Bit 13:15 - Reserved
-         * * Bit 16:24 - Level indication
-         * @param sps Pointer to the sequence parameter set for the stream.
-         * @returns The profile as a const string, or %NULL if there is an error.
-         */
-        function codec_utils_h264_get_profile(sps: Uint8Array): string | null
-        /**
-         * Parses profile, flags, and level from a H264 AVCC extradata/sequence_header.
-         * These are most commonly retrieved from a video/x-h264 caps with a codec_data
-         * buffer.
-         *
-         * The format of H264 AVCC extradata/sequence_header is documented in the
-         * ITU-T H.264 specification section 7.3.2.1.1 as well as in ISO/IEC 14496-15
-         * section 5.3.3.1.2.
-         * @since 1.20
-         * @param codec_data H264 AVCC extradata
-         * @returns %TRUE on success, %FALSE on failure, return location for h264 profile_idc or %NULL, return location for h264 constraint set flags or %NULL, return location h264 level_idc or %NULL
-         */
-        function codec_utils_h264_get_profile_flags_level(codec_data: Uint8Array): boolean
-        /**
-         * Sets the level, tier and profile in @caps if it can be determined from
-         * @profile_tier_level. See gst_codec_utils_h265_get_level(),
-         * gst_codec_utils_h265_get_tier() and gst_codec_utils_h265_get_profile()
-         * for more details on the parameters.
-         * @since 1.4
-         * @param caps the #GstCaps to which the level, tier and profile are to be added
-         * @param profile_tier_level Pointer to the profile_tier_level
-          struct
-         * @returns %TRUE if the level, tier, profile could be set, %FALSE otherwise.
-         */
-        function codec_utils_h265_caps_set_level_tier_and_profile(caps: Gst.Caps, profile_tier_level: Uint8Array): boolean
-        /**
-         * Converts the level indication (general_level_idc) in the stream's
-         * profile_tier_level structure into a string. The profiel_tier_level is
-         * expected to have the same format as for gst_codec_utils_h264_get_profile().
-         * @since 1.4
-         * @param profile_tier_level Pointer to the profile_tier_level
-          for the stream
-         * @returns The level as a const string, or %NULL if there is an error.
-         */
-        function codec_utils_h265_get_level(profile_tier_level: Uint8Array): string | null
-        /**
-         * Transform a level string from the caps into the level_idc
-         * @since 1.4
-         * @param level A level string from caps
-         * @returns the level_idc or 0 if the level is unknown
-         */
-        function codec_utils_h265_get_level_idc(level: string): number
-        /**
-         * Converts the profile indication (general_profile_idc) in the stream's
-         * profile_level_tier structure into a string. The profile_tier_level is
-         * expected to have the following format, as defined in the H.265
-         * specification. The profile_tier_level is viewed as a bitstream here,
-         * with bit 0 being the most significant bit of the first byte.
-         *
-         * * Bit 0:1   - general_profile_space
-         * * Bit 2     - general_tier_flag
-         * * Bit 3:7   - general_profile_idc
-         * * Bit 8:39  - gernal_profile_compatibility_flags
-         * * Bit 40    - general_progressive_source_flag
-         * * Bit 41    - general_interlaced_source_flag
-         * * Bit 42    - general_non_packed_constraint_flag
-         * * Bit 43    - general_frame_only_constraint_flag
-         * * Bit 44:87 - See below
-         * * Bit 88:95 - general_level_idc
-         * @since 1.4
-         * @param profile_tier_level Pointer to the profile_tier_level
-          structure for the stream.
-         * @returns The profile as a const string, or %NULL if there is an error.
-         */
-        function codec_utils_h265_get_profile(profile_tier_level: Uint8Array): string | null
-        /**
-         * Converts the tier indication (general_tier_flag) in the stream's
-         * profile_tier_level structure into a string. The profile_tier_level
-         * is expected to have the same format as for gst_codec_utils_h264_get_profile().
-         * @since 1.4
-         * @param profile_tier_level Pointer to the profile_tier_level
-          for the stream.
-         * @returns The tier as a const string, or %NULL if there is an error.
-         */
-        function codec_utils_h265_get_tier(profile_tier_level: Uint8Array): string | null
-        /**
-         * Sets the level, tier and profile in @caps if it can be determined from
-         * @decoder_configuration. See gst_codec_utils_h266_get_level(),
-         * gst_codec_utils_h266_get_tier() and gst_codec_utils_h266_get_profile()
-         * for more details on the parameters.
-         * @since 1.26
-         * @param caps the #GstCaps to which the level, tier and profile are to be added
-         * @param decoder_configuration Pointer to the VvcDecoderConfigurationRecord struct as defined in ISO/IEC 14496-15
-         * @returns %TRUE if the level, tier, profile could be set, %FALSE otherwise.
-         */
-        function codec_utils_h266_caps_set_level_tier_and_profile(caps: Gst.Caps, decoder_configuration: Uint8Array): boolean
-        /**
-         * Converts the level indication (general_level_idc) in the stream's
-         * ptl_record structure into a string.
-         * @since 1.26
-         * @param ptl_record Pointer to the VvcPTLRecord structure as defined in ISO/IEC 14496-15.
-         * @returns The level as a const string, or %NULL if there is an error.
-         */
-        function codec_utils_h266_get_level(ptl_record: Uint8Array): string | null
-        /**
-         * Transform a level string from the caps into the level_idc
-         * @since 1.26
-         * @param level A level string from caps
-         * @returns the level_idc or 0 if the level is unknown
-         */
-        function codec_utils_h266_get_level_idc(level: string): number
-        /**
-         * Converts the profile indication (general_profile_idc) in the stream's
-         * ptl_record structure into a string.
-         * @since 1.26
-         * @param ptl_record Pointer to the VvcPTLRecord structure as defined in ISO/IEC 14496-15.
-         * @returns The profile as a const string, or %NULL if there is an error.
-         */
-        function codec_utils_h266_get_profile(ptl_record: Uint8Array): string | null
-        /**
-         * Converts the tier indication (general_tier_flag) in the stream's
-         * ptl_record structure into a string.
-         * @since 1.26
-         * @param ptl_record Pointer to the VvcPTLRecord structure as defined in ISO/IEC 14496-15.
-         * @returns The tier as a const string, or %NULL if there is an error.
-         */
-        function codec_utils_h266_get_tier(ptl_record: Uint8Array): string | null
-        /**
-         * Sets the level and profile in @caps if it can be determined from
-         * @vis_obj_seq. See gst_codec_utils_mpeg4video_get_level() and
-         * gst_codec_utils_mpeg4video_get_profile() for more details on the
-         * parameters.
-         * @param caps the #GstCaps to which the level and profile are to be added
-         * @param vis_obj_seq Pointer to the visual object
-          sequence for the stream.
-         * @returns %TRUE if the level and profile could be set, %FALSE otherwise.
-         */
-        function codec_utils_mpeg4video_caps_set_level_and_profile(caps: Gst.Caps, vis_obj_seq: Uint8Array): boolean
-        /**
-         * Converts the level indication in the stream's visual object sequence into
-         * a string. @vis_obj_seq is expected to be the data following the visual
-         * object sequence start code. Only the first byte
-         * (profile_and_level_indication) is used.
-         * @param vis_obj_seq Pointer to the visual object
-          sequence for the stream.
-         * @returns The level as a const string, or NULL if there is an error.
-         */
-        function codec_utils_mpeg4video_get_level(vis_obj_seq: Uint8Array): string | null
-        /**
-         * Converts the profile indication in the stream's visual object sequence into
-         * a string. @vis_obj_seq is expected to be the data following the visual
-         * object sequence start code. Only the first byte
-         * (profile_and_level_indication) is used.
-         * @param vis_obj_seq Pointer to the visual object
-          sequence for the stream.
-         * @returns The profile as a const string, or NULL if there is an error.
-         */
-        function codec_utils_mpeg4video_get_profile(vis_obj_seq: Uint8Array): string | null
-        /**
-         * Creates Opus caps from the given parameters.
-         * @since 1.8
-         * @param rate the sample rate
-         * @param channels the number of channels
-         * @param channel_mapping_family the channel mapping family
-         * @param stream_count the number of independent streams
-         * @param coupled_count the number of stereo streams
-         * @param channel_mapping the mapping between the streams
-         * @returns The #GstCaps, or %NULL if the parameters would lead to invalid Opus caps.
-         */
-        function codec_utils_opus_create_caps(rate: number, channels: number, channel_mapping_family: number, stream_count: number, coupled_count: number, channel_mapping: Uint8Array | null): Gst.Caps | null
-        /**
-         * Creates Opus caps from the given OpusHead @header and comment header
-         * @comments.
-         * @since 1.8
-         * @param header OpusHead header
-         * @param comments Comment header or NULL
-         * @returns The #GstCaps.
-         */
-        function codec_utils_opus_create_caps_from_header(header: Gst.Buffer, comments: Gst.Buffer | null): Gst.Caps | null
-        /**
-         * Creates OpusHead header from the given parameters.
-         * @since 1.8
-         * @param rate the sample rate
-         * @param channels the number of channels
-         * @param channel_mapping_family the channel mapping family
-         * @param stream_count the number of independent streams
-         * @param coupled_count the number of stereo streams
-         * @param channel_mapping the mapping between the streams
-         * @param pre_skip Pre-skip in 48kHz samples or 0
-         * @param output_gain Output gain or 0
-         * @returns The #GstBuffer containing the OpusHead.
-         */
-        function codec_utils_opus_create_header(rate: number, channels: number, channel_mapping_family: number, stream_count: number, coupled_count: number, channel_mapping: Uint8Array | null, pre_skip: number, output_gain: number): Gst.Buffer | null
-        /**
-         * Parses Opus caps and fills the different fields with defaults if possible.
-         * @since 1.8
-         * @param caps the #GstCaps to parse the data from
-         * @returns %TRUE if parsing was successful, %FALSE otherwise., the sample rate, the number of channels, the channel mapping family, the number of independent streams, the number of stereo streams, the mapping between the streams
-         */
-        function codec_utils_opus_parse_caps(caps: Gst.Caps): boolean
-        /**
-         * Parses the OpusHead header.
-         * @since 1.8
-         * @param header the OpusHead #GstBuffer
-         * @returns %TRUE if parsing was successful, %FALSE otherwise., the sample rate, the number of channels, the channel mapping family, the number of independent streams, the number of stereo streams, the mapping between the streams, Pre-skip in 48kHz samples or 0, Output gain or 0
-         */
-        function codec_utils_opus_parse_header(header: Gst.Buffer): boolean
-        /**
-         * List all available #GstEncodingTarget for the specified category, or all categories
-         * if @categoryname is %NULL.
-         * @param categoryname The category, for ex: #GST_ENCODING_CATEGORY_DEVICE.
-        Can be %NULL.
-         * @returns The list of #GstEncodingTarget
-         */
-        function encoding_list_all_targets(categoryname: string | null): EncodingTarget[]
-        /**
-         * Lists all #GstEncodingTarget categories present on disk.
-         * @returns A list of #GstEncodingTarget categories.
-         */
-        function encoding_list_available_categories(): string[]
-        /**
-         * Requests plugin installation without blocking. Once the plugins have been
-         * installed or installation has failed, @func will be called with the result
-         * of the installation and your provided @user_data pointer.
-         *
-         * This function requires a running GLib/Gtk main loop. If you are not
-         * running a GLib/Gtk main loop, make sure to regularly call
-         * g_main_context_iteration(NULL,FALSE).
-         *
-         * The installer strings that make up @detail are typically obtained by
-         * calling gst_missing_plugin_message_get_installer_detail() on missing-plugin
-         * messages that have been caught on a pipeline's bus or created by the
-         * application via the provided API, such as gst_missing_element_message_new().
-         *
-         * It is possible to request the installation of multiple missing plugins in
-         * one go (as might be required if there is a demuxer for a certain format
-         * installed but no suitable video decoder and no suitable audio decoder).
-         * @param details NULL-terminated array
-            of installer string details (see below)
-         * @param ctx a #GstInstallPluginsContext, or NULL
-         * @param func the function to call when the
-            installer program returns
-         * @returns result code whether an external installer could be started
-         */
-        function install_plugins_async(details: string[], ctx: InstallPluginsContext | null, func: InstallPluginsResultFunc): InstallPluginsReturn
-        /**
-         * Checks whether plugin installation (initiated by this application only)
-         * is currently in progress.
-         * @returns TRUE if plugin installation is in progress, otherwise FALSE
-         */
-        function install_plugins_installation_in_progress(): boolean
-        /**
-         * Convenience function to return the descriptive string associated
-         * with a status code.  This function returns English strings and
-         * should not be used for user messages. It is here only to assist
-         * in debugging.
-         * @param ret the return status code
-         * @returns a descriptive string for the status code in `ret`
-         */
-        function install_plugins_return_get_name(ret: InstallPluginsReturn): string
-        /**
-         * Checks whether plugin installation is likely to be supported by the
-         * current environment. This currently only checks whether the helper script
-         * that is to be provided by the distribution or operating system vendor
-         * exists.
-         * @returns TRUE if plugin installation is likely to be supported.
-         */
-        function install_plugins_supported(): boolean
-        /**
-         * Requests plugin installation and block until the plugins have been
-         * installed or installation has failed.
-         *
-         * This function should almost never be used, it only exists for cases where
-         * a non-GLib main loop is running and the user wants to run it in a separate
-         * thread and marshal the result back asynchronously into the main thread
-         * using the other non-GLib main loop. You should almost always use
-         * gst_install_plugins_async() instead of this function.
-         * @param details NULL-terminated array
-            of installer string details
-         * @param ctx a #GstInstallPluginsContext, or NULL
-         * @returns the result of the installation.
-         */
-        function install_plugins_sync(details: string[], ctx: InstallPluginsContext | null): InstallPluginsReturn
-        /**
-         * Checks whether @msg is a missing plugins message.
-         * @param msg a #GstMessage
-         * @returns %TRUE if `msg` is a missing-plugins message, otherwise %FALSE.
-         */
-        function is_missing_plugin_message(msg: Gst.Message): boolean
-        /**
-         * Returns an opaque string containing all the details about the missing
-         * element to be passed to an external installer called via
-         * gst_install_plugins_async() or gst_install_plugins_sync().
-         *
-         * This function is mainly for applications that call external plugin
-         * installation mechanisms using one of the two above-mentioned functions in
-         * the case where the application knows exactly what kind of plugin it is
-         * missing.
-         * @param decode_caps the (fixed) caps for which a decoder element is needed
-         * @returns a newly-allocated detail string. Free string          with g_free() when not needed any longer.
-         */
-        function missing_decoder_installer_detail_new(decode_caps: Gst.Caps): string
-        /**
-         * Creates a missing-plugin message for @element to notify the application
-         * that a decoder element for a particular set of (fixed) caps is missing.
-         * This function is mainly for use in plugins.
-         * @param element the #GstElement posting the message
-         * @param decode_caps the (fixed) caps for which a decoder element is needed
-         * @returns a new #GstMessage
-         */
-        function missing_decoder_message_new(element: Gst.Element, decode_caps: Gst.Caps): Gst.Message
-        /**
-         * Returns an opaque string containing all the details about the missing
-         * element to be passed to an external installer called via
-         * gst_install_plugins_async() or gst_install_plugins_sync().
-         *
-         * This function is mainly for applications that call external plugin
-         * installation mechanisms using one of the two above-mentioned functions in
-         * the case where the application knows exactly what kind of plugin it is
-         * missing.
-         * @param factory_name the name of the missing element (element factory),
-                   e.g. "videoscale" or "cdparanoiasrc"
-         * @returns a newly-allocated detail string. Free string          with g_free() when not needed any longer.
-         */
-        function missing_element_installer_detail_new(factory_name: string): string
-        /**
-         * Creates a missing-plugin message for @element to notify the application
-         * that a certain required element is missing. This function is mainly for
-         * use in plugins.
-         * @param element the #GstElement posting the message
-         * @param factory_name the name of the missing element (element factory),
-                   e.g. "videoscale" or "cdparanoiasrc"
-         * @returns a new #GstMessage
-         */
-        function missing_element_message_new(element: Gst.Element, factory_name: string): Gst.Message
-        /**
-         * Returns an opaque string containing all the details about the missing
-         * element to be passed to an external installer called via
-         * gst_install_plugins_async() or gst_install_plugins_sync().
-         *
-         * This function is mainly for applications that call external plugin
-         * installation mechanisms using one of the two above-mentioned functions in
-         * the case where the application knows exactly what kind of plugin it is
-         * missing.
-         * @param encode_caps the (fixed) caps for which an encoder element is needed
-         * @returns a newly-allocated detail string. Free string          with g_free() when not needed any longer.
-         */
-        function missing_encoder_installer_detail_new(encode_caps: Gst.Caps): string
-        /**
-         * Creates a missing-plugin message for @element to notify the application
-         * that an encoder element for a particular set of (fixed) caps is missing.
-         * This function is mainly for use in plugins.
-         * @param element the #GstElement posting the message
-         * @param encode_caps the (fixed) caps for which an encoder element is needed
-         * @returns a new #GstMessage
-         */
-        function missing_encoder_message_new(element: Gst.Element, encode_caps: Gst.Caps): Gst.Message
-        /**
-         * Returns a localised string describing the missing feature, for use in
-         * error dialogs and the like. Should never return NULL unless @msg is not
-         * a valid missing-plugin message.
-         *
-         * This function is mainly for applications that need a human-readable string
-         * describing a missing plugin, given a previously collected missing-plugin
-         * message
-         * @param msg a missing-plugin #GstMessage of type #GST_MESSAGE_ELEMENT
-         * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
-         */
-        function missing_plugin_message_get_description(msg: Gst.Message): string
-        /**
-         * Returns an opaque string containing all the details about the missing
-         * element to be passed to an external installer called via
-         * gst_install_plugins_async() or gst_install_plugins_sync().
-         *
-         * This function is mainly for applications that call external plugin
-         * installation mechanisms using one of the two above-mentioned functions.
-         * @param msg a missing-plugin #GstMessage of type #GST_MESSAGE_ELEMENT
-         * @returns a newly-allocated detail string, or NULL on error. Free string          with g_free() when not needed any longer.
-         */
-        function missing_plugin_message_get_installer_detail(msg: Gst.Message): string | null
-        /**
-         * Get the stream-id of the stream for which an element is missing.
-         * @since 1.26
-         * @param msg A missing-plugin #GstMessage of type #GST_MESSAGE_ELEMENT
-         * @returns The stream-id or %NULL if none is specified.
-         */
-        function missing_plugin_message_get_stream_id(msg: Gst.Message): string | null
-        /**
-         * Set the stream-id of the stream for which an element is missing.
-         * @since 1.26
-         * @param msg A missing-plugin #GstMessage of type #GST_MESSAGE_ELEMENT
-         * @param stream_id The stream id for which an element is missing
-         */
-        function missing_plugin_message_set_stream_id(msg: Gst.Message, stream_id: string): void
-        /**
-         * Returns an opaque string containing all the details about the missing
-         * element to be passed to an external installer called via
-         * gst_install_plugins_async() or gst_install_plugins_sync().
-         *
-         * This function is mainly for applications that call external plugin
-         * installation mechanisms using one of the two above-mentioned functions in
-         * the case where the application knows exactly what kind of plugin it is
-         * missing.
-         * @param protocol the URI protocol the missing source needs to implement,
-                   e.g. "http" or "mms"
-         * @returns a newly-allocated detail string. Free string          with g_free() when not needed any longer.
-         */
-        function missing_uri_sink_installer_detail_new(protocol: string): string
-        /**
-         * Creates a missing-plugin message for @element to notify the application
-         * that a sink element for a particular URI protocol is missing. This
-         * function is mainly for use in plugins.
-         * @param element the #GstElement posting the message
-         * @param protocol the URI protocol the missing sink needs to implement,
-                   e.g. "http" or "smb"
-         * @returns a new #GstMessage
-         */
-        function missing_uri_sink_message_new(element: Gst.Element, protocol: string): Gst.Message
-        /**
-         * Returns an opaque string containing all the details about the missing
-         * element to be passed to an external installer called via
-         * gst_install_plugins_async() or gst_install_plugins_sync().
-         *
-         * This function is mainly for applications that call external plugin
-         * installation mechanisms using one of the two above-mentioned functions in
-         * the case where the application knows exactly what kind of plugin it is
-         * missing.
-         * @param protocol the URI protocol the missing source needs to implement,
-                   e.g. "http" or "mms"
-         * @returns a newly-allocated detail string. Free string          with g_free() when not needed any longer.
-         */
-        function missing_uri_source_installer_detail_new(protocol: string): string
-        /**
-         * Creates a missing-plugin message for @element to notify the application
-         * that a source element for a particular URI protocol is missing. This
-         * function is mainly for use in plugins.
-         * @param element the #GstElement posting the message
-         * @param protocol the URI protocol the missing source needs to implement,
-                   e.g. "http" or "mms"
-         * @returns a new #GstMessage
-         */
-        function missing_uri_source_message_new(element: Gst.Element, protocol: string): Gst.Message
-        /**
-         * Adds a codec tag describing the format specified by @caps to @taglist.
-         * @param taglist a #GstTagList
-         * @param codec_tag a GStreamer codec tag such as #GST_TAG_AUDIO_CODEC,
-                    #GST_TAG_VIDEO_CODEC or #GST_TAG_CODEC. If none is specified,
-                    the function will attempt to detect the appropriate category.
-         * @param caps the (fixed) #GstCaps for which a codec tag should be added.
-         * @returns TRUE if a codec tag was added, FALSE otherwise.
-         */
-        function pb_utils_add_codec_description_to_tag_list(taglist: Gst.TagList, codec_tag: string | null, caps: Gst.Caps): boolean
-        /**
-         * Returns flags that describe the format of the caps if known. No flags are
-         * set for unknown caps.
-         * @since 1.20
-         * @param caps the (fixed) #GstCaps for which flags are requested
-         * @returns #GstPbUtilsCapsDescriptionFlags that describe `caps`, or no flags          if the caps are unknown.
-         */
-        function pb_utils_get_caps_description_flags(caps: Gst.Caps): PbUtilsCapsDescriptionFlags
-        /**
-         * Returns a localised (as far as this is possible) string describing the
-         * media format specified in @caps, for use in error dialogs or other messages
-         * to be seen by the user. Should never return NULL unless @caps is invalid.
-         *
-         * Also see the convenience function
-         * gst_pb_utils_add_codec_description_to_tag_list().
-         * @param caps the (fixed) #GstCaps for which an format description is needed
-         * @returns a newly-allocated description string, or NULL on error. Free          string with g_free() when not needed any longer.
-         */
-        function pb_utils_get_codec_description(caps: Gst.Caps): string | null
-        /**
-         * Returns a localised string describing an decoder for the format specified
-         * in @caps, for use in error dialogs or other messages to be seen by the user.
-         *
-         * This function is mainly for internal use, applications would typically
-         * use gst_missing_plugin_message_get_description() to get a description of
-         * a missing feature from a missing-plugin message.
-         * @param caps the (fixed) #GstCaps for which an decoder description is needed
-         * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
-         */
-        function pb_utils_get_decoder_description(caps: Gst.Caps): string
-        /**
-         * Returns a localised string describing the given element, for use in
-         * error dialogs or other messages to be seen by the user.
-         *
-         * This function is mainly for internal use, applications would typically
-         * use gst_missing_plugin_message_get_description() to get a description of
-         * a missing feature from a missing-plugin message.
-         * @param factory_name the name of the element, e.g. "giosrc"
-         * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
-         */
-        function pb_utils_get_element_description(factory_name: string): string
-        /**
-         * Returns a localised string describing an encoder for the format specified
-         * in @caps, for use in error dialogs or other messages to be seen by the user.
-         *
-         * This function is mainly for internal use, applications would typically
-         * use gst_missing_plugin_message_get_description() to get a description of
-         * a missing feature from a missing-plugin message.
-         * @param caps the (fixed) #GstCaps for which an encoder description is needed
-         * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
-         */
-        function pb_utils_get_encoder_description(caps: Gst.Caps): string
-        /**
-         * Returns a possible file extension for the given caps, if known.
-         * @since 1.20
-         * @param caps the (fixed) #GstCaps for which a file extension is needed
-         * @returns a newly-allocated file extension string, or NULL on error. Free          string with g_free() when not needed any longer.
-         */
-        function pb_utils_get_file_extension_from_caps(caps: Gst.Caps): string | null
-        /**
-         * Returns a localised string describing a sink element handling the protocol
-         * specified in @protocol, for use in error dialogs or other messages to be
-         * seen by the user.
-         *
-         * This function is mainly for internal use, applications would typically
-         * use gst_missing_plugin_message_get_description() to get a description of
-         * a missing feature from a missing-plugin message.
-         * @param protocol the protocol the sink element needs to handle, e.g. "http"
-         * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
-         */
-        function pb_utils_get_sink_description(protocol: string): string
-        /**
-         * Returns a localised string describing a source element handling the protocol
-         * specified in @protocol, for use in error dialogs or other messages to be
-         * seen by the user.
-         *
-         * This function is mainly for internal use, applications would typically
-         * use gst_missing_plugin_message_get_description() to get a description of
-         * a missing feature from a missing-plugin message.
-         * @param protocol the protocol the source element needs to handle, e.g. "http"
-         * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
-         */
-        function pb_utils_get_source_description(protocol: string): string
-        /**
-         * Initialises the base utils support library. This function is not
-         * thread-safe. Applications should call it after calling gst_init(),
-         * plugins should call it from their plugin_init function.
-         *
-         * This function may be called multiple times. It will do nothing if the
-         * library has already been initialised.
-         */
-        function pb_utils_init(): void
-        /**
-         * Gets the version number of the GStreamer Plugins Base libraries.
-         * @returns , pointer to a guint to store the major version number, or %NULL, pointer to a guint to store the minor version number, or %NULL, pointer to a guint to store the micro version number, or %NULL, pointer to a guint to store the nano version number, or %NULL
-         */
-        function plugins_base_version(): [number, number, number, number]
-        /**
-         * This function returns a string that is useful for describing this version
-         * of GStreamer's gst-plugins-base libraries to the outside world: user agent
-         * strings, logging, about dialogs ...
-         * @returns a newly allocated string describing this version of gst-plugins-base
-         */
-        function plugins_base_version_string(): string
-        const ENCODING_CATEGORY_CAPTURE: "capture"
-        const ENCODING_CATEGORY_DEVICE: "device"
-        const ENCODING_CATEGORY_FILE_EXTENSION: "file-extension"
-        const ENCODING_CATEGORY_ONLINE_SERVICE: "online-service"
-        const ENCODING_CATEGORY_STORAGE_EDITING: "storage-editing"
-        const PLUGINS_BASE_VERSION_MAJOR: 1
-        const PLUGINS_BASE_VERSION_MICRO: 10
-        const PLUGINS_BASE_VERSION_MINOR: 26
-        const PLUGINS_BASE_VERSION_NANO: 0
-        
-        namespace AudioVisualizerShader {
-            const $gtype: GObject.GType<AudioVisualizerShader>
-        }
 
-        /**
-         * Different types of supported background shading functions.
-         */
-        enum AudioVisualizerShader {
+        interface $Exports {
+            InstallPluginsContext: InstallPluginsContextStruct
+        }
+        
+        interface AudioVisualizerShaderEnum {
+            readonly $gtype: GObject.GType<AudioVisualizerShader>
             /**
              * no shading
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * plain fading
              */
-            "FADE" = 1,
+            readonly "FADE": 1
             /**
              * fade and move up
              */
-            "FADE_AND_MOVE_UP" = 2,
+            readonly "FADE_AND_MOVE_UP": 2
             /**
              * fade and move down
              */
-            "FADE_AND_MOVE_DOWN" = 3,
+            readonly "FADE_AND_MOVE_DOWN": 3
             /**
              * fade and move left
              */
-            "FADE_AND_MOVE_LEFT" = 4,
+            readonly "FADE_AND_MOVE_LEFT": 4
             /**
              * fade and move right
              */
-            "FADE_AND_MOVE_RIGHT" = 5,
+            readonly "FADE_AND_MOVE_RIGHT": 5
             /**
              * fade and move horizontally out
              */
-            "FADE_AND_MOVE_HORIZ_OUT" = 6,
+            readonly "FADE_AND_MOVE_HORIZ_OUT": 6
             /**
              * fade and move horizontally in
              */
-            "FADE_AND_MOVE_HORIZ_IN" = 7,
+            readonly "FADE_AND_MOVE_HORIZ_IN": 7
             /**
              * fade and move vertically out
              */
-            "FADE_AND_MOVE_VERT_OUT" = 8,
+            readonly "FADE_AND_MOVE_VERT_OUT": 8
             /**
              * fade and move vertically in
              */
-            "FADE_AND_MOVE_VERT_IN" = 9,
+            readonly "FADE_AND_MOVE_VERT_IN": 9
+        }
+        type AudioVisualizerShader = AudioVisualizerShaderEnum[Exclude<keyof AudioVisualizerShaderEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Different types of supported background shading functions.
+             */
+            AudioVisualizerShader: AudioVisualizerShaderEnum
         }
         
-        namespace DiscovererResult {
-            const $gtype: GObject.GType<DiscovererResult>
-        }
-
-        /**
-         * Result values for the discovery process.
-         */
-        enum DiscovererResult {
+        interface DiscovererResultEnum {
+            readonly $gtype: GObject.GType<DiscovererResult>
             /**
              * The discovery was successful
              */
-            "OK" = 0,
+            readonly "OK": 0
             /**
              * the URI is invalid
              */
-            "URI_INVALID" = 1,
+            readonly "URI_INVALID": 1
             /**
              * an error happened and the GError is set
              */
-            "ERROR" = 2,
+            readonly "ERROR": 2
             /**
              * the discovery timed-out
              */
-            "TIMEOUT" = 3,
+            readonly "TIMEOUT": 3
             /**
              * the discoverer was already discovering a file
              */
-            "BUSY" = 4,
+            readonly "BUSY": 4
             /**
              * Some plugins are missing for full discovery
              */
-            "MISSING_PLUGINS" = 5,
+            readonly "MISSING_PLUGINS": 5
+        }
+        type DiscovererResult = DiscovererResultEnum[Exclude<keyof DiscovererResultEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Result values for the discovery process.
+             */
+            DiscovererResult: DiscovererResultEnum
         }
         
-        namespace InstallPluginsReturn {
-            const $gtype: GObject.GType<InstallPluginsReturn>
-        }
-
-        /**
-         * Result codes returned by gst_install_plugins_async() and
-         * gst_install_plugins_sync(), and also the result code passed to the
-         * #GstInstallPluginsResultFunc specified with gst_install_plugins_async().
-         *
-         * These codes indicate success or failure of starting an external installer
-         * program and to what extent the requested plugins could be installed.
-         */
-        enum InstallPluginsReturn {
+        interface InstallPluginsReturnEnum {
+            readonly $gtype: GObject.GType<InstallPluginsReturn>
             /**
              * all of the requested plugins could be
              *     installed
              */
-            "SUCCESS" = 0,
+            readonly "SUCCESS": 0
             /**
              * no appropriate installation candidate for
              *     any of the requested plugins could be found. Only return this if nothing
              *     has been installed. Return #GST_INSTALL_PLUGINS_PARTIAL_SUCCESS if
              *     some (but not all) of the requested plugins could be installed.
              */
-            "NOT_FOUND" = 1,
+            readonly "NOT_FOUND": 1
             /**
              * an error occurred during the installation. If
              *     this happens, the  user has already seen an error message and another
              *     one should not be displayed
              */
-            "ERROR" = 2,
+            readonly "ERROR": 2
             /**
              * some of the requested plugins could
              *     be installed, but not all
              */
-            "PARTIAL_SUCCESS" = 3,
+            readonly "PARTIAL_SUCCESS": 3
             /**
              * the user has aborted the installation
              */
-            "USER_ABORT" = 4,
+            readonly "USER_ABORT": 4
             /**
              * the installer had an unclean exit code
              *     (ie. death by signal)
              */
-            "CRASHED" = 100,
+            readonly "CRASHED": 100
             /**
              * the helper returned an invalid status code
              */
-            "INVALID" = 101,
+            readonly "INVALID": 101
             /**
              * returned by gst_install_plugins_async() to
              *     indicate that everything went fine so far and the provided callback
              *     will be called with the result of the installation later
              */
-            "STARTED_OK" = 200,
+            readonly "STARTED_OK": 200
             /**
              * some internal failure has
              *     occurred when trying to start the installer
              */
-            "INTERNAL_FAILURE" = 201,
+            readonly "INTERNAL_FAILURE": 201
             /**
              * the helper script to call the
              *     actual installer is not installed
              */
-            "HELPER_MISSING" = 202,
+            readonly "HELPER_MISSING": 202
             /**
              * a previously-started plugin
              *     installation is still in progress, try again later
              */
-            "INSTALL_IN_PROGRESS" = 203,
+            readonly "INSTALL_IN_PROGRESS": 203
         }
-        /**
+        type InstallPluginsReturn = InstallPluginsReturnEnum[Exclude<keyof InstallPluginsReturnEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Result codes returned by gst_install_plugins_async() and
+             * gst_install_plugins_sync(), and also the result code passed to the
+             * #GstInstallPluginsResultFunc specified with gst_install_plugins_async().
+             *
+             * These codes indicate success or failure of starting an external installer
+             * program and to what extent the requested plugins could be installed.
+             */
+            InstallPluginsReturn: InstallPluginsReturnEnum
+            /**
          * Convenience function to return the descriptive string associated
          * with a status code.  This function returns English strings and
          * should not be used for user messages. It is here only to assist
@@ -2269,91 +1617,94 @@ declare module "gi://GstPbutils?version=1.0" {
          * @param ret the return status code
          * @returns a descriptive string for the status code in `ret`
          */
-        function get_name(ret: InstallPluginsReturn): string
-        
-        namespace DiscovererSerializeFlags {
-            const $gtype: GObject.GType<DiscovererSerializeFlags>
+        get_name: (ret: InstallPluginsReturn) => string
         }
-
-        /**
-         * You can use these flags to control what is serialized by
-         * gst_discoverer_info_to_variant()
-         * @since 1.6
-         */
-        enum DiscovererSerializeFlags {
+        
+        interface DiscovererSerializeFlagsBitfield {
+            readonly $gtype: GObject.GType<DiscovererSerializeFlags>
             /**
              * Serialize only basic information, excluding
              * caps, tags and miscellaneous information
              */
-            "BASIC" = 0,
+            readonly "BASIC": 0
             /**
              * Serialize the caps for each stream
              */
-            "CAPS" = 1,
+            readonly "CAPS": 1
             /**
              * Serialize the tags for each stream
              */
-            "TAGS" = 2,
+            readonly "TAGS": 2
             /**
              * Serialize miscellaneous information for each stream
              */
-            "MISC" = 4,
+            readonly "MISC": 4
             /**
              * Serialize all the available info, including
              * caps, tags and miscellaneous information
              */
-            "ALL" = 7,
+            readonly "ALL": 7
+        }
+        type DiscovererSerializeFlags = number
+        interface $Exports {
+            /**
+             * You can use these flags to control what is serialized by
+             * gst_discoverer_info_to_variant()
+             * @since 1.6
+             */
+            DiscovererSerializeFlags: DiscovererSerializeFlagsBitfield
         }
         
-        namespace PbUtilsCapsDescriptionFlags {
-            const $gtype: GObject.GType<PbUtilsCapsDescriptionFlags>
-        }
-
-        /**
-         * Flags that are returned by gst_pb_utils_get_caps_description_flags() and
-         * describe the format of the caps.
-         * @since 1.20
-         */
-        enum PbUtilsCapsDescriptionFlags {
+        interface PbUtilsCapsDescriptionFlagsBitfield {
+            readonly $gtype: GObject.GType<PbUtilsCapsDescriptionFlags>
             /**
              * Caps describe a container format.
              */
-            "CONTAINER" = 1,
+            readonly "CONTAINER": 1
             /**
              * Caps describe an audio format, or a
              *     container format that can store audio.
              */
-            "AUDIO" = 2,
+            readonly "AUDIO": 2
             /**
              * Caps describe an video format, or a
              *     container format that can store video.
              */
-            "VIDEO" = 4,
+            readonly "VIDEO": 4
             /**
              * Caps describe an image format, or a
              *     container format that can store image.
              */
-            "IMAGE" = 8,
+            readonly "IMAGE": 8
             /**
              * Caps describe an subtitle format, or a
              *     container format that can store subtitles.
              */
-            "SUBTITLE" = 16,
+            readonly "SUBTITLE": 16
             /**
              * Container format is a tags container.
              */
-            "TAG" = 32,
+            readonly "TAG": 32
             /**
              * Container format can store any kind of
              *     stream type.
              */
-            "GENERIC" = 64,
+            readonly "GENERIC": 64
             /**
              * Caps describe a metadata format, or a container format that can store
              * metadata.
              * @since 1.22
              */
-            "METADATA" = 128,
+            readonly "METADATA": 128
+        }
+        type PbUtilsCapsDescriptionFlags = number
+        interface $Exports {
+            /**
+             * Flags that are returned by gst_pb_utils_get_caps_description_flags() and
+             * describe the format of the caps.
+             * @since 1.20
+             */
+            PbUtilsCapsDescriptionFlags: PbUtilsCapsDescriptionFlagsBitfield
         }
         /**
          * @param scope
@@ -2389,7 +1740,736 @@ declare module "gi://GstPbutils?version=1.0" {
         /**
          */
         type EncodingTargetClass = GObject.ObjectClass
+
+        interface $Exports {
+            __name__: "GstPbutils"
+            __version: "1.0"
+            ENCODING_CATEGORY_CAPTURE: "capture"
+            ENCODING_CATEGORY_DEVICE: "device"
+            ENCODING_CATEGORY_FILE_EXTENSION: "file-extension"
+            ENCODING_CATEGORY_ONLINE_SERVICE: "online-service"
+            ENCODING_CATEGORY_STORAGE_EDITING: "storage-editing"
+            PLUGINS_BASE_VERSION_MAJOR: 1
+            PLUGINS_BASE_VERSION_MICRO: 10
+            PLUGINS_BASE_VERSION_MINOR: 26
+            PLUGINS_BASE_VERSION_NANO: 0
+            /**
+             * Sets the level and profile on @caps if it can be determined from
+             * @audio_config. See gst_codec_utils_aac_get_level() and
+             * gst_codec_utils_aac_get_profile() for more details on the parameters.
+             * @caps must be audio/mpeg caps with an "mpegversion" field of either 2 or 4.
+             * If mpegversion is 4, the "base-profile" field is also set in @caps.
+             * @param caps the #GstCaps to which level and profile fields are to be added
+             * @param audio_config a pointer to the AudioSpecificConfig
+                           as specified in the Elementary Stream Descriptor (esds)
+                           in ISO/IEC 14496-1. (See below for more details)
+             * @returns %TRUE if the level and profile could be set, %FALSE otherwise.
+             */
+            codec_utils_aac_caps_set_level_and_profile(caps: Gst.Caps, audio_config: Uint8Array): boolean
+            /**
+             * Returns the channels of the given AAC stream.
+             * @since 1.10
+             * @param audio_config a pointer to the AudioSpecificConfig
+                           as specified in the Elementary Stream Descriptor (esds)
+                           in ISO/IEC 14496-1.
+             * @returns The channels or 0 if the channel could not be determined.
+             */
+            codec_utils_aac_get_channels(audio_config: Uint8Array): number
+            /**
+             * Translates the sample rate to the index corresponding to it in AAC spec.
+             * @param rate Sample rate
+             * @returns The AAC index for this sample rate, -1 if the rate is not a valid AAC sample rate.
+             */
+            codec_utils_aac_get_index_from_sample_rate(rate: number): number
+            /**
+             * Determines the level of a stream as defined in ISO/IEC 14496-3. For AAC LC
+             * streams, the constraints from the AAC audio profile are applied. For AAC
+             * Main, LTP, SSR and others, the Main profile is used.
+             *
+             * The @audio_config parameter follows the following format, starting from the
+             * most significant bit of the first byte:
+             *
+             *   * Bit 0:4 contains the AudioObjectType (if this is 0x5, then the
+             *     real AudioObjectType is carried after the rate and channel data)
+             *   * Bit 5:8 contains the sample frequency index (if this is 0xf, then the
+             *     next 24 bits define the actual sample frequency, and subsequent
+             *     fields are appropriately shifted).
+             *   * Bit 9:12 contains the channel configuration
+             * @param audio_config a pointer to the AudioSpecificConfig
+                           as specified in the Elementary Stream Descriptor (esds)
+                           in ISO/IEC 14496-1.
+             * @returns The level as a const string and %NULL if the level could not be determined.
+             */
+            codec_utils_aac_get_level(audio_config: Uint8Array): string | null
+            /**
+             * Returns the profile of the given AAC stream as a string. The profile is
+             * normally determined using the AudioObjectType field which is in the first
+             * 5 bits of @audio_config
+             * @param audio_config a pointer to the AudioSpecificConfig
+                           as specified in the Elementary Stream Descriptor (esds)
+                           in ISO/IEC 14496-1.
+             * @returns The profile as a const string and %NULL if the profile could not be determined.
+             */
+            codec_utils_aac_get_profile(audio_config: Uint8Array): string | null
+            /**
+             * Translates the sample rate index found in AAC headers to the actual sample
+             * rate.
+             * @since 1.10
+             * @param audio_config a pointer to the AudioSpecificConfig
+                           as specified in the Elementary Stream Descriptor (esds)
+                           in ISO/IEC 14496-1.
+             * @returns The sample rate if sr_idx is valid, 0 otherwise.
+             */
+            codec_utils_aac_get_sample_rate(audio_config: Uint8Array): number
+            /**
+             * Translates the sample rate index found in AAC headers to the actual sample
+             * rate.
+             * @param sr_idx Sample rate index as from the AudioSpecificConfig (MPEG-4
+                     container) or ADTS frame header
+             * @returns The sample rate if `sr_idx` is valid, 0 otherwise.
+             */
+            codec_utils_aac_get_sample_rate_from_index(sr_idx: number): number
+            /**
+             * Creates the corresponding AV1 Codec Configuration Record
+             * @since 1.26
+             * @param caps a video/x-av1 #GstCaps
+             * @returns The AV1 Codec Configuration Record, or %NULL if there was an error.
+             */
+            codec_utils_av1_create_av1c_from_caps(caps: Gst.Caps): Gst.Buffer | null
+            /**
+             * Parses the provided @av1c and returns the corresponding caps
+             * @since 1.26
+             * @param av1c a #GstBuffer containing a AV1CodecConfigurationRecord
+             * @returns The parsed AV1 caps, or %NULL if there is an error
+             */
+            codec_utils_av1_create_caps_from_av1c(av1c: Gst.Buffer): Gst.Caps | null
+            /**
+             * Transform a seq_level_idx into the level string
+             * @since 1.26
+             * @param seq_level_idx A seq_level_idx
+             * @returns the level string or %NULL if the seq_level_idx is unknown
+             */
+            codec_utils_av1_get_level(seq_level_idx: number): string | null
+            /**
+             * Transform a level string from the caps into the seq_level_idx
+             * @since 1.26
+             * @param level A level string from caps
+             * @returns the seq_level_idx or 31 (max-level) if the level is unknown
+             */
+            codec_utils_av1_get_seq_level_idx(level: string): number
+            /**
+             * Converts a RFC 6381 compatible codec string to #GstCaps. More than one codec
+             * string can be present (separated by `,`).
+             *
+             * Registered codecs can be found at http://mp4ra.org/#/codecs
+             * @since 1.22
+             * @param codecs_field A mime codec string field
+             * @returns The corresponding #GstCaps or %NULL
+             */
+            codec_utils_caps_from_mime_codec(codecs_field: string): Gst.Caps | null
+            /**
+             * Converts @caps to a RFC 6381 compatible codec string if possible.
+             *
+             * Useful for providing the 'codecs' field inside the 'Content-Type' HTTP
+             * header for containerized formats, such as mp4 or matroska.
+             *
+             * Registered codecs can be found at http://mp4ra.org/#/codecs
+             * @since 1.20
+             * @param caps A #GstCaps to convert to mime codec
+             * @returns a RFC 6381 compatible codec string or %NULL
+             */
+            codec_utils_caps_get_mime_codec(caps: Gst.Caps): string | null
+            /**
+             * Sets the level and profile in @caps if it can be determined from @sps. See
+             * gst_codec_utils_h264_get_level() and gst_codec_utils_h264_get_profile()
+             * for more details on the parameters.
+             * @param caps the #GstCaps to which the level and profile are to be added
+             * @param sps Pointer to the sequence parameter set for the stream.
+             * @returns %TRUE if the level and profile could be set, %FALSE otherwise.
+             */
+            codec_utils_h264_caps_set_level_and_profile(caps: Gst.Caps, sps: Uint8Array): boolean
+            /**
+             * Converts the level indication (level_idc) in the stream's
+             * sequence parameter set into a string. The SPS is expected to have the
+             * same format as for gst_codec_utils_h264_get_profile().
+             * @param sps Pointer to the sequence parameter set for the stream.
+             * @returns The level as a const string, or %NULL if there is an error.
+             */
+            codec_utils_h264_get_level(sps: Uint8Array): string | null
+            /**
+             * Transform a level string from the caps into the level_idc
+             * @param level A level string from caps
+             * @returns the level_idc or 0 if the level is unknown
+             */
+            codec_utils_h264_get_level_idc(level: string): number
+            /**
+             * Converts the profile indication (profile_idc) in the stream's
+             * sequence parameter set into a string. The SPS is expected to have the
+             * following format, as defined in the H.264 specification. The SPS is viewed
+             * as a bitstream here, with bit 0 being the most significant bit of the first
+             * byte.
+             *
+             * * Bit 0:7   - Profile indication
+             * * Bit 8     - constraint_set0_flag
+             * * Bit 9     - constraint_set1_flag
+             * * Bit 10    - constraint_set2_flag
+             * * Bit 11    - constraint_set3_flag
+             * * Bit 12    - constraint_set3_flag
+             * * Bit 13:15 - Reserved
+             * * Bit 16:24 - Level indication
+             * @param sps Pointer to the sequence parameter set for the stream.
+             * @returns The profile as a const string, or %NULL if there is an error.
+             */
+            codec_utils_h264_get_profile(sps: Uint8Array): string | null
+            /**
+             * Parses profile, flags, and level from a H264 AVCC extradata/sequence_header.
+             * These are most commonly retrieved from a video/x-h264 caps with a codec_data
+             * buffer.
+             *
+             * The format of H264 AVCC extradata/sequence_header is documented in the
+             * ITU-T H.264 specification section 7.3.2.1.1 as well as in ISO/IEC 14496-15
+             * section 5.3.3.1.2.
+             * @since 1.20
+             * @param codec_data H264 AVCC extradata
+             * @returns %TRUE on success, %FALSE on failure, return location for h264 profile_idc or %NULL, return location for h264 constraint set flags or %NULL, return location h264 level_idc or %NULL
+             */
+            codec_utils_h264_get_profile_flags_level(codec_data: Uint8Array): [boolean, number, number, number]
+            /**
+             * Sets the level, tier and profile in @caps if it can be determined from
+             * @profile_tier_level. See gst_codec_utils_h265_get_level(),
+             * gst_codec_utils_h265_get_tier() and gst_codec_utils_h265_get_profile()
+             * for more details on the parameters.
+             * @since 1.4
+             * @param caps the #GstCaps to which the level, tier and profile are to be added
+             * @param profile_tier_level Pointer to the profile_tier_level
+              struct
+             * @returns %TRUE if the level, tier, profile could be set, %FALSE otherwise.
+             */
+            codec_utils_h265_caps_set_level_tier_and_profile(caps: Gst.Caps, profile_tier_level: Uint8Array): boolean
+            /**
+             * Converts the level indication (general_level_idc) in the stream's
+             * profile_tier_level structure into a string. The profiel_tier_level is
+             * expected to have the same format as for gst_codec_utils_h264_get_profile().
+             * @since 1.4
+             * @param profile_tier_level Pointer to the profile_tier_level
+              for the stream
+             * @returns The level as a const string, or %NULL if there is an error.
+             */
+            codec_utils_h265_get_level(profile_tier_level: Uint8Array): string | null
+            /**
+             * Transform a level string from the caps into the level_idc
+             * @since 1.4
+             * @param level A level string from caps
+             * @returns the level_idc or 0 if the level is unknown
+             */
+            codec_utils_h265_get_level_idc(level: string): number
+            /**
+             * Converts the profile indication (general_profile_idc) in the stream's
+             * profile_level_tier structure into a string. The profile_tier_level is
+             * expected to have the following format, as defined in the H.265
+             * specification. The profile_tier_level is viewed as a bitstream here,
+             * with bit 0 being the most significant bit of the first byte.
+             *
+             * * Bit 0:1   - general_profile_space
+             * * Bit 2     - general_tier_flag
+             * * Bit 3:7   - general_profile_idc
+             * * Bit 8:39  - gernal_profile_compatibility_flags
+             * * Bit 40    - general_progressive_source_flag
+             * * Bit 41    - general_interlaced_source_flag
+             * * Bit 42    - general_non_packed_constraint_flag
+             * * Bit 43    - general_frame_only_constraint_flag
+             * * Bit 44:87 - See below
+             * * Bit 88:95 - general_level_idc
+             * @since 1.4
+             * @param profile_tier_level Pointer to the profile_tier_level
+              structure for the stream.
+             * @returns The profile as a const string, or %NULL if there is an error.
+             */
+            codec_utils_h265_get_profile(profile_tier_level: Uint8Array): string | null
+            /**
+             * Converts the tier indication (general_tier_flag) in the stream's
+             * profile_tier_level structure into a string. The profile_tier_level
+             * is expected to have the same format as for gst_codec_utils_h264_get_profile().
+             * @since 1.4
+             * @param profile_tier_level Pointer to the profile_tier_level
+              for the stream.
+             * @returns The tier as a const string, or %NULL if there is an error.
+             */
+            codec_utils_h265_get_tier(profile_tier_level: Uint8Array): string | null
+            /**
+             * Sets the level, tier and profile in @caps if it can be determined from
+             * @decoder_configuration. See gst_codec_utils_h266_get_level(),
+             * gst_codec_utils_h266_get_tier() and gst_codec_utils_h266_get_profile()
+             * for more details on the parameters.
+             * @since 1.26
+             * @param caps the #GstCaps to which the level, tier and profile are to be added
+             * @param decoder_configuration Pointer to the VvcDecoderConfigurationRecord struct as defined in ISO/IEC 14496-15
+             * @returns %TRUE if the level, tier, profile could be set, %FALSE otherwise.
+             */
+            codec_utils_h266_caps_set_level_tier_and_profile(caps: Gst.Caps, decoder_configuration: Uint8Array): boolean
+            /**
+             * Converts the level indication (general_level_idc) in the stream's
+             * ptl_record structure into a string.
+             * @since 1.26
+             * @param ptl_record Pointer to the VvcPTLRecord structure as defined in ISO/IEC 14496-15.
+             * @returns The level as a const string, or %NULL if there is an error.
+             */
+            codec_utils_h266_get_level(ptl_record: Uint8Array): string | null
+            /**
+             * Transform a level string from the caps into the level_idc
+             * @since 1.26
+             * @param level A level string from caps
+             * @returns the level_idc or 0 if the level is unknown
+             */
+            codec_utils_h266_get_level_idc(level: string): number
+            /**
+             * Converts the profile indication (general_profile_idc) in the stream's
+             * ptl_record structure into a string.
+             * @since 1.26
+             * @param ptl_record Pointer to the VvcPTLRecord structure as defined in ISO/IEC 14496-15.
+             * @returns The profile as a const string, or %NULL if there is an error.
+             */
+            codec_utils_h266_get_profile(ptl_record: Uint8Array): string | null
+            /**
+             * Converts the tier indication (general_tier_flag) in the stream's
+             * ptl_record structure into a string.
+             * @since 1.26
+             * @param ptl_record Pointer to the VvcPTLRecord structure as defined in ISO/IEC 14496-15.
+             * @returns The tier as a const string, or %NULL if there is an error.
+             */
+            codec_utils_h266_get_tier(ptl_record: Uint8Array): string | null
+            /**
+             * Sets the level and profile in @caps if it can be determined from
+             * @vis_obj_seq. See gst_codec_utils_mpeg4video_get_level() and
+             * gst_codec_utils_mpeg4video_get_profile() for more details on the
+             * parameters.
+             * @param caps the #GstCaps to which the level and profile are to be added
+             * @param vis_obj_seq Pointer to the visual object
+              sequence for the stream.
+             * @returns %TRUE if the level and profile could be set, %FALSE otherwise.
+             */
+            codec_utils_mpeg4video_caps_set_level_and_profile(caps: Gst.Caps, vis_obj_seq: Uint8Array): boolean
+            /**
+             * Converts the level indication in the stream's visual object sequence into
+             * a string. @vis_obj_seq is expected to be the data following the visual
+             * object sequence start code. Only the first byte
+             * (profile_and_level_indication) is used.
+             * @param vis_obj_seq Pointer to the visual object
+              sequence for the stream.
+             * @returns The level as a const string, or NULL if there is an error.
+             */
+            codec_utils_mpeg4video_get_level(vis_obj_seq: Uint8Array): string | null
+            /**
+             * Converts the profile indication in the stream's visual object sequence into
+             * a string. @vis_obj_seq is expected to be the data following the visual
+             * object sequence start code. Only the first byte
+             * (profile_and_level_indication) is used.
+             * @param vis_obj_seq Pointer to the visual object
+              sequence for the stream.
+             * @returns The profile as a const string, or NULL if there is an error.
+             */
+            codec_utils_mpeg4video_get_profile(vis_obj_seq: Uint8Array): string | null
+            /**
+             * Creates Opus caps from the given parameters.
+             * @since 1.8
+             * @param rate the sample rate
+             * @param channels the number of channels
+             * @param channel_mapping_family the channel mapping family
+             * @param stream_count the number of independent streams
+             * @param coupled_count the number of stereo streams
+             * @param channel_mapping the mapping between the streams
+             * @returns The #GstCaps, or %NULL if the parameters would lead to invalid Opus caps.
+             */
+            codec_utils_opus_create_caps(rate: number, channels: number, channel_mapping_family: number, stream_count: number, coupled_count: number, channel_mapping: Uint8Array | null): Gst.Caps | null
+            /**
+             * Creates Opus caps from the given OpusHead @header and comment header
+             * @comments.
+             * @since 1.8
+             * @param header OpusHead header
+             * @param comments Comment header or NULL
+             * @returns The #GstCaps.
+             */
+            codec_utils_opus_create_caps_from_header(header: Gst.Buffer, comments: Gst.Buffer | null): Gst.Caps | null
+            /**
+             * Creates OpusHead header from the given parameters.
+             * @since 1.8
+             * @param rate the sample rate
+             * @param channels the number of channels
+             * @param channel_mapping_family the channel mapping family
+             * @param stream_count the number of independent streams
+             * @param coupled_count the number of stereo streams
+             * @param channel_mapping the mapping between the streams
+             * @param pre_skip Pre-skip in 48kHz samples or 0
+             * @param output_gain Output gain or 0
+             * @returns The #GstBuffer containing the OpusHead.
+             */
+            codec_utils_opus_create_header(rate: number, channels: number, channel_mapping_family: number, stream_count: number, coupled_count: number, channel_mapping: Uint8Array | null, pre_skip: number, output_gain: number): Gst.Buffer | null
+            /**
+             * Parses Opus caps and fills the different fields with defaults if possible.
+             * @since 1.8
+             * @param caps the #GstCaps to parse the data from
+             * @returns %TRUE if parsing was successful, %FALSE otherwise., the sample rate, the number of channels, the channel mapping family, the number of independent streams, the number of stereo streams, the mapping between the streams
+             */
+            codec_utils_opus_parse_caps(caps: Gst.Caps): [boolean, number, number, number, number, number, Uint8Array]
+            /**
+             * Parses the OpusHead header.
+             * @since 1.8
+             * @param header the OpusHead #GstBuffer
+             * @returns %TRUE if parsing was successful, %FALSE otherwise., the sample rate, the number of channels, the channel mapping family, the number of independent streams, the number of stereo streams, the mapping between the streams, Pre-skip in 48kHz samples or 0, Output gain or 0
+             */
+            codec_utils_opus_parse_header(header: Gst.Buffer): [boolean, number, number, number, number, number, Uint8Array, number, number]
+            /**
+             * List all available #GstEncodingTarget for the specified category, or all categories
+             * if @categoryname is %NULL.
+             * @param categoryname The category, for ex: #GST_ENCODING_CATEGORY_DEVICE.
+            Can be %NULL.
+             * @returns The list of #GstEncodingTarget
+             */
+            encoding_list_all_targets(categoryname: string | null): EncodingTarget[]
+            /**
+             * Lists all #GstEncodingTarget categories present on disk.
+             * @returns A list of #GstEncodingTarget categories.
+             */
+            encoding_list_available_categories(): string[]
+            /**
+             * Requests plugin installation without blocking. Once the plugins have been
+             * installed or installation has failed, @func will be called with the result
+             * of the installation and your provided @user_data pointer.
+             *
+             * This function requires a running GLib/Gtk main loop. If you are not
+             * running a GLib/Gtk main loop, make sure to regularly call
+             * g_main_context_iteration(NULL,FALSE).
+             *
+             * The installer strings that make up @detail are typically obtained by
+             * calling gst_missing_plugin_message_get_installer_detail() on missing-plugin
+             * messages that have been caught on a pipeline's bus or created by the
+             * application via the provided API, such as gst_missing_element_message_new().
+             *
+             * It is possible to request the installation of multiple missing plugins in
+             * one go (as might be required if there is a demuxer for a certain format
+             * installed but no suitable video decoder and no suitable audio decoder).
+             * @param details NULL-terminated array
+                of installer string details (see below)
+             * @param ctx a #GstInstallPluginsContext, or NULL
+             * @param func the function to call when the
+                installer program returns
+             * @returns result code whether an external installer could be started
+             */
+            install_plugins_async(details: string[], ctx: InstallPluginsContext | null, func: InstallPluginsResultFunc): InstallPluginsReturn
+            /**
+             * Checks whether plugin installation (initiated by this application only)
+             * is currently in progress.
+             * @returns TRUE if plugin installation is in progress, otherwise FALSE
+             */
+            install_plugins_installation_in_progress(): boolean
+            /**
+             * Convenience function to return the descriptive string associated
+             * with a status code.  This function returns English strings and
+             * should not be used for user messages. It is here only to assist
+             * in debugging.
+             * @param ret the return status code
+             * @returns a descriptive string for the status code in `ret`
+             */
+            install_plugins_return_get_name(ret: InstallPluginsReturn): string
+            /**
+             * Checks whether plugin installation is likely to be supported by the
+             * current environment. This currently only checks whether the helper script
+             * that is to be provided by the distribution or operating system vendor
+             * exists.
+             * @returns TRUE if plugin installation is likely to be supported.
+             */
+            install_plugins_supported(): boolean
+            /**
+             * Requests plugin installation and block until the plugins have been
+             * installed or installation has failed.
+             *
+             * This function should almost never be used, it only exists for cases where
+             * a non-GLib main loop is running and the user wants to run it in a separate
+             * thread and marshal the result back asynchronously into the main thread
+             * using the other non-GLib main loop. You should almost always use
+             * gst_install_plugins_async() instead of this function.
+             * @param details NULL-terminated array
+                of installer string details
+             * @param ctx a #GstInstallPluginsContext, or NULL
+             * @returns the result of the installation.
+             */
+            install_plugins_sync(details: string[], ctx: InstallPluginsContext | null): InstallPluginsReturn
+            /**
+             * Checks whether @msg is a missing plugins message.
+             * @param msg a #GstMessage
+             * @returns %TRUE if `msg` is a missing-plugins message, otherwise %FALSE.
+             */
+            is_missing_plugin_message(msg: Gst.Message): boolean
+            /**
+             * Returns an opaque string containing all the details about the missing
+             * element to be passed to an external installer called via
+             * gst_install_plugins_async() or gst_install_plugins_sync().
+             *
+             * This function is mainly for applications that call external plugin
+             * installation mechanisms using one of the two above-mentioned functions in
+             * the case where the application knows exactly what kind of plugin it is
+             * missing.
+             * @param decode_caps the (fixed) caps for which a decoder element is needed
+             * @returns a newly-allocated detail string. Free string          with g_free() when not needed any longer.
+             */
+            missing_decoder_installer_detail_new(decode_caps: Gst.Caps): string
+            /**
+             * Creates a missing-plugin message for @element to notify the application
+             * that a decoder element for a particular set of (fixed) caps is missing.
+             * This function is mainly for use in plugins.
+             * @param element the #GstElement posting the message
+             * @param decode_caps the (fixed) caps for which a decoder element is needed
+             * @returns a new #GstMessage
+             */
+            missing_decoder_message_new(element: Gst.Element, decode_caps: Gst.Caps): Gst.Message
+            /**
+             * Returns an opaque string containing all the details about the missing
+             * element to be passed to an external installer called via
+             * gst_install_plugins_async() or gst_install_plugins_sync().
+             *
+             * This function is mainly for applications that call external plugin
+             * installation mechanisms using one of the two above-mentioned functions in
+             * the case where the application knows exactly what kind of plugin it is
+             * missing.
+             * @param factory_name the name of the missing element (element factory),
+                       e.g. "videoscale" or "cdparanoiasrc"
+             * @returns a newly-allocated detail string. Free string          with g_free() when not needed any longer.
+             */
+            missing_element_installer_detail_new(factory_name: string): string
+            /**
+             * Creates a missing-plugin message for @element to notify the application
+             * that a certain required element is missing. This function is mainly for
+             * use in plugins.
+             * @param element the #GstElement posting the message
+             * @param factory_name the name of the missing element (element factory),
+                       e.g. "videoscale" or "cdparanoiasrc"
+             * @returns a new #GstMessage
+             */
+            missing_element_message_new(element: Gst.Element, factory_name: string): Gst.Message
+            /**
+             * Returns an opaque string containing all the details about the missing
+             * element to be passed to an external installer called via
+             * gst_install_plugins_async() or gst_install_plugins_sync().
+             *
+             * This function is mainly for applications that call external plugin
+             * installation mechanisms using one of the two above-mentioned functions in
+             * the case where the application knows exactly what kind of plugin it is
+             * missing.
+             * @param encode_caps the (fixed) caps for which an encoder element is needed
+             * @returns a newly-allocated detail string. Free string          with g_free() when not needed any longer.
+             */
+            missing_encoder_installer_detail_new(encode_caps: Gst.Caps): string
+            /**
+             * Creates a missing-plugin message for @element to notify the application
+             * that an encoder element for a particular set of (fixed) caps is missing.
+             * This function is mainly for use in plugins.
+             * @param element the #GstElement posting the message
+             * @param encode_caps the (fixed) caps for which an encoder element is needed
+             * @returns a new #GstMessage
+             */
+            missing_encoder_message_new(element: Gst.Element, encode_caps: Gst.Caps): Gst.Message
+            /**
+             * Returns a localised string describing the missing feature, for use in
+             * error dialogs and the like. Should never return NULL unless @msg is not
+             * a valid missing-plugin message.
+             *
+             * This function is mainly for applications that need a human-readable string
+             * describing a missing plugin, given a previously collected missing-plugin
+             * message
+             * @param msg a missing-plugin #GstMessage of type #GST_MESSAGE_ELEMENT
+             * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
+             */
+            missing_plugin_message_get_description(msg: Gst.Message): string
+            /**
+             * Returns an opaque string containing all the details about the missing
+             * element to be passed to an external installer called via
+             * gst_install_plugins_async() or gst_install_plugins_sync().
+             *
+             * This function is mainly for applications that call external plugin
+             * installation mechanisms using one of the two above-mentioned functions.
+             * @param msg a missing-plugin #GstMessage of type #GST_MESSAGE_ELEMENT
+             * @returns a newly-allocated detail string, or NULL on error. Free string          with g_free() when not needed any longer.
+             */
+            missing_plugin_message_get_installer_detail(msg: Gst.Message): string | null
+            /**
+             * Get the stream-id of the stream for which an element is missing.
+             * @since 1.26
+             * @param msg A missing-plugin #GstMessage of type #GST_MESSAGE_ELEMENT
+             * @returns The stream-id or %NULL if none is specified.
+             */
+            missing_plugin_message_get_stream_id(msg: Gst.Message): string | null
+            /**
+             * Set the stream-id of the stream for which an element is missing.
+             * @since 1.26
+             * @param msg A missing-plugin #GstMessage of type #GST_MESSAGE_ELEMENT
+             * @param stream_id The stream id for which an element is missing
+             */
+            missing_plugin_message_set_stream_id(msg: Gst.Message, stream_id: string): void
+            /**
+             * Returns an opaque string containing all the details about the missing
+             * element to be passed to an external installer called via
+             * gst_install_plugins_async() or gst_install_plugins_sync().
+             *
+             * This function is mainly for applications that call external plugin
+             * installation mechanisms using one of the two above-mentioned functions in
+             * the case where the application knows exactly what kind of plugin it is
+             * missing.
+             * @param protocol the URI protocol the missing source needs to implement,
+                       e.g. "http" or "mms"
+             * @returns a newly-allocated detail string. Free string          with g_free() when not needed any longer.
+             */
+            missing_uri_sink_installer_detail_new(protocol: string): string
+            /**
+             * Creates a missing-plugin message for @element to notify the application
+             * that a sink element for a particular URI protocol is missing. This
+             * function is mainly for use in plugins.
+             * @param element the #GstElement posting the message
+             * @param protocol the URI protocol the missing sink needs to implement,
+                       e.g. "http" or "smb"
+             * @returns a new #GstMessage
+             */
+            missing_uri_sink_message_new(element: Gst.Element, protocol: string): Gst.Message
+            /**
+             * Returns an opaque string containing all the details about the missing
+             * element to be passed to an external installer called via
+             * gst_install_plugins_async() or gst_install_plugins_sync().
+             *
+             * This function is mainly for applications that call external plugin
+             * installation mechanisms using one of the two above-mentioned functions in
+             * the case where the application knows exactly what kind of plugin it is
+             * missing.
+             * @param protocol the URI protocol the missing source needs to implement,
+                       e.g. "http" or "mms"
+             * @returns a newly-allocated detail string. Free string          with g_free() when not needed any longer.
+             */
+            missing_uri_source_installer_detail_new(protocol: string): string
+            /**
+             * Creates a missing-plugin message for @element to notify the application
+             * that a source element for a particular URI protocol is missing. This
+             * function is mainly for use in plugins.
+             * @param element the #GstElement posting the message
+             * @param protocol the URI protocol the missing source needs to implement,
+                       e.g. "http" or "mms"
+             * @returns a new #GstMessage
+             */
+            missing_uri_source_message_new(element: Gst.Element, protocol: string): Gst.Message
+            /**
+             * Adds a codec tag describing the format specified by @caps to @taglist.
+             * @param taglist a #GstTagList
+             * @param codec_tag a GStreamer codec tag such as #GST_TAG_AUDIO_CODEC,
+                        #GST_TAG_VIDEO_CODEC or #GST_TAG_CODEC. If none is specified,
+                        the function will attempt to detect the appropriate category.
+             * @param caps the (fixed) #GstCaps for which a codec tag should be added.
+             * @returns TRUE if a codec tag was added, FALSE otherwise.
+             */
+            pb_utils_add_codec_description_to_tag_list(taglist: Gst.TagList, codec_tag: string | null, caps: Gst.Caps): boolean
+            /**
+             * Returns flags that describe the format of the caps if known. No flags are
+             * set for unknown caps.
+             * @since 1.20
+             * @param caps the (fixed) #GstCaps for which flags are requested
+             * @returns #GstPbUtilsCapsDescriptionFlags that describe `caps`, or no flags          if the caps are unknown.
+             */
+            pb_utils_get_caps_description_flags(caps: Gst.Caps): PbUtilsCapsDescriptionFlags
+            /**
+             * Returns a localised (as far as this is possible) string describing the
+             * media format specified in @caps, for use in error dialogs or other messages
+             * to be seen by the user. Should never return NULL unless @caps is invalid.
+             *
+             * Also see the convenience function
+             * gst_pb_utils_add_codec_description_to_tag_list().
+             * @param caps the (fixed) #GstCaps for which an format description is needed
+             * @returns a newly-allocated description string, or NULL on error. Free          string with g_free() when not needed any longer.
+             */
+            pb_utils_get_codec_description(caps: Gst.Caps): string | null
+            /**
+             * Returns a localised string describing an decoder for the format specified
+             * in @caps, for use in error dialogs or other messages to be seen by the user.
+             *
+             * This function is mainly for internal use, applications would typically
+             * use gst_missing_plugin_message_get_description() to get a description of
+             * a missing feature from a missing-plugin message.
+             * @param caps the (fixed) #GstCaps for which an decoder description is needed
+             * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
+             */
+            pb_utils_get_decoder_description(caps: Gst.Caps): string
+            /**
+             * Returns a localised string describing the given element, for use in
+             * error dialogs or other messages to be seen by the user.
+             *
+             * This function is mainly for internal use, applications would typically
+             * use gst_missing_plugin_message_get_description() to get a description of
+             * a missing feature from a missing-plugin message.
+             * @param factory_name the name of the element, e.g. "giosrc"
+             * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
+             */
+            pb_utils_get_element_description(factory_name: string): string
+            /**
+             * Returns a localised string describing an encoder for the format specified
+             * in @caps, for use in error dialogs or other messages to be seen by the user.
+             *
+             * This function is mainly for internal use, applications would typically
+             * use gst_missing_plugin_message_get_description() to get a description of
+             * a missing feature from a missing-plugin message.
+             * @param caps the (fixed) #GstCaps for which an encoder description is needed
+             * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
+             */
+            pb_utils_get_encoder_description(caps: Gst.Caps): string
+            /**
+             * Returns a possible file extension for the given caps, if known.
+             * @since 1.20
+             * @param caps the (fixed) #GstCaps for which a file extension is needed
+             * @returns a newly-allocated file extension string, or NULL on error. Free          string with g_free() when not needed any longer.
+             */
+            pb_utils_get_file_extension_from_caps(caps: Gst.Caps): string | null
+            /**
+             * Returns a localised string describing a sink element handling the protocol
+             * specified in @protocol, for use in error dialogs or other messages to be
+             * seen by the user.
+             *
+             * This function is mainly for internal use, applications would typically
+             * use gst_missing_plugin_message_get_description() to get a description of
+             * a missing feature from a missing-plugin message.
+             * @param protocol the protocol the sink element needs to handle, e.g. "http"
+             * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
+             */
+            pb_utils_get_sink_description(protocol: string): string
+            /**
+             * Returns a localised string describing a source element handling the protocol
+             * specified in @protocol, for use in error dialogs or other messages to be
+             * seen by the user.
+             *
+             * This function is mainly for internal use, applications would typically
+             * use gst_missing_plugin_message_get_description() to get a description of
+             * a missing feature from a missing-plugin message.
+             * @param protocol the protocol the source element needs to handle, e.g. "http"
+             * @returns a newly-allocated description string. Free          string with g_free() when not needed any longer.
+             */
+            pb_utils_get_source_description(protocol: string): string
+            /**
+             * Initialises the base utils support library. This function is not
+             * thread-safe. Applications should call it after calling gst_init(),
+             * plugins should call it from their plugin_init function.
+             *
+             * This function may be called multiple times. It will do nothing if the
+             * library has already been initialised.
+             */
+            pb_utils_init(): void
+            /**
+             * Gets the version number of the GStreamer Plugins Base libraries.
+             * @returns , pointer to a guint to store the major version number, or %NULL, pointer to a guint to store the minor version number, or %NULL, pointer to a guint to store the micro version number, or %NULL, pointer to a guint to store the nano version number, or %NULL
+             */
+            plugins_base_version(): [number, number, number, number]
+            /**
+             * This function returns a string that is useful for describing this version
+             * of GStreamer's gst-plugins-base libraries to the outside world: user agent
+             * strings, logging, about dialogs ...
+             * @returns a newly allocated string describing this version of gst-plugins-base
+             */
+            plugins_base_version_string(): string
+        }
     }
 
+    const GstPbutils: GstPbutils.$Exports
     export default GstPbutils
 }

@@ -24,10 +24,7 @@ declare module "gi://GstVulkanWayland?version=1.0" {
 
     
 
-
     namespace GstVulkanWayland {
-        const __name__: "GstVulkanWayland"
-        const __version: "1.0"
         
 
         namespace VulkanDisplayWayland {
@@ -44,11 +41,6 @@ declare module "gi://GstVulkanWayland?version=1.0" {
             }
         }
 
-        /**
-         * the contents of a #GstVulkanDisplayWayland are private and should only be accessed
-         * through the provided API
-         * @since 1.18
-         */
         interface VulkanDisplayWayland extends GstVulkan.VulkanDisplay {
             readonly $signals: VulkanDisplayWayland.SignalSignatures
             readonly $readableProperties: VulkanDisplayWayland.ReadableProperties
@@ -59,6 +51,7 @@ declare module "gi://GstVulkanWayland?version=1.0" {
         interface VulkanDisplayWaylandClass extends Omit<GstVulkan.VulkanDisplayClass, "new"> {
             readonly $gtype: GObject.GType<VulkanDisplayWayland>
             readonly prototype: VulkanDisplayWayland
+
             new (props?: Partial<GObject.ConstructorProps<VulkanDisplayWayland>>): VulkanDisplayWayland
             /**
              * Create a new #GstVulkanDisplayWayland from the wayland display name.  See `wl_display_connect`()
@@ -77,9 +70,21 @@ declare module "gi://GstVulkanWayland?version=1.0" {
             new_with_display(display: never | null): VulkanDisplayWayland
         }
 
-        const VulkanDisplayWayland: VulkanDisplayWaylandClass
-        none
+        interface $Exports {
+            /**
+             * the contents of a #GstVulkanDisplayWayland are private and should only be accessed
+             * through the provided API
+             * @since 1.18
+             */
+            VulkanDisplayWayland: VulkanDisplayWaylandClass
+        }
+
+        interface $Exports {
+            __name__: "GstVulkanWayland"
+            __version: "1.0"
+        }
     }
 
+    const GstVulkanWayland: GstVulkanWayland.$Exports
     export default GstVulkanWayland
 }

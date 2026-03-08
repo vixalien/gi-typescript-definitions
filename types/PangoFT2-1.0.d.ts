@@ -28,10 +28,7 @@ declare module "gi://PangoFT2?version=1.0" {
 
     
 
-
     namespace PangoFT2 {
-        const __name__: "PangoFT2"
-        const __version: "1.0"
         
 
         namespace FontMap {
@@ -48,9 +45,6 @@ declare module "gi://PangoFT2?version=1.0" {
             }
         }
 
-        /**
-         * The `PangoFT2FontMap` is the `PangoFontMap` implementation for FreeType fonts.
-         */
         interface FontMap extends PangoFc.FontMap, Gio.ListModel {
             readonly $signals: FontMap.SignalSignatures
             readonly $readableProperties: FontMap.ReadableProperties
@@ -92,6 +86,7 @@ declare module "gi://PangoFT2?version=1.0" {
         interface FontMapClass extends Omit<PangoFc.FontMapClass, "new"> {
             readonly $gtype: GObject.GType<FontMap>
             readonly prototype: FontMap
+
             new (props?: Partial<GObject.ConstructorProps<FontMap>>): FontMap
             /**
              * Create a new `PangoFT2FontMap` object.
@@ -103,130 +98,139 @@ declare module "gi://PangoFT2?version=1.0" {
              * @since 1.2
              * @returns the newly created fontmap object. Unref with g_object_unref() when you are finished with it.
              */
-            "new"(): Pango.FontMap
+            "new"(): FontMap
         }
 
-        const FontMap: FontMapClass
-        /**
-         * Gets the `PangoCoverage` for a `PangoFT2Font`.
-         *
-         * Use [method@Pango.Font.get_coverage] instead.
-         * @param font a Pango FT2 font
-         * @param language a language tag.
-         * @returns a `PangoCoverage`
-         */
-        function font_get_coverage(font: Pango.Font, language: Pango.Language): Pango.Coverage
-        none
-        /**
-         * Retrieves kerning information for a combination of two glyphs.
-         *
-         * Use pango_fc_font_kern_glyphs() instead.
-         * @param font a `PangoFont`
-         * @param left the left `PangoGlyph`
-         * @param right the right `PangoGlyph`
-         * @returns The amount of kerning (in Pango units) to   apply for the given combination of glyphs.
-         */
-        function font_get_kerning(font: Pango.Font, left: Pango.Glyph, right: Pango.Glyph): number
-        none
-        /**
-         * Return the index of a glyph suitable for drawing unknown
-         * characters with @font, or %PANGO_GLYPH_EMPTY if no suitable
-         * glyph found.
-         *
-         * If you want to draw an unknown-box for a character that
-         * is not covered by the font, use PANGO_GET_UNKNOWN_GLYPH()
-         * instead.
-         * @param font a `PangoFont`
-         * @returns a glyph index into `font`, or %PANGO_GLYPH_EMPTY
-         */
-        function get_unknown_glyph(font: Pango.Font): Pango.Glyph
-        /**
-         * Renders a `PangoGlyphString` onto a FreeType2 bitmap.
-         * @param bitmap the FreeType2 bitmap onto which to draw the string
-         * @param font the font in which to draw the string
-         * @param glyphs the glyph string to draw
-         * @param x the x position of the start of the string (in pixels)
-         * @param y the y position of the baseline (in pixels)
-         */
-        function render(bitmap: freetype2.Bitmap, font: Pango.Font, glyphs: Pango.GlyphString, x: number, y: number): void
-        /**
-         * Render a `PangoLayout` onto a FreeType2 bitmap
-         * @param bitmap a FT_Bitmap to render the layout onto
-         * @param layout a `PangoLayout`
-         * @param x the X position of the left of the layout (in pixels)
-         * @param y the Y position of the top of the layout (in pixels)
-         */
-        function render_layout(bitmap: freetype2.Bitmap, layout: Pango.Layout, x: number, y: number): void
-        /**
-         * Render a `PangoLayoutLine` onto a FreeType2 bitmap
-         * @param bitmap a FT_Bitmap to render the line onto
-         * @param line a `PangoLayoutLine`
-         * @param x the x position of start of string (in pixels)
-         * @param y the y position of baseline (in pixels)
-         */
-        function render_layout_line(bitmap: freetype2.Bitmap, line: Pango.LayoutLine, x: number, y: number): void
-        /**
-         * Render a `PangoLayoutLine` onto a FreeType2 bitmap, with he
-         * location specified in fixed-point Pango units rather than
-         * pixels.
-         *
-         * (Using this will avoid extra inaccuracies from rounding
-         * to integer pixels multiple times, even if the final glyph
-         * positions are integers.)
-         * @since 1.6
-         * @param bitmap a FT_Bitmap to render the line onto
-         * @param line a `PangoLayoutLine`
-         * @param x the x position of start of string (in Pango units)
-         * @param y the y position of baseline (in Pango units)
-         */
-        function render_layout_line_subpixel(bitmap: freetype2.Bitmap, line: Pango.LayoutLine, x: number, y: number): void
-        /**
-         * Render a `PangoLayout` onto a FreeType2 bitmap, with he
-         * location specified in fixed-point Pango units rather than
-         * pixels.
-         *
-         * (Using this will avoid extra inaccuracies from rounding
-         * to integer pixels multiple times, even if the final glyph
-         * positions are integers.)
-         * @since 1.6
-         * @param bitmap a FT_Bitmap to render the layout onto
-         * @param layout a `PangoLayout`
-         * @param x the X position of the left of the layout (in Pango units)
-         * @param y the Y position of the top of the layout (in Pango units)
-         */
-        function render_layout_subpixel(bitmap: freetype2.Bitmap, layout: Pango.Layout, x: number, y: number): void
-        /**
-         * Renders a `PangoGlyphString` onto a FreeType2 bitmap, possibly
-         * transforming the layed-out coordinates through a transformation
-         * matrix.
-         *
-         * Note that the transformation matrix for @font is not
-         * changed, so to produce correct rendering results, the @font
-         * must have been loaded using a `PangoContext` with an identical
-         * transformation matrix to that passed in to this function.
-         * @since 1.6
-         * @param bitmap the FreeType2 bitmap onto which to draw the string
-         * @param matrix a `PangoMatrix`
-         * @param font the font in which to draw the string
-         * @param glyphs the glyph string to draw
-         * @param x the x position of the start of the string (in Pango
-          units in user space coordinates)
-         * @param y the y position of the baseline (in Pango units
-          in user space coordinates)
-         */
-        function render_transformed(bitmap: freetype2.Bitmap, matrix: Pango.Matrix | null, font: Pango.Font, glyphs: Pango.GlyphString, x: number, y: number): void
-        /**
-         * Free the global fontmap. (See pango_ft2_font_map_for_display())
-         * Use of the global PangoFT2 fontmap is deprecated.
-         */
-        function shutdown_display(): void
+        interface $Exports {
+            /**
+             * The `PangoFT2FontMap` is the `PangoFontMap` implementation for FreeType fonts.
+             */
+            FontMap: FontMapClass
+        }
         /**
          * Function type for doing final config tweaking on prepared FcPatterns.
          * @param pattern the FcPattern to tweak.
          * @param data user data.
          */
         type SubstituteFunc = (pattern: fontconfig.Pattern, data: never | null) => void
+
+        interface $Exports {
+            __name__: "PangoFT2"
+            __version: "1.0"
+            /**
+             * Gets the `PangoCoverage` for a `PangoFT2Font`.
+             *
+             * Use [method@Pango.Font.get_coverage] instead.
+             * @param font a Pango FT2 font
+             * @param language a language tag.
+             * @returns a `PangoCoverage`
+             */
+            font_get_coverage(font: Pango.Font, language: Pango.Language): Pango.Coverage
+            /**
+             * Retrieves kerning information for a combination of two glyphs.
+             *
+             * Use pango_fc_font_kern_glyphs() instead.
+             * @param font a `PangoFont`
+             * @param left the left `PangoGlyph`
+             * @param right the right `PangoGlyph`
+             * @returns The amount of kerning (in Pango units) to   apply for the given combination of glyphs.
+             */
+            font_get_kerning(font: Pango.Font, left: Pango.Glyph, right: Pango.Glyph): number
+            /**
+             * Return the index of a glyph suitable for drawing unknown
+             * characters with @font, or %PANGO_GLYPH_EMPTY if no suitable
+             * glyph found.
+             *
+             * If you want to draw an unknown-box for a character that
+             * is not covered by the font, use PANGO_GET_UNKNOWN_GLYPH()
+             * instead.
+             * @param font a `PangoFont`
+             * @returns a glyph index into `font`, or %PANGO_GLYPH_EMPTY
+             */
+            get_unknown_glyph(font: Pango.Font): Pango.Glyph
+            /**
+             * Renders a `PangoGlyphString` onto a FreeType2 bitmap.
+             * @param bitmap the FreeType2 bitmap onto which to draw the string
+             * @param font the font in which to draw the string
+             * @param glyphs the glyph string to draw
+             * @param x the x position of the start of the string (in pixels)
+             * @param y the y position of the baseline (in pixels)
+             */
+            render(bitmap: freetype2.Bitmap, font: Pango.Font, glyphs: Pango.GlyphString, x: number, y: number): void
+            /**
+             * Render a `PangoLayout` onto a FreeType2 bitmap
+             * @param bitmap a FT_Bitmap to render the layout onto
+             * @param layout a `PangoLayout`
+             * @param x the X position of the left of the layout (in pixels)
+             * @param y the Y position of the top of the layout (in pixels)
+             */
+            render_layout(bitmap: freetype2.Bitmap, layout: Pango.Layout, x: number, y: number): void
+            /**
+             * Render a `PangoLayoutLine` onto a FreeType2 bitmap
+             * @param bitmap a FT_Bitmap to render the line onto
+             * @param line a `PangoLayoutLine`
+             * @param x the x position of start of string (in pixels)
+             * @param y the y position of baseline (in pixels)
+             */
+            render_layout_line(bitmap: freetype2.Bitmap, line: Pango.LayoutLine, x: number, y: number): void
+            /**
+             * Render a `PangoLayoutLine` onto a FreeType2 bitmap, with he
+             * location specified in fixed-point Pango units rather than
+             * pixels.
+             *
+             * (Using this will avoid extra inaccuracies from rounding
+             * to integer pixels multiple times, even if the final glyph
+             * positions are integers.)
+             * @since 1.6
+             * @param bitmap a FT_Bitmap to render the line onto
+             * @param line a `PangoLayoutLine`
+             * @param x the x position of start of string (in Pango units)
+             * @param y the y position of baseline (in Pango units)
+             */
+            render_layout_line_subpixel(bitmap: freetype2.Bitmap, line: Pango.LayoutLine, x: number, y: number): void
+            /**
+             * Render a `PangoLayout` onto a FreeType2 bitmap, with he
+             * location specified in fixed-point Pango units rather than
+             * pixels.
+             *
+             * (Using this will avoid extra inaccuracies from rounding
+             * to integer pixels multiple times, even if the final glyph
+             * positions are integers.)
+             * @since 1.6
+             * @param bitmap a FT_Bitmap to render the layout onto
+             * @param layout a `PangoLayout`
+             * @param x the X position of the left of the layout (in Pango units)
+             * @param y the Y position of the top of the layout (in Pango units)
+             */
+            render_layout_subpixel(bitmap: freetype2.Bitmap, layout: Pango.Layout, x: number, y: number): void
+            /**
+             * Renders a `PangoGlyphString` onto a FreeType2 bitmap, possibly
+             * transforming the layed-out coordinates through a transformation
+             * matrix.
+             *
+             * Note that the transformation matrix for @font is not
+             * changed, so to produce correct rendering results, the @font
+             * must have been loaded using a `PangoContext` with an identical
+             * transformation matrix to that passed in to this function.
+             * @since 1.6
+             * @param bitmap the FreeType2 bitmap onto which to draw the string
+             * @param matrix a `PangoMatrix`
+             * @param font the font in which to draw the string
+             * @param glyphs the glyph string to draw
+             * @param x the x position of the start of the string (in Pango
+              units in user space coordinates)
+             * @param y the y position of the baseline (in Pango units
+              in user space coordinates)
+             */
+            render_transformed(bitmap: freetype2.Bitmap, matrix: Pango.Matrix | null, font: Pango.Font, glyphs: Pango.GlyphString, x: number, y: number): void
+            /**
+             * Free the global fontmap. (See pango_ft2_font_map_for_display())
+             * Use of the global PangoFT2 fontmap is deprecated.
+             */
+            shutdown_display(): void
+        }
     }
 
+    const PangoFT2: PangoFT2.$Exports
     export default PangoFT2
 }

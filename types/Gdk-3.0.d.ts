@@ -26,96 +26,7 @@ declare module "gi://Gdk?version=3.0" {
 
     
 
-
     namespace Gdk {
-        const __name__: "Gdk"
-        const __version: "3.0"
-        
-
-        namespace DevicePad {
-            interface SignalSignatures extends Device.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Device.ReadableProperties {
-            }
-
-            interface WritableProperties extends Device.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Device.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Device {
-            }
-        }
-
-        /**
-         * #GdkDevicePad is an interface implemented by devices of type
-         * %GDK_SOURCE_TABLET_PAD, it allows querying the features provided
-         * by the pad device.
-         *
-         * Tablet pads may contain one or more groups, each containing a subset
-         * of the buttons/rings/strips available. gdk_device_pad_get_n_groups()
-         * can be used to obtain the number of groups, gdk_device_pad_get_n_features()
-         * and gdk_device_pad_get_feature_group() can be combined to find out the
-         * number of buttons/rings/strips the device has, and how are they grouped.
-         *
-         * Each of those groups have different modes, which may be used to map
-         * each individual pad feature to multiple actions. Only one mode is
-         * effective (current) for each given group, different groups may have
-         * different current modes. The number of available modes in a group can
-         * be found out through gdk_device_pad_get_group_n_modes(), and the current
-         * mode for a given group will be notified through the #GdkEventPadGroupMode
-         * event.
-         */
-        interface DevicePad extends Device, DevicePad.Interface {
-            readonly $signals: DevicePad.SignalSignatures
-            readonly $readableProperties: DevicePad.ReadableProperties
-            readonly $writableProperties: DevicePad.WritableProperties
-            readonly $constructOnlyProperties: DevicePad.ConstructOnlyProperties
-            /**
-             * Returns the group the given @feature and @idx belong to,
-             * or -1 if feature/index do not exist in @pad.
-             * @since 3.22
-             * @param feature the feature type to get the group from
-             * @param feature_idx the index of the feature to get the group from
-             * @returns The group number of the queried pad feature.
-             */
-            get_feature_group(feature: DevicePadFeature, feature_idx: number): number
-            /**
-             * Returns the number of modes that @group may have.
-             * @since 3.22
-             * @param group_idx group to get the number of available modes from
-             * @returns The number of modes available in `group`.
-             */
-            get_group_n_modes(group_idx: number): number
-            /**
-             * Returns the number of features a tablet pad has.
-             * @since 3.22
-             * @param feature a pad feature
-             * @returns The amount of elements of type `feature` that this pad has.
-             */
-            get_n_features(feature: DevicePadFeature): number
-            /**
-             * Returns the number of groups this pad device has. Pads have
-             * at least one group. A pad group is a subcollection of
-             * buttons/strip/rings that is affected collectively by a same
-             * current mode.
-             * @since 3.22
-             * @returns The number of button/ring/strip groups in the pad.
-             */
-            get_n_groups(): number
-        }
-
-
-        interface DevicePadInterface {
-            readonly $gtype: GObject.GType<DevicePad>
-            readonly prototype: DevicePad
-
-            [Symbol.hasInstance](instance: unknown): instance is DevicePad
-        }
-
-        const DevicePad: DevicePadInterface
         
 
         namespace AppLaunchContext {
@@ -127,19 +38,13 @@ declare module "gi://Gdk?version=3.0" {
             }
 
             interface WritableProperties extends Gio.AppLaunchContext.WritableProperties {
-                "display": Display
             }
 
             interface ConstructOnlyProperties extends Gio.AppLaunchContext.ConstructOnlyProperties {
+                "display": Display
             }
         }
 
-        /**
-         * message);
-         *
-         * g_object_unref (context);
-         * ]|
-         */
         interface AppLaunchContext extends Gio.AppLaunchContext {
             readonly $signals: AppLaunchContext.SignalSignatures
             readonly $readableProperties: AppLaunchContext.ReadableProperties
@@ -226,6 +131,7 @@ declare module "gi://Gdk?version=3.0" {
         interface AppLaunchContextClass extends Omit<Gio.AppLaunchContextClass, "new"> {
             readonly $gtype: GObject.GType<AppLaunchContext>
             readonly prototype: AppLaunchContext
+
             new (props?: Partial<GObject.ConstructorProps<AppLaunchContext>>): AppLaunchContext
             /**
              * Creates a new #GdkAppLaunchContext.
@@ -236,7 +142,31 @@ declare module "gi://Gdk?version=3.0" {
             "new"(): AppLaunchContext
         }
 
-        const AppLaunchContext: AppLaunchContextClass
+        interface $Exports {
+            /**
+             * GdkAppLaunchContext is an implementation of #GAppLaunchContext that
+             * handles launching an application in a graphical context. It provides
+             * startup notification and allows to launch applications on a specific
+             * screen or workspace.
+             *
+             * ## Launching an application
+             *
+             * |[<!-- language="C" -->
+             * GdkAppLaunchContext *context;
+             *
+             * context = gdk_display_get_app_launch_context (display);
+             *
+             * gdk_app_launch_context_set_screen (screen);
+             * gdk_app_launch_context_set_timestamp (event->time);
+             *
+             * if (!g_app_info_launch_default_for_uri ("http://www.gtk.org", context, &error))
+             *   g_warning ("Launching failed: %s\n", error->message);
+             *
+             * g_object_unref (context);
+             * ]|
+             */
+            AppLaunchContext: AppLaunchContextClass
+        }
         
 
         namespace Cursor {
@@ -249,17 +179,14 @@ declare module "gi://Gdk?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "cursor-type": CursorType
-                "display": Display
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "cursor-type": CursorType
+                "display": Display
             }
         }
 
-        /**
-         * A #GdkCursor represents a cursor. Its contents are private.
-         */
         interface Cursor extends GObject.Object {
             readonly $signals: Cursor.SignalSignatures
             readonly $readableProperties: Cursor.ReadableProperties
@@ -305,7 +232,7 @@ declare module "gi://Gdk?version=3.0" {
              * @since 3.10
              * @returns a #cairo_surface_t   representing `cursor`, or %NULL, Location to store the hotspot x position,   or %NULL, Location to store the hotspot y position,   or %NULL
              */
-            get_surface(): cairo.Surface | null
+            get_surface(): [cairo.Surface | null, number, number]
             /**
              * Adds a reference to @cursor.
              * @deprecated since 3.0 Use g_object_ref() instead
@@ -323,6 +250,7 @@ declare module "gi://Gdk?version=3.0" {
         interface CursorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Cursor>
             readonly prototype: Cursor
+
             new (props?: Partial<GObject.ConstructorProps<Cursor>>): Cursor
             /**
              * Creates a new cursor from the set of builtin cursors for the default display.
@@ -445,7 +373,12 @@ declare module "gi://Gdk?version=3.0" {
             new_from_surface(display: Display, surface: cairo.Surface, x: number, y: number): Cursor
         }
 
-        const Cursor: CursorClass
+        interface $Exports {
+            /**
+             * A #GdkCursor represents a cursor. Its contents are private.
+             */
+            Cursor: CursorClass
+        }
         
 
         namespace Device {
@@ -490,33 +423,25 @@ declare module "gi://Gdk?version=3.0" {
             interface WritableProperties extends GObject.Object.WritableProperties {
                 "associated-device": Device | null
                 "axes": AxisFlags
-                "device-manager": DeviceManager
-                "display": Display
-                "has-cursor": boolean
                 "input-mode": InputMode
-                "input-source": InputSource
                 "n-axes": number
-                "name": string
-                "num-touches": number
-                "product-id": string | null
                 "seat": Seat
                 "tool": DeviceTool
-                "type": DeviceType
-                "vendor-id": string | null
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "device-manager": DeviceManager
+                "display": Display
+                "has-cursor": boolean
+                "input-source": InputSource
+                "name": string
+                "num-touches": number
+                "product-id": string | null
+                "type": DeviceType
+                "vendor-id": string | null
             }
         }
 
-        /**
-         * The #GdkDevice object represents a single input device, such
-         * as a keyboard, a mouse, a touchpad, etc.
-         *
-         * See the #GdkDeviceManager documentation for more information
-         * about the various kinds of master and slave devices, and their
-         * relationships.
-         */
         interface Device extends GObject.Object {
             readonly $signals: Device.SignalSignatures
             readonly $readableProperties: Device.ReadableProperties
@@ -717,7 +642,7 @@ declare module "gi://Gdk?version=3.0" {
              * @since 3.0
              * @returns , location to store the #GdkScreen          the `device` is on, or %NULL., location to store root window X coordinate of `device`, or %NULL., location to store root window Y coordinate of `device`, or %NULL.
              */
-            get_position(): void
+            get_position(): [Screen, number, number]
             /**
              * Gets the current location of @device in double precision. As a slave device's
              * coordinates are those of its master pointer, this function
@@ -726,7 +651,7 @@ declare module "gi://Gdk?version=3.0" {
              * @since 3.10
              * @returns , location to store the #GdkScreen          the `device` is on, or %NULL., location to store root window X coordinate of `device`, or %NULL., location to store root window Y coordinate of `device`, or %NULL.
              */
-            get_position_double(): void
+            get_position_double(): [Screen, number, number]
             /**
              * Returns the product ID of this device, or %NULL if this information couldn't
              * be obtained. This ID is retrieved from the device, and is thus constant for
@@ -748,7 +673,14 @@ declare module "gi://Gdk?version=3.0" {
              */
             get_source(): InputSource
             /**
+             * Returns the vendor ID of this device, or %NULL if this information couldn't
+             * be obtained. This ID is retrieved from the device, and is thus constant for
+             * it.
              *
+             * This function, together with gdk_device_get_product_id(), can be used to eg.
+             * compose #GSettings paths to store settings for this device.
+             *
+             * |[<!-- language="C" -->
              *  static GSettings *
              *  get_device_settings (GdkDevice *device)
              *  {
@@ -781,7 +713,7 @@ declare module "gi://Gdk?version=3.0" {
              * @since 3.0
              * @returns the #GdkWindow under the device position, or %NULL., return location for the X coordinate of the device location,         relative to the window origin, or %NULL., return location for the Y coordinate of the device location,         relative to the window origin, or %NULL.
              */
-            get_window_at_position(): Window | null
+            get_window_at_position(): [Window | null, number, number]
             /**
              * Obtains the window underneath @device, returning the location of the device in @win_x and @win_y in
              * double precision. Returns %NULL if the window tree under @device is not known to GDK (for example,
@@ -793,7 +725,7 @@ declare module "gi://Gdk?version=3.0" {
              * @since 3.0
              * @returns the #GdkWindow under the   device position, or %NULL., return location for the X coordinate of the device location,         relative to the window origin, or %NULL., return location for the Y coordinate of the device location,         relative to the window origin, or %NULL.
              */
-            get_window_at_position_double(): Window | null
+            get_window_at_position_double(): [Window | null, number, number]
             /**
              * Grabs the device so that all events coming from this device are passed to
              * this application until the device is ungrabbed with gdk_device_ungrab(),
@@ -908,6 +840,7 @@ declare module "gi://Gdk?version=3.0" {
         interface DeviceClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Device>
             readonly prototype: Device
+
             new (props?: Partial<GObject.ConstructorProps<Device>>): Device
             /**
              * Determines information about the current keyboard grab.
@@ -920,7 +853,17 @@ declare module "gi://Gdk?version=3.0" {
             grab_info_libgtk_only(display: Display, device: Device): [boolean, Window, boolean]
         }
 
-        const Device: DeviceClass
+        interface $Exports {
+            /**
+             * The #GdkDevice object represents a single input device, such
+             * as a keyboard, a mouse, a touchpad, etc.
+             *
+             * See the #GdkDeviceManager documentation for more information
+             * about the various kinds of master and slave devices, and their
+             * relationships.
+             */
+            Device: DeviceClass
+        }
         
 
         namespace DeviceManager {
@@ -960,129 +903,13 @@ declare module "gi://Gdk?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "display": Display | null
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "display": Display | null
             }
         }
 
-        /**
-         * In addition to a single pointer and keyboard for user interface input,
-         * GDK contains support for a variety of input devices, including graphics
-         * tablets, touchscreens and multiple pointers/keyboards interacting
-         * simultaneously with the user interface. Such input devices often have
-         * additional features, such as sub-pixel positioning information and
-         * additional device-dependent information.
-         *
-         * In order to query the device hierarchy and be aware of changes in the
-         * device hierarchy (such as virtual devices being created or removed, or
-         * physical devices being plugged or unplugged), GDK provides
-         * #GdkDeviceManager.
-         *
-         * By default, and if the platform supports it, GDK is aware of multiple
-         * keyboard/pointer pairs and multitouch devices. This behavior can be
-         * changed by calling gdk_disable_multidevice() before gdk_display_open().
-         * There should rarely be a need to do that though, since GDK defaults
-         * to a compatibility mode in which it will emit just one enter/leave
-         * event pair for all devices on a window. To enable per-device
-         * enter/leave events and other multi-pointer interaction features,
-         * gdk_window_set_support_multidevice() must be called on
-         * #GdkWindows (or gtk_widget_set_support_multidevice() on widgets).
-         * window. See the gdk_window_set_support_multidevice() documentation
-         * for more information.
-         *
-         * On X11, multi-device support is implemented through XInput 2.
-         * Unless gdk_disable_multidevice() is called, the XInput 2
-         * #GdkDeviceManager implementation will be used as the input source.
-         * Otherwise either the core or XInput 1 implementations will be used.
-         *
-         * For simple applications that don’t have any special interest in
-         * input devices, the so-called “client pointer”
-         * provides a reasonable approximation to a simple setup with a single
-         * pointer and keyboard. The device that has been set as the client
-         * pointer can be accessed via gdk_device_manager_get_client_pointer().
-         *
-         * Conceptually, in multidevice mode there are 2 device types. Virtual
-         * devices (or master devices) are represented by the pointer cursors
-         * and keyboard foci that are seen on the screen. Physical devices (or
-         * slave devices) represent the hardware that is controlling the virtual
-         * devices, and thus have no visible cursor on the screen.
-         *
-         * Virtual devices are always paired, so there is a keyboard device for every
-         * pointer device. Associations between devices may be inspected through
-         * gdk_device_get_associated_device().
-         *
-         * There may be several virtual devices, and several physical devices could
-         * be controlling each of these virtual devices. Physical devices may also
-         * be “floating”, which means they are not attached to any virtual device.
-         *
-         * # Master and slave devices
-         *
-         * |[
-         * carlos@sacarino:~$ xinput list
-         * ⎡ Virtual core pointer                          id=2    [master pointer  (3)]
-         * ⎜   ↳ Virtual core XTEST pointer                id=4    [slave  pointer  (2)]
-         * ⎜   ↳ Wacom ISDv4 E6 Pen stylus                 id=10   [slave  pointer  (2)]
-         * ⎜   ↳ Wacom ISDv4 E6 Finger touch               id=11   [slave  pointer  (2)]
-         * ⎜   ↳ SynPS/2 Synaptics TouchPad                id=13   [slave  pointer  (2)]
-         * ⎜   ↳ TPPS/2 IBM TrackPoint                     id=14   [slave  pointer  (2)]
-         * ⎜   ↳ Wacom ISDv4 E6 Pen eraser                 id=16   [slave  pointer  (2)]
-         * ⎣ Virtual core keyboard                         id=3    [master keyboard (2)]
-         *     ↳ Virtual core XTEST keyboard               id=5    [slave  keyboard (3)]
-         *     ↳ Power Button                              id=6    [slave  keyboard (3)]
-         *     ↳ Video Bus                                 id=7    [slave  keyboard (3)]
-         *     ↳ Sleep Button                              id=8    [slave  keyboard (3)]
-         *     ↳ Integrated Camera                         id=9    [slave  keyboard (3)]
-         *     ↳ AT Translated Set 2 keyboard              id=12   [slave  keyboard (3)]
-         *     ↳ ThinkPad Extra Buttons                    id=15   [slave  keyboard (3)]
-         * ]|
-         *
-         * By default, GDK will automatically listen for events coming from all
-         * master devices, setting the #GdkDevice for all events coming from input
-         * devices. Events containing device information are #GDK_MOTION_NOTIFY,
-         * #GDK_BUTTON_PRESS, #GDK_2BUTTON_PRESS, #GDK_3BUTTON_PRESS,
-         * #GDK_BUTTON_RELEASE, #GDK_SCROLL, #GDK_KEY_PRESS, #GDK_KEY_RELEASE,
-         * #GDK_ENTER_NOTIFY, #GDK_LEAVE_NOTIFY, #GDK_FOCUS_CHANGE,
-         * #GDK_PROXIMITY_IN, #GDK_PROXIMITY_OUT, #GDK_DRAG_ENTER, #GDK_DRAG_LEAVE,
-         * #GDK_DRAG_MOTION, #GDK_DRAG_STATUS, #GDK_DROP_START, #GDK_DROP_FINISHED
-         * and #GDK_GRAB_BROKEN. When dealing with an event on a master device,
-         * it is possible to get the source (slave) device that the event originated
-         * from via gdk_event_get_source_device().
-         *
-         * On a standard session, all physical devices are connected by default to
-         * the "Virtual Core Pointer/Keyboard" master devices, hence routing all events
-         * through these. This behavior is only modified by device grabs, where the
-         * slave device is temporarily detached for as long as the grab is held, and
-         * more permanently by user modifications to the device hierarchy.
-         *
-         * On certain application specific setups, it may make sense
-         * to detach a physical device from its master pointer, and mapping it to
-         * an specific window. This can be achieved by the combination of
-         * gdk_device_grab() and gdk_device_set_mode().
-         *
-         * In order to listen for events coming from devices
-         * other than a virtual device, gdk_window_set_device_events() must be
-         * called. Generally, this function can be used to modify the event mask
-         * for any given device.
-         *
-         * Input devices may also provide additional information besides X/Y.
-         * For example, graphics tablets may also provide pressure and X/Y tilt
-         * information. This information is device-dependent, and may be
-         * queried through gdk_device_get_axis(). In multidevice mode, virtual
-         * devices will change axes in order to always represent the physical
-         * device that is routing events through it. Whenever the physical device
-         * changes, the #GdkDevice:n-axes property will be notified, and
-         * gdk_device_list_axes() will return the new device axes.
-         *
-         * Devices may also have associated “keys” or
-         * macro buttons. Such keys can be globally set to map into normal X
-         * keyboard events. The mapping is set using gdk_device_set_key().
-         *
-         * In GTK+ 3.20, a new #GdkSeat object has been introduced that
-         * supersedes #GdkDeviceManager and should be preferred in newly
-         * written code.
-         */
         interface DeviceManager extends GObject.Object {
             readonly $signals: DeviceManager.SignalSignatures
             readonly $readableProperties: DeviceManager.ReadableProperties
@@ -1124,10 +951,129 @@ declare module "gi://Gdk?version=3.0" {
         interface DeviceManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DeviceManager>
             readonly prototype: DeviceManager
+
             new (props?: Partial<GObject.ConstructorProps<DeviceManager>>): DeviceManager
         }
 
-        const DeviceManager: DeviceManagerClass
+        interface $Exports {
+            /**
+             * In addition to a single pointer and keyboard for user interface input,
+             * GDK contains support for a variety of input devices, including graphics
+             * tablets, touchscreens and multiple pointers/keyboards interacting
+             * simultaneously with the user interface. Such input devices often have
+             * additional features, such as sub-pixel positioning information and
+             * additional device-dependent information.
+             *
+             * In order to query the device hierarchy and be aware of changes in the
+             * device hierarchy (such as virtual devices being created or removed, or
+             * physical devices being plugged or unplugged), GDK provides
+             * #GdkDeviceManager.
+             *
+             * By default, and if the platform supports it, GDK is aware of multiple
+             * keyboard/pointer pairs and multitouch devices. This behavior can be
+             * changed by calling gdk_disable_multidevice() before gdk_display_open().
+             * There should rarely be a need to do that though, since GDK defaults
+             * to a compatibility mode in which it will emit just one enter/leave
+             * event pair for all devices on a window. To enable per-device
+             * enter/leave events and other multi-pointer interaction features,
+             * gdk_window_set_support_multidevice() must be called on
+             * #GdkWindows (or gtk_widget_set_support_multidevice() on widgets).
+             * window. See the gdk_window_set_support_multidevice() documentation
+             * for more information.
+             *
+             * On X11, multi-device support is implemented through XInput 2.
+             * Unless gdk_disable_multidevice() is called, the XInput 2
+             * #GdkDeviceManager implementation will be used as the input source.
+             * Otherwise either the core or XInput 1 implementations will be used.
+             *
+             * For simple applications that don’t have any special interest in
+             * input devices, the so-called “client pointer”
+             * provides a reasonable approximation to a simple setup with a single
+             * pointer and keyboard. The device that has been set as the client
+             * pointer can be accessed via gdk_device_manager_get_client_pointer().
+             *
+             * Conceptually, in multidevice mode there are 2 device types. Virtual
+             * devices (or master devices) are represented by the pointer cursors
+             * and keyboard foci that are seen on the screen. Physical devices (or
+             * slave devices) represent the hardware that is controlling the virtual
+             * devices, and thus have no visible cursor on the screen.
+             *
+             * Virtual devices are always paired, so there is a keyboard device for every
+             * pointer device. Associations between devices may be inspected through
+             * gdk_device_get_associated_device().
+             *
+             * There may be several virtual devices, and several physical devices could
+             * be controlling each of these virtual devices. Physical devices may also
+             * be “floating”, which means they are not attached to any virtual device.
+             *
+             * # Master and slave devices
+             *
+             * |[
+             * carlos@sacarino:~$ xinput list
+             * ⎡ Virtual core pointer                          id=2    [master pointer  (3)]
+             * ⎜   ↳ Virtual core XTEST pointer                id=4    [slave  pointer  (2)]
+             * ⎜   ↳ Wacom ISDv4 E6 Pen stylus                 id=10   [slave  pointer  (2)]
+             * ⎜   ↳ Wacom ISDv4 E6 Finger touch               id=11   [slave  pointer  (2)]
+             * ⎜   ↳ SynPS/2 Synaptics TouchPad                id=13   [slave  pointer  (2)]
+             * ⎜   ↳ TPPS/2 IBM TrackPoint                     id=14   [slave  pointer  (2)]
+             * ⎜   ↳ Wacom ISDv4 E6 Pen eraser                 id=16   [slave  pointer  (2)]
+             * ⎣ Virtual core keyboard                         id=3    [master keyboard (2)]
+             *     ↳ Virtual core XTEST keyboard               id=5    [slave  keyboard (3)]
+             *     ↳ Power Button                              id=6    [slave  keyboard (3)]
+             *     ↳ Video Bus                                 id=7    [slave  keyboard (3)]
+             *     ↳ Sleep Button                              id=8    [slave  keyboard (3)]
+             *     ↳ Integrated Camera                         id=9    [slave  keyboard (3)]
+             *     ↳ AT Translated Set 2 keyboard              id=12   [slave  keyboard (3)]
+             *     ↳ ThinkPad Extra Buttons                    id=15   [slave  keyboard (3)]
+             * ]|
+             *
+             * By default, GDK will automatically listen for events coming from all
+             * master devices, setting the #GdkDevice for all events coming from input
+             * devices. Events containing device information are #GDK_MOTION_NOTIFY,
+             * #GDK_BUTTON_PRESS, #GDK_2BUTTON_PRESS, #GDK_3BUTTON_PRESS,
+             * #GDK_BUTTON_RELEASE, #GDK_SCROLL, #GDK_KEY_PRESS, #GDK_KEY_RELEASE,
+             * #GDK_ENTER_NOTIFY, #GDK_LEAVE_NOTIFY, #GDK_FOCUS_CHANGE,
+             * #GDK_PROXIMITY_IN, #GDK_PROXIMITY_OUT, #GDK_DRAG_ENTER, #GDK_DRAG_LEAVE,
+             * #GDK_DRAG_MOTION, #GDK_DRAG_STATUS, #GDK_DROP_START, #GDK_DROP_FINISHED
+             * and #GDK_GRAB_BROKEN. When dealing with an event on a master device,
+             * it is possible to get the source (slave) device that the event originated
+             * from via gdk_event_get_source_device().
+             *
+             * On a standard session, all physical devices are connected by default to
+             * the "Virtual Core Pointer/Keyboard" master devices, hence routing all events
+             * through these. This behavior is only modified by device grabs, where the
+             * slave device is temporarily detached for as long as the grab is held, and
+             * more permanently by user modifications to the device hierarchy.
+             *
+             * On certain application specific setups, it may make sense
+             * to detach a physical device from its master pointer, and mapping it to
+             * an specific window. This can be achieved by the combination of
+             * gdk_device_grab() and gdk_device_set_mode().
+             *
+             * In order to listen for events coming from devices
+             * other than a virtual device, gdk_window_set_device_events() must be
+             * called. Generally, this function can be used to modify the event mask
+             * for any given device.
+             *
+             * Input devices may also provide additional information besides X/Y.
+             * For example, graphics tablets may also provide pressure and X/Y tilt
+             * information. This information is device-dependent, and may be
+             * queried through gdk_device_get_axis(). In multidevice mode, virtual
+             * devices will change axes in order to always represent the physical
+             * device that is routing events through it. Whenever the physical device
+             * changes, the #GdkDevice:n-axes property will be notified, and
+             * gdk_device_list_axes() will return the new device axes.
+             *
+             * Devices may also have associated “keys” or
+             * macro buttons. Such keys can be globally set to map into normal X
+             * keyboard events. The mapping is set using gdk_device_set_key().
+             *
+             * In GTK+ 3.20, a new #GdkSeat object has been introduced that
+             * supersedes #GdkDeviceManager and should be preferred in newly
+             * written code.
+             */
+            DeviceManager: DeviceManagerClass
+        }
         
 
         namespace DeviceTool {
@@ -1142,18 +1088,16 @@ declare module "gi://Gdk?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "axes": AxisFlags
                 "hardware-id": number
                 "serial": number
                 "tool-type": DeviceToolType
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         */
         interface DeviceTool extends GObject.Object {
             readonly $signals: DeviceTool.SignalSignatures
             readonly $readableProperties: DeviceTool.ReadableProperties
@@ -1211,10 +1155,15 @@ declare module "gi://Gdk?version=3.0" {
         interface DeviceToolClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DeviceTool>
             readonly prototype: DeviceTool
+
             new (props?: Partial<GObject.ConstructorProps<DeviceTool>>): DeviceTool
         }
 
-        const DeviceTool: DeviceToolClass
+        interface $Exports {
+            /**
+             */
+            DeviceTool: DeviceToolClass
+        }
         
 
         namespace Display {
@@ -1271,26 +1220,6 @@ declare module "gi://Gdk?version=3.0" {
             }
         }
 
-        /**
-         * #GdkDisplay objects purpose are two fold:
-         *
-         * - To manage and provide information about input devices (pointers and keyboards)
-         *
-         * - To manage and provide information about the available #GdkScreens
-         *
-         * GdkDisplay objects are the GDK representation of an X Display,
-         * which can be described as a workstation consisting of
-         * a keyboard, a pointing device (such as a mouse) and one or more
-         * screens.
-         * It is used to open and keep track of various GdkScreen objects
-         * currently instantiated by the application. It is also used to
-         * access the keyboard(s) and mouse pointer(s) of the display.
-         *
-         * Most of the input device handling has been factored out into
-         * the separate #GdkDeviceManager object. Every display has a
-         * device manager, which you can obtain using
-         * gdk_display_get_device_manager().
-         */
         interface Display extends GObject.Object {
             readonly $signals: Display.SignalSignatures
             readonly $readableProperties: Display.ReadableProperties
@@ -1433,7 +1362,7 @@ declare module "gi://Gdk?version=3.0" {
              * @deprecated since 3.0 Use gdk_device_get_position() instead.
              * @returns , location to store the screen that the          cursor is on, or %NULL., location to store root window X coordinate of pointer, or %NULL., location to store root window Y coordinate of pointer, or %NULL., location to store current modifier mask, or %NULL
              */
-            get_pointer(): void
+            get_pointer(): [Screen, number, number, ModifierType]
             /**
              * Gets the primary monitor for the display.
              *
@@ -1460,9 +1389,9 @@ declare module "gi://Gdk?version=3.0" {
              * belongs to another application).
              * @since 2.2
              * @deprecated since 3.0 Use gdk_device_get_window_at_position() instead.
-             * @returns the window under the mouse   pointer, or %NULL, return location for x coordinate of the pointer location relative    to the window origin, or %NULL,     to the window origin, or %NULL
+             * @returns the window under the mouse   pointer, or %NULL, return location for x coordinate of the pointer location relative    to the window origin, or %NULL, return location for y coordinate of the pointer location relative  &    to the window origin, or %NULL
              */
-            get_window_at_pointer(): Window | null
+            get_window_at_pointer(): [Window | null, number, number]
             /**
              * Returns whether the display has events that are waiting
              * to be processed.
@@ -1675,6 +1604,7 @@ declare module "gi://Gdk?version=3.0" {
         interface DisplayClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Display>
             readonly prototype: Display
+
             new (props?: Partial<GObject.ConstructorProps<Display>>): Display
             /**
              * Gets the default #GdkDisplay. This is a convenience
@@ -1703,7 +1633,29 @@ declare module "gi://Gdk?version=3.0" {
             open_default_libgtk_only(): Display | null
         }
 
-        const Display: DisplayClass
+        interface $Exports {
+            /**
+             * #GdkDisplay objects purpose are two fold:
+             *
+             * - To manage and provide information about input devices (pointers and keyboards)
+             *
+             * - To manage and provide information about the available #GdkScreens
+             *
+             * GdkDisplay objects are the GDK representation of an X Display,
+             * which can be described as a workstation consisting of
+             * a keyboard, a pointing device (such as a mouse) and one or more
+             * screens.
+             * It is used to open and keep track of various GdkScreen objects
+             * currently instantiated by the application. It is also used to
+             * access the keyboard(s) and mouse pointer(s) of the display.
+             *
+             * Most of the input device handling has been factored out into
+             * the separate #GdkDeviceManager object. Every display has a
+             * device manager, which you can obtain using
+             * gdk_display_get_device_manager().
+             */
+            Display: DisplayClass
+        }
         
 
         namespace DisplayManager {
@@ -1728,25 +1680,6 @@ declare module "gi://Gdk?version=3.0" {
             }
         }
 
-        /**
-         *
-         * #ifdef GDK_WINDOWING_X11
-         *   if (GDK_IS_X11_DISPLAY (display))
-         *     {
-         *       // make X11-specific calls here
-         *     }
-         *   else
-         * #endif
-         * #ifdef GDK_WINDOWING_QUARTZ
-         *   if (GDK_IS_QUARTZ_DISPLAY (display))
-         *     {
-         *       // make Quartz-specific calls here
-         *     }
-         *   else
-         * #endif
-         *   g_error ("Unsupported GDK backend");
-         * ]|
-         */
         interface DisplayManager extends GObject.Object {
             readonly $signals: DisplayManager.SignalSignatures
             readonly $readableProperties: DisplayManager.ReadableProperties
@@ -1786,6 +1719,7 @@ declare module "gi://Gdk?version=3.0" {
         interface DisplayManagerClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DisplayManager>
             readonly prototype: DisplayManager
+
             new (props?: Partial<GObject.ConstructorProps<DisplayManager>>): DisplayManager
             /**
              * Gets the singleton #GdkDisplayManager object.
@@ -1801,7 +1735,50 @@ declare module "gi://Gdk?version=3.0" {
             get(): DisplayManager
         }
 
-        const DisplayManager: DisplayManagerClass
+        interface $Exports {
+            /**
+             * The purpose of the #GdkDisplayManager singleton object is to offer
+             * notification when displays appear or disappear or the default display
+             * changes.
+             *
+             * You can use gdk_display_manager_get() to obtain the #GdkDisplayManager
+             * singleton, but that should be rarely necessary. Typically, initializing
+             * GTK+ opens a display that you can work with without ever accessing the
+             * #GdkDisplayManager.
+             *
+             * The GDK library can be built with support for multiple backends.
+             * The #GdkDisplayManager object determines which backend is used
+             * at runtime.
+             *
+             * When writing backend-specific code that is supposed to work with
+             * multiple GDK backends, you have to consider both compile time and
+             * runtime. At compile time, use the #GDK_WINDOWING_X11, #GDK_WINDOWING_WIN32
+             * macros, etc. to find out which backends are present in the GDK library
+             * you are building your application against. At runtime, use type-check
+             * macros like GDK_IS_X11_DISPLAY() to find out which backend is in use:
+             *
+             * ## Backend-specific code ## {#backend-specific}
+             *
+             * |[<!-- language="C" -->
+             * #ifdef GDK_WINDOWING_X11
+             *   if (GDK_IS_X11_DISPLAY (display))
+             *     {
+             *       // make X11-specific calls here
+             *     }
+             *   else
+             * #endif
+             * #ifdef GDK_WINDOWING_QUARTZ
+             *   if (GDK_IS_QUARTZ_DISPLAY (display))
+             *     {
+             *       // make Quartz-specific calls here
+             *     }
+             *   else
+             * #endif
+             *   g_error ("Unsupported GDK backend");
+             * ]|
+             */
+            DisplayManager: DisplayManagerClass
+        }
         
 
         namespace DragContext {
@@ -1859,8 +1836,6 @@ declare module "gi://Gdk?version=3.0" {
             }
         }
 
-        /**
-         */
         interface DragContext extends GObject.Object {
             readonly $signals: DragContext.SignalSignatures
             readonly $readableProperties: DragContext.ReadableProperties
@@ -1968,10 +1943,15 @@ declare module "gi://Gdk?version=3.0" {
         interface DragContextClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DragContext>
             readonly prototype: DragContext
+
             new (props?: Partial<GObject.ConstructorProps<DragContext>>): DragContext
         }
 
-        const DragContext: DragContextClass
+        interface $Exports {
+            /**
+             */
+            DragContext: DragContextClass
+        }
         
 
         namespace DrawingContext {
@@ -1984,26 +1964,14 @@ declare module "gi://Gdk?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "clip": cairo.Region | null
-                "window": Window
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "clip": cairo.Region | null
+                "window": Window
             }
         }
 
-        /**
-         * #GdkDrawingContext is an object that represents the current drawing
-         * state of a #GdkWindow.
-         *
-         * It's possible to use a #GdkDrawingContext to draw on a #GdkWindow
-         * via rendering API like Cairo or OpenGL.
-         *
-         * A #GdkDrawingContext can only be created by calling gdk_window_begin_draw_frame()
-         * and will be valid until a call to gdk_window_end_draw_frame().
-         *
-         * #GdkDrawingContext is available since GDK 3.22
-         */
         interface DrawingContext extends GObject.Object {
             readonly $signals: DrawingContext.SignalSignatures
             readonly $readableProperties: DrawingContext.ReadableProperties
@@ -2055,10 +2023,25 @@ declare module "gi://Gdk?version=3.0" {
         interface DrawingContextClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<DrawingContext>
             readonly prototype: DrawingContext
+
             new (props?: Partial<GObject.ConstructorProps<DrawingContext>>): DrawingContext
         }
 
-        const DrawingContext: DrawingContextClass
+        interface $Exports {
+            /**
+             * #GdkDrawingContext is an object that represents the current drawing
+             * state of a #GdkWindow.
+             *
+             * It's possible to use a #GdkDrawingContext to draw on a #GdkWindow
+             * via rendering API like Cairo or OpenGL.
+             *
+             * A #GdkDrawingContext can only be created by calling gdk_window_begin_draw_frame()
+             * and will be valid until a call to gdk_window_end_draw_frame().
+             *
+             * #GdkDrawingContext is available since GDK 3.22
+             */
+            DrawingContext: DrawingContextClass
+        }
         
 
         namespace FrameClock {
@@ -2121,41 +2104,6 @@ declare module "gi://Gdk?version=3.0" {
             }
         }
 
-        /**
-         * A #GdkFrameClock tells the application when to update and repaint a
-         * window. This may be synced to the vertical refresh rate of the
-         * monitor, for example. Even when the frame clock uses a simple timer
-         * rather than a hardware-based vertical sync, the frame clock helps
-         * because it ensures everything paints at the same time (reducing the
-         * total number of frames). The frame clock can also automatically
-         * stop painting when it knows the frames will not be visible, or
-         * scale back animation framerates.
-         *
-         * #GdkFrameClock is designed to be compatible with an OpenGL-based
-         * implementation or with mozRequestAnimationFrame in Firefox,
-         * for example.
-         *
-         * A frame clock is idle until someone requests a frame with
-         * gdk_frame_clock_request_phase(). At some later point that makes
-         * sense for the synchronization being implemented, the clock will
-         * process a frame and emit signals for each phase that has been
-         * requested. (See the signals of the #GdkFrameClock class for
-         * documentation of the phases. %GDK_FRAME_CLOCK_PHASE_UPDATE and the
-         * #GdkFrameClock::update signal are most interesting for application
-         * writers, and are used to update the animations, using the frame time
-         * given by gdk_frame_clock_get_frame_time().
-         *
-         * The frame time is reported in microseconds and generally in the same
-         * timescale as g_get_monotonic_time(), however, it is not the same
-         * as g_get_monotonic_time(). The frame time does not advance during
-         * the time a frame is being painted, and outside of a frame, an attempt
-         * is made so that all calls to gdk_frame_clock_get_frame_time() that
-         * are called at a “similar” time get the same value. This means that
-         * if different animations are timed by looking at the difference in
-         * time between an initial value from gdk_frame_clock_get_frame_time()
-         * and the value inside the #GdkFrameClock::update signal of the clock,
-         * they will stay exactly synchronized.
-         */
         interface FrameClock extends GObject.Object {
             readonly $signals: FrameClock.SignalSignatures
             readonly $readableProperties: FrameClock.ReadableProperties
@@ -2222,7 +2170,7 @@ declare module "gi://Gdk?version=3.0" {
              * @param base_time base time for determining a presentaton time
              * @returns , a location to store the determined refresh interval, or %NULL. A default refresh interval of 1/60th of a second will be stored if no history is present., a location to store the next  candidate presentation time after the given base time.  0 will be will be stored if no history is present.
              */
-            get_refresh_info(base_time: number): number
+            get_refresh_info(base_time: number): [number, number]
             /**
              * Retrieves a #GdkFrameTimings object holding timing information
              * for the current frame or a recent frame. The #GdkFrameTimings
@@ -2253,10 +2201,48 @@ declare module "gi://Gdk?version=3.0" {
         interface FrameClockClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<FrameClock>
             readonly prototype: FrameClock
+
             new (props?: Partial<GObject.ConstructorProps<FrameClock>>): FrameClock
         }
 
-        const FrameClock: FrameClockClass
+        interface $Exports {
+            /**
+             * A #GdkFrameClock tells the application when to update and repaint a
+             * window. This may be synced to the vertical refresh rate of the
+             * monitor, for example. Even when the frame clock uses a simple timer
+             * rather than a hardware-based vertical sync, the frame clock helps
+             * because it ensures everything paints at the same time (reducing the
+             * total number of frames). The frame clock can also automatically
+             * stop painting when it knows the frames will not be visible, or
+             * scale back animation framerates.
+             *
+             * #GdkFrameClock is designed to be compatible with an OpenGL-based
+             * implementation or with mozRequestAnimationFrame in Firefox,
+             * for example.
+             *
+             * A frame clock is idle until someone requests a frame with
+             * gdk_frame_clock_request_phase(). At some later point that makes
+             * sense for the synchronization being implemented, the clock will
+             * process a frame and emit signals for each phase that has been
+             * requested. (See the signals of the #GdkFrameClock class for
+             * documentation of the phases. %GDK_FRAME_CLOCK_PHASE_UPDATE and the
+             * #GdkFrameClock::update signal are most interesting for application
+             * writers, and are used to update the animations, using the frame time
+             * given by gdk_frame_clock_get_frame_time().
+             *
+             * The frame time is reported in microseconds and generally in the same
+             * timescale as g_get_monotonic_time(), however, it is not the same
+             * as g_get_monotonic_time(). The frame time does not advance during
+             * the time a frame is being painted, and outside of a frame, an attempt
+             * is made so that all calls to gdk_frame_clock_get_frame_time() that
+             * are called at a “similar” time get the same value. This means that
+             * if different animations are timed by looking at the difference in
+             * time between an initial value from gdk_frame_clock_get_frame_time()
+             * and the value inside the #GdkFrameClock::update signal of the clock,
+             * they will stay exactly synchronized.
+             */
+            FrameClock: FrameClockClass
+        }
         
 
         namespace GLContext {
@@ -2270,26 +2256,15 @@ declare module "gi://Gdk?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
                 "display": Display | null
                 "shared-context": GLContext | null
                 "window": Window | null
             }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         *
-         *   gdk_gl_context_make_current (context);
-         * ]|
-         *
-         * You can now perform your drawing using OpenGL commands.
-         *
-         * You can check which #GdkGLContext is the current one by using
-         * gdk_gl_context_get_current(); you can also unset any #GdkGLContext
-         * that is currently set by calling gdk_gl_context_clear_current().
-         */
         interface GLContext extends GObject.Object {
             readonly $signals: GLContext.SignalSignatures
             readonly $readableProperties: GLContext.ReadableProperties
@@ -2459,6 +2434,7 @@ declare module "gi://Gdk?version=3.0" {
         interface GLContextClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<GLContext>
             readonly prototype: GLContext
+
             new (props?: Partial<GObject.ConstructorProps<GLContext>>): GLContext
             /**
              * Clears the current #GdkGLContext.
@@ -2476,7 +2452,62 @@ declare module "gi://Gdk?version=3.0" {
             get_current(): GLContext | null
         }
 
-        const GLContext: GLContextClass
+        interface $Exports {
+            /**
+             * #GdkGLContext is an object representing the platform-specific
+             * OpenGL drawing context.
+             *
+             * #GdkGLContexts are created for a #GdkWindow using
+             * gdk_window_create_gl_context(), and the context will match
+             * the #GdkVisual of the window.
+             *
+             * A #GdkGLContext is not tied to any particular normal framebuffer.
+             * For instance, it cannot draw to the #GdkWindow back buffer. The GDK
+             * repaint system is in full control of the painting to that. Instead,
+             * you can create render buffers or textures and use gdk_cairo_draw_from_gl()
+             * in the draw function of your widget to draw them. Then GDK will handle
+             * the integration of your rendering with that of other widgets.
+             *
+             * Support for #GdkGLContext is platform-specific, context creation
+             * can fail, returning %NULL context.
+             *
+             * A #GdkGLContext has to be made "current" in order to start using
+             * it, otherwise any OpenGL call will be ignored.
+             *
+             * ## Creating a new OpenGL context ##
+             *
+             * In order to create a new #GdkGLContext instance you need a
+             * #GdkWindow, which you typically get during the realize call
+             * of a widget.
+             *
+             * A #GdkGLContext is not realized until either gdk_gl_context_make_current(),
+             * or until it is realized using gdk_gl_context_realize(). It is possible to
+             * specify details of the GL context like the OpenGL version to be used, or
+             * whether the GL context should have extra state validation enabled after
+             * calling gdk_window_create_gl_context() by calling gdk_gl_context_realize().
+             * If the realization fails you have the option to change the settings of the
+             * #GdkGLContext and try again.
+             *
+             * ## Using a GdkGLContext ##
+             *
+             * You will need to make the #GdkGLContext the current context
+             * before issuing OpenGL calls; the system sends OpenGL commands to
+             * whichever context is current. It is possible to have multiple
+             * contexts, so you always need to ensure that the one which you
+             * want to draw with is the current one before issuing commands:
+             *
+             * |[<!-- language="C" -->
+             *   gdk_gl_context_make_current (context);
+             * ]|
+             *
+             * You can now perform your drawing using OpenGL commands.
+             *
+             * You can check which #GdkGLContext is the current one by using
+             * gdk_gl_context_get_current(); you can also unset any #GdkGLContext
+             * that is currently set by calling gdk_gl_context_clear_current().
+             */
+            GLContext: GLContextClass
+        }
         
 
         namespace Keymap {
@@ -2512,14 +2543,6 @@ declare module "gi://Gdk?version=3.0" {
             }
         }
 
-        /**
-         * A #GdkKeymap defines the translation from keyboard state
-         * (including a hardware key, a modifier mask, and active keyboard group)
-         * to a keyval. This translation has two phases. The first phase is
-         * to determine the effective keyboard group and level for the keyboard
-         * state; the second phase is to look up the keycode/group/level triplet
-         * in the keymap and see what keyval it corresponds to.
-         */
         interface Keymap extends GObject.Object {
             readonly $signals: Keymap.SignalSignatures
             readonly $readableProperties: Keymap.ReadableProperties
@@ -2561,7 +2584,7 @@ declare module "gi://Gdk?version=3.0" {
              * @param hardware_keycode a keycode
              * @returns %TRUE if there were any entries, return     location for array of #GdkKeymapKey, or %NULL, return     location for array of keyvals, or %NULL
              */
-            get_entries_for_keycode(hardware_keycode: number): boolean
+            get_entries_for_keycode(hardware_keycode: number): [boolean, KeymapKey[], number[]]
             /**
              * Obtains a list of keycode/group/level combinations that will
              * generate @keyval. Groups and levels are two kinds of keyboard mode;
@@ -2640,18 +2663,65 @@ declare module "gi://Gdk?version=3.0" {
              */
             map_virtual_modifiers(): [boolean, ModifierType]
             /**
-             * plus`,
+             * Translates the contents of a #GdkEventKey into a keyval, effective
+             * group, and level. Modifiers that affected the translation and
+             * are thus unavailable for application use are returned in
+             * @consumed_modifiers.
+             * See [Groups][key-group-explanation] for an explanation of
+             * groups and levels. The @effective_group is the group that was
+             * actually used for the translation; some keys such as Enter are not
+             * affected by the active keyboard group. The @level is derived from
+             * @state. For convenience, #GdkEventKey already contains the translated
+             * keyval, so this function isn’t as useful as you might think.
+             *
+             * @consumed_modifiers gives modifiers that should be masked outfrom @state
+             * when comparing this key press to a hot key. For instance, on a US keyboard,
+             * the `plus` symbol is shifted, so when comparing a key press to a
+             * `<Control>plus` accelerator `<Shift>` should be masked out.
+             *
+             * |[<!-- language="C" -->
+             * // We want to ignore irrelevant modifiers like ScrollLock
+             * #define ALL_ACCELS_MASK (GDK_CONTROL_MASK | GDK_SHIFT_MASK | GDK_MOD1_MASK)
+             * gdk_keymap_translate_keyboard_state (keymap, event->hardware_keycode,
+             *                                      event->state, event->group,
+             *                                      &keyval, NULL, NULL, &consumed);
+             * if (keyval == GDK_PLUS &&
+             *     (event->state & ~consumed & ALL_ACCELS_MASK) == GDK_CONTROL_MASK)
+             *   // Control was pressed
+             * ]|
+             *
+             * An older interpretation @consumed_modifiers was that it contained
+             * all modifiers that might affect the translation of the key;
+             * this allowed accelerators to be stored with irrelevant consumed
+             * modifiers, by doing:
+             * |[<!-- language="C" -->
+             * // XXX Don’t do this XXX
+             * if (keyval == accel_keyval &&
+             *     (event->state & ~consumed & ALL_ACCELS_MASK) == (accel_mods & ~consumed))
+             *   // Accelerator was pressed
+             * ]|
+             *
+             * However, this did not work if multi-modifier combinations were
+             * used in the keymap, since, for instance, `<Control>` would be
+             * masked out even if only `<Control><Alt>` was used in the keymap.
+             * To support this usage as well as well as possible, all single
+             * modifier combinations that could affect the key for any combination
+             * of modifiers will be returned in @consumed_modifiers; multi-modifier
+             * combinations are returned only when actually found in @state. When
+             * you store accelerators, you should always store them with consumed
+             * modifiers removed. Store `<Control>plus`, not `<Control><Shift>plus`,
              * @param hardware_keycode a keycode
              * @param state a modifier state
              * @param group active keyboard group
              * @returns %TRUE if there was a keyval bound to the keycode/state/group, return location for keyval, or %NULL, return location for effective     group, or %NULL, return location for level, or %NULL, return location for modifiers     that were used to determine the group or level, or %NULL
              */
-            translate_keyboard_state(hardware_keycode: number, state: ModifierType, group: number): boolean
+            translate_keyboard_state(hardware_keycode: number, state: ModifierType, group: number): [boolean, number, number, number, ModifierType]
         }
 
         interface KeymapClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Keymap>
             readonly prototype: Keymap
+
             new (props?: Partial<GObject.ConstructorProps<Keymap>>): Keymap
             /**
              * Returns the #GdkKeymap attached to the default display.
@@ -2668,7 +2738,17 @@ declare module "gi://Gdk?version=3.0" {
             get_for_display(display: Display): Keymap
         }
 
-        const Keymap: KeymapClass
+        interface $Exports {
+            /**
+             * A #GdkKeymap defines the translation from keyboard state
+             * (including a hardware key, a modifier mask, and active keyboard group)
+             * to a keyval. This translation has two phases. The first phase is
+             * to determine the effective keyboard group and level for the keyboard
+             * state; the second phase is to look up the keycode/group/level triplet
+             * in the keymap and see what keyval it corresponds to.
+             */
+            Keymap: KeymapClass
+        }
         
 
         namespace Monitor {
@@ -2692,7 +2772,6 @@ declare module "gi://Gdk?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "display": Display
                 "geometry": Rectangle
                 "height-mm": number
                 "manufacturer": string | null
@@ -2705,19 +2784,10 @@ declare module "gi://Gdk?version=3.0" {
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "display": Display
             }
         }
 
-        /**
-         * GdkMonitor objects represent the individual outputs that are
-         * associated with a #GdkDisplay. GdkDisplay has APIs to enumerate
-         * monitors with gdk_display_get_n_monitors() and gdk_display_get_monitor(), and
-         * to find particular monitors with gdk_display_get_primary_monitor() or
-         * gdk_display_get_monitor_at_window().
-         *
-         * GdkMonitor was introduced in GTK+ 3.22 and supersedes earlier
-         * APIs in GdkScreen to obtain monitor-related information.
-         */
         interface Monitor extends GObject.Object {
             readonly $signals: Monitor.SignalSignatures
             readonly $readableProperties: Monitor.ReadableProperties
@@ -2868,10 +2938,23 @@ declare module "gi://Gdk?version=3.0" {
         interface MonitorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Monitor>
             readonly prototype: Monitor
+
             new (props?: Partial<GObject.ConstructorProps<Monitor>>): Monitor
         }
 
-        const Monitor: MonitorClass
+        interface $Exports {
+            /**
+             * GdkMonitor objects represent the individual outputs that are
+             * associated with a #GdkDisplay. GdkDisplay has APIs to enumerate
+             * monitors with gdk_display_get_n_monitors() and gdk_display_get_monitor(), and
+             * to find particular monitors with gdk_display_get_primary_monitor() or
+             * gdk_display_get_monitor_at_window().
+             *
+             * GdkMonitor was introduced in GTK+ 3.22 and supersedes earlier
+             * APIs in GdkScreen to obtain monitor-related information.
+             */
+            Monitor: MonitorClass
+        }
         
 
         namespace Screen {
@@ -2913,19 +2996,6 @@ declare module "gi://Gdk?version=3.0" {
             }
         }
 
-        /**
-         * #GdkScreen objects are the GDK representation of the screen on
-         * which windows can be displayed and on which the pointer moves.
-         * X originally identified screens with physical screens, but
-         * nowadays it is more common to have a single #GdkScreen which
-         * combines several physical monitors (see gdk_screen_get_n_monitors()).
-         *
-         * GdkScreen is used throughout GDK and GTK+ to specify which screen
-         * the top level windows are to be displayed on. it is also used to
-         * query the screen specification and default settings such as
-         * the default visual (gdk_screen_get_system_visual()), the dimensions
-         * of the physical monitors (gdk_screen_get_monitor_geometry()), etc.
-         */
         interface Screen extends GObject.Object {
             readonly $signals: Screen.SignalSignatures
             readonly $readableProperties: Screen.ReadableProperties
@@ -3026,7 +3096,7 @@ declare module "gi://Gdk?version=3.0" {
              * @param monitor_num the monitor number
              * @returns , a #GdkRectangle to be filled with     the monitor geometry
              */
-            get_monitor_geometry(monitor_num: number): void
+            get_monitor_geometry(monitor_num: number): Rectangle
             /**
              * Gets the height in millimeters of the specified monitor.
              * @since 2.14
@@ -3088,7 +3158,7 @@ declare module "gi://Gdk?version=3.0" {
              * @param monitor_num the monitor number
              * @returns , a #GdkRectangle to be filled with     the monitor workarea
              */
-            get_monitor_workarea(monitor_num: number): void
+            get_monitor_workarea(monitor_num: number): Rectangle
             /**
              * Returns the number of monitors which @screen consists of.
              * @since 2.2
@@ -3160,7 +3230,7 @@ declare module "gi://Gdk?version=3.0" {
              * @param value location to store the value of the setting
              * @returns %TRUE if the setting existed and a value was stored   in `value`, %FALSE otherwise.
              */
-            get_setting(name: string, value: GObject.Value): boolean
+            get_setting(name: string, value: (GObject.Value | unknown)): boolean
             /**
              * Get the system’s default visual for @screen.
              * This is the visual for the root window of the display.
@@ -3276,6 +3346,7 @@ declare module "gi://Gdk?version=3.0" {
         interface ScreenClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Screen>
             readonly prototype: Screen
+
             new (props?: Partial<GObject.ConstructorProps<Screen>>): Screen
             /**
              * Gets the default screen for the default display. (See
@@ -3316,7 +3387,22 @@ declare module "gi://Gdk?version=3.0" {
             width_mm(): number
         }
 
-        const Screen: ScreenClass
+        interface $Exports {
+            /**
+             * #GdkScreen objects are the GDK representation of the screen on
+             * which windows can be displayed and on which the pointer moves.
+             * X originally identified screens with physical screens, but
+             * nowadays it is more common to have a single #GdkScreen which
+             * combines several physical monitors (see gdk_screen_get_n_monitors()).
+             *
+             * GdkScreen is used throughout GDK and GTK+ to specify which screen
+             * the top level windows are to be displayed on. it is also used to
+             * query the screen specification and default settings such as
+             * the default visual (gdk_screen_get_system_visual()), the dimensions
+             * of the physical monitors (gdk_screen_get_monitor_geometry()), etc.
+             */
+            Screen: ScreenClass
+        }
         
 
         namespace Seat {
@@ -3360,17 +3446,13 @@ declare module "gi://Gdk?version=3.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties {
-                "display": Display
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                "display": Display
             }
         }
 
-        /**
-         * The #GdkSeat object represents a collection of input devices
-         * that belong to a user.
-         */
         interface Seat extends GObject.Object {
             readonly $signals: Seat.SignalSignatures
             readonly $readableProperties: Seat.ReadableProperties
@@ -3468,10 +3550,17 @@ declare module "gi://Gdk?version=3.0" {
         interface SeatClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Seat>
             readonly prototype: Seat
+
             new (props?: Partial<GObject.ConstructorProps<Seat>>): Seat
         }
 
-        const Seat: SeatClass
+        interface $Exports {
+            /**
+             * The #GdkSeat object represents a collection of input devices
+             * that belong to a user.
+             */
+            Seat: SeatClass
+        }
         
 
         namespace Visual {
@@ -3488,10 +3577,6 @@ declare module "gi://Gdk?version=3.0" {
             }
         }
 
-        /**
-         * A #GdkVisual contains information about
-         * a particular visual.
-         */
         interface Visual extends GObject.Object {
             readonly $signals: Visual.SignalSignatures
             readonly $readableProperties: Visual.ReadableProperties
@@ -3515,7 +3600,7 @@ declare module "gi://Gdk?version=3.0" {
              * @since 2.22
              * @returns , A pointer to a #guint32 to be filled in, or %NULL, A pointer to a #gint to be filled in, or %NULL, A pointer to a #gint to be filled in, or %NULL
              */
-            get_blue_pixel_details(): void
+            get_blue_pixel_details(): [number, number, number]
             /**
              * Returns the byte order of this visual.
              *
@@ -3551,7 +3636,7 @@ declare module "gi://Gdk?version=3.0" {
              * @since 2.22
              * @returns , A pointer to a #guint32 to be filled in, or %NULL, A pointer to a #gint to be filled in, or %NULL, A pointer to a #gint to be filled in, or %NULL
              */
-            get_green_pixel_details(): void
+            get_green_pixel_details(): [number, number, number]
             /**
              * Obtains values that are needed to calculate red pixel values in TrueColor
              * and DirectColor. The “mask” is the significant bits within the pixel.
@@ -3561,7 +3646,7 @@ declare module "gi://Gdk?version=3.0" {
              * @since 2.22
              * @returns , A pointer to a #guint32 to be filled in, or %NULL, A pointer to a #gint to be filled in, or %NULL, A pointer to a #gint to be filled in, or %NULL
              */
-            get_red_pixel_details(): void
+            get_red_pixel_details(): [number, number, number]
             /**
              * Gets the screen to which this visual belongs
              * @since 2.2
@@ -3579,6 +3664,7 @@ declare module "gi://Gdk?version=3.0" {
         interface VisualClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Visual>
             readonly prototype: Visual
+
             new (props?: Partial<GObject.ConstructorProps<Visual>>): Visual
             /**
              * Get the visual with the most available colors for the default
@@ -3640,7 +3726,13 @@ declare module "gi://Gdk?version=3.0" {
             get_system(): Visual
         }
 
-        const Visual: VisualClass
+        interface $Exports {
+            /**
+             * A #GdkVisual contains information about
+             * a particular visual.
+             */
+            Visual: VisualClass
+        }
         
 
         namespace Window {
@@ -3728,8 +3820,6 @@ declare module "gi://Gdk?version=3.0" {
             }
         }
 
-        /**
-         */
         interface Window extends GObject.Object {
             readonly $signals: Window.SignalSignatures
             readonly $readableProperties: Window.ReadableProperties
@@ -3916,7 +4006,7 @@ declare module "gi://Gdk?version=3.0" {
              * @param parent_y Y coordinate in parent’s coordinate system
              * @returns , return location for X coordinate in child’s coordinate system, return location for Y coordinate in child’s coordinate system
              */
-            coords_from_parent(parent_x: number, parent_y: number): void
+            coords_from_parent(parent_x: number, parent_y: number): [number, number]
             /**
              * Transforms window coordinates from a child window to its parent
              * window, where the parent window is the normal parent as returned by
@@ -3939,7 +4029,7 @@ declare module "gi://Gdk?version=3.0" {
              * @param y Y coordinate in child’s coordinate system
              * @returns , return location for X coordinate in parent’s coordinate system, or %NULL, return location for Y coordinate in parent’s coordinate system, or %NULL
              */
-            coords_to_parent(x: number, y: number): void
+            coords_to_parent(x: number, y: number): [number, number]
             /**
              * Creates a new #GdkGLContext matching the
              * framebuffer format to the visual of the #GdkWindow. The context
@@ -3955,7 +4045,19 @@ declare module "gi://Gdk?version=3.0" {
              */
             create_gl_context(): GLContext
             /**
+             * Create a new image surface that is efficient to draw on the
+             * given @window.
              *
+             * Initially the surface contents are all 0 (transparent if contents
+             * have transparency, black otherwise.)
+             *
+             * The @width and @height of the new surface are not affected by
+             * the scaling factor of the @window, or by the @scale argument; they
+             * are the size of the surface in device pixels. If you wish to create
+             * an image surface capable of holding the contents of @window you can
+             * use:
+             *
+             * |[<!-- language="C" -->
              *   int scale = gdk_window_get_scale_factor (window);
              *   int width = gdk_window_get_width (window) * scale;
              *   int height = gdk_window_get_height (window) * scale;
@@ -4221,7 +4323,7 @@ declare module "gi://Gdk?version=3.0" {
              * @param device pointer #GdkDevice to query to.
              * @returns The window underneath `device` (as with gdk_device_get_window_at_position()), or %NULL if the window is not known to GDK., return location for the X coordinate of `device`, or %NULL., return location for the Y coordinate of `device`, or %NULL., return location for the modifier mask, or %NULL.
              */
-            get_device_position(device: Device): Window | null
+            get_device_position(device: Device): [Window | null, number, number, ModifierType]
             /**
              * Obtains the current device position in doubles and modifier state.
              * The position is given in coordinates relative to the upper left
@@ -4230,7 +4332,7 @@ declare module "gi://Gdk?version=3.0" {
              * @param device pointer #GdkDevice to query to.
              * @returns The window underneath `device` (as with gdk_device_get_window_at_position()), or %NULL if the window is not known to GDK., return location for the X coordinate of `device`, or %NULL., return location for the Y coordinate of `device`, or %NULL., return location for the modifier mask, or %NULL.
              */
-            get_device_position_double(device: Device): Window | null
+            get_device_position_double(device: Device): [Window | null, number, number, ModifierType]
             /**
              * Gets the #GdkDisplay associated with a #GdkWindow.
              * @since 2.24
@@ -4242,7 +4344,7 @@ declare module "gi://Gdk?version=3.0" {
              * @since 3.0
              * @returns the supported DND protocol., location of the window    where the drop should happen. This may be `window` or a proxy window,    or %NULL if `window` does not support Drag and Drop.
              */
-            get_drag_protocol(): DragProtocol
+            get_drag_protocol(): [DragProtocol, Window]
             /**
              * Obtains the parent of @window, as known to GDK. Works like
              * gdk_window_get_parent() for normal windows, but returns the
@@ -4328,7 +4430,7 @@ declare module "gi://Gdk?version=3.0" {
              * the 16-bit coordinates of X11.
              * @returns , return location for X coordinate of window (relative to its parent), return location for Y coordinate of window (relative to its parent), return location for width of window, return location for height of window
              */
-            get_geometry(): void
+            get_geometry(): [number, number, number, number]
             /**
              * Returns the group leader window for @window. See gdk_window_set_group().
              * @since 2.4
@@ -4359,7 +4461,7 @@ declare module "gi://Gdk?version=3.0" {
              * relative to its parent window.)
              * @returns not meaningful, ignore, return location for X coordinate, return location for Y coordinate
              */
-            get_origin(): number
+            get_origin(): [number, number, number]
             /**
              * Obtains the parent of @window, as known to GDK. Does not query the
              * X server; thus this returns the parent as passed to gdk_window_new(),
@@ -4390,7 +4492,7 @@ declare module "gi://Gdk?version=3.0" {
              * @deprecated since 3.0 Use gdk_window_get_device_position() instead.
              * @returns the window containing the pointer (as with gdk_window_at_pointer()), or %NULL if the window containing the pointer isn’t known to GDK, return location for X coordinate of pointer or %NULL to not      return the X coordinate, return location for Y coordinate of pointer or %NULL to not      return the Y coordinate, return location for modifier mask or %NULL to not return the      modifier mask
              */
-            get_pointer(): Window | null
+            get_pointer(): [Window | null, number, number, ModifierType]
             /**
              * Obtains the position of the window as reported in the
              * most-recently-processed #GdkEventConfigure. Contrast with
@@ -4401,7 +4503,7 @@ declare module "gi://Gdk?version=3.0" {
              * The position coordinates are relative to the window’s parent window.
              * @returns , X coordinate of window, Y coordinate of window
              */
-            get_position(): void
+            get_position(): [number, number]
             /**
              * Obtains the position of a window position in root
              * window coordinates. This is similar to
@@ -5553,6 +5655,7 @@ declare module "gi://Gdk?version=3.0" {
         interface WindowClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Window>
             readonly prototype: Window
+
             new (props?: Partial<GObject.ConstructorProps<Window>>): Window
             /**
              * Creates a new #GdkWindow using the attributes from
@@ -5579,7 +5682,7 @@ declare module "gi://Gdk?version=3.0" {
              * @deprecated since 3.0 Use gdk_device_get_window_at_position() instead.
              * @returns window under the mouse pointer, return location for origin of the window under the pointer, return location for origin of the window under the pointer
              */
-            at_pointer(): Window
+            at_pointer(): [Window, number, number]
             /**
              * Constrains a desired width and height according to a
              * set of geometry hints (such as minimum and maximum size).
@@ -5622,15 +5725,102 @@ declare module "gi://Gdk?version=3.0" {
             set_debug_updates(setting: boolean): void
         }
 
-        const Window: WindowClass
-        /**
-         * An opaque type representing a string as an index into a table
-         * of strings on the X server.
-         */
-        abstract class Atom {
-            static readonly $gtype: GObject.GType<Atom>
+        interface $Exports {
+            /**
+             */
+            Window: WindowClass
+        }
+        
 
-            
+        namespace DevicePad {
+            interface SignalSignatures extends Device.SignalSignatures {
+            }
+
+            interface ReadableProperties extends Device.ReadableProperties {
+            }
+
+            interface WritableProperties extends Device.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Device.ConstructOnlyProperties {
+            }
+
+            interface Interface extends Device {
+            }
+        }
+
+        interface DevicePad extends Device, DevicePad.Interface {
+            readonly $signals: DevicePad.SignalSignatures
+            readonly $readableProperties: DevicePad.ReadableProperties
+            readonly $writableProperties: DevicePad.WritableProperties
+            readonly $constructOnlyProperties: DevicePad.ConstructOnlyProperties
+            /**
+             * Returns the group the given @feature and @idx belong to,
+             * or -1 if feature/index do not exist in @pad.
+             * @since 3.22
+             * @param feature the feature type to get the group from
+             * @param feature_idx the index of the feature to get the group from
+             * @returns The group number of the queried pad feature.
+             */
+            get_feature_group(feature: DevicePadFeature, feature_idx: number): number
+            /**
+             * Returns the number of modes that @group may have.
+             * @since 3.22
+             * @param group_idx group to get the number of available modes from
+             * @returns The number of modes available in `group`.
+             */
+            get_group_n_modes(group_idx: number): number
+            /**
+             * Returns the number of features a tablet pad has.
+             * @since 3.22
+             * @param feature a pad feature
+             * @returns The amount of elements of type `feature` that this pad has.
+             */
+            get_n_features(feature: DevicePadFeature): number
+            /**
+             * Returns the number of groups this pad device has. Pads have
+             * at least one group. A pad group is a subcollection of
+             * buttons/strip/rings that is affected collectively by a same
+             * current mode.
+             * @since 3.22
+             * @returns The number of button/ring/strip groups in the pad.
+             */
+            get_n_groups(): number
+        }
+
+        interface DevicePadInterface {
+            readonly $gtype: GObject.GType<DevicePad>
+            readonly prototype: DevicePad
+            [Symbol.hasInstance](instance: unknown): instance is DevicePad
+        }
+
+        interface $Exports {
+            /**
+             * #GdkDevicePad is an interface implemented by devices of type
+             * %GDK_SOURCE_TABLET_PAD, it allows querying the features provided
+             * by the pad device.
+             *
+             * Tablet pads may contain one or more groups, each containing a subset
+             * of the buttons/rings/strips available. gdk_device_pad_get_n_groups()
+             * can be used to obtain the number of groups, gdk_device_pad_get_n_features()
+             * and gdk_device_pad_get_feature_group() can be combined to find out the
+             * number of buttons/rings/strips the device has, and how are they grouped.
+             *
+             * Each of those groups have different modes, which may be used to map
+             * each individual pad feature to multiple actions. Only one mode is
+             * effective (current) for each given group, different groups may have
+             * different current modes. The number of available modes in a group can
+             * be found out through gdk_device_pad_get_group_n_modes(), and the current
+             * mode for a given group will be notified through the #GdkEventPadGroupMode
+             * event.
+             */
+            DevicePad: DevicePadInterface
+        }
+        
+
+        interface AtomStruct {
+            readonly $gtype: GObject.GType<Atom>
+            [Symbol.hasInstance](instance: unknown): instance is Atom
             /**
              * Finds or creates an atom corresponding to a given string.
              * @param atom_name a string.
@@ -5640,7 +5830,7 @@ declare module "gi://Gdk?version=3.0" {
               existance of an atom is as expensive as creating it.
              * @returns the atom corresponding to `atom_name`.
              */
-            static intern(atom_name: string, only_if_exists: boolean): Atom
+            intern(atom_name: string, only_if_exists: boolean): Atom
             /**
              * Finds or creates an atom corresponding to a given string.
              *
@@ -5656,22 +5846,25 @@ declare module "gi://Gdk?version=3.0" {
              * @param atom_name a static string
              * @returns the atom corresponding to `atom_name`
              */
-            static intern_static_string(atom_name: string): Atom
+            intern_static_string(atom_name: string): Atom
+        }
+
+        interface Atom {
             /**
              * Determines the string corresponding to an atom.
              * @returns a newly-allocated string containing the string   corresponding to `atom`. When you are done with the   return value, you should free it using g_free().
              */
             name(): string
         }
-        /**
-         * A #GdkColor is used to describe a color,
-         * similar to the XColor struct used in the X11 drawing API.
-         * @deprecated since 3.14 Use #GdkRGBA
-         */
-        abstract class Color {
-            static readonly $gtype: GObject.GType<Color>
 
-            
+        interface $Exports {
+            Atom: AtomStruct
+        }
+        
+
+        interface ColorStruct {
+            readonly $gtype: GObject.GType<Color>
+            [Symbol.hasInstance](instance: unknown): instance is Color
             /**
              * Parses a textual specification of a color and fill in the
              * @red, @green, and @blue fields of a #GdkColor.
@@ -5687,7 +5880,10 @@ declare module "gi://Gdk?version=3.0" {
              * @param spec the string specifying the color
              * @returns %TRUE if the parsing succeeded, the #GdkColor to fill in
              */
-            static parse(spec: string): [boolean, Color]
+            parse(spec: string): [boolean, Color]
+        }
+
+        interface Color {
             /**
              * For allocated colors, the pixel value used to
              *     draw this color on the screen. Not used anymore.
@@ -5746,17 +5942,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             to_string(): string
         }
-        none
-        none
-        /**
-         * Contains the fields which are common to all event structs.
-         * Any event pointer can safely be cast to a pointer to a #GdkEventAny to
-         * access these fields.
-         */
-        abstract class EventAny {
-            static readonly $gtype: GObject.GType<EventAny>
 
-            
+        interface $Exports {
+            Color: ColorStruct
+        }
+        
+
+        interface EventAnyStruct {
+            readonly $gtype: GObject.GType<EventAny>
+            [Symbol.hasInstance](instance: unknown): instance is EventAny
+        }
+
+        interface EventAny {
             /**
              * the type of the event.
              */
@@ -5770,45 +5967,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             send_event: number
         }
-        /**
-         * Used for button press and button release events. The
-         * @type field will be one of %GDK_BUTTON_PRESS,
-         * %GDK_2BUTTON_PRESS, %GDK_3BUTTON_PRESS or %GDK_BUTTON_RELEASE,
-         *
-         * Double and triple-clicks result in a sequence of events being received.
-         * For double-clicks the order of events will be:
-         *
-         * - %GDK_BUTTON_PRESS
-         * - %GDK_BUTTON_RELEASE
-         * - %GDK_BUTTON_PRESS
-         * - %GDK_2BUTTON_PRESS
-         * - %GDK_BUTTON_RELEASE
-         *
-         * Note that the first click is received just like a normal
-         * button press, while the second click results in a %GDK_2BUTTON_PRESS
-         * being received just after the %GDK_BUTTON_PRESS.
-         *
-         * Triple-clicks are very similar to double-clicks, except that
-         * %GDK_3BUTTON_PRESS is inserted after the third click. The order of the
-         * events is:
-         *
-         * - %GDK_BUTTON_PRESS
-         * - %GDK_BUTTON_RELEASE
-         * - %GDK_BUTTON_PRESS
-         * - %GDK_2BUTTON_PRESS
-         * - %GDK_BUTTON_RELEASE
-         * - %GDK_BUTTON_PRESS
-         * - %GDK_3BUTTON_PRESS
-         * - %GDK_BUTTON_RELEASE
-         *
-         * For a double click to occur, the second button press must occur within
-         * 1/4 of a second of the first. For a triple click to occur, the third
-         * button press must also occur within 1/2 second of the first button press.
-         */
-        abstract class EventButton {
-            static readonly $gtype: GObject.GType<EventButton>
 
-            
+        interface $Exports {
+            EventAny: EventAnyStruct
+        }
+        
+
+        interface EventButtonStruct {
+            readonly $gtype: GObject.GType<EventButton>
+            [Symbol.hasInstance](instance: unknown): instance is EventButton
+        }
+
+        interface EventButton {
             /**
              * the type of the event (%GDK_BUTTON_PRESS, %GDK_2BUTTON_PRESS,
              *   %GDK_3BUTTON_PRESS or %GDK_BUTTON_RELEASE).
@@ -5868,13 +6038,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             y_root: number
         }
-        /**
-         * Generated when a window size or position has changed.
-         */
-        abstract class EventConfigure {
-            static readonly $gtype: GObject.GType<EventConfigure>
 
-            
+        interface $Exports {
+            EventButton: EventButtonStruct
+        }
+        
+
+        interface EventConfigureStruct {
+            readonly $gtype: GObject.GType<EventConfigure>
+            [Symbol.hasInstance](instance: unknown): instance is EventConfigure
+        }
+
+        interface EventConfigure {
             /**
              * the type of the event (%GDK_CONFIGURE).
              */
@@ -5904,13 +6079,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             height: number
         }
-        /**
-         * Generated when the pointer enters or leaves a window.
-         */
-        abstract class EventCrossing {
-            static readonly $gtype: GObject.GType<EventCrossing>
 
-            
+        interface $Exports {
+            EventConfigure: EventConfigureStruct
+        }
+        
+
+        interface EventCrossingStruct {
+            readonly $gtype: GObject.GType<EventCrossing>
+            [Symbol.hasInstance](instance: unknown): instance is EventCrossing
+        }
+
+        interface EventCrossing {
             /**
              * the type of the event (%GDK_ENTER_NOTIFY or %GDK_LEAVE_NOTIFY).
              */
@@ -5972,13 +6152,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             state: ModifierType
         }
-        /**
-         * Generated during DND operations.
-         */
-        abstract class EventDND {
-            static readonly $gtype: GObject.GType<EventDND>
 
-            
+        interface $Exports {
+            EventCrossing: EventCrossingStruct
+        }
+        
+
+        interface EventDNDStruct {
+            readonly $gtype: GObject.GType<EventDND>
+            [Symbol.hasInstance](instance: unknown): instance is EventDND
+        }
+
+        interface EventDND {
             /**
              * the type of the event (%GDK_DRAG_ENTER, %GDK_DRAG_LEAVE,
              *   %GDK_DRAG_MOTION, %GDK_DRAG_STATUS, %GDK_DROP_START or
@@ -6012,14 +6197,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             y_root: number
         }
-        /**
-         * Generated when all or part of a window becomes visible and needs to be
-         * redrawn.
-         */
-        abstract class EventExpose {
-            static readonly $gtype: GObject.GType<EventExpose>
 
-            
+        interface $Exports {
+            EventDND: EventDNDStruct
+        }
+        
+
+        interface EventExposeStruct {
+            readonly $gtype: GObject.GType<EventExpose>
+            [Symbol.hasInstance](instance: unknown): instance is EventExpose
+        }
+
+        interface EventExpose {
             /**
              * the type of the event (%GDK_EXPOSE or %GDK_DAMAGE).
              */
@@ -6048,13 +6237,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             count: number
         }
-        /**
-         * Describes a change of keyboard focus.
-         */
-        abstract class EventFocus {
-            static readonly $gtype: GObject.GType<EventFocus>
 
-            
+        interface $Exports {
+            EventExpose: EventExposeStruct
+        }
+        
+
+        interface EventFocusStruct {
+            readonly $gtype: GObject.GType<EventFocus>
+            [Symbol.hasInstance](instance: unknown): instance is EventFocus
+        }
+
+        interface EventFocus {
             /**
              * the type of the event (%GDK_FOCUS_CHANGE).
              */
@@ -6073,18 +6267,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             in: number
         }
-        /**
-         * Generated when a pointer or keyboard grab is broken. On X11, this happens
-         * when the grab window becomes unviewable (i.e. it or one of its ancestors
-         * is unmapped), or if the same application grabs the pointer or keyboard
-         * again. Note that implicit grabs (which are initiated by button presses)
-         * can also cause #GdkEventGrabBroken events.
-         * @since 2.8
-         */
-        abstract class EventGrabBroken {
-            static readonly $gtype: GObject.GType<EventGrabBroken>
 
-            
+        interface $Exports {
+            EventFocus: EventFocusStruct
+        }
+        
+
+        interface EventGrabBrokenStruct {
+            readonly $gtype: GObject.GType<EventGrabBroken>
+            [Symbol.hasInstance](instance: unknown): instance is EventGrabBroken
+        }
+
+        interface EventGrabBroken {
             /**
              * the type of the event (%GDK_GRAB_BROKEN)
              */
@@ -6114,13 +6308,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             grab_window: Window
         }
-        /**
-         * Describes a key press or key release event.
-         */
-        abstract class EventKey {
-            static readonly $gtype: GObject.GType<EventKey>
 
-            
+        interface $Exports {
+            EventGrabBroken: EventGrabBrokenStruct
+        }
+        
+
+        interface EventKeyStruct {
+            readonly $gtype: GObject.GType<EventKey>
+            [Symbol.hasInstance](instance: unknown): instance is EventKey
+        }
+
+        interface EventKey {
             /**
              * the type of the event (%GDK_KEY_PRESS or %GDK_KEY_RELEASE).
              */
@@ -6181,13 +6380,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             is_modifier: number
         }
-        /**
-         * Generated when the pointer moves.
-         */
-        abstract class EventMotion {
-            static readonly $gtype: GObject.GType<EventMotion>
 
-            
+        interface $Exports {
+            EventKey: EventKeyStruct
+        }
+        
+
+        interface EventMotionStruct {
+            readonly $gtype: GObject.GType<EventMotion>
+            [Symbol.hasInstance](instance: unknown): instance is EventMotion
+        }
+
+        interface EventMotion {
             /**
              * the type of the event.
              */
@@ -6244,16 +6448,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             y_root: number
         }
-        /**
-         * Generated when the owner of a selection changes. On X11, this
-         * information is only available if the X server supports the XFIXES
-         * extension.
-         * @since 2.6
-         */
-        abstract class EventOwnerChange {
-            static readonly $gtype: GObject.GType<EventOwnerChange>
 
-            
+        interface $Exports {
+            EventMotion: EventMotionStruct
+        }
+        
+
+        interface EventOwnerChangeStruct {
+            readonly $gtype: GObject.GType<EventOwnerChange>
+            [Symbol.hasInstance](instance: unknown): instance is EventOwnerChange
+        }
+
+        interface EventOwnerChange {
             /**
              * the type of the event (%GDK_OWNER_CHANGE).
              */
@@ -6288,14 +6494,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             selection_time: number
         }
-        /**
-         * Generated during %GDK_SOURCE_TABLET_PAD interaction with tactile sensors.
-         * @since 3.22
-         */
-        abstract class EventPadAxis {
-            static readonly $gtype: GObject.GType<EventPadAxis>
 
-            
+        interface $Exports {
+            EventOwnerChange: EventOwnerChangeStruct
+        }
+        
+
+        interface EventPadAxisStruct {
+            readonly $gtype: GObject.GType<EventPadAxis>
+            [Symbol.hasInstance](instance: unknown): instance is EventPadAxis
+        }
+
+        interface EventPadAxis {
             /**
              * the type of the event (%GDK_PAD_RING or %GDK_PAD_STRIP).
              */
@@ -6332,14 +6542,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             value: number
         }
-        /**
-         * Generated during %GDK_SOURCE_TABLET_PAD button presses and releases.
-         * @since 3.22
-         */
-        abstract class EventPadButton {
-            static readonly $gtype: GObject.GType<EventPadButton>
 
-            
+        interface $Exports {
+            EventPadAxis: EventPadAxisStruct
+        }
+        
+
+        interface EventPadButtonStruct {
+            readonly $gtype: GObject.GType<EventPadButton>
+            [Symbol.hasInstance](instance: unknown): instance is EventPadButton
+        }
+
+        interface EventPadButton {
             /**
              * the type of the event (%GDK_PAD_BUTTON_PRESS or %GDK_PAD_BUTTON_RELEASE).
              */
@@ -6371,14 +6585,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             mode: number
         }
-        /**
-         * Generated during %GDK_SOURCE_TABLET_PAD mode switches in a group.
-         * @since 3.22
-         */
-        abstract class EventPadGroupMode {
-            static readonly $gtype: GObject.GType<EventPadGroupMode>
 
-            
+        interface $Exports {
+            EventPadButton: EventPadButtonStruct
+        }
+        
+
+        interface EventPadGroupModeStruct {
+            readonly $gtype: GObject.GType<EventPadGroupMode>
+            [Symbol.hasInstance](instance: unknown): instance is EventPadGroupMode
+        }
+
+        interface EventPadGroupMode {
             /**
              * the type of the event (%GDK_PAD_GROUP_MODE).
              */
@@ -6407,13 +6625,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             mode: number
         }
-        /**
-         * Describes a property change on a window.
-         */
-        abstract class EventProperty {
-            static readonly $gtype: GObject.GType<EventProperty>
 
-            
+        interface $Exports {
+            EventPadGroupMode: EventPadGroupModeStruct
+        }
+        
+
+        interface EventPropertyStruct {
+            readonly $gtype: GObject.GType<EventProperty>
+            [Symbol.hasInstance](instance: unknown): instance is EventProperty
+        }
+
+        interface EventProperty {
             /**
              * the type of the event (%GDK_PROPERTY_NOTIFY).
              */
@@ -6440,21 +6663,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             state: PropertyState
         }
-        /**
-         * Proximity events are generated when using GDK’s wrapper for the
-         * XInput extension. The XInput extension is an add-on for standard X
-         * that allows you to use nonstandard devices such as graphics tablets.
-         * A proximity event indicates that the stylus has moved in or out of
-         * contact with the tablet, or perhaps that the user’s finger has moved
-         * in or out of contact with a touch screen.
-         *
-         * This event type will be used pretty rarely. It only is important for
-         * XInput aware programs that are drawing their own cursor.
-         */
-        abstract class EventProximity {
-            static readonly $gtype: GObject.GType<EventProximity>
 
-            
+        interface $Exports {
+            EventProperty: EventPropertyStruct
+        }
+        
+
+        interface EventProximityStruct {
+            readonly $gtype: GObject.GType<EventProximity>
+            [Symbol.hasInstance](instance: unknown): instance is EventProximity
+        }
+
+        interface EventProximity {
             /**
              * the type of the event (%GDK_PROXIMITY_IN or %GDK_PROXIMITY_OUT).
              */
@@ -6477,20 +6697,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             device: Device
         }
-        /**
-         * Generated from button presses for the buttons 4 to 7. Wheel mice are
-         * usually configured to generate button press events for buttons 4 and 5
-         * when the wheel is turned.
-         *
-         * Some GDK backends can also generate “smooth” scroll events, which
-         * can be recognized by the %GDK_SCROLL_SMOOTH scroll direction. For
-         * these, the scroll deltas can be obtained with
-         * gdk_event_get_scroll_deltas().
-         */
-        abstract class EventScroll {
-            static readonly $gtype: GObject.GType<EventScroll>
 
-            
+        interface $Exports {
+            EventProximity: EventProximityStruct
+        }
+        
+
+        interface EventScrollStruct {
+            readonly $gtype: GObject.GType<EventScroll>
+            [Symbol.hasInstance](instance: unknown): instance is EventScroll
+        }
+
+        interface EventScroll {
             /**
              * the type of the event (%GDK_SCROLL).
              */
@@ -6554,14 +6772,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             is_stop: number
         }
-        /**
-         * Generated when a selection is requested or ownership of a selection
-         * is taken over by another client application.
-         */
-        abstract class EventSelection {
-            static readonly $gtype: GObject.GType<EventSelection>
 
-            
+        interface $Exports {
+            EventScroll: EventScrollStruct
+        }
+        
+
+        interface EventSelectionStruct {
+            readonly $gtype: GObject.GType<EventSelection>
+            [Symbol.hasInstance](instance: unknown): instance is EventSelection
+        }
+
+        interface EventSelection {
             /**
              * the type of the event (%GDK_SELECTION_CLEAR,
              *   %GDK_SELECTION_NOTIFY or %GDK_SELECTION_REQUEST).
@@ -6596,20 +6818,31 @@ declare module "gi://Gdk?version=3.0" {
              */
             requestor: Window
         }
-        /**
-         */
-        abstract class EventSequence {
-            static readonly $gtype: GObject.GType<EventSequence>
 
-            
+        interface $Exports {
+            EventSelection: EventSelectionStruct
         }
-        /**
-         * Generated when a setting is modified.
-         */
-        abstract class EventSetting {
-            static readonly $gtype: GObject.GType<EventSetting>
+        
 
-            
+        interface EventSequenceStruct {
+            readonly $gtype: GObject.GType<EventSequence>
+            [Symbol.hasInstance](instance: unknown): instance is EventSequence
+        }
+
+        interface EventSequence {
+        }
+
+        interface $Exports {
+            EventSequence: EventSequenceStruct
+        }
+        
+
+        interface EventSettingStruct {
+            readonly $gtype: GObject.GType<EventSetting>
+            [Symbol.hasInstance](instance: unknown): instance is EventSetting
+        }
+
+        interface EventSetting {
             /**
              * the type of the event (%GDK_SETTING).
              */
@@ -6632,22 +6865,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             name: string
         }
-        /**
-         * Used for touch events.
-         * @type field will be one of %GDK_TOUCH_BEGIN, %GDK_TOUCH_UPDATE,
-         * %GDK_TOUCH_END or %GDK_TOUCH_CANCEL.
-         *
-         * Touch events are grouped into sequences by means of the @sequence
-         * field, which can also be obtained with gdk_event_get_event_sequence().
-         * Each sequence begins with a %GDK_TOUCH_BEGIN event, followed by
-         * any number of %GDK_TOUCH_UPDATE events, and ends with a %GDK_TOUCH_END
-         * (or %GDK_TOUCH_CANCEL) event. With multitouch devices, there may be
-         * several active sequences at the same time.
-         */
-        abstract class EventTouch {
-            static readonly $gtype: GObject.GType<EventTouch>
 
-            
+        interface $Exports {
+            EventSetting: EventSettingStruct
+        }
+        
+
+        interface EventTouchStruct {
+            readonly $gtype: GObject.GType<EventTouch>
+            [Symbol.hasInstance](instance: unknown): instance is EventTouch
+        }
+
+        interface EventTouch {
             /**
              * the type of the event (%GDK_TOUCH_BEGIN, %GDK_TOUCH_UPDATE,
              *   %GDK_TOUCH_END, %GDK_TOUCH_CANCEL)
@@ -6709,13 +6938,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             y_root: number
         }
-        /**
-         * Generated during touchpad swipe gestures.
-         */
-        abstract class EventTouchpadPinch {
-            static readonly $gtype: GObject.GType<EventTouchpadPinch>
 
-            
+        interface $Exports {
+            EventTouch: EventTouchStruct
+        }
+        
+
+        interface EventTouchpadPinchStruct {
+            readonly $gtype: GObject.GType<EventTouchpadPinch>
+            [Symbol.hasInstance](instance: unknown): instance is EventTouchpadPinch
+        }
+
+        interface EventTouchpadPinch {
             /**
              * the type of the event (%GDK_TOUCHPAD_PINCH)
              */
@@ -6783,13 +7017,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             state: ModifierType
         }
-        /**
-         * Generated during touchpad swipe gestures.
-         */
-        abstract class EventTouchpadSwipe {
-            static readonly $gtype: GObject.GType<EventTouchpadSwipe>
 
-            
+        interface $Exports {
+            EventTouchpadPinch: EventTouchpadPinchStruct
+        }
+        
+
+        interface EventTouchpadSwipeStruct {
+            readonly $gtype: GObject.GType<EventTouchpadSwipe>
+            [Symbol.hasInstance](instance: unknown): instance is EventTouchpadSwipe
+        }
+
+        interface EventTouchpadSwipe {
             /**
              * the type of the event (%GDK_TOUCHPAD_SWIPE)
              */
@@ -6847,14 +7086,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             state: ModifierType
         }
-        /**
-         * Generated when the window visibility status has changed.
-         * @deprecated since 3.12 Modern composited windowing systems with pervasive     transparency make it impossible to track the visibility of a window     reliably, so this event can not be guaranteed to provide useful     information.
-         */
-        abstract class EventVisibility {
-            static readonly $gtype: GObject.GType<EventVisibility>
 
-            
+        interface $Exports {
+            EventTouchpadSwipe: EventTouchpadSwipeStruct
+        }
+        
+
+        interface EventVisibilityStruct {
+            readonly $gtype: GObject.GType<EventVisibility>
+            [Symbol.hasInstance](instance: unknown): instance is EventVisibility
+        }
+
+        interface EventVisibility {
             /**
              * the type of the event (%GDK_VISIBILITY_NOTIFY).
              */
@@ -6873,13 +7116,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             state: VisibilityState
         }
-        /**
-         * Generated when the state of a toplevel window changes.
-         */
-        abstract class EventWindowState {
-            static readonly $gtype: GObject.GType<EventWindowState>
 
-            
+        interface $Exports {
+            EventVisibility: EventVisibilityStruct
+        }
+        
+
+        interface EventWindowStateStruct {
+            readonly $gtype: GObject.GType<EventWindowState>
+            [Symbol.hasInstance](instance: unknown): instance is EventWindowState
+        }
+
+        interface EventWindowState {
             /**
              * the type of the event (%GDK_WINDOW_STATE).
              */
@@ -6902,26 +7150,31 @@ declare module "gi://Gdk?version=3.0" {
              */
             new_window_state: WindowState
         }
-        none
-        /**
-         */
-        abstract class FrameClockPrivate {
-            static readonly $gtype: GObject.GType<FrameClockPrivate>
 
-            
+        interface $Exports {
+            EventWindowState: EventWindowStateStruct
         }
-        /**
-         * A #GdkFrameTimings object holds timing information for a single frame
-         * of the application’s displays. To retrieve #GdkFrameTimings objects,
-         * use gdk_frame_clock_get_timings() or gdk_frame_clock_get_current_timings().
-         * The information in #GdkFrameTimings is useful for precise synchronization
-         * of video with the event or audio streams, and for measuring
-         * quality metrics for the application’s display, such as latency and jitter.
-         */
-        abstract class FrameTimings {
-            static readonly $gtype: GObject.GType<FrameTimings>
+        
 
-            
+        interface FrameClockPrivateStruct {
+            readonly $gtype: GObject.GType<FrameClockPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is FrameClockPrivate
+        }
+
+        interface FrameClockPrivate {
+        }
+
+        interface $Exports {
+            FrameClockPrivate: FrameClockPrivateStruct
+        }
+        
+
+        interface FrameTimingsStruct {
+            readonly $gtype: GObject.GType<FrameTimings>
+            [Symbol.hasInstance](instance: unknown): instance is FrameTimings
+        }
+
+        interface FrameTimings {
             /**
              * The timing information in a #GdkFrameTimings is filled in
              * incrementally as the frame as drawn and passed off to the
@@ -6992,24 +7245,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             unref(): void
         }
-        /**
-         * hints,
-         *                                 GDK_HINT_RESIZE_INC |
-         *                                 GDK_HINT_MIN_SIZE |
-         *                                 GDK_HINT_BASE_SIZE);
-         * ]|
-         *
-         * The other useful fields are the @min_aspect and @max_aspect fields; these
-         * contain a width/height ratio as a floating point number. If a geometry widget
-         * is set, the aspect applies to the geometry widget rather than the entire
-         * window. The most common use of these hints is probably to set @min_aspect and
-         * @max_aspect to the same value, thus forcing the window to keep a constant
-         * aspect ratio.
-         */
-        abstract class Geometry {
-            static readonly $gtype: GObject.GType<Geometry>
 
-            
+        interface $Exports {
+            FrameTimings: FrameTimingsStruct
+        }
+        
+
+        interface GeometryStruct {
+            readonly $gtype: GObject.GType<Geometry>
+            [Symbol.hasInstance](instance: unknown): instance is Geometry
+        }
+
+        interface Geometry {
             /**
              * minimum width of window (or -1 to use requisition, with
              *  #GtkWindow only)
@@ -7061,13 +7308,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             win_gravity: Gravity
         }
-        /**
-         * A #GdkKeymapKey is a hardware key that can be mapped to a keyval.
-         */
-        abstract class KeymapKey {
-            static readonly $gtype: GObject.GType<KeymapKey>
 
-            
+        interface $Exports {
+            Geometry: GeometryStruct
+        }
+        
+
+        interface KeymapKeyStruct {
+            readonly $gtype: GObject.GType<KeymapKey>
+            [Symbol.hasInstance](instance: unknown): instance is KeymapKey
+        }
+
+        interface KeymapKey {
             /**
              * the hardware keycode. This is an identifying number for a
              *   physical key.
@@ -7090,14 +7342,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             level: number
         }
-        none
-        /**
-         * Defines the x and y coordinates of a point.
-         */
-        abstract class Point {
-            static readonly $gtype: GObject.GType<Point>
 
-            
+        interface $Exports {
+            KeymapKey: KeymapKeyStruct
+        }
+        
+
+        interface PointStruct {
+            readonly $gtype: GObject.GType<Point>
+            [Symbol.hasInstance](instance: unknown): instance is Point
+        }
+
+        interface Point {
             /**
              * the x coordinate of the point.
              */
@@ -7107,14 +7363,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             y: number
         }
-        /**
-         * A #GdkRGBA is used to represent a (possibly translucent)
-         * color, in a way that is compatible with cairo’s notion of color.
-         */
-        abstract class RGBA {
-            static readonly $gtype: GObject.GType<RGBA>
 
-            
+        interface $Exports {
+            Point: PointStruct
+        }
+        
+
+        interface RGBAStruct {
+            readonly $gtype: GObject.GType<RGBA>
+            [Symbol.hasInstance](instance: unknown): instance is RGBA
+        }
+
+        interface RGBA {
             /**
              * The intensity of the red channel from 0.0 to 1.0 inclusive
              */
@@ -7201,14 +7461,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             to_string(): string
         }
-        /**
-         * Defines the position and size of a rectangle. It is identical to
-         * #cairo_rectangle_int_t.
-         */
-        abstract class Rectangle {
-            static readonly $gtype: GObject.GType<Rectangle>
 
-            
+        interface $Exports {
+            RGBA: RGBAStruct
+        }
+        
+
+        interface RectangleStruct {
+            readonly $gtype: GObject.GType<Rectangle>
+            [Symbol.hasInstance](instance: unknown): instance is Rectangle
+        }
+
+        interface Rectangle {
             /**
              */
             x: number
@@ -7238,7 +7502,7 @@ declare module "gi://Gdk?version=3.0" {
              * @param src2 a #GdkRectangle
              * @returns %TRUE if the rectangles intersect., return location for the intersection of `src1` and `src2`, or %NULL
              */
-            intersect(src2: Rectangle): boolean
+            intersect(src2: Rectangle): [boolean, Rectangle]
             /**
              * Calculates the union of two rectangles.
              * The union of rectangles @src1 and @src2 is the smallest rectangle which
@@ -7252,13 +7516,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             union(src2: Rectangle): Rectangle
         }
-        /**
-         * A #GdkTimeCoord stores a single event in a motion history.
-         */
-        abstract class TimeCoord {
-            static readonly $gtype: GObject.GType<TimeCoord>
 
-            
+        interface $Exports {
+            Rectangle: RectangleStruct
+        }
+        
+
+        interface TimeCoordStruct {
+            readonly $gtype: GObject.GType<TimeCoord>
+            [Symbol.hasInstance](instance: unknown): instance is TimeCoord
+        }
+
+        interface TimeCoord {
             /**
              * The timestamp for this event.
              */
@@ -7268,13 +7537,18 @@ declare module "gi://Gdk?version=3.0" {
              */
             axes: number[]
         }
-        /**
-         * Attributes to use for a newly-created window.
-         */
-        abstract class WindowAttr {
-            static readonly $gtype: GObject.GType<WindowAttr>
 
-            
+        interface $Exports {
+            TimeCoord: TimeCoordStruct
+        }
+        
+
+        interface WindowAttrStruct {
+            readonly $gtype: GObject.GType<WindowAttr>
+            [Symbol.hasInstance](instance: unknown): instance is WindowAttr
+        }
+
+        interface WindowAttr {
             /**
              * title of the window (for toplevel windows)
              */
@@ -7333,3568 +7607,42 @@ declare module "gi://Gdk?version=3.0" {
              */
             type_hint: WindowTypeHint
         }
-        none
-        /**
-         */
-        abstract class WindowRedirect {
-            static readonly $gtype: GObject.GType<WindowRedirect>
 
-            
+        interface $Exports {
+            WindowAttr: WindowAttrStruct
         }
-        /**
-         * Appends gdk option entries to the passed in option group. This is
-         * not public API and must not be used by applications.
-         * @deprecated since 3.16 This symbol was never meant to be used outside   of GTK+
-         * @param group An option group.
-         */
-        function add_option_entries_libgtk_only(group: GLib.OptionGroup): void
-        /**
-         * Finds or creates an atom corresponding to a given string.
-         * @param atom_name a string.
-         * @param only_if_exists if %TRUE, GDK is allowed to not create a new atom, but
-          just return %GDK_NONE if the requested atom doesn’t already
-          exists. Currently, the flag is ignored, since checking the
-          existance of an atom is as expensive as creating it.
-         * @returns the atom corresponding to `atom_name`.
-         */
-        function atom_intern(atom_name: string, only_if_exists: boolean): Atom
-        /**
-         * Finds or creates an atom corresponding to a given string.
-         *
-         * Note that this function is identical to gdk_atom_intern() except
-         * that if a new #GdkAtom is created the string itself is used rather
-         * than a copy. This saves memory, but can only be used if the string
-         * will always exist. It can be used with statically
-         * allocated strings in the main program, but not with statically
-         * allocated memory in dynamically loaded modules, if you expect to
-         * ever unload the module again (e.g. do not use this function in
-         * GTK+ theme engines).
-         * @since 2.10
-         * @param atom_name a static string
-         * @returns the atom corresponding to `atom_name`
-         */
-        function atom_intern_static_string(atom_name: string): Atom
-        /**
-         * Emits a short beep on the default display.
-         */
-        function beep(): void
-        /**
-         * Creates a Cairo context for drawing to @window.
-         *
-         * Note that calling cairo_reset_clip() on the resulting #cairo_t will
-         * produce undefined results, so avoid it at all costs.
-         *
-         * Typically, this function is used to draw on a #GdkWindow out of the paint
-         * cycle of the toolkit; this should be avoided, as it breaks various assumptions
-         * and optimizations.
-         *
-         * If you are drawing on a native #GdkWindow in response to a %GDK_EXPOSE event
-         * you should use gdk_window_begin_draw_frame() and gdk_drawing_context_get_cairo_context()
-         * instead. GTK will automatically do this for you when drawing a widget.
-         * @since 2.8
-         * @deprecated since 3.22 Use gdk_window_begin_draw_frame() and   gdk_drawing_context_get_cairo_context() instead
-         * @param window a #GdkWindow
-         * @returns A newly created Cairo context. Free with  cairo_destroy() when you are done drawing.
-         */
-        function cairo_create(window: Window): cairo.Context
-        /**
-         * This is the main way to draw GL content in GTK+. It takes a render buffer ID
-         * (@source_type == #GL_RENDERBUFFER) or a texture id (@source_type == #GL_TEXTURE)
-         * and draws it onto @cr with an OVER operation, respecting the current clip.
-         * The top left corner of the rectangle specified by @x, @y, @width and @height
-         * will be drawn at the current (0,0) position of the cairo_t.
-         *
-         * This will work for *all* cairo_t, as long as @window is realized, but the
-         * fallback implementation that reads back the pixels from the buffer may be
-         * used in the general case. In the case of direct drawing to a window with
-         * no special effects applied to @cr it will however use a more efficient
-         * approach.
-         *
-         * For #GL_RENDERBUFFER the code will always fall back to software for buffers
-         * with alpha components, so make sure you use #GL_TEXTURE if using alpha.
-         *
-         * Calling this may change the current GL context.
-         * @since 3.16
-         * @param cr a cairo context
-         * @param window The window we're rendering for (not necessarily into)
-         * @param source The GL ID of the source buffer
-         * @param source_type The type of the @source
-         * @param buffer_scale The scale-factor that the @source buffer is allocated for
-         * @param x The source x position in @source to start copying from in GL coordinates
-         * @param y The source y position in @source to start copying from in GL coordinates
-         * @param width The width of the region to draw
-         * @param height The height of the region to draw
-         */
-        function cairo_draw_from_gl(cr: cairo.Context, window: Window, source: number, source_type: number, buffer_scale: number, x: number, y: number, width: number, height: number): void
-        /**
-         * This is a convenience function around cairo_clip_extents().
-         * It rounds the clip extents to integer coordinates and returns
-         * a boolean indicating if a clip area exists.
-         * @param cr a cairo context
-         * @returns %TRUE if a clip rectangle exists, %FALSE if all of `cr` is     clipped and all drawing can be skipped, return location for the clip, or %NULL
-         */
-        function cairo_get_clip_rectangle(cr: cairo.Context): boolean
-        /**
-         * Retrieves the #GdkDrawingContext that created the Cairo
-         * context @cr.
-         * @since 3.22
-         * @param cr a Cairo context
-         * @returns a #GdkDrawingContext, if any is set
-         */
-        function cairo_get_drawing_context(cr: cairo.Context): DrawingContext | null
-        /**
-         * Adds the given rectangle to the current path of @cr.
-         * @since 2.8
-         * @param cr a cairo context
-         * @param rectangle a #GdkRectangle
-         */
-        function cairo_rectangle(cr: cairo.Context, rectangle: Rectangle): void
-        /**
-         * Adds the given region to the current path of @cr.
-         * @since 2.8
-         * @param cr a cairo context
-         * @param region a #cairo_region_t
-         */
-        function cairo_region(cr: cairo.Context, region: cairo.Region): void
-        /**
-         * Creates region that describes covers the area where the given
-         * @surface is more than 50% opaque.
-         *
-         * This function takes into account device offsets that might be
-         * set with cairo_surface_set_device_offset().
-         * @param surface a cairo surface
-         * @returns A #cairo_region_t; must be freed with cairo_region_destroy()
-         */
-        function cairo_region_create_from_surface(surface: cairo.Surface): cairo.Region
-        /**
-         * Sets the specified #GdkColor as the source color of @cr.
-         * @since 2.8
-         * @deprecated since 3.4 Use gdk_cairo_set_source_rgba() instead
-         * @param cr a cairo context
-         * @param color a #GdkColor
-         */
-        function cairo_set_source_color(cr: cairo.Context, color: Color): void
-        /**
-         * Sets the given pixbuf as the source pattern for @cr.
-         *
-         * The pattern has an extend mode of %CAIRO_EXTEND_NONE and is aligned
-         * so that the origin of @pixbuf is @pixbuf_x, @pixbuf_y.
-         * @since 2.8
-         * @param cr a cairo context
-         * @param pixbuf a #GdkPixbuf
-         * @param pixbuf_x X coordinate of location to place upper left corner of @pixbuf
-         * @param pixbuf_y Y coordinate of location to place upper left corner of @pixbuf
-         */
-        function cairo_set_source_pixbuf(cr: cairo.Context, pixbuf: GdkPixbuf.Pixbuf, pixbuf_x: number, pixbuf_y: number): void
-        /**
-         * Sets the specified #GdkRGBA as the source color of @cr.
-         * @since 3.0
-         * @param cr a cairo context
-         * @param rgba a #GdkRGBA
-         */
-        function cairo_set_source_rgba(cr: cairo.Context, rgba: RGBA): void
-        /**
-         * Sets the given window as the source pattern for @cr.
-         *
-         * The pattern has an extend mode of %CAIRO_EXTEND_NONE and is aligned
-         * so that the origin of @window is @x, @y. The window contains all its
-         * subwindows when rendering.
-         *
-         * Note that the contents of @window are undefined outside of the
-         * visible part of @window, so use this function with care.
-         * @since 2.24
-         * @param cr a cairo context
-         * @param window a #GdkWindow
-         * @param x X coordinate of location to place upper left corner of @window
-         * @param y Y coordinate of location to place upper left corner of @window
-         */
-        function cairo_set_source_window(cr: cairo.Context, window: Window, x: number, y: number): void
-        /**
-         * Creates an image surface with the same contents as
-         * the pixbuf.
-         * @since 3.10
-         * @param pixbuf a #GdkPixbuf
-         * @param scale the scale of the new surface, or 0 to use same as @window
-         * @param for_window The window this will be drawn to, or %NULL
-         * @returns a new cairo surface, must be freed with cairo_surface_destroy()
-         */
-        function cairo_surface_create_from_pixbuf(pixbuf: GdkPixbuf.Pixbuf, scale: number, for_window: Window | null): cairo.Surface
-        /**
-         * Parses a textual specification of a color and fill in the
-         * @red, @green, and @blue fields of a #GdkColor.
-         *
-         * The string can either one of a large set of standard names
-         * (taken from the X11 `rgb.txt` file), or it can be a hexadecimal
-         * value in the form “\#rgb” “\#rrggbb”, “\#rrrgggbbb” or
-         * “\#rrrrggggbbbb” where “r”, “g” and “b” are hex digits of
-         * the red, green, and blue components of the color, respectively.
-         * (White in the four forms is “\#fff”, “\#ffffff”, “\#fffffffff”
-         * and “\#ffffffffffff”).
-         * @deprecated since 3.14 Use #GdkRGBA
-         * @param spec the string specifying the color
-         * @returns %TRUE if the parsing succeeded, the #GdkColor to fill in
-         */
-        function color_parse(spec: string): [boolean, Color]
-        /**
-         * Disables multidevice support in GDK. This call must happen prior
-         * to gdk_display_open(), gtk_init(), gtk_init_with_args() or
-         * gtk_init_check() in order to take effect.
-         *
-         * Most common GTK+ applications won’t ever need to call this. Only
-         * applications that do mixed GDK/Xlib calls could want to disable
-         * multidevice support if such Xlib code deals with input devices in
-         * any way and doesn’t observe the presence of XInput 2.
-         * @since 3.0
-         */
-        function disable_multidevice(): void
-        /**
-         * Aborts a drag without dropping.
-         *
-         * This function is called by the drag source.
-         *
-         * This function does not need to be called in managed drag and drop
-         * operations. See gdk_drag_context_manage_dnd() for more information.
-         * @param context a #GdkDragContext
-         * @param time_ the timestamp for this operation
-         */
-        function drag_abort(context: DragContext, time_: number): void
-        /**
-         * Starts a drag and creates a new drag context for it.
-         * This function assumes that the drag is controlled by the
-         * client pointer device, use gdk_drag_begin_for_device() to
-         * begin a drag with a different device.
-         *
-         * This function is called by the drag source.
-         * @param window the source window for this drag.
-         * @param targets the offered targets,
-            as list of #GdkAtoms
-         * @returns a newly created #GdkDragContext
-         */
-        function drag_begin(window: Window, targets: Atom[]): DragContext
-        /**
-         * Starts a drag and creates a new drag context for it.
-         *
-         * This function is called by the drag source.
-         * @param window the source window for this drag
-         * @param device the device that controls this drag
-         * @param targets the offered targets,
-            as list of #GdkAtoms
-         * @returns a newly created #GdkDragContext
-         */
-        function drag_begin_for_device(window: Window, device: Device, targets: Atom[]): DragContext
-        /**
-         * Starts a drag and creates a new drag context for it.
-         *
-         * This function is called by the drag source.
-         * @since 3.20
-         * @param window the source window for this drag
-         * @param device the device that controls this drag
-         * @param targets the offered targets,
-            as list of #GdkAtoms
-         * @param x_root the x coordinate where the drag nominally started
-         * @param y_root the y coordinate where the drag nominally started
-         * @returns a newly created #GdkDragContext
-         */
-        function drag_begin_from_point(window: Window, device: Device, targets: Atom[], x_root: number, y_root: number): DragContext
-        /**
-         * Drops on the current destination.
-         *
-         * This function is called by the drag source.
-         *
-         * This function does not need to be called in managed drag and drop
-         * operations. See gdk_drag_context_manage_dnd() for more information.
-         * @param context a #GdkDragContext
-         * @param time_ the timestamp for this operation
-         */
-        function drag_drop(context: DragContext, time_: number): void
-        /**
-         * Inform GDK if the drop ended successfully. Passing %FALSE
-         * for @success may trigger a drag cancellation animation.
-         *
-         * This function is called by the drag source, and should
-         * be the last call before dropping the reference to the
-         * @context.
-         *
-         * The #GdkDragContext will only take the first gdk_drag_drop_done()
-         * call as effective, if this function is called multiple times,
-         * all subsequent calls will be ignored.
-         * @since 3.20
-         * @param context a #GdkDragContext
-         * @param success whether the drag was ultimatively successful
-         */
-        function drag_drop_done(context: DragContext, success: boolean): void
-        /**
-         * Returns whether the dropped data has been successfully
-         * transferred. This function is intended to be used while
-         * handling a %GDK_DROP_FINISHED event, its return value is
-         * meaningless at other times.
-         * @since 2.6
-         * @param context a #GdkDragContext
-         * @returns %TRUE if the drop was successful.
-         */
-        function drag_drop_succeeded(context: DragContext): boolean
-        /**
-         * Finds the destination window and DND protocol to use at the
-         * given pointer position.
-         *
-         * This function is called by the drag source to obtain the
-         * @dest_window and @protocol parameters for gdk_drag_motion().
-         * @since 2.2
-         * @param context a #GdkDragContext
-         * @param drag_window a window which may be at the pointer position, but
-            should be ignored, since it is put up by the drag source as an icon
-         * @param screen the screen where the destination window is sought
-         * @param x_root the x position of the pointer in root coordinates
-         * @param y_root the y position of the pointer in root coordinates
-         * @returns , location to store the destination window in, location to store the DND protocol in
-         */
-        function drag_find_window_for_screen(context: DragContext, drag_window: Window, screen: Screen, x_root: number, y_root: number): [Window, DragProtocol]
-        /**
-         * Returns the selection atom for the current source window.
-         * @param context a #GdkDragContext.
-         * @returns the selection atom, or %GDK_NONE
-         */
-        function drag_get_selection(context: DragContext): Atom
-        /**
-         * Updates the drag context when the pointer moves or the
-         * set of actions changes.
-         *
-         * This function is called by the drag source.
-         *
-         * This function does not need to be called in managed drag and drop
-         * operations. See gdk_drag_context_manage_dnd() for more information.
-         * @param context a #GdkDragContext
-         * @param dest_window the new destination window, obtained by
-            gdk_drag_find_window()
-         * @param protocol the DND protocol in use, obtained by gdk_drag_find_window()
-         * @param x_root the x position of the pointer in root coordinates
-         * @param y_root the y position of the pointer in root coordinates
-         * @param suggested_action the suggested action
-         * @param possible_actions the possible actions
-         * @param time_ the timestamp for this operation
-         */
-        function drag_motion(context: DragContext, dest_window: Window, protocol: DragProtocol, x_root: number, y_root: number, suggested_action: DragAction, possible_actions: DragAction, time_: number): boolean
-        /**
-         * Selects one of the actions offered by the drag source.
-         *
-         * This function is called by the drag destination in response to
-         * gdk_drag_motion() called by the drag source.
-         * @param context a #GdkDragContext
-         * @param action the selected action which will be taken when a drop happens,
-           or 0 to indicate that a drop will not be accepted
-         * @param time_ the timestamp for this operation
-         */
-        function drag_status(context: DragContext, action: DragAction, time_: number): void
-        /**
-         * Ends the drag operation after a drop.
-         *
-         * This function is called by the drag destination.
-         * @param context a #GdkDragContext
-         * @param success %TRUE if the data was successfully received
-         * @param time_ the timestamp for this operation
-         */
-        function drop_finish(context: DragContext, success: boolean, time_: number): void
-        /**
-         * Accepts or rejects a drop.
-         *
-         * This function is called by the drag destination in response
-         * to a drop initiated by the drag source.
-         * @param context a #GdkDragContext
-         * @param accepted %TRUE if the drop is accepted
-         * @param time_ the timestamp for this operation
-         */
-        function drop_reply(context: DragContext, accepted: boolean, time_: number): void
-        /**
-         * Removes an error trap pushed with gdk_error_trap_push().
-         * May block until an error has been definitively received
-         * or not received from the X server. gdk_error_trap_pop_ignored()
-         * is preferred if you don’t need to know whether an error
-         * occurred, because it never has to block. If you don't
-         * need the return value of gdk_error_trap_pop(), use
-         * gdk_error_trap_pop_ignored().
-         *
-         * Prior to GDK 3.0, this function would not automatically
-         * sync for you, so you had to gdk_flush() if your last
-         * call to Xlib was not a blocking round trip.
-         * @returns X error code or 0 on success
-         */
-        function error_trap_pop(): number
-        /**
-         * Removes an error trap pushed with gdk_error_trap_push(), but
-         * without bothering to wait and see whether an error occurred.  If an
-         * error arrives later asynchronously that was triggered while the
-         * trap was pushed, that error will be ignored.
-         * @since 3.0
-         */
-        function error_trap_pop_ignored(): void
-        /**
-         *
-         * gdk_error_trap_push ();
-         *
-         *  // ... Call the X function which may cause an error here ...
-         *
-         *
-         * if (gdk_error_trap_pop ())
-         *  {
-         *    // ... Handle the error here ...
-         *  }
-         * ]|
-         */
-        function error_trap_push(): void
-        /**
-         * Checks all open displays for a #GdkEvent to process,to be processed
-         * on, fetching events from the windowing system if necessary.
-         * See gdk_display_get_event().
-         * @returns the next #GdkEvent to be processed, or %NULL if no events are pending. The returned #GdkEvent should be freed with gdk_event_free().
-         */
-        function event_get(): Event | null
-        /**
-         * Sets the function to call to handle all events from GDK.
-         *
-         * Note that GTK+ uses this to install its own event handler, so it is
-         * usually not useful for GTK+ applications. (Although an application
-         * can call this function then call gtk_main_do_event() to pass
-         * events to GTK+.)
-         * @param func the function to call to handle events from GDK.
-         */
-        function event_handler_set(func: EventFunc): void
-        /**
-         * If there is an event waiting in the event queue of some open
-         * display, returns a copy of it. See gdk_display_peek_event().
-         * @returns a copy of the first #GdkEvent on some event queue, or %NULL if no events are in any queues. The returned #GdkEvent should be freed with gdk_event_free().
-         */
-        function event_peek(): Event | null
-        /**
-         * y;
-         *   // handle (x,y) motion
-         *   gdk_event_request_motions (motion_event); // handles is_hint events
-         * }
-         * ]|
-         * @since 2.12
-         * @param event a valid #GdkEvent
-         */
-        function event_request_motions(event: EventMotion): void
-        /**
-         * If both events contain X/Y information, this function will return %TRUE
-         * and return in @angle the relative angle from @event1 to @event2. The rotation
-         * direction for positive angles is from the positive X axis towards the positive
-         * Y axis.
-         * @since 3.0
-         * @param event1 first #GdkEvent
-         * @param event2 second #GdkEvent
-         * @returns %TRUE if the angle could be calculated., return location for the relative angle between both events
-         */
-        function events_get_angle(event1: Event, event2: Event): [boolean, number]
-        /**
-         * If both events contain X/Y information, the center of both coordinates
-         * will be returned in @x and @y.
-         * @since 3.0
-         * @param event1 first #GdkEvent
-         * @param event2 second #GdkEvent
-         * @returns %TRUE if the center could be calculated., return location for the X coordinate of the center, return location for the Y coordinate of the center
-         */
-        function events_get_center(event1: Event, event2: Event): [boolean, number, number]
-        /**
-         * If both events have X/Y information, the distance between both coordinates
-         * (as in a straight line going from @event1 to @event2) will be returned.
-         * @since 3.0
-         * @param event1 first #GdkEvent
-         * @param event2 second #GdkEvent
-         * @returns %TRUE if the distance could be calculated., return location for the distance
-         */
-        function events_get_distance(event1: Event, event2: Event): [boolean, number]
-        /**
-         * Checks if any events are ready to be processed for any display.
-         * @returns %TRUE if any events are pending.
-         */
-        function events_pending(): boolean
-        /**
-         * Flushes the output buffers of all display connections and waits
-         * until all requests have been processed.
-         * This is rarely needed by applications.
-         */
-        function flush(): void
-        /**
-         * Obtains the root window (parent all other windows are inside)
-         * for the default display and screen.
-         * @returns the default root window
-         */
-        function get_default_root_window(): Window
-        /**
-         * Gets the name of the display, which usually comes from the
-         * `DISPLAY` environment variable or the
-         * `--display` command line option.
-         * @deprecated since 3.8 Call gdk_display_get_name (gdk_display_get_default ()))    instead.
-         * @returns the name of the display.
-         */
-        function get_display(): string
-        /**
-         * Gets the display name specified in the command line arguments passed
-         * to gdk_init() or gdk_parse_args(), if any.
-         * @since 2.2
-         * @returns the display name, if specified explicitly,   otherwise %NULL this string is owned by GTK+ and must not be   modified or freed.
-         */
-        function get_display_arg_name(): string | null
-        /**
-         * Gets the program class. Unless the program class has explicitly
-         * been set with gdk_set_program_class() or with the `--class`
-         * commandline option, the default value is the program name (determined
-         * with g_get_prgname()) with the first character converted to uppercase.
-         * @returns the program class.
-         */
-        function get_program_class(): string
-        /**
-         * Gets whether event debugging output is enabled.
-         * @returns %TRUE if event debugging output is enabled.
-         */
-        function get_show_events(): boolean
-        /**
-         */
-        function gl_error_quark(): GLib.Quark
-        /**
-         * Initializes the GDK library and connects to the windowing system.
-         * If initialization fails, a warning message is output and the application
-         * terminates with a call to `exit(1)`.
-         *
-         * Any arguments used by GDK are removed from the array and @argc and @argv
-         * are updated accordingly.
-         *
-         * GTK+ initializes GDK in gtk_init() and so this function is not usually
-         * needed by GTK+ applications.
-         * @returns , the array of command line arguments.
-         */
-        function init(): string[]
-        /**
-         * Initializes the GDK library and connects to the windowing system,
-         * returning %TRUE on success.
-         *
-         * Any arguments used by GDK are removed from the array and @argc and @argv
-         * are updated accordingly.
-         *
-         * GTK+ initializes GDK in gtk_init() and so this function is not usually
-         * needed by GTK+ applications.
-         * @returns %TRUE if initialization succeeded., the array of command line arguments.
-         */
-        function init_check(): [boolean, string[]]
-        /**
-         * Grabs the keyboard so that all events are passed to this
-         * application until the keyboard is ungrabbed with gdk_keyboard_ungrab().
-         * This overrides any previous keyboard grab by this client.
-         *
-         * If you set up anything at the time you take the grab that needs to be cleaned
-         * up when the grab ends, you should handle the #GdkEventGrabBroken events that
-         * are emitted when the grab ends unvoluntarily.
-         * @deprecated since 3.0 Use gdk_device_grab() instead.
-         * @param window the #GdkWindow which will own the grab (the grab window).
-         * @param owner_events if %FALSE then all keyboard events are reported with respect to
-          @window. If %TRUE then keyboard events for this application are
-          reported as normal, but keyboard events outside this application
-          are reported with respect to @window. Both key press and key
-          release events are always reported, independant of the event mask
-          set by the application.
-         * @param time_ a timestamp from a #GdkEvent, or %GDK_CURRENT_TIME if no timestamp is
-          available.
-         * @returns %GDK_GRAB_SUCCESS if the grab was successful.
-         */
-        function keyboard_grab(window: Window, owner_events: boolean, time_: number): GrabStatus
-        /**
-         * Ungrabs the keyboard on the default display, if it is grabbed by this
-         * application.
-         * @deprecated since 3.0 Use gdk_device_ungrab(), together with gdk_device_grab()             instead.
-         * @param time_ a timestamp from a #GdkEvent, or %GDK_CURRENT_TIME if no
-               timestamp is available.
-         */
-        function keyboard_ungrab(time_: number): void
-        /**
-         * Obtains the upper- and lower-case versions of the keyval @symbol.
-         * Examples of keyvals are #GDK_KEY_a, #GDK_KEY_Enter, #GDK_KEY_F1, etc.
-         * @param symbol a keyval
-         * @returns , return location for lowercase version of `symbol`, return location for uppercase version of `symbol`
-         */
-        function keyval_convert_case(symbol: number): [number, number]
-        /**
-         * Converts a key name to a key value.
-         *
-         * The names are the same as those in the
-         * `gdk/gdkkeysyms.h` header file
-         * but without the leading “GDK_KEY_”.
-         * @param keyval_name a key name
-         * @returns the corresponding key value, or %GDK_KEY_VoidSymbol     if the key name is not a valid key
-         */
-        function keyval_from_name(keyval_name: string): number
-        /**
-         * Returns %TRUE if the given key value is in lower case.
-         * @param keyval a key value.
-         * @returns %TRUE if `keyval` is in lower case, or if `keyval` is not   subject to case conversion.
-         */
-        function keyval_is_lower(keyval: number): boolean
-        /**
-         * Returns %TRUE if the given key value is in upper case.
-         * @param keyval a key value.
-         * @returns %TRUE if `keyval` is in upper case, or if `keyval` is not subject to  case conversion.
-         */
-        function keyval_is_upper(keyval: number): boolean
-        /**
-         * Converts a key value into a symbolic name.
-         *
-         * The names are the same as those in the
-         * `gdk/gdkkeysyms.h` header file
-         * but without the leading “GDK_KEY_”.
-         * @param keyval a key value
-         * @returns a string containing the name     of the key, or %NULL if `keyval` is not a valid key. The string     should not be modified.
-         */
-        function keyval_name(keyval: number): string | null
-        /**
-         * Converts a key value to lower case, if applicable.
-         * @param keyval a key value.
-         * @returns the lower case form of `keyval`, or `keyval` itself if it is already  in lower case or it is not subject to case conversion.
-         */
-        function keyval_to_lower(keyval: number): number
-        /**
-         * Convert from a GDK key symbol to the corresponding ISO10646 (Unicode)
-         * character.
-         * @param keyval a GDK key symbol
-         * @returns the corresponding unicode character, or 0 if there               is no corresponding character.
-         */
-        function keyval_to_unicode(keyval: number): number
-        /**
-         * Converts a key value to upper case, if applicable.
-         * @param keyval a key value.
-         * @returns the upper case form of `keyval`, or `keyval` itself if it is already   in upper case or it is not subject to case conversion.
-         */
-        function keyval_to_upper(keyval: number): number
-        /**
-         * Lists the available visuals for the default screen.
-         * (See gdk_screen_list_visuals())
-         * A visual describes a hardware image data format.
-         * For example, a visual might support 24-bit color, or 8-bit color,
-         * and might expect pixels to be in a certain format.
-         *
-         * Call g_list_free() on the return value when you’re finished with it.
-         * @deprecated since 3.22 Use gdk_screen_list_visuals (gdk_screen_get_default ()).
-         * @returns      a list of visuals; the list must be freed, but not its contents
-         */
-        function list_visuals(): Visual[]
-        /**
-         * Indicates to the GUI environment that the application has finished
-         * loading. If the applications opens windows, this function is
-         * normally called after opening the application’s initial set of
-         * windows.
-         *
-         * GTK+ will call this function automatically after opening the first
-         * #GtkWindow unless gtk_window_set_auto_startup_notification() is called
-         * to disable that feature.
-         * @since 2.2
-         */
-        function notify_startup_complete(): void
-        /**
-         * Indicates to the GUI environment that the application has
-         * finished loading, using a given identifier.
-         *
-         * GTK+ will call this function automatically for #GtkWindow
-         * with custom startup-notification identifier unless
-         * gtk_window_set_auto_startup_notification() is called to
-         * disable that feature.
-         * @since 2.12
-         * @param startup_id a startup-notification identifier, for which
-            notification process should be completed
-         */
-        function notify_startup_complete_with_id(startup_id: string): void
-        /**
-         * Gets the window that @window is embedded in.
-         * @since 2.18
-         * @param window a #GdkWindow
-         * @returns the embedding #GdkWindow, or     %NULL if `window` is not an mbedded offscreen window
-         */
-        function offscreen_window_get_embedder(window: Window): Window | null
-        /**
-         * Gets the offscreen surface that an offscreen window renders into.
-         * If you need to keep this around over window resizes, you need to
-         * add a reference to it.
-         * @param window a #GdkWindow
-         * @returns The offscreen surface, or   %NULL if not offscreen
-         */
-        function offscreen_window_get_surface(window: Window): cairo.Surface | null
-        /**
-         * Sets @window to be embedded in @embedder.
-         *
-         * To fully embed an offscreen window, in addition to calling this
-         * function, it is also necessary to handle the #GdkWindow::pick-embedded-child
-         * signal on the @embedder and the #GdkWindow::to-embedder and
-         * #GdkWindow::from-embedder signals on @window.
-         * @since 2.18
-         * @param window a #GdkWindow
-         * @param embedder the #GdkWindow that @window gets embedded in
-         */
-        function offscreen_window_set_embedder(window: Window, embedder: Window): void
-        /**
-         * Creates a #PangoContext for the default GDK screen.
-         *
-         * The context must be freed when you’re finished with it.
-         *
-         * When using GTK+, normally you should use gtk_widget_get_pango_context()
-         * instead of this function, to get the appropriate context for
-         * the widget you intend to render text onto.
-         *
-         * The newly created context will have the default font options (see
-         * #cairo_font_options_t) for the default screen; if these options
-         * change it will not be updated. Using gtk_widget_get_pango_context()
-         * is more convenient if you want to keep a context around and track
-         * changes to the screen’s font rendering settings.
-         * @returns a new #PangoContext for the default display
-         */
-        function pango_context_get(): Pango.Context
-        /**
-         * Creates a #PangoContext for @display.
-         *
-         * The context must be freed when you’re finished with it.
-         *
-         * When using GTK+, normally you should use gtk_widget_get_pango_context()
-         * instead of this function, to get the appropriate context for
-         * the widget you intend to render text onto.
-         *
-         * The newly created context will have the default font options
-         * (see #cairo_font_options_t) for the display; if these options
-         * change it will not be updated. Using gtk_widget_get_pango_context()
-         * is more convenient if you want to keep a context around and track
-         * changes to the font rendering settings.
-         * @since 3.22
-         * @param display the #GdkDisplay for which the context is to be created
-         * @returns a new #PangoContext for `display`
-         */
-        function pango_context_get_for_display(display: Display): Pango.Context
-        /**
-         * Creates a #PangoContext for @screen.
-         *
-         * The context must be freed when you’re finished with it.
-         *
-         * When using GTK+, normally you should use gtk_widget_get_pango_context()
-         * instead of this function, to get the appropriate context for
-         * the widget you intend to render text onto.
-         *
-         * The newly created context will have the default font options
-         * (see #cairo_font_options_t) for the screen; if these options
-         * change it will not be updated. Using gtk_widget_get_pango_context()
-         * is more convenient if you want to keep a context around and track
-         * changes to the screen’s font rendering settings.
-         * @since 2.2
-         * @param screen the #GdkScreen for which the context is to be created.
-         * @returns a new #PangoContext for `screen`
-         */
-        function pango_context_get_for_screen(screen: Screen): Pango.Context
-        none
-        none
-        /**
-         * Parse command line arguments, and store for future
-         * use by calls to gdk_display_open().
-         *
-         * Any arguments used by GDK are removed from the array and @argc and @argv are
-         * updated accordingly.
-         *
-         * You shouldn’t call this function explicitly if you are using
-         * gtk_init(), gtk_init_check(), gdk_init(), or gdk_init_check().
-         * @since 2.2
-         * @returns , the array of command line arguments.
-         */
-        function parse_args(): string[]
-        /**
-         * Transfers image data from a #cairo_surface_t and converts it to an RGB(A)
-         * representation inside a #GdkPixbuf. This allows you to efficiently read
-         * individual pixels from cairo surfaces. For #GdkWindows, use
-         * gdk_pixbuf_get_from_window() instead.
-         *
-         * This function will create an RGB pixbuf with 8 bits per channel.
-         * The pixbuf will contain an alpha channel if the @surface contains one.
-         * @param surface surface to copy from
-         * @param src_x Source X coordinate within @surface
-         * @param src_y Source Y coordinate within @surface
-         * @param width Width in pixels of region to get
-         * @param height Height in pixels of region to get
-         * @returns A newly-created pixbuf with a     reference count of 1, or %NULL on error
-         */
-        function pixbuf_get_from_surface(surface: cairo.Surface, src_x: number, src_y: number, width: number, height: number): GdkPixbuf.Pixbuf | null
-        /**
-         * Transfers image data from a #GdkWindow and converts it to an RGB(A)
-         * representation inside a #GdkPixbuf.
-         *
-         * In other words, copies image data from a server-side drawable to a
-         * client-side RGB(A) buffer. This allows you to efficiently read
-         * individual pixels on the client side.
-         *
-         * This function will create an RGB pixbuf with 8 bits per channel with
-         * the size specified by the @width and @height arguments scaled by the
-         * scale factor of @window. The pixbuf will contain an alpha channel if
-         * the @window contains one.
-         *
-         * If the window is off the screen, then there is no image data in the
-         * obscured/offscreen regions to be placed in the pixbuf. The contents of
-         * portions of the pixbuf corresponding to the offscreen region are
-         * undefined.
-         *
-         * If the window you’re obtaining data from is partially obscured by
-         * other windows, then the contents of the pixbuf areas corresponding
-         * to the obscured regions are undefined.
-         *
-         * If the window is not mapped (typically because it’s iconified/minimized
-         * or not on the current workspace), then %NULL will be returned.
-         *
-         * If memory can’t be allocated for the return value, %NULL will be returned
-         * instead.
-         *
-         * In short, there are several ways this function can fail, and if it fails
-         * it returns %NULL; so check the return value.
-         *
-         * You should rarely, if ever, need to call this function.
-         * @param window Source window
-         * @param src_x Source X coordinate within @window
-         * @param src_y Source Y coordinate within @window
-         * @param width Width in pixels of region to get
-         * @param height Height in pixels of region to get
-         * @returns A newly-created pixbuf with a   reference count of 1, or %NULL on error
-         */
-        function pixbuf_get_from_window(window: Window, src_x: number, src_y: number, width: number, height: number): GdkPixbuf.Pixbuf | null
-        /**
-         * Grabs the pointer (usually a mouse) so that all events are passed to this
-         * application until the pointer is ungrabbed with gdk_pointer_ungrab(), or
-         * the grab window becomes unviewable.
-         * This overrides any previous pointer grab by this client.
-         *
-         * Pointer grabs are used for operations which need complete control over mouse
-         * events, even if the mouse leaves the application.
-         * For example in GTK+ it is used for Drag and Drop, for dragging the handle in
-         * the #GtkHPaned and #GtkVPaned widgets.
-         *
-         * Note that if the event mask of an X window has selected both button press and
-         * button release events, then a button press event will cause an automatic
-         * pointer grab until the button is released.
-         * X does this automatically since most applications expect to receive button
-         * press and release events in pairs.
-         * It is equivalent to a pointer grab on the window with @owner_events set to
-         * %TRUE.
-         *
-         * If you set up anything at the time you take the grab that needs to be cleaned
-         * up when the grab ends, you should handle the #GdkEventGrabBroken events that
-         * are emitted when the grab ends unvoluntarily.
-         * @deprecated since 3.0 Use gdk_device_grab() instead.
-         * @param window the #GdkWindow which will own the grab (the grab window).
-         * @param owner_events if %FALSE then all pointer events are reported with respect to
-                       @window and are only reported if selected by @event_mask. If %TRUE then pointer
-                       events for this application are reported as normal, but pointer events outside
-                       this application are reported with respect to @window and only if selected by
-                       @event_mask. In either mode, unreported events are discarded.
-         * @param event_mask specifies the event mask, which is used in accordance with
-                     @owner_events. Note that only pointer events (i.e. button and motion events)
-                     may be selected.
-         * @param confine_to If non-%NULL, the pointer will be confined to this
-                     window during the grab. If the pointer is outside @confine_to, it will
-                     automatically be moved to the closest edge of @confine_to and enter
-                     and leave events will be generated as necessary.
-         * @param cursor the cursor to display while the grab is active. If this is %NULL then
-                 the normal cursors are used for @window and its descendants, and the cursor
-                 for @window is used for all other windows.
-         * @param time_ the timestamp of the event which led to this pointer grab. This usually
-                comes from a #GdkEventButton struct, though %GDK_CURRENT_TIME can be used if
-                the time isn’t known.
-         * @returns %GDK_GRAB_SUCCESS if the grab was successful.
-         */
-        function pointer_grab(window: Window, owner_events: boolean, event_mask: EventMask, confine_to: Window | null, cursor: Cursor | null, time_: number): GrabStatus
-        /**
-         * Returns %TRUE if the pointer on the default display is currently
-         * grabbed by this application.
-         *
-         * Note that this does not take the inmplicit pointer grab on button
-         * presses into account.
-         * @deprecated since 3.0 Use gdk_display_device_is_grabbed() instead.
-         * @returns %TRUE if the pointer is currently grabbed by this application.
-         */
-        function pointer_is_grabbed(): boolean
-        /**
-         * Ungrabs the pointer on the default display, if it is grabbed by this
-         * application.
-         * @deprecated since 3.0 Use gdk_device_ungrab(), together with gdk_device_grab()             instead.
-         * @param time_ a timestamp from a #GdkEvent, or %GDK_CURRENT_TIME if no
-         timestamp is available.
-         */
-        function pointer_ungrab(time_: number): void
-        /**
-         * Prepare for parsing command line arguments for GDK. This is not
-         * public API and should not be used in application code.
-         * @deprecated since 3.16 This symbol was never meant to be used outside   of GTK+
-         */
-        function pre_parse_libgtk_only(): void
-        none
-        /**
-         * Deletes a property from a window.
-         * @param window a #GdkWindow
-         * @param property the property to delete
-         */
-        function property_delete(window: Window, property: Atom): void
-        /**
-         * Retrieves a portion of the contents of a property. If the
-         * property does not exist, then the function returns %FALSE,
-         * and %GDK_NONE will be stored in @actual_property_type.
-         *
-         * The XGetWindowProperty() function that gdk_property_get()
-         * uses has a very confusing and complicated set of semantics.
-         * Unfortunately, gdk_property_get() makes the situation
-         * worse instead of better (the semantics should be considered
-         * undefined), and also prints warnings to stderr in cases where it
-         * should return a useful error to the program. You are advised to use
-         * XGetWindowProperty() directly until a replacement function for
-         * gdk_property_get() is provided.
-         * @param window a #GdkWindow
-         * @param property the property to retrieve
-         * @param type the desired property type, or %GDK_NONE, if any type of data
-          is acceptable. If this does not match the actual
-          type, then @actual_format and @actual_length will
-          be filled in, a warning will be printed to stderr
-          and no data will be returned.
-         * @param offset the offset into the property at which to begin
-          retrieving data, in 4 byte units.
-         * @param length the length of the data to retrieve in bytes.  Data is
-          considered to be retrieved in 4 byte chunks, so @length
-          will be rounded up to the next highest 4 byte boundary
-          (so be careful not to pass a value that might overflow
-          when rounded up).
-         * @param pdelete if %TRUE, delete the property after retrieving the
-          data.
-         * @returns %TRUE if data was successfully received and stored   in `data`, otherwise %FALSE., location to store the   actual type of the property., location to store the actual return format of the   data; either 8, 16 or 32 bits., location   to store a pointer to the data. The retrieved data should be   freed with g_free() when you are finished using it.
-         */
-        function property_get(window: Window, property: Atom, type: Atom, offset: number, length: number, pdelete: number): [boolean, Atom, number, Uint8Array]
-        /**
-         * This function returns the available bit depths for the default
-         * screen. It’s equivalent to listing the visuals
-         * (gdk_list_visuals()) and then looking at the depth field in each
-         * visual, removing duplicates.
-         *
-         * The array returned by this function should not be freed.
-         * @deprecated since 3.22 Visual selection should be done using     gdk_screen_get_system_visual() and gdk_screen_get_rgba_visual()
-         * @returns , return     location for available depths
-         */
-        function query_depths(): number[]
-        /**
-         * This function returns the available visual types for the default
-         * screen. It’s equivalent to listing the visuals
-         * (gdk_list_visuals()) and then looking at the type field in each
-         * visual, removing duplicates.
-         *
-         * The array returned by this function should not be freed.
-         * @deprecated since 3.22 Visual selection should be done using     gdk_screen_get_system_visual() and gdk_screen_get_rgba_visual()
-         * @returns , return     location for the available visual types
-         */
-        function query_visual_types(): VisualType[]
-        /**
-         * Retrieves the contents of a selection in a given
-         * form.
-         * @param requestor a #GdkWindow.
-         * @param selection an atom identifying the selection to get the
-          contents of.
-         * @param target the form in which to retrieve the selection.
-         * @param time_ the timestamp to use when retrieving the
-          selection. The selection owner may refuse the
-          request if it did not own the selection at
-          the time indicated by the timestamp.
-         */
-        function selection_convert(requestor: Window, selection: Atom, target: Atom, time_: number): void
-        /**
-         * Determines the owner of the given selection.
-         * @param selection an atom indentifying a selection.
-         * @returns if there is a selection owner   for this window, and it is a window known to the current process,   the #GdkWindow that owns the selection, otherwise %NULL. Note   that the return value may be owned by a different process if a   foreign window was previously created for that window, but a new   foreign window will never be created by this call.
-         */
-        function selection_owner_get(selection: Atom): Window | null
-        /**
-         * Determine the owner of the given selection.
-         *
-         * Note that the return value may be owned by a different
-         * process if a foreign window was previously created for that
-         * window, but a new foreign window will never be created by this call.
-         * @since 2.2
-         * @param display a #GdkDisplay
-         * @param selection an atom indentifying a selection
-         * @returns if there is a selection owner    for this window, and it is a window known to the current    process, the #GdkWindow that owns the selection, otherwise    %NULL.
-         */
-        function selection_owner_get_for_display(display: Display, selection: Atom): Window | null
-        /**
-         * Sets the owner of the given selection.
-         * @param owner a #GdkWindow or %NULL to indicate that the
-          the owner for the given should be unset.
-         * @param selection an atom identifying a selection.
-         * @param time_ timestamp to use when setting the selection.
-          If this is older than the timestamp given last
-          time the owner was set for the given selection, the
-          request will be ignored.
-         * @param send_event if %TRUE, and the new owner is different
-          from the current owner, the current owner
-          will be sent a SelectionClear event.
-         * @returns %TRUE if the selection owner was successfully   changed to `owner`, otherwise %FALSE.
-         */
-        function selection_owner_set(owner: Window | null, selection: Atom, time_: number, send_event: boolean): boolean
-        /**
-         * Sets the #GdkWindow @owner as the current owner of the selection @selection.
-         * @since 2.2
-         * @param display the #GdkDisplay
-         * @param owner a #GdkWindow or %NULL to indicate that the owner for
-                the given should be unset
-         * @param selection an atom identifying a selection
-         * @param time_ timestamp to use when setting the selection
-                If this is older than the timestamp given last time the owner was
-                set for the given selection, the request will be ignored
-         * @param send_event if %TRUE, and the new owner is different from the current
-                     owner, the current owner will be sent a SelectionClear event
-         * @returns %TRUE if the selection owner was successfully changed to owner,    otherwise %FALSE.
-         */
-        function selection_owner_set_for_display(display: Display, owner: Window | null, selection: Atom, time_: number, send_event: boolean): boolean
-        none
-        /**
-         * Sends a response to SelectionRequest event.
-         * @param requestor window to which to deliver response.
-         * @param selection selection that was requested.
-         * @param target target that was selected.
-         * @param property property in which the selection owner stored the
-          data, or %GDK_NONE to indicate that the request
-          was rejected.
-         * @param time_ timestamp.
-         */
-        function selection_send_notify(requestor: Window, selection: Atom, target: Atom, property: Atom, time_: number): void
-        /**
-         * Send a response to SelectionRequest event.
-         * @since 2.2
-         * @param display the #GdkDisplay where @requestor is realized
-         * @param requestor window to which to deliver response
-         * @param selection selection that was requested
-         * @param target target that was selected
-         * @param property property in which the selection owner stored the data,
-                   or %GDK_NONE to indicate that the request was rejected
-         * @param time_ timestamp
-         */
-        function selection_send_notify_for_display(display: Display, requestor: Window, selection: Atom, target: Atom, property: Atom, time_: number): void
-        /**
-         *
-         * gdk_set_allowed_backends ("wayland,quartz,*");
-         * ]|
-         * instructs GDK to try the Wayland backend first,
-         * followed by the Quartz backend, and then all
-         * others.
-         *
-         * If the `GDK_BACKEND` environment variable
-         * is set, it determines what backends are tried in what
-         * order, while still respecting the set of allowed backends
-         * that are specified by this function.
-         *
-         * The possible backend names are x11, win32, quartz,
-         * broadway, wayland. You can also include a * in the
-         * list to try all remaining backends.
-         *
-         * This call must happen prior to gdk_display_open(),
-         * gtk_init(), gtk_init_with_args() or gtk_init_check()
-         * in order to take effect.
-         * @since 3.10
-         * @param backends a comma-separated list of backends
-         */
-        function set_allowed_backends(backends: string): void
-        /**
-         * Set the double click time for the default display. See
-         * gdk_display_set_double_click_time().
-         * See also gdk_display_set_double_click_distance().
-         * Applications should not set this, it is a
-         * global user-configured setting.
-         * @param msec double click time in milliseconds (thousandths of a second)
-         */
-        function set_double_click_time(msec: number): void
-        /**
-         * Sets the program class. The X11 backend uses the program class to set
-         * the class name part of the `WM_CLASS` property on
-         * toplevel windows; see the ICCCM.
-         *
-         * The program class can still be overridden with the --class command
-         * line option.
-         * @param program_class a string.
-         */
-        function set_program_class(program_class: string): void
-        /**
-         * Sets whether a trace of received events is output.
-         * Note that GTK+ must be compiled with debugging (that is,
-         * configured using the `--enable-debug` option)
-         * to use this option.
-         * @param show_events %TRUE to output event debugging information.
-         */
-        function set_show_events(show_events: boolean): void
-        /**
-         * Obtains a desktop-wide setting, such as the double-click time,
-         * for the default screen. See gdk_screen_get_setting().
-         * @param name the name of the setting.
-         * @param value location to store the value of the setting.
-         * @returns %TRUE if the setting existed and a value was stored   in `value`, %FALSE otherwise.
-         */
-        function setting_get(name: string, value: GObject.Value): boolean
-        /**
-         * @param window
-         * @param unset_flags
-         * @param set_flags
-         */
-        function synthesize_window_state(window: Window, unset_flags: WindowState, set_flags: WindowState): void
-        /**
-         * Retrieves a pixel from @window to force the windowing
-         * system to carry out any pending rendering commands.
-         *
-         * This function is intended to be used to synchronize with rendering
-         * pipelines, to benchmark windowing system rendering operations.
-         * @since 2.14
-         * @param window a mapped #GdkWindow
-         */
-        function test_render_sync(window: Window): void
-        /**
-         * This function is intended to be used in GTK+ test programs.
-         * It will warp the mouse pointer to the given (@x,@y) coordinates
-         * within @window and simulate a button press or release event.
-         * Because the mouse pointer needs to be warped to the target
-         * location, use of this function outside of test programs that
-         * run in their own virtual windowing system (e.g. Xvfb) is not
-         * recommended.
-         *
-         * Also, gdk_test_simulate_button() is a fairly low level function,
-         * for most testing purposes, gtk_test_widget_click() is the right
-         * function to call which will generate a button press event followed
-         * by its accompanying button release event.
-         * @since 2.14
-         * @param window a #GdkWindow to simulate a button event for
-         * @param x x coordinate within @window for the button event
-         * @param y y coordinate within @window for the button event
-         * @param button Number of the pointer button for the event, usually 1, 2 or 3
-         * @param modifiers Keyboard modifiers the event is setup with
-         * @param button_pressrelease either %GDK_BUTTON_PRESS or %GDK_BUTTON_RELEASE
-         * @returns whether all actions necessary for a button event simulation     were carried out successfully
-         */
-        function test_simulate_button(window: Window, x: number, y: number, button: number, modifiers: ModifierType, button_pressrelease: EventType): boolean
-        /**
-         *  (-1,-1), it will warp the mouse pointer to
-         * the given (@x,@y) coordinates within @window and simulate a
-         * key press or release event.
-         *
-         * When the mouse pointer is warped to the target location, use
-         * of this function outside of test programs that run in their
-         * own virtual windowing system (e.g. Xvfb) is not recommended.
-         * If (@x,@y) are passed as (-1,-1), the mouse pointer will not
-         * be warped and @window origin will be used as mouse pointer
-         * location for the event.
-         *
-         * Also, gdk_test_simulate_key() is a fairly low level function,
-         * for most testing purposes, gtk_test_widget_send_key() is the
-         * right function to call which will generate a key press event
-         * followed by its accompanying key release event.
-         * @since 2.14
-         * @param window a #GdkWindow to simulate a key event for
-         * @param x x coordinate within @window for the key event
-         * @param y y coordinate within @window for the key event
-         * @param keyval A GDK keyboard value
-         * @param modifiers Keyboard modifiers the event is setup with
-         * @param key_pressrelease either %GDK_KEY_PRESS or %GDK_KEY_RELEASE
-         * @returns whether all actions necessary for a key event simulation     were carried out successfully
-         */
-        function test_simulate_key(window: Window, x: number, y: number, keyval: number, modifiers: ModifierType, key_pressrelease: EventType): boolean
-        /**
-         * Converts a text property in the given encoding to
-         * a list of UTF-8 strings.
-         * @since 2.2
-         * @param display a #GdkDisplay
-         * @param encoding an atom representing the encoding of the text
-         * @param format the format of the property
-         * @param text the text to convert
-         * @returns the number of strings in the resulting list, location to store the list            of strings or %NULL. The list should be freed with            g_strfreev().
-         */
-        function text_property_to_utf8_list_for_display(display: Display, encoding: Atom, format: number, text: Uint8Array): [number, string[]]
-        none
-        /**
-         * finalize (object);
-         * }
-         * ]|
-         * @override
-         * @since 2.12
-         * @param priority the priority of the idle source. Typically this will be in the
-                   range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE
-         * @param function function to call
-         * @returns the ID (greater than 0) of the event source.
-         */
-        function threads_add_idle_full(priority: number, func: GLib.SourceFunc): number
-        none
-        /**
-         * finalize (object);
-         * }
-         * ]|
-         * @override
-         * @since 2.12
-         * @param priority the priority of the timeout source. Typically this will be in the
-                   range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE.
-         * @param interval the time between calls to the function, in milliseconds
-                    (1/1000ths of a second)
-         * @param function function to call
-         * @returns the ID (greater than 0) of the event source.
-         */
-        function threads_add_timeout_full(priority: number, interval: number, func: GLib.SourceFunc): number
-        none
-        /**
-         * A variant of gdk_threads_add_timeout_full() with second-granularity.
-         * See g_timeout_add_seconds_full() for a discussion of why it is
-         * a good idea to use this function if you don’t need finer granularity.
-         * @override
-         * @since 2.14
-         * @param priority the priority of the timeout source. Typically this will be in the
-                   range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE.
-         * @param interval the time between calls to the function, in seconds
-         * @param function function to call
-         * @returns the ID (greater than 0) of the event source.
-         */
-        function threads_add_timeout_seconds_full(priority: number, interval: number, func: GLib.SourceFunc): number
-        /**
-         * This function marks the beginning of a critical section in which
-         * GDK and GTK+ functions can be called safely and without causing race
-         * conditions. Only one thread at a time can be in such a critial
-         * section.
-         * @deprecated since 3.6 All GDK and GTK+ calls should be made from the main     thread
-         */
-        function threads_enter(): void
-        /**
-         * Initializes GDK so that it can be used from multiple threads
-         * in conjunction with gdk_threads_enter() and gdk_threads_leave().
-         *
-         * This call must be made before any use of the main loop from
-         * GTK+; to be safe, call it before gtk_init().
-         * @deprecated since 3.6 All GDK and GTK+ calls should be made from the main     thread
-         */
-        function threads_init(): void
-        /**
-         * Leaves a critical region begun with gdk_threads_enter().
-         * @deprecated since 3.6 All GDK and GTK+ calls should be made from the main     thread
-         */
-        function threads_leave(): void
-        none
-        /**
-         * Convert from a ISO10646 character to a key symbol.
-         * @param wc a ISO10646 encoded character
-         * @returns the corresponding GDK key symbol, if one exists.               or, if there is no corresponding symbol,               wc | 0x01000000
-         */
-        function unicode_to_keyval(wc: number): number
-        /**
-         * Converts an UTF-8 string into the best possible representation
-         * as a STRING. The representation of characters not in STRING
-         * is not specified; it may be as pseudo-escape sequences
-         * \x{ABCD}, or it may be in some other form of approximation.
-         * @param str a UTF-8 string
-         * @returns the newly-allocated string, or %NULL if the          conversion failed. (It should not fail for any properly          formed UTF-8 string unless system limits like memory or          file descriptors are exceeded.)
-         */
-        function utf8_to_string_target(str: string): string | null
-        const BUTTON_MIDDLE: 2
-        const BUTTON_PRIMARY: 1
-        const BUTTON_SECONDARY: 3
-        const CURRENT_TIME: 0
-        const EVENT_PROPAGATE: false
-        const EVENT_STOP: true
-        const KEY_0: 48
-        const KEY_1: 49
-        const KEY_2: 50
-        const KEY_3: 51
-        const KEY_3270_AltCursor: 64784
-        const KEY_3270_Attn: 64782
-        const KEY_3270_BackTab: 64773
-        const KEY_3270_ChangeScreen: 64793
-        const KEY_3270_Copy: 64789
-        const KEY_3270_CursorBlink: 64783
-        const KEY_3270_CursorSelect: 64796
-        const KEY_3270_DeleteWord: 64794
-        const KEY_3270_Duplicate: 64769
-        const KEY_3270_Enter: 64798
-        const KEY_3270_EraseEOF: 64774
-        const KEY_3270_EraseInput: 64775
-        const KEY_3270_ExSelect: 64795
-        const KEY_3270_FieldMark: 64770
-        const KEY_3270_Ident: 64787
-        const KEY_3270_Jump: 64786
-        const KEY_3270_KeyClick: 64785
-        const KEY_3270_Left2: 64772
-        const KEY_3270_PA1: 64778
-        const KEY_3270_PA2: 64779
-        const KEY_3270_PA3: 64780
-        const KEY_3270_Play: 64790
-        const KEY_3270_PrintScreen: 64797
-        const KEY_3270_Quit: 64777
-        const KEY_3270_Record: 64792
-        const KEY_3270_Reset: 64776
-        const KEY_3270_Right2: 64771
-        const KEY_3270_Rule: 64788
-        const KEY_3270_Setup: 64791
-        const KEY_3270_Test: 64781
-        const KEY_4: 52
-        const KEY_5: 53
-        const KEY_6: 54
-        const KEY_7: 55
-        const KEY_8: 56
-        const KEY_9: 57
-        const KEY_A: 65
-        const KEY_AE: 198
-        const KEY_Aacute: 193
-        const KEY_Abelowdot: 16785056
-        const KEY_Abreve: 451
-        const KEY_Abreveacute: 16785070
-        const KEY_Abrevebelowdot: 16785078
-        const KEY_Abrevegrave: 16785072
-        const KEY_Abrevehook: 16785074
-        const KEY_Abrevetilde: 16785076
-        const KEY_AccessX_Enable: 65136
-        const KEY_AccessX_Feedback_Enable: 65137
-        const KEY_Acircumflex: 194
-        const KEY_Acircumflexacute: 16785060
-        const KEY_Acircumflexbelowdot: 16785068
-        const KEY_Acircumflexgrave: 16785062
-        const KEY_Acircumflexhook: 16785064
-        const KEY_Acircumflextilde: 16785066
-        const KEY_AddFavorite: 269025081
-        const KEY_Adiaeresis: 196
-        const KEY_Agrave: 192
-        const KEY_Ahook: 16785058
-        const KEY_Alt_L: 65513
-        const KEY_Alt_R: 65514
-        const KEY_Amacron: 960
-        const KEY_Aogonek: 417
-        const KEY_ApplicationLeft: 269025104
-        const KEY_ApplicationRight: 269025105
-        const KEY_Arabic_0: 16778848
-        const KEY_Arabic_1: 16778849
-        const KEY_Arabic_2: 16778850
-        const KEY_Arabic_3: 16778851
-        const KEY_Arabic_4: 16778852
-        const KEY_Arabic_5: 16778853
-        const KEY_Arabic_6: 16778854
-        const KEY_Arabic_7: 16778855
-        const KEY_Arabic_8: 16778856
-        const KEY_Arabic_9: 16778857
-        const KEY_Arabic_ain: 1497
-        const KEY_Arabic_alef: 1479
-        const KEY_Arabic_alefmaksura: 1513
-        const KEY_Arabic_beh: 1480
-        const KEY_Arabic_comma: 1452
-        const KEY_Arabic_dad: 1494
-        const KEY_Arabic_dal: 1487
-        const KEY_Arabic_damma: 1519
-        const KEY_Arabic_dammatan: 1516
-        const KEY_Arabic_ddal: 16778888
-        const KEY_Arabic_farsi_yeh: 16778956
-        const KEY_Arabic_fatha: 1518
-        const KEY_Arabic_fathatan: 1515
-        const KEY_Arabic_feh: 1505
-        const KEY_Arabic_fullstop: 16778964
-        const KEY_Arabic_gaf: 16778927
-        const KEY_Arabic_ghain: 1498
-        const KEY_Arabic_ha: 1511
-        const KEY_Arabic_hah: 1485
-        const KEY_Arabic_hamza: 1473
-        const KEY_Arabic_hamza_above: 16778836
-        const KEY_Arabic_hamza_below: 16778837
-        const KEY_Arabic_hamzaonalef: 1475
-        const KEY_Arabic_hamzaonwaw: 1476
-        const KEY_Arabic_hamzaonyeh: 1478
-        const KEY_Arabic_hamzaunderalef: 1477
-        const KEY_Arabic_heh: 1511
-        const KEY_Arabic_heh_doachashmee: 16778942
-        const KEY_Arabic_heh_goal: 16778945
-        const KEY_Arabic_jeem: 1484
-        const KEY_Arabic_jeh: 16778904
-        const KEY_Arabic_kaf: 1507
-        const KEY_Arabic_kasra: 1520
-        const KEY_Arabic_kasratan: 1517
-        const KEY_Arabic_keheh: 16778921
-        const KEY_Arabic_khah: 1486
-        const KEY_Arabic_lam: 1508
-        const KEY_Arabic_madda_above: 16778835
-        const KEY_Arabic_maddaonalef: 1474
-        const KEY_Arabic_meem: 1509
-        const KEY_Arabic_noon: 1510
-        const KEY_Arabic_noon_ghunna: 16778938
-        const KEY_Arabic_peh: 16778878
-        const KEY_Arabic_percent: 16778858
-        const KEY_Arabic_qaf: 1506
-        const KEY_Arabic_question_mark: 1471
-        const KEY_Arabic_ra: 1489
-        const KEY_Arabic_rreh: 16778897
-        const KEY_Arabic_sad: 1493
-        const KEY_Arabic_seen: 1491
-        const KEY_Arabic_semicolon: 1467
-        const KEY_Arabic_shadda: 1521
-        const KEY_Arabic_sheen: 1492
-        const KEY_Arabic_sukun: 1522
-        const KEY_Arabic_superscript_alef: 16778864
-        const KEY_Arabic_switch: 65406
-        const KEY_Arabic_tah: 1495
-        const KEY_Arabic_tatweel: 1504
-        const KEY_Arabic_tcheh: 16778886
-        const KEY_Arabic_teh: 1482
-        const KEY_Arabic_tehmarbuta: 1481
-        const KEY_Arabic_thal: 1488
-        const KEY_Arabic_theh: 1483
-        const KEY_Arabic_tteh: 16778873
-        const KEY_Arabic_veh: 16778916
-        const KEY_Arabic_waw: 1512
-        const KEY_Arabic_yeh: 1514
-        const KEY_Arabic_yeh_baree: 16778962
-        const KEY_Arabic_zah: 1496
-        const KEY_Arabic_zain: 1490
-        const KEY_Aring: 197
-        const KEY_Armenian_AT: 16778552
-        const KEY_Armenian_AYB: 16778545
-        const KEY_Armenian_BEN: 16778546
-        const KEY_Armenian_CHA: 16778569
-        const KEY_Armenian_DA: 16778548
-        const KEY_Armenian_DZA: 16778561
-        const KEY_Armenian_E: 16778551
-        const KEY_Armenian_FE: 16778582
-        const KEY_Armenian_GHAT: 16778562
-        const KEY_Armenian_GIM: 16778547
-        const KEY_Armenian_HI: 16778565
-        const KEY_Armenian_HO: 16778560
-        const KEY_Armenian_INI: 16778555
-        const KEY_Armenian_JE: 16778571
-        const KEY_Armenian_KE: 16778580
-        const KEY_Armenian_KEN: 16778559
-        const KEY_Armenian_KHE: 16778557
-        const KEY_Armenian_LYUN: 16778556
-        const KEY_Armenian_MEN: 16778564
-        const KEY_Armenian_NU: 16778566
-        const KEY_Armenian_O: 16778581
-        const KEY_Armenian_PE: 16778570
-        const KEY_Armenian_PYUR: 16778579
-        const KEY_Armenian_RA: 16778572
-        const KEY_Armenian_RE: 16778576
-        const KEY_Armenian_SE: 16778573
-        const KEY_Armenian_SHA: 16778567
-        const KEY_Armenian_TCHE: 16778563
-        const KEY_Armenian_TO: 16778553
-        const KEY_Armenian_TSA: 16778558
-        const KEY_Armenian_TSO: 16778577
-        const KEY_Armenian_TYUN: 16778575
-        const KEY_Armenian_VEV: 16778574
-        const KEY_Armenian_VO: 16778568
-        const KEY_Armenian_VYUN: 16778578
-        const KEY_Armenian_YECH: 16778549
-        const KEY_Armenian_ZA: 16778550
-        const KEY_Armenian_ZHE: 16778554
-        const KEY_Armenian_accent: 16778587
-        const KEY_Armenian_amanak: 16778588
-        const KEY_Armenian_apostrophe: 16778586
-        const KEY_Armenian_at: 16778600
-        const KEY_Armenian_ayb: 16778593
-        const KEY_Armenian_ben: 16778594
-        const KEY_Armenian_but: 16778589
-        const KEY_Armenian_cha: 16778617
-        const KEY_Armenian_da: 16778596
-        const KEY_Armenian_dza: 16778609
-        const KEY_Armenian_e: 16778599
-        const KEY_Armenian_exclam: 16778588
-        const KEY_Armenian_fe: 16778630
-        const KEY_Armenian_full_stop: 16778633
-        const KEY_Armenian_ghat: 16778610
-        const KEY_Armenian_gim: 16778595
-        const KEY_Armenian_hi: 16778613
-        const KEY_Armenian_ho: 16778608
-        const KEY_Armenian_hyphen: 16778634
-        const KEY_Armenian_ini: 16778603
-        const KEY_Armenian_je: 16778619
-        const KEY_Armenian_ke: 16778628
-        const KEY_Armenian_ken: 16778607
-        const KEY_Armenian_khe: 16778605
-        const KEY_Armenian_ligature_ew: 16778631
-        const KEY_Armenian_lyun: 16778604
-        const KEY_Armenian_men: 16778612
-        const KEY_Armenian_nu: 16778614
-        const KEY_Armenian_o: 16778629
-        const KEY_Armenian_paruyk: 16778590
-        const KEY_Armenian_pe: 16778618
-        const KEY_Armenian_pyur: 16778627
-        const KEY_Armenian_question: 16778590
-        const KEY_Armenian_ra: 16778620
-        const KEY_Armenian_re: 16778624
-        const KEY_Armenian_se: 16778621
-        const KEY_Armenian_separation_mark: 16778589
-        const KEY_Armenian_sha: 16778615
-        const KEY_Armenian_shesht: 16778587
-        const KEY_Armenian_tche: 16778611
-        const KEY_Armenian_to: 16778601
-        const KEY_Armenian_tsa: 16778606
-        const KEY_Armenian_tso: 16778625
-        const KEY_Armenian_tyun: 16778623
-        const KEY_Armenian_verjaket: 16778633
-        const KEY_Armenian_vev: 16778622
-        const KEY_Armenian_vo: 16778616
-        const KEY_Armenian_vyun: 16778626
-        const KEY_Armenian_yech: 16778597
-        const KEY_Armenian_yentamna: 16778634
-        const KEY_Armenian_za: 16778598
-        const KEY_Armenian_zhe: 16778602
-        const KEY_Atilde: 195
-        const KEY_AudibleBell_Enable: 65146
-        const KEY_AudioCycleTrack: 269025179
-        const KEY_AudioForward: 269025175
-        const KEY_AudioLowerVolume: 269025041
-        const KEY_AudioMedia: 269025074
-        const KEY_AudioMicMute: 269025202
-        const KEY_AudioMute: 269025042
-        const KEY_AudioNext: 269025047
-        const KEY_AudioPause: 269025073
-        const KEY_AudioPlay: 269025044
-        const KEY_AudioPreset: 269025206
-        const KEY_AudioPrev: 269025046
-        const KEY_AudioRaiseVolume: 269025043
-        const KEY_AudioRandomPlay: 269025177
-        const KEY_AudioRecord: 269025052
-        const KEY_AudioRepeat: 269025176
-        const KEY_AudioRewind: 269025086
-        const KEY_AudioStop: 269025045
-        const KEY_Away: 269025165
-        const KEY_B: 66
-        const KEY_Babovedot: 16784898
-        const KEY_Back: 269025062
-        const KEY_BackForward: 269025087
-        const KEY_BackSpace: 65288
-        const KEY_Battery: 269025171
-        const KEY_Begin: 65368
-        const KEY_Blue: 269025190
-        const KEY_Bluetooth: 269025172
-        const KEY_Book: 269025106
-        const KEY_BounceKeys_Enable: 65140
-        const KEY_Break: 65387
-        const KEY_BrightnessAdjust: 269025083
-        const KEY_Byelorussian_SHORTU: 1726
-        const KEY_Byelorussian_shortu: 1710
-        const KEY_C: 67
-        const KEY_CD: 269025107
-        const KEY_CH: 65186
-        const KEY_C_H: 65189
-        const KEY_C_h: 65188
-        const KEY_Cabovedot: 709
-        const KEY_Cacute: 454
-        const KEY_Calculator: 269025053
-        const KEY_Calendar: 269025056
-        const KEY_Cancel: 65385
-        const KEY_Caps_Lock: 65509
-        const KEY_Ccaron: 456
-        const KEY_Ccedilla: 199
-        const KEY_Ccircumflex: 710
-        const KEY_Ch: 65185
-        const KEY_Clear: 65291
-        const KEY_ClearGrab: 269024801
-        const KEY_Close: 269025110
-        const KEY_Codeinput: 65335
-        const KEY_ColonSign: 16785569
-        const KEY_Community: 269025085
-        const KEY_ContrastAdjust: 269025058
-        const KEY_Control_L: 65507
-        const KEY_Control_R: 65508
-        const KEY_Copy: 269025111
-        const KEY_CruzeiroSign: 16785570
-        const KEY_Cut: 269025112
-        const KEY_CycleAngle: 269025180
-        const KEY_Cyrillic_A: 1761
-        const KEY_Cyrillic_BE: 1762
-        const KEY_Cyrillic_CHE: 1790
-        const KEY_Cyrillic_CHE_descender: 16778422
-        const KEY_Cyrillic_CHE_vertstroke: 16778424
-        const KEY_Cyrillic_DE: 1764
-        const KEY_Cyrillic_DZHE: 1727
-        const KEY_Cyrillic_E: 1788
-        const KEY_Cyrillic_EF: 1766
-        const KEY_Cyrillic_EL: 1772
-        const KEY_Cyrillic_EM: 1773
-        const KEY_Cyrillic_EN: 1774
-        const KEY_Cyrillic_EN_descender: 16778402
-        const KEY_Cyrillic_ER: 1778
-        const KEY_Cyrillic_ES: 1779
-        const KEY_Cyrillic_GHE: 1767
-        const KEY_Cyrillic_GHE_bar: 16778386
-        const KEY_Cyrillic_HA: 1768
-        const KEY_Cyrillic_HARDSIGN: 1791
-        const KEY_Cyrillic_HA_descender: 16778418
-        const KEY_Cyrillic_I: 1769
-        const KEY_Cyrillic_IE: 1765
-        const KEY_Cyrillic_IO: 1715
-        const KEY_Cyrillic_I_macron: 16778466
-        const KEY_Cyrillic_JE: 1720
-        const KEY_Cyrillic_KA: 1771
-        const KEY_Cyrillic_KA_descender: 16778394
-        const KEY_Cyrillic_KA_vertstroke: 16778396
-        const KEY_Cyrillic_LJE: 1721
-        const KEY_Cyrillic_NJE: 1722
-        const KEY_Cyrillic_O: 1775
-        const KEY_Cyrillic_O_bar: 16778472
-        const KEY_Cyrillic_PE: 1776
-        const KEY_Cyrillic_SCHWA: 16778456
-        const KEY_Cyrillic_SHA: 1787
-        const KEY_Cyrillic_SHCHA: 1789
-        const KEY_Cyrillic_SHHA: 16778426
-        const KEY_Cyrillic_SHORTI: 1770
-        const KEY_Cyrillic_SOFTSIGN: 1784
-        const KEY_Cyrillic_TE: 1780
-        const KEY_Cyrillic_TSE: 1763
-        const KEY_Cyrillic_U: 1781
-        const KEY_Cyrillic_U_macron: 16778478
-        const KEY_Cyrillic_U_straight: 16778414
-        const KEY_Cyrillic_U_straight_bar: 16778416
-        const KEY_Cyrillic_VE: 1783
-        const KEY_Cyrillic_YA: 1777
-        const KEY_Cyrillic_YERU: 1785
-        const KEY_Cyrillic_YU: 1760
-        const KEY_Cyrillic_ZE: 1786
-        const KEY_Cyrillic_ZHE: 1782
-        const KEY_Cyrillic_ZHE_descender: 16778390
-        const KEY_Cyrillic_a: 1729
-        const KEY_Cyrillic_be: 1730
-        const KEY_Cyrillic_che: 1758
-        const KEY_Cyrillic_che_descender: 16778423
-        const KEY_Cyrillic_che_vertstroke: 16778425
-        const KEY_Cyrillic_de: 1732
-        const KEY_Cyrillic_dzhe: 1711
-        const KEY_Cyrillic_e: 1756
-        const KEY_Cyrillic_ef: 1734
-        const KEY_Cyrillic_el: 1740
-        const KEY_Cyrillic_em: 1741
-        const KEY_Cyrillic_en: 1742
-        const KEY_Cyrillic_en_descender: 16778403
-        const KEY_Cyrillic_er: 1746
-        const KEY_Cyrillic_es: 1747
-        const KEY_Cyrillic_ghe: 1735
-        const KEY_Cyrillic_ghe_bar: 16778387
-        const KEY_Cyrillic_ha: 1736
-        const KEY_Cyrillic_ha_descender: 16778419
-        const KEY_Cyrillic_hardsign: 1759
-        const KEY_Cyrillic_i: 1737
-        const KEY_Cyrillic_i_macron: 16778467
-        const KEY_Cyrillic_ie: 1733
-        const KEY_Cyrillic_io: 1699
-        const KEY_Cyrillic_je: 1704
-        const KEY_Cyrillic_ka: 1739
-        const KEY_Cyrillic_ka_descender: 16778395
-        const KEY_Cyrillic_ka_vertstroke: 16778397
-        const KEY_Cyrillic_lje: 1705
-        const KEY_Cyrillic_nje: 1706
-        const KEY_Cyrillic_o: 1743
-        const KEY_Cyrillic_o_bar: 16778473
-        const KEY_Cyrillic_pe: 1744
-        const KEY_Cyrillic_schwa: 16778457
-        const KEY_Cyrillic_sha: 1755
-        const KEY_Cyrillic_shcha: 1757
-        const KEY_Cyrillic_shha: 16778427
-        const KEY_Cyrillic_shorti: 1738
-        const KEY_Cyrillic_softsign: 1752
-        const KEY_Cyrillic_te: 1748
-        const KEY_Cyrillic_tse: 1731
-        const KEY_Cyrillic_u: 1749
-        const KEY_Cyrillic_u_macron: 16778479
-        const KEY_Cyrillic_u_straight: 16778415
-        const KEY_Cyrillic_u_straight_bar: 16778417
-        const KEY_Cyrillic_ve: 1751
-        const KEY_Cyrillic_ya: 1745
-        const KEY_Cyrillic_yeru: 1753
-        const KEY_Cyrillic_yu: 1728
-        const KEY_Cyrillic_ze: 1754
-        const KEY_Cyrillic_zhe: 1750
-        const KEY_Cyrillic_zhe_descender: 16778391
-        const KEY_D: 68
-        const KEY_DOS: 269025114
-        const KEY_Dabovedot: 16784906
-        const KEY_Dcaron: 463
-        const KEY_Delete: 65535
-        const KEY_Display: 269025113
-        const KEY_Documents: 269025115
-        const KEY_DongSign: 16785579
-        const KEY_Down: 65364
-        const KEY_Dstroke: 464
-        const KEY_E: 69
-        const KEY_ENG: 957
-        const KEY_ETH: 208
-        const KEY_EZH: 16777655
-        const KEY_Eabovedot: 972
-        const KEY_Eacute: 201
-        const KEY_Ebelowdot: 16785080
-        const KEY_Ecaron: 460
-        const KEY_Ecircumflex: 202
-        const KEY_Ecircumflexacute: 16785086
-        const KEY_Ecircumflexbelowdot: 16785094
-        const KEY_Ecircumflexgrave: 16785088
-        const KEY_Ecircumflexhook: 16785090
-        const KEY_Ecircumflextilde: 16785092
-        const KEY_EcuSign: 16785568
-        const KEY_Ediaeresis: 203
-        const KEY_Egrave: 200
-        const KEY_Ehook: 16785082
-        const KEY_Eisu_Shift: 65327
-        const KEY_Eisu_toggle: 65328
-        const KEY_Eject: 269025068
-        const KEY_Emacron: 938
-        const KEY_End: 65367
-        const KEY_Eogonek: 458
-        const KEY_Escape: 65307
-        const KEY_Eth: 208
-        const KEY_Etilde: 16785084
-        const KEY_EuroSign: 8364
-        const KEY_Excel: 269025116
-        const KEY_Execute: 65378
-        const KEY_Explorer: 269025117
-        const KEY_F: 70
-        const KEY_F1: 65470
-        const KEY_F10: 65479
-        const KEY_F11: 65480
-        const KEY_F12: 65481
-        const KEY_F13: 65482
-        const KEY_F14: 65483
-        const KEY_F15: 65484
-        const KEY_F16: 65485
-        const KEY_F17: 65486
-        const KEY_F18: 65487
-        const KEY_F19: 65488
-        const KEY_F2: 65471
-        const KEY_F20: 65489
-        const KEY_F21: 65490
-        const KEY_F22: 65491
-        const KEY_F23: 65492
-        const KEY_F24: 65493
-        const KEY_F25: 65494
-        const KEY_F26: 65495
-        const KEY_F27: 65496
-        const KEY_F28: 65497
-        const KEY_F29: 65498
-        const KEY_F3: 65472
-        const KEY_F30: 65499
-        const KEY_F31: 65500
-        const KEY_F32: 65501
-        const KEY_F33: 65502
-        const KEY_F34: 65503
-        const KEY_F35: 65504
-        const KEY_F4: 65473
-        const KEY_F5: 65474
-        const KEY_F6: 65475
-        const KEY_F7: 65476
-        const KEY_F8: 65477
-        const KEY_F9: 65478
-        const KEY_FFrancSign: 16785571
-        const KEY_Fabovedot: 16784926
-        const KEY_Farsi_0: 16778992
-        const KEY_Farsi_1: 16778993
-        const KEY_Farsi_2: 16778994
-        const KEY_Farsi_3: 16778995
-        const KEY_Farsi_4: 16778996
-        const KEY_Farsi_5: 16778997
-        const KEY_Farsi_6: 16778998
-        const KEY_Farsi_7: 16778999
-        const KEY_Farsi_8: 16779000
-        const KEY_Farsi_9: 16779001
-        const KEY_Farsi_yeh: 16778956
-        const KEY_Favorites: 269025072
-        const KEY_Finance: 269025084
-        const KEY_Find: 65384
-        const KEY_First_Virtual_Screen: 65232
-        const KEY_Forward: 269025063
-        const KEY_FrameBack: 269025181
-        const KEY_FrameForward: 269025182
-        const KEY_G: 71
-        const KEY_Gabovedot: 725
-        const KEY_Game: 269025118
-        const KEY_Gbreve: 683
-        const KEY_Gcaron: 16777702
-        const KEY_Gcedilla: 939
-        const KEY_Gcircumflex: 728
-        const KEY_Georgian_an: 16781520
-        const KEY_Georgian_ban: 16781521
-        const KEY_Georgian_can: 16781546
-        const KEY_Georgian_char: 16781549
-        const KEY_Georgian_chin: 16781545
-        const KEY_Georgian_cil: 16781548
-        const KEY_Georgian_don: 16781523
-        const KEY_Georgian_en: 16781524
-        const KEY_Georgian_fi: 16781558
-        const KEY_Georgian_gan: 16781522
-        const KEY_Georgian_ghan: 16781542
-        const KEY_Georgian_hae: 16781552
-        const KEY_Georgian_har: 16781556
-        const KEY_Georgian_he: 16781553
-        const KEY_Georgian_hie: 16781554
-        const KEY_Georgian_hoe: 16781557
-        const KEY_Georgian_in: 16781528
-        const KEY_Georgian_jhan: 16781551
-        const KEY_Georgian_jil: 16781547
-        const KEY_Georgian_kan: 16781529
-        const KEY_Georgian_khar: 16781541
-        const KEY_Georgian_las: 16781530
-        const KEY_Georgian_man: 16781531
-        const KEY_Georgian_nar: 16781532
-        const KEY_Georgian_on: 16781533
-        const KEY_Georgian_par: 16781534
-        const KEY_Georgian_phar: 16781540
-        const KEY_Georgian_qar: 16781543
-        const KEY_Georgian_rae: 16781536
-        const KEY_Georgian_san: 16781537
-        const KEY_Georgian_shin: 16781544
-        const KEY_Georgian_tan: 16781527
-        const KEY_Georgian_tar: 16781538
-        const KEY_Georgian_un: 16781539
-        const KEY_Georgian_vin: 16781525
-        const KEY_Georgian_we: 16781555
-        const KEY_Georgian_xan: 16781550
-        const KEY_Georgian_zen: 16781526
-        const KEY_Georgian_zhar: 16781535
-        const KEY_Go: 269025119
-        const KEY_Greek_ALPHA: 1985
-        const KEY_Greek_ALPHAaccent: 1953
-        const KEY_Greek_BETA: 1986
-        const KEY_Greek_CHI: 2007
-        const KEY_Greek_DELTA: 1988
-        const KEY_Greek_EPSILON: 1989
-        const KEY_Greek_EPSILONaccent: 1954
-        const KEY_Greek_ETA: 1991
-        const KEY_Greek_ETAaccent: 1955
-        const KEY_Greek_GAMMA: 1987
-        const KEY_Greek_IOTA: 1993
-        const KEY_Greek_IOTAaccent: 1956
-        const KEY_Greek_IOTAdiaeresis: 1957
-        const KEY_Greek_IOTAdieresis: 1957
-        const KEY_Greek_KAPPA: 1994
-        const KEY_Greek_LAMBDA: 1995
-        const KEY_Greek_LAMDA: 1995
-        const KEY_Greek_MU: 1996
-        const KEY_Greek_NU: 1997
-        const KEY_Greek_OMEGA: 2009
-        const KEY_Greek_OMEGAaccent: 1963
-        const KEY_Greek_OMICRON: 1999
-        const KEY_Greek_OMICRONaccent: 1959
-        const KEY_Greek_PHI: 2006
-        const KEY_Greek_PI: 2000
-        const KEY_Greek_PSI: 2008
-        const KEY_Greek_RHO: 2001
-        const KEY_Greek_SIGMA: 2002
-        const KEY_Greek_TAU: 2004
-        const KEY_Greek_THETA: 1992
-        const KEY_Greek_UPSILON: 2005
-        const KEY_Greek_UPSILONaccent: 1960
-        const KEY_Greek_UPSILONdieresis: 1961
-        const KEY_Greek_XI: 1998
-        const KEY_Greek_ZETA: 1990
-        const KEY_Greek_accentdieresis: 1966
-        const KEY_Greek_alpha: 2017
-        const KEY_Greek_alphaaccent: 1969
-        const KEY_Greek_beta: 2018
-        const KEY_Greek_chi: 2039
-        const KEY_Greek_delta: 2020
-        const KEY_Greek_epsilon: 2021
-        const KEY_Greek_epsilonaccent: 1970
-        const KEY_Greek_eta: 2023
-        const KEY_Greek_etaaccent: 1971
-        const KEY_Greek_finalsmallsigma: 2035
-        const KEY_Greek_gamma: 2019
-        const KEY_Greek_horizbar: 1967
-        const KEY_Greek_iota: 2025
-        const KEY_Greek_iotaaccent: 1972
-        const KEY_Greek_iotaaccentdieresis: 1974
-        const KEY_Greek_iotadieresis: 1973
-        const KEY_Greek_kappa: 2026
-        const KEY_Greek_lambda: 2027
-        const KEY_Greek_lamda: 2027
-        const KEY_Greek_mu: 2028
-        const KEY_Greek_nu: 2029
-        const KEY_Greek_omega: 2041
-        const KEY_Greek_omegaaccent: 1979
-        const KEY_Greek_omicron: 2031
-        const KEY_Greek_omicronaccent: 1975
-        const KEY_Greek_phi: 2038
-        const KEY_Greek_pi: 2032
-        const KEY_Greek_psi: 2040
-        const KEY_Greek_rho: 2033
-        const KEY_Greek_sigma: 2034
-        const KEY_Greek_switch: 65406
-        const KEY_Greek_tau: 2036
-        const KEY_Greek_theta: 2024
-        const KEY_Greek_upsilon: 2037
-        const KEY_Greek_upsilonaccent: 1976
-        const KEY_Greek_upsilonaccentdieresis: 1978
-        const KEY_Greek_upsilondieresis: 1977
-        const KEY_Greek_xi: 2030
-        const KEY_Greek_zeta: 2022
-        const KEY_Green: 269025188
-        const KEY_H: 72
-        const KEY_Hangul: 65329
-        const KEY_Hangul_A: 3775
-        const KEY_Hangul_AE: 3776
-        const KEY_Hangul_AraeA: 3830
-        const KEY_Hangul_AraeAE: 3831
-        const KEY_Hangul_Banja: 65337
-        const KEY_Hangul_Cieuc: 3770
-        const KEY_Hangul_Codeinput: 65335
-        const KEY_Hangul_Dikeud: 3751
-        const KEY_Hangul_E: 3780
-        const KEY_Hangul_EO: 3779
-        const KEY_Hangul_EU: 3793
-        const KEY_Hangul_End: 65331
-        const KEY_Hangul_Hanja: 65332
-        const KEY_Hangul_Hieuh: 3774
-        const KEY_Hangul_I: 3795
-        const KEY_Hangul_Ieung: 3767
-        const KEY_Hangul_J_Cieuc: 3818
-        const KEY_Hangul_J_Dikeud: 3802
-        const KEY_Hangul_J_Hieuh: 3822
-        const KEY_Hangul_J_Ieung: 3816
-        const KEY_Hangul_J_Jieuj: 3817
-        const KEY_Hangul_J_Khieuq: 3819
-        const KEY_Hangul_J_Kiyeog: 3796
-        const KEY_Hangul_J_KiyeogSios: 3798
-        const KEY_Hangul_J_KkogjiDalrinIeung: 3833
-        const KEY_Hangul_J_Mieum: 3811
-        const KEY_Hangul_J_Nieun: 3799
-        const KEY_Hangul_J_NieunHieuh: 3801
-        const KEY_Hangul_J_NieunJieuj: 3800
-        const KEY_Hangul_J_PanSios: 3832
-        const KEY_Hangul_J_Phieuf: 3821
-        const KEY_Hangul_J_Pieub: 3812
-        const KEY_Hangul_J_PieubSios: 3813
-        const KEY_Hangul_J_Rieul: 3803
-        const KEY_Hangul_J_RieulHieuh: 3810
-        const KEY_Hangul_J_RieulKiyeog: 3804
-        const KEY_Hangul_J_RieulMieum: 3805
-        const KEY_Hangul_J_RieulPhieuf: 3809
-        const KEY_Hangul_J_RieulPieub: 3806
-        const KEY_Hangul_J_RieulSios: 3807
-        const KEY_Hangul_J_RieulTieut: 3808
-        const KEY_Hangul_J_Sios: 3814
-        const KEY_Hangul_J_SsangKiyeog: 3797
-        const KEY_Hangul_J_SsangSios: 3815
-        const KEY_Hangul_J_Tieut: 3820
-        const KEY_Hangul_J_YeorinHieuh: 3834
-        const KEY_Hangul_Jamo: 65333
-        const KEY_Hangul_Jeonja: 65336
-        const KEY_Hangul_Jieuj: 3768
-        const KEY_Hangul_Khieuq: 3771
-        const KEY_Hangul_Kiyeog: 3745
-        const KEY_Hangul_KiyeogSios: 3747
-        const KEY_Hangul_KkogjiDalrinIeung: 3827
-        const KEY_Hangul_Mieum: 3761
-        const KEY_Hangul_MultipleCandidate: 65341
-        const KEY_Hangul_Nieun: 3748
-        const KEY_Hangul_NieunHieuh: 3750
-        const KEY_Hangul_NieunJieuj: 3749
-        const KEY_Hangul_O: 3783
-        const KEY_Hangul_OE: 3786
-        const KEY_Hangul_PanSios: 3826
-        const KEY_Hangul_Phieuf: 3773
-        const KEY_Hangul_Pieub: 3762
-        const KEY_Hangul_PieubSios: 3764
-        const KEY_Hangul_PostHanja: 65339
-        const KEY_Hangul_PreHanja: 65338
-        const KEY_Hangul_PreviousCandidate: 65342
-        const KEY_Hangul_Rieul: 3753
-        const KEY_Hangul_RieulHieuh: 3760
-        const KEY_Hangul_RieulKiyeog: 3754
-        const KEY_Hangul_RieulMieum: 3755
-        const KEY_Hangul_RieulPhieuf: 3759
-        const KEY_Hangul_RieulPieub: 3756
-        const KEY_Hangul_RieulSios: 3757
-        const KEY_Hangul_RieulTieut: 3758
-        const KEY_Hangul_RieulYeorinHieuh: 3823
-        const KEY_Hangul_Romaja: 65334
-        const KEY_Hangul_SingleCandidate: 65340
-        const KEY_Hangul_Sios: 3765
-        const KEY_Hangul_Special: 65343
-        const KEY_Hangul_SsangDikeud: 3752
-        const KEY_Hangul_SsangJieuj: 3769
-        const KEY_Hangul_SsangKiyeog: 3746
-        const KEY_Hangul_SsangPieub: 3763
-        const KEY_Hangul_SsangSios: 3766
-        const KEY_Hangul_Start: 65330
-        const KEY_Hangul_SunkyeongeumMieum: 3824
-        const KEY_Hangul_SunkyeongeumPhieuf: 3828
-        const KEY_Hangul_SunkyeongeumPieub: 3825
-        const KEY_Hangul_Tieut: 3772
-        const KEY_Hangul_U: 3788
-        const KEY_Hangul_WA: 3784
-        const KEY_Hangul_WAE: 3785
-        const KEY_Hangul_WE: 3790
-        const KEY_Hangul_WEO: 3789
-        const KEY_Hangul_WI: 3791
-        const KEY_Hangul_YA: 3777
-        const KEY_Hangul_YAE: 3778
-        const KEY_Hangul_YE: 3782
-        const KEY_Hangul_YEO: 3781
-        const KEY_Hangul_YI: 3794
-        const KEY_Hangul_YO: 3787
-        const KEY_Hangul_YU: 3792
-        const KEY_Hangul_YeorinHieuh: 3829
-        const KEY_Hangul_switch: 65406
-        const KEY_Hankaku: 65321
-        const KEY_Hcircumflex: 678
-        const KEY_Hebrew_switch: 65406
-        const KEY_Help: 65386
-        const KEY_Henkan: 65315
-        const KEY_Henkan_Mode: 65315
-        const KEY_Hibernate: 269025192
-        const KEY_Hiragana: 65317
-        const KEY_Hiragana_Katakana: 65319
-        const KEY_History: 269025079
-        const KEY_Home: 65360
-        const KEY_HomePage: 269025048
-        const KEY_HotLinks: 269025082
-        const KEY_Hstroke: 673
-        const KEY_Hyper_L: 65517
-        const KEY_Hyper_R: 65518
-        const KEY_I: 73
-        const KEY_ISO_Center_Object: 65075
-        const KEY_ISO_Continuous_Underline: 65072
-        const KEY_ISO_Discontinuous_Underline: 65073
-        const KEY_ISO_Emphasize: 65074
-        const KEY_ISO_Enter: 65076
-        const KEY_ISO_Fast_Cursor_Down: 65071
-        const KEY_ISO_Fast_Cursor_Left: 65068
-        const KEY_ISO_Fast_Cursor_Right: 65069
-        const KEY_ISO_Fast_Cursor_Up: 65070
-        const KEY_ISO_First_Group: 65036
-        const KEY_ISO_First_Group_Lock: 65037
-        const KEY_ISO_Group_Latch: 65030
-        const KEY_ISO_Group_Lock: 65031
-        const KEY_ISO_Group_Shift: 65406
-        const KEY_ISO_Last_Group: 65038
-        const KEY_ISO_Last_Group_Lock: 65039
-        const KEY_ISO_Left_Tab: 65056
-        const KEY_ISO_Level2_Latch: 65026
-        const KEY_ISO_Level3_Latch: 65028
-        const KEY_ISO_Level3_Lock: 65029
-        const KEY_ISO_Level3_Shift: 65027
-        const KEY_ISO_Level5_Latch: 65042
-        const KEY_ISO_Level5_Lock: 65043
-        const KEY_ISO_Level5_Shift: 65041
-        const KEY_ISO_Lock: 65025
-        const KEY_ISO_Move_Line_Down: 65058
-        const KEY_ISO_Move_Line_Up: 65057
-        const KEY_ISO_Next_Group: 65032
-        const KEY_ISO_Next_Group_Lock: 65033
-        const KEY_ISO_Partial_Line_Down: 65060
-        const KEY_ISO_Partial_Line_Up: 65059
-        const KEY_ISO_Partial_Space_Left: 65061
-        const KEY_ISO_Partial_Space_Right: 65062
-        const KEY_ISO_Prev_Group: 65034
-        const KEY_ISO_Prev_Group_Lock: 65035
-        const KEY_ISO_Release_Both_Margins: 65067
-        const KEY_ISO_Release_Margin_Left: 65065
-        const KEY_ISO_Release_Margin_Right: 65066
-        const KEY_ISO_Set_Margin_Left: 65063
-        const KEY_ISO_Set_Margin_Right: 65064
-        const KEY_Iabovedot: 681
-        const KEY_Iacute: 205
-        const KEY_Ibelowdot: 16785098
-        const KEY_Ibreve: 16777516
-        const KEY_Icircumflex: 206
-        const KEY_Idiaeresis: 207
-        const KEY_Igrave: 204
-        const KEY_Ihook: 16785096
-        const KEY_Imacron: 975
-        const KEY_Insert: 65379
-        const KEY_Iogonek: 967
-        const KEY_Itilde: 933
-        const KEY_J: 74
-        const KEY_Jcircumflex: 684
-        const KEY_K: 75
-        const KEY_KP_0: 65456
-        const KEY_KP_1: 65457
-        const KEY_KP_2: 65458
-        const KEY_KP_3: 65459
-        const KEY_KP_4: 65460
-        const KEY_KP_5: 65461
-        const KEY_KP_6: 65462
-        const KEY_KP_7: 65463
-        const KEY_KP_8: 65464
-        const KEY_KP_9: 65465
-        const KEY_KP_Add: 65451
-        const KEY_KP_Begin: 65437
-        const KEY_KP_Decimal: 65454
-        const KEY_KP_Delete: 65439
-        const KEY_KP_Divide: 65455
-        const KEY_KP_Down: 65433
-        const KEY_KP_End: 65436
-        const KEY_KP_Enter: 65421
-        const KEY_KP_Equal: 65469
-        const KEY_KP_F1: 65425
-        const KEY_KP_F2: 65426
-        const KEY_KP_F3: 65427
-        const KEY_KP_F4: 65428
-        const KEY_KP_Home: 65429
-        const KEY_KP_Insert: 65438
-        const KEY_KP_Left: 65430
-        const KEY_KP_Multiply: 65450
-        const KEY_KP_Next: 65435
-        const KEY_KP_Page_Down: 65435
-        const KEY_KP_Page_Up: 65434
-        const KEY_KP_Prior: 65434
-        const KEY_KP_Right: 65432
-        const KEY_KP_Separator: 65452
-        const KEY_KP_Space: 65408
-        const KEY_KP_Subtract: 65453
-        const KEY_KP_Tab: 65417
-        const KEY_KP_Up: 65431
-        const KEY_Kana_Lock: 65325
-        const KEY_Kana_Shift: 65326
-        const KEY_Kanji: 65313
-        const KEY_Kanji_Bangou: 65335
-        const KEY_Katakana: 65318
-        const KEY_KbdBrightnessDown: 269025030
-        const KEY_KbdBrightnessUp: 269025029
-        const KEY_KbdLightOnOff: 269025028
-        const KEY_Kcedilla: 979
-        const KEY_Keyboard: 269025203
-        const KEY_Korean_Won: 3839
-        const KEY_L: 76
-        const KEY_L1: 65480
-        const KEY_L10: 65489
-        const KEY_L2: 65481
-        const KEY_L3: 65482
-        const KEY_L4: 65483
-        const KEY_L5: 65484
-        const KEY_L6: 65485
-        const KEY_L7: 65486
-        const KEY_L8: 65487
-        const KEY_L9: 65488
-        const KEY_Lacute: 453
-        const KEY_Last_Virtual_Screen: 65236
-        const KEY_Launch0: 269025088
-        const KEY_Launch1: 269025089
-        const KEY_Launch2: 269025090
-        const KEY_Launch3: 269025091
-        const KEY_Launch4: 269025092
-        const KEY_Launch5: 269025093
-        const KEY_Launch6: 269025094
-        const KEY_Launch7: 269025095
-        const KEY_Launch8: 269025096
-        const KEY_Launch9: 269025097
-        const KEY_LaunchA: 269025098
-        const KEY_LaunchB: 269025099
-        const KEY_LaunchC: 269025100
-        const KEY_LaunchD: 269025101
-        const KEY_LaunchE: 269025102
-        const KEY_LaunchF: 269025103
-        const KEY_Lbelowdot: 16784950
-        const KEY_Lcaron: 421
-        const KEY_Lcedilla: 934
-        const KEY_Left: 65361
-        const KEY_LightBulb: 269025077
-        const KEY_Linefeed: 65290
-        const KEY_LiraSign: 16785572
-        const KEY_LogGrabInfo: 269024805
-        const KEY_LogOff: 269025121
-        const KEY_LogWindowTree: 269024804
-        const KEY_Lstroke: 419
-        const KEY_M: 77
-        const KEY_Mabovedot: 16784960
-        const KEY_Macedonia_DSE: 1717
-        const KEY_Macedonia_GJE: 1714
-        const KEY_Macedonia_KJE: 1724
-        const KEY_Macedonia_dse: 1701
-        const KEY_Macedonia_gje: 1698
-        const KEY_Macedonia_kje: 1708
-        const KEY_Mae_Koho: 65342
-        const KEY_Mail: 269025049
-        const KEY_MailForward: 269025168
-        const KEY_Market: 269025122
-        const KEY_Massyo: 65324
-        const KEY_Meeting: 269025123
-        const KEY_Memo: 269025054
-        const KEY_Menu: 65383
-        const KEY_MenuKB: 269025125
-        const KEY_MenuPB: 269025126
-        const KEY_Messenger: 269025166
-        const KEY_Meta_L: 65511
-        const KEY_Meta_R: 65512
-        const KEY_MillSign: 16785573
-        const KEY_ModeLock: 269025025
-        const KEY_Mode_switch: 65406
-        const KEY_MonBrightnessDown: 269025027
-        const KEY_MonBrightnessUp: 269025026
-        const KEY_MouseKeys_Accel_Enable: 65143
-        const KEY_MouseKeys_Enable: 65142
-        const KEY_Muhenkan: 65314
-        const KEY_Multi_key: 65312
-        const KEY_MultipleCandidate: 65341
-        const KEY_Music: 269025170
-        const KEY_MyComputer: 269025075
-        const KEY_MySites: 269025127
-        const KEY_N: 78
-        const KEY_Nacute: 465
-        const KEY_NairaSign: 16785574
-        const KEY_Ncaron: 466
-        const KEY_Ncedilla: 977
-        const KEY_New: 269025128
-        const KEY_NewSheqelSign: 16785578
-        const KEY_News: 269025129
-        const KEY_Next: 65366
-        const KEY_Next_VMode: 269024802
-        const KEY_Next_Virtual_Screen: 65234
-        const KEY_Ntilde: 209
-        const KEY_Num_Lock: 65407
-        const KEY_O: 79
-        const KEY_OE: 5052
-        const KEY_Oacute: 211
-        const KEY_Obarred: 16777631
-        const KEY_Obelowdot: 16785100
-        const KEY_Ocaron: 16777681
-        const KEY_Ocircumflex: 212
-        const KEY_Ocircumflexacute: 16785104
-        const KEY_Ocircumflexbelowdot: 16785112
-        const KEY_Ocircumflexgrave: 16785106
-        const KEY_Ocircumflexhook: 16785108
-        const KEY_Ocircumflextilde: 16785110
-        const KEY_Odiaeresis: 214
-        const KEY_Odoubleacute: 469
-        const KEY_OfficeHome: 269025130
-        const KEY_Ograve: 210
-        const KEY_Ohook: 16785102
-        const KEY_Ohorn: 16777632
-        const KEY_Ohornacute: 16785114
-        const KEY_Ohornbelowdot: 16785122
-        const KEY_Ohorngrave: 16785116
-        const KEY_Ohornhook: 16785118
-        const KEY_Ohorntilde: 16785120
-        const KEY_Omacron: 978
-        const KEY_Ooblique: 216
-        const KEY_Open: 269025131
-        const KEY_OpenURL: 269025080
-        const KEY_Option: 269025132
-        const KEY_Oslash: 216
-        const KEY_Otilde: 213
-        const KEY_Overlay1_Enable: 65144
-        const KEY_Overlay2_Enable: 65145
-        const KEY_P: 80
-        const KEY_Pabovedot: 16784982
-        const KEY_Page_Down: 65366
-        const KEY_Page_Up: 65365
-        const KEY_Paste: 269025133
-        const KEY_Pause: 65299
-        const KEY_PesetaSign: 16785575
-        const KEY_Phone: 269025134
-        const KEY_Pictures: 269025169
-        const KEY_Pointer_Accelerate: 65274
-        const KEY_Pointer_Button1: 65257
-        const KEY_Pointer_Button2: 65258
-        const KEY_Pointer_Button3: 65259
-        const KEY_Pointer_Button4: 65260
-        const KEY_Pointer_Button5: 65261
-        const KEY_Pointer_Button_Dflt: 65256
-        const KEY_Pointer_DblClick1: 65263
-        const KEY_Pointer_DblClick2: 65264
-        const KEY_Pointer_DblClick3: 65265
-        const KEY_Pointer_DblClick4: 65266
-        const KEY_Pointer_DblClick5: 65267
-        const KEY_Pointer_DblClick_Dflt: 65262
-        const KEY_Pointer_DfltBtnNext: 65275
-        const KEY_Pointer_DfltBtnPrev: 65276
-        const KEY_Pointer_Down: 65251
-        const KEY_Pointer_DownLeft: 65254
-        const KEY_Pointer_DownRight: 65255
-        const KEY_Pointer_Drag1: 65269
-        const KEY_Pointer_Drag2: 65270
-        const KEY_Pointer_Drag3: 65271
-        const KEY_Pointer_Drag4: 65272
-        const KEY_Pointer_Drag5: 65277
-        const KEY_Pointer_Drag_Dflt: 65268
-        const KEY_Pointer_EnableKeys: 65273
-        const KEY_Pointer_Left: 65248
-        const KEY_Pointer_Right: 65249
-        const KEY_Pointer_Up: 65250
-        const KEY_Pointer_UpLeft: 65252
-        const KEY_Pointer_UpRight: 65253
-        const KEY_PowerDown: 269025057
-        const KEY_PowerOff: 269025066
-        const KEY_Prev_VMode: 269024803
-        const KEY_Prev_Virtual_Screen: 65233
-        const KEY_PreviousCandidate: 65342
-        const KEY_Print: 65377
-        const KEY_Prior: 65365
-        const KEY_Q: 81
-        const KEY_R: 82
-        const KEY_R1: 65490
-        const KEY_R10: 65499
-        const KEY_R11: 65500
-        const KEY_R12: 65501
-        const KEY_R13: 65502
-        const KEY_R14: 65503
-        const KEY_R15: 65504
-        const KEY_R2: 65491
-        const KEY_R3: 65492
-        const KEY_R4: 65493
-        const KEY_R5: 65494
-        const KEY_R6: 65495
-        const KEY_R7: 65496
-        const KEY_R8: 65497
-        const KEY_R9: 65498
-        const KEY_RFKill: 269025205
-        const KEY_Racute: 448
-        const KEY_Rcaron: 472
-        const KEY_Rcedilla: 931
-        const KEY_Red: 269025187
-        const KEY_Redo: 65382
-        const KEY_Refresh: 269025065
-        const KEY_Reload: 269025139
-        const KEY_RepeatKeys_Enable: 65138
-        const KEY_Reply: 269025138
-        const KEY_Return: 65293
-        const KEY_Right: 65363
-        const KEY_RockerDown: 269025060
-        const KEY_RockerEnter: 269025061
-        const KEY_RockerUp: 269025059
-        const KEY_Romaji: 65316
-        const KEY_RotateWindows: 269025140
-        const KEY_RotationKB: 269025142
-        const KEY_RotationPB: 269025141
-        const KEY_RupeeSign: 16785576
-        const KEY_S: 83
-        const KEY_SCHWA: 16777615
-        const KEY_Sabovedot: 16784992
-        const KEY_Sacute: 422
-        const KEY_Save: 269025143
-        const KEY_Scaron: 425
-        const KEY_Scedilla: 426
-        const KEY_Scircumflex: 734
-        const KEY_ScreenSaver: 269025069
-        const KEY_ScrollClick: 269025146
-        const KEY_ScrollDown: 269025145
-        const KEY_ScrollUp: 269025144
-        const KEY_Scroll_Lock: 65300
-        const KEY_Search: 269025051
-        const KEY_Select: 65376
-        const KEY_SelectButton: 269025184
-        const KEY_Send: 269025147
-        const KEY_Serbian_DJE: 1713
-        const KEY_Serbian_DZE: 1727
-        const KEY_Serbian_JE: 1720
-        const KEY_Serbian_LJE: 1721
-        const KEY_Serbian_NJE: 1722
-        const KEY_Serbian_TSHE: 1723
-        const KEY_Serbian_dje: 1697
-        const KEY_Serbian_dze: 1711
-        const KEY_Serbian_je: 1704
-        const KEY_Serbian_lje: 1705
-        const KEY_Serbian_nje: 1706
-        const KEY_Serbian_tshe: 1707
-        const KEY_Shift_L: 65505
-        const KEY_Shift_Lock: 65510
-        const KEY_Shift_R: 65506
-        const KEY_Shop: 269025078
-        const KEY_SingleCandidate: 65340
-        const KEY_Sinh_a: 16780677
-        const KEY_Sinh_aa: 16780678
-        const KEY_Sinh_aa2: 16780751
-        const KEY_Sinh_ae: 16780679
-        const KEY_Sinh_ae2: 16780752
-        const KEY_Sinh_aee: 16780680
-        const KEY_Sinh_aee2: 16780753
-        const KEY_Sinh_ai: 16780691
-        const KEY_Sinh_ai2: 16780763
-        const KEY_Sinh_al: 16780746
-        const KEY_Sinh_au: 16780694
-        const KEY_Sinh_au2: 16780766
-        const KEY_Sinh_ba: 16780726
-        const KEY_Sinh_bha: 16780727
-        const KEY_Sinh_ca: 16780704
-        const KEY_Sinh_cha: 16780705
-        const KEY_Sinh_dda: 16780713
-        const KEY_Sinh_ddha: 16780714
-        const KEY_Sinh_dha: 16780719
-        const KEY_Sinh_dhha: 16780720
-        const KEY_Sinh_e: 16780689
-        const KEY_Sinh_e2: 16780761
-        const KEY_Sinh_ee: 16780690
-        const KEY_Sinh_ee2: 16780762
-        const KEY_Sinh_fa: 16780742
-        const KEY_Sinh_ga: 16780700
-        const KEY_Sinh_gha: 16780701
-        const KEY_Sinh_h2: 16780675
-        const KEY_Sinh_ha: 16780740
-        const KEY_Sinh_i: 16780681
-        const KEY_Sinh_i2: 16780754
-        const KEY_Sinh_ii: 16780682
-        const KEY_Sinh_ii2: 16780755
-        const KEY_Sinh_ja: 16780706
-        const KEY_Sinh_jha: 16780707
-        const KEY_Sinh_jnya: 16780709
-        const KEY_Sinh_ka: 16780698
-        const KEY_Sinh_kha: 16780699
-        const KEY_Sinh_kunddaliya: 16780788
-        const KEY_Sinh_la: 16780733
-        const KEY_Sinh_lla: 16780741
-        const KEY_Sinh_lu: 16780687
-        const KEY_Sinh_lu2: 16780767
-        const KEY_Sinh_luu: 16780688
-        const KEY_Sinh_luu2: 16780787
-        const KEY_Sinh_ma: 16780728
-        const KEY_Sinh_mba: 16780729
-        const KEY_Sinh_na: 16780721
-        const KEY_Sinh_ndda: 16780716
-        const KEY_Sinh_ndha: 16780723
-        const KEY_Sinh_ng: 16780674
-        const KEY_Sinh_ng2: 16780702
-        const KEY_Sinh_nga: 16780703
-        const KEY_Sinh_nja: 16780710
-        const KEY_Sinh_nna: 16780715
-        const KEY_Sinh_nya: 16780708
-        const KEY_Sinh_o: 16780692
-        const KEY_Sinh_o2: 16780764
-        const KEY_Sinh_oo: 16780693
-        const KEY_Sinh_oo2: 16780765
-        const KEY_Sinh_pa: 16780724
-        const KEY_Sinh_pha: 16780725
-        const KEY_Sinh_ra: 16780731
-        const KEY_Sinh_ri: 16780685
-        const KEY_Sinh_rii: 16780686
-        const KEY_Sinh_ru2: 16780760
-        const KEY_Sinh_ruu2: 16780786
-        const KEY_Sinh_sa: 16780739
-        const KEY_Sinh_sha: 16780737
-        const KEY_Sinh_ssha: 16780738
-        const KEY_Sinh_tha: 16780717
-        const KEY_Sinh_thha: 16780718
-        const KEY_Sinh_tta: 16780711
-        const KEY_Sinh_ttha: 16780712
-        const KEY_Sinh_u: 16780683
-        const KEY_Sinh_u2: 16780756
-        const KEY_Sinh_uu: 16780684
-        const KEY_Sinh_uu2: 16780758
-        const KEY_Sinh_va: 16780736
-        const KEY_Sinh_ya: 16780730
-        const KEY_Sleep: 269025071
-        const KEY_SlowKeys_Enable: 65139
-        const KEY_Spell: 269025148
-        const KEY_SplitScreen: 269025149
-        const KEY_Standby: 269025040
-        const KEY_Start: 269025050
-        const KEY_StickyKeys_Enable: 65141
-        const KEY_Stop: 269025064
-        const KEY_Subtitle: 269025178
-        const KEY_Super_L: 65515
-        const KEY_Super_R: 65516
-        const KEY_Support: 269025150
-        const KEY_Suspend: 269025191
-        const KEY_Switch_VT_1: 269024769
-        const KEY_Switch_VT_10: 269024778
-        const KEY_Switch_VT_11: 269024779
-        const KEY_Switch_VT_12: 269024780
-        const KEY_Switch_VT_2: 269024770
-        const KEY_Switch_VT_3: 269024771
-        const KEY_Switch_VT_4: 269024772
-        const KEY_Switch_VT_5: 269024773
-        const KEY_Switch_VT_6: 269024774
-        const KEY_Switch_VT_7: 269024775
-        const KEY_Switch_VT_8: 269024776
-        const KEY_Switch_VT_9: 269024777
-        const KEY_Sys_Req: 65301
-        const KEY_T: 84
-        const KEY_THORN: 222
-        const KEY_Tab: 65289
-        const KEY_Tabovedot: 16785002
-        const KEY_TaskPane: 269025151
-        const KEY_Tcaron: 427
-        const KEY_Tcedilla: 478
-        const KEY_Terminal: 269025152
-        const KEY_Terminate_Server: 65237
-        const KEY_Thai_baht: 3551
-        const KEY_Thai_bobaimai: 3514
-        const KEY_Thai_chochan: 3496
-        const KEY_Thai_chochang: 3498
-        const KEY_Thai_choching: 3497
-        const KEY_Thai_chochoe: 3500
-        const KEY_Thai_dochada: 3502
-        const KEY_Thai_dodek: 3508
-        const KEY_Thai_fofa: 3517
-        const KEY_Thai_fofan: 3519
-        const KEY_Thai_hohip: 3531
-        const KEY_Thai_honokhuk: 3534
-        const KEY_Thai_khokhai: 3490
-        const KEY_Thai_khokhon: 3493
-        const KEY_Thai_khokhuat: 3491
-        const KEY_Thai_khokhwai: 3492
-        const KEY_Thai_khorakhang: 3494
-        const KEY_Thai_kokai: 3489
-        const KEY_Thai_lakkhangyao: 3557
-        const KEY_Thai_lekchet: 3575
-        const KEY_Thai_lekha: 3573
-        const KEY_Thai_lekhok: 3574
-        const KEY_Thai_lekkao: 3577
-        const KEY_Thai_leknung: 3569
-        const KEY_Thai_lekpaet: 3576
-        const KEY_Thai_leksam: 3571
-        const KEY_Thai_leksi: 3572
-        const KEY_Thai_leksong: 3570
-        const KEY_Thai_leksun: 3568
-        const KEY_Thai_lochula: 3532
-        const KEY_Thai_loling: 3525
-        const KEY_Thai_lu: 3526
-        const KEY_Thai_maichattawa: 3563
-        const KEY_Thai_maiek: 3560
-        const KEY_Thai_maihanakat: 3537
-        const KEY_Thai_maihanakat_maitho: 3550
-        const KEY_Thai_maitaikhu: 3559
-        const KEY_Thai_maitho: 3561
-        const KEY_Thai_maitri: 3562
-        const KEY_Thai_maiyamok: 3558
-        const KEY_Thai_moma: 3521
-        const KEY_Thai_ngongu: 3495
-        const KEY_Thai_nikhahit: 3565
-        const KEY_Thai_nonen: 3507
-        const KEY_Thai_nonu: 3513
-        const KEY_Thai_oang: 3533
-        const KEY_Thai_paiyannoi: 3535
-        const KEY_Thai_phinthu: 3546
-        const KEY_Thai_phophan: 3518
-        const KEY_Thai_phophung: 3516
-        const KEY_Thai_phosamphao: 3520
-        const KEY_Thai_popla: 3515
-        const KEY_Thai_rorua: 3523
-        const KEY_Thai_ru: 3524
-        const KEY_Thai_saraa: 3536
-        const KEY_Thai_saraaa: 3538
-        const KEY_Thai_saraae: 3553
-        const KEY_Thai_saraaimaimalai: 3556
-        const KEY_Thai_saraaimaimuan: 3555
-        const KEY_Thai_saraam: 3539
-        const KEY_Thai_sarae: 3552
-        const KEY_Thai_sarai: 3540
-        const KEY_Thai_saraii: 3541
-        const KEY_Thai_sarao: 3554
-        const KEY_Thai_sarau: 3544
-        const KEY_Thai_saraue: 3542
-        const KEY_Thai_sarauee: 3543
-        const KEY_Thai_sarauu: 3545
-        const KEY_Thai_sorusi: 3529
-        const KEY_Thai_sosala: 3528
-        const KEY_Thai_soso: 3499
-        const KEY_Thai_sosua: 3530
-        const KEY_Thai_thanthakhat: 3564
-        const KEY_Thai_thonangmontho: 3505
-        const KEY_Thai_thophuthao: 3506
-        const KEY_Thai_thothahan: 3511
-        const KEY_Thai_thothan: 3504
-        const KEY_Thai_thothong: 3512
-        const KEY_Thai_thothung: 3510
-        const KEY_Thai_topatak: 3503
-        const KEY_Thai_totao: 3509
-        const KEY_Thai_wowaen: 3527
-        const KEY_Thai_yoyak: 3522
-        const KEY_Thai_yoying: 3501
-        const KEY_Thorn: 222
-        const KEY_Time: 269025183
-        const KEY_ToDoList: 269025055
-        const KEY_Tools: 269025153
-        const KEY_TopMenu: 269025186
-        const KEY_TouchpadOff: 269025201
-        const KEY_TouchpadOn: 269025200
-        const KEY_TouchpadToggle: 269025193
-        const KEY_Touroku: 65323
-        const KEY_Travel: 269025154
-        const KEY_Tslash: 940
-        const KEY_U: 85
-        const KEY_UWB: 269025174
-        const KEY_Uacute: 218
-        const KEY_Ubelowdot: 16785124
-        const KEY_Ubreve: 733
-        const KEY_Ucircumflex: 219
-        const KEY_Udiaeresis: 220
-        const KEY_Udoubleacute: 475
-        const KEY_Ugrave: 217
-        const KEY_Uhook: 16785126
-        const KEY_Uhorn: 16777647
-        const KEY_Uhornacute: 16785128
-        const KEY_Uhornbelowdot: 16785136
-        const KEY_Uhorngrave: 16785130
-        const KEY_Uhornhook: 16785132
-        const KEY_Uhorntilde: 16785134
-        const KEY_Ukrainian_GHE_WITH_UPTURN: 1725
-        const KEY_Ukrainian_I: 1718
-        const KEY_Ukrainian_IE: 1716
-        const KEY_Ukrainian_YI: 1719
-        const KEY_Ukrainian_ghe_with_upturn: 1709
-        const KEY_Ukrainian_i: 1702
-        const KEY_Ukrainian_ie: 1700
-        const KEY_Ukrainian_yi: 1703
-        const KEY_Ukranian_I: 1718
-        const KEY_Ukranian_JE: 1716
-        const KEY_Ukranian_YI: 1719
-        const KEY_Ukranian_i: 1702
-        const KEY_Ukranian_je: 1700
-        const KEY_Ukranian_yi: 1703
-        const KEY_Umacron: 990
-        const KEY_Undo: 65381
-        const KEY_Ungrab: 269024800
-        const KEY_Uogonek: 985
-        const KEY_Up: 65362
-        const KEY_Uring: 473
-        const KEY_User1KB: 269025157
-        const KEY_User2KB: 269025158
-        const KEY_UserPB: 269025156
-        const KEY_Utilde: 989
-        const KEY_V: 86
-        const KEY_VendorHome: 269025076
-        const KEY_Video: 269025159
-        const KEY_View: 269025185
-        const KEY_VoidSymbol: 16777215
-        const KEY_W: 87
-        const KEY_WLAN: 269025173
-        const KEY_WWAN: 269025204
-        const KEY_WWW: 269025070
-        const KEY_Wacute: 16785026
-        const KEY_WakeUp: 269025067
-        const KEY_Wcircumflex: 16777588
-        const KEY_Wdiaeresis: 16785028
-        const KEY_WebCam: 269025167
-        const KEY_Wgrave: 16785024
-        const KEY_WheelButton: 269025160
-        const KEY_WindowClear: 269025109
-        const KEY_WonSign: 16785577
-        const KEY_Word: 269025161
-        const KEY_X: 88
-        const KEY_Xabovedot: 16785034
-        const KEY_Xfer: 269025162
-        const KEY_Y: 89
-        const KEY_Yacute: 221
-        const KEY_Ybelowdot: 16785140
-        const KEY_Ycircumflex: 16777590
-        const KEY_Ydiaeresis: 5054
-        const KEY_Yellow: 269025189
-        const KEY_Ygrave: 16785138
-        const KEY_Yhook: 16785142
-        const KEY_Ytilde: 16785144
-        const KEY_Z: 90
-        const KEY_Zabovedot: 431
-        const KEY_Zacute: 428
-        const KEY_Zcaron: 430
-        const KEY_Zen_Koho: 65341
-        const KEY_Zenkaku: 65320
-        const KEY_Zenkaku_Hankaku: 65322
-        const KEY_ZoomIn: 269025163
-        const KEY_ZoomOut: 269025164
-        const KEY_Zstroke: 16777653
-        const KEY_a: 97
-        const KEY_aacute: 225
-        const KEY_abelowdot: 16785057
-        const KEY_abovedot: 511
-        const KEY_abreve: 483
-        const KEY_abreveacute: 16785071
-        const KEY_abrevebelowdot: 16785079
-        const KEY_abrevegrave: 16785073
-        const KEY_abrevehook: 16785075
-        const KEY_abrevetilde: 16785077
-        const KEY_acircumflex: 226
-        const KEY_acircumflexacute: 16785061
-        const KEY_acircumflexbelowdot: 16785069
-        const KEY_acircumflexgrave: 16785063
-        const KEY_acircumflexhook: 16785065
-        const KEY_acircumflextilde: 16785067
-        const KEY_acute: 180
-        const KEY_adiaeresis: 228
-        const KEY_ae: 230
-        const KEY_agrave: 224
-        const KEY_ahook: 16785059
-        const KEY_amacron: 992
-        const KEY_ampersand: 38
-        const KEY_aogonek: 433
-        const KEY_apostrophe: 39
-        const KEY_approxeq: 16785992
-        const KEY_approximate: 2248
-        const KEY_aring: 229
-        const KEY_asciicircum: 94
-        const KEY_asciitilde: 126
-        const KEY_asterisk: 42
-        const KEY_at: 64
-        const KEY_atilde: 227
-        const KEY_b: 98
-        const KEY_babovedot: 16784899
-        const KEY_backslash: 92
-        const KEY_ballotcross: 2804
-        const KEY_bar: 124
-        const KEY_because: 16785973
-        const KEY_blank: 2527
-        const KEY_botintegral: 2213
-        const KEY_botleftparens: 2220
-        const KEY_botleftsqbracket: 2216
-        const KEY_botleftsummation: 2226
-        const KEY_botrightparens: 2222
-        const KEY_botrightsqbracket: 2218
-        const KEY_botrightsummation: 2230
-        const KEY_bott: 2550
-        const KEY_botvertsummationconnector: 2228
-        const KEY_braceleft: 123
-        const KEY_braceright: 125
-        const KEY_bracketleft: 91
-        const KEY_bracketright: 93
-        const KEY_braille_blank: 16787456
-        const KEY_braille_dot_1: 65521
-        const KEY_braille_dot_10: 65530
-        const KEY_braille_dot_2: 65522
-        const KEY_braille_dot_3: 65523
-        const KEY_braille_dot_4: 65524
-        const KEY_braille_dot_5: 65525
-        const KEY_braille_dot_6: 65526
-        const KEY_braille_dot_7: 65527
-        const KEY_braille_dot_8: 65528
-        const KEY_braille_dot_9: 65529
-        const KEY_braille_dots_1: 16787457
-        const KEY_braille_dots_12: 16787459
-        const KEY_braille_dots_123: 16787463
-        const KEY_braille_dots_1234: 16787471
-        const KEY_braille_dots_12345: 16787487
-        const KEY_braille_dots_123456: 16787519
-        const KEY_braille_dots_1234567: 16787583
-        const KEY_braille_dots_12345678: 16787711
-        const KEY_braille_dots_1234568: 16787647
-        const KEY_braille_dots_123457: 16787551
-        const KEY_braille_dots_1234578: 16787679
-        const KEY_braille_dots_123458: 16787615
-        const KEY_braille_dots_12346: 16787503
-        const KEY_braille_dots_123467: 16787567
-        const KEY_braille_dots_1234678: 16787695
-        const KEY_braille_dots_123468: 16787631
-        const KEY_braille_dots_12347: 16787535
-        const KEY_braille_dots_123478: 16787663
-        const KEY_braille_dots_12348: 16787599
-        const KEY_braille_dots_1235: 16787479
-        const KEY_braille_dots_12356: 16787511
-        const KEY_braille_dots_123567: 16787575
-        const KEY_braille_dots_1235678: 16787703
-        const KEY_braille_dots_123568: 16787639
-        const KEY_braille_dots_12357: 16787543
-        const KEY_braille_dots_123578: 16787671
-        const KEY_braille_dots_12358: 16787607
-        const KEY_braille_dots_1236: 16787495
-        const KEY_braille_dots_12367: 16787559
-        const KEY_braille_dots_123678: 16787687
-        const KEY_braille_dots_12368: 16787623
-        const KEY_braille_dots_1237: 16787527
-        const KEY_braille_dots_12378: 16787655
-        const KEY_braille_dots_1238: 16787591
-        const KEY_braille_dots_124: 16787467
-        const KEY_braille_dots_1245: 16787483
-        const KEY_braille_dots_12456: 16787515
-        const KEY_braille_dots_124567: 16787579
-        const KEY_braille_dots_1245678: 16787707
-        const KEY_braille_dots_124568: 16787643
-        const KEY_braille_dots_12457: 16787547
-        const KEY_braille_dots_124578: 16787675
-        const KEY_braille_dots_12458: 16787611
-        const KEY_braille_dots_1246: 16787499
-        const KEY_braille_dots_12467: 16787563
-        const KEY_braille_dots_124678: 16787691
-        const KEY_braille_dots_12468: 16787627
-        const KEY_braille_dots_1247: 16787531
-        const KEY_braille_dots_12478: 16787659
-        const KEY_braille_dots_1248: 16787595
-        const KEY_braille_dots_125: 16787475
-        const KEY_braille_dots_1256: 16787507
-        const KEY_braille_dots_12567: 16787571
-        const KEY_braille_dots_125678: 16787699
-        const KEY_braille_dots_12568: 16787635
-        const KEY_braille_dots_1257: 16787539
-        const KEY_braille_dots_12578: 16787667
-        const KEY_braille_dots_1258: 16787603
-        const KEY_braille_dots_126: 16787491
-        const KEY_braille_dots_1267: 16787555
-        const KEY_braille_dots_12678: 16787683
-        const KEY_braille_dots_1268: 16787619
-        const KEY_braille_dots_127: 16787523
-        const KEY_braille_dots_1278: 16787651
-        const KEY_braille_dots_128: 16787587
-        const KEY_braille_dots_13: 16787461
-        const KEY_braille_dots_134: 16787469
-        const KEY_braille_dots_1345: 16787485
-        const KEY_braille_dots_13456: 16787517
-        const KEY_braille_dots_134567: 16787581
-        const KEY_braille_dots_1345678: 16787709
-        const KEY_braille_dots_134568: 16787645
-        const KEY_braille_dots_13457: 16787549
-        const KEY_braille_dots_134578: 16787677
-        const KEY_braille_dots_13458: 16787613
-        const KEY_braille_dots_1346: 16787501
-        const KEY_braille_dots_13467: 16787565
-        const KEY_braille_dots_134678: 16787693
-        const KEY_braille_dots_13468: 16787629
-        const KEY_braille_dots_1347: 16787533
-        const KEY_braille_dots_13478: 16787661
-        const KEY_braille_dots_1348: 16787597
-        const KEY_braille_dots_135: 16787477
-        const KEY_braille_dots_1356: 16787509
-        const KEY_braille_dots_13567: 16787573
-        const KEY_braille_dots_135678: 16787701
-        const KEY_braille_dots_13568: 16787637
-        const KEY_braille_dots_1357: 16787541
-        const KEY_braille_dots_13578: 16787669
-        const KEY_braille_dots_1358: 16787605
-        const KEY_braille_dots_136: 16787493
-        const KEY_braille_dots_1367: 16787557
-        const KEY_braille_dots_13678: 16787685
-        const KEY_braille_dots_1368: 16787621
-        const KEY_braille_dots_137: 16787525
-        const KEY_braille_dots_1378: 16787653
-        const KEY_braille_dots_138: 16787589
-        const KEY_braille_dots_14: 16787465
-        const KEY_braille_dots_145: 16787481
-        const KEY_braille_dots_1456: 16787513
-        const KEY_braille_dots_14567: 16787577
-        const KEY_braille_dots_145678: 16787705
-        const KEY_braille_dots_14568: 16787641
-        const KEY_braille_dots_1457: 16787545
-        const KEY_braille_dots_14578: 16787673
-        const KEY_braille_dots_1458: 16787609
-        const KEY_braille_dots_146: 16787497
-        const KEY_braille_dots_1467: 16787561
-        const KEY_braille_dots_14678: 16787689
-        const KEY_braille_dots_1468: 16787625
-        const KEY_braille_dots_147: 16787529
-        const KEY_braille_dots_1478: 16787657
-        const KEY_braille_dots_148: 16787593
-        const KEY_braille_dots_15: 16787473
-        const KEY_braille_dots_156: 16787505
-        const KEY_braille_dots_1567: 16787569
-        const KEY_braille_dots_15678: 16787697
-        const KEY_braille_dots_1568: 16787633
-        const KEY_braille_dots_157: 16787537
-        const KEY_braille_dots_1578: 16787665
-        const KEY_braille_dots_158: 16787601
-        const KEY_braille_dots_16: 16787489
-        const KEY_braille_dots_167: 16787553
-        const KEY_braille_dots_1678: 16787681
-        const KEY_braille_dots_168: 16787617
-        const KEY_braille_dots_17: 16787521
-        const KEY_braille_dots_178: 16787649
-        const KEY_braille_dots_18: 16787585
-        const KEY_braille_dots_2: 16787458
-        const KEY_braille_dots_23: 16787462
-        const KEY_braille_dots_234: 16787470
-        const KEY_braille_dots_2345: 16787486
-        const KEY_braille_dots_23456: 16787518
-        const KEY_braille_dots_234567: 16787582
-        const KEY_braille_dots_2345678: 16787710
-        const KEY_braille_dots_234568: 16787646
-        const KEY_braille_dots_23457: 16787550
-        const KEY_braille_dots_234578: 16787678
-        const KEY_braille_dots_23458: 16787614
-        const KEY_braille_dots_2346: 16787502
-        const KEY_braille_dots_23467: 16787566
-        const KEY_braille_dots_234678: 16787694
-        const KEY_braille_dots_23468: 16787630
-        const KEY_braille_dots_2347: 16787534
-        const KEY_braille_dots_23478: 16787662
-        const KEY_braille_dots_2348: 16787598
-        const KEY_braille_dots_235: 16787478
-        const KEY_braille_dots_2356: 16787510
-        const KEY_braille_dots_23567: 16787574
-        const KEY_braille_dots_235678: 16787702
-        const KEY_braille_dots_23568: 16787638
-        const KEY_braille_dots_2357: 16787542
-        const KEY_braille_dots_23578: 16787670
-        const KEY_braille_dots_2358: 16787606
-        const KEY_braille_dots_236: 16787494
-        const KEY_braille_dots_2367: 16787558
-        const KEY_braille_dots_23678: 16787686
-        const KEY_braille_dots_2368: 16787622
-        const KEY_braille_dots_237: 16787526
-        const KEY_braille_dots_2378: 16787654
-        const KEY_braille_dots_238: 16787590
-        const KEY_braille_dots_24: 16787466
-        const KEY_braille_dots_245: 16787482
-        const KEY_braille_dots_2456: 16787514
-        const KEY_braille_dots_24567: 16787578
-        const KEY_braille_dots_245678: 16787706
-        const KEY_braille_dots_24568: 16787642
-        const KEY_braille_dots_2457: 16787546
-        const KEY_braille_dots_24578: 16787674
-        const KEY_braille_dots_2458: 16787610
-        const KEY_braille_dots_246: 16787498
-        const KEY_braille_dots_2467: 16787562
-        const KEY_braille_dots_24678: 16787690
-        const KEY_braille_dots_2468: 16787626
-        const KEY_braille_dots_247: 16787530
-        const KEY_braille_dots_2478: 16787658
-        const KEY_braille_dots_248: 16787594
-        const KEY_braille_dots_25: 16787474
-        const KEY_braille_dots_256: 16787506
-        const KEY_braille_dots_2567: 16787570
-        const KEY_braille_dots_25678: 16787698
-        const KEY_braille_dots_2568: 16787634
-        const KEY_braille_dots_257: 16787538
-        const KEY_braille_dots_2578: 16787666
-        const KEY_braille_dots_258: 16787602
-        const KEY_braille_dots_26: 16787490
-        const KEY_braille_dots_267: 16787554
-        const KEY_braille_dots_2678: 16787682
-        const KEY_braille_dots_268: 16787618
-        const KEY_braille_dots_27: 16787522
-        const KEY_braille_dots_278: 16787650
-        const KEY_braille_dots_28: 16787586
-        const KEY_braille_dots_3: 16787460
-        const KEY_braille_dots_34: 16787468
-        const KEY_braille_dots_345: 16787484
-        const KEY_braille_dots_3456: 16787516
-        const KEY_braille_dots_34567: 16787580
-        const KEY_braille_dots_345678: 16787708
-        const KEY_braille_dots_34568: 16787644
-        const KEY_braille_dots_3457: 16787548
-        const KEY_braille_dots_34578: 16787676
-        const KEY_braille_dots_3458: 16787612
-        const KEY_braille_dots_346: 16787500
-        const KEY_braille_dots_3467: 16787564
-        const KEY_braille_dots_34678: 16787692
-        const KEY_braille_dots_3468: 16787628
-        const KEY_braille_dots_347: 16787532
-        const KEY_braille_dots_3478: 16787660
-        const KEY_braille_dots_348: 16787596
-        const KEY_braille_dots_35: 16787476
-        const KEY_braille_dots_356: 16787508
-        const KEY_braille_dots_3567: 16787572
-        const KEY_braille_dots_35678: 16787700
-        const KEY_braille_dots_3568: 16787636
-        const KEY_braille_dots_357: 16787540
-        const KEY_braille_dots_3578: 16787668
-        const KEY_braille_dots_358: 16787604
-        const KEY_braille_dots_36: 16787492
-        const KEY_braille_dots_367: 16787556
-        const KEY_braille_dots_3678: 16787684
-        const KEY_braille_dots_368: 16787620
-        const KEY_braille_dots_37: 16787524
-        const KEY_braille_dots_378: 16787652
-        const KEY_braille_dots_38: 16787588
-        const KEY_braille_dots_4: 16787464
-        const KEY_braille_dots_45: 16787480
-        const KEY_braille_dots_456: 16787512
-        const KEY_braille_dots_4567: 16787576
-        const KEY_braille_dots_45678: 16787704
-        const KEY_braille_dots_4568: 16787640
-        const KEY_braille_dots_457: 16787544
-        const KEY_braille_dots_4578: 16787672
-        const KEY_braille_dots_458: 16787608
-        const KEY_braille_dots_46: 16787496
-        const KEY_braille_dots_467: 16787560
-        const KEY_braille_dots_4678: 16787688
-        const KEY_braille_dots_468: 16787624
-        const KEY_braille_dots_47: 16787528
-        const KEY_braille_dots_478: 16787656
-        const KEY_braille_dots_48: 16787592
-        const KEY_braille_dots_5: 16787472
-        const KEY_braille_dots_56: 16787504
-        const KEY_braille_dots_567: 16787568
-        const KEY_braille_dots_5678: 16787696
-        const KEY_braille_dots_568: 16787632
-        const KEY_braille_dots_57: 16787536
-        const KEY_braille_dots_578: 16787664
-        const KEY_braille_dots_58: 16787600
-        const KEY_braille_dots_6: 16787488
-        const KEY_braille_dots_67: 16787552
-        const KEY_braille_dots_678: 16787680
-        const KEY_braille_dots_68: 16787616
-        const KEY_braille_dots_7: 16787520
-        const KEY_braille_dots_78: 16787648
-        const KEY_braille_dots_8: 16787584
-        const KEY_breve: 418
-        const KEY_brokenbar: 166
-        const KEY_c: 99
-        const KEY_c_h: 65187
-        const KEY_cabovedot: 741
-        const KEY_cacute: 486
-        const KEY_careof: 2744
-        const KEY_caret: 2812
-        const KEY_caron: 439
-        const KEY_ccaron: 488
-        const KEY_ccedilla: 231
-        const KEY_ccircumflex: 742
-        const KEY_cedilla: 184
-        const KEY_cent: 162
-        const KEY_ch: 65184
-        const KEY_checkerboard: 2529
-        const KEY_checkmark: 2803
-        const KEY_circle: 3023
-        const KEY_club: 2796
-        const KEY_colon: 58
-        const KEY_comma: 44
-        const KEY_containsas: 16785931
-        const KEY_copyright: 169
-        const KEY_cr: 2532
-        const KEY_crossinglines: 2542
-        const KEY_cuberoot: 16785947
-        const KEY_currency: 164
-        const KEY_cursor: 2815
-        const KEY_d: 100
-        const KEY_dabovedot: 16784907
-        const KEY_dagger: 2801
-        const KEY_dcaron: 495
-        const KEY_dead_A: 65153
-        const KEY_dead_E: 65155
-        const KEY_dead_I: 65157
-        const KEY_dead_O: 65159
-        const KEY_dead_U: 65161
-        const KEY_dead_a: 65152
-        const KEY_dead_abovecomma: 65124
-        const KEY_dead_abovedot: 65110
-        const KEY_dead_abovereversedcomma: 65125
-        const KEY_dead_abovering: 65112
-        const KEY_dead_aboveverticalline: 65169
-        const KEY_dead_acute: 65105
-        const KEY_dead_belowbreve: 65131
-        const KEY_dead_belowcircumflex: 65129
-        const KEY_dead_belowcomma: 65134
-        const KEY_dead_belowdiaeresis: 65132
-        const KEY_dead_belowdot: 65120
-        const KEY_dead_belowmacron: 65128
-        const KEY_dead_belowring: 65127
-        const KEY_dead_belowtilde: 65130
-        const KEY_dead_belowverticalline: 65170
-        const KEY_dead_breve: 65109
-        const KEY_dead_capital_schwa: 65163
-        const KEY_dead_caron: 65114
-        const KEY_dead_cedilla: 65115
-        const KEY_dead_circumflex: 65106
-        const KEY_dead_currency: 65135
-        const KEY_dead_dasia: 65125
-        const KEY_dead_diaeresis: 65111
-        const KEY_dead_doubleacute: 65113
-        const KEY_dead_doublegrave: 65126
-        const KEY_dead_e: 65154
-        const KEY_dead_grave: 65104
-        const KEY_dead_greek: 65164
-        const KEY_dead_hook: 65121
-        const KEY_dead_horn: 65122
-        const KEY_dead_i: 65156
-        const KEY_dead_invertedbreve: 65133
-        const KEY_dead_iota: 65117
-        const KEY_dead_longsolidusoverlay: 65171
-        const KEY_dead_lowline: 65168
-        const KEY_dead_macron: 65108
-        const KEY_dead_o: 65158
-        const KEY_dead_ogonek: 65116
-        const KEY_dead_perispomeni: 65107
-        const KEY_dead_psili: 65124
-        const KEY_dead_semivoiced_sound: 65119
-        const KEY_dead_small_schwa: 65162
-        const KEY_dead_stroke: 65123
-        const KEY_dead_tilde: 65107
-        const KEY_dead_u: 65160
-        const KEY_dead_voiced_sound: 65118
-        const KEY_decimalpoint: 2749
-        const KEY_degree: 176
-        const KEY_diaeresis: 168
-        const KEY_diamond: 2797
-        const KEY_digitspace: 2725
-        const KEY_dintegral: 16785964
-        const KEY_division: 247
-        const KEY_dollar: 36
-        const KEY_doubbaselinedot: 2735
-        const KEY_doubleacute: 445
-        const KEY_doubledagger: 2802
-        const KEY_doublelowquotemark: 2814
-        const KEY_downarrow: 2302
-        const KEY_downcaret: 2984
-        const KEY_downshoe: 3030
-        const KEY_downstile: 3012
-        const KEY_downtack: 3010
-        const KEY_dstroke: 496
-        const KEY_e: 101
-        const KEY_eabovedot: 1004
-        const KEY_eacute: 233
-        const KEY_ebelowdot: 16785081
-        const KEY_ecaron: 492
-        const KEY_ecircumflex: 234
-        const KEY_ecircumflexacute: 16785087
-        const KEY_ecircumflexbelowdot: 16785095
-        const KEY_ecircumflexgrave: 16785089
-        const KEY_ecircumflexhook: 16785091
-        const KEY_ecircumflextilde: 16785093
-        const KEY_ediaeresis: 235
-        const KEY_egrave: 232
-        const KEY_ehook: 16785083
-        const KEY_eightsubscript: 16785544
-        const KEY_eightsuperior: 16785528
-        const KEY_elementof: 16785928
-        const KEY_ellipsis: 2734
-        const KEY_em3space: 2723
-        const KEY_em4space: 2724
-        const KEY_emacron: 954
-        const KEY_emdash: 2729
-        const KEY_emfilledcircle: 2782
-        const KEY_emfilledrect: 2783
-        const KEY_emopencircle: 2766
-        const KEY_emopenrectangle: 2767
-        const KEY_emptyset: 16785925
-        const KEY_emspace: 2721
-        const KEY_endash: 2730
-        const KEY_enfilledcircbullet: 2790
-        const KEY_enfilledsqbullet: 2791
-        const KEY_eng: 959
-        const KEY_enopencircbullet: 2784
-        const KEY_enopensquarebullet: 2785
-        const KEY_enspace: 2722
-        const KEY_eogonek: 490
-        const KEY_equal: 61
-        const KEY_eth: 240
-        const KEY_etilde: 16785085
-        const KEY_exclam: 33
-        const KEY_exclamdown: 161
-        const KEY_ezh: 16777874
-        const KEY_f: 102
-        const KEY_fabovedot: 16784927
-        const KEY_femalesymbol: 2808
-        const KEY_ff: 2531
-        const KEY_figdash: 2747
-        const KEY_filledlefttribullet: 2780
-        const KEY_filledrectbullet: 2779
-        const KEY_filledrighttribullet: 2781
-        const KEY_filledtribulletdown: 2793
-        const KEY_filledtribulletup: 2792
-        const KEY_fiveeighths: 2757
-        const KEY_fivesixths: 2743
-        const KEY_fivesubscript: 16785541
-        const KEY_fivesuperior: 16785525
-        const KEY_fourfifths: 2741
-        const KEY_foursubscript: 16785540
-        const KEY_foursuperior: 16785524
-        const KEY_fourthroot: 16785948
-        const KEY_function: 2294
-        const KEY_g: 103
-        const KEY_gabovedot: 757
-        const KEY_gbreve: 699
-        const KEY_gcaron: 16777703
-        const KEY_gcedilla: 955
-        const KEY_gcircumflex: 760
-        const KEY_grave: 96
-        const KEY_greater: 62
-        const KEY_greaterthanequal: 2238
-        const KEY_guillemotleft: 171
-        const KEY_guillemotright: 187
-        const KEY_h: 104
-        const KEY_hairspace: 2728
-        const KEY_hcircumflex: 694
-        const KEY_heart: 2798
-        const KEY_hebrew_aleph: 3296
-        const KEY_hebrew_ayin: 3314
-        const KEY_hebrew_bet: 3297
-        const KEY_hebrew_beth: 3297
-        const KEY_hebrew_chet: 3303
-        const KEY_hebrew_dalet: 3299
-        const KEY_hebrew_daleth: 3299
-        const KEY_hebrew_doublelowline: 3295
-        const KEY_hebrew_finalkaph: 3306
-        const KEY_hebrew_finalmem: 3309
-        const KEY_hebrew_finalnun: 3311
-        const KEY_hebrew_finalpe: 3315
-        const KEY_hebrew_finalzade: 3317
-        const KEY_hebrew_finalzadi: 3317
-        const KEY_hebrew_gimel: 3298
-        const KEY_hebrew_gimmel: 3298
-        const KEY_hebrew_he: 3300
-        const KEY_hebrew_het: 3303
-        const KEY_hebrew_kaph: 3307
-        const KEY_hebrew_kuf: 3319
-        const KEY_hebrew_lamed: 3308
-        const KEY_hebrew_mem: 3310
-        const KEY_hebrew_nun: 3312
-        const KEY_hebrew_pe: 3316
-        const KEY_hebrew_qoph: 3319
-        const KEY_hebrew_resh: 3320
-        const KEY_hebrew_samech: 3313
-        const KEY_hebrew_samekh: 3313
-        const KEY_hebrew_shin: 3321
-        const KEY_hebrew_taf: 3322
-        const KEY_hebrew_taw: 3322
-        const KEY_hebrew_tet: 3304
-        const KEY_hebrew_teth: 3304
-        const KEY_hebrew_waw: 3301
-        const KEY_hebrew_yod: 3305
-        const KEY_hebrew_zade: 3318
-        const KEY_hebrew_zadi: 3318
-        const KEY_hebrew_zain: 3302
-        const KEY_hebrew_zayin: 3302
-        const KEY_hexagram: 2778
-        const KEY_horizconnector: 2211
-        const KEY_horizlinescan1: 2543
-        const KEY_horizlinescan3: 2544
-        const KEY_horizlinescan5: 2545
-        const KEY_horizlinescan7: 2546
-        const KEY_horizlinescan9: 2547
-        const KEY_hstroke: 689
-        const KEY_ht: 2530
-        const KEY_hyphen: 173
-        const KEY_i: 105
-        const KEY_iTouch: 269025120
-        const KEY_iacute: 237
-        const KEY_ibelowdot: 16785099
-        const KEY_ibreve: 16777517
-        const KEY_icircumflex: 238
-        const KEY_identical: 2255
-        const KEY_idiaeresis: 239
-        const KEY_idotless: 697
-        const KEY_ifonlyif: 2253
-        const KEY_igrave: 236
-        const KEY_ihook: 16785097
-        const KEY_imacron: 1007
-        const KEY_implies: 2254
-        const KEY_includedin: 2266
-        const KEY_includes: 2267
-        const KEY_infinity: 2242
-        const KEY_integral: 2239
-        const KEY_intersection: 2268
-        const KEY_iogonek: 999
-        const KEY_itilde: 949
-        const KEY_j: 106
-        const KEY_jcircumflex: 700
-        const KEY_jot: 3018
-        const KEY_k: 107
-        const KEY_kana_A: 1201
-        const KEY_kana_CHI: 1217
-        const KEY_kana_E: 1204
-        const KEY_kana_FU: 1228
-        const KEY_kana_HA: 1226
-        const KEY_kana_HE: 1229
-        const KEY_kana_HI: 1227
-        const KEY_kana_HO: 1230
-        const KEY_kana_HU: 1228
-        const KEY_kana_I: 1202
-        const KEY_kana_KA: 1206
-        const KEY_kana_KE: 1209
-        const KEY_kana_KI: 1207
-        const KEY_kana_KO: 1210
-        const KEY_kana_KU: 1208
-        const KEY_kana_MA: 1231
-        const KEY_kana_ME: 1234
-        const KEY_kana_MI: 1232
-        const KEY_kana_MO: 1235
-        const KEY_kana_MU: 1233
-        const KEY_kana_N: 1245
-        const KEY_kana_NA: 1221
-        const KEY_kana_NE: 1224
-        const KEY_kana_NI: 1222
-        const KEY_kana_NO: 1225
-        const KEY_kana_NU: 1223
-        const KEY_kana_O: 1205
-        const KEY_kana_RA: 1239
-        const KEY_kana_RE: 1242
-        const KEY_kana_RI: 1240
-        const KEY_kana_RO: 1243
-        const KEY_kana_RU: 1241
-        const KEY_kana_SA: 1211
-        const KEY_kana_SE: 1214
-        const KEY_kana_SHI: 1212
-        const KEY_kana_SO: 1215
-        const KEY_kana_SU: 1213
-        const KEY_kana_TA: 1216
-        const KEY_kana_TE: 1219
-        const KEY_kana_TI: 1217
-        const KEY_kana_TO: 1220
-        const KEY_kana_TSU: 1218
-        const KEY_kana_TU: 1218
-        const KEY_kana_U: 1203
-        const KEY_kana_WA: 1244
-        const KEY_kana_WO: 1190
-        const KEY_kana_YA: 1236
-        const KEY_kana_YO: 1238
-        const KEY_kana_YU: 1237
-        const KEY_kana_a: 1191
-        const KEY_kana_closingbracket: 1187
-        const KEY_kana_comma: 1188
-        const KEY_kana_conjunctive: 1189
-        const KEY_kana_e: 1194
-        const KEY_kana_fullstop: 1185
-        const KEY_kana_i: 1192
-        const KEY_kana_middledot: 1189
-        const KEY_kana_o: 1195
-        const KEY_kana_openingbracket: 1186
-        const KEY_kana_switch: 65406
-        const KEY_kana_tsu: 1199
-        const KEY_kana_tu: 1199
-        const KEY_kana_u: 1193
-        const KEY_kana_ya: 1196
-        const KEY_kana_yo: 1198
-        const KEY_kana_yu: 1197
-        const KEY_kappa: 930
-        const KEY_kcedilla: 1011
-        const KEY_kra: 930
-        const KEY_l: 108
-        const KEY_lacute: 485
-        const KEY_latincross: 2777
-        const KEY_lbelowdot: 16784951
-        const KEY_lcaron: 437
-        const KEY_lcedilla: 950
-        const KEY_leftanglebracket: 2748
-        const KEY_leftarrow: 2299
-        const KEY_leftcaret: 2979
-        const KEY_leftdoublequotemark: 2770
-        const KEY_leftmiddlecurlybrace: 2223
-        const KEY_leftopentriangle: 2764
-        const KEY_leftpointer: 2794
-        const KEY_leftradical: 2209
-        const KEY_leftshoe: 3034
-        const KEY_leftsinglequotemark: 2768
-        const KEY_leftt: 2548
-        const KEY_lefttack: 3036
-        const KEY_less: 60
-        const KEY_lessthanequal: 2236
-        const KEY_lf: 2533
-        const KEY_logicaland: 2270
-        const KEY_logicalor: 2271
-        const KEY_lowleftcorner: 2541
-        const KEY_lowrightcorner: 2538
-        const KEY_lstroke: 435
-        const KEY_m: 109
-        const KEY_mabovedot: 16784961
-        const KEY_macron: 175
-        const KEY_malesymbol: 2807
-        const KEY_maltesecross: 2800
-        const KEY_marker: 2751
-        const KEY_masculine: 186
-        const KEY_minus: 45
-        const KEY_minutes: 2774
-        const KEY_mu: 181
-        const KEY_multiply: 215
-        const KEY_musicalflat: 2806
-        const KEY_musicalsharp: 2805
-        const KEY_n: 110
-        const KEY_nabla: 2245
-        const KEY_nacute: 497
-        const KEY_ncaron: 498
-        const KEY_ncedilla: 1009
-        const KEY_ninesubscript: 16785545
-        const KEY_ninesuperior: 16785529
-        const KEY_nl: 2536
-        const KEY_nobreakspace: 160
-        const KEY_notapproxeq: 16785991
-        const KEY_notelementof: 16785929
-        const KEY_notequal: 2237
-        const KEY_notidentical: 16786018
-        const KEY_notsign: 172
-        const KEY_ntilde: 241
-        const KEY_numbersign: 35
-        const KEY_numerosign: 1712
-        const KEY_o: 111
-        const KEY_oacute: 243
-        const KEY_obarred: 16777845
-        const KEY_obelowdot: 16785101
-        const KEY_ocaron: 16777682
-        const KEY_ocircumflex: 244
-        const KEY_ocircumflexacute: 16785105
-        const KEY_ocircumflexbelowdot: 16785113
-        const KEY_ocircumflexgrave: 16785107
-        const KEY_ocircumflexhook: 16785109
-        const KEY_ocircumflextilde: 16785111
-        const KEY_odiaeresis: 246
-        const KEY_odoubleacute: 501
-        const KEY_oe: 5053
-        const KEY_ogonek: 434
-        const KEY_ograve: 242
-        const KEY_ohook: 16785103
-        const KEY_ohorn: 16777633
-        const KEY_ohornacute: 16785115
-        const KEY_ohornbelowdot: 16785123
-        const KEY_ohorngrave: 16785117
-        const KEY_ohornhook: 16785119
-        const KEY_ohorntilde: 16785121
-        const KEY_omacron: 1010
-        const KEY_oneeighth: 2755
-        const KEY_onefifth: 2738
-        const KEY_onehalf: 189
-        const KEY_onequarter: 188
-        const KEY_onesixth: 2742
-        const KEY_onesubscript: 16785537
-        const KEY_onesuperior: 185
-        const KEY_onethird: 2736
-        const KEY_ooblique: 248
-        const KEY_openrectbullet: 2786
-        const KEY_openstar: 2789
-        const KEY_opentribulletdown: 2788
-        const KEY_opentribulletup: 2787
-        const KEY_ordfeminine: 170
-        const KEY_oslash: 248
-        const KEY_otilde: 245
-        const KEY_overbar: 3008
-        const KEY_overline: 1150
-        const KEY_p: 112
-        const KEY_pabovedot: 16784983
-        const KEY_paragraph: 182
-        const KEY_parenleft: 40
-        const KEY_parenright: 41
-        const KEY_partdifferential: 16785922
-        const KEY_partialderivative: 2287
-        const KEY_percent: 37
-        const KEY_period: 46
-        const KEY_periodcentered: 183
-        const KEY_permille: 2773
-        const KEY_phonographcopyright: 2811
-        const KEY_plus: 43
-        const KEY_plusminus: 177
-        const KEY_prescription: 2772
-        const KEY_prolongedsound: 1200
-        const KEY_punctspace: 2726
-        const KEY_q: 113
-        const KEY_quad: 3020
-        const KEY_question: 63
-        const KEY_questiondown: 191
-        const KEY_quotedbl: 34
-        const KEY_quoteleft: 96
-        const KEY_quoteright: 39
-        const KEY_r: 114
-        const KEY_racute: 480
-        const KEY_radical: 2262
-        const KEY_rcaron: 504
-        const KEY_rcedilla: 947
-        const KEY_registered: 174
-        const KEY_rightanglebracket: 2750
-        const KEY_rightarrow: 2301
-        const KEY_rightcaret: 2982
-        const KEY_rightdoublequotemark: 2771
-        const KEY_rightmiddlecurlybrace: 2224
-        const KEY_rightmiddlesummation: 2231
-        const KEY_rightopentriangle: 2765
-        const KEY_rightpointer: 2795
-        const KEY_rightshoe: 3032
-        const KEY_rightsinglequotemark: 2769
-        const KEY_rightt: 2549
-        const KEY_righttack: 3068
-        const KEY_s: 115
-        const KEY_sabovedot: 16784993
-        const KEY_sacute: 438
-        const KEY_scaron: 441
-        const KEY_scedilla: 442
-        const KEY_schwa: 16777817
-        const KEY_scircumflex: 766
-        const KEY_script_switch: 65406
-        const KEY_seconds: 2775
-        const KEY_section: 167
-        const KEY_semicolon: 59
-        const KEY_semivoicedsound: 1247
-        const KEY_seveneighths: 2758
-        const KEY_sevensubscript: 16785543
-        const KEY_sevensuperior: 16785527
-        const KEY_signaturemark: 2762
-        const KEY_signifblank: 2732
-        const KEY_similarequal: 2249
-        const KEY_singlelowquotemark: 2813
-        const KEY_sixsubscript: 16785542
-        const KEY_sixsuperior: 16785526
-        const KEY_slash: 47
-        const KEY_soliddiamond: 2528
-        const KEY_space: 32
-        const KEY_squareroot: 16785946
-        const KEY_ssharp: 223
-        const KEY_sterling: 163
-        const KEY_stricteq: 16786019
-        const KEY_t: 116
-        const KEY_tabovedot: 16785003
-        const KEY_tcaron: 443
-        const KEY_tcedilla: 510
-        const KEY_telephone: 2809
-        const KEY_telephonerecorder: 2810
-        const KEY_therefore: 2240
-        const KEY_thinspace: 2727
-        const KEY_thorn: 254
-        const KEY_threeeighths: 2756
-        const KEY_threefifths: 2740
-        const KEY_threequarters: 190
-        const KEY_threesubscript: 16785539
-        const KEY_threesuperior: 179
-        const KEY_tintegral: 16785965
-        const KEY_topintegral: 2212
-        const KEY_topleftparens: 2219
-        const KEY_topleftradical: 2210
-        const KEY_topleftsqbracket: 2215
-        const KEY_topleftsummation: 2225
-        const KEY_toprightparens: 2221
-        const KEY_toprightsqbracket: 2217
-        const KEY_toprightsummation: 2229
-        const KEY_topt: 2551
-        const KEY_topvertsummationconnector: 2227
-        const KEY_trademark: 2761
-        const KEY_trademarkincircle: 2763
-        const KEY_tslash: 956
-        const KEY_twofifths: 2739
-        const KEY_twosubscript: 16785538
-        const KEY_twosuperior: 178
-        const KEY_twothirds: 2737
-        const KEY_u: 117
-        const KEY_uacute: 250
-        const KEY_ubelowdot: 16785125
-        const KEY_ubreve: 765
-        const KEY_ucircumflex: 251
-        const KEY_udiaeresis: 252
-        const KEY_udoubleacute: 507
-        const KEY_ugrave: 249
-        const KEY_uhook: 16785127
-        const KEY_uhorn: 16777648
-        const KEY_uhornacute: 16785129
-        const KEY_uhornbelowdot: 16785137
-        const KEY_uhorngrave: 16785131
-        const KEY_uhornhook: 16785133
-        const KEY_uhorntilde: 16785135
-        const KEY_umacron: 1022
-        const KEY_underbar: 3014
-        const KEY_underscore: 95
-        const KEY_union: 2269
-        const KEY_uogonek: 1017
-        const KEY_uparrow: 2300
-        const KEY_upcaret: 2985
-        const KEY_upleftcorner: 2540
-        const KEY_uprightcorner: 2539
-        const KEY_upshoe: 3011
-        const KEY_upstile: 3027
-        const KEY_uptack: 3022
-        const KEY_uring: 505
-        const KEY_utilde: 1021
-        const KEY_v: 118
-        const KEY_variation: 2241
-        const KEY_vertbar: 2552
-        const KEY_vertconnector: 2214
-        const KEY_voicedsound: 1246
-        const KEY_vt: 2537
-        const KEY_w: 119
-        const KEY_wacute: 16785027
-        const KEY_wcircumflex: 16777589
-        const KEY_wdiaeresis: 16785029
-        const KEY_wgrave: 16785025
-        const KEY_x: 120
-        const KEY_xabovedot: 16785035
-        const KEY_y: 121
-        const KEY_yacute: 253
-        const KEY_ybelowdot: 16785141
-        const KEY_ycircumflex: 16777591
-        const KEY_ydiaeresis: 255
-        const KEY_yen: 165
-        const KEY_ygrave: 16785139
-        const KEY_yhook: 16785143
-        const KEY_ytilde: 16785145
-        const KEY_z: 122
-        const KEY_zabovedot: 447
-        const KEY_zacute: 444
-        const KEY_zcaron: 446
-        const KEY_zerosubscript: 16785536
-        const KEY_zerosuperior: 16785520
-        const KEY_zstroke: 16777654
-        const MAJOR_VERSION: 3
-        const MAX_TIMECOORD_AXES: 128
-        const MICRO_VERSION: 52
-        const MINOR_VERSION: 24
-        const PARENT_RELATIVE: 1
-        const PRIORITY_REDRAW: 120
-        /**
-         * button.x;
-         * ]|
-         */
-        abstract class Event {
-            static readonly $gtype: GObject.GType<Event>
+        
 
-            
+        interface WindowRedirectStruct {
+            readonly $gtype: GObject.GType<WindowRedirect>
+            [Symbol.hasInstance](instance: unknown): instance is WindowRedirect
+        }
+
+        interface WindowRedirect {
+        }
+
+        interface $Exports {
+            WindowRedirect: WindowRedirectStruct
+        }
+        
+
+        interface EventStruct {
+            readonly $gtype: GObject.GType<Event>
+            [Symbol.hasInstance](instance: unknown): instance is Event
             /**
              * Creates a new event of the given type. All fields are set to 0.
              * @since 2.2
              * @param type a #GdkEventType
              * @returns a newly-allocated #GdkEvent. The returned #GdkEvent should be freed with gdk_event_free().
              */
-            static "new"(type: EventType): Event
+            "new"(type: EventType): Event
             /**
              * Checks all open displays for a #GdkEvent to process,to be processed
              * on, fetching events from the windowing system if necessary.
              * See gdk_display_get_event().
              * @returns the next #GdkEvent to be processed, or %NULL if no events are pending. The returned #GdkEvent should be freed with gdk_event_free().
              */
-            static get(): Event | null
+            get(): Event | null
             /**
              * Sets the function to call to handle all events from GDK.
              *
@@ -10904,15 +7652,27 @@ declare module "gi://Gdk?version=3.0" {
              * events to GTK+.)
              * @param func the function to call to handle events from GDK.
              */
-            static handler_set(func: EventFunc): void
+            handler_set(func: EventFunc): void
             /**
              * If there is an event waiting in the event queue of some open
              * display, returns a copy of it. See gdk_display_peek_event().
              * @returns a copy of the first #GdkEvent on some event queue, or %NULL if no events are in any queues. The returned #GdkEvent should be freed with gdk_event_free().
              */
-            static peek(): Event | null
+            peek(): Event | null
             /**
-             * y;
+             * Request more motion notifies if @event is a motion notify hint event.
+             *
+             * This function should be used instead of gdk_window_get_pointer() to
+             * request further motion notifies, because it also works for extension
+             * events where motion notifies are provided for devices other than the
+             * core pointer. Coordinate extraction, processing and requesting more
+             * motion events from a %GDK_MOTION_NOTIFY event usually works like this:
+             *
+             * |[<!-- language="C" -->
+             * {
+             *   // motion_event handler
+             *   x = motion_event->x;
+             *   y = motion_event->y;
              *   // handle (x,y) motion
              *   gdk_event_request_motions (motion_event); // handles is_hint events
              * }
@@ -10920,7 +7680,10 @@ declare module "gi://Gdk?version=3.0" {
              * @since 2.12
              * @param event a valid #GdkEvent
              */
-            static request_motions(event: EventMotion): void
+            request_motions(event: EventMotion): void
+        }
+
+        interface Event {
             /**
              * the #GdkEventType
              */
@@ -11083,7 +7846,7 @@ declare module "gi://Gdk?version=3.0" {
              * Extract the event window relative x/y coordinates from an event.
              * @returns %TRUE if the event delivered event window coordinates, location to put event window x coordinate, location to put event window y coordinate
              */
-            get_coords(): boolean
+            get_coords(): [boolean, number, number]
             /**
              * If the event contains a “device” field, this function will return
              * it, else it will return %NULL.
@@ -11092,7 +7855,12 @@ declare module "gi://Gdk?version=3.0" {
              */
             get_device(): Device | null
             /**
-             * s will be constant during
+             * If the event was generated by a device that supports
+             * different tools (eg. a tablet), this function will
+             * return a #GdkDeviceTool representing the tool that
+             * caused the event. Otherwise, %NULL will be returned.
+             *
+             * Note: the #GdkDeviceTool<!-- -->s will be constant during
              * the application lifetime, if settings must be stored
              * persistently across runs, see gdk_device_tool_get_serial()
              * @since 3.22
@@ -11139,7 +7907,7 @@ declare module "gi://Gdk?version=3.0" {
              * Extract the root window relative x/y coordinates from an event.
              * @returns %TRUE if the event delivered root window coordinates, location to put root window x coordinate, location to put root window y coordinate
              */
-            get_root_coords(): boolean
+            get_root_coords(): [boolean, number, number]
             /**
              * Gets the keyboard low-level scancode of a key event.
              *
@@ -11151,7 +7919,13 @@ declare module "gi://Gdk?version=3.0" {
              */
             get_scancode(): number
             /**
-             * motion.y_root` are relative.
+             * Returns the screen for the event. The screen is
+             * typically the screen for `event->any.window`, but
+             * for events such as mouse events, it is the screen
+             * where the pointer was when the event occurs -
+             * that is, the screen which has the root window
+             * to which `event->motion.x_root` and
+             * `event->motion.y_root` are relative.
              * @since 2.2
              * @returns the screen for the event
              */
@@ -11165,7 +7939,39 @@ declare module "gi://Gdk?version=3.0" {
              */
             get_scroll_deltas(): [boolean, number, number]
             /**
-             * y_scroll))
+             * Extracts the scroll direction from an event.
+             *
+             * If @event is not of type %GDK_SCROLL, the contents of @direction
+             * are undefined.
+             *
+             * If you wish to handle both discrete and smooth scrolling, you
+             * should check the return value of this function, or of
+             * gdk_event_get_scroll_deltas(); for instance:
+             *
+             * |[<!-- language="C" -->
+             *   GdkScrollDirection direction;
+             *   double vscroll_factor = 0.0;
+             *   double x_scroll, y_scroll;
+             *
+             *   if (gdk_event_get_scroll_direction (event, &direction))
+             *     {
+             *       // Handle discrete scrolling with a known constant delta;
+             *       const double delta = 12.0;
+             *
+             *       switch (direction)
+             *         {
+             *         case GDK_SCROLL_UP:
+             *           vscroll_factor = -delta;
+             *           break;
+             *         case GDK_SCROLL_DOWN:
+             *           vscroll_factor = delta;
+             *           break;
+             *         default:
+             *           // no scrolling
+             *           break;
+             *         }
+             *     }
+             *   else if (gdk_event_get_scroll_deltas (event, &x_scroll, &y_scroll))
              *     {
              *       // Handle smooth scrolling directly
              *       vscroll_factor = y_scroll;
@@ -11228,7 +8034,9 @@ declare module "gi://Gdk?version=3.0" {
              */
             is_scroll_stop_event(): boolean
             /**
-             * any.window is %NULL. See gdk_display_put_event().
+             * Appends a copy of the given event onto the front of the event
+             * queue for event->any.window’s display, or the default event
+             * queue if event->any.window is %NULL. See gdk_display_put_event().
              */
             put(): void
             /**
@@ -11263,1194 +8071,1222 @@ declare module "gi://Gdk?version=3.0" {
              */
             set_source_device(device: Device): void
             /**
-             * button == %GDK_BUTTON_SECONDARY.
+             * This function returns whether a #GdkEventButton should trigger a
+             * context menu, according to platform conventions. The right mouse
+             * button always triggers context menus. Additionally, if
+             * gdk_keymap_get_modifier_mask() returns a non-0 mask for
+             * %GDK_MODIFIER_INTENT_CONTEXT_MENU, then the left mouse button will
+             * also trigger a context menu if this modifier is pressed.
+             *
+             * This function should always be used instead of simply checking for
+             * event->button == %GDK_BUTTON_SECONDARY.
              * @since 3.4
              * @returns %TRUE if the event should trigger a context menu.
              */
             triggers_context_menu(): boolean
         }
-        
-        namespace AxisUse {
-            const $gtype: GObject.GType<AxisUse>
-        }
 
-        /**
-         * An enumeration describing the way in which a device
-         * axis (valuator) maps onto the predefined valuator
-         * types that GTK+ understands.
-         *
-         * Note that the X and Y axes are not really needed; pointer devices
-         * report their location via the x/y members of events regardless. Whether
-         * X and Y are present as axes depends on the GDK backend.
-         */
-        enum AxisUse {
+        interface $Exports {
+            Event: EventStruct
+        }
+        
+        interface AxisUseEnum {
+            readonly $gtype: GObject.GType<AxisUse>
             /**
              * the axis is ignored.
              */
-            "IGNORE" = 0,
+            readonly "IGNORE": 0
             /**
              * the axis is used as the x axis.
              */
-            "X" = 1,
+            readonly "X": 1
             /**
              * the axis is used as the y axis.
              */
-            "Y" = 2,
+            readonly "Y": 2
             /**
              * the axis is used for pressure information.
              */
-            "PRESSURE" = 3,
+            readonly "PRESSURE": 3
             /**
              * the axis is used for x tilt information.
              */
-            "XTILT" = 4,
+            readonly "XTILT": 4
             /**
              * the axis is used for y tilt information.
              */
-            "YTILT" = 5,
+            readonly "YTILT": 5
             /**
              * the axis is used for wheel information.
              */
-            "WHEEL" = 6,
+            readonly "WHEEL": 6
             /**
              * the axis is used for pen/tablet distance information. (Since: 3.22)
              */
-            "DISTANCE" = 7,
+            readonly "DISTANCE": 7
             /**
              * the axis is used for pen rotation information. (Since: 3.22)
              */
-            "ROTATION" = 8,
+            readonly "ROTATION": 8
             /**
              * the axis is used for pen slider information. (Since: 3.22)
              */
-            "SLIDER" = 9,
+            readonly "SLIDER": 9
             /**
              * a constant equal to the numerically highest axis value.
              */
-            "LAST" = 10,
+            readonly "LAST": 10
+        }
+        type AxisUse = AxisUseEnum[Exclude<keyof AxisUseEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An enumeration describing the way in which a device
+             * axis (valuator) maps onto the predefined valuator
+             * types that GTK+ understands.
+             *
+             * Note that the X and Y axes are not really needed; pointer devices
+             * report their location via the x/y members of events regardless. Whether
+             * X and Y are present as axes depends on the GDK backend.
+             */
+            AxisUse: AxisUseEnum
         }
         
-        namespace ByteOrder {
-            const $gtype: GObject.GType<ByteOrder>
-        }
-
-        /**
-         * A set of values describing the possible byte-orders
-         * for storing pixel values in memory.
-         */
-        enum ByteOrder {
+        interface ByteOrderEnum {
+            readonly $gtype: GObject.GType<ByteOrder>
             /**
              * The values are stored with the least-significant byte
              *   first. For instance, the 32-bit value 0xffeecc would be stored
              *   in memory as 0xcc, 0xee, 0xff, 0x00.
              */
-            "LSB_FIRST" = 0,
+            readonly "LSB_FIRST": 0
             /**
              * The values are stored with the most-significant byte
              *   first. For instance, the 32-bit value 0xffeecc would be stored
              *   in memory as 0x00, 0xff, 0xee, 0xcc.
              */
-            "MSB_FIRST" = 1,
+            readonly "MSB_FIRST": 1
+        }
+        type ByteOrder = ByteOrderEnum[Exclude<keyof ByteOrderEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * A set of values describing the possible byte-orders
+             * for storing pixel values in memory.
+             */
+            ByteOrder: ByteOrderEnum
         }
         
-        namespace CrossingMode {
-            const $gtype: GObject.GType<CrossingMode>
-        }
-
-        /**
-         * Specifies the crossing mode for #GdkEventCrossing.
-         */
-        enum CrossingMode {
+        interface CrossingModeEnum {
+            readonly $gtype: GObject.GType<CrossingMode>
             /**
              * crossing because of pointer motion.
              */
-            "NORMAL" = 0,
+            readonly "NORMAL": 0
             /**
              * crossing because a grab is activated.
              */
-            "GRAB" = 1,
+            readonly "GRAB": 1
             /**
              * crossing because a grab is deactivated.
              */
-            "UNGRAB" = 2,
+            readonly "UNGRAB": 2
             /**
              * crossing because a GTK+ grab is activated.
              */
-            "GTK_GRAB" = 3,
+            readonly "GTK_GRAB": 3
             /**
              * crossing because a GTK+ grab is deactivated.
              */
-            "GTK_UNGRAB" = 4,
+            readonly "GTK_UNGRAB": 4
             /**
              * crossing because a GTK+ widget changed
              *   state (e.g. sensitivity).
              */
-            "STATE_CHANGED" = 5,
+            readonly "STATE_CHANGED": 5
             /**
              * crossing because a touch sequence has begun,
              *   this event is synthetic as the pointer might have not left the window.
              */
-            "TOUCH_BEGIN" = 6,
+            readonly "TOUCH_BEGIN": 6
             /**
              * crossing because a touch sequence has ended,
              *   this event is synthetic as the pointer might have not left the window.
              */
-            "TOUCH_END" = 7,
+            readonly "TOUCH_END": 7
             /**
              * crossing because of a device switch (i.e.
              *   a mouse taking control of the pointer after a touch device), this event
              *   is synthetic as the pointer didn’t leave the window.
              */
-            "DEVICE_SWITCH" = 8,
+            readonly "DEVICE_SWITCH": 8
+        }
+        type CrossingMode = CrossingModeEnum[Exclude<keyof CrossingModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the crossing mode for #GdkEventCrossing.
+             */
+            CrossingMode: CrossingModeEnum
         }
         
-        namespace CursorType {
-            const $gtype: GObject.GType<CursorType>
-        }
-
-        /**
-         * Predefined cursors.
-         *
-         * Note that these IDs are directly taken from the X cursor font, and many
-         * of these cursors are either not useful, or are not available on other platforms.
-         *
-         * The recommended way to create cursors is to use gdk_cursor_new_from_name().
-         */
-        enum CursorType {
+        interface CursorTypeEnum {
+            readonly $gtype: GObject.GType<CursorType>
             /**
              * ![](X_cursor.png)
              */
-            "X_CURSOR" = 0,
+            readonly "X_CURSOR": 0
             /**
              * ![](arrow.png)
              */
-            "ARROW" = 2,
+            readonly "ARROW": 2
             /**
              * ![](based_arrow_down.png)
              */
-            "BASED_ARROW_DOWN" = 4,
+            readonly "BASED_ARROW_DOWN": 4
             /**
              * ![](based_arrow_up.png)
              */
-            "BASED_ARROW_UP" = 6,
+            readonly "BASED_ARROW_UP": 6
             /**
              * ![](boat.png)
              */
-            "BOAT" = 8,
+            readonly "BOAT": 8
             /**
              * ![](bogosity.png)
              */
-            "BOGOSITY" = 10,
+            readonly "BOGOSITY": 10
             /**
              * ![](bottom_left_corner.png)
              */
-            "BOTTOM_LEFT_CORNER" = 12,
+            readonly "BOTTOM_LEFT_CORNER": 12
             /**
              * ![](bottom_right_corner.png)
              */
-            "BOTTOM_RIGHT_CORNER" = 14,
+            readonly "BOTTOM_RIGHT_CORNER": 14
             /**
              * ![](bottom_side.png)
              */
-            "BOTTOM_SIDE" = 16,
+            readonly "BOTTOM_SIDE": 16
             /**
              * ![](bottom_tee.png)
              */
-            "BOTTOM_TEE" = 18,
+            readonly "BOTTOM_TEE": 18
             /**
              * ![](box_spiral.png)
              */
-            "BOX_SPIRAL" = 20,
+            readonly "BOX_SPIRAL": 20
             /**
              * ![](center_ptr.png)
              */
-            "CENTER_PTR" = 22,
+            readonly "CENTER_PTR": 22
             /**
              * ![](circle.png)
              */
-            "CIRCLE" = 24,
+            readonly "CIRCLE": 24
             /**
              * ![](clock.png)
              */
-            "CLOCK" = 26,
+            readonly "CLOCK": 26
             /**
              * ![](coffee_mug.png)
              */
-            "COFFEE_MUG" = 28,
+            readonly "COFFEE_MUG": 28
             /**
              * ![](cross.png)
              */
-            "CROSS" = 30,
+            readonly "CROSS": 30
             /**
              * ![](cross_reverse.png)
              */
-            "CROSS_REVERSE" = 32,
+            readonly "CROSS_REVERSE": 32
             /**
              * ![](crosshair.png)
              */
-            "CROSSHAIR" = 34,
+            readonly "CROSSHAIR": 34
             /**
              * ![](diamond_cross.png)
              */
-            "DIAMOND_CROSS" = 36,
+            readonly "DIAMOND_CROSS": 36
             /**
              * ![](dot.png)
              */
-            "DOT" = 38,
+            readonly "DOT": 38
             /**
              * ![](dotbox.png)
              */
-            "DOTBOX" = 40,
+            readonly "DOTBOX": 40
             /**
              * ![](double_arrow.png)
              */
-            "DOUBLE_ARROW" = 42,
+            readonly "DOUBLE_ARROW": 42
             /**
              * ![](draft_large.png)
              */
-            "DRAFT_LARGE" = 44,
+            readonly "DRAFT_LARGE": 44
             /**
              * ![](draft_small.png)
              */
-            "DRAFT_SMALL" = 46,
+            readonly "DRAFT_SMALL": 46
             /**
              * ![](draped_box.png)
              */
-            "DRAPED_BOX" = 48,
+            readonly "DRAPED_BOX": 48
             /**
              * ![](exchange.png)
              */
-            "EXCHANGE" = 50,
+            readonly "EXCHANGE": 50
             /**
              * ![](fleur.png)
              */
-            "FLEUR" = 52,
+            readonly "FLEUR": 52
             /**
              * ![](gobbler.png)
              */
-            "GOBBLER" = 54,
+            readonly "GOBBLER": 54
             /**
              * ![](gumby.png)
              */
-            "GUMBY" = 56,
+            readonly "GUMBY": 56
             /**
              * ![](hand1.png)
              */
-            "HAND1" = 58,
+            readonly "HAND1": 58
             /**
              * ![](hand2.png)
              */
-            "HAND2" = 60,
+            readonly "HAND2": 60
             /**
              * ![](heart.png)
              */
-            "HEART" = 62,
+            readonly "HEART": 62
             /**
              * ![](icon.png)
              */
-            "ICON" = 64,
+            readonly "ICON": 64
             /**
              * ![](iron_cross.png)
              */
-            "IRON_CROSS" = 66,
+            readonly "IRON_CROSS": 66
             /**
              * ![](left_ptr.png)
              */
-            "LEFT_PTR" = 68,
+            readonly "LEFT_PTR": 68
             /**
              * ![](left_side.png)
              */
-            "LEFT_SIDE" = 70,
+            readonly "LEFT_SIDE": 70
             /**
              * ![](left_tee.png)
              */
-            "LEFT_TEE" = 72,
+            readonly "LEFT_TEE": 72
             /**
              * ![](leftbutton.png)
              */
-            "LEFTBUTTON" = 74,
+            readonly "LEFTBUTTON": 74
             /**
              * ![](ll_angle.png)
              */
-            "LL_ANGLE" = 76,
+            readonly "LL_ANGLE": 76
             /**
              * ![](lr_angle.png)
              */
-            "LR_ANGLE" = 78,
+            readonly "LR_ANGLE": 78
             /**
              * ![](man.png)
              */
-            "MAN" = 80,
+            readonly "MAN": 80
             /**
              * ![](middlebutton.png)
              */
-            "MIDDLEBUTTON" = 82,
+            readonly "MIDDLEBUTTON": 82
             /**
              * ![](mouse.png)
              */
-            "MOUSE" = 84,
+            readonly "MOUSE": 84
             /**
              * ![](pencil.png)
              */
-            "PENCIL" = 86,
+            readonly "PENCIL": 86
             /**
              * ![](pirate.png)
              */
-            "PIRATE" = 88,
+            readonly "PIRATE": 88
             /**
              * ![](plus.png)
              */
-            "PLUS" = 90,
+            readonly "PLUS": 90
             /**
              * ![](question_arrow.png)
              */
-            "QUESTION_ARROW" = 92,
+            readonly "QUESTION_ARROW": 92
             /**
              * ![](right_ptr.png)
              */
-            "RIGHT_PTR" = 94,
+            readonly "RIGHT_PTR": 94
             /**
              * ![](right_side.png)
              */
-            "RIGHT_SIDE" = 96,
+            readonly "RIGHT_SIDE": 96
             /**
              * ![](right_tee.png)
              */
-            "RIGHT_TEE" = 98,
+            readonly "RIGHT_TEE": 98
             /**
              * ![](rightbutton.png)
              */
-            "RIGHTBUTTON" = 100,
+            readonly "RIGHTBUTTON": 100
             /**
              * ![](rtl_logo.png)
              */
-            "RTL_LOGO" = 102,
+            readonly "RTL_LOGO": 102
             /**
              * ![](sailboat.png)
              */
-            "SAILBOAT" = 104,
+            readonly "SAILBOAT": 104
             /**
              * ![](sb_down_arrow.png)
              */
-            "SB_DOWN_ARROW" = 106,
+            readonly "SB_DOWN_ARROW": 106
             /**
              * ![](sb_h_double_arrow.png)
              */
-            "SB_H_DOUBLE_ARROW" = 108,
+            readonly "SB_H_DOUBLE_ARROW": 108
             /**
              * ![](sb_left_arrow.png)
              */
-            "SB_LEFT_ARROW" = 110,
+            readonly "SB_LEFT_ARROW": 110
             /**
              * ![](sb_right_arrow.png)
              */
-            "SB_RIGHT_ARROW" = 112,
+            readonly "SB_RIGHT_ARROW": 112
             /**
              * ![](sb_up_arrow.png)
              */
-            "SB_UP_ARROW" = 114,
+            readonly "SB_UP_ARROW": 114
             /**
              * ![](sb_v_double_arrow.png)
              */
-            "SB_V_DOUBLE_ARROW" = 116,
+            readonly "SB_V_DOUBLE_ARROW": 116
             /**
              * ![](shuttle.png)
              */
-            "SHUTTLE" = 118,
+            readonly "SHUTTLE": 118
             /**
              * ![](sizing.png)
              */
-            "SIZING" = 120,
+            readonly "SIZING": 120
             /**
              * ![](spider.png)
              */
-            "SPIDER" = 122,
+            readonly "SPIDER": 122
             /**
              * ![](spraycan.png)
              */
-            "SPRAYCAN" = 124,
+            readonly "SPRAYCAN": 124
             /**
              * ![](star.png)
              */
-            "STAR" = 126,
+            readonly "STAR": 126
             /**
              * ![](target.png)
              */
-            "TARGET" = 128,
+            readonly "TARGET": 128
             /**
              * ![](tcross.png)
              */
-            "TCROSS" = 130,
+            readonly "TCROSS": 130
             /**
              * ![](top_left_arrow.png)
              */
-            "TOP_LEFT_ARROW" = 132,
+            readonly "TOP_LEFT_ARROW": 132
             /**
              * ![](top_left_corner.png)
              */
-            "TOP_LEFT_CORNER" = 134,
+            readonly "TOP_LEFT_CORNER": 134
             /**
              * ![](top_right_corner.png)
              */
-            "TOP_RIGHT_CORNER" = 136,
+            readonly "TOP_RIGHT_CORNER": 136
             /**
              * ![](top_side.png)
              */
-            "TOP_SIDE" = 138,
+            readonly "TOP_SIDE": 138
             /**
              * ![](top_tee.png)
              */
-            "TOP_TEE" = 140,
+            readonly "TOP_TEE": 140
             /**
              * ![](trek.png)
              */
-            "TREK" = 142,
+            readonly "TREK": 142
             /**
              * ![](ul_angle.png)
              */
-            "UL_ANGLE" = 144,
+            readonly "UL_ANGLE": 144
             /**
              * ![](umbrella.png)
              */
-            "UMBRELLA" = 146,
+            readonly "UMBRELLA": 146
             /**
              * ![](ur_angle.png)
              */
-            "UR_ANGLE" = 148,
+            readonly "UR_ANGLE": 148
             /**
              * ![](watch.png)
              */
-            "WATCH" = 150,
+            readonly "WATCH": 150
             /**
              * ![](xterm.png)
              */
-            "XTERM" = 152,
+            readonly "XTERM": 152
             /**
              * last cursor type
              */
-            "LAST_CURSOR" = 153,
+            readonly "LAST_CURSOR": 153
             /**
              * Blank cursor. Since 2.16
              */
-            "BLANK_CURSOR" = -2,
+            readonly "BLANK_CURSOR": -2
             /**
              * type of cursors constructed with
              *   gdk_cursor_new_from_pixbuf()
              */
-            "CURSOR_IS_PIXMAP" = -1,
+            readonly "CURSOR_IS_PIXMAP": -1
+        }
+        type CursorType = CursorTypeEnum[Exclude<keyof CursorTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Predefined cursors.
+             *
+             * Note that these IDs are directly taken from the X cursor font, and many
+             * of these cursors are either not useful, or are not available on other platforms.
+             *
+             * The recommended way to create cursors is to use gdk_cursor_new_from_name().
+             */
+            CursorType: CursorTypeEnum
         }
         
-        namespace DevicePadFeature {
-            const $gtype: GObject.GType<DevicePadFeature>
-        }
-
-        /**
-         * A pad feature.
-         */
-        enum DevicePadFeature {
+        interface DevicePadFeatureEnum {
+            readonly $gtype: GObject.GType<DevicePadFeature>
             /**
              * a button
              */
-            "BUTTON" = 0,
+            readonly "BUTTON": 0
             /**
              * a ring-shaped interactive area
              */
-            "RING" = 1,
+            readonly "RING": 1
             /**
              * a straight interactive area
              */
-            "STRIP" = 2,
+            readonly "STRIP": 2
+        }
+        type DevicePadFeature = DevicePadFeatureEnum[Exclude<keyof DevicePadFeatureEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * A pad feature.
+             */
+            DevicePadFeature: DevicePadFeatureEnum
         }
         
-        namespace DeviceToolType {
-            const $gtype: GObject.GType<DeviceToolType>
-        }
-
-        /**
-         * Indicates the specific type of tool being used being a tablet. Such as an
-         * airbrush, pencil, etc.
-         * @since 3.22
-         */
-        enum DeviceToolType {
+        interface DeviceToolTypeEnum {
+            readonly $gtype: GObject.GType<DeviceToolType>
             /**
              * Tool is of an unknown type.
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Tool is a standard tablet stylus.
              */
-            "PEN" = 1,
+            readonly "PEN": 1
             /**
              * Tool is standard tablet eraser.
              */
-            "ERASER" = 2,
+            readonly "ERASER": 2
             /**
              * Tool is a brush stylus.
              */
-            "BRUSH" = 3,
+            readonly "BRUSH": 3
             /**
              * Tool is a pencil stylus.
              */
-            "PENCIL" = 4,
+            readonly "PENCIL": 4
             /**
              * Tool is an airbrush stylus.
              */
-            "AIRBRUSH" = 5,
+            readonly "AIRBRUSH": 5
             /**
              * Tool is a mouse.
              */
-            "MOUSE" = 6,
+            readonly "MOUSE": 6
             /**
              * Tool is a lens cursor.
              */
-            "LENS" = 7,
+            readonly "LENS": 7
+        }
+        type DeviceToolType = DeviceToolTypeEnum[Exclude<keyof DeviceToolTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Indicates the specific type of tool being used being a tablet. Such as an
+             * airbrush, pencil, etc.
+             * @since 3.22
+             */
+            DeviceToolType: DeviceToolTypeEnum
         }
         
-        namespace DeviceType {
-            const $gtype: GObject.GType<DeviceType>
-        }
-
-        /**
-         * Indicates the device type. See [above][GdkDeviceManager.description]
-         * for more information about the meaning of these device types.
-         */
-        enum DeviceType {
+        interface DeviceTypeEnum {
+            readonly $gtype: GObject.GType<DeviceType>
             /**
              * Device is a master (or virtual) device. There will
              *                          be an associated focus indicator on the screen.
              */
-            "MASTER" = 0,
+            readonly "MASTER": 0
             /**
              * Device is a slave (or physical) device.
              */
-            "SLAVE" = 1,
+            readonly "SLAVE": 1
             /**
              * Device is a physical device, currently not attached to
              *                            any virtual device.
              */
-            "FLOATING" = 2,
+            readonly "FLOATING": 2
+        }
+        type DeviceType = DeviceTypeEnum[Exclude<keyof DeviceTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Indicates the device type. See [above][GdkDeviceManager.description]
+             * for more information about the meaning of these device types.
+             */
+            DeviceType: DeviceTypeEnum
         }
         
-        namespace DragCancelReason {
-            const $gtype: GObject.GType<DragCancelReason>
-        }
-
-        /**
-         * Used in #GdkDragContext to the reason of a cancelled DND operation.
-         * @since 3.20
-         */
-        enum DragCancelReason {
+        interface DragCancelReasonEnum {
+            readonly $gtype: GObject.GType<DragCancelReason>
             /**
              * There is no suitable drop target.
              */
-            "NO_TARGET" = 0,
+            readonly "NO_TARGET": 0
             /**
              * Drag cancelled by the user
              */
-            "USER_CANCELLED" = 1,
+            readonly "USER_CANCELLED": 1
             /**
              * Unspecified error.
              */
-            "ERROR" = 2,
+            readonly "ERROR": 2
+        }
+        type DragCancelReason = DragCancelReasonEnum[Exclude<keyof DragCancelReasonEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Used in #GdkDragContext to the reason of a cancelled DND operation.
+             * @since 3.20
+             */
+            DragCancelReason: DragCancelReasonEnum
         }
         
-        namespace DragProtocol {
-            const $gtype: GObject.GType<DragProtocol>
-        }
-
-        /**
-         * Used in #GdkDragContext to indicate the protocol according to
-         * which DND is done.
-         */
-        enum DragProtocol {
+        interface DragProtocolEnum {
+            readonly $gtype: GObject.GType<DragProtocol>
             /**
              * no protocol.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * The Motif DND protocol. No longer supported
              */
-            "MOTIF" = 1,
+            readonly "MOTIF": 1
             /**
              * The Xdnd protocol.
              */
-            "XDND" = 2,
+            readonly "XDND": 2
             /**
              * An extension to the Xdnd protocol for
              *  unclaimed root window drops.
              */
-            "ROOTWIN" = 3,
+            readonly "ROOTWIN": 3
             /**
              * The simple WM_DROPFILES protocol.
              */
-            "WIN32_DROPFILES" = 4,
+            readonly "WIN32_DROPFILES": 4
             /**
              * The complex OLE2 DND protocol (not implemented).
              */
-            "OLE2" = 5,
+            readonly "OLE2": 5
             /**
              * Intra-application DND.
              */
-            "LOCAL" = 6,
+            readonly "LOCAL": 6
             /**
              * Wayland DND protocol.
              */
-            "WAYLAND" = 7,
+            readonly "WAYLAND": 7
+        }
+        type DragProtocol = DragProtocolEnum[Exclude<keyof DragProtocolEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Used in #GdkDragContext to indicate the protocol according to
+             * which DND is done.
+             */
+            DragProtocol: DragProtocolEnum
         }
         
-        namespace EventType {
-            const $gtype: GObject.GType<EventType>
-        }
-
-        /**
-         * Specifies the type of the event.
-         *
-         * Do not confuse these events with the signals that GTK+ widgets emit.
-         * Although many of these events result in corresponding signals being emitted,
-         * the events are often transformed or filtered along the way.
-         *
-         * In some language bindings, the values %GDK_2BUTTON_PRESS and
-         * %GDK_3BUTTON_PRESS would translate into something syntactically
-         * invalid (eg `Gdk.EventType.2ButtonPress`, where a
-         * symbol is not allowed to start with a number). In that case, the
-         * aliases %GDK_DOUBLE_BUTTON_PRESS and %GDK_TRIPLE_BUTTON_PRESS can
-         * be used instead.
-         */
-        enum EventType {
+        interface EventTypeEnum {
+            readonly $gtype: GObject.GType<EventType>
             /**
              * a special code to indicate a null event.
              */
-            "NOTHING" = -1,
+            readonly "NOTHING": -1
             /**
              * the window manager has requested that the toplevel window be
              *   hidden or destroyed, usually when the user clicks on a special icon in the
              *   title bar.
              */
-            "DELETE" = 0,
+            readonly "DELETE": 0
             /**
              * the window has been destroyed.
              */
-            "DESTROY" = 1,
+            readonly "DESTROY": 1
             /**
              * all or part of the window has become visible and needs to be
              *   redrawn.
              */
-            "EXPOSE" = 2,
+            readonly "EXPOSE": 2
             /**
              * the pointer (usually a mouse) has moved.
              */
-            "MOTION_NOTIFY" = 3,
+            readonly "MOTION_NOTIFY": 3
             /**
              * a mouse button has been pressed.
              */
-            "BUTTON_PRESS" = 4,
+            readonly "BUTTON_PRESS": 4
             /**
              * a mouse button has been double-clicked (clicked twice
              *   within a short period of time). Note that each click also generates a
              *   %GDK_BUTTON_PRESS event.
              */
-            "2BUTTON_PRESS" = 5,
+            readonly "2BUTTON_PRESS": 5
             /**
              * alias for %GDK_2BUTTON_PRESS, added in 3.6.
              */
-            "DOUBLE_BUTTON_PRESS" = 5,
+            readonly "DOUBLE_BUTTON_PRESS": 5
             /**
              * a mouse button has been clicked 3 times in a short period
              *   of time. Note that each click also generates a %GDK_BUTTON_PRESS event.
              */
-            "3BUTTON_PRESS" = 6,
+            readonly "3BUTTON_PRESS": 6
             /**
              * alias for %GDK_3BUTTON_PRESS, added in 3.6.
              */
-            "TRIPLE_BUTTON_PRESS" = 6,
+            readonly "TRIPLE_BUTTON_PRESS": 6
             /**
              * a mouse button has been released.
              */
-            "BUTTON_RELEASE" = 7,
+            readonly "BUTTON_RELEASE": 7
             /**
              * a key has been pressed.
              */
-            "KEY_PRESS" = 8,
+            readonly "KEY_PRESS": 8
             /**
              * a key has been released.
              */
-            "KEY_RELEASE" = 9,
+            readonly "KEY_RELEASE": 9
             /**
              * the pointer has entered the window.
              */
-            "ENTER_NOTIFY" = 10,
+            readonly "ENTER_NOTIFY": 10
             /**
              * the pointer has left the window.
              */
-            "LEAVE_NOTIFY" = 11,
+            readonly "LEAVE_NOTIFY": 11
             /**
              * the keyboard focus has entered or left the window.
              */
-            "FOCUS_CHANGE" = 12,
+            readonly "FOCUS_CHANGE": 12
             /**
              * the size, position or stacking order of the window has changed.
              *   Note that GTK+ discards these events for %GDK_WINDOW_CHILD windows.
              */
-            "CONFIGURE" = 13,
+            readonly "CONFIGURE": 13
             /**
              * the window has been mapped.
              */
-            "MAP" = 14,
+            readonly "MAP": 14
             /**
              * the window has been unmapped.
              */
-            "UNMAP" = 15,
+            readonly "UNMAP": 15
             /**
              * a property on the window has been changed or deleted.
              */
-            "PROPERTY_NOTIFY" = 16,
+            readonly "PROPERTY_NOTIFY": 16
             /**
              * the application has lost ownership of a selection.
              */
-            "SELECTION_CLEAR" = 17,
+            readonly "SELECTION_CLEAR": 17
             /**
              * another application has requested a selection.
              */
-            "SELECTION_REQUEST" = 18,
+            readonly "SELECTION_REQUEST": 18
             /**
              * a selection has been received.
              */
-            "SELECTION_NOTIFY" = 19,
+            readonly "SELECTION_NOTIFY": 19
             /**
              * an input device has moved into contact with a sensing
              *   surface (e.g. a touchscreen or graphics tablet).
              */
-            "PROXIMITY_IN" = 20,
+            readonly "PROXIMITY_IN": 20
             /**
              * an input device has moved out of contact with a sensing
              *   surface.
              */
-            "PROXIMITY_OUT" = 21,
+            readonly "PROXIMITY_OUT": 21
             /**
              * the mouse has entered the window while a drag is in progress.
              */
-            "DRAG_ENTER" = 22,
+            readonly "DRAG_ENTER": 22
             /**
              * the mouse has left the window while a drag is in progress.
              */
-            "DRAG_LEAVE" = 23,
+            readonly "DRAG_LEAVE": 23
             /**
              * the mouse has moved in the window while a drag is in
              *   progress.
              */
-            "DRAG_MOTION" = 24,
+            readonly "DRAG_MOTION": 24
             /**
              * the status of the drag operation initiated by the window
              *   has changed.
              */
-            "DRAG_STATUS" = 25,
+            readonly "DRAG_STATUS": 25
             /**
              * a drop operation onto the window has started.
              */
-            "DROP_START" = 26,
+            readonly "DROP_START": 26
             /**
              * the drop operation initiated by the window has completed.
              */
-            "DROP_FINISHED" = 27,
+            readonly "DROP_FINISHED": 27
             /**
              * a message has been received from another application.
              */
-            "CLIENT_EVENT" = 28,
+            readonly "CLIENT_EVENT": 28
             /**
              * the window visibility status has changed.
              */
-            "VISIBILITY_NOTIFY" = 29,
+            readonly "VISIBILITY_NOTIFY": 29
             /**
              * the scroll wheel was turned
              */
-            "SCROLL" = 31,
+            readonly "SCROLL": 31
             /**
              * the state of a window has changed. See #GdkWindowState
              *   for the possible window states
              */
-            "WINDOW_STATE" = 32,
+            readonly "WINDOW_STATE": 32
             /**
              * a setting has been modified.
              */
-            "SETTING" = 33,
+            readonly "SETTING": 33
             /**
              * the owner of a selection has changed. This event type
              *   was added in 2.6
              */
-            "OWNER_CHANGE" = 34,
+            readonly "OWNER_CHANGE": 34
             /**
              * a pointer or keyboard grab was broken. This event type
              *   was added in 2.8.
              */
-            "GRAB_BROKEN" = 35,
+            readonly "GRAB_BROKEN": 35
             /**
              * the content of the window has been changed. This event type
              *   was added in 2.14.
              */
-            "DAMAGE" = 36,
+            readonly "DAMAGE": 36
             /**
              * A new touch event sequence has just started. This event
              *   type was added in 3.4.
              */
-            "TOUCH_BEGIN" = 37,
+            readonly "TOUCH_BEGIN": 37
             /**
              * A touch event sequence has been updated. This event type
              *   was added in 3.4.
              */
-            "TOUCH_UPDATE" = 38,
+            readonly "TOUCH_UPDATE": 38
             /**
              * A touch event sequence has finished. This event type
              *   was added in 3.4.
              */
-            "TOUCH_END" = 39,
+            readonly "TOUCH_END": 39
             /**
              * A touch event sequence has been canceled. This event type
              *   was added in 3.4.
              */
-            "TOUCH_CANCEL" = 40,
+            readonly "TOUCH_CANCEL": 40
             /**
              * A touchpad swipe gesture event, the current state
              *   is determined by its phase field. This event type was added in 3.18.
              */
-            "TOUCHPAD_SWIPE" = 41,
+            readonly "TOUCHPAD_SWIPE": 41
             /**
              * A touchpad pinch gesture event, the current state
              *   is determined by its phase field. This event type was added in 3.18.
              */
-            "TOUCHPAD_PINCH" = 42,
+            readonly "TOUCHPAD_PINCH": 42
             /**
              * A tablet pad button press event. This event type
              *   was added in 3.22.
              */
-            "PAD_BUTTON_PRESS" = 43,
+            readonly "PAD_BUTTON_PRESS": 43
             /**
              * A tablet pad button release event. This event type
              *   was added in 3.22.
              */
-            "PAD_BUTTON_RELEASE" = 44,
+            readonly "PAD_BUTTON_RELEASE": 44
             /**
              * A tablet pad axis event from a "ring". This event type was
              *   added in 3.22.
              */
-            "PAD_RING" = 45,
+            readonly "PAD_RING": 45
             /**
              * A tablet pad axis event from a "strip". This event type was
              *   added in 3.22.
              */
-            "PAD_STRIP" = 46,
+            readonly "PAD_STRIP": 46
             /**
              * A tablet pad group mode change. This event type was
              *   added in 3.22.
              */
-            "PAD_GROUP_MODE" = 47,
+            readonly "PAD_GROUP_MODE": 47
             /**
              * marks the end of the GdkEventType enumeration. Added in 2.18
              */
-            "EVENT_LAST" = 48,
+            readonly "EVENT_LAST": 48
+        }
+        type EventType = EventTypeEnum[Exclude<keyof EventTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the type of the event.
+             *
+             * Do not confuse these events with the signals that GTK+ widgets emit.
+             * Although many of these events result in corresponding signals being emitted,
+             * the events are often transformed or filtered along the way.
+             *
+             * In some language bindings, the values %GDK_2BUTTON_PRESS and
+             * %GDK_3BUTTON_PRESS would translate into something syntactically
+             * invalid (eg `Gdk.EventType.2ButtonPress`, where a
+             * symbol is not allowed to start with a number). In that case, the
+             * aliases %GDK_DOUBLE_BUTTON_PRESS and %GDK_TRIPLE_BUTTON_PRESS can
+             * be used instead.
+             */
+            EventType: EventTypeEnum
         }
         
-        namespace FilterReturn {
-            const $gtype: GObject.GType<FilterReturn>
-        }
-
-        /**
-         * Specifies the result of applying a #GdkFilterFunc to a native event.
-         */
-        enum FilterReturn {
+        interface FilterReturnEnum {
+            readonly $gtype: GObject.GType<FilterReturn>
             /**
              * event not handled, continue processing.
              */
-            "CONTINUE" = 0,
+            readonly "CONTINUE": 0
             /**
              * native event translated into a GDK event and stored
              *  in the `event` structure that was passed in.
              */
-            "TRANSLATE" = 1,
+            readonly "TRANSLATE": 1
             /**
              * event handled, terminate processing.
              */
-            "REMOVE" = 2,
+            readonly "REMOVE": 2
+        }
+        type FilterReturn = FilterReturnEnum[Exclude<keyof FilterReturnEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the result of applying a #GdkFilterFunc to a native event.
+             */
+            FilterReturn: FilterReturnEnum
         }
         
-        namespace FullscreenMode {
-            const $gtype: GObject.GType<FullscreenMode>
-        }
-
-        /**
-         * Indicates which monitor (in a multi-head setup) a window should span over
-         * when in fullscreen mode.
-         * @since 3.8
-         */
-        enum FullscreenMode {
+        interface FullscreenModeEnum {
+            readonly $gtype: GObject.GType<FullscreenMode>
             /**
              * Fullscreen on current monitor only.
              */
-            "CURRENT_MONITOR" = 0,
+            readonly "CURRENT_MONITOR": 0
             /**
              * Span across all monitors when fullscreen.
              */
-            "ALL_MONITORS" = 1,
+            readonly "ALL_MONITORS": 1
+        }
+        type FullscreenMode = FullscreenModeEnum[Exclude<keyof FullscreenModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Indicates which monitor (in a multi-head setup) a window should span over
+             * when in fullscreen mode.
+             * @since 3.8
+             */
+            FullscreenMode: FullscreenModeEnum
         }
         
-        abstract class GLError extends GLib.Error {
-            static readonly $gtype: GObject.GType<GLError>
+        interface GLError extends GLib.Error {}
+
+        interface GLErrorEnum {
+            readonly $gtype: GObject.GType<GLError>
+
+            new(props: { message: string, code: number }): GLError
             /**
              * OpenGL support is not available
              */
-            static readonly "NOT_AVAILABLE": 0
+            readonly "NOT_AVAILABLE": 0
             /**
              * The requested visual format is not supported
              */
-            static readonly "UNSUPPORTED_FORMAT": 1
+            readonly "UNSUPPORTED_FORMAT": 1
             /**
              * The requested profile is not supported
              */
-            static readonly "UNSUPPORTED_PROFILE": 2
-        }
-        /**
+            readonly "UNSUPPORTED_PROFILE": 2
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace GrabOwnership {
-            const $gtype: GObject.GType<GrabOwnership>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Defines how device grabs interact with other devices.
-         */
-        enum GrabOwnership {
+        interface $Exports {
+            /**
+             * Error enumeration for #GdkGLContext.
+             * @since 3.16
+             */
+            GLError: GLErrorEnum
+        }
+        
+        interface GrabOwnershipEnum {
+            readonly $gtype: GObject.GType<GrabOwnership>
             /**
              * All other devices’ events are allowed.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Other devices’ events are blocked for the grab window.
              */
-            "WINDOW" = 1,
+            readonly "WINDOW": 1
             /**
              * Other devices’ events are blocked for the whole application.
              */
-            "APPLICATION" = 2,
+            readonly "APPLICATION": 2
+        }
+        type GrabOwnership = GrabOwnershipEnum[Exclude<keyof GrabOwnershipEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Defines how device grabs interact with other devices.
+             */
+            GrabOwnership: GrabOwnershipEnum
         }
         
-        namespace GrabStatus {
-            const $gtype: GObject.GType<GrabStatus>
-        }
-
-        /**
-         * Returned by gdk_device_grab(), gdk_pointer_grab() and gdk_keyboard_grab() to
-         * indicate success or the reason for the failure of the grab attempt.
-         */
-        enum GrabStatus {
+        interface GrabStatusEnum {
+            readonly $gtype: GObject.GType<GrabStatus>
             /**
              * the resource was successfully grabbed.
              */
-            "SUCCESS" = 0,
+            readonly "SUCCESS": 0
             /**
              * the resource is actively grabbed by another client.
              */
-            "ALREADY_GRABBED" = 1,
+            readonly "ALREADY_GRABBED": 1
             /**
              * the resource was grabbed more recently than the
              *  specified time.
              */
-            "INVALID_TIME" = 2,
+            readonly "INVALID_TIME": 2
             /**
              * the grab window or the @confine_to window are not
              *  viewable.
              */
-            "NOT_VIEWABLE" = 3,
+            readonly "NOT_VIEWABLE": 3
             /**
              * the resource is frozen by an active grab of another client.
              */
-            "FROZEN" = 4,
+            readonly "FROZEN": 4
             /**
              * the grab failed for some other reason. Since 3.16
              */
-            "FAILED" = 5,
+            readonly "FAILED": 5
+        }
+        type GrabStatus = GrabStatusEnum[Exclude<keyof GrabStatusEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Returned by gdk_device_grab(), gdk_pointer_grab() and gdk_keyboard_grab() to
+             * indicate success or the reason for the failure of the grab attempt.
+             */
+            GrabStatus: GrabStatusEnum
         }
         
-        namespace Gravity {
-            const $gtype: GObject.GType<Gravity>
-        }
-
-        /**
-         * Defines the reference point of a window and the meaning of coordinates
-         * passed to gtk_window_move(). See gtk_window_move() and the "implementation
-         * notes" section of the
-         * [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec)
-         * specification for more details.
-         */
-        enum Gravity {
+        interface GravityEnum {
+            readonly $gtype: GObject.GType<Gravity>
             /**
              * the reference point is at the top left corner.
              */
-            "NORTH_WEST" = 1,
+            readonly "NORTH_WEST": 1
             /**
              * the reference point is in the middle of the top edge.
              */
-            "NORTH" = 2,
+            readonly "NORTH": 2
             /**
              * the reference point is at the top right corner.
              */
-            "NORTH_EAST" = 3,
+            readonly "NORTH_EAST": 3
             /**
              * the reference point is at the middle of the left edge.
              */
-            "WEST" = 4,
+            readonly "WEST": 4
             /**
              * the reference point is at the center of the window.
              */
-            "CENTER" = 5,
+            readonly "CENTER": 5
             /**
              * the reference point is at the middle of the right edge.
              */
-            "EAST" = 6,
+            readonly "EAST": 6
             /**
              * the reference point is at the lower left corner.
              */
-            "SOUTH_WEST" = 7,
+            readonly "SOUTH_WEST": 7
             /**
              * the reference point is at the middle of the lower edge.
              */
-            "SOUTH" = 8,
+            readonly "SOUTH": 8
             /**
              * the reference point is at the lower right corner.
              */
-            "SOUTH_EAST" = 9,
+            readonly "SOUTH_EAST": 9
             /**
              * the reference point is at the top left corner of the
              *  window itself, ignoring window manager decorations.
              */
-            "STATIC" = 10,
+            readonly "STATIC": 10
+        }
+        type Gravity = GravityEnum[Exclude<keyof GravityEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Defines the reference point of a window and the meaning of coordinates
+             * passed to gtk_window_move(). See gtk_window_move() and the "implementation
+             * notes" section of the
+             * [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec)
+             * specification for more details.
+             */
+            Gravity: GravityEnum
         }
         
-        namespace InputMode {
-            const $gtype: GObject.GType<InputMode>
-        }
-
-        /**
-         * An enumeration that describes the mode of an input device.
-         */
-        enum InputMode {
+        interface InputModeEnum {
+            readonly $gtype: GObject.GType<InputMode>
             /**
              * the device is disabled and will not report any events.
              */
-            "DISABLED" = 0,
+            readonly "DISABLED": 0
             /**
              * the device is enabled. The device’s coordinate space
              *                   maps to the entire screen.
              */
-            "SCREEN" = 1,
+            readonly "SCREEN": 1
             /**
              * the device is enabled. The device’s coordinate space
              *                   is mapped to a single window. The manner in which this window
              *                   is chosen is undefined, but it will typically be the same
              *                   way in which the focus window for key events is determined.
              */
-            "WINDOW" = 2,
+            readonly "WINDOW": 2
+        }
+        type InputMode = InputModeEnum[Exclude<keyof InputModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An enumeration that describes the mode of an input device.
+             */
+            InputMode: InputModeEnum
         }
         
-        namespace InputSource {
-            const $gtype: GObject.GType<InputSource>
-        }
-
-        /**
-         * An enumeration describing the type of an input device in general terms.
-         */
-        enum InputSource {
+        interface InputSourceEnum {
+            readonly $gtype: GObject.GType<InputSource>
             /**
              * the device is a mouse. (This will be reported for the core
              *                    pointer, even if it is something else, such as a trackball.)
              */
-            "MOUSE" = 0,
+            readonly "MOUSE": 0
             /**
              * the device is a stylus of a graphics tablet or similar device.
              */
-            "PEN" = 1,
+            readonly "PEN": 1
             /**
              * the device is an eraser. Typically, this would be the other end
              *                     of a stylus on a graphics tablet.
              */
-            "ERASER" = 2,
+            readonly "ERASER": 2
             /**
              * the device is a graphics tablet “puck” or similar device.
              */
-            "CURSOR" = 3,
+            readonly "CURSOR": 3
             /**
              * the device is a keyboard.
              */
-            "KEYBOARD" = 4,
+            readonly "KEYBOARD": 4
             /**
              * the device is a direct-input touch device, such
              *     as a touchscreen or tablet. This device type has been added in 3.4.
              */
-            "TOUCHSCREEN" = 5,
+            readonly "TOUCHSCREEN": 5
             /**
              * the device is an indirect touch device, such
              *     as a touchpad. This device type has been added in 3.4.
              */
-            "TOUCHPAD" = 6,
+            readonly "TOUCHPAD": 6
             /**
              * the device is a trackpoint. This device type has been
              *     added in 3.22
              */
-            "TRACKPOINT" = 7,
+            readonly "TRACKPOINT": 7
             /**
              * the device is a "pad", a collection of buttons,
              *     rings and strips found in drawing tablets. This device type has been
              *     added in 3.22.
              */
-            "TABLET_PAD" = 8,
+            readonly "TABLET_PAD": 8
+        }
+        type InputSource = InputSourceEnum[Exclude<keyof InputSourceEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * An enumeration describing the type of an input device in general terms.
+             */
+            InputSource: InputSourceEnum
         }
         
-        namespace ModifierIntent {
-            const $gtype: GObject.GType<ModifierIntent>
-        }
-
-        /**
-         * This enum is used with gdk_keymap_get_modifier_mask()
-         * in order to determine what modifiers the
-         * currently used windowing system backend uses for particular
-         * purposes. For example, on X11/Windows, the Control key is used for
-         * invoking menu shortcuts (accelerators), whereas on Apple computers
-         * it’s the Command key (which correspond to %GDK_CONTROL_MASK and
-         * %GDK_MOD2_MASK, respectively).
-         * @since 3.4
-         */
-        enum ModifierIntent {
+        interface ModifierIntentEnum {
+            readonly $gtype: GObject.GType<ModifierIntent>
             /**
              * the primary modifier used to invoke
              *  menu accelerators.
              */
-            "PRIMARY_ACCELERATOR" = 0,
+            readonly "PRIMARY_ACCELERATOR": 0
             /**
              * the modifier used to invoke context menus.
              *  Note that mouse button 3 always triggers context menus. When this modifier
              *  is not 0, it additionally triggers context menus when used with mouse button 1.
              */
-            "CONTEXT_MENU" = 1,
+            readonly "CONTEXT_MENU": 1
             /**
              * the modifier used to extend selections
              *  using `modifier`-click or `modifier`-cursor-key
              */
-            "EXTEND_SELECTION" = 2,
+            readonly "EXTEND_SELECTION": 2
             /**
              * the modifier used to modify selections,
              *  which in most cases means toggling the clicked item into or out of the selection.
              */
-            "MODIFY_SELECTION" = 3,
+            readonly "MODIFY_SELECTION": 3
             /**
              * when any of these modifiers is pressed, the
              *  key event cannot produce a symbol directly. This is meant to be used for
              *  input methods, and for use cases like typeahead search.
              */
-            "NO_TEXT_INPUT" = 4,
+            readonly "NO_TEXT_INPUT": 4
             /**
              * the modifier that switches between keyboard
              *  groups (AltGr on X11/Windows and Option/Alt on OS X).
              */
-            "SHIFT_GROUP" = 5,
+            readonly "SHIFT_GROUP": 5
             /**
              * The set of modifier masks accepted
              * as modifiers in accelerators. Needed because Command is mapped to MOD2 on
@@ -12458,1317 +9294,1358 @@ declare module "gi://Gdk?version=3.0" {
              * mod key is problematic at best.
              * Ref: https://bugzilla.gnome.org/show_bug.cgi?id=736125.
              */
-            "DEFAULT_MOD_MASK" = 6,
+            readonly "DEFAULT_MOD_MASK": 6
+        }
+        type ModifierIntent = ModifierIntentEnum[Exclude<keyof ModifierIntentEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * This enum is used with gdk_keymap_get_modifier_mask()
+             * in order to determine what modifiers the
+             * currently used windowing system backend uses for particular
+             * purposes. For example, on X11/Windows, the Control key is used for
+             * invoking menu shortcuts (accelerators), whereas on Apple computers
+             * it’s the Command key (which correspond to %GDK_CONTROL_MASK and
+             * %GDK_MOD2_MASK, respectively).
+             * @since 3.4
+             */
+            ModifierIntent: ModifierIntentEnum
         }
         
-        namespace NotifyType {
-            const $gtype: GObject.GType<NotifyType>
-        }
-
-        /**
-         * Specifies the kind of crossing for #GdkEventCrossing.
-         *
-         * See the X11 protocol specification of LeaveNotify for
-         * full details of crossing event generation.
-         */
-        enum NotifyType {
+        interface NotifyTypeEnum {
+            readonly $gtype: GObject.GType<NotifyType>
             /**
              * the window is entered from an ancestor or
              *   left towards an ancestor.
              */
-            "ANCESTOR" = 0,
+            readonly "ANCESTOR": 0
             /**
              * the pointer moves between an ancestor and an
              *   inferior of the window.
              */
-            "VIRTUAL" = 1,
+            readonly "VIRTUAL": 1
             /**
              * the window is entered from an inferior or
              *   left towards an inferior.
              */
-            "INFERIOR" = 2,
+            readonly "INFERIOR": 2
             /**
              * the window is entered from or left towards
              *   a window which is neither an ancestor nor an inferior.
              */
-            "NONLINEAR" = 3,
+            readonly "NONLINEAR": 3
             /**
              * the pointer moves between two windows
              *   which are not ancestors of each other and the window is part of
              *   the ancestor chain between one of these windows and their least
              *   common ancestor.
              */
-            "NONLINEAR_VIRTUAL" = 4,
+            readonly "NONLINEAR_VIRTUAL": 4
             /**
              * an unknown type of enter/leave event occurred.
              */
-            "UNKNOWN" = 5,
+            readonly "UNKNOWN": 5
+        }
+        type NotifyType = NotifyTypeEnum[Exclude<keyof NotifyTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the kind of crossing for #GdkEventCrossing.
+             *
+             * See the X11 protocol specification of LeaveNotify for
+             * full details of crossing event generation.
+             */
+            NotifyType: NotifyTypeEnum
         }
         
-        namespace OwnerChange {
-            const $gtype: GObject.GType<OwnerChange>
-        }
-
-        /**
-         * Specifies why a selection ownership was changed.
-         */
-        enum OwnerChange {
+        interface OwnerChangeEnum {
+            readonly $gtype: GObject.GType<OwnerChange>
             /**
              * some other app claimed the ownership
              */
-            "NEW_OWNER" = 0,
+            readonly "NEW_OWNER": 0
             /**
              * the window was destroyed
              */
-            "DESTROY" = 1,
+            readonly "DESTROY": 1
             /**
              * the client was closed
              */
-            "CLOSE" = 2,
+            readonly "CLOSE": 2
+        }
+        type OwnerChange = OwnerChangeEnum[Exclude<keyof OwnerChangeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies why a selection ownership was changed.
+             */
+            OwnerChange: OwnerChangeEnum
         }
         
-        namespace PropMode {
-            const $gtype: GObject.GType<PropMode>
-        }
-
-        /**
-         * Describes how existing data is combined with new data when
-         * using gdk_property_change().
-         */
-        enum PropMode {
+        interface PropModeEnum {
+            readonly $gtype: GObject.GType<PropMode>
             /**
              * the new data replaces the existing data.
              */
-            "REPLACE" = 0,
+            readonly "REPLACE": 0
             /**
              * the new data is prepended to the existing data.
              */
-            "PREPEND" = 1,
+            readonly "PREPEND": 1
             /**
              * the new data is appended to the existing data.
              */
-            "APPEND" = 2,
+            readonly "APPEND": 2
+        }
+        type PropMode = PropModeEnum[Exclude<keyof PropModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes how existing data is combined with new data when
+             * using gdk_property_change().
+             */
+            PropMode: PropModeEnum
         }
         
-        namespace PropertyState {
-            const $gtype: GObject.GType<PropertyState>
-        }
-
-        /**
-         * Specifies the type of a property change for a #GdkEventProperty.
-         */
-        enum PropertyState {
+        interface PropertyStateEnum {
+            readonly $gtype: GObject.GType<PropertyState>
             /**
              * the property value was changed.
              */
-            "NEW_VALUE" = 0,
+            readonly "NEW_VALUE": 0
             /**
              * the property was deleted.
              */
-            "DELETE" = 1,
+            readonly "DELETE": 1
+        }
+        type PropertyState = PropertyStateEnum[Exclude<keyof PropertyStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the type of a property change for a #GdkEventProperty.
+             */
+            PropertyState: PropertyStateEnum
         }
         
-        namespace ScrollDirection {
-            const $gtype: GObject.GType<ScrollDirection>
-        }
-
-        /**
-         * Specifies the direction for #GdkEventScroll.
-         */
-        enum ScrollDirection {
+        interface ScrollDirectionEnum {
+            readonly $gtype: GObject.GType<ScrollDirection>
             /**
              * the window is scrolled up.
              */
-            "UP" = 0,
+            readonly "UP": 0
             /**
              * the window is scrolled down.
              */
-            "DOWN" = 1,
+            readonly "DOWN": 1
             /**
              * the window is scrolled to the left.
              */
-            "LEFT" = 2,
+            readonly "LEFT": 2
             /**
              * the window is scrolled to the right.
              */
-            "RIGHT" = 3,
+            readonly "RIGHT": 3
             /**
              * the scrolling is determined by the delta values
              *   in #GdkEventScroll. See gdk_event_get_scroll_deltas(). Since: 3.4
              */
-            "SMOOTH" = 4,
+            readonly "SMOOTH": 4
+        }
+        type ScrollDirection = ScrollDirectionEnum[Exclude<keyof ScrollDirectionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the direction for #GdkEventScroll.
+             */
+            ScrollDirection: ScrollDirectionEnum
         }
         
-        namespace SettingAction {
-            const $gtype: GObject.GType<SettingAction>
-        }
-
-        /**
-         * Specifies the kind of modification applied to a setting in a
-         * #GdkEventSetting.
-         */
-        enum SettingAction {
+        interface SettingActionEnum {
+            readonly $gtype: GObject.GType<SettingAction>
             /**
              * a setting was added.
              */
-            "NEW" = 0,
+            readonly "NEW": 0
             /**
              * a setting was changed.
              */
-            "CHANGED" = 1,
+            readonly "CHANGED": 1
             /**
              * a setting was deleted.
              */
-            "DELETED" = 2,
+            readonly "DELETED": 2
+        }
+        type SettingAction = SettingActionEnum[Exclude<keyof SettingActionEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the kind of modification applied to a setting in a
+             * #GdkEventSetting.
+             */
+            SettingAction: SettingActionEnum
         }
         
-        namespace Status {
-            const $gtype: GObject.GType<Status>
+        interface StatusEnum {
+            readonly $gtype: GObject.GType<Status>
+            /**
+             */
+            readonly "OK": 0
+            /**
+             */
+            readonly "ERROR": -1
+            /**
+             */
+            readonly "ERROR_PARAM": -2
+            /**
+             */
+            readonly "ERROR_FILE": -3
+            /**
+             */
+            readonly "ERROR_MEM": -4
         }
-
-        /**
-         */
-        enum Status {
+        type Status = StatusEnum[Exclude<keyof StatusEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "OK" = 0,
-            /**
-             */
-            "ERROR" = -1,
-            /**
-             */
-            "ERROR_PARAM" = -2,
-            /**
-             */
-            "ERROR_FILE" = -3,
-            /**
-             */
-            "ERROR_MEM" = -4,
+            Status: StatusEnum
         }
         
-        namespace SubpixelLayout {
-            const $gtype: GObject.GType<SubpixelLayout>
-        }
-
-        /**
-         * This enumeration describes how the red, green and blue components
-         * of physical pixels on an output device are laid out.
-         * @since 3.22
-         */
-        enum SubpixelLayout {
+        interface SubpixelLayoutEnum {
+            readonly $gtype: GObject.GType<SubpixelLayout>
             /**
              * The layout is not known
              */
-            "UNKNOWN" = 0,
+            readonly "UNKNOWN": 0
             /**
              * Not organized in this way
              */
-            "NONE" = 1,
+            readonly "NONE": 1
             /**
              * The layout is horizontal, the order is RGB
              */
-            "HORIZONTAL_RGB" = 2,
+            readonly "HORIZONTAL_RGB": 2
             /**
              * The layout is horizontal, the order is BGR
              */
-            "HORIZONTAL_BGR" = 3,
+            readonly "HORIZONTAL_BGR": 3
             /**
              * The layout is vertical, the order is RGB
              */
-            "VERTICAL_RGB" = 4,
+            readonly "VERTICAL_RGB": 4
             /**
              * The layout is vertical, the order is BGR
              */
-            "VERTICAL_BGR" = 5,
+            readonly "VERTICAL_BGR": 5
+        }
+        type SubpixelLayout = SubpixelLayoutEnum[Exclude<keyof SubpixelLayoutEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * This enumeration describes how the red, green and blue components
+             * of physical pixels on an output device are laid out.
+             * @since 3.22
+             */
+            SubpixelLayout: SubpixelLayoutEnum
         }
         
-        namespace TouchpadGesturePhase {
-            const $gtype: GObject.GType<TouchpadGesturePhase>
-        }
-
-        /**
-         * Specifies the current state of a touchpad gesture. All gestures are
-         * guaranteed to begin with an event with phase %GDK_TOUCHPAD_GESTURE_PHASE_BEGIN,
-         * followed by 0 or several events with phase %GDK_TOUCHPAD_GESTURE_PHASE_UPDATE.
-         *
-         * A finished gesture may have 2 possible outcomes, an event with phase
-         * %GDK_TOUCHPAD_GESTURE_PHASE_END will be emitted when the gesture is
-         * considered successful, this should be used as the hint to perform any
-         * permanent changes.
-         *
-         * Cancelled gestures may be so for a variety of reasons, due to hardware
-         * or the compositor, or due to the gesture recognition layers hinting the
-         * gesture did not finish resolutely (eg. a 3rd finger being added during
-         * a pinch gesture). In these cases, the last event will report the phase
-         * %GDK_TOUCHPAD_GESTURE_PHASE_CANCEL, this should be used as a hint
-         * to undo any visible/permanent changes that were done throughout the
-         * progress of the gesture.
-         *
-         * See also #GdkEventTouchpadSwipe and #GdkEventTouchpadPinch.
-         */
-        enum TouchpadGesturePhase {
+        interface TouchpadGesturePhaseEnum {
+            readonly $gtype: GObject.GType<TouchpadGesturePhase>
             /**
              * The gesture has begun.
              */
-            "BEGIN" = 0,
+            readonly "BEGIN": 0
             /**
              * The gesture has been updated.
              */
-            "UPDATE" = 1,
+            readonly "UPDATE": 1
             /**
              * The gesture was finished, changes
              *   should be permanently applied.
              */
-            "END" = 2,
+            readonly "END": 2
             /**
              * The gesture was cancelled, all
              *   changes should be undone.
              */
-            "CANCEL" = 3,
+            readonly "CANCEL": 3
+        }
+        type TouchpadGesturePhase = TouchpadGesturePhaseEnum[Exclude<keyof TouchpadGesturePhaseEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the current state of a touchpad gesture. All gestures are
+             * guaranteed to begin with an event with phase %GDK_TOUCHPAD_GESTURE_PHASE_BEGIN,
+             * followed by 0 or several events with phase %GDK_TOUCHPAD_GESTURE_PHASE_UPDATE.
+             *
+             * A finished gesture may have 2 possible outcomes, an event with phase
+             * %GDK_TOUCHPAD_GESTURE_PHASE_END will be emitted when the gesture is
+             * considered successful, this should be used as the hint to perform any
+             * permanent changes.
+             *
+             * Cancelled gestures may be so for a variety of reasons, due to hardware
+             * or the compositor, or due to the gesture recognition layers hinting the
+             * gesture did not finish resolutely (eg. a 3rd finger being added during
+             * a pinch gesture). In these cases, the last event will report the phase
+             * %GDK_TOUCHPAD_GESTURE_PHASE_CANCEL, this should be used as a hint
+             * to undo any visible/permanent changes that were done throughout the
+             * progress of the gesture.
+             *
+             * See also #GdkEventTouchpadSwipe and #GdkEventTouchpadPinch.
+             */
+            TouchpadGesturePhase: TouchpadGesturePhaseEnum
         }
         
-        namespace VisibilityState {
-            const $gtype: GObject.GType<VisibilityState>
-        }
-
-        /**
-         * Specifies the visiblity status of a window for a #GdkEventVisibility.
-         */
-        enum VisibilityState {
+        interface VisibilityStateEnum {
+            readonly $gtype: GObject.GType<VisibilityState>
             /**
              * the window is completely visible.
              */
-            "UNOBSCURED" = 0,
+            readonly "UNOBSCURED": 0
             /**
              * the window is partially visible.
              */
-            "PARTIAL" = 1,
+            readonly "PARTIAL": 1
             /**
              * the window is not visible at all.
              */
-            "FULLY_OBSCURED" = 2,
+            readonly "FULLY_OBSCURED": 2
+        }
+        type VisibilityState = VisibilityStateEnum[Exclude<keyof VisibilityStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the visiblity status of a window for a #GdkEventVisibility.
+             */
+            VisibilityState: VisibilityStateEnum
         }
         
-        namespace VisualType {
-            const $gtype: GObject.GType<VisualType>
-        }
-
-        /**
-         * A set of values that describe the manner in which the pixel values
-         * for a visual are converted into RGB values for display.
-         */
-        enum VisualType {
+        interface VisualTypeEnum {
+            readonly $gtype: GObject.GType<VisualType>
             /**
              * Each pixel value indexes a grayscale value
              *     directly.
              */
-            "STATIC_GRAY" = 0,
+            readonly "STATIC_GRAY": 0
             /**
              * Each pixel is an index into a color map that
              *     maps pixel values into grayscale values. The color map can be
              *     changed by an application.
              */
-            "GRAYSCALE" = 1,
+            readonly "GRAYSCALE": 1
             /**
              * Each pixel value is an index into a predefined,
              *     unmodifiable color map that maps pixel values into RGB values.
              */
-            "STATIC_COLOR" = 2,
+            readonly "STATIC_COLOR": 2
             /**
              * Each pixel is an index into a color map that
              *     maps pixel values into rgb values. The color map can be changed by
              *     an application.
              */
-            "PSEUDO_COLOR" = 3,
+            readonly "PSEUDO_COLOR": 3
             /**
              * Each pixel value directly contains red, green,
              *     and blue components. Use gdk_visual_get_red_pixel_details(), etc,
              *     to obtain information about how the components are assembled into
              *     a pixel value.
              */
-            "TRUE_COLOR" = 4,
+            readonly "TRUE_COLOR": 4
             /**
              * Each pixel value contains red, green, and blue
              *     components as for %GDK_VISUAL_TRUE_COLOR, but the components are
              *     mapped via a color table into the final output table instead of
              *     being converted directly.
              */
-            "DIRECT_COLOR" = 5,
+            readonly "DIRECT_COLOR": 5
+        }
+        type VisualType = VisualTypeEnum[Exclude<keyof VisualTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * A set of values that describe the manner in which the pixel values
+             * for a visual are converted into RGB values for display.
+             */
+            VisualType: VisualTypeEnum
         }
         
-        namespace WindowEdge {
-            const $gtype: GObject.GType<WindowEdge>
-        }
-
-        /**
-         * Determines a window edge or corner.
-         */
-        enum WindowEdge {
+        interface WindowEdgeEnum {
+            readonly $gtype: GObject.GType<WindowEdge>
             /**
              * the top left corner.
              */
-            "NORTH_WEST" = 0,
+            readonly "NORTH_WEST": 0
             /**
              * the top edge.
              */
-            "NORTH" = 1,
+            readonly "NORTH": 1
             /**
              * the top right corner.
              */
-            "NORTH_EAST" = 2,
+            readonly "NORTH_EAST": 2
             /**
              * the left edge.
              */
-            "WEST" = 3,
+            readonly "WEST": 3
             /**
              * the right edge.
              */
-            "EAST" = 4,
+            readonly "EAST": 4
             /**
              * the lower left corner.
              */
-            "SOUTH_WEST" = 5,
+            readonly "SOUTH_WEST": 5
             /**
              * the lower edge.
              */
-            "SOUTH" = 6,
+            readonly "SOUTH": 6
             /**
              * the lower right corner.
              */
-            "SOUTH_EAST" = 7,
+            readonly "SOUTH_EAST": 7
+        }
+        type WindowEdge = WindowEdgeEnum[Exclude<keyof WindowEdgeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Determines a window edge or corner.
+             */
+            WindowEdge: WindowEdgeEnum
         }
         
-        namespace WindowType {
-            const $gtype: GObject.GType<WindowType>
-        }
-
-        /**
-         * Describes the kind of window.
-         */
-        enum WindowType {
+        interface WindowTypeEnum {
+            readonly $gtype: GObject.GType<WindowType>
             /**
              * root window; this window has no parent, covers the entire
              *  screen, and is created by the window system
              */
-            "ROOT" = 0,
+            readonly "ROOT": 0
             /**
              * toplevel window (used to implement #GtkWindow)
              */
-            "TOPLEVEL" = 1,
+            readonly "TOPLEVEL": 1
             /**
              * child window (used to implement e.g. #GtkEntry)
              */
-            "CHILD" = 2,
+            readonly "CHILD": 2
             /**
              * override redirect temporary window (used to implement
              *  #GtkMenu)
              */
-            "TEMP" = 3,
+            readonly "TEMP": 3
             /**
              * foreign window (see gdk_window_foreign_new())
              */
-            "FOREIGN" = 4,
+            readonly "FOREIGN": 4
             /**
              * offscreen window (see
              *  [Offscreen Windows][OFFSCREEN-WINDOWS]). Since 2.18
              */
-            "OFFSCREEN" = 5,
+            readonly "OFFSCREEN": 5
             /**
              * subsurface-based window; This window is visually
              *  tied to a toplevel, and is moved/stacked with it. Currently this window
              *  type is only implemented in Wayland. Since 3.14
              */
-            "SUBSURFACE" = 6,
+            readonly "SUBSURFACE": 6
+        }
+        type WindowType = WindowTypeEnum[Exclude<keyof WindowTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes the kind of window.
+             */
+            WindowType: WindowTypeEnum
         }
         
-        namespace WindowTypeHint {
-            const $gtype: GObject.GType<WindowTypeHint>
-        }
-
-        /**
-         * These are hints for the window manager that indicate what type of function
-         * the window has. The window manager can use this when determining decoration
-         * and behaviour of the window. The hint must be set before mapping the window.
-         *
-         * See the [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec)
-         * specification for more details about window types.
-         */
-        enum WindowTypeHint {
+        interface WindowTypeHintEnum {
+            readonly $gtype: GObject.GType<WindowTypeHint>
             /**
              * Normal toplevel window.
              */
-            "NORMAL" = 0,
+            readonly "NORMAL": 0
             /**
              * Dialog window.
              */
-            "DIALOG" = 1,
+            readonly "DIALOG": 1
             /**
              * Window used to implement a menu; GTK+ uses
              *  this hint only for torn-off menus, see #GtkTearoffMenuItem.
              */
-            "MENU" = 2,
+            readonly "MENU": 2
             /**
              * Window used to implement toolbars.
              */
-            "TOOLBAR" = 3,
+            readonly "TOOLBAR": 3
             /**
              * Window used to display a splash
              *  screen during application startup.
              */
-            "SPLASHSCREEN" = 4,
+            readonly "SPLASHSCREEN": 4
             /**
              * Utility windows which are not detached
              *  toolbars or dialogs.
              */
-            "UTILITY" = 5,
+            readonly "UTILITY": 5
             /**
              * Used for creating dock or panel windows.
              */
-            "DOCK" = 6,
+            readonly "DOCK": 6
             /**
              * Used for creating the desktop background
              *  window.
              */
-            "DESKTOP" = 7,
+            readonly "DESKTOP": 7
             /**
              * A menu that belongs to a menubar.
              */
-            "DROPDOWN_MENU" = 8,
+            readonly "DROPDOWN_MENU": 8
             /**
              * A menu that does not belong to a menubar,
              *  e.g. a context menu.
              */
-            "POPUP_MENU" = 9,
+            readonly "POPUP_MENU": 9
             /**
              * A tooltip.
              */
-            "TOOLTIP" = 10,
+            readonly "TOOLTIP": 10
             /**
              * A notification - typically a “bubble”
              *  that belongs to a status icon.
              */
-            "NOTIFICATION" = 11,
+            readonly "NOTIFICATION": 11
             /**
              * A popup from a combo box.
              */
-            "COMBO" = 12,
+            readonly "COMBO": 12
             /**
              * A window that is used to implement a DND cursor.
              */
-            "DND" = 13,
+            readonly "DND": 13
+        }
+        type WindowTypeHint = WindowTypeHintEnum[Exclude<keyof WindowTypeHintEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * These are hints for the window manager that indicate what type of function
+             * the window has. The window manager can use this when determining decoration
+             * and behaviour of the window. The hint must be set before mapping the window.
+             *
+             * See the [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec)
+             * specification for more details about window types.
+             */
+            WindowTypeHint: WindowTypeHintEnum
         }
         
-        namespace WindowWindowClass {
-            const $gtype: GObject.GType<WindowWindowClass>
-        }
-
-        /**
-         * @GDK_INPUT_OUTPUT windows are the standard kind of window you might expect.
-         * Such windows receive events and are also displayed on screen.
-         * @GDK_INPUT_ONLY windows are invisible; they are usually placed above other
-         * windows in order to trap or filter the events. You can’t draw on
-         * @GDK_INPUT_ONLY windows.
-         */
-        enum WindowWindowClass {
+        interface WindowWindowClassEnum {
+            readonly $gtype: GObject.GType<WindowWindowClass>
             /**
              * window for graphics and events
              */
-            "INPUT_OUTPUT" = 0,
+            readonly "INPUT_OUTPUT": 0
             /**
              * window for events only
              */
-            "INPUT_ONLY" = 1,
+            readonly "INPUT_ONLY": 1
+        }
+        type WindowWindowClass = WindowWindowClassEnum[Exclude<keyof WindowWindowClassEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @GDK_INPUT_OUTPUT windows are the standard kind of window you might expect.
+             * Such windows receive events and are also displayed on screen.
+             * @GDK_INPUT_ONLY windows are invisible; they are usually placed above other
+             * windows in order to trap or filter the events. You can’t draw on
+             * @GDK_INPUT_ONLY windows.
+             */
+            WindowWindowClass: WindowWindowClassEnum
         }
         
-        namespace AnchorHints {
-            const $gtype: GObject.GType<AnchorHints>
-        }
-
-        /**
-         * Positioning hints for aligning a window relative to a rectangle.
-         *
-         * These hints determine how the window should be positioned in the case that
-         * the window would fall off-screen if placed in its ideal position.
-         *
-         * For example, %GDK_ANCHOR_FLIP_X will replace %GDK_GRAVITY_NORTH_WEST with
-         * %GDK_GRAVITY_NORTH_EAST and vice versa if the window extends beyond the left
-         * or right edges of the monitor.
-         *
-         * If %GDK_ANCHOR_SLIDE_X is set, the window can be shifted horizontally to fit
-         * on-screen. If %GDK_ANCHOR_RESIZE_X is set, the window can be shrunken
-         * horizontally to fit.
-         *
-         * In general, when multiple flags are set, flipping should take precedence over
-         * sliding, which should take precedence over resizing.
-         * @since 3.22
-         */
-        enum AnchorHints {
+        interface AnchorHintsBitfield {
+            readonly $gtype: GObject.GType<AnchorHints>
             /**
              * allow flipping anchors horizontally
              */
-            "FLIP_X" = 1,
+            readonly "FLIP_X": 1
             /**
              * allow flipping anchors vertically
              */
-            "FLIP_Y" = 2,
+            readonly "FLIP_Y": 2
             /**
              * allow sliding window horizontally
              */
-            "SLIDE_X" = 4,
+            readonly "SLIDE_X": 4
             /**
              * allow sliding window vertically
              */
-            "SLIDE_Y" = 8,
+            readonly "SLIDE_Y": 8
             /**
              * allow resizing window horizontally
              */
-            "RESIZE_X" = 16,
+            readonly "RESIZE_X": 16
             /**
              * allow resizing window vertically
              */
-            "RESIZE_Y" = 32,
+            readonly "RESIZE_Y": 32
             /**
              * allow flipping anchors on both axes
              */
-            "FLIP" = 3,
+            readonly "FLIP": 3
             /**
              * allow sliding window on both axes
              */
-            "SLIDE" = 12,
+            readonly "SLIDE": 12
             /**
              * allow resizing window on both axes
              */
-            "RESIZE" = 48,
+            readonly "RESIZE": 48
+        }
+        type AnchorHints = number
+        interface $Exports {
+            /**
+             * Positioning hints for aligning a window relative to a rectangle.
+             *
+             * These hints determine how the window should be positioned in the case that
+             * the window would fall off-screen if placed in its ideal position.
+             *
+             * For example, %GDK_ANCHOR_FLIP_X will replace %GDK_GRAVITY_NORTH_WEST with
+             * %GDK_GRAVITY_NORTH_EAST and vice versa if the window extends beyond the left
+             * or right edges of the monitor.
+             *
+             * If %GDK_ANCHOR_SLIDE_X is set, the window can be shifted horizontally to fit
+             * on-screen. If %GDK_ANCHOR_RESIZE_X is set, the window can be shrunken
+             * horizontally to fit.
+             *
+             * In general, when multiple flags are set, flipping should take precedence over
+             * sliding, which should take precedence over resizing.
+             * @since 3.22
+             */
+            AnchorHints: AnchorHintsBitfield
         }
         
-        namespace AxisFlags {
-            const $gtype: GObject.GType<AxisFlags>
-        }
-
-        /**
-         * Flags describing the current capabilities of a device/tool.
-         * @since 3.22
-         */
-        enum AxisFlags {
+        interface AxisFlagsBitfield {
+            readonly $gtype: GObject.GType<AxisFlags>
             /**
              * X axis is present
              */
-            "X" = 2,
+            readonly "X": 2
             /**
              * Y axis is present
              */
-            "Y" = 4,
+            readonly "Y": 4
             /**
              * Pressure axis is present
              */
-            "PRESSURE" = 8,
+            readonly "PRESSURE": 8
             /**
              * X tilt axis is present
              */
-            "XTILT" = 16,
+            readonly "XTILT": 16
             /**
              * Y tilt axis is present
              */
-            "YTILT" = 32,
+            readonly "YTILT": 32
             /**
              * Wheel axis is present
              */
-            "WHEEL" = 64,
+            readonly "WHEEL": 64
             /**
              * Distance axis is present
              */
-            "DISTANCE" = 128,
+            readonly "DISTANCE": 128
             /**
              * Z-axis rotation is present
              */
-            "ROTATION" = 256,
+            readonly "ROTATION": 256
             /**
              * Slider axis is present
              */
-            "SLIDER" = 512,
+            readonly "SLIDER": 512
+        }
+        type AxisFlags = number
+        interface $Exports {
+            /**
+             * Flags describing the current capabilities of a device/tool.
+             * @since 3.22
+             */
+            AxisFlags: AxisFlagsBitfield
         }
         
-        namespace DragAction {
-            const $gtype: GObject.GType<DragAction>
-        }
-
-        /**
-         * Used in #GdkDragContext to indicate what the destination
-         * should do with the dropped data.
-         */
-        enum DragAction {
+        interface DragActionBitfield {
+            readonly $gtype: GObject.GType<DragAction>
             /**
              * Means nothing, and should not be used.
              */
-            "DEFAULT" = 1,
+            readonly "DEFAULT": 1
             /**
              * Copy the data.
              */
-            "COPY" = 2,
+            readonly "COPY": 2
             /**
              * Move the data, i.e. first copy it, then delete
              *  it from the source using the DELETE target of the X selection protocol.
              */
-            "MOVE" = 4,
+            readonly "MOVE": 4
             /**
              * Add a link to the data. Note that this is only
              *  useful if source and destination agree on what it means.
              */
-            "LINK" = 8,
+            readonly "LINK": 8
             /**
              * Special action which tells the source that the
              *  destination will do something that the source doesn’t understand.
              */
-            "PRIVATE" = 16,
+            readonly "PRIVATE": 16
             /**
              * Ask the user what to do with the data.
              */
-            "ASK" = 32,
+            readonly "ASK": 32
+        }
+        type DragAction = number
+        interface $Exports {
+            /**
+             * Used in #GdkDragContext to indicate what the destination
+             * should do with the dropped data.
+             */
+            DragAction: DragActionBitfield
         }
         
-        namespace EventMask {
-            const $gtype: GObject.GType<EventMask>
-        }
-
-        /**
-         * A set of bit-flags to indicate which events a window is to receive.
-         * Most of these masks map onto one or more of the #GdkEventType event types
-         * above.
-         *
-         * See the [input handling overview][chap-input-handling] for details of
-         * [event masks][event-masks] and [event propagation][event-propagation].
-         *
-         * %GDK_POINTER_MOTION_HINT_MASK is deprecated. It is a special mask
-         * to reduce the number of %GDK_MOTION_NOTIFY events received. When using
-         * %GDK_POINTER_MOTION_HINT_MASK, fewer %GDK_MOTION_NOTIFY events will
-         * be sent, some of which are marked as a hint (the is_hint member is
-         * %TRUE). To receive more motion events after a motion hint event,
-         * the application needs to asks for more, by calling
-         * gdk_event_request_motions().
-         *
-         * Since GTK 3.8, motion events are already compressed by default, independent
-         * of this mechanism. This compression can be disabled with
-         * gdk_window_set_event_compression(). See the documentation of that function
-         * for details.
-         *
-         * If %GDK_TOUCH_MASK is enabled, the window will receive touch events
-         * from touch-enabled devices. Those will come as sequences of #GdkEventTouch
-         * with type %GDK_TOUCH_UPDATE, enclosed by two events with
-         * type %GDK_TOUCH_BEGIN and %GDK_TOUCH_END (or %GDK_TOUCH_CANCEL).
-         * gdk_event_get_event_sequence() returns the event sequence for these
-         * events, so different sequences may be distinguished.
-         */
-        enum EventMask {
+        interface EventMaskBitfield {
+            readonly $gtype: GObject.GType<EventMask>
             /**
              * receive expose events
              */
-            "EXPOSURE_MASK" = 2,
+            readonly "EXPOSURE_MASK": 2
             /**
              * receive all pointer motion events
              */
-            "POINTER_MOTION_MASK" = 4,
+            readonly "POINTER_MOTION_MASK": 4
             /**
              * deprecated. see the explanation above
              */
-            "POINTER_MOTION_HINT_MASK" = 8,
+            readonly "POINTER_MOTION_HINT_MASK": 8
             /**
              * receive pointer motion events while any button is pressed
              */
-            "BUTTON_MOTION_MASK" = 16,
+            readonly "BUTTON_MOTION_MASK": 16
             /**
              * receive pointer motion events while 1 button is pressed
              */
-            "BUTTON1_MOTION_MASK" = 32,
+            readonly "BUTTON1_MOTION_MASK": 32
             /**
              * receive pointer motion events while 2 button is pressed
              */
-            "BUTTON2_MOTION_MASK" = 64,
+            readonly "BUTTON2_MOTION_MASK": 64
             /**
              * receive pointer motion events while 3 button is pressed
              */
-            "BUTTON3_MOTION_MASK" = 128,
+            readonly "BUTTON3_MOTION_MASK": 128
             /**
              * receive button press events
              */
-            "BUTTON_PRESS_MASK" = 256,
+            readonly "BUTTON_PRESS_MASK": 256
             /**
              * receive button release events
              */
-            "BUTTON_RELEASE_MASK" = 512,
+            readonly "BUTTON_RELEASE_MASK": 512
             /**
              * receive key press events
              */
-            "KEY_PRESS_MASK" = 1024,
+            readonly "KEY_PRESS_MASK": 1024
             /**
              * receive key release events
              */
-            "KEY_RELEASE_MASK" = 2048,
+            readonly "KEY_RELEASE_MASK": 2048
             /**
              * receive window enter events
              */
-            "ENTER_NOTIFY_MASK" = 4096,
+            readonly "ENTER_NOTIFY_MASK": 4096
             /**
              * receive window leave events
              */
-            "LEAVE_NOTIFY_MASK" = 8192,
+            readonly "LEAVE_NOTIFY_MASK": 8192
             /**
              * receive focus change events
              */
-            "FOCUS_CHANGE_MASK" = 16384,
+            readonly "FOCUS_CHANGE_MASK": 16384
             /**
              * receive events about window configuration change
              */
-            "STRUCTURE_MASK" = 32768,
+            readonly "STRUCTURE_MASK": 32768
             /**
              * receive property change events
              */
-            "PROPERTY_CHANGE_MASK" = 65536,
+            readonly "PROPERTY_CHANGE_MASK": 65536
             /**
              * receive visibility change events
              */
-            "VISIBILITY_NOTIFY_MASK" = 131072,
+            readonly "VISIBILITY_NOTIFY_MASK": 131072
             /**
              * receive proximity in events
              */
-            "PROXIMITY_IN_MASK" = 262144,
+            readonly "PROXIMITY_IN_MASK": 262144
             /**
              * receive proximity out events
              */
-            "PROXIMITY_OUT_MASK" = 524288,
+            readonly "PROXIMITY_OUT_MASK": 524288
             /**
              * receive events about window configuration changes of
              *   child windows
              */
-            "SUBSTRUCTURE_MASK" = 1048576,
+            readonly "SUBSTRUCTURE_MASK": 1048576
             /**
              * receive scroll events
              */
-            "SCROLL_MASK" = 2097152,
+            readonly "SCROLL_MASK": 2097152
             /**
              * receive touch events. Since 3.4
              */
-            "TOUCH_MASK" = 4194304,
+            readonly "TOUCH_MASK": 4194304
             /**
              * receive smooth scrolling events. Since 3.4
              */
-            "SMOOTH_SCROLL_MASK" = 8388608,
+            readonly "SMOOTH_SCROLL_MASK": 8388608
             /**
              * receive touchpad gesture events. Since 3.18
              */
-            "TOUCHPAD_GESTURE_MASK" = 16777216,
+            readonly "TOUCHPAD_GESTURE_MASK": 16777216
             /**
              * receive tablet pad events. Since 3.22
              */
-            "TABLET_PAD_MASK" = 33554432,
+            readonly "TABLET_PAD_MASK": 33554432
             /**
              * the combination of all the above event masks.
              */
-            "ALL_EVENTS_MASK" = 67108862,
+            readonly "ALL_EVENTS_MASK": 67108862
+        }
+        type EventMask = number
+        interface $Exports {
+            /**
+             * A set of bit-flags to indicate which events a window is to receive.
+             * Most of these masks map onto one or more of the #GdkEventType event types
+             * above.
+             *
+             * See the [input handling overview][chap-input-handling] for details of
+             * [event masks][event-masks] and [event propagation][event-propagation].
+             *
+             * %GDK_POINTER_MOTION_HINT_MASK is deprecated. It is a special mask
+             * to reduce the number of %GDK_MOTION_NOTIFY events received. When using
+             * %GDK_POINTER_MOTION_HINT_MASK, fewer %GDK_MOTION_NOTIFY events will
+             * be sent, some of which are marked as a hint (the is_hint member is
+             * %TRUE). To receive more motion events after a motion hint event,
+             * the application needs to asks for more, by calling
+             * gdk_event_request_motions().
+             *
+             * Since GTK 3.8, motion events are already compressed by default, independent
+             * of this mechanism. This compression can be disabled with
+             * gdk_window_set_event_compression(). See the documentation of that function
+             * for details.
+             *
+             * If %GDK_TOUCH_MASK is enabled, the window will receive touch events
+             * from touch-enabled devices. Those will come as sequences of #GdkEventTouch
+             * with type %GDK_TOUCH_UPDATE, enclosed by two events with
+             * type %GDK_TOUCH_BEGIN and %GDK_TOUCH_END (or %GDK_TOUCH_CANCEL).
+             * gdk_event_get_event_sequence() returns the event sequence for these
+             * events, so different sequences may be distinguished.
+             */
+            EventMask: EventMaskBitfield
         }
         
-        namespace FrameClockPhase {
-            const $gtype: GObject.GType<FrameClockPhase>
-        }
-
-        /**
-         * #GdkFrameClockPhase is used to represent the different paint clock
-         * phases that can be requested. The elements of the enumeration
-         * correspond to the signals of #GdkFrameClock.
-         * @since 3.8
-         */
-        enum FrameClockPhase {
+        interface FrameClockPhaseBitfield {
+            readonly $gtype: GObject.GType<FrameClockPhase>
             /**
              * no phase
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * corresponds to GdkFrameClock::flush-events. Should not be handled by applications.
              */
-            "FLUSH_EVENTS" = 1,
+            readonly "FLUSH_EVENTS": 1
             /**
              * corresponds to GdkFrameClock::before-paint. Should not be handled by applications.
              */
-            "BEFORE_PAINT" = 2,
+            readonly "BEFORE_PAINT": 2
             /**
              * corresponds to GdkFrameClock::update.
              */
-            "UPDATE" = 4,
+            readonly "UPDATE": 4
             /**
              * corresponds to GdkFrameClock::layout.
              */
-            "LAYOUT" = 8,
+            readonly "LAYOUT": 8
             /**
              * corresponds to GdkFrameClock::paint.
              */
-            "PAINT" = 16,
+            readonly "PAINT": 16
             /**
              * corresponds to GdkFrameClock::resume-events. Should not be handled by applications.
              */
-            "RESUME_EVENTS" = 32,
+            readonly "RESUME_EVENTS": 32
             /**
              * corresponds to GdkFrameClock::after-paint. Should not be handled by applications.
              */
-            "AFTER_PAINT" = 64,
+            readonly "AFTER_PAINT": 64
+        }
+        type FrameClockPhase = number
+        interface $Exports {
+            /**
+             * #GdkFrameClockPhase is used to represent the different paint clock
+             * phases that can be requested. The elements of the enumeration
+             * correspond to the signals of #GdkFrameClock.
+             * @since 3.8
+             */
+            FrameClockPhase: FrameClockPhaseBitfield
         }
         
-        namespace ModifierType {
-            const $gtype: GObject.GType<ModifierType>
-        }
-
-        /**
-         * A set of bit-flags to indicate the state of modifier keys and mouse buttons
-         * in various event types. Typical modifier keys are Shift, Control, Meta,
-         * Super, Hyper, Alt, Compose, Apple, CapsLock or ShiftLock.
-         *
-         * Like the X Window System, GDK supports 8 modifier keys and 5 mouse buttons.
-         *
-         * Since 2.10, GDK recognizes which of the Meta, Super or Hyper keys are mapped
-         * to Mod2 - Mod5, and indicates this by setting %GDK_SUPER_MASK,
-         * %GDK_HYPER_MASK or %GDK_META_MASK in the state field of key events.
-         *
-         * Note that GDK may add internal values to events which include
-         * reserved values such as %GDK_MODIFIER_RESERVED_13_MASK.  Your code
-         * should preserve and ignore them.  You can use %GDK_MODIFIER_MASK to
-         * remove all reserved values.
-         *
-         * Also note that the GDK X backend interprets button press events for button
-         * 4-7 as scroll events, so %GDK_BUTTON4_MASK and %GDK_BUTTON5_MASK will never
-         * be set.
-         */
-        enum ModifierType {
+        interface ModifierTypeBitfield {
+            readonly $gtype: GObject.GType<ModifierType>
             /**
              * the Shift key.
              */
-            "SHIFT_MASK" = 1,
+            readonly "SHIFT_MASK": 1
             /**
              * a Lock key (depending on the modifier mapping of the
              *  X server this may either be CapsLock or ShiftLock).
              */
-            "LOCK_MASK" = 2,
+            readonly "LOCK_MASK": 2
             /**
              * the Control key.
              */
-            "CONTROL_MASK" = 4,
+            readonly "CONTROL_MASK": 4
             /**
              * the fourth modifier key (it depends on the modifier
              *  mapping of the X server which key is interpreted as this modifier, but
              *  normally it is the Alt key).
              */
-            "MOD1_MASK" = 8,
+            readonly "MOD1_MASK": 8
             /**
              * the fifth modifier key (it depends on the modifier
              *  mapping of the X server which key is interpreted as this modifier).
              */
-            "MOD2_MASK" = 16,
+            readonly "MOD2_MASK": 16
             /**
              * the sixth modifier key (it depends on the modifier
              *  mapping of the X server which key is interpreted as this modifier).
              */
-            "MOD3_MASK" = 32,
+            readonly "MOD3_MASK": 32
             /**
              * the seventh modifier key (it depends on the modifier
              *  mapping of the X server which key is interpreted as this modifier).
              */
-            "MOD4_MASK" = 64,
+            readonly "MOD4_MASK": 64
             /**
              * the eighth modifier key (it depends on the modifier
              *  mapping of the X server which key is interpreted as this modifier).
              */
-            "MOD5_MASK" = 128,
+            readonly "MOD5_MASK": 128
             /**
              * the first mouse button.
              */
-            "BUTTON1_MASK" = 256,
+            readonly "BUTTON1_MASK": 256
             /**
              * the second mouse button.
              */
-            "BUTTON2_MASK" = 512,
+            readonly "BUTTON2_MASK": 512
             /**
              * the third mouse button.
              */
-            "BUTTON3_MASK" = 1024,
+            readonly "BUTTON3_MASK": 1024
             /**
              * the fourth mouse button.
              */
-            "BUTTON4_MASK" = 2048,
+            readonly "BUTTON4_MASK": 2048
             /**
              * the fifth mouse button.
              */
-            "BUTTON5_MASK" = 4096,
+            readonly "BUTTON5_MASK": 4096
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_13_MASK" = 8192,
+            readonly "MODIFIER_RESERVED_13_MASK": 8192
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_14_MASK" = 16384,
+            readonly "MODIFIER_RESERVED_14_MASK": 16384
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_15_MASK" = 32768,
+            readonly "MODIFIER_RESERVED_15_MASK": 32768
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_16_MASK" = 65536,
+            readonly "MODIFIER_RESERVED_16_MASK": 65536
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_17_MASK" = 131072,
+            readonly "MODIFIER_RESERVED_17_MASK": 131072
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_18_MASK" = 262144,
+            readonly "MODIFIER_RESERVED_18_MASK": 262144
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_19_MASK" = 524288,
+            readonly "MODIFIER_RESERVED_19_MASK": 524288
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_20_MASK" = 1048576,
+            readonly "MODIFIER_RESERVED_20_MASK": 1048576
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_21_MASK" = 2097152,
+            readonly "MODIFIER_RESERVED_21_MASK": 2097152
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_22_MASK" = 4194304,
+            readonly "MODIFIER_RESERVED_22_MASK": 4194304
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_23_MASK" = 8388608,
+            readonly "MODIFIER_RESERVED_23_MASK": 8388608
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_24_MASK" = 16777216,
+            readonly "MODIFIER_RESERVED_24_MASK": 16777216
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_25_MASK" = 33554432,
+            readonly "MODIFIER_RESERVED_25_MASK": 33554432
             /**
              * the Super modifier. Since 2.10
              */
-            "SUPER_MASK" = 67108864,
+            readonly "SUPER_MASK": 67108864
             /**
              * the Hyper modifier. Since 2.10
              */
-            "HYPER_MASK" = 134217728,
+            readonly "HYPER_MASK": 134217728
             /**
              * the Meta modifier. Since 2.10
              */
-            "META_MASK" = 268435456,
+            readonly "META_MASK": 268435456
             /**
              * A reserved bit flag; do not use in your own code
              */
-            "MODIFIER_RESERVED_29_MASK" = 536870912,
+            readonly "MODIFIER_RESERVED_29_MASK": 536870912
             /**
              * not used in GDK itself. GTK+ uses it to differentiate
              *  between (keyval, modifiers) pairs from key press and release events.
              */
-            "RELEASE_MASK" = 1073741824,
+            readonly "RELEASE_MASK": 1073741824
             /**
              * a mask covering all modifier types.
              */
-            "MODIFIER_MASK" = 1543512063,
+            readonly "MODIFIER_MASK": 1543512063
+        }
+        type ModifierType = number
+        interface $Exports {
+            /**
+             * A set of bit-flags to indicate the state of modifier keys and mouse buttons
+             * in various event types. Typical modifier keys are Shift, Control, Meta,
+             * Super, Hyper, Alt, Compose, Apple, CapsLock or ShiftLock.
+             *
+             * Like the X Window System, GDK supports 8 modifier keys and 5 mouse buttons.
+             *
+             * Since 2.10, GDK recognizes which of the Meta, Super or Hyper keys are mapped
+             * to Mod2 - Mod5, and indicates this by setting %GDK_SUPER_MASK,
+             * %GDK_HYPER_MASK or %GDK_META_MASK in the state field of key events.
+             *
+             * Note that GDK may add internal values to events which include
+             * reserved values such as %GDK_MODIFIER_RESERVED_13_MASK.  Your code
+             * should preserve and ignore them.  You can use %GDK_MODIFIER_MASK to
+             * remove all reserved values.
+             *
+             * Also note that the GDK X backend interprets button press events for button
+             * 4-7 as scroll events, so %GDK_BUTTON4_MASK and %GDK_BUTTON5_MASK will never
+             * be set.
+             */
+            ModifierType: ModifierTypeBitfield
         }
         
-        namespace SeatCapabilities {
-            const $gtype: GObject.GType<SeatCapabilities>
-        }
-
-        /**
-         * Flags describing the seat capabilities.
-         * @since 3.20
-         */
-        enum SeatCapabilities {
+        interface SeatCapabilitiesBitfield {
+            readonly $gtype: GObject.GType<SeatCapabilities>
             /**
              * No input capabilities
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * The seat has a pointer (e.g. mouse)
              */
-            "POINTER" = 1,
+            readonly "POINTER": 1
             /**
              * The seat has touchscreen(s) attached
              */
-            "TOUCH" = 2,
+            readonly "TOUCH": 2
             /**
              * The seat has drawing tablet(s) attached
              */
-            "TABLET_STYLUS" = 4,
+            readonly "TABLET_STYLUS": 4
             /**
              * The seat has keyboard(s) attached
              */
-            "KEYBOARD" = 8,
+            readonly "KEYBOARD": 8
             /**
              * The union of all pointing capabilities
              */
-            "ALL_POINTING" = 7,
+            readonly "ALL_POINTING": 7
             /**
              * The union of all capabilities
              */
-            "ALL" = 15,
+            readonly "ALL": 15
+        }
+        type SeatCapabilities = number
+        interface $Exports {
+            /**
+             * Flags describing the seat capabilities.
+             * @since 3.20
+             */
+            SeatCapabilities: SeatCapabilitiesBitfield
         }
         
-        namespace WMDecoration {
-            const $gtype: GObject.GType<WMDecoration>
-        }
-
-        /**
-         * These are hints originally defined by the Motif toolkit.
-         * The window manager can use them when determining how to decorate
-         * the window. The hint must be set before mapping the window.
-         */
-        enum WMDecoration {
+        interface WMDecorationBitfield {
+            readonly $gtype: GObject.GType<WMDecoration>
             /**
              * all decorations should be applied.
              */
-            "ALL" = 1,
+            readonly "ALL": 1
             /**
              * a frame should be drawn around the window.
              */
-            "BORDER" = 2,
+            readonly "BORDER": 2
             /**
              * the frame should have resize handles.
              */
-            "RESIZEH" = 4,
+            readonly "RESIZEH": 4
             /**
              * a titlebar should be placed above the window.
              */
-            "TITLE" = 8,
+            readonly "TITLE": 8
             /**
              * a button for opening a menu should be included.
              */
-            "MENU" = 16,
+            readonly "MENU": 16
             /**
              * a minimize button should be included.
              */
-            "MINIMIZE" = 32,
+            readonly "MINIMIZE": 32
             /**
              * a maximize button should be included.
              */
-            "MAXIMIZE" = 64,
+            readonly "MAXIMIZE": 64
+        }
+        type WMDecoration = number
+        interface $Exports {
+            /**
+             * These are hints originally defined by the Motif toolkit.
+             * The window manager can use them when determining how to decorate
+             * the window. The hint must be set before mapping the window.
+             */
+            WMDecoration: WMDecorationBitfield
         }
         
-        namespace WMFunction {
-            const $gtype: GObject.GType<WMFunction>
-        }
-
-        /**
-         * These are hints originally defined by the Motif toolkit. The window manager
-         * can use them when determining the functions to offer for the window. The
-         * hint must be set before mapping the window.
-         */
-        enum WMFunction {
+        interface WMFunctionBitfield {
+            readonly $gtype: GObject.GType<WMFunction>
             /**
              * all functions should be offered.
              */
-            "ALL" = 1,
+            readonly "ALL": 1
             /**
              * the window should be resizable.
              */
-            "RESIZE" = 2,
+            readonly "RESIZE": 2
             /**
              * the window should be movable.
              */
-            "MOVE" = 4,
+            readonly "MOVE": 4
             /**
              * the window should be minimizable.
              */
-            "MINIMIZE" = 8,
+            readonly "MINIMIZE": 8
             /**
              * the window should be maximizable.
              */
-            "MAXIMIZE" = 16,
+            readonly "MAXIMIZE": 16
             /**
              * the window should be closable.
              */
-            "CLOSE" = 32,
+            readonly "CLOSE": 32
+        }
+        type WMFunction = number
+        interface $Exports {
+            /**
+             * These are hints originally defined by the Motif toolkit. The window manager
+             * can use them when determining the functions to offer for the window. The
+             * hint must be set before mapping the window.
+             */
+            WMFunction: WMFunctionBitfield
         }
         
-        namespace WindowAttributesType {
-            const $gtype: GObject.GType<WindowAttributesType>
-        }
-
-        /**
-         * Used to indicate which fields in the #GdkWindowAttr struct should be honored.
-         * For example, if you filled in the “cursor” and “x” fields of #GdkWindowAttr,
-         * pass “@GDK_WA_X | @GDK_WA_CURSOR” to gdk_window_new(). Fields in
-         * #GdkWindowAttr not covered by a bit in this enum are required; for example,
-         * the @width/@height, @wclass, and @window_type fields are required, they have
-         * no corresponding flag in #GdkWindowAttributesType.
-         */
-        enum WindowAttributesType {
+        interface WindowAttributesTypeBitfield {
+            readonly $gtype: GObject.GType<WindowAttributesType>
             /**
              * Honor the title field
              */
-            "TITLE" = 2,
+            readonly "TITLE": 2
             /**
              * Honor the X coordinate field
              */
-            "X" = 4,
+            readonly "X": 4
             /**
              * Honor the Y coordinate field
              */
-            "Y" = 8,
+            readonly "Y": 8
             /**
              * Honor the cursor field
              */
-            "CURSOR" = 16,
+            readonly "CURSOR": 16
             /**
              * Honor the visual field
              */
-            "VISUAL" = 32,
+            readonly "VISUAL": 32
             /**
              * Honor the wmclass_class and wmclass_name fields
              */
-            "WMCLASS" = 64,
+            readonly "WMCLASS": 64
             /**
              * Honor the override_redirect field
              */
-            "NOREDIR" = 128,
+            readonly "NOREDIR": 128
             /**
              * Honor the type_hint field
              */
-            "TYPE_HINT" = 256,
+            readonly "TYPE_HINT": 256
+        }
+        type WindowAttributesType = number
+        interface $Exports {
+            /**
+             * Used to indicate which fields in the #GdkWindowAttr struct should be honored.
+             * For example, if you filled in the “cursor” and “x” fields of #GdkWindowAttr,
+             * pass “@GDK_WA_X | @GDK_WA_CURSOR” to gdk_window_new(). Fields in
+             * #GdkWindowAttr not covered by a bit in this enum are required; for example,
+             * the @width/@height, @wclass, and @window_type fields are required, they have
+             * no corresponding flag in #GdkWindowAttributesType.
+             */
+            WindowAttributesType: WindowAttributesTypeBitfield
         }
         
-        namespace WindowHints {
-            const $gtype: GObject.GType<WindowHints>
-        }
-
-        /**
-         * Used to indicate which fields of a #GdkGeometry struct should be paid
-         * attention to. Also, the presence/absence of @GDK_HINT_POS,
-         * @GDK_HINT_USER_POS, and @GDK_HINT_USER_SIZE is significant, though they don't
-         * directly refer to #GdkGeometry fields. @GDK_HINT_USER_POS will be set
-         * automatically by #GtkWindow if you call gtk_window_move().
-         * @GDK_HINT_USER_POS and @GDK_HINT_USER_SIZE should be set if the user
-         * specified a size/position using a --geometry command-line argument;
-         * gtk_window_parse_geometry() automatically sets these flags.
-         */
-        enum WindowHints {
+        interface WindowHintsBitfield {
+            readonly $gtype: GObject.GType<WindowHints>
             /**
              * indicates that the program has positioned the window
              */
-            "POS" = 1,
+            readonly "POS": 1
             /**
              * min size fields are set
              */
-            "MIN_SIZE" = 2,
+            readonly "MIN_SIZE": 2
             /**
              * max size fields are set
              */
-            "MAX_SIZE" = 4,
+            readonly "MAX_SIZE": 4
             /**
              * base size fields are set
              */
-            "BASE_SIZE" = 8,
+            readonly "BASE_SIZE": 8
             /**
              * aspect ratio fields are set
              */
-            "ASPECT" = 16,
+            readonly "ASPECT": 16
             /**
              * resize increment fields are set
              */
-            "RESIZE_INC" = 32,
+            readonly "RESIZE_INC": 32
             /**
              * window gravity field is set
              */
-            "WIN_GRAVITY" = 64,
+            readonly "WIN_GRAVITY": 64
             /**
              * indicates that the window’s position was explicitly set
              *  by the user
              */
-            "USER_POS" = 128,
+            readonly "USER_POS": 128
             /**
              * indicates that the window’s size was explicitly set by
              *  the user
              */
-            "USER_SIZE" = 256,
+            readonly "USER_SIZE": 256
+        }
+        type WindowHints = number
+        interface $Exports {
+            /**
+             * Used to indicate which fields of a #GdkGeometry struct should be paid
+             * attention to. Also, the presence/absence of @GDK_HINT_POS,
+             * @GDK_HINT_USER_POS, and @GDK_HINT_USER_SIZE is significant, though they don't
+             * directly refer to #GdkGeometry fields. @GDK_HINT_USER_POS will be set
+             * automatically by #GtkWindow if you call gtk_window_move().
+             * @GDK_HINT_USER_POS and @GDK_HINT_USER_SIZE should be set if the user
+             * specified a size/position using a --geometry command-line argument;
+             * gtk_window_parse_geometry() automatically sets these flags.
+             */
+            WindowHints: WindowHintsBitfield
         }
         
-        namespace WindowState {
-            const $gtype: GObject.GType<WindowState>
-        }
-
-        /**
-         * Specifies the state of a toplevel window.
-         */
-        enum WindowState {
+        interface WindowStateBitfield {
+            readonly $gtype: GObject.GType<WindowState>
             /**
              * the window is not shown.
              */
-            "WITHDRAWN" = 1,
+            readonly "WITHDRAWN": 1
             /**
              * the window is minimized.
              */
-            "ICONIFIED" = 2,
+            readonly "ICONIFIED": 2
             /**
              * the window is maximized.
              */
-            "MAXIMIZED" = 4,
+            readonly "MAXIMIZED": 4
             /**
              * the window is sticky.
              */
-            "STICKY" = 8,
+            readonly "STICKY": 8
             /**
              * the window is maximized without
              *   decorations.
              */
-            "FULLSCREEN" = 16,
+            readonly "FULLSCREEN": 16
             /**
              * the window is kept above other windows.
              */
-            "ABOVE" = 32,
+            readonly "ABOVE": 32
             /**
              * the window is kept below other windows.
              */
-            "BELOW" = 64,
+            readonly "BELOW": 64
             /**
              * the window is presented as focused (with active decorations).
              */
-            "FOCUSED" = 128,
+            readonly "FOCUSED": 128
             /**
              * the window is in a tiled state, Since 3.10. Since 3.22.23, this
              *                          is deprecated in favor of per-edge information.
              */
-            "TILED" = 256,
+            readonly "TILED": 256
             /**
              * whether the top edge is tiled, Since 3.22.23
              */
-            "TOP_TILED" = 512,
+            readonly "TOP_TILED": 512
             /**
              * whether the top edge is resizable, Since 3.22.23
              */
-            "TOP_RESIZABLE" = 1024,
+            readonly "TOP_RESIZABLE": 1024
             /**
              * whether the right edge is tiled, Since 3.22.23
              */
-            "RIGHT_TILED" = 2048,
+            readonly "RIGHT_TILED": 2048
             /**
              * whether the right edge is resizable, Since 3.22.23
              */
-            "RIGHT_RESIZABLE" = 4096,
+            readonly "RIGHT_RESIZABLE": 4096
             /**
              * whether the bottom edge is tiled, Since 3.22.23
              */
-            "BOTTOM_TILED" = 8192,
+            readonly "BOTTOM_TILED": 8192
             /**
              * whether the bottom edge is resizable, Since 3.22.23
              */
-            "BOTTOM_RESIZABLE" = 16384,
+            readonly "BOTTOM_RESIZABLE": 16384
             /**
              * whether the left edge is tiled, Since 3.22.23
              */
-            "LEFT_TILED" = 32768,
+            readonly "LEFT_TILED": 32768
             /**
              * whether the left edge is resizable, Since 3.22.23
              */
-            "LEFT_RESIZABLE" = 65536,
+            readonly "LEFT_RESIZABLE": 65536
+        }
+        type WindowState = number
+        interface $Exports {
+            /**
+             * Specifies the state of a toplevel window.
+             */
+            WindowState: WindowStateBitfield
         }
         /**
          * Specifies the type of function passed to gdk_event_handler_set() to
@@ -13777,7 +10654,11 @@ declare module "gi://Gdk?version=3.0" {
          */
         type EventFunc = (event: Event) => void
         /**
-         * window`. The filter may translate the native
+         * Specifies the type of function used to filter native events before they are
+         * converted to GDK events.
+         *
+         * When a filter is called, @event is unpopulated, except for
+         * `event->window`. The filter may translate the native
          * event to a GDK event and store the result in @event, or handle it without
          * translation. If the filter translates the event and processing should
          * continue, it should return %GDK_FILTER_TRANSLATE.
@@ -13821,7 +10702,3649 @@ declare module "gi://Gdk?version=3.0" {
          * backend, MSGs for Win32).
          */
         type XEvent = void
+
+        interface $Exports {
+            __name__: "Gdk"
+            __version: "3.0"
+            BUTTON_MIDDLE: 2
+            BUTTON_PRIMARY: 1
+            BUTTON_SECONDARY: 3
+            CURRENT_TIME: 0
+            EVENT_PROPAGATE: false
+            EVENT_STOP: true
+            KEY_0: 48
+            KEY_1: 49
+            KEY_2: 50
+            KEY_3: 51
+            KEY_3270_AltCursor: 64784
+            KEY_3270_Attn: 64782
+            KEY_3270_BackTab: 64773
+            KEY_3270_ChangeScreen: 64793
+            KEY_3270_Copy: 64789
+            KEY_3270_CursorBlink: 64783
+            KEY_3270_CursorSelect: 64796
+            KEY_3270_DeleteWord: 64794
+            KEY_3270_Duplicate: 64769
+            KEY_3270_Enter: 64798
+            KEY_3270_EraseEOF: 64774
+            KEY_3270_EraseInput: 64775
+            KEY_3270_ExSelect: 64795
+            KEY_3270_FieldMark: 64770
+            KEY_3270_Ident: 64787
+            KEY_3270_Jump: 64786
+            KEY_3270_KeyClick: 64785
+            KEY_3270_Left2: 64772
+            KEY_3270_PA1: 64778
+            KEY_3270_PA2: 64779
+            KEY_3270_PA3: 64780
+            KEY_3270_Play: 64790
+            KEY_3270_PrintScreen: 64797
+            KEY_3270_Quit: 64777
+            KEY_3270_Record: 64792
+            KEY_3270_Reset: 64776
+            KEY_3270_Right2: 64771
+            KEY_3270_Rule: 64788
+            KEY_3270_Setup: 64791
+            KEY_3270_Test: 64781
+            KEY_4: 52
+            KEY_5: 53
+            KEY_6: 54
+            KEY_7: 55
+            KEY_8: 56
+            KEY_9: 57
+            KEY_A: 65
+            KEY_AE: 198
+            KEY_Aacute: 193
+            KEY_Abelowdot: 16785056
+            KEY_Abreve: 451
+            KEY_Abreveacute: 16785070
+            KEY_Abrevebelowdot: 16785078
+            KEY_Abrevegrave: 16785072
+            KEY_Abrevehook: 16785074
+            KEY_Abrevetilde: 16785076
+            KEY_AccessX_Enable: 65136
+            KEY_AccessX_Feedback_Enable: 65137
+            KEY_Acircumflex: 194
+            KEY_Acircumflexacute: 16785060
+            KEY_Acircumflexbelowdot: 16785068
+            KEY_Acircumflexgrave: 16785062
+            KEY_Acircumflexhook: 16785064
+            KEY_Acircumflextilde: 16785066
+            KEY_AddFavorite: 269025081
+            KEY_Adiaeresis: 196
+            KEY_Agrave: 192
+            KEY_Ahook: 16785058
+            KEY_Alt_L: 65513
+            KEY_Alt_R: 65514
+            KEY_Amacron: 960
+            KEY_Aogonek: 417
+            KEY_ApplicationLeft: 269025104
+            KEY_ApplicationRight: 269025105
+            KEY_Arabic_0: 16778848
+            KEY_Arabic_1: 16778849
+            KEY_Arabic_2: 16778850
+            KEY_Arabic_3: 16778851
+            KEY_Arabic_4: 16778852
+            KEY_Arabic_5: 16778853
+            KEY_Arabic_6: 16778854
+            KEY_Arabic_7: 16778855
+            KEY_Arabic_8: 16778856
+            KEY_Arabic_9: 16778857
+            KEY_Arabic_ain: 1497
+            KEY_Arabic_alef: 1479
+            KEY_Arabic_alefmaksura: 1513
+            KEY_Arabic_beh: 1480
+            KEY_Arabic_comma: 1452
+            KEY_Arabic_dad: 1494
+            KEY_Arabic_dal: 1487
+            KEY_Arabic_damma: 1519
+            KEY_Arabic_dammatan: 1516
+            KEY_Arabic_ddal: 16778888
+            KEY_Arabic_farsi_yeh: 16778956
+            KEY_Arabic_fatha: 1518
+            KEY_Arabic_fathatan: 1515
+            KEY_Arabic_feh: 1505
+            KEY_Arabic_fullstop: 16778964
+            KEY_Arabic_gaf: 16778927
+            KEY_Arabic_ghain: 1498
+            KEY_Arabic_ha: 1511
+            KEY_Arabic_hah: 1485
+            KEY_Arabic_hamza: 1473
+            KEY_Arabic_hamza_above: 16778836
+            KEY_Arabic_hamza_below: 16778837
+            KEY_Arabic_hamzaonalef: 1475
+            KEY_Arabic_hamzaonwaw: 1476
+            KEY_Arabic_hamzaonyeh: 1478
+            KEY_Arabic_hamzaunderalef: 1477
+            KEY_Arabic_heh: 1511
+            KEY_Arabic_heh_doachashmee: 16778942
+            KEY_Arabic_heh_goal: 16778945
+            KEY_Arabic_jeem: 1484
+            KEY_Arabic_jeh: 16778904
+            KEY_Arabic_kaf: 1507
+            KEY_Arabic_kasra: 1520
+            KEY_Arabic_kasratan: 1517
+            KEY_Arabic_keheh: 16778921
+            KEY_Arabic_khah: 1486
+            KEY_Arabic_lam: 1508
+            KEY_Arabic_madda_above: 16778835
+            KEY_Arabic_maddaonalef: 1474
+            KEY_Arabic_meem: 1509
+            KEY_Arabic_noon: 1510
+            KEY_Arabic_noon_ghunna: 16778938
+            KEY_Arabic_peh: 16778878
+            KEY_Arabic_percent: 16778858
+            KEY_Arabic_qaf: 1506
+            KEY_Arabic_question_mark: 1471
+            KEY_Arabic_ra: 1489
+            KEY_Arabic_rreh: 16778897
+            KEY_Arabic_sad: 1493
+            KEY_Arabic_seen: 1491
+            KEY_Arabic_semicolon: 1467
+            KEY_Arabic_shadda: 1521
+            KEY_Arabic_sheen: 1492
+            KEY_Arabic_sukun: 1522
+            KEY_Arabic_superscript_alef: 16778864
+            KEY_Arabic_switch: 65406
+            KEY_Arabic_tah: 1495
+            KEY_Arabic_tatweel: 1504
+            KEY_Arabic_tcheh: 16778886
+            KEY_Arabic_teh: 1482
+            KEY_Arabic_tehmarbuta: 1481
+            KEY_Arabic_thal: 1488
+            KEY_Arabic_theh: 1483
+            KEY_Arabic_tteh: 16778873
+            KEY_Arabic_veh: 16778916
+            KEY_Arabic_waw: 1512
+            KEY_Arabic_yeh: 1514
+            KEY_Arabic_yeh_baree: 16778962
+            KEY_Arabic_zah: 1496
+            KEY_Arabic_zain: 1490
+            KEY_Aring: 197
+            KEY_Armenian_AT: 16778552
+            KEY_Armenian_AYB: 16778545
+            KEY_Armenian_BEN: 16778546
+            KEY_Armenian_CHA: 16778569
+            KEY_Armenian_DA: 16778548
+            KEY_Armenian_DZA: 16778561
+            KEY_Armenian_E: 16778551
+            KEY_Armenian_FE: 16778582
+            KEY_Armenian_GHAT: 16778562
+            KEY_Armenian_GIM: 16778547
+            KEY_Armenian_HI: 16778565
+            KEY_Armenian_HO: 16778560
+            KEY_Armenian_INI: 16778555
+            KEY_Armenian_JE: 16778571
+            KEY_Armenian_KE: 16778580
+            KEY_Armenian_KEN: 16778559
+            KEY_Armenian_KHE: 16778557
+            KEY_Armenian_LYUN: 16778556
+            KEY_Armenian_MEN: 16778564
+            KEY_Armenian_NU: 16778566
+            KEY_Armenian_O: 16778581
+            KEY_Armenian_PE: 16778570
+            KEY_Armenian_PYUR: 16778579
+            KEY_Armenian_RA: 16778572
+            KEY_Armenian_RE: 16778576
+            KEY_Armenian_SE: 16778573
+            KEY_Armenian_SHA: 16778567
+            KEY_Armenian_TCHE: 16778563
+            KEY_Armenian_TO: 16778553
+            KEY_Armenian_TSA: 16778558
+            KEY_Armenian_TSO: 16778577
+            KEY_Armenian_TYUN: 16778575
+            KEY_Armenian_VEV: 16778574
+            KEY_Armenian_VO: 16778568
+            KEY_Armenian_VYUN: 16778578
+            KEY_Armenian_YECH: 16778549
+            KEY_Armenian_ZA: 16778550
+            KEY_Armenian_ZHE: 16778554
+            KEY_Armenian_accent: 16778587
+            KEY_Armenian_amanak: 16778588
+            KEY_Armenian_apostrophe: 16778586
+            KEY_Armenian_at: 16778600
+            KEY_Armenian_ayb: 16778593
+            KEY_Armenian_ben: 16778594
+            KEY_Armenian_but: 16778589
+            KEY_Armenian_cha: 16778617
+            KEY_Armenian_da: 16778596
+            KEY_Armenian_dza: 16778609
+            KEY_Armenian_e: 16778599
+            KEY_Armenian_exclam: 16778588
+            KEY_Armenian_fe: 16778630
+            KEY_Armenian_full_stop: 16778633
+            KEY_Armenian_ghat: 16778610
+            KEY_Armenian_gim: 16778595
+            KEY_Armenian_hi: 16778613
+            KEY_Armenian_ho: 16778608
+            KEY_Armenian_hyphen: 16778634
+            KEY_Armenian_ini: 16778603
+            KEY_Armenian_je: 16778619
+            KEY_Armenian_ke: 16778628
+            KEY_Armenian_ken: 16778607
+            KEY_Armenian_khe: 16778605
+            KEY_Armenian_ligature_ew: 16778631
+            KEY_Armenian_lyun: 16778604
+            KEY_Armenian_men: 16778612
+            KEY_Armenian_nu: 16778614
+            KEY_Armenian_o: 16778629
+            KEY_Armenian_paruyk: 16778590
+            KEY_Armenian_pe: 16778618
+            KEY_Armenian_pyur: 16778627
+            KEY_Armenian_question: 16778590
+            KEY_Armenian_ra: 16778620
+            KEY_Armenian_re: 16778624
+            KEY_Armenian_se: 16778621
+            KEY_Armenian_separation_mark: 16778589
+            KEY_Armenian_sha: 16778615
+            KEY_Armenian_shesht: 16778587
+            KEY_Armenian_tche: 16778611
+            KEY_Armenian_to: 16778601
+            KEY_Armenian_tsa: 16778606
+            KEY_Armenian_tso: 16778625
+            KEY_Armenian_tyun: 16778623
+            KEY_Armenian_verjaket: 16778633
+            KEY_Armenian_vev: 16778622
+            KEY_Armenian_vo: 16778616
+            KEY_Armenian_vyun: 16778626
+            KEY_Armenian_yech: 16778597
+            KEY_Armenian_yentamna: 16778634
+            KEY_Armenian_za: 16778598
+            KEY_Armenian_zhe: 16778602
+            KEY_Atilde: 195
+            KEY_AudibleBell_Enable: 65146
+            KEY_AudioCycleTrack: 269025179
+            KEY_AudioForward: 269025175
+            KEY_AudioLowerVolume: 269025041
+            KEY_AudioMedia: 269025074
+            KEY_AudioMicMute: 269025202
+            KEY_AudioMute: 269025042
+            KEY_AudioNext: 269025047
+            KEY_AudioPause: 269025073
+            KEY_AudioPlay: 269025044
+            KEY_AudioPreset: 269025206
+            KEY_AudioPrev: 269025046
+            KEY_AudioRaiseVolume: 269025043
+            KEY_AudioRandomPlay: 269025177
+            KEY_AudioRecord: 269025052
+            KEY_AudioRepeat: 269025176
+            KEY_AudioRewind: 269025086
+            KEY_AudioStop: 269025045
+            KEY_Away: 269025165
+            KEY_B: 66
+            KEY_Babovedot: 16784898
+            KEY_Back: 269025062
+            KEY_BackForward: 269025087
+            KEY_BackSpace: 65288
+            KEY_Battery: 269025171
+            KEY_Begin: 65368
+            KEY_Blue: 269025190
+            KEY_Bluetooth: 269025172
+            KEY_Book: 269025106
+            KEY_BounceKeys_Enable: 65140
+            KEY_Break: 65387
+            KEY_BrightnessAdjust: 269025083
+            KEY_Byelorussian_SHORTU: 1726
+            KEY_Byelorussian_shortu: 1710
+            KEY_C: 67
+            KEY_CD: 269025107
+            KEY_CH: 65186
+            KEY_C_H: 65189
+            KEY_C_h: 65188
+            KEY_Cabovedot: 709
+            KEY_Cacute: 454
+            KEY_Calculator: 269025053
+            KEY_Calendar: 269025056
+            KEY_Cancel: 65385
+            KEY_Caps_Lock: 65509
+            KEY_Ccaron: 456
+            KEY_Ccedilla: 199
+            KEY_Ccircumflex: 710
+            KEY_Ch: 65185
+            KEY_Clear: 65291
+            KEY_ClearGrab: 269024801
+            KEY_Close: 269025110
+            KEY_Codeinput: 65335
+            KEY_ColonSign: 16785569
+            KEY_Community: 269025085
+            KEY_ContrastAdjust: 269025058
+            KEY_Control_L: 65507
+            KEY_Control_R: 65508
+            KEY_Copy: 269025111
+            KEY_CruzeiroSign: 16785570
+            KEY_Cut: 269025112
+            KEY_CycleAngle: 269025180
+            KEY_Cyrillic_A: 1761
+            KEY_Cyrillic_BE: 1762
+            KEY_Cyrillic_CHE: 1790
+            KEY_Cyrillic_CHE_descender: 16778422
+            KEY_Cyrillic_CHE_vertstroke: 16778424
+            KEY_Cyrillic_DE: 1764
+            KEY_Cyrillic_DZHE: 1727
+            KEY_Cyrillic_E: 1788
+            KEY_Cyrillic_EF: 1766
+            KEY_Cyrillic_EL: 1772
+            KEY_Cyrillic_EM: 1773
+            KEY_Cyrillic_EN: 1774
+            KEY_Cyrillic_EN_descender: 16778402
+            KEY_Cyrillic_ER: 1778
+            KEY_Cyrillic_ES: 1779
+            KEY_Cyrillic_GHE: 1767
+            KEY_Cyrillic_GHE_bar: 16778386
+            KEY_Cyrillic_HA: 1768
+            KEY_Cyrillic_HARDSIGN: 1791
+            KEY_Cyrillic_HA_descender: 16778418
+            KEY_Cyrillic_I: 1769
+            KEY_Cyrillic_IE: 1765
+            KEY_Cyrillic_IO: 1715
+            KEY_Cyrillic_I_macron: 16778466
+            KEY_Cyrillic_JE: 1720
+            KEY_Cyrillic_KA: 1771
+            KEY_Cyrillic_KA_descender: 16778394
+            KEY_Cyrillic_KA_vertstroke: 16778396
+            KEY_Cyrillic_LJE: 1721
+            KEY_Cyrillic_NJE: 1722
+            KEY_Cyrillic_O: 1775
+            KEY_Cyrillic_O_bar: 16778472
+            KEY_Cyrillic_PE: 1776
+            KEY_Cyrillic_SCHWA: 16778456
+            KEY_Cyrillic_SHA: 1787
+            KEY_Cyrillic_SHCHA: 1789
+            KEY_Cyrillic_SHHA: 16778426
+            KEY_Cyrillic_SHORTI: 1770
+            KEY_Cyrillic_SOFTSIGN: 1784
+            KEY_Cyrillic_TE: 1780
+            KEY_Cyrillic_TSE: 1763
+            KEY_Cyrillic_U: 1781
+            KEY_Cyrillic_U_macron: 16778478
+            KEY_Cyrillic_U_straight: 16778414
+            KEY_Cyrillic_U_straight_bar: 16778416
+            KEY_Cyrillic_VE: 1783
+            KEY_Cyrillic_YA: 1777
+            KEY_Cyrillic_YERU: 1785
+            KEY_Cyrillic_YU: 1760
+            KEY_Cyrillic_ZE: 1786
+            KEY_Cyrillic_ZHE: 1782
+            KEY_Cyrillic_ZHE_descender: 16778390
+            KEY_Cyrillic_a: 1729
+            KEY_Cyrillic_be: 1730
+            KEY_Cyrillic_che: 1758
+            KEY_Cyrillic_che_descender: 16778423
+            KEY_Cyrillic_che_vertstroke: 16778425
+            KEY_Cyrillic_de: 1732
+            KEY_Cyrillic_dzhe: 1711
+            KEY_Cyrillic_e: 1756
+            KEY_Cyrillic_ef: 1734
+            KEY_Cyrillic_el: 1740
+            KEY_Cyrillic_em: 1741
+            KEY_Cyrillic_en: 1742
+            KEY_Cyrillic_en_descender: 16778403
+            KEY_Cyrillic_er: 1746
+            KEY_Cyrillic_es: 1747
+            KEY_Cyrillic_ghe: 1735
+            KEY_Cyrillic_ghe_bar: 16778387
+            KEY_Cyrillic_ha: 1736
+            KEY_Cyrillic_ha_descender: 16778419
+            KEY_Cyrillic_hardsign: 1759
+            KEY_Cyrillic_i: 1737
+            KEY_Cyrillic_i_macron: 16778467
+            KEY_Cyrillic_ie: 1733
+            KEY_Cyrillic_io: 1699
+            KEY_Cyrillic_je: 1704
+            KEY_Cyrillic_ka: 1739
+            KEY_Cyrillic_ka_descender: 16778395
+            KEY_Cyrillic_ka_vertstroke: 16778397
+            KEY_Cyrillic_lje: 1705
+            KEY_Cyrillic_nje: 1706
+            KEY_Cyrillic_o: 1743
+            KEY_Cyrillic_o_bar: 16778473
+            KEY_Cyrillic_pe: 1744
+            KEY_Cyrillic_schwa: 16778457
+            KEY_Cyrillic_sha: 1755
+            KEY_Cyrillic_shcha: 1757
+            KEY_Cyrillic_shha: 16778427
+            KEY_Cyrillic_shorti: 1738
+            KEY_Cyrillic_softsign: 1752
+            KEY_Cyrillic_te: 1748
+            KEY_Cyrillic_tse: 1731
+            KEY_Cyrillic_u: 1749
+            KEY_Cyrillic_u_macron: 16778479
+            KEY_Cyrillic_u_straight: 16778415
+            KEY_Cyrillic_u_straight_bar: 16778417
+            KEY_Cyrillic_ve: 1751
+            KEY_Cyrillic_ya: 1745
+            KEY_Cyrillic_yeru: 1753
+            KEY_Cyrillic_yu: 1728
+            KEY_Cyrillic_ze: 1754
+            KEY_Cyrillic_zhe: 1750
+            KEY_Cyrillic_zhe_descender: 16778391
+            KEY_D: 68
+            KEY_DOS: 269025114
+            KEY_Dabovedot: 16784906
+            KEY_Dcaron: 463
+            KEY_Delete: 65535
+            KEY_Display: 269025113
+            KEY_Documents: 269025115
+            KEY_DongSign: 16785579
+            KEY_Down: 65364
+            KEY_Dstroke: 464
+            KEY_E: 69
+            KEY_ENG: 957
+            KEY_ETH: 208
+            KEY_EZH: 16777655
+            KEY_Eabovedot: 972
+            KEY_Eacute: 201
+            KEY_Ebelowdot: 16785080
+            KEY_Ecaron: 460
+            KEY_Ecircumflex: 202
+            KEY_Ecircumflexacute: 16785086
+            KEY_Ecircumflexbelowdot: 16785094
+            KEY_Ecircumflexgrave: 16785088
+            KEY_Ecircumflexhook: 16785090
+            KEY_Ecircumflextilde: 16785092
+            KEY_EcuSign: 16785568
+            KEY_Ediaeresis: 203
+            KEY_Egrave: 200
+            KEY_Ehook: 16785082
+            KEY_Eisu_Shift: 65327
+            KEY_Eisu_toggle: 65328
+            KEY_Eject: 269025068
+            KEY_Emacron: 938
+            KEY_End: 65367
+            KEY_Eogonek: 458
+            KEY_Escape: 65307
+            KEY_Eth: 208
+            KEY_Etilde: 16785084
+            KEY_EuroSign: 8364
+            KEY_Excel: 269025116
+            KEY_Execute: 65378
+            KEY_Explorer: 269025117
+            KEY_F: 70
+            KEY_F1: 65470
+            KEY_F10: 65479
+            KEY_F11: 65480
+            KEY_F12: 65481
+            KEY_F13: 65482
+            KEY_F14: 65483
+            KEY_F15: 65484
+            KEY_F16: 65485
+            KEY_F17: 65486
+            KEY_F18: 65487
+            KEY_F19: 65488
+            KEY_F2: 65471
+            KEY_F20: 65489
+            KEY_F21: 65490
+            KEY_F22: 65491
+            KEY_F23: 65492
+            KEY_F24: 65493
+            KEY_F25: 65494
+            KEY_F26: 65495
+            KEY_F27: 65496
+            KEY_F28: 65497
+            KEY_F29: 65498
+            KEY_F3: 65472
+            KEY_F30: 65499
+            KEY_F31: 65500
+            KEY_F32: 65501
+            KEY_F33: 65502
+            KEY_F34: 65503
+            KEY_F35: 65504
+            KEY_F4: 65473
+            KEY_F5: 65474
+            KEY_F6: 65475
+            KEY_F7: 65476
+            KEY_F8: 65477
+            KEY_F9: 65478
+            KEY_FFrancSign: 16785571
+            KEY_Fabovedot: 16784926
+            KEY_Farsi_0: 16778992
+            KEY_Farsi_1: 16778993
+            KEY_Farsi_2: 16778994
+            KEY_Farsi_3: 16778995
+            KEY_Farsi_4: 16778996
+            KEY_Farsi_5: 16778997
+            KEY_Farsi_6: 16778998
+            KEY_Farsi_7: 16778999
+            KEY_Farsi_8: 16779000
+            KEY_Farsi_9: 16779001
+            KEY_Farsi_yeh: 16778956
+            KEY_Favorites: 269025072
+            KEY_Finance: 269025084
+            KEY_Find: 65384
+            KEY_First_Virtual_Screen: 65232
+            KEY_Forward: 269025063
+            KEY_FrameBack: 269025181
+            KEY_FrameForward: 269025182
+            KEY_G: 71
+            KEY_Gabovedot: 725
+            KEY_Game: 269025118
+            KEY_Gbreve: 683
+            KEY_Gcaron: 16777702
+            KEY_Gcedilla: 939
+            KEY_Gcircumflex: 728
+            KEY_Georgian_an: 16781520
+            KEY_Georgian_ban: 16781521
+            KEY_Georgian_can: 16781546
+            KEY_Georgian_char: 16781549
+            KEY_Georgian_chin: 16781545
+            KEY_Georgian_cil: 16781548
+            KEY_Georgian_don: 16781523
+            KEY_Georgian_en: 16781524
+            KEY_Georgian_fi: 16781558
+            KEY_Georgian_gan: 16781522
+            KEY_Georgian_ghan: 16781542
+            KEY_Georgian_hae: 16781552
+            KEY_Georgian_har: 16781556
+            KEY_Georgian_he: 16781553
+            KEY_Georgian_hie: 16781554
+            KEY_Georgian_hoe: 16781557
+            KEY_Georgian_in: 16781528
+            KEY_Georgian_jhan: 16781551
+            KEY_Georgian_jil: 16781547
+            KEY_Georgian_kan: 16781529
+            KEY_Georgian_khar: 16781541
+            KEY_Georgian_las: 16781530
+            KEY_Georgian_man: 16781531
+            KEY_Georgian_nar: 16781532
+            KEY_Georgian_on: 16781533
+            KEY_Georgian_par: 16781534
+            KEY_Georgian_phar: 16781540
+            KEY_Georgian_qar: 16781543
+            KEY_Georgian_rae: 16781536
+            KEY_Georgian_san: 16781537
+            KEY_Georgian_shin: 16781544
+            KEY_Georgian_tan: 16781527
+            KEY_Georgian_tar: 16781538
+            KEY_Georgian_un: 16781539
+            KEY_Georgian_vin: 16781525
+            KEY_Georgian_we: 16781555
+            KEY_Georgian_xan: 16781550
+            KEY_Georgian_zen: 16781526
+            KEY_Georgian_zhar: 16781535
+            KEY_Go: 269025119
+            KEY_Greek_ALPHA: 1985
+            KEY_Greek_ALPHAaccent: 1953
+            KEY_Greek_BETA: 1986
+            KEY_Greek_CHI: 2007
+            KEY_Greek_DELTA: 1988
+            KEY_Greek_EPSILON: 1989
+            KEY_Greek_EPSILONaccent: 1954
+            KEY_Greek_ETA: 1991
+            KEY_Greek_ETAaccent: 1955
+            KEY_Greek_GAMMA: 1987
+            KEY_Greek_IOTA: 1993
+            KEY_Greek_IOTAaccent: 1956
+            KEY_Greek_IOTAdiaeresis: 1957
+            KEY_Greek_IOTAdieresis: 1957
+            KEY_Greek_KAPPA: 1994
+            KEY_Greek_LAMBDA: 1995
+            KEY_Greek_LAMDA: 1995
+            KEY_Greek_MU: 1996
+            KEY_Greek_NU: 1997
+            KEY_Greek_OMEGA: 2009
+            KEY_Greek_OMEGAaccent: 1963
+            KEY_Greek_OMICRON: 1999
+            KEY_Greek_OMICRONaccent: 1959
+            KEY_Greek_PHI: 2006
+            KEY_Greek_PI: 2000
+            KEY_Greek_PSI: 2008
+            KEY_Greek_RHO: 2001
+            KEY_Greek_SIGMA: 2002
+            KEY_Greek_TAU: 2004
+            KEY_Greek_THETA: 1992
+            KEY_Greek_UPSILON: 2005
+            KEY_Greek_UPSILONaccent: 1960
+            KEY_Greek_UPSILONdieresis: 1961
+            KEY_Greek_XI: 1998
+            KEY_Greek_ZETA: 1990
+            KEY_Greek_accentdieresis: 1966
+            KEY_Greek_alpha: 2017
+            KEY_Greek_alphaaccent: 1969
+            KEY_Greek_beta: 2018
+            KEY_Greek_chi: 2039
+            KEY_Greek_delta: 2020
+            KEY_Greek_epsilon: 2021
+            KEY_Greek_epsilonaccent: 1970
+            KEY_Greek_eta: 2023
+            KEY_Greek_etaaccent: 1971
+            KEY_Greek_finalsmallsigma: 2035
+            KEY_Greek_gamma: 2019
+            KEY_Greek_horizbar: 1967
+            KEY_Greek_iota: 2025
+            KEY_Greek_iotaaccent: 1972
+            KEY_Greek_iotaaccentdieresis: 1974
+            KEY_Greek_iotadieresis: 1973
+            KEY_Greek_kappa: 2026
+            KEY_Greek_lambda: 2027
+            KEY_Greek_lamda: 2027
+            KEY_Greek_mu: 2028
+            KEY_Greek_nu: 2029
+            KEY_Greek_omega: 2041
+            KEY_Greek_omegaaccent: 1979
+            KEY_Greek_omicron: 2031
+            KEY_Greek_omicronaccent: 1975
+            KEY_Greek_phi: 2038
+            KEY_Greek_pi: 2032
+            KEY_Greek_psi: 2040
+            KEY_Greek_rho: 2033
+            KEY_Greek_sigma: 2034
+            KEY_Greek_switch: 65406
+            KEY_Greek_tau: 2036
+            KEY_Greek_theta: 2024
+            KEY_Greek_upsilon: 2037
+            KEY_Greek_upsilonaccent: 1976
+            KEY_Greek_upsilonaccentdieresis: 1978
+            KEY_Greek_upsilondieresis: 1977
+            KEY_Greek_xi: 2030
+            KEY_Greek_zeta: 2022
+            KEY_Green: 269025188
+            KEY_H: 72
+            KEY_Hangul: 65329
+            KEY_Hangul_A: 3775
+            KEY_Hangul_AE: 3776
+            KEY_Hangul_AraeA: 3830
+            KEY_Hangul_AraeAE: 3831
+            KEY_Hangul_Banja: 65337
+            KEY_Hangul_Cieuc: 3770
+            KEY_Hangul_Codeinput: 65335
+            KEY_Hangul_Dikeud: 3751
+            KEY_Hangul_E: 3780
+            KEY_Hangul_EO: 3779
+            KEY_Hangul_EU: 3793
+            KEY_Hangul_End: 65331
+            KEY_Hangul_Hanja: 65332
+            KEY_Hangul_Hieuh: 3774
+            KEY_Hangul_I: 3795
+            KEY_Hangul_Ieung: 3767
+            KEY_Hangul_J_Cieuc: 3818
+            KEY_Hangul_J_Dikeud: 3802
+            KEY_Hangul_J_Hieuh: 3822
+            KEY_Hangul_J_Ieung: 3816
+            KEY_Hangul_J_Jieuj: 3817
+            KEY_Hangul_J_Khieuq: 3819
+            KEY_Hangul_J_Kiyeog: 3796
+            KEY_Hangul_J_KiyeogSios: 3798
+            KEY_Hangul_J_KkogjiDalrinIeung: 3833
+            KEY_Hangul_J_Mieum: 3811
+            KEY_Hangul_J_Nieun: 3799
+            KEY_Hangul_J_NieunHieuh: 3801
+            KEY_Hangul_J_NieunJieuj: 3800
+            KEY_Hangul_J_PanSios: 3832
+            KEY_Hangul_J_Phieuf: 3821
+            KEY_Hangul_J_Pieub: 3812
+            KEY_Hangul_J_PieubSios: 3813
+            KEY_Hangul_J_Rieul: 3803
+            KEY_Hangul_J_RieulHieuh: 3810
+            KEY_Hangul_J_RieulKiyeog: 3804
+            KEY_Hangul_J_RieulMieum: 3805
+            KEY_Hangul_J_RieulPhieuf: 3809
+            KEY_Hangul_J_RieulPieub: 3806
+            KEY_Hangul_J_RieulSios: 3807
+            KEY_Hangul_J_RieulTieut: 3808
+            KEY_Hangul_J_Sios: 3814
+            KEY_Hangul_J_SsangKiyeog: 3797
+            KEY_Hangul_J_SsangSios: 3815
+            KEY_Hangul_J_Tieut: 3820
+            KEY_Hangul_J_YeorinHieuh: 3834
+            KEY_Hangul_Jamo: 65333
+            KEY_Hangul_Jeonja: 65336
+            KEY_Hangul_Jieuj: 3768
+            KEY_Hangul_Khieuq: 3771
+            KEY_Hangul_Kiyeog: 3745
+            KEY_Hangul_KiyeogSios: 3747
+            KEY_Hangul_KkogjiDalrinIeung: 3827
+            KEY_Hangul_Mieum: 3761
+            KEY_Hangul_MultipleCandidate: 65341
+            KEY_Hangul_Nieun: 3748
+            KEY_Hangul_NieunHieuh: 3750
+            KEY_Hangul_NieunJieuj: 3749
+            KEY_Hangul_O: 3783
+            KEY_Hangul_OE: 3786
+            KEY_Hangul_PanSios: 3826
+            KEY_Hangul_Phieuf: 3773
+            KEY_Hangul_Pieub: 3762
+            KEY_Hangul_PieubSios: 3764
+            KEY_Hangul_PostHanja: 65339
+            KEY_Hangul_PreHanja: 65338
+            KEY_Hangul_PreviousCandidate: 65342
+            KEY_Hangul_Rieul: 3753
+            KEY_Hangul_RieulHieuh: 3760
+            KEY_Hangul_RieulKiyeog: 3754
+            KEY_Hangul_RieulMieum: 3755
+            KEY_Hangul_RieulPhieuf: 3759
+            KEY_Hangul_RieulPieub: 3756
+            KEY_Hangul_RieulSios: 3757
+            KEY_Hangul_RieulTieut: 3758
+            KEY_Hangul_RieulYeorinHieuh: 3823
+            KEY_Hangul_Romaja: 65334
+            KEY_Hangul_SingleCandidate: 65340
+            KEY_Hangul_Sios: 3765
+            KEY_Hangul_Special: 65343
+            KEY_Hangul_SsangDikeud: 3752
+            KEY_Hangul_SsangJieuj: 3769
+            KEY_Hangul_SsangKiyeog: 3746
+            KEY_Hangul_SsangPieub: 3763
+            KEY_Hangul_SsangSios: 3766
+            KEY_Hangul_Start: 65330
+            KEY_Hangul_SunkyeongeumMieum: 3824
+            KEY_Hangul_SunkyeongeumPhieuf: 3828
+            KEY_Hangul_SunkyeongeumPieub: 3825
+            KEY_Hangul_Tieut: 3772
+            KEY_Hangul_U: 3788
+            KEY_Hangul_WA: 3784
+            KEY_Hangul_WAE: 3785
+            KEY_Hangul_WE: 3790
+            KEY_Hangul_WEO: 3789
+            KEY_Hangul_WI: 3791
+            KEY_Hangul_YA: 3777
+            KEY_Hangul_YAE: 3778
+            KEY_Hangul_YE: 3782
+            KEY_Hangul_YEO: 3781
+            KEY_Hangul_YI: 3794
+            KEY_Hangul_YO: 3787
+            KEY_Hangul_YU: 3792
+            KEY_Hangul_YeorinHieuh: 3829
+            KEY_Hangul_switch: 65406
+            KEY_Hankaku: 65321
+            KEY_Hcircumflex: 678
+            KEY_Hebrew_switch: 65406
+            KEY_Help: 65386
+            KEY_Henkan: 65315
+            KEY_Henkan_Mode: 65315
+            KEY_Hibernate: 269025192
+            KEY_Hiragana: 65317
+            KEY_Hiragana_Katakana: 65319
+            KEY_History: 269025079
+            KEY_Home: 65360
+            KEY_HomePage: 269025048
+            KEY_HotLinks: 269025082
+            KEY_Hstroke: 673
+            KEY_Hyper_L: 65517
+            KEY_Hyper_R: 65518
+            KEY_I: 73
+            KEY_ISO_Center_Object: 65075
+            KEY_ISO_Continuous_Underline: 65072
+            KEY_ISO_Discontinuous_Underline: 65073
+            KEY_ISO_Emphasize: 65074
+            KEY_ISO_Enter: 65076
+            KEY_ISO_Fast_Cursor_Down: 65071
+            KEY_ISO_Fast_Cursor_Left: 65068
+            KEY_ISO_Fast_Cursor_Right: 65069
+            KEY_ISO_Fast_Cursor_Up: 65070
+            KEY_ISO_First_Group: 65036
+            KEY_ISO_First_Group_Lock: 65037
+            KEY_ISO_Group_Latch: 65030
+            KEY_ISO_Group_Lock: 65031
+            KEY_ISO_Group_Shift: 65406
+            KEY_ISO_Last_Group: 65038
+            KEY_ISO_Last_Group_Lock: 65039
+            KEY_ISO_Left_Tab: 65056
+            KEY_ISO_Level2_Latch: 65026
+            KEY_ISO_Level3_Latch: 65028
+            KEY_ISO_Level3_Lock: 65029
+            KEY_ISO_Level3_Shift: 65027
+            KEY_ISO_Level5_Latch: 65042
+            KEY_ISO_Level5_Lock: 65043
+            KEY_ISO_Level5_Shift: 65041
+            KEY_ISO_Lock: 65025
+            KEY_ISO_Move_Line_Down: 65058
+            KEY_ISO_Move_Line_Up: 65057
+            KEY_ISO_Next_Group: 65032
+            KEY_ISO_Next_Group_Lock: 65033
+            KEY_ISO_Partial_Line_Down: 65060
+            KEY_ISO_Partial_Line_Up: 65059
+            KEY_ISO_Partial_Space_Left: 65061
+            KEY_ISO_Partial_Space_Right: 65062
+            KEY_ISO_Prev_Group: 65034
+            KEY_ISO_Prev_Group_Lock: 65035
+            KEY_ISO_Release_Both_Margins: 65067
+            KEY_ISO_Release_Margin_Left: 65065
+            KEY_ISO_Release_Margin_Right: 65066
+            KEY_ISO_Set_Margin_Left: 65063
+            KEY_ISO_Set_Margin_Right: 65064
+            KEY_Iabovedot: 681
+            KEY_Iacute: 205
+            KEY_Ibelowdot: 16785098
+            KEY_Ibreve: 16777516
+            KEY_Icircumflex: 206
+            KEY_Idiaeresis: 207
+            KEY_Igrave: 204
+            KEY_Ihook: 16785096
+            KEY_Imacron: 975
+            KEY_Insert: 65379
+            KEY_Iogonek: 967
+            KEY_Itilde: 933
+            KEY_J: 74
+            KEY_Jcircumflex: 684
+            KEY_K: 75
+            KEY_KP_0: 65456
+            KEY_KP_1: 65457
+            KEY_KP_2: 65458
+            KEY_KP_3: 65459
+            KEY_KP_4: 65460
+            KEY_KP_5: 65461
+            KEY_KP_6: 65462
+            KEY_KP_7: 65463
+            KEY_KP_8: 65464
+            KEY_KP_9: 65465
+            KEY_KP_Add: 65451
+            KEY_KP_Begin: 65437
+            KEY_KP_Decimal: 65454
+            KEY_KP_Delete: 65439
+            KEY_KP_Divide: 65455
+            KEY_KP_Down: 65433
+            KEY_KP_End: 65436
+            KEY_KP_Enter: 65421
+            KEY_KP_Equal: 65469
+            KEY_KP_F1: 65425
+            KEY_KP_F2: 65426
+            KEY_KP_F3: 65427
+            KEY_KP_F4: 65428
+            KEY_KP_Home: 65429
+            KEY_KP_Insert: 65438
+            KEY_KP_Left: 65430
+            KEY_KP_Multiply: 65450
+            KEY_KP_Next: 65435
+            KEY_KP_Page_Down: 65435
+            KEY_KP_Page_Up: 65434
+            KEY_KP_Prior: 65434
+            KEY_KP_Right: 65432
+            KEY_KP_Separator: 65452
+            KEY_KP_Space: 65408
+            KEY_KP_Subtract: 65453
+            KEY_KP_Tab: 65417
+            KEY_KP_Up: 65431
+            KEY_Kana_Lock: 65325
+            KEY_Kana_Shift: 65326
+            KEY_Kanji: 65313
+            KEY_Kanji_Bangou: 65335
+            KEY_Katakana: 65318
+            KEY_KbdBrightnessDown: 269025030
+            KEY_KbdBrightnessUp: 269025029
+            KEY_KbdLightOnOff: 269025028
+            KEY_Kcedilla: 979
+            KEY_Keyboard: 269025203
+            KEY_Korean_Won: 3839
+            KEY_L: 76
+            KEY_L1: 65480
+            KEY_L10: 65489
+            KEY_L2: 65481
+            KEY_L3: 65482
+            KEY_L4: 65483
+            KEY_L5: 65484
+            KEY_L6: 65485
+            KEY_L7: 65486
+            KEY_L8: 65487
+            KEY_L9: 65488
+            KEY_Lacute: 453
+            KEY_Last_Virtual_Screen: 65236
+            KEY_Launch0: 269025088
+            KEY_Launch1: 269025089
+            KEY_Launch2: 269025090
+            KEY_Launch3: 269025091
+            KEY_Launch4: 269025092
+            KEY_Launch5: 269025093
+            KEY_Launch6: 269025094
+            KEY_Launch7: 269025095
+            KEY_Launch8: 269025096
+            KEY_Launch9: 269025097
+            KEY_LaunchA: 269025098
+            KEY_LaunchB: 269025099
+            KEY_LaunchC: 269025100
+            KEY_LaunchD: 269025101
+            KEY_LaunchE: 269025102
+            KEY_LaunchF: 269025103
+            KEY_Lbelowdot: 16784950
+            KEY_Lcaron: 421
+            KEY_Lcedilla: 934
+            KEY_Left: 65361
+            KEY_LightBulb: 269025077
+            KEY_Linefeed: 65290
+            KEY_LiraSign: 16785572
+            KEY_LogGrabInfo: 269024805
+            KEY_LogOff: 269025121
+            KEY_LogWindowTree: 269024804
+            KEY_Lstroke: 419
+            KEY_M: 77
+            KEY_Mabovedot: 16784960
+            KEY_Macedonia_DSE: 1717
+            KEY_Macedonia_GJE: 1714
+            KEY_Macedonia_KJE: 1724
+            KEY_Macedonia_dse: 1701
+            KEY_Macedonia_gje: 1698
+            KEY_Macedonia_kje: 1708
+            KEY_Mae_Koho: 65342
+            KEY_Mail: 269025049
+            KEY_MailForward: 269025168
+            KEY_Market: 269025122
+            KEY_Massyo: 65324
+            KEY_Meeting: 269025123
+            KEY_Memo: 269025054
+            KEY_Menu: 65383
+            KEY_MenuKB: 269025125
+            KEY_MenuPB: 269025126
+            KEY_Messenger: 269025166
+            KEY_Meta_L: 65511
+            KEY_Meta_R: 65512
+            KEY_MillSign: 16785573
+            KEY_ModeLock: 269025025
+            KEY_Mode_switch: 65406
+            KEY_MonBrightnessDown: 269025027
+            KEY_MonBrightnessUp: 269025026
+            KEY_MouseKeys_Accel_Enable: 65143
+            KEY_MouseKeys_Enable: 65142
+            KEY_Muhenkan: 65314
+            KEY_Multi_key: 65312
+            KEY_MultipleCandidate: 65341
+            KEY_Music: 269025170
+            KEY_MyComputer: 269025075
+            KEY_MySites: 269025127
+            KEY_N: 78
+            KEY_Nacute: 465
+            KEY_NairaSign: 16785574
+            KEY_Ncaron: 466
+            KEY_Ncedilla: 977
+            KEY_New: 269025128
+            KEY_NewSheqelSign: 16785578
+            KEY_News: 269025129
+            KEY_Next: 65366
+            KEY_Next_VMode: 269024802
+            KEY_Next_Virtual_Screen: 65234
+            KEY_Ntilde: 209
+            KEY_Num_Lock: 65407
+            KEY_O: 79
+            KEY_OE: 5052
+            KEY_Oacute: 211
+            KEY_Obarred: 16777631
+            KEY_Obelowdot: 16785100
+            KEY_Ocaron: 16777681
+            KEY_Ocircumflex: 212
+            KEY_Ocircumflexacute: 16785104
+            KEY_Ocircumflexbelowdot: 16785112
+            KEY_Ocircumflexgrave: 16785106
+            KEY_Ocircumflexhook: 16785108
+            KEY_Ocircumflextilde: 16785110
+            KEY_Odiaeresis: 214
+            KEY_Odoubleacute: 469
+            KEY_OfficeHome: 269025130
+            KEY_Ograve: 210
+            KEY_Ohook: 16785102
+            KEY_Ohorn: 16777632
+            KEY_Ohornacute: 16785114
+            KEY_Ohornbelowdot: 16785122
+            KEY_Ohorngrave: 16785116
+            KEY_Ohornhook: 16785118
+            KEY_Ohorntilde: 16785120
+            KEY_Omacron: 978
+            KEY_Ooblique: 216
+            KEY_Open: 269025131
+            KEY_OpenURL: 269025080
+            KEY_Option: 269025132
+            KEY_Oslash: 216
+            KEY_Otilde: 213
+            KEY_Overlay1_Enable: 65144
+            KEY_Overlay2_Enable: 65145
+            KEY_P: 80
+            KEY_Pabovedot: 16784982
+            KEY_Page_Down: 65366
+            KEY_Page_Up: 65365
+            KEY_Paste: 269025133
+            KEY_Pause: 65299
+            KEY_PesetaSign: 16785575
+            KEY_Phone: 269025134
+            KEY_Pictures: 269025169
+            KEY_Pointer_Accelerate: 65274
+            KEY_Pointer_Button1: 65257
+            KEY_Pointer_Button2: 65258
+            KEY_Pointer_Button3: 65259
+            KEY_Pointer_Button4: 65260
+            KEY_Pointer_Button5: 65261
+            KEY_Pointer_Button_Dflt: 65256
+            KEY_Pointer_DblClick1: 65263
+            KEY_Pointer_DblClick2: 65264
+            KEY_Pointer_DblClick3: 65265
+            KEY_Pointer_DblClick4: 65266
+            KEY_Pointer_DblClick5: 65267
+            KEY_Pointer_DblClick_Dflt: 65262
+            KEY_Pointer_DfltBtnNext: 65275
+            KEY_Pointer_DfltBtnPrev: 65276
+            KEY_Pointer_Down: 65251
+            KEY_Pointer_DownLeft: 65254
+            KEY_Pointer_DownRight: 65255
+            KEY_Pointer_Drag1: 65269
+            KEY_Pointer_Drag2: 65270
+            KEY_Pointer_Drag3: 65271
+            KEY_Pointer_Drag4: 65272
+            KEY_Pointer_Drag5: 65277
+            KEY_Pointer_Drag_Dflt: 65268
+            KEY_Pointer_EnableKeys: 65273
+            KEY_Pointer_Left: 65248
+            KEY_Pointer_Right: 65249
+            KEY_Pointer_Up: 65250
+            KEY_Pointer_UpLeft: 65252
+            KEY_Pointer_UpRight: 65253
+            KEY_PowerDown: 269025057
+            KEY_PowerOff: 269025066
+            KEY_Prev_VMode: 269024803
+            KEY_Prev_Virtual_Screen: 65233
+            KEY_PreviousCandidate: 65342
+            KEY_Print: 65377
+            KEY_Prior: 65365
+            KEY_Q: 81
+            KEY_R: 82
+            KEY_R1: 65490
+            KEY_R10: 65499
+            KEY_R11: 65500
+            KEY_R12: 65501
+            KEY_R13: 65502
+            KEY_R14: 65503
+            KEY_R15: 65504
+            KEY_R2: 65491
+            KEY_R3: 65492
+            KEY_R4: 65493
+            KEY_R5: 65494
+            KEY_R6: 65495
+            KEY_R7: 65496
+            KEY_R8: 65497
+            KEY_R9: 65498
+            KEY_RFKill: 269025205
+            KEY_Racute: 448
+            KEY_Rcaron: 472
+            KEY_Rcedilla: 931
+            KEY_Red: 269025187
+            KEY_Redo: 65382
+            KEY_Refresh: 269025065
+            KEY_Reload: 269025139
+            KEY_RepeatKeys_Enable: 65138
+            KEY_Reply: 269025138
+            KEY_Return: 65293
+            KEY_Right: 65363
+            KEY_RockerDown: 269025060
+            KEY_RockerEnter: 269025061
+            KEY_RockerUp: 269025059
+            KEY_Romaji: 65316
+            KEY_RotateWindows: 269025140
+            KEY_RotationKB: 269025142
+            KEY_RotationPB: 269025141
+            KEY_RupeeSign: 16785576
+            KEY_S: 83
+            KEY_SCHWA: 16777615
+            KEY_Sabovedot: 16784992
+            KEY_Sacute: 422
+            KEY_Save: 269025143
+            KEY_Scaron: 425
+            KEY_Scedilla: 426
+            KEY_Scircumflex: 734
+            KEY_ScreenSaver: 269025069
+            KEY_ScrollClick: 269025146
+            KEY_ScrollDown: 269025145
+            KEY_ScrollUp: 269025144
+            KEY_Scroll_Lock: 65300
+            KEY_Search: 269025051
+            KEY_Select: 65376
+            KEY_SelectButton: 269025184
+            KEY_Send: 269025147
+            KEY_Serbian_DJE: 1713
+            KEY_Serbian_DZE: 1727
+            KEY_Serbian_JE: 1720
+            KEY_Serbian_LJE: 1721
+            KEY_Serbian_NJE: 1722
+            KEY_Serbian_TSHE: 1723
+            KEY_Serbian_dje: 1697
+            KEY_Serbian_dze: 1711
+            KEY_Serbian_je: 1704
+            KEY_Serbian_lje: 1705
+            KEY_Serbian_nje: 1706
+            KEY_Serbian_tshe: 1707
+            KEY_Shift_L: 65505
+            KEY_Shift_Lock: 65510
+            KEY_Shift_R: 65506
+            KEY_Shop: 269025078
+            KEY_SingleCandidate: 65340
+            KEY_Sinh_a: 16780677
+            KEY_Sinh_aa: 16780678
+            KEY_Sinh_aa2: 16780751
+            KEY_Sinh_ae: 16780679
+            KEY_Sinh_ae2: 16780752
+            KEY_Sinh_aee: 16780680
+            KEY_Sinh_aee2: 16780753
+            KEY_Sinh_ai: 16780691
+            KEY_Sinh_ai2: 16780763
+            KEY_Sinh_al: 16780746
+            KEY_Sinh_au: 16780694
+            KEY_Sinh_au2: 16780766
+            KEY_Sinh_ba: 16780726
+            KEY_Sinh_bha: 16780727
+            KEY_Sinh_ca: 16780704
+            KEY_Sinh_cha: 16780705
+            KEY_Sinh_dda: 16780713
+            KEY_Sinh_ddha: 16780714
+            KEY_Sinh_dha: 16780719
+            KEY_Sinh_dhha: 16780720
+            KEY_Sinh_e: 16780689
+            KEY_Sinh_e2: 16780761
+            KEY_Sinh_ee: 16780690
+            KEY_Sinh_ee2: 16780762
+            KEY_Sinh_fa: 16780742
+            KEY_Sinh_ga: 16780700
+            KEY_Sinh_gha: 16780701
+            KEY_Sinh_h2: 16780675
+            KEY_Sinh_ha: 16780740
+            KEY_Sinh_i: 16780681
+            KEY_Sinh_i2: 16780754
+            KEY_Sinh_ii: 16780682
+            KEY_Sinh_ii2: 16780755
+            KEY_Sinh_ja: 16780706
+            KEY_Sinh_jha: 16780707
+            KEY_Sinh_jnya: 16780709
+            KEY_Sinh_ka: 16780698
+            KEY_Sinh_kha: 16780699
+            KEY_Sinh_kunddaliya: 16780788
+            KEY_Sinh_la: 16780733
+            KEY_Sinh_lla: 16780741
+            KEY_Sinh_lu: 16780687
+            KEY_Sinh_lu2: 16780767
+            KEY_Sinh_luu: 16780688
+            KEY_Sinh_luu2: 16780787
+            KEY_Sinh_ma: 16780728
+            KEY_Sinh_mba: 16780729
+            KEY_Sinh_na: 16780721
+            KEY_Sinh_ndda: 16780716
+            KEY_Sinh_ndha: 16780723
+            KEY_Sinh_ng: 16780674
+            KEY_Sinh_ng2: 16780702
+            KEY_Sinh_nga: 16780703
+            KEY_Sinh_nja: 16780710
+            KEY_Sinh_nna: 16780715
+            KEY_Sinh_nya: 16780708
+            KEY_Sinh_o: 16780692
+            KEY_Sinh_o2: 16780764
+            KEY_Sinh_oo: 16780693
+            KEY_Sinh_oo2: 16780765
+            KEY_Sinh_pa: 16780724
+            KEY_Sinh_pha: 16780725
+            KEY_Sinh_ra: 16780731
+            KEY_Sinh_ri: 16780685
+            KEY_Sinh_rii: 16780686
+            KEY_Sinh_ru2: 16780760
+            KEY_Sinh_ruu2: 16780786
+            KEY_Sinh_sa: 16780739
+            KEY_Sinh_sha: 16780737
+            KEY_Sinh_ssha: 16780738
+            KEY_Sinh_tha: 16780717
+            KEY_Sinh_thha: 16780718
+            KEY_Sinh_tta: 16780711
+            KEY_Sinh_ttha: 16780712
+            KEY_Sinh_u: 16780683
+            KEY_Sinh_u2: 16780756
+            KEY_Sinh_uu: 16780684
+            KEY_Sinh_uu2: 16780758
+            KEY_Sinh_va: 16780736
+            KEY_Sinh_ya: 16780730
+            KEY_Sleep: 269025071
+            KEY_SlowKeys_Enable: 65139
+            KEY_Spell: 269025148
+            KEY_SplitScreen: 269025149
+            KEY_Standby: 269025040
+            KEY_Start: 269025050
+            KEY_StickyKeys_Enable: 65141
+            KEY_Stop: 269025064
+            KEY_Subtitle: 269025178
+            KEY_Super_L: 65515
+            KEY_Super_R: 65516
+            KEY_Support: 269025150
+            KEY_Suspend: 269025191
+            KEY_Switch_VT_1: 269024769
+            KEY_Switch_VT_10: 269024778
+            KEY_Switch_VT_11: 269024779
+            KEY_Switch_VT_12: 269024780
+            KEY_Switch_VT_2: 269024770
+            KEY_Switch_VT_3: 269024771
+            KEY_Switch_VT_4: 269024772
+            KEY_Switch_VT_5: 269024773
+            KEY_Switch_VT_6: 269024774
+            KEY_Switch_VT_7: 269024775
+            KEY_Switch_VT_8: 269024776
+            KEY_Switch_VT_9: 269024777
+            KEY_Sys_Req: 65301
+            KEY_T: 84
+            KEY_THORN: 222
+            KEY_Tab: 65289
+            KEY_Tabovedot: 16785002
+            KEY_TaskPane: 269025151
+            KEY_Tcaron: 427
+            KEY_Tcedilla: 478
+            KEY_Terminal: 269025152
+            KEY_Terminate_Server: 65237
+            KEY_Thai_baht: 3551
+            KEY_Thai_bobaimai: 3514
+            KEY_Thai_chochan: 3496
+            KEY_Thai_chochang: 3498
+            KEY_Thai_choching: 3497
+            KEY_Thai_chochoe: 3500
+            KEY_Thai_dochada: 3502
+            KEY_Thai_dodek: 3508
+            KEY_Thai_fofa: 3517
+            KEY_Thai_fofan: 3519
+            KEY_Thai_hohip: 3531
+            KEY_Thai_honokhuk: 3534
+            KEY_Thai_khokhai: 3490
+            KEY_Thai_khokhon: 3493
+            KEY_Thai_khokhuat: 3491
+            KEY_Thai_khokhwai: 3492
+            KEY_Thai_khorakhang: 3494
+            KEY_Thai_kokai: 3489
+            KEY_Thai_lakkhangyao: 3557
+            KEY_Thai_lekchet: 3575
+            KEY_Thai_lekha: 3573
+            KEY_Thai_lekhok: 3574
+            KEY_Thai_lekkao: 3577
+            KEY_Thai_leknung: 3569
+            KEY_Thai_lekpaet: 3576
+            KEY_Thai_leksam: 3571
+            KEY_Thai_leksi: 3572
+            KEY_Thai_leksong: 3570
+            KEY_Thai_leksun: 3568
+            KEY_Thai_lochula: 3532
+            KEY_Thai_loling: 3525
+            KEY_Thai_lu: 3526
+            KEY_Thai_maichattawa: 3563
+            KEY_Thai_maiek: 3560
+            KEY_Thai_maihanakat: 3537
+            KEY_Thai_maihanakat_maitho: 3550
+            KEY_Thai_maitaikhu: 3559
+            KEY_Thai_maitho: 3561
+            KEY_Thai_maitri: 3562
+            KEY_Thai_maiyamok: 3558
+            KEY_Thai_moma: 3521
+            KEY_Thai_ngongu: 3495
+            KEY_Thai_nikhahit: 3565
+            KEY_Thai_nonen: 3507
+            KEY_Thai_nonu: 3513
+            KEY_Thai_oang: 3533
+            KEY_Thai_paiyannoi: 3535
+            KEY_Thai_phinthu: 3546
+            KEY_Thai_phophan: 3518
+            KEY_Thai_phophung: 3516
+            KEY_Thai_phosamphao: 3520
+            KEY_Thai_popla: 3515
+            KEY_Thai_rorua: 3523
+            KEY_Thai_ru: 3524
+            KEY_Thai_saraa: 3536
+            KEY_Thai_saraaa: 3538
+            KEY_Thai_saraae: 3553
+            KEY_Thai_saraaimaimalai: 3556
+            KEY_Thai_saraaimaimuan: 3555
+            KEY_Thai_saraam: 3539
+            KEY_Thai_sarae: 3552
+            KEY_Thai_sarai: 3540
+            KEY_Thai_saraii: 3541
+            KEY_Thai_sarao: 3554
+            KEY_Thai_sarau: 3544
+            KEY_Thai_saraue: 3542
+            KEY_Thai_sarauee: 3543
+            KEY_Thai_sarauu: 3545
+            KEY_Thai_sorusi: 3529
+            KEY_Thai_sosala: 3528
+            KEY_Thai_soso: 3499
+            KEY_Thai_sosua: 3530
+            KEY_Thai_thanthakhat: 3564
+            KEY_Thai_thonangmontho: 3505
+            KEY_Thai_thophuthao: 3506
+            KEY_Thai_thothahan: 3511
+            KEY_Thai_thothan: 3504
+            KEY_Thai_thothong: 3512
+            KEY_Thai_thothung: 3510
+            KEY_Thai_topatak: 3503
+            KEY_Thai_totao: 3509
+            KEY_Thai_wowaen: 3527
+            KEY_Thai_yoyak: 3522
+            KEY_Thai_yoying: 3501
+            KEY_Thorn: 222
+            KEY_Time: 269025183
+            KEY_ToDoList: 269025055
+            KEY_Tools: 269025153
+            KEY_TopMenu: 269025186
+            KEY_TouchpadOff: 269025201
+            KEY_TouchpadOn: 269025200
+            KEY_TouchpadToggle: 269025193
+            KEY_Touroku: 65323
+            KEY_Travel: 269025154
+            KEY_Tslash: 940
+            KEY_U: 85
+            KEY_UWB: 269025174
+            KEY_Uacute: 218
+            KEY_Ubelowdot: 16785124
+            KEY_Ubreve: 733
+            KEY_Ucircumflex: 219
+            KEY_Udiaeresis: 220
+            KEY_Udoubleacute: 475
+            KEY_Ugrave: 217
+            KEY_Uhook: 16785126
+            KEY_Uhorn: 16777647
+            KEY_Uhornacute: 16785128
+            KEY_Uhornbelowdot: 16785136
+            KEY_Uhorngrave: 16785130
+            KEY_Uhornhook: 16785132
+            KEY_Uhorntilde: 16785134
+            KEY_Ukrainian_GHE_WITH_UPTURN: 1725
+            KEY_Ukrainian_I: 1718
+            KEY_Ukrainian_IE: 1716
+            KEY_Ukrainian_YI: 1719
+            KEY_Ukrainian_ghe_with_upturn: 1709
+            KEY_Ukrainian_i: 1702
+            KEY_Ukrainian_ie: 1700
+            KEY_Ukrainian_yi: 1703
+            KEY_Ukranian_I: 1718
+            KEY_Ukranian_JE: 1716
+            KEY_Ukranian_YI: 1719
+            KEY_Ukranian_i: 1702
+            KEY_Ukranian_je: 1700
+            KEY_Ukranian_yi: 1703
+            KEY_Umacron: 990
+            KEY_Undo: 65381
+            KEY_Ungrab: 269024800
+            KEY_Uogonek: 985
+            KEY_Up: 65362
+            KEY_Uring: 473
+            KEY_User1KB: 269025157
+            KEY_User2KB: 269025158
+            KEY_UserPB: 269025156
+            KEY_Utilde: 989
+            KEY_V: 86
+            KEY_VendorHome: 269025076
+            KEY_Video: 269025159
+            KEY_View: 269025185
+            KEY_VoidSymbol: 16777215
+            KEY_W: 87
+            KEY_WLAN: 269025173
+            KEY_WWAN: 269025204
+            KEY_WWW: 269025070
+            KEY_Wacute: 16785026
+            KEY_WakeUp: 269025067
+            KEY_Wcircumflex: 16777588
+            KEY_Wdiaeresis: 16785028
+            KEY_WebCam: 269025167
+            KEY_Wgrave: 16785024
+            KEY_WheelButton: 269025160
+            KEY_WindowClear: 269025109
+            KEY_WonSign: 16785577
+            KEY_Word: 269025161
+            KEY_X: 88
+            KEY_Xabovedot: 16785034
+            KEY_Xfer: 269025162
+            KEY_Y: 89
+            KEY_Yacute: 221
+            KEY_Ybelowdot: 16785140
+            KEY_Ycircumflex: 16777590
+            KEY_Ydiaeresis: 5054
+            KEY_Yellow: 269025189
+            KEY_Ygrave: 16785138
+            KEY_Yhook: 16785142
+            KEY_Ytilde: 16785144
+            KEY_Z: 90
+            KEY_Zabovedot: 431
+            KEY_Zacute: 428
+            KEY_Zcaron: 430
+            KEY_Zen_Koho: 65341
+            KEY_Zenkaku: 65320
+            KEY_Zenkaku_Hankaku: 65322
+            KEY_ZoomIn: 269025163
+            KEY_ZoomOut: 269025164
+            KEY_Zstroke: 16777653
+            KEY_a: 97
+            KEY_aacute: 225
+            KEY_abelowdot: 16785057
+            KEY_abovedot: 511
+            KEY_abreve: 483
+            KEY_abreveacute: 16785071
+            KEY_abrevebelowdot: 16785079
+            KEY_abrevegrave: 16785073
+            KEY_abrevehook: 16785075
+            KEY_abrevetilde: 16785077
+            KEY_acircumflex: 226
+            KEY_acircumflexacute: 16785061
+            KEY_acircumflexbelowdot: 16785069
+            KEY_acircumflexgrave: 16785063
+            KEY_acircumflexhook: 16785065
+            KEY_acircumflextilde: 16785067
+            KEY_acute: 180
+            KEY_adiaeresis: 228
+            KEY_ae: 230
+            KEY_agrave: 224
+            KEY_ahook: 16785059
+            KEY_amacron: 992
+            KEY_ampersand: 38
+            KEY_aogonek: 433
+            KEY_apostrophe: 39
+            KEY_approxeq: 16785992
+            KEY_approximate: 2248
+            KEY_aring: 229
+            KEY_asciicircum: 94
+            KEY_asciitilde: 126
+            KEY_asterisk: 42
+            KEY_at: 64
+            KEY_atilde: 227
+            KEY_b: 98
+            KEY_babovedot: 16784899
+            KEY_backslash: 92
+            KEY_ballotcross: 2804
+            KEY_bar: 124
+            KEY_because: 16785973
+            KEY_blank: 2527
+            KEY_botintegral: 2213
+            KEY_botleftparens: 2220
+            KEY_botleftsqbracket: 2216
+            KEY_botleftsummation: 2226
+            KEY_botrightparens: 2222
+            KEY_botrightsqbracket: 2218
+            KEY_botrightsummation: 2230
+            KEY_bott: 2550
+            KEY_botvertsummationconnector: 2228
+            KEY_braceleft: 123
+            KEY_braceright: 125
+            KEY_bracketleft: 91
+            KEY_bracketright: 93
+            KEY_braille_blank: 16787456
+            KEY_braille_dot_1: 65521
+            KEY_braille_dot_10: 65530
+            KEY_braille_dot_2: 65522
+            KEY_braille_dot_3: 65523
+            KEY_braille_dot_4: 65524
+            KEY_braille_dot_5: 65525
+            KEY_braille_dot_6: 65526
+            KEY_braille_dot_7: 65527
+            KEY_braille_dot_8: 65528
+            KEY_braille_dot_9: 65529
+            KEY_braille_dots_1: 16787457
+            KEY_braille_dots_12: 16787459
+            KEY_braille_dots_123: 16787463
+            KEY_braille_dots_1234: 16787471
+            KEY_braille_dots_12345: 16787487
+            KEY_braille_dots_123456: 16787519
+            KEY_braille_dots_1234567: 16787583
+            KEY_braille_dots_12345678: 16787711
+            KEY_braille_dots_1234568: 16787647
+            KEY_braille_dots_123457: 16787551
+            KEY_braille_dots_1234578: 16787679
+            KEY_braille_dots_123458: 16787615
+            KEY_braille_dots_12346: 16787503
+            KEY_braille_dots_123467: 16787567
+            KEY_braille_dots_1234678: 16787695
+            KEY_braille_dots_123468: 16787631
+            KEY_braille_dots_12347: 16787535
+            KEY_braille_dots_123478: 16787663
+            KEY_braille_dots_12348: 16787599
+            KEY_braille_dots_1235: 16787479
+            KEY_braille_dots_12356: 16787511
+            KEY_braille_dots_123567: 16787575
+            KEY_braille_dots_1235678: 16787703
+            KEY_braille_dots_123568: 16787639
+            KEY_braille_dots_12357: 16787543
+            KEY_braille_dots_123578: 16787671
+            KEY_braille_dots_12358: 16787607
+            KEY_braille_dots_1236: 16787495
+            KEY_braille_dots_12367: 16787559
+            KEY_braille_dots_123678: 16787687
+            KEY_braille_dots_12368: 16787623
+            KEY_braille_dots_1237: 16787527
+            KEY_braille_dots_12378: 16787655
+            KEY_braille_dots_1238: 16787591
+            KEY_braille_dots_124: 16787467
+            KEY_braille_dots_1245: 16787483
+            KEY_braille_dots_12456: 16787515
+            KEY_braille_dots_124567: 16787579
+            KEY_braille_dots_1245678: 16787707
+            KEY_braille_dots_124568: 16787643
+            KEY_braille_dots_12457: 16787547
+            KEY_braille_dots_124578: 16787675
+            KEY_braille_dots_12458: 16787611
+            KEY_braille_dots_1246: 16787499
+            KEY_braille_dots_12467: 16787563
+            KEY_braille_dots_124678: 16787691
+            KEY_braille_dots_12468: 16787627
+            KEY_braille_dots_1247: 16787531
+            KEY_braille_dots_12478: 16787659
+            KEY_braille_dots_1248: 16787595
+            KEY_braille_dots_125: 16787475
+            KEY_braille_dots_1256: 16787507
+            KEY_braille_dots_12567: 16787571
+            KEY_braille_dots_125678: 16787699
+            KEY_braille_dots_12568: 16787635
+            KEY_braille_dots_1257: 16787539
+            KEY_braille_dots_12578: 16787667
+            KEY_braille_dots_1258: 16787603
+            KEY_braille_dots_126: 16787491
+            KEY_braille_dots_1267: 16787555
+            KEY_braille_dots_12678: 16787683
+            KEY_braille_dots_1268: 16787619
+            KEY_braille_dots_127: 16787523
+            KEY_braille_dots_1278: 16787651
+            KEY_braille_dots_128: 16787587
+            KEY_braille_dots_13: 16787461
+            KEY_braille_dots_134: 16787469
+            KEY_braille_dots_1345: 16787485
+            KEY_braille_dots_13456: 16787517
+            KEY_braille_dots_134567: 16787581
+            KEY_braille_dots_1345678: 16787709
+            KEY_braille_dots_134568: 16787645
+            KEY_braille_dots_13457: 16787549
+            KEY_braille_dots_134578: 16787677
+            KEY_braille_dots_13458: 16787613
+            KEY_braille_dots_1346: 16787501
+            KEY_braille_dots_13467: 16787565
+            KEY_braille_dots_134678: 16787693
+            KEY_braille_dots_13468: 16787629
+            KEY_braille_dots_1347: 16787533
+            KEY_braille_dots_13478: 16787661
+            KEY_braille_dots_1348: 16787597
+            KEY_braille_dots_135: 16787477
+            KEY_braille_dots_1356: 16787509
+            KEY_braille_dots_13567: 16787573
+            KEY_braille_dots_135678: 16787701
+            KEY_braille_dots_13568: 16787637
+            KEY_braille_dots_1357: 16787541
+            KEY_braille_dots_13578: 16787669
+            KEY_braille_dots_1358: 16787605
+            KEY_braille_dots_136: 16787493
+            KEY_braille_dots_1367: 16787557
+            KEY_braille_dots_13678: 16787685
+            KEY_braille_dots_1368: 16787621
+            KEY_braille_dots_137: 16787525
+            KEY_braille_dots_1378: 16787653
+            KEY_braille_dots_138: 16787589
+            KEY_braille_dots_14: 16787465
+            KEY_braille_dots_145: 16787481
+            KEY_braille_dots_1456: 16787513
+            KEY_braille_dots_14567: 16787577
+            KEY_braille_dots_145678: 16787705
+            KEY_braille_dots_14568: 16787641
+            KEY_braille_dots_1457: 16787545
+            KEY_braille_dots_14578: 16787673
+            KEY_braille_dots_1458: 16787609
+            KEY_braille_dots_146: 16787497
+            KEY_braille_dots_1467: 16787561
+            KEY_braille_dots_14678: 16787689
+            KEY_braille_dots_1468: 16787625
+            KEY_braille_dots_147: 16787529
+            KEY_braille_dots_1478: 16787657
+            KEY_braille_dots_148: 16787593
+            KEY_braille_dots_15: 16787473
+            KEY_braille_dots_156: 16787505
+            KEY_braille_dots_1567: 16787569
+            KEY_braille_dots_15678: 16787697
+            KEY_braille_dots_1568: 16787633
+            KEY_braille_dots_157: 16787537
+            KEY_braille_dots_1578: 16787665
+            KEY_braille_dots_158: 16787601
+            KEY_braille_dots_16: 16787489
+            KEY_braille_dots_167: 16787553
+            KEY_braille_dots_1678: 16787681
+            KEY_braille_dots_168: 16787617
+            KEY_braille_dots_17: 16787521
+            KEY_braille_dots_178: 16787649
+            KEY_braille_dots_18: 16787585
+            KEY_braille_dots_2: 16787458
+            KEY_braille_dots_23: 16787462
+            KEY_braille_dots_234: 16787470
+            KEY_braille_dots_2345: 16787486
+            KEY_braille_dots_23456: 16787518
+            KEY_braille_dots_234567: 16787582
+            KEY_braille_dots_2345678: 16787710
+            KEY_braille_dots_234568: 16787646
+            KEY_braille_dots_23457: 16787550
+            KEY_braille_dots_234578: 16787678
+            KEY_braille_dots_23458: 16787614
+            KEY_braille_dots_2346: 16787502
+            KEY_braille_dots_23467: 16787566
+            KEY_braille_dots_234678: 16787694
+            KEY_braille_dots_23468: 16787630
+            KEY_braille_dots_2347: 16787534
+            KEY_braille_dots_23478: 16787662
+            KEY_braille_dots_2348: 16787598
+            KEY_braille_dots_235: 16787478
+            KEY_braille_dots_2356: 16787510
+            KEY_braille_dots_23567: 16787574
+            KEY_braille_dots_235678: 16787702
+            KEY_braille_dots_23568: 16787638
+            KEY_braille_dots_2357: 16787542
+            KEY_braille_dots_23578: 16787670
+            KEY_braille_dots_2358: 16787606
+            KEY_braille_dots_236: 16787494
+            KEY_braille_dots_2367: 16787558
+            KEY_braille_dots_23678: 16787686
+            KEY_braille_dots_2368: 16787622
+            KEY_braille_dots_237: 16787526
+            KEY_braille_dots_2378: 16787654
+            KEY_braille_dots_238: 16787590
+            KEY_braille_dots_24: 16787466
+            KEY_braille_dots_245: 16787482
+            KEY_braille_dots_2456: 16787514
+            KEY_braille_dots_24567: 16787578
+            KEY_braille_dots_245678: 16787706
+            KEY_braille_dots_24568: 16787642
+            KEY_braille_dots_2457: 16787546
+            KEY_braille_dots_24578: 16787674
+            KEY_braille_dots_2458: 16787610
+            KEY_braille_dots_246: 16787498
+            KEY_braille_dots_2467: 16787562
+            KEY_braille_dots_24678: 16787690
+            KEY_braille_dots_2468: 16787626
+            KEY_braille_dots_247: 16787530
+            KEY_braille_dots_2478: 16787658
+            KEY_braille_dots_248: 16787594
+            KEY_braille_dots_25: 16787474
+            KEY_braille_dots_256: 16787506
+            KEY_braille_dots_2567: 16787570
+            KEY_braille_dots_25678: 16787698
+            KEY_braille_dots_2568: 16787634
+            KEY_braille_dots_257: 16787538
+            KEY_braille_dots_2578: 16787666
+            KEY_braille_dots_258: 16787602
+            KEY_braille_dots_26: 16787490
+            KEY_braille_dots_267: 16787554
+            KEY_braille_dots_2678: 16787682
+            KEY_braille_dots_268: 16787618
+            KEY_braille_dots_27: 16787522
+            KEY_braille_dots_278: 16787650
+            KEY_braille_dots_28: 16787586
+            KEY_braille_dots_3: 16787460
+            KEY_braille_dots_34: 16787468
+            KEY_braille_dots_345: 16787484
+            KEY_braille_dots_3456: 16787516
+            KEY_braille_dots_34567: 16787580
+            KEY_braille_dots_345678: 16787708
+            KEY_braille_dots_34568: 16787644
+            KEY_braille_dots_3457: 16787548
+            KEY_braille_dots_34578: 16787676
+            KEY_braille_dots_3458: 16787612
+            KEY_braille_dots_346: 16787500
+            KEY_braille_dots_3467: 16787564
+            KEY_braille_dots_34678: 16787692
+            KEY_braille_dots_3468: 16787628
+            KEY_braille_dots_347: 16787532
+            KEY_braille_dots_3478: 16787660
+            KEY_braille_dots_348: 16787596
+            KEY_braille_dots_35: 16787476
+            KEY_braille_dots_356: 16787508
+            KEY_braille_dots_3567: 16787572
+            KEY_braille_dots_35678: 16787700
+            KEY_braille_dots_3568: 16787636
+            KEY_braille_dots_357: 16787540
+            KEY_braille_dots_3578: 16787668
+            KEY_braille_dots_358: 16787604
+            KEY_braille_dots_36: 16787492
+            KEY_braille_dots_367: 16787556
+            KEY_braille_dots_3678: 16787684
+            KEY_braille_dots_368: 16787620
+            KEY_braille_dots_37: 16787524
+            KEY_braille_dots_378: 16787652
+            KEY_braille_dots_38: 16787588
+            KEY_braille_dots_4: 16787464
+            KEY_braille_dots_45: 16787480
+            KEY_braille_dots_456: 16787512
+            KEY_braille_dots_4567: 16787576
+            KEY_braille_dots_45678: 16787704
+            KEY_braille_dots_4568: 16787640
+            KEY_braille_dots_457: 16787544
+            KEY_braille_dots_4578: 16787672
+            KEY_braille_dots_458: 16787608
+            KEY_braille_dots_46: 16787496
+            KEY_braille_dots_467: 16787560
+            KEY_braille_dots_4678: 16787688
+            KEY_braille_dots_468: 16787624
+            KEY_braille_dots_47: 16787528
+            KEY_braille_dots_478: 16787656
+            KEY_braille_dots_48: 16787592
+            KEY_braille_dots_5: 16787472
+            KEY_braille_dots_56: 16787504
+            KEY_braille_dots_567: 16787568
+            KEY_braille_dots_5678: 16787696
+            KEY_braille_dots_568: 16787632
+            KEY_braille_dots_57: 16787536
+            KEY_braille_dots_578: 16787664
+            KEY_braille_dots_58: 16787600
+            KEY_braille_dots_6: 16787488
+            KEY_braille_dots_67: 16787552
+            KEY_braille_dots_678: 16787680
+            KEY_braille_dots_68: 16787616
+            KEY_braille_dots_7: 16787520
+            KEY_braille_dots_78: 16787648
+            KEY_braille_dots_8: 16787584
+            KEY_breve: 418
+            KEY_brokenbar: 166
+            KEY_c: 99
+            KEY_c_h: 65187
+            KEY_cabovedot: 741
+            KEY_cacute: 486
+            KEY_careof: 2744
+            KEY_caret: 2812
+            KEY_caron: 439
+            KEY_ccaron: 488
+            KEY_ccedilla: 231
+            KEY_ccircumflex: 742
+            KEY_cedilla: 184
+            KEY_cent: 162
+            KEY_ch: 65184
+            KEY_checkerboard: 2529
+            KEY_checkmark: 2803
+            KEY_circle: 3023
+            KEY_club: 2796
+            KEY_colon: 58
+            KEY_comma: 44
+            KEY_containsas: 16785931
+            KEY_copyright: 169
+            KEY_cr: 2532
+            KEY_crossinglines: 2542
+            KEY_cuberoot: 16785947
+            KEY_currency: 164
+            KEY_cursor: 2815
+            KEY_d: 100
+            KEY_dabovedot: 16784907
+            KEY_dagger: 2801
+            KEY_dcaron: 495
+            KEY_dead_A: 65153
+            KEY_dead_E: 65155
+            KEY_dead_I: 65157
+            KEY_dead_O: 65159
+            KEY_dead_U: 65161
+            KEY_dead_a: 65152
+            KEY_dead_abovecomma: 65124
+            KEY_dead_abovedot: 65110
+            KEY_dead_abovereversedcomma: 65125
+            KEY_dead_abovering: 65112
+            KEY_dead_aboveverticalline: 65169
+            KEY_dead_acute: 65105
+            KEY_dead_belowbreve: 65131
+            KEY_dead_belowcircumflex: 65129
+            KEY_dead_belowcomma: 65134
+            KEY_dead_belowdiaeresis: 65132
+            KEY_dead_belowdot: 65120
+            KEY_dead_belowmacron: 65128
+            KEY_dead_belowring: 65127
+            KEY_dead_belowtilde: 65130
+            KEY_dead_belowverticalline: 65170
+            KEY_dead_breve: 65109
+            KEY_dead_capital_schwa: 65163
+            KEY_dead_caron: 65114
+            KEY_dead_cedilla: 65115
+            KEY_dead_circumflex: 65106
+            KEY_dead_currency: 65135
+            KEY_dead_dasia: 65125
+            KEY_dead_diaeresis: 65111
+            KEY_dead_doubleacute: 65113
+            KEY_dead_doublegrave: 65126
+            KEY_dead_e: 65154
+            KEY_dead_grave: 65104
+            KEY_dead_greek: 65164
+            KEY_dead_hook: 65121
+            KEY_dead_horn: 65122
+            KEY_dead_i: 65156
+            KEY_dead_invertedbreve: 65133
+            KEY_dead_iota: 65117
+            KEY_dead_longsolidusoverlay: 65171
+            KEY_dead_lowline: 65168
+            KEY_dead_macron: 65108
+            KEY_dead_o: 65158
+            KEY_dead_ogonek: 65116
+            KEY_dead_perispomeni: 65107
+            KEY_dead_psili: 65124
+            KEY_dead_semivoiced_sound: 65119
+            KEY_dead_small_schwa: 65162
+            KEY_dead_stroke: 65123
+            KEY_dead_tilde: 65107
+            KEY_dead_u: 65160
+            KEY_dead_voiced_sound: 65118
+            KEY_decimalpoint: 2749
+            KEY_degree: 176
+            KEY_diaeresis: 168
+            KEY_diamond: 2797
+            KEY_digitspace: 2725
+            KEY_dintegral: 16785964
+            KEY_division: 247
+            KEY_dollar: 36
+            KEY_doubbaselinedot: 2735
+            KEY_doubleacute: 445
+            KEY_doubledagger: 2802
+            KEY_doublelowquotemark: 2814
+            KEY_downarrow: 2302
+            KEY_downcaret: 2984
+            KEY_downshoe: 3030
+            KEY_downstile: 3012
+            KEY_downtack: 3010
+            KEY_dstroke: 496
+            KEY_e: 101
+            KEY_eabovedot: 1004
+            KEY_eacute: 233
+            KEY_ebelowdot: 16785081
+            KEY_ecaron: 492
+            KEY_ecircumflex: 234
+            KEY_ecircumflexacute: 16785087
+            KEY_ecircumflexbelowdot: 16785095
+            KEY_ecircumflexgrave: 16785089
+            KEY_ecircumflexhook: 16785091
+            KEY_ecircumflextilde: 16785093
+            KEY_ediaeresis: 235
+            KEY_egrave: 232
+            KEY_ehook: 16785083
+            KEY_eightsubscript: 16785544
+            KEY_eightsuperior: 16785528
+            KEY_elementof: 16785928
+            KEY_ellipsis: 2734
+            KEY_em3space: 2723
+            KEY_em4space: 2724
+            KEY_emacron: 954
+            KEY_emdash: 2729
+            KEY_emfilledcircle: 2782
+            KEY_emfilledrect: 2783
+            KEY_emopencircle: 2766
+            KEY_emopenrectangle: 2767
+            KEY_emptyset: 16785925
+            KEY_emspace: 2721
+            KEY_endash: 2730
+            KEY_enfilledcircbullet: 2790
+            KEY_enfilledsqbullet: 2791
+            KEY_eng: 959
+            KEY_enopencircbullet: 2784
+            KEY_enopensquarebullet: 2785
+            KEY_enspace: 2722
+            KEY_eogonek: 490
+            KEY_equal: 61
+            KEY_eth: 240
+            KEY_etilde: 16785085
+            KEY_exclam: 33
+            KEY_exclamdown: 161
+            KEY_ezh: 16777874
+            KEY_f: 102
+            KEY_fabovedot: 16784927
+            KEY_femalesymbol: 2808
+            KEY_ff: 2531
+            KEY_figdash: 2747
+            KEY_filledlefttribullet: 2780
+            KEY_filledrectbullet: 2779
+            KEY_filledrighttribullet: 2781
+            KEY_filledtribulletdown: 2793
+            KEY_filledtribulletup: 2792
+            KEY_fiveeighths: 2757
+            KEY_fivesixths: 2743
+            KEY_fivesubscript: 16785541
+            KEY_fivesuperior: 16785525
+            KEY_fourfifths: 2741
+            KEY_foursubscript: 16785540
+            KEY_foursuperior: 16785524
+            KEY_fourthroot: 16785948
+            KEY_function: 2294
+            KEY_g: 103
+            KEY_gabovedot: 757
+            KEY_gbreve: 699
+            KEY_gcaron: 16777703
+            KEY_gcedilla: 955
+            KEY_gcircumflex: 760
+            KEY_grave: 96
+            KEY_greater: 62
+            KEY_greaterthanequal: 2238
+            KEY_guillemotleft: 171
+            KEY_guillemotright: 187
+            KEY_h: 104
+            KEY_hairspace: 2728
+            KEY_hcircumflex: 694
+            KEY_heart: 2798
+            KEY_hebrew_aleph: 3296
+            KEY_hebrew_ayin: 3314
+            KEY_hebrew_bet: 3297
+            KEY_hebrew_beth: 3297
+            KEY_hebrew_chet: 3303
+            KEY_hebrew_dalet: 3299
+            KEY_hebrew_daleth: 3299
+            KEY_hebrew_doublelowline: 3295
+            KEY_hebrew_finalkaph: 3306
+            KEY_hebrew_finalmem: 3309
+            KEY_hebrew_finalnun: 3311
+            KEY_hebrew_finalpe: 3315
+            KEY_hebrew_finalzade: 3317
+            KEY_hebrew_finalzadi: 3317
+            KEY_hebrew_gimel: 3298
+            KEY_hebrew_gimmel: 3298
+            KEY_hebrew_he: 3300
+            KEY_hebrew_het: 3303
+            KEY_hebrew_kaph: 3307
+            KEY_hebrew_kuf: 3319
+            KEY_hebrew_lamed: 3308
+            KEY_hebrew_mem: 3310
+            KEY_hebrew_nun: 3312
+            KEY_hebrew_pe: 3316
+            KEY_hebrew_qoph: 3319
+            KEY_hebrew_resh: 3320
+            KEY_hebrew_samech: 3313
+            KEY_hebrew_samekh: 3313
+            KEY_hebrew_shin: 3321
+            KEY_hebrew_taf: 3322
+            KEY_hebrew_taw: 3322
+            KEY_hebrew_tet: 3304
+            KEY_hebrew_teth: 3304
+            KEY_hebrew_waw: 3301
+            KEY_hebrew_yod: 3305
+            KEY_hebrew_zade: 3318
+            KEY_hebrew_zadi: 3318
+            KEY_hebrew_zain: 3302
+            KEY_hebrew_zayin: 3302
+            KEY_hexagram: 2778
+            KEY_horizconnector: 2211
+            KEY_horizlinescan1: 2543
+            KEY_horizlinescan3: 2544
+            KEY_horizlinescan5: 2545
+            KEY_horizlinescan7: 2546
+            KEY_horizlinescan9: 2547
+            KEY_hstroke: 689
+            KEY_ht: 2530
+            KEY_hyphen: 173
+            KEY_i: 105
+            KEY_iTouch: 269025120
+            KEY_iacute: 237
+            KEY_ibelowdot: 16785099
+            KEY_ibreve: 16777517
+            KEY_icircumflex: 238
+            KEY_identical: 2255
+            KEY_idiaeresis: 239
+            KEY_idotless: 697
+            KEY_ifonlyif: 2253
+            KEY_igrave: 236
+            KEY_ihook: 16785097
+            KEY_imacron: 1007
+            KEY_implies: 2254
+            KEY_includedin: 2266
+            KEY_includes: 2267
+            KEY_infinity: 2242
+            KEY_integral: 2239
+            KEY_intersection: 2268
+            KEY_iogonek: 999
+            KEY_itilde: 949
+            KEY_j: 106
+            KEY_jcircumflex: 700
+            KEY_jot: 3018
+            KEY_k: 107
+            KEY_kana_A: 1201
+            KEY_kana_CHI: 1217
+            KEY_kana_E: 1204
+            KEY_kana_FU: 1228
+            KEY_kana_HA: 1226
+            KEY_kana_HE: 1229
+            KEY_kana_HI: 1227
+            KEY_kana_HO: 1230
+            KEY_kana_HU: 1228
+            KEY_kana_I: 1202
+            KEY_kana_KA: 1206
+            KEY_kana_KE: 1209
+            KEY_kana_KI: 1207
+            KEY_kana_KO: 1210
+            KEY_kana_KU: 1208
+            KEY_kana_MA: 1231
+            KEY_kana_ME: 1234
+            KEY_kana_MI: 1232
+            KEY_kana_MO: 1235
+            KEY_kana_MU: 1233
+            KEY_kana_N: 1245
+            KEY_kana_NA: 1221
+            KEY_kana_NE: 1224
+            KEY_kana_NI: 1222
+            KEY_kana_NO: 1225
+            KEY_kana_NU: 1223
+            KEY_kana_O: 1205
+            KEY_kana_RA: 1239
+            KEY_kana_RE: 1242
+            KEY_kana_RI: 1240
+            KEY_kana_RO: 1243
+            KEY_kana_RU: 1241
+            KEY_kana_SA: 1211
+            KEY_kana_SE: 1214
+            KEY_kana_SHI: 1212
+            KEY_kana_SO: 1215
+            KEY_kana_SU: 1213
+            KEY_kana_TA: 1216
+            KEY_kana_TE: 1219
+            KEY_kana_TI: 1217
+            KEY_kana_TO: 1220
+            KEY_kana_TSU: 1218
+            KEY_kana_TU: 1218
+            KEY_kana_U: 1203
+            KEY_kana_WA: 1244
+            KEY_kana_WO: 1190
+            KEY_kana_YA: 1236
+            KEY_kana_YO: 1238
+            KEY_kana_YU: 1237
+            KEY_kana_a: 1191
+            KEY_kana_closingbracket: 1187
+            KEY_kana_comma: 1188
+            KEY_kana_conjunctive: 1189
+            KEY_kana_e: 1194
+            KEY_kana_fullstop: 1185
+            KEY_kana_i: 1192
+            KEY_kana_middledot: 1189
+            KEY_kana_o: 1195
+            KEY_kana_openingbracket: 1186
+            KEY_kana_switch: 65406
+            KEY_kana_tsu: 1199
+            KEY_kana_tu: 1199
+            KEY_kana_u: 1193
+            KEY_kana_ya: 1196
+            KEY_kana_yo: 1198
+            KEY_kana_yu: 1197
+            KEY_kappa: 930
+            KEY_kcedilla: 1011
+            KEY_kra: 930
+            KEY_l: 108
+            KEY_lacute: 485
+            KEY_latincross: 2777
+            KEY_lbelowdot: 16784951
+            KEY_lcaron: 437
+            KEY_lcedilla: 950
+            KEY_leftanglebracket: 2748
+            KEY_leftarrow: 2299
+            KEY_leftcaret: 2979
+            KEY_leftdoublequotemark: 2770
+            KEY_leftmiddlecurlybrace: 2223
+            KEY_leftopentriangle: 2764
+            KEY_leftpointer: 2794
+            KEY_leftradical: 2209
+            KEY_leftshoe: 3034
+            KEY_leftsinglequotemark: 2768
+            KEY_leftt: 2548
+            KEY_lefttack: 3036
+            KEY_less: 60
+            KEY_lessthanequal: 2236
+            KEY_lf: 2533
+            KEY_logicaland: 2270
+            KEY_logicalor: 2271
+            KEY_lowleftcorner: 2541
+            KEY_lowrightcorner: 2538
+            KEY_lstroke: 435
+            KEY_m: 109
+            KEY_mabovedot: 16784961
+            KEY_macron: 175
+            KEY_malesymbol: 2807
+            KEY_maltesecross: 2800
+            KEY_marker: 2751
+            KEY_masculine: 186
+            KEY_minus: 45
+            KEY_minutes: 2774
+            KEY_mu: 181
+            KEY_multiply: 215
+            KEY_musicalflat: 2806
+            KEY_musicalsharp: 2805
+            KEY_n: 110
+            KEY_nabla: 2245
+            KEY_nacute: 497
+            KEY_ncaron: 498
+            KEY_ncedilla: 1009
+            KEY_ninesubscript: 16785545
+            KEY_ninesuperior: 16785529
+            KEY_nl: 2536
+            KEY_nobreakspace: 160
+            KEY_notapproxeq: 16785991
+            KEY_notelementof: 16785929
+            KEY_notequal: 2237
+            KEY_notidentical: 16786018
+            KEY_notsign: 172
+            KEY_ntilde: 241
+            KEY_numbersign: 35
+            KEY_numerosign: 1712
+            KEY_o: 111
+            KEY_oacute: 243
+            KEY_obarred: 16777845
+            KEY_obelowdot: 16785101
+            KEY_ocaron: 16777682
+            KEY_ocircumflex: 244
+            KEY_ocircumflexacute: 16785105
+            KEY_ocircumflexbelowdot: 16785113
+            KEY_ocircumflexgrave: 16785107
+            KEY_ocircumflexhook: 16785109
+            KEY_ocircumflextilde: 16785111
+            KEY_odiaeresis: 246
+            KEY_odoubleacute: 501
+            KEY_oe: 5053
+            KEY_ogonek: 434
+            KEY_ograve: 242
+            KEY_ohook: 16785103
+            KEY_ohorn: 16777633
+            KEY_ohornacute: 16785115
+            KEY_ohornbelowdot: 16785123
+            KEY_ohorngrave: 16785117
+            KEY_ohornhook: 16785119
+            KEY_ohorntilde: 16785121
+            KEY_omacron: 1010
+            KEY_oneeighth: 2755
+            KEY_onefifth: 2738
+            KEY_onehalf: 189
+            KEY_onequarter: 188
+            KEY_onesixth: 2742
+            KEY_onesubscript: 16785537
+            KEY_onesuperior: 185
+            KEY_onethird: 2736
+            KEY_ooblique: 248
+            KEY_openrectbullet: 2786
+            KEY_openstar: 2789
+            KEY_opentribulletdown: 2788
+            KEY_opentribulletup: 2787
+            KEY_ordfeminine: 170
+            KEY_oslash: 248
+            KEY_otilde: 245
+            KEY_overbar: 3008
+            KEY_overline: 1150
+            KEY_p: 112
+            KEY_pabovedot: 16784983
+            KEY_paragraph: 182
+            KEY_parenleft: 40
+            KEY_parenright: 41
+            KEY_partdifferential: 16785922
+            KEY_partialderivative: 2287
+            KEY_percent: 37
+            KEY_period: 46
+            KEY_periodcentered: 183
+            KEY_permille: 2773
+            KEY_phonographcopyright: 2811
+            KEY_plus: 43
+            KEY_plusminus: 177
+            KEY_prescription: 2772
+            KEY_prolongedsound: 1200
+            KEY_punctspace: 2726
+            KEY_q: 113
+            KEY_quad: 3020
+            KEY_question: 63
+            KEY_questiondown: 191
+            KEY_quotedbl: 34
+            KEY_quoteleft: 96
+            KEY_quoteright: 39
+            KEY_r: 114
+            KEY_racute: 480
+            KEY_radical: 2262
+            KEY_rcaron: 504
+            KEY_rcedilla: 947
+            KEY_registered: 174
+            KEY_rightanglebracket: 2750
+            KEY_rightarrow: 2301
+            KEY_rightcaret: 2982
+            KEY_rightdoublequotemark: 2771
+            KEY_rightmiddlecurlybrace: 2224
+            KEY_rightmiddlesummation: 2231
+            KEY_rightopentriangle: 2765
+            KEY_rightpointer: 2795
+            KEY_rightshoe: 3032
+            KEY_rightsinglequotemark: 2769
+            KEY_rightt: 2549
+            KEY_righttack: 3068
+            KEY_s: 115
+            KEY_sabovedot: 16784993
+            KEY_sacute: 438
+            KEY_scaron: 441
+            KEY_scedilla: 442
+            KEY_schwa: 16777817
+            KEY_scircumflex: 766
+            KEY_script_switch: 65406
+            KEY_seconds: 2775
+            KEY_section: 167
+            KEY_semicolon: 59
+            KEY_semivoicedsound: 1247
+            KEY_seveneighths: 2758
+            KEY_sevensubscript: 16785543
+            KEY_sevensuperior: 16785527
+            KEY_signaturemark: 2762
+            KEY_signifblank: 2732
+            KEY_similarequal: 2249
+            KEY_singlelowquotemark: 2813
+            KEY_sixsubscript: 16785542
+            KEY_sixsuperior: 16785526
+            KEY_slash: 47
+            KEY_soliddiamond: 2528
+            KEY_space: 32
+            KEY_squareroot: 16785946
+            KEY_ssharp: 223
+            KEY_sterling: 163
+            KEY_stricteq: 16786019
+            KEY_t: 116
+            KEY_tabovedot: 16785003
+            KEY_tcaron: 443
+            KEY_tcedilla: 510
+            KEY_telephone: 2809
+            KEY_telephonerecorder: 2810
+            KEY_therefore: 2240
+            KEY_thinspace: 2727
+            KEY_thorn: 254
+            KEY_threeeighths: 2756
+            KEY_threefifths: 2740
+            KEY_threequarters: 190
+            KEY_threesubscript: 16785539
+            KEY_threesuperior: 179
+            KEY_tintegral: 16785965
+            KEY_topintegral: 2212
+            KEY_topleftparens: 2219
+            KEY_topleftradical: 2210
+            KEY_topleftsqbracket: 2215
+            KEY_topleftsummation: 2225
+            KEY_toprightparens: 2221
+            KEY_toprightsqbracket: 2217
+            KEY_toprightsummation: 2229
+            KEY_topt: 2551
+            KEY_topvertsummationconnector: 2227
+            KEY_trademark: 2761
+            KEY_trademarkincircle: 2763
+            KEY_tslash: 956
+            KEY_twofifths: 2739
+            KEY_twosubscript: 16785538
+            KEY_twosuperior: 178
+            KEY_twothirds: 2737
+            KEY_u: 117
+            KEY_uacute: 250
+            KEY_ubelowdot: 16785125
+            KEY_ubreve: 765
+            KEY_ucircumflex: 251
+            KEY_udiaeresis: 252
+            KEY_udoubleacute: 507
+            KEY_ugrave: 249
+            KEY_uhook: 16785127
+            KEY_uhorn: 16777648
+            KEY_uhornacute: 16785129
+            KEY_uhornbelowdot: 16785137
+            KEY_uhorngrave: 16785131
+            KEY_uhornhook: 16785133
+            KEY_uhorntilde: 16785135
+            KEY_umacron: 1022
+            KEY_underbar: 3014
+            KEY_underscore: 95
+            KEY_union: 2269
+            KEY_uogonek: 1017
+            KEY_uparrow: 2300
+            KEY_upcaret: 2985
+            KEY_upleftcorner: 2540
+            KEY_uprightcorner: 2539
+            KEY_upshoe: 3011
+            KEY_upstile: 3027
+            KEY_uptack: 3022
+            KEY_uring: 505
+            KEY_utilde: 1021
+            KEY_v: 118
+            KEY_variation: 2241
+            KEY_vertbar: 2552
+            KEY_vertconnector: 2214
+            KEY_voicedsound: 1246
+            KEY_vt: 2537
+            KEY_w: 119
+            KEY_wacute: 16785027
+            KEY_wcircumflex: 16777589
+            KEY_wdiaeresis: 16785029
+            KEY_wgrave: 16785025
+            KEY_x: 120
+            KEY_xabovedot: 16785035
+            KEY_y: 121
+            KEY_yacute: 253
+            KEY_ybelowdot: 16785141
+            KEY_ycircumflex: 16777591
+            KEY_ydiaeresis: 255
+            KEY_yen: 165
+            KEY_ygrave: 16785139
+            KEY_yhook: 16785143
+            KEY_ytilde: 16785145
+            KEY_z: 122
+            KEY_zabovedot: 447
+            KEY_zacute: 444
+            KEY_zcaron: 446
+            KEY_zerosubscript: 16785536
+            KEY_zerosuperior: 16785520
+            KEY_zstroke: 16777654
+            MAJOR_VERSION: 3
+            MAX_TIMECOORD_AXES: 128
+            MICRO_VERSION: 52
+            MINOR_VERSION: 24
+            PARENT_RELATIVE: 1
+            PRIORITY_REDRAW: 120
+            /**
+             * Appends gdk option entries to the passed in option group. This is
+             * not public API and must not be used by applications.
+             * @deprecated since 3.16 This symbol was never meant to be used outside   of GTK+
+             * @param group An option group.
+             */
+            add_option_entries_libgtk_only(group: GLib.OptionGroup): void
+            /**
+             * Finds or creates an atom corresponding to a given string.
+             * @param atom_name a string.
+             * @param only_if_exists if %TRUE, GDK is allowed to not create a new atom, but
+              just return %GDK_NONE if the requested atom doesn’t already
+              exists. Currently, the flag is ignored, since checking the
+              existance of an atom is as expensive as creating it.
+             * @returns the atom corresponding to `atom_name`.
+             */
+            atom_intern(atom_name: string, only_if_exists: boolean): Atom
+            /**
+             * Finds or creates an atom corresponding to a given string.
+             *
+             * Note that this function is identical to gdk_atom_intern() except
+             * that if a new #GdkAtom is created the string itself is used rather
+             * than a copy. This saves memory, but can only be used if the string
+             * will always exist. It can be used with statically
+             * allocated strings in the main program, but not with statically
+             * allocated memory in dynamically loaded modules, if you expect to
+             * ever unload the module again (e.g. do not use this function in
+             * GTK+ theme engines).
+             * @since 2.10
+             * @param atom_name a static string
+             * @returns the atom corresponding to `atom_name`
+             */
+            atom_intern_static_string(atom_name: string): Atom
+            /**
+             * Emits a short beep on the default display.
+             */
+            beep(): void
+            /**
+             * Creates a Cairo context for drawing to @window.
+             *
+             * Note that calling cairo_reset_clip() on the resulting #cairo_t will
+             * produce undefined results, so avoid it at all costs.
+             *
+             * Typically, this function is used to draw on a #GdkWindow out of the paint
+             * cycle of the toolkit; this should be avoided, as it breaks various assumptions
+             * and optimizations.
+             *
+             * If you are drawing on a native #GdkWindow in response to a %GDK_EXPOSE event
+             * you should use gdk_window_begin_draw_frame() and gdk_drawing_context_get_cairo_context()
+             * instead. GTK will automatically do this for you when drawing a widget.
+             * @since 2.8
+             * @deprecated since 3.22 Use gdk_window_begin_draw_frame() and   gdk_drawing_context_get_cairo_context() instead
+             * @param window a #GdkWindow
+             * @returns A newly created Cairo context. Free with  cairo_destroy() when you are done drawing.
+             */
+            cairo_create(window: Window): cairo.Context
+            /**
+             * This is the main way to draw GL content in GTK+. It takes a render buffer ID
+             * (@source_type == #GL_RENDERBUFFER) or a texture id (@source_type == #GL_TEXTURE)
+             * and draws it onto @cr with an OVER operation, respecting the current clip.
+             * The top left corner of the rectangle specified by @x, @y, @width and @height
+             * will be drawn at the current (0,0) position of the cairo_t.
+             *
+             * This will work for *all* cairo_t, as long as @window is realized, but the
+             * fallback implementation that reads back the pixels from the buffer may be
+             * used in the general case. In the case of direct drawing to a window with
+             * no special effects applied to @cr it will however use a more efficient
+             * approach.
+             *
+             * For #GL_RENDERBUFFER the code will always fall back to software for buffers
+             * with alpha components, so make sure you use #GL_TEXTURE if using alpha.
+             *
+             * Calling this may change the current GL context.
+             * @since 3.16
+             * @param cr a cairo context
+             * @param window The window we're rendering for (not necessarily into)
+             * @param source The GL ID of the source buffer
+             * @param source_type The type of the @source
+             * @param buffer_scale The scale-factor that the @source buffer is allocated for
+             * @param x The source x position in @source to start copying from in GL coordinates
+             * @param y The source y position in @source to start copying from in GL coordinates
+             * @param width The width of the region to draw
+             * @param height The height of the region to draw
+             */
+            cairo_draw_from_gl(cr: cairo.Context, window: Window, source: number, source_type: number, buffer_scale: number, x: number, y: number, width: number, height: number): void
+            /**
+             * This is a convenience function around cairo_clip_extents().
+             * It rounds the clip extents to integer coordinates and returns
+             * a boolean indicating if a clip area exists.
+             * @param cr a cairo context
+             * @returns %TRUE if a clip rectangle exists, %FALSE if all of `cr` is     clipped and all drawing can be skipped, return location for the clip, or %NULL
+             */
+            cairo_get_clip_rectangle(cr: cairo.Context): [boolean, Rectangle]
+            /**
+             * Retrieves the #GdkDrawingContext that created the Cairo
+             * context @cr.
+             * @since 3.22
+             * @param cr a Cairo context
+             * @returns a #GdkDrawingContext, if any is set
+             */
+            cairo_get_drawing_context(cr: cairo.Context): DrawingContext | null
+            /**
+             * Adds the given rectangle to the current path of @cr.
+             * @since 2.8
+             * @param cr a cairo context
+             * @param rectangle a #GdkRectangle
+             */
+            cairo_rectangle(cr: cairo.Context, rectangle: Rectangle): void
+            /**
+             * Adds the given region to the current path of @cr.
+             * @since 2.8
+             * @param cr a cairo context
+             * @param region a #cairo_region_t
+             */
+            cairo_region(cr: cairo.Context, region: cairo.Region): void
+            /**
+             * Creates region that describes covers the area where the given
+             * @surface is more than 50% opaque.
+             *
+             * This function takes into account device offsets that might be
+             * set with cairo_surface_set_device_offset().
+             * @param surface a cairo surface
+             * @returns A #cairo_region_t; must be freed with cairo_region_destroy()
+             */
+            cairo_region_create_from_surface(surface: cairo.Surface): cairo.Region
+            /**
+             * Sets the specified #GdkColor as the source color of @cr.
+             * @since 2.8
+             * @deprecated since 3.4 Use gdk_cairo_set_source_rgba() instead
+             * @param cr a cairo context
+             * @param color a #GdkColor
+             */
+            cairo_set_source_color(cr: cairo.Context, color: Color): void
+            /**
+             * Sets the given pixbuf as the source pattern for @cr.
+             *
+             * The pattern has an extend mode of %CAIRO_EXTEND_NONE and is aligned
+             * so that the origin of @pixbuf is @pixbuf_x, @pixbuf_y.
+             * @since 2.8
+             * @param cr a cairo context
+             * @param pixbuf a #GdkPixbuf
+             * @param pixbuf_x X coordinate of location to place upper left corner of @pixbuf
+             * @param pixbuf_y Y coordinate of location to place upper left corner of @pixbuf
+             */
+            cairo_set_source_pixbuf(cr: cairo.Context, pixbuf: GdkPixbuf.Pixbuf, pixbuf_x: number, pixbuf_y: number): void
+            /**
+             * Sets the specified #GdkRGBA as the source color of @cr.
+             * @since 3.0
+             * @param cr a cairo context
+             * @param rgba a #GdkRGBA
+             */
+            cairo_set_source_rgba(cr: cairo.Context, rgba: RGBA): void
+            /**
+             * Sets the given window as the source pattern for @cr.
+             *
+             * The pattern has an extend mode of %CAIRO_EXTEND_NONE and is aligned
+             * so that the origin of @window is @x, @y. The window contains all its
+             * subwindows when rendering.
+             *
+             * Note that the contents of @window are undefined outside of the
+             * visible part of @window, so use this function with care.
+             * @since 2.24
+             * @param cr a cairo context
+             * @param window a #GdkWindow
+             * @param x X coordinate of location to place upper left corner of @window
+             * @param y Y coordinate of location to place upper left corner of @window
+             */
+            cairo_set_source_window(cr: cairo.Context, window: Window, x: number, y: number): void
+            /**
+             * Creates an image surface with the same contents as
+             * the pixbuf.
+             * @since 3.10
+             * @param pixbuf a #GdkPixbuf
+             * @param scale the scale of the new surface, or 0 to use same as @window
+             * @param for_window The window this will be drawn to, or %NULL
+             * @returns a new cairo surface, must be freed with cairo_surface_destroy()
+             */
+            cairo_surface_create_from_pixbuf(pixbuf: GdkPixbuf.Pixbuf, scale: number, for_window: Window | null): cairo.Surface
+            /**
+             * Parses a textual specification of a color and fill in the
+             * @red, @green, and @blue fields of a #GdkColor.
+             *
+             * The string can either one of a large set of standard names
+             * (taken from the X11 `rgb.txt` file), or it can be a hexadecimal
+             * value in the form “\#rgb” “\#rrggbb”, “\#rrrgggbbb” or
+             * “\#rrrrggggbbbb” where “r”, “g” and “b” are hex digits of
+             * the red, green, and blue components of the color, respectively.
+             * (White in the four forms is “\#fff”, “\#ffffff”, “\#fffffffff”
+             * and “\#ffffffffffff”).
+             * @deprecated since 3.14 Use #GdkRGBA
+             * @param spec the string specifying the color
+             * @returns %TRUE if the parsing succeeded, the #GdkColor to fill in
+             */
+            color_parse(spec: string): [boolean, Color]
+            /**
+             * Disables multidevice support in GDK. This call must happen prior
+             * to gdk_display_open(), gtk_init(), gtk_init_with_args() or
+             * gtk_init_check() in order to take effect.
+             *
+             * Most common GTK+ applications won’t ever need to call this. Only
+             * applications that do mixed GDK/Xlib calls could want to disable
+             * multidevice support if such Xlib code deals with input devices in
+             * any way and doesn’t observe the presence of XInput 2.
+             * @since 3.0
+             */
+            disable_multidevice(): void
+            /**
+             * Aborts a drag without dropping.
+             *
+             * This function is called by the drag source.
+             *
+             * This function does not need to be called in managed drag and drop
+             * operations. See gdk_drag_context_manage_dnd() for more information.
+             * @param context a #GdkDragContext
+             * @param time_ the timestamp for this operation
+             */
+            drag_abort(context: DragContext, time_: number): void
+            /**
+             * Starts a drag and creates a new drag context for it.
+             * This function assumes that the drag is controlled by the
+             * client pointer device, use gdk_drag_begin_for_device() to
+             * begin a drag with a different device.
+             *
+             * This function is called by the drag source.
+             * @param window the source window for this drag.
+             * @param targets the offered targets,
+                as list of #GdkAtoms
+             * @returns a newly created #GdkDragContext
+             */
+            drag_begin(window: Window, targets: Atom[]): DragContext
+            /**
+             * Starts a drag and creates a new drag context for it.
+             *
+             * This function is called by the drag source.
+             * @param window the source window for this drag
+             * @param device the device that controls this drag
+             * @param targets the offered targets,
+                as list of #GdkAtoms
+             * @returns a newly created #GdkDragContext
+             */
+            drag_begin_for_device(window: Window, device: Device, targets: Atom[]): DragContext
+            /**
+             * Starts a drag and creates a new drag context for it.
+             *
+             * This function is called by the drag source.
+             * @since 3.20
+             * @param window the source window for this drag
+             * @param device the device that controls this drag
+             * @param targets the offered targets,
+                as list of #GdkAtoms
+             * @param x_root the x coordinate where the drag nominally started
+             * @param y_root the y coordinate where the drag nominally started
+             * @returns a newly created #GdkDragContext
+             */
+            drag_begin_from_point(window: Window, device: Device, targets: Atom[], x_root: number, y_root: number): DragContext
+            /**
+             * Drops on the current destination.
+             *
+             * This function is called by the drag source.
+             *
+             * This function does not need to be called in managed drag and drop
+             * operations. See gdk_drag_context_manage_dnd() for more information.
+             * @param context a #GdkDragContext
+             * @param time_ the timestamp for this operation
+             */
+            drag_drop(context: DragContext, time_: number): void
+            /**
+             * Inform GDK if the drop ended successfully. Passing %FALSE
+             * for @success may trigger a drag cancellation animation.
+             *
+             * This function is called by the drag source, and should
+             * be the last call before dropping the reference to the
+             * @context.
+             *
+             * The #GdkDragContext will only take the first gdk_drag_drop_done()
+             * call as effective, if this function is called multiple times,
+             * all subsequent calls will be ignored.
+             * @since 3.20
+             * @param context a #GdkDragContext
+             * @param success whether the drag was ultimatively successful
+             */
+            drag_drop_done(context: DragContext, success: boolean): void
+            /**
+             * Returns whether the dropped data has been successfully
+             * transferred. This function is intended to be used while
+             * handling a %GDK_DROP_FINISHED event, its return value is
+             * meaningless at other times.
+             * @since 2.6
+             * @param context a #GdkDragContext
+             * @returns %TRUE if the drop was successful.
+             */
+            drag_drop_succeeded(context: DragContext): boolean
+            /**
+             * Finds the destination window and DND protocol to use at the
+             * given pointer position.
+             *
+             * This function is called by the drag source to obtain the
+             * @dest_window and @protocol parameters for gdk_drag_motion().
+             * @since 2.2
+             * @param context a #GdkDragContext
+             * @param drag_window a window which may be at the pointer position, but
+                should be ignored, since it is put up by the drag source as an icon
+             * @param screen the screen where the destination window is sought
+             * @param x_root the x position of the pointer in root coordinates
+             * @param y_root the y position of the pointer in root coordinates
+             * @returns , location to store the destination window in, location to store the DND protocol in
+             */
+            drag_find_window_for_screen(context: DragContext, drag_window: Window, screen: Screen, x_root: number, y_root: number): [Window, DragProtocol]
+            /**
+             * Returns the selection atom for the current source window.
+             * @param context a #GdkDragContext.
+             * @returns the selection atom, or %GDK_NONE
+             */
+            drag_get_selection(context: DragContext): Atom
+            /**
+             * Updates the drag context when the pointer moves or the
+             * set of actions changes.
+             *
+             * This function is called by the drag source.
+             *
+             * This function does not need to be called in managed drag and drop
+             * operations. See gdk_drag_context_manage_dnd() for more information.
+             * @param context a #GdkDragContext
+             * @param dest_window the new destination window, obtained by
+                gdk_drag_find_window()
+             * @param protocol the DND protocol in use, obtained by gdk_drag_find_window()
+             * @param x_root the x position of the pointer in root coordinates
+             * @param y_root the y position of the pointer in root coordinates
+             * @param suggested_action the suggested action
+             * @param possible_actions the possible actions
+             * @param time_ the timestamp for this operation
+             */
+            drag_motion(context: DragContext, dest_window: Window, protocol: DragProtocol, x_root: number, y_root: number, suggested_action: DragAction, possible_actions: DragAction, time_: number): boolean
+            /**
+             * Selects one of the actions offered by the drag source.
+             *
+             * This function is called by the drag destination in response to
+             * gdk_drag_motion() called by the drag source.
+             * @param context a #GdkDragContext
+             * @param action the selected action which will be taken when a drop happens,
+               or 0 to indicate that a drop will not be accepted
+             * @param time_ the timestamp for this operation
+             */
+            drag_status(context: DragContext, action: DragAction, time_: number): void
+            /**
+             * Ends the drag operation after a drop.
+             *
+             * This function is called by the drag destination.
+             * @param context a #GdkDragContext
+             * @param success %TRUE if the data was successfully received
+             * @param time_ the timestamp for this operation
+             */
+            drop_finish(context: DragContext, success: boolean, time_: number): void
+            /**
+             * Accepts or rejects a drop.
+             *
+             * This function is called by the drag destination in response
+             * to a drop initiated by the drag source.
+             * @param context a #GdkDragContext
+             * @param accepted %TRUE if the drop is accepted
+             * @param time_ the timestamp for this operation
+             */
+            drop_reply(context: DragContext, accepted: boolean, time_: number): void
+            /**
+             * Removes an error trap pushed with gdk_error_trap_push().
+             * May block until an error has been definitively received
+             * or not received from the X server. gdk_error_trap_pop_ignored()
+             * is preferred if you don’t need to know whether an error
+             * occurred, because it never has to block. If you don't
+             * need the return value of gdk_error_trap_pop(), use
+             * gdk_error_trap_pop_ignored().
+             *
+             * Prior to GDK 3.0, this function would not automatically
+             * sync for you, so you had to gdk_flush() if your last
+             * call to Xlib was not a blocking round trip.
+             * @returns X error code or 0 on success
+             */
+            error_trap_pop(): number
+            /**
+             * Removes an error trap pushed with gdk_error_trap_push(), but
+             * without bothering to wait and see whether an error occurred.  If an
+             * error arrives later asynchronously that was triggered while the
+             * trap was pushed, that error will be ignored.
+             * @since 3.0
+             */
+            error_trap_pop_ignored(): void
+            /**
+             * This function allows X errors to be trapped instead of the normal
+             * behavior of exiting the application. It should only be used if it
+             * is not possible to avoid the X error in any other way. Errors are
+             * ignored on all #GdkDisplay currently known to the
+             * #GdkDisplayManager. If you don’t care which error happens and just
+             * want to ignore everything, pop with gdk_error_trap_pop_ignored().
+             * If you need the error code, use gdk_error_trap_pop() which may have
+             * to block and wait for the error to arrive from the X server.
+             *
+             * This API exists on all platforms but only does anything on X.
+             *
+             * You can use gdk_x11_display_error_trap_push() to ignore errors
+             * on only a single display.
+             *
+             * ## Trapping an X error
+             *
+             * |[<!-- language="C" -->
+             * gdk_error_trap_push ();
+             *
+             *  // ... Call the X function which may cause an error here ...
+             *
+             *
+             * if (gdk_error_trap_pop ())
+             *  {
+             *    // ... Handle the error here ...
+             *  }
+             * ]|
+             */
+            error_trap_push(): void
+            /**
+             * Checks all open displays for a #GdkEvent to process,to be processed
+             * on, fetching events from the windowing system if necessary.
+             * See gdk_display_get_event().
+             * @returns the next #GdkEvent to be processed, or %NULL if no events are pending. The returned #GdkEvent should be freed with gdk_event_free().
+             */
+            event_get(): Event | null
+            /**
+             * Sets the function to call to handle all events from GDK.
+             *
+             * Note that GTK+ uses this to install its own event handler, so it is
+             * usually not useful for GTK+ applications. (Although an application
+             * can call this function then call gtk_main_do_event() to pass
+             * events to GTK+.)
+             * @param func the function to call to handle events from GDK.
+             */
+            event_handler_set(func: EventFunc): void
+            /**
+             * If there is an event waiting in the event queue of some open
+             * display, returns a copy of it. See gdk_display_peek_event().
+             * @returns a copy of the first #GdkEvent on some event queue, or %NULL if no events are in any queues. The returned #GdkEvent should be freed with gdk_event_free().
+             */
+            event_peek(): Event | null
+            /**
+             * Request more motion notifies if @event is a motion notify hint event.
+             *
+             * This function should be used instead of gdk_window_get_pointer() to
+             * request further motion notifies, because it also works for extension
+             * events where motion notifies are provided for devices other than the
+             * core pointer. Coordinate extraction, processing and requesting more
+             * motion events from a %GDK_MOTION_NOTIFY event usually works like this:
+             *
+             * |[<!-- language="C" -->
+             * {
+             *   // motion_event handler
+             *   x = motion_event->x;
+             *   y = motion_event->y;
+             *   // handle (x,y) motion
+             *   gdk_event_request_motions (motion_event); // handles is_hint events
+             * }
+             * ]|
+             * @since 2.12
+             * @param event a valid #GdkEvent
+             */
+            event_request_motions(event: EventMotion): void
+            /**
+             * If both events contain X/Y information, this function will return %TRUE
+             * and return in @angle the relative angle from @event1 to @event2. The rotation
+             * direction for positive angles is from the positive X axis towards the positive
+             * Y axis.
+             * @since 3.0
+             * @param event1 first #GdkEvent
+             * @param event2 second #GdkEvent
+             * @returns %TRUE if the angle could be calculated., return location for the relative angle between both events
+             */
+            events_get_angle(event1: Event, event2: Event): [boolean, number]
+            /**
+             * If both events contain X/Y information, the center of both coordinates
+             * will be returned in @x and @y.
+             * @since 3.0
+             * @param event1 first #GdkEvent
+             * @param event2 second #GdkEvent
+             * @returns %TRUE if the center could be calculated., return location for the X coordinate of the center, return location for the Y coordinate of the center
+             */
+            events_get_center(event1: Event, event2: Event): [boolean, number, number]
+            /**
+             * If both events have X/Y information, the distance between both coordinates
+             * (as in a straight line going from @event1 to @event2) will be returned.
+             * @since 3.0
+             * @param event1 first #GdkEvent
+             * @param event2 second #GdkEvent
+             * @returns %TRUE if the distance could be calculated., return location for the distance
+             */
+            events_get_distance(event1: Event, event2: Event): [boolean, number]
+            /**
+             * Checks if any events are ready to be processed for any display.
+             * @returns %TRUE if any events are pending.
+             */
+            events_pending(): boolean
+            /**
+             * Flushes the output buffers of all display connections and waits
+             * until all requests have been processed.
+             * This is rarely needed by applications.
+             */
+            flush(): void
+            /**
+             * Obtains the root window (parent all other windows are inside)
+             * for the default display and screen.
+             * @returns the default root window
+             */
+            get_default_root_window(): Window
+            /**
+             * Gets the name of the display, which usually comes from the
+             * `DISPLAY` environment variable or the
+             * `--display` command line option.
+             * @deprecated since 3.8 Call gdk_display_get_name (gdk_display_get_default ()))    instead.
+             * @returns the name of the display.
+             */
+            get_display(): string
+            /**
+             * Gets the display name specified in the command line arguments passed
+             * to gdk_init() or gdk_parse_args(), if any.
+             * @since 2.2
+             * @returns the display name, if specified explicitly,   otherwise %NULL this string is owned by GTK+ and must not be   modified or freed.
+             */
+            get_display_arg_name(): string | null
+            /**
+             * Gets the program class. Unless the program class has explicitly
+             * been set with gdk_set_program_class() or with the `--class`
+             * commandline option, the default value is the program name (determined
+             * with g_get_prgname()) with the first character converted to uppercase.
+             * @returns the program class.
+             */
+            get_program_class(): string
+            /**
+             * Gets whether event debugging output is enabled.
+             * @returns %TRUE if event debugging output is enabled.
+             */
+            get_show_events(): boolean
+            /**
+             */
+            gl_error_quark(): GLib.Quark
+            /**
+             * Initializes the GDK library and connects to the windowing system.
+             * If initialization fails, a warning message is output and the application
+             * terminates with a call to `exit(1)`.
+             *
+             * Any arguments used by GDK are removed from the array and @argc and @argv
+             * are updated accordingly.
+             *
+             * GTK+ initializes GDK in gtk_init() and so this function is not usually
+             * needed by GTK+ applications.
+             * @returns , the array of command line arguments.
+             */
+            init(): string[]
+            /**
+             * Initializes the GDK library and connects to the windowing system,
+             * returning %TRUE on success.
+             *
+             * Any arguments used by GDK are removed from the array and @argc and @argv
+             * are updated accordingly.
+             *
+             * GTK+ initializes GDK in gtk_init() and so this function is not usually
+             * needed by GTK+ applications.
+             * @returns %TRUE if initialization succeeded., the array of command line arguments.
+             */
+            init_check(): [boolean, string[]]
+            /**
+             * Grabs the keyboard so that all events are passed to this
+             * application until the keyboard is ungrabbed with gdk_keyboard_ungrab().
+             * This overrides any previous keyboard grab by this client.
+             *
+             * If you set up anything at the time you take the grab that needs to be cleaned
+             * up when the grab ends, you should handle the #GdkEventGrabBroken events that
+             * are emitted when the grab ends unvoluntarily.
+             * @deprecated since 3.0 Use gdk_device_grab() instead.
+             * @param window the #GdkWindow which will own the grab (the grab window).
+             * @param owner_events if %FALSE then all keyboard events are reported with respect to
+              @window. If %TRUE then keyboard events for this application are
+              reported as normal, but keyboard events outside this application
+              are reported with respect to @window. Both key press and key
+              release events are always reported, independant of the event mask
+              set by the application.
+             * @param time_ a timestamp from a #GdkEvent, or %GDK_CURRENT_TIME if no timestamp is
+              available.
+             * @returns %GDK_GRAB_SUCCESS if the grab was successful.
+             */
+            keyboard_grab(window: Window, owner_events: boolean, time_: number): GrabStatus
+            /**
+             * Ungrabs the keyboard on the default display, if it is grabbed by this
+             * application.
+             * @deprecated since 3.0 Use gdk_device_ungrab(), together with gdk_device_grab()             instead.
+             * @param time_ a timestamp from a #GdkEvent, or %GDK_CURRENT_TIME if no
+                   timestamp is available.
+             */
+            keyboard_ungrab(time_: number): void
+            /**
+             * Obtains the upper- and lower-case versions of the keyval @symbol.
+             * Examples of keyvals are #GDK_KEY_a, #GDK_KEY_Enter, #GDK_KEY_F1, etc.
+             * @param symbol a keyval
+             * @returns , return location for lowercase version of `symbol`, return location for uppercase version of `symbol`
+             */
+            keyval_convert_case(symbol: number): [number, number]
+            /**
+             * Converts a key name to a key value.
+             *
+             * The names are the same as those in the
+             * `gdk/gdkkeysyms.h` header file
+             * but without the leading “GDK_KEY_”.
+             * @param keyval_name a key name
+             * @returns the corresponding key value, or %GDK_KEY_VoidSymbol     if the key name is not a valid key
+             */
+            keyval_from_name(keyval_name: string): number
+            /**
+             * Returns %TRUE if the given key value is in lower case.
+             * @param keyval a key value.
+             * @returns %TRUE if `keyval` is in lower case, or if `keyval` is not   subject to case conversion.
+             */
+            keyval_is_lower(keyval: number): boolean
+            /**
+             * Returns %TRUE if the given key value is in upper case.
+             * @param keyval a key value.
+             * @returns %TRUE if `keyval` is in upper case, or if `keyval` is not subject to  case conversion.
+             */
+            keyval_is_upper(keyval: number): boolean
+            /**
+             * Converts a key value into a symbolic name.
+             *
+             * The names are the same as those in the
+             * `gdk/gdkkeysyms.h` header file
+             * but without the leading “GDK_KEY_”.
+             * @param keyval a key value
+             * @returns a string containing the name     of the key, or %NULL if `keyval` is not a valid key. The string     should not be modified.
+             */
+            keyval_name(keyval: number): string | null
+            /**
+             * Converts a key value to lower case, if applicable.
+             * @param keyval a key value.
+             * @returns the lower case form of `keyval`, or `keyval` itself if it is already  in lower case or it is not subject to case conversion.
+             */
+            keyval_to_lower(keyval: number): number
+            /**
+             * Convert from a GDK key symbol to the corresponding ISO10646 (Unicode)
+             * character.
+             * @param keyval a GDK key symbol
+             * @returns the corresponding unicode character, or 0 if there               is no corresponding character.
+             */
+            keyval_to_unicode(keyval: number): number
+            /**
+             * Converts a key value to upper case, if applicable.
+             * @param keyval a key value.
+             * @returns the upper case form of `keyval`, or `keyval` itself if it is already   in upper case or it is not subject to case conversion.
+             */
+            keyval_to_upper(keyval: number): number
+            /**
+             * Lists the available visuals for the default screen.
+             * (See gdk_screen_list_visuals())
+             * A visual describes a hardware image data format.
+             * For example, a visual might support 24-bit color, or 8-bit color,
+             * and might expect pixels to be in a certain format.
+             *
+             * Call g_list_free() on the return value when you’re finished with it.
+             * @deprecated since 3.22 Use gdk_screen_list_visuals (gdk_screen_get_default ()).
+             * @returns      a list of visuals; the list must be freed, but not its contents
+             */
+            list_visuals(): Visual[]
+            /**
+             * Indicates to the GUI environment that the application has finished
+             * loading. If the applications opens windows, this function is
+             * normally called after opening the application’s initial set of
+             * windows.
+             *
+             * GTK+ will call this function automatically after opening the first
+             * #GtkWindow unless gtk_window_set_auto_startup_notification() is called
+             * to disable that feature.
+             * @since 2.2
+             */
+            notify_startup_complete(): void
+            /**
+             * Indicates to the GUI environment that the application has
+             * finished loading, using a given identifier.
+             *
+             * GTK+ will call this function automatically for #GtkWindow
+             * with custom startup-notification identifier unless
+             * gtk_window_set_auto_startup_notification() is called to
+             * disable that feature.
+             * @since 2.12
+             * @param startup_id a startup-notification identifier, for which
+                notification process should be completed
+             */
+            notify_startup_complete_with_id(startup_id: string): void
+            /**
+             * Gets the window that @window is embedded in.
+             * @since 2.18
+             * @param window a #GdkWindow
+             * @returns the embedding #GdkWindow, or     %NULL if `window` is not an mbedded offscreen window
+             */
+            offscreen_window_get_embedder(window: Window): Window | null
+            /**
+             * Gets the offscreen surface that an offscreen window renders into.
+             * If you need to keep this around over window resizes, you need to
+             * add a reference to it.
+             * @param window a #GdkWindow
+             * @returns The offscreen surface, or   %NULL if not offscreen
+             */
+            offscreen_window_get_surface(window: Window): cairo.Surface | null
+            /**
+             * Sets @window to be embedded in @embedder.
+             *
+             * To fully embed an offscreen window, in addition to calling this
+             * function, it is also necessary to handle the #GdkWindow::pick-embedded-child
+             * signal on the @embedder and the #GdkWindow::to-embedder and
+             * #GdkWindow::from-embedder signals on @window.
+             * @since 2.18
+             * @param window a #GdkWindow
+             * @param embedder the #GdkWindow that @window gets embedded in
+             */
+            offscreen_window_set_embedder(window: Window, embedder: Window): void
+            /**
+             * Creates a #PangoContext for the default GDK screen.
+             *
+             * The context must be freed when you’re finished with it.
+             *
+             * When using GTK+, normally you should use gtk_widget_get_pango_context()
+             * instead of this function, to get the appropriate context for
+             * the widget you intend to render text onto.
+             *
+             * The newly created context will have the default font options (see
+             * #cairo_font_options_t) for the default screen; if these options
+             * change it will not be updated. Using gtk_widget_get_pango_context()
+             * is more convenient if you want to keep a context around and track
+             * changes to the screen’s font rendering settings.
+             * @returns a new #PangoContext for the default display
+             */
+            pango_context_get(): Pango.Context
+            /**
+             * Creates a #PangoContext for @display.
+             *
+             * The context must be freed when you’re finished with it.
+             *
+             * When using GTK+, normally you should use gtk_widget_get_pango_context()
+             * instead of this function, to get the appropriate context for
+             * the widget you intend to render text onto.
+             *
+             * The newly created context will have the default font options
+             * (see #cairo_font_options_t) for the display; if these options
+             * change it will not be updated. Using gtk_widget_get_pango_context()
+             * is more convenient if you want to keep a context around and track
+             * changes to the font rendering settings.
+             * @since 3.22
+             * @param display the #GdkDisplay for which the context is to be created
+             * @returns a new #PangoContext for `display`
+             */
+            pango_context_get_for_display(display: Display): Pango.Context
+            /**
+             * Creates a #PangoContext for @screen.
+             *
+             * The context must be freed when you’re finished with it.
+             *
+             * When using GTK+, normally you should use gtk_widget_get_pango_context()
+             * instead of this function, to get the appropriate context for
+             * the widget you intend to render text onto.
+             *
+             * The newly created context will have the default font options
+             * (see #cairo_font_options_t) for the screen; if these options
+             * change it will not be updated. Using gtk_widget_get_pango_context()
+             * is more convenient if you want to keep a context around and track
+             * changes to the screen’s font rendering settings.
+             * @since 2.2
+             * @param screen the #GdkScreen for which the context is to be created.
+             * @returns a new #PangoContext for `screen`
+             */
+            pango_context_get_for_screen(screen: Screen): Pango.Context
+            /**
+             * Parse command line arguments, and store for future
+             * use by calls to gdk_display_open().
+             *
+             * Any arguments used by GDK are removed from the array and @argc and @argv are
+             * updated accordingly.
+             *
+             * You shouldn’t call this function explicitly if you are using
+             * gtk_init(), gtk_init_check(), gdk_init(), or gdk_init_check().
+             * @since 2.2
+             * @returns , the array of command line arguments.
+             */
+            parse_args(): string[]
+            /**
+             * Transfers image data from a #cairo_surface_t and converts it to an RGB(A)
+             * representation inside a #GdkPixbuf. This allows you to efficiently read
+             * individual pixels from cairo surfaces. For #GdkWindows, use
+             * gdk_pixbuf_get_from_window() instead.
+             *
+             * This function will create an RGB pixbuf with 8 bits per channel.
+             * The pixbuf will contain an alpha channel if the @surface contains one.
+             * @param surface surface to copy from
+             * @param src_x Source X coordinate within @surface
+             * @param src_y Source Y coordinate within @surface
+             * @param width Width in pixels of region to get
+             * @param height Height in pixels of region to get
+             * @returns A newly-created pixbuf with a     reference count of 1, or %NULL on error
+             */
+            pixbuf_get_from_surface(surface: cairo.Surface, src_x: number, src_y: number, width: number, height: number): GdkPixbuf.Pixbuf | null
+            /**
+             * Transfers image data from a #GdkWindow and converts it to an RGB(A)
+             * representation inside a #GdkPixbuf.
+             *
+             * In other words, copies image data from a server-side drawable to a
+             * client-side RGB(A) buffer. This allows you to efficiently read
+             * individual pixels on the client side.
+             *
+             * This function will create an RGB pixbuf with 8 bits per channel with
+             * the size specified by the @width and @height arguments scaled by the
+             * scale factor of @window. The pixbuf will contain an alpha channel if
+             * the @window contains one.
+             *
+             * If the window is off the screen, then there is no image data in the
+             * obscured/offscreen regions to be placed in the pixbuf. The contents of
+             * portions of the pixbuf corresponding to the offscreen region are
+             * undefined.
+             *
+             * If the window you’re obtaining data from is partially obscured by
+             * other windows, then the contents of the pixbuf areas corresponding
+             * to the obscured regions are undefined.
+             *
+             * If the window is not mapped (typically because it’s iconified/minimized
+             * or not on the current workspace), then %NULL will be returned.
+             *
+             * If memory can’t be allocated for the return value, %NULL will be returned
+             * instead.
+             *
+             * In short, there are several ways this function can fail, and if it fails
+             * it returns %NULL; so check the return value.
+             *
+             * You should rarely, if ever, need to call this function.
+             * @param window Source window
+             * @param src_x Source X coordinate within @window
+             * @param src_y Source Y coordinate within @window
+             * @param width Width in pixels of region to get
+             * @param height Height in pixels of region to get
+             * @returns A newly-created pixbuf with a   reference count of 1, or %NULL on error
+             */
+            pixbuf_get_from_window(window: Window, src_x: number, src_y: number, width: number, height: number): GdkPixbuf.Pixbuf | null
+            /**
+             * Grabs the pointer (usually a mouse) so that all events are passed to this
+             * application until the pointer is ungrabbed with gdk_pointer_ungrab(), or
+             * the grab window becomes unviewable.
+             * This overrides any previous pointer grab by this client.
+             *
+             * Pointer grabs are used for operations which need complete control over mouse
+             * events, even if the mouse leaves the application.
+             * For example in GTK+ it is used for Drag and Drop, for dragging the handle in
+             * the #GtkHPaned and #GtkVPaned widgets.
+             *
+             * Note that if the event mask of an X window has selected both button press and
+             * button release events, then a button press event will cause an automatic
+             * pointer grab until the button is released.
+             * X does this automatically since most applications expect to receive button
+             * press and release events in pairs.
+             * It is equivalent to a pointer grab on the window with @owner_events set to
+             * %TRUE.
+             *
+             * If you set up anything at the time you take the grab that needs to be cleaned
+             * up when the grab ends, you should handle the #GdkEventGrabBroken events that
+             * are emitted when the grab ends unvoluntarily.
+             * @deprecated since 3.0 Use gdk_device_grab() instead.
+             * @param window the #GdkWindow which will own the grab (the grab window).
+             * @param owner_events if %FALSE then all pointer events are reported with respect to
+                           @window and are only reported if selected by @event_mask. If %TRUE then pointer
+                           events for this application are reported as normal, but pointer events outside
+                           this application are reported with respect to @window and only if selected by
+                           @event_mask. In either mode, unreported events are discarded.
+             * @param event_mask specifies the event mask, which is used in accordance with
+                         @owner_events. Note that only pointer events (i.e. button and motion events)
+                         may be selected.
+             * @param confine_to If non-%NULL, the pointer will be confined to this
+                         window during the grab. If the pointer is outside @confine_to, it will
+                         automatically be moved to the closest edge of @confine_to and enter
+                         and leave events will be generated as necessary.
+             * @param cursor the cursor to display while the grab is active. If this is %NULL then
+                     the normal cursors are used for @window and its descendants, and the cursor
+                     for @window is used for all other windows.
+             * @param time_ the timestamp of the event which led to this pointer grab. This usually
+                    comes from a #GdkEventButton struct, though %GDK_CURRENT_TIME can be used if
+                    the time isn’t known.
+             * @returns %GDK_GRAB_SUCCESS if the grab was successful.
+             */
+            pointer_grab(window: Window, owner_events: boolean, event_mask: EventMask, confine_to: Window | null, cursor: Cursor | null, time_: number): GrabStatus
+            /**
+             * Returns %TRUE if the pointer on the default display is currently
+             * grabbed by this application.
+             *
+             * Note that this does not take the inmplicit pointer grab on button
+             * presses into account.
+             * @deprecated since 3.0 Use gdk_display_device_is_grabbed() instead.
+             * @returns %TRUE if the pointer is currently grabbed by this application.
+             */
+            pointer_is_grabbed(): boolean
+            /**
+             * Ungrabs the pointer on the default display, if it is grabbed by this
+             * application.
+             * @deprecated since 3.0 Use gdk_device_ungrab(), together with gdk_device_grab()             instead.
+             * @param time_ a timestamp from a #GdkEvent, or %GDK_CURRENT_TIME if no
+             timestamp is available.
+             */
+            pointer_ungrab(time_: number): void
+            /**
+             * Prepare for parsing command line arguments for GDK. This is not
+             * public API and should not be used in application code.
+             * @deprecated since 3.16 This symbol was never meant to be used outside   of GTK+
+             */
+            pre_parse_libgtk_only(): void
+            /**
+             * Deletes a property from a window.
+             * @param window a #GdkWindow
+             * @param property the property to delete
+             */
+            property_delete(window: Window, property: Atom): void
+            /**
+             * Retrieves a portion of the contents of a property. If the
+             * property does not exist, then the function returns %FALSE,
+             * and %GDK_NONE will be stored in @actual_property_type.
+             *
+             * The XGetWindowProperty() function that gdk_property_get()
+             * uses has a very confusing and complicated set of semantics.
+             * Unfortunately, gdk_property_get() makes the situation
+             * worse instead of better (the semantics should be considered
+             * undefined), and also prints warnings to stderr in cases where it
+             * should return a useful error to the program. You are advised to use
+             * XGetWindowProperty() directly until a replacement function for
+             * gdk_property_get() is provided.
+             * @param window a #GdkWindow
+             * @param property the property to retrieve
+             * @param type the desired property type, or %GDK_NONE, if any type of data
+              is acceptable. If this does not match the actual
+              type, then @actual_format and @actual_length will
+              be filled in, a warning will be printed to stderr
+              and no data will be returned.
+             * @param offset the offset into the property at which to begin
+              retrieving data, in 4 byte units.
+             * @param length the length of the data to retrieve in bytes.  Data is
+              considered to be retrieved in 4 byte chunks, so @length
+              will be rounded up to the next highest 4 byte boundary
+              (so be careful not to pass a value that might overflow
+              when rounded up).
+             * @param pdelete if %TRUE, delete the property after retrieving the
+              data.
+             * @returns %TRUE if data was successfully received and stored   in `data`, otherwise %FALSE., location to store the   actual type of the property., location to store the actual return format of the   data; either 8, 16 or 32 bits., location   to store a pointer to the data. The retrieved data should be   freed with g_free() when you are finished using it.
+             */
+            property_get(window: Window, property: Atom, type: Atom, offset: number, length: number, pdelete: number): [boolean, Atom, number, Uint8Array]
+            /**
+             * This function returns the available bit depths for the default
+             * screen. It’s equivalent to listing the visuals
+             * (gdk_list_visuals()) and then looking at the depth field in each
+             * visual, removing duplicates.
+             *
+             * The array returned by this function should not be freed.
+             * @deprecated since 3.22 Visual selection should be done using     gdk_screen_get_system_visual() and gdk_screen_get_rgba_visual()
+             * @returns , return     location for available depths
+             */
+            query_depths(): number[]
+            /**
+             * This function returns the available visual types for the default
+             * screen. It’s equivalent to listing the visuals
+             * (gdk_list_visuals()) and then looking at the type field in each
+             * visual, removing duplicates.
+             *
+             * The array returned by this function should not be freed.
+             * @deprecated since 3.22 Visual selection should be done using     gdk_screen_get_system_visual() and gdk_screen_get_rgba_visual()
+             * @returns , return     location for the available visual types
+             */
+            query_visual_types(): VisualType[]
+            /**
+             * Retrieves the contents of a selection in a given
+             * form.
+             * @param requestor a #GdkWindow.
+             * @param selection an atom identifying the selection to get the
+              contents of.
+             * @param target the form in which to retrieve the selection.
+             * @param time_ the timestamp to use when retrieving the
+              selection. The selection owner may refuse the
+              request if it did not own the selection at
+              the time indicated by the timestamp.
+             */
+            selection_convert(requestor: Window, selection: Atom, target: Atom, time_: number): void
+            /**
+             * Determines the owner of the given selection.
+             * @param selection an atom indentifying a selection.
+             * @returns if there is a selection owner   for this window, and it is a window known to the current process,   the #GdkWindow that owns the selection, otherwise %NULL. Note   that the return value may be owned by a different process if a   foreign window was previously created for that window, but a new   foreign window will never be created by this call.
+             */
+            selection_owner_get(selection: Atom): Window | null
+            /**
+             * Determine the owner of the given selection.
+             *
+             * Note that the return value may be owned by a different
+             * process if a foreign window was previously created for that
+             * window, but a new foreign window will never be created by this call.
+             * @since 2.2
+             * @param display a #GdkDisplay
+             * @param selection an atom indentifying a selection
+             * @returns if there is a selection owner    for this window, and it is a window known to the current    process, the #GdkWindow that owns the selection, otherwise    %NULL.
+             */
+            selection_owner_get_for_display(display: Display, selection: Atom): Window | null
+            /**
+             * Sets the owner of the given selection.
+             * @param owner a #GdkWindow or %NULL to indicate that the
+              the owner for the given should be unset.
+             * @param selection an atom identifying a selection.
+             * @param time_ timestamp to use when setting the selection.
+              If this is older than the timestamp given last
+              time the owner was set for the given selection, the
+              request will be ignored.
+             * @param send_event if %TRUE, and the new owner is different
+              from the current owner, the current owner
+              will be sent a SelectionClear event.
+             * @returns %TRUE if the selection owner was successfully   changed to `owner`, otherwise %FALSE.
+             */
+            selection_owner_set(owner: Window | null, selection: Atom, time_: number, send_event: boolean): boolean
+            /**
+             * Sets the #GdkWindow @owner as the current owner of the selection @selection.
+             * @since 2.2
+             * @param display the #GdkDisplay
+             * @param owner a #GdkWindow or %NULL to indicate that the owner for
+                    the given should be unset
+             * @param selection an atom identifying a selection
+             * @param time_ timestamp to use when setting the selection
+                    If this is older than the timestamp given last time the owner was
+                    set for the given selection, the request will be ignored
+             * @param send_event if %TRUE, and the new owner is different from the current
+                         owner, the current owner will be sent a SelectionClear event
+             * @returns %TRUE if the selection owner was successfully changed to owner,    otherwise %FALSE.
+             */
+            selection_owner_set_for_display(display: Display, owner: Window | null, selection: Atom, time_: number, send_event: boolean): boolean
+            /**
+             * Sends a response to SelectionRequest event.
+             * @param requestor window to which to deliver response.
+             * @param selection selection that was requested.
+             * @param target target that was selected.
+             * @param property property in which the selection owner stored the
+              data, or %GDK_NONE to indicate that the request
+              was rejected.
+             * @param time_ timestamp.
+             */
+            selection_send_notify(requestor: Window, selection: Atom, target: Atom, property: Atom, time_: number): void
+            /**
+             * Send a response to SelectionRequest event.
+             * @since 2.2
+             * @param display the #GdkDisplay where @requestor is realized
+             * @param requestor window to which to deliver response
+             * @param selection selection that was requested
+             * @param target target that was selected
+             * @param property property in which the selection owner stored the data,
+                       or %GDK_NONE to indicate that the request was rejected
+             * @param time_ timestamp
+             */
+            selection_send_notify_for_display(display: Display, requestor: Window, selection: Atom, target: Atom, property: Atom, time_: number): void
+            /**
+             * Sets a list of backends that GDK should try to use.
+             *
+             * This can be be useful if your application does not
+             * work with certain GDK backends.
+             *
+             * By default, GDK tries all included backends.
+             *
+             * For example,
+             * |[<!-- language="C" -->
+             * gdk_set_allowed_backends ("wayland,quartz,*");
+             * ]|
+             * instructs GDK to try the Wayland backend first,
+             * followed by the Quartz backend, and then all
+             * others.
+             *
+             * If the `GDK_BACKEND` environment variable
+             * is set, it determines what backends are tried in what
+             * order, while still respecting the set of allowed backends
+             * that are specified by this function.
+             *
+             * The possible backend names are x11, win32, quartz,
+             * broadway, wayland. You can also include a * in the
+             * list to try all remaining backends.
+             *
+             * This call must happen prior to gdk_display_open(),
+             * gtk_init(), gtk_init_with_args() or gtk_init_check()
+             * in order to take effect.
+             * @since 3.10
+             * @param backends a comma-separated list of backends
+             */
+            set_allowed_backends(backends: string): void
+            /**
+             * Set the double click time for the default display. See
+             * gdk_display_set_double_click_time().
+             * See also gdk_display_set_double_click_distance().
+             * Applications should not set this, it is a
+             * global user-configured setting.
+             * @param msec double click time in milliseconds (thousandths of a second)
+             */
+            set_double_click_time(msec: number): void
+            /**
+             * Sets the program class. The X11 backend uses the program class to set
+             * the class name part of the `WM_CLASS` property on
+             * toplevel windows; see the ICCCM.
+             *
+             * The program class can still be overridden with the --class command
+             * line option.
+             * @param program_class a string.
+             */
+            set_program_class(program_class: string): void
+            /**
+             * Sets whether a trace of received events is output.
+             * Note that GTK+ must be compiled with debugging (that is,
+             * configured using the `--enable-debug` option)
+             * to use this option.
+             * @param show_events %TRUE to output event debugging information.
+             */
+            set_show_events(show_events: boolean): void
+            /**
+             * Obtains a desktop-wide setting, such as the double-click time,
+             * for the default screen. See gdk_screen_get_setting().
+             * @param name the name of the setting.
+             * @param value location to store the value of the setting.
+             * @returns %TRUE if the setting existed and a value was stored   in `value`, %FALSE otherwise.
+             */
+            setting_get(name: string, value: (GObject.Value | unknown)): boolean
+            /**
+             * @param window
+             * @param unset_flags
+             * @param set_flags
+             */
+            synthesize_window_state(window: Window, unset_flags: WindowState, set_flags: WindowState): void
+            /**
+             * Retrieves a pixel from @window to force the windowing
+             * system to carry out any pending rendering commands.
+             *
+             * This function is intended to be used to synchronize with rendering
+             * pipelines, to benchmark windowing system rendering operations.
+             * @since 2.14
+             * @param window a mapped #GdkWindow
+             */
+            test_render_sync(window: Window): void
+            /**
+             * This function is intended to be used in GTK+ test programs.
+             * It will warp the mouse pointer to the given (@x,@y) coordinates
+             * within @window and simulate a button press or release event.
+             * Because the mouse pointer needs to be warped to the target
+             * location, use of this function outside of test programs that
+             * run in their own virtual windowing system (e.g. Xvfb) is not
+             * recommended.
+             *
+             * Also, gdk_test_simulate_button() is a fairly low level function,
+             * for most testing purposes, gtk_test_widget_click() is the right
+             * function to call which will generate a button press event followed
+             * by its accompanying button release event.
+             * @since 2.14
+             * @param window a #GdkWindow to simulate a button event for
+             * @param x x coordinate within @window for the button event
+             * @param y y coordinate within @window for the button event
+             * @param button Number of the pointer button for the event, usually 1, 2 or 3
+             * @param modifiers Keyboard modifiers the event is setup with
+             * @param button_pressrelease either %GDK_BUTTON_PRESS or %GDK_BUTTON_RELEASE
+             * @returns whether all actions necessary for a button event simulation     were carried out successfully
+             */
+            test_simulate_button(window: Window, x: number, y: number, button: number, modifiers: ModifierType, button_pressrelease: EventType): boolean
+            /**
+             * This function is intended to be used in GTK+ test programs.
+             * If (@x,@y) are > (-1,-1), it will warp the mouse pointer to
+             * the given (@x,@y) coordinates within @window and simulate a
+             * key press or release event.
+             *
+             * When the mouse pointer is warped to the target location, use
+             * of this function outside of test programs that run in their
+             * own virtual windowing system (e.g. Xvfb) is not recommended.
+             * If (@x,@y) are passed as (-1,-1), the mouse pointer will not
+             * be warped and @window origin will be used as mouse pointer
+             * location for the event.
+             *
+             * Also, gdk_test_simulate_key() is a fairly low level function,
+             * for most testing purposes, gtk_test_widget_send_key() is the
+             * right function to call which will generate a key press event
+             * followed by its accompanying key release event.
+             * @since 2.14
+             * @param window a #GdkWindow to simulate a key event for
+             * @param x x coordinate within @window for the key event
+             * @param y y coordinate within @window for the key event
+             * @param keyval A GDK keyboard value
+             * @param modifiers Keyboard modifiers the event is setup with
+             * @param key_pressrelease either %GDK_KEY_PRESS or %GDK_KEY_RELEASE
+             * @returns whether all actions necessary for a key event simulation     were carried out successfully
+             */
+            test_simulate_key(window: Window, x: number, y: number, keyval: number, modifiers: ModifierType, key_pressrelease: EventType): boolean
+            /**
+             * Converts a text property in the given encoding to
+             * a list of UTF-8 strings.
+             * @since 2.2
+             * @param display a #GdkDisplay
+             * @param encoding an atom representing the encoding of the text
+             * @param format the format of the property
+             * @param text the text to convert
+             * @returns the number of strings in the resulting list, location to store the list            of strings or %NULL. The list should be freed with            g_strfreev().
+             */
+            text_property_to_utf8_list_for_display(display: Display, encoding: Atom, format: number, text: Uint8Array): [number, string[]]
+            /**
+             * Adds a function to be called whenever there are no higher priority
+             * events pending.  If the function returns %FALSE it is automatically
+             * removed from the list of event sources and will not be called again.
+             *
+             * This variant of g_idle_add_full() calls @function with the GDK lock
+             * held. It can be thought of a MT-safe version for GTK+ widgets for the
+             * following use case, where you have to worry about idle_callback()
+             * running in thread A and accessing @self after it has been finalized
+             * in thread B:
+             *
+             * |[<!-- language="C" -->
+             * static gboolean
+             * idle_callback (gpointer data)
+             * {
+             *    // gdk_threads_enter(); would be needed for g_idle_add()
+             *
+             *    SomeWidget *self = data;
+             *    // do stuff with self
+             *
+             *    self->idle_id = 0;
+             *
+             *    // gdk_threads_leave(); would be needed for g_idle_add()
+             *    return FALSE;
+             * }
+             *
+             * static void
+             * some_widget_do_stuff_later (SomeWidget *self)
+             * {
+             *    self->idle_id = gdk_threads_add_idle (idle_callback, self)
+             *    // using g_idle_add() here would require thread protection in the callback
+             * }
+             *
+             * static void
+             * some_widget_finalize (GObject *object)
+             * {
+             *    SomeWidget *self = SOME_WIDGET (object);
+             *    if (self->idle_id)
+             *      g_source_remove (self->idle_id);
+             *    G_OBJECT_CLASS (parent_class)->finalize (object);
+             * }
+             * ]|
+             * @since 2.12
+             * @param priority the priority of the idle source. Typically this will be in the
+                       range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE
+             * @param function function to call
+             * @returns the ID (greater than 0) of the event source.
+             */
+            threads_add_idle(priority: number, func: GLib.SourceFunc): number
+            /**
+             * Sets a function to be called at regular intervals holding the GDK lock,
+             * with the given priority.  The function is called repeatedly until it
+             * returns %FALSE, at which point the timeout is automatically destroyed
+             * and the function will not be called again.  The @notify function is
+             * called when the timeout is destroyed.  The first call to the
+             * function will be at the end of the first @interval.
+             *
+             * Note that timeout functions may be delayed, due to the processing of other
+             * event sources. Thus they should not be relied on for precise timing.
+             * After each call to the timeout function, the time of the next
+             * timeout is recalculated based on the current time and the given interval
+             * (it does not try to “catch up” time lost in delays).
+             *
+             * This variant of g_timeout_add_full() can be thought of a MT-safe version
+             * for GTK+ widgets for the following use case:
+             *
+             * |[<!-- language="C" -->
+             * static gboolean timeout_callback (gpointer data)
+             * {
+             *    SomeWidget *self = data;
+             *    
+             *    // do stuff with self
+             *    
+             *    self->timeout_id = 0;
+             *    
+             *    return G_SOURCE_REMOVE;
+             * }
+             *  
+             * static void some_widget_do_stuff_later (SomeWidget *self)
+             * {
+             *    self->timeout_id = g_timeout_add (timeout_callback, self)
+             * }
+             *  
+             * static void some_widget_finalize (GObject *object)
+             * {
+             *    SomeWidget *self = SOME_WIDGET (object);
+             *    
+             *    if (self->timeout_id)
+             *      g_source_remove (self->timeout_id);
+             *    
+             *    G_OBJECT_CLASS (parent_class)->finalize (object);
+             * }
+             * ]|
+             * @since 2.12
+             * @param priority the priority of the timeout source. Typically this will be in the
+                       range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE.
+             * @param interval the time between calls to the function, in milliseconds
+                        (1/1000ths of a second)
+             * @param function function to call
+             * @returns the ID (greater than 0) of the event source.
+             */
+            threads_add_timeout(priority: number, interval: number, func: GLib.SourceFunc): number
+            /**
+             * A variant of gdk_threads_add_timeout_full() with second-granularity.
+             * See g_timeout_add_seconds_full() for a discussion of why it is
+             * a good idea to use this function if you don’t need finer granularity.
+             * @since 2.14
+             * @param priority the priority of the timeout source. Typically this will be in the
+                       range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE.
+             * @param interval the time between calls to the function, in seconds
+             * @param function function to call
+             * @returns the ID (greater than 0) of the event source.
+             */
+            threads_add_timeout_seconds(priority: number, interval: number, func: GLib.SourceFunc): number
+            /**
+             * This function marks the beginning of a critical section in which
+             * GDK and GTK+ functions can be called safely and without causing race
+             * conditions. Only one thread at a time can be in such a critial
+             * section.
+             * @deprecated since 3.6 All GDK and GTK+ calls should be made from the main     thread
+             */
+            threads_enter(): void
+            /**
+             * Initializes GDK so that it can be used from multiple threads
+             * in conjunction with gdk_threads_enter() and gdk_threads_leave().
+             *
+             * This call must be made before any use of the main loop from
+             * GTK+; to be safe, call it before gtk_init().
+             * @deprecated since 3.6 All GDK and GTK+ calls should be made from the main     thread
+             */
+            threads_init(): void
+            /**
+             * Leaves a critical region begun with gdk_threads_enter().
+             * @deprecated since 3.6 All GDK and GTK+ calls should be made from the main     thread
+             */
+            threads_leave(): void
+            /**
+             * Convert from a ISO10646 character to a key symbol.
+             * @param wc a ISO10646 encoded character
+             * @returns the corresponding GDK key symbol, if one exists.               or, if there is no corresponding symbol,               wc | 0x01000000
+             */
+            unicode_to_keyval(wc: number): number
+            /**
+             * Converts an UTF-8 string into the best possible representation
+             * as a STRING. The representation of characters not in STRING
+             * is not specified; it may be as pseudo-escape sequences
+             * \x{ABCD}, or it may be in some other form of approximation.
+             * @param str a UTF-8 string
+             * @returns the newly-allocated string, or %NULL if the          conversion failed. (It should not fail for any properly          formed UTF-8 string unless system limits like memory or          file descriptors are exceeded.)
+             */
+            utf8_to_string_target(str: string): string | null
+        }
     }
 
+    const Gdk: Gdk.$Exports
     export default Gdk
 }

@@ -18,10 +18,7 @@ declare module "gi://Manette?version=0.2" {
 
     
 
-
     namespace Manette {
-        const __name__: "Manette"
-        const __version: "0.2"
         
 
         namespace Device {
@@ -67,11 +64,6 @@ declare module "gi://Manette?version=0.2" {
             }
         }
 
-        /**
-         * An object representing a physical gamepad.
-         *
-         * See also: [class@Monitor].
-         */
         interface Device extends GObject.Object {
             readonly $signals: Device.SignalSignatures
             readonly $readableProperties: Device.ReadableProperties
@@ -156,10 +148,18 @@ declare module "gi://Manette?version=0.2" {
         interface DeviceClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Device>
             readonly prototype: Device
+
             new (props?: Partial<GObject.ConstructorProps<Device>>): Device
         }
 
-        const Device: DeviceClass
+        interface $Exports {
+            /**
+             * An object representing a physical gamepad.
+             *
+             * See also: [class@Monitor].
+             */
+            Device: DeviceClass
+        }
         
 
         namespace Monitor {
@@ -186,11 +186,6 @@ declare module "gi://Manette?version=0.2" {
             }
         }
 
-        /**
-         * An object monitoring the availability of devices.
-         *
-         * See also: [class@Device].
-         */
         interface Monitor extends GObject.Object {
             readonly $signals: Monitor.SignalSignatures
             readonly $readableProperties: Monitor.ReadableProperties
@@ -206,6 +201,7 @@ declare module "gi://Manette?version=0.2" {
         interface MonitorClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Monitor>
             readonly prototype: Monitor
+
             new (props?: Partial<GObject.ConstructorProps<Monitor>>): Monitor
             /**
              * Creates a new `ManetteMonitor`.
@@ -214,72 +210,40 @@ declare module "gi://Manette?version=0.2" {
             "new"(): Monitor
         }
 
-        const Monitor: MonitorClass
-        none
-        none
-        /**
-         * An object iterating over the available devices in [class@Monitor].
-         */
-        abstract class MonitorIter {
-            static readonly $gtype: GObject.GType<MonitorIter>
+        interface $Exports {
+            /**
+             * An object monitoring the availability of devices.
+             *
+             * See also: [class@Device].
+             */
+            Monitor: MonitorClass
+        }
+        
 
-            
+        interface MonitorIterStruct {
+            readonly $gtype: GObject.GType<MonitorIter>
+            [Symbol.hasInstance](instance: unknown): instance is MonitorIter
+        }
+
+        interface MonitorIter {
             /**
              * Gets the next device from @self.
              * @returns whether the next device was retrieved, if not, the end was reached, return location for the device
              */
             next(): [boolean, Device | null]
         }
-        /**
-         * Returns the major version number of the libmanette library.
-         *
-         * For example, in libmanette version 1.2.3 this is 1.
-         *
-         * This function is in the library, so it represents the libmanette library your
-         * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-         * which represents the major version of the libmanette headers you have
-         * included when compiling your code.
-         * @returns the major version number of the libmanette library
-         */
-        function get_major_version(): number
-        /**
-         * Returns the micro version number of the libmanette library.
-         *
-         * For example, in libmanette version 1.2.3 this is 3.
-         *
-         * This function is in the library, so it represents the libmanette library your
-         * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-         * which represents the micro version of the libmanette headers you have
-         * included when compiling your code.
-         * @returns the micro version number of the libmanette library
-         */
-        function get_micro_version(): number
-        /**
-         * Returns the minor version number of the libmanette library.
-         *
-         * For example, in libmanette version 1.2.3 this is 2.
-         *
-         * This function is in the library, so it represents the libmanette library your
-         * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-         * which represents the minor version of the libmanette headers you have
-         * included when compiling your code.
-         * @returns the minor version number of the libmanette library
-         */
-        function get_minor_version(): number
-        /**
-         */
-        function get_resource(): Gio.Resource
-        const MAJOR_VERSION: 0
-        const MICRO_VERSION: 14
-        const MINOR_VERSION: 2
-        const VERSION_S: "0.2.14"
-        /**
-         * An event emitted by a [class@Device].
-         */
-        abstract class Event {
-            static readonly $gtype: GObject.GType<Event>
 
-            
+        interface $Exports {
+            MonitorIter: MonitorIterStruct
+        }
+        
+
+        interface EventStruct {
+            readonly $gtype: GObject.GType<Event>
+            [Symbol.hasInstance](instance: unknown): instance is Event
+        }
+
+        interface Event {
             /**
              * Gets the axis of @self, if any.
              * @returns whether the axis was retrieved, return location for the axis, return location for the axis value
@@ -335,58 +299,113 @@ declare module "gi://Manette?version=0.2" {
              */
             get_time(): number
         }
-        
-        namespace DeviceType {
-            const $gtype: GObject.GType<DeviceType>
-        }
 
-        /**
-         * Describes available types of a [class@Device].
-         *
-         * More values may be added to this enumeration over time.
-         * @since 0.2.10
-         */
-        enum DeviceType {
+        interface $Exports {
+            Event: EventStruct
+        }
+        
+        interface DeviceTypeEnum {
+            readonly $gtype: GObject.GType<DeviceType>
             /**
              * Generic gamepads
              */
-            "GENERIC" = 0,
+            readonly "GENERIC": 0
             /**
              * Steam Deck
              */
-            "STEAM_DECK" = 1,
+            readonly "STEAM_DECK": 1
+        }
+        type DeviceType = DeviceTypeEnum[Exclude<keyof DeviceTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes available types of a [class@Device].
+             *
+             * More values may be added to this enumeration over time.
+             * @since 0.2.10
+             */
+            DeviceType: DeviceTypeEnum
         }
         
-        namespace EventType {
-            const $gtype: GObject.GType<EventType>
-        }
-
-        /**
-         * Specifies the type of the event.
-         */
-        enum EventType {
+        interface EventTypeEnum {
+            readonly $gtype: GObject.GType<EventType>
             /**
              * a special code to indicate a null event
              */
-            "EVENT_NOTHING" = -1,
+            readonly "EVENT_NOTHING": -1
             /**
              * a button has been pressed
              */
-            "EVENT_BUTTON_PRESS" = 0,
+            readonly "EVENT_BUTTON_PRESS": 0
             /**
              * a button has been released
              */
-            "EVENT_BUTTON_RELEASE" = 1,
+            readonly "EVENT_BUTTON_RELEASE": 1
             /**
              * an absolute axis has been moved
              */
-            "EVENT_ABSOLUTE" = 2,
+            readonly "EVENT_ABSOLUTE": 2
             /**
              * a hat axis has been moved
              */
-            "EVENT_HAT" = 3,
+            readonly "EVENT_HAT": 3
+        }
+        type EventType = EventTypeEnum[Exclude<keyof EventTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Specifies the type of the event.
+             */
+            EventType: EventTypeEnum
+        }
+
+        interface $Exports {
+            __name__: "Manette"
+            __version: "0.2"
+            MAJOR_VERSION: 0
+            MICRO_VERSION: 14
+            MINOR_VERSION: 2
+            VERSION_S: "0.2.14"
+            /**
+             * Returns the major version number of the libmanette library.
+             *
+             * For example, in libmanette version 1.2.3 this is 1.
+             *
+             * This function is in the library, so it represents the libmanette library your
+             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
+             * which represents the major version of the libmanette headers you have
+             * included when compiling your code.
+             * @returns the major version number of the libmanette library
+             */
+            get_major_version(): number
+            /**
+             * Returns the micro version number of the libmanette library.
+             *
+             * For example, in libmanette version 1.2.3 this is 3.
+             *
+             * This function is in the library, so it represents the libmanette library your
+             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
+             * which represents the micro version of the libmanette headers you have
+             * included when compiling your code.
+             * @returns the micro version number of the libmanette library
+             */
+            get_micro_version(): number
+            /**
+             * Returns the minor version number of the libmanette library.
+             *
+             * For example, in libmanette version 1.2.3 this is 2.
+             *
+             * This function is in the library, so it represents the libmanette library your
+             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
+             * which represents the minor version of the libmanette headers you have
+             * included when compiling your code.
+             * @returns the minor version number of the libmanette library
+             */
+            get_minor_version(): number
+            /**
+             */
+            get_resource(): Gio.Resource
         }
     }
 
+    const Manette: Manette.$Exports
     export default Manette
 }

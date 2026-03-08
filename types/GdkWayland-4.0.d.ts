@@ -30,10 +30,7 @@ declare module "gi://GdkWayland?version=4.0" {
 
     
 
-
     namespace GdkWayland {
-        const __name__: "GdkWayland"
-        const __version: "4.0"
         
 
         namespace WaylandDevice {
@@ -50,15 +47,6 @@ declare module "gi://GdkWayland?version=4.0" {
             }
         }
 
-        /**
-         * The Wayland implementation of `GdkDevice`.
-         *
-         * Beyond the regular [class@Gdk.Device] API, the Wayland implementation
-         * provides access to Wayland objects such as the `wl_seat` with
-         * [method@GdkWayland.WaylandDevice.get_wl_seat], the `wl_keyboard` with
-         * [method@GdkWayland.WaylandDevice.get_wl_keyboard] and the `wl_pointer` with
-         * [method@GdkWayland.WaylandDevice.get_wl_pointer].
-         */
         interface WaylandDevice extends Gdk.Device {
             readonly $signals: WaylandDevice.SignalSignatures
             readonly $readableProperties: WaylandDevice.ReadableProperties
@@ -87,10 +75,22 @@ declare module "gi://GdkWayland?version=4.0" {
         interface WaylandDeviceClass extends Omit<Gdk.DeviceClass, "new"> {
             readonly $gtype: GObject.GType<WaylandDevice>
             readonly prototype: WaylandDevice
+
             new (props?: Partial<GObject.ConstructorProps<WaylandDevice>>): WaylandDevice
         }
 
-        const WaylandDevice: WaylandDeviceClass
+        interface $Exports {
+            /**
+             * The Wayland implementation of `GdkDevice`.
+             *
+             * Beyond the regular [class@Gdk.Device] API, the Wayland implementation
+             * provides access to Wayland objects such as the `wl_seat` with
+             * [method@GdkWayland.WaylandDevice.get_wl_seat], the `wl_keyboard` with
+             * [method@GdkWayland.WaylandDevice.get_wl_keyboard] and the `wl_pointer` with
+             * [method@GdkWayland.WaylandDevice.get_wl_pointer].
+             */
+            WaylandDevice: WaylandDeviceClass
+        }
         
 
         namespace WaylandDisplay {
@@ -107,17 +107,6 @@ declare module "gi://GdkWayland?version=4.0" {
             }
         }
 
-        /**
-         * The Wayland implementation of `GdkDisplay`.
-         *
-         * Beyond the regular [class@Gdk.Display] API, the Wayland implementation
-         * provides access to Wayland objects such as the `wl_display` with
-         * [method@GdkWayland.WaylandDisplay.get_wl_display], the `wl_compositor` with
-         * [method@GdkWayland.WaylandDisplay.get_wl_compositor].
-         *
-         * You can find out what Wayland globals are supported by a display
-         * with [method@GdkWayland.WaylandDisplay.query_registry].
-         */
         interface WaylandDisplay extends Gdk.Display {
             readonly $signals: WaylandDisplay.SignalSignatures
             readonly $readableProperties: WaylandDisplay.ReadableProperties
@@ -169,10 +158,24 @@ declare module "gi://GdkWayland?version=4.0" {
         interface WaylandDisplayClass extends Omit<Gdk.DisplayClass, "new"> {
             readonly $gtype: GObject.GType<WaylandDisplay>
             readonly prototype: WaylandDisplay
+
             new (props?: Partial<GObject.ConstructorProps<WaylandDisplay>>): WaylandDisplay
         }
 
-        const WaylandDisplay: WaylandDisplayClass
+        interface $Exports {
+            /**
+             * The Wayland implementation of `GdkDisplay`.
+             *
+             * Beyond the regular [class@Gdk.Display] API, the Wayland implementation
+             * provides access to Wayland objects such as the `wl_display` with
+             * [method@GdkWayland.WaylandDisplay.get_wl_display], the `wl_compositor` with
+             * [method@GdkWayland.WaylandDisplay.get_wl_compositor].
+             *
+             * You can find out what Wayland globals are supported by a display
+             * with [method@GdkWayland.WaylandDisplay.query_registry].
+             */
+            WaylandDisplay: WaylandDisplayClass
+        }
         
 
         namespace WaylandGLContext {
@@ -189,9 +192,6 @@ declare module "gi://GdkWayland?version=4.0" {
             }
         }
 
-        /**
-         * The Wayland implementation of `GdkGLContext`.
-         */
         interface WaylandGLContext extends Gdk.GLContext {
             readonly $signals: WaylandGLContext.SignalSignatures
             readonly $readableProperties: WaylandGLContext.ReadableProperties
@@ -202,10 +202,16 @@ declare module "gi://GdkWayland?version=4.0" {
         interface WaylandGLContextClass extends Omit<Gdk.GLContextClass, "new"> {
             readonly $gtype: GObject.GType<WaylandGLContext>
             readonly prototype: WaylandGLContext
+
             new (props?: Partial<GObject.ConstructorProps<WaylandGLContext>>): WaylandGLContext
         }
 
-        const WaylandGLContext: WaylandGLContextClass
+        interface $Exports {
+            /**
+             * The Wayland implementation of `GdkGLContext`.
+             */
+            WaylandGLContext: WaylandGLContextClass
+        }
         
 
         namespace WaylandMonitor {
@@ -222,13 +228,6 @@ declare module "gi://GdkWayland?version=4.0" {
             }
         }
 
-        /**
-         * The Wayland implementation of `GdkMonitor`.
-         *
-         * Beyond the [class@Gdk.Monitor] API, the Wayland implementation
-         * offers access to the Wayland `wl_output` object with
-         * [method@GdkWayland.WaylandMonitor.get_wl_output].
-         */
         interface WaylandMonitor extends Gdk.Monitor {
             readonly $signals: WaylandMonitor.SignalSignatures
             readonly $readableProperties: WaylandMonitor.ReadableProperties
@@ -239,10 +238,20 @@ declare module "gi://GdkWayland?version=4.0" {
         interface WaylandMonitorClass extends Omit<Gdk.MonitorClass, "new"> {
             readonly $gtype: GObject.GType<WaylandMonitor>
             readonly prototype: WaylandMonitor
+
             new (props?: Partial<GObject.ConstructorProps<WaylandMonitor>>): WaylandMonitor
         }
 
-        const WaylandMonitor: WaylandMonitorClass
+        interface $Exports {
+            /**
+             * The Wayland implementation of `GdkMonitor`.
+             *
+             * Beyond the [class@Gdk.Monitor] API, the Wayland implementation
+             * offers access to the Wayland `wl_output` object with
+             * [method@GdkWayland.WaylandMonitor.get_wl_output].
+             */
+            WaylandMonitor: WaylandMonitorClass
+        }
         
 
         namespace WaylandPopup {
@@ -259,9 +268,6 @@ declare module "gi://GdkWayland?version=4.0" {
             }
         }
 
-        /**
-         * The Wayland implementation of `GdkPopup`.
-         */
         interface WaylandPopup extends WaylandSurface, Gdk.Popup {
             readonly $signals: WaylandPopup.SignalSignatures
             readonly $readableProperties: WaylandPopup.ReadableProperties
@@ -272,10 +278,16 @@ declare module "gi://GdkWayland?version=4.0" {
         interface WaylandPopupClass extends Omit<WaylandSurfaceClass, "new"> {
             readonly $gtype: GObject.GType<WaylandPopup>
             readonly prototype: WaylandPopup
+
             new (props?: Partial<GObject.ConstructorProps<WaylandPopup>>): WaylandPopup
         }
 
-        const WaylandPopup: WaylandPopupClass
+        interface $Exports {
+            /**
+             * The Wayland implementation of `GdkPopup`.
+             */
+            WaylandPopup: WaylandPopupClass
+        }
         
 
         namespace WaylandSeat {
@@ -292,13 +304,6 @@ declare module "gi://GdkWayland?version=4.0" {
             }
         }
 
-        /**
-         * The Wayland implementation of `GdkSeat`.
-         *
-         * Beyond the regular [class@Gdk.Seat] API, the Wayland implementation
-         * provides access to the Wayland `wl_seat` object with
-         * [method@GdkWayland.WaylandSeat.get_wl_seat].
-         */
         interface WaylandSeat extends Gdk.Seat {
             readonly $signals: WaylandSeat.SignalSignatures
             readonly $readableProperties: WaylandSeat.ReadableProperties
@@ -309,10 +314,20 @@ declare module "gi://GdkWayland?version=4.0" {
         interface WaylandSeatClass extends Omit<Gdk.SeatClass, "new"> {
             readonly $gtype: GObject.GType<WaylandSeat>
             readonly prototype: WaylandSeat
+
             new (props?: Partial<GObject.ConstructorProps<WaylandSeat>>): WaylandSeat
         }
 
-        const WaylandSeat: WaylandSeatClass
+        interface $Exports {
+            /**
+             * The Wayland implementation of `GdkSeat`.
+             *
+             * Beyond the regular [class@Gdk.Seat] API, the Wayland implementation
+             * provides access to the Wayland `wl_seat` object with
+             * [method@GdkWayland.WaylandSeat.get_wl_seat].
+             */
+            WaylandSeat: WaylandSeatClass
+        }
         
 
         namespace WaylandSurface {
@@ -329,13 +344,6 @@ declare module "gi://GdkWayland?version=4.0" {
             }
         }
 
-        /**
-         * The Wayland implementation of `GdkSurface`.
-         *
-         * Beyond the [class@Gdk.Surface] API, the Wayland implementation offers
-         * access to the Wayland `wl_surface` object with
-         * [method@GdkWayland.WaylandSurface.get_wl_surface].
-         */
         interface WaylandSurface extends Gdk.Surface {
             readonly $signals: WaylandSurface.SignalSignatures
             readonly $readableProperties: WaylandSurface.ReadableProperties
@@ -351,10 +359,20 @@ declare module "gi://GdkWayland?version=4.0" {
         interface WaylandSurfaceClass extends Omit<Gdk.SurfaceClass, "new"> {
             readonly $gtype: GObject.GType<WaylandSurface>
             readonly prototype: WaylandSurface
+
             new (props?: Partial<GObject.ConstructorProps<WaylandSurface>>): WaylandSurface
         }
 
-        const WaylandSurface: WaylandSurfaceClass
+        interface $Exports {
+            /**
+             * The Wayland implementation of `GdkSurface`.
+             *
+             * Beyond the [class@Gdk.Surface] API, the Wayland implementation offers
+             * access to the Wayland `wl_surface` object with
+             * [method@GdkWayland.WaylandSurface.get_wl_surface].
+             */
+            WaylandSurface: WaylandSurfaceClass
+        }
         
 
         namespace WaylandToplevel {
@@ -371,14 +389,6 @@ declare module "gi://GdkWayland?version=4.0" {
             }
         }
 
-        /**
-         * The Wayland implementation of `GdkToplevel`.
-         *
-         * Beyond the [iface@Gdk.Toplevel] API, the Wayland implementation
-         * has API to set up cross-process parent-child relationships between
-         * surfaces with [method@GdkWayland.WaylandToplevel.export_handle] and
-         * [method@GdkWayland.WaylandToplevel.set_transient_for_exported].
-         */
         interface WaylandToplevel extends WaylandSurface, Gdk.Toplevel {
             readonly $signals: WaylandToplevel.SignalSignatures
             readonly $readableProperties: WaylandToplevel.ReadableProperties
@@ -460,15 +470,21 @@ declare module "gi://GdkWayland?version=4.0" {
         interface WaylandToplevelClass extends Omit<WaylandSurfaceClass, "new"> {
             readonly $gtype: GObject.GType<WaylandToplevel>
             readonly prototype: WaylandToplevel
+
             new (props?: Partial<GObject.ConstructorProps<WaylandToplevel>>): WaylandToplevel
         }
 
-        const WaylandToplevel: WaylandToplevelClass
-        none
-        none
-        none
-        none
-        none
+        interface $Exports {
+            /**
+             * The Wayland implementation of `GdkToplevel`.
+             *
+             * Beyond the [iface@Gdk.Toplevel] API, the Wayland implementation
+             * has API to set up cross-process parent-child relationships between
+             * surfaces with [method@GdkWayland.WaylandToplevel.export_handle] and
+             * [method@GdkWayland.WaylandToplevel.set_transient_for_exported].
+             */
+            WaylandToplevel: WaylandToplevelClass
+        }
         /**
          * Callback that gets called when the handle for a surface has been
          * obtained from the Wayland compositor.
@@ -481,7 +497,13 @@ declare module "gi://GdkWayland?version=4.0" {
          * @param handle the handle
          */
         type WaylandToplevelExported = (toplevel: WaylandToplevel, handle: string) => void
+
+        interface $Exports {
+            __name__: "GdkWayland"
+            __version: "4.0"
+        }
     }
 
+    const GdkWayland: GdkWayland.$Exports
     export default GdkWayland
 }

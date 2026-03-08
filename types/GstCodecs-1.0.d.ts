@@ -20,10 +20,7 @@ declare module "gi://GstCodecs?version=1.0" {
 
     
 
-
     namespace GstCodecs {
-        const __name__: "GstCodecs"
-        const __version: "1.0"
         
 
         namespace AV1Decoder {
@@ -40,10 +37,6 @@ declare module "gi://GstCodecs?version=1.0" {
             }
         }
 
-        /**
-         * The opaque #GstAV1Decoder data structure.
-         * @since 1.20
-         */
         interface AV1Decoder extends GstVideo.VideoDecoder {
             readonly $signals: AV1Decoder.SignalSignatures
             readonly $readableProperties: AV1Decoder.ReadableProperties
@@ -111,10 +104,17 @@ declare module "gi://GstCodecs?version=1.0" {
         interface AV1DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
             readonly $gtype: GObject.GType<AV1Decoder>
             readonly prototype: AV1Decoder
+
             new (props?: Partial<GObject.ConstructorProps<AV1Decoder>>): AV1Decoder
         }
 
-        const AV1Decoder: AV1DecoderClass
+        interface $Exports {
+            /**
+             * The opaque #GstAV1Decoder data structure.
+             * @since 1.20
+             */
+            AV1Decoder: AV1DecoderClass
+        }
         
 
         namespace H264Decoder {
@@ -133,9 +133,6 @@ declare module "gi://GstCodecs?version=1.0" {
             }
         }
 
-        /**
-         * The opaque #GstH264Decoder data structure.
-         */
         interface H264Decoder extends GstVideo.VideoDecoder {
             readonly $signals: H264Decoder.SignalSignatures
             readonly $readableProperties: H264Decoder.ReadableProperties
@@ -234,10 +231,16 @@ declare module "gi://GstCodecs?version=1.0" {
         interface H264DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
             readonly $gtype: GObject.GType<H264Decoder>
             readonly prototype: H264Decoder
+
             new (props?: Partial<GObject.ConstructorProps<H264Decoder>>): H264Decoder
         }
 
-        const H264Decoder: H264DecoderClass
+        interface $Exports {
+            /**
+             * The opaque #GstH264Decoder data structure.
+             */
+            H264Decoder: H264DecoderClass
+        }
         
 
         namespace H265Decoder {
@@ -254,9 +257,6 @@ declare module "gi://GstCodecs?version=1.0" {
             }
         }
 
-        /**
-         * The opaque #GstH265Decoder data structure.
-         */
         interface H265Decoder extends GstVideo.VideoDecoder {
             readonly $signals: H265Decoder.SignalSignatures
             readonly $readableProperties: H265Decoder.ReadableProperties
@@ -329,10 +329,16 @@ declare module "gi://GstCodecs?version=1.0" {
         interface H265DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
             readonly $gtype: GObject.GType<H265Decoder>
             readonly prototype: H265Decoder
+
             new (props?: Partial<GObject.ConstructorProps<H265Decoder>>): H265Decoder
         }
 
-        const H265Decoder: H265DecoderClass
+        interface $Exports {
+            /**
+             * The opaque #GstH265Decoder data structure.
+             */
+            H265Decoder: H265DecoderClass
+        }
         
 
         namespace H266Decoder {
@@ -349,10 +355,6 @@ declare module "gi://GstCodecs?version=1.0" {
             }
         }
 
-        /**
-         * The opaque #GstH266Decoder data structure.
-         * @since 1.26
-         */
         interface H266Decoder extends GstVideo.VideoDecoder {
             readonly $signals: H266Decoder.SignalSignatures
             readonly $readableProperties: H266Decoder.ReadableProperties
@@ -409,10 +411,17 @@ declare module "gi://GstCodecs?version=1.0" {
         interface H266DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
             readonly $gtype: GObject.GType<H266Decoder>
             readonly prototype: H266Decoder
+
             new (props?: Partial<GObject.ConstructorProps<H266Decoder>>): H266Decoder
         }
 
-        const H266Decoder: H266DecoderClass
+        interface $Exports {
+            /**
+             * The opaque #GstH266Decoder data structure.
+             * @since 1.26
+             */
+            H266Decoder: H266DecoderClass
+        }
         
 
         namespace Mpeg2Decoder {
@@ -429,10 +438,6 @@ declare module "gi://GstCodecs?version=1.0" {
             }
         }
 
-        /**
-         * The opaque #GstMpeg2Decoder data structure.
-         * @since 1.20
-         */
         interface Mpeg2Decoder extends GstVideo.VideoDecoder {
             readonly $signals: Mpeg2Decoder.SignalSignatures
             readonly $readableProperties: Mpeg2Decoder.ReadableProperties
@@ -502,10 +507,17 @@ declare module "gi://GstCodecs?version=1.0" {
         interface Mpeg2DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
             readonly $gtype: GObject.GType<Mpeg2Decoder>
             readonly prototype: Mpeg2Decoder
+
             new (props?: Partial<GObject.ConstructorProps<Mpeg2Decoder>>): Mpeg2Decoder
         }
 
-        const Mpeg2Decoder: Mpeg2DecoderClass
+        interface $Exports {
+            /**
+             * The opaque #GstMpeg2Decoder data structure.
+             * @since 1.20
+             */
+            Mpeg2Decoder: Mpeg2DecoderClass
+        }
         
 
         namespace Vp8Decoder {
@@ -522,9 +534,6 @@ declare module "gi://GstCodecs?version=1.0" {
             }
         }
 
-        /**
-         * The opaque #GstVp8Decoder data structure.
-         */
         interface Vp8Decoder extends GstVideo.VideoDecoder {
             readonly $signals: Vp8Decoder.SignalSignatures
             readonly $readableProperties: Vp8Decoder.ReadableProperties
@@ -576,10 +585,16 @@ declare module "gi://GstCodecs?version=1.0" {
         interface Vp8DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
             readonly $gtype: GObject.GType<Vp8Decoder>
             readonly prototype: Vp8Decoder
+
             new (props?: Partial<GObject.ConstructorProps<Vp8Decoder>>): Vp8Decoder
         }
 
-        const Vp8Decoder: Vp8DecoderClass
+        interface $Exports {
+            /**
+             * The opaque #GstVp8Decoder data structure.
+             */
+            Vp8Decoder: Vp8DecoderClass
+        }
         
 
         namespace Vp9Decoder {
@@ -596,9 +611,6 @@ declare module "gi://GstCodecs?version=1.0" {
             }
         }
 
-        /**
-         * The opaque #GstVp9Decoder data structure.
-         */
         interface Vp9Decoder extends GstVideo.VideoDecoder {
             readonly $signals: Vp9Decoder.SignalSignatures
             readonly $readableProperties: Vp9Decoder.ReadableProperties
@@ -687,25 +699,37 @@ declare module "gi://GstCodecs?version=1.0" {
         interface Vp9DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
             readonly $gtype: GObject.GType<Vp9Decoder>
             readonly prototype: Vp9Decoder
+
             new (props?: Partial<GObject.ConstructorProps<Vp9Decoder>>): Vp9Decoder
         }
 
-        const Vp9Decoder: Vp9DecoderClass
-        none
-        /**
-         */
-        abstract class AV1DecoderPrivate {
-            static readonly $gtype: GObject.GType<AV1DecoderPrivate>
-
-            
+        interface $Exports {
+            /**
+             * The opaque #GstVp9Decoder data structure.
+             */
+            Vp9Decoder: Vp9DecoderClass
         }
-        /**
-         * @since 1.20
-         */
-        abstract class AV1Dpb {
-            static readonly $gtype: GObject.GType<AV1Dpb>
+        
 
-            
+        interface AV1DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<AV1DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is AV1DecoderPrivate
+        }
+
+        interface AV1DecoderPrivate {
+        }
+
+        interface $Exports {
+            AV1DecoderPrivate: AV1DecoderPrivateStruct
+        }
+        
+
+        interface AV1DpbStruct {
+            readonly $gtype: GObject.GType<AV1Dpb>
+            [Symbol.hasInstance](instance: unknown): instance is AV1Dpb
+        }
+
+        interface AV1Dpb {
             /**
              */
             pic_list: AV1Picture[]
@@ -726,36 +750,50 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             free(): void
         }
-        /**
-         * @since 1.20
-         */
-        abstract class AV1Picture {
-            static readonly $gtype: GObject.GType<AV1Picture>
 
-            
+        interface $Exports {
+            AV1Dpb: AV1DpbStruct
+        }
+        
+
+        interface AV1PictureStruct {
+            readonly $gtype: GObject.GType<AV1Picture>
+            [Symbol.hasInstance](instance: unknown): instance is AV1Picture
             /**
              * Create new #GstAV1Picture
              * @since 1.20
              * @returns a new #GstAV1Picture
              */
-            static "new"(): AV1Picture
+            "new"(): AV1Picture
         }
-        /**
-         * @since 1.20
-         */
-        abstract class AV1Tile {
-            static readonly $gtype: GObject.GType<AV1Tile>
 
-            
+        interface AV1Picture {
         }
-        /**
-         * Base struct for coded picture representation
-         * @since 1.24
-         */
-        abstract class CodecPicture {
-            static readonly $gtype: GObject.GType<CodecPicture>
 
-            
+        interface $Exports {
+            AV1Picture: AV1PictureStruct
+        }
+        
+
+        interface AV1TileStruct {
+            readonly $gtype: GObject.GType<AV1Tile>
+            [Symbol.hasInstance](instance: unknown): instance is AV1Tile
+        }
+
+        interface AV1Tile {
+        }
+
+        interface $Exports {
+            AV1Tile: AV1TileStruct
+        }
+        
+
+        interface CodecPictureStruct {
+            readonly $gtype: GObject.GType<CodecPicture>
+            [Symbol.hasInstance](instance: unknown): instance is CodecPicture
+        }
+
+        interface CodecPicture {
             /**
              * Gets private data set on the picture via
              * gst_codec_picture_set_user_data() previously.
@@ -780,20 +818,31 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             set_user_data(notify: GLib.DestroyNotify): void
         }
-        none
-        /**
-         */
-        abstract class H264DecoderPrivate {
-            static readonly $gtype: GObject.GType<H264DecoderPrivate>
 
-            
+        interface $Exports {
+            CodecPicture: CodecPictureStruct
         }
-        /**
-         */
-        abstract class H264Dpb {
-            static readonly $gtype: GObject.GType<H264Dpb>
+        
 
-            
+        interface H264DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<H264DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is H264DecoderPrivate
+        }
+
+        interface H264DecoderPrivate {
+        }
+
+        interface $Exports {
+            H264DecoderPrivate: H264DecoderPrivateStruct
+        }
+        
+
+        interface H264DpbStruct {
+            readonly $gtype: GObject.GType<H264Dpb>
+            [Symbol.hasInstance](instance: unknown): instance is H264Dpb
+        }
+
+        interface H264Dpb {
             /**
              * Store the @picture
              * @param picture a #GstH264Picture
@@ -930,39 +979,62 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             set_max_num_reorder_frames(max_num_reorder_frames: number): void
         }
-        /**
-         */
-        abstract class H264Picture {
-            static readonly $gtype: GObject.GType<H264Picture>
 
-            
+        interface $Exports {
+            H264Dpb: H264DpbStruct
+        }
+        
+
+        interface H264PictureStruct {
+            readonly $gtype: GObject.GType<H264Picture>
+            [Symbol.hasInstance](instance: unknown): instance is H264Picture
             /**
              * Create new #GstH264Picture
              * @returns a new #GstH264Picture
              */
-            static "new"(): H264Picture
+            "new"(): H264Picture
         }
-        /**
-         */
-        abstract class H264Slice {
-            static readonly $gtype: GObject.GType<H264Slice>
 
-            
+        interface H264Picture {
         }
-        none
-        /**
-         */
-        abstract class H265DecoderPrivate {
-            static readonly $gtype: GObject.GType<H265DecoderPrivate>
 
-            
+        interface $Exports {
+            H264Picture: H264PictureStruct
         }
-        /**
-         */
-        abstract class H265Dpb {
-            static readonly $gtype: GObject.GType<H265Dpb>
+        
 
-            
+        interface H264SliceStruct {
+            readonly $gtype: GObject.GType<H264Slice>
+            [Symbol.hasInstance](instance: unknown): instance is H264Slice
+        }
+
+        interface H264Slice {
+        }
+
+        interface $Exports {
+            H264Slice: H264SliceStruct
+        }
+        
+
+        interface H265DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<H265DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is H265DecoderPrivate
+        }
+
+        interface H265DecoderPrivate {
+        }
+
+        interface $Exports {
+            H265DecoderPrivate: H265DecoderPrivateStruct
+        }
+        
+
+        interface H265DpbStruct {
+            readonly $gtype: GObject.GType<H265Dpb>
+            [Symbol.hasInstance](instance: unknown): instance is H265Dpb
+        }
+
+        interface H265Dpb {
             /**
              * Store the @picture and perform increase pic_latency_cnt as defined in
              * "C.5.2.3 Additional bumping" process
@@ -1055,41 +1127,62 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             set_max_num_pics(max_num_pics: number): void
         }
-        /**
-         */
-        abstract class H265Picture {
-            static readonly $gtype: GObject.GType<H265Picture>
 
-            
+        interface $Exports {
+            H265Dpb: H265DpbStruct
+        }
+        
+
+        interface H265PictureStruct {
+            readonly $gtype: GObject.GType<H265Picture>
+            [Symbol.hasInstance](instance: unknown): instance is H265Picture
             /**
              * Create new #GstH265Picture
              * @returns a new #GstH265Picture
              */
-            static "new"(): H265Picture
+            "new"(): H265Picture
         }
-        /**
-         */
-        abstract class H265Slice {
-            static readonly $gtype: GObject.GType<H265Slice>
 
-            
+        interface H265Picture {
         }
-        none
-        /**
-         */
-        abstract class H266DecoderPrivate {
-            static readonly $gtype: GObject.GType<H266DecoderPrivate>
 
-            
+        interface $Exports {
+            H265Picture: H265PictureStruct
         }
-        /**
-         * The #GstH266Dpb represents the dpb for decoding.
-         * @since 1.26
-         */
-        abstract class H266Dpb {
-            static readonly $gtype: GObject.GType<H266Dpb>
+        
 
-            
+        interface H265SliceStruct {
+            readonly $gtype: GObject.GType<H265Slice>
+            [Symbol.hasInstance](instance: unknown): instance is H265Slice
+        }
+
+        interface H265Slice {
+        }
+
+        interface $Exports {
+            H265Slice: H265SliceStruct
+        }
+        
+
+        interface H266DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<H266DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is H266DecoderPrivate
+        }
+
+        interface H266DecoderPrivate {
+        }
+
+        interface $Exports {
+            H266DecoderPrivate: H266DecoderPrivateStruct
+        }
+        
+
+        interface H266DpbStruct {
+            readonly $gtype: GObject.GType<H266Dpb>
+            [Symbol.hasInstance](instance: unknown): instance is H266Dpb
+        }
+
+        interface H266Dpb {
             /**
              * Store the @picture and perform increase pic_latency_cnt as defined in
              * "C.5.2.3 Additional bumping" process
@@ -1182,45 +1275,63 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             set_max_num_pics(max_num_pics: number): void
         }
-        /**
-         * The #GstH266Picture represents a picture for decoding.
-         * @since 1.26
-         */
-        abstract class H266Picture {
-            static readonly $gtype: GObject.GType<H266Picture>
 
-            
+        interface $Exports {
+            H266Dpb: H266DpbStruct
+        }
+        
+
+        interface H266PictureStruct {
+            readonly $gtype: GObject.GType<H266Picture>
+            [Symbol.hasInstance](instance: unknown): instance is H266Picture
             /**
              * Create new #GstH266Picture
              * @since 1.26
              * @returns a new #GstH266Picture
              */
-            static "new"(): H266Picture
+            "new"(): H266Picture
         }
-        /**
-         * The #GstH266Slice represents a slice for decoding.
-         * @since 1.26
-         */
-        abstract class H266Slice {
-            static readonly $gtype: GObject.GType<H266Slice>
 
-            
+        interface H266Picture {
         }
-        none
-        /**
-         */
-        abstract class Mpeg2DecoderPrivate {
-            static readonly $gtype: GObject.GType<Mpeg2DecoderPrivate>
 
-            
+        interface $Exports {
+            H266Picture: H266PictureStruct
         }
-        /**
-         * @since 1.20
-         */
-        abstract class Mpeg2Dpb {
-            static readonly $gtype: GObject.GType<Mpeg2Dpb>
+        
 
-            
+        interface H266SliceStruct {
+            readonly $gtype: GObject.GType<H266Slice>
+            [Symbol.hasInstance](instance: unknown): instance is H266Slice
+        }
+
+        interface H266Slice {
+        }
+
+        interface $Exports {
+            H266Slice: H266SliceStruct
+        }
+        
+
+        interface Mpeg2DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<Mpeg2DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is Mpeg2DecoderPrivate
+        }
+
+        interface Mpeg2DecoderPrivate {
+        }
+
+        interface $Exports {
+            Mpeg2DecoderPrivate: Mpeg2DecoderPrivateStruct
+        }
+        
+
+        interface Mpeg2DpbStruct {
+            readonly $gtype: GObject.GType<Mpeg2Dpb>
+            [Symbol.hasInstance](instance: unknown): instance is Mpeg2Dpb
+        }
+
+        interface Mpeg2Dpb {
             /**
              * Store the @picture
              * @since 1.20
@@ -1256,72 +1367,107 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             need_bump(): boolean
         }
-        /**
-         * @since 1.20
-         */
-        abstract class Mpeg2Picture {
-            static readonly $gtype: GObject.GType<Mpeg2Picture>
 
-            
+        interface $Exports {
+            Mpeg2Dpb: Mpeg2DpbStruct
+        }
+        
+
+        interface Mpeg2PictureStruct {
+            readonly $gtype: GObject.GType<Mpeg2Picture>
+            [Symbol.hasInstance](instance: unknown): instance is Mpeg2Picture
             /**
              * Create new #GstMpeg2Picture
              * @since 1.20
              * @returns a new #GstMpeg2Picture
              */
-            static "new"(): Mpeg2Picture
+            "new"(): Mpeg2Picture
         }
-        /**
-         * @since 1.20
-         */
-        abstract class Mpeg2Slice {
-            static readonly $gtype: GObject.GType<Mpeg2Slice>
 
-            
+        interface Mpeg2Picture {
         }
-        none
-        /**
-         */
-        abstract class Vp8DecoderPrivate {
-            static readonly $gtype: GObject.GType<Vp8DecoderPrivate>
 
-            
+        interface $Exports {
+            Mpeg2Picture: Mpeg2PictureStruct
         }
-        /**
-         */
-        abstract class Vp8Picture {
-            static readonly $gtype: GObject.GType<Vp8Picture>
+        
 
-            
+        interface Mpeg2SliceStruct {
+            readonly $gtype: GObject.GType<Mpeg2Slice>
+            [Symbol.hasInstance](instance: unknown): instance is Mpeg2Slice
+        }
+
+        interface Mpeg2Slice {
+        }
+
+        interface $Exports {
+            Mpeg2Slice: Mpeg2SliceStruct
+        }
+        
+
+        interface Vp8DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<Vp8DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is Vp8DecoderPrivate
+        }
+
+        interface Vp8DecoderPrivate {
+        }
+
+        interface $Exports {
+            Vp8DecoderPrivate: Vp8DecoderPrivateStruct
+        }
+        
+
+        interface Vp8PictureStruct {
+            readonly $gtype: GObject.GType<Vp8Picture>
+            [Symbol.hasInstance](instance: unknown): instance is Vp8Picture
             /**
              * Create new #GstVp8Picture
              * @returns a new #GstVp8Picture
              */
-            static "new"(): Vp8Picture
+            "new"(): Vp8Picture
         }
-        none
-        /**
-         */
-        abstract class Vp9DecoderPrivate {
-            static readonly $gtype: GObject.GType<Vp9DecoderPrivate>
 
-            
+        interface Vp8Picture {
         }
-        /**
-         * Stores probabilities updates. This is from the spec
-         * and can be used as a binary.
-         * @since 1.20
-         */
-        abstract class Vp9DeltaProbabilities {
-            static readonly $gtype: GObject.GType<Vp9DeltaProbabilities>
 
-            
+        interface $Exports {
+            Vp8Picture: Vp8PictureStruct
         }
-        /**
-         */
-        abstract class Vp9Dpb {
-            static readonly $gtype: GObject.GType<Vp9Dpb>
+        
 
-            
+        interface Vp9DecoderPrivateStruct {
+            readonly $gtype: GObject.GType<Vp9DecoderPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is Vp9DecoderPrivate
+        }
+
+        interface Vp9DecoderPrivate {
+        }
+
+        interface $Exports {
+            Vp9DecoderPrivate: Vp9DecoderPrivateStruct
+        }
+        
+
+        interface Vp9DeltaProbabilitiesStruct {
+            readonly $gtype: GObject.GType<Vp9DeltaProbabilities>
+            [Symbol.hasInstance](instance: unknown): instance is Vp9DeltaProbabilities
+        }
+
+        interface Vp9DeltaProbabilities {
+        }
+
+        interface $Exports {
+            Vp9DeltaProbabilities: Vp9DeltaProbabilitiesStruct
+        }
+        
+
+        interface Vp9DpbStruct {
+            readonly $gtype: GObject.GType<Vp9Dpb>
+            [Symbol.hasInstance](instance: unknown): instance is Vp9Dpb
+        }
+
+        interface Vp9Dpb {
             /**
              */
             pic_list: Vp9Picture[]
@@ -1339,13 +1485,18 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             free(): void
         }
-        /**
-         * @since 1.20
-         */
-        abstract class Vp9FrameHeader {
-            static readonly $gtype: GObject.GType<Vp9FrameHeader>
 
-            
+        interface $Exports {
+            Vp9Dpb: Vp9DpbStruct
+        }
+        
+
+        interface Vp9FrameHeaderStruct {
+            readonly $gtype: GObject.GType<Vp9FrameHeader>
+            [Symbol.hasInstance](instance: unknown): instance is Vp9FrameHeader
+        }
+
+        interface Vp9FrameHeader {
             /**
              * encoded profile
              */
@@ -1511,20 +1662,18 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             frame_header_length_in_bytes: number
         }
-        /**
-         * Loop filter params. See "6.2.8 Loop filter params syntax" and
-         * "7.2.8 Loop filter semantics".
-         *
-         * If syntax elements for @update_ref_delta
-         * and/or @loop_filter_mode_deltas are not present in bitstream,
-         * parser will fill @loop_filter_ref_deltas and @loop_filter_mode_deltas values
-         * by using previously parsed values.
-         * @since 1.20
-         */
-        abstract class Vp9LoopFilterParams {
-            static readonly $gtype: GObject.GType<Vp9LoopFilterParams>
 
-            
+        interface $Exports {
+            Vp9FrameHeader: Vp9FrameHeaderStruct
+        }
+        
+
+        interface Vp9LoopFilterParamsStruct {
+            readonly $gtype: GObject.GType<Vp9LoopFilterParams>
+            [Symbol.hasInstance](instance: unknown): instance is Vp9LoopFilterParams
+        }
+
+        interface Vp9LoopFilterParams {
             /**
              * indicates the loop filter strength
              */
@@ -1565,35 +1714,49 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             loop_filter_mode_deltas: Uint8Array
         }
-        /**
-         * Stores motion vectors probabilities updates. This is from the spec
-         * and can be used as a binary.
-         * @since 1.20
-         */
-        abstract class Vp9MvDeltaProbs {
-            static readonly $gtype: GObject.GType<Vp9MvDeltaProbs>
 
-            
+        interface $Exports {
+            Vp9LoopFilterParams: Vp9LoopFilterParamsStruct
         }
-        /**
-         */
-        abstract class Vp9Picture {
-            static readonly $gtype: GObject.GType<Vp9Picture>
+        
 
-            
+        interface Vp9MvDeltaProbsStruct {
+            readonly $gtype: GObject.GType<Vp9MvDeltaProbs>
+            [Symbol.hasInstance](instance: unknown): instance is Vp9MvDeltaProbs
+        }
+
+        interface Vp9MvDeltaProbs {
+        }
+
+        interface $Exports {
+            Vp9MvDeltaProbs: Vp9MvDeltaProbsStruct
+        }
+        
+
+        interface Vp9PictureStruct {
+            readonly $gtype: GObject.GType<Vp9Picture>
+            [Symbol.hasInstance](instance: unknown): instance is Vp9Picture
             /**
              * Create new #GstVp9Picture
              * @returns a new #GstVp9Picture
              */
-            static "new"(): Vp9Picture
+            "new"(): Vp9Picture
         }
-        /**
-         * @since 1.20
-         */
-        abstract class Vp9QuantizationParams {
-            static readonly $gtype: GObject.GType<Vp9QuantizationParams>
 
-            
+        interface Vp9Picture {
+        }
+
+        interface $Exports {
+            Vp9Picture: Vp9PictureStruct
+        }
+        
+
+        interface Vp9QuantizationParamsStruct {
+            readonly $gtype: GObject.GType<Vp9QuantizationParams>
+            [Symbol.hasInstance](instance: unknown): instance is Vp9QuantizationParams
+        }
+
+        interface Vp9QuantizationParams {
             /**
              * indicates the base frame qindex. This is used for Y AC
              *   coefficients and as the base value for the other quantizers
@@ -1612,17 +1775,18 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             delta_q_uv_ac: number
         }
-        /**
-         * See "6.2.11 Segmentation params syntax" and
-         * "7.2.10 Segmentation params syntax". When @segmentation_update_data is equal
-         * to zero, parser will fill @feature_enabled and by @feature_data
-         * using previously parsed values.
-         * @since 1.20
-         */
-        abstract class Vp9SegmentationParams {
-            static readonly $gtype: GObject.GType<Vp9SegmentationParams>
 
-            
+        interface $Exports {
+            Vp9QuantizationParams: Vp9QuantizationParamsStruct
+        }
+        
+
+        interface Vp9SegmentationParamsStruct {
+            readonly $gtype: GObject.GType<Vp9SegmentationParams>
+            [Symbol.hasInstance](instance: unknown): instance is Vp9SegmentationParams
+        }
+
+        interface Vp9SegmentationParams {
             /**
              * equal to 1 indicates that this frame makes use of the
              *   segmentation tool
@@ -1669,14 +1833,18 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             feature_data: number[]
         }
-        /**
-         * This object is used to parse VP9 bitstream header.
-         * @since 1.20
-         */
-        abstract class Vp9StatefulParser {
-            static readonly $gtype: GObject.GType<Vp9StatefulParser>
 
-            
+        interface $Exports {
+            Vp9SegmentationParams: Vp9SegmentationParamsStruct
+        }
+        
+
+        interface Vp9StatefulParserStruct {
+            readonly $gtype: GObject.GType<Vp9StatefulParser>
+            [Symbol.hasInstance](instance: unknown): instance is Vp9StatefulParser
+        }
+
+        interface Vp9StatefulParser {
             /**
              */
             reference: never[]
@@ -1686,100 +1854,25 @@ declare module "gi://GstCodecs?version=1.0" {
              */
             free(): void
         }
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * An implementation of "ac_q" function specified in
-         * "8.6.1 Dequantization functions"
-         * @since 1.20
-         * @param qindex the quantizer index
-         * @param delta_q_ac a delta_q_ac value
-         * @param bit_depth coded bit depth
-         * @returns the quantizer value for the ac coefficient
-         */
-        function vp9_get_ac_quant(qindex: number, delta_q_ac: number, bit_depth: number): number
-        /**
-         * An implementation of "dc_q" function specified in
-         * "8.6.1 Dequantization functions"
-         * @since 1.20
-         * @param qindex the quantizer index
-         * @param delta_q_dc a delta_q_dc value
-         * @param bit_depth coded bit depth
-         * @returns the quantizer value for the dc coefficient
-         */
-        function vp9_get_dc_quant(qindex: number, delta_q_dc: number, bit_depth: number): number
-        /**
-         * An implementation of "get_qindex" function specfied in
-         * "8.6.1 Dequantization functions"
-         * @since 1.20
-         * @param segmentation_params a #GstVp9SegmentationParams
-         * @param quantization_params a #GstVp9QuantizationParams
-         * @param segment_id a segment id
-         * @returns the quantizer index
-         */
-        function vp9_get_qindex(segmentation_params: Vp9SegmentationParams, quantization_params: Vp9QuantizationParams, segment_id: number): number
-        /**
-         * An implementation of "seg_feature_active" function specified in
-         * "6.4.9 Segmentation feature active syntax"
-         * @since 1.20
-         * @param params a #GstVp9SegmentationParams
-         * @param segment_id a segment id
-         * @param feature a segmentation feature
-         * @returns %TRUE if feature is active
-         */
-        function vp9_seg_feature_active(params: Vp9SegmentationParams, segment_id: number, feature: number): boolean
-        const H264_DPB_MAX_SIZE: 16
-        const H265_DPB_MAX_SIZE: 16
-        const VP9_BLOCK_SIZE_GROUPS: 4
-        const VP9_CLASS0_SIZE: 2
-        const VP9_COMP_MODE_CONTEXTS: 5
-        const VP9_INTERP_FILTER_CONTEXTS: 4
-        const VP9_INTER_MODES: 4
-        const VP9_INTER_MODE_CONTEXTS: 7
-        const VP9_INTRA_MODES: 10
-        const VP9_IS_INTER_CONTEXTS: 4
-        const VP9_MV_CLASSES: 11
-        const VP9_MV_FR_SIZE: 4
-        const VP9_MV_JOINTS: 4
-        const VP9_MV_OFFSET_BITS: 10
-        const VP9_PARTITION_CONTEXTS: 16
-        const VP9_PARTITION_TYPES: 4
-        const VP9_REF_CONTEXTS: 5
-        const VP9_SEG_LVL_ALT_L: 1
-        const VP9_SEG_LVL_ALT_Q: 0
-        const VP9_SEG_LVL_MAX: 4
-        const VP9_SEG_LVL_REF_FRAME: 2
-        const VP9_SEG_SEG_LVL_SKIP: 3
-        const VP9_SKIP_CONTEXTS: 3
-        const VP9_SWITCHABLE_FILTERS: 3
-        const VP9_TX_MODES: 5
-        const VP9_TX_SIZES: 4
-        const VP9_TX_SIZE_CONTEXTS: 2
-        
-        namespace H264DecoderCompliance {
-            const $gtype: GObject.GType<H264DecoderCompliance>
-        }
 
-        /**
-         * @since 1.20
-         */
-        enum H264DecoderCompliance {
+        interface $Exports {
+            Vp9StatefulParser: Vp9StatefulParserStruct
+        }
+        
+        interface H264DecoderComplianceEnum {
+            readonly $gtype: GObject.GType<H264DecoderCompliance>
             /**
              * The decoder behavior is
              *     automatically choosen.
              */
-            "AUTO" = 0,
+            readonly "AUTO": 0
             /**
              * The decoder behavior strictly
              *     conforms to the SPEC. All the decoder behaviors conform to the
              *     SPEC, not including any nonstandard behavior which is not
              *     mentioned in the SPEC.
              */
-            "STRICT" = 1,
+            readonly "STRICT": 1
             /**
              * The decoder behavior normally
              *     conforms to the SPEC. Most behaviors conform to the SPEC but
@@ -1794,7 +1887,7 @@ declare module "gi://GstCodecs?version=1.0" {
              *     have problems when a real baseline stream comes with FMO or
              *     ASO.
              */
-            "NORMAL" = 2,
+            readonly "NORMAL": 2
             /**
              * The decoder behavior
              *     flexibly conforms to the SPEC. It uses the nonstandard features
@@ -1804,152 +1897,238 @@ declare module "gi://GstCodecs?version=1.0" {
              *     risks in *normal* mode, it has more risks, such as frames
              *     disorder when reference frames POC decrease in decoder order.
              */
-            "FLEXIBLE" = 3,
+            readonly "FLEXIBLE": 3
+        }
+        type H264DecoderCompliance = H264DecoderComplianceEnum[Exclude<keyof H264DecoderComplianceEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            H264DecoderCompliance: H264DecoderComplianceEnum
         }
         
-        namespace H264DpbBumpMode {
-            const $gtype: GObject.GType<H264DpbBumpMode>
-        }
-
-        /**
-         * @since 1.20
-         */
-        enum H264DpbBumpMode {
+        interface H264DpbBumpModeEnum {
+            readonly $gtype: GObject.GType<H264DpbBumpMode>
             /**
              * No latency requirement for DBP bumping.
              */
-            "NORMAL_LATENCY" = 0,
+            readonly "NORMAL_LATENCY": 0
             /**
              * Low-latency requirement for DBP bumping.
              */
-            "LOW_LATENCY" = 1,
+            readonly "LOW_LATENCY": 1
             /**
              * Very low-latency requirement for DBP bumping.
              */
-            "VERY_LOW_LATENCY" = 2,
+            readonly "VERY_LOW_LATENCY": 2
+        }
+        type H264DpbBumpMode = H264DpbBumpModeEnum[Exclude<keyof H264DpbBumpModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            H264DpbBumpMode: H264DpbBumpModeEnum
         }
         
-        namespace H264PictureField {
-            const $gtype: GObject.GType<H264PictureField>
+        interface H264PictureFieldEnum {
+            readonly $gtype: GObject.GType<H264PictureField>
+            /**
+             */
+            readonly "FRAME": 0
+            /**
+             */
+            readonly "TOP_FIELD": 1
+            /**
+             */
+            readonly "BOTTOM_FIELD": 2
         }
-
-        /**
-         */
-        enum H264PictureField {
+        type H264PictureField = H264PictureFieldEnum[Exclude<keyof H264PictureFieldEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "FRAME" = 0,
-            /**
-             */
-            "TOP_FIELD" = 1,
-            /**
-             */
-            "BOTTOM_FIELD" = 2,
+            H264PictureField: H264PictureFieldEnum
         }
         
-        namespace H264PictureReference {
-            const $gtype: GObject.GType<H264PictureReference>
-        }
-
-        /**
-         * @since 1.20
-         */
-        enum H264PictureReference {
+        interface H264PictureReferenceEnum {
+            readonly $gtype: GObject.GType<H264PictureReference>
             /**
              * Not used for reference picture
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Used for short-term reference picture
              */
-            "SHORT_TERM" = 1,
+            readonly "SHORT_TERM": 1
             /**
              * Used for long-term reference picture
              */
-            "LONG_TERM" = 2,
+            readonly "LONG_TERM": 2
+        }
+        type H264PictureReference = H264PictureReferenceEnum[Exclude<keyof H264PictureReferenceEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * @since 1.20
+             */
+            H264PictureReference: H264PictureReferenceEnum
         }
         
-        namespace Vp9ReferenceMode {
-            const $gtype: GObject.GType<Vp9ReferenceMode>
-        }
-
-        /**
-         * Reference modes: Specify the type of inter prediction to be used
-         * @since 1.20
-         */
-        enum Vp9ReferenceMode {
+        interface Vp9ReferenceModeEnum {
+            readonly $gtype: GObject.GType<Vp9ReferenceMode>
             /**
              * Indicates that all the inter blocks use only a single reference frame
              */
-            "SINGLE_REFERENCE" = 0,
+            readonly "SINGLE_REFERENCE": 0
             /**
              * Requires all the inter blocks to use compound mode
              */
-            "COMPOUND_REFERENCE" = 1,
+            readonly "COMPOUND_REFERENCE": 1
             /**
              * Allows each individual inter block to select between single and compound prediction modes
              */
-            "SELECT" = 2,
+            readonly "SELECT": 2
+        }
+        type Vp9ReferenceMode = Vp9ReferenceModeEnum[Exclude<keyof Vp9ReferenceModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Reference modes: Specify the type of inter prediction to be used
+             * @since 1.20
+             */
+            Vp9ReferenceMode: Vp9ReferenceModeEnum
         }
         
-        namespace Vp9TxMode {
-            const $gtype: GObject.GType<Vp9TxMode>
-        }
-
-        /**
-         * TxMode: Specifies how the transform size is determined
-         * @since 1.20
-         */
-        enum Vp9TxMode {
+        interface Vp9TxModeEnum {
+            readonly $gtype: GObject.GType<Vp9TxMode>
             /**
              * Only 4x4
              */
-            "ONLY_4X4" = 0,
+            readonly "ONLY_4X4": 0
             /**
              * Allow 8x8
              */
-            "ALLOW_8X8" = 1,
+            readonly "ALLOW_8X8": 1
             /**
              * Allow 16x16
              */
-            "ALLOW_16X16" = 2,
+            readonly "ALLOW_16X16": 2
             /**
              * Allow 32x32
              */
-            "ALLOW_32X32" = 3,
+            readonly "ALLOW_32X32": 3
             /**
              * The choice is specified explicitly for each block
              */
-            "SELECT" = 4,
+            readonly "SELECT": 4
+        }
+        type Vp9TxMode = Vp9TxModeEnum[Exclude<keyof Vp9TxModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * TxMode: Specifies how the transform size is determined
+             * @since 1.20
+             */
+            Vp9TxMode: Vp9TxModeEnum
         }
         
-        namespace Vp9TxSize {
-            const $gtype: GObject.GType<Vp9TxSize>
-        }
-
-        /**
-         * TxSize: Specifies the transform size
-         * @since 1.20
-         */
-        enum Vp9TxSize {
+        interface Vp9TxSizeEnum {
+            readonly $gtype: GObject.GType<Vp9TxSize>
             /**
              * 4x4
              */
-            "4X4" = 0,
+            readonly "4X4": 0
             /**
              * 8x8
              */
-            "8X8" = 1,
+            readonly "8X8": 1
             /**
              * 16x16
              */
-            "16X16" = 2,
+            readonly "16X16": 2
             /**
              * 32x32
              */
-            "32X32" = 3,
+            readonly "32X32": 3
+        }
+        type Vp9TxSize = Vp9TxSizeEnum[Exclude<keyof Vp9TxSizeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * TxSize: Specifies the transform size
+             * @since 1.20
+             */
+            Vp9TxSize: Vp9TxSizeEnum
+        }
+
+        interface $Exports {
+            __name__: "GstCodecs"
+            __version: "1.0"
+            H264_DPB_MAX_SIZE: 16
+            H265_DPB_MAX_SIZE: 16
+            VP9_BLOCK_SIZE_GROUPS: 4
+            VP9_CLASS0_SIZE: 2
+            VP9_COMP_MODE_CONTEXTS: 5
+            VP9_INTERP_FILTER_CONTEXTS: 4
+            VP9_INTER_MODES: 4
+            VP9_INTER_MODE_CONTEXTS: 7
+            VP9_INTRA_MODES: 10
+            VP9_IS_INTER_CONTEXTS: 4
+            VP9_MV_CLASSES: 11
+            VP9_MV_FR_SIZE: 4
+            VP9_MV_JOINTS: 4
+            VP9_MV_OFFSET_BITS: 10
+            VP9_PARTITION_CONTEXTS: 16
+            VP9_PARTITION_TYPES: 4
+            VP9_REF_CONTEXTS: 5
+            VP9_SEG_LVL_ALT_L: 1
+            VP9_SEG_LVL_ALT_Q: 0
+            VP9_SEG_LVL_MAX: 4
+            VP9_SEG_LVL_REF_FRAME: 2
+            VP9_SEG_SEG_LVL_SKIP: 3
+            VP9_SKIP_CONTEXTS: 3
+            VP9_SWITCHABLE_FILTERS: 3
+            VP9_TX_MODES: 5
+            VP9_TX_SIZES: 4
+            VP9_TX_SIZE_CONTEXTS: 2
+            /**
+             * An implementation of "ac_q" function specified in
+             * "8.6.1 Dequantization functions"
+             * @since 1.20
+             * @param qindex the quantizer index
+             * @param delta_q_ac a delta_q_ac value
+             * @param bit_depth coded bit depth
+             * @returns the quantizer value for the ac coefficient
+             */
+            vp9_get_ac_quant(qindex: number, delta_q_ac: number, bit_depth: number): number
+            /**
+             * An implementation of "dc_q" function specified in
+             * "8.6.1 Dequantization functions"
+             * @since 1.20
+             * @param qindex the quantizer index
+             * @param delta_q_dc a delta_q_dc value
+             * @param bit_depth coded bit depth
+             * @returns the quantizer value for the dc coefficient
+             */
+            vp9_get_dc_quant(qindex: number, delta_q_dc: number, bit_depth: number): number
+            /**
+             * An implementation of "get_qindex" function specfied in
+             * "8.6.1 Dequantization functions"
+             * @since 1.20
+             * @param segmentation_params a #GstVp9SegmentationParams
+             * @param quantization_params a #GstVp9QuantizationParams
+             * @param segment_id a segment id
+             * @returns the quantizer index
+             */
+            vp9_get_qindex(segmentation_params: Vp9SegmentationParams, quantization_params: Vp9QuantizationParams, segment_id: number): number
+            /**
+             * An implementation of "seg_feature_active" function specified in
+             * "6.4.9 Segmentation feature active syntax"
+             * @since 1.20
+             * @param params a #GstVp9SegmentationParams
+             * @param segment_id a segment id
+             * @param feature a segmentation feature
+             * @returns %TRUE if feature is active
+             */
+            vp9_seg_feature_active(params: Vp9SegmentationParams, segment_id: number, feature: number): boolean
         }
     }
 
+    const GstCodecs: GstCodecs.$Exports
     export default GstCodecs
 }

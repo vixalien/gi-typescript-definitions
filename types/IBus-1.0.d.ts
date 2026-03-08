@@ -16,10 +16,7 @@ declare module "gi://IBus?version=1.0" {
 
     
 
-
     namespace IBus {
-        const __name__: "IBus"
-        const __version: "1.0"
         
 
         namespace AttrList {
@@ -36,9 +33,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * Array of IBusAttribute.
-         */
         interface AttrList extends Serializable {
             readonly $signals: AttrList.SignalSignatures
             readonly $readableProperties: AttrList.ReadableProperties
@@ -60,6 +54,7 @@ declare module "gi://IBus?version=1.0" {
         interface AttrListClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<AttrList>
             readonly prototype: AttrList
+
             new (props?: Partial<GObject.ConstructorProps<AttrList>>): AttrList
             /**
              * Creates an new #IBusAttrList.
@@ -68,7 +63,12 @@ declare module "gi://IBus?version=1.0" {
             "new"(): AttrList
         }
 
-        const AttrList: AttrListClass
+        interface $Exports {
+            /**
+             * Array of IBusAttribute.
+             */
+            AttrList: AttrListClass
+        }
         
 
         namespace Attribute {
@@ -85,11 +85,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An IBusAttribute represents an attribute that associate to IBusText.
-         * It decorates preedit buffer and auxiliary text with underline, foreground
-         * and background colors.
-         */
         interface Attribute extends Serializable {
             readonly $signals: Attribute.SignalSignatures
             readonly $readableProperties: Attribute.ReadableProperties
@@ -123,6 +118,7 @@ declare module "gi://IBus?version=1.0" {
         interface AttributeClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<Attribute>
             readonly prototype: Attribute
+
             new (props?: Partial<GObject.ConstructorProps<Attribute>>): Attribute
             /**
              * Creates a new IBusAttribute.
@@ -135,7 +131,14 @@ declare module "gi://IBus?version=1.0" {
             "new"(type: number, value: number, start_index: number, end_index: number): Attribute
         }
 
-        const Attribute: AttributeClass
+        interface $Exports {
+            /**
+             * An IBusAttribute represents an attribute that associate to IBusText.
+             * It decorates preedit buffer and auxiliary text with underline, foreground
+             * and background colors.
+             */
+            Attribute: AttributeClass
+        }
         
 
         namespace Bus {
@@ -178,17 +181,14 @@ declare module "gi://IBus?version=1.0" {
             }
 
             interface WritableProperties extends Object.WritableProperties {
-                "client-only": boolean
-                "connect-async": boolean
             }
 
             interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                "client-only": boolean
+                "connect-async": boolean
             }
         }
 
-        /**
-         * An IBusBus connects with IBus daemon.
-         */
         interface Bus extends Object {
             readonly $signals: Bus.SignalSignatures
             readonly $readableProperties: Bus.ReadableProperties
@@ -516,7 +516,9 @@ declare module "gi://IBus?version=1.0" {
              */
             list_engines_async_finish(res: Gio.AsyncResult): EngineDesc[]
             /**
-             * >
+             * Return lists that attached to @bus.
+             * <note><para>[FixMe] Not implemented yet, only return %NULL.</para></note>
+             * <note><para>[FixMe] Add async version.</para></note>
              * @returns Lists that attached to `bus`.
              */
             list_names(): string[]
@@ -763,6 +765,7 @@ declare module "gi://IBus?version=1.0" {
         interface BusClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Bus>
             readonly prototype: Bus
+
             new (props?: Partial<GObject.ConstructorProps<Bus>>): Bus
             /**
              * Creates a new #IBusBus instance.
@@ -785,7 +788,12 @@ declare module "gi://IBus?version=1.0" {
             new_async_client(): Bus
         }
 
-        const Bus: BusClass
+        interface $Exports {
+            /**
+             * An IBusBus connects with IBus daemon.
+             */
+            Bus: BusClass
+        }
         
 
         namespace Component {
@@ -804,6 +812,9 @@ declare module "gi://IBus?version=1.0" {
             }
 
             interface WritableProperties extends Serializable.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
                 "author": string
                 "command-line": string
                 "description": string
@@ -813,14 +824,8 @@ declare module "gi://IBus?version=1.0" {
                 "textdomain": string
                 "version": string
             }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * >
-         */
         interface Component extends Serializable {
             readonly $signals: Component.SignalSignatures
             readonly $readableProperties: Component.ReadableProperties
@@ -959,6 +964,7 @@ declare module "gi://IBus?version=1.0" {
         interface ComponentClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<Component>
             readonly prototype: Component
+
             new (props?: Partial<GObject.ConstructorProps<Component>>): Component
             /**
              * Creates a new #IBusComponent.
@@ -990,13 +996,28 @@ declare module "gi://IBus?version=1.0" {
             new_from_xml_node(node: XML): Component
         }
 
-        const Component: ComponentClass
+        interface $Exports {
+            /**
+             * An IBusComponent is an executable program.
+             * It provides services such as user interface, configuration,
+             * and input method engine (IME).
+             *
+             * It is recommended that IME developers provide
+             * a component XML file and
+             * load the XML file by ibus_component_new_from_file().
+             *
+             * The format of a component XML file is described  at
+             * <ulink url="https://github.com/ibus/ibus/wiki/DevXML">https://github.com/ibus/ibus/wiki/DevXML</ulink>
+             */
+            Component: ComponentClass
+        }
         
 
         namespace Config {
             interface SignalSignatures extends Proxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
                 /**
-                 * >
+                 * Emitted when configuration value is changed.
+                 * <note><para>Argument @user_data is ignored in this function.</para></note>
                  * @param section Section name.
                  * @param name Name of the property.
                  * @param value Value.
@@ -1014,12 +1035,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An IBusConfig provides engine configuration methods
-         * such as get and set the configure settings to configuration file.
-         *
-         * Currently, IBusConfig supports gconf.
-         */
         interface Config extends Proxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
             readonly $signals: Config.SignalSignatures
             readonly $readableProperties: Config.ReadableProperties
@@ -1142,6 +1157,7 @@ declare module "gi://IBus?version=1.0" {
         interface ConfigClass extends Omit<ProxyClass, "new"> {
             readonly $gtype: GObject.GType<Config>
             readonly prototype: Config
+
             new (props?: Partial<GObject.ConstructorProps<Config>>): Config
             /**
              * Create a new #IBusConfig from existing #GDBusConnection.
@@ -1169,7 +1185,15 @@ declare module "gi://IBus?version=1.0" {
             new_async(connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         }
 
-        const Config: ConfigClass
+        interface $Exports {
+            /**
+             * An IBusConfig provides engine configuration methods
+             * such as get and set the configure settings to configuration file.
+             *
+             * Currently, IBusConfig supports gconf.
+             */
+            Config: ConfigClass
+        }
         
 
         namespace ConfigService {
@@ -1186,9 +1210,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * >
-         */
         interface ConfigService extends Service {
             readonly $signals: ConfigService.SignalSignatures
             readonly $readableProperties: ConfigService.ReadableProperties
@@ -1231,6 +1252,7 @@ declare module "gi://IBus?version=1.0" {
         interface ConfigServiceClass extends Omit<ServiceClass, "new"> {
             readonly $gtype: GObject.GType<ConfigService>
             readonly prototype: ConfigService
+
             new (props?: Partial<GObject.ConstructorProps<ConfigService>>): ConfigService
             /**
              * Creates an new #IBusConfigService from an #GDBusConnection.
@@ -1240,7 +1262,112 @@ declare module "gi://IBus?version=1.0" {
             "new"(connection: Gio.DBusConnection): ConfigService
         }
 
-        const ConfigService: ConfigServiceClass
+        interface $Exports {
+            /**
+             * An IBusConfigService is a base class for other configuration services such as GConf.
+             * Currently, directly known sub class is IBusConfigGConf.
+             *
+             * IBusConfigServiceClass has following member functions:
+             * <itemizedlist>
+             *     <listitem>
+             *         <para>gboolean set_value(IBusConfigService *config, const gchar *section, const gchar *name,
+             *             const GValue *value, IBusError **error)
+             *         </para>
+             *         <variablelist>
+             *             <varlistentry>
+             *                 <term>config:</term>
+             *                 <listitem>A configure service</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>section:</term>
+             *                 <listitem>Section name of the configuration option.</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>name:</term>
+             *                 <listitem>Name of the configuration option.</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>value:</term>
+             *                 <listitem>GValue that holds the value.</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>error:</term>
+             *                 <listitem>Error outputs here.</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>Returns:</term>
+             *                 <listitem>TRUE if succeed; FALSE otherwise.</listitem>
+             *             </varlistentry>
+             *         </variablelist>
+             *         <para>Set a value to a configuration option.
+             *         </para>
+             *     </listitem>
+             *     <listitem>
+             *         <para>gboolean get_value(IBusConfigService *config, const gchar *section, const gchar *name,
+             *             GValue *value, IBusError **error)
+             *         </para>
+             *         <variablelist>
+             *             <varlistentry>
+             *                 <term>config:</term>
+             *                 <listitem>A configure service</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>section:</term>
+             *                 <listitem>Section name of the configuration option.</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>name:</term>
+             *                 <listitem>Name of the configuration option.</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>value:</term>
+             *                 <listitem>GValue that holds the value.</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>error:</term>
+             *                 <listitem>Error outputs here.</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>Returns:</term>
+             *                 <listitem>TRUE if succeed; FALSE otherwise.</listitem>
+             *             </varlistentry>
+             *        </variablelist>
+             *        <para>Get value of a configuration option.
+             *        </para>
+             *     </listitem>
+             *     <listitem>
+             *         <para>gboolean unset(IBusConfigService *config, const gchar *section, const gchar *name,
+             *             IBusError **error)
+             *         </para>
+             *         <variablelist>
+             *             <varlistentry>
+             *                 <term>config:</term>
+             *                 <listitem>A configure service</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>section:</term>
+             *                 <listitem>Section name of the configuration option.</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>name:</term>
+             *                 <listitem>Name of the configuration option.</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>error:</term>
+             *                 <listitem>Error outputs here.</listitem>
+             *             </varlistentry>
+             *             <varlistentry>
+             *                 <term>Returns:</term>
+             *                 <listitem>TRUE if succeed; FALSE otherwise.</listitem>
+             *             </varlistentry>
+             *         </variablelist>
+             *         <para>Remove an entry to a configuration option.
+             *         </para>
+             *     </listitem>
+             * </itemizedlist>
+             */
+            ConfigService: ConfigServiceClass
+        }
         
 
         namespace EmojiData {
@@ -1256,19 +1383,15 @@ declare module "gi://IBus?version=1.0" {
 
             interface WritableProperties extends Serializable.WritableProperties {
                 "annotations": never
-                "category": string
                 "description": string
-                "emoji": string
             }
 
             interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                "category": string
+                "emoji": string
             }
         }
 
-        /**
-         * Emoji data likes emoji unicode, annotations, description, category.
-         * You can get extended values with g_object_get_properties.
-         */
         interface EmojiData extends Serializable {
             readonly $signals: EmojiData.SignalSignatures
             readonly $readableProperties: EmojiData.ReadableProperties
@@ -1330,6 +1453,7 @@ declare module "gi://IBus?version=1.0" {
         interface EmojiDataClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<EmojiData>
             readonly prototype: EmojiData
+
             new (props?: Partial<GObject.ConstructorProps<EmojiData>>): EmojiData
             /**
              * @param path A path of the saved dictionary file.
@@ -1344,68 +1468,174 @@ declare module "gi://IBus?version=1.0" {
             save(path: string, list: EmojiData[]): void
         }
 
-        const EmojiData: EmojiDataClass
+        interface $Exports {
+            /**
+             * Emoji data likes emoji unicode, annotations, description, category.
+             * You can get extended values with g_object_get_properties.
+             */
+            EmojiData: EmojiDataClass
+        }
         
 
         namespace Engine {
             interface SignalSignatures extends Service.SignalSignatures {
                 /**
-                 * >
+                 * Emitted when a hand writing operation is cancelled.
+                 * Implement the member function IBusEngineClass::cancel_hand_writing
+                 * in extended class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param n_strokes The number of strokes to be removed. 0 means "remove all".
                  */
                 "cancel-hand-writing"(n_strokes: number): void
                 /**
-                 * >
+                 * Emitted when candidate on lookup table is clicked.
+                 * Implement the member function IBusEngineClass::candidate_clicked
+                 * in extended class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param index Index of candidate be clicked.
                  * @param button Mouse button.
                  * @param state Keyboard state.
                  */
                 "candidate-clicked"(index: number, button: number, state: number): void
                 /**
-                 * >
+                 * Emitted when the down cursor button is pressed.
+                 * Implement the member function IBusEngineClass::cursor_down
+                 * in extended class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "cursor-down"(): void
                 /**
-                 * >
+                 * Emitted when the up cursor button is pressed.
+                 * Implement the member function IBusEngineClass::cursor_up
+                 * in extended class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "cursor-up"(): void
                 /**
-                 * >
+                 * Emitted when the IME is disabled.
+                 * Implement the member function IBusEngineClass::disable
+                 * in extended class to receive this signal.
+                 *
+                 * See also:  ibus_bus_set_global_engine().
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "disable"(): void
                 /**
-                 * >
+                 * Emitted when the IME is enabled.
+                 * Implement the member function IBusEngineClass::enable
+                 * in extended class to receive this signal.
+                 *
+                 * See also:  ibus_bus_set_global_engine().
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "enable"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the focus.
+                 * Implement the member function IBusEngineClass::focus_in
+                 * in extended class to receive this signal.
+                 *
+                 * See also: ibus_input_context_focus_in()
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "focus-in"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the focus.
+                 * Implement the member function IBusEngineClass::focus_in
+                 * in extended class to receive this signal.
+                 * @object_path is a unique id by input context.
+                 * @client indicates a client type:
+                 * 'fake':    focus is on desktop background or other programs where no
+                 *            input is possible
+                 * 'xim':     old X11 programs like xterm, emacs, ...
+                 *            GTK3 programs in a Gnome Xorg session when GTK_IM_MODULE
+                 *            is unset also use xim
+                 * 'gtk-im:&lt;client-name&gt;':  Gtk2 input module is used
+                 * 'gtk3-im:&lt;client-name&gt;': Gtk3 input module is used
+                 * 'gtk4-im:&lt;client-name&gt;': Gtk4 input module is used
+                 *            In case of the Gtk input modules, the name of the
+                 *            client is also shown after the “:”, for example
+                 *            like 'gtk3-im:firefox', 'gtk4-im:gnome-text-editor', …
+                 * 'gnome-shell': Entries handled by gnome-shell
+                 *                (like the command line dialog opened with Alt+F2
+                 *                or the search field when pressing the Super key.)
+                 *                When GTK_IM_MODULE is unset in a Gnome Wayland session
+                 *                all programs which would show 'gtk3-im' or 'gtk4-im'
+                 *                with GTK_IM_MODULE=ibus then show 'gnome-shell'
+                 *                instead.
+                 * 'Qt':      Qt4 programs like keepassx-2.0.3 …
+                 * 'QIBusInputContext': Qt5 programs like keepassxc-2.7.1, anki-2.1.15
+                 *                      telegram-desktop-3.7.3,
+                 *
+                 * You need to set #IBusEngine::has-focus-id property to %TRUE when you
+                 * construct an #IBusEngine to use this class method.
+                 *
+                 * See also: ibus_input_context_focus_in()
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param object_path An object path.
                  * @param client An client name.
                  */
                 "focus-in-id"(object_path: string, client: string): void
                 /**
-                 * >
+                 * Emitted when the client application  lost the focus.
+                 * Implement the member function IBusEngineClass::focus_out
+                 * in extended class to receive this signal.
+                 *
+                 * See also: ibus_input_context_focus_out()
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "focus-out"(): void
                 /**
-                 * >
+                 * Emitted when the client application  lost the focus.
+                 * Implement the member function IBusEngineClass::focus_out
+                 * in extended class to receive this signal.
+                 * @object_path is a unique id by input context.
+                 * You need to set #IBusEngine::has-focus-id property to %TRUE when you
+                 * construct an #IBusEngine to use this class method.
+                 *
+                 * See also: ibus_input_context_focus_out()
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param object_path An object path.
                  */
                 "focus-out-id"(object_path: string): void
                 /**
-                 * >
+                 * Emitted when the page-down button is pressed.
+                 * Implement the member function IBusEngineClass::page_down
+                 * in extended class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "page-down"(): void
                 /**
-                 * >
+                 * Emitted when the page-up button is pressed.
+                 * Implement the member function IBusEngineClass::page_up
+                 * in extended class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "page-up"(): void
                 /**
-                 * >
+                 * Emitted when a hand writing operation is cancelled.
+                 * Implement the member function IBusEngineClass::cancel_hand_writing
+                 * in extended class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param coordinates An array of double (0.0 to 1.0) which represents a stroke
                               (i.e. [x1, y1, x2, y2, x3, y3, ...]).
                  * @param coordinates_len The number of elements in the array.
@@ -1421,42 +1651,87 @@ declare module "gi://IBus?version=1.0" {
                  * @param keyval Key symbol of the key press.
                  * @param keycode KeyCode of the key press.
                  * @param state Key modifier flags.
-                 * @returns >
+                 * @returns %TRUE for successfully process the key; %FALSE otherwise. See also:  ibus_input_context_process_key_event().  <note><para>Argument `user_data` is ignored in this function.</para> </note>
                  */
                 "process-key-event"(keyval: number, keycode: number, state: number): boolean
                 /**
-                 * >
+                 * Emitted when a property is activated or change changed.
+                 * Implement the member function IBusEngineClass::property_activate
+                 * in extended class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param name Property name.
                  * @param state Property state.
                  */
                 "property-activate"(name: string, state: number): void
                 /**
-                 * >
+                 * Emitted when a property is hidden.
+                 * Implement the member function IBusEngineClass::property_hide
+                 * in extended class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param name Property name.
                  */
                 "property-hide"(name: string): void
                 /**
-                 * >
+                 * Emitted when a property is shown.
+                 * Implement the member function IBusEngineClass::property_side
+                 * in extended class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param name Property name.
                  */
                 "property-show"(name: string): void
                 /**
-                 * >
+                 * Emitted when the IME is reset.
+                 * Implement the member function IBusEngineClass::reset
+                 * in extended class to receive this signal.
+                 *
+                 * See also:  ibus_input_context_reset().
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "reset"(): void
                 /**
-                 * >
+                 * Emitted when the client application capabilities is set.
+                 * Implement the member function IBusEngineClass::set_capabilities
+                 * in extended class to receive this signal.
+                 *
+                 * See also:  ibus_input_context_set_capabilities().
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param caps Capabilities flags of IBusEngine, see #IBusCapabilite
                  */
                 "set-capabilities"(caps: number): void
                 /**
-                 * >
+                 * Emitted when the client application content-type (primary
+                 * purpose and hints) is set.  The engine could change the
+                 * behavior according to the content-type.  Implement the member
+                 * function IBusEngineClass::set_content_type
+                 * in extended class to receive this signal.
+                 *
+                 * For example, if the client application wants to restrict input
+                 * to numbers, this signal will be emitted with @purpose set to
+                 * #IBUS_INPUT_PURPOSE_NUMBER, so the engine can switch the input
+                 * mode to latin.
+                 *
+                 * <note><para>Argument @user_data is ignored in this
+                 * function.</para></note>
                  * @param purpose Primary purpose of the input context, as an #IBusInputPurpose.
                  * @param hints Hints that augment @purpose, as an #IBusInputHints.
                  */
                 "set-content-type"(purpose: number, hints: number): void
                 /**
-                 * >
+                 * Emitted when the location of IME is set.
+                 * Implement the member function IBusEngineClass::set_cursor_location
+                 * in extended class to receive this signal.
+                 *
+                 * See also:  ibus_input_context_set_cursor_location().
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param x X coordinate of the cursor.
                  * @param y Y coordinate of the cursor.
                  * @param w Width of the cursor.
@@ -1464,7 +1739,14 @@ declare module "gi://IBus?version=1.0" {
                  */
                 "set-cursor-location"(x: number, y: number, w: number, h: number): void
                 /**
-                 * >
+                 * Emitted when a surrounding text is set.
+                 * Implement the member function IBusEngineClass::set_surrounding_text
+                 * in extended class to receive this signal.
+                 * If anchor_pos equals to cursor_pos, it means "there are no selection"
+                 * or "does not support selection retrival".
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param text The surrounding text.
                  * @param cursor_pos The cursor position on surrounding text.
                  * @param anchor_pos The anchor position on selection area.
@@ -1479,21 +1761,15 @@ declare module "gi://IBus?version=1.0" {
             }
 
             interface WritableProperties extends Service.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Service.ConstructOnlyProperties {
                 "active-surrounding-text": boolean
                 "engine-name": string
                 "has-focus-id": boolean
             }
-
-            interface ConstructOnlyProperties extends Service.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * An IBusEngine provides infrastructure for input method engine.
-         * Developers can "extend" this class for input method engine development.
-         *
-         * see_also: #IBusComponent, #IBusEngineDesc
-         */
         interface Engine extends Service {
             readonly $signals: Engine.SignalSignatures
             readonly $readableProperties: Engine.ReadableProperties
@@ -1554,7 +1830,7 @@ declare module "gi://IBus?version=1.0" {
              * See also: #IBusEngine::set-content-type
              * @returns , Primary purpose of the input context., Hints that augument `purpose`.
              */
-            get_content_type(): void
+            get_content_type(): [number, number]
             /**
              * Return the name of #IBusEngine.
              * @returns Name of #IBusEngine.
@@ -1571,7 +1847,7 @@ declare module "gi://IBus?version=1.0" {
              * See also: #IBusEngine::set-surrounding-text
              * @returns , Location to store surrounding text., Cursor position in characters in `text`., Anchor position of selection in `text`.
              */
-            get_surrounding_text(): void
+            get_surrounding_text(): [Text, number, number]
             /**
              * Hide the auxiliary bar.
              */
@@ -1774,6 +2050,7 @@ declare module "gi://IBus?version=1.0" {
         interface EngineClass extends Omit<ServiceClass, "new"> {
             readonly $gtype: GObject.GType<Engine>
             readonly prototype: Engine
+
             new (props?: Partial<GObject.ConstructorProps<Engine>>): Engine
             /**
              * Create a new #IBusEngine.
@@ -1794,7 +2071,15 @@ declare module "gi://IBus?version=1.0" {
             new_with_type(engine_type: (GObject.GType | { $gtype: GObject.GType }), engine_name: string, object_path: string, connection: Gio.DBusConnection): Engine
         }
 
-        const Engine: EngineClass
+        interface $Exports {
+            /**
+             * An IBusEngine provides infrastructure for input method engine.
+             * Developers can "extend" this class for input method engine development.
+             *
+             * see_also: #IBusComponent, #IBusEngineDesc
+             */
+            Engine: EngineClass
+        }
         
 
         namespace EngineDesc {
@@ -1822,6 +2107,9 @@ declare module "gi://IBus?version=1.0" {
             }
 
             interface WritableProperties extends Serializable.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
                 "author": string
                 "description": string
                 "hotkeys": string
@@ -1840,23 +2128,8 @@ declare module "gi://IBus?version=1.0" {
                 "textdomain": string
                 "version": string
             }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * An IBusEngineDesc stores description data of IBusEngine.
-         * The description data can either be passed to ibus_engine_desc_new(),
-         * or loaded from an XML node through ibus_engine_desc_new_from_xml_node()
-         * to construct IBusEngineDesc.
-         *
-         * However, the recommended way to load engine description data is
-         * using ibus_component_new_from_file() to load a component file,
-         * which also includes engine description data.
-         *
-         * see_also: #IBusComponent, #IBusEngine
-         */
         interface EngineDesc extends Serializable {
             readonly $signals: EngineDesc.SignalSignatures
             readonly $readableProperties: EngineDesc.ReadableProperties
@@ -2049,6 +2322,7 @@ declare module "gi://IBus?version=1.0" {
         interface EngineDescClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<EngineDesc>
             readonly prototype: EngineDesc
+
             new (props?: Partial<GObject.ConstructorProps<EngineDesc>>): EngineDesc
             /**
              * Creates a new #IBusEngineDesc.
@@ -2068,14 +2342,31 @@ declare module "gi://IBus?version=1.0" {
              */
             "new"(name: string, longname: string, description: string, language: string, license: string, author: string, icon: string, layout: string): EngineDesc
             /**
-             * >
+             * Creates a new IBusEngineDesc from an XML node.
+             * <note><para>This function is called by ibus_component_new_from_file(),
+             *  so developers normally do not need to call it directly.
+             * </para></note>
              * @param node An XML node
              * @returns A newly allocated IBusEngineDesc that contains description from `node`.
              */
             new_from_xml_node(node: XML): EngineDesc
         }
 
-        const EngineDesc: EngineDescClass
+        interface $Exports {
+            /**
+             * An IBusEngineDesc stores description data of IBusEngine.
+             * The description data can either be passed to ibus_engine_desc_new(),
+             * or loaded from an XML node through ibus_engine_desc_new_from_xml_node()
+             * to construct IBusEngineDesc.
+             *
+             * However, the recommended way to load engine description data is
+             * using ibus_component_new_from_file() to load a component file,
+             * which also includes engine description data.
+             *
+             * see_also: #IBusComponent, #IBusEngine
+             */
+            EngineDesc: EngineDescClass
+        }
         
 
         namespace EngineSimple {
@@ -2092,11 +2383,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An IBusEngineSimple provides table-based input method logic.
-         *
-         * see_also: #IBusEngine
-         */
         interface EngineSimple extends Engine {
             readonly $signals: EngineSimple.SignalSignatures
             readonly $readableProperties: EngineSimple.ReadableProperties
@@ -2135,10 +2421,18 @@ declare module "gi://IBus?version=1.0" {
         interface EngineSimpleClass extends Omit<EngineClass, "new"> {
             readonly $gtype: GObject.GType<EngineSimple>
             readonly prototype: EngineSimple
+
             new (props?: Partial<GObject.ConstructorProps<EngineSimple>>): EngineSimple
         }
 
-        const EngineSimple: EngineSimpleClass
+        interface $Exports {
+            /**
+             * An IBusEngineSimple provides table-based input method logic.
+             *
+             * see_also: #IBusEngine
+             */
+            EngineSimple: EngineSimpleClass
+        }
         
 
         namespace ExtensionEvent {
@@ -2154,20 +2448,17 @@ declare module "gi://IBus?version=1.0" {
             }
 
             interface WritableProperties extends Serializable.WritableProperties {
-                "is-enabled": boolean
-                "is-extension": boolean
-                "name": string
-                "params": string
                 "version": number
             }
 
             interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                "is-enabled": boolean
+                "is-extension": boolean
+                "name": string
+                "params": string
             }
         }
 
-        /**
-         * IBusExtensionEvent properties.
-         */
         interface ExtensionEvent extends Serializable {
             readonly $signals: ExtensionEvent.SignalSignatures
             readonly $readableProperties: ExtensionEvent.ReadableProperties
@@ -2229,10 +2520,16 @@ declare module "gi://IBus?version=1.0" {
         interface ExtensionEventClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<ExtensionEvent>
             readonly prototype: ExtensionEvent
+
             new (props?: Partial<GObject.ConstructorProps<ExtensionEvent>>): ExtensionEvent
         }
 
-        const ExtensionEvent: ExtensionEventClass
+        interface $Exports {
+            /**
+             * IBusExtensionEvent properties.
+             */
+            ExtensionEvent: ExtensionEventClass
+        }
         
 
         namespace Factory {
@@ -2259,13 +2556,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An IBusFactory is an #IBusService that creates input method engine (IME) instance.
-         * It provides CreateEngine remote method, which creates an IME instance by name,
-         * and returns the D-Bus object path to IBus daemon.
-         *
-         * see_also: #IBusEngine
-         */
         interface Factory extends Service {
             readonly $signals: Factory.SignalSignatures
             readonly $readableProperties: Factory.ReadableProperties
@@ -2294,6 +2584,7 @@ declare module "gi://IBus?version=1.0" {
         interface FactoryClass extends Omit<ServiceClass, "new"> {
             readonly $gtype: GObject.GType<Factory>
             readonly prototype: Factory
+
             new (props?: Partial<GObject.ConstructorProps<Factory>>): Factory
             /**
              * Creates a new #IBusFactory.
@@ -2303,13 +2594,25 @@ declare module "gi://IBus?version=1.0" {
             "new"(connection: Gio.DBusConnection): Factory
         }
 
-        const Factory: FactoryClass
+        interface $Exports {
+            /**
+             * An IBusFactory is an #IBusService that creates input method engine (IME) instance.
+             * It provides CreateEngine remote method, which creates an IME instance by name,
+             * and returns the D-Bus object path to IBus daemon.
+             *
+             * see_also: #IBusEngine
+             */
+            Factory: FactoryClass
+        }
         
 
         namespace HotkeyProfile {
             interface SignalSignatures extends Serializable.SignalSignatures {
                 /**
-                 * >
+                 * Emitted when a hotkey is pressed and the hotkey is in profile.
+                 * Implement the member function trigger() in extended class to receive this signal.
+                 *
+                 * <note><para>The last parameter, user_data is not actually a valid parameter. It is displayed because of GtkDoc bug.</para></note>
                  * @param event An event in GQuark.
                  * @param user_data User data for callback.
                  */
@@ -2326,9 +2629,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An opaque data type representing an IBusHotkeyProfile.
-         */
         interface HotkeyProfile extends Serializable {
             readonly $signals: HotkeyProfile.SignalSignatures
             readonly $readableProperties: HotkeyProfile.ReadableProperties
@@ -2343,14 +2643,16 @@ declare module "gi://IBus?version=1.0" {
              */
             add_hotkey(keyval: number, modifiers: number, event: GLib.Quark): boolean
             /**
-             * .
+             * Adds a hotkey and its associated event to an #IBusHotkeyProfile.
+             * The hotkey is in string format, such like
+             * <constant>Control+Shift+A</constant>.
              * @param str Key in string representation.  '+' is the separator.
              * @param event The event to be associated.
              * @returns FALSE if `str` contains invalid symbol; TRUE otherwise.
              */
             add_hotkey_from_string(str: string, event: GLib.Quark): boolean
             /**
-             *  signal when a hotkey is in a profile.
+             * Emits a <constant>::trigger</constant> signal when a hotkey is in a profile.
              * @param keyval Keycode of the hotkey.
              * @param modifiers Modifiers of the hotkey.
              * @param prev_keyval Keycode of the hotkey.
@@ -2387,6 +2689,7 @@ declare module "gi://IBus?version=1.0" {
         interface HotkeyProfileClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<HotkeyProfile>
             readonly prototype: HotkeyProfile
+
             new (props?: Partial<GObject.ConstructorProps<HotkeyProfile>>): HotkeyProfile
             /**
              * Creates a new #IBusHotkeyProfile.
@@ -2395,7 +2698,12 @@ declare module "gi://IBus?version=1.0" {
             "new"(): HotkeyProfile
         }
 
-        const HotkeyProfile: HotkeyProfileClass
+        interface $Exports {
+            /**
+             * An opaque data type representing an IBusHotkeyProfile.
+             */
+            HotkeyProfile: HotkeyProfileClass
+        }
         
 
         namespace InputContext {
@@ -2548,14 +2856,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An IBusInputContext is a proxy object of BusInputContext,
-         * which manages the context for input methods that supports
-         * text input in various natural languages.
-         *
-         * Clients call the IBusInputContext to invoke BusInputContext,
-         * through which invokes IBusEngine.
-         */
         interface InputContext extends Proxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
             readonly $signals: InputContext.SignalSignatures
             readonly $readableProperties: InputContext.ReadableProperties
@@ -2630,7 +2930,7 @@ declare module "gi://IBus?version=1.0" {
              *
              * see_also: #IBusEngine::process-hand-writing-event
              * @param coordinates An array of gdouble (0.0 to 1.0) which represents a stroke (i.e. [x1, y1, x2, y2, x3, y3, ...]).
-             * @param coordinates_len = 4.
+             * @param coordinates_len The number of elements in the array. The number should be even and >= 4.
              */
             process_hand_writing_event(coordinates: number, coordinates_len: number): void
             /**
@@ -2776,6 +3076,7 @@ declare module "gi://IBus?version=1.0" {
         interface InputContextClass extends Omit<ProxyClass, "new"> {
             readonly $gtype: GObject.GType<InputContext>
             readonly prototype: InputContext
+
             new (props?: Partial<GObject.ConstructorProps<InputContext>>): InputContext
             /**
              * Creates a new #IBusInputContext.
@@ -2830,7 +3131,17 @@ declare module "gi://IBus?version=1.0" {
             new_async(path: string, connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         }
 
-        const InputContext: InputContextClass
+        interface $Exports {
+            /**
+             * An IBusInputContext is a proxy object of BusInputContext,
+             * which manages the context for input methods that supports
+             * text input in various natural languages.
+             *
+             * Clients call the IBusInputContext to invoke BusInputContext,
+             * through which invokes IBusEngine.
+             */
+            InputContext: InputContextClass
+        }
         
 
         namespace Keymap {
@@ -2847,20 +3158,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An IBusKeymap defines the mapping between keyboard scancodes and
-         * keyboard symbols such as numbers, alphabets, and punctuation marks.
-         *
-         * Some input methods assume certain keyboard layout
-         * (such as Chewing and Wubi requires an US-QWERTY layout),
-         * and expect key symbols to be arranged in that order.
-         * These input methods should new an IBusKeymap
-         * instance and define the keyboard layout.
-         * Then ibus_keymap_lookup_keysym() can
-         * convert scancodes back to the key symbols.
-         *
-         * see_also: #IBusComponent, #IBusEngineDesc
-         */
         interface Keymap extends Object {
             readonly $signals: Keymap.SignalSignatures
             readonly $readableProperties: Keymap.ReadableProperties
@@ -2878,6 +3175,7 @@ declare module "gi://IBus?version=1.0" {
         interface KeymapClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Keymap>
             readonly prototype: Keymap
+
             new (props?: Partial<GObject.ConstructorProps<Keymap>>): Keymap
             /**
              * Get an #IBusKeymap associated with the giving name.
@@ -2900,7 +3198,23 @@ declare module "gi://IBus?version=1.0" {
             get(name: string): Keymap
         }
 
-        const Keymap: KeymapClass
+        interface $Exports {
+            /**
+             * An IBusKeymap defines the mapping between keyboard scancodes and
+             * keyboard symbols such as numbers, alphabets, and punctuation marks.
+             *
+             * Some input methods assume certain keyboard layout
+             * (such as Chewing and Wubi requires an US-QWERTY layout),
+             * and expect key symbols to be arranged in that order.
+             * These input methods should new an IBusKeymap
+             * instance and define the keyboard layout.
+             * Then ibus_keymap_lookup_keysym() can
+             * convert scancodes back to the key symbols.
+             *
+             * see_also: #IBusComponent, #IBusEngineDesc
+             */
+            Keymap: KeymapClass
+        }
         
 
         namespace LookupTable {
@@ -2917,16 +3231,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An IBusLookuptable stores the candidate words or phrases for users to
-         * choose from.
-         *
-         * Use ibus_engine_update_lookup_table(), ibus_engine_show_lookup_table(),
-         * and ibus_engine_hide_lookup_table() to update, show and hide the lookup
-         * table.
-         *
-         * see_also: #IBusEngine
-         */
         interface LookupTable extends Serializable {
             readonly $signals: LookupTable.SignalSignatures
             readonly $readableProperties: LookupTable.ReadableProperties
@@ -2949,13 +3253,19 @@ declare module "gi://IBus?version=1.0" {
              */
             clear(): void
             /**
-             * , where it will go
+             * Go to next candidate of an #IBusLookupTable.
+             *
+             * It returns FALSE if it is already at the last candidate,
+             * unless  <code>table&gt;-round==TRUE</code>, where it will go
              * to the first candidate.
              * @returns %TRUE if succeed.
              */
             cursor_down(): boolean
             /**
-             * , where it will go
+             * Go to previous candidate of an #IBusLookupTable.
+             *
+             * It returns FALSE if it is already at the first candidate,
+             * unless  <code>table&gt;-round==TRUE</code>, where it will go
              * to the last candidate.
              * @returns %TRUE if succeed.
              */
@@ -3008,13 +3318,19 @@ declare module "gi://IBus?version=1.0" {
              */
             is_round(): boolean
             /**
-             * , where it will go
+             * Go to next page of an #IBusLookupTable.
+             *
+             * It returns FALSE if it is already at the last page,
+             * unless  <code>table&gt;-round==TRUE</code>, where it will go
              * to the first page.
              * @returns %TRUE if succeed.
              */
             page_down(): boolean
             /**
-             * , where it will go
+             * Go to previous page of an #IBusLookupTable.
+             *
+             * It returns FALSE if it is already at the first page,
+             * unless  <code>table&gt;-round==TRUE</code>, where it will go
              * to the last page.
              * @returns %TRUE if succeed.
              */
@@ -3057,6 +3373,7 @@ declare module "gi://IBus?version=1.0" {
         interface LookupTableClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<LookupTable>
             readonly prototype: LookupTable
+
             new (props?: Partial<GObject.ConstructorProps<LookupTable>>): LookupTable
             /**
              * Craetes a new #IBusLookupTable.
@@ -3069,13 +3386,29 @@ declare module "gi://IBus?version=1.0" {
             "new"(page_size: number, cursor_pos: number, cursor_visible: boolean, round: boolean): LookupTable
         }
 
-        const LookupTable: LookupTableClass
+        interface $Exports {
+            /**
+             * An IBusLookuptable stores the candidate words or phrases for users to
+             * choose from.
+             *
+             * Use ibus_engine_update_lookup_table(), ibus_engine_show_lookup_table(),
+             * and ibus_engine_hide_lookup_table() to update, show and hide the lookup
+             * table.
+             *
+             * see_also: #IBusEngine
+             */
+            LookupTable: LookupTableClass
+        }
         
 
         namespace Object {
             interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {
                 /**
-                 * >
+                 * Destroy and free an IBusObject
+                 *
+                 * See also:  ibus_object_destroy().
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para></note>
                  */
                 "destroy"(): void
             }
@@ -3090,9 +3423,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * IBusObject is the base object for all objects in IBus.
-         */
         interface Object extends GObject.InitiallyUnowned {
             readonly $signals: Object.SignalSignatures
             readonly $readableProperties: Object.ReadableProperties
@@ -3121,6 +3451,7 @@ declare module "gi://IBus?version=1.0" {
         interface ObjectClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
             readonly $gtype: GObject.GType<Object>
             readonly prototype: Object
+
             new (props?: Partial<GObject.ConstructorProps<Object>>): Object
             /**
              * Creates  a new #IBusObject.
@@ -3129,7 +3460,12 @@ declare module "gi://IBus?version=1.0" {
             "new"(): Object
         }
 
-        const Object: ObjectClass
+        interface $Exports {
+            /**
+             * IBusObject is the base object for all objects in IBus.
+             */
+            Object: ObjectClass
+        }
         
 
         namespace ObservedPath {
@@ -3146,10 +3482,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * IBusObservedPath provides methods for file path manipulation,
-         * such as monitor modification, directory tree traversal.
-         */
         interface ObservedPath extends Serializable {
             readonly $signals: ObservedPath.SignalSignatures
             readonly $readableProperties: ObservedPath.ReadableProperties
@@ -3162,7 +3494,8 @@ declare module "gi://IBus?version=1.0" {
              */
             check_modification(): boolean
             /**
-             * gt;
+             * Append the observed path to a string with following format:
+             * &lt;path mtime="&lt;i&gt;modified time&lt;/i&gt;" &gt;&lt;i&gt;path&lt;/i&gt;&lt;/path&gt;
              * @param output Path is appended to.
              * @param indent number of indent.
              */
@@ -3180,6 +3513,7 @@ declare module "gi://IBus?version=1.0" {
         interface ObservedPathClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<ObservedPath>
             readonly prototype: ObservedPath
+
             new (props?: Partial<GObject.ConstructorProps<ObservedPath>>): ObservedPath
             /**
              * Creates a new #IBusObservedPath from an XML node.
@@ -3197,7 +3531,13 @@ declare module "gi://IBus?version=1.0" {
             new_from_xml_node(node: XML, fill_stat: boolean): ObservedPath
         }
 
-        const ObservedPath: ObservedPathClass
+        interface $Exports {
+            /**
+             * IBusObservedPath provides methods for file path manipulation,
+             * such as monitor modification, directory tree traversal.
+             */
+            ObservedPath: ObservedPathClass
+        }
         
 
         namespace PanelService {
@@ -3209,59 +3549,137 @@ declare module "gi://IBus?version=1.0" {
                  */
                 "candidate-clicked-lookup-table"(object: number, p0: number, p1: number): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::commit-text-received.
+                 * Implement the member function
+                 * IBusPanelServiceClass::commit_text_received in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param text A #IBusText
                  */
                 "commit-text-received"(text: Text): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::cursor-down-lookup-table.
+                 * Implement the member function
+                 * IBusPanelServiceClass::cursor_down_lookup_table in extended
+                 * class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "cursor-down-lookup-table"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::cursor-up-lookup-table.
+                 * Implement the member function
+                 * IBusPanelServiceClass::cursor_up_lookup_table in extended
+                 * class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "cursor-up-lookup-table"(): void
                 /**
-                 * >
+                 * Emitted when the client application destroys.
+                 * Implement the member function
+                 * IBusPanelServiceClass::destroy_context in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param input_context_path Object path of InputContext.
                  */
                 "destroy-context"(input_context_path: string): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::focus-in.
+                 * Implement the member function
+                 * IBusPanelServiceClass::focus_in in extended class to receive
+                 * this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param input_context_path Object path of InputContext.
                  */
                 "focus-in"(input_context_path: string): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::focus-out.
+                 * Implement the member function
+                 * IBusPanelServiceClass::focus_out in extended class to receive
+                 * this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param input_context_path Object path of InputContext.
                  */
                 "focus-out"(input_context_path: string): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::hide-auxiliary-text.
+                 * Implement the member function
+                 * IBusPanelServiceClass::hide_auxiliary_text in extended class
+                 * to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "hide-auxiliary-text"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::hide-language-bar.
+                 * Implement the member function
+                 * IBusPanelServiceClass::hide_language_bar in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "hide-language-bar"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::hide-lookup-table.
+                 * Implement the member function
+                 * IBusPanelServiceClass::hide_lookup_table in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "hide-lookup-table"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::hide-preedit-text.
+                 * Implement the member function
+                 * IBusPanelServiceClass::hide_preedit_text in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "hide-preedit-text"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::page-down-lookup-table.
+                 * Implement the member function
+                 * IBusPanelServiceClass::page_down_lookup_table in extended
+                 * class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "page-down-lookup-table"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::page-up-lookup-table.
+                 * Implement the member function
+                 * IBusPanelServiceClass::page_up_lookup_table in extended class
+                 * to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "page-up-lookup-table"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::panel-extension-received.
+                 * Implement the member function
+                 * IBusPanelServiceClass::panel_extension_received in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param data A #GVariant
                  */
                 "panel-extension-received"(data: ExtensionEvent): void
@@ -3275,26 +3693,50 @@ declare module "gi://IBus?version=1.0" {
                  * @param keyval Key symbol of the key press.
                  * @param keycode KeyCode of the key press.
                  * @param state Key modifier flags.
-                 * @returns >
+                 * @returns %TRUE for successfully process the key; %FALSE otherwise. See also:  ibus_input_context_process_key_event().  <note><para>Argument `user_data` is ignored in this function.</para> </note>
                  */
                 "process-key-event"(keyval: number, keycode: number, state: number): boolean
                 /**
-                 * >
+                 * Emitted when the client application get the ::register-properties.
+                 * Implement the member function
+                 * IBusPanelServiceClass::register_properties in extended class
+                 * to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param prop_list An IBusPropList that contains properties.
                  */
                 "register-properties"(prop_list: PropList): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::reset.
+                 * Implement the member function
+                 * IBusPanelServiceClass::reset in extended class to receive this
+                 * signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "reset"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::set-content-type.
+                 * Implement the member function
+                 * IBusPanelServiceClass::set_content_type in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param purpose Input purpose.
                  * @param hints Input hints.
                  */
                 "set-content-type"(purpose: number, hints: number): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::set-cursor-location.
+                 * Implement the member function
+                 * IBusPanelServiceClass::set_cursor_location in extended class
+                 * to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param x X coordinate of the cursor.
                  * @param y Y coordinate of the cursor.
                  * @param w Width of the cursor.
@@ -3302,7 +3744,12 @@ declare module "gi://IBus?version=1.0" {
                  */
                 "set-cursor-location"(x: number, y: number, w: number, h: number): void
                 /**
-                 * >
+                 * Emitted when the client application get the set-cursor-location-relative.
+                 * Implement the member function set_cursor_location_relative() in
+                 * extended class to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param x X coordinate of the cursor.
                  * @param y Y coordinate of the cursor.
                  * @param w Width of the cursor.
@@ -3310,50 +3757,110 @@ declare module "gi://IBus?version=1.0" {
                  */
                 "set-cursor-location-relative"(x: number, y: number, w: number, h: number): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::show-auxiliary-text.
+                 * Implement the member function
+                 * IBusPanelServiceClass::show_auxiliary_text in extended class
+                 * to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "show-auxiliary-text"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::show-language-bar.
+                 * Implement the member function
+                 * IBusPanelServiceClass::show_language_bar in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "show-language-bar"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::show-lookup-table.
+                 * Implement the member function
+                 * IBusPanelServiceClass::show_lookup_table in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "show-lookup-table"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::show-preedit-text.
+                 * Implement the member function
+                 * IBusPanelServiceClass::show_preedit_text in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "show-preedit-text"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::start-setup.
+                 * Implement the member function
+                 * IBusPanelServiceClass::start_setup in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "start-setup"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::state-changed.
+                 * Implement the member function
+                 * IBusPanelServiceClass::state_changed in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  */
                 "state-changed"(): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::update-auxiliary-text.
+                 * Implement the member function
+                 * IBusPanelServiceClass::update_auxiliary_text in extended class
+                 * to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param text A preedit text to be updated.
                  * @param visible Whether the update is visible.
                  */
                 "update-auxiliary-text"(text: Text, visible: boolean): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::update-lookup-table.
+                 * Implement the member function
+                 * IBusPanelServiceClass::update_lookup_table in extended class
+                 * to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param lookup_table A lookup table to be updated.
                  * @param visible Whether the update is visible.
                  */
                 "update-lookup-table"(lookup_table: LookupTable, visible: boolean): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::update-preedit-text.
+                 * Implement the member function
+                 * IBusPanelServiceClass::update_preedit_text in extended class
+                 * to receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param text A preedit text to be updated.
                  * @param cursor_pos The cursor position of the text.
                  * @param visible Whether the update is visible.
                  */
                 "update-preedit-text"(text: Text, cursor_pos: number, visible: boolean): void
                 /**
-                 * >
+                 * Emitted when the client application get the ::update-property.
+                 * Implement the member function
+                 * IBusPanelServiceClass::update_property in extended class to
+                 * receive this signal.
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para>
+                 * </note>
                  * @param prop The IBusProperty to be updated.
                  */
                 "update-property"(prop: Property): void
@@ -3369,10 +3876,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An IBusPanelService is a base class for UI services.
-         * Developers can "extend" this class for panel UI development.
-         */
         interface PanelService extends Service {
             readonly $signals: PanelService.SignalSignatures
             readonly $readableProperties: PanelService.ReadableProperties
@@ -3611,6 +4114,7 @@ declare module "gi://IBus?version=1.0" {
         interface PanelServiceClass extends Omit<ServiceClass, "new"> {
             readonly $gtype: GObject.GType<PanelService>
             readonly prototype: PanelService
+
             new (props?: Partial<GObject.ConstructorProps<PanelService>>): PanelService
             /**
              * Creates a new #IBusPanelService from an #GDBusConnection.
@@ -3620,7 +4124,13 @@ declare module "gi://IBus?version=1.0" {
             "new"(connection: Gio.DBusConnection): PanelService
         }
 
-        const PanelService: PanelServiceClass
+        interface $Exports {
+            /**
+             * An IBusPanelService is a base class for UI services.
+             * Developers can "extend" this class for panel UI development.
+             */
+            PanelService: PanelServiceClass
+        }
         
 
         namespace PropList {
@@ -3637,9 +4147,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * See_also: #IBusProperty, #IBusEngine
-         */
         interface PropList extends Serializable {
             readonly $signals: PropList.SignalSignatures
             readonly $readableProperties: PropList.ReadableProperties
@@ -3667,6 +4174,7 @@ declare module "gi://IBus?version=1.0" {
         interface PropListClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<PropList>
             readonly prototype: PropList
+
             new (props?: Partial<GObject.ConstructorProps<PropList>>): PropList
             /**
              * Create a new #IBusPropList.
@@ -3675,7 +4183,12 @@ declare module "gi://IBus?version=1.0" {
             "new"(): PropList
         }
 
-        const PropList: PropListClass
+        interface $Exports {
+            /**
+             * See_also: #IBusProperty, #IBusEngine
+             */
+            PropList: PropListClass
+        }
         
 
         namespace Property {
@@ -3697,9 +4210,7 @@ declare module "gi://IBus?version=1.0" {
 
             interface WritableProperties extends Serializable.WritableProperties {
                 "icon": string
-                "key": string
                 "label": Text
-                "prop-type": PropType
                 "sensitive": boolean
                 "state": PropState
                 "sub-props": PropList
@@ -3709,19 +4220,11 @@ declare module "gi://IBus?version=1.0" {
             }
 
             interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                "key": string
+                "prop-type": PropType
             }
         }
 
-        /**
-         * An IBusProperty is an UI component like a button or a menu item
-         * which shows the status of corresponding input method engine property.
-         * End user can operate and see the current status of IME through these components.
-         * For example, ibus-chewing users change the English/Chinese input mode by
-         * pressing ctrl-space or click on the Eng/Chi switch button.
-         * And the IBusProperty shows the change correspondingly.
-         *
-         * see_also: #IBusPropList, #IBusEngine
-         */
         interface Property extends Serializable {
             readonly $signals: Property.SignalSignatures
             readonly $readableProperties: Property.ReadableProperties
@@ -3872,6 +4375,7 @@ declare module "gi://IBus?version=1.0" {
         interface PropertyClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<Property>
             readonly prototype: Property
+
             new (props?: Partial<GObject.ConstructorProps<Property>>): Property
             /**
              * Creates a new #IBusProperty.
@@ -3889,13 +4393,29 @@ declare module "gi://IBus?version=1.0" {
             "new"(key: string, type: PropType, label: Text, icon: string | null, tooltip: Text, sensitive: boolean, visible: boolean, state: PropState, prop_list: PropList | null): Property
         }
 
-        const Property: PropertyClass
+        interface $Exports {
+            /**
+             * An IBusProperty is an UI component like a button or a menu item
+             * which shows the status of corresponding input method engine property.
+             * End user can operate and see the current status of IME through these components.
+             * For example, ibus-chewing users change the English/Chinese input mode by
+             * pressing ctrl-space or click on the Eng/Chi switch button.
+             * And the IBusProperty shows the change correspondingly.
+             *
+             * see_also: #IBusPropList, #IBusEngine
+             */
+            Property: PropertyClass
+        }
         
 
         namespace Proxy {
             interface SignalSignatures extends Gio.DBusProxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
                 /**
-                 * >
+                 * Destroy and free an IBusProxy
+                 *
+                 * See also:  ibus_proxy_destroy().
+                 *
+                 * <note><para>Argument @user_data is ignored in this function.</para></note>
                  */
                 "destroy"(): void
             }
@@ -3910,17 +4430,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An IBusProxy is the base of all proxy objects,
-         * which communicate the corresponding #IBusServices on the other end of
-         * IBusConnection.
-         * For example, IBus clients (such as editors, web browsers) invoke the proxy
-         * object,
-         * IBusInputContext to communicate with the InputContext service of the
-         * ibus-daemon.
-         *
-         * Almost all services have corresponding proxies, except very simple services.
-         */
         interface Proxy extends Gio.DBusProxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
             readonly $signals: Proxy.SignalSignatures
             readonly $readableProperties: Proxy.ReadableProperties
@@ -3951,10 +4460,24 @@ declare module "gi://IBus?version=1.0" {
         interface ProxyClass extends Omit<Gio.DBusProxyClass, "new"> {
             readonly $gtype: GObject.GType<Proxy>
             readonly prototype: Proxy
+
             new (props?: Partial<GObject.ConstructorProps<Proxy>>): Proxy
         }
 
-        const Proxy: ProxyClass
+        interface $Exports {
+            /**
+             * An IBusProxy is the base of all proxy objects,
+             * which communicate the corresponding #IBusServices on the other end of
+             * IBusConnection.
+             * For example, IBus clients (such as editors, web browsers) invoke the proxy
+             * object,
+             * IBusInputContext to communicate with the InputContext service of the
+             * ibus-daemon.
+             *
+             * Almost all services have corresponding proxies, except very simple services.
+             */
+            Proxy: ProxyClass
+        }
         
 
         namespace Registry {
@@ -3979,11 +4502,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An #IBusRegistry loads IBus component files and generates the cache files.
-         *
-         * see_also: #IBusComponent
-         */
         interface Registry extends Serializable {
             readonly $signals: Registry.SignalSignatures
             readonly $readableProperties: Registry.ReadableProperties
@@ -4059,6 +4577,7 @@ declare module "gi://IBus?version=1.0" {
         interface RegistryClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<Registry>
             readonly prototype: Registry
+
             new (props?: Partial<GObject.ConstructorProps<Registry>>): Registry
             /**
              * Creates a new #IBusRegistry
@@ -4067,7 +4586,14 @@ declare module "gi://IBus?version=1.0" {
             "new"(): Registry
         }
 
-        const Registry: RegistryClass
+        interface $Exports {
+            /**
+             * An #IBusRegistry loads IBus component files and generates the cache files.
+             *
+             * see_also: #IBusComponent
+             */
+            Registry: RegistryClass
+        }
         
 
         namespace Serializable {
@@ -4084,11 +4610,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         *
-         * See IBusSerializableSerializeFunc(), IBusSerializableDeserializeFunc(), IBusSerializableCopyFunc()
-         * for function prototype.
-         */
         interface Serializable extends Object {
             readonly $signals: Serializable.SignalSignatures
             readonly $readableProperties: Serializable.ReadableProperties
@@ -4144,6 +4665,7 @@ declare module "gi://IBus?version=1.0" {
         interface SerializableClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Serializable>
             readonly prototype: Serializable
+
             new (props?: Partial<GObject.ConstructorProps<Serializable>>): Serializable
             /**
              * Creates a new instance of an #IBusSerializable.
@@ -4159,7 +4681,29 @@ declare module "gi://IBus?version=1.0" {
             deserialize_object(variant: GLib.Variant): Serializable
         }
 
-        const Serializable: SerializableClass
+        interface $Exports {
+            /**
+             * An #IBusSerializable is an IBus object which can be serialized, that is,
+             * to be to and from a #GVariant.
+             *
+             * This class is to be extended by other class that requires serialization.
+             * An extended class should overrides following methods:
+             * <itemizedlist>
+             *    <listitem>
+             *       <para><function>serialize(object,iter)</function>: for serialize.</para>
+             *    </listitem>
+             *    <listitem>
+             *       <para><function>deserialize(object,iter)</function>: for deserialize.</para>
+             *    </listitem>
+             *    <listitem>
+             *       <para><function>copy(desc,src)</function>: for copy between IBusSerializable.</para>
+             *    </listitem>
+             * </itemizedlist>
+             * See IBusSerializableSerializeFunc(), IBusSerializableDeserializeFunc(), IBusSerializableCopyFunc()
+             * for function prototype.
+             */
+            Serializable: SerializableClass
+        }
         
 
         namespace Service {
@@ -4173,16 +4717,13 @@ declare module "gi://IBus?version=1.0" {
 
             interface WritableProperties extends Object.WritableProperties {
                 "connection": Gio.DBusConnection
-                "object-path": string
             }
 
             interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                "object-path": string
             }
         }
 
-        /**
-         * An IBusService is a base class for services.
-         */
         interface Service extends Object {
             readonly $signals: Service.SignalSignatures
             readonly $readableProperties: Service.ReadableProperties
@@ -4271,6 +4812,7 @@ declare module "gi://IBus?version=1.0" {
         interface ServiceClass extends Omit<ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Service>
             readonly prototype: Service
+
             new (props?: Partial<GObject.ConstructorProps<Service>>): Service
             /**
              * Creantes a new #IBusService.
@@ -4294,7 +4836,12 @@ declare module "gi://IBus?version=1.0" {
             free_interfaces(depth: number): number
         }
 
-        const Service: ServiceClass
+        interface $Exports {
+            /**
+             * An IBusService is a base class for services.
+             */
+            Service: ServiceClass
+        }
         
 
         namespace Text {
@@ -4311,14 +4858,6 @@ declare module "gi://IBus?version=1.0" {
             }
         }
 
-        /**
-         * An IBusText is the main text object in IBus.
-         * The text is decorated according to associated IBusAttribute,
-         * e.g. the foreground/background color, underline, and
-         * applied scope.
-         *
-         * see_also: #IBusAttribute
-         */
         interface Text extends Serializable {
             readonly $signals: Text.SignalSignatures
             readonly $readableProperties: Text.ReadableProperties
@@ -4358,6 +4897,7 @@ declare module "gi://IBus?version=1.0" {
         interface TextClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<Text>
             readonly prototype: Text
+
             new (props?: Partial<GObject.ConstructorProps<Text>>): Text
             /**
              * Creates a new #IBusText from a string.
@@ -4383,7 +4923,17 @@ declare module "gi://IBus?version=1.0" {
             new_from_unichar(c: string): Text
         }
 
-        const Text: TextClass
+        interface $Exports {
+            /**
+             * An IBusText is the main text object in IBus.
+             * The text is decorated according to associated IBusAttribute,
+             * e.g. the foreground/background color, underline, and
+             * applied scope.
+             *
+             * see_also: #IBusAttribute
+             */
+            Text: TextClass
+        }
         
 
         namespace UnicodeBlock {
@@ -4397,17 +4947,15 @@ declare module "gi://IBus?version=1.0" {
             }
 
             interface WritableProperties extends Serializable.WritableProperties {
-                "end": number
                 "name": string
-                "start": number
             }
 
             interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                "end": number
+                "start": number
             }
         }
 
-        /**
-         */
         interface UnicodeBlock extends Serializable {
             readonly $signals: UnicodeBlock.SignalSignatures
             readonly $readableProperties: UnicodeBlock.ReadableProperties
@@ -4450,6 +4998,7 @@ declare module "gi://IBus?version=1.0" {
         interface UnicodeBlockClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<UnicodeBlock>
             readonly prototype: UnicodeBlock
+
             new (props?: Partial<GObject.ConstructorProps<UnicodeBlock>>): UnicodeBlock
             /**
              * @param path A path of the saved dictionary file.
@@ -4465,7 +5014,11 @@ declare module "gi://IBus?version=1.0" {
             save(path: string, list: UnicodeBlock[]): void
         }
 
-        const UnicodeBlock: UnicodeBlockClass
+        interface $Exports {
+            /**
+             */
+            UnicodeBlock: UnicodeBlockClass
+        }
         
 
         namespace UnicodeData {
@@ -4482,18 +5035,14 @@ declare module "gi://IBus?version=1.0" {
             interface WritableProperties extends Serializable.WritableProperties {
                 "alias": string
                 "block-name": string
-                "code": number
                 "name": string
             }
 
             interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                "code": number
             }
         }
 
-        /**
-         * Unicode data likes code, name, alias, block-name.
-         * You can get extended values with g_object_get_properties.
-         */
         interface UnicodeData extends Serializable {
             readonly $signals: UnicodeData.SignalSignatures
             readonly $readableProperties: UnicodeData.ReadableProperties
@@ -4550,6 +5099,7 @@ declare module "gi://IBus?version=1.0" {
         interface UnicodeDataClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<UnicodeData>
             readonly prototype: UnicodeData
+
             new (props?: Partial<GObject.ConstructorProps<UnicodeData>>): UnicodeData
             /**
              * @param path A path of the saved dictionary file.
@@ -4580,7 +5130,13 @@ declare module "gi://IBus?version=1.0" {
             save(path: string, list: UnicodeData[]): void
         }
 
-        const UnicodeData: UnicodeDataClass
+        interface $Exports {
+            /**
+             * Unicode data likes code, name, alias, block-name.
+             * You can get extended values with g_object_get_properties.
+             */
+            UnicodeData: UnicodeDataClass
+        }
         
 
         namespace XEvent {
@@ -4612,6 +5168,10 @@ declare module "gi://IBus?version=1.0" {
             }
 
             interface WritableProperties extends Serializable.WritableProperties {
+                "version": number
+            }
+
+            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
                 "event-type": number
                 "group": number
                 "hardware-keycode": number
@@ -4627,23 +5187,14 @@ declare module "gi://IBus?version=1.0" {
                 "string": string
                 "subwindow": number
                 "time": number
-                "version": number
                 "window": number
                 "x": number
                 "x-root": number
                 "y": number
                 "y-root": number
             }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-            }
         }
 
-        /**
-         * An IBusXEvent provides a wrapper of XEvent.
-         *
-         * see_also: #IBusComponent, #IBusEngineDesc
-         */
         interface XEvent extends Serializable {
             readonly $signals: XEvent.SignalSignatures
             readonly $readableProperties: XEvent.ReadableProperties
@@ -4862,106 +5413,156 @@ declare module "gi://IBus?version=1.0" {
         interface XEventClass extends Omit<SerializableClass, "new"> {
             readonly $gtype: GObject.GType<XEvent>
             readonly prototype: XEvent
+
             new (props?: Partial<GObject.ConstructorProps<XEvent>>): XEvent
         }
 
-        const XEvent: XEventClass
-        none
-        none
-        none
-        /**
-         */
-        abstract class BusPrivate {
-            static readonly $gtype: GObject.GType<BusPrivate>
-
-            
+        interface $Exports {
+            /**
+             * An IBusXEvent provides a wrapper of XEvent.
+             *
+             * see_also: #IBusComponent, #IBusEngineDesc
+             */
+            XEvent: XEventClass
         }
-        none
-        /**
-         */
-        abstract class ComponentPrivate {
-            static readonly $gtype: GObject.GType<ComponentPrivate>
+        
 
-            
+        interface BusPrivateStruct {
+            readonly $gtype: GObject.GType<BusPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is BusPrivate
         }
-        none
-        /**
-         */
-        abstract class ConfigPrivate {
-            static readonly $gtype: GObject.GType<ConfigPrivate>
 
-            
+        interface BusPrivate {
         }
-        none
-        none
-        /**
-         */
-        abstract class EmojiDataPrivate {
-            static readonly $gtype: GObject.GType<EmojiDataPrivate>
 
-            
+        interface $Exports {
+            BusPrivate: BusPrivateStruct
         }
-        none
-        none
-        /**
-         */
-        abstract class EngineDescPrivate {
-            static readonly $gtype: GObject.GType<EngineDescPrivate>
+        
 
-            
+        interface ComponentPrivateStruct {
+            readonly $gtype: GObject.GType<ComponentPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ComponentPrivate
         }
-        /**
-         */
-        abstract class EnginePrivate {
-            static readonly $gtype: GObject.GType<EnginePrivate>
 
-            
+        interface ComponentPrivate {
         }
-        none
-        /**
-         */
-        abstract class EngineSimplePrivate {
-            static readonly $gtype: GObject.GType<EngineSimplePrivate>
 
-            
+        interface $Exports {
+            ComponentPrivate: ComponentPrivateStruct
         }
-        none
-        /**
-         */
-        abstract class ExtensionEventPrivate {
-            static readonly $gtype: GObject.GType<ExtensionEventPrivate>
+        
 
-            
+        interface ConfigPrivateStruct {
+            readonly $gtype: GObject.GType<ConfigPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ConfigPrivate
         }
-        none
-        /**
-         */
-        abstract class FactoryPrivate {
-            static readonly $gtype: GObject.GType<FactoryPrivate>
 
-            
+        interface ConfigPrivate {
         }
-        none
-        none
-        none
-        none
-        none
-        /**
-         */
-        abstract class ObjectPrivate {
-            static readonly $gtype: GObject.GType<ObjectPrivate>
 
-            
+        interface $Exports {
+            ConfigPrivate: ConfigPrivateStruct
         }
-        none
-        none
-        /**
-         * IBuProcessKeyEventData properties.
-         */
-        abstract class ProcessKeyEventData {
-            static readonly $gtype: GObject.GType<ProcessKeyEventData>
+        
 
-            
+        interface EmojiDataPrivateStruct {
+            readonly $gtype: GObject.GType<EmojiDataPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is EmojiDataPrivate
+        }
+
+        interface EmojiDataPrivate {
+        }
+
+        interface $Exports {
+            EmojiDataPrivate: EmojiDataPrivateStruct
+        }
+        
+
+        interface EngineDescPrivateStruct {
+            readonly $gtype: GObject.GType<EngineDescPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is EngineDescPrivate
+        }
+
+        interface EngineDescPrivate {
+        }
+
+        interface $Exports {
+            EngineDescPrivate: EngineDescPrivateStruct
+        }
+        
+
+        interface EnginePrivateStruct {
+            readonly $gtype: GObject.GType<EnginePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is EnginePrivate
+        }
+
+        interface EnginePrivate {
+        }
+
+        interface $Exports {
+            EnginePrivate: EnginePrivateStruct
+        }
+        
+
+        interface EngineSimplePrivateStruct {
+            readonly $gtype: GObject.GType<EngineSimplePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is EngineSimplePrivate
+        }
+
+        interface EngineSimplePrivate {
+        }
+
+        interface $Exports {
+            EngineSimplePrivate: EngineSimplePrivateStruct
+        }
+        
+
+        interface ExtensionEventPrivateStruct {
+            readonly $gtype: GObject.GType<ExtensionEventPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ExtensionEventPrivate
+        }
+
+        interface ExtensionEventPrivate {
+        }
+
+        interface $Exports {
+            ExtensionEventPrivate: ExtensionEventPrivateStruct
+        }
+        
+
+        interface FactoryPrivateStruct {
+            readonly $gtype: GObject.GType<FactoryPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is FactoryPrivate
+        }
+
+        interface FactoryPrivate {
+        }
+
+        interface $Exports {
+            FactoryPrivate: FactoryPrivateStruct
+        }
+        
+
+        interface ObjectPrivateStruct {
+            readonly $gtype: GObject.GType<ObjectPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ObjectPrivate
+        }
+
+        interface ObjectPrivate {
+        }
+
+        interface $Exports {
+            ObjectPrivate: ObjectPrivateStruct
+        }
+        
+
+        interface ProcessKeyEventDataStruct {
+            readonly $gtype: GObject.GType<ProcessKeyEventData>
+            [Symbol.hasInstance](instance: unknown): instance is ProcessKeyEventData
+        }
+
+        interface ProcessKeyEventData {
             /**
              */
             keyval: number
@@ -4972,23 +5573,31 @@ declare module "gi://IBus?version=1.0" {
              */
             state: number
         }
-        none
-        none
-        /**
-         */
-        abstract class PropertyPrivate {
-            static readonly $gtype: GObject.GType<PropertyPrivate>
 
-            
+        interface $Exports {
+            ProcessKeyEventData: ProcessKeyEventDataStruct
         }
-        none
-        /**
-         * Rectangle definition.
-         */
-        abstract class Rectangle {
-            static readonly $gtype: GObject.GType<Rectangle>
+        
 
-            
+        interface PropertyPrivateStruct {
+            readonly $gtype: GObject.GType<PropertyPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is PropertyPrivate
+        }
+
+        interface PropertyPrivate {
+        }
+
+        interface $Exports {
+            PropertyPrivate: PropertyPrivateStruct
+        }
+        
+
+        interface RectangleStruct {
+            readonly $gtype: GObject.GType<Rectangle>
+            [Symbol.hasInstance](instance: unknown): instance is Rectangle
+        }
+
+        interface Rectangle {
             /**
              * x coordinate.
              */
@@ -5006,81 +5615,115 @@ declare module "gi://IBus?version=1.0" {
              */
             height: number
         }
-        none
-        /**
-         */
-        abstract class RegistryPrivate {
-            static readonly $gtype: GObject.GType<RegistryPrivate>
 
-            
+        interface $Exports {
+            Rectangle: RectangleStruct
         }
-        none
-        /**
-         */
-        abstract class SerializablePrivate {
-            static readonly $gtype: GObject.GType<SerializablePrivate>
+        
 
-            
+        interface RegistryPrivateStruct {
+            readonly $gtype: GObject.GType<RegistryPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is RegistryPrivate
         }
-        none
-        /**
-         */
-        abstract class ServicePrivate {
-            static readonly $gtype: GObject.GType<ServicePrivate>
 
-            
+        interface RegistryPrivate {
         }
-        none
-        none
-        /**
-         */
-        abstract class UnicodeBlockPrivate {
-            static readonly $gtype: GObject.GType<UnicodeBlockPrivate>
 
-            
+        interface $Exports {
+            RegistryPrivate: RegistryPrivateStruct
         }
-        none
-        /**
-         */
-        abstract class UnicodeDataPrivate {
-            static readonly $gtype: GObject.GType<UnicodeDataPrivate>
+        
 
-            
+        interface SerializablePrivateStruct {
+            readonly $gtype: GObject.GType<SerializablePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is SerializablePrivate
         }
-        none
-        /**
-         */
-        abstract class XEventPrivate {
-            static readonly $gtype: GObject.GType<XEventPrivate>
 
-            
+        interface SerializablePrivate {
         }
-        /**
-         * IBusXML lists data structure and handling function for XML in IBus.
-         */
-        abstract class XML {
-            static readonly $gtype: GObject.GType<XML>
 
-            
+        interface $Exports {
+            SerializablePrivate: SerializablePrivateStruct
+        }
+        
+
+        interface ServicePrivateStruct {
+            readonly $gtype: GObject.GType<ServicePrivate>
+            [Symbol.hasInstance](instance: unknown): instance is ServicePrivate
+        }
+
+        interface ServicePrivate {
+        }
+
+        interface $Exports {
+            ServicePrivate: ServicePrivateStruct
+        }
+        
+
+        interface UnicodeBlockPrivateStruct {
+            readonly $gtype: GObject.GType<UnicodeBlockPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is UnicodeBlockPrivate
+        }
+
+        interface UnicodeBlockPrivate {
+        }
+
+        interface $Exports {
+            UnicodeBlockPrivate: UnicodeBlockPrivateStruct
+        }
+        
+
+        interface UnicodeDataPrivateStruct {
+            readonly $gtype: GObject.GType<UnicodeDataPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is UnicodeDataPrivate
+        }
+
+        interface UnicodeDataPrivate {
+        }
+
+        interface $Exports {
+            UnicodeDataPrivate: UnicodeDataPrivateStruct
+        }
+        
+
+        interface XEventPrivateStruct {
+            readonly $gtype: GObject.GType<XEventPrivate>
+            [Symbol.hasInstance](instance: unknown): instance is XEventPrivate
+        }
+
+        interface XEventPrivate {
+        }
+
+        interface $Exports {
+            XEventPrivate: XEventPrivateStruct
+        }
+        
+
+        interface XMLStruct {
+            readonly $gtype: GObject.GType<XML>
+            [Symbol.hasInstance](instance: unknown): instance is XML
             /**
              * Parse a string buffer which contains an XML-formatted string,
              * and return a corresponding XML tree.
              * @param buffer Buffer to be parsed.
              * @returns Root node of parsed XML tree.
              */
-            static parse_buffer(buffer: string): XML
+            parse_buffer(buffer: string): XML
             /**
              * Parse an XML file and return a corresponding XML tree.
              * @param name File name to be parsed.
              * @returns Root node of parsed XML tree.
              */
-            static parse_file(name: string): XML
+            parse_file(name: string): XML
+        }
+
+        interface XML {
             /**
              * Name of XML tag.
              */
             name: string
             /**
-             * .
+             * Text enclosed by XML start tag and end tag. i.e. <tag>text</tag>.
              */
             text: string
             /**
@@ -5109,4614 +5752,49 @@ declare module "gi://IBus?version=1.0" {
              */
             output(output: GLib.String): void
         }
-        /**
-         * gt;q”.
-         *
-         * If you need to display accelerators in the user interface,
-         * see gtk_accelerator_get_label().
-         * @param accelerator_key accelerator keyval
-         * @param accelerator_mods accelerator modifier mask
-         * @returns a newly-allocated accelerator name
-         */
-        function accelerator_name(accelerator_key: number, accelerator_mods: ModifierType): string
-        /**
-         * gt;-”.
-         *
-         * If the parse fails, @accelerator_key and @accelerator_mods will
-         * be set to 0 (zero).
-         * @since 1.5.18
-         * @param accelerator string representing an accelerator
-         * @returns , return location for accelerator     keyval, or %NULL, return location for accelerator     modifier mask, %NULL
-         */
-        function accelerator_parse(accelerator: string): void
-        /**
-         * Determines whether a given keyval and modifier mask constitute
-         * a valid keyboard accelerator. For example, the #IBUS_KEY_a keyval
-         * plus #IBUS_CONTROL_MASK is valid - this is a “Ctrl+a” accelerator.
-         * But, you can't, for instance, use the #IBUS_KEY_Control_L keyval
-         * as an accelerator.
-         * @param keyval a GDK keyval
-         * @param modifiers modifier mask
-         * @returns %TRUE if the accelerator is valid
-         */
-        function accelerator_valid(keyval: number, modifiers: ModifierType): boolean
-        /**
-         * Creates a new background #IBusAttribute.
-         * @param color Color in RGB.
-         * @param start_index Where attribute starts.
-         * @param end_index Where attribute ends.
-         * @returns A newly allocated #IBusAttribute.
-         */
-        function attr_background_new(color: number, start_index: number, end_index: number): Attribute
-        /**
-         * Creates a new foreground #IBusAttribute.
-         * @param color Color in RGB.
-         * @param start_index Where attribute starts.
-         * @param end_index Where attribute ends.
-         * @returns A newly allocated #IBusAttribute.
-         */
-        function attr_foreground_new(color: number, start_index: number, end_index: number): Attribute
-        /**
-         * Creates a new underline #IBusAttribute.
-         * @param underline_type Type of underline.
-         * @param start_index Where attribute starts.
-         * @param end_index Where attribute ends.
-         * @returns A newly allocated #IBusAttribute.
-         */
-        function attr_underline_new(underline_type: number, start_index: number, end_index: number): Attribute
-        /**
-         * @param path A path of the saved dictionary file.
-         * @returns An Emoji dictionary file loaded from the saved cache file.  A hash table of { emoji character, #IBusEmojiData object } is loaded from the saved cache file. Recommend to use ibus_emoji_data_load() instead becase GSList in GHashTable does not work with Gir and Vala. Calls ibus_emoji_data_load() internally.
-         */
-        function emoji_dict_load(path: string): Record<string, never>
-        /**
-         * @param dict An Emoji dictionary
-         * @param emoji an emoji character
-         * @returns An #IBusEmojiData of `emoji`. This API was prepared for the old dict foramat with Gir and Vala but no longer needed. Use ibus_emoji_data_load() instead.
-         */
-        function emoji_dict_lookup(dict: Record<string, EmojiData>, emoji: string): EmojiData
-        /**
-         * Saves the Emoji dictionary to the cache file.
-         * Recommend to use ibus_emoji_data_save() instead becase GSList in
-         * GHashTable does not work with Gir and Vala.
-         * Calls ibus_emoji_data_save() internally. The format of the hash table
-         * changed and now is { emoji character, #IBusEmojiData object }.
-         * @param path A path of the saved dictionary file.
-         * @param dict An Emoji dictionary
-         */
-        function emoji_dict_save(path: string, dict: Record<string, never>): void
-        /**
-         */
-        function error_quark(): GLib.Quark
-        /**
-         * Free a list of strings.
-         * @deprecated This function has been deprecated and should not be used in newly written code.
-         * @param strv List of strings.
-         */
-        function free_strv(strv: string): void
-        /**
-         * >
-         * @returns D-Bus address of IBus. %NULL for not found.  See also: ibus_write_address().
-         */
-        function get_address(): string
-        /**
-         * Get UID of ibus-daemon.
-         * @deprecated This function has been deprecated and should not be used in newly written code.
-         * @returns UID of ibus-daemon; or 0 if UID is not available.
-         */
-        function get_daemon_uid(): number
-        /**
-         * @param _locale A const locale name.
-         * @returns translated language name
-         */
-        function get_language_name(_locale: string): string
-        /**
-         * Obtains the machine UUID of the machine this process is running on.
-         * @returns A newly allocated string that shows the UUID of the machine.
-         */
-        function get_local_machine_id(): string
-        /**
-         * Get the path of socket file.
-         * @returns A newly allocated string that stores the path of socket file.
-         */
-        function get_socket_path(): string
-        /**
-         * Get the GDBus timeout in milliseconds. The timeout is for clients (e.g.
-         * im-ibus.so), not for ibus-daemon.
-         * Note that the timeout for ibus-daemon could be set by --timeout command
-         * line option of the daemon.
-         * @returns A GDBus timeout in milliseconds. -1 when default timeout for     GDBus should be used.
-         */
-        function get_timeout(): number
-        /**
-         * @param _locale A const locale name.
-         * @returns untranslated language name
-         */
-        function get_untranslated_language_name(_locale: string): string
-        /**
-         * >
-         * @returns A newly allocated string that stores current user name.
-         */
-        function get_user_name(): string
-        /**
-         * Initialize the ibus types.
-         */
-        function init(): void
-        /**
-         * Parse key event string and return key symbol and modifiers.
-         * @param string Key event string.
-         * @returns %TRUE for succeed; %FALSE if failed., Variable that hold key symbol result., Variable that hold modifiers result.
-         */
-        function key_event_from_string(string: string): [boolean, number, number]
-        /**
-         * Return the name of a key symbol and modifiers.
-         *
-         * For example, if press ctrl, shift, and enter, then this function returns:
-         * Shift+Control+enter.
-         * @param keyval Key symbol.
-         * @param modifiers Modifiers such as Ctrl or Shift.
-         * @returns The name of a key symbol and modifier.
-         */
-        function key_event_to_string(keyval: number, modifiers: number): string
-        /**
-         * Obtains the upper- and lower-case versions of the keyval @symbol.
-         * Examples of keyvals are #IBUS_KEY_a, #IBUS_KEY_Return, #IBUS_KEY_F1, etc.
-         * @param symbol a keyval
-         * @returns , return location for lowercase version of `symbol`, return location for uppercase version of `symbol`
-         */
-        function keyval_convert_case(symbol: number): [number, number]
-        /**
-         * Return the key symbol that associate with the key name.
-         * @param keyval_name Key name in #gdk_keys_by_name.
-         * @returns Corresponding key symbol.
-         */
-        function keyval_from_name(keyval_name: string): number
-        /**
-         * Return the name of a key symbol.
-         *
-         * Note that the returned string is used internally, so don't free it.
-         * @param keyval Key symbol.
-         * @returns Corresponding key name. %NULL if no such key symbol.
-         */
-        function keyval_name(keyval: number): string
-        /**
-         * Converts a key value to lower case, if applicable.
-         * @param keyval a key value.
-         * @returns the lower case form of `keyval`, or `keyval` itself if it is already  in lower case or it is not subject to case conversion.
-         */
-        function keyval_to_lower(keyval: number): number
-        /**
-         * Convert from an IBus key symbol to the corresponding ISO10646 (Unicode)
-         * character.
-         * @param keyval an IBus key symbol
-         * @returns the corresponding unicode character, or 0 if there          is no corresponding character.
-         */
-        function keyval_to_unicode(keyval: number): string
-        /**
-         * Converts a key value to upper case, if applicable.
-         * @param keyval a key value.
-         * @returns the upper case form of `keyval`, or `keyval` itself if it is already   in upper case or it is not subject to case conversion.
-         */
-        function keyval_to_upper(keyval: number): number
-        /**
-         * Runs an IBus main loop until ibus_quit() is called in the loop.
-         *
-         * See also: ibus_quit().
-         */
-        function main(): void
-        /**
-         * Stops an IBus from running.
-         *
-         * Any calls to ibus_quit() for the loop will return.
-         * See also: ibus_main().
-         */
-        function quit(): void
-        /**
-         * Set the display address.
-         * @param display Display address, as in DISPLAY environment for X.
-         */
-        function set_display(display: string): void
-        /**
-         * Sets GLIB's log handler to ours. Our log handler adds time info
-         * including hour, minute, second, and microsecond, like:
-         *
-         * (ibus-daemon:7088): IBUS-DEBUG: 18:06:45.822819: ibus-daemon started
-         *
-         * If @verbose is %TRUE, all levels of messages will be logged. Otherwise,
-         * DEBUG and WARNING messages will be ignored.  The function is used in
-         * ibus-daemon, but can be useful for IBus client programs as well for
-         * debugging. It's totally fine for not calling this function. If you
-         * don't set a custom GLIB log handler, the default GLIB log handler will
-         * be used.
-         * @param verbose TRUE for verbose logging.
-         */
-        function set_log_handler(verbose: boolean): void
-        /**
-         * Convert from a ISO10646 character to a key symbol.
-         * @param wc a ISO10646 encoded character
-         * @returns the corresponding IBus key symbol, if one exists.          or, if there is no corresponding symbol,          `wc | 0x01000000`
-         */
-        function unicode_to_keyval(wc: string): number
-        /**
-         * Remove the log handler which is set by ibus_set_log_handler.
-         */
-        function unset_log_handler(): void
-        /**
-         * Write D-Bus address to socket file.
-         *
-         * See also: ibus_get_address().
-         * @param address D-Bus address of IBus.
-         */
-        function write_address(address: string): void
-        /**
-         * Parse a string buffer which contains an XML-formatted string,
-         * and return a corresponding XML tree.
-         * @param buffer Buffer to be parsed.
-         * @returns Root node of parsed XML tree.
-         */
-        function xml_parse_buffer(buffer: string): XML
-        /**
-         * Parse an XML file and return a corresponding XML tree.
-         * @param name File name to be parsed.
-         * @returns Root node of parsed XML tree.
-         */
-        function xml_parse_file(name: string): XML
-        const 0: 48
-        const 1: 49
-        const 2: 50
-        const 3: 51
-        const 3270_AltCursor: 64784
-        const 3270_Attn: 64782
-        const 3270_BackTab: 64773
-        const 3270_ChangeScreen: 64793
-        const 3270_Copy: 64789
-        const 3270_CursorBlink: 64783
-        const 3270_CursorSelect: 64796
-        const 3270_DeleteWord: 64794
-        const 3270_Duplicate: 64769
-        const 3270_Enter: 64798
-        const 3270_EraseEOF: 64774
-        const 3270_EraseInput: 64775
-        const 3270_ExSelect: 64795
-        const 3270_FieldMark: 64770
-        const 3270_Ident: 64787
-        const 3270_Jump: 64786
-        const 3270_KeyClick: 64785
-        const 3270_Left2: 64772
-        const 3270_PA1: 64778
-        const 3270_PA2: 64779
-        const 3270_PA3: 64780
-        const 3270_Play: 64790
-        const 3270_PrintScreen: 64797
-        const 3270_Quit: 64777
-        const 3270_Record: 64792
-        const 3270_Reset: 64776
-        const 3270_Right2: 64771
-        const 3270_Rule: 64788
-        const 3270_Setup: 64791
-        const 3270_Test: 64781
-        const 4: 52
-        const 5: 53
-        const 6: 54
-        const 7: 55
-        const 8: 56
-        const 9: 57
-        const A: 65
-        const AE: 198
-        const Aacute: 193
-        const Abelowdot: 16785056
-        const Abreve: 451
-        const Abreveacute: 16785070
-        const Abrevebelowdot: 16785078
-        const Abrevegrave: 16785072
-        const Abrevehook: 16785074
-        const Abrevetilde: 16785076
-        const AccessX_Enable: 65136
-        const AccessX_Feedback_Enable: 65137
-        const Acircumflex: 194
-        const Acircumflexacute: 16785060
-        const Acircumflexbelowdot: 16785068
-        const Acircumflexgrave: 16785062
-        const Acircumflexhook: 16785064
-        const Acircumflextilde: 16785066
-        const Adiaeresis: 196
-        const Agrave: 192
-        const Ahook: 16785058
-        const Alt_L: 65513
-        const Alt_R: 65514
-        const Amacron: 960
-        const Aogonek: 417
-        const Arabic_0: 16778848
-        const Arabic_1: 16778849
-        const Arabic_2: 16778850
-        const Arabic_3: 16778851
-        const Arabic_4: 16778852
-        const Arabic_5: 16778853
-        const Arabic_6: 16778854
-        const Arabic_7: 16778855
-        const Arabic_8: 16778856
-        const Arabic_9: 16778857
-        const Arabic_ain: 1497
-        const Arabic_alef: 1479
-        const Arabic_alefmaksura: 1513
-        const Arabic_beh: 1480
-        const Arabic_comma: 1452
-        const Arabic_dad: 1494
-        const Arabic_dal: 1487
-        const Arabic_damma: 1519
-        const Arabic_dammatan: 1516
-        const Arabic_ddal: 16778888
-        const Arabic_farsi_yeh: 16778956
-        const Arabic_fatha: 1518
-        const Arabic_fathatan: 1515
-        const Arabic_feh: 1505
-        const Arabic_fullstop: 16778964
-        const Arabic_gaf: 16778927
-        const Arabic_ghain: 1498
-        const Arabic_ha: 1511
-        const Arabic_hah: 1485
-        const Arabic_hamza: 1473
-        const Arabic_hamza_above: 16778836
-        const Arabic_hamza_below: 16778837
-        const Arabic_hamzaonalef: 1475
-        const Arabic_hamzaonwaw: 1476
-        const Arabic_hamzaonyeh: 1478
-        const Arabic_hamzaunderalef: 1477
-        const Arabic_heh: 1511
-        const Arabic_heh_doachashmee: 16778942
-        const Arabic_heh_goal: 16778945
-        const Arabic_jeem: 1484
-        const Arabic_jeh: 16778904
-        const Arabic_kaf: 1507
-        const Arabic_kasra: 1520
-        const Arabic_kasratan: 1517
-        const Arabic_keheh: 16778921
-        const Arabic_khah: 1486
-        const Arabic_lam: 1508
-        const Arabic_madda_above: 16778835
-        const Arabic_maddaonalef: 1474
-        const Arabic_meem: 1509
-        const Arabic_noon: 1510
-        const Arabic_noon_ghunna: 16778938
-        const Arabic_peh: 16778878
-        const Arabic_percent: 16778858
-        const Arabic_qaf: 1506
-        const Arabic_question_mark: 1471
-        const Arabic_ra: 1489
-        const Arabic_rreh: 16778897
-        const Arabic_sad: 1493
-        const Arabic_seen: 1491
-        const Arabic_semicolon: 1467
-        const Arabic_shadda: 1521
-        const Arabic_sheen: 1492
-        const Arabic_sukun: 1522
-        const Arabic_superscript_alef: 16778864
-        const Arabic_switch: 65406
-        const Arabic_tah: 1495
-        const Arabic_tatweel: 1504
-        const Arabic_tcheh: 16778886
-        const Arabic_teh: 1482
-        const Arabic_tehmarbuta: 1481
-        const Arabic_thal: 1488
-        const Arabic_theh: 1483
-        const Arabic_tteh: 16778873
-        const Arabic_veh: 16778916
-        const Arabic_waw: 1512
-        const Arabic_yeh: 1514
-        const Arabic_yeh_baree: 16778962
-        const Arabic_zah: 1496
-        const Arabic_zain: 1490
-        const Aring: 197
-        const Armenian_AT: 16778552
-        const Armenian_AYB: 16778545
-        const Armenian_BEN: 16778546
-        const Armenian_CHA: 16778569
-        const Armenian_DA: 16778548
-        const Armenian_DZA: 16778561
-        const Armenian_E: 16778551
-        const Armenian_FE: 16778582
-        const Armenian_GHAT: 16778562
-        const Armenian_GIM: 16778547
-        const Armenian_HI: 16778565
-        const Armenian_HO: 16778560
-        const Armenian_INI: 16778555
-        const Armenian_JE: 16778571
-        const Armenian_KE: 16778580
-        const Armenian_KEN: 16778559
-        const Armenian_KHE: 16778557
-        const Armenian_LYUN: 16778556
-        const Armenian_MEN: 16778564
-        const Armenian_NU: 16778566
-        const Armenian_O: 16778581
-        const Armenian_PE: 16778570
-        const Armenian_PYUR: 16778579
-        const Armenian_RA: 16778572
-        const Armenian_RE: 16778576
-        const Armenian_SE: 16778573
-        const Armenian_SHA: 16778567
-        const Armenian_TCHE: 16778563
-        const Armenian_TO: 16778553
-        const Armenian_TSA: 16778558
-        const Armenian_TSO: 16778577
-        const Armenian_TYUN: 16778575
-        const Armenian_VEV: 16778574
-        const Armenian_VO: 16778568
-        const Armenian_VYUN: 16778578
-        const Armenian_YECH: 16778549
-        const Armenian_ZA: 16778550
-        const Armenian_ZHE: 16778554
-        const Armenian_accent: 16778587
-        const Armenian_amanak: 16778588
-        const Armenian_apostrophe: 16778586
-        const Armenian_at: 16778600
-        const Armenian_ayb: 16778593
-        const Armenian_ben: 16778594
-        const Armenian_but: 16778589
-        const Armenian_cha: 16778617
-        const Armenian_da: 16778596
-        const Armenian_dza: 16778609
-        const Armenian_e: 16778599
-        const Armenian_exclam: 16778588
-        const Armenian_fe: 16778630
-        const Armenian_full_stop: 16778633
-        const Armenian_ghat: 16778610
-        const Armenian_gim: 16778595
-        const Armenian_hi: 16778613
-        const Armenian_ho: 16778608
-        const Armenian_hyphen: 16778634
-        const Armenian_ini: 16778603
-        const Armenian_je: 16778619
-        const Armenian_ke: 16778628
-        const Armenian_ken: 16778607
-        const Armenian_khe: 16778605
-        const Armenian_ligature_ew: 16778631
-        const Armenian_lyun: 16778604
-        const Armenian_men: 16778612
-        const Armenian_nu: 16778614
-        const Armenian_o: 16778629
-        const Armenian_paruyk: 16778590
-        const Armenian_pe: 16778618
-        const Armenian_pyur: 16778627
-        const Armenian_question: 16778590
-        const Armenian_ra: 16778620
-        const Armenian_re: 16778624
-        const Armenian_se: 16778621
-        const Armenian_separation_mark: 16778589
-        const Armenian_sha: 16778615
-        const Armenian_shesht: 16778587
-        const Armenian_tche: 16778611
-        const Armenian_to: 16778601
-        const Armenian_tsa: 16778606
-        const Armenian_tso: 16778625
-        const Armenian_tyun: 16778623
-        const Armenian_verjaket: 16778633
-        const Armenian_vev: 16778622
-        const Armenian_vo: 16778616
-        const Armenian_vyun: 16778626
-        const Armenian_yech: 16778597
-        const Armenian_yentamna: 16778634
-        const Armenian_za: 16778598
-        const Armenian_zhe: 16778602
-        const Atilde: 195
-        const AudibleBell_Enable: 65146
-        const B: 66
-        const Babovedot: 16784898
-        const BackSpace: 65288
-        const Begin: 65368
-        const BounceKeys_Enable: 65140
-        const Break: 65387
-        const Byelorussian_SHORTU: 1726
-        const Byelorussian_shortu: 1710
-        const C: 67
-        const Cabovedot: 709
-        const Cacute: 454
-        const Cancel: 65385
-        const Caps_Lock: 65509
-        const Ccaron: 456
-        const Ccedilla: 199
-        const Ccircumflex: 710
-        const Clear: 65291
-        const Codeinput: 65335
-        const ColonSign: 16785569
-        const Control_L: 65507
-        const Control_R: 65508
-        const CruzeiroSign: 16785570
-        const Cyrillic_A: 1761
-        const Cyrillic_BE: 1762
-        const Cyrillic_CHE: 1790
-        const Cyrillic_CHE_descender: 16778422
-        const Cyrillic_CHE_vertstroke: 16778424
-        const Cyrillic_DE: 1764
-        const Cyrillic_DZHE: 1727
-        const Cyrillic_E: 1788
-        const Cyrillic_EF: 1766
-        const Cyrillic_EL: 1772
-        const Cyrillic_EM: 1773
-        const Cyrillic_EN: 1774
-        const Cyrillic_EN_descender: 16778402
-        const Cyrillic_ER: 1778
-        const Cyrillic_ES: 1779
-        const Cyrillic_GHE: 1767
-        const Cyrillic_GHE_bar: 16778386
-        const Cyrillic_HA: 1768
-        const Cyrillic_HARDSIGN: 1791
-        const Cyrillic_HA_descender: 16778418
-        const Cyrillic_I: 1769
-        const Cyrillic_IE: 1765
-        const Cyrillic_IO: 1715
-        const Cyrillic_I_macron: 16778466
-        const Cyrillic_JE: 1720
-        const Cyrillic_KA: 1771
-        const Cyrillic_KA_descender: 16778394
-        const Cyrillic_KA_vertstroke: 16778396
-        const Cyrillic_LJE: 1721
-        const Cyrillic_NJE: 1722
-        const Cyrillic_O: 1775
-        const Cyrillic_O_bar: 16778472
-        const Cyrillic_PE: 1776
-        const Cyrillic_SCHWA: 16778456
-        const Cyrillic_SHA: 1787
-        const Cyrillic_SHCHA: 1789
-        const Cyrillic_SHHA: 16778426
-        const Cyrillic_SHORTI: 1770
-        const Cyrillic_SOFTSIGN: 1784
-        const Cyrillic_TE: 1780
-        const Cyrillic_TSE: 1763
-        const Cyrillic_U: 1781
-        const Cyrillic_U_macron: 16778478
-        const Cyrillic_U_straight: 16778414
-        const Cyrillic_U_straight_bar: 16778416
-        const Cyrillic_VE: 1783
-        const Cyrillic_YA: 1777
-        const Cyrillic_YERU: 1785
-        const Cyrillic_YU: 1760
-        const Cyrillic_ZE: 1786
-        const Cyrillic_ZHE: 1782
-        const Cyrillic_ZHE_descender: 16778390
-        const Cyrillic_a: 1729
-        const Cyrillic_be: 1730
-        const Cyrillic_che: 1758
-        const Cyrillic_che_descender: 16778423
-        const Cyrillic_che_vertstroke: 16778425
-        const Cyrillic_de: 1732
-        const Cyrillic_dzhe: 1711
-        const Cyrillic_e: 1756
-        const Cyrillic_ef: 1734
-        const Cyrillic_el: 1740
-        const Cyrillic_em: 1741
-        const Cyrillic_en: 1742
-        const Cyrillic_en_descender: 16778403
-        const Cyrillic_er: 1746
-        const Cyrillic_es: 1747
-        const Cyrillic_ghe: 1735
-        const Cyrillic_ghe_bar: 16778387
-        const Cyrillic_ha: 1736
-        const Cyrillic_ha_descender: 16778419
-        const Cyrillic_hardsign: 1759
-        const Cyrillic_i: 1737
-        const Cyrillic_i_macron: 16778467
-        const Cyrillic_ie: 1733
-        const Cyrillic_io: 1699
-        const Cyrillic_je: 1704
-        const Cyrillic_ka: 1739
-        const Cyrillic_ka_descender: 16778395
-        const Cyrillic_ka_vertstroke: 16778397
-        const Cyrillic_lje: 1705
-        const Cyrillic_nje: 1706
-        const Cyrillic_o: 1743
-        const Cyrillic_o_bar: 16778473
-        const Cyrillic_pe: 1744
-        const Cyrillic_schwa: 16778457
-        const Cyrillic_sha: 1755
-        const Cyrillic_shcha: 1757
-        const Cyrillic_shha: 16778427
-        const Cyrillic_shorti: 1738
-        const Cyrillic_softsign: 1752
-        const Cyrillic_te: 1748
-        const Cyrillic_tse: 1731
-        const Cyrillic_u: 1749
-        const Cyrillic_u_macron: 16778479
-        const Cyrillic_u_straight: 16778415
-        const Cyrillic_u_straight_bar: 16778417
-        const Cyrillic_ve: 1751
-        const Cyrillic_ya: 1745
-        const Cyrillic_yeru: 1753
-        const Cyrillic_yu: 1728
-        const Cyrillic_ze: 1754
-        const Cyrillic_zhe: 1750
-        const Cyrillic_zhe_descender: 16778391
-        const D: 68
-        const Dabovedot: 16784906
-        const Dcaron: 463
-        const Delete: 65535
-        const DongSign: 16785579
-        const Down: 65364
-        const Dstroke: 464
-        const E: 69
-        const ENG: 957
-        const ETH: 208
-        const Eabovedot: 972
-        const Eacute: 201
-        const Ebelowdot: 16785080
-        const Ecaron: 460
-        const Ecircumflex: 202
-        const Ecircumflexacute: 16785086
-        const Ecircumflexbelowdot: 16785094
-        const Ecircumflexgrave: 16785088
-        const Ecircumflexhook: 16785090
-        const Ecircumflextilde: 16785092
-        const EcuSign: 16785568
-        const Ediaeresis: 203
-        const Egrave: 200
-        const Ehook: 16785082
-        const Eisu_Shift: 65327
-        const Eisu_toggle: 65328
-        const Emacron: 938
-        const End: 65367
-        const Eogonek: 458
-        const Escape: 65307
-        const Eth: 208
-        const Etilde: 16785084
-        const EuroSign: 8364
-        const Execute: 65378
-        const F: 70
-        const F1: 65470
-        const F10: 65479
-        const F11: 65480
-        const F12: 65481
-        const F13: 65482
-        const F14: 65483
-        const F15: 65484
-        const F16: 65485
-        const F17: 65486
-        const F18: 65487
-        const F19: 65488
-        const F2: 65471
-        const F20: 65489
-        const F21: 65490
-        const F22: 65491
-        const F23: 65492
-        const F24: 65493
-        const F25: 65494
-        const F26: 65495
-        const F27: 65496
-        const F28: 65497
-        const F29: 65498
-        const F3: 65472
-        const F30: 65499
-        const F31: 65500
-        const F32: 65501
-        const F33: 65502
-        const F34: 65503
-        const F35: 65504
-        const F4: 65473
-        const F5: 65474
-        const F6: 65475
-        const F7: 65476
-        const F8: 65477
-        const F9: 65478
-        const FFrancSign: 16785571
-        const Fabovedot: 16784926
-        const Farsi_0: 16778992
-        const Farsi_1: 16778993
-        const Farsi_2: 16778994
-        const Farsi_3: 16778995
-        const Farsi_4: 16778996
-        const Farsi_5: 16778997
-        const Farsi_6: 16778998
-        const Farsi_7: 16778999
-        const Farsi_8: 16779000
-        const Farsi_9: 16779001
-        const Farsi_yeh: 16778956
-        const Find: 65384
-        const First_Virtual_Screen: 65232
-        const G: 71
-        const Gabovedot: 725
-        const Gbreve: 683
-        const Gcaron: 16777702
-        const Gcedilla: 939
-        const Gcircumflex: 728
-        const Georgian_an: 16781520
-        const Georgian_ban: 16781521
-        const Georgian_can: 16781546
-        const Georgian_char: 16781549
-        const Georgian_chin: 16781545
-        const Georgian_cil: 16781548
-        const Georgian_don: 16781523
-        const Georgian_en: 16781524
-        const Georgian_fi: 16781558
-        const Georgian_gan: 16781522
-        const Georgian_ghan: 16781542
-        const Georgian_hae: 16781552
-        const Georgian_har: 16781556
-        const Georgian_he: 16781553
-        const Georgian_hie: 16781554
-        const Georgian_hoe: 16781557
-        const Georgian_in: 16781528
-        const Georgian_jhan: 16781551
-        const Georgian_jil: 16781547
-        const Georgian_kan: 16781529
-        const Georgian_khar: 16781541
-        const Georgian_las: 16781530
-        const Georgian_man: 16781531
-        const Georgian_nar: 16781532
-        const Georgian_on: 16781533
-        const Georgian_par: 16781534
-        const Georgian_phar: 16781540
-        const Georgian_qar: 16781543
-        const Georgian_rae: 16781536
-        const Georgian_san: 16781537
-        const Georgian_shin: 16781544
-        const Georgian_tan: 16781527
-        const Georgian_tar: 16781538
-        const Georgian_un: 16781539
-        const Georgian_vin: 16781525
-        const Georgian_we: 16781555
-        const Georgian_xan: 16781550
-        const Georgian_zen: 16781526
-        const Georgian_zhar: 16781535
-        const Greek_ALPHA: 1985
-        const Greek_ALPHAaccent: 1953
-        const Greek_BETA: 1986
-        const Greek_CHI: 2007
-        const Greek_DELTA: 1988
-        const Greek_EPSILON: 1989
-        const Greek_EPSILONaccent: 1954
-        const Greek_ETA: 1991
-        const Greek_ETAaccent: 1955
-        const Greek_GAMMA: 1987
-        const Greek_IOTA: 1993
-        const Greek_IOTAaccent: 1956
-        const Greek_IOTAdiaeresis: 1957
-        const Greek_IOTAdieresis: 1957
-        const Greek_KAPPA: 1994
-        const Greek_LAMBDA: 1995
-        const Greek_LAMDA: 1995
-        const Greek_MU: 1996
-        const Greek_NU: 1997
-        const Greek_OMEGA: 2009
-        const Greek_OMEGAaccent: 1963
-        const Greek_OMICRON: 1999
-        const Greek_OMICRONaccent: 1959
-        const Greek_PHI: 2006
-        const Greek_PI: 2000
-        const Greek_PSI: 2008
-        const Greek_RHO: 2001
-        const Greek_SIGMA: 2002
-        const Greek_TAU: 2004
-        const Greek_THETA: 1992
-        const Greek_UPSILON: 2005
-        const Greek_UPSILONaccent: 1960
-        const Greek_UPSILONdieresis: 1961
-        const Greek_XI: 1998
-        const Greek_ZETA: 1990
-        const Greek_accentdieresis: 1966
-        const Greek_alpha: 2017
-        const Greek_alphaaccent: 1969
-        const Greek_beta: 2018
-        const Greek_chi: 2039
-        const Greek_delta: 2020
-        const Greek_epsilon: 2021
-        const Greek_epsilonaccent: 1970
-        const Greek_eta: 2023
-        const Greek_etaaccent: 1971
-        const Greek_finalsmallsigma: 2035
-        const Greek_gamma: 2019
-        const Greek_horizbar: 1967
-        const Greek_iota: 2025
-        const Greek_iotaaccent: 1972
-        const Greek_iotaaccentdieresis: 1974
-        const Greek_iotadieresis: 1973
-        const Greek_kappa: 2026
-        const Greek_lambda: 2027
-        const Greek_lamda: 2027
-        const Greek_mu: 2028
-        const Greek_nu: 2029
-        const Greek_omega: 2041
-        const Greek_omegaaccent: 1979
-        const Greek_omicron: 2031
-        const Greek_omicronaccent: 1975
-        const Greek_phi: 2038
-        const Greek_pi: 2032
-        const Greek_psi: 2040
-        const Greek_rho: 2033
-        const Greek_sigma: 2034
-        const Greek_switch: 65406
-        const Greek_tau: 2036
-        const Greek_theta: 2024
-        const Greek_upsilon: 2037
-        const Greek_upsilonaccent: 1976
-        const Greek_upsilonaccentdieresis: 1978
-        const Greek_upsilondieresis: 1977
-        const Greek_xi: 2030
-        const Greek_zeta: 2022
-        const H: 72
-        const Hangul: 65329
-        const Hangul_A: 3775
-        const Hangul_AE: 3776
-        const Hangul_AraeA: 3830
-        const Hangul_AraeAE: 3831
-        const Hangul_Banja: 65337
-        const Hangul_Cieuc: 3770
-        const Hangul_Codeinput: 65335
-        const Hangul_Dikeud: 3751
-        const Hangul_E: 3780
-        const Hangul_EO: 3779
-        const Hangul_EU: 3793
-        const Hangul_End: 65331
-        const Hangul_Hanja: 65332
-        const Hangul_Hieuh: 3774
-        const Hangul_I: 3795
-        const Hangul_Ieung: 3767
-        const Hangul_J_Cieuc: 3818
-        const Hangul_J_Dikeud: 3802
-        const Hangul_J_Hieuh: 3822
-        const Hangul_J_Ieung: 3816
-        const Hangul_J_Jieuj: 3817
-        const Hangul_J_Khieuq: 3819
-        const Hangul_J_Kiyeog: 3796
-        const Hangul_J_KiyeogSios: 3798
-        const Hangul_J_KkogjiDalrinIeung: 3833
-        const Hangul_J_Mieum: 3811
-        const Hangul_J_Nieun: 3799
-        const Hangul_J_NieunHieuh: 3801
-        const Hangul_J_NieunJieuj: 3800
-        const Hangul_J_PanSios: 3832
-        const Hangul_J_Phieuf: 3821
-        const Hangul_J_Pieub: 3812
-        const Hangul_J_PieubSios: 3813
-        const Hangul_J_Rieul: 3803
-        const Hangul_J_RieulHieuh: 3810
-        const Hangul_J_RieulKiyeog: 3804
-        const Hangul_J_RieulMieum: 3805
-        const Hangul_J_RieulPhieuf: 3809
-        const Hangul_J_RieulPieub: 3806
-        const Hangul_J_RieulSios: 3807
-        const Hangul_J_RieulTieut: 3808
-        const Hangul_J_Sios: 3814
-        const Hangul_J_SsangKiyeog: 3797
-        const Hangul_J_SsangSios: 3815
-        const Hangul_J_Tieut: 3820
-        const Hangul_J_YeorinHieuh: 3834
-        const Hangul_Jamo: 65333
-        const Hangul_Jeonja: 65336
-        const Hangul_Jieuj: 3768
-        const Hangul_Khieuq: 3771
-        const Hangul_Kiyeog: 3745
-        const Hangul_KiyeogSios: 3747
-        const Hangul_KkogjiDalrinIeung: 3827
-        const Hangul_Mieum: 3761
-        const Hangul_MultipleCandidate: 65341
-        const Hangul_Nieun: 3748
-        const Hangul_NieunHieuh: 3750
-        const Hangul_NieunJieuj: 3749
-        const Hangul_O: 3783
-        const Hangul_OE: 3786
-        const Hangul_PanSios: 3826
-        const Hangul_Phieuf: 3773
-        const Hangul_Pieub: 3762
-        const Hangul_PieubSios: 3764
-        const Hangul_PostHanja: 65339
-        const Hangul_PreHanja: 65338
-        const Hangul_PreviousCandidate: 65342
-        const Hangul_Rieul: 3753
-        const Hangul_RieulHieuh: 3760
-        const Hangul_RieulKiyeog: 3754
-        const Hangul_RieulMieum: 3755
-        const Hangul_RieulPhieuf: 3759
-        const Hangul_RieulPieub: 3756
-        const Hangul_RieulSios: 3757
-        const Hangul_RieulTieut: 3758
-        const Hangul_RieulYeorinHieuh: 3823
-        const Hangul_Romaja: 65334
-        const Hangul_SingleCandidate: 65340
-        const Hangul_Sios: 3765
-        const Hangul_Special: 65343
-        const Hangul_SsangDikeud: 3752
-        const Hangul_SsangJieuj: 3769
-        const Hangul_SsangKiyeog: 3746
-        const Hangul_SsangPieub: 3763
-        const Hangul_SsangSios: 3766
-        const Hangul_Start: 65330
-        const Hangul_SunkyeongeumMieum: 3824
-        const Hangul_SunkyeongeumPhieuf: 3828
-        const Hangul_SunkyeongeumPieub: 3825
-        const Hangul_Tieut: 3772
-        const Hangul_U: 3788
-        const Hangul_WA: 3784
-        const Hangul_WAE: 3785
-        const Hangul_WE: 3790
-        const Hangul_WEO: 3789
-        const Hangul_WI: 3791
-        const Hangul_YA: 3777
-        const Hangul_YAE: 3778
-        const Hangul_YE: 3782
-        const Hangul_YEO: 3781
-        const Hangul_YI: 3794
-        const Hangul_YO: 3787
-        const Hangul_YU: 3792
-        const Hangul_YeorinHieuh: 3829
-        const Hangul_switch: 65406
-        const Hankaku: 65321
-        const Hcircumflex: 678
-        const Hebrew_switch: 65406
-        const Help: 65386
-        const Henkan: 65315
-        const Henkan_Mode: 65315
-        const Hiragana: 65317
-        const Hiragana_Katakana: 65319
-        const Home: 65360
-        const Hstroke: 673
-        const Hyper_L: 65517
-        const Hyper_R: 65518
-        const I: 73
-        const INTERFACE_CONFIG: "org.freedesktop.IBus.Config"
-        const INTERFACE_ENGINE: "org.freedesktop.IBus.Engine"
-        const INTERFACE_FACTORY: "org.freedesktop.IBus.Factory"
-        const INTERFACE_IBUS: "org.freedesktop.IBus"
-        const INTERFACE_INPUT_CONTEXT: "org.freedesktop.IBus.InputContext"
-        const INTERFACE_NOTIFICATIONS: "org.freedesktop.IBus.Notifications"
-        const INTERFACE_PANEL: "org.freedesktop.IBus.Panel"
-        const INTERFACE_PORTAL: "org.freedesktop.IBus.Portal"
-        const ISO_Center_Object: 65075
-        const ISO_Continuous_Underline: 65072
-        const ISO_Discontinuous_Underline: 65073
-        const ISO_Emphasize: 65074
-        const ISO_Enter: 65076
-        const ISO_Fast_Cursor_Down: 65071
-        const ISO_Fast_Cursor_Left: 65068
-        const ISO_Fast_Cursor_Right: 65069
-        const ISO_Fast_Cursor_Up: 65070
-        const ISO_First_Group: 65036
-        const ISO_First_Group_Lock: 65037
-        const ISO_Group_Latch: 65030
-        const ISO_Group_Lock: 65031
-        const ISO_Group_Shift: 65406
-        const ISO_Last_Group: 65038
-        const ISO_Last_Group_Lock: 65039
-        const ISO_Left_Tab: 65056
-        const ISO_Level2_Latch: 65026
-        const ISO_Level3_Latch: 65028
-        const ISO_Level3_Lock: 65029
-        const ISO_Level3_Shift: 65027
-        const ISO_Level5_Latch: 65042
-        const ISO_Level5_Lock: 65043
-        const ISO_Level5_Shift: 65041
-        const ISO_Lock: 65025
-        const ISO_Move_Line_Down: 65058
-        const ISO_Move_Line_Up: 65057
-        const ISO_Next_Group: 65032
-        const ISO_Next_Group_Lock: 65033
-        const ISO_Partial_Line_Down: 65060
-        const ISO_Partial_Line_Up: 65059
-        const ISO_Partial_Space_Left: 65061
-        const ISO_Partial_Space_Right: 65062
-        const ISO_Prev_Group: 65034
-        const ISO_Prev_Group_Lock: 65035
-        const ISO_Release_Both_Margins: 65067
-        const ISO_Release_Margin_Left: 65065
-        const ISO_Release_Margin_Right: 65066
-        const ISO_Set_Margin_Left: 65063
-        const ISO_Set_Margin_Right: 65064
-        const Iabovedot: 681
-        const Iacute: 205
-        const Ibelowdot: 16785098
-        const Ibreve: 16777516
-        const Icircumflex: 206
-        const Idiaeresis: 207
-        const Igrave: 204
-        const Ihook: 16785096
-        const Imacron: 975
-        const Insert: 65379
-        const Iogonek: 967
-        const Itilde: 933
-        const J: 74
-        const Jcircumflex: 684
-        const K: 75
-        const KEY_0: 48
-        const KEY_1: 49
-        const KEY_2: 50
-        const KEY_3: 51
-        const KEY_3270_AltCursor: 64784
-        const KEY_3270_Attn: 64782
-        const KEY_3270_BackTab: 64773
-        const KEY_3270_ChangeScreen: 64793
-        const KEY_3270_Copy: 64789
-        const KEY_3270_CursorBlink: 64783
-        const KEY_3270_CursorSelect: 64796
-        const KEY_3270_DeleteWord: 64794
-        const KEY_3270_Duplicate: 64769
-        const KEY_3270_Enter: 64798
-        const KEY_3270_EraseEOF: 64774
-        const KEY_3270_EraseInput: 64775
-        const KEY_3270_ExSelect: 64795
-        const KEY_3270_FieldMark: 64770
-        const KEY_3270_Ident: 64787
-        const KEY_3270_Jump: 64786
-        const KEY_3270_KeyClick: 64785
-        const KEY_3270_Left2: 64772
-        const KEY_3270_PA1: 64778
-        const KEY_3270_PA2: 64779
-        const KEY_3270_PA3: 64780
-        const KEY_3270_Play: 64790
-        const KEY_3270_PrintScreen: 64797
-        const KEY_3270_Quit: 64777
-        const KEY_3270_Record: 64792
-        const KEY_3270_Reset: 64776
-        const KEY_3270_Right2: 64771
-        const KEY_3270_Rule: 64788
-        const KEY_3270_Setup: 64791
-        const KEY_3270_Test: 64781
-        const KEY_4: 52
-        const KEY_5: 53
-        const KEY_6: 54
-        const KEY_7: 55
-        const KEY_8: 56
-        const KEY_9: 57
-        const KEY_A: 65
-        const KEY_AE: 198
-        const KEY_Aacute: 193
-        const KEY_Abelowdot: 16785056
-        const KEY_Abreve: 451
-        const KEY_Abreveacute: 16785070
-        const KEY_Abrevebelowdot: 16785078
-        const KEY_Abrevegrave: 16785072
-        const KEY_Abrevehook: 16785074
-        const KEY_Abrevetilde: 16785076
-        const KEY_AccessX_Enable: 65136
-        const KEY_AccessX_Feedback_Enable: 65137
-        const KEY_Acircumflex: 194
-        const KEY_Acircumflexacute: 16785060
-        const KEY_Acircumflexbelowdot: 16785068
-        const KEY_Acircumflexgrave: 16785062
-        const KEY_Acircumflexhook: 16785064
-        const KEY_Acircumflextilde: 16785066
-        const KEY_AddFavorite: 269025081
-        const KEY_Adiaeresis: 196
-        const KEY_Agrave: 192
-        const KEY_Ahook: 16785058
-        const KEY_Alt_L: 65513
-        const KEY_Alt_R: 65514
-        const KEY_Amacron: 960
-        const KEY_Aogonek: 417
-        const KEY_ApplicationLeft: 269025104
-        const KEY_ApplicationRight: 269025105
-        const KEY_Arabic_0: 16778848
-        const KEY_Arabic_1: 16778849
-        const KEY_Arabic_2: 16778850
-        const KEY_Arabic_3: 16778851
-        const KEY_Arabic_4: 16778852
-        const KEY_Arabic_5: 16778853
-        const KEY_Arabic_6: 16778854
-        const KEY_Arabic_7: 16778855
-        const KEY_Arabic_8: 16778856
-        const KEY_Arabic_9: 16778857
-        const KEY_Arabic_ain: 1497
-        const KEY_Arabic_alef: 1479
-        const KEY_Arabic_alefmaksura: 1513
-        const KEY_Arabic_beh: 1480
-        const KEY_Arabic_comma: 1452
-        const KEY_Arabic_dad: 1494
-        const KEY_Arabic_dal: 1487
-        const KEY_Arabic_damma: 1519
-        const KEY_Arabic_dammatan: 1516
-        const KEY_Arabic_ddal: 16778888
-        const KEY_Arabic_farsi_yeh: 16778956
-        const KEY_Arabic_fatha: 1518
-        const KEY_Arabic_fathatan: 1515
-        const KEY_Arabic_feh: 1505
-        const KEY_Arabic_fullstop: 16778964
-        const KEY_Arabic_gaf: 16778927
-        const KEY_Arabic_ghain: 1498
-        const KEY_Arabic_ha: 1511
-        const KEY_Arabic_hah: 1485
-        const KEY_Arabic_hamza: 1473
-        const KEY_Arabic_hamza_above: 16778836
-        const KEY_Arabic_hamza_below: 16778837
-        const KEY_Arabic_hamzaonalef: 1475
-        const KEY_Arabic_hamzaonwaw: 1476
-        const KEY_Arabic_hamzaonyeh: 1478
-        const KEY_Arabic_hamzaunderalef: 1477
-        const KEY_Arabic_heh: 1511
-        const KEY_Arabic_heh_doachashmee: 16778942
-        const KEY_Arabic_heh_goal: 16778945
-        const KEY_Arabic_jeem: 1484
-        const KEY_Arabic_jeh: 16778904
-        const KEY_Arabic_kaf: 1507
-        const KEY_Arabic_kasra: 1520
-        const KEY_Arabic_kasratan: 1517
-        const KEY_Arabic_keheh: 16778921
-        const KEY_Arabic_khah: 1486
-        const KEY_Arabic_lam: 1508
-        const KEY_Arabic_madda_above: 16778835
-        const KEY_Arabic_maddaonalef: 1474
-        const KEY_Arabic_meem: 1509
-        const KEY_Arabic_noon: 1510
-        const KEY_Arabic_noon_ghunna: 16778938
-        const KEY_Arabic_peh: 16778878
-        const KEY_Arabic_percent: 16778858
-        const KEY_Arabic_qaf: 1506
-        const KEY_Arabic_question_mark: 1471
-        const KEY_Arabic_ra: 1489
-        const KEY_Arabic_rreh: 16778897
-        const KEY_Arabic_sad: 1493
-        const KEY_Arabic_seen: 1491
-        const KEY_Arabic_semicolon: 1467
-        const KEY_Arabic_shadda: 1521
-        const KEY_Arabic_sheen: 1492
-        const KEY_Arabic_sukun: 1522
-        const KEY_Arabic_superscript_alef: 16778864
-        const KEY_Arabic_switch: 65406
-        const KEY_Arabic_tah: 1495
-        const KEY_Arabic_tatweel: 1504
-        const KEY_Arabic_tcheh: 16778886
-        const KEY_Arabic_teh: 1482
-        const KEY_Arabic_tehmarbuta: 1481
-        const KEY_Arabic_thal: 1488
-        const KEY_Arabic_theh: 1483
-        const KEY_Arabic_tteh: 16778873
-        const KEY_Arabic_veh: 16778916
-        const KEY_Arabic_waw: 1512
-        const KEY_Arabic_yeh: 1514
-        const KEY_Arabic_yeh_baree: 16778962
-        const KEY_Arabic_zah: 1496
-        const KEY_Arabic_zain: 1490
-        const KEY_Aring: 197
-        const KEY_Armenian_AT: 16778552
-        const KEY_Armenian_AYB: 16778545
-        const KEY_Armenian_BEN: 16778546
-        const KEY_Armenian_CHA: 16778569
-        const KEY_Armenian_DA: 16778548
-        const KEY_Armenian_DZA: 16778561
-        const KEY_Armenian_E: 16778551
-        const KEY_Armenian_FE: 16778582
-        const KEY_Armenian_GHAT: 16778562
-        const KEY_Armenian_GIM: 16778547
-        const KEY_Armenian_HI: 16778565
-        const KEY_Armenian_HO: 16778560
-        const KEY_Armenian_INI: 16778555
-        const KEY_Armenian_JE: 16778571
-        const KEY_Armenian_KE: 16778580
-        const KEY_Armenian_KEN: 16778559
-        const KEY_Armenian_KHE: 16778557
-        const KEY_Armenian_LYUN: 16778556
-        const KEY_Armenian_MEN: 16778564
-        const KEY_Armenian_NU: 16778566
-        const KEY_Armenian_O: 16778581
-        const KEY_Armenian_PE: 16778570
-        const KEY_Armenian_PYUR: 16778579
-        const KEY_Armenian_RA: 16778572
-        const KEY_Armenian_RE: 16778576
-        const KEY_Armenian_SE: 16778573
-        const KEY_Armenian_SHA: 16778567
-        const KEY_Armenian_TCHE: 16778563
-        const KEY_Armenian_TO: 16778553
-        const KEY_Armenian_TSA: 16778558
-        const KEY_Armenian_TSO: 16778577
-        const KEY_Armenian_TYUN: 16778575
-        const KEY_Armenian_VEV: 16778574
-        const KEY_Armenian_VO: 16778568
-        const KEY_Armenian_VYUN: 16778578
-        const KEY_Armenian_YECH: 16778549
-        const KEY_Armenian_ZA: 16778550
-        const KEY_Armenian_ZHE: 16778554
-        const KEY_Armenian_accent: 16778587
-        const KEY_Armenian_amanak: 16778588
-        const KEY_Armenian_apostrophe: 16778586
-        const KEY_Armenian_at: 16778600
-        const KEY_Armenian_ayb: 16778593
-        const KEY_Armenian_ben: 16778594
-        const KEY_Armenian_but: 16778589
-        const KEY_Armenian_cha: 16778617
-        const KEY_Armenian_da: 16778596
-        const KEY_Armenian_dza: 16778609
-        const KEY_Armenian_e: 16778599
-        const KEY_Armenian_exclam: 16778588
-        const KEY_Armenian_fe: 16778630
-        const KEY_Armenian_full_stop: 16778633
-        const KEY_Armenian_ghat: 16778610
-        const KEY_Armenian_gim: 16778595
-        const KEY_Armenian_hi: 16778613
-        const KEY_Armenian_ho: 16778608
-        const KEY_Armenian_hyphen: 16778634
-        const KEY_Armenian_ini: 16778603
-        const KEY_Armenian_je: 16778619
-        const KEY_Armenian_ke: 16778628
-        const KEY_Armenian_ken: 16778607
-        const KEY_Armenian_khe: 16778605
-        const KEY_Armenian_ligature_ew: 16778631
-        const KEY_Armenian_lyun: 16778604
-        const KEY_Armenian_men: 16778612
-        const KEY_Armenian_nu: 16778614
-        const KEY_Armenian_o: 16778629
-        const KEY_Armenian_paruyk: 16778590
-        const KEY_Armenian_pe: 16778618
-        const KEY_Armenian_pyur: 16778627
-        const KEY_Armenian_question: 16778590
-        const KEY_Armenian_ra: 16778620
-        const KEY_Armenian_re: 16778624
-        const KEY_Armenian_se: 16778621
-        const KEY_Armenian_separation_mark: 16778589
-        const KEY_Armenian_sha: 16778615
-        const KEY_Armenian_shesht: 16778587
-        const KEY_Armenian_tche: 16778611
-        const KEY_Armenian_to: 16778601
-        const KEY_Armenian_tsa: 16778606
-        const KEY_Armenian_tso: 16778625
-        const KEY_Armenian_tyun: 16778623
-        const KEY_Armenian_verjaket: 16778633
-        const KEY_Armenian_vev: 16778622
-        const KEY_Armenian_vo: 16778616
-        const KEY_Armenian_vyun: 16778626
-        const KEY_Armenian_yech: 16778597
-        const KEY_Armenian_yentamna: 16778634
-        const KEY_Armenian_za: 16778598
-        const KEY_Armenian_zhe: 16778602
-        const KEY_Atilde: 195
-        const KEY_AudibleBell_Enable: 65146
-        const KEY_AudioCycleTrack: 269025179
-        const KEY_AudioForward: 269025175
-        const KEY_AudioLowerVolume: 269025041
-        const KEY_AudioMedia: 269025074
-        const KEY_AudioMicMute: 269025202
-        const KEY_AudioMute: 269025042
-        const KEY_AudioNext: 269025047
-        const KEY_AudioPause: 269025073
-        const KEY_AudioPlay: 269025044
-        const KEY_AudioPreset: 269025206
-        const KEY_AudioPrev: 269025046
-        const KEY_AudioRaiseVolume: 269025043
-        const KEY_AudioRandomPlay: 269025177
-        const KEY_AudioRecord: 269025052
-        const KEY_AudioRepeat: 269025176
-        const KEY_AudioRewind: 269025086
-        const KEY_AudioStop: 269025045
-        const KEY_Away: 269025165
-        const KEY_B: 66
-        const KEY_Babovedot: 16784898
-        const KEY_Back: 269025062
-        const KEY_BackForward: 269025087
-        const KEY_BackSpace: 65288
-        const KEY_Battery: 269025171
-        const KEY_Begin: 65368
-        const KEY_Blue: 269025190
-        const KEY_Bluetooth: 269025172
-        const KEY_Book: 269025106
-        const KEY_BounceKeys_Enable: 65140
-        const KEY_Break: 65387
-        const KEY_BrightnessAdjust: 269025083
-        const KEY_Byelorussian_SHORTU: 1726
-        const KEY_Byelorussian_shortu: 1710
-        const KEY_C: 67
-        const KEY_CD: 269025107
-        const KEY_CH: 65186
-        const KEY_C_H: 65189
-        const KEY_C_h: 65188
-        const KEY_Cabovedot: 709
-        const KEY_Cacute: 454
-        const KEY_Calculator: 269025053
-        const KEY_Calendar: 269025056
-        const KEY_Cancel: 65385
-        const KEY_Caps_Lock: 65509
-        const KEY_Ccaron: 456
-        const KEY_Ccedilla: 199
-        const KEY_Ccircumflex: 710
-        const KEY_Ch: 65185
-        const KEY_Clear: 65291
-        const KEY_ClearGrab: 269024801
-        const KEY_Close: 269025110
-        const KEY_Codeinput: 65335
-        const KEY_ColonSign: 16785569
-        const KEY_Community: 269025085
-        const KEY_ContrastAdjust: 269025058
-        const KEY_Control_L: 65507
-        const KEY_Control_R: 65508
-        const KEY_Copy: 269025111
-        const KEY_CruzeiroSign: 16785570
-        const KEY_Cut: 269025112
-        const KEY_CycleAngle: 269025180
-        const KEY_Cyrillic_A: 1761
-        const KEY_Cyrillic_BE: 1762
-        const KEY_Cyrillic_CHE: 1790
-        const KEY_Cyrillic_CHE_descender: 16778422
-        const KEY_Cyrillic_CHE_vertstroke: 16778424
-        const KEY_Cyrillic_DE: 1764
-        const KEY_Cyrillic_DZHE: 1727
-        const KEY_Cyrillic_E: 1788
-        const KEY_Cyrillic_EF: 1766
-        const KEY_Cyrillic_EL: 1772
-        const KEY_Cyrillic_EM: 1773
-        const KEY_Cyrillic_EN: 1774
-        const KEY_Cyrillic_EN_descender: 16778402
-        const KEY_Cyrillic_ER: 1778
-        const KEY_Cyrillic_ES: 1779
-        const KEY_Cyrillic_GHE: 1767
-        const KEY_Cyrillic_GHE_bar: 16778386
-        const KEY_Cyrillic_HA: 1768
-        const KEY_Cyrillic_HARDSIGN: 1791
-        const KEY_Cyrillic_HA_descender: 16778418
-        const KEY_Cyrillic_I: 1769
-        const KEY_Cyrillic_IE: 1765
-        const KEY_Cyrillic_IO: 1715
-        const KEY_Cyrillic_I_macron: 16778466
-        const KEY_Cyrillic_JE: 1720
-        const KEY_Cyrillic_KA: 1771
-        const KEY_Cyrillic_KA_descender: 16778394
-        const KEY_Cyrillic_KA_vertstroke: 16778396
-        const KEY_Cyrillic_LJE: 1721
-        const KEY_Cyrillic_NJE: 1722
-        const KEY_Cyrillic_O: 1775
-        const KEY_Cyrillic_O_bar: 16778472
-        const KEY_Cyrillic_PE: 1776
-        const KEY_Cyrillic_SCHWA: 16778456
-        const KEY_Cyrillic_SHA: 1787
-        const KEY_Cyrillic_SHCHA: 1789
-        const KEY_Cyrillic_SHHA: 16778426
-        const KEY_Cyrillic_SHORTI: 1770
-        const KEY_Cyrillic_SOFTSIGN: 1784
-        const KEY_Cyrillic_TE: 1780
-        const KEY_Cyrillic_TSE: 1763
-        const KEY_Cyrillic_U: 1781
-        const KEY_Cyrillic_U_macron: 16778478
-        const KEY_Cyrillic_U_straight: 16778414
-        const KEY_Cyrillic_U_straight_bar: 16778416
-        const KEY_Cyrillic_VE: 1783
-        const KEY_Cyrillic_YA: 1777
-        const KEY_Cyrillic_YERU: 1785
-        const KEY_Cyrillic_YU: 1760
-        const KEY_Cyrillic_ZE: 1786
-        const KEY_Cyrillic_ZHE: 1782
-        const KEY_Cyrillic_ZHE_descender: 16778390
-        const KEY_Cyrillic_a: 1729
-        const KEY_Cyrillic_be: 1730
-        const KEY_Cyrillic_che: 1758
-        const KEY_Cyrillic_che_descender: 16778423
-        const KEY_Cyrillic_che_vertstroke: 16778425
-        const KEY_Cyrillic_de: 1732
-        const KEY_Cyrillic_dzhe: 1711
-        const KEY_Cyrillic_e: 1756
-        const KEY_Cyrillic_ef: 1734
-        const KEY_Cyrillic_el: 1740
-        const KEY_Cyrillic_em: 1741
-        const KEY_Cyrillic_en: 1742
-        const KEY_Cyrillic_en_descender: 16778403
-        const KEY_Cyrillic_er: 1746
-        const KEY_Cyrillic_es: 1747
-        const KEY_Cyrillic_ghe: 1735
-        const KEY_Cyrillic_ghe_bar: 16778387
-        const KEY_Cyrillic_ha: 1736
-        const KEY_Cyrillic_ha_descender: 16778419
-        const KEY_Cyrillic_hardsign: 1759
-        const KEY_Cyrillic_i: 1737
-        const KEY_Cyrillic_i_macron: 16778467
-        const KEY_Cyrillic_ie: 1733
-        const KEY_Cyrillic_io: 1699
-        const KEY_Cyrillic_je: 1704
-        const KEY_Cyrillic_ka: 1739
-        const KEY_Cyrillic_ka_descender: 16778395
-        const KEY_Cyrillic_ka_vertstroke: 16778397
-        const KEY_Cyrillic_lje: 1705
-        const KEY_Cyrillic_nje: 1706
-        const KEY_Cyrillic_o: 1743
-        const KEY_Cyrillic_o_bar: 16778473
-        const KEY_Cyrillic_pe: 1744
-        const KEY_Cyrillic_schwa: 16778457
-        const KEY_Cyrillic_sha: 1755
-        const KEY_Cyrillic_shcha: 1757
-        const KEY_Cyrillic_shha: 16778427
-        const KEY_Cyrillic_shorti: 1738
-        const KEY_Cyrillic_softsign: 1752
-        const KEY_Cyrillic_te: 1748
-        const KEY_Cyrillic_tse: 1731
-        const KEY_Cyrillic_u: 1749
-        const KEY_Cyrillic_u_macron: 16778479
-        const KEY_Cyrillic_u_straight: 16778415
-        const KEY_Cyrillic_u_straight_bar: 16778417
-        const KEY_Cyrillic_ve: 1751
-        const KEY_Cyrillic_ya: 1745
-        const KEY_Cyrillic_yeru: 1753
-        const KEY_Cyrillic_yu: 1728
-        const KEY_Cyrillic_ze: 1754
-        const KEY_Cyrillic_zhe: 1750
-        const KEY_Cyrillic_zhe_descender: 16778391
-        const KEY_D: 68
-        const KEY_DOS: 269025114
-        const KEY_Dabovedot: 16784906
-        const KEY_Dcaron: 463
-        const KEY_Delete: 65535
-        const KEY_Display: 269025113
-        const KEY_Documents: 269025115
-        const KEY_DongSign: 16785579
-        const KEY_Down: 65364
-        const KEY_Dstroke: 464
-        const KEY_E: 69
-        const KEY_ENG: 957
-        const KEY_ETH: 208
-        const KEY_EZH: 16777655
-        const KEY_Eabovedot: 972
-        const KEY_Eacute: 201
-        const KEY_Ebelowdot: 16785080
-        const KEY_Ecaron: 460
-        const KEY_Ecircumflex: 202
-        const KEY_Ecircumflexacute: 16785086
-        const KEY_Ecircumflexbelowdot: 16785094
-        const KEY_Ecircumflexgrave: 16785088
-        const KEY_Ecircumflexhook: 16785090
-        const KEY_Ecircumflextilde: 16785092
-        const KEY_EcuSign: 16785568
-        const KEY_Ediaeresis: 203
-        const KEY_Egrave: 200
-        const KEY_Ehook: 16785082
-        const KEY_Eisu_Shift: 65327
-        const KEY_Eisu_toggle: 65328
-        const KEY_Eject: 269025068
-        const KEY_Emacron: 938
-        const KEY_End: 65367
-        const KEY_Eogonek: 458
-        const KEY_Escape: 65307
-        const KEY_Eth: 208
-        const KEY_Etilde: 16785084
-        const KEY_EuroSign: 8364
-        const KEY_Excel: 269025116
-        const KEY_Execute: 65378
-        const KEY_Explorer: 269025117
-        const KEY_F: 70
-        const KEY_F1: 65470
-        const KEY_F10: 65479
-        const KEY_F11: 65480
-        const KEY_F12: 65481
-        const KEY_F13: 65482
-        const KEY_F14: 65483
-        const KEY_F15: 65484
-        const KEY_F16: 65485
-        const KEY_F17: 65486
-        const KEY_F18: 65487
-        const KEY_F19: 65488
-        const KEY_F2: 65471
-        const KEY_F20: 65489
-        const KEY_F21: 65490
-        const KEY_F22: 65491
-        const KEY_F23: 65492
-        const KEY_F24: 65493
-        const KEY_F25: 65494
-        const KEY_F26: 65495
-        const KEY_F27: 65496
-        const KEY_F28: 65497
-        const KEY_F29: 65498
-        const KEY_F3: 65472
-        const KEY_F30: 65499
-        const KEY_F31: 65500
-        const KEY_F32: 65501
-        const KEY_F33: 65502
-        const KEY_F34: 65503
-        const KEY_F35: 65504
-        const KEY_F4: 65473
-        const KEY_F5: 65474
-        const KEY_F6: 65475
-        const KEY_F7: 65476
-        const KEY_F8: 65477
-        const KEY_F9: 65478
-        const KEY_FFrancSign: 16785571
-        const KEY_Fabovedot: 16784926
-        const KEY_Farsi_0: 16778992
-        const KEY_Farsi_1: 16778993
-        const KEY_Farsi_2: 16778994
-        const KEY_Farsi_3: 16778995
-        const KEY_Farsi_4: 16778996
-        const KEY_Farsi_5: 16778997
-        const KEY_Farsi_6: 16778998
-        const KEY_Farsi_7: 16778999
-        const KEY_Farsi_8: 16779000
-        const KEY_Farsi_9: 16779001
-        const KEY_Farsi_yeh: 16778956
-        const KEY_Favorites: 269025072
-        const KEY_Finance: 269025084
-        const KEY_Find: 65384
-        const KEY_First_Virtual_Screen: 65232
-        const KEY_Forward: 269025063
-        const KEY_FrameBack: 269025181
-        const KEY_FrameForward: 269025182
-        const KEY_G: 71
-        const KEY_Gabovedot: 725
-        const KEY_Game: 269025118
-        const KEY_Gbreve: 683
-        const KEY_Gcaron: 16777702
-        const KEY_Gcedilla: 939
-        const KEY_Gcircumflex: 728
-        const KEY_Georgian_an: 16781520
-        const KEY_Georgian_ban: 16781521
-        const KEY_Georgian_can: 16781546
-        const KEY_Georgian_char: 16781549
-        const KEY_Georgian_chin: 16781545
-        const KEY_Georgian_cil: 16781548
-        const KEY_Georgian_don: 16781523
-        const KEY_Georgian_en: 16781524
-        const KEY_Georgian_fi: 16781558
-        const KEY_Georgian_gan: 16781522
-        const KEY_Georgian_ghan: 16781542
-        const KEY_Georgian_hae: 16781552
-        const KEY_Georgian_har: 16781556
-        const KEY_Georgian_he: 16781553
-        const KEY_Georgian_hie: 16781554
-        const KEY_Georgian_hoe: 16781557
-        const KEY_Georgian_in: 16781528
-        const KEY_Georgian_jhan: 16781551
-        const KEY_Georgian_jil: 16781547
-        const KEY_Georgian_kan: 16781529
-        const KEY_Georgian_khar: 16781541
-        const KEY_Georgian_las: 16781530
-        const KEY_Georgian_man: 16781531
-        const KEY_Georgian_nar: 16781532
-        const KEY_Georgian_on: 16781533
-        const KEY_Georgian_par: 16781534
-        const KEY_Georgian_phar: 16781540
-        const KEY_Georgian_qar: 16781543
-        const KEY_Georgian_rae: 16781536
-        const KEY_Georgian_san: 16781537
-        const KEY_Georgian_shin: 16781544
-        const KEY_Georgian_tan: 16781527
-        const KEY_Georgian_tar: 16781538
-        const KEY_Georgian_un: 16781539
-        const KEY_Georgian_vin: 16781525
-        const KEY_Georgian_we: 16781555
-        const KEY_Georgian_xan: 16781550
-        const KEY_Georgian_zen: 16781526
-        const KEY_Georgian_zhar: 16781535
-        const KEY_Go: 269025119
-        const KEY_Greek_ALPHA: 1985
-        const KEY_Greek_ALPHAaccent: 1953
-        const KEY_Greek_BETA: 1986
-        const KEY_Greek_CHI: 2007
-        const KEY_Greek_DELTA: 1988
-        const KEY_Greek_EPSILON: 1989
-        const KEY_Greek_EPSILONaccent: 1954
-        const KEY_Greek_ETA: 1991
-        const KEY_Greek_ETAaccent: 1955
-        const KEY_Greek_GAMMA: 1987
-        const KEY_Greek_IOTA: 1993
-        const KEY_Greek_IOTAaccent: 1956
-        const KEY_Greek_IOTAdiaeresis: 1957
-        const KEY_Greek_IOTAdieresis: 1957
-        const KEY_Greek_KAPPA: 1994
-        const KEY_Greek_LAMBDA: 1995
-        const KEY_Greek_LAMDA: 1995
-        const KEY_Greek_MU: 1996
-        const KEY_Greek_NU: 1997
-        const KEY_Greek_OMEGA: 2009
-        const KEY_Greek_OMEGAaccent: 1963
-        const KEY_Greek_OMICRON: 1999
-        const KEY_Greek_OMICRONaccent: 1959
-        const KEY_Greek_PHI: 2006
-        const KEY_Greek_PI: 2000
-        const KEY_Greek_PSI: 2008
-        const KEY_Greek_RHO: 2001
-        const KEY_Greek_SIGMA: 2002
-        const KEY_Greek_TAU: 2004
-        const KEY_Greek_THETA: 1992
-        const KEY_Greek_UPSILON: 2005
-        const KEY_Greek_UPSILONaccent: 1960
-        const KEY_Greek_UPSILONdieresis: 1961
-        const KEY_Greek_XI: 1998
-        const KEY_Greek_ZETA: 1990
-        const KEY_Greek_accentdieresis: 1966
-        const KEY_Greek_alpha: 2017
-        const KEY_Greek_alphaaccent: 1969
-        const KEY_Greek_beta: 2018
-        const KEY_Greek_chi: 2039
-        const KEY_Greek_delta: 2020
-        const KEY_Greek_epsilon: 2021
-        const KEY_Greek_epsilonaccent: 1970
-        const KEY_Greek_eta: 2023
-        const KEY_Greek_etaaccent: 1971
-        const KEY_Greek_finalsmallsigma: 2035
-        const KEY_Greek_gamma: 2019
-        const KEY_Greek_horizbar: 1967
-        const KEY_Greek_iota: 2025
-        const KEY_Greek_iotaaccent: 1972
-        const KEY_Greek_iotaaccentdieresis: 1974
-        const KEY_Greek_iotadieresis: 1973
-        const KEY_Greek_kappa: 2026
-        const KEY_Greek_lambda: 2027
-        const KEY_Greek_lamda: 2027
-        const KEY_Greek_mu: 2028
-        const KEY_Greek_nu: 2029
-        const KEY_Greek_omega: 2041
-        const KEY_Greek_omegaaccent: 1979
-        const KEY_Greek_omicron: 2031
-        const KEY_Greek_omicronaccent: 1975
-        const KEY_Greek_phi: 2038
-        const KEY_Greek_pi: 2032
-        const KEY_Greek_psi: 2040
-        const KEY_Greek_rho: 2033
-        const KEY_Greek_sigma: 2034
-        const KEY_Greek_switch: 65406
-        const KEY_Greek_tau: 2036
-        const KEY_Greek_theta: 2024
-        const KEY_Greek_upsilon: 2037
-        const KEY_Greek_upsilonaccent: 1976
-        const KEY_Greek_upsilonaccentdieresis: 1978
-        const KEY_Greek_upsilondieresis: 1977
-        const KEY_Greek_xi: 2030
-        const KEY_Greek_zeta: 2022
-        const KEY_Green: 269025188
-        const KEY_H: 72
-        const KEY_Hangul: 65329
-        const KEY_Hangul_A: 3775
-        const KEY_Hangul_AE: 3776
-        const KEY_Hangul_AraeA: 3830
-        const KEY_Hangul_AraeAE: 3831
-        const KEY_Hangul_Banja: 65337
-        const KEY_Hangul_Cieuc: 3770
-        const KEY_Hangul_Codeinput: 65335
-        const KEY_Hangul_Dikeud: 3751
-        const KEY_Hangul_E: 3780
-        const KEY_Hangul_EO: 3779
-        const KEY_Hangul_EU: 3793
-        const KEY_Hangul_End: 65331
-        const KEY_Hangul_Hanja: 65332
-        const KEY_Hangul_Hieuh: 3774
-        const KEY_Hangul_I: 3795
-        const KEY_Hangul_Ieung: 3767
-        const KEY_Hangul_J_Cieuc: 3818
-        const KEY_Hangul_J_Dikeud: 3802
-        const KEY_Hangul_J_Hieuh: 3822
-        const KEY_Hangul_J_Ieung: 3816
-        const KEY_Hangul_J_Jieuj: 3817
-        const KEY_Hangul_J_Khieuq: 3819
-        const KEY_Hangul_J_Kiyeog: 3796
-        const KEY_Hangul_J_KiyeogSios: 3798
-        const KEY_Hangul_J_KkogjiDalrinIeung: 3833
-        const KEY_Hangul_J_Mieum: 3811
-        const KEY_Hangul_J_Nieun: 3799
-        const KEY_Hangul_J_NieunHieuh: 3801
-        const KEY_Hangul_J_NieunJieuj: 3800
-        const KEY_Hangul_J_PanSios: 3832
-        const KEY_Hangul_J_Phieuf: 3821
-        const KEY_Hangul_J_Pieub: 3812
-        const KEY_Hangul_J_PieubSios: 3813
-        const KEY_Hangul_J_Rieul: 3803
-        const KEY_Hangul_J_RieulHieuh: 3810
-        const KEY_Hangul_J_RieulKiyeog: 3804
-        const KEY_Hangul_J_RieulMieum: 3805
-        const KEY_Hangul_J_RieulPhieuf: 3809
-        const KEY_Hangul_J_RieulPieub: 3806
-        const KEY_Hangul_J_RieulSios: 3807
-        const KEY_Hangul_J_RieulTieut: 3808
-        const KEY_Hangul_J_Sios: 3814
-        const KEY_Hangul_J_SsangKiyeog: 3797
-        const KEY_Hangul_J_SsangSios: 3815
-        const KEY_Hangul_J_Tieut: 3820
-        const KEY_Hangul_J_YeorinHieuh: 3834
-        const KEY_Hangul_Jamo: 65333
-        const KEY_Hangul_Jeonja: 65336
-        const KEY_Hangul_Jieuj: 3768
-        const KEY_Hangul_Khieuq: 3771
-        const KEY_Hangul_Kiyeog: 3745
-        const KEY_Hangul_KiyeogSios: 3747
-        const KEY_Hangul_KkogjiDalrinIeung: 3827
-        const KEY_Hangul_Mieum: 3761
-        const KEY_Hangul_MultipleCandidate: 65341
-        const KEY_Hangul_Nieun: 3748
-        const KEY_Hangul_NieunHieuh: 3750
-        const KEY_Hangul_NieunJieuj: 3749
-        const KEY_Hangul_O: 3783
-        const KEY_Hangul_OE: 3786
-        const KEY_Hangul_PanSios: 3826
-        const KEY_Hangul_Phieuf: 3773
-        const KEY_Hangul_Pieub: 3762
-        const KEY_Hangul_PieubSios: 3764
-        const KEY_Hangul_PostHanja: 65339
-        const KEY_Hangul_PreHanja: 65338
-        const KEY_Hangul_PreviousCandidate: 65342
-        const KEY_Hangul_Rieul: 3753
-        const KEY_Hangul_RieulHieuh: 3760
-        const KEY_Hangul_RieulKiyeog: 3754
-        const KEY_Hangul_RieulMieum: 3755
-        const KEY_Hangul_RieulPhieuf: 3759
-        const KEY_Hangul_RieulPieub: 3756
-        const KEY_Hangul_RieulSios: 3757
-        const KEY_Hangul_RieulTieut: 3758
-        const KEY_Hangul_RieulYeorinHieuh: 3823
-        const KEY_Hangul_Romaja: 65334
-        const KEY_Hangul_SingleCandidate: 65340
-        const KEY_Hangul_Sios: 3765
-        const KEY_Hangul_Special: 65343
-        const KEY_Hangul_SsangDikeud: 3752
-        const KEY_Hangul_SsangJieuj: 3769
-        const KEY_Hangul_SsangKiyeog: 3746
-        const KEY_Hangul_SsangPieub: 3763
-        const KEY_Hangul_SsangSios: 3766
-        const KEY_Hangul_Start: 65330
-        const KEY_Hangul_SunkyeongeumMieum: 3824
-        const KEY_Hangul_SunkyeongeumPhieuf: 3828
-        const KEY_Hangul_SunkyeongeumPieub: 3825
-        const KEY_Hangul_Tieut: 3772
-        const KEY_Hangul_U: 3788
-        const KEY_Hangul_WA: 3784
-        const KEY_Hangul_WAE: 3785
-        const KEY_Hangul_WE: 3790
-        const KEY_Hangul_WEO: 3789
-        const KEY_Hangul_WI: 3791
-        const KEY_Hangul_YA: 3777
-        const KEY_Hangul_YAE: 3778
-        const KEY_Hangul_YE: 3782
-        const KEY_Hangul_YEO: 3781
-        const KEY_Hangul_YI: 3794
-        const KEY_Hangul_YO: 3787
-        const KEY_Hangul_YU: 3792
-        const KEY_Hangul_YeorinHieuh: 3829
-        const KEY_Hangul_switch: 65406
-        const KEY_Hankaku: 65321
-        const KEY_Hcircumflex: 678
-        const KEY_Hebrew_switch: 65406
-        const KEY_Help: 65386
-        const KEY_Henkan: 65315
-        const KEY_Henkan_Mode: 65315
-        const KEY_Hibernate: 269025192
-        const KEY_Hiragana: 65317
-        const KEY_Hiragana_Katakana: 65319
-        const KEY_History: 269025079
-        const KEY_Home: 65360
-        const KEY_HomePage: 269025048
-        const KEY_HotLinks: 269025082
-        const KEY_Hstroke: 673
-        const KEY_Hyper_L: 65517
-        const KEY_Hyper_R: 65518
-        const KEY_I: 73
-        const KEY_ISO_Center_Object: 65075
-        const KEY_ISO_Continuous_Underline: 65072
-        const KEY_ISO_Discontinuous_Underline: 65073
-        const KEY_ISO_Emphasize: 65074
-        const KEY_ISO_Enter: 65076
-        const KEY_ISO_Fast_Cursor_Down: 65071
-        const KEY_ISO_Fast_Cursor_Left: 65068
-        const KEY_ISO_Fast_Cursor_Right: 65069
-        const KEY_ISO_Fast_Cursor_Up: 65070
-        const KEY_ISO_First_Group: 65036
-        const KEY_ISO_First_Group_Lock: 65037
-        const KEY_ISO_Group_Latch: 65030
-        const KEY_ISO_Group_Lock: 65031
-        const KEY_ISO_Group_Shift: 65406
-        const KEY_ISO_Last_Group: 65038
-        const KEY_ISO_Last_Group_Lock: 65039
-        const KEY_ISO_Left_Tab: 65056
-        const KEY_ISO_Level2_Latch: 65026
-        const KEY_ISO_Level3_Latch: 65028
-        const KEY_ISO_Level3_Lock: 65029
-        const KEY_ISO_Level3_Shift: 65027
-        const KEY_ISO_Level5_Latch: 65042
-        const KEY_ISO_Level5_Lock: 65043
-        const KEY_ISO_Level5_Shift: 65041
-        const KEY_ISO_Lock: 65025
-        const KEY_ISO_Move_Line_Down: 65058
-        const KEY_ISO_Move_Line_Up: 65057
-        const KEY_ISO_Next_Group: 65032
-        const KEY_ISO_Next_Group_Lock: 65033
-        const KEY_ISO_Partial_Line_Down: 65060
-        const KEY_ISO_Partial_Line_Up: 65059
-        const KEY_ISO_Partial_Space_Left: 65061
-        const KEY_ISO_Partial_Space_Right: 65062
-        const KEY_ISO_Prev_Group: 65034
-        const KEY_ISO_Prev_Group_Lock: 65035
-        const KEY_ISO_Release_Both_Margins: 65067
-        const KEY_ISO_Release_Margin_Left: 65065
-        const KEY_ISO_Release_Margin_Right: 65066
-        const KEY_ISO_Set_Margin_Left: 65063
-        const KEY_ISO_Set_Margin_Right: 65064
-        const KEY_Iabovedot: 681
-        const KEY_Iacute: 205
-        const KEY_Ibelowdot: 16785098
-        const KEY_Ibreve: 16777516
-        const KEY_Icircumflex: 206
-        const KEY_Idiaeresis: 207
-        const KEY_Igrave: 204
-        const KEY_Ihook: 16785096
-        const KEY_Imacron: 975
-        const KEY_Insert: 65379
-        const KEY_Iogonek: 967
-        const KEY_Itilde: 933
-        const KEY_J: 74
-        const KEY_Jcircumflex: 684
-        const KEY_K: 75
-        const KEY_KP_0: 65456
-        const KEY_KP_1: 65457
-        const KEY_KP_2: 65458
-        const KEY_KP_3: 65459
-        const KEY_KP_4: 65460
-        const KEY_KP_5: 65461
-        const KEY_KP_6: 65462
-        const KEY_KP_7: 65463
-        const KEY_KP_8: 65464
-        const KEY_KP_9: 65465
-        const KEY_KP_Add: 65451
-        const KEY_KP_Begin: 65437
-        const KEY_KP_Decimal: 65454
-        const KEY_KP_Delete: 65439
-        const KEY_KP_Divide: 65455
-        const KEY_KP_Down: 65433
-        const KEY_KP_End: 65436
-        const KEY_KP_Enter: 65421
-        const KEY_KP_Equal: 65469
-        const KEY_KP_F1: 65425
-        const KEY_KP_F2: 65426
-        const KEY_KP_F3: 65427
-        const KEY_KP_F4: 65428
-        const KEY_KP_Home: 65429
-        const KEY_KP_Insert: 65438
-        const KEY_KP_Left: 65430
-        const KEY_KP_Multiply: 65450
-        const KEY_KP_Next: 65435
-        const KEY_KP_Page_Down: 65435
-        const KEY_KP_Page_Up: 65434
-        const KEY_KP_Prior: 65434
-        const KEY_KP_Right: 65432
-        const KEY_KP_Separator: 65452
-        const KEY_KP_Space: 65408
-        const KEY_KP_Subtract: 65453
-        const KEY_KP_Tab: 65417
-        const KEY_KP_Up: 65431
-        const KEY_Kana_Lock: 65325
-        const KEY_Kana_Shift: 65326
-        const KEY_Kanji: 65313
-        const KEY_Kanji_Bangou: 65335
-        const KEY_Katakana: 65318
-        const KEY_KbdBrightnessDown: 269025030
-        const KEY_KbdBrightnessUp: 269025029
-        const KEY_KbdLightOnOff: 269025028
-        const KEY_Kcedilla: 979
-        const KEY_Keyboard: 269025203
-        const KEY_Korean_Won: 3839
-        const KEY_L: 76
-        const KEY_L1: 65480
-        const KEY_L10: 65489
-        const KEY_L2: 65481
-        const KEY_L3: 65482
-        const KEY_L4: 65483
-        const KEY_L5: 65484
-        const KEY_L6: 65485
-        const KEY_L7: 65486
-        const KEY_L8: 65487
-        const KEY_L9: 65488
-        const KEY_Lacute: 453
-        const KEY_Last_Virtual_Screen: 65236
-        const KEY_Launch0: 269025088
-        const KEY_Launch1: 269025089
-        const KEY_Launch2: 269025090
-        const KEY_Launch3: 269025091
-        const KEY_Launch4: 269025092
-        const KEY_Launch5: 269025093
-        const KEY_Launch6: 269025094
-        const KEY_Launch7: 269025095
-        const KEY_Launch8: 269025096
-        const KEY_Launch9: 269025097
-        const KEY_LaunchA: 269025098
-        const KEY_LaunchB: 269025099
-        const KEY_LaunchC: 269025100
-        const KEY_LaunchD: 269025101
-        const KEY_LaunchE: 269025102
-        const KEY_LaunchF: 269025103
-        const KEY_Lbelowdot: 16784950
-        const KEY_Lcaron: 421
-        const KEY_Lcedilla: 934
-        const KEY_Left: 65361
-        const KEY_LightBulb: 269025077
-        const KEY_Linefeed: 65290
-        const KEY_LiraSign: 16785572
-        const KEY_LogGrabInfo: 269024805
-        const KEY_LogOff: 269025121
-        const KEY_LogWindowTree: 269024804
-        const KEY_Lstroke: 419
-        const KEY_M: 77
-        const KEY_Mabovedot: 16784960
-        const KEY_Macedonia_DSE: 1717
-        const KEY_Macedonia_GJE: 1714
-        const KEY_Macedonia_KJE: 1724
-        const KEY_Macedonia_dse: 1701
-        const KEY_Macedonia_gje: 1698
-        const KEY_Macedonia_kje: 1708
-        const KEY_Mae_Koho: 65342
-        const KEY_Mail: 269025049
-        const KEY_MailForward: 269025168
-        const KEY_Market: 269025122
-        const KEY_Massyo: 65324
-        const KEY_Meeting: 269025123
-        const KEY_Memo: 269025054
-        const KEY_Menu: 65383
-        const KEY_MenuKB: 269025125
-        const KEY_MenuPB: 269025126
-        const KEY_Messenger: 269025166
-        const KEY_Meta_L: 65511
-        const KEY_Meta_R: 65512
-        const KEY_MillSign: 16785573
-        const KEY_ModeLock: 269025025
-        const KEY_Mode_switch: 65406
-        const KEY_MonBrightnessDown: 269025027
-        const KEY_MonBrightnessUp: 269025026
-        const KEY_MouseKeys_Accel_Enable: 65143
-        const KEY_MouseKeys_Enable: 65142
-        const KEY_Muhenkan: 65314
-        const KEY_Multi_key: 65312
-        const KEY_MultipleCandidate: 65341
-        const KEY_Music: 269025170
-        const KEY_MyComputer: 269025075
-        const KEY_MySites: 269025127
-        const KEY_N: 78
-        const KEY_Nacute: 465
-        const KEY_NairaSign: 16785574
-        const KEY_Ncaron: 466
-        const KEY_Ncedilla: 977
-        const KEY_New: 269025128
-        const KEY_NewSheqelSign: 16785578
-        const KEY_News: 269025129
-        const KEY_Next: 65366
-        const KEY_Next_VMode: 269024802
-        const KEY_Next_Virtual_Screen: 65234
-        const KEY_Ntilde: 209
-        const KEY_Num_Lock: 65407
-        const KEY_O: 79
-        const KEY_OE: 5052
-        const KEY_Oacute: 211
-        const KEY_Obarred: 16777631
-        const KEY_Obelowdot: 16785100
-        const KEY_Ocaron: 16777681
-        const KEY_Ocircumflex: 212
-        const KEY_Ocircumflexacute: 16785104
-        const KEY_Ocircumflexbelowdot: 16785112
-        const KEY_Ocircumflexgrave: 16785106
-        const KEY_Ocircumflexhook: 16785108
-        const KEY_Ocircumflextilde: 16785110
-        const KEY_Odiaeresis: 214
-        const KEY_Odoubleacute: 469
-        const KEY_OfficeHome: 269025130
-        const KEY_Ograve: 210
-        const KEY_Ohook: 16785102
-        const KEY_Ohorn: 16777632
-        const KEY_Ohornacute: 16785114
-        const KEY_Ohornbelowdot: 16785122
-        const KEY_Ohorngrave: 16785116
-        const KEY_Ohornhook: 16785118
-        const KEY_Ohorntilde: 16785120
-        const KEY_Omacron: 978
-        const KEY_Ooblique: 216
-        const KEY_Open: 269025131
-        const KEY_OpenURL: 269025080
-        const KEY_Option: 269025132
-        const KEY_Oslash: 216
-        const KEY_Otilde: 213
-        const KEY_Overlay1_Enable: 65144
-        const KEY_Overlay2_Enable: 65145
-        const KEY_P: 80
-        const KEY_Pabovedot: 16784982
-        const KEY_Page_Down: 65366
-        const KEY_Page_Up: 65365
-        const KEY_Paste: 269025133
-        const KEY_Pause: 65299
-        const KEY_PesetaSign: 16785575
-        const KEY_Phone: 269025134
-        const KEY_Pictures: 269025169
-        const KEY_Pointer_Accelerate: 65274
-        const KEY_Pointer_Button1: 65257
-        const KEY_Pointer_Button2: 65258
-        const KEY_Pointer_Button3: 65259
-        const KEY_Pointer_Button4: 65260
-        const KEY_Pointer_Button5: 65261
-        const KEY_Pointer_Button_Dflt: 65256
-        const KEY_Pointer_DblClick1: 65263
-        const KEY_Pointer_DblClick2: 65264
-        const KEY_Pointer_DblClick3: 65265
-        const KEY_Pointer_DblClick4: 65266
-        const KEY_Pointer_DblClick5: 65267
-        const KEY_Pointer_DblClick_Dflt: 65262
-        const KEY_Pointer_DfltBtnNext: 65275
-        const KEY_Pointer_DfltBtnPrev: 65276
-        const KEY_Pointer_Down: 65251
-        const KEY_Pointer_DownLeft: 65254
-        const KEY_Pointer_DownRight: 65255
-        const KEY_Pointer_Drag1: 65269
-        const KEY_Pointer_Drag2: 65270
-        const KEY_Pointer_Drag3: 65271
-        const KEY_Pointer_Drag4: 65272
-        const KEY_Pointer_Drag5: 65277
-        const KEY_Pointer_Drag_Dflt: 65268
-        const KEY_Pointer_EnableKeys: 65273
-        const KEY_Pointer_Left: 65248
-        const KEY_Pointer_Right: 65249
-        const KEY_Pointer_Up: 65250
-        const KEY_Pointer_UpLeft: 65252
-        const KEY_Pointer_UpRight: 65253
-        const KEY_PowerDown: 269025057
-        const KEY_PowerOff: 269025066
-        const KEY_Prev_VMode: 269024803
-        const KEY_Prev_Virtual_Screen: 65233
-        const KEY_PreviousCandidate: 65342
-        const KEY_Print: 65377
-        const KEY_Prior: 65365
-        const KEY_Q: 81
-        const KEY_R: 82
-        const KEY_R1: 65490
-        const KEY_R10: 65499
-        const KEY_R11: 65500
-        const KEY_R12: 65501
-        const KEY_R13: 65502
-        const KEY_R14: 65503
-        const KEY_R15: 65504
-        const KEY_R2: 65491
-        const KEY_R3: 65492
-        const KEY_R4: 65493
-        const KEY_R5: 65494
-        const KEY_R6: 65495
-        const KEY_R7: 65496
-        const KEY_R8: 65497
-        const KEY_R9: 65498
-        const KEY_RFKill: 269025205
-        const KEY_Racute: 448
-        const KEY_Rcaron: 472
-        const KEY_Rcedilla: 931
-        const KEY_Red: 269025187
-        const KEY_Redo: 65382
-        const KEY_Refresh: 269025065
-        const KEY_Reload: 269025139
-        const KEY_RepeatKeys_Enable: 65138
-        const KEY_Reply: 269025138
-        const KEY_Return: 65293
-        const KEY_Right: 65363
-        const KEY_RockerDown: 269025060
-        const KEY_RockerEnter: 269025061
-        const KEY_RockerUp: 269025059
-        const KEY_Romaji: 65316
-        const KEY_RotateWindows: 269025140
-        const KEY_RotationKB: 269025142
-        const KEY_RotationPB: 269025141
-        const KEY_RupeeSign: 16785576
-        const KEY_S: 83
-        const KEY_SCHWA: 16777615
-        const KEY_Sabovedot: 16784992
-        const KEY_Sacute: 422
-        const KEY_Save: 269025143
-        const KEY_Scaron: 425
-        const KEY_Scedilla: 426
-        const KEY_Scircumflex: 734
-        const KEY_ScreenSaver: 269025069
-        const KEY_ScrollClick: 269025146
-        const KEY_ScrollDown: 269025145
-        const KEY_ScrollUp: 269025144
-        const KEY_Scroll_Lock: 65300
-        const KEY_Search: 269025051
-        const KEY_Select: 65376
-        const KEY_SelectButton: 269025184
-        const KEY_Send: 269025147
-        const KEY_Serbian_DJE: 1713
-        const KEY_Serbian_DZE: 1727
-        const KEY_Serbian_JE: 1720
-        const KEY_Serbian_LJE: 1721
-        const KEY_Serbian_NJE: 1722
-        const KEY_Serbian_TSHE: 1723
-        const KEY_Serbian_dje: 1697
-        const KEY_Serbian_dze: 1711
-        const KEY_Serbian_je: 1704
-        const KEY_Serbian_lje: 1705
-        const KEY_Serbian_nje: 1706
-        const KEY_Serbian_tshe: 1707
-        const KEY_Shift_L: 65505
-        const KEY_Shift_Lock: 65510
-        const KEY_Shift_R: 65506
-        const KEY_Shop: 269025078
-        const KEY_SingleCandidate: 65340
-        const KEY_Sinh_a: 16780677
-        const KEY_Sinh_aa: 16780678
-        const KEY_Sinh_aa2: 16780751
-        const KEY_Sinh_ae: 16780679
-        const KEY_Sinh_ae2: 16780752
-        const KEY_Sinh_aee: 16780680
-        const KEY_Sinh_aee2: 16780753
-        const KEY_Sinh_ai: 16780691
-        const KEY_Sinh_ai2: 16780763
-        const KEY_Sinh_al: 16780746
-        const KEY_Sinh_au: 16780694
-        const KEY_Sinh_au2: 16780766
-        const KEY_Sinh_ba: 16780726
-        const KEY_Sinh_bha: 16780727
-        const KEY_Sinh_ca: 16780704
-        const KEY_Sinh_cha: 16780705
-        const KEY_Sinh_dda: 16780713
-        const KEY_Sinh_ddha: 16780714
-        const KEY_Sinh_dha: 16780719
-        const KEY_Sinh_dhha: 16780720
-        const KEY_Sinh_e: 16780689
-        const KEY_Sinh_e2: 16780761
-        const KEY_Sinh_ee: 16780690
-        const KEY_Sinh_ee2: 16780762
-        const KEY_Sinh_fa: 16780742
-        const KEY_Sinh_ga: 16780700
-        const KEY_Sinh_gha: 16780701
-        const KEY_Sinh_h2: 16780675
-        const KEY_Sinh_ha: 16780740
-        const KEY_Sinh_i: 16780681
-        const KEY_Sinh_i2: 16780754
-        const KEY_Sinh_ii: 16780682
-        const KEY_Sinh_ii2: 16780755
-        const KEY_Sinh_ja: 16780706
-        const KEY_Sinh_jha: 16780707
-        const KEY_Sinh_jnya: 16780709
-        const KEY_Sinh_ka: 16780698
-        const KEY_Sinh_kha: 16780699
-        const KEY_Sinh_kunddaliya: 16780788
-        const KEY_Sinh_la: 16780733
-        const KEY_Sinh_lla: 16780741
-        const KEY_Sinh_lu: 16780687
-        const KEY_Sinh_lu2: 16780767
-        const KEY_Sinh_luu: 16780688
-        const KEY_Sinh_luu2: 16780787
-        const KEY_Sinh_ma: 16780728
-        const KEY_Sinh_mba: 16780729
-        const KEY_Sinh_na: 16780721
-        const KEY_Sinh_ndda: 16780716
-        const KEY_Sinh_ndha: 16780723
-        const KEY_Sinh_ng: 16780674
-        const KEY_Sinh_ng2: 16780702
-        const KEY_Sinh_nga: 16780703
-        const KEY_Sinh_nja: 16780710
-        const KEY_Sinh_nna: 16780715
-        const KEY_Sinh_nya: 16780708
-        const KEY_Sinh_o: 16780692
-        const KEY_Sinh_o2: 16780764
-        const KEY_Sinh_oo: 16780693
-        const KEY_Sinh_oo2: 16780765
-        const KEY_Sinh_pa: 16780724
-        const KEY_Sinh_pha: 16780725
-        const KEY_Sinh_ra: 16780731
-        const KEY_Sinh_ri: 16780685
-        const KEY_Sinh_rii: 16780686
-        const KEY_Sinh_ru2: 16780760
-        const KEY_Sinh_ruu2: 16780786
-        const KEY_Sinh_sa: 16780739
-        const KEY_Sinh_sha: 16780737
-        const KEY_Sinh_ssha: 16780738
-        const KEY_Sinh_tha: 16780717
-        const KEY_Sinh_thha: 16780718
-        const KEY_Sinh_tta: 16780711
-        const KEY_Sinh_ttha: 16780712
-        const KEY_Sinh_u: 16780683
-        const KEY_Sinh_u2: 16780756
-        const KEY_Sinh_uu: 16780684
-        const KEY_Sinh_uu2: 16780758
-        const KEY_Sinh_va: 16780736
-        const KEY_Sinh_ya: 16780730
-        const KEY_Sleep: 269025071
-        const KEY_SlowKeys_Enable: 65139
-        const KEY_Spell: 269025148
-        const KEY_SplitScreen: 269025149
-        const KEY_Standby: 269025040
-        const KEY_Start: 269025050
-        const KEY_StickyKeys_Enable: 65141
-        const KEY_Stop: 269025064
-        const KEY_Subtitle: 269025178
-        const KEY_Super_L: 65515
-        const KEY_Super_R: 65516
-        const KEY_Support: 269025150
-        const KEY_Suspend: 269025191
-        const KEY_Switch_VT_1: 269024769
-        const KEY_Switch_VT_10: 269024778
-        const KEY_Switch_VT_11: 269024779
-        const KEY_Switch_VT_12: 269024780
-        const KEY_Switch_VT_2: 269024770
-        const KEY_Switch_VT_3: 269024771
-        const KEY_Switch_VT_4: 269024772
-        const KEY_Switch_VT_5: 269024773
-        const KEY_Switch_VT_6: 269024774
-        const KEY_Switch_VT_7: 269024775
-        const KEY_Switch_VT_8: 269024776
-        const KEY_Switch_VT_9: 269024777
-        const KEY_Sys_Req: 65301
-        const KEY_T: 84
-        const KEY_THORN: 222
-        const KEY_Tab: 65289
-        const KEY_Tabovedot: 16785002
-        const KEY_TaskPane: 269025151
-        const KEY_Tcaron: 427
-        const KEY_Tcedilla: 478
-        const KEY_Terminal: 269025152
-        const KEY_Terminate_Server: 65237
-        const KEY_Thai_baht: 3551
-        const KEY_Thai_bobaimai: 3514
-        const KEY_Thai_chochan: 3496
-        const KEY_Thai_chochang: 3498
-        const KEY_Thai_choching: 3497
-        const KEY_Thai_chochoe: 3500
-        const KEY_Thai_dochada: 3502
-        const KEY_Thai_dodek: 3508
-        const KEY_Thai_fofa: 3517
-        const KEY_Thai_fofan: 3519
-        const KEY_Thai_hohip: 3531
-        const KEY_Thai_honokhuk: 3534
-        const KEY_Thai_khokhai: 3490
-        const KEY_Thai_khokhon: 3493
-        const KEY_Thai_khokhuat: 3491
-        const KEY_Thai_khokhwai: 3492
-        const KEY_Thai_khorakhang: 3494
-        const KEY_Thai_kokai: 3489
-        const KEY_Thai_lakkhangyao: 3557
-        const KEY_Thai_lekchet: 3575
-        const KEY_Thai_lekha: 3573
-        const KEY_Thai_lekhok: 3574
-        const KEY_Thai_lekkao: 3577
-        const KEY_Thai_leknung: 3569
-        const KEY_Thai_lekpaet: 3576
-        const KEY_Thai_leksam: 3571
-        const KEY_Thai_leksi: 3572
-        const KEY_Thai_leksong: 3570
-        const KEY_Thai_leksun: 3568
-        const KEY_Thai_lochula: 3532
-        const KEY_Thai_loling: 3525
-        const KEY_Thai_lu: 3526
-        const KEY_Thai_maichattawa: 3563
-        const KEY_Thai_maiek: 3560
-        const KEY_Thai_maihanakat: 3537
-        const KEY_Thai_maihanakat_maitho: 3550
-        const KEY_Thai_maitaikhu: 3559
-        const KEY_Thai_maitho: 3561
-        const KEY_Thai_maitri: 3562
-        const KEY_Thai_maiyamok: 3558
-        const KEY_Thai_moma: 3521
-        const KEY_Thai_ngongu: 3495
-        const KEY_Thai_nikhahit: 3565
-        const KEY_Thai_nonen: 3507
-        const KEY_Thai_nonu: 3513
-        const KEY_Thai_oang: 3533
-        const KEY_Thai_paiyannoi: 3535
-        const KEY_Thai_phinthu: 3546
-        const KEY_Thai_phophan: 3518
-        const KEY_Thai_phophung: 3516
-        const KEY_Thai_phosamphao: 3520
-        const KEY_Thai_popla: 3515
-        const KEY_Thai_rorua: 3523
-        const KEY_Thai_ru: 3524
-        const KEY_Thai_saraa: 3536
-        const KEY_Thai_saraaa: 3538
-        const KEY_Thai_saraae: 3553
-        const KEY_Thai_saraaimaimalai: 3556
-        const KEY_Thai_saraaimaimuan: 3555
-        const KEY_Thai_saraam: 3539
-        const KEY_Thai_sarae: 3552
-        const KEY_Thai_sarai: 3540
-        const KEY_Thai_saraii: 3541
-        const KEY_Thai_sarao: 3554
-        const KEY_Thai_sarau: 3544
-        const KEY_Thai_saraue: 3542
-        const KEY_Thai_sarauee: 3543
-        const KEY_Thai_sarauu: 3545
-        const KEY_Thai_sorusi: 3529
-        const KEY_Thai_sosala: 3528
-        const KEY_Thai_soso: 3499
-        const KEY_Thai_sosua: 3530
-        const KEY_Thai_thanthakhat: 3564
-        const KEY_Thai_thonangmontho: 3505
-        const KEY_Thai_thophuthao: 3506
-        const KEY_Thai_thothahan: 3511
-        const KEY_Thai_thothan: 3504
-        const KEY_Thai_thothong: 3512
-        const KEY_Thai_thothung: 3510
-        const KEY_Thai_topatak: 3503
-        const KEY_Thai_totao: 3509
-        const KEY_Thai_wowaen: 3527
-        const KEY_Thai_yoyak: 3522
-        const KEY_Thai_yoying: 3501
-        const KEY_Thorn: 222
-        const KEY_Time: 269025183
-        const KEY_ToDoList: 269025055
-        const KEY_Tools: 269025153
-        const KEY_TopMenu: 269025186
-        const KEY_TouchpadOff: 269025201
-        const KEY_TouchpadOn: 269025200
-        const KEY_TouchpadToggle: 269025193
-        const KEY_Touroku: 65323
-        const KEY_Travel: 269025154
-        const KEY_Tslash: 940
-        const KEY_U: 85
-        const KEY_UWB: 269025174
-        const KEY_Uacute: 218
-        const KEY_Ubelowdot: 16785124
-        const KEY_Ubreve: 733
-        const KEY_Ucircumflex: 219
-        const KEY_Udiaeresis: 220
-        const KEY_Udoubleacute: 475
-        const KEY_Ugrave: 217
-        const KEY_Uhook: 16785126
-        const KEY_Uhorn: 16777647
-        const KEY_Uhornacute: 16785128
-        const KEY_Uhornbelowdot: 16785136
-        const KEY_Uhorngrave: 16785130
-        const KEY_Uhornhook: 16785132
-        const KEY_Uhorntilde: 16785134
-        const KEY_Ukrainian_GHE_WITH_UPTURN: 1725
-        const KEY_Ukrainian_I: 1718
-        const KEY_Ukrainian_IE: 1716
-        const KEY_Ukrainian_YI: 1719
-        const KEY_Ukrainian_ghe_with_upturn: 1709
-        const KEY_Ukrainian_i: 1702
-        const KEY_Ukrainian_ie: 1700
-        const KEY_Ukrainian_yi: 1703
-        const KEY_Ukranian_I: 1718
-        const KEY_Ukranian_JE: 1716
-        const KEY_Ukranian_YI: 1719
-        const KEY_Ukranian_i: 1702
-        const KEY_Ukranian_je: 1700
-        const KEY_Ukranian_yi: 1703
-        const KEY_Umacron: 990
-        const KEY_Undo: 65381
-        const KEY_Ungrab: 269024800
-        const KEY_Uogonek: 985
-        const KEY_Up: 65362
-        const KEY_Uring: 473
-        const KEY_User1KB: 269025157
-        const KEY_User2KB: 269025158
-        const KEY_UserPB: 269025156
-        const KEY_Utilde: 989
-        const KEY_V: 86
-        const KEY_VendorHome: 269025076
-        const KEY_Video: 269025159
-        const KEY_View: 269025185
-        const KEY_VoidSymbol: 16777215
-        const KEY_W: 87
-        const KEY_WLAN: 269025173
-        const KEY_WWAN: 269025204
-        const KEY_WWW: 269025070
-        const KEY_Wacute: 16785026
-        const KEY_WakeUp: 269025067
-        const KEY_Wcircumflex: 16777588
-        const KEY_Wdiaeresis: 16785028
-        const KEY_WebCam: 269025167
-        const KEY_Wgrave: 16785024
-        const KEY_WheelButton: 269025160
-        const KEY_WindowClear: 269025109
-        const KEY_WonSign: 16785577
-        const KEY_Word: 269025161
-        const KEY_X: 88
-        const KEY_Xabovedot: 16785034
-        const KEY_Xfer: 269025162
-        const KEY_Y: 89
-        const KEY_Yacute: 221
-        const KEY_Ybelowdot: 16785140
-        const KEY_Ycircumflex: 16777590
-        const KEY_Ydiaeresis: 5054
-        const KEY_Yellow: 269025189
-        const KEY_Ygrave: 16785138
-        const KEY_Yhook: 16785142
-        const KEY_Ytilde: 16785144
-        const KEY_Z: 90
-        const KEY_Zabovedot: 431
-        const KEY_Zacute: 428
-        const KEY_Zcaron: 430
-        const KEY_Zen_Koho: 65341
-        const KEY_Zenkaku: 65320
-        const KEY_Zenkaku_Hankaku: 65322
-        const KEY_ZoomIn: 269025163
-        const KEY_ZoomOut: 269025164
-        const KEY_Zstroke: 16777653
-        const KEY_a: 97
-        const KEY_aacute: 225
-        const KEY_abelowdot: 16785057
-        const KEY_abovedot: 511
-        const KEY_abreve: 483
-        const KEY_abreveacute: 16785071
-        const KEY_abrevebelowdot: 16785079
-        const KEY_abrevegrave: 16785073
-        const KEY_abrevehook: 16785075
-        const KEY_abrevetilde: 16785077
-        const KEY_acircumflex: 226
-        const KEY_acircumflexacute: 16785061
-        const KEY_acircumflexbelowdot: 16785069
-        const KEY_acircumflexgrave: 16785063
-        const KEY_acircumflexhook: 16785065
-        const KEY_acircumflextilde: 16785067
-        const KEY_acute: 180
-        const KEY_adiaeresis: 228
-        const KEY_ae: 230
-        const KEY_agrave: 224
-        const KEY_ahook: 16785059
-        const KEY_amacron: 992
-        const KEY_ampersand: 38
-        const KEY_aogonek: 433
-        const KEY_apostrophe: 39
-        const KEY_approxeq: 16785992
-        const KEY_approximate: 2248
-        const KEY_aring: 229
-        const KEY_asciicircum: 94
-        const KEY_asciitilde: 126
-        const KEY_asterisk: 42
-        const KEY_at: 64
-        const KEY_atilde: 227
-        const KEY_b: 98
-        const KEY_babovedot: 16784899
-        const KEY_backslash: 92
-        const KEY_ballotcross: 2804
-        const KEY_bar: 124
-        const KEY_because: 16785973
-        const KEY_blank: 2527
-        const KEY_botintegral: 2213
-        const KEY_botleftparens: 2220
-        const KEY_botleftsqbracket: 2216
-        const KEY_botleftsummation: 2226
-        const KEY_botrightparens: 2222
-        const KEY_botrightsqbracket: 2218
-        const KEY_botrightsummation: 2230
-        const KEY_bott: 2550
-        const KEY_botvertsummationconnector: 2228
-        const KEY_braceleft: 123
-        const KEY_braceright: 125
-        const KEY_bracketleft: 91
-        const KEY_bracketright: 93
-        const KEY_braille_blank: 16787456
-        const KEY_braille_dot_1: 65521
-        const KEY_braille_dot_10: 65530
-        const KEY_braille_dot_2: 65522
-        const KEY_braille_dot_3: 65523
-        const KEY_braille_dot_4: 65524
-        const KEY_braille_dot_5: 65525
-        const KEY_braille_dot_6: 65526
-        const KEY_braille_dot_7: 65527
-        const KEY_braille_dot_8: 65528
-        const KEY_braille_dot_9: 65529
-        const KEY_braille_dots_1: 16787457
-        const KEY_braille_dots_12: 16787459
-        const KEY_braille_dots_123: 16787463
-        const KEY_braille_dots_1234: 16787471
-        const KEY_braille_dots_12345: 16787487
-        const KEY_braille_dots_123456: 16787519
-        const KEY_braille_dots_1234567: 16787583
-        const KEY_braille_dots_12345678: 16787711
-        const KEY_braille_dots_1234568: 16787647
-        const KEY_braille_dots_123457: 16787551
-        const KEY_braille_dots_1234578: 16787679
-        const KEY_braille_dots_123458: 16787615
-        const KEY_braille_dots_12346: 16787503
-        const KEY_braille_dots_123467: 16787567
-        const KEY_braille_dots_1234678: 16787695
-        const KEY_braille_dots_123468: 16787631
-        const KEY_braille_dots_12347: 16787535
-        const KEY_braille_dots_123478: 16787663
-        const KEY_braille_dots_12348: 16787599
-        const KEY_braille_dots_1235: 16787479
-        const KEY_braille_dots_12356: 16787511
-        const KEY_braille_dots_123567: 16787575
-        const KEY_braille_dots_1235678: 16787703
-        const KEY_braille_dots_123568: 16787639
-        const KEY_braille_dots_12357: 16787543
-        const KEY_braille_dots_123578: 16787671
-        const KEY_braille_dots_12358: 16787607
-        const KEY_braille_dots_1236: 16787495
-        const KEY_braille_dots_12367: 16787559
-        const KEY_braille_dots_123678: 16787687
-        const KEY_braille_dots_12368: 16787623
-        const KEY_braille_dots_1237: 16787527
-        const KEY_braille_dots_12378: 16787655
-        const KEY_braille_dots_1238: 16787591
-        const KEY_braille_dots_124: 16787467
-        const KEY_braille_dots_1245: 16787483
-        const KEY_braille_dots_12456: 16787515
-        const KEY_braille_dots_124567: 16787579
-        const KEY_braille_dots_1245678: 16787707
-        const KEY_braille_dots_124568: 16787643
-        const KEY_braille_dots_12457: 16787547
-        const KEY_braille_dots_124578: 16787675
-        const KEY_braille_dots_12458: 16787611
-        const KEY_braille_dots_1246: 16787499
-        const KEY_braille_dots_12467: 16787563
-        const KEY_braille_dots_124678: 16787691
-        const KEY_braille_dots_12468: 16787627
-        const KEY_braille_dots_1247: 16787531
-        const KEY_braille_dots_12478: 16787659
-        const KEY_braille_dots_1248: 16787595
-        const KEY_braille_dots_125: 16787475
-        const KEY_braille_dots_1256: 16787507
-        const KEY_braille_dots_12567: 16787571
-        const KEY_braille_dots_125678: 16787699
-        const KEY_braille_dots_12568: 16787635
-        const KEY_braille_dots_1257: 16787539
-        const KEY_braille_dots_12578: 16787667
-        const KEY_braille_dots_1258: 16787603
-        const KEY_braille_dots_126: 16787491
-        const KEY_braille_dots_1267: 16787555
-        const KEY_braille_dots_12678: 16787683
-        const KEY_braille_dots_1268: 16787619
-        const KEY_braille_dots_127: 16787523
-        const KEY_braille_dots_1278: 16787651
-        const KEY_braille_dots_128: 16787587
-        const KEY_braille_dots_13: 16787461
-        const KEY_braille_dots_134: 16787469
-        const KEY_braille_dots_1345: 16787485
-        const KEY_braille_dots_13456: 16787517
-        const KEY_braille_dots_134567: 16787581
-        const KEY_braille_dots_1345678: 16787709
-        const KEY_braille_dots_134568: 16787645
-        const KEY_braille_dots_13457: 16787549
-        const KEY_braille_dots_134578: 16787677
-        const KEY_braille_dots_13458: 16787613
-        const KEY_braille_dots_1346: 16787501
-        const KEY_braille_dots_13467: 16787565
-        const KEY_braille_dots_134678: 16787693
-        const KEY_braille_dots_13468: 16787629
-        const KEY_braille_dots_1347: 16787533
-        const KEY_braille_dots_13478: 16787661
-        const KEY_braille_dots_1348: 16787597
-        const KEY_braille_dots_135: 16787477
-        const KEY_braille_dots_1356: 16787509
-        const KEY_braille_dots_13567: 16787573
-        const KEY_braille_dots_135678: 16787701
-        const KEY_braille_dots_13568: 16787637
-        const KEY_braille_dots_1357: 16787541
-        const KEY_braille_dots_13578: 16787669
-        const KEY_braille_dots_1358: 16787605
-        const KEY_braille_dots_136: 16787493
-        const KEY_braille_dots_1367: 16787557
-        const KEY_braille_dots_13678: 16787685
-        const KEY_braille_dots_1368: 16787621
-        const KEY_braille_dots_137: 16787525
-        const KEY_braille_dots_1378: 16787653
-        const KEY_braille_dots_138: 16787589
-        const KEY_braille_dots_14: 16787465
-        const KEY_braille_dots_145: 16787481
-        const KEY_braille_dots_1456: 16787513
-        const KEY_braille_dots_14567: 16787577
-        const KEY_braille_dots_145678: 16787705
-        const KEY_braille_dots_14568: 16787641
-        const KEY_braille_dots_1457: 16787545
-        const KEY_braille_dots_14578: 16787673
-        const KEY_braille_dots_1458: 16787609
-        const KEY_braille_dots_146: 16787497
-        const KEY_braille_dots_1467: 16787561
-        const KEY_braille_dots_14678: 16787689
-        const KEY_braille_dots_1468: 16787625
-        const KEY_braille_dots_147: 16787529
-        const KEY_braille_dots_1478: 16787657
-        const KEY_braille_dots_148: 16787593
-        const KEY_braille_dots_15: 16787473
-        const KEY_braille_dots_156: 16787505
-        const KEY_braille_dots_1567: 16787569
-        const KEY_braille_dots_15678: 16787697
-        const KEY_braille_dots_1568: 16787633
-        const KEY_braille_dots_157: 16787537
-        const KEY_braille_dots_1578: 16787665
-        const KEY_braille_dots_158: 16787601
-        const KEY_braille_dots_16: 16787489
-        const KEY_braille_dots_167: 16787553
-        const KEY_braille_dots_1678: 16787681
-        const KEY_braille_dots_168: 16787617
-        const KEY_braille_dots_17: 16787521
-        const KEY_braille_dots_178: 16787649
-        const KEY_braille_dots_18: 16787585
-        const KEY_braille_dots_2: 16787458
-        const KEY_braille_dots_23: 16787462
-        const KEY_braille_dots_234: 16787470
-        const KEY_braille_dots_2345: 16787486
-        const KEY_braille_dots_23456: 16787518
-        const KEY_braille_dots_234567: 16787582
-        const KEY_braille_dots_2345678: 16787710
-        const KEY_braille_dots_234568: 16787646
-        const KEY_braille_dots_23457: 16787550
-        const KEY_braille_dots_234578: 16787678
-        const KEY_braille_dots_23458: 16787614
-        const KEY_braille_dots_2346: 16787502
-        const KEY_braille_dots_23467: 16787566
-        const KEY_braille_dots_234678: 16787694
-        const KEY_braille_dots_23468: 16787630
-        const KEY_braille_dots_2347: 16787534
-        const KEY_braille_dots_23478: 16787662
-        const KEY_braille_dots_2348: 16787598
-        const KEY_braille_dots_235: 16787478
-        const KEY_braille_dots_2356: 16787510
-        const KEY_braille_dots_23567: 16787574
-        const KEY_braille_dots_235678: 16787702
-        const KEY_braille_dots_23568: 16787638
-        const KEY_braille_dots_2357: 16787542
-        const KEY_braille_dots_23578: 16787670
-        const KEY_braille_dots_2358: 16787606
-        const KEY_braille_dots_236: 16787494
-        const KEY_braille_dots_2367: 16787558
-        const KEY_braille_dots_23678: 16787686
-        const KEY_braille_dots_2368: 16787622
-        const KEY_braille_dots_237: 16787526
-        const KEY_braille_dots_2378: 16787654
-        const KEY_braille_dots_238: 16787590
-        const KEY_braille_dots_24: 16787466
-        const KEY_braille_dots_245: 16787482
-        const KEY_braille_dots_2456: 16787514
-        const KEY_braille_dots_24567: 16787578
-        const KEY_braille_dots_245678: 16787706
-        const KEY_braille_dots_24568: 16787642
-        const KEY_braille_dots_2457: 16787546
-        const KEY_braille_dots_24578: 16787674
-        const KEY_braille_dots_2458: 16787610
-        const KEY_braille_dots_246: 16787498
-        const KEY_braille_dots_2467: 16787562
-        const KEY_braille_dots_24678: 16787690
-        const KEY_braille_dots_2468: 16787626
-        const KEY_braille_dots_247: 16787530
-        const KEY_braille_dots_2478: 16787658
-        const KEY_braille_dots_248: 16787594
-        const KEY_braille_dots_25: 16787474
-        const KEY_braille_dots_256: 16787506
-        const KEY_braille_dots_2567: 16787570
-        const KEY_braille_dots_25678: 16787698
-        const KEY_braille_dots_2568: 16787634
-        const KEY_braille_dots_257: 16787538
-        const KEY_braille_dots_2578: 16787666
-        const KEY_braille_dots_258: 16787602
-        const KEY_braille_dots_26: 16787490
-        const KEY_braille_dots_267: 16787554
-        const KEY_braille_dots_2678: 16787682
-        const KEY_braille_dots_268: 16787618
-        const KEY_braille_dots_27: 16787522
-        const KEY_braille_dots_278: 16787650
-        const KEY_braille_dots_28: 16787586
-        const KEY_braille_dots_3: 16787460
-        const KEY_braille_dots_34: 16787468
-        const KEY_braille_dots_345: 16787484
-        const KEY_braille_dots_3456: 16787516
-        const KEY_braille_dots_34567: 16787580
-        const KEY_braille_dots_345678: 16787708
-        const KEY_braille_dots_34568: 16787644
-        const KEY_braille_dots_3457: 16787548
-        const KEY_braille_dots_34578: 16787676
-        const KEY_braille_dots_3458: 16787612
-        const KEY_braille_dots_346: 16787500
-        const KEY_braille_dots_3467: 16787564
-        const KEY_braille_dots_34678: 16787692
-        const KEY_braille_dots_3468: 16787628
-        const KEY_braille_dots_347: 16787532
-        const KEY_braille_dots_3478: 16787660
-        const KEY_braille_dots_348: 16787596
-        const KEY_braille_dots_35: 16787476
-        const KEY_braille_dots_356: 16787508
-        const KEY_braille_dots_3567: 16787572
-        const KEY_braille_dots_35678: 16787700
-        const KEY_braille_dots_3568: 16787636
-        const KEY_braille_dots_357: 16787540
-        const KEY_braille_dots_3578: 16787668
-        const KEY_braille_dots_358: 16787604
-        const KEY_braille_dots_36: 16787492
-        const KEY_braille_dots_367: 16787556
-        const KEY_braille_dots_3678: 16787684
-        const KEY_braille_dots_368: 16787620
-        const KEY_braille_dots_37: 16787524
-        const KEY_braille_dots_378: 16787652
-        const KEY_braille_dots_38: 16787588
-        const KEY_braille_dots_4: 16787464
-        const KEY_braille_dots_45: 16787480
-        const KEY_braille_dots_456: 16787512
-        const KEY_braille_dots_4567: 16787576
-        const KEY_braille_dots_45678: 16787704
-        const KEY_braille_dots_4568: 16787640
-        const KEY_braille_dots_457: 16787544
-        const KEY_braille_dots_4578: 16787672
-        const KEY_braille_dots_458: 16787608
-        const KEY_braille_dots_46: 16787496
-        const KEY_braille_dots_467: 16787560
-        const KEY_braille_dots_4678: 16787688
-        const KEY_braille_dots_468: 16787624
-        const KEY_braille_dots_47: 16787528
-        const KEY_braille_dots_478: 16787656
-        const KEY_braille_dots_48: 16787592
-        const KEY_braille_dots_5: 16787472
-        const KEY_braille_dots_56: 16787504
-        const KEY_braille_dots_567: 16787568
-        const KEY_braille_dots_5678: 16787696
-        const KEY_braille_dots_568: 16787632
-        const KEY_braille_dots_57: 16787536
-        const KEY_braille_dots_578: 16787664
-        const KEY_braille_dots_58: 16787600
-        const KEY_braille_dots_6: 16787488
-        const KEY_braille_dots_67: 16787552
-        const KEY_braille_dots_678: 16787680
-        const KEY_braille_dots_68: 16787616
-        const KEY_braille_dots_7: 16787520
-        const KEY_braille_dots_78: 16787648
-        const KEY_braille_dots_8: 16787584
-        const KEY_breve: 418
-        const KEY_brokenbar: 166
-        const KEY_c: 99
-        const KEY_c_h: 65187
-        const KEY_cabovedot: 741
-        const KEY_cacute: 486
-        const KEY_careof: 2744
-        const KEY_caret: 2812
-        const KEY_caron: 439
-        const KEY_ccaron: 488
-        const KEY_ccedilla: 231
-        const KEY_ccircumflex: 742
-        const KEY_cedilla: 184
-        const KEY_cent: 162
-        const KEY_ch: 65184
-        const KEY_checkerboard: 2529
-        const KEY_checkmark: 2803
-        const KEY_circle: 3023
-        const KEY_club: 2796
-        const KEY_colon: 58
-        const KEY_combining_acute: 16777985
-        const KEY_combining_belowdot: 16778019
-        const KEY_combining_grave: 16777984
-        const KEY_combining_hook: 16777993
-        const KEY_combining_tilde: 16777987
-        const KEY_comma: 44
-        const KEY_containsas: 16785931
-        const KEY_copyright: 169
-        const KEY_cr: 2532
-        const KEY_crossinglines: 2542
-        const KEY_cuberoot: 16785947
-        const KEY_currency: 164
-        const KEY_cursor: 2815
-        const KEY_d: 100
-        const KEY_dabovedot: 16784907
-        const KEY_dagger: 2801
-        const KEY_dcaron: 495
-        const KEY_dead_A: 65153
-        const KEY_dead_E: 65155
-        const KEY_dead_I: 65157
-        const KEY_dead_O: 65159
-        const KEY_dead_SCHWA: 65163
-        const KEY_dead_U: 65161
-        const KEY_dead_a: 65152
-        const KEY_dead_abovecomma: 65124
-        const KEY_dead_abovedot: 65110
-        const KEY_dead_abovereversedcomma: 65125
-        const KEY_dead_abovering: 65112
-        const KEY_dead_aboveverticalline: 65169
-        const KEY_dead_acute: 65105
-        const KEY_dead_belowbreve: 65131
-        const KEY_dead_belowcircumflex: 65129
-        const KEY_dead_belowcomma: 65134
-        const KEY_dead_belowdiaeresis: 65132
-        const KEY_dead_belowdot: 65120
-        const KEY_dead_belowmacron: 65128
-        const KEY_dead_belowring: 65127
-        const KEY_dead_belowtilde: 65130
-        const KEY_dead_belowverticalline: 65170
-        const KEY_dead_breve: 65109
-        const KEY_dead_capital_schwa: 65163
-        const KEY_dead_caron: 65114
-        const KEY_dead_cedilla: 65115
-        const KEY_dead_circumflex: 65106
-        const KEY_dead_currency: 65135
-        const KEY_dead_dasia: 65125
-        const KEY_dead_diaeresis: 65111
-        const KEY_dead_doubleacute: 65113
-        const KEY_dead_doublegrave: 65126
-        const KEY_dead_e: 65154
-        const KEY_dead_grave: 65104
-        const KEY_dead_greek: 65164
-        const KEY_dead_hamza: 65165
-        const KEY_dead_hook: 65121
-        const KEY_dead_horn: 65122
-        const KEY_dead_i: 65156
-        const KEY_dead_invertedbreve: 65133
-        const KEY_dead_iota: 65117
-        const KEY_dead_longsolidusoverlay: 65171
-        const KEY_dead_lowline: 65168
-        const KEY_dead_macron: 65108
-        const KEY_dead_o: 65158
-        const KEY_dead_ogonek: 65116
-        const KEY_dead_perispomeni: 65107
-        const KEY_dead_psili: 65124
-        const KEY_dead_schwa: 65162
-        const KEY_dead_semivoiced_sound: 65119
-        const KEY_dead_small_schwa: 65162
-        const KEY_dead_stroke: 65123
-        const KEY_dead_tilde: 65107
-        const KEY_dead_u: 65160
-        const KEY_dead_voiced_sound: 65118
-        const KEY_decimalpoint: 2749
-        const KEY_degree: 176
-        const KEY_diaeresis: 168
-        const KEY_diamond: 2797
-        const KEY_digitspace: 2725
-        const KEY_dintegral: 16785964
-        const KEY_division: 247
-        const KEY_dollar: 36
-        const KEY_doubbaselinedot: 2735
-        const KEY_doubleacute: 445
-        const KEY_doubledagger: 2802
-        const KEY_doublelowquotemark: 2814
-        const KEY_downarrow: 2302
-        const KEY_downcaret: 2984
-        const KEY_downshoe: 3030
-        const KEY_downstile: 3012
-        const KEY_downtack: 3010
-        const KEY_dstroke: 496
-        const KEY_e: 101
-        const KEY_eabovedot: 1004
-        const KEY_eacute: 233
-        const KEY_ebelowdot: 16785081
-        const KEY_ecaron: 492
-        const KEY_ecircumflex: 234
-        const KEY_ecircumflexacute: 16785087
-        const KEY_ecircumflexbelowdot: 16785095
-        const KEY_ecircumflexgrave: 16785089
-        const KEY_ecircumflexhook: 16785091
-        const KEY_ecircumflextilde: 16785093
-        const KEY_ediaeresis: 235
-        const KEY_egrave: 232
-        const KEY_ehook: 16785083
-        const KEY_eightsubscript: 16785544
-        const KEY_eightsuperior: 16785528
-        const KEY_elementof: 16785928
-        const KEY_ellipsis: 2734
-        const KEY_em3space: 2723
-        const KEY_em4space: 2724
-        const KEY_emacron: 954
-        const KEY_emdash: 2729
-        const KEY_emfilledcircle: 2782
-        const KEY_emfilledrect: 2783
-        const KEY_emopencircle: 2766
-        const KEY_emopenrectangle: 2767
-        const KEY_emptyset: 16785925
-        const KEY_emspace: 2721
-        const KEY_endash: 2730
-        const KEY_enfilledcircbullet: 2790
-        const KEY_enfilledsqbullet: 2791
-        const KEY_eng: 959
-        const KEY_enopencircbullet: 2784
-        const KEY_enopensquarebullet: 2785
-        const KEY_enspace: 2722
-        const KEY_eogonek: 490
-        const KEY_equal: 61
-        const KEY_eth: 240
-        const KEY_etilde: 16785085
-        const KEY_exclam: 33
-        const KEY_exclamdown: 161
-        const KEY_ezh: 16777874
-        const KEY_f: 102
-        const KEY_fabovedot: 16784927
-        const KEY_femalesymbol: 2808
-        const KEY_ff: 2531
-        const KEY_figdash: 2747
-        const KEY_filledlefttribullet: 2780
-        const KEY_filledrectbullet: 2779
-        const KEY_filledrighttribullet: 2781
-        const KEY_filledtribulletdown: 2793
-        const KEY_filledtribulletup: 2792
-        const KEY_fiveeighths: 2757
-        const KEY_fivesixths: 2743
-        const KEY_fivesubscript: 16785541
-        const KEY_fivesuperior: 16785525
-        const KEY_fourfifths: 2741
-        const KEY_foursubscript: 16785540
-        const KEY_foursuperior: 16785524
-        const KEY_fourthroot: 16785948
-        const KEY_function: 2294
-        const KEY_g: 103
-        const KEY_gabovedot: 757
-        const KEY_gbreve: 699
-        const KEY_gcaron: 16777703
-        const KEY_gcedilla: 955
-        const KEY_gcircumflex: 760
-        const KEY_grave: 96
-        const KEY_greater: 62
-        const KEY_greaterthanequal: 2238
-        const KEY_guillemetleft: 171
-        const KEY_guillemetright: 187
-        const KEY_guillemotleft: 171
-        const KEY_guillemotright: 187
-        const KEY_h: 104
-        const KEY_hairspace: 2728
-        const KEY_hcircumflex: 694
-        const KEY_heart: 2798
-        const KEY_hebrew_aleph: 3296
-        const KEY_hebrew_ayin: 3314
-        const KEY_hebrew_bet: 3297
-        const KEY_hebrew_beth: 3297
-        const KEY_hebrew_chet: 3303
-        const KEY_hebrew_dalet: 3299
-        const KEY_hebrew_daleth: 3299
-        const KEY_hebrew_doublelowline: 3295
-        const KEY_hebrew_finalkaph: 3306
-        const KEY_hebrew_finalmem: 3309
-        const KEY_hebrew_finalnun: 3311
-        const KEY_hebrew_finalpe: 3315
-        const KEY_hebrew_finalzade: 3317
-        const KEY_hebrew_finalzadi: 3317
-        const KEY_hebrew_gimel: 3298
-        const KEY_hebrew_gimmel: 3298
-        const KEY_hebrew_he: 3300
-        const KEY_hebrew_het: 3303
-        const KEY_hebrew_kaph: 3307
-        const KEY_hebrew_kuf: 3319
-        const KEY_hebrew_lamed: 3308
-        const KEY_hebrew_mem: 3310
-        const KEY_hebrew_nun: 3312
-        const KEY_hebrew_pe: 3316
-        const KEY_hebrew_qoph: 3319
-        const KEY_hebrew_resh: 3320
-        const KEY_hebrew_samech: 3313
-        const KEY_hebrew_samekh: 3313
-        const KEY_hebrew_shin: 3321
-        const KEY_hebrew_taf: 3322
-        const KEY_hebrew_taw: 3322
-        const KEY_hebrew_tet: 3304
-        const KEY_hebrew_teth: 3304
-        const KEY_hebrew_waw: 3301
-        const KEY_hebrew_yod: 3305
-        const KEY_hebrew_zade: 3318
-        const KEY_hebrew_zadi: 3318
-        const KEY_hebrew_zain: 3302
-        const KEY_hebrew_zayin: 3302
-        const KEY_hexagram: 2778
-        const KEY_horizconnector: 2211
-        const KEY_horizlinescan1: 2543
-        const KEY_horizlinescan3: 2544
-        const KEY_horizlinescan5: 2545
-        const KEY_horizlinescan7: 2546
-        const KEY_horizlinescan9: 2547
-        const KEY_hstroke: 689
-        const KEY_ht: 2530
-        const KEY_hyphen: 173
-        const KEY_i: 105
-        const KEY_iTouch: 269025120
-        const KEY_iacute: 237
-        const KEY_ibelowdot: 16785099
-        const KEY_ibreve: 16777517
-        const KEY_icircumflex: 238
-        const KEY_identical: 2255
-        const KEY_idiaeresis: 239
-        const KEY_idotless: 697
-        const KEY_ifonlyif: 2253
-        const KEY_igrave: 236
-        const KEY_ihook: 16785097
-        const KEY_imacron: 1007
-        const KEY_implies: 2254
-        const KEY_includedin: 2266
-        const KEY_includes: 2267
-        const KEY_infinity: 2242
-        const KEY_integral: 2239
-        const KEY_intersection: 2268
-        const KEY_iogonek: 999
-        const KEY_itilde: 949
-        const KEY_j: 106
-        const KEY_jcircumflex: 700
-        const KEY_jot: 3018
-        const KEY_k: 107
-        const KEY_kana_A: 1201
-        const KEY_kana_CHI: 1217
-        const KEY_kana_E: 1204
-        const KEY_kana_FU: 1228
-        const KEY_kana_HA: 1226
-        const KEY_kana_HE: 1229
-        const KEY_kana_HI: 1227
-        const KEY_kana_HO: 1230
-        const KEY_kana_HU: 1228
-        const KEY_kana_I: 1202
-        const KEY_kana_KA: 1206
-        const KEY_kana_KE: 1209
-        const KEY_kana_KI: 1207
-        const KEY_kana_KO: 1210
-        const KEY_kana_KU: 1208
-        const KEY_kana_MA: 1231
-        const KEY_kana_ME: 1234
-        const KEY_kana_MI: 1232
-        const KEY_kana_MO: 1235
-        const KEY_kana_MU: 1233
-        const KEY_kana_N: 1245
-        const KEY_kana_NA: 1221
-        const KEY_kana_NE: 1224
-        const KEY_kana_NI: 1222
-        const KEY_kana_NO: 1225
-        const KEY_kana_NU: 1223
-        const KEY_kana_O: 1205
-        const KEY_kana_RA: 1239
-        const KEY_kana_RE: 1242
-        const KEY_kana_RI: 1240
-        const KEY_kana_RO: 1243
-        const KEY_kana_RU: 1241
-        const KEY_kana_SA: 1211
-        const KEY_kana_SE: 1214
-        const KEY_kana_SHI: 1212
-        const KEY_kana_SO: 1215
-        const KEY_kana_SU: 1213
-        const KEY_kana_TA: 1216
-        const KEY_kana_TE: 1219
-        const KEY_kana_TI: 1217
-        const KEY_kana_TO: 1220
-        const KEY_kana_TSU: 1218
-        const KEY_kana_TU: 1218
-        const KEY_kana_U: 1203
-        const KEY_kana_WA: 1244
-        const KEY_kana_WO: 1190
-        const KEY_kana_YA: 1236
-        const KEY_kana_YO: 1238
-        const KEY_kana_YU: 1237
-        const KEY_kana_a: 1191
-        const KEY_kana_closingbracket: 1187
-        const KEY_kana_comma: 1188
-        const KEY_kana_conjunctive: 1189
-        const KEY_kana_e: 1194
-        const KEY_kana_fullstop: 1185
-        const KEY_kana_i: 1192
-        const KEY_kana_middledot: 1189
-        const KEY_kana_o: 1195
-        const KEY_kana_openingbracket: 1186
-        const KEY_kana_switch: 65406
-        const KEY_kana_tsu: 1199
-        const KEY_kana_tu: 1199
-        const KEY_kana_u: 1193
-        const KEY_kana_ya: 1196
-        const KEY_kana_yo: 1198
-        const KEY_kana_yu: 1197
-        const KEY_kappa: 930
-        const KEY_kcedilla: 1011
-        const KEY_kra: 930
-        const KEY_l: 108
-        const KEY_lacute: 485
-        const KEY_latincross: 2777
-        const KEY_lbelowdot: 16784951
-        const KEY_lcaron: 437
-        const KEY_lcedilla: 950
-        const KEY_leftanglebracket: 2748
-        const KEY_leftarrow: 2299
-        const KEY_leftcaret: 2979
-        const KEY_leftdoublequotemark: 2770
-        const KEY_leftmiddlecurlybrace: 2223
-        const KEY_leftopentriangle: 2764
-        const KEY_leftpointer: 2794
-        const KEY_leftradical: 2209
-        const KEY_leftshoe: 3034
-        const KEY_leftsinglequotemark: 2768
-        const KEY_leftt: 2548
-        const KEY_lefttack: 3036
-        const KEY_less: 60
-        const KEY_lessthanequal: 2236
-        const KEY_lf: 2533
-        const KEY_logicaland: 2270
-        const KEY_logicalor: 2271
-        const KEY_lowleftcorner: 2541
-        const KEY_lowrightcorner: 2538
-        const KEY_lstroke: 435
-        const KEY_m: 109
-        const KEY_mabovedot: 16784961
-        const KEY_macron: 175
-        const KEY_malesymbol: 2807
-        const KEY_maltesecross: 2800
-        const KEY_marker: 2751
-        const KEY_masculine: 186
-        const KEY_minus: 45
-        const KEY_minutes: 2774
-        const KEY_mu: 181
-        const KEY_multiply: 215
-        const KEY_musicalflat: 2806
-        const KEY_musicalsharp: 2805
-        const KEY_n: 110
-        const KEY_nabla: 2245
-        const KEY_nacute: 497
-        const KEY_ncaron: 498
-        const KEY_ncedilla: 1009
-        const KEY_ninesubscript: 16785545
-        const KEY_ninesuperior: 16785529
-        const KEY_nl: 2536
-        const KEY_nobreakspace: 160
-        const KEY_notapproxeq: 16785991
-        const KEY_notelementof: 16785929
-        const KEY_notequal: 2237
-        const KEY_notidentical: 16786018
-        const KEY_notsign: 172
-        const KEY_ntilde: 241
-        const KEY_numbersign: 35
-        const KEY_numerosign: 1712
-        const KEY_o: 111
-        const KEY_oacute: 243
-        const KEY_obarred: 16777845
-        const KEY_obelowdot: 16785101
-        const KEY_ocaron: 16777682
-        const KEY_ocircumflex: 244
-        const KEY_ocircumflexacute: 16785105
-        const KEY_ocircumflexbelowdot: 16785113
-        const KEY_ocircumflexgrave: 16785107
-        const KEY_ocircumflexhook: 16785109
-        const KEY_ocircumflextilde: 16785111
-        const KEY_odiaeresis: 246
-        const KEY_odoubleacute: 501
-        const KEY_oe: 5053
-        const KEY_ogonek: 434
-        const KEY_ograve: 242
-        const KEY_ohook: 16785103
-        const KEY_ohorn: 16777633
-        const KEY_ohornacute: 16785115
-        const KEY_ohornbelowdot: 16785123
-        const KEY_ohorngrave: 16785117
-        const KEY_ohornhook: 16785119
-        const KEY_ohorntilde: 16785121
-        const KEY_omacron: 1010
-        const KEY_oneeighth: 2755
-        const KEY_onefifth: 2738
-        const KEY_onehalf: 189
-        const KEY_onequarter: 188
-        const KEY_onesixth: 2742
-        const KEY_onesubscript: 16785537
-        const KEY_onesuperior: 185
-        const KEY_onethird: 2736
-        const KEY_ooblique: 248
-        const KEY_openrectbullet: 2786
-        const KEY_openstar: 2789
-        const KEY_opentribulletdown: 2788
-        const KEY_opentribulletup: 2787
-        const KEY_ordfeminine: 170
-        const KEY_ordmasculine: 186
-        const KEY_oslash: 248
-        const KEY_otilde: 245
-        const KEY_overbar: 3008
-        const KEY_overline: 1150
-        const KEY_p: 112
-        const KEY_pabovedot: 16784983
-        const KEY_paragraph: 182
-        const KEY_parenleft: 40
-        const KEY_parenright: 41
-        const KEY_partdifferential: 16785922
-        const KEY_partialderivative: 2287
-        const KEY_percent: 37
-        const KEY_period: 46
-        const KEY_periodcentered: 183
-        const KEY_permille: 2773
-        const KEY_phonographcopyright: 2811
-        const KEY_plus: 43
-        const KEY_plusminus: 177
-        const KEY_prescription: 2772
-        const KEY_prolongedsound: 1200
-        const KEY_punctspace: 2726
-        const KEY_q: 113
-        const KEY_quad: 3020
-        const KEY_question: 63
-        const KEY_questiondown: 191
-        const KEY_quotedbl: 34
-        const KEY_quoteleft: 96
-        const KEY_quoteright: 39
-        const KEY_r: 114
-        const KEY_racute: 480
-        const KEY_radical: 2262
-        const KEY_rcaron: 504
-        const KEY_rcedilla: 947
-        const KEY_registered: 174
-        const KEY_rightanglebracket: 2750
-        const KEY_rightarrow: 2301
-        const KEY_rightcaret: 2982
-        const KEY_rightdoublequotemark: 2771
-        const KEY_rightmiddlecurlybrace: 2224
-        const KEY_rightmiddlesummation: 2231
-        const KEY_rightopentriangle: 2765
-        const KEY_rightpointer: 2795
-        const KEY_rightshoe: 3032
-        const KEY_rightsinglequotemark: 2769
-        const KEY_rightt: 2549
-        const KEY_righttack: 3068
-        const KEY_s: 115
-        const KEY_sabovedot: 16784993
-        const KEY_sacute: 438
-        const KEY_scaron: 441
-        const KEY_scedilla: 442
-        const KEY_schwa: 16777817
-        const KEY_scircumflex: 766
-        const KEY_script_switch: 65406
-        const KEY_seconds: 2775
-        const KEY_section: 167
-        const KEY_semicolon: 59
-        const KEY_semivoicedsound: 1247
-        const KEY_seveneighths: 2758
-        const KEY_sevensubscript: 16785543
-        const KEY_sevensuperior: 16785527
-        const KEY_signaturemark: 2762
-        const KEY_signifblank: 2732
-        const KEY_similarequal: 2249
-        const KEY_singlelowquotemark: 2813
-        const KEY_sixsubscript: 16785542
-        const KEY_sixsuperior: 16785526
-        const KEY_slash: 47
-        const KEY_soliddiamond: 2528
-        const KEY_space: 32
-        const KEY_squareroot: 16785946
-        const KEY_ssharp: 223
-        const KEY_sterling: 163
-        const KEY_stricteq: 16786019
-        const KEY_t: 116
-        const KEY_tabovedot: 16785003
-        const KEY_tcaron: 443
-        const KEY_tcedilla: 510
-        const KEY_telephone: 2809
-        const KEY_telephonerecorder: 2810
-        const KEY_therefore: 2240
-        const KEY_thinspace: 2727
-        const KEY_thorn: 254
-        const KEY_threeeighths: 2756
-        const KEY_threefifths: 2740
-        const KEY_threequarters: 190
-        const KEY_threesubscript: 16785539
-        const KEY_threesuperior: 179
-        const KEY_tintegral: 16785965
-        const KEY_topintegral: 2212
-        const KEY_topleftparens: 2219
-        const KEY_topleftradical: 2210
-        const KEY_topleftsqbracket: 2215
-        const KEY_topleftsummation: 2225
-        const KEY_toprightparens: 2221
-        const KEY_toprightsqbracket: 2217
-        const KEY_toprightsummation: 2229
-        const KEY_topt: 2551
-        const KEY_topvertsummationconnector: 2227
-        const KEY_trademark: 2761
-        const KEY_trademarkincircle: 2763
-        const KEY_tslash: 956
-        const KEY_twofifths: 2739
-        const KEY_twosubscript: 16785538
-        const KEY_twosuperior: 178
-        const KEY_twothirds: 2737
-        const KEY_u: 117
-        const KEY_uacute: 250
-        const KEY_ubelowdot: 16785125
-        const KEY_ubreve: 765
-        const KEY_ucircumflex: 251
-        const KEY_udiaeresis: 252
-        const KEY_udoubleacute: 507
-        const KEY_ugrave: 249
-        const KEY_uhook: 16785127
-        const KEY_uhorn: 16777648
-        const KEY_uhornacute: 16785129
-        const KEY_uhornbelowdot: 16785137
-        const KEY_uhorngrave: 16785131
-        const KEY_uhornhook: 16785133
-        const KEY_uhorntilde: 16785135
-        const KEY_umacron: 1022
-        const KEY_underbar: 3014
-        const KEY_underscore: 95
-        const KEY_union: 2269
-        const KEY_uogonek: 1017
-        const KEY_uparrow: 2300
-        const KEY_upcaret: 2985
-        const KEY_upleftcorner: 2540
-        const KEY_uprightcorner: 2539
-        const KEY_upshoe: 3011
-        const KEY_upstile: 3027
-        const KEY_uptack: 3022
-        const KEY_uring: 505
-        const KEY_utilde: 1021
-        const KEY_v: 118
-        const KEY_variation: 2241
-        const KEY_vertbar: 2552
-        const KEY_vertconnector: 2214
-        const KEY_voicedsound: 1246
-        const KEY_vt: 2537
-        const KEY_w: 119
-        const KEY_wacute: 16785027
-        const KEY_wcircumflex: 16777589
-        const KEY_wdiaeresis: 16785029
-        const KEY_wgrave: 16785025
-        const KEY_x: 120
-        const KEY_xabovedot: 16785035
-        const KEY_y: 121
-        const KEY_yacute: 253
-        const KEY_ybelowdot: 16785141
-        const KEY_ycircumflex: 16777591
-        const KEY_ydiaeresis: 255
-        const KEY_yen: 165
-        const KEY_ygrave: 16785139
-        const KEY_yhook: 16785143
-        const KEY_ytilde: 16785145
-        const KEY_z: 122
-        const KEY_zabovedot: 447
-        const KEY_zacute: 444
-        const KEY_zcaron: 446
-        const KEY_zerosubscript: 16785536
-        const KEY_zerosuperior: 16785520
-        const KEY_zstroke: 16777654
-        const KP_0: 65456
-        const KP_1: 65457
-        const KP_2: 65458
-        const KP_3: 65459
-        const KP_4: 65460
-        const KP_5: 65461
-        const KP_6: 65462
-        const KP_7: 65463
-        const KP_8: 65464
-        const KP_9: 65465
-        const KP_Add: 65451
-        const KP_Begin: 65437
-        const KP_Decimal: 65454
-        const KP_Delete: 65439
-        const KP_Divide: 65455
-        const KP_Down: 65433
-        const KP_End: 65436
-        const KP_Enter: 65421
-        const KP_Equal: 65469
-        const KP_F1: 65425
-        const KP_F2: 65426
-        const KP_F3: 65427
-        const KP_F4: 65428
-        const KP_Home: 65429
-        const KP_Insert: 65438
-        const KP_Left: 65430
-        const KP_Multiply: 65450
-        const KP_Next: 65435
-        const KP_Page_Down: 65435
-        const KP_Page_Up: 65434
-        const KP_Prior: 65434
-        const KP_Right: 65432
-        const KP_Separator: 65452
-        const KP_Space: 65408
-        const KP_Subtract: 65453
-        const KP_Tab: 65417
-        const KP_Up: 65431
-        const Kana_Lock: 65325
-        const Kana_Shift: 65326
-        const Kanji: 65313
-        const Kanji_Bangou: 65335
-        const Katakana: 65318
-        const Kcedilla: 979
-        const Korean_Won: 3839
-        const L: 76
-        const L1: 65480
-        const L10: 65489
-        const L2: 65481
-        const L3: 65482
-        const L4: 65483
-        const L5: 65484
-        const L6: 65485
-        const L7: 65486
-        const L8: 65487
-        const L9: 65488
-        const Lacute: 453
-        const Last_Virtual_Screen: 65236
-        const Lbelowdot: 16784950
-        const Lcaron: 421
-        const Lcedilla: 934
-        const Left: 65361
-        const Linefeed: 65290
-        const LiraSign: 16785572
-        const Lstroke: 419
-        const M: 77
-        const MAJOR_VERSION: 1
-        const MAX_COMPOSE_LEN: 255
-        const MICRO_VERSION: 32
-        const MINOR_VERSION: 5
-        const MODIFIER_FILTER: 1124073709
-        const Mabovedot: 16784960
-        const Macedonia_DSE: 1717
-        const Macedonia_GJE: 1714
-        const Macedonia_KJE: 1724
-        const Macedonia_dse: 1701
-        const Macedonia_gje: 1698
-        const Macedonia_kje: 1708
-        const Mae_Koho: 65342
-        const Massyo: 65324
-        const Menu: 65383
-        const Meta_L: 65511
-        const Meta_R: 65512
-        const MillSign: 16785573
-        const Mode_switch: 65406
-        const MouseKeys_Accel_Enable: 65143
-        const MouseKeys_Enable: 65142
-        const Muhenkan: 65314
-        const Multi_key: 65312
-        const MultipleCandidate: 65341
-        const N: 78
-        const Nacute: 465
-        const NairaSign: 16785574
-        const Ncaron: 466
-        const Ncedilla: 977
-        const NewSheqelSign: 16785578
-        const Next: 65366
-        const Next_Virtual_Screen: 65234
-        const Ntilde: 209
-        const Num_Lock: 65407
-        const O: 79
-        const OE: 5052
-        const Oacute: 211
-        const Obarred: 16777631
-        const Obelowdot: 16785100
-        const Ocaron: 16777681
-        const Ocircumflex: 212
-        const Ocircumflexacute: 16785104
-        const Ocircumflexbelowdot: 16785112
-        const Ocircumflexgrave: 16785106
-        const Ocircumflexhook: 16785108
-        const Ocircumflextilde: 16785110
-        const Odiaeresis: 214
-        const Odoubleacute: 469
-        const Ograve: 210
-        const Ohook: 16785102
-        const Ohorn: 16777632
-        const Ohornacute: 16785114
-        const Ohornbelowdot: 16785122
-        const Ohorngrave: 16785116
-        const Ohornhook: 16785118
-        const Ohorntilde: 16785120
-        const Omacron: 978
-        const Ooblique: 216
-        const Oslash: 216
-        const Otilde: 213
-        const Overlay1_Enable: 65144
-        const Overlay2_Enable: 65145
-        const P: 80
-        const PATH_CONFIG: "/org/freedesktop/IBus/Config"
-        const PATH_FACTORY: "/org/freedesktop/IBus/Factory"
-        const PATH_IBUS: "/org/freedesktop/IBus"
-        const PATH_INPUT_CONTEXT: "/org/freedesktop/IBus/InputContext_%d"
-        const PATH_NOTIFICATIONS: "/org/freedesktop/IBus/Notifications"
-        const PATH_PANEL: "/org/freedesktop/IBus/Panel"
-        const PATH_PANEL_EXTENSION_EMOJI: "/org/freedesktop/IBus/Panel/Extension/Emoji"
-        const Pabovedot: 16784982
-        const Page_Down: 65366
-        const Page_Up: 65365
-        const Pause: 65299
-        const PesetaSign: 16785575
-        const Pointer_Accelerate: 65274
-        const Pointer_Button1: 65257
-        const Pointer_Button2: 65258
-        const Pointer_Button3: 65259
-        const Pointer_Button4: 65260
-        const Pointer_Button5: 65261
-        const Pointer_Button_Dflt: 65256
-        const Pointer_DblClick1: 65263
-        const Pointer_DblClick2: 65264
-        const Pointer_DblClick3: 65265
-        const Pointer_DblClick4: 65266
-        const Pointer_DblClick5: 65267
-        const Pointer_DblClick_Dflt: 65262
-        const Pointer_DfltBtnNext: 65275
-        const Pointer_DfltBtnPrev: 65276
-        const Pointer_Down: 65251
-        const Pointer_DownLeft: 65254
-        const Pointer_DownRight: 65255
-        const Pointer_Drag1: 65269
-        const Pointer_Drag2: 65270
-        const Pointer_Drag3: 65271
-        const Pointer_Drag4: 65272
-        const Pointer_Drag5: 65277
-        const Pointer_Drag_Dflt: 65268
-        const Pointer_EnableKeys: 65273
-        const Pointer_Left: 65248
-        const Pointer_Right: 65249
-        const Pointer_Up: 65250
-        const Pointer_UpLeft: 65252
-        const Pointer_UpRight: 65253
-        const Prev_Virtual_Screen: 65233
-        const PreviousCandidate: 65342
-        const Print: 65377
-        const Prior: 65365
-        const Q: 81
-        const R: 82
-        const R1: 65490
-        const R10: 65499
-        const R11: 65500
-        const R12: 65501
-        const R13: 65502
-        const R14: 65503
-        const R15: 65504
-        const R2: 65491
-        const R3: 65492
-        const R4: 65493
-        const R5: 65494
-        const R6: 65495
-        const R7: 65496
-        const R8: 65497
-        const R9: 65498
-        const Racute: 448
-        const Rcaron: 472
-        const Rcedilla: 931
-        const Redo: 65382
-        const RepeatKeys_Enable: 65138
-        const Return: 65293
-        const Right: 65363
-        const Romaji: 65316
-        const RupeeSign: 16785576
-        const S: 83
-        const SCHWA: 16777615
-        const SERVICE_CONFIG: "org.freedesktop.IBus.Config"
-        const SERVICE_IBUS: "org.freedesktop.IBus"
-        const SERVICE_NOTIFICATIONS: "org.freedesktop.IBus.Notifications"
-        const SERVICE_PANEL: "org.freedesktop.IBus.Panel"
-        const SERVICE_PANEL_EXTENSION: "org.freedesktop.IBus.Panel.Extension"
-        const SERVICE_PANEL_EXTENSION_EMOJI: "org.freedesktop.IBus.Panel.Extension.Emoji"
-        const SERVICE_PORTAL: "org.freedesktop.portal.IBus"
-        const Sabovedot: 16784992
-        const Sacute: 422
-        const Scaron: 425
-        const Scedilla: 426
-        const Scircumflex: 734
-        const Scroll_Lock: 65300
-        const Select: 65376
-        const Serbian_DJE: 1713
-        const Serbian_DZE: 1727
-        const Serbian_JE: 1720
-        const Serbian_LJE: 1721
-        const Serbian_NJE: 1722
-        const Serbian_TSHE: 1723
-        const Serbian_dje: 1697
-        const Serbian_dze: 1711
-        const Serbian_je: 1704
-        const Serbian_lje: 1705
-        const Serbian_nje: 1706
-        const Serbian_tshe: 1707
-        const Shift_L: 65505
-        const Shift_Lock: 65510
-        const Shift_R: 65506
-        const SingleCandidate: 65340
-        const SlowKeys_Enable: 65139
-        const StickyKeys_Enable: 65141
-        const Super_L: 65515
-        const Super_R: 65516
-        const Sys_Req: 65301
-        const T: 84
-        const THORN: 222
-        const Tab: 65289
-        const Tabovedot: 16785002
-        const Tcaron: 427
-        const Tcedilla: 478
-        const Terminate_Server: 65237
-        const Thai_baht: 3551
-        const Thai_bobaimai: 3514
-        const Thai_chochan: 3496
-        const Thai_chochang: 3498
-        const Thai_choching: 3497
-        const Thai_chochoe: 3500
-        const Thai_dochada: 3502
-        const Thai_dodek: 3508
-        const Thai_fofa: 3517
-        const Thai_fofan: 3519
-        const Thai_hohip: 3531
-        const Thai_honokhuk: 3534
-        const Thai_khokhai: 3490
-        const Thai_khokhon: 3493
-        const Thai_khokhuat: 3491
-        const Thai_khokhwai: 3492
-        const Thai_khorakhang: 3494
-        const Thai_kokai: 3489
-        const Thai_lakkhangyao: 3557
-        const Thai_lekchet: 3575
-        const Thai_lekha: 3573
-        const Thai_lekhok: 3574
-        const Thai_lekkao: 3577
-        const Thai_leknung: 3569
-        const Thai_lekpaet: 3576
-        const Thai_leksam: 3571
-        const Thai_leksi: 3572
-        const Thai_leksong: 3570
-        const Thai_leksun: 3568
-        const Thai_lochula: 3532
-        const Thai_loling: 3525
-        const Thai_lu: 3526
-        const Thai_maichattawa: 3563
-        const Thai_maiek: 3560
-        const Thai_maihanakat: 3537
-        const Thai_maihanakat_maitho: 3550
-        const Thai_maitaikhu: 3559
-        const Thai_maitho: 3561
-        const Thai_maitri: 3562
-        const Thai_maiyamok: 3558
-        const Thai_moma: 3521
-        const Thai_ngongu: 3495
-        const Thai_nikhahit: 3565
-        const Thai_nonen: 3507
-        const Thai_nonu: 3513
-        const Thai_oang: 3533
-        const Thai_paiyannoi: 3535
-        const Thai_phinthu: 3546
-        const Thai_phophan: 3518
-        const Thai_phophung: 3516
-        const Thai_phosamphao: 3520
-        const Thai_popla: 3515
-        const Thai_rorua: 3523
-        const Thai_ru: 3524
-        const Thai_saraa: 3536
-        const Thai_saraaa: 3538
-        const Thai_saraae: 3553
-        const Thai_saraaimaimalai: 3556
-        const Thai_saraaimaimuan: 3555
-        const Thai_saraam: 3539
-        const Thai_sarae: 3552
-        const Thai_sarai: 3540
-        const Thai_saraii: 3541
-        const Thai_sarao: 3554
-        const Thai_sarau: 3544
-        const Thai_saraue: 3542
-        const Thai_sarauee: 3543
-        const Thai_sarauu: 3545
-        const Thai_sorusi: 3529
-        const Thai_sosala: 3528
-        const Thai_soso: 3499
-        const Thai_sosua: 3530
-        const Thai_thanthakhat: 3564
-        const Thai_thonangmontho: 3505
-        const Thai_thophuthao: 3506
-        const Thai_thothahan: 3511
-        const Thai_thothan: 3504
-        const Thai_thothong: 3512
-        const Thai_thothung: 3510
-        const Thai_topatak: 3503
-        const Thai_totao: 3509
-        const Thai_wowaen: 3527
-        const Thai_yoyak: 3522
-        const Thai_yoying: 3501
-        const Thorn: 222
-        const Touroku: 65323
-        const Tslash: 940
-        const U: 85
-        const Uacute: 218
-        const Ubelowdot: 16785124
-        const Ubreve: 733
-        const Ucircumflex: 219
-        const Udiaeresis: 220
-        const Udoubleacute: 475
-        const Ugrave: 217
-        const Uhook: 16785126
-        const Uhorn: 16777647
-        const Uhornacute: 16785128
-        const Uhornbelowdot: 16785136
-        const Uhorngrave: 16785130
-        const Uhornhook: 16785132
-        const Uhorntilde: 16785134
-        const Ukrainian_GHE_WITH_UPTURN: 1725
-        const Ukrainian_I: 1718
-        const Ukrainian_IE: 1716
-        const Ukrainian_YI: 1719
-        const Ukrainian_ghe_with_upturn: 1709
-        const Ukrainian_i: 1702
-        const Ukrainian_ie: 1700
-        const Ukrainian_yi: 1703
-        const Ukranian_I: 1718
-        const Ukranian_JE: 1716
-        const Ukranian_YI: 1719
-        const Ukranian_i: 1702
-        const Ukranian_je: 1700
-        const Ukranian_yi: 1703
-        const Umacron: 990
-        const Undo: 65381
-        const Uogonek: 985
-        const Up: 65362
-        const Uring: 473
-        const Utilde: 989
-        const V: 86
-        const VoidSymbol: 16777215
-        const W: 87
-        const Wacute: 16785026
-        const Wcircumflex: 16777588
-        const Wdiaeresis: 16785028
-        const Wgrave: 16785024
-        const WonSign: 16785577
-        const X: 88
-        const Xabovedot: 16785034
-        const Y: 89
-        const Yacute: 221
-        const Ybelowdot: 16785140
-        const Ycircumflex: 16777590
-        const Ydiaeresis: 5054
-        const Ygrave: 16785138
-        const Yhook: 16785142
-        const Ytilde: 16785144
-        const Z: 90
-        const Zabovedot: 431
-        const Zacute: 428
-        const Zcaron: 430
-        const Zen_Koho: 65341
-        const Zenkaku: 65320
-        const Zenkaku_Hankaku: 65322
-        const Zstroke: 16777653
-        const a: 97
-        const aacute: 225
-        const abelowdot: 16785057
-        const abovedot: 511
-        const abreve: 483
-        const abreveacute: 16785071
-        const abrevebelowdot: 16785079
-        const abrevegrave: 16785073
-        const abrevehook: 16785075
-        const abrevetilde: 16785077
-        const acircumflex: 226
-        const acircumflexacute: 16785061
-        const acircumflexbelowdot: 16785069
-        const acircumflexgrave: 16785063
-        const acircumflexhook: 16785065
-        const acircumflextilde: 16785067
-        const acute: 180
-        const adiaeresis: 228
-        const ae: 230
-        const agrave: 224
-        const ahook: 16785059
-        const amacron: 992
-        const ampersand: 38
-        const aogonek: 433
-        const apostrophe: 39
-        const approxeq: 16785992
-        const approximate: 2248
-        const aring: 229
-        const asciicircum: 94
-        const asciitilde: 126
-        const asterisk: 42
-        const at: 64
-        const atilde: 227
-        const b: 98
-        const babovedot: 16784899
-        const backslash: 92
-        const ballotcross: 2804
-        const bar: 124
-        const because: 16785973
-        const blank: 2527
-        const botintegral: 2213
-        const botleftparens: 2220
-        const botleftsqbracket: 2216
-        const botleftsummation: 2226
-        const botrightparens: 2222
-        const botrightsqbracket: 2218
-        const botrightsummation: 2230
-        const bott: 2550
-        const botvertsummationconnector: 2228
-        const braceleft: 123
-        const braceright: 125
-        const bracketleft: 91
-        const bracketright: 93
-        const braille_blank: 16787456
-        const braille_dot_1: 65521
-        const braille_dot_10: 65530
-        const braille_dot_2: 65522
-        const braille_dot_3: 65523
-        const braille_dot_4: 65524
-        const braille_dot_5: 65525
-        const braille_dot_6: 65526
-        const braille_dot_7: 65527
-        const braille_dot_8: 65528
-        const braille_dot_9: 65529
-        const braille_dots_1: 16787457
-        const braille_dots_12: 16787459
-        const braille_dots_123: 16787463
-        const braille_dots_1234: 16787471
-        const braille_dots_12345: 16787487
-        const braille_dots_123456: 16787519
-        const braille_dots_1234567: 16787583
-        const braille_dots_12345678: 16787711
-        const braille_dots_1234568: 16787647
-        const braille_dots_123457: 16787551
-        const braille_dots_1234578: 16787679
-        const braille_dots_123458: 16787615
-        const braille_dots_12346: 16787503
-        const braille_dots_123467: 16787567
-        const braille_dots_1234678: 16787695
-        const braille_dots_123468: 16787631
-        const braille_dots_12347: 16787535
-        const braille_dots_123478: 16787663
-        const braille_dots_12348: 16787599
-        const braille_dots_1235: 16787479
-        const braille_dots_12356: 16787511
-        const braille_dots_123567: 16787575
-        const braille_dots_1235678: 16787703
-        const braille_dots_123568: 16787639
-        const braille_dots_12357: 16787543
-        const braille_dots_123578: 16787671
-        const braille_dots_12358: 16787607
-        const braille_dots_1236: 16787495
-        const braille_dots_12367: 16787559
-        const braille_dots_123678: 16787687
-        const braille_dots_12368: 16787623
-        const braille_dots_1237: 16787527
-        const braille_dots_12378: 16787655
-        const braille_dots_1238: 16787591
-        const braille_dots_124: 16787467
-        const braille_dots_1245: 16787483
-        const braille_dots_12456: 16787515
-        const braille_dots_124567: 16787579
-        const braille_dots_1245678: 16787707
-        const braille_dots_124568: 16787643
-        const braille_dots_12457: 16787547
-        const braille_dots_124578: 16787675
-        const braille_dots_12458: 16787611
-        const braille_dots_1246: 16787499
-        const braille_dots_12467: 16787563
-        const braille_dots_124678: 16787691
-        const braille_dots_12468: 16787627
-        const braille_dots_1247: 16787531
-        const braille_dots_12478: 16787659
-        const braille_dots_1248: 16787595
-        const braille_dots_125: 16787475
-        const braille_dots_1256: 16787507
-        const braille_dots_12567: 16787571
-        const braille_dots_125678: 16787699
-        const braille_dots_12568: 16787635
-        const braille_dots_1257: 16787539
-        const braille_dots_12578: 16787667
-        const braille_dots_1258: 16787603
-        const braille_dots_126: 16787491
-        const braille_dots_1267: 16787555
-        const braille_dots_12678: 16787683
-        const braille_dots_1268: 16787619
-        const braille_dots_127: 16787523
-        const braille_dots_1278: 16787651
-        const braille_dots_128: 16787587
-        const braille_dots_13: 16787461
-        const braille_dots_134: 16787469
-        const braille_dots_1345: 16787485
-        const braille_dots_13456: 16787517
-        const braille_dots_134567: 16787581
-        const braille_dots_1345678: 16787709
-        const braille_dots_134568: 16787645
-        const braille_dots_13457: 16787549
-        const braille_dots_134578: 16787677
-        const braille_dots_13458: 16787613
-        const braille_dots_1346: 16787501
-        const braille_dots_13467: 16787565
-        const braille_dots_134678: 16787693
-        const braille_dots_13468: 16787629
-        const braille_dots_1347: 16787533
-        const braille_dots_13478: 16787661
-        const braille_dots_1348: 16787597
-        const braille_dots_135: 16787477
-        const braille_dots_1356: 16787509
-        const braille_dots_13567: 16787573
-        const braille_dots_135678: 16787701
-        const braille_dots_13568: 16787637
-        const braille_dots_1357: 16787541
-        const braille_dots_13578: 16787669
-        const braille_dots_1358: 16787605
-        const braille_dots_136: 16787493
-        const braille_dots_1367: 16787557
-        const braille_dots_13678: 16787685
-        const braille_dots_1368: 16787621
-        const braille_dots_137: 16787525
-        const braille_dots_1378: 16787653
-        const braille_dots_138: 16787589
-        const braille_dots_14: 16787465
-        const braille_dots_145: 16787481
-        const braille_dots_1456: 16787513
-        const braille_dots_14567: 16787577
-        const braille_dots_145678: 16787705
-        const braille_dots_14568: 16787641
-        const braille_dots_1457: 16787545
-        const braille_dots_14578: 16787673
-        const braille_dots_1458: 16787609
-        const braille_dots_146: 16787497
-        const braille_dots_1467: 16787561
-        const braille_dots_14678: 16787689
-        const braille_dots_1468: 16787625
-        const braille_dots_147: 16787529
-        const braille_dots_1478: 16787657
-        const braille_dots_148: 16787593
-        const braille_dots_15: 16787473
-        const braille_dots_156: 16787505
-        const braille_dots_1567: 16787569
-        const braille_dots_15678: 16787697
-        const braille_dots_1568: 16787633
-        const braille_dots_157: 16787537
-        const braille_dots_1578: 16787665
-        const braille_dots_158: 16787601
-        const braille_dots_16: 16787489
-        const braille_dots_167: 16787553
-        const braille_dots_1678: 16787681
-        const braille_dots_168: 16787617
-        const braille_dots_17: 16787521
-        const braille_dots_178: 16787649
-        const braille_dots_18: 16787585
-        const braille_dots_2: 16787458
-        const braille_dots_23: 16787462
-        const braille_dots_234: 16787470
-        const braille_dots_2345: 16787486
-        const braille_dots_23456: 16787518
-        const braille_dots_234567: 16787582
-        const braille_dots_2345678: 16787710
-        const braille_dots_234568: 16787646
-        const braille_dots_23457: 16787550
-        const braille_dots_234578: 16787678
-        const braille_dots_23458: 16787614
-        const braille_dots_2346: 16787502
-        const braille_dots_23467: 16787566
-        const braille_dots_234678: 16787694
-        const braille_dots_23468: 16787630
-        const braille_dots_2347: 16787534
-        const braille_dots_23478: 16787662
-        const braille_dots_2348: 16787598
-        const braille_dots_235: 16787478
-        const braille_dots_2356: 16787510
-        const braille_dots_23567: 16787574
-        const braille_dots_235678: 16787702
-        const braille_dots_23568: 16787638
-        const braille_dots_2357: 16787542
-        const braille_dots_23578: 16787670
-        const braille_dots_2358: 16787606
-        const braille_dots_236: 16787494
-        const braille_dots_2367: 16787558
-        const braille_dots_23678: 16787686
-        const braille_dots_2368: 16787622
-        const braille_dots_237: 16787526
-        const braille_dots_2378: 16787654
-        const braille_dots_238: 16787590
-        const braille_dots_24: 16787466
-        const braille_dots_245: 16787482
-        const braille_dots_2456: 16787514
-        const braille_dots_24567: 16787578
-        const braille_dots_245678: 16787706
-        const braille_dots_24568: 16787642
-        const braille_dots_2457: 16787546
-        const braille_dots_24578: 16787674
-        const braille_dots_2458: 16787610
-        const braille_dots_246: 16787498
-        const braille_dots_2467: 16787562
-        const braille_dots_24678: 16787690
-        const braille_dots_2468: 16787626
-        const braille_dots_247: 16787530
-        const braille_dots_2478: 16787658
-        const braille_dots_248: 16787594
-        const braille_dots_25: 16787474
-        const braille_dots_256: 16787506
-        const braille_dots_2567: 16787570
-        const braille_dots_25678: 16787698
-        const braille_dots_2568: 16787634
-        const braille_dots_257: 16787538
-        const braille_dots_2578: 16787666
-        const braille_dots_258: 16787602
-        const braille_dots_26: 16787490
-        const braille_dots_267: 16787554
-        const braille_dots_2678: 16787682
-        const braille_dots_268: 16787618
-        const braille_dots_27: 16787522
-        const braille_dots_278: 16787650
-        const braille_dots_28: 16787586
-        const braille_dots_3: 16787460
-        const braille_dots_34: 16787468
-        const braille_dots_345: 16787484
-        const braille_dots_3456: 16787516
-        const braille_dots_34567: 16787580
-        const braille_dots_345678: 16787708
-        const braille_dots_34568: 16787644
-        const braille_dots_3457: 16787548
-        const braille_dots_34578: 16787676
-        const braille_dots_3458: 16787612
-        const braille_dots_346: 16787500
-        const braille_dots_3467: 16787564
-        const braille_dots_34678: 16787692
-        const braille_dots_3468: 16787628
-        const braille_dots_347: 16787532
-        const braille_dots_3478: 16787660
-        const braille_dots_348: 16787596
-        const braille_dots_35: 16787476
-        const braille_dots_356: 16787508
-        const braille_dots_3567: 16787572
-        const braille_dots_35678: 16787700
-        const braille_dots_3568: 16787636
-        const braille_dots_357: 16787540
-        const braille_dots_3578: 16787668
-        const braille_dots_358: 16787604
-        const braille_dots_36: 16787492
-        const braille_dots_367: 16787556
-        const braille_dots_3678: 16787684
-        const braille_dots_368: 16787620
-        const braille_dots_37: 16787524
-        const braille_dots_378: 16787652
-        const braille_dots_38: 16787588
-        const braille_dots_4: 16787464
-        const braille_dots_45: 16787480
-        const braille_dots_456: 16787512
-        const braille_dots_4567: 16787576
-        const braille_dots_45678: 16787704
-        const braille_dots_4568: 16787640
-        const braille_dots_457: 16787544
-        const braille_dots_4578: 16787672
-        const braille_dots_458: 16787608
-        const braille_dots_46: 16787496
-        const braille_dots_467: 16787560
-        const braille_dots_4678: 16787688
-        const braille_dots_468: 16787624
-        const braille_dots_47: 16787528
-        const braille_dots_478: 16787656
-        const braille_dots_48: 16787592
-        const braille_dots_5: 16787472
-        const braille_dots_56: 16787504
-        const braille_dots_567: 16787568
-        const braille_dots_5678: 16787696
-        const braille_dots_568: 16787632
-        const braille_dots_57: 16787536
-        const braille_dots_578: 16787664
-        const braille_dots_58: 16787600
-        const braille_dots_6: 16787488
-        const braille_dots_67: 16787552
-        const braille_dots_678: 16787680
-        const braille_dots_68: 16787616
-        const braille_dots_7: 16787520
-        const braille_dots_78: 16787648
-        const braille_dots_8: 16787584
-        const breve: 418
-        const brokenbar: 166
-        const c: 99
-        const cabovedot: 741
-        const cacute: 486
-        const careof: 2744
-        const caret: 2812
-        const caron: 439
-        const ccaron: 488
-        const ccedilla: 231
-        const ccircumflex: 742
-        const cedilla: 184
-        const cent: 162
-        const checkerboard: 2529
-        const checkmark: 2803
-        const circle: 3023
-        const club: 2796
-        const colon: 58
-        const comma: 44
-        const containsas: 16785931
-        const copyright: 169
-        const cr: 2532
-        const crossinglines: 2542
-        const cuberoot: 16785947
-        const currency: 164
-        const cursor: 2815
-        const d: 100
-        const dabovedot: 16784907
-        const dagger: 2801
-        const dcaron: 495
-        const dead_abovecomma: 65124
-        const dead_abovedot: 65110
-        const dead_abovereversedcomma: 65125
-        const dead_abovering: 65112
-        const dead_acute: 65105
-        const dead_belowbreve: 65131
-        const dead_belowcircumflex: 65129
-        const dead_belowdiaeresis: 65132
-        const dead_belowdot: 65120
-        const dead_belowmacron: 65128
-        const dead_belowring: 65127
-        const dead_belowtilde: 65130
-        const dead_breve: 65109
-        const dead_caron: 65114
-        const dead_cedilla: 65115
-        const dead_circumflex: 65106
-        const dead_dasia: 65125
-        const dead_diaeresis: 65111
-        const dead_doubleacute: 65113
-        const dead_grave: 65104
-        const dead_hook: 65121
-        const dead_horn: 65122
-        const dead_iota: 65117
-        const dead_macron: 65108
-        const dead_ogonek: 65116
-        const dead_perispomeni: 65107
-        const dead_psili: 65124
-        const dead_semivoiced_sound: 65119
-        const dead_stroke: 65123
-        const dead_tilde: 65107
-        const dead_voiced_sound: 65118
-        const decimalpoint: 2749
-        const degree: 176
-        const diaeresis: 168
-        const diamond: 2797
-        const digitspace: 2725
-        const dintegral: 16785964
-        const division: 247
-        const dollar: 36
-        const doubbaselinedot: 2735
-        const doubleacute: 445
-        const doubledagger: 2802
-        const doublelowquotemark: 2814
-        const downarrow: 2302
-        const downcaret: 2984
-        const downshoe: 3030
-        const downstile: 3012
-        const downtack: 3010
-        const dstroke: 496
-        const e: 101
-        const eabovedot: 1004
-        const eacute: 233
-        const ebelowdot: 16785081
-        const ecaron: 492
-        const ecircumflex: 234
-        const ecircumflexacute: 16785087
-        const ecircumflexbelowdot: 16785095
-        const ecircumflexgrave: 16785089
-        const ecircumflexhook: 16785091
-        const ecircumflextilde: 16785093
-        const ediaeresis: 235
-        const egrave: 232
-        const ehook: 16785083
-        const eightsubscript: 16785544
-        const eightsuperior: 16785528
-        const elementof: 16785928
-        const ellipsis: 2734
-        const em3space: 2723
-        const em4space: 2724
-        const emacron: 954
-        const emdash: 2729
-        const emfilledcircle: 2782
-        const emfilledrect: 2783
-        const emopencircle: 2766
-        const emopenrectangle: 2767
-        const emptyset: 16785925
-        const emspace: 2721
-        const endash: 2730
-        const enfilledcircbullet: 2790
-        const enfilledsqbullet: 2791
-        const eng: 959
-        const enopencircbullet: 2784
-        const enopensquarebullet: 2785
-        const enspace: 2722
-        const eogonek: 490
-        const equal: 61
-        const eth: 240
-        const etilde: 16785085
-        const exclam: 33
-        const exclamdown: 161
-        const f: 102
-        const fabovedot: 16784927
-        const femalesymbol: 2808
-        const ff: 2531
-        const figdash: 2747
-        const filledlefttribullet: 2780
-        const filledrectbullet: 2779
-        const filledrighttribullet: 2781
-        const filledtribulletdown: 2793
-        const filledtribulletup: 2792
-        const fiveeighths: 2757
-        const fivesixths: 2743
-        const fivesubscript: 16785541
-        const fivesuperior: 16785525
-        const fourfifths: 2741
-        const foursubscript: 16785540
-        const foursuperior: 16785524
-        const fourthroot: 16785948
-        const g: 103
-        const gabovedot: 757
-        const gbreve: 699
-        const gcaron: 16777703
-        const gcedilla: 955
-        const gcircumflex: 760
-        const grave: 96
-        const greater: 62
-        const greaterthanequal: 2238
-        const guillemotleft: 171
-        const guillemotright: 187
-        const h: 104
-        const hairspace: 2728
-        const hcircumflex: 694
-        const heart: 2798
-        const hebrew_aleph: 3296
-        const hebrew_ayin: 3314
-        const hebrew_bet: 3297
-        const hebrew_beth: 3297
-        const hebrew_chet: 3303
-        const hebrew_dalet: 3299
-        const hebrew_daleth: 3299
-        const hebrew_doublelowline: 3295
-        const hebrew_finalkaph: 3306
-        const hebrew_finalmem: 3309
-        const hebrew_finalnun: 3311
-        const hebrew_finalpe: 3315
-        const hebrew_finalzade: 3317
-        const hebrew_finalzadi: 3317
-        const hebrew_gimel: 3298
-        const hebrew_gimmel: 3298
-        const hebrew_he: 3300
-        const hebrew_het: 3303
-        const hebrew_kaph: 3307
-        const hebrew_kuf: 3319
-        const hebrew_lamed: 3308
-        const hebrew_mem: 3310
-        const hebrew_nun: 3312
-        const hebrew_pe: 3316
-        const hebrew_qoph: 3319
-        const hebrew_resh: 3320
-        const hebrew_samech: 3313
-        const hebrew_samekh: 3313
-        const hebrew_shin: 3321
-        const hebrew_taf: 3322
-        const hebrew_taw: 3322
-        const hebrew_tet: 3304
-        const hebrew_teth: 3304
-        const hebrew_waw: 3301
-        const hebrew_yod: 3305
-        const hebrew_zade: 3318
-        const hebrew_zadi: 3318
-        const hebrew_zain: 3302
-        const hebrew_zayin: 3302
-        const hexagram: 2778
-        const horizconnector: 2211
-        const horizlinescan1: 2543
-        const horizlinescan3: 2544
-        const horizlinescan5: 2545
-        const horizlinescan7: 2546
-        const horizlinescan9: 2547
-        const hstroke: 689
-        const ht: 2530
-        const hyphen: 173
-        const i: 105
-        const iacute: 237
-        const ibelowdot: 16785099
-        const ibreve: 16777517
-        const icircumflex: 238
-        const identical: 2255
-        const idiaeresis: 239
-        const idotless: 697
-        const ifonlyif: 2253
-        const igrave: 236
-        const ihook: 16785097
-        const imacron: 1007
-        const implies: 2254
-        const includedin: 2266
-        const includes: 2267
-        const infinity: 2242
-        const integral: 2239
-        const intersection: 2268
-        const iogonek: 999
-        const itilde: 949
-        const j: 106
-        const jcircumflex: 700
-        const jot: 3018
-        const k: 107
-        const kana_A: 1201
-        const kana_CHI: 1217
-        const kana_E: 1204
-        const kana_FU: 1228
-        const kana_HA: 1226
-        const kana_HE: 1229
-        const kana_HI: 1227
-        const kana_HO: 1230
-        const kana_HU: 1228
-        const kana_I: 1202
-        const kana_KA: 1206
-        const kana_KE: 1209
-        const kana_KI: 1207
-        const kana_KO: 1210
-        const kana_KU: 1208
-        const kana_MA: 1231
-        const kana_ME: 1234
-        const kana_MI: 1232
-        const kana_MO: 1235
-        const kana_MU: 1233
-        const kana_N: 1245
-        const kana_NA: 1221
-        const kana_NE: 1224
-        const kana_NI: 1222
-        const kana_NO: 1225
-        const kana_NU: 1223
-        const kana_O: 1205
-        const kana_RA: 1239
-        const kana_RE: 1242
-        const kana_RI: 1240
-        const kana_RO: 1243
-        const kana_RU: 1241
-        const kana_SA: 1211
-        const kana_SE: 1214
-        const kana_SHI: 1212
-        const kana_SO: 1215
-        const kana_SU: 1213
-        const kana_TA: 1216
-        const kana_TE: 1219
-        const kana_TI: 1217
-        const kana_TO: 1220
-        const kana_TSU: 1218
-        const kana_TU: 1218
-        const kana_U: 1203
-        const kana_WA: 1244
-        const kana_WO: 1190
-        const kana_YA: 1236
-        const kana_YO: 1238
-        const kana_YU: 1237
-        const kana_a: 1191
-        const kana_closingbracket: 1187
-        const kana_comma: 1188
-        const kana_conjunctive: 1189
-        const kana_e: 1194
-        const kana_fullstop: 1185
-        const kana_i: 1192
-        const kana_middledot: 1189
-        const kana_o: 1195
-        const kana_openingbracket: 1186
-        const kana_switch: 65406
-        const kana_tsu: 1199
-        const kana_tu: 1199
-        const kana_u: 1193
-        const kana_ya: 1196
-        const kana_yo: 1198
-        const kana_yu: 1197
-        const kappa: 930
-        const kcedilla: 1011
-        const kra: 930
-        const l: 108
-        const lacute: 485
-        const latincross: 2777
-        const lbelowdot: 16784951
-        const lcaron: 437
-        const lcedilla: 950
-        const leftanglebracket: 2748
-        const leftarrow: 2299
-        const leftcaret: 2979
-        const leftdoublequotemark: 2770
-        const leftmiddlecurlybrace: 2223
-        const leftopentriangle: 2764
-        const leftpointer: 2794
-        const leftradical: 2209
-        const leftshoe: 3034
-        const leftsinglequotemark: 2768
-        const leftt: 2548
-        const lefttack: 3036
-        const less: 60
-        const lessthanequal: 2236
-        const lf: 2533
-        const logicaland: 2270
-        const logicalor: 2271
-        const lowleftcorner: 2541
-        const lowrightcorner: 2538
-        const lstroke: 435
-        const m: 109
-        const mabovedot: 16784961
-        const macron: 175
-        const malesymbol: 2807
-        const maltesecross: 2800
-        const marker: 2751
-        const masculine: 186
-        const minus: 45
-        const minutes: 2774
-        const mu: 181
-        const multiply: 215
-        const musicalflat: 2806
-        const musicalsharp: 2805
-        const n: 110
-        const nabla: 2245
-        const nacute: 497
-        const ncaron: 498
-        const ncedilla: 1009
-        const ninesubscript: 16785545
-        const ninesuperior: 16785529
-        const nl: 2536
-        const nobreakspace: 160
-        const notapproxeq: 16785991
-        const notelementof: 16785929
-        const notequal: 2237
-        const notidentical: 16786018
-        const notsign: 172
-        const ntilde: 241
-        const numbersign: 35
-        const numerosign: 1712
-        const o: 111
-        const oacute: 243
-        const obarred: 16777845
-        const obelowdot: 16785101
-        const ocaron: 16777682
-        const ocircumflex: 244
-        const ocircumflexacute: 16785105
-        const ocircumflexbelowdot: 16785113
-        const ocircumflexgrave: 16785107
-        const ocircumflexhook: 16785109
-        const ocircumflextilde: 16785111
-        const odiaeresis: 246
-        const odoubleacute: 501
-        const oe: 5053
-        const ogonek: 434
-        const ograve: 242
-        const ohook: 16785103
-        const ohorn: 16777633
-        const ohornacute: 16785115
-        const ohornbelowdot: 16785123
-        const ohorngrave: 16785117
-        const ohornhook: 16785119
-        const ohorntilde: 16785121
-        const omacron: 1010
-        const oneeighth: 2755
-        const onefifth: 2738
-        const onehalf: 189
-        const onequarter: 188
-        const onesixth: 2742
-        const onesubscript: 16785537
-        const onesuperior: 185
-        const onethird: 2736
-        const ooblique: 248
-        const openrectbullet: 2786
-        const openstar: 2789
-        const opentribulletdown: 2788
-        const opentribulletup: 2787
-        const ordfeminine: 170
-        const oslash: 248
-        const otilde: 245
-        const overbar: 3008
-        const overline: 1150
-        const p: 112
-        const pabovedot: 16784983
-        const paragraph: 182
-        const parenleft: 40
-        const parenright: 41
-        const partdifferential: 16785922
-        const partialderivative: 2287
-        const percent: 37
-        const period: 46
-        const periodcentered: 183
-        const phonographcopyright: 2811
-        const plus: 43
-        const plusminus: 177
-        const prescription: 2772
-        const prolongedsound: 1200
-        const punctspace: 2726
-        const q: 113
-        const quad: 3020
-        const question: 63
-        const questiondown: 191
-        const quotedbl: 34
-        const quoteleft: 96
-        const quoteright: 39
-        const r: 114
-        const racute: 480
-        const radical: 2262
-        const rcaron: 504
-        const rcedilla: 947
-        const registered: 174
-        const rightanglebracket: 2750
-        const rightarrow: 2301
-        const rightcaret: 2982
-        const rightdoublequotemark: 2771
-        const rightmiddlecurlybrace: 2224
-        const rightmiddlesummation: 2231
-        const rightopentriangle: 2765
-        const rightpointer: 2795
-        const rightshoe: 3032
-        const rightsinglequotemark: 2769
-        const rightt: 2549
-        const righttack: 3068
-        const s: 115
-        const sabovedot: 16784993
-        const sacute: 438
-        const scaron: 441
-        const scedilla: 442
-        const schwa: 16777817
-        const scircumflex: 766
-        const script_switch: 65406
-        const seconds: 2775
-        const section: 167
-        const semicolon: 59
-        const semivoicedsound: 1247
-        const seveneighths: 2758
-        const sevensubscript: 16785543
-        const sevensuperior: 16785527
-        const signaturemark: 2762
-        const signifblank: 2732
-        const similarequal: 2249
-        const singlelowquotemark: 2813
-        const sixsubscript: 16785542
-        const sixsuperior: 16785526
-        const slash: 47
-        const soliddiamond: 2528
-        const space: 32
-        const squareroot: 16785946
-        const ssharp: 223
-        const sterling: 163
-        const stricteq: 16786019
-        const t: 116
-        const tabovedot: 16785003
-        const tcaron: 443
-        const tcedilla: 510
-        const telephone: 2809
-        const telephonerecorder: 2810
-        const therefore: 2240
-        const thinspace: 2727
-        const thorn: 254
-        const threeeighths: 2756
-        const threefifths: 2740
-        const threequarters: 190
-        const threesubscript: 16785539
-        const threesuperior: 179
-        const tintegral: 16785965
-        const topintegral: 2212
-        const topleftparens: 2219
-        const topleftradical: 2210
-        const topleftsqbracket: 2215
-        const topleftsummation: 2225
-        const toprightparens: 2221
-        const toprightsqbracket: 2217
-        const toprightsummation: 2229
-        const topt: 2551
-        const topvertsummationconnector: 2227
-        const trademark: 2761
-        const trademarkincircle: 2763
-        const tslash: 956
-        const twofifths: 2739
-        const twosubscript: 16785538
-        const twosuperior: 178
-        const twothirds: 2737
-        const u: 117
-        const uacute: 250
-        const ubelowdot: 16785125
-        const ubreve: 765
-        const ucircumflex: 251
-        const udiaeresis: 252
-        const udoubleacute: 507
-        const ugrave: 249
-        const uhook: 16785127
-        const uhorn: 16777648
-        const uhornacute: 16785129
-        const uhornbelowdot: 16785137
-        const uhorngrave: 16785131
-        const uhornhook: 16785133
-        const uhorntilde: 16785135
-        const umacron: 1022
-        const underbar: 3014
-        const underscore: 95
-        const union: 2269
-        const uogonek: 1017
-        const uparrow: 2300
-        const upcaret: 2985
-        const upleftcorner: 2540
-        const uprightcorner: 2539
-        const upshoe: 3011
-        const upstile: 3027
-        const uptack: 3022
-        const uring: 505
-        const utilde: 1021
-        const v: 118
-        const variation: 2241
-        const vertbar: 2552
-        const vertconnector: 2214
-        const voicedsound: 1246
-        const vt: 2537
-        const w: 119
-        const wacute: 16785027
-        const wcircumflex: 16777589
-        const wdiaeresis: 16785029
-        const wgrave: 16785025
-        const x: 120
-        const xabovedot: 16785035
-        const y: 121
-        const yacute: 253
-        const ybelowdot: 16785141
-        const ycircumflex: 16777591
-        const ydiaeresis: 255
-        const yen: 165
-        const ygrave: 16785139
-        const yhook: 16785143
-        const ytilde: 16785145
-        const z: 122
-        const zabovedot: 447
-        const zacute: 444
-        const zcaron: 446
-        const zerosubscript: 16785536
-        const zerosuperior: 16785520
-        const zstroke: 16777654
-        
-        namespace AttrPreedit {
-            const $gtype: GObject.GType<AttrPreedit>
-        }
 
-        /**
-         * Type of Pre-edit style as the semantic name.
-         * The Wayland specs prefers to express the semantic values rather than RGB
-         * values and text-input protocol version 1 defines some values:
-         * https://gitlab.freedesktop.org/wayland/wayland-protocols/-/blob/main/unstable/text-input/text-input-unstable-v1.xml?ref_type=heads#L251
-         *
-         * IBus compiled the values for major input method engines:
-         * https://github.com/ibus/ibus/wiki/Wayland-Colors
-         * @since 1.5.29
-         */
-        enum AttrPreedit {
+        interface $Exports {
+            XML: XMLStruct
+        }
+        
+        interface AttrPreeditEnum {
+            readonly $gtype: GObject.GType<AttrPreedit>
             /**
              * Default style for composing text.
              */
-            "DEFAULT" = 0,
+            readonly "DEFAULT": 0
             /**
              * Style should be the same as in non-composing text.
              */
-            "NONE" = 1,
+            readonly "NONE": 1
             /**
              * Most language engines wish to draw underline in
              *                           the typed whole preedit string except for the
              *                           prediction string. (Chinese, Japanese,
              *                           Typing-booster)
              */
-            "WHOLE" = 2,
+            readonly "WHOLE": 2
             /**
              * Modifying an active segment is distinguished
              *                               against whole the preedit text. (Hangul,
              *                               Japanese)
              */
-            "SELECTION" = 3,
+            readonly "SELECTION": 3
             /**
              * A prediction string can be appended after the
              *                                typed string. (Typing-booster)
              */
-            "PREDICTION" = 4,
+            readonly "PREDICTION": 4
             /**
              * A prefix string can be an informative color.
              *                            (Table)
              */
-            "PREFIX" = 5,
+            readonly "PREFIX": 5
             /**
              * A suffix string can be an informative color.
              *                            (Table)
              */
-            "SUFFIX" = 6,
+            readonly "SUFFIX": 6
             /**
              * An detected typo could be an error color
              *                                    with a spelling check or the word could
@@ -9724,615 +5802,667 @@ declare module "gi://IBus?version=1.0" {
              *                                    underline color also might be more
              *                                    visible. (Typing-booster, Table)
              */
-            "ERROR_SPELLING" = 7,
+            readonly "ERROR_SPELLING": 7
             /**
              * A wrong compose key could be an error
              *                                   color. (Typing-booster)
              */
-            "ERROR_COMPOSE" = 8,
+            readonly "ERROR_COMPOSE": 8
+        }
+        type AttrPreedit = AttrPreeditEnum[Exclude<keyof AttrPreeditEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Type of Pre-edit style as the semantic name.
+             * The Wayland specs prefers to express the semantic values rather than RGB
+             * values and text-input protocol version 1 defines some values:
+             * https://gitlab.freedesktop.org/wayland/wayland-protocols/-/blob/main/unstable/text-input/text-input-unstable-v1.xml?ref_type=heads#L251
+             *
+             * IBus compiled the values for major input method engines:
+             * https://github.com/ibus/ibus/wiki/Wayland-Colors
+             * @since 1.5.29
+             */
+            AttrPreedit: AttrPreeditEnum
         }
         
-        namespace AttrType {
-            const $gtype: GObject.GType<AttrType>
-        }
-
-        /**
-         * Type enumeration of IBusText attribute.
-         */
-        enum AttrType {
+        interface AttrTypeEnum {
+            readonly $gtype: GObject.GType<AttrType>
             /**
              * Decorate with underline.
              */
-            "UNDERLINE" = 1,
+            readonly "UNDERLINE": 1
             /**
              * Foreground color.
              */
-            "FOREGROUND" = 2,
+            readonly "FOREGROUND": 2
             /**
              * Background color.
              */
-            "BACKGROUND" = 3,
+            readonly "BACKGROUND": 3
+        }
+        type AttrType = AttrTypeEnum[Exclude<keyof AttrTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Type enumeration of IBusText attribute.
+             */
+            AttrType: AttrTypeEnum
         }
         
-        namespace AttrUnderline {
-            const $gtype: GObject.GType<AttrUnderline>
-        }
-
-        /**
-         * Type of IBusText attribute.
-         */
-        enum AttrUnderline {
+        interface AttrUnderlineEnum {
+            readonly $gtype: GObject.GType<AttrUnderline>
             /**
              * No underline.
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Single underline.
              */
-            "SINGLE" = 1,
+            readonly "SINGLE": 1
             /**
              * Double underline.
              */
-            "DOUBLE" = 2,
+            readonly "DOUBLE": 2
             /**
              * Low underline ? FIXME
              */
-            "LOW" = 3,
+            readonly "LOW": 3
             /**
              * Error underline
              */
-            "ERROR" = 4,
+            readonly "ERROR": 4
         }
-        /**
+        type AttrUnderline = AttrUnderlineEnum[Exclude<keyof AttrUnderlineEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Type of IBusText attribute.
+             */
+            AttrUnderline: AttrUnderlineEnum
+            /**
          * Creates a new underline #IBusAttribute.
          * @param underline_type Type of underline.
          * @param start_index Where attribute starts.
          * @param end_index Where attribute ends.
          * @returns A newly allocated #IBusAttribute.
          */
-        function "new"(underline_type: number, start_index: number, end_index: number): Attribute
-        
-        namespace BusGlobalBindingType {
-            const $gtype: GObject.GType<BusGlobalBindingType>
+        new: (underline_type: number, start_index: number, end_index: number) => Attribute
         }
-
-        /**
-         * Type enumeration of IBusBusGlobalBindingType.
-         * @since 1.5.29
-         */
-        enum BusGlobalBindingType {
+        
+        interface BusGlobalBindingTypeEnum {
+            readonly $gtype: GObject.GType<BusGlobalBindingType>
             /**
              * Any types
              */
-            "ANY" = 0,
+            readonly "ANY": 0
             /**
              * IME switcher
              */
-            "IME_SWITCHER" = 1,
+            readonly "IME_SWITCHER": 1
             /**
              * Emoji typing
              */
-            "EMOJI_TYPING" = 2,
+            readonly "EMOJI_TYPING": 2
+        }
+        type BusGlobalBindingType = BusGlobalBindingTypeEnum[Exclude<keyof BusGlobalBindingTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Type enumeration of IBusBusGlobalBindingType.
+             * @since 1.5.29
+             */
+            BusGlobalBindingType: BusGlobalBindingTypeEnum
         }
         
-        namespace BusRequestNameReply {
-            const $gtype: GObject.GType<BusRequestNameReply>
-        }
-
-        /**
-         */
-        enum BusRequestNameReply {
+        interface BusRequestNameReplyEnum {
+            readonly $gtype: GObject.GType<BusRequestNameReply>
             /**
              * same as DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER
              */
-            "PRIMARY_OWNER" = 1,
+            readonly "PRIMARY_OWNER": 1
             /**
              * same as DBUS_REQUEST_NAME_REPLY_IN_QUEUE
              */
-            "IN_QUEUE" = 2,
+            readonly "IN_QUEUE": 2
             /**
              * same as DBUS_REQUEST_NAME_REPLY_EXISTS
              */
-            "EXISTS" = 3,
+            readonly "EXISTS": 3
             /**
              * same as DBUS_REQUEST_NAME_REPLY_ALREADY_OWNER
              */
-            "ALREADY_OWNER" = 4,
+            readonly "ALREADY_OWNER": 4
+        }
+        type BusRequestNameReply = BusRequestNameReplyEnum[Exclude<keyof BusRequestNameReplyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            BusRequestNameReply: BusRequestNameReplyEnum
         }
         
-        namespace BusStartServiceByNameReply {
-            const $gtype: GObject.GType<BusStartServiceByNameReply>
-        }
-
-        /**
-         */
-        enum BusStartServiceByNameReply {
+        interface BusStartServiceByNameReplyEnum {
+            readonly $gtype: GObject.GType<BusStartServiceByNameReply>
             /**
              * same as DBUS_START_REPLY_SUCCESS
              */
-            "SUCCESS" = 1,
+            readonly "SUCCESS": 1
             /**
              * same as DBUS_START_REPLY_ALREADY_RUNNING
              */
-            "ALREADY_RUNNING" = 2,
+            readonly "ALREADY_RUNNING": 2
+        }
+        type BusStartServiceByNameReply = BusStartServiceByNameReplyEnum[Exclude<keyof BusStartServiceByNameReplyEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            BusStartServiceByNameReply: BusStartServiceByNameReplyEnum
         }
         
-        abstract class Error extends GLib.Error {
-            static readonly $gtype: GObject.GType<Error>
+        interface Error extends GLib.Error {}
+
+        interface ErrorEnum {
+            readonly $gtype: GObject.GType<Error>
+
+            new(props: { message: string, code: number }): Error
             /**
              * There is no engine associated with input context.
              */
-            static readonly "NO_ENGINE": 0
+            readonly "NO_ENGINE": 0
             /**
              * There is no config module running.
              */
-            static readonly "NO_CONFIG": 1
+            readonly "NO_CONFIG": 1
             /**
              * General failure.
              */
-            static readonly "FAILED": 2
-        }
-        /**
+            readonly "FAILED": 2
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace InputPurpose {
-            const $gtype: GObject.GType<InputPurpose>
+        quark: () => GLib.Quark
         }
 
-        /**
-         * Describes primary purpose of the input context.  This information
-         * is particularly useful to implement intelligent behavior in
-         * engines, such as automatic input-mode switch and text prediction.
-         *
-         * Note that the purpose is not meant to impose a totally strict rule
-         * about allowed characters, and does not replace input validation.
-         * It is fine for an on-screen keyboard to let the user override the
-         * character set restriction that is expressed by the purpose. The
-         * application is expected to validate the entry contents, even if
-         * it specified a purpose.
-         *
-         * The difference between @IBUS_INPUT_PURPOSE_DIGITS and
-         * @IBUS_INPUT_PURPOSE_NUMBER is that the former accepts only digits
-         * while the latter also some punctuation (like commas or points, plus,
-         * minus) and “e” or “E” as in 3.14E+000.
-         *
-         * This enumeration may be extended in the future; engines should
-         * interpret unknown values as 'free form'.
-         * @since 1.5.4
-         */
-        enum InputPurpose {
+        interface $Exports {
+            /**
+             */
+            Error: ErrorEnum
+        }
+        
+        interface InputPurposeEnum {
+            readonly $gtype: GObject.GType<InputPurpose>
             /**
              * Allow any character
              */
-            "FREE_FORM" = 0,
+            readonly "FREE_FORM": 0
             /**
              * Allow only alphabetic characters
              */
-            "ALPHA" = 1,
+            readonly "ALPHA": 1
             /**
              * Allow only digits
              */
-            "DIGITS" = 2,
+            readonly "DIGITS": 2
             /**
              * Edited field expects numbers
              */
-            "NUMBER" = 3,
+            readonly "NUMBER": 3
             /**
              * Edited field expects phone number
              */
-            "PHONE" = 4,
+            readonly "PHONE": 4
             /**
              * Edited field expects URL
              */
-            "URL" = 5,
+            readonly "URL": 5
             /**
              * Edited field expects email address
              */
-            "EMAIL" = 6,
+            readonly "EMAIL": 6
             /**
              * Edited field expects the name of a person
              */
-            "NAME" = 7,
+            readonly "NAME": 7
             /**
              * Like @IBUS_INPUT_PURPOSE_FREE_FORM,
              *     but characters are hidden
              */
-            "PASSWORD" = 8,
+            readonly "PASSWORD": 8
             /**
              * Like @IBUS_INPUT_PURPOSE_DIGITS, but
              *     characters are hidden
              */
-            "PIN" = 9,
+            readonly "PIN": 9
             /**
              * Allow any character, in addition to control
              *     codes. Since 1.5.24
              */
-            "TERMINAL" = 10,
+            readonly "TERMINAL": 10
+        }
+        type InputPurpose = InputPurposeEnum[Exclude<keyof InputPurposeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Describes primary purpose of the input context.  This information
+             * is particularly useful to implement intelligent behavior in
+             * engines, such as automatic input-mode switch and text prediction.
+             *
+             * Note that the purpose is not meant to impose a totally strict rule
+             * about allowed characters, and does not replace input validation.
+             * It is fine for an on-screen keyboard to let the user override the
+             * character set restriction that is expressed by the purpose. The
+             * application is expected to validate the entry contents, even if
+             * it specified a purpose.
+             *
+             * The difference between @IBUS_INPUT_PURPOSE_DIGITS and
+             * @IBUS_INPUT_PURPOSE_NUMBER is that the former accepts only digits
+             * while the latter also some punctuation (like commas or points, plus,
+             * minus) and “e” or “E” as in 3.14E+000.
+             *
+             * This enumeration may be extended in the future; engines should
+             * interpret unknown values as 'free form'.
+             * @since 1.5.4
+             */
+            InputPurpose: InputPurposeEnum
         }
         
-        namespace Orientation {
-            const $gtype: GObject.GType<Orientation>
-        }
-
-        /**
-         * Orientation of UI.
-         */
-        enum Orientation {
+        interface OrientationEnum {
+            readonly $gtype: GObject.GType<Orientation>
             /**
              * Horizontal orientation.
              */
-            "HORIZONTAL" = 0,
+            readonly "HORIZONTAL": 0
             /**
              * Vertival orientation.
              */
-            "VERTICAL" = 1,
+            readonly "VERTICAL": 1
             /**
              * Use ibus global orientation setup.
              */
-            "SYSTEM" = 2,
+            readonly "SYSTEM": 2
+        }
+        type Orientation = OrientationEnum[Exclude<keyof OrientationEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Orientation of UI.
+             */
+            Orientation: OrientationEnum
         }
         
-        namespace PreeditFocusMode {
-            const $gtype: GObject.GType<PreeditFocusMode>
-        }
-
-        /**
-         * Pre-edit commit mode when the focus is lost.
-         */
-        enum PreeditFocusMode {
+        interface PreeditFocusModeEnum {
+            readonly $gtype: GObject.GType<PreeditFocusMode>
             /**
              * pre-edit text is cleared.
              */
-            "CLEAR" = 0,
+            readonly "CLEAR": 0
             /**
              * pre-edit text is committed.
              */
-            "COMMIT" = 1,
+            readonly "COMMIT": 1
+        }
+        type PreeditFocusMode = PreeditFocusModeEnum[Exclude<keyof PreeditFocusModeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Pre-edit commit mode when the focus is lost.
+             */
+            PreeditFocusMode: PreeditFocusModeEnum
         }
         
-        namespace PropState {
-            const $gtype: GObject.GType<PropState>
-        }
-
-        /**
-         *
-         * No effect on other types.
-         */
-        enum PropState {
+        interface PropStateEnum {
+            readonly $gtype: GObject.GType<PropState>
             /**
              * Property option is unchecked.
              */
-            "UNCHECKED" = 0,
+            readonly "UNCHECKED": 0
             /**
              * Property option is checked.
              */
-            "CHECKED" = 1,
+            readonly "CHECKED": 1
             /**
              * The state is inconsistent with the associated IME
              * property.
              */
-            "INCONSISTENT" = 2,
+            readonly "INCONSISTENT": 2
+        }
+        type PropState = PropStateEnum[Exclude<keyof PropStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * State of #IBusProperty. The actual effect depends on #IBusPropType of the
+             * IBusProperty.
+             *
+             * <variablelist>
+             *     <varlistentry>
+             *         <term>PROP_TYPE_TOGGLE</term>
+             *         <listitem><para>Emphasized if PROP_STATE_CHECKED, normal otherwise.</para></listitem>
+             *     </varlistentry>
+             *     <varlistentry>
+             *         <term>PROP_TYPE_RADIO</term>
+             *         <listitem><para>Option checked if PROP_STATE_CHECKED, unchecked otherwise.</para></listitem>
+             *     </varlistentry>
+             * </variablelist>
+             * No effect on other types.
+             */
+            PropState: PropStateEnum
         }
         
-        namespace PropType {
-            const $gtype: GObject.GType<PropType>
-        }
-
-        /**
-         * Type enumeration of IBusProperty.
-         */
-        enum PropType {
+        interface PropTypeEnum {
+            readonly $gtype: GObject.GType<PropType>
             /**
              * Property is shown as normal text.
              */
-            "NORMAL" = 0,
+            readonly "NORMAL": 0
             /**
              * Property is shown as a toggle button.
              */
-            "TOGGLE" = 1,
+            readonly "TOGGLE": 1
             /**
              * Property is shown as a radio selection option.
              */
-            "RADIO" = 2,
+            readonly "RADIO": 2
             /**
              * Property is shown as a menu, usually imply it has sub menu
              * items.
              */
-            "MENU" = 3,
+            readonly "MENU": 3
             /**
              * A separator for menu.
              */
-            "SEPARATOR" = 4,
+            readonly "SEPARATOR": 4
+        }
+        type PropType = PropTypeEnum[Exclude<keyof PropTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             * Type enumeration of IBusProperty.
+             */
+            PropType: PropTypeEnum
         }
         
-        namespace XEventType {
-            const $gtype: GObject.GType<XEventType>
+        interface XEventTypeEnum {
+            readonly $gtype: GObject.GType<XEventType>
+            /**
+             */
+            readonly "NOTHING": -1
+            /**
+             */
+            readonly "KEY_PRESS": 0
+            /**
+             */
+            readonly "KEY_RELEASE": 1
+            /**
+             */
+            readonly "OTHER": 2
+            /**
+             */
+            readonly "EVENT_LAST": 3
         }
-
-        /**
-         */
-        enum XEventType {
+        type XEventType = XEventTypeEnum[Exclude<keyof XEventTypeEnum, "$gtype">]
+        interface $Exports {
             /**
              */
-            "NOTHING" = -1,
-            /**
-             */
-            "KEY_PRESS" = 0,
-            /**
-             */
-            "KEY_RELEASE" = 1,
-            /**
-             */
-            "OTHER" = 2,
-            /**
-             */
-            "EVENT_LAST" = 3,
+            XEventType: XEventTypeEnum
         }
         
-        namespace BusNameFlag {
-            const $gtype: GObject.GType<BusNameFlag>
-        }
-
-        /**
-         */
-        enum BusNameFlag {
+        interface BusNameFlagBitfield {
+            readonly $gtype: GObject.GType<BusNameFlag>
             /**
              * same as DBUS_NAME_FLAG_ALLOW_REPLACEMENT
              */
-            "ALLOW_REPLACEMENT" = 1,
+            readonly "ALLOW_REPLACEMENT": 1
             /**
              * same as DBUS_NAME_FLAG_REPLACE_EXISTING
              */
-            "REPLACE_EXISTING" = 2,
+            readonly "REPLACE_EXISTING": 2
             /**
              * same as DBUS_NAME_FLAG_DO_NOT_QUEUE
              */
-            "DO_NOT_QUEUE" = 4,
+            readonly "DO_NOT_QUEUE": 4
+        }
+        type BusNameFlag = number
+        interface $Exports {
+            /**
+             */
+            BusNameFlag: BusNameFlagBitfield
         }
         
-        namespace Capabilite {
-            const $gtype: GObject.GType<Capabilite>
-        }
-
-        /**
-         * Capability flags of UI.
-         */
-        enum Capabilite {
+        interface CapabiliteBitfield {
+            readonly $gtype: GObject.GType<Capabilite>
             /**
              * UI is capable to show pre-edit text.
              */
-            "PREEDIT_TEXT" = 1,
+            readonly "PREEDIT_TEXT": 1
             /**
              * UI is capable to show auxiliary text.
              */
-            "AUXILIARY_TEXT" = 2,
+            readonly "AUXILIARY_TEXT": 2
             /**
              * UI is capable to show the lookup table.
              */
-            "LOOKUP_TABLE" = 4,
+            readonly "LOOKUP_TABLE": 4
             /**
              * UI is capable to get focus.
              */
-            "FOCUS" = 8,
+            readonly "FOCUS": 8
             /**
              * UI is capable to have property.
              */
-            "PROPERTY" = 16,
+            readonly "PROPERTY": 16
             /**
              * Client can provide surround text,
              *  or IME can handle surround text.
              */
-            "SURROUNDING_TEXT" = 32,
+            readonly "SURROUNDING_TEXT": 32
             /**
              * UI is owned by on-screen keyboard.
              */
-            "OSK" = 64,
+            readonly "OSK": 64
             /**
              * Asynchronous process key events are not
              *  supported and the ibus_engine_forward_key_event() should not be
              *  used for the return value of #IBusEngine::process_key_event().
              */
-            "SYNC_PROCESS_KEY" = 128,
+            readonly "SYNC_PROCESS_KEY": 128
             /**
              */
-            "SYNC_PROCESS_KEY_V2" = 128,
+            readonly "SYNC_PROCESS_KEY_V2": 128
+        }
+        type Capabilite = number
+        interface $Exports {
+            /**
+             * Capability flags of UI.
+             */
+            Capabilite: CapabiliteBitfield
         }
         
-        namespace InputHints {
-            const $gtype: GObject.GType<InputHints>
-        }
-
-        /**
-         * Describes hints that might be taken into account by engines.  Note
-         * that engines may already tailor their behaviour according to the
-         * #IBusInputPurpose of the entry.
-         *
-         * Some common sense is expected when using these flags - mixing
-         * @IBUS_INPUT_HINT_LOWERCASE with any of the uppercase hints makes no sense.
-         *
-         * This enumeration may be extended in the future; engines should
-         * ignore unknown values.
-         * @since 1.5.4
-         */
-        enum InputHints {
+        interface InputHintsBitfield {
+            readonly $gtype: GObject.GType<InputHints>
             /**
              * No special behaviour suggested
              */
-            "NONE" = 0,
+            readonly "NONE": 0
             /**
              * Suggest checking for typos
              */
-            "SPELLCHECK" = 1,
+            readonly "SPELLCHECK": 1
             /**
              * Suggest not checking for typos
              */
-            "NO_SPELLCHECK" = 2,
+            readonly "NO_SPELLCHECK": 2
             /**
              * Suggest word completion
              */
-            "WORD_COMPLETION" = 4,
+            readonly "WORD_COMPLETION": 4
             /**
              * Suggest to convert all text to lowercase
              */
-            "LOWERCASE" = 8,
+            readonly "LOWERCASE": 8
             /**
              * Suggest to capitalize all text
              */
-            "UPPERCASE_CHARS" = 16,
+            readonly "UPPERCASE_CHARS": 16
             /**
              * Suggest to capitalize the first
              *     character of each word
              */
-            "UPPERCASE_WORDS" = 32,
+            readonly "UPPERCASE_WORDS": 32
             /**
              * Suggest to capitalize the
              *     first word of each sentence
              */
-            "UPPERCASE_SENTENCES" = 64,
+            readonly "UPPERCASE_SENTENCES": 64
             /**
              * Suggest to not show an onscreen keyboard
              *     (e.g for a calculator that already has all the keys).
              */
-            "INHIBIT_OSK" = 128,
+            readonly "INHIBIT_OSK": 128
             /**
              * The text is vertical. Since 1.5.11
              */
-            "VERTICAL_WRITING" = 256,
+            readonly "VERTICAL_WRITING": 256
             /**
              * Suggest offering Emoji support. Since 1.5.24
              */
-            "EMOJI" = 512,
+            readonly "EMOJI": 512
             /**
              * Suggest not offering Emoji support. Since 1.5.24
              */
-            "NO_EMOJI" = 1024,
+            readonly "NO_EMOJI": 1024
             /**
              * Request that the input method should not
              *     update personalized data (like typing history). Since 1.5.26
              */
-            "PRIVATE" = 2048,
+            readonly "PRIVATE": 2048
+        }
+        type InputHints = number
+        interface $Exports {
+            /**
+             * Describes hints that might be taken into account by engines.  Note
+             * that engines may already tailor their behaviour according to the
+             * #IBusInputPurpose of the entry.
+             *
+             * Some common sense is expected when using these flags - mixing
+             * @IBUS_INPUT_HINT_LOWERCASE with any of the uppercase hints makes no sense.
+             *
+             * This enumeration may be extended in the future; engines should
+             * ignore unknown values.
+             * @since 1.5.4
+             */
+            InputHints: InputHintsBitfield
         }
         
-        namespace ModifierType {
-            const $gtype: GObject.GType<ModifierType>
-        }
-
-        /**
-         * Handles key modifier such as control, shift and alt and release event.
-         * Note that nits 15 - 25 are currently unused, while bit 29 is used internally.
-         */
-        enum ModifierType {
+        interface ModifierTypeBitfield {
+            readonly $gtype: GObject.GType<ModifierType>
             /**
              * Shift  is activated.
              */
-            "SHIFT_MASK" = 1,
+            readonly "SHIFT_MASK": 1
             /**
              * Cap Lock is locked.
              */
-            "LOCK_MASK" = 2,
+            readonly "LOCK_MASK": 2
             /**
              * Control key is activated.
              */
-            "CONTROL_MASK" = 4,
+            readonly "CONTROL_MASK": 4
             /**
              * Modifier 1 (Usually Alt_L (0x40),  Alt_R (0x6c),  Meta_L (0xcd)) activated.
              */
-            "MOD1_MASK" = 8,
+            readonly "MOD1_MASK": 8
             /**
              * Modifier 2 (Usually Num_Lock (0x4d)) activated.
              */
-            "MOD2_MASK" = 16,
+            readonly "MOD2_MASK": 16
             /**
              * Modifier 3 activated.
              */
-            "MOD3_MASK" = 32,
+            readonly "MOD3_MASK": 32
             /**
              * Modifier 4 (Usually Super_L (0xce),  Hyper_L (0xcf)) activated.
              */
-            "MOD4_MASK" = 64,
+            readonly "MOD4_MASK": 64
             /**
              * Modifier 5 (ISO_Level3_Shift (0x5c),  Mode_switch (0xcb)) activated.
              */
-            "MOD5_MASK" = 128,
+            readonly "MOD5_MASK": 128
             /**
              * Mouse button 1 (left) is activated.
              */
-            "BUTTON1_MASK" = 256,
+            readonly "BUTTON1_MASK": 256
             /**
              * Mouse button 2 (middle) is activated.
              */
-            "BUTTON2_MASK" = 512,
+            readonly "BUTTON2_MASK": 512
             /**
              * Mouse button 3 (right) is activated.
              */
-            "BUTTON3_MASK" = 1024,
+            readonly "BUTTON3_MASK": 1024
             /**
              * Mouse button 4 (scroll up) is activated.
              */
-            "BUTTON4_MASK" = 2048,
+            readonly "BUTTON4_MASK": 2048
             /**
              * Mouse button 5 (scroll down) is activated.
              */
-            "BUTTON5_MASK" = 4096,
+            readonly "BUTTON5_MASK": 4096
             /**
              * Handled mask indicates the event has been handled by ibus.
              */
-            "HANDLED_MASK" = 16777216,
+            readonly "HANDLED_MASK": 16777216
             /**
              * Forward mask indicates the event has been forward from ibus.
              */
-            "FORWARD_MASK" = 33554432,
+            readonly "FORWARD_MASK": 33554432
             /**
              * It is an alias of IBUS_FORWARD_MASK.
              */
-            "IGNORED_MASK" = 33554432,
+            readonly "IGNORED_MASK": 33554432
             /**
              * Super (Usually Win) key is activated.
              */
-            "SUPER_MASK" = 67108864,
+            readonly "SUPER_MASK": 67108864
             /**
              * Hyper key is activated.
              */
-            "HYPER_MASK" = 134217728,
+            readonly "HYPER_MASK": 134217728
             /**
              * Meta key is activated.
              */
-            "META_MASK" = 268435456,
+            readonly "META_MASK": 268435456
             /**
              * Key is released.
              */
-            "RELEASE_MASK" = 1073741824,
+            readonly "RELEASE_MASK": 1073741824
             /**
              * Modifier mask for the all the masks above.
              */
-            "MODIFIER_MASK" = 1593843711,
+            readonly "MODIFIER_MASK": 1593843711
+        }
+        type ModifierType = number
+        interface $Exports {
+            /**
+             * Handles key modifier such as control, shift and alt and release event.
+             * Note that nits 15 - 25 are currently unused, while bit 29 is used internally.
+             */
+            ModifierType: ModifierTypeBitfield
         }
         
-        namespace ObjectFlags {
-            const $gtype: GObject.GType<ObjectFlags>
-        }
-
-        /**
-         * The flags are used internally.
-         */
-        enum ObjectFlags {
+        interface ObjectFlagsBitfield {
+            readonly $gtype: GObject.GType<ObjectFlags>
             /**
              * Used in GObjectClass::dispose
              */
-            "IN_DESTRUCTION" = 1,
+            readonly "IN_DESTRUCTION": 1
             /**
              * Used during emitting IBusObject::destroy signal.
              */
-            "DESTROYED" = 2,
+            readonly "DESTROYED": 2
             /**
              * Reserved.
              */
-            "RESERVED_1" = 4,
+            readonly "RESERVED_1": 4
             /**
              * Reserved.
              */
-            "RESERVED_2" = 8,
+            readonly "RESERVED_2": 8
+        }
+        type ObjectFlags = number
+        interface $Exports {
+            /**
+             * The flags are used internally.
+             */
+            ObjectFlags: ObjectFlagsBitfield
         }
         /**
          * Free function prototype.
@@ -10377,7 +6507,4585 @@ declare module "gi://IBus?version=1.0" {
          * @param data_list
          */
         type UnicodeDataLoadAsyncFinish = (data_list: UnicodeData[]) => void
+
+        interface $Exports {
+            __name__: "IBus"
+            __version: "1.0"
+            "3270_AltCursor": 64784
+            "3270_Attn": 64782
+            "3270_BackTab": 64773
+            "3270_ChangeScreen": 64793
+            "3270_Copy": 64789
+            "3270_CursorBlink": 64783
+            "3270_CursorSelect": 64796
+            "3270_DeleteWord": 64794
+            "3270_Duplicate": 64769
+            "3270_Enter": 64798
+            "3270_EraseEOF": 64774
+            "3270_EraseInput": 64775
+            "3270_ExSelect": 64795
+            "3270_FieldMark": 64770
+            "3270_Ident": 64787
+            "3270_Jump": 64786
+            "3270_KeyClick": 64785
+            "3270_Left2": 64772
+            "3270_PA1": 64778
+            "3270_PA2": 64779
+            "3270_PA3": 64780
+            "3270_Play": 64790
+            "3270_PrintScreen": 64797
+            "3270_Quit": 64777
+            "3270_Record": 64792
+            "3270_Reset": 64776
+            "3270_Right2": 64771
+            "3270_Rule": 64788
+            "3270_Setup": 64791
+            "3270_Test": 64781
+            A: 65
+            AE: 198
+            Aacute: 193
+            Abelowdot: 16785056
+            Abreve: 451
+            Abreveacute: 16785070
+            Abrevebelowdot: 16785078
+            Abrevegrave: 16785072
+            Abrevehook: 16785074
+            Abrevetilde: 16785076
+            AccessX_Enable: 65136
+            AccessX_Feedback_Enable: 65137
+            Acircumflex: 194
+            Acircumflexacute: 16785060
+            Acircumflexbelowdot: 16785068
+            Acircumflexgrave: 16785062
+            Acircumflexhook: 16785064
+            Acircumflextilde: 16785066
+            Adiaeresis: 196
+            Agrave: 192
+            Ahook: 16785058
+            Alt_L: 65513
+            Alt_R: 65514
+            Amacron: 960
+            Aogonek: 417
+            Arabic_0: 16778848
+            Arabic_1: 16778849
+            Arabic_2: 16778850
+            Arabic_3: 16778851
+            Arabic_4: 16778852
+            Arabic_5: 16778853
+            Arabic_6: 16778854
+            Arabic_7: 16778855
+            Arabic_8: 16778856
+            Arabic_9: 16778857
+            Arabic_ain: 1497
+            Arabic_alef: 1479
+            Arabic_alefmaksura: 1513
+            Arabic_beh: 1480
+            Arabic_comma: 1452
+            Arabic_dad: 1494
+            Arabic_dal: 1487
+            Arabic_damma: 1519
+            Arabic_dammatan: 1516
+            Arabic_ddal: 16778888
+            Arabic_farsi_yeh: 16778956
+            Arabic_fatha: 1518
+            Arabic_fathatan: 1515
+            Arabic_feh: 1505
+            Arabic_fullstop: 16778964
+            Arabic_gaf: 16778927
+            Arabic_ghain: 1498
+            Arabic_ha: 1511
+            Arabic_hah: 1485
+            Arabic_hamza: 1473
+            Arabic_hamza_above: 16778836
+            Arabic_hamza_below: 16778837
+            Arabic_hamzaonalef: 1475
+            Arabic_hamzaonwaw: 1476
+            Arabic_hamzaonyeh: 1478
+            Arabic_hamzaunderalef: 1477
+            Arabic_heh: 1511
+            Arabic_heh_doachashmee: 16778942
+            Arabic_heh_goal: 16778945
+            Arabic_jeem: 1484
+            Arabic_jeh: 16778904
+            Arabic_kaf: 1507
+            Arabic_kasra: 1520
+            Arabic_kasratan: 1517
+            Arabic_keheh: 16778921
+            Arabic_khah: 1486
+            Arabic_lam: 1508
+            Arabic_madda_above: 16778835
+            Arabic_maddaonalef: 1474
+            Arabic_meem: 1509
+            Arabic_noon: 1510
+            Arabic_noon_ghunna: 16778938
+            Arabic_peh: 16778878
+            Arabic_percent: 16778858
+            Arabic_qaf: 1506
+            Arabic_question_mark: 1471
+            Arabic_ra: 1489
+            Arabic_rreh: 16778897
+            Arabic_sad: 1493
+            Arabic_seen: 1491
+            Arabic_semicolon: 1467
+            Arabic_shadda: 1521
+            Arabic_sheen: 1492
+            Arabic_sukun: 1522
+            Arabic_superscript_alef: 16778864
+            Arabic_switch: 65406
+            Arabic_tah: 1495
+            Arabic_tatweel: 1504
+            Arabic_tcheh: 16778886
+            Arabic_teh: 1482
+            Arabic_tehmarbuta: 1481
+            Arabic_thal: 1488
+            Arabic_theh: 1483
+            Arabic_tteh: 16778873
+            Arabic_veh: 16778916
+            Arabic_waw: 1512
+            Arabic_yeh: 1514
+            Arabic_yeh_baree: 16778962
+            Arabic_zah: 1496
+            Arabic_zain: 1490
+            Aring: 197
+            Armenian_AT: 16778552
+            Armenian_AYB: 16778545
+            Armenian_BEN: 16778546
+            Armenian_CHA: 16778569
+            Armenian_DA: 16778548
+            Armenian_DZA: 16778561
+            Armenian_E: 16778551
+            Armenian_FE: 16778582
+            Armenian_GHAT: 16778562
+            Armenian_GIM: 16778547
+            Armenian_HI: 16778565
+            Armenian_HO: 16778560
+            Armenian_INI: 16778555
+            Armenian_JE: 16778571
+            Armenian_KE: 16778580
+            Armenian_KEN: 16778559
+            Armenian_KHE: 16778557
+            Armenian_LYUN: 16778556
+            Armenian_MEN: 16778564
+            Armenian_NU: 16778566
+            Armenian_O: 16778581
+            Armenian_PE: 16778570
+            Armenian_PYUR: 16778579
+            Armenian_RA: 16778572
+            Armenian_RE: 16778576
+            Armenian_SE: 16778573
+            Armenian_SHA: 16778567
+            Armenian_TCHE: 16778563
+            Armenian_TO: 16778553
+            Armenian_TSA: 16778558
+            Armenian_TSO: 16778577
+            Armenian_TYUN: 16778575
+            Armenian_VEV: 16778574
+            Armenian_VO: 16778568
+            Armenian_VYUN: 16778578
+            Armenian_YECH: 16778549
+            Armenian_ZA: 16778550
+            Armenian_ZHE: 16778554
+            Armenian_accent: 16778587
+            Armenian_amanak: 16778588
+            Armenian_apostrophe: 16778586
+            Armenian_at: 16778600
+            Armenian_ayb: 16778593
+            Armenian_ben: 16778594
+            Armenian_but: 16778589
+            Armenian_cha: 16778617
+            Armenian_da: 16778596
+            Armenian_dza: 16778609
+            Armenian_e: 16778599
+            Armenian_exclam: 16778588
+            Armenian_fe: 16778630
+            Armenian_full_stop: 16778633
+            Armenian_ghat: 16778610
+            Armenian_gim: 16778595
+            Armenian_hi: 16778613
+            Armenian_ho: 16778608
+            Armenian_hyphen: 16778634
+            Armenian_ini: 16778603
+            Armenian_je: 16778619
+            Armenian_ke: 16778628
+            Armenian_ken: 16778607
+            Armenian_khe: 16778605
+            Armenian_ligature_ew: 16778631
+            Armenian_lyun: 16778604
+            Armenian_men: 16778612
+            Armenian_nu: 16778614
+            Armenian_o: 16778629
+            Armenian_paruyk: 16778590
+            Armenian_pe: 16778618
+            Armenian_pyur: 16778627
+            Armenian_question: 16778590
+            Armenian_ra: 16778620
+            Armenian_re: 16778624
+            Armenian_se: 16778621
+            Armenian_separation_mark: 16778589
+            Armenian_sha: 16778615
+            Armenian_shesht: 16778587
+            Armenian_tche: 16778611
+            Armenian_to: 16778601
+            Armenian_tsa: 16778606
+            Armenian_tso: 16778625
+            Armenian_tyun: 16778623
+            Armenian_verjaket: 16778633
+            Armenian_vev: 16778622
+            Armenian_vo: 16778616
+            Armenian_vyun: 16778626
+            Armenian_yech: 16778597
+            Armenian_yentamna: 16778634
+            Armenian_za: 16778598
+            Armenian_zhe: 16778602
+            Atilde: 195
+            AudibleBell_Enable: 65146
+            B: 66
+            Babovedot: 16784898
+            BackSpace: 65288
+            Begin: 65368
+            BounceKeys_Enable: 65140
+            Break: 65387
+            Byelorussian_SHORTU: 1726
+            Byelorussian_shortu: 1710
+            C: 67
+            Cabovedot: 709
+            Cacute: 454
+            Cancel: 65385
+            Caps_Lock: 65509
+            Ccaron: 456
+            Ccedilla: 199
+            Ccircumflex: 710
+            Clear: 65291
+            Codeinput: 65335
+            ColonSign: 16785569
+            Control_L: 65507
+            Control_R: 65508
+            CruzeiroSign: 16785570
+            Cyrillic_A: 1761
+            Cyrillic_BE: 1762
+            Cyrillic_CHE: 1790
+            Cyrillic_CHE_descender: 16778422
+            Cyrillic_CHE_vertstroke: 16778424
+            Cyrillic_DE: 1764
+            Cyrillic_DZHE: 1727
+            Cyrillic_E: 1788
+            Cyrillic_EF: 1766
+            Cyrillic_EL: 1772
+            Cyrillic_EM: 1773
+            Cyrillic_EN: 1774
+            Cyrillic_EN_descender: 16778402
+            Cyrillic_ER: 1778
+            Cyrillic_ES: 1779
+            Cyrillic_GHE: 1767
+            Cyrillic_GHE_bar: 16778386
+            Cyrillic_HA: 1768
+            Cyrillic_HARDSIGN: 1791
+            Cyrillic_HA_descender: 16778418
+            Cyrillic_I: 1769
+            Cyrillic_IE: 1765
+            Cyrillic_IO: 1715
+            Cyrillic_I_macron: 16778466
+            Cyrillic_JE: 1720
+            Cyrillic_KA: 1771
+            Cyrillic_KA_descender: 16778394
+            Cyrillic_KA_vertstroke: 16778396
+            Cyrillic_LJE: 1721
+            Cyrillic_NJE: 1722
+            Cyrillic_O: 1775
+            Cyrillic_O_bar: 16778472
+            Cyrillic_PE: 1776
+            Cyrillic_SCHWA: 16778456
+            Cyrillic_SHA: 1787
+            Cyrillic_SHCHA: 1789
+            Cyrillic_SHHA: 16778426
+            Cyrillic_SHORTI: 1770
+            Cyrillic_SOFTSIGN: 1784
+            Cyrillic_TE: 1780
+            Cyrillic_TSE: 1763
+            Cyrillic_U: 1781
+            Cyrillic_U_macron: 16778478
+            Cyrillic_U_straight: 16778414
+            Cyrillic_U_straight_bar: 16778416
+            Cyrillic_VE: 1783
+            Cyrillic_YA: 1777
+            Cyrillic_YERU: 1785
+            Cyrillic_YU: 1760
+            Cyrillic_ZE: 1786
+            Cyrillic_ZHE: 1782
+            Cyrillic_ZHE_descender: 16778390
+            Cyrillic_a: 1729
+            Cyrillic_be: 1730
+            Cyrillic_che: 1758
+            Cyrillic_che_descender: 16778423
+            Cyrillic_che_vertstroke: 16778425
+            Cyrillic_de: 1732
+            Cyrillic_dzhe: 1711
+            Cyrillic_e: 1756
+            Cyrillic_ef: 1734
+            Cyrillic_el: 1740
+            Cyrillic_em: 1741
+            Cyrillic_en: 1742
+            Cyrillic_en_descender: 16778403
+            Cyrillic_er: 1746
+            Cyrillic_es: 1747
+            Cyrillic_ghe: 1735
+            Cyrillic_ghe_bar: 16778387
+            Cyrillic_ha: 1736
+            Cyrillic_ha_descender: 16778419
+            Cyrillic_hardsign: 1759
+            Cyrillic_i: 1737
+            Cyrillic_i_macron: 16778467
+            Cyrillic_ie: 1733
+            Cyrillic_io: 1699
+            Cyrillic_je: 1704
+            Cyrillic_ka: 1739
+            Cyrillic_ka_descender: 16778395
+            Cyrillic_ka_vertstroke: 16778397
+            Cyrillic_lje: 1705
+            Cyrillic_nje: 1706
+            Cyrillic_o: 1743
+            Cyrillic_o_bar: 16778473
+            Cyrillic_pe: 1744
+            Cyrillic_schwa: 16778457
+            Cyrillic_sha: 1755
+            Cyrillic_shcha: 1757
+            Cyrillic_shha: 16778427
+            Cyrillic_shorti: 1738
+            Cyrillic_softsign: 1752
+            Cyrillic_te: 1748
+            Cyrillic_tse: 1731
+            Cyrillic_u: 1749
+            Cyrillic_u_macron: 16778479
+            Cyrillic_u_straight: 16778415
+            Cyrillic_u_straight_bar: 16778417
+            Cyrillic_ve: 1751
+            Cyrillic_ya: 1745
+            Cyrillic_yeru: 1753
+            Cyrillic_yu: 1728
+            Cyrillic_ze: 1754
+            Cyrillic_zhe: 1750
+            Cyrillic_zhe_descender: 16778391
+            D: 68
+            Dabovedot: 16784906
+            Dcaron: 463
+            Delete: 65535
+            DongSign: 16785579
+            Down: 65364
+            Dstroke: 464
+            E: 69
+            ENG: 957
+            ETH: 208
+            Eabovedot: 972
+            Eacute: 201
+            Ebelowdot: 16785080
+            Ecaron: 460
+            Ecircumflex: 202
+            Ecircumflexacute: 16785086
+            Ecircumflexbelowdot: 16785094
+            Ecircumflexgrave: 16785088
+            Ecircumflexhook: 16785090
+            Ecircumflextilde: 16785092
+            EcuSign: 16785568
+            Ediaeresis: 203
+            Egrave: 200
+            Ehook: 16785082
+            Eisu_Shift: 65327
+            Eisu_toggle: 65328
+            Emacron: 938
+            End: 65367
+            Eogonek: 458
+            Escape: 65307
+            Eth: 208
+            Etilde: 16785084
+            EuroSign: 8364
+            Execute: 65378
+            F: 70
+            F1: 65470
+            F10: 65479
+            F11: 65480
+            F12: 65481
+            F13: 65482
+            F14: 65483
+            F15: 65484
+            F16: 65485
+            F17: 65486
+            F18: 65487
+            F19: 65488
+            F2: 65471
+            F20: 65489
+            F21: 65490
+            F22: 65491
+            F23: 65492
+            F24: 65493
+            F25: 65494
+            F26: 65495
+            F27: 65496
+            F28: 65497
+            F29: 65498
+            F3: 65472
+            F30: 65499
+            F31: 65500
+            F32: 65501
+            F33: 65502
+            F34: 65503
+            F35: 65504
+            F4: 65473
+            F5: 65474
+            F6: 65475
+            F7: 65476
+            F8: 65477
+            F9: 65478
+            FFrancSign: 16785571
+            Fabovedot: 16784926
+            Farsi_0: 16778992
+            Farsi_1: 16778993
+            Farsi_2: 16778994
+            Farsi_3: 16778995
+            Farsi_4: 16778996
+            Farsi_5: 16778997
+            Farsi_6: 16778998
+            Farsi_7: 16778999
+            Farsi_8: 16779000
+            Farsi_9: 16779001
+            Farsi_yeh: 16778956
+            Find: 65384
+            First_Virtual_Screen: 65232
+            G: 71
+            Gabovedot: 725
+            Gbreve: 683
+            Gcaron: 16777702
+            Gcedilla: 939
+            Gcircumflex: 728
+            Georgian_an: 16781520
+            Georgian_ban: 16781521
+            Georgian_can: 16781546
+            Georgian_char: 16781549
+            Georgian_chin: 16781545
+            Georgian_cil: 16781548
+            Georgian_don: 16781523
+            Georgian_en: 16781524
+            Georgian_fi: 16781558
+            Georgian_gan: 16781522
+            Georgian_ghan: 16781542
+            Georgian_hae: 16781552
+            Georgian_har: 16781556
+            Georgian_he: 16781553
+            Georgian_hie: 16781554
+            Georgian_hoe: 16781557
+            Georgian_in: 16781528
+            Georgian_jhan: 16781551
+            Georgian_jil: 16781547
+            Georgian_kan: 16781529
+            Georgian_khar: 16781541
+            Georgian_las: 16781530
+            Georgian_man: 16781531
+            Georgian_nar: 16781532
+            Georgian_on: 16781533
+            Georgian_par: 16781534
+            Georgian_phar: 16781540
+            Georgian_qar: 16781543
+            Georgian_rae: 16781536
+            Georgian_san: 16781537
+            Georgian_shin: 16781544
+            Georgian_tan: 16781527
+            Georgian_tar: 16781538
+            Georgian_un: 16781539
+            Georgian_vin: 16781525
+            Georgian_we: 16781555
+            Georgian_xan: 16781550
+            Georgian_zen: 16781526
+            Georgian_zhar: 16781535
+            Greek_ALPHA: 1985
+            Greek_ALPHAaccent: 1953
+            Greek_BETA: 1986
+            Greek_CHI: 2007
+            Greek_DELTA: 1988
+            Greek_EPSILON: 1989
+            Greek_EPSILONaccent: 1954
+            Greek_ETA: 1991
+            Greek_ETAaccent: 1955
+            Greek_GAMMA: 1987
+            Greek_IOTA: 1993
+            Greek_IOTAaccent: 1956
+            Greek_IOTAdiaeresis: 1957
+            Greek_IOTAdieresis: 1957
+            Greek_KAPPA: 1994
+            Greek_LAMBDA: 1995
+            Greek_LAMDA: 1995
+            Greek_MU: 1996
+            Greek_NU: 1997
+            Greek_OMEGA: 2009
+            Greek_OMEGAaccent: 1963
+            Greek_OMICRON: 1999
+            Greek_OMICRONaccent: 1959
+            Greek_PHI: 2006
+            Greek_PI: 2000
+            Greek_PSI: 2008
+            Greek_RHO: 2001
+            Greek_SIGMA: 2002
+            Greek_TAU: 2004
+            Greek_THETA: 1992
+            Greek_UPSILON: 2005
+            Greek_UPSILONaccent: 1960
+            Greek_UPSILONdieresis: 1961
+            Greek_XI: 1998
+            Greek_ZETA: 1990
+            Greek_accentdieresis: 1966
+            Greek_alpha: 2017
+            Greek_alphaaccent: 1969
+            Greek_beta: 2018
+            Greek_chi: 2039
+            Greek_delta: 2020
+            Greek_epsilon: 2021
+            Greek_epsilonaccent: 1970
+            Greek_eta: 2023
+            Greek_etaaccent: 1971
+            Greek_finalsmallsigma: 2035
+            Greek_gamma: 2019
+            Greek_horizbar: 1967
+            Greek_iota: 2025
+            Greek_iotaaccent: 1972
+            Greek_iotaaccentdieresis: 1974
+            Greek_iotadieresis: 1973
+            Greek_kappa: 2026
+            Greek_lambda: 2027
+            Greek_lamda: 2027
+            Greek_mu: 2028
+            Greek_nu: 2029
+            Greek_omega: 2041
+            Greek_omegaaccent: 1979
+            Greek_omicron: 2031
+            Greek_omicronaccent: 1975
+            Greek_phi: 2038
+            Greek_pi: 2032
+            Greek_psi: 2040
+            Greek_rho: 2033
+            Greek_sigma: 2034
+            Greek_switch: 65406
+            Greek_tau: 2036
+            Greek_theta: 2024
+            Greek_upsilon: 2037
+            Greek_upsilonaccent: 1976
+            Greek_upsilonaccentdieresis: 1978
+            Greek_upsilondieresis: 1977
+            Greek_xi: 2030
+            Greek_zeta: 2022
+            H: 72
+            Hangul: 65329
+            Hangul_A: 3775
+            Hangul_AE: 3776
+            Hangul_AraeA: 3830
+            Hangul_AraeAE: 3831
+            Hangul_Banja: 65337
+            Hangul_Cieuc: 3770
+            Hangul_Codeinput: 65335
+            Hangul_Dikeud: 3751
+            Hangul_E: 3780
+            Hangul_EO: 3779
+            Hangul_EU: 3793
+            Hangul_End: 65331
+            Hangul_Hanja: 65332
+            Hangul_Hieuh: 3774
+            Hangul_I: 3795
+            Hangul_Ieung: 3767
+            Hangul_J_Cieuc: 3818
+            Hangul_J_Dikeud: 3802
+            Hangul_J_Hieuh: 3822
+            Hangul_J_Ieung: 3816
+            Hangul_J_Jieuj: 3817
+            Hangul_J_Khieuq: 3819
+            Hangul_J_Kiyeog: 3796
+            Hangul_J_KiyeogSios: 3798
+            Hangul_J_KkogjiDalrinIeung: 3833
+            Hangul_J_Mieum: 3811
+            Hangul_J_Nieun: 3799
+            Hangul_J_NieunHieuh: 3801
+            Hangul_J_NieunJieuj: 3800
+            Hangul_J_PanSios: 3832
+            Hangul_J_Phieuf: 3821
+            Hangul_J_Pieub: 3812
+            Hangul_J_PieubSios: 3813
+            Hangul_J_Rieul: 3803
+            Hangul_J_RieulHieuh: 3810
+            Hangul_J_RieulKiyeog: 3804
+            Hangul_J_RieulMieum: 3805
+            Hangul_J_RieulPhieuf: 3809
+            Hangul_J_RieulPieub: 3806
+            Hangul_J_RieulSios: 3807
+            Hangul_J_RieulTieut: 3808
+            Hangul_J_Sios: 3814
+            Hangul_J_SsangKiyeog: 3797
+            Hangul_J_SsangSios: 3815
+            Hangul_J_Tieut: 3820
+            Hangul_J_YeorinHieuh: 3834
+            Hangul_Jamo: 65333
+            Hangul_Jeonja: 65336
+            Hangul_Jieuj: 3768
+            Hangul_Khieuq: 3771
+            Hangul_Kiyeog: 3745
+            Hangul_KiyeogSios: 3747
+            Hangul_KkogjiDalrinIeung: 3827
+            Hangul_Mieum: 3761
+            Hangul_MultipleCandidate: 65341
+            Hangul_Nieun: 3748
+            Hangul_NieunHieuh: 3750
+            Hangul_NieunJieuj: 3749
+            Hangul_O: 3783
+            Hangul_OE: 3786
+            Hangul_PanSios: 3826
+            Hangul_Phieuf: 3773
+            Hangul_Pieub: 3762
+            Hangul_PieubSios: 3764
+            Hangul_PostHanja: 65339
+            Hangul_PreHanja: 65338
+            Hangul_PreviousCandidate: 65342
+            Hangul_Rieul: 3753
+            Hangul_RieulHieuh: 3760
+            Hangul_RieulKiyeog: 3754
+            Hangul_RieulMieum: 3755
+            Hangul_RieulPhieuf: 3759
+            Hangul_RieulPieub: 3756
+            Hangul_RieulSios: 3757
+            Hangul_RieulTieut: 3758
+            Hangul_RieulYeorinHieuh: 3823
+            Hangul_Romaja: 65334
+            Hangul_SingleCandidate: 65340
+            Hangul_Sios: 3765
+            Hangul_Special: 65343
+            Hangul_SsangDikeud: 3752
+            Hangul_SsangJieuj: 3769
+            Hangul_SsangKiyeog: 3746
+            Hangul_SsangPieub: 3763
+            Hangul_SsangSios: 3766
+            Hangul_Start: 65330
+            Hangul_SunkyeongeumMieum: 3824
+            Hangul_SunkyeongeumPhieuf: 3828
+            Hangul_SunkyeongeumPieub: 3825
+            Hangul_Tieut: 3772
+            Hangul_U: 3788
+            Hangul_WA: 3784
+            Hangul_WAE: 3785
+            Hangul_WE: 3790
+            Hangul_WEO: 3789
+            Hangul_WI: 3791
+            Hangul_YA: 3777
+            Hangul_YAE: 3778
+            Hangul_YE: 3782
+            Hangul_YEO: 3781
+            Hangul_YI: 3794
+            Hangul_YO: 3787
+            Hangul_YU: 3792
+            Hangul_YeorinHieuh: 3829
+            Hangul_switch: 65406
+            Hankaku: 65321
+            Hcircumflex: 678
+            Hebrew_switch: 65406
+            Help: 65386
+            Henkan: 65315
+            Henkan_Mode: 65315
+            Hiragana: 65317
+            Hiragana_Katakana: 65319
+            Home: 65360
+            Hstroke: 673
+            Hyper_L: 65517
+            Hyper_R: 65518
+            I: 73
+            INTERFACE_CONFIG: "org.freedesktop.IBus.Config"
+            INTERFACE_ENGINE: "org.freedesktop.IBus.Engine"
+            INTERFACE_FACTORY: "org.freedesktop.IBus.Factory"
+            INTERFACE_IBUS: "org.freedesktop.IBus"
+            INTERFACE_INPUT_CONTEXT: "org.freedesktop.IBus.InputContext"
+            INTERFACE_NOTIFICATIONS: "org.freedesktop.IBus.Notifications"
+            INTERFACE_PANEL: "org.freedesktop.IBus.Panel"
+            INTERFACE_PORTAL: "org.freedesktop.IBus.Portal"
+            ISO_Center_Object: 65075
+            ISO_Continuous_Underline: 65072
+            ISO_Discontinuous_Underline: 65073
+            ISO_Emphasize: 65074
+            ISO_Enter: 65076
+            ISO_Fast_Cursor_Down: 65071
+            ISO_Fast_Cursor_Left: 65068
+            ISO_Fast_Cursor_Right: 65069
+            ISO_Fast_Cursor_Up: 65070
+            ISO_First_Group: 65036
+            ISO_First_Group_Lock: 65037
+            ISO_Group_Latch: 65030
+            ISO_Group_Lock: 65031
+            ISO_Group_Shift: 65406
+            ISO_Last_Group: 65038
+            ISO_Last_Group_Lock: 65039
+            ISO_Left_Tab: 65056
+            ISO_Level2_Latch: 65026
+            ISO_Level3_Latch: 65028
+            ISO_Level3_Lock: 65029
+            ISO_Level3_Shift: 65027
+            ISO_Level5_Latch: 65042
+            ISO_Level5_Lock: 65043
+            ISO_Level5_Shift: 65041
+            ISO_Lock: 65025
+            ISO_Move_Line_Down: 65058
+            ISO_Move_Line_Up: 65057
+            ISO_Next_Group: 65032
+            ISO_Next_Group_Lock: 65033
+            ISO_Partial_Line_Down: 65060
+            ISO_Partial_Line_Up: 65059
+            ISO_Partial_Space_Left: 65061
+            ISO_Partial_Space_Right: 65062
+            ISO_Prev_Group: 65034
+            ISO_Prev_Group_Lock: 65035
+            ISO_Release_Both_Margins: 65067
+            ISO_Release_Margin_Left: 65065
+            ISO_Release_Margin_Right: 65066
+            ISO_Set_Margin_Left: 65063
+            ISO_Set_Margin_Right: 65064
+            Iabovedot: 681
+            Iacute: 205
+            Ibelowdot: 16785098
+            Ibreve: 16777516
+            Icircumflex: 206
+            Idiaeresis: 207
+            Igrave: 204
+            Ihook: 16785096
+            Imacron: 975
+            Insert: 65379
+            Iogonek: 967
+            Itilde: 933
+            J: 74
+            Jcircumflex: 684
+            K: 75
+            KEY_0: 48
+            KEY_1: 49
+            KEY_2: 50
+            KEY_3: 51
+            KEY_3270_AltCursor: 64784
+            KEY_3270_Attn: 64782
+            KEY_3270_BackTab: 64773
+            KEY_3270_ChangeScreen: 64793
+            KEY_3270_Copy: 64789
+            KEY_3270_CursorBlink: 64783
+            KEY_3270_CursorSelect: 64796
+            KEY_3270_DeleteWord: 64794
+            KEY_3270_Duplicate: 64769
+            KEY_3270_Enter: 64798
+            KEY_3270_EraseEOF: 64774
+            KEY_3270_EraseInput: 64775
+            KEY_3270_ExSelect: 64795
+            KEY_3270_FieldMark: 64770
+            KEY_3270_Ident: 64787
+            KEY_3270_Jump: 64786
+            KEY_3270_KeyClick: 64785
+            KEY_3270_Left2: 64772
+            KEY_3270_PA1: 64778
+            KEY_3270_PA2: 64779
+            KEY_3270_PA3: 64780
+            KEY_3270_Play: 64790
+            KEY_3270_PrintScreen: 64797
+            KEY_3270_Quit: 64777
+            KEY_3270_Record: 64792
+            KEY_3270_Reset: 64776
+            KEY_3270_Right2: 64771
+            KEY_3270_Rule: 64788
+            KEY_3270_Setup: 64791
+            KEY_3270_Test: 64781
+            KEY_4: 52
+            KEY_5: 53
+            KEY_6: 54
+            KEY_7: 55
+            KEY_8: 56
+            KEY_9: 57
+            KEY_A: 65
+            KEY_AE: 198
+            KEY_Aacute: 193
+            KEY_Abelowdot: 16785056
+            KEY_Abreve: 451
+            KEY_Abreveacute: 16785070
+            KEY_Abrevebelowdot: 16785078
+            KEY_Abrevegrave: 16785072
+            KEY_Abrevehook: 16785074
+            KEY_Abrevetilde: 16785076
+            KEY_AccessX_Enable: 65136
+            KEY_AccessX_Feedback_Enable: 65137
+            KEY_Acircumflex: 194
+            KEY_Acircumflexacute: 16785060
+            KEY_Acircumflexbelowdot: 16785068
+            KEY_Acircumflexgrave: 16785062
+            KEY_Acircumflexhook: 16785064
+            KEY_Acircumflextilde: 16785066
+            KEY_AddFavorite: 269025081
+            KEY_Adiaeresis: 196
+            KEY_Agrave: 192
+            KEY_Ahook: 16785058
+            KEY_Alt_L: 65513
+            KEY_Alt_R: 65514
+            KEY_Amacron: 960
+            KEY_Aogonek: 417
+            KEY_ApplicationLeft: 269025104
+            KEY_ApplicationRight: 269025105
+            KEY_Arabic_0: 16778848
+            KEY_Arabic_1: 16778849
+            KEY_Arabic_2: 16778850
+            KEY_Arabic_3: 16778851
+            KEY_Arabic_4: 16778852
+            KEY_Arabic_5: 16778853
+            KEY_Arabic_6: 16778854
+            KEY_Arabic_7: 16778855
+            KEY_Arabic_8: 16778856
+            KEY_Arabic_9: 16778857
+            KEY_Arabic_ain: 1497
+            KEY_Arabic_alef: 1479
+            KEY_Arabic_alefmaksura: 1513
+            KEY_Arabic_beh: 1480
+            KEY_Arabic_comma: 1452
+            KEY_Arabic_dad: 1494
+            KEY_Arabic_dal: 1487
+            KEY_Arabic_damma: 1519
+            KEY_Arabic_dammatan: 1516
+            KEY_Arabic_ddal: 16778888
+            KEY_Arabic_farsi_yeh: 16778956
+            KEY_Arabic_fatha: 1518
+            KEY_Arabic_fathatan: 1515
+            KEY_Arabic_feh: 1505
+            KEY_Arabic_fullstop: 16778964
+            KEY_Arabic_gaf: 16778927
+            KEY_Arabic_ghain: 1498
+            KEY_Arabic_ha: 1511
+            KEY_Arabic_hah: 1485
+            KEY_Arabic_hamza: 1473
+            KEY_Arabic_hamza_above: 16778836
+            KEY_Arabic_hamza_below: 16778837
+            KEY_Arabic_hamzaonalef: 1475
+            KEY_Arabic_hamzaonwaw: 1476
+            KEY_Arabic_hamzaonyeh: 1478
+            KEY_Arabic_hamzaunderalef: 1477
+            KEY_Arabic_heh: 1511
+            KEY_Arabic_heh_doachashmee: 16778942
+            KEY_Arabic_heh_goal: 16778945
+            KEY_Arabic_jeem: 1484
+            KEY_Arabic_jeh: 16778904
+            KEY_Arabic_kaf: 1507
+            KEY_Arabic_kasra: 1520
+            KEY_Arabic_kasratan: 1517
+            KEY_Arabic_keheh: 16778921
+            KEY_Arabic_khah: 1486
+            KEY_Arabic_lam: 1508
+            KEY_Arabic_madda_above: 16778835
+            KEY_Arabic_maddaonalef: 1474
+            KEY_Arabic_meem: 1509
+            KEY_Arabic_noon: 1510
+            KEY_Arabic_noon_ghunna: 16778938
+            KEY_Arabic_peh: 16778878
+            KEY_Arabic_percent: 16778858
+            KEY_Arabic_qaf: 1506
+            KEY_Arabic_question_mark: 1471
+            KEY_Arabic_ra: 1489
+            KEY_Arabic_rreh: 16778897
+            KEY_Arabic_sad: 1493
+            KEY_Arabic_seen: 1491
+            KEY_Arabic_semicolon: 1467
+            KEY_Arabic_shadda: 1521
+            KEY_Arabic_sheen: 1492
+            KEY_Arabic_sukun: 1522
+            KEY_Arabic_superscript_alef: 16778864
+            KEY_Arabic_switch: 65406
+            KEY_Arabic_tah: 1495
+            KEY_Arabic_tatweel: 1504
+            KEY_Arabic_tcheh: 16778886
+            KEY_Arabic_teh: 1482
+            KEY_Arabic_tehmarbuta: 1481
+            KEY_Arabic_thal: 1488
+            KEY_Arabic_theh: 1483
+            KEY_Arabic_tteh: 16778873
+            KEY_Arabic_veh: 16778916
+            KEY_Arabic_waw: 1512
+            KEY_Arabic_yeh: 1514
+            KEY_Arabic_yeh_baree: 16778962
+            KEY_Arabic_zah: 1496
+            KEY_Arabic_zain: 1490
+            KEY_Aring: 197
+            KEY_Armenian_AT: 16778552
+            KEY_Armenian_AYB: 16778545
+            KEY_Armenian_BEN: 16778546
+            KEY_Armenian_CHA: 16778569
+            KEY_Armenian_DA: 16778548
+            KEY_Armenian_DZA: 16778561
+            KEY_Armenian_E: 16778551
+            KEY_Armenian_FE: 16778582
+            KEY_Armenian_GHAT: 16778562
+            KEY_Armenian_GIM: 16778547
+            KEY_Armenian_HI: 16778565
+            KEY_Armenian_HO: 16778560
+            KEY_Armenian_INI: 16778555
+            KEY_Armenian_JE: 16778571
+            KEY_Armenian_KE: 16778580
+            KEY_Armenian_KEN: 16778559
+            KEY_Armenian_KHE: 16778557
+            KEY_Armenian_LYUN: 16778556
+            KEY_Armenian_MEN: 16778564
+            KEY_Armenian_NU: 16778566
+            KEY_Armenian_O: 16778581
+            KEY_Armenian_PE: 16778570
+            KEY_Armenian_PYUR: 16778579
+            KEY_Armenian_RA: 16778572
+            KEY_Armenian_RE: 16778576
+            KEY_Armenian_SE: 16778573
+            KEY_Armenian_SHA: 16778567
+            KEY_Armenian_TCHE: 16778563
+            KEY_Armenian_TO: 16778553
+            KEY_Armenian_TSA: 16778558
+            KEY_Armenian_TSO: 16778577
+            KEY_Armenian_TYUN: 16778575
+            KEY_Armenian_VEV: 16778574
+            KEY_Armenian_VO: 16778568
+            KEY_Armenian_VYUN: 16778578
+            KEY_Armenian_YECH: 16778549
+            KEY_Armenian_ZA: 16778550
+            KEY_Armenian_ZHE: 16778554
+            KEY_Armenian_accent: 16778587
+            KEY_Armenian_amanak: 16778588
+            KEY_Armenian_apostrophe: 16778586
+            KEY_Armenian_at: 16778600
+            KEY_Armenian_ayb: 16778593
+            KEY_Armenian_ben: 16778594
+            KEY_Armenian_but: 16778589
+            KEY_Armenian_cha: 16778617
+            KEY_Armenian_da: 16778596
+            KEY_Armenian_dza: 16778609
+            KEY_Armenian_e: 16778599
+            KEY_Armenian_exclam: 16778588
+            KEY_Armenian_fe: 16778630
+            KEY_Armenian_full_stop: 16778633
+            KEY_Armenian_ghat: 16778610
+            KEY_Armenian_gim: 16778595
+            KEY_Armenian_hi: 16778613
+            KEY_Armenian_ho: 16778608
+            KEY_Armenian_hyphen: 16778634
+            KEY_Armenian_ini: 16778603
+            KEY_Armenian_je: 16778619
+            KEY_Armenian_ke: 16778628
+            KEY_Armenian_ken: 16778607
+            KEY_Armenian_khe: 16778605
+            KEY_Armenian_ligature_ew: 16778631
+            KEY_Armenian_lyun: 16778604
+            KEY_Armenian_men: 16778612
+            KEY_Armenian_nu: 16778614
+            KEY_Armenian_o: 16778629
+            KEY_Armenian_paruyk: 16778590
+            KEY_Armenian_pe: 16778618
+            KEY_Armenian_pyur: 16778627
+            KEY_Armenian_question: 16778590
+            KEY_Armenian_ra: 16778620
+            KEY_Armenian_re: 16778624
+            KEY_Armenian_se: 16778621
+            KEY_Armenian_separation_mark: 16778589
+            KEY_Armenian_sha: 16778615
+            KEY_Armenian_shesht: 16778587
+            KEY_Armenian_tche: 16778611
+            KEY_Armenian_to: 16778601
+            KEY_Armenian_tsa: 16778606
+            KEY_Armenian_tso: 16778625
+            KEY_Armenian_tyun: 16778623
+            KEY_Armenian_verjaket: 16778633
+            KEY_Armenian_vev: 16778622
+            KEY_Armenian_vo: 16778616
+            KEY_Armenian_vyun: 16778626
+            KEY_Armenian_yech: 16778597
+            KEY_Armenian_yentamna: 16778634
+            KEY_Armenian_za: 16778598
+            KEY_Armenian_zhe: 16778602
+            KEY_Atilde: 195
+            KEY_AudibleBell_Enable: 65146
+            KEY_AudioCycleTrack: 269025179
+            KEY_AudioForward: 269025175
+            KEY_AudioLowerVolume: 269025041
+            KEY_AudioMedia: 269025074
+            KEY_AudioMicMute: 269025202
+            KEY_AudioMute: 269025042
+            KEY_AudioNext: 269025047
+            KEY_AudioPause: 269025073
+            KEY_AudioPlay: 269025044
+            KEY_AudioPreset: 269025206
+            KEY_AudioPrev: 269025046
+            KEY_AudioRaiseVolume: 269025043
+            KEY_AudioRandomPlay: 269025177
+            KEY_AudioRecord: 269025052
+            KEY_AudioRepeat: 269025176
+            KEY_AudioRewind: 269025086
+            KEY_AudioStop: 269025045
+            KEY_Away: 269025165
+            KEY_B: 66
+            KEY_Babovedot: 16784898
+            KEY_Back: 269025062
+            KEY_BackForward: 269025087
+            KEY_BackSpace: 65288
+            KEY_Battery: 269025171
+            KEY_Begin: 65368
+            KEY_Blue: 269025190
+            KEY_Bluetooth: 269025172
+            KEY_Book: 269025106
+            KEY_BounceKeys_Enable: 65140
+            KEY_Break: 65387
+            KEY_BrightnessAdjust: 269025083
+            KEY_Byelorussian_SHORTU: 1726
+            KEY_Byelorussian_shortu: 1710
+            KEY_C: 67
+            KEY_CD: 269025107
+            KEY_CH: 65186
+            KEY_C_H: 65189
+            KEY_C_h: 65188
+            KEY_Cabovedot: 709
+            KEY_Cacute: 454
+            KEY_Calculator: 269025053
+            KEY_Calendar: 269025056
+            KEY_Cancel: 65385
+            KEY_Caps_Lock: 65509
+            KEY_Ccaron: 456
+            KEY_Ccedilla: 199
+            KEY_Ccircumflex: 710
+            KEY_Ch: 65185
+            KEY_Clear: 65291
+            KEY_ClearGrab: 269024801
+            KEY_Close: 269025110
+            KEY_Codeinput: 65335
+            KEY_ColonSign: 16785569
+            KEY_Community: 269025085
+            KEY_ContrastAdjust: 269025058
+            KEY_Control_L: 65507
+            KEY_Control_R: 65508
+            KEY_Copy: 269025111
+            KEY_CruzeiroSign: 16785570
+            KEY_Cut: 269025112
+            KEY_CycleAngle: 269025180
+            KEY_Cyrillic_A: 1761
+            KEY_Cyrillic_BE: 1762
+            KEY_Cyrillic_CHE: 1790
+            KEY_Cyrillic_CHE_descender: 16778422
+            KEY_Cyrillic_CHE_vertstroke: 16778424
+            KEY_Cyrillic_DE: 1764
+            KEY_Cyrillic_DZHE: 1727
+            KEY_Cyrillic_E: 1788
+            KEY_Cyrillic_EF: 1766
+            KEY_Cyrillic_EL: 1772
+            KEY_Cyrillic_EM: 1773
+            KEY_Cyrillic_EN: 1774
+            KEY_Cyrillic_EN_descender: 16778402
+            KEY_Cyrillic_ER: 1778
+            KEY_Cyrillic_ES: 1779
+            KEY_Cyrillic_GHE: 1767
+            KEY_Cyrillic_GHE_bar: 16778386
+            KEY_Cyrillic_HA: 1768
+            KEY_Cyrillic_HARDSIGN: 1791
+            KEY_Cyrillic_HA_descender: 16778418
+            KEY_Cyrillic_I: 1769
+            KEY_Cyrillic_IE: 1765
+            KEY_Cyrillic_IO: 1715
+            KEY_Cyrillic_I_macron: 16778466
+            KEY_Cyrillic_JE: 1720
+            KEY_Cyrillic_KA: 1771
+            KEY_Cyrillic_KA_descender: 16778394
+            KEY_Cyrillic_KA_vertstroke: 16778396
+            KEY_Cyrillic_LJE: 1721
+            KEY_Cyrillic_NJE: 1722
+            KEY_Cyrillic_O: 1775
+            KEY_Cyrillic_O_bar: 16778472
+            KEY_Cyrillic_PE: 1776
+            KEY_Cyrillic_SCHWA: 16778456
+            KEY_Cyrillic_SHA: 1787
+            KEY_Cyrillic_SHCHA: 1789
+            KEY_Cyrillic_SHHA: 16778426
+            KEY_Cyrillic_SHORTI: 1770
+            KEY_Cyrillic_SOFTSIGN: 1784
+            KEY_Cyrillic_TE: 1780
+            KEY_Cyrillic_TSE: 1763
+            KEY_Cyrillic_U: 1781
+            KEY_Cyrillic_U_macron: 16778478
+            KEY_Cyrillic_U_straight: 16778414
+            KEY_Cyrillic_U_straight_bar: 16778416
+            KEY_Cyrillic_VE: 1783
+            KEY_Cyrillic_YA: 1777
+            KEY_Cyrillic_YERU: 1785
+            KEY_Cyrillic_YU: 1760
+            KEY_Cyrillic_ZE: 1786
+            KEY_Cyrillic_ZHE: 1782
+            KEY_Cyrillic_ZHE_descender: 16778390
+            KEY_Cyrillic_a: 1729
+            KEY_Cyrillic_be: 1730
+            KEY_Cyrillic_che: 1758
+            KEY_Cyrillic_che_descender: 16778423
+            KEY_Cyrillic_che_vertstroke: 16778425
+            KEY_Cyrillic_de: 1732
+            KEY_Cyrillic_dzhe: 1711
+            KEY_Cyrillic_e: 1756
+            KEY_Cyrillic_ef: 1734
+            KEY_Cyrillic_el: 1740
+            KEY_Cyrillic_em: 1741
+            KEY_Cyrillic_en: 1742
+            KEY_Cyrillic_en_descender: 16778403
+            KEY_Cyrillic_er: 1746
+            KEY_Cyrillic_es: 1747
+            KEY_Cyrillic_ghe: 1735
+            KEY_Cyrillic_ghe_bar: 16778387
+            KEY_Cyrillic_ha: 1736
+            KEY_Cyrillic_ha_descender: 16778419
+            KEY_Cyrillic_hardsign: 1759
+            KEY_Cyrillic_i: 1737
+            KEY_Cyrillic_i_macron: 16778467
+            KEY_Cyrillic_ie: 1733
+            KEY_Cyrillic_io: 1699
+            KEY_Cyrillic_je: 1704
+            KEY_Cyrillic_ka: 1739
+            KEY_Cyrillic_ka_descender: 16778395
+            KEY_Cyrillic_ka_vertstroke: 16778397
+            KEY_Cyrillic_lje: 1705
+            KEY_Cyrillic_nje: 1706
+            KEY_Cyrillic_o: 1743
+            KEY_Cyrillic_o_bar: 16778473
+            KEY_Cyrillic_pe: 1744
+            KEY_Cyrillic_schwa: 16778457
+            KEY_Cyrillic_sha: 1755
+            KEY_Cyrillic_shcha: 1757
+            KEY_Cyrillic_shha: 16778427
+            KEY_Cyrillic_shorti: 1738
+            KEY_Cyrillic_softsign: 1752
+            KEY_Cyrillic_te: 1748
+            KEY_Cyrillic_tse: 1731
+            KEY_Cyrillic_u: 1749
+            KEY_Cyrillic_u_macron: 16778479
+            KEY_Cyrillic_u_straight: 16778415
+            KEY_Cyrillic_u_straight_bar: 16778417
+            KEY_Cyrillic_ve: 1751
+            KEY_Cyrillic_ya: 1745
+            KEY_Cyrillic_yeru: 1753
+            KEY_Cyrillic_yu: 1728
+            KEY_Cyrillic_ze: 1754
+            KEY_Cyrillic_zhe: 1750
+            KEY_Cyrillic_zhe_descender: 16778391
+            KEY_D: 68
+            KEY_DOS: 269025114
+            KEY_Dabovedot: 16784906
+            KEY_Dcaron: 463
+            KEY_Delete: 65535
+            KEY_Display: 269025113
+            KEY_Documents: 269025115
+            KEY_DongSign: 16785579
+            KEY_Down: 65364
+            KEY_Dstroke: 464
+            KEY_E: 69
+            KEY_ENG: 957
+            KEY_ETH: 208
+            KEY_EZH: 16777655
+            KEY_Eabovedot: 972
+            KEY_Eacute: 201
+            KEY_Ebelowdot: 16785080
+            KEY_Ecaron: 460
+            KEY_Ecircumflex: 202
+            KEY_Ecircumflexacute: 16785086
+            KEY_Ecircumflexbelowdot: 16785094
+            KEY_Ecircumflexgrave: 16785088
+            KEY_Ecircumflexhook: 16785090
+            KEY_Ecircumflextilde: 16785092
+            KEY_EcuSign: 16785568
+            KEY_Ediaeresis: 203
+            KEY_Egrave: 200
+            KEY_Ehook: 16785082
+            KEY_Eisu_Shift: 65327
+            KEY_Eisu_toggle: 65328
+            KEY_Eject: 269025068
+            KEY_Emacron: 938
+            KEY_End: 65367
+            KEY_Eogonek: 458
+            KEY_Escape: 65307
+            KEY_Eth: 208
+            KEY_Etilde: 16785084
+            KEY_EuroSign: 8364
+            KEY_Excel: 269025116
+            KEY_Execute: 65378
+            KEY_Explorer: 269025117
+            KEY_F: 70
+            KEY_F1: 65470
+            KEY_F10: 65479
+            KEY_F11: 65480
+            KEY_F12: 65481
+            KEY_F13: 65482
+            KEY_F14: 65483
+            KEY_F15: 65484
+            KEY_F16: 65485
+            KEY_F17: 65486
+            KEY_F18: 65487
+            KEY_F19: 65488
+            KEY_F2: 65471
+            KEY_F20: 65489
+            KEY_F21: 65490
+            KEY_F22: 65491
+            KEY_F23: 65492
+            KEY_F24: 65493
+            KEY_F25: 65494
+            KEY_F26: 65495
+            KEY_F27: 65496
+            KEY_F28: 65497
+            KEY_F29: 65498
+            KEY_F3: 65472
+            KEY_F30: 65499
+            KEY_F31: 65500
+            KEY_F32: 65501
+            KEY_F33: 65502
+            KEY_F34: 65503
+            KEY_F35: 65504
+            KEY_F4: 65473
+            KEY_F5: 65474
+            KEY_F6: 65475
+            KEY_F7: 65476
+            KEY_F8: 65477
+            KEY_F9: 65478
+            KEY_FFrancSign: 16785571
+            KEY_Fabovedot: 16784926
+            KEY_Farsi_0: 16778992
+            KEY_Farsi_1: 16778993
+            KEY_Farsi_2: 16778994
+            KEY_Farsi_3: 16778995
+            KEY_Farsi_4: 16778996
+            KEY_Farsi_5: 16778997
+            KEY_Farsi_6: 16778998
+            KEY_Farsi_7: 16778999
+            KEY_Farsi_8: 16779000
+            KEY_Farsi_9: 16779001
+            KEY_Farsi_yeh: 16778956
+            KEY_Favorites: 269025072
+            KEY_Finance: 269025084
+            KEY_Find: 65384
+            KEY_First_Virtual_Screen: 65232
+            KEY_Forward: 269025063
+            KEY_FrameBack: 269025181
+            KEY_FrameForward: 269025182
+            KEY_G: 71
+            KEY_Gabovedot: 725
+            KEY_Game: 269025118
+            KEY_Gbreve: 683
+            KEY_Gcaron: 16777702
+            KEY_Gcedilla: 939
+            KEY_Gcircumflex: 728
+            KEY_Georgian_an: 16781520
+            KEY_Georgian_ban: 16781521
+            KEY_Georgian_can: 16781546
+            KEY_Georgian_char: 16781549
+            KEY_Georgian_chin: 16781545
+            KEY_Georgian_cil: 16781548
+            KEY_Georgian_don: 16781523
+            KEY_Georgian_en: 16781524
+            KEY_Georgian_fi: 16781558
+            KEY_Georgian_gan: 16781522
+            KEY_Georgian_ghan: 16781542
+            KEY_Georgian_hae: 16781552
+            KEY_Georgian_har: 16781556
+            KEY_Georgian_he: 16781553
+            KEY_Georgian_hie: 16781554
+            KEY_Georgian_hoe: 16781557
+            KEY_Georgian_in: 16781528
+            KEY_Georgian_jhan: 16781551
+            KEY_Georgian_jil: 16781547
+            KEY_Georgian_kan: 16781529
+            KEY_Georgian_khar: 16781541
+            KEY_Georgian_las: 16781530
+            KEY_Georgian_man: 16781531
+            KEY_Georgian_nar: 16781532
+            KEY_Georgian_on: 16781533
+            KEY_Georgian_par: 16781534
+            KEY_Georgian_phar: 16781540
+            KEY_Georgian_qar: 16781543
+            KEY_Georgian_rae: 16781536
+            KEY_Georgian_san: 16781537
+            KEY_Georgian_shin: 16781544
+            KEY_Georgian_tan: 16781527
+            KEY_Georgian_tar: 16781538
+            KEY_Georgian_un: 16781539
+            KEY_Georgian_vin: 16781525
+            KEY_Georgian_we: 16781555
+            KEY_Georgian_xan: 16781550
+            KEY_Georgian_zen: 16781526
+            KEY_Georgian_zhar: 16781535
+            KEY_Go: 269025119
+            KEY_Greek_ALPHA: 1985
+            KEY_Greek_ALPHAaccent: 1953
+            KEY_Greek_BETA: 1986
+            KEY_Greek_CHI: 2007
+            KEY_Greek_DELTA: 1988
+            KEY_Greek_EPSILON: 1989
+            KEY_Greek_EPSILONaccent: 1954
+            KEY_Greek_ETA: 1991
+            KEY_Greek_ETAaccent: 1955
+            KEY_Greek_GAMMA: 1987
+            KEY_Greek_IOTA: 1993
+            KEY_Greek_IOTAaccent: 1956
+            KEY_Greek_IOTAdiaeresis: 1957
+            KEY_Greek_IOTAdieresis: 1957
+            KEY_Greek_KAPPA: 1994
+            KEY_Greek_LAMBDA: 1995
+            KEY_Greek_LAMDA: 1995
+            KEY_Greek_MU: 1996
+            KEY_Greek_NU: 1997
+            KEY_Greek_OMEGA: 2009
+            KEY_Greek_OMEGAaccent: 1963
+            KEY_Greek_OMICRON: 1999
+            KEY_Greek_OMICRONaccent: 1959
+            KEY_Greek_PHI: 2006
+            KEY_Greek_PI: 2000
+            KEY_Greek_PSI: 2008
+            KEY_Greek_RHO: 2001
+            KEY_Greek_SIGMA: 2002
+            KEY_Greek_TAU: 2004
+            KEY_Greek_THETA: 1992
+            KEY_Greek_UPSILON: 2005
+            KEY_Greek_UPSILONaccent: 1960
+            KEY_Greek_UPSILONdieresis: 1961
+            KEY_Greek_XI: 1998
+            KEY_Greek_ZETA: 1990
+            KEY_Greek_accentdieresis: 1966
+            KEY_Greek_alpha: 2017
+            KEY_Greek_alphaaccent: 1969
+            KEY_Greek_beta: 2018
+            KEY_Greek_chi: 2039
+            KEY_Greek_delta: 2020
+            KEY_Greek_epsilon: 2021
+            KEY_Greek_epsilonaccent: 1970
+            KEY_Greek_eta: 2023
+            KEY_Greek_etaaccent: 1971
+            KEY_Greek_finalsmallsigma: 2035
+            KEY_Greek_gamma: 2019
+            KEY_Greek_horizbar: 1967
+            KEY_Greek_iota: 2025
+            KEY_Greek_iotaaccent: 1972
+            KEY_Greek_iotaaccentdieresis: 1974
+            KEY_Greek_iotadieresis: 1973
+            KEY_Greek_kappa: 2026
+            KEY_Greek_lambda: 2027
+            KEY_Greek_lamda: 2027
+            KEY_Greek_mu: 2028
+            KEY_Greek_nu: 2029
+            KEY_Greek_omega: 2041
+            KEY_Greek_omegaaccent: 1979
+            KEY_Greek_omicron: 2031
+            KEY_Greek_omicronaccent: 1975
+            KEY_Greek_phi: 2038
+            KEY_Greek_pi: 2032
+            KEY_Greek_psi: 2040
+            KEY_Greek_rho: 2033
+            KEY_Greek_sigma: 2034
+            KEY_Greek_switch: 65406
+            KEY_Greek_tau: 2036
+            KEY_Greek_theta: 2024
+            KEY_Greek_upsilon: 2037
+            KEY_Greek_upsilonaccent: 1976
+            KEY_Greek_upsilonaccentdieresis: 1978
+            KEY_Greek_upsilondieresis: 1977
+            KEY_Greek_xi: 2030
+            KEY_Greek_zeta: 2022
+            KEY_Green: 269025188
+            KEY_H: 72
+            KEY_Hangul: 65329
+            KEY_Hangul_A: 3775
+            KEY_Hangul_AE: 3776
+            KEY_Hangul_AraeA: 3830
+            KEY_Hangul_AraeAE: 3831
+            KEY_Hangul_Banja: 65337
+            KEY_Hangul_Cieuc: 3770
+            KEY_Hangul_Codeinput: 65335
+            KEY_Hangul_Dikeud: 3751
+            KEY_Hangul_E: 3780
+            KEY_Hangul_EO: 3779
+            KEY_Hangul_EU: 3793
+            KEY_Hangul_End: 65331
+            KEY_Hangul_Hanja: 65332
+            KEY_Hangul_Hieuh: 3774
+            KEY_Hangul_I: 3795
+            KEY_Hangul_Ieung: 3767
+            KEY_Hangul_J_Cieuc: 3818
+            KEY_Hangul_J_Dikeud: 3802
+            KEY_Hangul_J_Hieuh: 3822
+            KEY_Hangul_J_Ieung: 3816
+            KEY_Hangul_J_Jieuj: 3817
+            KEY_Hangul_J_Khieuq: 3819
+            KEY_Hangul_J_Kiyeog: 3796
+            KEY_Hangul_J_KiyeogSios: 3798
+            KEY_Hangul_J_KkogjiDalrinIeung: 3833
+            KEY_Hangul_J_Mieum: 3811
+            KEY_Hangul_J_Nieun: 3799
+            KEY_Hangul_J_NieunHieuh: 3801
+            KEY_Hangul_J_NieunJieuj: 3800
+            KEY_Hangul_J_PanSios: 3832
+            KEY_Hangul_J_Phieuf: 3821
+            KEY_Hangul_J_Pieub: 3812
+            KEY_Hangul_J_PieubSios: 3813
+            KEY_Hangul_J_Rieul: 3803
+            KEY_Hangul_J_RieulHieuh: 3810
+            KEY_Hangul_J_RieulKiyeog: 3804
+            KEY_Hangul_J_RieulMieum: 3805
+            KEY_Hangul_J_RieulPhieuf: 3809
+            KEY_Hangul_J_RieulPieub: 3806
+            KEY_Hangul_J_RieulSios: 3807
+            KEY_Hangul_J_RieulTieut: 3808
+            KEY_Hangul_J_Sios: 3814
+            KEY_Hangul_J_SsangKiyeog: 3797
+            KEY_Hangul_J_SsangSios: 3815
+            KEY_Hangul_J_Tieut: 3820
+            KEY_Hangul_J_YeorinHieuh: 3834
+            KEY_Hangul_Jamo: 65333
+            KEY_Hangul_Jeonja: 65336
+            KEY_Hangul_Jieuj: 3768
+            KEY_Hangul_Khieuq: 3771
+            KEY_Hangul_Kiyeog: 3745
+            KEY_Hangul_KiyeogSios: 3747
+            KEY_Hangul_KkogjiDalrinIeung: 3827
+            KEY_Hangul_Mieum: 3761
+            KEY_Hangul_MultipleCandidate: 65341
+            KEY_Hangul_Nieun: 3748
+            KEY_Hangul_NieunHieuh: 3750
+            KEY_Hangul_NieunJieuj: 3749
+            KEY_Hangul_O: 3783
+            KEY_Hangul_OE: 3786
+            KEY_Hangul_PanSios: 3826
+            KEY_Hangul_Phieuf: 3773
+            KEY_Hangul_Pieub: 3762
+            KEY_Hangul_PieubSios: 3764
+            KEY_Hangul_PostHanja: 65339
+            KEY_Hangul_PreHanja: 65338
+            KEY_Hangul_PreviousCandidate: 65342
+            KEY_Hangul_Rieul: 3753
+            KEY_Hangul_RieulHieuh: 3760
+            KEY_Hangul_RieulKiyeog: 3754
+            KEY_Hangul_RieulMieum: 3755
+            KEY_Hangul_RieulPhieuf: 3759
+            KEY_Hangul_RieulPieub: 3756
+            KEY_Hangul_RieulSios: 3757
+            KEY_Hangul_RieulTieut: 3758
+            KEY_Hangul_RieulYeorinHieuh: 3823
+            KEY_Hangul_Romaja: 65334
+            KEY_Hangul_SingleCandidate: 65340
+            KEY_Hangul_Sios: 3765
+            KEY_Hangul_Special: 65343
+            KEY_Hangul_SsangDikeud: 3752
+            KEY_Hangul_SsangJieuj: 3769
+            KEY_Hangul_SsangKiyeog: 3746
+            KEY_Hangul_SsangPieub: 3763
+            KEY_Hangul_SsangSios: 3766
+            KEY_Hangul_Start: 65330
+            KEY_Hangul_SunkyeongeumMieum: 3824
+            KEY_Hangul_SunkyeongeumPhieuf: 3828
+            KEY_Hangul_SunkyeongeumPieub: 3825
+            KEY_Hangul_Tieut: 3772
+            KEY_Hangul_U: 3788
+            KEY_Hangul_WA: 3784
+            KEY_Hangul_WAE: 3785
+            KEY_Hangul_WE: 3790
+            KEY_Hangul_WEO: 3789
+            KEY_Hangul_WI: 3791
+            KEY_Hangul_YA: 3777
+            KEY_Hangul_YAE: 3778
+            KEY_Hangul_YE: 3782
+            KEY_Hangul_YEO: 3781
+            KEY_Hangul_YI: 3794
+            KEY_Hangul_YO: 3787
+            KEY_Hangul_YU: 3792
+            KEY_Hangul_YeorinHieuh: 3829
+            KEY_Hangul_switch: 65406
+            KEY_Hankaku: 65321
+            KEY_Hcircumflex: 678
+            KEY_Hebrew_switch: 65406
+            KEY_Help: 65386
+            KEY_Henkan: 65315
+            KEY_Henkan_Mode: 65315
+            KEY_Hibernate: 269025192
+            KEY_Hiragana: 65317
+            KEY_Hiragana_Katakana: 65319
+            KEY_History: 269025079
+            KEY_Home: 65360
+            KEY_HomePage: 269025048
+            KEY_HotLinks: 269025082
+            KEY_Hstroke: 673
+            KEY_Hyper_L: 65517
+            KEY_Hyper_R: 65518
+            KEY_I: 73
+            KEY_ISO_Center_Object: 65075
+            KEY_ISO_Continuous_Underline: 65072
+            KEY_ISO_Discontinuous_Underline: 65073
+            KEY_ISO_Emphasize: 65074
+            KEY_ISO_Enter: 65076
+            KEY_ISO_Fast_Cursor_Down: 65071
+            KEY_ISO_Fast_Cursor_Left: 65068
+            KEY_ISO_Fast_Cursor_Right: 65069
+            KEY_ISO_Fast_Cursor_Up: 65070
+            KEY_ISO_First_Group: 65036
+            KEY_ISO_First_Group_Lock: 65037
+            KEY_ISO_Group_Latch: 65030
+            KEY_ISO_Group_Lock: 65031
+            KEY_ISO_Group_Shift: 65406
+            KEY_ISO_Last_Group: 65038
+            KEY_ISO_Last_Group_Lock: 65039
+            KEY_ISO_Left_Tab: 65056
+            KEY_ISO_Level2_Latch: 65026
+            KEY_ISO_Level3_Latch: 65028
+            KEY_ISO_Level3_Lock: 65029
+            KEY_ISO_Level3_Shift: 65027
+            KEY_ISO_Level5_Latch: 65042
+            KEY_ISO_Level5_Lock: 65043
+            KEY_ISO_Level5_Shift: 65041
+            KEY_ISO_Lock: 65025
+            KEY_ISO_Move_Line_Down: 65058
+            KEY_ISO_Move_Line_Up: 65057
+            KEY_ISO_Next_Group: 65032
+            KEY_ISO_Next_Group_Lock: 65033
+            KEY_ISO_Partial_Line_Down: 65060
+            KEY_ISO_Partial_Line_Up: 65059
+            KEY_ISO_Partial_Space_Left: 65061
+            KEY_ISO_Partial_Space_Right: 65062
+            KEY_ISO_Prev_Group: 65034
+            KEY_ISO_Prev_Group_Lock: 65035
+            KEY_ISO_Release_Both_Margins: 65067
+            KEY_ISO_Release_Margin_Left: 65065
+            KEY_ISO_Release_Margin_Right: 65066
+            KEY_ISO_Set_Margin_Left: 65063
+            KEY_ISO_Set_Margin_Right: 65064
+            KEY_Iabovedot: 681
+            KEY_Iacute: 205
+            KEY_Ibelowdot: 16785098
+            KEY_Ibreve: 16777516
+            KEY_Icircumflex: 206
+            KEY_Idiaeresis: 207
+            KEY_Igrave: 204
+            KEY_Ihook: 16785096
+            KEY_Imacron: 975
+            KEY_Insert: 65379
+            KEY_Iogonek: 967
+            KEY_Itilde: 933
+            KEY_J: 74
+            KEY_Jcircumflex: 684
+            KEY_K: 75
+            KEY_KP_0: 65456
+            KEY_KP_1: 65457
+            KEY_KP_2: 65458
+            KEY_KP_3: 65459
+            KEY_KP_4: 65460
+            KEY_KP_5: 65461
+            KEY_KP_6: 65462
+            KEY_KP_7: 65463
+            KEY_KP_8: 65464
+            KEY_KP_9: 65465
+            KEY_KP_Add: 65451
+            KEY_KP_Begin: 65437
+            KEY_KP_Decimal: 65454
+            KEY_KP_Delete: 65439
+            KEY_KP_Divide: 65455
+            KEY_KP_Down: 65433
+            KEY_KP_End: 65436
+            KEY_KP_Enter: 65421
+            KEY_KP_Equal: 65469
+            KEY_KP_F1: 65425
+            KEY_KP_F2: 65426
+            KEY_KP_F3: 65427
+            KEY_KP_F4: 65428
+            KEY_KP_Home: 65429
+            KEY_KP_Insert: 65438
+            KEY_KP_Left: 65430
+            KEY_KP_Multiply: 65450
+            KEY_KP_Next: 65435
+            KEY_KP_Page_Down: 65435
+            KEY_KP_Page_Up: 65434
+            KEY_KP_Prior: 65434
+            KEY_KP_Right: 65432
+            KEY_KP_Separator: 65452
+            KEY_KP_Space: 65408
+            KEY_KP_Subtract: 65453
+            KEY_KP_Tab: 65417
+            KEY_KP_Up: 65431
+            KEY_Kana_Lock: 65325
+            KEY_Kana_Shift: 65326
+            KEY_Kanji: 65313
+            KEY_Kanji_Bangou: 65335
+            KEY_Katakana: 65318
+            KEY_KbdBrightnessDown: 269025030
+            KEY_KbdBrightnessUp: 269025029
+            KEY_KbdLightOnOff: 269025028
+            KEY_Kcedilla: 979
+            KEY_Keyboard: 269025203
+            KEY_Korean_Won: 3839
+            KEY_L: 76
+            KEY_L1: 65480
+            KEY_L10: 65489
+            KEY_L2: 65481
+            KEY_L3: 65482
+            KEY_L4: 65483
+            KEY_L5: 65484
+            KEY_L6: 65485
+            KEY_L7: 65486
+            KEY_L8: 65487
+            KEY_L9: 65488
+            KEY_Lacute: 453
+            KEY_Last_Virtual_Screen: 65236
+            KEY_Launch0: 269025088
+            KEY_Launch1: 269025089
+            KEY_Launch2: 269025090
+            KEY_Launch3: 269025091
+            KEY_Launch4: 269025092
+            KEY_Launch5: 269025093
+            KEY_Launch6: 269025094
+            KEY_Launch7: 269025095
+            KEY_Launch8: 269025096
+            KEY_Launch9: 269025097
+            KEY_LaunchA: 269025098
+            KEY_LaunchB: 269025099
+            KEY_LaunchC: 269025100
+            KEY_LaunchD: 269025101
+            KEY_LaunchE: 269025102
+            KEY_LaunchF: 269025103
+            KEY_Lbelowdot: 16784950
+            KEY_Lcaron: 421
+            KEY_Lcedilla: 934
+            KEY_Left: 65361
+            KEY_LightBulb: 269025077
+            KEY_Linefeed: 65290
+            KEY_LiraSign: 16785572
+            KEY_LogGrabInfo: 269024805
+            KEY_LogOff: 269025121
+            KEY_LogWindowTree: 269024804
+            KEY_Lstroke: 419
+            KEY_M: 77
+            KEY_Mabovedot: 16784960
+            KEY_Macedonia_DSE: 1717
+            KEY_Macedonia_GJE: 1714
+            KEY_Macedonia_KJE: 1724
+            KEY_Macedonia_dse: 1701
+            KEY_Macedonia_gje: 1698
+            KEY_Macedonia_kje: 1708
+            KEY_Mae_Koho: 65342
+            KEY_Mail: 269025049
+            KEY_MailForward: 269025168
+            KEY_Market: 269025122
+            KEY_Massyo: 65324
+            KEY_Meeting: 269025123
+            KEY_Memo: 269025054
+            KEY_Menu: 65383
+            KEY_MenuKB: 269025125
+            KEY_MenuPB: 269025126
+            KEY_Messenger: 269025166
+            KEY_Meta_L: 65511
+            KEY_Meta_R: 65512
+            KEY_MillSign: 16785573
+            KEY_ModeLock: 269025025
+            KEY_Mode_switch: 65406
+            KEY_MonBrightnessDown: 269025027
+            KEY_MonBrightnessUp: 269025026
+            KEY_MouseKeys_Accel_Enable: 65143
+            KEY_MouseKeys_Enable: 65142
+            KEY_Muhenkan: 65314
+            KEY_Multi_key: 65312
+            KEY_MultipleCandidate: 65341
+            KEY_Music: 269025170
+            KEY_MyComputer: 269025075
+            KEY_MySites: 269025127
+            KEY_N: 78
+            KEY_Nacute: 465
+            KEY_NairaSign: 16785574
+            KEY_Ncaron: 466
+            KEY_Ncedilla: 977
+            KEY_New: 269025128
+            KEY_NewSheqelSign: 16785578
+            KEY_News: 269025129
+            KEY_Next: 65366
+            KEY_Next_VMode: 269024802
+            KEY_Next_Virtual_Screen: 65234
+            KEY_Ntilde: 209
+            KEY_Num_Lock: 65407
+            KEY_O: 79
+            KEY_OE: 5052
+            KEY_Oacute: 211
+            KEY_Obarred: 16777631
+            KEY_Obelowdot: 16785100
+            KEY_Ocaron: 16777681
+            KEY_Ocircumflex: 212
+            KEY_Ocircumflexacute: 16785104
+            KEY_Ocircumflexbelowdot: 16785112
+            KEY_Ocircumflexgrave: 16785106
+            KEY_Ocircumflexhook: 16785108
+            KEY_Ocircumflextilde: 16785110
+            KEY_Odiaeresis: 214
+            KEY_Odoubleacute: 469
+            KEY_OfficeHome: 269025130
+            KEY_Ograve: 210
+            KEY_Ohook: 16785102
+            KEY_Ohorn: 16777632
+            KEY_Ohornacute: 16785114
+            KEY_Ohornbelowdot: 16785122
+            KEY_Ohorngrave: 16785116
+            KEY_Ohornhook: 16785118
+            KEY_Ohorntilde: 16785120
+            KEY_Omacron: 978
+            KEY_Ooblique: 216
+            KEY_Open: 269025131
+            KEY_OpenURL: 269025080
+            KEY_Option: 269025132
+            KEY_Oslash: 216
+            KEY_Otilde: 213
+            KEY_Overlay1_Enable: 65144
+            KEY_Overlay2_Enable: 65145
+            KEY_P: 80
+            KEY_Pabovedot: 16784982
+            KEY_Page_Down: 65366
+            KEY_Page_Up: 65365
+            KEY_Paste: 269025133
+            KEY_Pause: 65299
+            KEY_PesetaSign: 16785575
+            KEY_Phone: 269025134
+            KEY_Pictures: 269025169
+            KEY_Pointer_Accelerate: 65274
+            KEY_Pointer_Button1: 65257
+            KEY_Pointer_Button2: 65258
+            KEY_Pointer_Button3: 65259
+            KEY_Pointer_Button4: 65260
+            KEY_Pointer_Button5: 65261
+            KEY_Pointer_Button_Dflt: 65256
+            KEY_Pointer_DblClick1: 65263
+            KEY_Pointer_DblClick2: 65264
+            KEY_Pointer_DblClick3: 65265
+            KEY_Pointer_DblClick4: 65266
+            KEY_Pointer_DblClick5: 65267
+            KEY_Pointer_DblClick_Dflt: 65262
+            KEY_Pointer_DfltBtnNext: 65275
+            KEY_Pointer_DfltBtnPrev: 65276
+            KEY_Pointer_Down: 65251
+            KEY_Pointer_DownLeft: 65254
+            KEY_Pointer_DownRight: 65255
+            KEY_Pointer_Drag1: 65269
+            KEY_Pointer_Drag2: 65270
+            KEY_Pointer_Drag3: 65271
+            KEY_Pointer_Drag4: 65272
+            KEY_Pointer_Drag5: 65277
+            KEY_Pointer_Drag_Dflt: 65268
+            KEY_Pointer_EnableKeys: 65273
+            KEY_Pointer_Left: 65248
+            KEY_Pointer_Right: 65249
+            KEY_Pointer_Up: 65250
+            KEY_Pointer_UpLeft: 65252
+            KEY_Pointer_UpRight: 65253
+            KEY_PowerDown: 269025057
+            KEY_PowerOff: 269025066
+            KEY_Prev_VMode: 269024803
+            KEY_Prev_Virtual_Screen: 65233
+            KEY_PreviousCandidate: 65342
+            KEY_Print: 65377
+            KEY_Prior: 65365
+            KEY_Q: 81
+            KEY_R: 82
+            KEY_R1: 65490
+            KEY_R10: 65499
+            KEY_R11: 65500
+            KEY_R12: 65501
+            KEY_R13: 65502
+            KEY_R14: 65503
+            KEY_R15: 65504
+            KEY_R2: 65491
+            KEY_R3: 65492
+            KEY_R4: 65493
+            KEY_R5: 65494
+            KEY_R6: 65495
+            KEY_R7: 65496
+            KEY_R8: 65497
+            KEY_R9: 65498
+            KEY_RFKill: 269025205
+            KEY_Racute: 448
+            KEY_Rcaron: 472
+            KEY_Rcedilla: 931
+            KEY_Red: 269025187
+            KEY_Redo: 65382
+            KEY_Refresh: 269025065
+            KEY_Reload: 269025139
+            KEY_RepeatKeys_Enable: 65138
+            KEY_Reply: 269025138
+            KEY_Return: 65293
+            KEY_Right: 65363
+            KEY_RockerDown: 269025060
+            KEY_RockerEnter: 269025061
+            KEY_RockerUp: 269025059
+            KEY_Romaji: 65316
+            KEY_RotateWindows: 269025140
+            KEY_RotationKB: 269025142
+            KEY_RotationPB: 269025141
+            KEY_RupeeSign: 16785576
+            KEY_S: 83
+            KEY_SCHWA: 16777615
+            KEY_Sabovedot: 16784992
+            KEY_Sacute: 422
+            KEY_Save: 269025143
+            KEY_Scaron: 425
+            KEY_Scedilla: 426
+            KEY_Scircumflex: 734
+            KEY_ScreenSaver: 269025069
+            KEY_ScrollClick: 269025146
+            KEY_ScrollDown: 269025145
+            KEY_ScrollUp: 269025144
+            KEY_Scroll_Lock: 65300
+            KEY_Search: 269025051
+            KEY_Select: 65376
+            KEY_SelectButton: 269025184
+            KEY_Send: 269025147
+            KEY_Serbian_DJE: 1713
+            KEY_Serbian_DZE: 1727
+            KEY_Serbian_JE: 1720
+            KEY_Serbian_LJE: 1721
+            KEY_Serbian_NJE: 1722
+            KEY_Serbian_TSHE: 1723
+            KEY_Serbian_dje: 1697
+            KEY_Serbian_dze: 1711
+            KEY_Serbian_je: 1704
+            KEY_Serbian_lje: 1705
+            KEY_Serbian_nje: 1706
+            KEY_Serbian_tshe: 1707
+            KEY_Shift_L: 65505
+            KEY_Shift_Lock: 65510
+            KEY_Shift_R: 65506
+            KEY_Shop: 269025078
+            KEY_SingleCandidate: 65340
+            KEY_Sinh_a: 16780677
+            KEY_Sinh_aa: 16780678
+            KEY_Sinh_aa2: 16780751
+            KEY_Sinh_ae: 16780679
+            KEY_Sinh_ae2: 16780752
+            KEY_Sinh_aee: 16780680
+            KEY_Sinh_aee2: 16780753
+            KEY_Sinh_ai: 16780691
+            KEY_Sinh_ai2: 16780763
+            KEY_Sinh_al: 16780746
+            KEY_Sinh_au: 16780694
+            KEY_Sinh_au2: 16780766
+            KEY_Sinh_ba: 16780726
+            KEY_Sinh_bha: 16780727
+            KEY_Sinh_ca: 16780704
+            KEY_Sinh_cha: 16780705
+            KEY_Sinh_dda: 16780713
+            KEY_Sinh_ddha: 16780714
+            KEY_Sinh_dha: 16780719
+            KEY_Sinh_dhha: 16780720
+            KEY_Sinh_e: 16780689
+            KEY_Sinh_e2: 16780761
+            KEY_Sinh_ee: 16780690
+            KEY_Sinh_ee2: 16780762
+            KEY_Sinh_fa: 16780742
+            KEY_Sinh_ga: 16780700
+            KEY_Sinh_gha: 16780701
+            KEY_Sinh_h2: 16780675
+            KEY_Sinh_ha: 16780740
+            KEY_Sinh_i: 16780681
+            KEY_Sinh_i2: 16780754
+            KEY_Sinh_ii: 16780682
+            KEY_Sinh_ii2: 16780755
+            KEY_Sinh_ja: 16780706
+            KEY_Sinh_jha: 16780707
+            KEY_Sinh_jnya: 16780709
+            KEY_Sinh_ka: 16780698
+            KEY_Sinh_kha: 16780699
+            KEY_Sinh_kunddaliya: 16780788
+            KEY_Sinh_la: 16780733
+            KEY_Sinh_lla: 16780741
+            KEY_Sinh_lu: 16780687
+            KEY_Sinh_lu2: 16780767
+            KEY_Sinh_luu: 16780688
+            KEY_Sinh_luu2: 16780787
+            KEY_Sinh_ma: 16780728
+            KEY_Sinh_mba: 16780729
+            KEY_Sinh_na: 16780721
+            KEY_Sinh_ndda: 16780716
+            KEY_Sinh_ndha: 16780723
+            KEY_Sinh_ng: 16780674
+            KEY_Sinh_ng2: 16780702
+            KEY_Sinh_nga: 16780703
+            KEY_Sinh_nja: 16780710
+            KEY_Sinh_nna: 16780715
+            KEY_Sinh_nya: 16780708
+            KEY_Sinh_o: 16780692
+            KEY_Sinh_o2: 16780764
+            KEY_Sinh_oo: 16780693
+            KEY_Sinh_oo2: 16780765
+            KEY_Sinh_pa: 16780724
+            KEY_Sinh_pha: 16780725
+            KEY_Sinh_ra: 16780731
+            KEY_Sinh_ri: 16780685
+            KEY_Sinh_rii: 16780686
+            KEY_Sinh_ru2: 16780760
+            KEY_Sinh_ruu2: 16780786
+            KEY_Sinh_sa: 16780739
+            KEY_Sinh_sha: 16780737
+            KEY_Sinh_ssha: 16780738
+            KEY_Sinh_tha: 16780717
+            KEY_Sinh_thha: 16780718
+            KEY_Sinh_tta: 16780711
+            KEY_Sinh_ttha: 16780712
+            KEY_Sinh_u: 16780683
+            KEY_Sinh_u2: 16780756
+            KEY_Sinh_uu: 16780684
+            KEY_Sinh_uu2: 16780758
+            KEY_Sinh_va: 16780736
+            KEY_Sinh_ya: 16780730
+            KEY_Sleep: 269025071
+            KEY_SlowKeys_Enable: 65139
+            KEY_Spell: 269025148
+            KEY_SplitScreen: 269025149
+            KEY_Standby: 269025040
+            KEY_Start: 269025050
+            KEY_StickyKeys_Enable: 65141
+            KEY_Stop: 269025064
+            KEY_Subtitle: 269025178
+            KEY_Super_L: 65515
+            KEY_Super_R: 65516
+            KEY_Support: 269025150
+            KEY_Suspend: 269025191
+            KEY_Switch_VT_1: 269024769
+            KEY_Switch_VT_10: 269024778
+            KEY_Switch_VT_11: 269024779
+            KEY_Switch_VT_12: 269024780
+            KEY_Switch_VT_2: 269024770
+            KEY_Switch_VT_3: 269024771
+            KEY_Switch_VT_4: 269024772
+            KEY_Switch_VT_5: 269024773
+            KEY_Switch_VT_6: 269024774
+            KEY_Switch_VT_7: 269024775
+            KEY_Switch_VT_8: 269024776
+            KEY_Switch_VT_9: 269024777
+            KEY_Sys_Req: 65301
+            KEY_T: 84
+            KEY_THORN: 222
+            KEY_Tab: 65289
+            KEY_Tabovedot: 16785002
+            KEY_TaskPane: 269025151
+            KEY_Tcaron: 427
+            KEY_Tcedilla: 478
+            KEY_Terminal: 269025152
+            KEY_Terminate_Server: 65237
+            KEY_Thai_baht: 3551
+            KEY_Thai_bobaimai: 3514
+            KEY_Thai_chochan: 3496
+            KEY_Thai_chochang: 3498
+            KEY_Thai_choching: 3497
+            KEY_Thai_chochoe: 3500
+            KEY_Thai_dochada: 3502
+            KEY_Thai_dodek: 3508
+            KEY_Thai_fofa: 3517
+            KEY_Thai_fofan: 3519
+            KEY_Thai_hohip: 3531
+            KEY_Thai_honokhuk: 3534
+            KEY_Thai_khokhai: 3490
+            KEY_Thai_khokhon: 3493
+            KEY_Thai_khokhuat: 3491
+            KEY_Thai_khokhwai: 3492
+            KEY_Thai_khorakhang: 3494
+            KEY_Thai_kokai: 3489
+            KEY_Thai_lakkhangyao: 3557
+            KEY_Thai_lekchet: 3575
+            KEY_Thai_lekha: 3573
+            KEY_Thai_lekhok: 3574
+            KEY_Thai_lekkao: 3577
+            KEY_Thai_leknung: 3569
+            KEY_Thai_lekpaet: 3576
+            KEY_Thai_leksam: 3571
+            KEY_Thai_leksi: 3572
+            KEY_Thai_leksong: 3570
+            KEY_Thai_leksun: 3568
+            KEY_Thai_lochula: 3532
+            KEY_Thai_loling: 3525
+            KEY_Thai_lu: 3526
+            KEY_Thai_maichattawa: 3563
+            KEY_Thai_maiek: 3560
+            KEY_Thai_maihanakat: 3537
+            KEY_Thai_maihanakat_maitho: 3550
+            KEY_Thai_maitaikhu: 3559
+            KEY_Thai_maitho: 3561
+            KEY_Thai_maitri: 3562
+            KEY_Thai_maiyamok: 3558
+            KEY_Thai_moma: 3521
+            KEY_Thai_ngongu: 3495
+            KEY_Thai_nikhahit: 3565
+            KEY_Thai_nonen: 3507
+            KEY_Thai_nonu: 3513
+            KEY_Thai_oang: 3533
+            KEY_Thai_paiyannoi: 3535
+            KEY_Thai_phinthu: 3546
+            KEY_Thai_phophan: 3518
+            KEY_Thai_phophung: 3516
+            KEY_Thai_phosamphao: 3520
+            KEY_Thai_popla: 3515
+            KEY_Thai_rorua: 3523
+            KEY_Thai_ru: 3524
+            KEY_Thai_saraa: 3536
+            KEY_Thai_saraaa: 3538
+            KEY_Thai_saraae: 3553
+            KEY_Thai_saraaimaimalai: 3556
+            KEY_Thai_saraaimaimuan: 3555
+            KEY_Thai_saraam: 3539
+            KEY_Thai_sarae: 3552
+            KEY_Thai_sarai: 3540
+            KEY_Thai_saraii: 3541
+            KEY_Thai_sarao: 3554
+            KEY_Thai_sarau: 3544
+            KEY_Thai_saraue: 3542
+            KEY_Thai_sarauee: 3543
+            KEY_Thai_sarauu: 3545
+            KEY_Thai_sorusi: 3529
+            KEY_Thai_sosala: 3528
+            KEY_Thai_soso: 3499
+            KEY_Thai_sosua: 3530
+            KEY_Thai_thanthakhat: 3564
+            KEY_Thai_thonangmontho: 3505
+            KEY_Thai_thophuthao: 3506
+            KEY_Thai_thothahan: 3511
+            KEY_Thai_thothan: 3504
+            KEY_Thai_thothong: 3512
+            KEY_Thai_thothung: 3510
+            KEY_Thai_topatak: 3503
+            KEY_Thai_totao: 3509
+            KEY_Thai_wowaen: 3527
+            KEY_Thai_yoyak: 3522
+            KEY_Thai_yoying: 3501
+            KEY_Thorn: 222
+            KEY_Time: 269025183
+            KEY_ToDoList: 269025055
+            KEY_Tools: 269025153
+            KEY_TopMenu: 269025186
+            KEY_TouchpadOff: 269025201
+            KEY_TouchpadOn: 269025200
+            KEY_TouchpadToggle: 269025193
+            KEY_Touroku: 65323
+            KEY_Travel: 269025154
+            KEY_Tslash: 940
+            KEY_U: 85
+            KEY_UWB: 269025174
+            KEY_Uacute: 218
+            KEY_Ubelowdot: 16785124
+            KEY_Ubreve: 733
+            KEY_Ucircumflex: 219
+            KEY_Udiaeresis: 220
+            KEY_Udoubleacute: 475
+            KEY_Ugrave: 217
+            KEY_Uhook: 16785126
+            KEY_Uhorn: 16777647
+            KEY_Uhornacute: 16785128
+            KEY_Uhornbelowdot: 16785136
+            KEY_Uhorngrave: 16785130
+            KEY_Uhornhook: 16785132
+            KEY_Uhorntilde: 16785134
+            KEY_Ukrainian_GHE_WITH_UPTURN: 1725
+            KEY_Ukrainian_I: 1718
+            KEY_Ukrainian_IE: 1716
+            KEY_Ukrainian_YI: 1719
+            KEY_Ukrainian_ghe_with_upturn: 1709
+            KEY_Ukrainian_i: 1702
+            KEY_Ukrainian_ie: 1700
+            KEY_Ukrainian_yi: 1703
+            KEY_Ukranian_I: 1718
+            KEY_Ukranian_JE: 1716
+            KEY_Ukranian_YI: 1719
+            KEY_Ukranian_i: 1702
+            KEY_Ukranian_je: 1700
+            KEY_Ukranian_yi: 1703
+            KEY_Umacron: 990
+            KEY_Undo: 65381
+            KEY_Ungrab: 269024800
+            KEY_Uogonek: 985
+            KEY_Up: 65362
+            KEY_Uring: 473
+            KEY_User1KB: 269025157
+            KEY_User2KB: 269025158
+            KEY_UserPB: 269025156
+            KEY_Utilde: 989
+            KEY_V: 86
+            KEY_VendorHome: 269025076
+            KEY_Video: 269025159
+            KEY_View: 269025185
+            KEY_VoidSymbol: 16777215
+            KEY_W: 87
+            KEY_WLAN: 269025173
+            KEY_WWAN: 269025204
+            KEY_WWW: 269025070
+            KEY_Wacute: 16785026
+            KEY_WakeUp: 269025067
+            KEY_Wcircumflex: 16777588
+            KEY_Wdiaeresis: 16785028
+            KEY_WebCam: 269025167
+            KEY_Wgrave: 16785024
+            KEY_WheelButton: 269025160
+            KEY_WindowClear: 269025109
+            KEY_WonSign: 16785577
+            KEY_Word: 269025161
+            KEY_X: 88
+            KEY_Xabovedot: 16785034
+            KEY_Xfer: 269025162
+            KEY_Y: 89
+            KEY_Yacute: 221
+            KEY_Ybelowdot: 16785140
+            KEY_Ycircumflex: 16777590
+            KEY_Ydiaeresis: 5054
+            KEY_Yellow: 269025189
+            KEY_Ygrave: 16785138
+            KEY_Yhook: 16785142
+            KEY_Ytilde: 16785144
+            KEY_Z: 90
+            KEY_Zabovedot: 431
+            KEY_Zacute: 428
+            KEY_Zcaron: 430
+            KEY_Zen_Koho: 65341
+            KEY_Zenkaku: 65320
+            KEY_Zenkaku_Hankaku: 65322
+            KEY_ZoomIn: 269025163
+            KEY_ZoomOut: 269025164
+            KEY_Zstroke: 16777653
+            KEY_a: 97
+            KEY_aacute: 225
+            KEY_abelowdot: 16785057
+            KEY_abovedot: 511
+            KEY_abreve: 483
+            KEY_abreveacute: 16785071
+            KEY_abrevebelowdot: 16785079
+            KEY_abrevegrave: 16785073
+            KEY_abrevehook: 16785075
+            KEY_abrevetilde: 16785077
+            KEY_acircumflex: 226
+            KEY_acircumflexacute: 16785061
+            KEY_acircumflexbelowdot: 16785069
+            KEY_acircumflexgrave: 16785063
+            KEY_acircumflexhook: 16785065
+            KEY_acircumflextilde: 16785067
+            KEY_acute: 180
+            KEY_adiaeresis: 228
+            KEY_ae: 230
+            KEY_agrave: 224
+            KEY_ahook: 16785059
+            KEY_amacron: 992
+            KEY_ampersand: 38
+            KEY_aogonek: 433
+            KEY_apostrophe: 39
+            KEY_approxeq: 16785992
+            KEY_approximate: 2248
+            KEY_aring: 229
+            KEY_asciicircum: 94
+            KEY_asciitilde: 126
+            KEY_asterisk: 42
+            KEY_at: 64
+            KEY_atilde: 227
+            KEY_b: 98
+            KEY_babovedot: 16784899
+            KEY_backslash: 92
+            KEY_ballotcross: 2804
+            KEY_bar: 124
+            KEY_because: 16785973
+            KEY_blank: 2527
+            KEY_botintegral: 2213
+            KEY_botleftparens: 2220
+            KEY_botleftsqbracket: 2216
+            KEY_botleftsummation: 2226
+            KEY_botrightparens: 2222
+            KEY_botrightsqbracket: 2218
+            KEY_botrightsummation: 2230
+            KEY_bott: 2550
+            KEY_botvertsummationconnector: 2228
+            KEY_braceleft: 123
+            KEY_braceright: 125
+            KEY_bracketleft: 91
+            KEY_bracketright: 93
+            KEY_braille_blank: 16787456
+            KEY_braille_dot_1: 65521
+            KEY_braille_dot_10: 65530
+            KEY_braille_dot_2: 65522
+            KEY_braille_dot_3: 65523
+            KEY_braille_dot_4: 65524
+            KEY_braille_dot_5: 65525
+            KEY_braille_dot_6: 65526
+            KEY_braille_dot_7: 65527
+            KEY_braille_dot_8: 65528
+            KEY_braille_dot_9: 65529
+            KEY_braille_dots_1: 16787457
+            KEY_braille_dots_12: 16787459
+            KEY_braille_dots_123: 16787463
+            KEY_braille_dots_1234: 16787471
+            KEY_braille_dots_12345: 16787487
+            KEY_braille_dots_123456: 16787519
+            KEY_braille_dots_1234567: 16787583
+            KEY_braille_dots_12345678: 16787711
+            KEY_braille_dots_1234568: 16787647
+            KEY_braille_dots_123457: 16787551
+            KEY_braille_dots_1234578: 16787679
+            KEY_braille_dots_123458: 16787615
+            KEY_braille_dots_12346: 16787503
+            KEY_braille_dots_123467: 16787567
+            KEY_braille_dots_1234678: 16787695
+            KEY_braille_dots_123468: 16787631
+            KEY_braille_dots_12347: 16787535
+            KEY_braille_dots_123478: 16787663
+            KEY_braille_dots_12348: 16787599
+            KEY_braille_dots_1235: 16787479
+            KEY_braille_dots_12356: 16787511
+            KEY_braille_dots_123567: 16787575
+            KEY_braille_dots_1235678: 16787703
+            KEY_braille_dots_123568: 16787639
+            KEY_braille_dots_12357: 16787543
+            KEY_braille_dots_123578: 16787671
+            KEY_braille_dots_12358: 16787607
+            KEY_braille_dots_1236: 16787495
+            KEY_braille_dots_12367: 16787559
+            KEY_braille_dots_123678: 16787687
+            KEY_braille_dots_12368: 16787623
+            KEY_braille_dots_1237: 16787527
+            KEY_braille_dots_12378: 16787655
+            KEY_braille_dots_1238: 16787591
+            KEY_braille_dots_124: 16787467
+            KEY_braille_dots_1245: 16787483
+            KEY_braille_dots_12456: 16787515
+            KEY_braille_dots_124567: 16787579
+            KEY_braille_dots_1245678: 16787707
+            KEY_braille_dots_124568: 16787643
+            KEY_braille_dots_12457: 16787547
+            KEY_braille_dots_124578: 16787675
+            KEY_braille_dots_12458: 16787611
+            KEY_braille_dots_1246: 16787499
+            KEY_braille_dots_12467: 16787563
+            KEY_braille_dots_124678: 16787691
+            KEY_braille_dots_12468: 16787627
+            KEY_braille_dots_1247: 16787531
+            KEY_braille_dots_12478: 16787659
+            KEY_braille_dots_1248: 16787595
+            KEY_braille_dots_125: 16787475
+            KEY_braille_dots_1256: 16787507
+            KEY_braille_dots_12567: 16787571
+            KEY_braille_dots_125678: 16787699
+            KEY_braille_dots_12568: 16787635
+            KEY_braille_dots_1257: 16787539
+            KEY_braille_dots_12578: 16787667
+            KEY_braille_dots_1258: 16787603
+            KEY_braille_dots_126: 16787491
+            KEY_braille_dots_1267: 16787555
+            KEY_braille_dots_12678: 16787683
+            KEY_braille_dots_1268: 16787619
+            KEY_braille_dots_127: 16787523
+            KEY_braille_dots_1278: 16787651
+            KEY_braille_dots_128: 16787587
+            KEY_braille_dots_13: 16787461
+            KEY_braille_dots_134: 16787469
+            KEY_braille_dots_1345: 16787485
+            KEY_braille_dots_13456: 16787517
+            KEY_braille_dots_134567: 16787581
+            KEY_braille_dots_1345678: 16787709
+            KEY_braille_dots_134568: 16787645
+            KEY_braille_dots_13457: 16787549
+            KEY_braille_dots_134578: 16787677
+            KEY_braille_dots_13458: 16787613
+            KEY_braille_dots_1346: 16787501
+            KEY_braille_dots_13467: 16787565
+            KEY_braille_dots_134678: 16787693
+            KEY_braille_dots_13468: 16787629
+            KEY_braille_dots_1347: 16787533
+            KEY_braille_dots_13478: 16787661
+            KEY_braille_dots_1348: 16787597
+            KEY_braille_dots_135: 16787477
+            KEY_braille_dots_1356: 16787509
+            KEY_braille_dots_13567: 16787573
+            KEY_braille_dots_135678: 16787701
+            KEY_braille_dots_13568: 16787637
+            KEY_braille_dots_1357: 16787541
+            KEY_braille_dots_13578: 16787669
+            KEY_braille_dots_1358: 16787605
+            KEY_braille_dots_136: 16787493
+            KEY_braille_dots_1367: 16787557
+            KEY_braille_dots_13678: 16787685
+            KEY_braille_dots_1368: 16787621
+            KEY_braille_dots_137: 16787525
+            KEY_braille_dots_1378: 16787653
+            KEY_braille_dots_138: 16787589
+            KEY_braille_dots_14: 16787465
+            KEY_braille_dots_145: 16787481
+            KEY_braille_dots_1456: 16787513
+            KEY_braille_dots_14567: 16787577
+            KEY_braille_dots_145678: 16787705
+            KEY_braille_dots_14568: 16787641
+            KEY_braille_dots_1457: 16787545
+            KEY_braille_dots_14578: 16787673
+            KEY_braille_dots_1458: 16787609
+            KEY_braille_dots_146: 16787497
+            KEY_braille_dots_1467: 16787561
+            KEY_braille_dots_14678: 16787689
+            KEY_braille_dots_1468: 16787625
+            KEY_braille_dots_147: 16787529
+            KEY_braille_dots_1478: 16787657
+            KEY_braille_dots_148: 16787593
+            KEY_braille_dots_15: 16787473
+            KEY_braille_dots_156: 16787505
+            KEY_braille_dots_1567: 16787569
+            KEY_braille_dots_15678: 16787697
+            KEY_braille_dots_1568: 16787633
+            KEY_braille_dots_157: 16787537
+            KEY_braille_dots_1578: 16787665
+            KEY_braille_dots_158: 16787601
+            KEY_braille_dots_16: 16787489
+            KEY_braille_dots_167: 16787553
+            KEY_braille_dots_1678: 16787681
+            KEY_braille_dots_168: 16787617
+            KEY_braille_dots_17: 16787521
+            KEY_braille_dots_178: 16787649
+            KEY_braille_dots_18: 16787585
+            KEY_braille_dots_2: 16787458
+            KEY_braille_dots_23: 16787462
+            KEY_braille_dots_234: 16787470
+            KEY_braille_dots_2345: 16787486
+            KEY_braille_dots_23456: 16787518
+            KEY_braille_dots_234567: 16787582
+            KEY_braille_dots_2345678: 16787710
+            KEY_braille_dots_234568: 16787646
+            KEY_braille_dots_23457: 16787550
+            KEY_braille_dots_234578: 16787678
+            KEY_braille_dots_23458: 16787614
+            KEY_braille_dots_2346: 16787502
+            KEY_braille_dots_23467: 16787566
+            KEY_braille_dots_234678: 16787694
+            KEY_braille_dots_23468: 16787630
+            KEY_braille_dots_2347: 16787534
+            KEY_braille_dots_23478: 16787662
+            KEY_braille_dots_2348: 16787598
+            KEY_braille_dots_235: 16787478
+            KEY_braille_dots_2356: 16787510
+            KEY_braille_dots_23567: 16787574
+            KEY_braille_dots_235678: 16787702
+            KEY_braille_dots_23568: 16787638
+            KEY_braille_dots_2357: 16787542
+            KEY_braille_dots_23578: 16787670
+            KEY_braille_dots_2358: 16787606
+            KEY_braille_dots_236: 16787494
+            KEY_braille_dots_2367: 16787558
+            KEY_braille_dots_23678: 16787686
+            KEY_braille_dots_2368: 16787622
+            KEY_braille_dots_237: 16787526
+            KEY_braille_dots_2378: 16787654
+            KEY_braille_dots_238: 16787590
+            KEY_braille_dots_24: 16787466
+            KEY_braille_dots_245: 16787482
+            KEY_braille_dots_2456: 16787514
+            KEY_braille_dots_24567: 16787578
+            KEY_braille_dots_245678: 16787706
+            KEY_braille_dots_24568: 16787642
+            KEY_braille_dots_2457: 16787546
+            KEY_braille_dots_24578: 16787674
+            KEY_braille_dots_2458: 16787610
+            KEY_braille_dots_246: 16787498
+            KEY_braille_dots_2467: 16787562
+            KEY_braille_dots_24678: 16787690
+            KEY_braille_dots_2468: 16787626
+            KEY_braille_dots_247: 16787530
+            KEY_braille_dots_2478: 16787658
+            KEY_braille_dots_248: 16787594
+            KEY_braille_dots_25: 16787474
+            KEY_braille_dots_256: 16787506
+            KEY_braille_dots_2567: 16787570
+            KEY_braille_dots_25678: 16787698
+            KEY_braille_dots_2568: 16787634
+            KEY_braille_dots_257: 16787538
+            KEY_braille_dots_2578: 16787666
+            KEY_braille_dots_258: 16787602
+            KEY_braille_dots_26: 16787490
+            KEY_braille_dots_267: 16787554
+            KEY_braille_dots_2678: 16787682
+            KEY_braille_dots_268: 16787618
+            KEY_braille_dots_27: 16787522
+            KEY_braille_dots_278: 16787650
+            KEY_braille_dots_28: 16787586
+            KEY_braille_dots_3: 16787460
+            KEY_braille_dots_34: 16787468
+            KEY_braille_dots_345: 16787484
+            KEY_braille_dots_3456: 16787516
+            KEY_braille_dots_34567: 16787580
+            KEY_braille_dots_345678: 16787708
+            KEY_braille_dots_34568: 16787644
+            KEY_braille_dots_3457: 16787548
+            KEY_braille_dots_34578: 16787676
+            KEY_braille_dots_3458: 16787612
+            KEY_braille_dots_346: 16787500
+            KEY_braille_dots_3467: 16787564
+            KEY_braille_dots_34678: 16787692
+            KEY_braille_dots_3468: 16787628
+            KEY_braille_dots_347: 16787532
+            KEY_braille_dots_3478: 16787660
+            KEY_braille_dots_348: 16787596
+            KEY_braille_dots_35: 16787476
+            KEY_braille_dots_356: 16787508
+            KEY_braille_dots_3567: 16787572
+            KEY_braille_dots_35678: 16787700
+            KEY_braille_dots_3568: 16787636
+            KEY_braille_dots_357: 16787540
+            KEY_braille_dots_3578: 16787668
+            KEY_braille_dots_358: 16787604
+            KEY_braille_dots_36: 16787492
+            KEY_braille_dots_367: 16787556
+            KEY_braille_dots_3678: 16787684
+            KEY_braille_dots_368: 16787620
+            KEY_braille_dots_37: 16787524
+            KEY_braille_dots_378: 16787652
+            KEY_braille_dots_38: 16787588
+            KEY_braille_dots_4: 16787464
+            KEY_braille_dots_45: 16787480
+            KEY_braille_dots_456: 16787512
+            KEY_braille_dots_4567: 16787576
+            KEY_braille_dots_45678: 16787704
+            KEY_braille_dots_4568: 16787640
+            KEY_braille_dots_457: 16787544
+            KEY_braille_dots_4578: 16787672
+            KEY_braille_dots_458: 16787608
+            KEY_braille_dots_46: 16787496
+            KEY_braille_dots_467: 16787560
+            KEY_braille_dots_4678: 16787688
+            KEY_braille_dots_468: 16787624
+            KEY_braille_dots_47: 16787528
+            KEY_braille_dots_478: 16787656
+            KEY_braille_dots_48: 16787592
+            KEY_braille_dots_5: 16787472
+            KEY_braille_dots_56: 16787504
+            KEY_braille_dots_567: 16787568
+            KEY_braille_dots_5678: 16787696
+            KEY_braille_dots_568: 16787632
+            KEY_braille_dots_57: 16787536
+            KEY_braille_dots_578: 16787664
+            KEY_braille_dots_58: 16787600
+            KEY_braille_dots_6: 16787488
+            KEY_braille_dots_67: 16787552
+            KEY_braille_dots_678: 16787680
+            KEY_braille_dots_68: 16787616
+            KEY_braille_dots_7: 16787520
+            KEY_braille_dots_78: 16787648
+            KEY_braille_dots_8: 16787584
+            KEY_breve: 418
+            KEY_brokenbar: 166
+            KEY_c: 99
+            KEY_c_h: 65187
+            KEY_cabovedot: 741
+            KEY_cacute: 486
+            KEY_careof: 2744
+            KEY_caret: 2812
+            KEY_caron: 439
+            KEY_ccaron: 488
+            KEY_ccedilla: 231
+            KEY_ccircumflex: 742
+            KEY_cedilla: 184
+            KEY_cent: 162
+            KEY_ch: 65184
+            KEY_checkerboard: 2529
+            KEY_checkmark: 2803
+            KEY_circle: 3023
+            KEY_club: 2796
+            KEY_colon: 58
+            KEY_combining_acute: 16777985
+            KEY_combining_belowdot: 16778019
+            KEY_combining_grave: 16777984
+            KEY_combining_hook: 16777993
+            KEY_combining_tilde: 16777987
+            KEY_comma: 44
+            KEY_containsas: 16785931
+            KEY_copyright: 169
+            KEY_cr: 2532
+            KEY_crossinglines: 2542
+            KEY_cuberoot: 16785947
+            KEY_currency: 164
+            KEY_cursor: 2815
+            KEY_d: 100
+            KEY_dabovedot: 16784907
+            KEY_dagger: 2801
+            KEY_dcaron: 495
+            KEY_dead_A: 65153
+            KEY_dead_E: 65155
+            KEY_dead_I: 65157
+            KEY_dead_O: 65159
+            KEY_dead_SCHWA: 65163
+            KEY_dead_U: 65161
+            KEY_dead_a: 65152
+            KEY_dead_abovecomma: 65124
+            KEY_dead_abovedot: 65110
+            KEY_dead_abovereversedcomma: 65125
+            KEY_dead_abovering: 65112
+            KEY_dead_aboveverticalline: 65169
+            KEY_dead_acute: 65105
+            KEY_dead_belowbreve: 65131
+            KEY_dead_belowcircumflex: 65129
+            KEY_dead_belowcomma: 65134
+            KEY_dead_belowdiaeresis: 65132
+            KEY_dead_belowdot: 65120
+            KEY_dead_belowmacron: 65128
+            KEY_dead_belowring: 65127
+            KEY_dead_belowtilde: 65130
+            KEY_dead_belowverticalline: 65170
+            KEY_dead_breve: 65109
+            KEY_dead_capital_schwa: 65163
+            KEY_dead_caron: 65114
+            KEY_dead_cedilla: 65115
+            KEY_dead_circumflex: 65106
+            KEY_dead_currency: 65135
+            KEY_dead_dasia: 65125
+            KEY_dead_diaeresis: 65111
+            KEY_dead_doubleacute: 65113
+            KEY_dead_doublegrave: 65126
+            KEY_dead_e: 65154
+            KEY_dead_grave: 65104
+            KEY_dead_greek: 65164
+            KEY_dead_hamza: 65165
+            KEY_dead_hook: 65121
+            KEY_dead_horn: 65122
+            KEY_dead_i: 65156
+            KEY_dead_invertedbreve: 65133
+            KEY_dead_iota: 65117
+            KEY_dead_longsolidusoverlay: 65171
+            KEY_dead_lowline: 65168
+            KEY_dead_macron: 65108
+            KEY_dead_o: 65158
+            KEY_dead_ogonek: 65116
+            KEY_dead_perispomeni: 65107
+            KEY_dead_psili: 65124
+            KEY_dead_schwa: 65162
+            KEY_dead_semivoiced_sound: 65119
+            KEY_dead_small_schwa: 65162
+            KEY_dead_stroke: 65123
+            KEY_dead_tilde: 65107
+            KEY_dead_u: 65160
+            KEY_dead_voiced_sound: 65118
+            KEY_decimalpoint: 2749
+            KEY_degree: 176
+            KEY_diaeresis: 168
+            KEY_diamond: 2797
+            KEY_digitspace: 2725
+            KEY_dintegral: 16785964
+            KEY_division: 247
+            KEY_dollar: 36
+            KEY_doubbaselinedot: 2735
+            KEY_doubleacute: 445
+            KEY_doubledagger: 2802
+            KEY_doublelowquotemark: 2814
+            KEY_downarrow: 2302
+            KEY_downcaret: 2984
+            KEY_downshoe: 3030
+            KEY_downstile: 3012
+            KEY_downtack: 3010
+            KEY_dstroke: 496
+            KEY_e: 101
+            KEY_eabovedot: 1004
+            KEY_eacute: 233
+            KEY_ebelowdot: 16785081
+            KEY_ecaron: 492
+            KEY_ecircumflex: 234
+            KEY_ecircumflexacute: 16785087
+            KEY_ecircumflexbelowdot: 16785095
+            KEY_ecircumflexgrave: 16785089
+            KEY_ecircumflexhook: 16785091
+            KEY_ecircumflextilde: 16785093
+            KEY_ediaeresis: 235
+            KEY_egrave: 232
+            KEY_ehook: 16785083
+            KEY_eightsubscript: 16785544
+            KEY_eightsuperior: 16785528
+            KEY_elementof: 16785928
+            KEY_ellipsis: 2734
+            KEY_em3space: 2723
+            KEY_em4space: 2724
+            KEY_emacron: 954
+            KEY_emdash: 2729
+            KEY_emfilledcircle: 2782
+            KEY_emfilledrect: 2783
+            KEY_emopencircle: 2766
+            KEY_emopenrectangle: 2767
+            KEY_emptyset: 16785925
+            KEY_emspace: 2721
+            KEY_endash: 2730
+            KEY_enfilledcircbullet: 2790
+            KEY_enfilledsqbullet: 2791
+            KEY_eng: 959
+            KEY_enopencircbullet: 2784
+            KEY_enopensquarebullet: 2785
+            KEY_enspace: 2722
+            KEY_eogonek: 490
+            KEY_equal: 61
+            KEY_eth: 240
+            KEY_etilde: 16785085
+            KEY_exclam: 33
+            KEY_exclamdown: 161
+            KEY_ezh: 16777874
+            KEY_f: 102
+            KEY_fabovedot: 16784927
+            KEY_femalesymbol: 2808
+            KEY_ff: 2531
+            KEY_figdash: 2747
+            KEY_filledlefttribullet: 2780
+            KEY_filledrectbullet: 2779
+            KEY_filledrighttribullet: 2781
+            KEY_filledtribulletdown: 2793
+            KEY_filledtribulletup: 2792
+            KEY_fiveeighths: 2757
+            KEY_fivesixths: 2743
+            KEY_fivesubscript: 16785541
+            KEY_fivesuperior: 16785525
+            KEY_fourfifths: 2741
+            KEY_foursubscript: 16785540
+            KEY_foursuperior: 16785524
+            KEY_fourthroot: 16785948
+            KEY_function: 2294
+            KEY_g: 103
+            KEY_gabovedot: 757
+            KEY_gbreve: 699
+            KEY_gcaron: 16777703
+            KEY_gcedilla: 955
+            KEY_gcircumflex: 760
+            KEY_grave: 96
+            KEY_greater: 62
+            KEY_greaterthanequal: 2238
+            KEY_guillemetleft: 171
+            KEY_guillemetright: 187
+            KEY_guillemotleft: 171
+            KEY_guillemotright: 187
+            KEY_h: 104
+            KEY_hairspace: 2728
+            KEY_hcircumflex: 694
+            KEY_heart: 2798
+            KEY_hebrew_aleph: 3296
+            KEY_hebrew_ayin: 3314
+            KEY_hebrew_bet: 3297
+            KEY_hebrew_beth: 3297
+            KEY_hebrew_chet: 3303
+            KEY_hebrew_dalet: 3299
+            KEY_hebrew_daleth: 3299
+            KEY_hebrew_doublelowline: 3295
+            KEY_hebrew_finalkaph: 3306
+            KEY_hebrew_finalmem: 3309
+            KEY_hebrew_finalnun: 3311
+            KEY_hebrew_finalpe: 3315
+            KEY_hebrew_finalzade: 3317
+            KEY_hebrew_finalzadi: 3317
+            KEY_hebrew_gimel: 3298
+            KEY_hebrew_gimmel: 3298
+            KEY_hebrew_he: 3300
+            KEY_hebrew_het: 3303
+            KEY_hebrew_kaph: 3307
+            KEY_hebrew_kuf: 3319
+            KEY_hebrew_lamed: 3308
+            KEY_hebrew_mem: 3310
+            KEY_hebrew_nun: 3312
+            KEY_hebrew_pe: 3316
+            KEY_hebrew_qoph: 3319
+            KEY_hebrew_resh: 3320
+            KEY_hebrew_samech: 3313
+            KEY_hebrew_samekh: 3313
+            KEY_hebrew_shin: 3321
+            KEY_hebrew_taf: 3322
+            KEY_hebrew_taw: 3322
+            KEY_hebrew_tet: 3304
+            KEY_hebrew_teth: 3304
+            KEY_hebrew_waw: 3301
+            KEY_hebrew_yod: 3305
+            KEY_hebrew_zade: 3318
+            KEY_hebrew_zadi: 3318
+            KEY_hebrew_zain: 3302
+            KEY_hebrew_zayin: 3302
+            KEY_hexagram: 2778
+            KEY_horizconnector: 2211
+            KEY_horizlinescan1: 2543
+            KEY_horizlinescan3: 2544
+            KEY_horizlinescan5: 2545
+            KEY_horizlinescan7: 2546
+            KEY_horizlinescan9: 2547
+            KEY_hstroke: 689
+            KEY_ht: 2530
+            KEY_hyphen: 173
+            KEY_i: 105
+            KEY_iTouch: 269025120
+            KEY_iacute: 237
+            KEY_ibelowdot: 16785099
+            KEY_ibreve: 16777517
+            KEY_icircumflex: 238
+            KEY_identical: 2255
+            KEY_idiaeresis: 239
+            KEY_idotless: 697
+            KEY_ifonlyif: 2253
+            KEY_igrave: 236
+            KEY_ihook: 16785097
+            KEY_imacron: 1007
+            KEY_implies: 2254
+            KEY_includedin: 2266
+            KEY_includes: 2267
+            KEY_infinity: 2242
+            KEY_integral: 2239
+            KEY_intersection: 2268
+            KEY_iogonek: 999
+            KEY_itilde: 949
+            KEY_j: 106
+            KEY_jcircumflex: 700
+            KEY_jot: 3018
+            KEY_k: 107
+            KEY_kana_A: 1201
+            KEY_kana_CHI: 1217
+            KEY_kana_E: 1204
+            KEY_kana_FU: 1228
+            KEY_kana_HA: 1226
+            KEY_kana_HE: 1229
+            KEY_kana_HI: 1227
+            KEY_kana_HO: 1230
+            KEY_kana_HU: 1228
+            KEY_kana_I: 1202
+            KEY_kana_KA: 1206
+            KEY_kana_KE: 1209
+            KEY_kana_KI: 1207
+            KEY_kana_KO: 1210
+            KEY_kana_KU: 1208
+            KEY_kana_MA: 1231
+            KEY_kana_ME: 1234
+            KEY_kana_MI: 1232
+            KEY_kana_MO: 1235
+            KEY_kana_MU: 1233
+            KEY_kana_N: 1245
+            KEY_kana_NA: 1221
+            KEY_kana_NE: 1224
+            KEY_kana_NI: 1222
+            KEY_kana_NO: 1225
+            KEY_kana_NU: 1223
+            KEY_kana_O: 1205
+            KEY_kana_RA: 1239
+            KEY_kana_RE: 1242
+            KEY_kana_RI: 1240
+            KEY_kana_RO: 1243
+            KEY_kana_RU: 1241
+            KEY_kana_SA: 1211
+            KEY_kana_SE: 1214
+            KEY_kana_SHI: 1212
+            KEY_kana_SO: 1215
+            KEY_kana_SU: 1213
+            KEY_kana_TA: 1216
+            KEY_kana_TE: 1219
+            KEY_kana_TI: 1217
+            KEY_kana_TO: 1220
+            KEY_kana_TSU: 1218
+            KEY_kana_TU: 1218
+            KEY_kana_U: 1203
+            KEY_kana_WA: 1244
+            KEY_kana_WO: 1190
+            KEY_kana_YA: 1236
+            KEY_kana_YO: 1238
+            KEY_kana_YU: 1237
+            KEY_kana_a: 1191
+            KEY_kana_closingbracket: 1187
+            KEY_kana_comma: 1188
+            KEY_kana_conjunctive: 1189
+            KEY_kana_e: 1194
+            KEY_kana_fullstop: 1185
+            KEY_kana_i: 1192
+            KEY_kana_middledot: 1189
+            KEY_kana_o: 1195
+            KEY_kana_openingbracket: 1186
+            KEY_kana_switch: 65406
+            KEY_kana_tsu: 1199
+            KEY_kana_tu: 1199
+            KEY_kana_u: 1193
+            KEY_kana_ya: 1196
+            KEY_kana_yo: 1198
+            KEY_kana_yu: 1197
+            KEY_kappa: 930
+            KEY_kcedilla: 1011
+            KEY_kra: 930
+            KEY_l: 108
+            KEY_lacute: 485
+            KEY_latincross: 2777
+            KEY_lbelowdot: 16784951
+            KEY_lcaron: 437
+            KEY_lcedilla: 950
+            KEY_leftanglebracket: 2748
+            KEY_leftarrow: 2299
+            KEY_leftcaret: 2979
+            KEY_leftdoublequotemark: 2770
+            KEY_leftmiddlecurlybrace: 2223
+            KEY_leftopentriangle: 2764
+            KEY_leftpointer: 2794
+            KEY_leftradical: 2209
+            KEY_leftshoe: 3034
+            KEY_leftsinglequotemark: 2768
+            KEY_leftt: 2548
+            KEY_lefttack: 3036
+            KEY_less: 60
+            KEY_lessthanequal: 2236
+            KEY_lf: 2533
+            KEY_logicaland: 2270
+            KEY_logicalor: 2271
+            KEY_lowleftcorner: 2541
+            KEY_lowrightcorner: 2538
+            KEY_lstroke: 435
+            KEY_m: 109
+            KEY_mabovedot: 16784961
+            KEY_macron: 175
+            KEY_malesymbol: 2807
+            KEY_maltesecross: 2800
+            KEY_marker: 2751
+            KEY_masculine: 186
+            KEY_minus: 45
+            KEY_minutes: 2774
+            KEY_mu: 181
+            KEY_multiply: 215
+            KEY_musicalflat: 2806
+            KEY_musicalsharp: 2805
+            KEY_n: 110
+            KEY_nabla: 2245
+            KEY_nacute: 497
+            KEY_ncaron: 498
+            KEY_ncedilla: 1009
+            KEY_ninesubscript: 16785545
+            KEY_ninesuperior: 16785529
+            KEY_nl: 2536
+            KEY_nobreakspace: 160
+            KEY_notapproxeq: 16785991
+            KEY_notelementof: 16785929
+            KEY_notequal: 2237
+            KEY_notidentical: 16786018
+            KEY_notsign: 172
+            KEY_ntilde: 241
+            KEY_numbersign: 35
+            KEY_numerosign: 1712
+            KEY_o: 111
+            KEY_oacute: 243
+            KEY_obarred: 16777845
+            KEY_obelowdot: 16785101
+            KEY_ocaron: 16777682
+            KEY_ocircumflex: 244
+            KEY_ocircumflexacute: 16785105
+            KEY_ocircumflexbelowdot: 16785113
+            KEY_ocircumflexgrave: 16785107
+            KEY_ocircumflexhook: 16785109
+            KEY_ocircumflextilde: 16785111
+            KEY_odiaeresis: 246
+            KEY_odoubleacute: 501
+            KEY_oe: 5053
+            KEY_ogonek: 434
+            KEY_ograve: 242
+            KEY_ohook: 16785103
+            KEY_ohorn: 16777633
+            KEY_ohornacute: 16785115
+            KEY_ohornbelowdot: 16785123
+            KEY_ohorngrave: 16785117
+            KEY_ohornhook: 16785119
+            KEY_ohorntilde: 16785121
+            KEY_omacron: 1010
+            KEY_oneeighth: 2755
+            KEY_onefifth: 2738
+            KEY_onehalf: 189
+            KEY_onequarter: 188
+            KEY_onesixth: 2742
+            KEY_onesubscript: 16785537
+            KEY_onesuperior: 185
+            KEY_onethird: 2736
+            KEY_ooblique: 248
+            KEY_openrectbullet: 2786
+            KEY_openstar: 2789
+            KEY_opentribulletdown: 2788
+            KEY_opentribulletup: 2787
+            KEY_ordfeminine: 170
+            KEY_ordmasculine: 186
+            KEY_oslash: 248
+            KEY_otilde: 245
+            KEY_overbar: 3008
+            KEY_overline: 1150
+            KEY_p: 112
+            KEY_pabovedot: 16784983
+            KEY_paragraph: 182
+            KEY_parenleft: 40
+            KEY_parenright: 41
+            KEY_partdifferential: 16785922
+            KEY_partialderivative: 2287
+            KEY_percent: 37
+            KEY_period: 46
+            KEY_periodcentered: 183
+            KEY_permille: 2773
+            KEY_phonographcopyright: 2811
+            KEY_plus: 43
+            KEY_plusminus: 177
+            KEY_prescription: 2772
+            KEY_prolongedsound: 1200
+            KEY_punctspace: 2726
+            KEY_q: 113
+            KEY_quad: 3020
+            KEY_question: 63
+            KEY_questiondown: 191
+            KEY_quotedbl: 34
+            KEY_quoteleft: 96
+            KEY_quoteright: 39
+            KEY_r: 114
+            KEY_racute: 480
+            KEY_radical: 2262
+            KEY_rcaron: 504
+            KEY_rcedilla: 947
+            KEY_registered: 174
+            KEY_rightanglebracket: 2750
+            KEY_rightarrow: 2301
+            KEY_rightcaret: 2982
+            KEY_rightdoublequotemark: 2771
+            KEY_rightmiddlecurlybrace: 2224
+            KEY_rightmiddlesummation: 2231
+            KEY_rightopentriangle: 2765
+            KEY_rightpointer: 2795
+            KEY_rightshoe: 3032
+            KEY_rightsinglequotemark: 2769
+            KEY_rightt: 2549
+            KEY_righttack: 3068
+            KEY_s: 115
+            KEY_sabovedot: 16784993
+            KEY_sacute: 438
+            KEY_scaron: 441
+            KEY_scedilla: 442
+            KEY_schwa: 16777817
+            KEY_scircumflex: 766
+            KEY_script_switch: 65406
+            KEY_seconds: 2775
+            KEY_section: 167
+            KEY_semicolon: 59
+            KEY_semivoicedsound: 1247
+            KEY_seveneighths: 2758
+            KEY_sevensubscript: 16785543
+            KEY_sevensuperior: 16785527
+            KEY_signaturemark: 2762
+            KEY_signifblank: 2732
+            KEY_similarequal: 2249
+            KEY_singlelowquotemark: 2813
+            KEY_sixsubscript: 16785542
+            KEY_sixsuperior: 16785526
+            KEY_slash: 47
+            KEY_soliddiamond: 2528
+            KEY_space: 32
+            KEY_squareroot: 16785946
+            KEY_ssharp: 223
+            KEY_sterling: 163
+            KEY_stricteq: 16786019
+            KEY_t: 116
+            KEY_tabovedot: 16785003
+            KEY_tcaron: 443
+            KEY_tcedilla: 510
+            KEY_telephone: 2809
+            KEY_telephonerecorder: 2810
+            KEY_therefore: 2240
+            KEY_thinspace: 2727
+            KEY_thorn: 254
+            KEY_threeeighths: 2756
+            KEY_threefifths: 2740
+            KEY_threequarters: 190
+            KEY_threesubscript: 16785539
+            KEY_threesuperior: 179
+            KEY_tintegral: 16785965
+            KEY_topintegral: 2212
+            KEY_topleftparens: 2219
+            KEY_topleftradical: 2210
+            KEY_topleftsqbracket: 2215
+            KEY_topleftsummation: 2225
+            KEY_toprightparens: 2221
+            KEY_toprightsqbracket: 2217
+            KEY_toprightsummation: 2229
+            KEY_topt: 2551
+            KEY_topvertsummationconnector: 2227
+            KEY_trademark: 2761
+            KEY_trademarkincircle: 2763
+            KEY_tslash: 956
+            KEY_twofifths: 2739
+            KEY_twosubscript: 16785538
+            KEY_twosuperior: 178
+            KEY_twothirds: 2737
+            KEY_u: 117
+            KEY_uacute: 250
+            KEY_ubelowdot: 16785125
+            KEY_ubreve: 765
+            KEY_ucircumflex: 251
+            KEY_udiaeresis: 252
+            KEY_udoubleacute: 507
+            KEY_ugrave: 249
+            KEY_uhook: 16785127
+            KEY_uhorn: 16777648
+            KEY_uhornacute: 16785129
+            KEY_uhornbelowdot: 16785137
+            KEY_uhorngrave: 16785131
+            KEY_uhornhook: 16785133
+            KEY_uhorntilde: 16785135
+            KEY_umacron: 1022
+            KEY_underbar: 3014
+            KEY_underscore: 95
+            KEY_union: 2269
+            KEY_uogonek: 1017
+            KEY_uparrow: 2300
+            KEY_upcaret: 2985
+            KEY_upleftcorner: 2540
+            KEY_uprightcorner: 2539
+            KEY_upshoe: 3011
+            KEY_upstile: 3027
+            KEY_uptack: 3022
+            KEY_uring: 505
+            KEY_utilde: 1021
+            KEY_v: 118
+            KEY_variation: 2241
+            KEY_vertbar: 2552
+            KEY_vertconnector: 2214
+            KEY_voicedsound: 1246
+            KEY_vt: 2537
+            KEY_w: 119
+            KEY_wacute: 16785027
+            KEY_wcircumflex: 16777589
+            KEY_wdiaeresis: 16785029
+            KEY_wgrave: 16785025
+            KEY_x: 120
+            KEY_xabovedot: 16785035
+            KEY_y: 121
+            KEY_yacute: 253
+            KEY_ybelowdot: 16785141
+            KEY_ycircumflex: 16777591
+            KEY_ydiaeresis: 255
+            KEY_yen: 165
+            KEY_ygrave: 16785139
+            KEY_yhook: 16785143
+            KEY_ytilde: 16785145
+            KEY_z: 122
+            KEY_zabovedot: 447
+            KEY_zacute: 444
+            KEY_zcaron: 446
+            KEY_zerosubscript: 16785536
+            KEY_zerosuperior: 16785520
+            KEY_zstroke: 16777654
+            KP_0: 65456
+            KP_1: 65457
+            KP_2: 65458
+            KP_3: 65459
+            KP_4: 65460
+            KP_5: 65461
+            KP_6: 65462
+            KP_7: 65463
+            KP_8: 65464
+            KP_9: 65465
+            KP_Add: 65451
+            KP_Begin: 65437
+            KP_Decimal: 65454
+            KP_Delete: 65439
+            KP_Divide: 65455
+            KP_Down: 65433
+            KP_End: 65436
+            KP_Enter: 65421
+            KP_Equal: 65469
+            KP_F1: 65425
+            KP_F2: 65426
+            KP_F3: 65427
+            KP_F4: 65428
+            KP_Home: 65429
+            KP_Insert: 65438
+            KP_Left: 65430
+            KP_Multiply: 65450
+            KP_Next: 65435
+            KP_Page_Down: 65435
+            KP_Page_Up: 65434
+            KP_Prior: 65434
+            KP_Right: 65432
+            KP_Separator: 65452
+            KP_Space: 65408
+            KP_Subtract: 65453
+            KP_Tab: 65417
+            KP_Up: 65431
+            Kana_Lock: 65325
+            Kana_Shift: 65326
+            Kanji: 65313
+            Kanji_Bangou: 65335
+            Katakana: 65318
+            Kcedilla: 979
+            Korean_Won: 3839
+            L: 76
+            L1: 65480
+            L10: 65489
+            L2: 65481
+            L3: 65482
+            L4: 65483
+            L5: 65484
+            L6: 65485
+            L7: 65486
+            L8: 65487
+            L9: 65488
+            Lacute: 453
+            Last_Virtual_Screen: 65236
+            Lbelowdot: 16784950
+            Lcaron: 421
+            Lcedilla: 934
+            Left: 65361
+            Linefeed: 65290
+            LiraSign: 16785572
+            Lstroke: 419
+            M: 77
+            MAJOR_VERSION: 1
+            MAX_COMPOSE_LEN: 255
+            MICRO_VERSION: 32
+            MINOR_VERSION: 5
+            MODIFIER_FILTER: 1124073709
+            Mabovedot: 16784960
+            Macedonia_DSE: 1717
+            Macedonia_GJE: 1714
+            Macedonia_KJE: 1724
+            Macedonia_dse: 1701
+            Macedonia_gje: 1698
+            Macedonia_kje: 1708
+            Mae_Koho: 65342
+            Massyo: 65324
+            Menu: 65383
+            Meta_L: 65511
+            Meta_R: 65512
+            MillSign: 16785573
+            Mode_switch: 65406
+            MouseKeys_Accel_Enable: 65143
+            MouseKeys_Enable: 65142
+            Muhenkan: 65314
+            Multi_key: 65312
+            MultipleCandidate: 65341
+            N: 78
+            Nacute: 465
+            NairaSign: 16785574
+            Ncaron: 466
+            Ncedilla: 977
+            NewSheqelSign: 16785578
+            Next: 65366
+            Next_Virtual_Screen: 65234
+            Ntilde: 209
+            Num_Lock: 65407
+            O: 79
+            OE: 5052
+            Oacute: 211
+            Obarred: 16777631
+            Obelowdot: 16785100
+            Ocaron: 16777681
+            Ocircumflex: 212
+            Ocircumflexacute: 16785104
+            Ocircumflexbelowdot: 16785112
+            Ocircumflexgrave: 16785106
+            Ocircumflexhook: 16785108
+            Ocircumflextilde: 16785110
+            Odiaeresis: 214
+            Odoubleacute: 469
+            Ograve: 210
+            Ohook: 16785102
+            Ohorn: 16777632
+            Ohornacute: 16785114
+            Ohornbelowdot: 16785122
+            Ohorngrave: 16785116
+            Ohornhook: 16785118
+            Ohorntilde: 16785120
+            Omacron: 978
+            Ooblique: 216
+            Oslash: 216
+            Otilde: 213
+            Overlay1_Enable: 65144
+            Overlay2_Enable: 65145
+            P: 80
+            PATH_CONFIG: "/org/freedesktop/IBus/Config"
+            PATH_FACTORY: "/org/freedesktop/IBus/Factory"
+            PATH_IBUS: "/org/freedesktop/IBus"
+            PATH_INPUT_CONTEXT: "/org/freedesktop/IBus/InputContext_%d"
+            PATH_NOTIFICATIONS: "/org/freedesktop/IBus/Notifications"
+            PATH_PANEL: "/org/freedesktop/IBus/Panel"
+            PATH_PANEL_EXTENSION_EMOJI: "/org/freedesktop/IBus/Panel/Extension/Emoji"
+            Pabovedot: 16784982
+            Page_Down: 65366
+            Page_Up: 65365
+            Pause: 65299
+            PesetaSign: 16785575
+            Pointer_Accelerate: 65274
+            Pointer_Button1: 65257
+            Pointer_Button2: 65258
+            Pointer_Button3: 65259
+            Pointer_Button4: 65260
+            Pointer_Button5: 65261
+            Pointer_Button_Dflt: 65256
+            Pointer_DblClick1: 65263
+            Pointer_DblClick2: 65264
+            Pointer_DblClick3: 65265
+            Pointer_DblClick4: 65266
+            Pointer_DblClick5: 65267
+            Pointer_DblClick_Dflt: 65262
+            Pointer_DfltBtnNext: 65275
+            Pointer_DfltBtnPrev: 65276
+            Pointer_Down: 65251
+            Pointer_DownLeft: 65254
+            Pointer_DownRight: 65255
+            Pointer_Drag1: 65269
+            Pointer_Drag2: 65270
+            Pointer_Drag3: 65271
+            Pointer_Drag4: 65272
+            Pointer_Drag5: 65277
+            Pointer_Drag_Dflt: 65268
+            Pointer_EnableKeys: 65273
+            Pointer_Left: 65248
+            Pointer_Right: 65249
+            Pointer_Up: 65250
+            Pointer_UpLeft: 65252
+            Pointer_UpRight: 65253
+            Prev_Virtual_Screen: 65233
+            PreviousCandidate: 65342
+            Print: 65377
+            Prior: 65365
+            Q: 81
+            R: 82
+            R1: 65490
+            R10: 65499
+            R11: 65500
+            R12: 65501
+            R13: 65502
+            R14: 65503
+            R15: 65504
+            R2: 65491
+            R3: 65492
+            R4: 65493
+            R5: 65494
+            R6: 65495
+            R7: 65496
+            R8: 65497
+            R9: 65498
+            Racute: 448
+            Rcaron: 472
+            Rcedilla: 931
+            Redo: 65382
+            RepeatKeys_Enable: 65138
+            Return: 65293
+            Right: 65363
+            Romaji: 65316
+            RupeeSign: 16785576
+            S: 83
+            SCHWA: 16777615
+            SERVICE_CONFIG: "org.freedesktop.IBus.Config"
+            SERVICE_IBUS: "org.freedesktop.IBus"
+            SERVICE_NOTIFICATIONS: "org.freedesktop.IBus.Notifications"
+            SERVICE_PANEL: "org.freedesktop.IBus.Panel"
+            SERVICE_PANEL_EXTENSION: "org.freedesktop.IBus.Panel.Extension"
+            SERVICE_PANEL_EXTENSION_EMOJI: "org.freedesktop.IBus.Panel.Extension.Emoji"
+            SERVICE_PORTAL: "org.freedesktop.portal.IBus"
+            Sabovedot: 16784992
+            Sacute: 422
+            Scaron: 425
+            Scedilla: 426
+            Scircumflex: 734
+            Scroll_Lock: 65300
+            Select: 65376
+            Serbian_DJE: 1713
+            Serbian_DZE: 1727
+            Serbian_JE: 1720
+            Serbian_LJE: 1721
+            Serbian_NJE: 1722
+            Serbian_TSHE: 1723
+            Serbian_dje: 1697
+            Serbian_dze: 1711
+            Serbian_je: 1704
+            Serbian_lje: 1705
+            Serbian_nje: 1706
+            Serbian_tshe: 1707
+            Shift_L: 65505
+            Shift_Lock: 65510
+            Shift_R: 65506
+            SingleCandidate: 65340
+            SlowKeys_Enable: 65139
+            StickyKeys_Enable: 65141
+            Super_L: 65515
+            Super_R: 65516
+            Sys_Req: 65301
+            T: 84
+            THORN: 222
+            Tab: 65289
+            Tabovedot: 16785002
+            Tcaron: 427
+            Tcedilla: 478
+            Terminate_Server: 65237
+            Thai_baht: 3551
+            Thai_bobaimai: 3514
+            Thai_chochan: 3496
+            Thai_chochang: 3498
+            Thai_choching: 3497
+            Thai_chochoe: 3500
+            Thai_dochada: 3502
+            Thai_dodek: 3508
+            Thai_fofa: 3517
+            Thai_fofan: 3519
+            Thai_hohip: 3531
+            Thai_honokhuk: 3534
+            Thai_khokhai: 3490
+            Thai_khokhon: 3493
+            Thai_khokhuat: 3491
+            Thai_khokhwai: 3492
+            Thai_khorakhang: 3494
+            Thai_kokai: 3489
+            Thai_lakkhangyao: 3557
+            Thai_lekchet: 3575
+            Thai_lekha: 3573
+            Thai_lekhok: 3574
+            Thai_lekkao: 3577
+            Thai_leknung: 3569
+            Thai_lekpaet: 3576
+            Thai_leksam: 3571
+            Thai_leksi: 3572
+            Thai_leksong: 3570
+            Thai_leksun: 3568
+            Thai_lochula: 3532
+            Thai_loling: 3525
+            Thai_lu: 3526
+            Thai_maichattawa: 3563
+            Thai_maiek: 3560
+            Thai_maihanakat: 3537
+            Thai_maihanakat_maitho: 3550
+            Thai_maitaikhu: 3559
+            Thai_maitho: 3561
+            Thai_maitri: 3562
+            Thai_maiyamok: 3558
+            Thai_moma: 3521
+            Thai_ngongu: 3495
+            Thai_nikhahit: 3565
+            Thai_nonen: 3507
+            Thai_nonu: 3513
+            Thai_oang: 3533
+            Thai_paiyannoi: 3535
+            Thai_phinthu: 3546
+            Thai_phophan: 3518
+            Thai_phophung: 3516
+            Thai_phosamphao: 3520
+            Thai_popla: 3515
+            Thai_rorua: 3523
+            Thai_ru: 3524
+            Thai_saraa: 3536
+            Thai_saraaa: 3538
+            Thai_saraae: 3553
+            Thai_saraaimaimalai: 3556
+            Thai_saraaimaimuan: 3555
+            Thai_saraam: 3539
+            Thai_sarae: 3552
+            Thai_sarai: 3540
+            Thai_saraii: 3541
+            Thai_sarao: 3554
+            Thai_sarau: 3544
+            Thai_saraue: 3542
+            Thai_sarauee: 3543
+            Thai_sarauu: 3545
+            Thai_sorusi: 3529
+            Thai_sosala: 3528
+            Thai_soso: 3499
+            Thai_sosua: 3530
+            Thai_thanthakhat: 3564
+            Thai_thonangmontho: 3505
+            Thai_thophuthao: 3506
+            Thai_thothahan: 3511
+            Thai_thothan: 3504
+            Thai_thothong: 3512
+            Thai_thothung: 3510
+            Thai_topatak: 3503
+            Thai_totao: 3509
+            Thai_wowaen: 3527
+            Thai_yoyak: 3522
+            Thai_yoying: 3501
+            Thorn: 222
+            Touroku: 65323
+            Tslash: 940
+            U: 85
+            Uacute: 218
+            Ubelowdot: 16785124
+            Ubreve: 733
+            Ucircumflex: 219
+            Udiaeresis: 220
+            Udoubleacute: 475
+            Ugrave: 217
+            Uhook: 16785126
+            Uhorn: 16777647
+            Uhornacute: 16785128
+            Uhornbelowdot: 16785136
+            Uhorngrave: 16785130
+            Uhornhook: 16785132
+            Uhorntilde: 16785134
+            Ukrainian_GHE_WITH_UPTURN: 1725
+            Ukrainian_I: 1718
+            Ukrainian_IE: 1716
+            Ukrainian_YI: 1719
+            Ukrainian_ghe_with_upturn: 1709
+            Ukrainian_i: 1702
+            Ukrainian_ie: 1700
+            Ukrainian_yi: 1703
+            Ukranian_I: 1718
+            Ukranian_JE: 1716
+            Ukranian_YI: 1719
+            Ukranian_i: 1702
+            Ukranian_je: 1700
+            Ukranian_yi: 1703
+            Umacron: 990
+            Undo: 65381
+            Uogonek: 985
+            Up: 65362
+            Uring: 473
+            Utilde: 989
+            V: 86
+            VoidSymbol: 16777215
+            W: 87
+            Wacute: 16785026
+            Wcircumflex: 16777588
+            Wdiaeresis: 16785028
+            Wgrave: 16785024
+            WonSign: 16785577
+            X: 88
+            Xabovedot: 16785034
+            Y: 89
+            Yacute: 221
+            Ybelowdot: 16785140
+            Ycircumflex: 16777590
+            Ydiaeresis: 5054
+            Ygrave: 16785138
+            Yhook: 16785142
+            Ytilde: 16785144
+            Z: 90
+            Zabovedot: 431
+            Zacute: 428
+            Zcaron: 430
+            Zen_Koho: 65341
+            Zenkaku: 65320
+            Zenkaku_Hankaku: 65322
+            Zstroke: 16777653
+            a: 97
+            aacute: 225
+            abelowdot: 16785057
+            abovedot: 511
+            abreve: 483
+            abreveacute: 16785071
+            abrevebelowdot: 16785079
+            abrevegrave: 16785073
+            abrevehook: 16785075
+            abrevetilde: 16785077
+            acircumflex: 226
+            acircumflexacute: 16785061
+            acircumflexbelowdot: 16785069
+            acircumflexgrave: 16785063
+            acircumflexhook: 16785065
+            acircumflextilde: 16785067
+            acute: 180
+            adiaeresis: 228
+            ae: 230
+            agrave: 224
+            ahook: 16785059
+            amacron: 992
+            ampersand: 38
+            aogonek: 433
+            apostrophe: 39
+            approxeq: 16785992
+            approximate: 2248
+            aring: 229
+            asciicircum: 94
+            asciitilde: 126
+            asterisk: 42
+            at: 64
+            atilde: 227
+            b: 98
+            babovedot: 16784899
+            backslash: 92
+            ballotcross: 2804
+            bar: 124
+            because: 16785973
+            blank: 2527
+            botintegral: 2213
+            botleftparens: 2220
+            botleftsqbracket: 2216
+            botleftsummation: 2226
+            botrightparens: 2222
+            botrightsqbracket: 2218
+            botrightsummation: 2230
+            bott: 2550
+            botvertsummationconnector: 2228
+            braceleft: 123
+            braceright: 125
+            bracketleft: 91
+            bracketright: 93
+            braille_blank: 16787456
+            braille_dot_1: 65521
+            braille_dot_10: 65530
+            braille_dot_2: 65522
+            braille_dot_3: 65523
+            braille_dot_4: 65524
+            braille_dot_5: 65525
+            braille_dot_6: 65526
+            braille_dot_7: 65527
+            braille_dot_8: 65528
+            braille_dot_9: 65529
+            braille_dots_1: 16787457
+            braille_dots_12: 16787459
+            braille_dots_123: 16787463
+            braille_dots_1234: 16787471
+            braille_dots_12345: 16787487
+            braille_dots_123456: 16787519
+            braille_dots_1234567: 16787583
+            braille_dots_12345678: 16787711
+            braille_dots_1234568: 16787647
+            braille_dots_123457: 16787551
+            braille_dots_1234578: 16787679
+            braille_dots_123458: 16787615
+            braille_dots_12346: 16787503
+            braille_dots_123467: 16787567
+            braille_dots_1234678: 16787695
+            braille_dots_123468: 16787631
+            braille_dots_12347: 16787535
+            braille_dots_123478: 16787663
+            braille_dots_12348: 16787599
+            braille_dots_1235: 16787479
+            braille_dots_12356: 16787511
+            braille_dots_123567: 16787575
+            braille_dots_1235678: 16787703
+            braille_dots_123568: 16787639
+            braille_dots_12357: 16787543
+            braille_dots_123578: 16787671
+            braille_dots_12358: 16787607
+            braille_dots_1236: 16787495
+            braille_dots_12367: 16787559
+            braille_dots_123678: 16787687
+            braille_dots_12368: 16787623
+            braille_dots_1237: 16787527
+            braille_dots_12378: 16787655
+            braille_dots_1238: 16787591
+            braille_dots_124: 16787467
+            braille_dots_1245: 16787483
+            braille_dots_12456: 16787515
+            braille_dots_124567: 16787579
+            braille_dots_1245678: 16787707
+            braille_dots_124568: 16787643
+            braille_dots_12457: 16787547
+            braille_dots_124578: 16787675
+            braille_dots_12458: 16787611
+            braille_dots_1246: 16787499
+            braille_dots_12467: 16787563
+            braille_dots_124678: 16787691
+            braille_dots_12468: 16787627
+            braille_dots_1247: 16787531
+            braille_dots_12478: 16787659
+            braille_dots_1248: 16787595
+            braille_dots_125: 16787475
+            braille_dots_1256: 16787507
+            braille_dots_12567: 16787571
+            braille_dots_125678: 16787699
+            braille_dots_12568: 16787635
+            braille_dots_1257: 16787539
+            braille_dots_12578: 16787667
+            braille_dots_1258: 16787603
+            braille_dots_126: 16787491
+            braille_dots_1267: 16787555
+            braille_dots_12678: 16787683
+            braille_dots_1268: 16787619
+            braille_dots_127: 16787523
+            braille_dots_1278: 16787651
+            braille_dots_128: 16787587
+            braille_dots_13: 16787461
+            braille_dots_134: 16787469
+            braille_dots_1345: 16787485
+            braille_dots_13456: 16787517
+            braille_dots_134567: 16787581
+            braille_dots_1345678: 16787709
+            braille_dots_134568: 16787645
+            braille_dots_13457: 16787549
+            braille_dots_134578: 16787677
+            braille_dots_13458: 16787613
+            braille_dots_1346: 16787501
+            braille_dots_13467: 16787565
+            braille_dots_134678: 16787693
+            braille_dots_13468: 16787629
+            braille_dots_1347: 16787533
+            braille_dots_13478: 16787661
+            braille_dots_1348: 16787597
+            braille_dots_135: 16787477
+            braille_dots_1356: 16787509
+            braille_dots_13567: 16787573
+            braille_dots_135678: 16787701
+            braille_dots_13568: 16787637
+            braille_dots_1357: 16787541
+            braille_dots_13578: 16787669
+            braille_dots_1358: 16787605
+            braille_dots_136: 16787493
+            braille_dots_1367: 16787557
+            braille_dots_13678: 16787685
+            braille_dots_1368: 16787621
+            braille_dots_137: 16787525
+            braille_dots_1378: 16787653
+            braille_dots_138: 16787589
+            braille_dots_14: 16787465
+            braille_dots_145: 16787481
+            braille_dots_1456: 16787513
+            braille_dots_14567: 16787577
+            braille_dots_145678: 16787705
+            braille_dots_14568: 16787641
+            braille_dots_1457: 16787545
+            braille_dots_14578: 16787673
+            braille_dots_1458: 16787609
+            braille_dots_146: 16787497
+            braille_dots_1467: 16787561
+            braille_dots_14678: 16787689
+            braille_dots_1468: 16787625
+            braille_dots_147: 16787529
+            braille_dots_1478: 16787657
+            braille_dots_148: 16787593
+            braille_dots_15: 16787473
+            braille_dots_156: 16787505
+            braille_dots_1567: 16787569
+            braille_dots_15678: 16787697
+            braille_dots_1568: 16787633
+            braille_dots_157: 16787537
+            braille_dots_1578: 16787665
+            braille_dots_158: 16787601
+            braille_dots_16: 16787489
+            braille_dots_167: 16787553
+            braille_dots_1678: 16787681
+            braille_dots_168: 16787617
+            braille_dots_17: 16787521
+            braille_dots_178: 16787649
+            braille_dots_18: 16787585
+            braille_dots_2: 16787458
+            braille_dots_23: 16787462
+            braille_dots_234: 16787470
+            braille_dots_2345: 16787486
+            braille_dots_23456: 16787518
+            braille_dots_234567: 16787582
+            braille_dots_2345678: 16787710
+            braille_dots_234568: 16787646
+            braille_dots_23457: 16787550
+            braille_dots_234578: 16787678
+            braille_dots_23458: 16787614
+            braille_dots_2346: 16787502
+            braille_dots_23467: 16787566
+            braille_dots_234678: 16787694
+            braille_dots_23468: 16787630
+            braille_dots_2347: 16787534
+            braille_dots_23478: 16787662
+            braille_dots_2348: 16787598
+            braille_dots_235: 16787478
+            braille_dots_2356: 16787510
+            braille_dots_23567: 16787574
+            braille_dots_235678: 16787702
+            braille_dots_23568: 16787638
+            braille_dots_2357: 16787542
+            braille_dots_23578: 16787670
+            braille_dots_2358: 16787606
+            braille_dots_236: 16787494
+            braille_dots_2367: 16787558
+            braille_dots_23678: 16787686
+            braille_dots_2368: 16787622
+            braille_dots_237: 16787526
+            braille_dots_2378: 16787654
+            braille_dots_238: 16787590
+            braille_dots_24: 16787466
+            braille_dots_245: 16787482
+            braille_dots_2456: 16787514
+            braille_dots_24567: 16787578
+            braille_dots_245678: 16787706
+            braille_dots_24568: 16787642
+            braille_dots_2457: 16787546
+            braille_dots_24578: 16787674
+            braille_dots_2458: 16787610
+            braille_dots_246: 16787498
+            braille_dots_2467: 16787562
+            braille_dots_24678: 16787690
+            braille_dots_2468: 16787626
+            braille_dots_247: 16787530
+            braille_dots_2478: 16787658
+            braille_dots_248: 16787594
+            braille_dots_25: 16787474
+            braille_dots_256: 16787506
+            braille_dots_2567: 16787570
+            braille_dots_25678: 16787698
+            braille_dots_2568: 16787634
+            braille_dots_257: 16787538
+            braille_dots_2578: 16787666
+            braille_dots_258: 16787602
+            braille_dots_26: 16787490
+            braille_dots_267: 16787554
+            braille_dots_2678: 16787682
+            braille_dots_268: 16787618
+            braille_dots_27: 16787522
+            braille_dots_278: 16787650
+            braille_dots_28: 16787586
+            braille_dots_3: 16787460
+            braille_dots_34: 16787468
+            braille_dots_345: 16787484
+            braille_dots_3456: 16787516
+            braille_dots_34567: 16787580
+            braille_dots_345678: 16787708
+            braille_dots_34568: 16787644
+            braille_dots_3457: 16787548
+            braille_dots_34578: 16787676
+            braille_dots_3458: 16787612
+            braille_dots_346: 16787500
+            braille_dots_3467: 16787564
+            braille_dots_34678: 16787692
+            braille_dots_3468: 16787628
+            braille_dots_347: 16787532
+            braille_dots_3478: 16787660
+            braille_dots_348: 16787596
+            braille_dots_35: 16787476
+            braille_dots_356: 16787508
+            braille_dots_3567: 16787572
+            braille_dots_35678: 16787700
+            braille_dots_3568: 16787636
+            braille_dots_357: 16787540
+            braille_dots_3578: 16787668
+            braille_dots_358: 16787604
+            braille_dots_36: 16787492
+            braille_dots_367: 16787556
+            braille_dots_3678: 16787684
+            braille_dots_368: 16787620
+            braille_dots_37: 16787524
+            braille_dots_378: 16787652
+            braille_dots_38: 16787588
+            braille_dots_4: 16787464
+            braille_dots_45: 16787480
+            braille_dots_456: 16787512
+            braille_dots_4567: 16787576
+            braille_dots_45678: 16787704
+            braille_dots_4568: 16787640
+            braille_dots_457: 16787544
+            braille_dots_4578: 16787672
+            braille_dots_458: 16787608
+            braille_dots_46: 16787496
+            braille_dots_467: 16787560
+            braille_dots_4678: 16787688
+            braille_dots_468: 16787624
+            braille_dots_47: 16787528
+            braille_dots_478: 16787656
+            braille_dots_48: 16787592
+            braille_dots_5: 16787472
+            braille_dots_56: 16787504
+            braille_dots_567: 16787568
+            braille_dots_5678: 16787696
+            braille_dots_568: 16787632
+            braille_dots_57: 16787536
+            braille_dots_578: 16787664
+            braille_dots_58: 16787600
+            braille_dots_6: 16787488
+            braille_dots_67: 16787552
+            braille_dots_678: 16787680
+            braille_dots_68: 16787616
+            braille_dots_7: 16787520
+            braille_dots_78: 16787648
+            braille_dots_8: 16787584
+            breve: 418
+            brokenbar: 166
+            c: 99
+            cabovedot: 741
+            cacute: 486
+            careof: 2744
+            caret: 2812
+            caron: 439
+            ccaron: 488
+            ccedilla: 231
+            ccircumflex: 742
+            cedilla: 184
+            cent: 162
+            checkerboard: 2529
+            checkmark: 2803
+            circle: 3023
+            club: 2796
+            colon: 58
+            comma: 44
+            containsas: 16785931
+            copyright: 169
+            cr: 2532
+            crossinglines: 2542
+            cuberoot: 16785947
+            currency: 164
+            cursor: 2815
+            d: 100
+            dabovedot: 16784907
+            dagger: 2801
+            dcaron: 495
+            dead_abovecomma: 65124
+            dead_abovedot: 65110
+            dead_abovereversedcomma: 65125
+            dead_abovering: 65112
+            dead_acute: 65105
+            dead_belowbreve: 65131
+            dead_belowcircumflex: 65129
+            dead_belowdiaeresis: 65132
+            dead_belowdot: 65120
+            dead_belowmacron: 65128
+            dead_belowring: 65127
+            dead_belowtilde: 65130
+            dead_breve: 65109
+            dead_caron: 65114
+            dead_cedilla: 65115
+            dead_circumflex: 65106
+            dead_dasia: 65125
+            dead_diaeresis: 65111
+            dead_doubleacute: 65113
+            dead_grave: 65104
+            dead_hook: 65121
+            dead_horn: 65122
+            dead_iota: 65117
+            dead_macron: 65108
+            dead_ogonek: 65116
+            dead_perispomeni: 65107
+            dead_psili: 65124
+            dead_semivoiced_sound: 65119
+            dead_stroke: 65123
+            dead_tilde: 65107
+            dead_voiced_sound: 65118
+            decimalpoint: 2749
+            degree: 176
+            diaeresis: 168
+            diamond: 2797
+            digitspace: 2725
+            dintegral: 16785964
+            division: 247
+            dollar: 36
+            doubbaselinedot: 2735
+            doubleacute: 445
+            doubledagger: 2802
+            doublelowquotemark: 2814
+            downarrow: 2302
+            downcaret: 2984
+            downshoe: 3030
+            downstile: 3012
+            downtack: 3010
+            dstroke: 496
+            e: 101
+            eabovedot: 1004
+            eacute: 233
+            ebelowdot: 16785081
+            ecaron: 492
+            ecircumflex: 234
+            ecircumflexacute: 16785087
+            ecircumflexbelowdot: 16785095
+            ecircumflexgrave: 16785089
+            ecircumflexhook: 16785091
+            ecircumflextilde: 16785093
+            ediaeresis: 235
+            egrave: 232
+            ehook: 16785083
+            eightsubscript: 16785544
+            eightsuperior: 16785528
+            elementof: 16785928
+            ellipsis: 2734
+            em3space: 2723
+            em4space: 2724
+            emacron: 954
+            emdash: 2729
+            emfilledcircle: 2782
+            emfilledrect: 2783
+            emopencircle: 2766
+            emopenrectangle: 2767
+            emptyset: 16785925
+            emspace: 2721
+            endash: 2730
+            enfilledcircbullet: 2790
+            enfilledsqbullet: 2791
+            eng: 959
+            enopencircbullet: 2784
+            enopensquarebullet: 2785
+            enspace: 2722
+            eogonek: 490
+            equal: 61
+            eth: 240
+            etilde: 16785085
+            exclam: 33
+            exclamdown: 161
+            f: 102
+            fabovedot: 16784927
+            femalesymbol: 2808
+            ff: 2531
+            figdash: 2747
+            filledlefttribullet: 2780
+            filledrectbullet: 2779
+            filledrighttribullet: 2781
+            filledtribulletdown: 2793
+            filledtribulletup: 2792
+            fiveeighths: 2757
+            fivesixths: 2743
+            fivesubscript: 16785541
+            fivesuperior: 16785525
+            fourfifths: 2741
+            foursubscript: 16785540
+            foursuperior: 16785524
+            fourthroot: 16785948
+            function: 2294
+            g: 103
+            gabovedot: 757
+            gbreve: 699
+            gcaron: 16777703
+            gcedilla: 955
+            gcircumflex: 760
+            grave: 96
+            greater: 62
+            greaterthanequal: 2238
+            guillemotleft: 171
+            guillemotright: 187
+            h: 104
+            hairspace: 2728
+            hcircumflex: 694
+            heart: 2798
+            hebrew_aleph: 3296
+            hebrew_ayin: 3314
+            hebrew_bet: 3297
+            hebrew_beth: 3297
+            hebrew_chet: 3303
+            hebrew_dalet: 3299
+            hebrew_daleth: 3299
+            hebrew_doublelowline: 3295
+            hebrew_finalkaph: 3306
+            hebrew_finalmem: 3309
+            hebrew_finalnun: 3311
+            hebrew_finalpe: 3315
+            hebrew_finalzade: 3317
+            hebrew_finalzadi: 3317
+            hebrew_gimel: 3298
+            hebrew_gimmel: 3298
+            hebrew_he: 3300
+            hebrew_het: 3303
+            hebrew_kaph: 3307
+            hebrew_kuf: 3319
+            hebrew_lamed: 3308
+            hebrew_mem: 3310
+            hebrew_nun: 3312
+            hebrew_pe: 3316
+            hebrew_qoph: 3319
+            hebrew_resh: 3320
+            hebrew_samech: 3313
+            hebrew_samekh: 3313
+            hebrew_shin: 3321
+            hebrew_taf: 3322
+            hebrew_taw: 3322
+            hebrew_tet: 3304
+            hebrew_teth: 3304
+            hebrew_waw: 3301
+            hebrew_yod: 3305
+            hebrew_zade: 3318
+            hebrew_zadi: 3318
+            hebrew_zain: 3302
+            hebrew_zayin: 3302
+            hexagram: 2778
+            horizconnector: 2211
+            horizlinescan1: 2543
+            horizlinescan3: 2544
+            horizlinescan5: 2545
+            horizlinescan7: 2546
+            horizlinescan9: 2547
+            hstroke: 689
+            ht: 2530
+            hyphen: 173
+            i: 105
+            iacute: 237
+            ibelowdot: 16785099
+            ibreve: 16777517
+            icircumflex: 238
+            identical: 2255
+            idiaeresis: 239
+            idotless: 697
+            ifonlyif: 2253
+            igrave: 236
+            ihook: 16785097
+            imacron: 1007
+            implies: 2254
+            includedin: 2266
+            includes: 2267
+            infinity: 2242
+            integral: 2239
+            intersection: 2268
+            iogonek: 999
+            itilde: 949
+            j: 106
+            jcircumflex: 700
+            jot: 3018
+            k: 107
+            kana_A: 1201
+            kana_CHI: 1217
+            kana_E: 1204
+            kana_FU: 1228
+            kana_HA: 1226
+            kana_HE: 1229
+            kana_HI: 1227
+            kana_HO: 1230
+            kana_HU: 1228
+            kana_I: 1202
+            kana_KA: 1206
+            kana_KE: 1209
+            kana_KI: 1207
+            kana_KO: 1210
+            kana_KU: 1208
+            kana_MA: 1231
+            kana_ME: 1234
+            kana_MI: 1232
+            kana_MO: 1235
+            kana_MU: 1233
+            kana_N: 1245
+            kana_NA: 1221
+            kana_NE: 1224
+            kana_NI: 1222
+            kana_NO: 1225
+            kana_NU: 1223
+            kana_O: 1205
+            kana_RA: 1239
+            kana_RE: 1242
+            kana_RI: 1240
+            kana_RO: 1243
+            kana_RU: 1241
+            kana_SA: 1211
+            kana_SE: 1214
+            kana_SHI: 1212
+            kana_SO: 1215
+            kana_SU: 1213
+            kana_TA: 1216
+            kana_TE: 1219
+            kana_TI: 1217
+            kana_TO: 1220
+            kana_TSU: 1218
+            kana_TU: 1218
+            kana_U: 1203
+            kana_WA: 1244
+            kana_WO: 1190
+            kana_YA: 1236
+            kana_YO: 1238
+            kana_YU: 1237
+            kana_a: 1191
+            kana_closingbracket: 1187
+            kana_comma: 1188
+            kana_conjunctive: 1189
+            kana_e: 1194
+            kana_fullstop: 1185
+            kana_i: 1192
+            kana_middledot: 1189
+            kana_o: 1195
+            kana_openingbracket: 1186
+            kana_switch: 65406
+            kana_tsu: 1199
+            kana_tu: 1199
+            kana_u: 1193
+            kana_ya: 1196
+            kana_yo: 1198
+            kana_yu: 1197
+            kappa: 930
+            kcedilla: 1011
+            kra: 930
+            l: 108
+            lacute: 485
+            latincross: 2777
+            lbelowdot: 16784951
+            lcaron: 437
+            lcedilla: 950
+            leftanglebracket: 2748
+            leftarrow: 2299
+            leftcaret: 2979
+            leftdoublequotemark: 2770
+            leftmiddlecurlybrace: 2223
+            leftopentriangle: 2764
+            leftpointer: 2794
+            leftradical: 2209
+            leftshoe: 3034
+            leftsinglequotemark: 2768
+            leftt: 2548
+            lefttack: 3036
+            less: 60
+            lessthanequal: 2236
+            lf: 2533
+            logicaland: 2270
+            logicalor: 2271
+            lowleftcorner: 2541
+            lowrightcorner: 2538
+            lstroke: 435
+            m: 109
+            mabovedot: 16784961
+            macron: 175
+            malesymbol: 2807
+            maltesecross: 2800
+            marker: 2751
+            masculine: 186
+            minus: 45
+            minutes: 2774
+            mu: 181
+            multiply: 215
+            musicalflat: 2806
+            musicalsharp: 2805
+            n: 110
+            nabla: 2245
+            nacute: 497
+            ncaron: 498
+            ncedilla: 1009
+            ninesubscript: 16785545
+            ninesuperior: 16785529
+            nl: 2536
+            nobreakspace: 160
+            notapproxeq: 16785991
+            notelementof: 16785929
+            notequal: 2237
+            notidentical: 16786018
+            notsign: 172
+            ntilde: 241
+            numbersign: 35
+            numerosign: 1712
+            o: 111
+            oacute: 243
+            obarred: 16777845
+            obelowdot: 16785101
+            ocaron: 16777682
+            ocircumflex: 244
+            ocircumflexacute: 16785105
+            ocircumflexbelowdot: 16785113
+            ocircumflexgrave: 16785107
+            ocircumflexhook: 16785109
+            ocircumflextilde: 16785111
+            odiaeresis: 246
+            odoubleacute: 501
+            oe: 5053
+            ogonek: 434
+            ograve: 242
+            ohook: 16785103
+            ohorn: 16777633
+            ohornacute: 16785115
+            ohornbelowdot: 16785123
+            ohorngrave: 16785117
+            ohornhook: 16785119
+            ohorntilde: 16785121
+            omacron: 1010
+            oneeighth: 2755
+            onefifth: 2738
+            onehalf: 189
+            onequarter: 188
+            onesixth: 2742
+            onesubscript: 16785537
+            onesuperior: 185
+            onethird: 2736
+            ooblique: 248
+            openrectbullet: 2786
+            openstar: 2789
+            opentribulletdown: 2788
+            opentribulletup: 2787
+            ordfeminine: 170
+            oslash: 248
+            otilde: 245
+            overbar: 3008
+            overline: 1150
+            p: 112
+            pabovedot: 16784983
+            paragraph: 182
+            parenleft: 40
+            parenright: 41
+            partdifferential: 16785922
+            partialderivative: 2287
+            percent: 37
+            period: 46
+            periodcentered: 183
+            phonographcopyright: 2811
+            plus: 43
+            plusminus: 177
+            prescription: 2772
+            prolongedsound: 1200
+            punctspace: 2726
+            q: 113
+            quad: 3020
+            question: 63
+            questiondown: 191
+            quotedbl: 34
+            quoteleft: 96
+            quoteright: 39
+            r: 114
+            racute: 480
+            radical: 2262
+            rcaron: 504
+            rcedilla: 947
+            registered: 174
+            rightanglebracket: 2750
+            rightarrow: 2301
+            rightcaret: 2982
+            rightdoublequotemark: 2771
+            rightmiddlecurlybrace: 2224
+            rightmiddlesummation: 2231
+            rightopentriangle: 2765
+            rightpointer: 2795
+            rightshoe: 3032
+            rightsinglequotemark: 2769
+            rightt: 2549
+            righttack: 3068
+            s: 115
+            sabovedot: 16784993
+            sacute: 438
+            scaron: 441
+            scedilla: 442
+            schwa: 16777817
+            scircumflex: 766
+            script_switch: 65406
+            seconds: 2775
+            section: 167
+            semicolon: 59
+            semivoicedsound: 1247
+            seveneighths: 2758
+            sevensubscript: 16785543
+            sevensuperior: 16785527
+            signaturemark: 2762
+            signifblank: 2732
+            similarequal: 2249
+            singlelowquotemark: 2813
+            sixsubscript: 16785542
+            sixsuperior: 16785526
+            slash: 47
+            soliddiamond: 2528
+            space: 32
+            squareroot: 16785946
+            ssharp: 223
+            sterling: 163
+            stricteq: 16786019
+            t: 116
+            tabovedot: 16785003
+            tcaron: 443
+            tcedilla: 510
+            telephone: 2809
+            telephonerecorder: 2810
+            therefore: 2240
+            thinspace: 2727
+            thorn: 254
+            threeeighths: 2756
+            threefifths: 2740
+            threequarters: 190
+            threesubscript: 16785539
+            threesuperior: 179
+            tintegral: 16785965
+            topintegral: 2212
+            topleftparens: 2219
+            topleftradical: 2210
+            topleftsqbracket: 2215
+            topleftsummation: 2225
+            toprightparens: 2221
+            toprightsqbracket: 2217
+            toprightsummation: 2229
+            topt: 2551
+            topvertsummationconnector: 2227
+            trademark: 2761
+            trademarkincircle: 2763
+            tslash: 956
+            twofifths: 2739
+            twosubscript: 16785538
+            twosuperior: 178
+            twothirds: 2737
+            u: 117
+            uacute: 250
+            ubelowdot: 16785125
+            ubreve: 765
+            ucircumflex: 251
+            udiaeresis: 252
+            udoubleacute: 507
+            ugrave: 249
+            uhook: 16785127
+            uhorn: 16777648
+            uhornacute: 16785129
+            uhornbelowdot: 16785137
+            uhorngrave: 16785131
+            uhornhook: 16785133
+            uhorntilde: 16785135
+            umacron: 1022
+            underbar: 3014
+            underscore: 95
+            union: 2269
+            uogonek: 1017
+            uparrow: 2300
+            upcaret: 2985
+            upleftcorner: 2540
+            uprightcorner: 2539
+            upshoe: 3011
+            upstile: 3027
+            uptack: 3022
+            uring: 505
+            utilde: 1021
+            v: 118
+            variation: 2241
+            vertbar: 2552
+            vertconnector: 2214
+            voicedsound: 1246
+            vt: 2537
+            w: 119
+            wacute: 16785027
+            wcircumflex: 16777589
+            wdiaeresis: 16785029
+            wgrave: 16785025
+            x: 120
+            xabovedot: 16785035
+            y: 121
+            yacute: 253
+            ybelowdot: 16785141
+            ycircumflex: 16777591
+            ydiaeresis: 255
+            yen: 165
+            ygrave: 16785139
+            yhook: 16785143
+            ytilde: 16785145
+            z: 122
+            zabovedot: 447
+            zacute: 444
+            zcaron: 446
+            zerosubscript: 16785536
+            zerosuperior: 16785520
+            zstroke: 16777654
+            /**
+             * Converts an accelerator keyval and modifier mask into a string
+             * parseable by gtk_accelerator_parse(). For example, if you pass in
+             * #IBUS_KEY_q and #IBUS_CONTROL_MASK, this function returns “&lt;Control&gt;q”.
+             *
+             * If you need to display accelerators in the user interface,
+             * see gtk_accelerator_get_label().
+             * @param accelerator_key accelerator keyval
+             * @param accelerator_mods accelerator modifier mask
+             * @returns a newly-allocated accelerator name
+             */
+            accelerator_name(accelerator_key: number, accelerator_mods: ModifierType): string
+            /**
+             * Parses a string representing an accelerator. The format looks like
+             * “&lt;Control&gt;a” or “&lt;Shift&gt;&lt;Alt&gt;F1” or “&lt;Release%gt;z”
+             * (the last one is for key release).
+             *
+             * The parser is fairly liberal and allows lower or upper case, and also
+             * abbreviations such as “&lt;Ctl&gt;” and “&lt;Ctrl&gt;”. Key names are
+             * parsed using gdk_keyval_from_name(). For character keys the name is not the
+             * symbol, but the lowercase name, e.g. one would use “&lt;Ctrl&gt;minus”
+             * instead of “&lt;Ctrl&gt;-”.
+             *
+             * If the parse fails, @accelerator_key and @accelerator_mods will
+             * be set to 0 (zero).
+             * @since 1.5.18
+             * @param accelerator string representing an accelerator
+             * @returns , return location for accelerator     keyval, or %NULL, return location for accelerator     modifier mask, %NULL
+             */
+            accelerator_parse(accelerator: string): [number, ModifierType]
+            /**
+             * Determines whether a given keyval and modifier mask constitute
+             * a valid keyboard accelerator. For example, the #IBUS_KEY_a keyval
+             * plus #IBUS_CONTROL_MASK is valid - this is a “Ctrl+a” accelerator.
+             * But, you can't, for instance, use the #IBUS_KEY_Control_L keyval
+             * as an accelerator.
+             * @param keyval a GDK keyval
+             * @param modifiers modifier mask
+             * @returns %TRUE if the accelerator is valid
+             */
+            accelerator_valid(keyval: number, modifiers: ModifierType): boolean
+            /**
+             * Creates a new background #IBusAttribute.
+             * @param color Color in RGB.
+             * @param start_index Where attribute starts.
+             * @param end_index Where attribute ends.
+             * @returns A newly allocated #IBusAttribute.
+             */
+            attr_background_new(color: number, start_index: number, end_index: number): Attribute
+            /**
+             * Creates a new foreground #IBusAttribute.
+             * @param color Color in RGB.
+             * @param start_index Where attribute starts.
+             * @param end_index Where attribute ends.
+             * @returns A newly allocated #IBusAttribute.
+             */
+            attr_foreground_new(color: number, start_index: number, end_index: number): Attribute
+            /**
+             * Creates a new underline #IBusAttribute.
+             * @param underline_type Type of underline.
+             * @param start_index Where attribute starts.
+             * @param end_index Where attribute ends.
+             * @returns A newly allocated #IBusAttribute.
+             */
+            attr_underline_new(underline_type: number, start_index: number, end_index: number): Attribute
+            /**
+             * @param path A path of the saved dictionary file.
+             * @returns An Emoji dictionary file loaded from the saved cache file.  A hash table of { emoji character, #IBusEmojiData object } is loaded from the saved cache file. Recommend to use ibus_emoji_data_load() instead becase GSList in GHashTable does not work with Gir and Vala. Calls ibus_emoji_data_load() internally.
+             */
+            emoji_dict_load(path: string): Record<string, never>
+            /**
+             * @param dict An Emoji dictionary
+             * @param emoji an emoji character
+             * @returns An #IBusEmojiData of `emoji`. This API was prepared for the old dict foramat with Gir and Vala but no longer needed. Use ibus_emoji_data_load() instead.
+             */
+            emoji_dict_lookup(dict: Record<string, EmojiData>, emoji: string): EmojiData
+            /**
+             * Saves the Emoji dictionary to the cache file.
+             * Recommend to use ibus_emoji_data_save() instead becase GSList in
+             * GHashTable does not work with Gir and Vala.
+             * Calls ibus_emoji_data_save() internally. The format of the hash table
+             * changed and now is { emoji character, #IBusEmojiData object }.
+             * @param path A path of the saved dictionary file.
+             * @param dict An Emoji dictionary
+             */
+            emoji_dict_save(path: string, dict: Record<string, never>): void
+            /**
+             */
+            error_quark(): GLib.Quark
+            /**
+             * Free a list of strings.
+             * @deprecated This function has been deprecated and should not be used in newly written code.
+             * @param strv List of strings.
+             */
+            free_strv(strv: string): void
+            /**
+             * Return the D-Bus address of IBus.
+             * It will find the address from following source:
+             * <orderedlist>
+             *    <listitem><para>Environment variable IBUS_ADDRESS</para></listitem>
+             *    <listitem><para>Socket file under ~/.config/ibus/bus/</para></listitem>
+             * </orderedlist>
+             * @returns D-Bus address of IBus. %NULL for not found.  See also: ibus_write_address().
+             */
+            get_address(): string
+            /**
+             * Get UID of ibus-daemon.
+             * @deprecated This function has been deprecated and should not be used in newly written code.
+             * @returns UID of ibus-daemon; or 0 if UID is not available.
+             */
+            get_daemon_uid(): number
+            /**
+             * @param _locale A const locale name.
+             * @returns translated language name
+             */
+            get_language_name(_locale: string): string
+            /**
+             * Obtains the machine UUID of the machine this process is running on.
+             * @returns A newly allocated string that shows the UUID of the machine.
+             */
+            get_local_machine_id(): string
+            /**
+             * Get the path of socket file.
+             * @returns A newly allocated string that stores the path of socket file.
+             */
+            get_socket_path(): string
+            /**
+             * Get the GDBus timeout in milliseconds. The timeout is for clients (e.g.
+             * im-ibus.so), not for ibus-daemon.
+             * Note that the timeout for ibus-daemon could be set by --timeout command
+             * line option of the daemon.
+             * @returns A GDBus timeout in milliseconds. -1 when default timeout for     GDBus should be used.
+             */
+            get_timeout(): number
+            /**
+             * @param _locale A const locale name.
+             * @returns untranslated language name
+             */
+            get_untranslated_language_name(_locale: string): string
+            /**
+             * Get the current user name.
+             * It is determined by:
+             * <orderedlist>
+             *    <listitem><para>getlogin()</para></listitem>
+             *    <listitem><para>Environment variable SUDO_USER</para></listitem>
+             *    <listitem><para>Environment variable USERHELPER_UID</para></listitem>
+             *    <listitem><para>Environment variable USERNAME</para></listitem>
+             *    <listitem><para>Environment variable LOGNAME</para></listitem>
+             *    <listitem><para>Environment variable USER</para></listitem>
+             *    <listitem><para>Environment variable LNAME</para></listitem>
+             * </orderedlist>
+             * @returns A newly allocated string that stores current user name.
+             */
+            get_user_name(): string
+            /**
+             * Initialize the ibus types.
+             */
+            init(): void
+            /**
+             * Parse key event string and return key symbol and modifiers.
+             * @param string Key event string.
+             * @returns %TRUE for succeed; %FALSE if failed., Variable that hold key symbol result., Variable that hold modifiers result.
+             */
+            key_event_from_string(string: string): [boolean, number, number]
+            /**
+             * Return the name of a key symbol and modifiers.
+             *
+             * For example, if press ctrl, shift, and enter, then this function returns:
+             * Shift+Control+enter.
+             * @param keyval Key symbol.
+             * @param modifiers Modifiers such as Ctrl or Shift.
+             * @returns The name of a key symbol and modifier.
+             */
+            key_event_to_string(keyval: number, modifiers: number): string
+            /**
+             * Obtains the upper- and lower-case versions of the keyval @symbol.
+             * Examples of keyvals are #IBUS_KEY_a, #IBUS_KEY_Return, #IBUS_KEY_F1, etc.
+             * @param symbol a keyval
+             * @returns , return location for lowercase version of `symbol`, return location for uppercase version of `symbol`
+             */
+            keyval_convert_case(symbol: number): [number, number]
+            /**
+             * Return the key symbol that associate with the key name.
+             * @param keyval_name Key name in #gdk_keys_by_name.
+             * @returns Corresponding key symbol.
+             */
+            keyval_from_name(keyval_name: string): number
+            /**
+             * Return the name of a key symbol.
+             *
+             * Note that the returned string is used internally, so don't free it.
+             * @param keyval Key symbol.
+             * @returns Corresponding key name. %NULL if no such key symbol.
+             */
+            keyval_name(keyval: number): string
+            /**
+             * Converts a key value to lower case, if applicable.
+             * @param keyval a key value.
+             * @returns the lower case form of `keyval`, or `keyval` itself if it is already  in lower case or it is not subject to case conversion.
+             */
+            keyval_to_lower(keyval: number): number
+            /**
+             * Convert from an IBus key symbol to the corresponding ISO10646 (Unicode)
+             * character.
+             * @param keyval an IBus key symbol
+             * @returns the corresponding unicode character, or 0 if there          is no corresponding character.
+             */
+            keyval_to_unicode(keyval: number): string
+            /**
+             * Converts a key value to upper case, if applicable.
+             * @param keyval a key value.
+             * @returns the upper case form of `keyval`, or `keyval` itself if it is already   in upper case or it is not subject to case conversion.
+             */
+            keyval_to_upper(keyval: number): number
+            /**
+             * Runs an IBus main loop until ibus_quit() is called in the loop.
+             *
+             * See also: ibus_quit().
+             */
+            main(): void
+            /**
+             * Stops an IBus from running.
+             *
+             * Any calls to ibus_quit() for the loop will return.
+             * See also: ibus_main().
+             */
+            quit(): void
+            /**
+             * Set the display address.
+             * @param display Display address, as in DISPLAY environment for X.
+             */
+            set_display(display: string): void
+            /**
+             * Sets GLIB's log handler to ours. Our log handler adds time info
+             * including hour, minute, second, and microsecond, like:
+             *
+             * (ibus-daemon:7088): IBUS-DEBUG: 18:06:45.822819: ibus-daemon started
+             *
+             * If @verbose is %TRUE, all levels of messages will be logged. Otherwise,
+             * DEBUG and WARNING messages will be ignored.  The function is used in
+             * ibus-daemon, but can be useful for IBus client programs as well for
+             * debugging. It's totally fine for not calling this function. If you
+             * don't set a custom GLIB log handler, the default GLIB log handler will
+             * be used.
+             * @param verbose TRUE for verbose logging.
+             */
+            set_log_handler(verbose: boolean): void
+            /**
+             * Convert from a ISO10646 character to a key symbol.
+             * @param wc a ISO10646 encoded character
+             * @returns the corresponding IBus key symbol, if one exists.          or, if there is no corresponding symbol,          `wc | 0x01000000`
+             */
+            unicode_to_keyval(wc: string): number
+            /**
+             * Remove the log handler which is set by ibus_set_log_handler.
+             */
+            unset_log_handler(): void
+            /**
+             * Write D-Bus address to socket file.
+             *
+             * See also: ibus_get_address().
+             * @param address D-Bus address of IBus.
+             */
+            write_address(address: string): void
+            /**
+             * Parse a string buffer which contains an XML-formatted string,
+             * and return a corresponding XML tree.
+             * @param buffer Buffer to be parsed.
+             * @returns Root node of parsed XML tree.
+             */
+            xml_parse_buffer(buffer: string): XML
+            /**
+             * Parse an XML file and return a corresponding XML tree.
+             * @param name File name to be parsed.
+             * @returns Root node of parsed XML tree.
+             */
+            xml_parse_file(name: string): XML
+        }
     }
 
+    const IBus: IBus.$Exports
     export default IBus
 }

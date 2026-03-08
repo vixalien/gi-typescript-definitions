@@ -26,89 +26,7 @@ declare module "gi://GstPlayer?version=1.0" {
 
     
 
-
     namespace GstPlayer {
-        const __name__: "GstPlayer"
-        const __version: "1.0"
-        
-
-        namespace PlayerSignalDispatcher {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-                /**
-                 * @param player
-                 * @param emitter
-                 */
-                vfunc_dispatch(player: Player, emitter: PlayerSignalDispatcherFunc): void
-            }
-        }
-
-        /**
-         */
-        interface PlayerSignalDispatcher extends PlayerSignalDispatcher.Interface {
-            readonly $signals: PlayerSignalDispatcher.SignalSignatures
-            readonly $readableProperties: PlayerSignalDispatcher.ReadableProperties
-            readonly $writableProperties: PlayerSignalDispatcher.WritableProperties
-            readonly $constructOnlyProperties: PlayerSignalDispatcher.ConstructOnlyProperties
-        }
-
-
-        interface PlayerSignalDispatcherInterface {
-            readonly $gtype: GObject.GType<PlayerSignalDispatcher>
-            readonly prototype: PlayerSignalDispatcher
-
-            [Symbol.hasInstance](instance: unknown): instance is PlayerSignalDispatcher
-        }
-
-        const PlayerSignalDispatcher: PlayerSignalDispatcherInterface
-        
-
-        namespace PlayerVideoRenderer {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-
-            interface Interface  {
-            }
-        }
-
-        /**
-         */
-        interface PlayerVideoRenderer extends PlayerVideoRenderer.Interface {
-            readonly $signals: PlayerVideoRenderer.SignalSignatures
-            readonly $readableProperties: PlayerVideoRenderer.ReadableProperties
-            readonly $writableProperties: PlayerVideoRenderer.WritableProperties
-            readonly $constructOnlyProperties: PlayerVideoRenderer.ConstructOnlyProperties
-        }
-
-
-        interface PlayerVideoRendererInterface {
-            readonly $gtype: GObject.GType<PlayerVideoRenderer>
-            readonly prototype: PlayerVideoRenderer
-
-            [Symbol.hasInstance](instance: unknown): instance is PlayerVideoRenderer
-        }
-
-        const PlayerVideoRenderer: PlayerVideoRendererInterface
         
 
         namespace Player {
@@ -196,24 +114,20 @@ declare module "gi://GstPlayer?version=1.0" {
                 "pipeline": Gst.Element
                 "position": number
                 "rate": number
-                "signal-dispatcher": PlayerSignalDispatcher
                 "subtitle-video-offset": number
                 "suburi": string
                 "uri": string | null
                 "video-multiview-flags": GstVideo.VideoMultiviewFlags
                 "video-multiview-mode": GstVideo.VideoMultiviewFramePacking
-                "video-renderer": PlayerVideoRenderer
                 "volume": number
             }
 
             interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                "signal-dispatcher": PlayerSignalDispatcher
+                "video-renderer": PlayerVideoRenderer
             }
         }
 
-        /**
-         * Starting from GStreamer 1.20, application developers are strongly advised to migrate to #GstPlay.
-         * #GstPlayer will be deprecated in 1.20 and most likely removed by 1.24.
-         */
         interface Player extends Gst.Object {
             readonly $signals: Player.SignalSignatures
             readonly $readableProperties: Player.ReadableProperties
@@ -561,6 +475,7 @@ declare module "gi://GstPlayer?version=1.0" {
         interface PlayerClass extends Omit<Gst.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<Player>
             readonly prototype: Player
+
             new (props?: Partial<GObject.ConstructorProps<Player>>): Player
             /**
              * Creates a new #GstPlayer instance that uses @signal_dispatcher to dispatch
@@ -656,7 +571,13 @@ declare module "gi://GstPlayer?version=1.0" {
             visualizations_get(): PlayerVisualization[]
         }
 
-        const Player: PlayerClass
+        interface $Exports {
+            /**
+             * Starting from GStreamer 1.20, application developers are strongly advised to migrate to #GstPlay.
+             * #GstPlayer will be deprecated in 1.20 and most likely removed by 1.24.
+             */
+            Player: PlayerClass
+        }
         
 
         namespace PlayerAudioInfo {
@@ -673,9 +594,6 @@ declare module "gi://GstPlayer?version=1.0" {
             }
         }
 
-        /**
-         * #GstPlayerStreamInfo specific to audio streams.
-         */
         interface PlayerAudioInfo extends PlayerStreamInfo {
             readonly $signals: PlayerAudioInfo.SignalSignatures
             readonly $readableProperties: PlayerAudioInfo.ReadableProperties
@@ -706,10 +624,16 @@ declare module "gi://GstPlayer?version=1.0" {
         interface PlayerAudioInfoClass extends Omit<PlayerStreamInfoClass, "new"> {
             readonly $gtype: GObject.GType<PlayerAudioInfo>
             readonly prototype: PlayerAudioInfo
+
             new (props?: Partial<GObject.ConstructorProps<PlayerAudioInfo>>): PlayerAudioInfo
         }
 
-        const PlayerAudioInfo: PlayerAudioInfoClass
+        interface $Exports {
+            /**
+             * #GstPlayerStreamInfo specific to audio streams.
+             */
+            PlayerAudioInfo: PlayerAudioInfoClass
+        }
         
 
         namespace PlayerGMainContextSignalDispatcher {
@@ -721,15 +645,13 @@ declare module "gi://GstPlayer?version=1.0" {
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties, PlayerSignalDispatcher.WritableProperties {
-                "application-context": GLib.MainContext
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, PlayerSignalDispatcher.ConstructOnlyProperties {
+                "application-context": GLib.MainContext
             }
         }
 
-        /**
-         */
         interface PlayerGMainContextSignalDispatcher extends GObject.Object, PlayerSignalDispatcher {
             readonly $signals: PlayerGMainContextSignalDispatcher.SignalSignatures
             readonly $readableProperties: PlayerGMainContextSignalDispatcher.ReadableProperties
@@ -744,6 +666,7 @@ declare module "gi://GstPlayer?version=1.0" {
         interface PlayerGMainContextSignalDispatcherClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PlayerGMainContextSignalDispatcher>
             readonly prototype: PlayerGMainContextSignalDispatcher
+
             new (props?: Partial<GObject.ConstructorProps<PlayerGMainContextSignalDispatcher>>): PlayerGMainContextSignalDispatcher
             /**
              * Creates a new GstPlayerSignalDispatcher that uses @application_context,
@@ -754,7 +677,11 @@ declare module "gi://GstPlayer?version=1.0" {
             "new"(application_context: GLib.MainContext | null): PlayerSignalDispatcher
         }
 
-        const PlayerGMainContextSignalDispatcher: PlayerGMainContextSignalDispatcherClass
+        interface $Exports {
+            /**
+             */
+            PlayerGMainContextSignalDispatcher: PlayerGMainContextSignalDispatcherClass
+        }
         
 
         namespace PlayerMediaInfo {
@@ -771,9 +698,6 @@ declare module "gi://GstPlayer?version=1.0" {
             }
         }
 
-        /**
-         * Structure containing the media information of a URI.
-         */
         interface PlayerMediaInfo extends GObject.Object {
             readonly $signals: PlayerMediaInfo.SignalSignatures
             readonly $readableProperties: PlayerMediaInfo.ReadableProperties
@@ -854,10 +778,16 @@ declare module "gi://GstPlayer?version=1.0" {
         interface PlayerMediaInfoClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PlayerMediaInfo>
             readonly prototype: PlayerMediaInfo
+
             new (props?: Partial<GObject.ConstructorProps<PlayerMediaInfo>>): PlayerMediaInfo
         }
 
-        const PlayerMediaInfo: PlayerMediaInfoClass
+        interface $Exports {
+            /**
+             * Structure containing the media information of a URI.
+             */
+            PlayerMediaInfo: PlayerMediaInfoClass
+        }
         
 
         namespace PlayerStreamInfo {
@@ -874,11 +804,6 @@ declare module "gi://GstPlayer?version=1.0" {
             }
         }
 
-        /**
-         * Base structure for information concerning a media stream. Depending on
-         * the stream type, one can find more media-specific information in
-         * #GstPlayerVideoInfo, #GstPlayerAudioInfo, #GstPlayerSubtitleInfo.
-         */
         interface PlayerStreamInfo extends GObject.Object {
             readonly $signals: PlayerStreamInfo.SignalSignatures
             readonly $readableProperties: PlayerStreamInfo.ReadableProperties
@@ -914,10 +839,18 @@ declare module "gi://GstPlayer?version=1.0" {
         interface PlayerStreamInfoClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PlayerStreamInfo>
             readonly prototype: PlayerStreamInfo
+
             new (props?: Partial<GObject.ConstructorProps<PlayerStreamInfo>>): PlayerStreamInfo
         }
 
-        const PlayerStreamInfo: PlayerStreamInfoClass
+        interface $Exports {
+            /**
+             * Base structure for information concerning a media stream. Depending on
+             * the stream type, one can find more media-specific information in
+             * #GstPlayerVideoInfo, #GstPlayerAudioInfo, #GstPlayerSubtitleInfo.
+             */
+            PlayerStreamInfo: PlayerStreamInfoClass
+        }
         
 
         namespace PlayerSubtitleInfo {
@@ -934,9 +867,6 @@ declare module "gi://GstPlayer?version=1.0" {
             }
         }
 
-        /**
-         * #GstPlayerStreamInfo specific to subtitle streams.
-         */
         interface PlayerSubtitleInfo extends PlayerStreamInfo {
             readonly $signals: PlayerSubtitleInfo.SignalSignatures
             readonly $readableProperties: PlayerSubtitleInfo.ReadableProperties
@@ -951,10 +881,16 @@ declare module "gi://GstPlayer?version=1.0" {
         interface PlayerSubtitleInfoClass extends Omit<PlayerStreamInfoClass, "new"> {
             readonly $gtype: GObject.GType<PlayerSubtitleInfo>
             readonly prototype: PlayerSubtitleInfo
+
             new (props?: Partial<GObject.ConstructorProps<PlayerSubtitleInfo>>): PlayerSubtitleInfo
         }
 
-        const PlayerSubtitleInfo: PlayerSubtitleInfoClass
+        interface $Exports {
+            /**
+             * #GstPlayerStreamInfo specific to subtitle streams.
+             */
+            PlayerSubtitleInfo: PlayerSubtitleInfoClass
+        }
         
 
         namespace PlayerVideoInfo {
@@ -971,9 +907,6 @@ declare module "gi://GstPlayer?version=1.0" {
             }
         }
 
-        /**
-         * #GstPlayerStreamInfo specific to video streams.
-         */
         interface PlayerVideoInfo extends PlayerStreamInfo {
             readonly $signals: PlayerVideoInfo.SignalSignatures
             readonly $readableProperties: PlayerVideoInfo.ReadableProperties
@@ -1009,10 +942,16 @@ declare module "gi://GstPlayer?version=1.0" {
         interface PlayerVideoInfoClass extends Omit<PlayerStreamInfoClass, "new"> {
             readonly $gtype: GObject.GType<PlayerVideoInfo>
             readonly prototype: PlayerVideoInfo
+
             new (props?: Partial<GObject.ConstructorProps<PlayerVideoInfo>>): PlayerVideoInfo
         }
 
-        const PlayerVideoInfo: PlayerVideoInfoClass
+        interface $Exports {
+            /**
+             * #GstPlayerStreamInfo specific to video streams.
+             */
+            PlayerVideoInfo: PlayerVideoInfoClass
+        }
         
 
         namespace PlayerVideoOverlayVideoRenderer {
@@ -1033,8 +972,6 @@ declare module "gi://GstPlayer?version=1.0" {
             }
         }
 
-        /**
-         */
         interface PlayerVideoOverlayVideoRenderer extends GObject.Object, PlayerVideoRenderer {
             readonly $signals: PlayerVideoOverlayVideoRenderer.SignalSignatures
             readonly $readableProperties: PlayerVideoOverlayVideoRenderer.ReadableProperties
@@ -1058,7 +995,7 @@ declare module "gi://GstPlayer?version=1.0" {
              * for details.
              * @returns , the horizontal offset of the render area inside the window, the vertical offset of the render area inside the window, the width of the render area inside the window, the height of the render area inside the window
              */
-            get_render_rectangle(): void
+            get_render_rectangle(): [number, number, number, number]
             /**
              * @returns The currently set, platform specific window handle
              */
@@ -1091,6 +1028,7 @@ declare module "gi://GstPlayer?version=1.0" {
         interface PlayerVideoOverlayVideoRendererClass extends Omit<GObject.ObjectClass, "new"> {
             readonly $gtype: GObject.GType<PlayerVideoOverlayVideoRenderer>
             readonly prototype: PlayerVideoOverlayVideoRenderer
+
             new (props?: Partial<GObject.ConstructorProps<PlayerVideoOverlayVideoRenderer>>): PlayerVideoOverlayVideoRenderer
             /**
              * @param window_handle Window handle to use or %NULL
@@ -1104,24 +1042,98 @@ declare module "gi://GstPlayer?version=1.0" {
             new_with_sink(window_handle: never | null, video_sink: Gst.Element): PlayerVideoRenderer
         }
 
-        const PlayerVideoOverlayVideoRenderer: PlayerVideoOverlayVideoRendererClass
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        none
-        /**
-         * A #GstPlayerVisualization descriptor.
-         */
-        abstract class PlayerVisualization {
-            static readonly $gtype: GObject.GType<PlayerVisualization>
+        interface $Exports {
+            /**
+             */
+            PlayerVideoOverlayVideoRenderer: PlayerVideoOverlayVideoRendererClass
+        }
+        
 
-            
+        namespace PlayerSignalDispatcher {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+                /**
+                 * @param player
+                 * @param emitter
+                 */
+                vfunc_dispatch(player: Player, emitter: PlayerSignalDispatcherFunc): void
+            }
+        }
+
+        interface PlayerSignalDispatcher extends GObject.Object, PlayerSignalDispatcher.Interface {
+            readonly $signals: PlayerSignalDispatcher.SignalSignatures
+            readonly $readableProperties: PlayerSignalDispatcher.ReadableProperties
+            readonly $writableProperties: PlayerSignalDispatcher.WritableProperties
+            readonly $constructOnlyProperties: PlayerSignalDispatcher.ConstructOnlyProperties
+        }
+
+        interface PlayerSignalDispatcherInterface {
+            readonly $gtype: GObject.GType<PlayerSignalDispatcher>
+            readonly prototype: PlayerSignalDispatcher
+            [Symbol.hasInstance](instance: unknown): instance is PlayerSignalDispatcher
+        }
+
+        interface $Exports {
+            /**
+             */
+            PlayerSignalDispatcher: PlayerSignalDispatcherInterface
+        }
+        
+
+        namespace PlayerVideoRenderer {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            }
+
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            }
+
+            interface WritableProperties extends GObject.Object.WritableProperties {
+            }
+
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            }
+
+            interface Interface extends GObject.Object {
+            }
+        }
+
+        interface PlayerVideoRenderer extends GObject.Object, PlayerVideoRenderer.Interface {
+            readonly $signals: PlayerVideoRenderer.SignalSignatures
+            readonly $readableProperties: PlayerVideoRenderer.ReadableProperties
+            readonly $writableProperties: PlayerVideoRenderer.WritableProperties
+            readonly $constructOnlyProperties: PlayerVideoRenderer.ConstructOnlyProperties
+        }
+
+        interface PlayerVideoRendererInterface {
+            readonly $gtype: GObject.GType<PlayerVideoRenderer>
+            readonly prototype: PlayerVideoRenderer
+            [Symbol.hasInstance](instance: unknown): instance is PlayerVideoRenderer
+        }
+
+        interface $Exports {
+            /**
+             */
+            PlayerVideoRenderer: PlayerVideoRendererInterface
+        }
+        
+
+        interface PlayerVisualizationStruct {
+            readonly $gtype: GObject.GType<PlayerVisualization>
+            [Symbol.hasInstance](instance: unknown): instance is PlayerVisualization
+        }
+
+        interface PlayerVisualization {
             /**
              * name of the visualization.
              */
@@ -1141,137 +1153,160 @@ declare module "gi://GstPlayer?version=1.0" {
              */
             free(): void
         }
-        /**
-         * Gets a string representing the given color balance type.
-         * @param type a #GstPlayerColorBalanceType
-         * @returns a string with the name of the color   balance type.
-         */
-        function player_color_balance_type_get_name(type: PlayerColorBalanceType): string
-        /**
-         * Gets a string representing the given error.
-         * @param error a #GstPlayerError
-         * @returns a string with the given error.
-         */
-        function player_error_get_name(error: PlayerError): string
-        /**
-         */
-        function player_error_quark(): GLib.Quark
-        /**
-         * Gets a string representing the given state.
-         * @param state a #GstPlayerState
-         * @returns a string with the name of the state.
-         */
-        function player_state_get_name(state: PlayerState): string
-        
-        namespace PlayerColorBalanceType {
-            const $gtype: GObject.GType<PlayerColorBalanceType>
-        }
 
-        /**
-         */
-        enum PlayerColorBalanceType {
+        interface $Exports {
+            PlayerVisualization: PlayerVisualizationStruct
+        }
+        
+        interface PlayerColorBalanceTypeEnum {
+            readonly $gtype: GObject.GType<PlayerColorBalanceType>
             /**
              * hue or color balance.
              */
-            "HUE" = 3,
+            readonly "HUE": 3
             /**
              * brightness or black level.
              */
-            "BRIGHTNESS" = 0,
+            readonly "BRIGHTNESS": 0
             /**
              * color saturation or chroma
              * gain.
              */
-            "SATURATION" = 2,
+            readonly "SATURATION": 2
             /**
              * contrast or luma gain.
              */
-            "CONTRAST" = 1,
+            readonly "CONTRAST": 1
         }
-        /**
+        type PlayerColorBalanceType = PlayerColorBalanceTypeEnum[Exclude<keyof PlayerColorBalanceTypeEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            PlayerColorBalanceType: PlayerColorBalanceTypeEnum
+            /**
          * Gets a string representing the given color balance type.
          * @param type a #GstPlayerColorBalanceType
          * @returns a string with the name of the color   balance type.
          */
-        function get_name(type: PlayerColorBalanceType): string
+        get_name: (type: PlayerColorBalanceType) => string
+        }
         
-        abstract class PlayerError extends GLib.Error {
-            static readonly $gtype: GObject.GType<PlayerError>
+        interface PlayerError extends GLib.Error {}
+
+        interface PlayerErrorEnum {
+            readonly $gtype: GObject.GType<PlayerError>
+
+            new(props: { message: string, code: number }): PlayerError
             /**
              * generic error.
              */
-            static readonly "FAILED": 0
-        }
-        /**
+            readonly "FAILED": 0
+            /**
          * Gets a string representing the given error.
          * @param error a #GstPlayerError
          * @returns a string with the given error.
          */
-        function get_name(error: PlayerError): string
-        /**
+        get_name: (error: PlayerError) => string
+            /**
          */
-        function quark(): GLib.Quark
-        
-        namespace PlayerSnapshotFormat {
-            const $gtype: GObject.GType<PlayerSnapshotFormat>
+        quark: () => GLib.Quark
         }
 
-        /**
-         */
-        enum PlayerSnapshotFormat {
+        interface $Exports {
             /**
              */
-            "RAW_NATIVE" = 0,
-            /**
-             */
-            "RAW_XRGB" = 1,
-            /**
-             */
-            "RAW_BGRX" = 2,
-            /**
-             */
-            "JPG" = 3,
-            /**
-             */
-            "PNG" = 4,
+            PlayerError: PlayerErrorEnum
         }
         
-        namespace PlayerState {
-            const $gtype: GObject.GType<PlayerState>
+        interface PlayerSnapshotFormatEnum {
+            readonly $gtype: GObject.GType<PlayerSnapshotFormat>
+            /**
+             */
+            readonly "RAW_NATIVE": 0
+            /**
+             */
+            readonly "RAW_XRGB": 1
+            /**
+             */
+            readonly "RAW_BGRX": 2
+            /**
+             */
+            readonly "JPG": 3
+            /**
+             */
+            readonly "PNG": 4
         }
-
-        /**
-         */
-        enum PlayerState {
+        type PlayerSnapshotFormat = PlayerSnapshotFormatEnum[Exclude<keyof PlayerSnapshotFormatEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            PlayerSnapshotFormat: PlayerSnapshotFormatEnum
+        }
+        
+        interface PlayerStateEnum {
+            readonly $gtype: GObject.GType<PlayerState>
             /**
              * the player is stopped.
              */
-            "STOPPED" = 0,
+            readonly "STOPPED": 0
             /**
              * the player is buffering.
              */
-            "BUFFERING" = 1,
+            readonly "BUFFERING": 1
             /**
              * the player is paused.
              */
-            "PAUSED" = 2,
+            readonly "PAUSED": 2
             /**
              * the player is currently playing a
              * stream.
              */
-            "PLAYING" = 3,
+            readonly "PLAYING": 3
         }
-        /**
+        type PlayerState = PlayerStateEnum[Exclude<keyof PlayerStateEnum, "$gtype">]
+        interface $Exports {
+            /**
+             */
+            PlayerState: PlayerStateEnum
+            /**
          * Gets a string representing the given state.
          * @param state a #GstPlayerState
          * @returns a string with the name of the state.
          */
-        function get_name(state: PlayerState): string
+        get_name: (state: PlayerState) => string
+        }
         /**
          * @param data
          */
         type PlayerSignalDispatcherFunc = (data: never | null) => void
+
+        interface $Exports {
+            __name__: "GstPlayer"
+            __version: "1.0"
+            /**
+             * Gets a string representing the given color balance type.
+             * @param type a #GstPlayerColorBalanceType
+             * @returns a string with the name of the color   balance type.
+             */
+            player_color_balance_type_get_name(type: PlayerColorBalanceType): string
+            /**
+             * Gets a string representing the given error.
+             * @param error a #GstPlayerError
+             * @returns a string with the given error.
+             */
+            player_error_get_name(error: PlayerError): string
+            /**
+             */
+            player_error_quark(): GLib.Quark
+            /**
+             * Gets a string representing the given state.
+             * @param state a #GstPlayerState
+             * @returns a string with the name of the state.
+             */
+            player_state_get_name(state: PlayerState): string
+        }
     }
 
+    const GstPlayer: GstPlayer.$Exports
     export default GstPlayer
 }
