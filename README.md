@@ -4,7 +4,7 @@
 
 TypeScript type definitions for GJS and GNOME libraries. Get full autocomplete, type-checking, and inline documentation in your editor when building GNOME apps with TypeScript.
 
-Types are auto-generated with [ts-for-gir] data shipped with the GNOME SDK `master` branch.
+Types are auto-generated with [girgen] data shipped with the GNOME SDK `master` branch.
 
 > **Note:** The full list of available types depends on the libraries present in the GNOME SDK at the time of generation. You can find the list of all generated types here: [./types](./types).
 
@@ -61,5 +61,5 @@ In the future, we plan to support specific stable GNOME releases (48, 49, etc...
 MIT
 
 [nightly]: https://nightly.gnome.org/
-[ts-for-gir]: https://github.com/gjsify/ts-for-gir
 [peachy]: https://gitlab.gnome.org/vixalien/peachy
+[girgen]: https://github.com/Aylur/girgen
