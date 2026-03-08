@@ -14,7 +14,7 @@ TMP_INSTALL_DIR=/tmp/pnpm-global
 
 mkdir -p $TMP_INSTALL_DIR
 
-message "Installing ts-for-gir..."
+message "Installing girgen..."
 export PATH="$TMP_INSTALL_DIR:$PATH"
 COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack enable --install-directory $TMP_INSTALL_DIR
 CI=true pnpm install
@@ -23,7 +23,7 @@ message "Cleaning up old files"
 rm types/*.d.ts
 
 message "Generating modules..."
-pnpm exec ts-for-gir generate --ignoreVersionConflicts -o types '*'
+pnpm exec girgen typescript -o types
 
 message "Generated modules"
 exit
