@@ -2386,7 +2386,7 @@ declare module "gi://Xmlb?version=2.0" {
             __name__: "Xmlb"
             __version: "2.0"
             MAJOR_VERSION: 0
-            MICRO_VERSION: 24
+            MICRO_VERSION: 25
             MINOR_VERSION: 3
             /**
              * Converts a string to an opcode kind.
