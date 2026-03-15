@@ -49618,12 +49618,12 @@ declare module "gi://Gtk?version=4.0" {
              *
              * Note that the returned array and the strings
              * contained in it will only be valid until the
-             * `GtkSvg` is cleared or reloaded, is if you
+             * `GtkSvg` is cleared or reloaded, so if you
              * want to keep it around, you should make a copy.
              * @since 4.22
              * @returns the state names, return location for the number   of strings that are returned
              */
-            get_state_names(): [string[] | null, number]
+            get_state_names(): [string[] | null, number | null]
             /**
              * Gets the value of the weight property.
              * @since 4.22
@@ -76070,6 +76070,26 @@ declare module "gi://Gtk?version=4.0" {
              */
             readonly "FAILED_RENDERING": 6
             /**
+             * An XML element is ignored,
+             *   but it should not affect rendering (this error code is used
+             *   for metadata and exension elements)
+             */
+            readonly "IGNORED_ELEMENT": 7
+            /**
+             * An implementation limit has
+             *   been hit, such as the number of loaded shapes.
+             */
+            readonly "LIMITS_EXCEEDED": 8
+            /**
+             * The SVG uses features that
+             *   are not supported by `GtkSvg`. It may be advisable to use
+             *   a different SVG renderer.
+             */
+            readonly "NOT_IMPLEMENTED": 9
+            /**
+             */
+            readonly "FEATURE_DISABLED": 10
+            /**
          * Returns context information about what XML attribute
          * the parsing error occurred in.
          * @since 4.22
@@ -77870,7 +77890,7 @@ declare module "gi://Gtk?version=4.0" {
             ACCESSIBLE_ATTRIBUTE_VARIANT_UNICASE: "unicase"
             ACCESSIBLE_ATTRIBUTE_WEIGHT: "weight"
             ACCESSIBLE_VALUE_UNDEFINED: -1
-            BINARY_AGE: 2200
+            BINARY_AGE: 2300
             IM_MODULE_EXTENSION_POINT_NAME: "gtk-im-module"
             INPUT_ERROR: -1
             INTERFACE_AGE: 0
@@ -77882,7 +77902,7 @@ declare module "gi://Gtk?version=4.0" {
             MAX_COMPOSE_LEN: 7
             MEDIA_FILE_EXTENSION_POINT_NAME: "gtk-media-file"
             MICRO_VERSION: 0
-            MINOR_VERSION: 22
+            MINOR_VERSION: 23
             PAPER_NAME_A3: "iso_a3"
             PAPER_NAME_A4: "iso_a4"
             PAPER_NAME_A5: "iso_a5"
