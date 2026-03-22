@@ -2371,105 +2371,6 @@ declare module "gi://WebKit?version=6.0" {
         }
         
 
-        namespace Image {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.Icon.SignalSignatures, Gio.LoadableIcon.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Gio.Icon.ReadableProperties, Gio.LoadableIcon.ReadableProperties {
-                "height": number
-                "stride": number
-                "width": number
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
-                "height": number
-                "stride": number
-                "width": number
-            }
-        }
-
-        interface Image extends GObject.Object, Gio.Icon, Gio.LoadableIcon {
-            readonly $signals: Image.SignalSignatures
-            readonly $readableProperties: Image.ReadableProperties
-            readonly $writableProperties: Image.WritableProperties
-            readonly $constructOnlyProperties: Image.ConstructOnlyProperties
-            /**
-             * The image height in pixels.
-             * @since 2.52
-             * @default 1
-             */
-            get height(): number
-            set height(value: number)
-            /**
-             * The image stride, in bytes. This value indicates the amount of
-             * memory occupied by each row of pixels in the image. Note that
-             * the stride may be larger than the image width multiplied by the
-             * amount of bytes used to represent each pixel.
-             * @since 2.52
-             * @default 4
-             */
-            get stride(): number
-            set stride(value: number)
-            /**
-             * The image width in pixels.
-             * @since 2.52
-             * @default 1
-             */
-            get width(): number
-            set width(value: number)
-            /**
-             * Get the @image pixel data as an array of bytes.
-             *
-             * The pixel format for the returned byte buffer is 32-bit per pixel
-             * with 8-bit premultiplied alpha, in the preferred byte order for
-             * the architecture.
-             * @since 2.52
-             * @returns a #GBytes
-             */
-            as_bytes(): GLib.Bytes
-            /**
-             * Get the @image height in pixels.
-             * @since 2.52
-             * @returns the image height
-             */
-            get_height(): number
-            /**
-             * Get the @image stride.
-             * @since 2.52
-             * @returns the image stride
-             */
-            get_stride(): number
-            /**
-             * Get the @image width in pixels.
-             * @since 2.52
-             * @returns the image width
-             */
-            get_width(): number
-        }
-
-        interface ImageClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Image>
-            readonly prototype: Image
-
-            new (props?: Partial<GObject.ConstructorProps<Image>>): Image
-        }
-
-        interface $Exports {
-            /**
-             * Represents an image as a buffer containing pixel data.
-             *
-             * Image objects are always created by WebKit, and considered immutable:
-             * a copy of the image data needs to be made before modifying the image.
-             * Pixel data can be obtained with [id@webkit_image_as_bytes].
-             * @since 2.52
-             */
-            Image: ImageClass
-        }
-        
-
         namespace InputMethodContext {
             interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
@@ -13272,8 +13173,8 @@ declare module "gi://WebKit?version=6.0" {
             EDITING_COMMAND_SELECT_ALL: "SelectAll"
             EDITING_COMMAND_UNDO: "Undo"
             MAJOR_VERSION: 2
-            MICRO_VERSION: 93
-            MINOR_VERSION: 51
+            MICRO_VERSION: 0
+            MINOR_VERSION: 52
             /**
              * Gets the quark for the domain of download errors.
              * @returns download error domain.
