@@ -19545,12 +19545,12 @@ declare module "gi://GLib?version=2.0" {
             MAXUINT32: 4294967295
             MAXUINT64: 18446744073709551615
             MAXUINT8: 255
-            MICRO_VERSION: 3
+            MICRO_VERSION: 0
             MININT16: -32768
             MININT32: -2147483648
             MININT64: -9223372036854775808
             MININT8: -128
-            MINOR_VERSION: 87
+            MINOR_VERSION: 88
             MODULE_SUFFIX: "so"
             NSEC_PER_SEC: 1000000000
             OPTION_REMAINING: ""
