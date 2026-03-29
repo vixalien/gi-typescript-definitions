@@ -203,7 +203,7 @@ declare module "gi://Pango?version=1.0" {
              * Set the default font description for the context
              * @param desc the new pango font description
              */
-            set_font_description(desc: FontDescription | null): void
+            set_font_description(desc: FontDescription): void
             /**
              * Sets the font map to be searched when fonts are looked-up
              * in this context.
@@ -1075,7 +1075,7 @@ declare module "gi://Pango?version=1.0" {
              * @param name a family name
              * @returns the `PangoFontFamily`
              */
-            get_family(name: string): FontFamily
+            get_family(name: string): FontFamily | null
             /**
              * Returns the current serial number of @fontmap.
              *
@@ -1153,7 +1153,7 @@ declare module "gi://Pango?version=1.0" {
              * @param name a family name
              * @returns the `PangoFontFamily`
              */
-            vfunc_get_family(name: string): FontFamily
+            vfunc_get_family(name: string): FontFamily | null
             /**
              * Returns the current serial number of @fontmap.
              *
@@ -7448,9 +7448,9 @@ declare module "gi://Pango?version=1.0" {
             GLYPH_UNKNOWN_FLAG: Glyph
             SCALE: 1024
             VERSION_MAJOR: 1
-            VERSION_MICRO: 1
+            VERSION_MICRO: 2
             VERSION_MINOR: 57
-            VERSION_STRING: "1.57.1"
+            VERSION_STRING: "1.57.2"
             /**
              * Create a new allow-breaks attribute.
              *
