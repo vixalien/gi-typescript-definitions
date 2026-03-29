@@ -58,7 +58,7 @@ declare module "gi://Gdk?version=3.0" {
              * Sets the workspace on which applications will be launched when
              * using this context when running under a window manager that
              * supports multiple workspaces, as described in the
-             * [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec).
+             * [Extended Window Manager Hints](https://specifications.freedesktop.org/wm/latest/).
              *
              * When the workspace is not specified or @desktop is set to -1,
              * it is up to the window manager to pick one, typically it will
@@ -3015,7 +3015,7 @@ declare module "gi://Gdk?version=3.0" {
              *
              * On X11, this is done by inspecting the _NET_ACTIVE_WINDOW property
              * on the root window, as described in the
-             * [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec).
+             * [Extended Window Manager Hints](https://specifications.freedesktop.org/wm/latest/).
              * If there is no currently currently active
              * window, or the window manager does not support the
              * _NET_ACTIVE_WINDOW hint, this function returns %NULL.
@@ -3276,7 +3276,7 @@ declare module "gi://Gdk?version=3.0" {
              *
              * On X11, this is done by inspecting the _NET_CLIENT_LIST_STACKING
              * property on the root window, as described in the
-             * [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec).
+             * [Extended Window Manager Hints](https://specifications.freedesktop.org/wm/latest/).
              * If the window manager does not support the
              * _NET_CLIENT_LIST_STACKING hint, this function returns %NULL.
              *
@@ -3888,7 +3888,7 @@ declare module "gi://Gdk?version=3.0" {
              * Begins a window move operation (for a toplevel window).
              * You might use this function to implement a “window move grip,” for
              * example. The function works best with window managers that support the
-             * [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec)
+             * [Extended Window Manager Hints](https://specifications.freedesktop.org/wm/latest/)
              * but has a fallback implementation for other window managers.
              * @since 3.4
              * @param device the device used for the operation
@@ -3967,7 +3967,7 @@ declare module "gi://Gdk?version=3.0" {
              * You might use this function to implement a “window resize grip,” for
              * example; in fact #GtkStatusbar uses it. The function works best
              * with window managers that support the
-             * [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec)
+             * [Extended Window Manager Hints](https://specifications.freedesktop.org/wm/latest/)
              * but has a fallback implementation for other window managers.
              * @since 3.4
              * @param edge the edge or corner from which the drag is started
@@ -9166,7 +9166,7 @@ declare module "gi://Gdk?version=3.0" {
              * Defines the reference point of a window and the meaning of coordinates
              * passed to gtk_window_move(). See gtk_window_move() and the "implementation
              * notes" section of the
-             * [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec)
+             * [Extended Window Manager Hints](https://specifications.freedesktop.org/wm/latest/)
              * specification for more details.
              */
             Gravity: GravityEnum
@@ -9816,7 +9816,7 @@ declare module "gi://Gdk?version=3.0" {
              * the window has. The window manager can use this when determining decoration
              * and behaviour of the window. The hint must be set before mapping the window.
              *
-             * See the [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec)
+             * See the [Extended Window Manager Hints](https://specifications.freedesktop.org/wm/latest/)
              * specification for more details about window types.
              */
             WindowTypeHint: WindowTypeHintEnum
@@ -12992,7 +12992,7 @@ declare module "gi://Gdk?version=3.0" {
             KEY_zstroke: 16777654
             MAJOR_VERSION: 3
             MAX_TIMECOORD_AXES: 128
-            MICRO_VERSION: 52
+            MICRO_VERSION: 53
             MINOR_VERSION: 24
             PARENT_RELATIVE: 1
             PRIORITY_REDRAW: 120
