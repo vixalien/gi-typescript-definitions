@@ -18,864 +18,888 @@ declare module "gi://GstAnalytics?version=1.0" {
     import type GstBase from "gi://GstBase?version=1.0"
     import type GstVideo from "gi://GstVideo?version=1.0"
 
-    
-
-    namespace GstAnalytics {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface ClsMtdStruct {
-            readonly $gtype: GObject.GType<ClsMtd>
-            [Symbol.hasInstance](instance: unknown): instance is ClsMtd
+        namespace GstAnalytics {
+            
+
+            interface ClsMtdStruct {
+                readonly $gtype: GObject.GType<ClsMtd>
+                new (fields?: {
+                    id?: number
+                    meta?: RelationMeta
+                }): ClsMtd
+                /**
+                 * Get an id identifying #GstAnalyticsMtd type.
+                 * @since 1.24
+                 * @returns opaque id of #GstAnalyticsMtd type
+                 */
+                get_mtd_type(): MtdType
+            }
+
+            interface ClsMtd {
+                /**
+                 * Instance identifier
+                 */
+                id: number
+                /**
+                 * Instance of #GstAnalyticsRelationMeta where the analytics-metadata
+                 * identified by `id` is stored.
+                 */
+                meta: RelationMeta
+                /**
+                 * @since 1.24
+                 * @param quark Quark of the class Get index of class represented by `quark`
+                 * @returns index of the class associated with `quarks` ( and label) or     a negative value on failure.
+                 */
+                get_index_by_quark(quark: GLib.Quark): number
+                /**
+                 * @since 1.24
+                 * @returns Number of classes in this classification instance
+                 */
+                get_length(): number
+                /**
+                 * Get confidence level for class at `index`
+                 * @since 1.24
+                 * @param index Object class index
+                 * @returns confidence level for `index`, <0.0 if the call failed.
+                 */
+                get_level(index: number): number
+                /**
+                 * @since 1.24
+                 * @param index index of the class Get quark of the class at `index`
+                 * @returns Quark of this class (label) associated with `index`
+                 */
+                get_quark(index: number): GLib.Quark
+            }
+
+            interface $Exports {
+                ClsMtd: ClsMtdStruct
+            }
+            
+
+            interface MtdStruct {
+                readonly $gtype: GObject.GType<Mtd>
+                new (fields?: {
+                    id?: number
+                    meta?: RelationMeta
+                }): Mtd
+                /**
+                 * Gets the string version of the name of this type of analytics data
+                 * @since 1.24
+                 * @param type The type of analytics data
+                 * @returns the name
+                 */
+                type_get_name(type: MtdType): string
+            }
+
+            interface Mtd {
+                /**
+                 * Instance identifier
+                 */
+                id: number
+                /**
+                 * Instance of #GstAnalyticsRelationMeta where the analytics-metadata
+                 * identified by `id` is stored.
+                 */
+                meta: RelationMeta
+                /**
+                 * Get instance id
+                 * @since 1.24
+                 * @returns Id of `instance`
+                 */
+                get_id(): number
+                /**
+                 * @since 1.24
+                 * @returns opaque id of the type
+                 */
+                get_mtd_type(): MtdType
+                /**
+                 * Get instance size
+                 * @since 1.24
+                 * @returns Size (in bytes) of this instance or 0 on failure.
+                 */
+                get_size(): number
+            }
+
+            interface $Exports {
+                Mtd: MtdStruct
+            }
+            
+
+            interface MtdImplStruct {
+                readonly $gtype: GObject.GType<MtdImpl>
+                new (fields?: {
+                    name?: string
+                }): MtdImpl
+            }
+
+            interface MtdImpl {
+                /**
+                 * The name of the metadata type
+                 */
+                name: string
+            }
+
+            interface $Exports {
+                MtdImpl: MtdImplStruct
+            }
+            
+
+            interface ODMtdStruct {
+                readonly $gtype: GObject.GType<ODMtd>
+                new (fields?: {
+                    id?: number
+                    meta?: RelationMeta
+                }): ODMtd
+                /**
+                 * Get an id that represent object-detection metadata type
+                 * @since 1.24
+                 * @returns Opaque id of the #GstAnalyticsMtd type
+                 */
+                get_mtd_type(): MtdType
+            }
+
+            interface ODMtd {
+                /**
+                 * Instance identifier
+                 */
+                id: number
+                /**
+                 * Instance of #GstAnalyticsRelationMeta where the analytics-metadata
+                 * identified by `id` is stored.
+                 */
+                meta: RelationMeta
+                /**
+                 * Retrieve location confidence level.
+                 * @since 1.24
+                 * @returns TRUE on success, otherwise FALSE., Confidence on object location
+                 */
+                get_confidence_lvl(): [boolean, number]
+                /**
+                 * Retrieve location and location confidence level.
+                 * @since 1.24
+                 * @returns TRUE on success, otherwise FALSE., x component of upper-left corner of the object location, y component of upper-left corner of the object location, bounding box width of the object location, bounding box height of the object location, Confidence on object location
+                 */
+                get_location(): [boolean, number, number, number, number, number]
+                /**
+                 * Quark of the class of object associated with this location.
+                 * @since 1.24
+                 * @returns Quark different from on success and 0 on failure.
+                 */
+                get_obj_type(): GLib.Quark
+                /**
+                 * Retrieve oriented location and location confidence level.
+                 * @since 1.26
+                 * @returns TRUE on success, otherwise FALSE., x component of upper-left corner of the object location (pre-rotation), y component of upper-left corner of the object location (pre-rotation), bounding box width of the object location, bounding box height of the object location, Rotation of the bounding box in radians <0, 2xPI>    with respect to the bounding box center    (the rotation value is a clock-wise angle), Confidence on object location
+                 */
+                get_oriented_location(): [boolean, number, number, number, number, number, number]
+            }
+
+            interface $Exports {
+                ODMtd: ODMtdStruct
+            }
+            
+
+            interface RelationMetaStruct {
+                readonly $gtype: GObject.GType<RelationMeta>
+                [Symbol.hasInstance](instance: unknown): instance is RelationMeta
+            }
+
+            interface RelationMeta {
+                /**
+                 * Add analytic classification metadata to `instance`.
+                 * @since 1.24
+                 * @param confidence_levels confidence levels
+                 * @param class_quarks labels of this    classification. Order define index, quark, labels relation. This array    need to exist as long has this classification meta exist.
+                 * @returns Added successfully, Handle updated to newly added classification meta.
+                 */
+                add_cls_mtd(confidence_levels: number[], class_quarks: GLib.Quark[]): [boolean, ClsMtd]
+                /**
+                 * @since 1.24
+                 * @param type Quark of the object type
+                 * @param x x component of bounding box upper-left corner
+                 * @param y y component of bounding box upper-left corner
+                 * @param w bounding box width
+                 * @param h bounding box height
+                 * @param loc_conf_lvl confidence level on the object location
+                 * @returns Added successfully, Handle updated with newly added object detection    meta. Add an object-detetion metadata to `instance`.
+                 */
+                add_od_mtd(type: GLib.Quark, x: number, y: number, w: number, h: number, loc_conf_lvl: number): [boolean, ODMtd | null]
+                /**
+                 * Add analytic classification metadata to `instance`.
+                 * @since 1.24
+                 * @param confidence_level confidence levels
+                 * @param class_quark labels of this    classification. Order define index, quark, labels relation. This array    need to exist as long has this classification meta exist.
+                 * @returns Added successfully, Handle updated to newly added classification meta.
+                 */
+                add_one_cls_mtd(confidence_level: number, class_quark: GLib.Quark): [boolean, ClsMtd]
+                /**
+                 * @since 1.26
+                 * @param type Quark of the object type
+                 * @param x x component of bounding box upper-left corner (pre-rotation)
+                 * @param y y component of bounding box upper-left corner (pre-rotation)
+                 * @param w bounding box width
+                 * @param h bounding box height
+                 * @param r bounding box rotation in radians <0, 2xPI>    with respect to the bounding box center    (the rotation value is a clock-wise angle)
+                 * @param loc_conf_lvl confidence level on the object location
+                 * @returns Added successfully, Handle updated with newly added object detection    meta. Add an object-detetion metadata to `instance`.
+                 */
+                add_oriented_od_mtd(type: GLib.Quark, x: number, y: number, w: number, h: number, r: number, loc_conf_lvl: number): [boolean, ODMtd | null]
+                /**
+                 * Add analytics segmentation metadata to `instance`. The rectangle (@masks_loc_x,
+                 *  `mask_loc_y`, `mask_loc_w`, `mask_loc_h`) define a area of the image that
+                 * correspond to the segmentation masks stored in `buffer`. For example if the
+                 * segmentation masks stored in `buffer` describe the segmented regions for the
+                 * entire image the rectangular area will be (@masks_loc_x = 0, `masks_loc_y` = 0,
+                 *  `masks_loc_w` = image_width, `masks_loc_h` = image_height).
+                 * @since 1.26
+                 * @param buffer Buffer containing segmentation masks. `buffer` must have a #GstVideoMeta attached
+                 * @param segmentation_type Segmentation type
+                 * @param region_ids Arrays of region ids present in the mask.
+                 * @param masks_loc_x Left coordinate of the rectangle corresponding to the masks in the image.
+                 * @param masks_loc_y Top coordinate of the rectangle corresponding to the masks in the image.
+                 * @param masks_loc_w Width of the rectangle corresponding to the masks in the image.
+                 * @param masks_loc_h Height of the rectangle corresponding to the masks in the image.
+                 * @returns TRUE if added successfully, otherwise FALSE, Handle update with newly added segmentation meta.
+                 */
+                add_segmentation_mtd(buffer: Gst.Buffer, segmentation_type: SegmentationType, region_ids: number[], masks_loc_x: number, masks_loc_y: number, masks_loc_w: number, masks_loc_h: number): [boolean, SegmentationMtd]
+                /**
+                 * @since 1.24
+                 * @param tracking_id Tracking id
+                 * @param tracking_first_seen Timestamp of first time the object was observed.
+                 * @returns Added successfully, Handle updated with newly added tracking meta. Add an analytic tracking metadata to `instance`.
+                 */
+                add_tracking_mtd(tracking_id: number, tracking_first_seen: Gst.ClockTime): [boolean, TrackingMtd]
+                /**
+                 * Verify existence of relation(s) between `an_meta_first_d` and
+                 *  `an_meta_second_id` according to relation condition `cond_types`. It optionally
+                 * also return a shortest path of relations ( compliant with `cond_types`)
+                 * between `an_meta_first_id` and `an_meta_second_id`.
+                 * @since 1.24
+                 * @param an_meta_first_id First analysis-meta
+                 * @param an_meta_second_id Second analysis-meta
+                 * @param max_relation_span Maximum number of relation between `an_meta_first_id` and    `an_meta_second_id`.    A value of 1 mean only only consider direct relation.
+                 * @param cond_types condition on relation types.
+                 * @returns TRUE if a relation between exit between `an_meta_first_id` and  `an_meta_second_id`, otherwise FALSE.,     If not NULL this list will be filled with relation path between    `an_meta_first_id` and    `an_meta_second_id`. List value should be access with GSList API. Use    GPOINTER_TO_INT(iter->data) where iter is a GSList element to get    analysis-meta id on the relation path. Free this list with g_slist_free    (@relations_path) after using.
+                 */
+                exist(an_meta_first_id: number, an_meta_second_id: number, max_relation_span: number, cond_types: RelTypes): [boolean, number[] | null]
+                /**
+                 * Fill `rlt` if a analytics-meta with id == `an_meta_id` exist in `meta` instance,
+                 * otherwise this method return FALSE and `rlt` is invalid.
+                 * @since 1.24
+                 * @param an_meta_id Id of #GstAnalyticsClsMtd instance to retrieve
+                 * @returns TRUE if successful., Will be filled with relatable    meta
+                 */
+                get_cls_mtd(an_meta_id: number): [boolean, ClsMtd]
+                /**
+                 * @since 1.24
+                 * @param an_meta_id Id of GstAnalyticsMtd involved in relation to query
+                 * @param relation_type Type of relation to filter on.
+                 * @param type Type of GstAnalyticsMtd to filter on
+                 * @returns TRUE if `rlt_mtd` was updated, other wise FALSE, Opaque data to store state of the query.    If `state` point to NULL, the first analytics-metadata directly related    to `an_meta_id` will be set in `rlt_mtd`. Doesn't need to be free., Handle updated to directly related relatable meta.
+                 */
+                get_direct_related(an_meta_id: number, relation_type: RelTypes, type: MtdType, state: never): [boolean, never, Mtd]
+                /**
+                 * Fill `rlt` if a analytics-meta with id == `an_meta_id` exist in `meta` instance,
+                 * otherwise this method return FALSE and `rlt` is invalid.
+                 * @since 1.24
+                 * @param an_meta_id Id of GstAnalyticsMtd instance to retrieve
+                 * @param type Filter on a specific type of analysis, use  %GST_ANALYTICS_MTD_TYPE_ANY to match any type
+                 * @returns TRUE if successful., Will be filled with relatable    meta
+                 */
+                get_mtd(an_meta_id: number, type: MtdType): [boolean, Mtd]
+                /**
+                 * Fill `rlt` if a analytics-meta with id == `an_meta_id` exist in `meta` instance,
+                 * otherwise this method return FALSE and `rlt` is invalid.
+                 * @since 1.24
+                 * @param an_meta_id Id of #GstAnalyticsODMtd instance to retrieve
+                 * @returns TRUE if successful., Will be filled with relatable    meta
+                 */
+                get_od_mtd(an_meta_id: number): [boolean, ODMtd]
+                /**
+                 * Get relations between first and second analysis-meta.
+                 * Ids (@an_meta_first_id and `an_meta_second_id`) must be from a call to
+                 *  `gst_analytics_mtd_get_id` (handle).
+                 * @since 1.24
+                 * @param an_meta_first_id Id of first analysis-meta
+                 * @param an_meta_second_id Id of second  analysis-meta
+                 * @returns relation description between first and second analysis-meta.
+                 */
+                get_relation(an_meta_first_id: number, an_meta_second_id: number): RelTypes
+                /**
+                 * Fill `rlt` if a analytics-meta with id == `an_meta_id` exist in `meta` instance,
+                 * otherwise this method return FALSE and `rlt` is invalid.
+                 * @since 1.26
+                 * @param an_meta_id Id of #GstAnalyticsSegmentationMtd instance to retrieve
+                 * @returns TRUE if successful., Will be filled with relatable    meta
+                 */
+                get_segmentation_mtd(an_meta_id: number): [boolean, SegmentationMtd]
+                /**
+                 * Fill `rlt` if a analytics-meta with id == `an_meta_id` exist in `meta` instance,
+                 * otherwise this method return FALSE and `rlt` is invalid.
+                 * @since 1.24
+                 * @param an_meta_id Id of GstAnalyticsMtd instance to retrieve
+                 * @returns TRUE if successful., Will be filled with relatable    meta
+                 */
+                get_tracking_mtd(an_meta_id: number): [boolean, TrackingMtd]
+                /**
+                 * @since 1.24
+                 * @param state Opaque data to store iteration state, initialize to NULL, no need to    free it.
+                 * @param type Type of GstAnalyticsMtd to iterate on or use  %GST_ANALYTICS_MTD_TYPE_ANY for any.
+                 * @returns FALSE if end was reached and iteration is completed., Handle updated to iterated GstAnalyticsRelatableMtd.
+                 */
+                iterate(state: never | null, type: MtdType): [boolean, Mtd]
+                /**
+                 * Sets the relation (#GstAnalyticsRelTypes) between `an_meta_first` and
+                 *    `an_meta_second`.
+                 * Ids must have been obtained a call to
+                 *    `gst_analytics_mtd_get_id`(handle).
+                 * @since 1.24
+                 * @param type a #GstAnalyticsRelTypes defining relation between two analysis-meta
+                 * @param an_meta_first_id first meta id
+                 * @param an_meta_second_id second meta id
+                 * @returns TRUE on success and FALSE on failure.
+                 */
+                set_relation(type: RelTypes, an_meta_first_id: number, an_meta_second_id: number): boolean
+            }
+
+            interface $Exports {
+                RelationMeta: RelationMetaStruct
+            }
+            
+
+            interface RelationMetaInitParamsStruct {
+                readonly $gtype: GObject.GType<RelationMetaInitParams>
+                new (fields?: {
+                    initial_relation_order?: number
+                    initial_buf_size?: number
+                }): RelationMetaInitParams
+            }
+
+            interface RelationMetaInitParams {
+                /**
+                 * Initial relations order.
+                 */
+                initial_relation_order: number
+                /**
+                 * Buffer size in bytes to store relatable metadata
+                 */
+                initial_buf_size: number
+            }
+
+            interface $Exports {
+                RelationMetaInitParams: RelationMetaInitParamsStruct
+            }
+            
+
+            interface SegmentationMtdStruct {
+                readonly $gtype: GObject.GType<SegmentationMtd>
+                new (fields?: {
+                    id?: number
+                    meta?: RelationMeta
+                }): SegmentationMtd
+                /**
+                 * Get an instance of #GstAnalyticsMtdType that represent segmentation
+                 * metadata type.
+                 * @since 1.26
+                 * @returns A #GstAnalyticsMtdType type
+                 */
+                get_mtd_type(): MtdType
+            }
+
+            interface SegmentationMtd {
+                /**
+                 * Instance identifier
+                 */
+                id: number
+                /**
+                 * Instance of #GstAnalyticsRelationMeta where the analytics-metadata
+                 * identified by `id` is stored.
+                 */
+                meta: RelationMeta
+                /**
+                 * Get segmentation mask data.
+                 * @since 1.26
+                 * @returns Segmentation mask data stored in a #GstBuffer, Left coordinate of the rectangle corresponding to the mask in the image., Top coordinate of the rectangle corresponding to the mask in the image., Width of the rectangle corresponding to the mask in the image., Height of the rectangle corresponding to the mask in the image.
+                 */
+                get_mask(): [Gst.Buffer, number | null, number | null, number | null, number | null]
+                /**
+                 * Get the regions count.
+                 * @since 1.26
+                 * @returns Number of regions segmented
+                 */
+                get_region_count(): number
+                /**
+                 * Get id of the region corresponding to `index`, which should be
+                 * smaller than the return value of
+                 * gst_analytics_segmentation_mtd_get_region_count()
+                 * @since 1.26
+                 * @param index Region index
+                 * @returns The region ID
+                 */
+                get_region_id(index: number): number
+                /**
+                 * Get region index of the region identified by `id`.
+                 * @since 1.26
+                 * @param id Region id
+                 * @returns TRUE if a region with `id` exist, otherwise FALSE, Region index
+                 */
+                get_region_index(id: number): [boolean, number]
+            }
+
+            interface $Exports {
+                SegmentationMtd: SegmentationMtdStruct
+            }
+            
+
+            interface TensorStruct {
+                readonly $gtype: GObject.GType<Tensor>
+                new (fields?: {
+                    id?: GLib.Quark
+                    layout?: TensorLayout
+                    data_type?: TensorDataType
+                    data?: Gst.Buffer
+                    dims_order?: TensorDimOrder
+                    num_dims?: number
+                    dims?: number[]
+                }): Tensor
+                /**
+                 * Allocate a tensor with `num_dims` dimensions.
+                 * @since 1.26
+                 * @param num_dims Number of dimension of the tensors
+                 * @returns tensor allocated
+                 */
+                alloc(num_dims: number): Tensor
+                /**
+                 * Allocates a new #GstTensor of `dims_order` ROW_MAJOR or COLUMN_MAJOR and
+                 * with an interleaved layout
+                 * @since 1.26
+                 * @param id semantically identify the contents of the tensor
+                 * @param data_type #GstTensorDataType of tensor data
+                 * @param data #GstBuffer holding tensor data
+                 * @param dims_order Indicate tensor dimension indexing order
+                 * @param dims tensor dimensions. Value of 0 mean the dimension is dynamic.
+                 * @returns A newly allocated #GstTensor
+                 */
+                new_simple(id: GLib.Quark, data_type: TensorDataType, data: Gst.Buffer, dims_order: TensorDimOrder, dims: number[]): Tensor
+            }
+
+            interface Tensor {
+                /**
+                 * semantically identify the contents of the tensor
+                 */
+                id: GLib.Quark
+                /**
+                 * Indicate tensor layout
+                 */
+                layout: TensorLayout
+                /**
+                 * #GstTensorDataType of tensor data
+                 */
+                data_type: TensorDataType
+                /**
+                 * #GstBuffer holding tensor data
+                 */
+                data: Gst.Buffer
+                /**
+                 * Indicate tensor elements layout in memory.
+                 */
+                dims_order: TensorDimOrder
+                /**
+                 * number of tensor dimensions
+                 */
+                num_dims: number
+                /**
+                 * number of tensor dimensions
+                 */
+                dims: number[]
+                /**
+                 * Create a copy of `tensor`.
+                 * @since 1.26
+                 * @returns a new #GstTensor
+                 */
+                copy(): Tensor | null
+                /**
+                 * Free tensor
+                 * @since 1.26
+                 */
+                free(): void
+                /**
+                 * Gets the dimensions of the tensor.
+                 * @since 1.26
+                 * @returns The dims array form the tensor
+                 */
+                get_dims(): number[]
+            }
+
+            interface $Exports {
+                Tensor: TensorStruct
+            }
+            
+
+            interface TensorMetaStruct {
+                readonly $gtype: GObject.GType<TensorMeta>
+                new (fields?: {
+                    meta?: Gst.Meta
+                    num_tensors?: number
+                    tensors?: Tensor
+                }): TensorMeta
+            }
+
+            interface TensorMeta {
+                /**
+                 * parent
+                 */
+                meta: Gst.Meta
+                /**
+                 * number of tensors
+                 */
+                num_tensors: number
+                /**
+                 */
+                tensors: Tensor
+                /**
+                 * Retrieves a tensor from the #GstTensorMeta, the index must be
+                 * smaller than #GstTensorMeta.num_tensors
+                 * @since 1.26
+                 * @param index The number of the tensor to get
+                 * @returns a GstTensor
+                 */
+                get(index: number): Tensor
+                /**
+                 * Finds the first tensor with the requsted ID in the meta
+                 * @since 1.26
+                 * @param id The tensor id to look for
+                 * @returns The index of the tensor inthe meta, or -1 if  its not found.
+                 */
+                get_index_from_id(id: GLib.Quark): number
+                /**
+                 * Sets tensors into the #GstTensorMeta
+                 * @since 1.26
+                 * @param tensors An array of poiners to #GstTensor
+                 */
+                set(tensors: Tensor[]): void
+            }
+
+            interface $Exports {
+                TensorMeta: TensorMetaStruct
+            }
+            
+
+            interface TrackingMtdStruct {
+                readonly $gtype: GObject.GType<TrackingMtd>
+                new (fields?: {
+                    id?: number
+                    meta?: RelationMeta
+                }): TrackingMtd
+                /**
+                 * @since 1.24
+                 * @returns id representing the type of GstAnalyticsRelatableMtd  Get the opaque id identifying the relatable type
+                 */
+                get_mtd_type(): MtdType
+            }
+
+            interface TrackingMtd {
+                /**
+                 * Instance identifier
+                 */
+                id: number
+                /**
+                 * Instance of #GstAnalyticsRelationMeta where the analytics-metadata
+                 * identified by `id` is stored.
+                 */
+                meta: RelationMeta
+                /**
+                 * Retrieve tracking information.
+                 * @since 1.24
+                 * @returns Successfully retrieved info., Updated tracking id, Updated timestamp of the tracking first observation., Updated timestamp of the tracking last observation., Has the tracking been lost
+                 */
+                get_info(): [boolean, number, Gst.ClockTime, Gst.ClockTime, boolean]
+                /**
+                 * @since 1.24
+                 * @returns Update successful
+                 */
+                set_lost(): boolean
+                /**
+                 * @since 1.24
+                 * @param last_seen Timestamp of last time this object was tracked
+                 */
+                update_last_seen(last_seen: Gst.ClockTime): boolean
+            }
+
+            interface $Exports {
+                TrackingMtd: TrackingMtdStruct
+            }
+            
+            interface SegmentationTypeEnum {
+                readonly $gtype: GObject.GType<SegmentationType>
+                /**
+                 * Segmentation where the belonging of each
+                 * pixel to a class of objects is identified.
+                 */
+                readonly "SEMANTIC": 0
+                /**
+                 * Segmentation where the belonging of each
+                 * pixel to instance of an object is identified.
+                 */
+                readonly "INSTANCE": 1
+            }
+            type SegmentationType = SegmentationTypeEnum[Exclude<keyof SegmentationTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Enum value describing supported segmentation type
+                 * @since 1.26
+                 */
+                SegmentationType: SegmentationTypeEnum
+            }
+            
+            interface TensorDataTypeEnum {
+                readonly $gtype: GObject.GType<TensorDataType>
+                /**
+                 * signed 4 bit integer tensor data
+                 */
+                readonly "INT4": 0
+                /**
+                 * signed 8 bit integer tensor data
+                 */
+                readonly "INT8": 1
+                /**
+                 * signed 16 bit integer tensor data
+                 */
+                readonly "INT16": 2
+                /**
+                 * signed 32 bit integer tensor data
+                 */
+                readonly "INT32": 3
+                /**
+                 * signed 64 bit integer tensor data
+                 */
+                readonly "INT64": 4
+                /**
+                 * unsigned 4 bit integer tensor data
+                 */
+                readonly "UINT4": 5
+                /**
+                 * unsigned 8 bit integer tensor data
+                 */
+                readonly "UINT8": 6
+                /**
+                 * unsigned 16 bit integer tensor data
+                 */
+                readonly "UINT16": 7
+                /**
+                 * unsigned 32 bit integer tensor data
+                 */
+                readonly "UINT32": 8
+                /**
+                 * unsigned 64 bit integer tensor data
+                 */
+                readonly "UINT64": 9
+                /**
+                 * 16 bit floating point tensor data
+                 */
+                readonly "FLOAT16": 10
+                /**
+                 * 32 bit floating point tensor data
+                 */
+                readonly "FLOAT32": 11
+                /**
+                 * 64 bit floating point tensor data
+                 */
+                readonly "FLOAT64": 12
+                /**
+                 * "brain" 16 bit floating point tensor data
+                 */
+                readonly "BFLOAT16": 13
+            }
+            type TensorDataType = TensorDataTypeEnum[Exclude<keyof TensorDataTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Describe the type of data contain in the tensor.
+                 * @since 1.26
+                 */
+                TensorDataType: TensorDataTypeEnum
+            }
+            
+            interface TensorDimOrderEnum {
+                readonly $gtype: GObject.GType<TensorDimOrder>
+                /**
+                 * elements along a row are consecutive in memory
+                 */
+                readonly "ROW_MAJOR": 0
+                /**
+                 * elements along a column are consecutive in memory
+                 */
+                readonly "COL_MAJOR": 1
+            }
+            type TensorDimOrder = TensorDimOrderEnum[Exclude<keyof TensorDimOrderEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Indicate to read tensor from memory in row-major or column-major order.
+                 * @since 1.26
+                 */
+                TensorDimOrder: TensorDimOrderEnum
+            }
+            
+            interface TensorLayoutEnum {
+                readonly $gtype: GObject.GType<TensorLayout>
+                /**
+                 * indicate the tensor is stored in a dense format in memory
+                 */
+                readonly "TENSOR_LAYOUT_CONTIGUOUS": 0
+            }
+            type TensorLayout = TensorLayoutEnum[Exclude<keyof TensorLayoutEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Indicate tensor storage in memory.
+                 * @since 1.26
+                 */
+                TensorLayout: TensorLayoutEnum
+            }
+            
+            interface RelTypesBitfield {
+                readonly $gtype: GObject.GType<RelTypes>
+                /**
+                 * No relation
+                 */
+                readonly "NONE": 0
+                /**
+                 * First analysis-meta is part of second analysis-meta
+                 */
+                readonly "IS_PART_OF": 2
+                /**
+                 * First analysis-meta contain second analysis-meta.
+                 */
+                readonly "CONTAIN": 4
+                /**
+                 * First analysis-meta relate to second analysis-meta.
+                 */
+                readonly "RELATE_TO": 8
+                /**
+                 * Used to express relations between two groups where each group's components
+                 * correspond to the respective component in the other group.
+                 * @since 1.26
+                 */
+                readonly "N_TO_N": 16
+                /**
+                 * Only use for criteria.
+                 */
+                readonly "ANY": 2147483647
+            }
+            type RelTypes = number
+            interface $Exports {
+                /**
+                 * @since 1.24
+                 */
+                RelTypes: RelTypesBitfield
+            }
             /**
-             * Get an id identifying #GstAnalyticsMtd type.
-             * @since 1.24
-             * @returns opaque id of #GstAnalyticsMtd type
+             * Type of analytics meta data
              */
-            get_mtd_type(): MtdType
+            type MtdType = never
+
+            interface $Exports {
+                __name__: "GstAnalytics"
+                __version__: "1.0"
+                INF_RELATION_SPAN: -1
+                MTD_TYPE_ANY: 0
+                /**
+                 * Attach a analysis-results-meta-relation  meta (#GstAnalyticsRelationMeta)to `buffer`.
+                 *
+                 * A #GstAnalyticsRelationMeta is a metadata describing relation between other
+                 * analysis meta. It's more efficient to use #gst_buffer_add_analytics_relation_meta_full
+                 * and providing the maximum number of analysis meta that will attached to a buffer.
+                 * @since 1.24
+                 * @param buffer a #GstBuffer
+                 * @returns Newly attached #GstAnalyticsRelationMeta
+                 */
+                buffer_add_analytics_relation_meta(buffer: Gst.Buffer): RelationMeta | null
+                /**
+                 * Attache a analysis-results relation-meta (#GstAnalyticsRelationMeta) to `buffer`.
+                 *
+                 * A #GstAnalyticsRelationMeta is a metadata describing relation between other
+                 * analysis meta.
+                 * @since 1.24
+                 * @param buffer a #GstBuffer
+                 * @param init_params Initialization parameters
+                 * @returns Newly attached #GstAnalyticsRelationMeta
+                 */
+                buffer_add_analytics_relation_meta_full(buffer: Gst.Buffer, init_params: RelationMetaInitParams): RelationMeta | null
+                /**
+                 * Adds a #GstTensorMeta to a buffer
+                 * @since 1.26
+                 * @param buffer A writable #GstBuffer
+                 * @returns The new #GstTensorMeta
+                 */
+                buffer_add_tensor_meta(buffer: Gst.Buffer): TensorMeta
+                /**
+                 * Retrives the meta or %NULL if it doesn't exist
+                 * @since 1.24
+                 * @param buffer a #GstBuffer
+                 * @returns The #GstAnalyticsRelationMeta if there is one
+                 */
+                buffer_get_analytics_relation_meta(buffer: Gst.Buffer): RelationMeta | null
+                /**
+                 * Gets the #GstTensorMeta from a buffer
+                 * @since 1.26
+                 * @param buffer A #GstBuffer
+                 * @returns The #GstTensorMeta if there is wone
+                 */
+                buffer_get_tensor_meta(buffer: Gst.Buffer): TensorMeta | null
+                /**
+                 * Get an id identifying #GstAnalyticsMtd type.
+                 * @since 1.24
+                 * @returns opaque id of #GstAnalyticsMtd type
+                 */
+                cls_mtd_get_mtd_type(): MtdType
+                /**
+                 * Gets the string version of the name of this type of analytics data
+                 * @since 1.24
+                 * @param type The type of analytics data
+                 * @returns the name
+                 */
+                mtd_type_get_name(type: MtdType): string
+                /**
+                 * Get an id that represent object-detection metadata type
+                 * @since 1.24
+                 * @returns Opaque id of the #GstAnalyticsMtd type
+                 */
+                od_mtd_get_mtd_type(): MtdType
+                /**
+                 * Get number of relatable meta attached to instance
+                 * @since 1.24
+                 * @param instance Instance of #GstAnalyticsRelationMeta
+                 * @returns Number of analysis-meta attached to this  instance.
+                 */
+                relation_get_length(instance: RelationMeta): number
+                /**
+                 * @since 1.24
+                 * @returns GType of GstAnalyticsRelationMeta
+                 */
+                relation_meta_api_get_type(): GObject.GType
+                /**
+                 * Get an instance of #GstAnalyticsMtdType that represent segmentation
+                 * metadata type.
+                 * @since 1.26
+                 * @returns A #GstAnalyticsMtdType type
+                 */
+                segmentation_mtd_get_mtd_type(): MtdType
+                /**
+                 * @since 1.24
+                 * @returns id representing the type of GstAnalyticsRelatableMtd  Get the opaque id identifying the relatable type
+                 */
+                tracking_mtd_get_mtd_type(): MtdType
+            }
         }
 
-        interface ClsMtd {
-            /**
-             * Instance identifier
-             */
-            id: number
-            /**
-             * Instance of #GstAnalyticsRelationMeta where the analytics-metadata
-             * identified by @id is stored.
-             */
-            meta: RelationMeta
-            /**
-             * @since 1.24
-             * @param quark Quark of the class
-            Get index of class represented by @quark
-             * @returns index of the class associated with `quarks` ( and label) or     a negative value on failure.
-             */
-            get_index_by_quark(quark: GLib.Quark): number
-            /**
-             * @since 1.24
-             * @returns Number of classes in this classification instance
-             */
-            get_length(): number
-            /**
-             * Get confidence level for class at @index
-             * @since 1.24
-             * @param index Object class index
-             * @returns confidence level for `index`, <0.0 if the call failed.
-             */
-            get_level(index: number): number
-            /**
-             * @since 1.24
-             * @param index index of the class
-            Get quark of the class at @index
-             * @returns Quark of this class (label) associated with `index`
-             */
-            get_quark(index: number): GLib.Quark
-        }
-
-        interface $Exports {
-            ClsMtd: ClsMtdStruct
-        }
-        
-
-        interface MtdStruct {
-            readonly $gtype: GObject.GType<Mtd>
-            [Symbol.hasInstance](instance: unknown): instance is Mtd
-            /**
-             * Gets the string version of the name of this type of analytics data
-             * @since 1.24
-             * @param type The type of analytics data
-             * @returns the name
-             */
-            type_get_name(type: MtdType): string
-        }
-
-        interface Mtd {
-            /**
-             * Instance identifier
-             */
-            id: number
-            /**
-             * Instance of #GstAnalyticsRelationMeta where the analytics-metadata
-             * identified by @id is stored.
-             */
-            meta: RelationMeta
-            /**
-             * Get instance id
-             * @since 1.24
-             * @returns Id of `instance`
-             */
-            get_id(): number
-            /**
-             * @since 1.24
-             * @returns opaque id of the type
-             */
-            get_mtd_type(): MtdType
-            /**
-             * Get instance size
-             * @since 1.24
-             * @returns Size (in bytes) of this instance or 0 on failure.
-             */
-            get_size(): number
-        }
-
-        interface $Exports {
-            Mtd: MtdStruct
-        }
-        
-
-        interface MtdImplStruct {
-            readonly $gtype: GObject.GType<MtdImpl>
-            [Symbol.hasInstance](instance: unknown): instance is MtdImpl
-        }
-
-        interface MtdImpl {
-            /**
-             * The name of the metadata type
-             */
-            name: string
-        }
-
-        interface $Exports {
-            MtdImpl: MtdImplStruct
-        }
-        
-
-        interface ODMtdStruct {
-            readonly $gtype: GObject.GType<ODMtd>
-            [Symbol.hasInstance](instance: unknown): instance is ODMtd
-            /**
-             * Get an id that represent object-detection metadata type
-             * @since 1.24
-             * @returns Opaque id of the #GstAnalyticsMtd type
-             */
-            get_mtd_type(): MtdType
-        }
-
-        interface ODMtd {
-            /**
-             * Instance identifier
-             */
-            id: number
-            /**
-             * Instance of #GstAnalyticsRelationMeta where the analytics-metadata
-             * identified by @id is stored.
-             */
-            meta: RelationMeta
-            /**
-             * Retrieve location confidence level.
-             * @since 1.24
-             * @returns TRUE on success, otherwise FALSE., Confidence on object location
-             */
-            get_confidence_lvl(): [boolean, number]
-            /**
-             * Retrieve location and location confidence level.
-             * @since 1.24
-             * @returns TRUE on success, otherwise FALSE., x component of upper-left corner of the object location, y component of upper-left corner of the object location, bounding box width of the object location, bounding box height of the object location, Confidence on object location
-             */
-            get_location(): [boolean, number, number, number, number, number]
-            /**
-             * Quark of the class of object associated with this location.
-             * @since 1.24
-             * @returns Quark different from on success and 0 on failure.
-             */
-            get_obj_type(): GLib.Quark
-            /**
-             * Retrieve oriented location and location confidence level.
-             * @since 1.26
-             * @returns TRUE on success, otherwise FALSE., x component of upper-left corner of the object location (pre-rotation), y component of upper-left corner of the object location (pre-rotation), bounding box width of the object location, bounding box height of the object location, Rotation of the bounding box in radians <0, 2xPI>    with respect to the bounding box center    (the rotation value is a clock-wise angle), Confidence on object location
-             */
-            get_oriented_location(): [boolean, number, number, number, number, number, number]
-        }
-
-        interface $Exports {
-            ODMtd: ODMtdStruct
-        }
-        
-
-        interface RelationMetaStruct {
-            readonly $gtype: GObject.GType<RelationMeta>
-            [Symbol.hasInstance](instance: unknown): instance is RelationMeta
-        }
-
-        interface RelationMeta {
-            /**
-             * Add analytic classification metadata to @instance.
-             * @since 1.24
-             * @param confidence_levels confidence levels
-             * @param class_quarks labels of this
-               classification. Order define index, quark, labels relation. This array
-               need to exist as long has this classification meta exist.
-             * @returns Added successfully, Handle updated to newly added classification meta.
-             */
-            add_cls_mtd(confidence_levels: number[], class_quarks: GLib.Quark[]): [boolean, ClsMtd]
-            /**
-             * @since 1.24
-             * @param type Quark of the object type
-             * @param x x component of bounding box upper-left corner
-             * @param y y component of bounding box upper-left corner
-             * @param w bounding box width
-             * @param h bounding box height
-             * @param loc_conf_lvl confidence level on the object location
-             * @returns Added successfully, Handle updated with newly added object detection    meta. Add an object-detetion metadata to `instance`.
-             */
-            add_od_mtd(type: GLib.Quark, x: number, y: number, w: number, h: number, loc_conf_lvl: number): [boolean, ODMtd | null]
-            /**
-             * Add analytic classification metadata to @instance.
-             * @since 1.24
-             * @param confidence_level confidence levels
-             * @param class_quark labels of this
-               classification. Order define index, quark, labels relation. This array
-               need to exist as long has this classification meta exist.
-             * @returns Added successfully, Handle updated to newly added classification meta.
-             */
-            add_one_cls_mtd(confidence_level: number, class_quark: GLib.Quark): [boolean, ClsMtd]
-            /**
-             * @since 1.26
-             * @param type Quark of the object type
-             * @param x x component of bounding box upper-left corner (pre-rotation)
-             * @param y y component of bounding box upper-left corner (pre-rotation)
-             * @param w bounding box width
-             * @param h bounding box height
-             * @param r bounding box rotation in radians <0, 2xPI>
-               with respect to the bounding box center
-               (the rotation value is a clock-wise angle)
-             * @param loc_conf_lvl confidence level on the object location
-             * @returns Added successfully, Handle updated with newly added object detection    meta. Add an object-detetion metadata to `instance`.
-             */
-            add_oriented_od_mtd(type: GLib.Quark, x: number, y: number, w: number, h: number, r: number, loc_conf_lvl: number): [boolean, ODMtd | null]
-            /**
-             * Add analytics segmentation metadata to @instance. The rectangle (@masks_loc_x,
-             * @mask_loc_y, @mask_loc_w, @mask_loc_h) define a area of the image that
-             * correspond to the segmentation masks stored in @buffer. For example if the
-             * segmentation masks stored in @buffer describe the segmented regions for the
-             * entire image the rectangular area will be (@masks_loc_x = 0, @masks_loc_y = 0,
-             * @masks_loc_w = image_width, @masks_loc_h = image_height).
-             * @since 1.26
-             * @param buffer Buffer containing segmentation masks. @buffer
-            must have a #GstVideoMeta attached
-             * @param segmentation_type Segmentation type
-             * @param region_ids Arrays of region ids present in the mask.
-             * @param masks_loc_x Left coordinate of the rectangle corresponding to the masks in the image.
-             * @param masks_loc_y Top coordinate of the rectangle corresponding to the masks in the image.
-             * @param masks_loc_w Width of the rectangle corresponding to the masks in the image.
-             * @param masks_loc_h Height of the rectangle corresponding to the masks in the image.
-             * @returns TRUE if added successfully, otherwise FALSE, Handle update with newly added segmentation meta.
-             */
-            add_segmentation_mtd(buffer: Gst.Buffer, segmentation_type: SegmentationType, region_ids: number[], masks_loc_x: number, masks_loc_y: number, masks_loc_w: number, masks_loc_h: number): [boolean, SegmentationMtd]
-            /**
-             * @since 1.24
-             * @param tracking_id Tracking id
-             * @param tracking_first_seen Timestamp of first time the object was observed.
-             * @returns Added successfully, Handle updated with newly added tracking meta. Add an analytic tracking metadata to `instance`.
-             */
-            add_tracking_mtd(tracking_id: number, tracking_first_seen: Gst.ClockTime): [boolean, TrackingMtd]
-            /**
-             * Verify existence of relation(s) between @an_meta_first_d and
-             * @an_meta_second_id according to relation condition @cond_types. It optionally
-             * also return a shortest path of relations ( compliant with @cond_types)
-             * between @an_meta_first_id and @an_meta_second_id.
-             * @since 1.24
-             * @param an_meta_first_id First analysis-meta
-             * @param an_meta_second_id Second analysis-meta
-             * @param max_relation_span Maximum number of relation between @an_meta_first_id and
-               @an_meta_second_id.
-               A value of 1 mean only only consider direct relation.
-             * @param cond_types condition on relation types.
-             * @returns TRUE if a relation between exit between `an_meta_first_id` and  `an_meta_second_id`, otherwise FALSE.,     If not NULL this list will be filled with relation path between    `an_meta_first_id` and    `an_meta_second_id`. List value should be access with GSList API. Use    GPOINTER_TO_INT(iter->data) where iter is a GSList element to get    analysis-meta id on the relation path. Free this list with g_slist_free    (@relations_path) after using.
-             */
-            exist(an_meta_first_id: number, an_meta_second_id: number, max_relation_span: number, cond_types: RelTypes): [boolean, number[] | null]
-            /**
-             * Fill @rlt if a analytics-meta with id == @an_meta_id exist in @meta instance,
-             * otherwise this method return FALSE and @rlt is invalid.
-             * @since 1.24
-             * @param an_meta_id Id of #GstAnalyticsClsMtd instance to retrieve
-             * @returns TRUE if successful., Will be filled with relatable    meta
-             */
-            get_cls_mtd(an_meta_id: number): [boolean, ClsMtd]
-            /**
-             * @since 1.24
-             * @param an_meta_id Id of GstAnalyticsMtd involved in relation to query
-             * @param relation_type Type of relation to filter on.
-             * @param type Type of GstAnalyticsMtd to filter on
-             * @returns TRUE if `rlt_mtd` was updated, other wise FALSE, Opaque data to store state of the query.    If `state` point to NULL, the first analytics-metadata directly related    to `an_meta_id` will be set in `rlt_mtd`. Doesn't need to be free., Handle updated to directly related relatable meta.
-             */
-            get_direct_related(an_meta_id: number, relation_type: RelTypes, type: MtdType): [boolean, never, Mtd]
-            /**
-             * Fill @rlt if a analytics-meta with id == @an_meta_id exist in @meta instance,
-             * otherwise this method return FALSE and @rlt is invalid.
-             * @since 1.24
-             * @param an_meta_id Id of GstAnalyticsMtd instance to retrieve
-             * @param type Filter on a specific type of analysis, use
-             %GST_ANALYTICS_MTD_TYPE_ANY to match any type
-             * @returns TRUE if successful., Will be filled with relatable    meta
-             */
-            get_mtd(an_meta_id: number, type: MtdType): [boolean, Mtd]
-            /**
-             * Fill @rlt if a analytics-meta with id == @an_meta_id exist in @meta instance,
-             * otherwise this method return FALSE and @rlt is invalid.
-             * @since 1.24
-             * @param an_meta_id Id of #GstAnalyticsODMtd instance to retrieve
-             * @returns TRUE if successful., Will be filled with relatable    meta
-             */
-            get_od_mtd(an_meta_id: number): [boolean, ODMtd]
-            /**
-             * Get relations between first and second analysis-meta.
-             * Ids (@an_meta_first_id and @an_meta_second_id) must be from a call to
-             * @gst_analytics_mtd_get_id (handle).
-             * @since 1.24
-             * @param an_meta_first_id Id of first analysis-meta
-             * @param an_meta_second_id Id of second  analysis-meta
-             * @returns relation description between first and second analysis-meta.
-             */
-            get_relation(an_meta_first_id: number, an_meta_second_id: number): RelTypes
-            /**
-             * Fill @rlt if a analytics-meta with id == @an_meta_id exist in @meta instance,
-             * otherwise this method return FALSE and @rlt is invalid.
-             * @since 1.26
-             * @param an_meta_id Id of #GstAnalyticsSegmentationMtd instance to retrieve
-             * @returns TRUE if successful., Will be filled with relatable    meta
-             */
-            get_segmentation_mtd(an_meta_id: number): [boolean, SegmentationMtd]
-            /**
-             * Fill @rlt if a analytics-meta with id == @an_meta_id exist in @meta instance,
-             * otherwise this method return FALSE and @rlt is invalid.
-             * @since 1.24
-             * @param an_meta_id Id of GstAnalyticsMtd instance to retrieve
-             * @returns TRUE if successful., Will be filled with relatable    meta
-             */
-            get_tracking_mtd(an_meta_id: number): [boolean, TrackingMtd]
-            /**
-             * @since 1.24
-             * @param state Opaque data to store iteration state, initialize to NULL, no need to
-               free it.
-             * @param type Type of GstAnalyticsMtd to iterate on or use
-             %GST_ANALYTICS_MTD_TYPE_ANY for any.
-             * @returns FALSE if end was reached and iteration is completed., Handle updated to iterated GstAnalyticsRelatableMtd.
-             */
-            iterate(state: never | null, type: MtdType): [boolean, Mtd]
-            /**
-             * Sets the relation (#GstAnalyticsRelTypes) between @an_meta_first and
-             *    @an_meta_second.
-             * Ids must have been obtained a call to
-             *    @gst_analytics_mtd_get_id(handle).
-             * @since 1.24
-             * @param type a #GstAnalyticsRelTypes defining relation between two analysis-meta
-             * @param an_meta_first_id first meta id
-             * @param an_meta_second_id second meta id
-             * @returns TRUE on success and FALSE on failure.
-             */
-            set_relation(type: RelTypes, an_meta_first_id: number, an_meta_second_id: number): boolean
-        }
-
-        interface $Exports {
-            RelationMeta: RelationMetaStruct
-        }
-        
-
-        interface RelationMetaInitParamsStruct {
-            readonly $gtype: GObject.GType<RelationMetaInitParams>
-            [Symbol.hasInstance](instance: unknown): instance is RelationMetaInitParams
-        }
-
-        interface RelationMetaInitParams {
-            /**
-             * Initial relations order.
-             */
-            initial_relation_order: number
-            /**
-             * Buffer size in bytes to store relatable metadata
-             */
-            initial_buf_size: number
-        }
-
-        interface $Exports {
-            RelationMetaInitParams: RelationMetaInitParamsStruct
-        }
-        
-
-        interface SegmentationMtdStruct {
-            readonly $gtype: GObject.GType<SegmentationMtd>
-            [Symbol.hasInstance](instance: unknown): instance is SegmentationMtd
-            /**
-             * Get an instance of #GstAnalyticsMtdType that represent segmentation
-             * metadata type.
-             * @since 1.26
-             * @returns A #GstAnalyticsMtdType type
-             */
-            get_mtd_type(): MtdType
-        }
-
-        interface SegmentationMtd {
-            /**
-             * Instance identifier
-             */
-            id: number
-            /**
-             * Instance of #GstAnalyticsRelationMeta where the analytics-metadata
-             * identified by @id is stored.
-             */
-            meta: RelationMeta
-            /**
-             * Get segmentation mask data.
-             * @since 1.26
-             * @returns Segmentation mask data stored in a #GstBuffer, Left coordinate of the rectangle corresponding to the mask in the image., Top coordinate of the rectangle corresponding to the mask in the image., Width of the rectangle corresponding to the mask in the image., Height of the rectangle corresponding to the mask in the image.
-             */
-            get_mask(): [Gst.Buffer, number | null, number | null, number | null, number | null]
-            /**
-             * Get the regions count.
-             * @since 1.26
-             * @returns Number of regions segmented
-             */
-            get_region_count(): number
-            /**
-             * Get id of the region corresponding to @index, which should be
-             * smaller than the return value of
-             * gst_analytics_segmentation_mtd_get_region_count()
-             * @since 1.26
-             * @param index Region index
-             * @returns The region ID
-             */
-            get_region_id(index: number): number
-            /**
-             * Get region index of the region identified by @id.
-             * @since 1.26
-             * @param id Region id
-             * @returns TRUE if a region with `id` exist, otherwise FALSE, Region index
-             */
-            get_region_index(id: number): [boolean, number]
-        }
-
-        interface $Exports {
-            SegmentationMtd: SegmentationMtdStruct
-        }
-        
-
-        interface TensorStruct {
-            readonly $gtype: GObject.GType<Tensor>
-            [Symbol.hasInstance](instance: unknown): instance is Tensor
-            /**
-             * Allocate a tensor with @num_dims dimensions.
-             * @since 1.26
-             * @param num_dims Number of dimension of the tensors
-             * @returns tensor allocated
-             */
-            alloc(num_dims: number): Tensor
-            /**
-             * Allocates a new #GstTensor of @dims_order ROW_MAJOR or COLUMN_MAJOR and
-             * with an interleaved layout
-             * @since 1.26
-             * @param id semantically identify the contents of the tensor
-             * @param data_type #GstTensorDataType of tensor data
-             * @param data #GstBuffer holding tensor data
-             * @param dims_order Indicate tensor dimension indexing order
-             * @param dims tensor dimensions. Value of 0 mean the
-            dimension is dynamic.
-             * @returns A newly allocated #GstTensor
-             */
-            new_simple(id: GLib.Quark, data_type: TensorDataType, data: Gst.Buffer, dims_order: TensorDimOrder, dims: number[]): Tensor
-        }
-
-        interface Tensor {
-            /**
-             * semantically identify the contents of the tensor
-             */
-            id: GLib.Quark
-            /**
-             * Indicate tensor layout
-             */
-            layout: TensorLayout
-            /**
-             * #GstTensorDataType of tensor data
-             */
-            data_type: TensorDataType
-            /**
-             * #GstBuffer holding tensor data
-             */
-            data: Gst.Buffer
-            /**
-             * Indicate tensor elements layout in memory.
-             */
-            dims_order: TensorDimOrder
-            /**
-             * number of tensor dimensions
-             */
-            num_dims: number
-            /**
-             * number of tensor dimensions
-             */
-            dims: number[]
-            /**
-             * Create a copy of @tensor.
-             * @since 1.26
-             * @returns a new #GstTensor
-             */
-            copy(): Tensor | null
-            /**
-             * Free tensor
-             * @since 1.26
-             */
-            free(): void
-            /**
-             * Gets the dimensions of the tensor.
-             * @since 1.26
-             * @returns The dims array form the tensor
-             */
-            get_dims(): number[]
-        }
-
-        interface $Exports {
-            Tensor: TensorStruct
-        }
-        
-
-        interface TensorMetaStruct {
-            readonly $gtype: GObject.GType<TensorMeta>
-            [Symbol.hasInstance](instance: unknown): instance is TensorMeta
-        }
-
-        interface TensorMeta {
-            /**
-             * parent
-             */
-            meta: Gst.Meta
-            /**
-             * number of tensors
-             */
-            num_tensors: number
-            /**
-             */
-            tensors: Tensor
-            /**
-             * Retrieves a tensor from the #GstTensorMeta, the index must be
-             * smaller than #GstTensorMeta.num_tensors
-             * @since 1.26
-             * @param index The number of the tensor to get
-             * @returns a GstTensor
-             */
-            get(index: number): Tensor
-            /**
-             * Finds the first tensor with the requsted ID in the meta
-             * @since 1.26
-             * @param id The tensor id to look for
-             * @returns The index of the tensor inthe meta, or -1 if  its not found.
-             */
-            get_index_from_id(id: GLib.Quark): number
-            /**
-             * Sets tensors into the #GstTensorMeta
-             * @since 1.26
-             * @param tensors An array of poiners to #GstTensor
-             */
-            set(tensors: Tensor[]): void
-        }
-
-        interface $Exports {
-            TensorMeta: TensorMetaStruct
-        }
-        
-
-        interface TrackingMtdStruct {
-            readonly $gtype: GObject.GType<TrackingMtd>
-            [Symbol.hasInstance](instance: unknown): instance is TrackingMtd
-            /**
-             * @since 1.24
-             * @returns id representing the type of GstAnalyticsRelatableMtd  Get the opaque id identifying the relatable type
-             */
-            get_mtd_type(): MtdType
-        }
-
-        interface TrackingMtd {
-            /**
-             * Instance identifier
-             */
-            id: number
-            /**
-             * Instance of #GstAnalyticsRelationMeta where the analytics-metadata
-             * identified by @id is stored.
-             */
-            meta: RelationMeta
-            /**
-             * Retrieve tracking information.
-             * @since 1.24
-             * @returns Successfully retrieved info., Updated tracking id, Updated timestamp of the tracking first observation., Updated timestamp of the tracking last observation., Has the tracking been lost
-             */
-            get_info(): [boolean, number, Gst.ClockTime, Gst.ClockTime, boolean]
-            /**
-             * @since 1.24
-             * @returns Update successful
-             */
-            set_lost(): boolean
-            /**
-             * @since 1.24
-             * @param last_seen Timestamp of last time this object was tracked
-             */
-            update_last_seen(last_seen: Gst.ClockTime): boolean
-        }
-
-        interface $Exports {
-            TrackingMtd: TrackingMtdStruct
-        }
-        
-        interface SegmentationTypeEnum {
-            readonly $gtype: GObject.GType<SegmentationType>
-            /**
-             * Segmentation where the belonging of each
-             * pixel to a class of objects is identified.
-             */
-            readonly "SEMANTIC": 0
-            /**
-             * Segmentation where the belonging of each
-             * pixel to instance of an object is identified.
-             */
-            readonly "INSTANCE": 1
-        }
-        type SegmentationType = SegmentationTypeEnum[Exclude<keyof SegmentationTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Enum value describing supported segmentation type
-             * @since 1.26
-             */
-            SegmentationType: SegmentationTypeEnum
-        }
-        
-        interface TensorDataTypeEnum {
-            readonly $gtype: GObject.GType<TensorDataType>
-            /**
-             * signed 4 bit integer tensor data
-             */
-            readonly "INT4": 0
-            /**
-             * signed 8 bit integer tensor data
-             */
-            readonly "INT8": 1
-            /**
-             * signed 16 bit integer tensor data
-             */
-            readonly "INT16": 2
-            /**
-             * signed 32 bit integer tensor data
-             */
-            readonly "INT32": 3
-            /**
-             * signed 64 bit integer tensor data
-             */
-            readonly "INT64": 4
-            /**
-             * unsigned 4 bit integer tensor data
-             */
-            readonly "UINT4": 5
-            /**
-             * unsigned 8 bit integer tensor data
-             */
-            readonly "UINT8": 6
-            /**
-             * unsigned 16 bit integer tensor data
-             */
-            readonly "UINT16": 7
-            /**
-             * unsigned 32 bit integer tensor data
-             */
-            readonly "UINT32": 8
-            /**
-             * unsigned 64 bit integer tensor data
-             */
-            readonly "UINT64": 9
-            /**
-             * 16 bit floating point tensor data
-             */
-            readonly "FLOAT16": 10
-            /**
-             * 32 bit floating point tensor data
-             */
-            readonly "FLOAT32": 11
-            /**
-             * 64 bit floating point tensor data
-             */
-            readonly "FLOAT64": 12
-            /**
-             * "brain" 16 bit floating point tensor data
-             */
-            readonly "BFLOAT16": 13
-        }
-        type TensorDataType = TensorDataTypeEnum[Exclude<keyof TensorDataTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Describe the type of data contain in the tensor.
-             * @since 1.26
-             */
-            TensorDataType: TensorDataTypeEnum
-        }
-        
-        interface TensorDimOrderEnum {
-            readonly $gtype: GObject.GType<TensorDimOrder>
-            /**
-             * elements along a row are consecutive in memory
-             */
-            readonly "ROW_MAJOR": 0
-            /**
-             * elements along a column are consecutive in memory
-             */
-            readonly "COL_MAJOR": 1
-        }
-        type TensorDimOrder = TensorDimOrderEnum[Exclude<keyof TensorDimOrderEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Indicate to read tensor from memory in row-major or column-major order.
-             * @since 1.26
-             */
-            TensorDimOrder: TensorDimOrderEnum
-        }
-        
-        interface TensorLayoutEnum {
-            readonly $gtype: GObject.GType<TensorLayout>
-            /**
-             * indicate the tensor is stored in a dense format in memory
-             */
-            readonly "TENSOR_LAYOUT_CONTIGUOUS": 0
-        }
-        type TensorLayout = TensorLayoutEnum[Exclude<keyof TensorLayoutEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Indicate tensor storage in memory.
-             * @since 1.26
-             */
-            TensorLayout: TensorLayoutEnum
-        }
-        
-        interface RelTypesBitfield {
-            readonly $gtype: GObject.GType<RelTypes>
-            /**
-             * No relation
-             */
-            readonly "NONE": 0
-            /**
-             * First analysis-meta is part of second analysis-meta
-             */
-            readonly "IS_PART_OF": 2
-            /**
-             * First analysis-meta contain second analysis-meta.
-             */
-            readonly "CONTAIN": 4
-            /**
-             * First analysis-meta relate to second analysis-meta.
-             */
-            readonly "RELATE_TO": 8
-            /**
-             * Used to express relations between two groups where each group's components
-             * correspond to the respective component in the other group.
-             * @since 1.26
-             */
-            readonly "N_TO_N": 16
-            /**
-             * Only use for criteria.
-             */
-            readonly "ANY": 2147483647
-        }
-        type RelTypes = number
-        interface $Exports {
-            /**
-             * @since 1.24
-             */
-            RelTypes: RelTypesBitfield
-        }
-        /**
-         * Type of analytics meta data
-         */
-        type MtdType = never
-
-        interface $Exports {
-            __name__: "GstAnalytics"
-            __version: "1.0"
-            INF_RELATION_SPAN: -1
-            MTD_TYPE_ANY: 0
-            /**
-             * Attach a analysis-results-meta-relation  meta (#GstAnalyticsRelationMeta)to @buffer.
-             *
-             * A #GstAnalyticsRelationMeta is a metadata describing relation between other
-             * analysis meta. It's more efficient to use #gst_buffer_add_analytics_relation_meta_full
-             * and providing the maximum number of analysis meta that will attached to a buffer.
-             * @since 1.24
-             * @param buffer a #GstBuffer
-             * @returns Newly attached #GstAnalyticsRelationMeta
-             */
-            buffer_add_analytics_relation_meta(buffer: Gst.Buffer): RelationMeta | null
-            /**
-             * Attache a analysis-results relation-meta (#GstAnalyticsRelationMeta) to @buffer.
-             *
-             * A #GstAnalyticsRelationMeta is a metadata describing relation between other
-             * analysis meta.
-             * @since 1.24
-             * @param buffer a #GstBuffer
-             * @param init_params Initialization parameters
-             * @returns Newly attached #GstAnalyticsRelationMeta
-             */
-            buffer_add_analytics_relation_meta_full(buffer: Gst.Buffer, init_params: RelationMetaInitParams): RelationMeta | null
-            /**
-             * Adds a #GstTensorMeta to a buffer
-             * @since 1.26
-             * @param buffer A writable #GstBuffer
-             * @returns The new #GstTensorMeta
-             */
-            buffer_add_tensor_meta(buffer: Gst.Buffer): TensorMeta
-            /**
-             * Retrives the meta or %NULL if it doesn't exist
-             * @since 1.24
-             * @param buffer a #GstBuffer
-             * @returns The #GstAnalyticsRelationMeta if there is one
-             */
-            buffer_get_analytics_relation_meta(buffer: Gst.Buffer): RelationMeta | null
-            /**
-             * Gets the #GstTensorMeta from a buffer
-             * @since 1.26
-             * @param buffer A #GstBuffer
-             * @returns The #GstTensorMeta if there is wone
-             */
-            buffer_get_tensor_meta(buffer: Gst.Buffer): TensorMeta | null
-            /**
-             * Get an id identifying #GstAnalyticsMtd type.
-             * @since 1.24
-             * @returns opaque id of #GstAnalyticsMtd type
-             */
-            cls_mtd_get_mtd_type(): MtdType
-            /**
-             * Gets the string version of the name of this type of analytics data
-             * @since 1.24
-             * @param type The type of analytics data
-             * @returns the name
-             */
-            mtd_type_get_name(type: MtdType): string
-            /**
-             * Get an id that represent object-detection metadata type
-             * @since 1.24
-             * @returns Opaque id of the #GstAnalyticsMtd type
-             */
-            od_mtd_get_mtd_type(): MtdType
-            /**
-             * Get number of relatable meta attached to instance
-             * @since 1.24
-             * @param instance Instance of #GstAnalyticsRelationMeta
-             * @returns Number of analysis-meta attached to this  instance.
-             */
-            relation_get_length(instance: RelationMeta): number
-            /**
-             * @since 1.24
-             * @returns GType of GstAnalyticsRelationMeta
-             */
-            relation_meta_api_get_type(): GObject.GType
-            /**
-             * Get an instance of #GstAnalyticsMtdType that represent segmentation
-             * metadata type.
-             * @since 1.26
-             * @returns A #GstAnalyticsMtdType type
-             */
-            segmentation_mtd_get_mtd_type(): MtdType
-            /**
-             * @since 1.24
-             * @returns id representing the type of GstAnalyticsRelatableMtd  Get the opaque id identifying the relatable type
-             */
-            tracking_mtd_get_mtd_type(): MtdType
-        }
+        const GstAnalytics: GstAnalytics.$Exports
     }
 
-    const GstAnalytics: GstAnalytics.$Exports
-    export default GstAnalytics
+    export default GI.GstAnalytics
 }

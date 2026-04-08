@@ -164,7 +164,10 @@ declare module "gettext" {
         ): string
 
         interface GettextDomain {
-            /** @param msgid A string to translate. @returns A translated message. */
+            /**
+             * @param msgid A string to translate.
+             * @returns A translated message.
+             */
             gettext: (msgid: string) => string
             /**
              * @param msgid1 The singular form of the string to be translated.
@@ -191,6 +194,7 @@ declare module "gettext" {
         function domain(domainName: string): GettextDomain
     }
 
+    export import GettextDomain = Gettext.GettextDomain
     export import LocaleCategory = Gettext.LocaleCategory
     export import setlocale = Gettext.setlocale
     export import textdomain = Gettext.textdomain

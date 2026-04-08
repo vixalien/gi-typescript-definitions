@@ -10,58 +10,68 @@ declare module "gi://fontconfig?version=2.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type GLib from "gi://GLib?version=2.0"
 
-    
-
-    namespace fontconfig {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface PatternStruct {
-            readonly $gtype: GObject.GType<Pattern>
-            [Symbol.hasInstance](instance: unknown): instance is Pattern
+        namespace fontconfig {
+            
+
+            interface PatternStruct {
+                readonly $gtype: GObject.GType<Pattern>
+                new (fields?: {
+                }): Pattern
+            }
+
+            interface Pattern {
+            }
+
+            interface $Exports {
+                Pattern: PatternStruct
+            }
+            
+
+            interface CharSetStruct {
+                readonly $gtype: GObject.GType<CharSet>
+                new (fields?: {
+                }): CharSet
+            }
+
+            interface CharSet {
+            }
+
+            interface $Exports {
+                CharSet: CharSetStruct
+            }
+            
+
+            interface ConfigStruct {
+                readonly $gtype: GObject.GType<Config>
+                new (fields?: {
+                }): Config
+            }
+
+            interface Config {
+            }
+
+            interface $Exports {
+                Config: ConfigStruct
+            }
+
+            interface $Exports {
+                __name__: "fontconfig"
+                __version__: "2.0"
+                /**
+                 */
+                init(): void
+            }
         }
 
-        interface Pattern {
-        }
-
-        interface $Exports {
-            Pattern: PatternStruct
-        }
-        
-
-        interface CharSetStruct {
-            readonly $gtype: GObject.GType<CharSet>
-            [Symbol.hasInstance](instance: unknown): instance is CharSet
-        }
-
-        interface CharSet {
-        }
-
-        interface $Exports {
-            CharSet: CharSetStruct
-        }
-        
-
-        interface ConfigStruct {
-            readonly $gtype: GObject.GType<Config>
-            [Symbol.hasInstance](instance: unknown): instance is Config
-        }
-
-        interface Config {
-        }
-
-        interface $Exports {
-            Config: ConfigStruct
-        }
-
-        interface $Exports {
-            __name__: "fontconfig"
-            __version: "2.0"
-            /**
-             */
-            init(): void
-        }
+        const fontconfig: fontconfig.$Exports
     }
 
-    const fontconfig: fontconfig.$Exports
-    export default fontconfig
+    export default GI.fontconfig
 }

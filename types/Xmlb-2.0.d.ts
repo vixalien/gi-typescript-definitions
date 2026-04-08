@@ -14,2410 +14,2411 @@ declare module "gi://Xmlb?version=2.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type Gio from "gi://Gio?version=2.0"
 
-    
-
-    namespace Xmlb {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace Builder {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+        namespace Xmlb {
+            
+
+            namespace Builder {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            interface Builder extends GObject.Object {
+                readonly $signals: Builder.SignalSignatures
+                readonly $readableProperties: Builder.ReadableProperties
+                readonly $writableProperties: Builder.WritableProperties
+                readonly $constructOnlyProperties: Builder.ConstructOnlyProperties
+                /**
+                 * Adds a function that will get run on every #XbBuilderNode compile creates
+                 * for the silo. This is run after all the #XbBuilderSource fixups have been
+                 * run.
+                 * @since 0.1.3
+                 * @param fixup a #XbBuilderFixup
+                 */
+                add_fixup(fixup: BuilderFixup): void
+                /**
+                 * Adds a locale to the builder. Locales added first will be prioritised over
+                 * locales added later.
+                 * @since 0.1.0
+                 * @param locale a locale, e.g. "en_US"
+                 */
+                add_locale(locale: string): void
+                /**
+                 * Adds the GUID to the internal correctness hash.
+                 * @since 0.1.0
+                 * @param guid any text, typcically a filename or GUID
+                 */
+                append_guid(guid: string): void
+                /**
+                 * Compiles a #XbSilo.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param flags some #XbBuilderCompileFlags, e.g. %XB_BUILDER_SOURCE_FLAG_LITERAL_TEXT
+                 * @param cancellable a #GCancellable, or %NULL
+                 * @returns a #XbSilo, or %NULL for error
+                 */
+                compile(flags: BuilderCompileFlags, cancellable: Gio.Cancellable | null): Silo
+                /**
+                 * Ensures `file` is up to date, and returns a compiled #XbSilo.
+                 *
+                 * If `silo` is being used by a query (e.g. in another thread) then all node
+                 * data is immediately invalid.
+                 *
+                 * The returned #XbSilo will use the thread-default main context at the time of
+                 * calling this function for its future signal emissions.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param file a #GFile
+                 * @param flags some #XbBuilderCompileFlags, e.g. %XB_BUILDER_COMPILE_FLAG_IGNORE_INVALID
+                 * @param cancellable a #GCancellable, or %NULL
+                 * @returns a #XbSilo, or %NULL for error
+                 */
+                ensure(file: Gio.File, flags: BuilderCompileFlags, cancellable: Gio.Cancellable | null): Silo
+                /**
+                 * Adds a node tree to the builder.
+                 *
+                 * If you are manually adding dynamic data sourced from a non-static source then you MUST use
+                 * xb_builder_append_guid() with the appropriate GUID value, e.g. the file name and mtime.
+                 *
+                 * If no appropriate value is available, the caller can use something like:
+                 *
+                 *     g_autofree gchar *tmp = xb_builder_node_export(bn, XB_NODE_EXPORT_FLAG_NONE, NULL);
+                 *     xb_builder_append_guid(builder, tmp);
+                 *
+                 * Failure to include an appropriate GUID value would allow an out-of-data silo to be used.
+                 * @since 0.1.0
+                 * @param bn a #XbBuilderNode
+                 */
+                import_node(bn: BuilderNode): void
+                /**
+                 * Adds a #XbBuilderSource to the #XbBuilder.
+                 * @since 0.1.0
+                 * @param source a #XbBuilderSource
+                 */
+                import_source(source: BuilderSource): void
+                /**
+                 * Enables or disables the collection of profiling data.
+                 * @since 0.1.1
+                 * @param profile_flags some #XbSiloProfileFlags, e.g. %XB_SILO_PROFILE_FLAG_DEBUG
+                 */
+                set_profile_flags(profile_flags: SiloProfileFlags): void
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
+            interface BuilderClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Builder>
+                readonly prototype: Builder
+
+                new (props?: Partial<GObject.ConstructorProps<Builder>>): Builder
+                /**
+                 * Creates a new builder.
+                 *
+                 * The #XbSilo returned by the methods of this #XbBuilder will use the
+                 * thread-default main context at the time of calling this function for its
+                 * future signal emissions.
+                 * @since 0.1.0
+                 * @returns a new #XbBuilder
+                 */
+                "new"(): Builder
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 */
+                Builder: BuilderClass
+            }
+            
+
+            namespace BuilderFixup {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface BuilderFixup extends GObject.Object {
+                readonly $signals: BuilderFixup.SignalSignatures
+                readonly $readableProperties: BuilderFixup.ReadableProperties
+                readonly $writableProperties: BuilderFixup.WritableProperties
+                readonly $constructOnlyProperties: BuilderFixup.ConstructOnlyProperties
+                /**
+                 * Gets the maximum depth used for this fixup, if each node is being visited.
+                 * @since 0.1.3
+                 * @returns integer, or -1 if unset
+                 */
+                get_max_depth(): number
+                /**
+                 * Sets the maximum depth used for this fixup. Use a `max_depth` of 0 to only
+                 * visit the root node.
+                 *
+                 * Setting a maximum depth may increase performance considerably if using
+                 * fixup functions on large and deeply nested XML files.
+                 * @since 0.1.3
+                 * @param max_depth integer, -1 for "all"
+                 */
+                set_max_depth(max_depth: number): void
+            }
+
+            interface BuilderFixupClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<BuilderFixup>
+                readonly prototype: BuilderFixup
+
+                new (props?: Partial<GObject.ConstructorProps<BuilderFixup>>): BuilderFixup
+                /**
+                 * Creates a function that will get run on every #XbBuilderNode compile creates.
+                 * @since 0.1.3
+                 * @param id a text ID value, e.g. `AppStreamUpgrade`
+                 * @param func a callback
+                 * @returns a new #XbBuilderFixup
+                 */
+                "new"(id: string, func: BuilderFixupFunc): BuilderFixup
+            }
+
+            interface $Exports {
+                /**
+                 */
+                BuilderFixup: BuilderFixupClass
+            }
+            
+
+            namespace BuilderNode {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface BuilderNode extends GObject.Object {
+                readonly $signals: BuilderNode.SignalSignatures
+                readonly $readableProperties: BuilderNode.ReadableProperties
+                readonly $writableProperties: BuilderNode.WritableProperties
+                readonly $constructOnlyProperties: BuilderNode.ConstructOnlyProperties
+                /**
+                 * Adds a child builder node.
+                 * @since 0.1.0
+                 * @param child A XbBuilderNode
+                 */
+                add_child(child: BuilderNode): void
+                /**
+                 * Adds a flag to the builder node.
+                 * @since 0.1.0
+                 * @param flag a #XbBuilderNodeFlags
+                 */
+                add_flag(flag: BuilderNodeFlags): void
+                /**
+                 * Adds a token to the builder node.
+                 * @since 0.3.1
+                 * @param token a new token
+                 */
+                add_token(token: string): void
+                /**
+                 * Gets the depth of the node tree, where 0 is the root node.
+                 * @since 0.1.1
+                 */
+                depth(): number
+                /**
+                 * Exports the node to XML.
+                 * @throws {GLib.Error}
+                 * @since 0.1.5
+                 * @param flags some #XbNodeExportFlags, e.g. #XB_NODE_EXPORT_FLAG_NONE
+                 * @returns XML data, or %NULL for an error
+                 */
+                export(flags: NodeExportFlags): string
+                /**
+                 * Gets an attribute from the builder node.
+                 * @since 0.1.0
+                 * @param name attribute name, e.g. `type`
+                 * @returns string, or %NULL if unset
+                 */
+                get_attr(name: string): string
+                /**
+                 * Gets an attribute from the builder node.
+                 * @since 0.1.3
+                 * @param name attribute name, e.g. `priority`
+                 * @returns integer, or 0 if unset
+                 */
+                get_attr_as_uint(name: string): number
+                /**
+                 * Finds a child builder node by the element name, and optionally text value.
+                 * @since 0.1.1
+                 * @param element An element name, e.g. "url"
+                 * @param text node text, e.g. "gimp.desktop"
+                 * @returns a new #XbBuilderNode, or %NULL if not found
+                 */
+                get_child(element: string, text: string | null): BuilderNode
+                /**
+                 * Gets the children of the builder node.
+                 * @since 0.1.0
+                 * @returns children
+                 */
+                get_children(): BuilderNode[]
+                /**
+                 * Gets the element from the builder node.
+                 * @since 0.1.0
+                 * @returns string, or %NULL if unset
+                 */
+                get_element(): string
+                /**
+                 * Gets the first child of the builder node.
+                 * @since 0.1.12
+                 * @returns a #XbBuilderNode, or %NULL
+                 */
+                get_first_child(): BuilderNode
+                /**
+                 * Gets the last child of the builder node.
+                 * @since 0.1.12
+                 * @returns a #XbBuilderNode, or %NULL
+                 */
+                get_last_child(): BuilderNode
+                /**
+                 * Gets the parent node for the current node.
+                 * @since 0.1.1
+                 * @returns a new #XbBuilderNode, or %NULL no parent exists.
+                 */
+                get_parent(): BuilderNode
+                /**
+                 * Gets the tail from the builder node.
+                 * @since 0.1.12
+                 * @returns string, or %NULL if unset
+                 */
+                get_tail(): string
+                /**
+                 * Gets the text from the builder node.
+                 * @since 0.1.0
+                 * @returns string, or %NULL if unset
+                 */
+                get_text(): string
+                /**
+                 * Gets the text from the builder node.
+                 * @since 0.1.3
+                 * @returns integer, or 0 if unset
+                 */
+                get_text_as_uint(): number
+                /**
+                 * Gets the tokens of the builder node.
+                 * @since 0.3.1
+                 * @returns tokens
+                 */
+                get_tokens(): string[] | null
+                /**
+                 * Checks a flag on the builder node.
+                 * @since 0.1.0
+                 * @param flag a #XbBuilderNodeFlags
+                 * @returns %TRUE if `flag` is set
+                 */
+                has_flag(flag: BuilderNodeFlags): boolean
+                /**
+                 * Removes an attribute from the builder node.
+                 * @since 0.1.0
+                 * @param name attribute name, e.g. `type`
+                 */
+                remove_attr(name: string): void
+                /**
+                 * Removes a child builder node.
+                 * @since 0.1.1
+                 * @param child A XbBuilderNode
+                 */
+                remove_child(child: BuilderNode): void
+                /**
+                 * Adds an attribute to the builder node.
+                 * @since 0.1.0
+                 * @param name attribute name, e.g. `type`
+                 * @param value attribute value, e.g. `desktop`
+                 */
+                set_attr(name: string, value: string): void
+                /**
+                 * Sets the element name on the builder node.
+                 * @since 0.1.0
+                 * @param element a string element
+                 */
+                set_element(element: string): void
+                /**
+                 * Sets the tail on the builder node.
+                 * @since 0.1.12
+                 * @param tail a string
+                 * @param tail_len length of `tail`, or -1 if `tail` is NUL terminated
+                 */
+                set_tail(tail: string | null, tail_len: number): void
+                /**
+                 * Sets the text on the builder node.
+                 * @since 0.1.0
+                 * @param text a string
+                 * @param text_len length of `text`, or -1 if `text` is NUL terminated
+                 */
+                set_text(text: string | null, text_len: number): void
+                /**
+                 * Sorts the node children using a custom sort function.
+                 * @since 0.1.3
+                 * @param func a #XbBuilderNodeSortFunc
+                 */
+                sort_children(func: BuilderNodeSortFunc): void
+                /**
+                 * Tokenize text added with xb_builder_node_set_text().
+                 *
+                 * When searching, libxmlb often has to tokenize strings before they can be
+                 * compared. This is done in the "fast path" and makes searching for non-ASCII
+                 * text much slower.
+                 *
+                 * Adding the tokens to the deduplicated string table allows much faster
+                 * searching at the expense of a ~5% size increase of the silo.
+                 *
+                 * This function adds all valid UTF-8 and ASCII search words generated from
+                 * the value of xb_builder_node_set_text().
+                 *
+                 * The transliteration locale (e.g. `en_GB`) is read from the `xml:lang`
+                 * node attribute if set.
+                 * @since 0.3.1
+                 */
+                tokenize_text(): void
+                /**
+                 * Traverses a tree starting from `self`. It calls the given function for each
+                 * node visited.
+                 *
+                 * The traversal can be halted at any point by returning TRUE from `func`.
+                 * @since 0.1.1
+                 * @param order a #GTraverseType, e.g. %G_PRE_ORDER
+                 * @param flags a #GTraverseFlags, e.g. %G_TRAVERSE_ALL
+                 * @param max_depth the maximum depth of the traversal, or -1 for no limit
+                 * @param func a #XbBuilderNodeTraverseFunc
+                 */
+                traverse(order: GLib.TraverseType, flags: GLib.TraverseFlags, max_depth: number, func: BuilderNodeTraverseFunc): void
+                /**
+                 * Unlinks a #XbBuilderNode from a tree, resulting in two separate trees.
+                 *
+                 * This should not be used from the function called by xb_builder_node_traverse()
+                 * otherwise the entire tree will not be traversed.
+                 *
+                 * Instead use xb_builder_node_add_flag(bn,XB_BUILDER_NODE_FLAG_IGNORE);
+                 * @since 0.1.1
+                 */
+                unlink(): void
+            }
+
+            interface BuilderNodeClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<BuilderNode>
+                readonly prototype: BuilderNode
+
+                new (props?: Partial<GObject.ConstructorProps<BuilderNode>>): BuilderNode
+                /**
+                 * Creates a new builder node.
+                 * @since 0.1.0
+                 * @param element An element name, e.g. "component"
+                 * @returns a new #XbBuilderNode
+                 */
+                "new"(element: string): BuilderNode
+            }
+
+            interface $Exports {
+                /**
+                 */
+                BuilderNode: BuilderNodeClass
+            }
+            
+
+            namespace BuilderSource {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface BuilderSource extends GObject.Object {
+                readonly $signals: BuilderSource.SignalSignatures
+                readonly $readableProperties: BuilderSource.ReadableProperties
+                readonly $writableProperties: BuilderSource.WritableProperties
+                readonly $constructOnlyProperties: BuilderSource.ConstructOnlyProperties
+                /**
+                 * Adds a function that will get run on every #XbBuilderNode compile creates
+                 * with this source.
+                 * @since 0.1.3
+                 * @param fixup a #XbBuilderFixup
+                 */
+                add_fixup(fixup: BuilderFixup): void
+                /**
+                 * Loads XML data and begins to build a #XbSilo.
+                 * @throws {GLib.Error}
+                 * @since 0.1.2
+                 * @param bytes a #GBytes
+                 * @param flags some #XbBuilderSourceFlags, e.g. %XB_BUILDER_SOURCE_FLAG_LITERAL_TEXT
+                 * @returns %TRUE for success
+                 */
+                load_bytes(bytes: (GLib.Bytes | Uint8Array), flags: BuilderSourceFlags): boolean
+                /**
+                 * Loads an optionally compressed XML file to build a #XbSilo.
+                 * @throws {GLib.Error}
+                 * @since 0.1.1
+                 * @param file a #GFile
+                 * @param flags some #XbBuilderSourceFlags, e.g. %XB_BUILDER_SOURCE_FLAG_LITERAL_TEXT
+                 * @param cancellable a #GCancellable, or %NULL
+                 * @returns %TRUE for success
+                 */
+                load_file(file: Gio.File, flags: BuilderSourceFlags, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Loads XML data and begins to build a #XbSilo.
+                 * @throws {GLib.Error}
+                 * @since 0.1.1
+                 * @param xml XML data
+                 * @param flags some #XbBuilderSourceFlags, e.g. %XB_BUILDER_SOURCE_FLAG_LITERAL_TEXT
+                 * @returns %TRUE for success
+                 */
+                load_xml(xml: string, flags: BuilderSourceFlags): boolean
+                /**
+                 * Sets an optional information metadata node on the root node.
+                 * @since 0.1.0
+                 * @param info a #XbBuilderNode
+                 */
+                set_info(info: BuilderNode | null): void
+                /**
+                 * Sets an optional prefix on the root node. This makes any nodes added
+                 * using this source reside under a common shared parent node.
+                 * @since 0.1.0
+                 * @param prefix an XPath prefix, e.g. `installed`
+                 */
+                set_prefix(prefix: string | null): void
+            }
+
+            interface BuilderSourceClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<BuilderSource>
+                readonly prototype: BuilderSource
+
+                new (props?: Partial<GObject.ConstructorProps<BuilderSource>>): BuilderSource
+                /**
+                 * Creates a new builder source.
+                 * @since 0.1.1
+                 * @returns a new #XbBuilderSource
+                 */
+                "new"(): BuilderSource
+            }
+
+            interface $Exports {
+                /**
+                 */
+                BuilderSource: BuilderSourceClass
+            }
+            
+
+            namespace BuilderSourceCtx {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface BuilderSourceCtx extends GObject.Object {
+                readonly $signals: BuilderSourceCtx.SignalSignatures
+                readonly $readableProperties: BuilderSourceCtx.ReadableProperties
+                readonly $writableProperties: BuilderSourceCtx.WritableProperties
+                readonly $constructOnlyProperties: BuilderSourceCtx.ConstructOnlyProperties
+                /**
+                 * Returns the data currently being processed.
+                 *
+                 * If the #XbBuilderSourceCtx is backed by a file, the returned #GBytes may be
+                 * memory-mapped, and the backing file must not be modified until the #GBytes is
+                 * destroyed.
+                 * @throws {GLib.Error}
+                 * @since 0.1.7
+                 * @param cancellable a #GCancellable, or %NULL
+                 * @returns a #GBytes
+                 */
+                get_bytes(cancellable: Gio.Cancellable | null): GLib.Bytes
+                /**
+                 * Returns the basename of the file currently being processed.
+                 * @since 0.1.7
+                 * @returns a basename, or %NULL if unset
+                 */
+                get_filename(): string | null
+                /**
+                 * Returns the input stream currently being processed.
+                 * @since 0.1.7
+                 * @returns a #GInputStream
+                 */
+                get_stream(): Gio.InputStream
+            }
+
+            interface BuilderSourceCtxClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<BuilderSourceCtx>
+                readonly prototype: BuilderSourceCtx
+
+                new (props?: Partial<GObject.ConstructorProps<BuilderSourceCtx>>): BuilderSourceCtx
+            }
+
+            interface $Exports {
+                /**
+                 */
+                BuilderSourceCtx: BuilderSourceCtxClass
+            }
+            
+
+            namespace Machine {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface Machine extends GObject.Object {
+                readonly $signals: Machine.SignalSignatures
+                readonly $readableProperties: Machine.ReadableProperties
+                readonly $writableProperties: Machine.WritableProperties
+                readonly $constructOnlyProperties: Machine.ConstructOnlyProperties
+                /**
+                 * Adds a new function to the virtual machine. Registered functions can then be
+                 * used as methods.
+                 *
+                 * The `method_cb` must not modify the stack it’s passed unless it’s going to
+                 * succeed. In particular, if a method call is not optimisable, it must not
+                 * modify the stack it’s passed.
+                 *
+                 * You need to add a custom function using xb_machine_add_method() before using
+                 * methods that may reference it, for example xb_machine_add_opcode_fixup().
+                 * @since 0.1.1
+                 * @param name function name, e.g. `contains`
+                 * @param n_opcodes minimum number of opcodes required on the stack
+                 * @param method_cb function to call
+                 */
+                add_method(name: string, n_opcodes: number, method_cb: MachineMethodFunc): void
+                /**
+                 * Adds an opcode fixup. Fixups can be used to optimize the stack of opcodes or
+                 * to add support for a nonstandard feature, for instance supporting missing
+                 * attributes to functions.
+                 * @since 0.1.1
+                 * @param opcodes_sig signature, e.g. `INTE,TEXT`
+                 * @param fixup_cb callback
+                 */
+                add_opcode_fixup(opcodes_sig: string, fixup_cb: MachineOpcodeFixupFunc): void
+                /**
+                 * Adds a new operator to the virtual machine. Operators can then be used
+                 * instead of explicit methods like `eq()`.
+                 *
+                 * You need to add a custom operator using xb_machine_add_operator() before
+                 * using xb_machine_parse(). Common operators like `<=` and `=` are built-in
+                 * and do not have to be added manually.
+                 * @since 0.1.1
+                 * @param str operator string, e.g. `==`
+                 * @param name function name, e.g. `contains`
+                 */
+                add_operator(str: string, name: string): void
+                /**
+                 * Adds a text handler. This allows the virtual machine to support nonstandard
+                 * encoding or shorthand mnemonics for standard functions.
+                 * @since 0.1.1
+                 * @param handler_cb callback
+                 */
+                add_text_handler(handler_cb: MachineTextHandlerFunc): void
+                /**
+                 * Gets the maximum stack size used for the machine.
+                 * @since 0.1.3
+                 * @returns integer
+                 */
+                get_stack_size(): number
+                /**
+                 * Initialises a stack allocated #XbOpcode for a registered function.
+                 * Some standard functions are registered by default, for instance `eq` or `ge`.
+                 * Other functions have to be added using xb_machine_add_method().
+                 * @since 0.2.0
+                 * @param func_name function name, e.g. `eq`
+                 * @returns %TRUE if the function was found and the opcode initialised, %FALSE    otherwise, a stack allocated #XbOpcode to initialise
+                 */
+                opcode_func_init(func_name: string): [boolean, Opcode]
+                /**
+                 * Parses an XPath predicate. Not all of XPath 1.0 or XPath 1.0 is supported,
+                 * and new functions and mnemonics can be added using xb_machine_add_method()
+                 * and xb_machine_add_text_handler().
+                 * @throws {GLib.Error}
+                 * @since 0.1.1
+                 * @param text predicate to parse, e.g. `contains(text(),'xyx')`
+                 * @param text_len length of `text`, or -1 if `text` is `NUL` terminated
+                 * @returns opcodes, or %NULL on error
+                 */
+                parse(text: string, text_len: number): Stack
+                /**
+                 * Parses an XPath predicate. Not all of XPath 1.0 or XPath 1.0 is supported,
+                 * and new functions and mnemonics can be added using xb_machine_add_method()
+                 * and xb_machine_add_text_handler().
+                 * @throws {GLib.Error}
+                 * @since 0.1.4
+                 * @param text predicate to parse, e.g. `contains(text(),'xyx')`
+                 * @param text_len length of `text`, or -1 if `text` is `NUL` terminated
+                 * @param flags #XbMachineParseFlags, e.g. %XB_MACHINE_PARSE_FLAG_OPTIMIZE
+                 * @returns opcodes, or %NULL on error
+                 */
+                parse_full(text: string, text_len: number, flags: MachineParseFlags): Stack
+                /**
+                 * Runs a set of opcodes on the virtual machine.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbMachine.
+                 * @throws {GLib.Error}
+                 * @since 0.1.1
+                 * @deprecated since 0.3.0 Use xb_machine_run_with_bindings() instead.
+                 * @param opcodes a #XbStack of opcodes
+                 * @param exec_data per-run user data that is passed to all the #XbMachineMethodFunc functions
+                 * @returns a new #XbOpcode, or %NULL, return status after running `opcodes`
+                 */
+                run(opcodes: Stack, exec_data: never | null): [boolean, boolean]
+                /**
+                 * Runs a set of opcodes on the virtual machine, using the bound values given in
+                 *  `bindings` to substitute for bound opcodes.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbMachine.
+                 * @throws {GLib.Error}
+                 * @since 0.3.0
+                 * @param opcodes a #XbStack of opcodes
+                 * @param bindings values bound to opcodes of type     %XB_OPCODE_KIND_BOUND_INTEGER or %XB_OPCODE_KIND_BOUND_TEXT, or %NULL if     the query doesn’t need any bound values
+                 * @param exec_data per-run user data that is passed to all the #XbMachineMethodFunc functions
+                 * @returns a new #XbOpcode, or %NULL, return status after running `opcodes`
+                 */
+                run_with_bindings(opcodes: Stack, bindings: ValueBindings | null, exec_data: never | null): [boolean, boolean]
+                /**
+                 * Sets the debug level of the virtual machine.
+                 * @since 0.1.1
+                 * @param flags #XbMachineDebugFlags, e.g. %XB_MACHINE_DEBUG_FLAG_SHOW_STACK
+                 */
+                set_debug_flags(flags: MachineDebugFlags): void
+                /**
+                 * Sets the maximum stack size used for the machine.
+                 *
+                 * The stack size will be affective for new jobs started with xb_machine_run()
+                 * and xb_machine_parse().
+                 * @since 0.1.3
+                 * @param stack_size integer
+                 */
+                set_stack_size(stack_size: number): void
+                /**
+                 * Pops an opcode from the stack.
+                 * @throws {GLib.Error}
+                 * @since 0.2.0
+                 * @param stack a #XbStack
+                 * @returns %TRUE if popping succeeded, %FALSE if the stack was empty already, return location for the popped #XbOpcode
+                 */
+                stack_pop(stack: Stack): [boolean, Opcode]
+                /**
+                 * Pushes a new empty opcode onto the end of the stack. A pointer to the opcode
+                 * is returned in `opcode_out` so that the caller can initialise it.
+                 *
+                 * If the stack reaches its maximum size, %G_IO_ERROR_NO_SPACE will be returned.
+                 * @throws {GLib.Error}
+                 * @since 0.2.0
+                 * @param stack a #XbStack
+                 * @returns %TRUE if a new empty opcode was returned, or %FALSE if the stack has    reached its maximum size, return location for the new #XbOpcode
+                 */
+                stack_push(stack: Stack): [boolean, Opcode | null]
+                /**
+                 * Adds an integer literal to the stack.
+                 *
+                 * Errors are as for xb_machine_stack_push().
+                 * @throws {GLib.Error}
+                 * @since 0.2.0
+                 * @param stack a #XbStack
+                 * @param val integer literal
+                 * @returns %TRUE on success, %FALSE otherwise
+                 */
+                stack_push_integer(stack: Stack, val: number): boolean
+                /**
+                 * Adds a text literal to the stack, copying `str`.
+                 *
+                 * Errors are as for xb_machine_stack_push().
+                 * @throws {GLib.Error}
+                 * @since 0.2.0
+                 * @param stack a #XbStack
+                 * @param str text literal
+                 * @returns %TRUE on success, %FALSE otherwise
+                 */
+                stack_push_text(stack: Stack, str: string): boolean
+                /**
+                 * Adds static text literal to the stack.
+                 *
+                 * Errors are as for xb_machine_stack_push().
+                 * @throws {GLib.Error}
+                 * @since 0.2.0
+                 * @param stack a #XbStack
+                 * @param str text literal
+                 * @returns %TRUE on success, %FALSE otherwise
+                 */
+                stack_push_text_static(stack: Stack, str: string): boolean
+                /**
+                 * Adds a stolen text literal to the stack.
+                 *
+                 * Errors are as for xb_machine_stack_push().
+                 * @throws {GLib.Error}
+                 * @since 0.2.0
+                 * @param stack a #XbStack
+                 * @param str text literal
+                 * @returns %TRUE on success, %FALSE otherwise
+                 */
+                stack_push_text_steal(stack: Stack, str: string): boolean
+            }
+
+            interface MachineClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Machine>
+                readonly prototype: Machine
+
+                new (props?: Partial<GObject.ConstructorProps<Machine>>): Machine
+                /**
+                 * Creates a new virtual machine.
+                 * @since 0.1.1
+                 * @returns a new #XbMachine
+                 */
+                "new"(): Machine
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Machine: MachineClass
+            }
+            
+
+            namespace Node {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface Node extends GObject.Object {
+                readonly $signals: Node.SignalSignatures
+                readonly $readableProperties: Node.ReadableProperties
+                readonly $writableProperties: Node.WritableProperties
+                readonly $constructOnlyProperties: Node.ConstructOnlyProperties
+                /**
+                 * Exports the node back to XML.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param flags some #XbNodeExportFlags, e.g. #XB_NODE_EXPORT_FLAG_NONE
+                 * @returns XML data, or %NULL for an error
+                 */
+                export(flags: NodeExportFlags): string
+                /**
+                 * Gets some attribute text data for a specific node.
+                 * @since 0.1.0
+                 * @param name an attribute name, e.g. "type"
+                 * @returns a string, or %NULL for unset
+                 */
+                get_attr(name: string): string
+                /**
+                 * Gets some attribute text data for a specific node.
+                 * @since 0.1.0
+                 * @param name an attribute name, e.g. `type`
+                 * @returns a guint64, or %G_MAXUINT64 if unfound
+                 */
+                get_attr_as_uint(name: string): number
+                /**
+                 * Gets the first child node for the current node.
+                 * @since 0.1.0
+                 * @returns a #XbNode, or %NULL
+                 */
+                get_child(): Node
+                /**
+                 * Gets all the children for the current node.
+                 * @since 0.1.0
+                 * @returns an array of children
+                 */
+                get_children(): Node[]
+                /**
+                 * Gets any data that has been set on the node using xb_node_set_data().
+                 *
+                 * This will only work across queries to the associated silo if the silo has
+                 * its #XbSilo:enable-node-cache property set to %TRUE. Otherwise a new #XbNode
+                 * may be constructed for future queries which return the same element as a
+                 * result.
+                 * @since 0.1.0
+                 * @param key a string key, e.g. `fwupd::RemoteId`
+                 * @returns a #GBytes, or %NULL if not found
+                 */
+                get_data(key: string): GLib.Bytes
+                /**
+                 * Gets the depth of the node to a root.
+                 * @since 0.1.0
+                 * @returns a integer, where 0 is the root node itself.
+                 */
+                get_depth(): number
+                /**
+                 * Gets the element name for a specific node.
+                 * @since 0.1.0
+                 * @returns a string, or %NULL for the root node
+                 */
+                get_element(): string
+                /**
+                 * Gets the next sibling node for the current node.
+                 * @since 0.1.0
+                 * @returns a #XbNode, or %NULL
+                 */
+                get_next(): Node
+                /**
+                 * Gets the parent node for the current node.
+                 * @since 0.1.0
+                 * @returns a #XbNode, or %NULL
+                 */
+                get_parent(): Node
+                /**
+                 * Gets the root node for the node.
+                 * @since 0.1.0
+                 * @returns a #XbNode, or %NULL
+                 */
+                get_root(): Node
+                /**
+                 * Gets the #XbSilo for the node.
+                 * @since 0.2.0
+                 * @returns a #XbSilo
+                 */
+                get_silo(): Silo
+                /**
+                 * Gets the tail data for a specific node.
+                 * @since 0.1.12
+                 * @returns a string, or %NULL for unset
+                 */
+                get_tail(): string
+                /**
+                 * Gets the text data for a specific node.
+                 * @since 0.1.0
+                 * @returns a string, or %NULL for unset
+                 */
+                get_text(): string
+                /**
+                 * Gets some attribute text data for a specific node.
+                 * @since 0.1.0
+                 * @returns a guint64, or %G_MAXUINT64 if unfound
+                 */
+                get_text_as_uint(): number
+                /**
+                 * Searches the silo using an XPath query, returning up to `limit` results.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param xpath an XPath, e.g. `id[abe.desktop]`
+                 * @param limit maximum number of results to return, or 0 for "all"
+                 * @returns results, or %NULL if unfound
+                 */
+                query(xpath: string, limit: number): Node[]
+                /**
+                 * Searches the node using an XPath query, returning up to one result.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
+                 * @param name an attribute name, e.g. `type`
+                 * @returns a string, or %NULL if unfound
+                 */
+                query_attr(xpath: string, name: string): string
+                /**
+                 * Searches the node using an XPath query, returning up to one result.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
+                 * @param name an attribute name, e.g. `type`
+                 * @returns a #guint64, or %G_MAXUINT64 if unfound
+                 */
+                query_attr_as_uint(xpath: string, name: string): number
+                /**
+                 * Searches the node using an XPath query, returning an XML string of the
+                 * result and any children.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
+                 * @returns a string, or %NULL if unfound
+                 */
+                query_export(xpath: string): string
+                /**
+                 * Searches the node using an XPath query, returning up to one result.
+                 *
+                 * Please note: Only a tiny subset of XPath 1.0 is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
+                 * @returns a #XbNode, or %NULL if unfound
+                 */
+                query_first(xpath: string): Node
+                /**
+                 * Searches the silo using a prepared query, returning up to one result. To
+                 * search using a query with bound values, use
+                 * xb_node_query_first_with_context().
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.11
+                 * @param query an #XbQuery
+                 * @returns a #XbNode, or %NULL if unfound
+                 */
+                query_first_full(query: Query): Node
+                /**
+                 * Searches the silo using a prepared query, returning up to one result.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.3.0
+                 * @param query an #XbQuery
+                 * @param context context including values bound to opcodes of type     %XB_OPCODE_KIND_BOUND_INTEGER or %XB_OPCODE_KIND_BOUND_TEXT, or %NULL if     the query doesn’t need any context
+                 * @returns a #XbNode, or %NULL if unfound
+                 */
+                query_first_with_context(query: Query, context: QueryContext | null): Node
+                /**
+                 * Searches the silo using a prepared query. To search using a query with
+                 * bound values, use xb_node_query_with_context().
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.4
+                 * @param query an #XbQuery
+                 * @returns results, or %NULL if unfound
+                 */
+                query_full(query: Query): Node[]
+                /**
+                 * Searches the node using an XPath query, returning up to one result.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
+                 * @returns a string, or %NULL if unfound
+                 */
+                query_text(xpath: string): string
+                /**
+                 * Searches the node using an XPath query, returning up to one result.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
+                 * @returns a #guint64, or %G_MAXUINT64 if unfound
+                 */
+                query_text_as_uint(xpath: string): number
+                /**
+                 * Searches the silo using a prepared query, substituting values from the
+                 * bindings in `context` for bound opcodes as needed.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.3.0
+                 * @param query an #XbQuery
+                 * @param context context including values bound to opcodes of type     %XB_OPCODE_KIND_BOUND_INTEGER or %XB_OPCODE_KIND_BOUND_TEXT, or %NULL if     the query doesn’t need any context
+                 * @returns results, or %NULL if unfound
+                 */
+                query_with_context(query: Query, context: QueryContext | null): Node[]
+                /**
+                 * Sets some data on the node which can be retrieved using xb_node_get_data().
+                 *
+                 * This will only work across queries to the associated silo if the silo has
+                 * its #XbSilo:enable-node-cache property set to %TRUE. Otherwise a new #XbNode
+                 * may be constructed for future queries which return the same element as a
+                 * result.
+                 * @since 0.1.0
+                 * @param key a string key, e.g. `fwupd::RemoteId`
+                 * @param data a #GBytes
+                 */
+                set_data(key: string, data: (GLib.Bytes | Uint8Array)): void
+                /**
+                 * Traverses a tree starting from `self`. It calls the given functions for each
+                 * node visited. This allows transmogrification of the source, for instance
+                 * converting the XML description to PangoMarkup or even something completely
+                 * different like markdown.
+                 *
+                 * The traversal can be halted at any point by returning TRUE from `func`.
+                 * @since 0.1.12
+                 * @param func_text (allow-none): a #XbBuilderNodeTraverseFunc
+                 * @param func_tail (allow-none): a #XbBuilderNodeTraverseFunc
+                 * @returns %TRUE if all nodes were visited
+                 */
+                transmogrify(func_text: NodeTransmogrifyFunc, func_tail: NodeTransmogrifyFunc): boolean
+            }
+
+            interface NodeClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Node>
+                readonly prototype: Node
+
+                new (props?: Partial<GObject.ConstructorProps<Node>>): Node
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Node: NodeClass
+            }
+            
+
+            namespace Query {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface Query extends GObject.Object {
+                readonly $signals: Query.SignalSignatures
+                readonly $readableProperties: Query.ReadableProperties
+                readonly $writableProperties: Query.WritableProperties
+                readonly $constructOnlyProperties: Query.ConstructOnlyProperties
+                /**
+                 * Assigns a string to a bound value specified using `?`.
+                 * @throws {GLib.Error}
+                 * @since 0.1.4
+                 * @deprecated since 0.3.0 Use #XbValueBindings and xb_value_bindings_bind_str()     instead. That keeps the value bindings separate from the #XbQuery,     allowing queries to be re-used over time and between threads.
+                 * @param idx an integer index
+                 * @param str string to assign to the bound variable
+                 * @returns %TRUE if the `idx` existed
+                 */
+                bind_str(idx: number, str: string): boolean
+                /**
+                 * Assigns a string to a bound value specified using `?`.
+                 * @throws {GLib.Error}
+                 * @since 0.1.4
+                 * @deprecated since 0.3.0 Use #XbValueBindings and xb_value_bindings_bind_val()     instead. That keeps the value bindings separate from the #XbQuery,     allowing queries to be re-used over time and between threads.
+                 * @param idx an integer index
+                 * @param val value to assign to the bound variable
+                 * @returns %TRUE if the `idx` existed
+                 */
+                bind_val(idx: number, val: number): boolean
+                /**
+                 * Gets the flags used for this query.
+                 * @since 0.1.15
+                 * @deprecated since 0.3.0 This is not thread-safe. Use xb_query_context_get_flags()     instead.
+                 * @returns #XbQueryFlags, default %XB_QUERY_FLAG_NONE
+                 */
+                get_flags(): QueryFlags
+                /**
+                 * Gets the results limit on this query, where 0 is 'all'.
+                 * @since 0.1.4
+                 * @deprecated since 0.3.0 This is not thread-safe. Use xb_query_context_get_limit()     instead.
+                 * @returns integer, default 0
+                 */
+                get_limit(): number
+                /**
+                 * Gets the XPath string that created the query.
+                 * @since 0.1.4
+                 * @returns string
+                 */
+                get_xpath(): string
+                /**
+                 * Sets the flags to use for this query.
+                 * @since 0.1.15
+                 * @deprecated since 0.3.0 This is not thread-safe. Use xb_query_context_set_flags()     instead.
+                 * @param flags a #XbQueryFlags, e.g. %XB_QUERY_FLAG_USE_INDEXES
+                 */
+                set_flags(flags: QueryFlags): void
+                /**
+                 * Sets the results limit on this query, where 0 is 'all'.
+                 * @since 0.1.4
+                 * @deprecated since 0.3.0 This is not thread-safe. Use xb_query_context_set_limit()     instead.
+                 * @param limit integer
+                 */
+                set_limit(limit: number): void
+            }
+
+            interface QueryClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Query>
+                readonly prototype: Query
+
+                new (props?: Partial<GObject.ConstructorProps<Query>>): Query
+                /**
+                 * Creates a query to be used by `silo`. It may be quicker to create a query
+                 * manually and re-use it multiple times.
+                 * @throws {GLib.Error}
+                 * @since 0.1.4
+                 * @param silo a #XbSilo
+                 * @param xpath The XPath query
+                 * @returns a #XbQuery
+                 */
+                "new"(silo: Silo, xpath: string): Query
+                /**
+                 * Creates a query to be used by `silo`. It may be quicker to create a query
+                 * manually and re-use it multiple times.
+                 *
+                 * The query will point to strings inside `silo`, so the lifetime of `silo` must
+                 * exceed the lifetime of the returned query.
+                 * @throws {GLib.Error}
+                 * @since 0.1.6
+                 * @param silo a #XbSilo
+                 * @param xpath The XPath query
+                 * @param flags some #XbQueryFlags, e.g. #XB_QUERY_FLAG_USE_INDEXES
+                 * @returns a #XbQuery
+                 */
+                new_full(silo: Silo, xpath: string, flags: QueryFlags): Query
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Query: QueryClass
+            }
+            
+
+            namespace Silo {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "enable-node-cache": boolean
+                    "guid": string
+                    "valid": boolean
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "enable-node-cache": boolean
+                    "guid": string
+                    "valid": boolean
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface Silo extends GObject.Object {
+                readonly $signals: Silo.SignalSignatures
+                readonly $readableProperties: Silo.ReadableProperties
+                readonly $writableProperties: Silo.WritableProperties
+                readonly $constructOnlyProperties: Silo.ConstructOnlyProperties
+                /**
+                 * Whether to cache all #XbNode instances ever constructed in a single
+                 * cache in the #XbSilo, so that the same #XbNode instance is always
+                 * returned in query results for a given XPath. This is a form of
+                 * memoisation, and allows xb_node_get_data() and xb_node_set_data() to
+                 * be used.
+                 *
+                 * This is enabled by default to preserve compatibility with older
+                 * versions of libxmlb, but most clients will want to disable it. It
+                 * adds a large memory overhead (no #XbNode is ever finalised) but
+                 * achieves moderately low hit rates for typical XML parsing workloads
+                 * where most nodes are accessed only once or twice as they are
+                 * processed and then processing moves on to other nodes.
+                 *
+                 * This property can only be changed before the #XbSilo is passed
+                 * between threads. Changing it is not thread-safe.
+                 * @since 0.2.0
+                 * @default TRUE
+                 */
+                get enableNodeCache(): boolean
+                set enableNodeCache(value: boolean)
+                /**
+                 * @default NULL
+                 */
+                get guid(): string
+                set guid(value: string)
+                /**
+                 * @default TRUE
+                 */
+                get valid(): boolean
+                set valid(value: boolean)
+                /**
+                 * Exports the silo back to XML.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param flags some #XbNodeExportFlags, e.g. #XB_NODE_EXPORT_FLAG_NONE
+                 * @returns XML data, or %NULL for an error
+                 */
+                export(flags: NodeExportFlags): string
+                /**
+                 * Exports the silo back to an XML file.
+                 * @throws {GLib.Error}
+                 * @since 0.1.2
+                 * @param file a #GFile
+                 * @param flags some #XbNodeExportFlags, e.g. #XB_NODE_EXPORT_FLAG_NONE
+                 * @param cancellable a #GCancellable, or %NULL
+                 * @returns %TRUE on success
+                 */
+                export_file(file: Gio.File, flags: NodeExportFlags, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Gets the backing object that created the blob.
+                 *
+                 * You should never *ever* modify this data.
+                 * @since 0.1.0
+                 * @returns A #GBytes, or %NULL if never set
+                 */
+                get_bytes(): GLib.Bytes
+                /**
+                 * Get #XbSilo:enable-node-cache.
+                 * @since 0.2.0
+                 */
+                get_enable_node_cache(): boolean
+                /**
+                 * Gets the GUID used to identify this silo.
+                 * @since 0.1.0
+                 * @returns a string, otherwise %NULL
+                 */
+                get_guid(): string
+                /**
+                 * Returns the profiling data. This will only return profiling text if
+                 * xb_silo_set_profile_flags() was used with %XB_SILO_PROFILE_FLAG_APPEND.
+                 * @since 0.1.1
+                 * @returns text profiling data
+                 */
+                get_profile_string(): string
+                /**
+                 * Gets the root node for the silo. (MIGHT BE MORE).
+                 * @since 0.1.0
+                 * @returns A #XbNode, or %NULL for an error
+                 */
+                get_root(): Node
+                /**
+                 * Gets the number of nodes in the silo.
+                 * @since 0.1.0
+                 * @returns a integer, or 0 is an empty blob
+                 */
+                get_size(): number
+                /**
+                 * Invalidates a silo. Future calls xb_silo_is_valid() will return %FALSE.
+                 * @since 0.1.1
+                 */
+                invalidate(): void
+                /**
+                 * Checks is the silo is valid. The usual reason the silo is invalidated is
+                 * when the backing mmapped file has changed, or one of the imported files have
+                 * been modified.
+                 * @since 0.1.0
+                 * @returns %TRUE if valid
+                 */
+                is_valid(): boolean
+                /**
+                 * Loads a silo from memory location.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param blob a #GBytes
+                 * @param flags #XbSiloLoadFlags, e.g. %XB_SILO_LOAD_FLAG_NONE
+                 * @returns %TRUE for success, otherwise `error` is set.
+                 */
+                load_from_bytes(blob: (GLib.Bytes | Uint8Array), flags: SiloLoadFlags): boolean
+                /**
+                 * Loads a silo from file.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param file a #GFile
+                 * @param flags #XbSiloLoadFlags, e.g. %XB_SILO_LOAD_FLAG_NONE
+                 * @param cancellable a #GCancellable, or %NULL
+                 * @returns %TRUE for success, otherwise `error` is set.
+                 */
+                load_from_file(file: Gio.File, flags: SiloLoadFlags, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Create an #XbQuery from the given `xpath` XPath string, or return it from the
+                 * query cache in the #XbSilo.
+                 *
+                 *  `xpath` must be valid: it is a programmer error if creating the query fails
+                 * (i.e. if xb_query_new() returns an error).
+                 *
+                 * This function is thread-safe.
+                 * @since 0.3.0
+                 * @param xpath an XPath query string
+                 * @returns an #XbQuery representing `xpath`
+                 */
+                lookup_query(xpath: string): Query
+                /**
+                 * Searches the silo using an XPath query, returning up to `limit` results.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param xpath an XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
+                 * @param limit maximum number of results to return, or 0 for "all"
+                 * @returns results, or %NULL if unfound
+                 */
+                query(xpath: string, limit: number): Node[]
+                /**
+                 * Adds the `attr()` or `text()` results of a query to the index.
+                 * @throws {GLib.Error}
+                 * @since 0.1.4
+                 * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
+                 * @param attr Attribute name, e.g. `type`, or NULL
+                 * @returns %TRUE for success
+                 */
+                query_build_index(xpath: string, attr: string | null): boolean
+                /**
+                 * Searches the silo using an XPath query, returning up to one result.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a tiny subset of XPath 1.0 is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
+                 * @returns a #XbNode, or %NULL if unfound
+                 */
+                query_first(xpath: string): Node
+                /**
+                 * Searches the silo using an XPath query, returning up to one result.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a tiny subset of XPath 1.0 is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.13
+                 * @param query an #XbQuery
+                 * @returns a #XbNode, or %NULL if unfound
+                 */
+                query_first_full(query: Query): Node
+                /**
+                 * Searches the silo using an XPath query, returning up to one result.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a tiny subset of XPath 1.0 is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.3.0
+                 * @param query an #XbQuery
+                 * @param context context including values bound to opcodes of type     %XB_OPCODE_KIND_BOUND_INTEGER or %XB_OPCODE_KIND_BOUND_TEXT, or %NULL if     the query doesn’t need any context
+                 * @returns a #XbNode, or %NULL if unfound
+                 */
+                query_first_with_context(query: Query, context: QueryContext | null): Node
+                /**
+                 * Searches the silo using an XPath query.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.1.13
+                 * @param query an #XbQuery
+                 * @returns results, or %NULL if unfound
+                 */
+                query_full(query: Query): Node[]
+                /**
+                 * Searches the silo using an XPath query.
+                 *
+                 * It is safe to call this function from a different thread to the one that
+                 * created the #XbSilo.
+                 *
+                 * Please note: Only a subset of XPath is supported.
+                 * @throws {GLib.Error}
+                 * @since 0.3.0
+                 * @param query an #XbQuery
+                 * @param context context including values bound to opcodes of type     %XB_OPCODE_KIND_BOUND_INTEGER or %XB_OPCODE_KIND_BOUND_TEXT, or %NULL if     the query doesn’t need any context
+                 * @returns results, or %NULL if unfound
+                 */
+                query_with_context(query: Query, context: QueryContext | null): Node[]
+                /**
+                 * Saves a silo to a file.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param file a #GFile
+                 * @param cancellable a #GCancellable, or %NULL
+                 * @returns %TRUE for success, otherwise `error` is set.
+                 */
+                save_to_file(file: Gio.File, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Set #XbSilo:enable-node-cache.
+                 *
+                 * This is not thread-safe, and can only be called before the #XbSilo is passed
+                 * between threads.
+                 * @since 0.2.0
+                 * @param enable_node_cache %TRUE to enable the node cache, %FALSE otherwise
+                 */
+                set_enable_node_cache(enable_node_cache: boolean): void
+                /**
+                 * Enables or disables the collection of profiling data.
+                 * @since 0.1.1
+                 * @param profile_flags some #XbSiloProfileFlags, e.g. %XB_SILO_PROFILE_FLAG_DEBUG
+                 */
+                set_profile_flags(profile_flags: SiloProfileFlags): void
+                /**
+                 * Converts the silo to an internal string representation. This is only
+                 * really useful for debugging #XbSilo itself.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @returns A string, or %NULL for an error
+                 */
+                to_string(): string
+                /**
+                 * Adds a file monitor to the silo. If the file or directory for `file` changes
+                 * then the silo will be invalidated.
+                 *
+                 * The monitor will internally use the #GMainContext which was the thread
+                 * default when the #XbSilo was created, so that #GMainContext must be iterated
+                 * for monitoring to work.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param file a #GFile
+                 * @param cancellable a #GCancellable, or %NULL
+                 * @returns %TRUE for success, otherwise `error` is set.
+                 */
+                watch_file(file: Gio.File, cancellable: Gio.Cancellable | null): boolean
+            }
+
+            interface SiloClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Silo>
+                readonly prototype: Silo
+
+                new (props?: Partial<GObject.ConstructorProps<Silo>>): Silo
+                /**
+                 * Creates a new silo.
+                 * @since 0.1.0
+                 * @returns a new #XbSilo
+                 */
+                "new"(): Silo
+                /**
+                 * Creates a new silo from an XML string.
+                 * @throws {GLib.Error}
+                 * @since 0.1.0
+                 * @param xml XML string
+                 * @returns a new #XbSilo, or %NULL
+                 */
+                new_from_xml(xml: string): Silo
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Silo: SiloClass
+            }
+            
+
+            interface NodeAttrIterStruct {
+                readonly $gtype: GObject.GType<NodeAttrIter>
+                new (fields?: {
+                }): NodeAttrIter
+            }
+
+            interface NodeAttrIter {
+                /**
+                 * Initializes a name/value pair iterator for the node attributes
+                 * and associates it with `self`.
+                 * The #XbNodeAttrIter structure is typically allocated on the stack
+                 * and does not need to be freed explicitly.
+                 * @since 0.3.4
+                 * @param self a #XbNode
+                 */
+                init(self: Node): void
+                /**
+                 * Returns the current attribute name and value and advances the iterator.
+                 * Example:
+                 * |[<!-- language="C" -->
+                 * XbNodeAttrIter iter;
+                 * const gchar *attr_name;
+                 * const gchar *attr_value;
+                 *
+                 * xb_node_attr_iter_init (&iter, node);
+                 * while (xb_node_attr_iter_next (&iter, &attr_name, &attr_value)) {
+                 *     // use attr_name and attr_value; no need to free them
+                 * }
+                 * ]|
+                 * @since 0.3.4
+                 * @returns %TRUE if there are more attributes., Destination of the returned attribute name, Destination of the returned attribute value
+                 */
+                next(): [boolean, string, string]
+            }
+
+            interface $Exports {
+                NodeAttrIter: NodeAttrIterStruct
+            }
+            
+
+            interface NodeChildIterStruct {
+                readonly $gtype: GObject.GType<NodeChildIter>
+                new (fields?: {
+                }): NodeChildIter
+            }
+
+            interface NodeChildIter {
+                /**
+                 * Initializes a child iterator for the node's children and associates
+                 * it with `self`.
+                 * The #XbNodeChildIter structure is typically allocated on the stack
+                 * and does not need to be freed explicitly.
+                 * @since 0.3.4
+                 * @param self a #XbNode
+                 */
+                init(self: Node): void
+                /**
+                 * Returns the current child and advances the iterator.
+                 * The retrieved #XbNode child needs to be dereferenced with g_object_unref().
+                 * Example:
+                 * |[<!-- language="C" -->
+                 * XbNodeChildIter iter;
+                 * g_autoptr(XbNode) child = NULL;
+                 *
+                 * xb_node_child_iter_init (&iter, node);
+                 * while (xb_node_child_iter_next (&iter, &child)) {
+                 *     // do something with the node child
+                 *     g_clear_pointer (&child, g_object_unref);
+                 * }
+                 * ]|
+                 * @since 0.3.4
+                 * @returns %FALSE if the last child has been reached., Destination of the returned child
+                 */
+                next(): [boolean, Node]
+            }
+
+            interface $Exports {
+                NodeChildIter: NodeChildIterStruct
+            }
+            
+
+            interface OpcodeStruct {
+                readonly $gtype: GObject.GType<Opcode>
+                [Symbol.hasInstance](instance: unknown): instance is Opcode
+                /**
+                 * Converts a string to an opcode kind.
+                 * @since 0.1.1
+                 * @param str a string, e.g. `FUNC`
+                 * @returns a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_TEXT
+                 */
+                kind_from_string(str: string): OpcodeKind
+                /**
+                 * Converts the opcode kind to a string.
+                 * @since 0.1.1
+                 * @param kind a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_FUNCTION
+                 * @returns opcode kind, e.g. `FUNC`
+                 */
+                kind_to_string(kind: OpcodeKind): string
+            }
+
+            interface Opcode {
+                /**
+                 * Checks if the opcode can be compared using the string value.
+                 * @since 0.1.1
+                 * @returns #%TRUE if this opcode can be compared as an string
+                 */
+                cmp_str(): boolean
+                /**
+                 * Checks if the opcode can be compared using the integer value.
+                 * @since 0.1.1
+                 * @returns #%TRUE if this opcode can be compared as an integer
+                 */
+                cmp_val(): boolean
+                /**
+                 * Initialises a stack allocated #XbOpcode to contain a specific function.
+                 * Custom functions can be registered using xb_machine_add_func() and retrieved
+                 * using xb_machine_opcode_func_new().
+                 * @since 0.2.0
+                 * @param func a function index
+                 */
+                func_init(func: number): void
+                /**
+                 * Gets the opcode kind.
+                 * @since 0.1.1
+                 * @returns a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_INTEGER
+                 */
+                get_kind(): OpcodeKind
+                /**
+                 * Gets the string value stored on the opcode.
+                 * @since 0.1.1
+                 * @returns a string, or %NULL if unset
+                 */
+                get_str(): string
+                /**
+                 * Gets the integer value stored in the opcode. This may be a function ID,
+                 * a index into the string table or a literal integer.
+                 * @since 0.1.1
+                 * @returns value, or 0 for unset.
+                 */
+                get_val(): number
+                /**
+                 * Initialises a stack allocated #XbOpcode to contain an integer literal.
+                 * @since 0.2.0
+                 * @param val a integer value
+                 */
+                integer_init(val: number): void
+                /**
+                 * Initialises a stack allocated #XbOpcode to contain a text literal.
+                 * The `str` argument is copied internally and is not tied to the lifecycle of
+                 * the #XbOpcode.
+                 * @since 0.2.0
+                 * @param str a string
+                 */
+                text_init(str: string): void
+                /**
+                 * Initialises a stack allocated #XbOpcode to contain a text literal, where
+                 *  `str` is either static text or will outlive the #XbOpcode lifecycle.
+                 * @since 0.2.0
+                 * @param str a string
+                 */
+                text_init_static(str: string): void
+                /**
+                 * Initialises a stack allocated #XbOpcode to contain a text literal, stealing
+                 * the `str`. Once the opcode is finalized g_free() will be called on `str`.
+                 * @since 0.2.0
+                 * @param str a string
+                 */
+                text_init_steal(str: string): void
+                /**
+                 * Returns a string representing the specific opcode.
+                 * @since 0.1.4
+                 * @returns text
+                 */
+                to_string(): string
+            }
+
+            interface $Exports {
+                Opcode: OpcodeStruct
+            }
+            
+
+            interface QueryContextStruct {
+                readonly $gtype: GObject.GType<QueryContext>
+                new (fields?: {
+                }): QueryContext
+            }
+
+            interface QueryContext {
+                /**
+                 * Clear an #XbQueryContext, freeing any allocated memory it points to.
+                 *
+                 * After this function has been called, the contents of the #XbQueryContext are
+                 * undefined, and it’s only safe to call xb_query_context_init() on it.
+                 * @since 0.3.0
+                 */
+                clear(): void
+                /**
+                 * Copy `self` into a new heap-allocated #XbQueryContext instance.
+                 * @since 0.3.0
+                 * @returns a copy of `self`
+                 */
+                copy(): QueryContext
+                /**
+                 * Free a heap-allocated #XbQueryContext instance. This should be used on
+                 * #XbQueryContext instances created with xb_query_context_copy().
+                 *
+                 * For stack-allocated instances, xb_query_context_clear() should be used
+                 * instead.
+                 * @since 0.3.0
+                 */
+                free(): void
+                /**
+                 * Get the #XbValueBindings for this query context.
+                 * @since 0.3.0
+                 * @returns bindings
+                 */
+                get_bindings(): ValueBindings
+                /**
+                 * Get the flags set on the context. See xb_query_context_set_flags().
+                 * @since 0.3.0
+                 * @returns query flags
+                 */
+                get_flags(): QueryFlags
+                /**
+                 * Get the limit on the number of query results. See
+                 * xb_query_context_set_limit().
+                 * @since 0.3.0
+                 * @returns limit on results, or `0` if unlimited
+                 */
+                get_limit(): number
+                /**
+                 * Initialise a stack-allocated #XbQueryContext struct so it can be used.
+                 *
+                 * Stack-allocated #XbQueryContext instances should be freed once finished
+                 * with, using xb_query_context_clear() (or `g_auto(XbQueryContext)`, which is
+                 * equivalent).
+                 * @since 0.3.0
+                 */
+                init(): void
+                /**
+                 * Set flags which affect the behaviour of the query.
+                 * @since 0.3.0
+                 * @param flags query flags, or %XB_QUERY_FLAG_NONE for none
+                 */
+                set_flags(flags: QueryFlags): void
+                /**
+                 * Set the limit on the number of results to return from the query.
+                 * @since 0.3.0
+                 * @param limit number of query results to return, or `0` for unlimited
+                 */
+                set_limit(limit: number): void
+            }
+
+            interface $Exports {
+                QueryContext: QueryContextStruct
+            }
+            
+
+            interface StackStruct {
+                readonly $gtype: GObject.GType<Stack>
+                [Symbol.hasInstance](instance: unknown): instance is Stack
+            }
+
+            interface Stack {
+                /**
+                 * Pops an opcode off the stack.
+                 * @throws {GLib.Error}
+                 * @since 0.2.0
+                 * @returns %TRUE if popping succeeded, %FALSE if the stack was empty already, return location for the popped #XbOpcode
+                 */
+                pop(): [boolean, Opcode]
+                /**
+                 * Pushes a new empty opcode onto the end of the stack. A pointer to the opcode
+                 * is returned in `opcode_out` so that the caller can initialise it. This must be
+                 * done before the stack is next used as, for performance reasons, the newly
+                 * pushed opcode is not zero-initialised.
+                 * @throws {GLib.Error}
+                 * @since 0.2.0
+                 * @returns %TRUE if a new empty opcode was returned, or %FALSE if the stack has    reached its maximum size, return location for the new #XbOpcode
+                 */
+                push(): [boolean, Opcode | null]
+                /**
+                 * Returns a string representing a stack.
+                 * @since 0.1.4
+                 * @returns text
+                 */
+                to_string(): string
+            }
+
+            interface $Exports {
+                Stack: StackStruct
+            }
+            
+
+            interface ValueBindingsStruct {
+                readonly $gtype: GObject.GType<ValueBindings>
+                new (fields?: {
+                }): ValueBindings
+            }
+
+            interface ValueBindings {
+                /**
+                 * Bind `str` to `idx` in the value bindings.
+                 *
+                 * This will overwrite any previous binding at `idx`. It will take ownership of
+                 *  `str`, and an appropriate `destroy_func` must be provided to free `str` once the
+                 * binding is no longer needed. `destroy_func` will be called exactly once at
+                 * some point before the #XbValueBindings is cleared or freed.
+                 * @since 0.3.0
+                 * @param idx 0-based index to bind to
+                 * @param str a string to bind to `idx`
+                 * @param destroy_func function to free `str`
+                 */
+                bind_str(idx: number, str: string, destroy_func: GLib.DestroyNotify | null): void
+                /**
+                 * Bind `val` to `idx` in the value bindings.
+                 *
+                 * This will overwrite any previous binding at `idx`.
+                 * @since 0.3.0
+                 * @param idx 0-based index to bind to
+                 * @param val an integer to bind to `idx`
+                 */
+                bind_val(idx: number, val: number): void
+                /**
+                 * Clear an #XbValueBindings, freeing any allocated memory it points to.
+                 *
+                 * After this function has been called, the contents of the #XbValueBindings are
+                 * undefined, and it’s only safe to call xb_value_bindings_init() on it.
+                 * @since 0.3.0
+                 */
+                clear(): void
+                /**
+                 * Copy `self` into a new heap-allocated #XbValueBindings instance.
+                 * @since 0.3.0
+                 * @returns a copy of `self`
+                 */
+                copy(): ValueBindings
+                /**
+                 * Copies the value bound at `idx` on `self` to `dest_idx` on `dest`. If no value is
+                 * bound at `idx`, `dest` is not modified and %FALSE is returned.
+                 *
+                 *  `dest` must be initialised. If a binding already exists at `dest_idx`, it will
+                 * be overwritten.
+                 * @since 0.3.0
+                 * @param idx 0-based index to look up the binding from in `self`
+                 * @param dest an #XbValueBindings to copy to
+                 * @param dest_idx 0-based index to copy the binding to in `dest`
+                 * @returns %TRUE if `idx` was bound, %FALSE otherwise
+                 */
+                copy_binding(idx: number, dest: ValueBindings, dest_idx: number): boolean
+                /**
+                 * Free a heap-allocated #XbValueBindings instance. This should be used on
+                 * #XbValueBindings instances created with xb_value_bindings_copy().
+                 *
+                 * For stack-allocated instances, xb_value_bindings_clear() should be used
+                 * instead.
+                 * @since 0.3.0
+                 */
+                free(): void
+                /**
+                 * Initialise a stack-allocated #XbValueBindings struct so it can be used.
+                 *
+                 * Stack-allocated #XbValueBindings instances should be freed once finished
+                 * with, using xb_value_bindings_clear() (or `g_auto(XbValueBindings)`, which is
+                 * equivalent).
+                 * @since 0.3.0
+                 */
+                init(): void
+                /**
+                 * Check whether a value has been bound to the given index using (for example)
+                 * xb_value_bindings_bind_str().
+                 * @since 0.3.0
+                 * @param idx 0-based index of the binding to check
+                 * @returns %TRUE if a value is bound to `idx`, %FALSE otherwise
+                 */
+                is_bound(idx: number): boolean
+                /**
+                 * Initialises an #XbOpcode with the value bound to `idx`, if a value is bound.
+                 * If no value is bound, `opcode_out` is not touched and %FALSE is returned.
+                 *
+                 *  `opcode_out` is initialised to point to the data inside the #XbValueBindings,
+                 * so must have a shorter lifetime than the #XbValueBindings. It will be of kind
+                 * %XB_OPCODE_KIND_BOUND_TEXT or %XB_OPCODE_KIND_BOUND_INTEGER.
+                 * @since 0.3.0
+                 * @param idx 0-based index to look up the binding from
+                 * @returns %TRUE if `idx` was bound, %FALSE otherwise, pointer to an #XbOpcode     to initialise from the binding
+                 */
+                lookup_opcode(idx: number): [boolean, Opcode]
+            }
+
+            interface $Exports {
+                ValueBindings: ValueBindingsStruct
+            }
+            
+            interface OpcodeKindEnum {
+                readonly $gtype: GObject.GType<OpcodeKind>
+                /**
+                 * Unknown opcode
+                 */
+                readonly "UNKNOWN": 0
+                /**
+                 * A literal integer value
+                 */
+                readonly "INTEGER": 1
+                /**
+                 * A literal text value
+                 */
+                readonly "TEXT": 2
+                /**
+                 * An operator
+                 */
+                readonly "FUNCTION": 5
+                /**
+                 */
+                readonly "BOUND_UNSET": 8
+                /**
+                 * A bound integer value
+                 */
+                readonly "BOUND_INTEGER": 9
+                /**
+                 * A bound text value
+                 */
+                readonly "BOUND_TEXT": 10
+                /**
+                 * An indexed text value
+                 */
+                readonly "INDEXED_TEXT": 3
+                /**
+                 */
+                readonly "BOOLEAN": 17
+                /**
+                 * An bound indexed text value
+                 */
+                readonly "BOUND_INDEXED_TEXT": 11
+            }
+            type OpcodeKind = OpcodeKindEnum[Exclude<keyof OpcodeKindEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                OpcodeKind: OpcodeKindEnum
+            }
+            
+            interface BuilderCompileFlagsBitfield {
+                readonly $gtype: GObject.GType<BuilderCompileFlags>
+                /**
+                 * No extra flags to use
+                 */
+                readonly "NONE": 0
+                /**
+                 * Only load native languages
+                 */
+                readonly "NATIVE_LANGS": 2
+                /**
+                 * Ignore invalid files without an error
+                 */
+                readonly "IGNORE_INVALID": 4
+                /**
+                 * Only store a single language
+                 */
+                readonly "SINGLE_LANG": 8
+                /**
+                 * Watch the XMLB file for changes
+                 */
+                readonly "WATCH_BLOB": 16
+                /**
+                 * Ignore the cache GUID value
+                 */
+                readonly "IGNORE_GUID": 32
+                /**
+                 * Require at most one root node
+                 */
+                readonly "SINGLE_ROOT": 64
+            }
+            type BuilderCompileFlags = number
+            interface $Exports {
+                /**
+                 * The flags for converting to XML.
+                 */
+                BuilderCompileFlags: BuilderCompileFlagsBitfield
+            }
+            
+            interface BuilderNodeFlagsBitfield {
+                readonly $gtype: GObject.GType<BuilderNodeFlags>
+                /**
+                 * No extra flags to use
+                 */
+                readonly "NONE": 0
+                /**
+                 * Do not include this node in the silo
+                 */
+                readonly "IGNORE": 1
+                /**
+                 * Assume the node CDATA is already valid
+                 */
+                readonly "LITERAL_TEXT": 2
+                /**
+                 * If the node has leading text
+                 */
+                readonly "HAS_TEXT": 4
+                /**
+                 * If the node has trailing text
+                 */
+                readonly "HAS_TAIL": 8
+                /**
+                 * Tokenize and fold text to ASCII (Since: 0.3.1)
+                 */
+                readonly "TOKENIZE_TEXT": 16
+                /**
+                 * Strip leading and trailing spaces from text (Since:
+                 * 0.3.4)
+                 */
+                readonly "STRIP_TEXT": 32
+            }
+            type BuilderNodeFlags = number
+            interface $Exports {
+                /**
+                 * The flags used when building a node.
+                 */
+                BuilderNodeFlags: BuilderNodeFlagsBitfield
+            }
+            
+            interface BuilderSourceFlagsBitfield {
+                readonly $gtype: GObject.GType<BuilderSourceFlags>
+                /**
+                 * No extra flags to use
+                 */
+                readonly "NONE": 0
+                /**
+                 * Do not attempt to repair XML whitespace
+                 */
+                readonly "LITERAL_TEXT": 1
+                /**
+                 * Watch the source file for changes
+                 */
+                readonly "WATCH_FILE": 2
+                /**
+                 * Watch the directory containing the source file for
+                 * changes (for example, if watching all the sources in a directory — this allows the file monitors
+                 * to be shared)
+                 */
+                readonly "WATCH_DIRECTORY": 4
+            }
+            type BuilderSourceFlags = number
+            interface $Exports {
+                /**
+                 * The flags for converting to XML.
+                 */
+                BuilderSourceFlags: BuilderSourceFlagsBitfield
+            }
+            
+            interface MachineDebugFlagsBitfield {
+                readonly $gtype: GObject.GType<MachineDebugFlags>
+                /**
+                 * No debug flags to use
+                 */
+                readonly "NONE": 0
+                /**
+                 * Show the stack addition and removal
+                 */
+                readonly "SHOW_STACK": 1
+                /**
+                 * Show the XPath predicate parsing
+                 */
+                readonly "SHOW_PARSING": 2
+                /**
+                 * Show the optimizer operation
+                 */
+                readonly "SHOW_OPTIMIZER": 4
+                /**
+                 * Show the query slow paths
+                 */
+                readonly "SHOW_SLOW_PATH": 8
+            }
+            type MachineDebugFlags = number
+            interface $Exports {
+                /**
+                 * The flags to control the amount of debugging is generated.
+                 */
+                MachineDebugFlags: MachineDebugFlagsBitfield
+            }
+            
+            interface MachineParseFlagsBitfield {
+                readonly $gtype: GObject.GType<MachineParseFlags>
+                /**
+                 * No flags set
+                 */
+                readonly "NONE": 0
+                /**
+                 * Run an optimization pass on the predicate
+                 */
+                readonly "OPTIMIZE": 1
+            }
+            type MachineParseFlags = number
+            interface $Exports {
+                /**
+                 * The flags to control the parsing behaviour.
+                 */
+                MachineParseFlags: MachineParseFlagsBitfield
+            }
+            
+            interface NodeExportFlagsBitfield {
+                readonly $gtype: GObject.GType<NodeExportFlags>
+                /**
+                 * No extra flags to use
+                 */
+                readonly "NONE": 0
+                /**
+                 * Add an XML header to the data
+                 */
+                readonly "ADD_HEADER": 1
+                /**
+                 * Split up children with a newline
+                 */
+                readonly "FORMAT_MULTILINE": 2
+                /**
+                 * Indent the XML by child depth
+                 */
+                readonly "FORMAT_INDENT": 4
+                /**
+                 * Include the siblings when converting
+                 */
+                readonly "INCLUDE_SIBLINGS": 8
+                /**
+                 * Only export the children of the node
+                 */
+                readonly "ONLY_CHILDREN": 16
+                /**
+                 * If node has no children, collapse open and close
+                 * tags
+                 */
+                readonly "COLLAPSE_EMPTY": 32
+            }
+            type NodeExportFlags = number
+            interface $Exports {
+                /**
+                 * The flags for converting to XML.
+                 */
+                NodeExportFlags: NodeExportFlagsBitfield
+            }
+            
+            interface OpcodeFlagsBitfield {
+                readonly $gtype: GObject.GType<OpcodeFlags>
+                /**
+                 */
+                readonly "UNKNOWN": 0
+                /**
+                 * Integer value set
+                 */
+                readonly "INTEGER": 1
+                /**
+                 * Text value set
+                 */
+                readonly "TEXT": 2
+                /**
+                 * An operator
+                 */
+                readonly "FUNCTION": 4
+                /**
+                 * A bound value, assigned later
+                 */
+                readonly "BOUND": 8
+                /**
+                 */
+                readonly "BOOLEAN": 16
+                /**
+                 * Tokenized text
+                 */
+                readonly "TOKENIZED": 32
+            }
+            type OpcodeFlags = number
+            interface $Exports {
+                /**
+                 * The opcode flags. The values have been carefully chosen so that a simple
+                 * bitmask can be done to know how to compare for equality.
+                 *
+                 * function─┐ ┌─string
+                 * bound──┐ │ │ ┌──integer
+                 * token┐ │ │ │ │
+                 *  X X X X X X X
+                 *        8 4 2 1
+                 */
+                OpcodeFlags: OpcodeFlagsBitfield
+            }
+            
+            interface QueryFlagsBitfield {
+                readonly $gtype: GObject.GType<QueryFlags>
+                /**
+                 * No extra flags to use
+                 */
+                readonly "NONE": 0
+                /**
+                 * Optimize the query when possible
+                 */
+                readonly "OPTIMIZE": 1
+                /**
+                 * Use the indexed parameters
+                 */
+                readonly "USE_INDEXES": 2
+                /**
+                 * Reverse the results order
+                 */
+                readonly "REVERSE": 4
+                /**
+                 * Always cache the #XbNode objects
+                 */
+                readonly "FORCE_NODE_CACHE": 8
+            }
+            type QueryFlags = number
+            interface $Exports {
+                /**
+                 * The flags used for queries.
+                 */
+                QueryFlags: QueryFlagsBitfield
+            }
+            
+            interface SiloLoadFlagsBitfield {
+                readonly $gtype: GObject.GType<SiloLoadFlags>
+                /**
+                 * No extra flags to use
+                 */
+                readonly "NONE": 0
+                /**
+                 * No not check header signature
+                 */
+                readonly "NO_MAGIC": 1
+                /**
+                 * Watch the XMLB file for changes
+                 */
+                readonly "WATCH_BLOB": 2
+            }
+            type SiloLoadFlags = number
+            interface $Exports {
+                /**
+                 * The flags for loading a silo.
+                 */
+                SiloLoadFlags: SiloLoadFlagsBitfield
+            }
+            
+            interface SiloProfileFlagsBitfield {
+                readonly $gtype: GObject.GType<SiloProfileFlags>
+                /**
+                 * No extra flags to use
+                 */
+                readonly "NONE": 0
+                /**
+                 * Output profiling as debug
+                 */
+                readonly "DEBUG": 1
+                /**
+                 * Save profiling in an appended string
+                 */
+                readonly "APPEND": 2
+                /**
+                 * Save XPATH queries
+                 */
+                readonly "XPATH": 4
+                /**
+                 * Output the machine optimizer as debug
+                 */
+                readonly "OPTIMIZER": 8
+            }
+            type SiloProfileFlags = number
+            interface $Exports {
+                /**
+                 * The flags used when profiling a silo.
+                 */
+                SiloProfileFlags: SiloProfileFlagsBitfield
+            }
+            /**
+             * @throws {GLib.Error}
+             * @param self
+             * @param bn
+             */
+            type BuilderFixupFunc = (self: BuilderFixup, bn: BuilderNode) => boolean
+            /**
+             * @param bn1
+             * @param bn2
+             */
+            type BuilderNodeSortFunc = (bn1: BuilderNode, bn2: BuilderNode) => number
+            /**
+             * @param bn
+             */
+            type BuilderNodeTraverseFunc = (bn: BuilderNode) => boolean
+            /**
+             * @throws {GLib.Error}
+             * @param self
+             * @param bn
+             */
+            type BuilderSourceNodeFunc = (self: BuilderSource, bn: BuilderNode) => boolean
+            /**
+             * @throws {GLib.Error}
+             * @param self
+             * @param stack
+             * @param result_unused
+             * @param exec_data
+             */
+            type MachineMethodFunc = (self: Machine, stack: Stack, result_unused: boolean, exec_data: never | null) => boolean
+            /**
+             * @throws {GLib.Error}
+             * @param self
+             * @param opcodes
+             */
+            type MachineOpcodeFixupFunc = (self: Machine, opcodes: Stack) => boolean
+            /**
+             * @throws {GLib.Error}
+             * @param self
+             * @param opcodes
+             * @param text
+             * @param handled
+             */
+            type MachineTextHandlerFunc = (self: Machine, opcodes: Stack, text: string, handled: boolean) => boolean
+            /**
+             * @param self
+             */
+            type NodeTransmogrifyFunc = (self: Node) => boolean
+
+            interface $Exports {
+                __name__: "Xmlb"
+                __version__: "2.0"
+                MAJOR_VERSION: 0
+                MICRO_VERSION: 25
+                MINOR_VERSION: 3
+                /**
+                 * Converts a string to an opcode kind.
+                 * @since 0.1.1
+                 * @param str a string, e.g. `FUNC`
+                 * @returns a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_TEXT
+                 */
+                opcode_kind_from_string(str: string): OpcodeKind
+                /**
+                 * Converts the opcode kind to a string.
+                 * @since 0.1.1
+                 * @param kind a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_FUNCTION
+                 * @returns opcode kind, e.g. `FUNC`
+                 */
+                opcode_kind_to_string(kind: OpcodeKind): string
+                /**
+                 * Escapes XPath control sequences such as newlines, tabs, and forward slashes.
+                 * @since 0.1.2
+                 * @param str string, e.g. `app/org.gnome.ghex/x86_64/stable`
+                 * @returns new string that is safe to use for queries
+                 */
+                string_escape(str: string): string
+                /**
+                 * Gets the XMLb installed runtime version.
+                 * @since 0.3.19
+                 * @returns a version number, e.g. "0.3.19"
+                 */
+                version_string(): string
             }
         }
 
-        interface Builder extends GObject.Object {
-            readonly $signals: Builder.SignalSignatures
-            readonly $readableProperties: Builder.ReadableProperties
-            readonly $writableProperties: Builder.WritableProperties
-            readonly $constructOnlyProperties: Builder.ConstructOnlyProperties
-            /**
-             * Adds a function that will get run on every #XbBuilderNode compile creates
-             * for the silo. This is run after all the #XbBuilderSource fixups have been
-             * run.
-             * @since 0.1.3
-             * @param fixup a #XbBuilderFixup
-             */
-            add_fixup(fixup: BuilderFixup): void
-            /**
-             * Adds a locale to the builder. Locales added first will be prioritised over
-             * locales added later.
-             * @since 0.1.0
-             * @param locale a locale, e.g. "en_US"
-             */
-            add_locale(locale: string): void
-            /**
-             * Adds the GUID to the internal correctness hash.
-             * @since 0.1.0
-             * @param guid any text, typcically a filename or GUID
-             */
-            append_guid(guid: string): void
-            /**
-             * Compiles a #XbSilo.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param flags some #XbBuilderCompileFlags, e.g. %XB_BUILDER_SOURCE_FLAG_LITERAL_TEXT
-             * @param cancellable a #GCancellable, or %NULL
-             * @returns a #XbSilo, or %NULL for error
-             */
-            compile(flags: BuilderCompileFlags, cancellable: Gio.Cancellable | null): Silo
-            /**
-             * Ensures @file is up to date, and returns a compiled #XbSilo.
-             *
-             * If @silo is being used by a query (e.g. in another thread) then all node
-             * data is immediately invalid.
-             *
-             * The returned #XbSilo will use the thread-default main context at the time of
-             * calling this function for its future signal emissions.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param file a #GFile
-             * @param flags some #XbBuilderCompileFlags, e.g. %XB_BUILDER_COMPILE_FLAG_IGNORE_INVALID
-             * @param cancellable a #GCancellable, or %NULL
-             * @returns a #XbSilo, or %NULL for error
-             */
-            ensure(file: Gio.File, flags: BuilderCompileFlags, cancellable: Gio.Cancellable | null): Silo
-            /**
-             * Adds a node tree to the builder.
-             *
-             * If you are manually adding dynamic data sourced from a non-static source then you MUST use
-             * xb_builder_append_guid() with the appropriate GUID value, e.g. the file name and mtime.
-             *
-             * If no appropriate value is available, the caller can use something like:
-             *
-             *     g_autofree gchar *tmp = xb_builder_node_export(bn, XB_NODE_EXPORT_FLAG_NONE, NULL);
-             *     xb_builder_append_guid(builder, tmp);
-             *
-             * Failure to include an appropriate GUID value would allow an out-of-data silo to be used.
-             * @since 0.1.0
-             * @param bn a #XbBuilderNode
-             */
-            import_node(bn: BuilderNode): void
-            /**
-             * Adds a #XbBuilderSource to the #XbBuilder.
-             * @since 0.1.0
-             * @param source a #XbBuilderSource
-             */
-            import_source(source: BuilderSource): void
-            /**
-             * Enables or disables the collection of profiling data.
-             * @since 0.1.1
-             * @param profile_flags some #XbSiloProfileFlags, e.g. %XB_SILO_PROFILE_FLAG_DEBUG
-             */
-            set_profile_flags(profile_flags: SiloProfileFlags): void
-        }
-
-        interface BuilderClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Builder>
-            readonly prototype: Builder
-
-            new (props?: Partial<GObject.ConstructorProps<Builder>>): Builder
-            /**
-             * Creates a new builder.
-             *
-             * The #XbSilo returned by the methods of this #XbBuilder will use the
-             * thread-default main context at the time of calling this function for its
-             * future signal emissions.
-             * @since 0.1.0
-             * @returns a new #XbBuilder
-             */
-            "new"(): Builder
-        }
-
-        interface $Exports {
-            /**
-             */
-            Builder: BuilderClass
-        }
-        
-
-        namespace BuilderFixup {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface BuilderFixup extends GObject.Object {
-            readonly $signals: BuilderFixup.SignalSignatures
-            readonly $readableProperties: BuilderFixup.ReadableProperties
-            readonly $writableProperties: BuilderFixup.WritableProperties
-            readonly $constructOnlyProperties: BuilderFixup.ConstructOnlyProperties
-            /**
-             * Gets the maximum depth used for this fixup, if each node is being visited.
-             * @since 0.1.3
-             * @returns integer, or -1 if unset
-             */
-            get_max_depth(): number
-            /**
-             * Sets the maximum depth used for this fixup. Use a @max_depth of 0 to only
-             * visit the root node.
-             *
-             * Setting a maximum depth may increase performance considerably if using
-             * fixup functions on large and deeply nested XML files.
-             * @since 0.1.3
-             * @param max_depth integer, -1 for "all"
-             */
-            set_max_depth(max_depth: number): void
-        }
-
-        interface BuilderFixupClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<BuilderFixup>
-            readonly prototype: BuilderFixup
-
-            new (props?: Partial<GObject.ConstructorProps<BuilderFixup>>): BuilderFixup
-            /**
-             * Creates a function that will get run on every #XbBuilderNode compile creates.
-             * @since 0.1.3
-             * @param id a text ID value, e.g. `AppStreamUpgrade`
-             * @param func a callback
-             * @returns a new #XbBuilderFixup
-             */
-            "new"(id: string, func: BuilderFixupFunc): BuilderFixup
-        }
-
-        interface $Exports {
-            /**
-             */
-            BuilderFixup: BuilderFixupClass
-        }
-        
-
-        namespace BuilderNode {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface BuilderNode extends GObject.Object {
-            readonly $signals: BuilderNode.SignalSignatures
-            readonly $readableProperties: BuilderNode.ReadableProperties
-            readonly $writableProperties: BuilderNode.WritableProperties
-            readonly $constructOnlyProperties: BuilderNode.ConstructOnlyProperties
-            /**
-             * Adds a child builder node.
-             * @since 0.1.0
-             * @param child A XbBuilderNode
-             */
-            add_child(child: BuilderNode): void
-            /**
-             * Adds a flag to the builder node.
-             * @since 0.1.0
-             * @param flag a #XbBuilderNodeFlags
-             */
-            add_flag(flag: BuilderNodeFlags): void
-            /**
-             * Adds a token to the builder node.
-             * @since 0.3.1
-             * @param token a new token
-             */
-            add_token(token: string): void
-            /**
-             * Gets the depth of the node tree, where 0 is the root node.
-             * @since 0.1.1
-             */
-            depth(): number
-            /**
-             * Exports the node to XML.
-             * @throws {GLib.Error}
-             * @since 0.1.5
-             * @param flags some #XbNodeExportFlags, e.g. #XB_NODE_EXPORT_FLAG_NONE
-             * @returns XML data, or %NULL for an error
-             */
-            export(flags: NodeExportFlags): string
-            /**
-             * Gets an attribute from the builder node.
-             * @since 0.1.0
-             * @param name attribute name, e.g. `type`
-             * @returns string, or %NULL if unset
-             */
-            get_attr(name: string): string
-            /**
-             * Gets an attribute from the builder node.
-             * @since 0.1.3
-             * @param name attribute name, e.g. `priority`
-             * @returns integer, or 0 if unset
-             */
-            get_attr_as_uint(name: string): number
-            /**
-             * Finds a child builder node by the element name, and optionally text value.
-             * @since 0.1.1
-             * @param element An element name, e.g. "url"
-             * @param text node text, e.g. "gimp.desktop"
-             * @returns a new #XbBuilderNode, or %NULL if not found
-             */
-            get_child(element: string, text: string | null): BuilderNode
-            /**
-             * Gets the children of the builder node.
-             * @since 0.1.0
-             * @returns children
-             */
-            get_children(): BuilderNode[]
-            /**
-             * Gets the element from the builder node.
-             * @since 0.1.0
-             * @returns string, or %NULL if unset
-             */
-            get_element(): string
-            /**
-             * Gets the first child of the builder node.
-             * @since 0.1.12
-             * @returns a #XbBuilderNode, or %NULL
-             */
-            get_first_child(): BuilderNode
-            /**
-             * Gets the last child of the builder node.
-             * @since 0.1.12
-             * @returns a #XbBuilderNode, or %NULL
-             */
-            get_last_child(): BuilderNode
-            /**
-             * Gets the parent node for the current node.
-             * @since 0.1.1
-             * @returns a new #XbBuilderNode, or %NULL no parent exists.
-             */
-            get_parent(): BuilderNode
-            /**
-             * Gets the tail from the builder node.
-             * @since 0.1.12
-             * @returns string, or %NULL if unset
-             */
-            get_tail(): string
-            /**
-             * Gets the text from the builder node.
-             * @since 0.1.0
-             * @returns string, or %NULL if unset
-             */
-            get_text(): string
-            /**
-             * Gets the text from the builder node.
-             * @since 0.1.3
-             * @returns integer, or 0 if unset
-             */
-            get_text_as_uint(): number
-            /**
-             * Gets the tokens of the builder node.
-             * @since 0.3.1
-             * @returns tokens
-             */
-            get_tokens(): string[] | null
-            /**
-             * Checks a flag on the builder node.
-             * @since 0.1.0
-             * @param flag a #XbBuilderNodeFlags
-             * @returns %TRUE if `flag` is set
-             */
-            has_flag(flag: BuilderNodeFlags): boolean
-            /**
-             * Removes an attribute from the builder node.
-             * @since 0.1.0
-             * @param name attribute name, e.g. `type`
-             */
-            remove_attr(name: string): void
-            /**
-             * Removes a child builder node.
-             * @since 0.1.1
-             * @param child A XbBuilderNode
-             */
-            remove_child(child: BuilderNode): void
-            /**
-             * Adds an attribute to the builder node.
-             * @since 0.1.0
-             * @param name attribute name, e.g. `type`
-             * @param value attribute value, e.g. `desktop`
-             */
-            set_attr(name: string, value: string): void
-            /**
-             * Sets the element name on the builder node.
-             * @since 0.1.0
-             * @param element a string element
-             */
-            set_element(element: string): void
-            /**
-             * Sets the tail on the builder node.
-             * @since 0.1.12
-             * @param tail a string
-             * @param tail_len length of @tail, or -1 if @tail is NUL terminated
-             */
-            set_tail(tail: string | null, tail_len: number): void
-            /**
-             * Sets the text on the builder node.
-             * @since 0.1.0
-             * @param text a string
-             * @param text_len length of @text, or -1 if @text is NUL terminated
-             */
-            set_text(text: string | null, text_len: number): void
-            /**
-             * Sorts the node children using a custom sort function.
-             * @since 0.1.3
-             * @param func a #XbBuilderNodeSortFunc
-             */
-            sort_children(func: BuilderNodeSortFunc): void
-            /**
-             * Tokenize text added with xb_builder_node_set_text().
-             *
-             * When searching, libxmlb often has to tokenize strings before they can be
-             * compared. This is done in the "fast path" and makes searching for non-ASCII
-             * text much slower.
-             *
-             * Adding the tokens to the deduplicated string table allows much faster
-             * searching at the expense of a ~5% size increase of the silo.
-             *
-             * This function adds all valid UTF-8 and ASCII search words generated from
-             * the value of xb_builder_node_set_text().
-             *
-             * The transliteration locale (e.g. `en_GB`) is read from the `xml:lang`
-             * node attribute if set.
-             * @since 0.3.1
-             */
-            tokenize_text(): void
-            /**
-             * Traverses a tree starting from @self. It calls the given function for each
-             * node visited.
-             *
-             * The traversal can be halted at any point by returning TRUE from @func.
-             * @since 0.1.1
-             * @param order a #GTraverseType, e.g. %G_PRE_ORDER
-             * @param flags a #GTraverseFlags, e.g. %G_TRAVERSE_ALL
-             * @param max_depth the maximum depth of the traversal, or -1 for no limit
-             * @param func a #XbBuilderNodeTraverseFunc
-             */
-            traverse(order: GLib.TraverseType, flags: GLib.TraverseFlags, max_depth: number, func: BuilderNodeTraverseFunc): void
-            /**
-             * Unlinks a #XbBuilderNode from a tree, resulting in two separate trees.
-             *
-             * This should not be used from the function called by xb_builder_node_traverse()
-             * otherwise the entire tree will not be traversed.
-             *
-             * Instead use xb_builder_node_add_flag(bn,XB_BUILDER_NODE_FLAG_IGNORE);
-             * @since 0.1.1
-             */
-            unlink(): void
-        }
-
-        interface BuilderNodeClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<BuilderNode>
-            readonly prototype: BuilderNode
-
-            new (props?: Partial<GObject.ConstructorProps<BuilderNode>>): BuilderNode
-            /**
-             * Creates a new builder node.
-             * @since 0.1.0
-             * @param element An element name, e.g. "component"
-             * @returns a new #XbBuilderNode
-             */
-            "new"(element: string): BuilderNode
-        }
-
-        interface $Exports {
-            /**
-             */
-            BuilderNode: BuilderNodeClass
-        }
-        
-
-        namespace BuilderSource {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface BuilderSource extends GObject.Object {
-            readonly $signals: BuilderSource.SignalSignatures
-            readonly $readableProperties: BuilderSource.ReadableProperties
-            readonly $writableProperties: BuilderSource.WritableProperties
-            readonly $constructOnlyProperties: BuilderSource.ConstructOnlyProperties
-            /**
-             * Adds a function that will get run on every #XbBuilderNode compile creates
-             * with this source.
-             * @since 0.1.3
-             * @param fixup a #XbBuilderFixup
-             */
-            add_fixup(fixup: BuilderFixup): void
-            /**
-             * Loads XML data and begins to build a #XbSilo.
-             * @throws {GLib.Error}
-             * @since 0.1.2
-             * @param bytes a #GBytes
-             * @param flags some #XbBuilderSourceFlags, e.g. %XB_BUILDER_SOURCE_FLAG_LITERAL_TEXT
-             * @returns %TRUE for success
-             */
-            load_bytes(bytes: (GLib.Bytes | Uint8Array), flags: BuilderSourceFlags): boolean
-            /**
-             * Loads an optionally compressed XML file to build a #XbSilo.
-             * @throws {GLib.Error}
-             * @since 0.1.1
-             * @param file a #GFile
-             * @param flags some #XbBuilderSourceFlags, e.g. %XB_BUILDER_SOURCE_FLAG_LITERAL_TEXT
-             * @param cancellable a #GCancellable, or %NULL
-             * @returns %TRUE for success
-             */
-            load_file(file: Gio.File, flags: BuilderSourceFlags, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Loads XML data and begins to build a #XbSilo.
-             * @throws {GLib.Error}
-             * @since 0.1.1
-             * @param xml XML data
-             * @param flags some #XbBuilderSourceFlags, e.g. %XB_BUILDER_SOURCE_FLAG_LITERAL_TEXT
-             * @returns %TRUE for success
-             */
-            load_xml(xml: string, flags: BuilderSourceFlags): boolean
-            /**
-             * Sets an optional information metadata node on the root node.
-             * @since 0.1.0
-             * @param info a #XbBuilderNode
-             */
-            set_info(info: BuilderNode | null): void
-            /**
-             * Sets an optional prefix on the root node. This makes any nodes added
-             * using this source reside under a common shared parent node.
-             * @since 0.1.0
-             * @param prefix an XPath prefix, e.g. `installed`
-             */
-            set_prefix(prefix: string | null): void
-        }
-
-        interface BuilderSourceClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<BuilderSource>
-            readonly prototype: BuilderSource
-
-            new (props?: Partial<GObject.ConstructorProps<BuilderSource>>): BuilderSource
-            /**
-             * Creates a new builder source.
-             * @since 0.1.1
-             * @returns a new #XbBuilderSource
-             */
-            "new"(): BuilderSource
-        }
-
-        interface $Exports {
-            /**
-             */
-            BuilderSource: BuilderSourceClass
-        }
-        
-
-        namespace BuilderSourceCtx {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface BuilderSourceCtx extends GObject.Object {
-            readonly $signals: BuilderSourceCtx.SignalSignatures
-            readonly $readableProperties: BuilderSourceCtx.ReadableProperties
-            readonly $writableProperties: BuilderSourceCtx.WritableProperties
-            readonly $constructOnlyProperties: BuilderSourceCtx.ConstructOnlyProperties
-            /**
-             * Returns the data currently being processed.
-             *
-             * If the #XbBuilderSourceCtx is backed by a file, the returned #GBytes may be
-             * memory-mapped, and the backing file must not be modified until the #GBytes is
-             * destroyed.
-             * @throws {GLib.Error}
-             * @since 0.1.7
-             * @param cancellable a #GCancellable, or %NULL
-             * @returns a #GBytes
-             */
-            get_bytes(cancellable: Gio.Cancellable | null): GLib.Bytes
-            /**
-             * Returns the basename of the file currently being processed.
-             * @since 0.1.7
-             * @returns a basename, or %NULL if unset
-             */
-            get_filename(): string | null
-            /**
-             * Returns the input stream currently being processed.
-             * @since 0.1.7
-             * @returns a #GInputStream
-             */
-            get_stream(): Gio.InputStream
-        }
-
-        interface BuilderSourceCtxClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<BuilderSourceCtx>
-            readonly prototype: BuilderSourceCtx
-
-            new (props?: Partial<GObject.ConstructorProps<BuilderSourceCtx>>): BuilderSourceCtx
-        }
-
-        interface $Exports {
-            /**
-             */
-            BuilderSourceCtx: BuilderSourceCtxClass
-        }
-        
-
-        namespace Machine {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface Machine extends GObject.Object {
-            readonly $signals: Machine.SignalSignatures
-            readonly $readableProperties: Machine.ReadableProperties
-            readonly $writableProperties: Machine.WritableProperties
-            readonly $constructOnlyProperties: Machine.ConstructOnlyProperties
-            /**
-             * Adds a new function to the virtual machine. Registered functions can then be
-             * used as methods.
-             *
-             * The @method_cb must not modify the stack it’s passed unless it’s going to
-             * succeed. In particular, if a method call is not optimisable, it must not
-             * modify the stack it’s passed.
-             *
-             * You need to add a custom function using xb_machine_add_method() before using
-             * methods that may reference it, for example xb_machine_add_opcode_fixup().
-             * @since 0.1.1
-             * @param name function name, e.g. `contains`
-             * @param n_opcodes minimum number of opcodes required on the stack
-             * @param method_cb function to call
-             */
-            add_method(name: string, n_opcodes: number, method_cb: MachineMethodFunc): void
-            /**
-             * Adds an opcode fixup. Fixups can be used to optimize the stack of opcodes or
-             * to add support for a nonstandard feature, for instance supporting missing
-             * attributes to functions.
-             * @since 0.1.1
-             * @param opcodes_sig signature, e.g. `INTE,TEXT`
-             * @param fixup_cb callback
-             */
-            add_opcode_fixup(opcodes_sig: string, fixup_cb: MachineOpcodeFixupFunc): void
-            /**
-             * Adds a new operator to the virtual machine. Operators can then be used
-             * instead of explicit methods like `eq()`.
-             *
-             * You need to add a custom operator using xb_machine_add_operator() before
-             * using xb_machine_parse(). Common operators like `<=` and `=` are built-in
-             * and do not have to be added manually.
-             * @since 0.1.1
-             * @param str operator string, e.g. `==`
-             * @param name function name, e.g. `contains`
-             */
-            add_operator(str: string, name: string): void
-            /**
-             * Adds a text handler. This allows the virtual machine to support nonstandard
-             * encoding or shorthand mnemonics for standard functions.
-             * @since 0.1.1
-             * @param handler_cb callback
-             */
-            add_text_handler(handler_cb: MachineTextHandlerFunc): void
-            /**
-             * Gets the maximum stack size used for the machine.
-             * @since 0.1.3
-             * @returns integer
-             */
-            get_stack_size(): number
-            /**
-             * Initialises a stack allocated #XbOpcode for a registered function.
-             * Some standard functions are registered by default, for instance `eq` or `ge`.
-             * Other functions have to be added using xb_machine_add_method().
-             * @since 0.2.0
-             * @param func_name function name, e.g. `eq`
-             * @returns %TRUE if the function was found and the opcode initialised, %FALSE    otherwise, a stack allocated #XbOpcode to initialise
-             */
-            opcode_func_init(func_name: string): [boolean, Opcode]
-            /**
-             * Parses an XPath predicate. Not all of XPath 1.0 or XPath 1.0 is supported,
-             * and new functions and mnemonics can be added using xb_machine_add_method()
-             * and xb_machine_add_text_handler().
-             * @throws {GLib.Error}
-             * @since 0.1.1
-             * @param text predicate to parse, e.g. `contains(text(),'xyx')`
-             * @param text_len length of @text, or -1 if @text is `NUL` terminated
-             * @returns opcodes, or %NULL on error
-             */
-            parse(text: string, text_len: number): Stack
-            /**
-             * Parses an XPath predicate. Not all of XPath 1.0 or XPath 1.0 is supported,
-             * and new functions and mnemonics can be added using xb_machine_add_method()
-             * and xb_machine_add_text_handler().
-             * @throws {GLib.Error}
-             * @since 0.1.4
-             * @param text predicate to parse, e.g. `contains(text(),'xyx')`
-             * @param text_len length of @text, or -1 if @text is `NUL` terminated
-             * @param flags #XbMachineParseFlags, e.g. %XB_MACHINE_PARSE_FLAG_OPTIMIZE
-             * @returns opcodes, or %NULL on error
-             */
-            parse_full(text: string, text_len: number, flags: MachineParseFlags): Stack
-            /**
-             * Runs a set of opcodes on the virtual machine.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbMachine.
-             * @throws {GLib.Error}
-             * @since 0.1.1
-             * @deprecated since 0.3.0 Use xb_machine_run_with_bindings() instead.
-             * @param opcodes a #XbStack of opcodes
-             * @param exec_data per-run user data that is passed to all the #XbMachineMethodFunc functions
-             * @returns a new #XbOpcode, or %NULL, return status after running `opcodes`
-             */
-            run(opcodes: Stack, exec_data: never | null): [boolean, boolean]
-            /**
-             * Runs a set of opcodes on the virtual machine, using the bound values given in
-             * @bindings to substitute for bound opcodes.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbMachine.
-             * @throws {GLib.Error}
-             * @since 0.3.0
-             * @param opcodes a #XbStack of opcodes
-             * @param bindings values bound to opcodes of type
-                %XB_OPCODE_KIND_BOUND_INTEGER or %XB_OPCODE_KIND_BOUND_TEXT, or %NULL if
-                the query doesn’t need any bound values
-             * @param exec_data per-run user data that is passed to all the #XbMachineMethodFunc functions
-             * @returns a new #XbOpcode, or %NULL, return status after running `opcodes`
-             */
-            run_with_bindings(opcodes: Stack, bindings: ValueBindings | null, exec_data: never | null): [boolean, boolean]
-            /**
-             * Sets the debug level of the virtual machine.
-             * @since 0.1.1
-             * @param flags #XbMachineDebugFlags, e.g. %XB_MACHINE_DEBUG_FLAG_SHOW_STACK
-             */
-            set_debug_flags(flags: MachineDebugFlags): void
-            /**
-             * Sets the maximum stack size used for the machine.
-             *
-             * The stack size will be affective for new jobs started with xb_machine_run()
-             * and xb_machine_parse().
-             * @since 0.1.3
-             * @param stack_size integer
-             */
-            set_stack_size(stack_size: number): void
-            /**
-             * Pops an opcode from the stack.
-             * @throws {GLib.Error}
-             * @since 0.2.0
-             * @param stack a #XbStack
-             * @returns %TRUE if popping succeeded, %FALSE if the stack was empty already, return location for the popped #XbOpcode
-             */
-            stack_pop(stack: Stack): [boolean, Opcode]
-            /**
-             * Pushes a new empty opcode onto the end of the stack. A pointer to the opcode
-             * is returned in @opcode_out so that the caller can initialise it.
-             *
-             * If the stack reaches its maximum size, %G_IO_ERROR_NO_SPACE will be returned.
-             * @throws {GLib.Error}
-             * @since 0.2.0
-             * @param stack a #XbStack
-             * @returns %TRUE if a new empty opcode was returned, or %FALSE if the stack has    reached its maximum size, return location for the new #XbOpcode
-             */
-            stack_push(stack: Stack): [boolean, Opcode | null]
-            /**
-             * Adds an integer literal to the stack.
-             *
-             * Errors are as for xb_machine_stack_push().
-             * @throws {GLib.Error}
-             * @since 0.2.0
-             * @param stack a #XbStack
-             * @param val integer literal
-             * @returns %TRUE on success, %FALSE otherwise
-             */
-            stack_push_integer(stack: Stack, val: number): boolean
-            /**
-             * Adds a text literal to the stack, copying @str.
-             *
-             * Errors are as for xb_machine_stack_push().
-             * @throws {GLib.Error}
-             * @since 0.2.0
-             * @param stack a #XbStack
-             * @param str text literal
-             * @returns %TRUE on success, %FALSE otherwise
-             */
-            stack_push_text(stack: Stack, str: string): boolean
-            /**
-             * Adds static text literal to the stack.
-             *
-             * Errors are as for xb_machine_stack_push().
-             * @throws {GLib.Error}
-             * @since 0.2.0
-             * @param stack a #XbStack
-             * @param str text literal
-             * @returns %TRUE on success, %FALSE otherwise
-             */
-            stack_push_text_static(stack: Stack, str: string): boolean
-            /**
-             * Adds a stolen text literal to the stack.
-             *
-             * Errors are as for xb_machine_stack_push().
-             * @throws {GLib.Error}
-             * @since 0.2.0
-             * @param stack a #XbStack
-             * @param str text literal
-             * @returns %TRUE on success, %FALSE otherwise
-             */
-            stack_push_text_steal(stack: Stack, str: string): boolean
-        }
-
-        interface MachineClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Machine>
-            readonly prototype: Machine
-
-            new (props?: Partial<GObject.ConstructorProps<Machine>>): Machine
-            /**
-             * Creates a new virtual machine.
-             * @since 0.1.1
-             * @returns a new #XbMachine
-             */
-            "new"(): Machine
-        }
-
-        interface $Exports {
-            /**
-             */
-            Machine: MachineClass
-        }
-        
-
-        namespace Node {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface Node extends GObject.Object {
-            readonly $signals: Node.SignalSignatures
-            readonly $readableProperties: Node.ReadableProperties
-            readonly $writableProperties: Node.WritableProperties
-            readonly $constructOnlyProperties: Node.ConstructOnlyProperties
-            /**
-             * Exports the node back to XML.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param flags some #XbNodeExportFlags, e.g. #XB_NODE_EXPORT_FLAG_NONE
-             * @returns XML data, or %NULL for an error
-             */
-            export(flags: NodeExportFlags): string
-            /**
-             * Gets some attribute text data for a specific node.
-             * @since 0.1.0
-             * @param name an attribute name, e.g. "type"
-             * @returns a string, or %NULL for unset
-             */
-            get_attr(name: string): string
-            /**
-             * Gets some attribute text data for a specific node.
-             * @since 0.1.0
-             * @param name an attribute name, e.g. `type`
-             * @returns a guint64, or %G_MAXUINT64 if unfound
-             */
-            get_attr_as_uint(name: string): number
-            /**
-             * Gets the first child node for the current node.
-             * @since 0.1.0
-             * @returns a #XbNode, or %NULL
-             */
-            get_child(): Node
-            /**
-             * Gets all the children for the current node.
-             * @since 0.1.0
-             * @returns an array of children
-             */
-            get_children(): Node[]
-            /**
-             * Gets any data that has been set on the node using xb_node_set_data().
-             *
-             * This will only work across queries to the associated silo if the silo has
-             * its #XbSilo:enable-node-cache property set to %TRUE. Otherwise a new #XbNode
-             * may be constructed for future queries which return the same element as a
-             * result.
-             * @since 0.1.0
-             * @param key a string key, e.g. `fwupd::RemoteId`
-             * @returns a #GBytes, or %NULL if not found
-             */
-            get_data(key: string): GLib.Bytes
-            /**
-             * Gets the depth of the node to a root.
-             * @since 0.1.0
-             * @returns a integer, where 0 is the root node itself.
-             */
-            get_depth(): number
-            /**
-             * Gets the element name for a specific node.
-             * @since 0.1.0
-             * @returns a string, or %NULL for the root node
-             */
-            get_element(): string
-            /**
-             * Gets the next sibling node for the current node.
-             * @since 0.1.0
-             * @returns a #XbNode, or %NULL
-             */
-            get_next(): Node
-            /**
-             * Gets the parent node for the current node.
-             * @since 0.1.0
-             * @returns a #XbNode, or %NULL
-             */
-            get_parent(): Node
-            /**
-             * Gets the root node for the node.
-             * @since 0.1.0
-             * @returns a #XbNode, or %NULL
-             */
-            get_root(): Node
-            /**
-             * Gets the #XbSilo for the node.
-             * @since 0.2.0
-             * @returns a #XbSilo
-             */
-            get_silo(): Silo
-            /**
-             * Gets the tail data for a specific node.
-             * @since 0.1.12
-             * @returns a string, or %NULL for unset
-             */
-            get_tail(): string
-            /**
-             * Gets the text data for a specific node.
-             * @since 0.1.0
-             * @returns a string, or %NULL for unset
-             */
-            get_text(): string
-            /**
-             * Gets some attribute text data for a specific node.
-             * @since 0.1.0
-             * @returns a guint64, or %G_MAXUINT64 if unfound
-             */
-            get_text_as_uint(): number
-            /**
-             * Searches the silo using an XPath query, returning up to @limit results.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param xpath an XPath, e.g. `id[abe.desktop]`
-             * @param limit maximum number of results to return, or 0 for "all"
-             * @returns results, or %NULL if unfound
-             */
-            query(xpath: string, limit: number): Node[]
-            /**
-             * Searches the node using an XPath query, returning up to one result.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
-             * @param name an attribute name, e.g. `type`
-             * @returns a string, or %NULL if unfound
-             */
-            query_attr(xpath: string, name: string): string
-            /**
-             * Searches the node using an XPath query, returning up to one result.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
-             * @param name an attribute name, e.g. `type`
-             * @returns a #guint64, or %G_MAXUINT64 if unfound
-             */
-            query_attr_as_uint(xpath: string, name: string): number
-            /**
-             * Searches the node using an XPath query, returning an XML string of the
-             * result and any children.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
-             * @returns a string, or %NULL if unfound
-             */
-            query_export(xpath: string): string
-            /**
-             * Searches the node using an XPath query, returning up to one result.
-             *
-             * Please note: Only a tiny subset of XPath 1.0 is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
-             * @returns a #XbNode, or %NULL if unfound
-             */
-            query_first(xpath: string): Node
-            /**
-             * Searches the silo using a prepared query, returning up to one result. To
-             * search using a query with bound values, use
-             * xb_node_query_first_with_context().
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.11
-             * @param query an #XbQuery
-             * @returns a #XbNode, or %NULL if unfound
-             */
-            query_first_full(query: Query): Node
-            /**
-             * Searches the silo using a prepared query, returning up to one result.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.3.0
-             * @param query an #XbQuery
-             * @param context context including values bound to opcodes of type
-                %XB_OPCODE_KIND_BOUND_INTEGER or %XB_OPCODE_KIND_BOUND_TEXT, or %NULL if
-                the query doesn’t need any context
-             * @returns a #XbNode, or %NULL if unfound
-             */
-            query_first_with_context(query: Query, context: QueryContext | null): Node
-            /**
-             * Searches the silo using a prepared query. To search using a query with
-             * bound values, use xb_node_query_with_context().
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.4
-             * @param query an #XbQuery
-             * @returns results, or %NULL if unfound
-             */
-            query_full(query: Query): Node[]
-            /**
-             * Searches the node using an XPath query, returning up to one result.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
-             * @returns a string, or %NULL if unfound
-             */
-            query_text(xpath: string): string
-            /**
-             * Searches the node using an XPath query, returning up to one result.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
-             * @returns a #guint64, or %G_MAXUINT64 if unfound
-             */
-            query_text_as_uint(xpath: string): number
-            /**
-             * Searches the silo using a prepared query, substituting values from the
-             * bindings in @context for bound opcodes as needed.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.3.0
-             * @param query an #XbQuery
-             * @param context context including values bound to opcodes of type
-                %XB_OPCODE_KIND_BOUND_INTEGER or %XB_OPCODE_KIND_BOUND_TEXT, or %NULL if
-                the query doesn’t need any context
-             * @returns results, or %NULL if unfound
-             */
-            query_with_context(query: Query, context: QueryContext | null): Node[]
-            /**
-             * Sets some data on the node which can be retrieved using xb_node_get_data().
-             *
-             * This will only work across queries to the associated silo if the silo has
-             * its #XbSilo:enable-node-cache property set to %TRUE. Otherwise a new #XbNode
-             * may be constructed for future queries which return the same element as a
-             * result.
-             * @since 0.1.0
-             * @param key a string key, e.g. `fwupd::RemoteId`
-             * @param data a #GBytes
-             */
-            set_data(key: string, data: (GLib.Bytes | Uint8Array)): void
-            /**
-             * Traverses a tree starting from @self. It calls the given functions for each
-             * node visited. This allows transmogrification of the source, for instance
-             * converting the XML description to PangoMarkup or even something completely
-             * different like markdown.
-             *
-             * The traversal can be halted at any point by returning TRUE from @func.
-             * @since 0.1.12
-             * @param func_text (allow-none): a #XbBuilderNodeTraverseFunc
-             * @param func_tail (allow-none): a #XbBuilderNodeTraverseFunc
-             * @returns %TRUE if all nodes were visited
-             */
-            transmogrify(func_text: NodeTransmogrifyFunc, func_tail: NodeTransmogrifyFunc): boolean
-        }
-
-        interface NodeClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Node>
-            readonly prototype: Node
-
-            new (props?: Partial<GObject.ConstructorProps<Node>>): Node
-        }
-
-        interface $Exports {
-            /**
-             */
-            Node: NodeClass
-        }
-        
-
-        namespace Query {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface Query extends GObject.Object {
-            readonly $signals: Query.SignalSignatures
-            readonly $readableProperties: Query.ReadableProperties
-            readonly $writableProperties: Query.WritableProperties
-            readonly $constructOnlyProperties: Query.ConstructOnlyProperties
-            /**
-             * Assigns a string to a bound value specified using `?`.
-             * @throws {GLib.Error}
-             * @since 0.1.4
-             * @deprecated since 0.3.0 Use #XbValueBindings and xb_value_bindings_bind_str()     instead. That keeps the value bindings separate from the #XbQuery,     allowing queries to be re-used over time and between threads.
-             * @param idx an integer index
-             * @param str string to assign to the bound variable
-             * @returns %TRUE if the `idx` existed
-             */
-            bind_str(idx: number, str: string): boolean
-            /**
-             * Assigns a string to a bound value specified using `?`.
-             * @throws {GLib.Error}
-             * @since 0.1.4
-             * @deprecated since 0.3.0 Use #XbValueBindings and xb_value_bindings_bind_val()     instead. That keeps the value bindings separate from the #XbQuery,     allowing queries to be re-used over time and between threads.
-             * @param idx an integer index
-             * @param val value to assign to the bound variable
-             * @returns %TRUE if the `idx` existed
-             */
-            bind_val(idx: number, val: number): boolean
-            /**
-             * Gets the flags used for this query.
-             * @since 0.1.15
-             * @deprecated since 0.3.0 This is not thread-safe. Use xb_query_context_get_flags()     instead.
-             * @returns #XbQueryFlags, default %XB_QUERY_FLAG_NONE
-             */
-            get_flags(): QueryFlags
-            /**
-             * Gets the results limit on this query, where 0 is 'all'.
-             * @since 0.1.4
-             * @deprecated since 0.3.0 This is not thread-safe. Use xb_query_context_get_limit()     instead.
-             * @returns integer, default 0
-             */
-            get_limit(): number
-            /**
-             * Gets the XPath string that created the query.
-             * @since 0.1.4
-             * @returns string
-             */
-            get_xpath(): string
-            /**
-             * Sets the flags to use for this query.
-             * @since 0.1.15
-             * @deprecated since 0.3.0 This is not thread-safe. Use xb_query_context_set_flags()     instead.
-             * @param flags a #XbQueryFlags, e.g. %XB_QUERY_FLAG_USE_INDEXES
-             */
-            set_flags(flags: QueryFlags): void
-            /**
-             * Sets the results limit on this query, where 0 is 'all'.
-             * @since 0.1.4
-             * @deprecated since 0.3.0 This is not thread-safe. Use xb_query_context_set_limit()     instead.
-             * @param limit integer
-             */
-            set_limit(limit: number): void
-        }
-
-        interface QueryClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Query>
-            readonly prototype: Query
-
-            new (props?: Partial<GObject.ConstructorProps<Query>>): Query
-            /**
-             * Creates a query to be used by @silo. It may be quicker to create a query
-             * manually and re-use it multiple times.
-             * @throws {GLib.Error}
-             * @since 0.1.4
-             * @param silo a #XbSilo
-             * @param xpath The XPath query
-             * @returns a #XbQuery
-             */
-            "new"(silo: Silo, xpath: string): Query
-            /**
-             * Creates a query to be used by @silo. It may be quicker to create a query
-             * manually and re-use it multiple times.
-             *
-             * The query will point to strings inside @silo, so the lifetime of @silo must
-             * exceed the lifetime of the returned query.
-             * @throws {GLib.Error}
-             * @since 0.1.6
-             * @param silo a #XbSilo
-             * @param xpath The XPath query
-             * @param flags some #XbQueryFlags, e.g. #XB_QUERY_FLAG_USE_INDEXES
-             * @returns a #XbQuery
-             */
-            new_full(silo: Silo, xpath: string, flags: QueryFlags): Query
-        }
-
-        interface $Exports {
-            /**
-             */
-            Query: QueryClass
-        }
-        
-
-        namespace Silo {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "enable-node-cache": boolean
-                "guid": string
-                "valid": boolean
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "enable-node-cache": boolean
-                "guid": string
-                "valid": boolean
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface Silo extends GObject.Object {
-            readonly $signals: Silo.SignalSignatures
-            readonly $readableProperties: Silo.ReadableProperties
-            readonly $writableProperties: Silo.WritableProperties
-            readonly $constructOnlyProperties: Silo.ConstructOnlyProperties
-            /**
-             * Whether to cache all #XbNode instances ever constructed in a single
-             * cache in the #XbSilo, so that the same #XbNode instance is always
-             * returned in query results for a given XPath. This is a form of
-             * memoisation, and allows xb_node_get_data() and xb_node_set_data() to
-             * be used.
-             *
-             * This is enabled by default to preserve compatibility with older
-             * versions of libxmlb, but most clients will want to disable it. It
-             * adds a large memory overhead (no #XbNode is ever finalised) but
-             * achieves moderately low hit rates for typical XML parsing workloads
-             * where most nodes are accessed only once or twice as they are
-             * processed and then processing moves on to other nodes.
-             *
-             * This property can only be changed before the #XbSilo is passed
-             * between threads. Changing it is not thread-safe.
-             * @since 0.2.0
-             * @default TRUE
-             */
-            get enableNodeCache(): boolean
-            set enableNodeCache(value: boolean)
-            /**
-             * @default NULL
-             */
-            get guid(): string
-            set guid(value: string)
-            /**
-             * @default TRUE
-             */
-            get valid(): boolean
-            set valid(value: boolean)
-            /**
-             * Exports the silo back to XML.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param flags some #XbNodeExportFlags, e.g. #XB_NODE_EXPORT_FLAG_NONE
-             * @returns XML data, or %NULL for an error
-             */
-            export(flags: NodeExportFlags): string
-            /**
-             * Exports the silo back to an XML file.
-             * @throws {GLib.Error}
-             * @since 0.1.2
-             * @param file a #GFile
-             * @param flags some #XbNodeExportFlags, e.g. #XB_NODE_EXPORT_FLAG_NONE
-             * @param cancellable a #GCancellable, or %NULL
-             * @returns %TRUE on success
-             */
-            export_file(file: Gio.File, flags: NodeExportFlags, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Gets the backing object that created the blob.
-             *
-             * You should never *ever* modify this data.
-             * @since 0.1.0
-             * @returns A #GBytes, or %NULL if never set
-             */
-            get_bytes(): GLib.Bytes
-            /**
-             * Get #XbSilo:enable-node-cache.
-             * @since 0.2.0
-             */
-            get_enable_node_cache(): boolean
-            /**
-             * Gets the GUID used to identify this silo.
-             * @since 0.1.0
-             * @returns a string, otherwise %NULL
-             */
-            get_guid(): string
-            /**
-             * Returns the profiling data. This will only return profiling text if
-             * xb_silo_set_profile_flags() was used with %XB_SILO_PROFILE_FLAG_APPEND.
-             * @since 0.1.1
-             * @returns text profiling data
-             */
-            get_profile_string(): string
-            /**
-             * Gets the root node for the silo. (MIGHT BE MORE).
-             * @since 0.1.0
-             * @returns A #XbNode, or %NULL for an error
-             */
-            get_root(): Node
-            /**
-             * Gets the number of nodes in the silo.
-             * @since 0.1.0
-             * @returns a integer, or 0 is an empty blob
-             */
-            get_size(): number
-            /**
-             * Invalidates a silo. Future calls xb_silo_is_valid() will return %FALSE.
-             * @since 0.1.1
-             */
-            invalidate(): void
-            /**
-             * Checks is the silo is valid. The usual reason the silo is invalidated is
-             * when the backing mmapped file has changed, or one of the imported files have
-             * been modified.
-             * @since 0.1.0
-             * @returns %TRUE if valid
-             */
-            is_valid(): boolean
-            /**
-             * Loads a silo from memory location.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param blob a #GBytes
-             * @param flags #XbSiloLoadFlags, e.g. %XB_SILO_LOAD_FLAG_NONE
-             * @returns %TRUE for success, otherwise `error` is set.
-             */
-            load_from_bytes(blob: (GLib.Bytes | Uint8Array), flags: SiloLoadFlags): boolean
-            /**
-             * Loads a silo from file.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param file a #GFile
-             * @param flags #XbSiloLoadFlags, e.g. %XB_SILO_LOAD_FLAG_NONE
-             * @param cancellable a #GCancellable, or %NULL
-             * @returns %TRUE for success, otherwise `error` is set.
-             */
-            load_from_file(file: Gio.File, flags: SiloLoadFlags, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Create an #XbQuery from the given @xpath XPath string, or return it from the
-             * query cache in the #XbSilo.
-             *
-             * @xpath must be valid: it is a programmer error if creating the query fails
-             * (i.e. if xb_query_new() returns an error).
-             *
-             * This function is thread-safe.
-             * @since 0.3.0
-             * @param xpath an XPath query string
-             * @returns an #XbQuery representing `xpath`
-             */
-            lookup_query(xpath: string): Query
-            /**
-             * Searches the silo using an XPath query, returning up to @limit results.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param xpath an XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
-             * @param limit maximum number of results to return, or 0 for "all"
-             * @returns results, or %NULL if unfound
-             */
-            query(xpath: string, limit: number): Node[]
-            /**
-             * Adds the `attr()` or `text()` results of a query to the index.
-             * @throws {GLib.Error}
-             * @since 0.1.4
-             * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
-             * @param attr Attribute name, e.g. `type`, or NULL
-             * @returns %TRUE for success
-             */
-            query_build_index(xpath: string, attr: string | null): boolean
-            /**
-             * Searches the silo using an XPath query, returning up to one result.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a tiny subset of XPath 1.0 is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param xpath An XPath, e.g. `/components/component[@type=desktop]/id[abe.desktop]`
-             * @returns a #XbNode, or %NULL if unfound
-             */
-            query_first(xpath: string): Node
-            /**
-             * Searches the silo using an XPath query, returning up to one result.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a tiny subset of XPath 1.0 is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.13
-             * @param query an #XbQuery
-             * @returns a #XbNode, or %NULL if unfound
-             */
-            query_first_full(query: Query): Node
-            /**
-             * Searches the silo using an XPath query, returning up to one result.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a tiny subset of XPath 1.0 is supported.
-             * @throws {GLib.Error}
-             * @since 0.3.0
-             * @param query an #XbQuery
-             * @param context context including values bound to opcodes of type
-                %XB_OPCODE_KIND_BOUND_INTEGER or %XB_OPCODE_KIND_BOUND_TEXT, or %NULL if
-                the query doesn’t need any context
-             * @returns a #XbNode, or %NULL if unfound
-             */
-            query_first_with_context(query: Query, context: QueryContext | null): Node
-            /**
-             * Searches the silo using an XPath query.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.1.13
-             * @param query an #XbQuery
-             * @returns results, or %NULL if unfound
-             */
-            query_full(query: Query): Node[]
-            /**
-             * Searches the silo using an XPath query.
-             *
-             * It is safe to call this function from a different thread to the one that
-             * created the #XbSilo.
-             *
-             * Please note: Only a subset of XPath is supported.
-             * @throws {GLib.Error}
-             * @since 0.3.0
-             * @param query an #XbQuery
-             * @param context context including values bound to opcodes of type
-                %XB_OPCODE_KIND_BOUND_INTEGER or %XB_OPCODE_KIND_BOUND_TEXT, or %NULL if
-                the query doesn’t need any context
-             * @returns results, or %NULL if unfound
-             */
-            query_with_context(query: Query, context: QueryContext | null): Node[]
-            /**
-             * Saves a silo to a file.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param file a #GFile
-             * @param cancellable a #GCancellable, or %NULL
-             * @returns %TRUE for success, otherwise `error` is set.
-             */
-            save_to_file(file: Gio.File, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Set #XbSilo:enable-node-cache.
-             *
-             * This is not thread-safe, and can only be called before the #XbSilo is passed
-             * between threads.
-             * @since 0.2.0
-             * @param enable_node_cache %TRUE to enable the node cache, %FALSE otherwise
-             */
-            set_enable_node_cache(enable_node_cache: boolean): void
-            /**
-             * Enables or disables the collection of profiling data.
-             * @since 0.1.1
-             * @param profile_flags some #XbSiloProfileFlags, e.g. %XB_SILO_PROFILE_FLAG_DEBUG
-             */
-            set_profile_flags(profile_flags: SiloProfileFlags): void
-            /**
-             * Converts the silo to an internal string representation. This is only
-             * really useful for debugging #XbSilo itself.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @returns A string, or %NULL for an error
-             */
-            to_string(): string
-            /**
-             * Adds a file monitor to the silo. If the file or directory for @file changes
-             * then the silo will be invalidated.
-             *
-             * The monitor will internally use the #GMainContext which was the thread
-             * default when the #XbSilo was created, so that #GMainContext must be iterated
-             * for monitoring to work.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param file a #GFile
-             * @param cancellable a #GCancellable, or %NULL
-             * @returns %TRUE for success, otherwise `error` is set.
-             */
-            watch_file(file: Gio.File, cancellable: Gio.Cancellable | null): boolean
-        }
-
-        interface SiloClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Silo>
-            readonly prototype: Silo
-
-            new (props?: Partial<GObject.ConstructorProps<Silo>>): Silo
-            /**
-             * Creates a new silo.
-             * @since 0.1.0
-             * @returns a new #XbSilo
-             */
-            "new"(): Silo
-            /**
-             * Creates a new silo from an XML string.
-             * @throws {GLib.Error}
-             * @since 0.1.0
-             * @param xml XML string
-             * @returns a new #XbSilo, or %NULL
-             */
-            new_from_xml(xml: string): Silo
-        }
-
-        interface $Exports {
-            /**
-             */
-            Silo: SiloClass
-        }
-        
-
-        interface NodeAttrIterStruct {
-            readonly $gtype: GObject.GType<NodeAttrIter>
-            [Symbol.hasInstance](instance: unknown): instance is NodeAttrIter
-        }
-
-        interface NodeAttrIter {
-            /**
-             * Initializes a name/value pair iterator for the node attributes
-             * and associates it with @self.
-             * The #XbNodeAttrIter structure is typically allocated on the stack
-             * and does not need to be freed explicitly.
-             * @since 0.3.4
-             * @param self a #XbNode
-             */
-            init(self: Node): void
-            /**
-             * Returns the current attribute name and value and advances the iterator.
-             * Example:
-             * |[<!-- language="C" -->
-             * XbNodeAttrIter iter;
-             * const gchar *attr_name;
-             * const gchar *attr_value;
-             *
-             * xb_node_attr_iter_init (&iter, node);
-             * while (xb_node_attr_iter_next (&iter, &attr_name, &attr_value)) {
-             *     // use attr_name and attr_value; no need to free them
-             * }
-             * ]|
-             * @since 0.3.4
-             * @returns %TRUE if there are more attributes., Destination of the returned attribute name, Destination of the returned attribute value
-             */
-            next(): [boolean, string, string]
-        }
-
-        interface $Exports {
-            NodeAttrIter: NodeAttrIterStruct
-        }
-        
-
-        interface NodeChildIterStruct {
-            readonly $gtype: GObject.GType<NodeChildIter>
-            [Symbol.hasInstance](instance: unknown): instance is NodeChildIter
-        }
-
-        interface NodeChildIter {
-            /**
-             * Initializes a child iterator for the node's children and associates
-             * it with @self.
-             * The #XbNodeChildIter structure is typically allocated on the stack
-             * and does not need to be freed explicitly.
-             * @since 0.3.4
-             * @param self a #XbNode
-             */
-            init(self: Node): void
-            /**
-             * Returns the current child and advances the iterator.
-             * The retrieved #XbNode child needs to be dereferenced with g_object_unref().
-             * Example:
-             * |[<!-- language="C" -->
-             * XbNodeChildIter iter;
-             * g_autoptr(XbNode) child = NULL;
-             *
-             * xb_node_child_iter_init (&iter, node);
-             * while (xb_node_child_iter_next (&iter, &child)) {
-             *     // do something with the node child
-             *     g_clear_pointer (&child, g_object_unref);
-             * }
-             * ]|
-             * @since 0.3.4
-             * @returns %FALSE if the last child has been reached., Destination of the returned child
-             */
-            next(): [boolean, Node]
-        }
-
-        interface $Exports {
-            NodeChildIter: NodeChildIterStruct
-        }
-        
-
-        interface OpcodeStruct {
-            readonly $gtype: GObject.GType<Opcode>
-            [Symbol.hasInstance](instance: unknown): instance is Opcode
-            /**
-             * Converts a string to an opcode kind.
-             * @since 0.1.1
-             * @param str a string, e.g. `FUNC`
-             * @returns a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_TEXT
-             */
-            kind_from_string(str: string): OpcodeKind
-            /**
-             * Converts the opcode kind to a string.
-             * @since 0.1.1
-             * @param kind a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_FUNCTION
-             * @returns opcode kind, e.g. `FUNC`
-             */
-            kind_to_string(kind: OpcodeKind): string
-        }
-
-        interface Opcode {
-            /**
-             * Checks if the opcode can be compared using the string value.
-             * @since 0.1.1
-             * @returns #%TRUE if this opcode can be compared as an string
-             */
-            cmp_str(): boolean
-            /**
-             * Checks if the opcode can be compared using the integer value.
-             * @since 0.1.1
-             * @returns #%TRUE if this opcode can be compared as an integer
-             */
-            cmp_val(): boolean
-            /**
-             * Initialises a stack allocated #XbOpcode to contain a specific function.
-             * Custom functions can be registered using xb_machine_add_func() and retrieved
-             * using xb_machine_opcode_func_new().
-             * @since 0.2.0
-             * @param func a function index
-             */
-            func_init(func: number): void
-            /**
-             * Gets the opcode kind.
-             * @since 0.1.1
-             * @returns a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_INTEGER
-             */
-            get_kind(): OpcodeKind
-            /**
-             * Gets the string value stored on the opcode.
-             * @since 0.1.1
-             * @returns a string, or %NULL if unset
-             */
-            get_str(): string
-            /**
-             * Gets the integer value stored in the opcode. This may be a function ID,
-             * a index into the string table or a literal integer.
-             * @since 0.1.1
-             * @returns value, or 0 for unset.
-             */
-            get_val(): number
-            /**
-             * Initialises a stack allocated #XbOpcode to contain an integer literal.
-             * @since 0.2.0
-             * @param val a integer value
-             */
-            integer_init(val: number): void
-            /**
-             * Initialises a stack allocated #XbOpcode to contain a text literal.
-             * The @str argument is copied internally and is not tied to the lifecycle of
-             * the #XbOpcode.
-             * @since 0.2.0
-             * @param str a string
-             */
-            text_init(str: string): void
-            /**
-             * Initialises a stack allocated #XbOpcode to contain a text literal, where
-             * @str is either static text or will outlive the #XbOpcode lifecycle.
-             * @since 0.2.0
-             * @param str a string
-             */
-            text_init_static(str: string): void
-            /**
-             * Initialises a stack allocated #XbOpcode to contain a text literal, stealing
-             * the @str. Once the opcode is finalized g_free() will be called on @str.
-             * @since 0.2.0
-             * @param str a string
-             */
-            text_init_steal(str: string): void
-            /**
-             * Returns a string representing the specific opcode.
-             * @since 0.1.4
-             * @returns text
-             */
-            to_string(): string
-        }
-
-        interface $Exports {
-            Opcode: OpcodeStruct
-        }
-        
-
-        interface QueryContextStruct {
-            readonly $gtype: GObject.GType<QueryContext>
-            [Symbol.hasInstance](instance: unknown): instance is QueryContext
-        }
-
-        interface QueryContext {
-            /**
-             * Clear an #XbQueryContext, freeing any allocated memory it points to.
-             *
-             * After this function has been called, the contents of the #XbQueryContext are
-             * undefined, and it’s only safe to call xb_query_context_init() on it.
-             * @since 0.3.0
-             */
-            clear(): void
-            /**
-             * Copy @self into a new heap-allocated #XbQueryContext instance.
-             * @since 0.3.0
-             * @returns a copy of `self`
-             */
-            copy(): QueryContext
-            /**
-             * Free a heap-allocated #XbQueryContext instance. This should be used on
-             * #XbQueryContext instances created with xb_query_context_copy().
-             *
-             * For stack-allocated instances, xb_query_context_clear() should be used
-             * instead.
-             * @since 0.3.0
-             */
-            free(): void
-            /**
-             * Get the #XbValueBindings for this query context.
-             * @since 0.3.0
-             * @returns bindings
-             */
-            get_bindings(): ValueBindings
-            /**
-             * Get the flags set on the context. See xb_query_context_set_flags().
-             * @since 0.3.0
-             * @returns query flags
-             */
-            get_flags(): QueryFlags
-            /**
-             * Get the limit on the number of query results. See
-             * xb_query_context_set_limit().
-             * @since 0.3.0
-             * @returns limit on results, or `0` if unlimited
-             */
-            get_limit(): number
-            /**
-             * Initialise a stack-allocated #XbQueryContext struct so it can be used.
-             *
-             * Stack-allocated #XbQueryContext instances should be freed once finished
-             * with, using xb_query_context_clear() (or `g_auto(XbQueryContext)`, which is
-             * equivalent).
-             * @since 0.3.0
-             */
-            init(): void
-            /**
-             * Set flags which affect the behaviour of the query.
-             * @since 0.3.0
-             * @param flags query flags, or %XB_QUERY_FLAG_NONE for none
-             */
-            set_flags(flags: QueryFlags): void
-            /**
-             * Set the limit on the number of results to return from the query.
-             * @since 0.3.0
-             * @param limit number of query results to return, or `0` for unlimited
-             */
-            set_limit(limit: number): void
-        }
-
-        interface $Exports {
-            QueryContext: QueryContextStruct
-        }
-        
-
-        interface StackStruct {
-            readonly $gtype: GObject.GType<Stack>
-            [Symbol.hasInstance](instance: unknown): instance is Stack
-        }
-
-        interface Stack {
-            /**
-             * Pops an opcode off the stack.
-             * @throws {GLib.Error}
-             * @since 0.2.0
-             * @returns %TRUE if popping succeeded, %FALSE if the stack was empty already, return location for the popped #XbOpcode
-             */
-            pop(): [boolean, Opcode]
-            /**
-             * Pushes a new empty opcode onto the end of the stack. A pointer to the opcode
-             * is returned in @opcode_out so that the caller can initialise it. This must be
-             * done before the stack is next used as, for performance reasons, the newly
-             * pushed opcode is not zero-initialised.
-             * @throws {GLib.Error}
-             * @since 0.2.0
-             * @returns %TRUE if a new empty opcode was returned, or %FALSE if the stack has    reached its maximum size, return location for the new #XbOpcode
-             */
-            push(): [boolean, Opcode | null]
-            /**
-             * Returns a string representing a stack.
-             * @since 0.1.4
-             * @returns text
-             */
-            to_string(): string
-        }
-
-        interface $Exports {
-            Stack: StackStruct
-        }
-        
-
-        interface ValueBindingsStruct {
-            readonly $gtype: GObject.GType<ValueBindings>
-            [Symbol.hasInstance](instance: unknown): instance is ValueBindings
-        }
-
-        interface ValueBindings {
-            /**
-             * Bind @str to @idx in the value bindings.
-             *
-             * This will overwrite any previous binding at @idx. It will take ownership of
-             * @str, and an appropriate @destroy_func must be provided to free @str once the
-             * binding is no longer needed. @destroy_func will be called exactly once at
-             * some point before the #XbValueBindings is cleared or freed.
-             * @since 0.3.0
-             * @param idx 0-based index to bind to
-             * @param str a string to bind to @idx
-             * @param destroy_func function to free @str
-             */
-            bind_str(idx: number, str: string, destroy_func: GLib.DestroyNotify | null): void
-            /**
-             * Bind @val to @idx in the value bindings.
-             *
-             * This will overwrite any previous binding at @idx.
-             * @since 0.3.0
-             * @param idx 0-based index to bind to
-             * @param val an integer to bind to @idx
-             */
-            bind_val(idx: number, val: number): void
-            /**
-             * Clear an #XbValueBindings, freeing any allocated memory it points to.
-             *
-             * After this function has been called, the contents of the #XbValueBindings are
-             * undefined, and it’s only safe to call xb_value_bindings_init() on it.
-             * @since 0.3.0
-             */
-            clear(): void
-            /**
-             * Copy @self into a new heap-allocated #XbValueBindings instance.
-             * @since 0.3.0
-             * @returns a copy of `self`
-             */
-            copy(): ValueBindings
-            /**
-             * Copies the value bound at @idx on @self to @dest_idx on @dest. If no value is
-             * bound at @idx, @dest is not modified and %FALSE is returned.
-             *
-             * @dest must be initialised. If a binding already exists at @dest_idx, it will
-             * be overwritten.
-             * @since 0.3.0
-             * @param idx 0-based index to look up the binding from in @self
-             * @param dest an #XbValueBindings to copy to
-             * @param dest_idx 0-based index to copy the binding to in @dest
-             * @returns %TRUE if `idx` was bound, %FALSE otherwise
-             */
-            copy_binding(idx: number, dest: ValueBindings, dest_idx: number): boolean
-            /**
-             * Free a heap-allocated #XbValueBindings instance. This should be used on
-             * #XbValueBindings instances created with xb_value_bindings_copy().
-             *
-             * For stack-allocated instances, xb_value_bindings_clear() should be used
-             * instead.
-             * @since 0.3.0
-             */
-            free(): void
-            /**
-             * Initialise a stack-allocated #XbValueBindings struct so it can be used.
-             *
-             * Stack-allocated #XbValueBindings instances should be freed once finished
-             * with, using xb_value_bindings_clear() (or `g_auto(XbValueBindings)`, which is
-             * equivalent).
-             * @since 0.3.0
-             */
-            init(): void
-            /**
-             * Check whether a value has been bound to the given index using (for example)
-             * xb_value_bindings_bind_str().
-             * @since 0.3.0
-             * @param idx 0-based index of the binding to check
-             * @returns %TRUE if a value is bound to `idx`, %FALSE otherwise
-             */
-            is_bound(idx: number): boolean
-            /**
-             * Initialises an #XbOpcode with the value bound to @idx, if a value is bound.
-             * If no value is bound, @opcode_out is not touched and %FALSE is returned.
-             *
-             * @opcode_out is initialised to point to the data inside the #XbValueBindings,
-             * so must have a shorter lifetime than the #XbValueBindings. It will be of kind
-             * %XB_OPCODE_KIND_BOUND_TEXT or %XB_OPCODE_KIND_BOUND_INTEGER.
-             * @since 0.3.0
-             * @param idx 0-based index to look up the binding from
-             * @returns %TRUE if `idx` was bound, %FALSE otherwise, pointer to an #XbOpcode     to initialise from the binding
-             */
-            lookup_opcode(idx: number): [boolean, Opcode]
-        }
-
-        interface $Exports {
-            ValueBindings: ValueBindingsStruct
-        }
-        
-        interface OpcodeKindEnum {
-            readonly $gtype: GObject.GType<OpcodeKind>
-            /**
-             * Unknown opcode
-             */
-            readonly "UNKNOWN": 0
-            /**
-             * A literal integer value
-             */
-            readonly "INTEGER": 1
-            /**
-             * A literal text value
-             */
-            readonly "TEXT": 2
-            /**
-             * An operator
-             */
-            readonly "FUNCTION": 5
-            /**
-             */
-            readonly "BOUND_UNSET": 8
-            /**
-             * A bound integer value
-             */
-            readonly "BOUND_INTEGER": 9
-            /**
-             * A bound text value
-             */
-            readonly "BOUND_TEXT": 10
-            /**
-             * An indexed text value
-             */
-            readonly "INDEXED_TEXT": 3
-            /**
-             */
-            readonly "BOOLEAN": 17
-            /**
-             * An bound indexed text value
-             */
-            readonly "BOUND_INDEXED_TEXT": 11
-        }
-        type OpcodeKind = OpcodeKindEnum[Exclude<keyof OpcodeKindEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            OpcodeKind: OpcodeKindEnum
-        }
-        
-        interface BuilderCompileFlagsBitfield {
-            readonly $gtype: GObject.GType<BuilderCompileFlags>
-            /**
-             * No extra flags to use
-             */
-            readonly "NONE": 0
-            /**
-             * Only load native languages
-             */
-            readonly "NATIVE_LANGS": 2
-            /**
-             * Ignore invalid files without an error
-             */
-            readonly "IGNORE_INVALID": 4
-            /**
-             * Only store a single language
-             */
-            readonly "SINGLE_LANG": 8
-            /**
-             * Watch the XMLB file for changes
-             */
-            readonly "WATCH_BLOB": 16
-            /**
-             * Ignore the cache GUID value
-             */
-            readonly "IGNORE_GUID": 32
-            /**
-             * Require at most one root node
-             */
-            readonly "SINGLE_ROOT": 64
-        }
-        type BuilderCompileFlags = number
-        interface $Exports {
-            /**
-             * The flags for converting to XML.
-             */
-            BuilderCompileFlags: BuilderCompileFlagsBitfield
-        }
-        
-        interface BuilderNodeFlagsBitfield {
-            readonly $gtype: GObject.GType<BuilderNodeFlags>
-            /**
-             * No extra flags to use
-             */
-            readonly "NONE": 0
-            /**
-             * Do not include this node in the silo
-             */
-            readonly "IGNORE": 1
-            /**
-             * Assume the node CDATA is already valid
-             */
-            readonly "LITERAL_TEXT": 2
-            /**
-             * If the node has leading text
-             */
-            readonly "HAS_TEXT": 4
-            /**
-             * If the node has trailing text
-             */
-            readonly "HAS_TAIL": 8
-            /**
-             * Tokenize and fold text to ASCII (Since: 0.3.1)
-             */
-            readonly "TOKENIZE_TEXT": 16
-            /**
-             * Strip leading and trailing spaces from text (Since:
-             * 0.3.4)
-             */
-            readonly "STRIP_TEXT": 32
-        }
-        type BuilderNodeFlags = number
-        interface $Exports {
-            /**
-             * The flags used when building a node.
-             */
-            BuilderNodeFlags: BuilderNodeFlagsBitfield
-        }
-        
-        interface BuilderSourceFlagsBitfield {
-            readonly $gtype: GObject.GType<BuilderSourceFlags>
-            /**
-             * No extra flags to use
-             */
-            readonly "NONE": 0
-            /**
-             * Do not attempt to repair XML whitespace
-             */
-            readonly "LITERAL_TEXT": 1
-            /**
-             * Watch the source file for changes
-             */
-            readonly "WATCH_FILE": 2
-            /**
-             * Watch the directory containing the source file for
-             * changes (for example, if watching all the sources in a directory — this allows the file monitors
-             * to be shared)
-             */
-            readonly "WATCH_DIRECTORY": 4
-        }
-        type BuilderSourceFlags = number
-        interface $Exports {
-            /**
-             * The flags for converting to XML.
-             */
-            BuilderSourceFlags: BuilderSourceFlagsBitfield
-        }
-        
-        interface MachineDebugFlagsBitfield {
-            readonly $gtype: GObject.GType<MachineDebugFlags>
-            /**
-             * No debug flags to use
-             */
-            readonly "NONE": 0
-            /**
-             * Show the stack addition and removal
-             */
-            readonly "SHOW_STACK": 1
-            /**
-             * Show the XPath predicate parsing
-             */
-            readonly "SHOW_PARSING": 2
-            /**
-             * Show the optimizer operation
-             */
-            readonly "SHOW_OPTIMIZER": 4
-            /**
-             * Show the query slow paths
-             */
-            readonly "SHOW_SLOW_PATH": 8
-        }
-        type MachineDebugFlags = number
-        interface $Exports {
-            /**
-             * The flags to control the amount of debugging is generated.
-             */
-            MachineDebugFlags: MachineDebugFlagsBitfield
-        }
-        
-        interface MachineParseFlagsBitfield {
-            readonly $gtype: GObject.GType<MachineParseFlags>
-            /**
-             * No flags set
-             */
-            readonly "NONE": 0
-            /**
-             * Run an optimization pass on the predicate
-             */
-            readonly "OPTIMIZE": 1
-        }
-        type MachineParseFlags = number
-        interface $Exports {
-            /**
-             * The flags to control the parsing behaviour.
-             */
-            MachineParseFlags: MachineParseFlagsBitfield
-        }
-        
-        interface NodeExportFlagsBitfield {
-            readonly $gtype: GObject.GType<NodeExportFlags>
-            /**
-             * No extra flags to use
-             */
-            readonly "NONE": 0
-            /**
-             * Add an XML header to the data
-             */
-            readonly "ADD_HEADER": 1
-            /**
-             * Split up children with a newline
-             */
-            readonly "FORMAT_MULTILINE": 2
-            /**
-             * Indent the XML by child depth
-             */
-            readonly "FORMAT_INDENT": 4
-            /**
-             * Include the siblings when converting
-             */
-            readonly "INCLUDE_SIBLINGS": 8
-            /**
-             * Only export the children of the node
-             */
-            readonly "ONLY_CHILDREN": 16
-            /**
-             * If node has no children, collapse open and close
-             * tags
-             */
-            readonly "COLLAPSE_EMPTY": 32
-        }
-        type NodeExportFlags = number
-        interface $Exports {
-            /**
-             * The flags for converting to XML.
-             */
-            NodeExportFlags: NodeExportFlagsBitfield
-        }
-        
-        interface OpcodeFlagsBitfield {
-            readonly $gtype: GObject.GType<OpcodeFlags>
-            /**
-             */
-            readonly "UNKNOWN": 0
-            /**
-             * Integer value set
-             */
-            readonly "INTEGER": 1
-            /**
-             * Text value set
-             */
-            readonly "TEXT": 2
-            /**
-             * An operator
-             */
-            readonly "FUNCTION": 4
-            /**
-             * A bound value, assigned later
-             */
-            readonly "BOUND": 8
-            /**
-             */
-            readonly "BOOLEAN": 16
-            /**
-             * Tokenized text
-             */
-            readonly "TOKENIZED": 32
-        }
-        type OpcodeFlags = number
-        interface $Exports {
-            /**
-             * The opcode flags. The values have been carefully chosen so that a simple
-             * bitmask can be done to know how to compare for equality.
-             *
-             * function─┐ ┌─string
-             * bound──┐ │ │ ┌──integer
-             * token┐ │ │ │ │
-             *  X X X X X X X
-             *        8 4 2 1
-             */
-            OpcodeFlags: OpcodeFlagsBitfield
-        }
-        
-        interface QueryFlagsBitfield {
-            readonly $gtype: GObject.GType<QueryFlags>
-            /**
-             * No extra flags to use
-             */
-            readonly "NONE": 0
-            /**
-             * Optimize the query when possible
-             */
-            readonly "OPTIMIZE": 1
-            /**
-             * Use the indexed parameters
-             */
-            readonly "USE_INDEXES": 2
-            /**
-             * Reverse the results order
-             */
-            readonly "REVERSE": 4
-            /**
-             * Always cache the #XbNode objects
-             */
-            readonly "FORCE_NODE_CACHE": 8
-        }
-        type QueryFlags = number
-        interface $Exports {
-            /**
-             * The flags used for queries.
-             */
-            QueryFlags: QueryFlagsBitfield
-        }
-        
-        interface SiloLoadFlagsBitfield {
-            readonly $gtype: GObject.GType<SiloLoadFlags>
-            /**
-             * No extra flags to use
-             */
-            readonly "NONE": 0
-            /**
-             * No not check header signature
-             */
-            readonly "NO_MAGIC": 1
-            /**
-             * Watch the XMLB file for changes
-             */
-            readonly "WATCH_BLOB": 2
-        }
-        type SiloLoadFlags = number
-        interface $Exports {
-            /**
-             * The flags for loading a silo.
-             */
-            SiloLoadFlags: SiloLoadFlagsBitfield
-        }
-        
-        interface SiloProfileFlagsBitfield {
-            readonly $gtype: GObject.GType<SiloProfileFlags>
-            /**
-             * No extra flags to use
-             */
-            readonly "NONE": 0
-            /**
-             * Output profiling as debug
-             */
-            readonly "DEBUG": 1
-            /**
-             * Save profiling in an appended string
-             */
-            readonly "APPEND": 2
-            /**
-             * Save XPATH queries
-             */
-            readonly "XPATH": 4
-            /**
-             * Output the machine optimizer as debug
-             */
-            readonly "OPTIMIZER": 8
-        }
-        type SiloProfileFlags = number
-        interface $Exports {
-            /**
-             * The flags used when profiling a silo.
-             */
-            SiloProfileFlags: SiloProfileFlagsBitfield
-        }
-        /**
-         * @throws {GLib.Error}
-         * @param self
-         * @param bn
-         */
-        type BuilderFixupFunc = (self: BuilderFixup, bn: BuilderNode) => boolean
-        /**
-         * @param bn1
-         * @param bn2
-         */
-        type BuilderNodeSortFunc = (bn1: BuilderNode, bn2: BuilderNode) => number
-        /**
-         * @param bn
-         */
-        type BuilderNodeTraverseFunc = (bn: BuilderNode) => boolean
-        /**
-         * @throws {GLib.Error}
-         * @param self
-         * @param bn
-         */
-        type BuilderSourceNodeFunc = (self: BuilderSource, bn: BuilderNode) => boolean
-        /**
-         * @throws {GLib.Error}
-         * @param self
-         * @param stack
-         * @param result_unused
-         * @param exec_data
-         */
-        type MachineMethodFunc = (self: Machine, stack: Stack, result_unused: boolean, exec_data: never | null) => boolean
-        /**
-         * @throws {GLib.Error}
-         * @param self
-         * @param opcodes
-         */
-        type MachineOpcodeFixupFunc = (self: Machine, opcodes: Stack) => boolean
-        /**
-         * @throws {GLib.Error}
-         * @param self
-         * @param opcodes
-         * @param text
-         * @param handled
-         */
-        type MachineTextHandlerFunc = (self: Machine, opcodes: Stack, text: string, handled: boolean) => boolean
-        /**
-         * @param self
-         */
-        type NodeTransmogrifyFunc = (self: Node) => boolean
-
-        interface $Exports {
-            __name__: "Xmlb"
-            __version: "2.0"
-            MAJOR_VERSION: 0
-            MICRO_VERSION: 25
-            MINOR_VERSION: 3
-            /**
-             * Converts a string to an opcode kind.
-             * @since 0.1.1
-             * @param str a string, e.g. `FUNC`
-             * @returns a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_TEXT
-             */
-            opcode_kind_from_string(str: string): OpcodeKind
-            /**
-             * Converts the opcode kind to a string.
-             * @since 0.1.1
-             * @param kind a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_FUNCTION
-             * @returns opcode kind, e.g. `FUNC`
-             */
-            opcode_kind_to_string(kind: OpcodeKind): string
-            /**
-             * Escapes XPath control sequences such as newlines, tabs, and forward slashes.
-             * @since 0.1.2
-             * @param str string, e.g. `app/org.gnome.ghex/x86_64/stable`
-             * @returns new string that is safe to use for queries
-             */
-            string_escape(str: string): string
-            /**
-             * Gets the XMLb installed runtime version.
-             * @since 0.3.19
-             * @returns a version number, e.g. "0.3.19"
-             */
-            version_string(): string
-        }
+        const Xmlb: Xmlb.$Exports
     }
 
-    const Xmlb: Xmlb.$Exports
-    export default Xmlb
+    export default GI.Xmlb
 }

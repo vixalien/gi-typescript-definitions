@@ -16,468 +16,475 @@ declare module "gi://Manette?version=1" {
     import type GUdev from "gi://GUdev?version=1.0"
     import type Gio from "gi://Gio?version=2.0"
 
-    
-
-    namespace Manette {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace Device {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * Emitted when value of @axis changes.
-                 * @param axis the axis
-                 * @param value the axis value
-                 */
-                "absolute-axis-changed"(axis: Axis, value: number): void
-                /**
-                 * Emitted when @button is pressed.
-                 * @param button the button
-                 */
-                "button-pressed"(button: Button): void
-                /**
-                 * Emitted when @button is released.
-                 * @param button the button
-                 */
-                "button-released"(button: Button): void
-                /**
-                 * Emitted when the device is disconnected.
-                 */
-                "disconnected"(): void
-                /**
-                 * Emitted when an unmapped absolute axis' value changes.
-                 * @param axis the axis hardware index
-                 * @param value the axis value
-                 */
-                "unmapped-absolute-axis-changed"(axis: number, value: number): void
-                /**
-                 * Emitted when an unmapped button is pressed.
-                 * @param index the button hardware index
-                 */
-                "unmapped-button-pressed"(index: number): void
-                /**
-                 * Emitted when an unmapped button is released.
-                 * @param index the button hardware index
-                 */
-                "unmapped-button-released"(index: number): void
-                /**
-                 * Emitted when an unmapped hat axis' value changes.
-                 * @param axis the axis hardware index
-                 * @param value the axis value
-                 */
-                "unmapped-hat-axis-changed"(axis: number, value: number): void
+        namespace Manette {
+            
+
+            namespace Device {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                    /**
+                     * Emitted when value of `axis` changes.
+                     * @param axis the axis
+                     * @param value the axis value
+                     */
+                    "absolute-axis-changed"(axis: Axis, value: number): void
+                    /**
+                     * Emitted when `button` is pressed.
+                     * @param button the button
+                     */
+                    "button-pressed"(button: Button): void
+                    /**
+                     * Emitted when `button` is released.
+                     * @param button the button
+                     */
+                    "button-released"(button: Button): void
+                    /**
+                     * Emitted when the device is disconnected.
+                     */
+                    "disconnected"(): void
+                    /**
+                     * Emitted when an unmapped absolute axis' value changes.
+                     * @param axis the axis hardware index
+                     * @param value the axis value
+                     */
+                    "unmapped-absolute-axis-changed"(axis: number, value: number): void
+                    /**
+                     * Emitted when an unmapped button is pressed.
+                     * @param index the button hardware index
+                     */
+                    "unmapped-button-pressed"(index: number): void
+                    /**
+                     * Emitted when an unmapped button is released.
+                     * @param index the button hardware index
+                     */
+                    "unmapped-button-released"(index: number): void
+                    /**
+                     * Emitted when an unmapped hat axis' value changes.
+                     * @param axis the axis hardware index
+                     * @param value the axis value
+                     */
+                    "unmapped-hat-axis-changed"(axis: number, value: number): void
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface Device extends GObject.Object {
-            readonly $signals: Device.SignalSignatures
-            readonly $readableProperties: Device.ReadableProperties
-            readonly $writableProperties: Device.WritableProperties
-            readonly $constructOnlyProperties: Device.ConstructOnlyProperties
-            /**
-             * Gets the timestamp of when the current event was emitted on @self.
-             *
-             * Use this timestamp to ensure external factors such as synchronous disk writes
-             * don't influence your timing computations.
-             * @returns the timestamp of when the current event was emitted
-             */
-            get_current_event_time(): number
-            /**
-             * Gets the device type of @self.
-             * @returns the device type
-             */
-            get_device_type(): DeviceType
-            /**
-             * Gets the identifier used by SDL mappings to discriminate game controller
-             * devices.
-             * @returns the identifier used by SDL mappings
-             */
-            get_guid(): string
-            /**
-             * Gets the user mapping for @self, or default mapping if there isn't any.
-             *
-             * Can return `NULL` if there's no mapping or @self doesn't support mappings.
-             * @returns the mapping for `self`
-             */
-            get_mapping(): string | null
-            /**
-             * Gets the device's name.
-             * @returns the name of `self`
-             */
-            get_name(): string
-            /**
-             * Gets whether the device has @axis.
-             * @param axis an axis
-             * @returns whether the device has `axis`
-             */
-            has_axis(axis: Axis): boolean
-            /**
-             * Gets whether the device has @button.
-             * @param button a button
-             * @returns whether the device has `button`
-             */
-            has_button(button: Button): boolean
-            /**
-             * Gets whether the device has the given input.
-             *
-             * If the input is present, it means that the device can send events for it
-             * regardless of whether the device is mapped or not.
-             * @param type the input type
-             * @param code the input code
-             * @returns whether the device has the given input
-             */
-            has_input(type: number, code: number): boolean
-            /**
-             * Gets whether @self supports rumble.
-             * @returns whether `self` supports rumble
-             */
-            has_rumble(): boolean
-            /**
-             * Gets whether @self has a user mapping.
-             * @returns whether `self` has a user mapping
-             */
-            has_user_mapping(): boolean
-            /**
-             * Removes the user mapping for @self.
-             */
-            remove_user_mapping(): void
-            /**
-             * Make @self rumble during @milliseconds milliseconds.
-             *
-             * The heavy and light motors will rumble at their respectively defined
-             * magnitudes.
-             *
-             * The duration cannot exceed 32767 milliseconds.
-             * @param strong_magnitude the magnitude for the heavy motor
-             * @param weak_magnitude the magnitude for the light motor
-             * @param milliseconds the rumble effect play time in milliseconds
-             * @returns whether the rumble effect was played
-             */
-            rumble(strong_magnitude: number, weak_magnitude: number, milliseconds: number): boolean
-            /**
-             * Saves @mapping_string as the user mapping for @self.
-             * @param mapping_string the mapping string
-             */
-            save_user_mapping(mapping_string: string): void
-            /**
-             * Gets whether @self supports mapping.
-             * @returns whether `self` supports mapping
-             */
-            supports_mapping(): boolean
-        }
-
-        interface DeviceClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Device>
-            readonly prototype: Device
-
-            new (props?: Partial<GObject.ConstructorProps<Device>>): Device
-        }
-
-        interface $Exports {
-            /**
-             * An object representing a physical gamepad.
-             *
-             * See also: [class@Monitor].
-             */
-            Device: DeviceClass
-        }
-        
-
-        namespace Monitor {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            interface Device extends GObject.Object {
+                readonly $signals: Device.SignalSignatures
+                readonly $readableProperties: Device.ReadableProperties
+                readonly $writableProperties: Device.WritableProperties
+                readonly $constructOnlyProperties: Device.ConstructOnlyProperties
                 /**
-                 * Emitted when @device is connected.
-                 * @param device a device
+                 * Gets the timestamp of when the current event was emitted on `self`.
+                 *
+                 * Use this timestamp to ensure external factors such as synchronous disk writes
+                 * don't influence your timing computations.
+                 * @returns the timestamp of when the current event was emitted
                  */
-                "device-connected"(device: Device): void
+                get_current_event_time(): number
                 /**
-                 * Emitted when @device is disconnected.
-                 * @param device a device
+                 * Gets the device type of `self`.
+                 * @returns the device type
                  */
-                "device-disconnected"(device: Device): void
+                get_device_type(): DeviceType
+                /**
+                 * Gets the identifier used by SDL mappings to discriminate game controller
+                 * devices.
+                 * @returns the identifier used by SDL mappings
+                 */
+                get_guid(): string
+                /**
+                 * Gets the user mapping for `self`, or default mapping if there isn't any.
+                 *
+                 * Can return `NULL` if there's no mapping or `self` doesn't support mappings.
+                 * @returns the mapping for `self`
+                 */
+                get_mapping(): string | null
+                /**
+                 * Gets the device's name.
+                 * @returns the name of `self`
+                 */
+                get_name(): string
+                /**
+                 * Gets whether the device has `axis`.
+                 * @param axis an axis
+                 * @returns whether the device has `axis`
+                 */
+                has_axis(axis: Axis): boolean
+                /**
+                 * Gets whether the device has `button`.
+                 * @param button a button
+                 * @returns whether the device has `button`
+                 */
+                has_button(button: Button): boolean
+                /**
+                 * Gets whether the device has the given input.
+                 *
+                 * If the input is present, it means that the device can send events for it
+                 * regardless of whether the device is mapped or not.
+                 * @param type the input type
+                 * @param code the input code
+                 * @returns whether the device has the given input
+                 */
+                has_input(type: number, code: number): boolean
+                /**
+                 * Gets whether `self` supports rumble.
+                 * @returns whether `self` supports rumble
+                 */
+                has_rumble(): boolean
+                /**
+                 * Gets whether `self` has a user mapping.
+                 * @returns whether `self` has a user mapping
+                 */
+                has_user_mapping(): boolean
+                /**
+                 * Removes the user mapping for `self`.
+                 */
+                remove_user_mapping(): void
+                /**
+                 * Make `self` rumble during `milliseconds` milliseconds.
+                 *
+                 * The heavy and light motors will rumble at their respectively defined
+                 * magnitudes.
+                 *
+                 * The duration cannot exceed 32767 milliseconds.
+                 * @param strong_magnitude the magnitude for the heavy motor
+                 * @param weak_magnitude the magnitude for the light motor
+                 * @param milliseconds the rumble effect play time in milliseconds
+                 * @returns whether the rumble effect was played
+                 */
+                rumble(strong_magnitude: number, weak_magnitude: number, milliseconds: number): boolean
+                /**
+                 * Saves `mapping_string` as the user mapping for `self`.
+                 * @param mapping_string the mapping string
+                 */
+                save_user_mapping(mapping_string: string): void
+                /**
+                 * Gets whether `self` supports mapping.
+                 * @returns whether `self` supports mapping
+                 */
+                supports_mapping(): boolean
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            interface DeviceClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Device>
+                readonly prototype: Device
+
+                new (props?: Partial<GObject.ConstructorProps<Device>>): Device
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
+            interface $Exports {
+                /**
+                 * An object representing a physical gamepad.
+                 *
+                 * See also: {@link Monitor}.
+                 */
+                Device: DeviceClass
+            }
+            
+
+            namespace Monitor {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                    /**
+                     * Emitted when `device` is connected.
+                     * @param device a device
+                     */
+                    "device-connected"(device: Device): void
+                    /**
+                     * Emitted when `device` is disconnected.
+                     * @param device a device
+                     */
+                    "device-disconnected"(device: Device): void
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface Monitor extends GObject.Object {
+                readonly $signals: Monitor.SignalSignatures
+                readonly $readableProperties: Monitor.ReadableProperties
+                readonly $writableProperties: Monitor.WritableProperties
+                readonly $constructOnlyProperties: Monitor.ConstructOnlyProperties
+                /**
+                 * Lists the currently connected devices.
+                 * @returns the list of devices
+                 */
+                list_devices(): Device[]
+            }
+
+            interface MonitorClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Monitor>
+                readonly prototype: Monitor
+
+                new (props?: Partial<GObject.ConstructorProps<Monitor>>): Monitor
+                /**
+                 * Creates a new `ManetteMonitor`.
+                 * @returns a new `ManetteMonitor`
+                 */
+                "new"(): Monitor
+            }
+
+            interface $Exports {
+                /**
+                 * An object monitoring the availability of devices.
+                 *
+                 * See also: {@link Device}.
+                 */
+                Monitor: MonitorClass
+            }
+            
+            interface AxisEnum {
+                readonly $gtype: GObject.GType<Axis>
+                /**
+                 * Left analog stick, horizontal axis
+                 */
+                readonly "LEFT_X": 0
+                /**
+                 * Left analog stick, vertical axis
+                 */
+                readonly "LEFT_Y": 1
+                /**
+                 * Right analog stick, horizontal axis
+                 */
+                readonly "RIGHT_X": 2
+                /**
+                 * Right analog stick, vertical axis
+                 */
+                readonly "RIGHT_Y": 3
+                /**
+                 * Left trigger (L2, LT or ZL)
+                 */
+                readonly "LEFT_TRIGGER": 4
+                /**
+                 * Right trigger (R2, RT or ZR)
+                 */
+                readonly "RIGHT_TRIGGER": 5
+            }
+            type Axis = AxisEnum[Exclude<keyof AxisEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Describes available axes a {@link Device} can have.
+                 *
+                 * More values may be added to this enumeration over time.
+                 */
+                Axis: AxisEnum
+            }
+            
+            interface ButtonEnum {
+                readonly $gtype: GObject.GType<Button>
+                /**
+                 * D-pad (up)
+                 */
+                readonly "DPAD_UP": 0
+                /**
+                 * D-pad (down)
+                 */
+                readonly "DPAD_DOWN": 1
+                /**
+                 * D-pad (left)
+                 */
+                readonly "DPAD_LEFT": 2
+                /**
+                 * D-pad (right)
+                 */
+                readonly "DPAD_RIGHT": 3
+                /**
+                 * Top face button
+                 *     (XBox Y, Nintendo X, PlayStation triangle)
+                 */
+                readonly "NORTH": 4
+                /**
+                 * Bottom face button
+                 *     (XBox A, Nintendo B, PlayStation X)
+                 */
+                readonly "SOUTH": 5
+                /**
+                 * Left face button
+                 *     (XBox X, Nintendo Y, PlayStation square)
+                 */
+                readonly "WEST": 6
+                /**
+                 * Right face button
+                 *     (XBox B, Nintendo A, PlayStation circle)
+                 */
+                readonly "EAST": 7
+                /**
+                 * Left menu button
+                 */
+                readonly "SELECT": 8
+                /**
+                 * Right menu button
+                 */
+                readonly "START": 9
+                /**
+                 * Center menu button (Home, Guide, Steam etc)
+                 */
+                readonly "MODE": 10
+                /**
+                 * Left shoulder button (L, L1 or LB)
+                 */
+                readonly "LEFT_SHOULDER": 11
+                /**
+                 * Right shoulder button (R, R1 or RB)
+                 */
+                readonly "RIGHT_SHOULDER": 12
+                /**
+                 * Left stick
+                 */
+                readonly "LEFT_STICK": 13
+                /**
+                 * Right stick
+                 */
+                readonly "RIGHT_STICK": 14
+                /**
+                 * Upper left paddle
+                 *     (Steam Deck L4 or XBox Elite P3)
+                 */
+                readonly "LEFT_PADDLE1": 15
+                /**
+                 * Lower left paddle
+                 *     (Steam Deck L5 or XBox Elite P4)
+                 */
+                readonly "LEFT_PADDLE2": 16
+                /**
+                 * Upper right paddle
+                 *     (Steam Deck R4 or XBox Elite P1)
+                 */
+                readonly "RIGHT_PADDLE1": 17
+                /**
+                 * Lower right paddle
+                 *     (Steam Deck R5 or XBox Elite P2)
+                 */
+                readonly "RIGHT_PADDLE2": 18
+                /**
+                 * Additional button
+                 *     (Steam Deck QAM button, Xbox Series X share button etc)
+                 */
+                readonly "MISC1": 19
+                /**
+                 * Additional button
+                 */
+                readonly "MISC2": 20
+                /**
+                 * Additional button
+                 */
+                readonly "MISC3": 21
+                /**
+                 * Additional button
+                 */
+                readonly "MISC4": 22
+                /**
+                 * Additional button
+                 */
+                readonly "MISC5": 23
+                /**
+                 * Additional button
+                 */
+                readonly "MISC6": 24
+                /**
+                 * PS4/PS5 touchpad button
+                 */
+                readonly "TOUCHPAD": 25
+            }
+            type Button = ButtonEnum[Exclude<keyof ButtonEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Describes available buttons a {@link Device} can have.
+                 *
+                 * More values may be added to this enumeration over time.
+                 */
+                Button: ButtonEnum
+            }
+            
+            interface DeviceTypeEnum {
+                readonly $gtype: GObject.GType<DeviceType>
+                /**
+                 * Generic gamepads
+                 */
+                readonly "GENERIC": 0
+                /**
+                 * Steam Deck
+                 */
+                readonly "STEAM_DECK": 1
+            }
+            type DeviceType = DeviceTypeEnum[Exclude<keyof DeviceTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Describes available types of a {@link Device}.
+                 *
+                 * More values may be added to this enumeration over time.
+                 */
+                DeviceType: DeviceTypeEnum
+            }
+
+            interface $Exports {
+                __name__: "Manette"
+                __version__: "1"
+                MAJOR_VERSION: 1
+                MICRO_VERSION: 0
+                MINOR_VERSION: 0
+                VERSION_S: "1.0.alpha"
+                /**
+                 * Returns the major version number of the libmanette library.
+                 *
+                 * For example, in libmanette version 1.2.3 this is 1.
+                 *
+                 * This function is in the library, so it represents the libmanette library your
+                 * code is running against. Contrast with the {@link MAJOR_VERSION} constant,
+                 * which represents the major version of the libmanette headers you have
+                 * included when compiling your code.
+                 * @returns the major version number of the libmanette library
+                 */
+                get_major_version(): number
+                /**
+                 * Returns the micro version number of the libmanette library.
+                 *
+                 * For example, in libmanette version 1.2.3 this is 3.
+                 *
+                 * This function is in the library, so it represents the libmanette library your
+                 * code is running against. Contrast with the {@link MAJOR_VERSION} constant,
+                 * which represents the micro version of the libmanette headers you have
+                 * included when compiling your code.
+                 * @returns the micro version number of the libmanette library
+                 */
+                get_micro_version(): number
+                /**
+                 * Returns the minor version number of the libmanette library.
+                 *
+                 * For example, in libmanette version 1.2.3 this is 2.
+                 *
+                 * This function is in the library, so it represents the libmanette library your
+                 * code is running against. Contrast with the {@link MAJOR_VERSION} constant,
+                 * which represents the minor version of the libmanette headers you have
+                 * included when compiling your code.
+                 * @returns the minor version number of the libmanette library
+                 */
+                get_minor_version(): number
             }
         }
 
-        interface Monitor extends GObject.Object {
-            readonly $signals: Monitor.SignalSignatures
-            readonly $readableProperties: Monitor.ReadableProperties
-            readonly $writableProperties: Monitor.WritableProperties
-            readonly $constructOnlyProperties: Monitor.ConstructOnlyProperties
-            /**
-             * Lists the currently connected devices.
-             * @returns the list of devices
-             */
-            list_devices(): Device[]
-        }
-
-        interface MonitorClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Monitor>
-            readonly prototype: Monitor
-
-            new (props?: Partial<GObject.ConstructorProps<Monitor>>): Monitor
-            /**
-             * Creates a new `ManetteMonitor`.
-             * @returns a new `ManetteMonitor`
-             */
-            "new"(): Monitor
-        }
-
-        interface $Exports {
-            /**
-             * An object monitoring the availability of devices.
-             *
-             * See also: [class@Device].
-             */
-            Monitor: MonitorClass
-        }
-        
-        interface AxisEnum {
-            readonly $gtype: GObject.GType<Axis>
-            /**
-             * Left analog stick, horizontal axis
-             */
-            readonly "LEFT_X": 0
-            /**
-             * Left analog stick, vertical axis
-             */
-            readonly "LEFT_Y": 1
-            /**
-             * Right analog stick, horizontal axis
-             */
-            readonly "RIGHT_X": 2
-            /**
-             * Right analog stick, vertical axis
-             */
-            readonly "RIGHT_Y": 3
-            /**
-             * Left trigger (L2, LT or ZL)
-             */
-            readonly "LEFT_TRIGGER": 4
-            /**
-             * Right trigger (R2, RT or ZR)
-             */
-            readonly "RIGHT_TRIGGER": 5
-        }
-        type Axis = AxisEnum[Exclude<keyof AxisEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Describes available axes a [class@Device] can have.
-             *
-             * More values may be added to this enumeration over time.
-             */
-            Axis: AxisEnum
-        }
-        
-        interface ButtonEnum {
-            readonly $gtype: GObject.GType<Button>
-            /**
-             * D-pad (up)
-             */
-            readonly "DPAD_UP": 0
-            /**
-             * D-pad (down)
-             */
-            readonly "DPAD_DOWN": 1
-            /**
-             * D-pad (left)
-             */
-            readonly "DPAD_LEFT": 2
-            /**
-             * D-pad (right)
-             */
-            readonly "DPAD_RIGHT": 3
-            /**
-             * Top face button
-             *     (XBox Y, Nintendo X, PlayStation triangle)
-             */
-            readonly "NORTH": 4
-            /**
-             * Bottom face button
-             *     (XBox A, Nintendo B, PlayStation X)
-             */
-            readonly "SOUTH": 5
-            /**
-             * Left face button
-             *     (XBox X, Nintendo Y, PlayStation square)
-             */
-            readonly "WEST": 6
-            /**
-             * Right face button
-             *     (XBox B, Nintendo A, PlayStation circle)
-             */
-            readonly "EAST": 7
-            /**
-             * Left menu button
-             */
-            readonly "SELECT": 8
-            /**
-             * Right menu button
-             */
-            readonly "START": 9
-            /**
-             * Center menu button (Home, Guide, Steam etc)
-             */
-            readonly "MODE": 10
-            /**
-             * Left shoulder button (L, L1 or LB)
-             */
-            readonly "LEFT_SHOULDER": 11
-            /**
-             * Right shoulder button (R, R1 or RB)
-             */
-            readonly "RIGHT_SHOULDER": 12
-            /**
-             * Left stick
-             */
-            readonly "LEFT_STICK": 13
-            /**
-             * Right stick
-             */
-            readonly "RIGHT_STICK": 14
-            /**
-             * Upper left paddle
-             *     (Steam Deck L4 or XBox Elite P3)
-             */
-            readonly "LEFT_PADDLE1": 15
-            /**
-             * Lower left paddle
-             *     (Steam Deck L5 or XBox Elite P4)
-             */
-            readonly "LEFT_PADDLE2": 16
-            /**
-             * Upper right paddle
-             *     (Steam Deck R4 or XBox Elite P1)
-             */
-            readonly "RIGHT_PADDLE1": 17
-            /**
-             * Lower right paddle
-             *     (Steam Deck R5 or XBox Elite P2)
-             */
-            readonly "RIGHT_PADDLE2": 18
-            /**
-             * Additional button
-             *     (Steam Deck QAM button, Xbox Series X share button etc)
-             */
-            readonly "MISC1": 19
-            /**
-             * Additional button
-             */
-            readonly "MISC2": 20
-            /**
-             * Additional button
-             */
-            readonly "MISC3": 21
-            /**
-             * Additional button
-             */
-            readonly "MISC4": 22
-            /**
-             * Additional button
-             */
-            readonly "MISC5": 23
-            /**
-             * Additional button
-             */
-            readonly "MISC6": 24
-            /**
-             * PS4/PS5 touchpad button
-             */
-            readonly "TOUCHPAD": 25
-        }
-        type Button = ButtonEnum[Exclude<keyof ButtonEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Describes available buttons a [class@Device] can have.
-             *
-             * More values may be added to this enumeration over time.
-             */
-            Button: ButtonEnum
-        }
-        
-        interface DeviceTypeEnum {
-            readonly $gtype: GObject.GType<DeviceType>
-            /**
-             * Generic gamepads
-             */
-            readonly "GENERIC": 0
-            /**
-             * Steam Deck
-             */
-            readonly "STEAM_DECK": 1
-        }
-        type DeviceType = DeviceTypeEnum[Exclude<keyof DeviceTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Describes available types of a [class@Device].
-             *
-             * More values may be added to this enumeration over time.
-             */
-            DeviceType: DeviceTypeEnum
-        }
-
-        interface $Exports {
-            __name__: "Manette"
-            __version: "1"
-            MAJOR_VERSION: 1
-            MICRO_VERSION: 0
-            MINOR_VERSION: 0
-            VERSION_S: "1.0.alpha"
-            /**
-             * Returns the major version number of the libmanette library.
-             *
-             * For example, in libmanette version 1.2.3 this is 1.
-             *
-             * This function is in the library, so it represents the libmanette library your
-             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-             * which represents the major version of the libmanette headers you have
-             * included when compiling your code.
-             * @returns the major version number of the libmanette library
-             */
-            get_major_version(): number
-            /**
-             * Returns the micro version number of the libmanette library.
-             *
-             * For example, in libmanette version 1.2.3 this is 3.
-             *
-             * This function is in the library, so it represents the libmanette library your
-             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-             * which represents the micro version of the libmanette headers you have
-             * included when compiling your code.
-             * @returns the micro version number of the libmanette library
-             */
-            get_micro_version(): number
-            /**
-             * Returns the minor version number of the libmanette library.
-             *
-             * For example, in libmanette version 1.2.3 this is 2.
-             *
-             * This function is in the library, so it represents the libmanette library your
-             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-             * which represents the minor version of the libmanette headers you have
-             * included when compiling your code.
-             * @returns the minor version number of the libmanette library
-             */
-            get_minor_version(): number
-        }
+        const Manette: Manette.$Exports
     }
 
-    const Manette: Manette.$Exports
-    export default Manette
+    export default GI.Manette
 }

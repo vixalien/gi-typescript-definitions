@@ -22,501 +22,500 @@ declare module "gi://GstTranscoder?version=1.0" {
     import type GstVideo from "gi://GstVideo?version=1.0"
     import type GstPbutils from "gi://GstPbutils?version=1.0"
 
-    
-
-    namespace GstTranscoder {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace Transcoder {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+        namespace GstTranscoder {
+            
+
+            namespace Transcoder {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "avoid-reencoding": boolean
+                    "dest-uri": string
+                    "duration": number
+                    "pipeline": Gst.Element
+                    "position": number
+                    "position-update-interval": number
+                    "profile": GstPbutils.EncodingProfile
+                    "src-uri": string
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "avoid-reencoding": boolean
+                    "duration": number
+                    "pipeline": Gst.Element
+                    "position": number
+                    "position-update-interval": number
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                    "dest-uri": string
+                    "profile": GstPbutils.EncodingProfile
+                    "src-uri": string
+                }
             }
 
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "avoid-reencoding": boolean
-                "dest-uri": string
-                "duration": number
-                "pipeline": Gst.Element
-                "position": number
-                "position-update-interval": number
-                "profile": GstPbutils.EncodingProfile
-                "src-uri": string
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "avoid-reencoding": boolean
-                "duration": number
-                "pipeline": Gst.Element
-                "position": number
-                "position-update-interval": number
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-                "dest-uri": string
-                "profile": GstPbutils.EncodingProfile
-                "src-uri": string
-            }
-        }
-
-        interface Transcoder extends Gst.Object {
-            readonly $signals: Transcoder.SignalSignatures
-            readonly $readableProperties: Transcoder.ReadableProperties
-            readonly $writableProperties: Transcoder.WritableProperties
-            readonly $constructOnlyProperties: Transcoder.ConstructOnlyProperties
-            /**
-             * See #encodebin:avoid-reencoding
-             * @default FALSE
-             */
-            get avoidReencoding(): boolean
-            set avoidReencoding(value: boolean)
-            /**
-             * @default NULL
-             */
-            get destUri(): string
-            set destUri(value: string)
-            /**
-             * @default 18446744073709551615
-             */
-            get duration(): number
-            set duration(value: number)
-            /**
-             */
-            get pipeline(): Gst.Element
-            set pipeline(value: Gst.Element)
-            /**
-             * @default 18446744073709551615
-             */
-            get position(): number
-            set position(value: number)
-            /**
-             * @default 100
-             */
-            get positionUpdateInterval(): number
-            set positionUpdateInterval(value: number)
-            /**
-             */
-            get profile(): GstPbutils.EncodingProfile
-            set profile(value: GstPbutils.EncodingProfile)
-            /**
-             * @default NULL
-             */
-            get srcUri(): string
-            set srcUri(value: string)
-            /**
-             * @returns %TRUE if the transcoder tries to avoid reencoding streams where reencoding is not strictly needed, %FALSE otherwise.
-             */
-            get_avoid_reencoding(): boolean
-            /**
-             * Gets the URI of the destination of the transcoded stream.
-             * @returns a string containing the URI of the destination of the transcoded stream. g_free() after usage.
-             */
-            get_dest_uri(): string
-            /**
-             * Retrieves the duration of the media stream that self represents.
-             * @returns the duration of the transcoding media stream, in nanoseconds.
-             */
-            get_duration(): Gst.ClockTime
-            /**
-             * GstTranscoder API exposes a #GstBus instance which purpose is to provide data
-             * structures representing transcoder-internal events in form of #GstMessage-s of
-             * type GST_MESSAGE_APPLICATION.
-             *
-             * Each message carries a "transcoder-message" field of type #GstTranscoderMessage.
-             * Further fields of the message data are specific to each possible value of
-             * that enumeration.
-             *
-             * Applications can consume the messages asynchronously within their own
-             * event-loop / UI-thread etc. Note that in case the application does not
-             * consume the messages, the bus will accumulate these internally and eventually
-             * fill memory. To avoid that, the bus has to be set "flushing".
-             * @since 1.20
-             * @returns The transcoder message bus instance
-             */
-            get_message_bus(): Gst.Bus
-            /**
-             * @returns The internal uritranscodebin instance
-             */
-            get_pipeline(): Gst.Element
-            /**
-             * @returns the absolute position time, in nanoseconds, of the transcoding stream.
-             */
-            get_position(): Gst.ClockTime
-            /**
-             * @returns current position update interval in milliseconds
-             */
-            get_position_update_interval(): number
-            /**
-             * Gets the #GstTranscoderSignalAdapter attached to @self if it is attached to
-             * the right #GMainContext. If no #GstTranscoderSignalAdapter has been created
-             * yet, it will be created and returned, other calls will return that same
-             * adapter until it is destroyed, at which point, a new one can be attached the
-             * same way.
-             * @since 1.20
-             * @param context A #GMainContext on which the main-loop will process
-                                  transcoder bus messages on. Can be NULL (thread-default
-                                  context will be used then).
-             * @returns The #GstTranscoderSignalAdapter to connect signal handlers to.
-             */
-            get_signal_adapter(context: GLib.MainContext | null): TranscoderSignalAdapter | null
-            /**
-             * Gets the URI of the currently-transcoding stream.
-             * @returns a string containing the URI of the source stream. g_free() after usage.
-             */
-            get_source_uri(): string
-            /**
-             * Gets the #GstTranscoderSignalAdapter attached to @self to emit signals from
-             * its thread of emission.
-             * @since 1.20
-             * @returns The #GstTranscoderSignalAdapter to connect signal handlers to.
-             */
-            get_sync_signal_adapter(): TranscoderSignalAdapter
-            /**
-             * Run the transcoder task synchonously. You can connect
-             * to the 'position' signal to get information about the
-             * progress of the transcoding.
-             * @throws {GLib.Error}
-             */
-            run(): boolean
-            /**
-             * Run the transcoder task asynchronously. You should connect
-             * to the 'done' signal to be notified about when the
-             * transcoding is done, and to the 'error' signal to be
-             * notified about any error.
-             */
-            run_async(): void
-            /**
-             * @param avoid_reencoding %TRUE if the transcoder should try to avoid reencoding
-            streams where * reencoding is not strictly needed, %FALSE otherwise.
-             */
-            set_avoid_reencoding(avoid_reencoding: boolean): void
-            /**
-             * Sets @cpu_usage as target percentage CPU usage of the process running the
-             * transcoding task. It will modulate the transcoding speed to reach that target
-             * usage.
-             * @param cpu_usage The percentage of the CPU the process running the transcoder
-            should try to use. It takes into account the number of cores available.
-             */
-            set_cpu_usage(cpu_usage: number): void
-            /**
-             * Set interval in milliseconds between two position-updated signals.
-             * Pass 0 to stop updating the position.
-             * @param interval interval in ms
-             */
-            set_position_update_interval(interval: number): void
-        }
-
-        interface TranscoderClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Transcoder>
-            readonly prototype: Transcoder
-
-            new (props?: Partial<GObject.ConstructorProps<Transcoder>>): Transcoder
-            /**
-             * @param source_uri The URI of the media stream to transcode
-             * @param dest_uri The URI of the destination of the transcoded stream
-             * @param encoding_profile The serialized #GstEncodingProfile defining the output
-            format. Have a look at the #GstEncodingProfile documentation to find more
-            about the serialization format.
-             * @returns a new #GstTranscoder instance
-             */
-            "new"(source_uri: string, dest_uri: string, encoding_profile: string): Transcoder
-            /**
-             * @param source_uri The URI of the media stream to transcode
-             * @param dest_uri The URI of the destination of the transcoded stream
-             * @param profile The #GstEncodingProfile defining the output format
-            have a look at the #GstEncodingProfile documentation to find more
-            about the serialization format.
-             * @returns a new #GstTranscoder instance
-             */
-            new_full(source_uri: string, dest_uri: string, profile: GstPbutils.EncodingProfile): Transcoder
-            /**
-             * @since 1.20
-             * @param msg A #GstMessage
-             * @returns A #gboolean indicating whether the passes message represents a #GstTranscoder message or not.
-             */
-            is_transcoder_message(msg: Gst.Message): boolean
-        }
-
-        interface $Exports {
-            /**
-             */
-            Transcoder: TranscoderClass
-        }
-        
-
-        namespace TranscoderSignalAdapter {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            interface Transcoder extends Gst.Object {
+                readonly $signals: Transcoder.SignalSignatures
+                readonly $readableProperties: Transcoder.ReadableProperties
+                readonly $writableProperties: Transcoder.WritableProperties
+                readonly $constructOnlyProperties: Transcoder.ConstructOnlyProperties
+                /**
+                 * See #encodebin:avoid-reencoding
+                 * @default FALSE
+                 */
+                get avoidReencoding(): boolean
+                set avoidReencoding(value: boolean)
+                /**
+                 * @default NULL
+                 */
+                get destUri(): string
+                set destUri(value: string)
+                /**
+                 * @default 18446744073709551615
+                 */
+                get duration(): number
+                set duration(value: number)
                 /**
                  */
-                "done"(): void
+                get pipeline(): Gst.Element
+                set pipeline(value: Gst.Element)
                 /**
-                 * @param object
+                 * @default 18446744073709551615
                  */
-                "duration-changed"(object: number): void
+                get position(): number
+                set position(value: number)
                 /**
-                 * @param object
-                 * @param p0
+                 * @default 100
                  */
-                "error"(object: GLib.Error, p0: Gst.Structure): void
+                get positionUpdateInterval(): number
+                set positionUpdateInterval(value: number)
                 /**
-                 * @param object
                  */
-                "position-updated"(object: number): void
+                get profile(): GstPbutils.EncodingProfile
+                set profile(value: GstPbutils.EncodingProfile)
                 /**
-                 * @param object
+                 * @default NULL
                  */
-                "state-changed"(object: TranscoderState): void
+                get srcUri(): string
+                set srcUri(value: string)
                 /**
-                 * @param object
-                 * @param p0
+                 * @returns %TRUE if the transcoder tries to avoid reencoding streams where reencoding is not strictly needed, %FALSE otherwise.
                  */
-                "warning"(object: GLib.Error, p0: Gst.Structure): void
+                get_avoid_reencoding(): boolean
+                /**
+                 * Gets the URI of the destination of the transcoded stream.
+                 * @returns a string containing the URI of the destination of the transcoded stream. g_free() after usage.
+                 */
+                get_dest_uri(): string
+                /**
+                 * Retrieves the duration of the media stream that self represents.
+                 * @returns the duration of the transcoding media stream, in nanoseconds.
+                 */
+                get_duration(): Gst.ClockTime
+                /**
+                 * GstTranscoder API exposes a #GstBus instance which purpose is to provide data
+                 * structures representing transcoder-internal events in form of #GstMessage-s of
+                 * type GST_MESSAGE_APPLICATION.
+                 *
+                 * Each message carries a "transcoder-message" field of type #GstTranscoderMessage.
+                 * Further fields of the message data are specific to each possible value of
+                 * that enumeration.
+                 *
+                 * Applications can consume the messages asynchronously within their own
+                 * event-loop / UI-thread etc. Note that in case the application does not
+                 * consume the messages, the bus will accumulate these internally and eventually
+                 * fill memory. To avoid that, the bus has to be set "flushing".
+                 * @since 1.20
+                 * @returns The transcoder message bus instance
+                 */
+                get_message_bus(): Gst.Bus
+                /**
+                 * @returns The internal uritranscodebin instance
+                 */
+                get_pipeline(): Gst.Element
+                /**
+                 * @returns the absolute position time, in nanoseconds, of the transcoding stream.
+                 */
+                get_position(): Gst.ClockTime
+                /**
+                 * @returns current position update interval in milliseconds
+                 */
+                get_position_update_interval(): number
+                /**
+                 * Gets the #GstTranscoderSignalAdapter attached to `self` if it is attached to
+                 * the right #GMainContext. If no #GstTranscoderSignalAdapter has been created
+                 * yet, it will be created and returned, other calls will return that same
+                 * adapter until it is destroyed, at which point, a new one can be attached the
+                 * same way.
+                 * @since 1.20
+                 * @param context A #GMainContext on which the main-loop will process                       transcoder bus messages on. Can be NULL (thread-default                       context will be used then).
+                 * @returns The #GstTranscoderSignalAdapter to connect signal handlers to.
+                 */
+                get_signal_adapter(context: GLib.MainContext | null): TranscoderSignalAdapter | null
+                /**
+                 * Gets the URI of the currently-transcoding stream.
+                 * @returns a string containing the URI of the source stream. g_free() after usage.
+                 */
+                get_source_uri(): string
+                /**
+                 * Gets the #GstTranscoderSignalAdapter attached to `self` to emit signals from
+                 * its thread of emission.
+                 * @since 1.20
+                 * @returns The #GstTranscoderSignalAdapter to connect signal handlers to.
+                 */
+                get_sync_signal_adapter(): TranscoderSignalAdapter
+                /**
+                 * Run the transcoder task synchonously. You can connect
+                 * to the 'position' signal to get information about the
+                 * progress of the transcoding.
+                 * @throws {GLib.Error}
+                 */
+                run(): boolean
+                /**
+                 * Run the transcoder task asynchronously. You should connect
+                 * to the 'done' signal to be notified about when the
+                 * transcoding is done, and to the 'error' signal to be
+                 * notified about any error.
+                 */
+                run_async(): void
+                /**
+                 * @param avoid_reencoding %TRUE if the transcoder should try to avoid reencoding streams where * reencoding is not strictly needed, %FALSE otherwise.
+                 */
+                set_avoid_reencoding(avoid_reencoding: boolean): void
+                /**
+                 * Sets `cpu_usage` as target percentage CPU usage of the process running the
+                 * transcoding task. It will modulate the transcoding speed to reach that target
+                 * usage.
+                 * @param cpu_usage The percentage of the CPU the process running the transcoder should try to use. It takes into account the number of cores available.
+                 */
+                set_cpu_usage(cpu_usage: number): void
+                /**
+                 * Set interval in milliseconds between two position-updated signals.
+                 * Pass 0 to stop updating the position.
+                 * @param interval interval in ms
+                 */
+                set_position_update_interval(interval: number): void
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "transcoder": Transcoder | null
+            interface TranscoderClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Transcoder>
+                readonly prototype: Transcoder
+
+                new (props?: Partial<GObject.ConstructorProps<Transcoder>>): Transcoder
+                /**
+                 * @param source_uri The URI of the media stream to transcode
+                 * @param dest_uri The URI of the destination of the transcoded stream
+                 * @param encoding_profile The serialized #GstEncodingProfile defining the output format. Have a look at the #GstEncodingProfile documentation to find more about the serialization format.
+                 * @returns a new #GstTranscoder instance
+                 */
+                "new"(source_uri: string, dest_uri: string, encoding_profile: string): Transcoder
+                /**
+                 * @param source_uri The URI of the media stream to transcode
+                 * @param dest_uri The URI of the destination of the transcoded stream
+                 * @param profile The #GstEncodingProfile defining the output format have a look at the #GstEncodingProfile documentation to find more about the serialization format.
+                 * @returns a new #GstTranscoder instance
+                 */
+                new_full(source_uri: string, dest_uri: string, profile: GstPbutils.EncodingProfile): Transcoder
+                /**
+                 * @since 1.20
+                 * @param msg A #GstMessage
+                 * @returns A #gboolean indicating whether the passes message represents a #GstTranscoder message or not.
+                 */
+                is_transcoder_message(msg: Gst.Message): boolean
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "transcoder": Transcoder | null
+            interface $Exports {
+                /**
+                 */
+                Transcoder: TranscoderClass
+            }
+            
+
+            namespace TranscoderSignalAdapter {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                    /**
+                     */
+                    "done"(): void
+                    /**
+                     * @param object
+                     */
+                    "duration-changed"(object: number): void
+                    /**
+                     * @param object
+                     * @param p0
+                     */
+                    "error"(object: GLib.Error, p0: Gst.Structure): void
+                    /**
+                     * @param object
+                     */
+                    "position-updated"(object: number): void
+                    /**
+                     * @param object
+                     */
+                    "state-changed"(object: TranscoderState): void
+                    /**
+                     * @param object
+                     * @param p0
+                     */
+                    "warning"(object: GLib.Error, p0: Gst.Structure): void
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "transcoder": Transcoder | null
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "transcoder": Transcoder | null
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface TranscoderSignalAdapter extends GObject.Object {
+                readonly $signals: TranscoderSignalAdapter.SignalSignatures
+                readonly $readableProperties: TranscoderSignalAdapter.ReadableProperties
+                readonly $writableProperties: TranscoderSignalAdapter.WritableProperties
+                readonly $constructOnlyProperties: TranscoderSignalAdapter.ConstructOnlyProperties
+                /**
+                 * The #GstTranscoder tracked by the adapter.
+                 * @since 1.20
+                 */
+                get transcoder(): Transcoder | null
+                set transcoder(value: Transcoder | null)
+                /**
+                 * @since 1.20
+                 * @returns The #GstTranscoder `self` is tracking
+                 */
+                get_transcoder(): Transcoder | null
             }
-        }
 
-        interface TranscoderSignalAdapter extends GObject.Object {
-            readonly $signals: TranscoderSignalAdapter.SignalSignatures
-            readonly $readableProperties: TranscoderSignalAdapter.ReadableProperties
-            readonly $writableProperties: TranscoderSignalAdapter.WritableProperties
-            readonly $constructOnlyProperties: TranscoderSignalAdapter.ConstructOnlyProperties
-            /**
-             * The #GstTranscoder tracked by the adapter.
-             * @since 1.20
-             */
-            get transcoder(): Transcoder | null
-            set transcoder(value: Transcoder | null)
-            /**
-             * @since 1.20
-             * @returns The #GstTranscoder `self` is tracking
-             */
-            get_transcoder(): Transcoder | null
-        }
+            interface TranscoderSignalAdapterClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<TranscoderSignalAdapter>
+                readonly prototype: TranscoderSignalAdapter
 
-        interface TranscoderSignalAdapterClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<TranscoderSignalAdapter>
-            readonly prototype: TranscoderSignalAdapter
+                new (props?: Partial<GObject.ConstructorProps<TranscoderSignalAdapter>>): TranscoderSignalAdapter
+            }
 
-            new (props?: Partial<GObject.ConstructorProps<TranscoderSignalAdapter>>): TranscoderSignalAdapter
-        }
+            interface $Exports {
+                /**
+                 * Transforms #GstTranscoder bus messages to signals from the adapter object.
+                 * @since 1.20
+                 */
+                TranscoderSignalAdapter: TranscoderSignalAdapterClass
+            }
+            
+            interface TranscoderError extends GLib.Error {}
 
-        interface $Exports {
-            /**
-             * Transforms #GstTranscoder bus messages to signals from the adapter object.
-             * @since 1.20
-             */
-            TranscoderSignalAdapter: TranscoderSignalAdapterClass
-        }
-        
-        interface TranscoderError extends GLib.Error {}
+            interface TranscoderErrorEnum {
+                readonly $gtype: GObject.GType<TranscoderError>
 
-        interface TranscoderErrorEnum {
-            readonly $gtype: GObject.GType<TranscoderError>
-
-            new(props: { message: string, code: number }): TranscoderError
-            /**
-             * generic error.
-             */
-            readonly "FAILED": 0
-            /**
-         * Gets a string representing the given error.
-         * @param error a #GstTranscoderError
-         * @returns a string with the given error.
-         */
-        get_name: (error: TranscoderError) => string
-            /**
-         */
-        quark: () => GLib.Quark
-        }
-
-        interface $Exports {
-            /**
-             */
-            TranscoderError: TranscoderErrorEnum
-        }
-        
-        interface TranscoderMessageEnum {
-            readonly $gtype: GObject.GType<TranscoderMessage>
-            /**
-             * Sink position changed
-             */
-            readonly "POSITION_UPDATED": 0
-            /**
-             * Duration of stream changed
-             */
-            readonly "DURATION_CHANGED": 1
-            /**
-             * Pipeline state changed
-             */
-            readonly "STATE_CHANGED": 2
-            /**
-             * Transcoding is done
-             */
-            readonly "DONE": 3
-            /**
-             * Message contains an error
-             */
-            readonly "ERROR": 4
-            /**
-             * Message contains an error
-             */
-            readonly "WARNING": 5
-        }
-        type TranscoderMessage = TranscoderMessageEnum[Exclude<keyof TranscoderMessageEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Types of messages that will be posted on the transcoder API bus.
-             *
-             * See also #gst_transcoder_get_message_bus()
-             * @since 1.20
-             */
-            TranscoderMessage: TranscoderMessageEnum
-            /**
-         * Returns (transfer none): The message name
-         * @since 1.20
-         * @param message a #GstTranscoderMessage
-         */
-        get_name: (message: TranscoderMessage) => string
-            /**
-         * Parse the given duration @msg and extract the corresponding #GstClockTime
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting duration
-         */
-        parse_duration: (msg: Gst.Message) => Gst.ClockTime
-            /**
-         * Parse the given error @msg and extract the corresponding #GError
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting error, (transfer full): A GstStructure containing extra details about the error
-         */
-        parse_error: (msg: Gst.Message) => [GLib.Error, Gst.Structure]
-            /**
-         * Parse the given position @msg and extract the corresponding #GstClockTime
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting position
-         */
-        parse_position: (msg: Gst.Message) => Gst.ClockTime
-            /**
-         * Parse the given state @msg and extract the corresponding #GstTranscoderState
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting state
-         */
-        parse_state: (msg: Gst.Message) => TranscoderState
-            /**
-         * Parse the given error @msg and extract the corresponding #GError warning
-         * @since 1.20
-         * @param msg A #GstMessage
-         * @returns , the resulting warning, (transfer full): A GstStructure containing extra details about the warning
-         */
-        parse_warning: (msg: Gst.Message) => [GLib.Error, Gst.Structure]
-        }
-        
-        interface TranscoderStateEnum {
-            readonly $gtype: GObject.GType<TranscoderState>
-            /**
-             * the transcoder is stopped.
-             */
-            readonly "STOPPED": 0
-            /**
-             * the transcoder is paused.
-             */
-            readonly "PAUSED": 1
-            /**
-             * the transcoder is currently transcoding a
-             * stream.
-             */
-            readonly "PLAYING": 2
-        }
-        type TranscoderState = TranscoderStateEnum[Exclude<keyof TranscoderStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * High level representation of the transcoder pipeline state.
-             * @since 1.20
-             */
-            TranscoderState: TranscoderStateEnum
-            /**
-         * Gets a string representing the given state.
-         * @since 1.20
-         * @param state a #GstTranscoderState
-         * @returns a string with the name of the state.
-         */
-        get_name: (state: TranscoderState) => string
-        }
-
-        interface $Exports {
-            __name__: "GstTranscoder"
-            __version: "1.0"
-            /**
+                new(props: { message: string, code: number }): TranscoderError
+                /**
+                 * generic error.
+                 */
+                readonly "FAILED": 0
+                /**
              * Gets a string representing the given error.
              * @param error a #GstTranscoderError
              * @returns a string with the given error.
              */
-            transcoder_error_get_name(error: TranscoderError): string
-            /**
+            get_name: (error: TranscoderError) => string
+                /**
              */
-            transcoder_error_quark(): GLib.Quark
-            /**
+            quark: () => GLib.Quark
+            }
+
+            interface $Exports {
+                /**
+                 */
+                TranscoderError: TranscoderErrorEnum
+            }
+            
+            interface TranscoderMessageEnum {
+                readonly $gtype: GObject.GType<TranscoderMessage>
+                /**
+                 * Sink position changed
+                 */
+                readonly "POSITION_UPDATED": 0
+                /**
+                 * Duration of stream changed
+                 */
+                readonly "DURATION_CHANGED": 1
+                /**
+                 * Pipeline state changed
+                 */
+                readonly "STATE_CHANGED": 2
+                /**
+                 * Transcoding is done
+                 */
+                readonly "DONE": 3
+                /**
+                 * Message contains an error
+                 */
+                readonly "ERROR": 4
+                /**
+                 * Message contains an error
+                 */
+                readonly "WARNING": 5
+            }
+            type TranscoderMessage = TranscoderMessageEnum[Exclude<keyof TranscoderMessageEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Types of messages that will be posted on the transcoder API bus.
+                 *
+                 * See also #gst_transcoder_get_message_bus()
+                 * @since 1.20
+                 */
+                TranscoderMessage: TranscoderMessageEnum
+                /**
              * Returns (transfer none): The message name
              * @since 1.20
              * @param message a #GstTranscoderMessage
              */
-            transcoder_message_get_name(message: TranscoderMessage): string
-            /**
-             * Parse the given duration @msg and extract the corresponding #GstClockTime
+            get_name: (message: TranscoderMessage) => string
+                /**
+             * Parse the given duration `msg` and extract the corresponding #GstClockTime
              * @since 1.20
              * @param msg A #GstMessage
              * @returns , the resulting duration
              */
-            transcoder_message_parse_duration(msg: Gst.Message): Gst.ClockTime
-            /**
-             * Parse the given error @msg and extract the corresponding #GError
+            parse_duration: (msg: Gst.Message) => Gst.ClockTime
+                /**
+             * Parse the given error `msg` and extract the corresponding #GError
              * @since 1.20
              * @param msg A #GstMessage
              * @returns , the resulting error, (transfer full): A GstStructure containing extra details about the error
              */
-            transcoder_message_parse_error(msg: Gst.Message): [GLib.Error, Gst.Structure]
-            /**
-             * Parse the given position @msg and extract the corresponding #GstClockTime
+            parse_error: (msg: Gst.Message) => [GLib.Error, Gst.Structure]
+                /**
+             * Parse the given position `msg` and extract the corresponding #GstClockTime
              * @since 1.20
              * @param msg A #GstMessage
              * @returns , the resulting position
              */
-            transcoder_message_parse_position(msg: Gst.Message): Gst.ClockTime
-            /**
-             * Parse the given state @msg and extract the corresponding #GstTranscoderState
+            parse_position: (msg: Gst.Message) => Gst.ClockTime
+                /**
+             * Parse the given state `msg` and extract the corresponding #GstTranscoderState
              * @since 1.20
              * @param msg A #GstMessage
              * @returns , the resulting state
              */
-            transcoder_message_parse_state(msg: Gst.Message): TranscoderState
-            /**
-             * Parse the given error @msg and extract the corresponding #GError warning
+            parse_state: (msg: Gst.Message) => TranscoderState
+                /**
+             * Parse the given error `msg` and extract the corresponding #GError warning
              * @since 1.20
              * @param msg A #GstMessage
              * @returns , the resulting warning, (transfer full): A GstStructure containing extra details about the warning
              */
-            transcoder_message_parse_warning(msg: Gst.Message): [GLib.Error, Gst.Structure]
-            /**
+            parse_warning: (msg: Gst.Message) => [GLib.Error, Gst.Structure]
+            }
+            
+            interface TranscoderStateEnum {
+                readonly $gtype: GObject.GType<TranscoderState>
+                /**
+                 * the transcoder is stopped.
+                 */
+                readonly "STOPPED": 0
+                /**
+                 * the transcoder is paused.
+                 */
+                readonly "PAUSED": 1
+                /**
+                 * the transcoder is currently transcoding a
+                 * stream.
+                 */
+                readonly "PLAYING": 2
+            }
+            type TranscoderState = TranscoderStateEnum[Exclude<keyof TranscoderStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * High level representation of the transcoder pipeline state.
+                 * @since 1.20
+                 */
+                TranscoderState: TranscoderStateEnum
+                /**
              * Gets a string representing the given state.
              * @since 1.20
              * @param state a #GstTranscoderState
              * @returns a string with the name of the state.
              */
-            transcoder_state_get_name(state: TranscoderState): string
+            get_name: (state: TranscoderState) => string
+            }
+
+            interface $Exports {
+                __name__: "GstTranscoder"
+                __version__: "1.0"
+                /**
+                 * Gets a string representing the given error.
+                 * @param error a #GstTranscoderError
+                 * @returns a string with the given error.
+                 */
+                transcoder_error_get_name(error: TranscoderError): string
+                /**
+                 */
+                transcoder_error_quark(): GLib.Quark
+                /**
+                 * Returns (transfer none): The message name
+                 * @since 1.20
+                 * @param message a #GstTranscoderMessage
+                 */
+                transcoder_message_get_name(message: TranscoderMessage): string
+                /**
+                 * Parse the given duration `msg` and extract the corresponding #GstClockTime
+                 * @since 1.20
+                 * @param msg A #GstMessage
+                 * @returns , the resulting duration
+                 */
+                transcoder_message_parse_duration(msg: Gst.Message): Gst.ClockTime
+                /**
+                 * Parse the given error `msg` and extract the corresponding #GError
+                 * @since 1.20
+                 * @param msg A #GstMessage
+                 * @returns , the resulting error, (transfer full): A GstStructure containing extra details about the error
+                 */
+                transcoder_message_parse_error(msg: Gst.Message): [GLib.Error, Gst.Structure]
+                /**
+                 * Parse the given position `msg` and extract the corresponding #GstClockTime
+                 * @since 1.20
+                 * @param msg A #GstMessage
+                 * @returns , the resulting position
+                 */
+                transcoder_message_parse_position(msg: Gst.Message): Gst.ClockTime
+                /**
+                 * Parse the given state `msg` and extract the corresponding #GstTranscoderState
+                 * @since 1.20
+                 * @param msg A #GstMessage
+                 * @returns , the resulting state
+                 */
+                transcoder_message_parse_state(msg: Gst.Message): TranscoderState
+                /**
+                 * Parse the given error `msg` and extract the corresponding #GError warning
+                 * @since 1.20
+                 * @param msg A #GstMessage
+                 * @returns , the resulting warning, (transfer full): A GstStructure containing extra details about the warning
+                 */
+                transcoder_message_parse_warning(msg: Gst.Message): [GLib.Error, Gst.Structure]
+                /**
+                 * Gets a string representing the given state.
+                 * @since 1.20
+                 * @param state a #GstTranscoderState
+                 * @returns a string with the name of the state.
+                 */
+                transcoder_state_get_name(state: TranscoderState): string
+            }
         }
+
+        const GstTranscoder: GstTranscoder.$Exports
     }
 
-    const GstTranscoder: GstTranscoder.$Exports
-    export default GstTranscoder
+    export default GI.GstTranscoder
 }

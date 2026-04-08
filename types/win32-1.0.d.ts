@@ -10,41 +10,49 @@ declare module "gi://win32?version=1.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type GLib from "gi://GLib?version=2.0"
 
-    
-
-    namespace win32 {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface MSGStruct {
-            readonly $gtype: GObject.GType<MSG>
-            [Symbol.hasInstance](instance: unknown): instance is MSG
+        namespace win32 {
+            
+
+            interface MSGStruct {
+                readonly $gtype: GObject.GType<MSG>
+                new (fields?: {
+                }): MSG
+            }
+
+            interface MSG {
+            }
+
+            interface $Exports {
+                MSG: MSGStruct
+            }
+            /**
+             */
+            type HWND = number
+            /**
+             */
+            type HICON = number
+            /**
+             */
+            type HCURSOR = number
+            /**
+             */
+            type HGDIOBJ = number
+
+            interface $Exports {
+                __name__: "win32"
+                __version__: "1.0"
+            }
         }
 
-        interface MSG {
-        }
-
-        interface $Exports {
-            MSG: MSGStruct
-        }
-        /**
-         */
-        type HWND = number
-        /**
-         */
-        type HICON = number
-        /**
-         */
-        type HCURSOR = number
-        /**
-         */
-        type HGDIOBJ = number
-
-        interface $Exports {
-            __name__: "win32"
-            __version: "1.0"
-        }
+        const win32: win32.$Exports
     }
 
-    const win32: win32.$Exports
-    export default win32
+    export default GI.win32
 }

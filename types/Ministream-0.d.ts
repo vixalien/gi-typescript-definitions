@@ -10,152 +10,165 @@ declare module "gi://Ministream?version=0" {
     import type GLib from "gi://GLib?version=2.0"
     import type GObject from "gi://GObject?version=2.0"
 
-    
-
-    namespace Ministream {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface ComponentStruct {
-            readonly $gtype: GObject.GType<Component>
-            [Symbol.hasInstance](instance: unknown): instance is Component
-            /**
-             * Parse an "AppStream Upstream Metadata" document into a
-             * [struct@Ministream.Component].
-             * @throws {GLib.Error}
-             * @param data the xml data
-             * @returns the component specified in the document
+        namespace Ministream {
+            
+
+            interface ComponentStruct {
+                readonly $gtype: GObject.GType<Component>
+                /**
+                 * Parse an "AppStream Upstream Metadata" document into a
+                 * {@link Ministream.Component}.
+                 * @param data the xml data
+                 * @returns the component specified in the document
+                 */
+                new (data: Uint8Array): Component
+                /**
+                 * Parse an "AppStream Upstream Metadata" document into a
+                 * {@link Ministream.Component}.
+                 * @throws {GLib.Error}
+                 * @param data the xml data
+                 * @returns the component specified in the document
+                 */
+                new_from_xml_data(data: Uint8Array): Component
+            }
+
+            interface Component {
+                /**
+                 * Get the bugtracker URI of this component.
+                 * @returns the bugtracker URI
+                 */
+                get_bugtracker_uri(): string | null
+                /**
+                 * Gets the desktop launchables this component provides.
+                 * @returns the desktop launchables
+                 */
+                get_desktop_launchables(): string[] | null
+                /**
+                 * Gets the name of the developer that has written this component in the
+                 * best locale available.
+                 * @returns the localized developer name
+                 */
+                get_developer_name(): string | null
+                /**
+                 * Get the help URI of this component.
+                 * @returns the help URI
+                 */
+                get_help_uri(): string | null
+                /**
+                 * Get the homepage URI of this component.
+                 * @returns the hompage URI
+                 */
+                get_homepage_uri(): string | null
+                /**
+                 * Get the application identifier of this component. This should be in
+                 * the big-endian domain format.
+                 * @returns the application identifier
+                 */
+                get_id(): string
+                /**
+                 * Get the application name of this component in the best locale
+                 * available.
+                 * @returns the localized application name
+                 */
+                get_name(): string | null
+                /**
+                 * Get the license of the project this component is part of. This should
+                 * be an identifier part of the SPDX license list.
+                 * @returns the project license identifier
+                 */
+                get_project_license(): string | null
+                /**
+                 * Gets the releases information of this component.
+                 * @returns the releases of this component
+                 */
+                get_releases(): Release[] | null
+                /**
+                 * Increment the reference count of the component.
+                 *
+                 * This is an atomic operation and as such, threadsafe.
+                 * @returns the new reference of `self`
+                 */
+                ref(): Component
+                /**
+                 * Decrements the reference count of the component. Once the count
+                 * reaches zero, `self` will be freed.
+                 *
+                 * As such, do not use `self` after calling this method.
+                 */
+                unref(): void
+            }
+
+            interface $Exports {
+                Component: ComponentStruct
+            }
+            
+
+            interface ReleaseStruct {
+                readonly $gtype: GObject.GType<Release>
+                [Symbol.hasInstance](instance: unknown): instance is Release
+            }
+
+            interface Release {
+                /**
+                 * Gets the description attached to the releease, or %NULL if not set.
+                 *
+                 * The description is encoded as markup, containg paragraphs, ordered
+                 * and unordered lists, aswell as list items within them.
+                 * @returns the description of the release
+                 */
+                get_description(): string | null
+                /**
+                 * Gets the version attached to the release, or %NULL if not set.
+                 * @returns the version of the release
+                 */
+                get_version(): string | null
+            }
+
+            interface $Exports {
+                Release: ReleaseStruct
+            }
+            
+            interface Error extends GLib.Error {}
+
+            interface ErrorEnum {
+                readonly $gtype: GObject.GType<Error>
+
+                new(props: { message: string, code: number }): Error
+                /**
+                 */
+                readonly "NO_COMPONENT": 0
+                /**
+                 */
+                readonly "NO_IDENTIFIER": 1
+                /**
              */
-            new_from_xml_data(data: Uint8Array): Component
+            quark: () => GLib.Quark
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Error: ErrorEnum
+            }
+
+            interface $Exports {
+                __name__: "Ministream"
+                __version__: "0"
+                /**
+                 */
+                error_quark(): GLib.Quark
+            }
         }
 
-        interface Component {
-            /**
-             * Get the bugtracker URI of this component.
-             * @returns the bugtracker URI
-             */
-            get_bugtracker_uri(): string | null
-            /**
-             * Gets the desktop launchables this component provides.
-             * @returns the desktop launchables
-             */
-            get_desktop_launchables(): string[] | null
-            /**
-             * Gets the name of the developer that has written this component in the
-             * best locale available.
-             * @returns the localized developer name
-             */
-            get_developer_name(): string | null
-            /**
-             * Get the help URI of this component.
-             * @returns the help URI
-             */
-            get_help_uri(): string | null
-            /**
-             * Get the homepage URI of this component.
-             * @returns the hompage URI
-             */
-            get_homepage_uri(): string | null
-            /**
-             * Get the application identifier of this component. This should be in
-             * the big-endian domain format.
-             * @returns the application identifier
-             */
-            get_id(): string
-            /**
-             * Get the application name of this component in the best locale
-             * available.
-             * @returns the localized application name
-             */
-            get_name(): string | null
-            /**
-             * Get the license of the project this component is part of. This should
-             * be an identifier part of the SPDX license list.
-             * @returns the project license identifier
-             */
-            get_project_license(): string | null
-            /**
-             * Gets the releases information of this component.
-             * @returns the releases of this component
-             */
-            get_releases(): Release[] | null
-            /**
-             * Increment the reference count of the component.
-             *
-             * This is an atomic operation and as such, threadsafe.
-             * @returns the new reference of `self`
-             */
-            ref(): Component
-            /**
-             * Decrements the reference count of the component. Once the count
-             * reaches zero, @self will be freed.
-             *
-             * As such, do not use @self after calling this method.
-             */
-            unref(): void
-        }
-
-        interface $Exports {
-            Component: ComponentStruct
-        }
-        
-
-        interface ReleaseStruct {
-            readonly $gtype: GObject.GType<Release>
-            [Symbol.hasInstance](instance: unknown): instance is Release
-        }
-
-        interface Release {
-            /**
-             * Gets the description attached to the releease, or %NULL if not set.
-             *
-             * The description is encoded as markup, containg paragraphs, ordered
-             * and unordered lists, aswell as list items within them.
-             * @returns the description of the release
-             */
-            get_description(): string | null
-            /**
-             * Gets the version attached to the release, or %NULL if not set.
-             * @returns the version of the release
-             */
-            get_version(): string | null
-        }
-
-        interface $Exports {
-            Release: ReleaseStruct
-        }
-        
-        interface Error extends GLib.Error {}
-
-        interface ErrorEnum {
-            readonly $gtype: GObject.GType<Error>
-
-            new(props: { message: string, code: number }): Error
-            /**
-             */
-            readonly "NO_COMPONENT": 0
-            /**
-             */
-            readonly "NO_IDENTIFIER": 1
-            /**
-         */
-        quark: () => GLib.Quark
-        }
-
-        interface $Exports {
-            /**
-             */
-            Error: ErrorEnum
-        }
-
-        interface $Exports {
-            __name__: "Ministream"
-            __version: "0"
-            /**
-             */
-            error_quark(): GLib.Quark
-        }
+        const Ministream: Ministream.$Exports
     }
 
-    const Ministream: Ministream.$Exports
-    export default Ministream
+    export default GI.Ministream
 }

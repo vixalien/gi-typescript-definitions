@@ -10,29 +10,37 @@ declare module "gi://xfixes?version=4.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type GLib from "gi://GLib?version=2.0"
 
-    
-
-    namespace xfixes {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface XserverRegionStruct {
-            readonly $gtype: GObject.GType<XserverRegion>
-            [Symbol.hasInstance](instance: unknown): instance is XserverRegion
+        namespace xfixes {
+            
+
+            interface XserverRegionStruct {
+                readonly $gtype: GObject.GType<XserverRegion>
+                new (fields?: {
+                }): XserverRegion
+            }
+
+            interface XserverRegion {
+            }
+
+            interface $Exports {
+                XserverRegion: XserverRegionStruct
+            }
+
+            interface $Exports {
+                __name__: "xfixes"
+                __version__: "4.0"
+            }
         }
 
-        interface XserverRegion {
-        }
-
-        interface $Exports {
-            XserverRegion: XserverRegionStruct
-        }
-
-        interface $Exports {
-            __name__: "xfixes"
-            __version: "4.0"
-        }
+        const xfixes: xfixes.$Exports
     }
 
-    const xfixes: xfixes.$Exports
-    export default xfixes
+    export default GI.xfixes
 }

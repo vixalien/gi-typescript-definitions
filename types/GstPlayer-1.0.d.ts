@@ -24,1289 +24,1298 @@ declare module "gi://GstPlayer?version=1.0" {
     import type GstPbutils from "gi://GstPbutils?version=1.0"
     import type GstTag from "gi://GstTag?version=1.0"
 
-    
-
-    namespace GstPlayer {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace Player {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+        namespace GstPlayer {
+            
+
+            namespace Player {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                    /**
+                     * @param object
+                     */
+                    "buffering"(object: number): void
+                    /**
+                     * @param object
+                     */
+                    "duration-changed"(object: number): void
+                    /**
+                     */
+                    "end-of-stream"(): void
+                    /**
+                     * @param object
+                     */
+                    "error"(object: GLib.Error): void
+                    /**
+                     * @param object
+                     */
+                    "media-info-updated"(object: PlayerMediaInfo): void
+                    /**
+                     */
+                    "mute-changed"(): void
+                    /**
+                     * @param object
+                     */
+                    "position-updated"(object: number): void
+                    /**
+                     * @param object
+                     */
+                    "seek-done"(object: number): void
+                    /**
+                     * @param object
+                     */
+                    "state-changed"(object: PlayerState): void
+                    /**
+                     * @param object
+                     */
+                    "uri-loaded"(object: string): void
+                    /**
+                     * @param object
+                     * @param p0
+                     */
+                    "video-dimensions-changed"(object: number, p0: number): void
+                    /**
+                     */
+                    "volume-changed"(): void
+                    /**
+                     * @param object
+                     */
+                    "warning"(object: GLib.Error): void
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "audio-video-offset": number
+                    "current-audio-track": PlayerAudioInfo | null
+                    "current-subtitle-track": PlayerSubtitleInfo | null
+                    "current-video-track": PlayerVideoInfo | null
+                    "duration": number
+                    "media-info": PlayerMediaInfo | null
+                    "mute": boolean
+                    "pipeline": Gst.Element
+                    "position": number
+                    "rate": number
+                    "subtitle-video-offset": number
+                    "suburi": string
+                    "uri": string | null
+                    "video-multiview-flags": GstVideo.VideoMultiviewFlags
+                    "video-multiview-mode": GstVideo.VideoMultiviewFramePacking
+                    "video-renderer": PlayerVideoRenderer
+                    "volume": number
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "audio-video-offset": number
+                    "current-audio-track": PlayerAudioInfo | null
+                    "current-subtitle-track": PlayerSubtitleInfo | null
+                    "current-video-track": PlayerVideoInfo | null
+                    "duration": number
+                    "media-info": PlayerMediaInfo | null
+                    "mute": boolean
+                    "pipeline": Gst.Element
+                    "position": number
+                    "rate": number
+                    "subtitle-video-offset": number
+                    "suburi": string
+                    "uri": string | null
+                    "video-multiview-flags": GstVideo.VideoMultiviewFlags
+                    "video-multiview-mode": GstVideo.VideoMultiviewFramePacking
+                    "volume": number
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                    "signal-dispatcher": PlayerSignalDispatcher
+                    "video-renderer": PlayerVideoRenderer
+                }
+            }
+
+            interface Player extends Gst.Object {
+                readonly $signals: Player.SignalSignatures
+                readonly $readableProperties: Player.ReadableProperties
+                readonly $writableProperties: Player.WritableProperties
+                readonly $constructOnlyProperties: Player.ConstructOnlyProperties
                 /**
-                 * @param object
+                 * @default 0
                  */
-                "buffering"(object: number): void
-                /**
-                 * @param object
-                 */
-                "duration-changed"(object: number): void
+                get audioVideoOffset(): number
+                set audioVideoOffset(value: number)
                 /**
                  */
-                "end-of-stream"(): void
-                /**
-                 * @param object
-                 */
-                "error"(object: GLib.Error): void
-                /**
-                 * @param object
-                 */
-                "media-info-updated"(object: PlayerMediaInfo): void
+                get currentAudioTrack(): PlayerAudioInfo | null
+                set currentAudioTrack(value: PlayerAudioInfo | null)
                 /**
                  */
-                "mute-changed"(): void
-                /**
-                 * @param object
-                 */
-                "position-updated"(object: number): void
-                /**
-                 * @param object
-                 */
-                "seek-done"(object: number): void
-                /**
-                 * @param object
-                 */
-                "state-changed"(object: PlayerState): void
-                /**
-                 * @param object
-                 */
-                "uri-loaded"(object: string): void
-                /**
-                 * @param object
-                 * @param p0
-                 */
-                "video-dimensions-changed"(object: number, p0: number): void
+                get currentSubtitleTrack(): PlayerSubtitleInfo | null
+                set currentSubtitleTrack(value: PlayerSubtitleInfo | null)
                 /**
                  */
-                "volume-changed"(): void
+                get currentVideoTrack(): PlayerVideoInfo | null
+                set currentVideoTrack(value: PlayerVideoInfo | null)
                 /**
-                 * @param object
+                 * @default 18446744073709551615
                  */
-                "warning"(object: GLib.Error): void
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "audio-video-offset": number
-                "current-audio-track": PlayerAudioInfo | null
-                "current-subtitle-track": PlayerSubtitleInfo | null
-                "current-video-track": PlayerVideoInfo | null
-                "duration": number
-                "media-info": PlayerMediaInfo | null
-                "mute": boolean
-                "pipeline": Gst.Element
-                "position": number
-                "rate": number
-                "subtitle-video-offset": number
-                "suburi": string
-                "uri": string | null
-                "video-multiview-flags": GstVideo.VideoMultiviewFlags
-                "video-multiview-mode": GstVideo.VideoMultiviewFramePacking
-                "video-renderer": PlayerVideoRenderer
-                "volume": number
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "audio-video-offset": number
-                "current-audio-track": PlayerAudioInfo | null
-                "current-subtitle-track": PlayerSubtitleInfo | null
-                "current-video-track": PlayerVideoInfo | null
-                "duration": number
-                "media-info": PlayerMediaInfo | null
-                "mute": boolean
-                "pipeline": Gst.Element
-                "position": number
-                "rate": number
-                "subtitle-video-offset": number
-                "suburi": string
-                "uri": string | null
-                "video-multiview-flags": GstVideo.VideoMultiviewFlags
-                "video-multiview-mode": GstVideo.VideoMultiviewFramePacking
-                "volume": number
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-                "signal-dispatcher": PlayerSignalDispatcher
-                "video-renderer": PlayerVideoRenderer
-            }
-        }
-
-        interface Player extends Gst.Object {
-            readonly $signals: Player.SignalSignatures
-            readonly $readableProperties: Player.ReadableProperties
-            readonly $writableProperties: Player.WritableProperties
-            readonly $constructOnlyProperties: Player.ConstructOnlyProperties
-            /**
-             * @default 0
-             */
-            get audioVideoOffset(): number
-            set audioVideoOffset(value: number)
-            /**
-             */
-            get currentAudioTrack(): PlayerAudioInfo | null
-            set currentAudioTrack(value: PlayerAudioInfo | null)
-            /**
-             */
-            get currentSubtitleTrack(): PlayerSubtitleInfo | null
-            set currentSubtitleTrack(value: PlayerSubtitleInfo | null)
-            /**
-             */
-            get currentVideoTrack(): PlayerVideoInfo | null
-            set currentVideoTrack(value: PlayerVideoInfo | null)
-            /**
-             * @default 18446744073709551615
-             */
-            get duration(): number
-            set duration(value: number)
-            /**
-             */
-            get mediaInfo(): PlayerMediaInfo | null
-            set mediaInfo(value: PlayerMediaInfo | null)
-            /**
-             * @default FALSE
-             */
-            get mute(): boolean
-            set mute(value: boolean)
-            /**
-             */
-            get pipeline(): Gst.Element
-            set pipeline(value: Gst.Element)
-            /**
-             * @default 18446744073709551615
-             */
-            get position(): number
-            set position(value: number)
-            /**
-             * @default 1.000000
-             */
-            get rate(): number
-            set rate(value: number)
-            /**
-             */
-            set signalDispatcher(value: PlayerSignalDispatcher)
-            /**
-             * @default 0
-             */
-            get subtitleVideoOffset(): number
-            set subtitleVideoOffset(value: number)
-            /**
-             * @default NULL
-             */
-            get suburi(): string
-            set suburi(value: string)
-            /**
-             * @default NULL
-             */
-            get uri(): string | null
-            set uri(value: string | null)
-            /**
-             * @default GST_VIDEO_MULTIVIEW_FLAGS_NONE
-             */
-            get videoMultiviewFlags(): GstVideo.VideoMultiviewFlags
-            set videoMultiviewFlags(value: GstVideo.VideoMultiviewFlags)
-            /**
-             * @default GST_VIDEO_MULTIVIEW_FRAME_PACKING_NONE
-             */
-            get videoMultiviewMode(): GstVideo.VideoMultiviewFramePacking
-            set videoMultiviewMode(value: GstVideo.VideoMultiviewFramePacking)
-            /**
-             */
-            get videoRenderer(): PlayerVideoRenderer
-            set videoRenderer(value: PlayerVideoRenderer)
-            /**
-             * @default 1.000000
-             */
-            get volume(): number
-            set volume(value: number)
-            /**
-             * Retrieve the current value of audio-video-offset property
-             * @since 1.10
-             * @returns The current value of audio-video-offset in nanoseconds
-             */
-            get_audio_video_offset(): number
-            /**
-             * Retrieve the current value of the indicated @type.
-             * @param type #GstPlayerColorBalanceType
-             * @returns The current value of `type`, between [0,1]. In case of   error -1 is returned.
-             */
-            get_color_balance(type: PlayerColorBalanceType): number
-            /**
-             * Get a copy of the current configuration of the player. This configuration
-             * can either be modified and used for the gst_player_set_config() call
-             * or it must be freed after usage.
-             * @since 1.10
-             * @returns a copy of the current configuration of `player`. Use gst_structure_free() after usage or gst_player_set_config().
-             */
-            get_config(): Gst.Structure
-            /**
-             * A Function to get current audio #GstPlayerAudioInfo instance.
-             * @returns current audio track.  The caller should free it with g_object_unref()
-             */
-            get_current_audio_track(): PlayerAudioInfo | null
-            /**
-             * A Function to get current subtitle #GstPlayerSubtitleInfo instance.
-             * @returns current subtitle track.  The caller should free it with g_object_unref()
-             */
-            get_current_subtitle_track(): PlayerSubtitleInfo | null
-            /**
-             * A Function to get current video #GstPlayerVideoInfo instance.
-             * @returns current video track.  The caller should free it with g_object_unref()
-             */
-            get_current_video_track(): PlayerVideoInfo | null
-            /**
-             * @returns Name of the currently enabled   visualization.   g_free() after usage.
-             */
-            get_current_visualization(): string | null
-            /**
-             * Retrieves the duration of the media stream that self represents.
-             * @returns the duration of the currently-playing media stream, in nanoseconds.
-             */
-            get_duration(): Gst.ClockTime
-            /**
-             * A Function to get the current media info #GstPlayerMediaInfo instance.
-             * @returns media info instance.  The caller should free it with g_object_unref()
-             */
-            get_media_info(): PlayerMediaInfo | null
-            /**
-             * Retrieve the current value of the indicated @type.
-             * @since 1.10
-             * @returns The current value of `type`, Default: 0x00000000 "none
-             */
-            get_multiview_flags(): GstVideo.VideoMultiviewFlags
-            /**
-             * Retrieve the current value of the indicated @type.
-             * @since 1.10
-             * @returns The current value of `type`, Default: -1 "none"
-             */
-            get_multiview_mode(): GstVideo.VideoMultiviewFramePacking
-            /**
-             * @returns %TRUE if the currently-playing stream is muted.
-             */
-            get_mute(): boolean
-            /**
-             * @returns The internal playbin instance.  The caller should free it with g_object_unref()
-             */
-            get_pipeline(): Gst.Element
-            /**
-             * @returns the absolute position time, in nanoseconds, of the currently-playing stream.
-             */
-            get_position(): Gst.ClockTime
-            /**
-             * @returns current playback rate
-             */
-            get_rate(): number
-            /**
-             * current subtitle URI
-             * @returns URI of the current external subtitle.   g_free() after usage.
-             */
-            get_subtitle_uri(): string | null
-            /**
-             * Retrieve the current value of subtitle-video-offset property
-             * @since 1.16
-             * @returns The current value of subtitle-video-offset in nanoseconds
-             */
-            get_subtitle_video_offset(): number
-            /**
-             * Gets the URI of the currently-playing stream.
-             * @returns a string containing the URI of the currently-playing stream. g_free() after usage.
-             */
-            get_uri(): string | null
-            /**
-             * Get a snapshot of the currently selected video stream, if any. The format can be
-             * selected with @format and optional configuration is possible with @config
-             * Currently supported settings are:
-             * - width, height of type G_TYPE_INT
-             * - pixel-aspect-ratio of type GST_TYPE_FRACTION
-             *  Except for GST_PLAYER_THUMBNAIL_RAW_NATIVE format, if no config is set, pixel-aspect-ratio would be 1/1
-             * @since 1.12
-             * @param format output format of the video snapshot
-             * @param config Additional configuration
-             * @returns Current video snapshot sample or %NULL on failure
-             */
-            get_video_snapshot(format: PlayerSnapshotFormat, config: Gst.Structure | null): Gst.Sample | null
-            /**
-             * Returns the current volume level, as a percentage between 0 and 1.
-             * @returns the volume as percentage between 0 and 1.
-             */
-            get_volume(): number
-            /**
-             * Checks whether the @player has color balance support available.
-             * @returns %TRUE if `player` has color balance support. Otherwise,   %FALSE.
-             */
-            has_color_balance(): boolean
-            /**
-             * Pauses the current stream.
-             */
-            pause(): void
-            /**
-             * Request to play the loaded stream.
-             */
-            play(): void
-            /**
-             * Seeks the currently-playing stream to the absolute @position time
-             * in nanoseconds.
-             * @param position position to seek in nanoseconds
-             */
-            seek(position: Gst.ClockTime): void
-            /**
-             * @param stream_index stream index
-             * @returns %TRUE or %FALSE  Sets the audio track `stream_idex`.
-             */
-            set_audio_track(stream_index: number): boolean
-            /**
-             * Enable or disable the current audio track.
-             * @param enabled TRUE or FALSE
-             */
-            set_audio_track_enabled(enabled: boolean): void
-            /**
-             * Sets audio-video-offset property by value of @offset
-             * @since 1.10
-             * @param offset #gint64 in nanoseconds
-             */
-            set_audio_video_offset(offset: number): void
-            /**
-             * Sets the current value of the indicated channel @type to the passed
-             * value.
-             * @param type #GstPlayerColorBalanceType
-             * @param value The new value for the @type, ranged [0,1]
-             */
-            set_color_balance(type: PlayerColorBalanceType, value: number): void
-            /**
-             * Set the configuration of the player. If the player is already configured, and
-             * the configuration haven't change, this function will return %TRUE. If the
-             * player is not in the GST_PLAYER_STATE_STOPPED, this method will return %FALSE
-             * and active configuration will remain.
-             *
-             * @config is a #GstStructure that contains the configuration parameters for
-             * the player.
-             *
-             * This function takes ownership of @config.
-             * @since 1.10
-             * @param config a #GstStructure
-             * @returns %TRUE when the configuration could be set.
-             */
-            set_config(config: Gst.Structure): boolean
-            /**
-             * Sets the current value of the indicated mode @type to the passed
-             * value.
-             * @since 1.10
-             * @param flags The new value for the @type
-             */
-            set_multiview_flags(flags: GstVideo.VideoMultiviewFlags): void
-            /**
-             * Sets the current value of the indicated mode @type to the passed
-             * value.
-             * @since 1.10
-             * @param mode The new value for the @type
-             */
-            set_multiview_mode(mode: GstVideo.VideoMultiviewFramePacking): void
-            /**
-             * %TRUE if the currently-playing stream should be muted.
-             * @param val Mute state the should be set
-             */
-            set_mute(val: boolean): void
-            /**
-             * Playback at specified rate
-             * @param rate playback rate
-             */
-            set_rate(rate: number): void
-            /**
-             * @param stream_index stream index
-             * @returns %TRUE or %FALSE  Sets the subtitle stack `stream_index`.
-             */
-            set_subtitle_track(stream_index: number): boolean
-            /**
-             * Enable or disable the current subtitle track.
-             * @param enabled TRUE or FALSE
-             */
-            set_subtitle_track_enabled(enabled: boolean): void
-            /**
-             * Sets the external subtitle URI. This should be combined with a call to
-             * gst_player_set_subtitle_track_enabled(@player, TRUE) so the subtitles are actually
-             * rendered.
-             * @param uri subtitle URI
-             */
-            set_subtitle_uri(uri: string | null): void
-            /**
-             * Sets subtitle-video-offset property by value of @offset
-             * @since 1.16
-             * @param offset #gint64 in nanoseconds
-             */
-            set_subtitle_video_offset(offset: number): void
-            /**
-             * Sets the next URI to play.
-             * @param uri next URI to play.
-             */
-            set_uri(uri: string | null): void
-            /**
-             * @param stream_index stream index
-             * @returns %TRUE or %FALSE  Sets the video track `stream_index`.
-             */
-            set_video_track(stream_index: number): boolean
-            /**
-             * Enable or disable the current video track.
-             * @param enabled TRUE or FALSE
-             */
-            set_video_track_enabled(enabled: boolean): void
-            /**
-             * @param name visualization element obtained from
-            #gst_player_visualizations_get()
-             * @returns %TRUE if the visualizations was set correctly. Otherwise, %FALSE.
-             */
-            set_visualization(name: string | null): boolean
-            /**
-             * Enable or disable the visualization.
-             * @param enabled TRUE or FALSE
-             */
-            set_visualization_enabled(enabled: boolean): void
-            /**
-             * Sets the volume level of the stream as a percentage between 0 and 1.
-             *
-             * This volume is a linear factor. For showing the volume in a GUI it
-             * might make sense to first convert from a different format. Volume sliders
-             * should usually use a cubic volume. See gst_stream_volume_convert_volume().
-             * @param val the new volume level, as a percentage between 0 and 1
-             */
-            set_volume(val: number): void
-            /**
-             * Stops playing the current stream and resets to the first position
-             * in the stream.
-             */
-            stop(): void
-        }
-
-        interface PlayerClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Player>
-            readonly prototype: Player
-
-            new (props?: Partial<GObject.ConstructorProps<Player>>): Player
-            /**
-             * Creates a new #GstPlayer instance that uses @signal_dispatcher to dispatch
-             * signals to some event loop system, or emits signals directly if NULL is
-             * passed. See gst_player_g_main_context_signal_dispatcher_new().
-             *
-             * Video is going to be rendered by @video_renderer, or if %NULL is provided
-             * no special video set up will be done and some default handling will be
-             * performed.
-             *
-             * This also initializes GStreamer via `gst_init()` on the first call if this
-             * didn't happen before.
-             * @param video_renderer GstPlayerVideoRenderer to use
-             * @param signal_dispatcher GstPlayerSignalDispatcher to use
-             * @returns a new #GstPlayer instance
-             */
-            "new"(video_renderer: PlayerVideoRenderer | null, signal_dispatcher: PlayerSignalDispatcher | null): Player
-            /**
-             * @since 1.10
-             * @param config a #GstPlayer configuration
-             * @returns current position update interval in milliseconds
-             */
-            config_get_position_update_interval(config: Gst.Structure): number
-            /**
-             * @since 1.12
-             * @param config a #GstPlayer configuration
-             * @returns %TRUE if accurate seeking is enabled
-             */
-            config_get_seek_accurate(config: Gst.Structure): boolean
-            /**
-             * Return the user agent which has been configured using
-             * gst_player_config_set_user_agent() if any.
-             * @since 1.10
-             * @param config a #GstPlayer configuration
-             * @returns the configured agent, or %NULL
-             */
-            config_get_user_agent(config: Gst.Structure): string | null
-            /**
-             * set interval in milliseconds between two position-updated signals.
-             * pass 0 to stop updating the position.
-             * @since 1.10
-             * @param config a #GstPlayer configuration
-             * @param interval interval in ms
-             */
-            config_set_position_update_interval(config: Gst.Structure, interval: number): void
-            /**
-             * Enable or disable accurate seeking. When enabled, elements will try harder
-             * to seek as accurately as possible to the requested seek position. Generally
-             * it will be slower especially for formats that don't have any indexes or
-             * timestamp markers in the stream.
-             *
-             * If accurate seeking is disabled, elements will seek as close as the request
-             * position without slowing down seeking too much.
-             *
-             * Accurate seeking is disabled by default.
-             * @since 1.12
-             * @param config a #GstPlayer configuration
-             * @param accurate accurate seek or not
-             */
-            config_set_seek_accurate(config: Gst.Structure, accurate: boolean): void
-            /**
-             * Set the user agent to pass to the server if @player needs to connect
-             * to a server during playback. This is typically used when playing HTTP
-             * or RTSP streams.
-             * @since 1.10
-             * @param config a #GstPlayer configuration
-             * @param agent the string to use as user agent
-             */
-            config_set_user_agent(config: Gst.Structure, agent: string | null): void
-            /**
-             * @param info a #GstPlayerMediaInfo
-             * @returns A #GList of matching #GstPlayerAudioInfo.
-             */
-            get_audio_streams(info: PlayerMediaInfo): PlayerAudioInfo[]
-            /**
-             * @param info a #GstPlayerMediaInfo
-             * @returns A #GList of matching #GstPlayerSubtitleInfo.
-             */
-            get_subtitle_streams(info: PlayerMediaInfo): PlayerSubtitleInfo[]
-            /**
-             * @param info a #GstPlayerMediaInfo
-             * @returns A #GList of matching #GstPlayerVideoInfo.
-             */
-            get_video_streams(info: PlayerMediaInfo): PlayerVideoInfo[]
-            /**
-             * Frees a %NULL terminated array of #GstPlayerVisualization.
-             * @param viss a %NULL terminated array of #GstPlayerVisualization to free
-             */
-            visualizations_free(viss: PlayerVisualization): void
-            /**
-             * @returns   a %NULL terminated array containing all available  visualizations. Use gst_player_visualizations_free() after  usage.
-             */
-            visualizations_get(): PlayerVisualization[]
-        }
-
-        interface $Exports {
-            /**
-             * Starting from GStreamer 1.20, application developers are strongly advised to migrate to #GstPlay.
-             * #GstPlayer will be deprecated in 1.20 and most likely removed by 1.24.
-             */
-            Player: PlayerClass
-        }
-        
-
-        namespace PlayerAudioInfo {
-            interface SignalSignatures extends PlayerStreamInfo.SignalSignatures {
-            }
-
-            interface ReadableProperties extends PlayerStreamInfo.ReadableProperties {
-            }
-
-            interface WritableProperties extends PlayerStreamInfo.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends PlayerStreamInfo.ConstructOnlyProperties {
-            }
-        }
-
-        interface PlayerAudioInfo extends PlayerStreamInfo {
-            readonly $signals: PlayerAudioInfo.SignalSignatures
-            readonly $readableProperties: PlayerAudioInfo.ReadableProperties
-            readonly $writableProperties: PlayerAudioInfo.WritableProperties
-            readonly $constructOnlyProperties: PlayerAudioInfo.ConstructOnlyProperties
-            /**
-             * @returns the audio bitrate in #GstPlayerAudioInfo or -1 if unknown.
-             */
-            get_bitrate(): number
-            /**
-             * @returns the number of audio channels in #GstPlayerAudioInfo or 0 if unknown.
-             */
-            get_channels(): number
-            /**
-             * @returns the language of the stream, or NULL if unknown.
-             */
-            get_language(): string | null
-            /**
-             * @returns the audio maximum bitrate in #GstPlayerAudioInfo or -1 if unknown.
-             */
-            get_max_bitrate(): number
-            /**
-             * @returns the audio sample rate in #GstPlayerAudioInfo or 0 if unknown.
-             */
-            get_sample_rate(): number
-        }
-
-        interface PlayerAudioInfoClass extends Omit<PlayerStreamInfoClass, "new"> {
-            readonly $gtype: GObject.GType<PlayerAudioInfo>
-            readonly prototype: PlayerAudioInfo
-
-            new (props?: Partial<GObject.ConstructorProps<PlayerAudioInfo>>): PlayerAudioInfo
-        }
-
-        interface $Exports {
-            /**
-             * #GstPlayerStreamInfo specific to audio streams.
-             */
-            PlayerAudioInfo: PlayerAudioInfoClass
-        }
-        
-
-        namespace PlayerGMainContextSignalDispatcher {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, PlayerSignalDispatcher.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, PlayerSignalDispatcher.ReadableProperties {
-                "application-context": GLib.MainContext
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, PlayerSignalDispatcher.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, PlayerSignalDispatcher.ConstructOnlyProperties {
-                "application-context": GLib.MainContext
-            }
-        }
-
-        interface PlayerGMainContextSignalDispatcher extends GObject.Object, PlayerSignalDispatcher {
-            readonly $signals: PlayerGMainContextSignalDispatcher.SignalSignatures
-            readonly $readableProperties: PlayerGMainContextSignalDispatcher.ReadableProperties
-            readonly $writableProperties: PlayerGMainContextSignalDispatcher.WritableProperties
-            readonly $constructOnlyProperties: PlayerGMainContextSignalDispatcher.ConstructOnlyProperties
-            /**
-             */
-            get applicationContext(): GLib.MainContext
-            set applicationContext(value: GLib.MainContext)
-        }
-
-        interface PlayerGMainContextSignalDispatcherClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<PlayerGMainContextSignalDispatcher>
-            readonly prototype: PlayerGMainContextSignalDispatcher
-
-            new (props?: Partial<GObject.ConstructorProps<PlayerGMainContextSignalDispatcher>>): PlayerGMainContextSignalDispatcher
-            /**
-             * Creates a new GstPlayerSignalDispatcher that uses @application_context,
-             * or the thread default one if %NULL is used. See gst_player_new().
-             * @param application_context GMainContext to use or %NULL
-             * @returns the new GstPlayerSignalDispatcher
-             */
-            "new"(application_context: GLib.MainContext | null): PlayerSignalDispatcher
-        }
-
-        interface $Exports {
-            /**
-             */
-            PlayerGMainContextSignalDispatcher: PlayerGMainContextSignalDispatcherClass
-        }
-        
-
-        namespace PlayerMediaInfo {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface PlayerMediaInfo extends GObject.Object {
-            readonly $signals: PlayerMediaInfo.SignalSignatures
-            readonly $readableProperties: PlayerMediaInfo.ReadableProperties
-            readonly $writableProperties: PlayerMediaInfo.WritableProperties
-            readonly $constructOnlyProperties: PlayerMediaInfo.ConstructOnlyProperties
-            /**
-             * @returns A #GList of matching #GstPlayerAudioInfo.
-             */
-            get_audio_streams(): PlayerAudioInfo[]
-            /**
-             * @returns the container format or %NULL if unknown.
-             */
-            get_container_format(): string | null
-            /**
-             * @returns duration of the media or %GST_CLOCK_TIME_NONE if unknown.
-             */
-            get_duration(): Gst.ClockTime
-            /**
-             * Function to get the image (or preview-image) stored in taglist.
-             * Application can use `gst_sample_*_()` API's to get caps, buffer etc.
-             * @returns GstSample or %NULL.
-             */
-            get_image_sample(): Gst.Sample | null
-            /**
-             * @since 1.12
-             * @returns number of audio streams or 0 if unknown.
-             */
-            get_number_of_audio_streams(): number
-            /**
-             * @since 1.12
-             * @returns number of total streams or 0 if unknown.
-             */
-            get_number_of_streams(): number
-            /**
-             * @since 1.12
-             * @returns number of subtitle streams or 0 if unknown.
-             */
-            get_number_of_subtitle_streams(): number
-            /**
-             * @since 1.12
-             * @returns number of video streams or 0 if unknown.
-             */
-            get_number_of_video_streams(): number
-            /**
-             * @returns A #GList of matching #GstPlayerStreamInfo.
-             */
-            get_stream_list(): PlayerStreamInfo[]
-            /**
-             * @returns A #GList of matching #GstPlayerSubtitleInfo.
-             */
-            get_subtitle_streams(): PlayerSubtitleInfo[]
-            /**
-             * @returns the tags contained in media info.
-             */
-            get_tags(): Gst.TagList | null
-            /**
-             * @returns the media title or %NULL if unknown.
-             */
-            get_title(): string | null
-            /**
-             * @returns the URI associated with #GstPlayerMediaInfo.
-             */
-            get_uri(): string
-            /**
-             * @returns A #GList of matching #GstPlayerVideoInfo.
-             */
-            get_video_streams(): PlayerVideoInfo[]
-            /**
-             * @returns %TRUE if the media is live.
-             */
-            is_live(): boolean
-            /**
-             * @returns %TRUE if the media is seekable.
-             */
-            is_seekable(): boolean
-        }
-
-        interface PlayerMediaInfoClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<PlayerMediaInfo>
-            readonly prototype: PlayerMediaInfo
-
-            new (props?: Partial<GObject.ConstructorProps<PlayerMediaInfo>>): PlayerMediaInfo
-        }
-
-        interface $Exports {
-            /**
-             * Structure containing the media information of a URI.
-             */
-            PlayerMediaInfo: PlayerMediaInfoClass
-        }
-        
-
-        namespace PlayerStreamInfo {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface PlayerStreamInfo extends GObject.Object {
-            readonly $signals: PlayerStreamInfo.SignalSignatures
-            readonly $readableProperties: PlayerStreamInfo.ReadableProperties
-            readonly $writableProperties: PlayerStreamInfo.WritableProperties
-            readonly $constructOnlyProperties: PlayerStreamInfo.ConstructOnlyProperties
-            /**
-             * @returns the #GstCaps of the stream.
-             */
-            get_caps(): Gst.Caps | null
-            /**
-             * A string describing codec used in #GstPlayerStreamInfo.
-             * @returns codec string or %NULL on unknown.
-             */
-            get_codec(): string | null
-            /**
-             * Function to get stream index from #GstPlayerStreamInfo instance or -1 if
-             * unknown.
-             * @returns the stream index of this stream.
-             */
-            get_index(): number
-            /**
-             * Function to return human readable name for the stream type
-             * of the given @info (ex: "audio", "video", "subtitle")
-             * @returns a human readable name
-             */
-            get_stream_type(): string
-            /**
-             * @returns the tags contained in this stream.
-             */
-            get_tags(): Gst.TagList | null
-        }
-
-        interface PlayerStreamInfoClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<PlayerStreamInfo>
-            readonly prototype: PlayerStreamInfo
-
-            new (props?: Partial<GObject.ConstructorProps<PlayerStreamInfo>>): PlayerStreamInfo
-        }
-
-        interface $Exports {
-            /**
-             * Base structure for information concerning a media stream. Depending on
-             * the stream type, one can find more media-specific information in
-             * #GstPlayerVideoInfo, #GstPlayerAudioInfo, #GstPlayerSubtitleInfo.
-             */
-            PlayerStreamInfo: PlayerStreamInfoClass
-        }
-        
-
-        namespace PlayerSubtitleInfo {
-            interface SignalSignatures extends PlayerStreamInfo.SignalSignatures {
-            }
-
-            interface ReadableProperties extends PlayerStreamInfo.ReadableProperties {
-            }
-
-            interface WritableProperties extends PlayerStreamInfo.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends PlayerStreamInfo.ConstructOnlyProperties {
-            }
-        }
-
-        interface PlayerSubtitleInfo extends PlayerStreamInfo {
-            readonly $signals: PlayerSubtitleInfo.SignalSignatures
-            readonly $readableProperties: PlayerSubtitleInfo.ReadableProperties
-            readonly $writableProperties: PlayerSubtitleInfo.WritableProperties
-            readonly $constructOnlyProperties: PlayerSubtitleInfo.ConstructOnlyProperties
-            /**
-             * @returns the language of the stream, or %NULL if unknown.
-             */
-            get_language(): string | null
-        }
-
-        interface PlayerSubtitleInfoClass extends Omit<PlayerStreamInfoClass, "new"> {
-            readonly $gtype: GObject.GType<PlayerSubtitleInfo>
-            readonly prototype: PlayerSubtitleInfo
-
-            new (props?: Partial<GObject.ConstructorProps<PlayerSubtitleInfo>>): PlayerSubtitleInfo
-        }
-
-        interface $Exports {
-            /**
-             * #GstPlayerStreamInfo specific to subtitle streams.
-             */
-            PlayerSubtitleInfo: PlayerSubtitleInfoClass
-        }
-        
-
-        namespace PlayerVideoInfo {
-            interface SignalSignatures extends PlayerStreamInfo.SignalSignatures {
-            }
-
-            interface ReadableProperties extends PlayerStreamInfo.ReadableProperties {
-            }
-
-            interface WritableProperties extends PlayerStreamInfo.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends PlayerStreamInfo.ConstructOnlyProperties {
-            }
-        }
-
-        interface PlayerVideoInfo extends PlayerStreamInfo {
-            readonly $signals: PlayerVideoInfo.SignalSignatures
-            readonly $readableProperties: PlayerVideoInfo.ReadableProperties
-            readonly $writableProperties: PlayerVideoInfo.WritableProperties
-            readonly $constructOnlyProperties: PlayerVideoInfo.ConstructOnlyProperties
-            /**
-             * @returns the current bitrate of video in #GstPlayerVideoInfo or -1 if unknown.
-             */
-            get_bitrate(): number
-            /**
-             * @returns , Numerator of frame rate, Denominator of frame rate
-             */
-            get_framerate(): [number, number]
-            /**
-             * @returns the height of video in #GstPlayerVideoInfo or -1 if unknown.
-             */
-            get_height(): number
-            /**
-             * @returns the maximum bitrate of video in #GstPlayerVideoInfo or -1 if unknown.
-             */
-            get_max_bitrate(): number
-            /**
-             * Returns the pixel aspect ratio in @par_n and @par_d
-             * @returns , numerator, denominator
-             */
-            get_pixel_aspect_ratio(): [number, number]
-            /**
-             * @returns the width of video in #GstPlayerVideoInfo or -1 if unknown.
-             */
-            get_width(): number
-        }
-
-        interface PlayerVideoInfoClass extends Omit<PlayerStreamInfoClass, "new"> {
-            readonly $gtype: GObject.GType<PlayerVideoInfo>
-            readonly prototype: PlayerVideoInfo
-
-            new (props?: Partial<GObject.ConstructorProps<PlayerVideoInfo>>): PlayerVideoInfo
-        }
-
-        interface $Exports {
-            /**
-             * #GstPlayerStreamInfo specific to video streams.
-             */
-            PlayerVideoInfo: PlayerVideoInfoClass
-        }
-        
-
-        namespace PlayerVideoOverlayVideoRenderer {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, PlayerVideoRenderer.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, PlayerVideoRenderer.ReadableProperties {
-                "video-sink": Gst.Element
-                "window-handle": never | null
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, PlayerVideoRenderer.WritableProperties {
-                "video-sink": Gst.Element
-                "window-handle": never | null
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, PlayerVideoRenderer.ConstructOnlyProperties {
-            }
-        }
-
-        interface PlayerVideoOverlayVideoRenderer extends GObject.Object, PlayerVideoRenderer {
-            readonly $signals: PlayerVideoOverlayVideoRenderer.SignalSignatures
-            readonly $readableProperties: PlayerVideoOverlayVideoRenderer.ReadableProperties
-            readonly $writableProperties: PlayerVideoOverlayVideoRenderer.WritableProperties
-            readonly $constructOnlyProperties: PlayerVideoOverlayVideoRenderer.ConstructOnlyProperties
-            /**
-             */
-            get videoSink(): Gst.Element
-            set videoSink(value: Gst.Element)
-            /**
-             */
-            get windowHandle(): never | null
-            set windowHandle(value: never | null)
-            /**
-             * Tell an overlay that it has been exposed. This will redraw the current frame
-             * in the drawable even if the pipeline is PAUSED.
-             */
-            expose(): void
-            /**
-             * Return the currently configured render rectangle. See gst_player_video_overlay_video_renderer_set_render_rectangle()
-             * for details.
-             * @returns , the horizontal offset of the render area inside the window, the vertical offset of the render area inside the window, the width of the render area inside the window, the height of the render area inside the window
-             */
-            get_render_rectangle(): [number, number, number, number]
-            /**
-             * @returns The currently set, platform specific window handle
-             */
-            get_window_handle(): never | null
-            /**
-             * Configure a subregion as a video target within the window set by
-             * gst_player_video_overlay_video_renderer_set_window_handle(). If this is not
-             * used or not supported the video will fill the area of the window set as the
-             * overlay to 100%. By specifying the rectangle, the video can be overlaid to
-             * a specific region of that window only. After setting the new rectangle one
-             * should call gst_player_video_overlay_video_renderer_expose() to force a
-             * redraw. To unset the region pass -1 for the @width and @height parameters.
-             *
-             * This method is needed for non fullscreen video overlay in UI toolkits that
-             * do not support subwindows.
-             * @param x the horizontal offset of the render area inside the window
-             * @param y the vertical offset of the render area inside the window
-             * @param width the width of the render area inside the window
-             * @param height the height of the render area inside the window
-             */
-            set_render_rectangle(x: number, y: number, width: number, height: number): void
-            /**
-             * Sets the platform specific window handle into which the video
-             * should be rendered
-             * @param window_handle handle referencing to the platform specific window
-             */
-            set_window_handle(window_handle: never | null): void
-        }
-
-        interface PlayerVideoOverlayVideoRendererClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<PlayerVideoOverlayVideoRenderer>
-            readonly prototype: PlayerVideoOverlayVideoRenderer
-
-            new (props?: Partial<GObject.ConstructorProps<PlayerVideoOverlayVideoRenderer>>): PlayerVideoOverlayVideoRenderer
-            /**
-             * @param window_handle Window handle to use or %NULL
-             */
-            "new"(window_handle: never | null): PlayerVideoRenderer
-            /**
-             * @since 1.12
-             * @param window_handle Window handle to use or %NULL
-             * @param video_sink the custom video_sink element to be set for the video renderer
-             */
-            new_with_sink(window_handle: never | null, video_sink: Gst.Element): PlayerVideoRenderer
-        }
-
-        interface $Exports {
-            /**
-             */
-            PlayerVideoOverlayVideoRenderer: PlayerVideoOverlayVideoRendererClass
-        }
-        
-
-        namespace PlayerSignalDispatcher {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-
-            interface Interface extends GObject.Object {
+                get duration(): number
+                set duration(value: number)
                 /**
-                 * @param player
-                 * @param emitter
                  */
-                vfunc_dispatch(player: Player, emitter: PlayerSignalDispatcherFunc): void
+                get mediaInfo(): PlayerMediaInfo | null
+                set mediaInfo(value: PlayerMediaInfo | null)
+                /**
+                 * @default FALSE
+                 */
+                get mute(): boolean
+                set mute(value: boolean)
+                /**
+                 */
+                get pipeline(): Gst.Element
+                set pipeline(value: Gst.Element)
+                /**
+                 * @default 18446744073709551615
+                 */
+                get position(): number
+                set position(value: number)
+                /**
+                 * @default 1.000000
+                 */
+                get rate(): number
+                set rate(value: number)
+                /**
+                 */
+                set signalDispatcher(value: PlayerSignalDispatcher)
+                /**
+                 * @default 0
+                 */
+                get subtitleVideoOffset(): number
+                set subtitleVideoOffset(value: number)
+                /**
+                 * @default NULL
+                 */
+                get suburi(): string
+                set suburi(value: string)
+                /**
+                 * @default NULL
+                 */
+                get uri(): string | null
+                set uri(value: string | null)
+                /**
+                 * @default GST_VIDEO_MULTIVIEW_FLAGS_NONE
+                 */
+                get videoMultiviewFlags(): GstVideo.VideoMultiviewFlags
+                set videoMultiviewFlags(value: GstVideo.VideoMultiviewFlags)
+                /**
+                 * @default GST_VIDEO_MULTIVIEW_FRAME_PACKING_NONE
+                 */
+                get videoMultiviewMode(): GstVideo.VideoMultiviewFramePacking
+                set videoMultiviewMode(value: GstVideo.VideoMultiviewFramePacking)
+                /**
+                 */
+                get videoRenderer(): PlayerVideoRenderer
+                set videoRenderer(value: PlayerVideoRenderer)
+                /**
+                 * @default 1.000000
+                 */
+                get volume(): number
+                set volume(value: number)
+                /**
+                 * Retrieve the current value of audio-video-offset property
+                 * @since 1.10
+                 * @returns The current value of audio-video-offset in nanoseconds
+                 */
+                get_audio_video_offset(): number
+                /**
+                 * Retrieve the current value of the indicated `type`.
+                 * @param type #GstPlayerColorBalanceType
+                 * @returns The current value of `type`, between [0,1]. In case of   error -1 is returned.
+                 */
+                get_color_balance(type: PlayerColorBalanceType): number
+                /**
+                 * Get a copy of the current configuration of the player. This configuration
+                 * can either be modified and used for the gst_player_set_config() call
+                 * or it must be freed after usage.
+                 * @since 1.10
+                 * @returns a copy of the current configuration of `player`. Use gst_structure_free() after usage or gst_player_set_config().
+                 */
+                get_config(): Gst.Structure
+                /**
+                 * A Function to get current audio #GstPlayerAudioInfo instance.
+                 * @returns current audio track.  The caller should free it with g_object_unref()
+                 */
+                get_current_audio_track(): PlayerAudioInfo | null
+                /**
+                 * A Function to get current subtitle #GstPlayerSubtitleInfo instance.
+                 * @returns current subtitle track.  The caller should free it with g_object_unref()
+                 */
+                get_current_subtitle_track(): PlayerSubtitleInfo | null
+                /**
+                 * A Function to get current video #GstPlayerVideoInfo instance.
+                 * @returns current video track.  The caller should free it with g_object_unref()
+                 */
+                get_current_video_track(): PlayerVideoInfo | null
+                /**
+                 * @returns Name of the currently enabled   visualization.   g_free() after usage.
+                 */
+                get_current_visualization(): string | null
+                /**
+                 * Retrieves the duration of the media stream that self represents.
+                 * @returns the duration of the currently-playing media stream, in nanoseconds.
+                 */
+                get_duration(): Gst.ClockTime
+                /**
+                 * A Function to get the current media info #GstPlayerMediaInfo instance.
+                 * @returns media info instance.  The caller should free it with g_object_unref()
+                 */
+                get_media_info(): PlayerMediaInfo | null
+                /**
+                 * Retrieve the current value of the indicated `type`.
+                 * @since 1.10
+                 * @returns The current value of `type`, Default: 0x00000000 "none
+                 */
+                get_multiview_flags(): GstVideo.VideoMultiviewFlags
+                /**
+                 * Retrieve the current value of the indicated `type`.
+                 * @since 1.10
+                 * @returns The current value of `type`, Default: -1 "none"
+                 */
+                get_multiview_mode(): GstVideo.VideoMultiviewFramePacking
+                /**
+                 * @returns %TRUE if the currently-playing stream is muted.
+                 */
+                get_mute(): boolean
+                /**
+                 * @returns The internal playbin instance.  The caller should free it with g_object_unref()
+                 */
+                get_pipeline(): Gst.Element
+                /**
+                 * @returns the absolute position time, in nanoseconds, of the currently-playing stream.
+                 */
+                get_position(): Gst.ClockTime
+                /**
+                 * @returns current playback rate
+                 */
+                get_rate(): number
+                /**
+                 * current subtitle URI
+                 * @returns URI of the current external subtitle.   g_free() after usage.
+                 */
+                get_subtitle_uri(): string | null
+                /**
+                 * Retrieve the current value of subtitle-video-offset property
+                 * @since 1.16
+                 * @returns The current value of subtitle-video-offset in nanoseconds
+                 */
+                get_subtitle_video_offset(): number
+                /**
+                 * Gets the URI of the currently-playing stream.
+                 * @returns a string containing the URI of the currently-playing stream. g_free() after usage.
+                 */
+                get_uri(): string | null
+                /**
+                 * Get a snapshot of the currently selected video stream, if any. The format can be
+                 * selected with `format` and optional configuration is possible with `config`
+                 * Currently supported settings are:
+                 * - width, height of type G_TYPE_INT
+                 * - pixel-aspect-ratio of type GST_TYPE_FRACTION
+                 *  Except for GST_PLAYER_THUMBNAIL_RAW_NATIVE format, if no config is set, pixel-aspect-ratio would be 1/1
+                 * @since 1.12
+                 * @param format output format of the video snapshot
+                 * @param config Additional configuration
+                 * @returns Current video snapshot sample or %NULL on failure
+                 */
+                get_video_snapshot(format: PlayerSnapshotFormat, config: Gst.Structure | null): Gst.Sample | null
+                /**
+                 * Returns the current volume level, as a percentage between 0 and 1.
+                 * @returns the volume as percentage between 0 and 1.
+                 */
+                get_volume(): number
+                /**
+                 * Checks whether the `player` has color balance support available.
+                 * @returns %TRUE if `player` has color balance support. Otherwise,   %FALSE.
+                 */
+                has_color_balance(): boolean
+                /**
+                 * Pauses the current stream.
+                 */
+                pause(): void
+                /**
+                 * Request to play the loaded stream.
+                 */
+                play(): void
+                /**
+                 * Seeks the currently-playing stream to the absolute `position` time
+                 * in nanoseconds.
+                 * @param position position to seek in nanoseconds
+                 */
+                seek(position: Gst.ClockTime): void
+                /**
+                 * @param stream_index stream index
+                 * @returns %TRUE or %FALSE  Sets the audio track `stream_idex`.
+                 */
+                set_audio_track(stream_index: number): boolean
+                /**
+                 * Enable or disable the current audio track.
+                 * @param enabled TRUE or FALSE
+                 */
+                set_audio_track_enabled(enabled: boolean): void
+                /**
+                 * Sets audio-video-offset property by value of `offset`
+                 * @since 1.10
+                 * @param offset #gint64 in nanoseconds
+                 */
+                set_audio_video_offset(offset: number): void
+                /**
+                 * Sets the current value of the indicated channel `type` to the passed
+                 * value.
+                 * @param type #GstPlayerColorBalanceType
+                 * @param value The new value for the `type`, ranged [0,1]
+                 */
+                set_color_balance(type: PlayerColorBalanceType, value: number): void
+                /**
+                 * Set the configuration of the player. If the player is already configured, and
+                 * the configuration haven't change, this function will return %TRUE. If the
+                 * player is not in the GST_PLAYER_STATE_STOPPED, this method will return %FALSE
+                 * and active configuration will remain.
+                 *
+                 *  `config` is a #GstStructure that contains the configuration parameters for
+                 * the player.
+                 *
+                 * This function takes ownership of `config`.
+                 * @since 1.10
+                 * @param config a #GstStructure
+                 * @returns %TRUE when the configuration could be set.
+                 */
+                set_config(config: Gst.Structure): boolean
+                /**
+                 * Sets the current value of the indicated mode `type` to the passed
+                 * value.
+                 * @since 1.10
+                 * @param flags The new value for the `type`
+                 */
+                set_multiview_flags(flags: GstVideo.VideoMultiviewFlags): void
+                /**
+                 * Sets the current value of the indicated mode `type` to the passed
+                 * value.
+                 * @since 1.10
+                 * @param mode The new value for the `type`
+                 */
+                set_multiview_mode(mode: GstVideo.VideoMultiviewFramePacking): void
+                /**
+                 * %TRUE if the currently-playing stream should be muted.
+                 * @param val Mute state the should be set
+                 */
+                set_mute(val: boolean): void
+                /**
+                 * Playback at specified rate
+                 * @param rate playback rate
+                 */
+                set_rate(rate: number): void
+                /**
+                 * @param stream_index stream index
+                 * @returns %TRUE or %FALSE  Sets the subtitle stack `stream_index`.
+                 */
+                set_subtitle_track(stream_index: number): boolean
+                /**
+                 * Enable or disable the current subtitle track.
+                 * @param enabled TRUE or FALSE
+                 */
+                set_subtitle_track_enabled(enabled: boolean): void
+                /**
+                 * Sets the external subtitle URI. This should be combined with a call to
+                 * gst_player_set_subtitle_track_enabled(@player, TRUE) so the subtitles are actually
+                 * rendered.
+                 * @param uri subtitle URI
+                 */
+                set_subtitle_uri(uri: string | null): void
+                /**
+                 * Sets subtitle-video-offset property by value of `offset`
+                 * @since 1.16
+                 * @param offset #gint64 in nanoseconds
+                 */
+                set_subtitle_video_offset(offset: number): void
+                /**
+                 * Sets the next URI to play.
+                 * @param uri next URI to play.
+                 */
+                set_uri(uri: string | null): void
+                /**
+                 * @param stream_index stream index
+                 * @returns %TRUE or %FALSE  Sets the video track `stream_index`.
+                 */
+                set_video_track(stream_index: number): boolean
+                /**
+                 * Enable or disable the current video track.
+                 * @param enabled TRUE or FALSE
+                 */
+                set_video_track_enabled(enabled: boolean): void
+                /**
+                 * @param name visualization element obtained from #gst_player_visualizations_get()
+                 * @returns %TRUE if the visualizations was set correctly. Otherwise, %FALSE.
+                 */
+                set_visualization(name: string | null): boolean
+                /**
+                 * Enable or disable the visualization.
+                 * @param enabled TRUE or FALSE
+                 */
+                set_visualization_enabled(enabled: boolean): void
+                /**
+                 * Sets the volume level of the stream as a percentage between 0 and 1.
+                 *
+                 * This volume is a linear factor. For showing the volume in a GUI it
+                 * might make sense to first convert from a different format. Volume sliders
+                 * should usually use a cubic volume. See gst_stream_volume_convert_volume().
+                 * @param val the new volume level, as a percentage between 0 and 1
+                 */
+                set_volume(val: number): void
+                /**
+                 * Stops playing the current stream and resets to the first position
+                 * in the stream.
+                 */
+                stop(): void
             }
-        }
 
-        interface PlayerSignalDispatcher extends GObject.Object, PlayerSignalDispatcher.Interface {
-            readonly $signals: PlayerSignalDispatcher.SignalSignatures
-            readonly $readableProperties: PlayerSignalDispatcher.ReadableProperties
-            readonly $writableProperties: PlayerSignalDispatcher.WritableProperties
-            readonly $constructOnlyProperties: PlayerSignalDispatcher.ConstructOnlyProperties
-        }
+            interface PlayerClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Player>
+                readonly prototype: Player
 
-        interface PlayerSignalDispatcherInterface {
-            readonly $gtype: GObject.GType<PlayerSignalDispatcher>
-            readonly prototype: PlayerSignalDispatcher
-            [Symbol.hasInstance](instance: unknown): instance is PlayerSignalDispatcher
-        }
-
-        interface $Exports {
-            /**
-             */
-            PlayerSignalDispatcher: PlayerSignalDispatcherInterface
-        }
-        
-
-        namespace PlayerVideoRenderer {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                new (props?: Partial<GObject.ConstructorProps<Player>>): Player
+                /**
+                 * Creates a new #GstPlayer instance that uses `signal_dispatcher` to dispatch
+                 * signals to some event loop system, or emits signals directly if NULL is
+                 * passed. See gst_player_g_main_context_signal_dispatcher_new().
+                 *
+                 * Video is going to be rendered by `video_renderer`, or if %NULL is provided
+                 * no special video set up will be done and some default handling will be
+                 * performed.
+                 *
+                 * This also initializes GStreamer via `gst_init()` on the first call if this
+                 * didn't happen before.
+                 * @param video_renderer GstPlayerVideoRenderer to use
+                 * @param signal_dispatcher GstPlayerSignalDispatcher to use
+                 * @returns a new #GstPlayer instance
+                 */
+                "new"(video_renderer: PlayerVideoRenderer | null, signal_dispatcher: PlayerSignalDispatcher | null): Player
+                /**
+                 * @since 1.10
+                 * @param config a #GstPlayer configuration
+                 * @returns current position update interval in milliseconds
+                 */
+                config_get_position_update_interval(config: Gst.Structure): number
+                /**
+                 * @since 1.12
+                 * @param config a #GstPlayer configuration
+                 * @returns %TRUE if accurate seeking is enabled
+                 */
+                config_get_seek_accurate(config: Gst.Structure): boolean
+                /**
+                 * Return the user agent which has been configured using
+                 * gst_player_config_set_user_agent() if any.
+                 * @since 1.10
+                 * @param config a #GstPlayer configuration
+                 * @returns the configured agent, or %NULL
+                 */
+                config_get_user_agent(config: Gst.Structure): string | null
+                /**
+                 * set interval in milliseconds between two position-updated signals.
+                 * pass 0 to stop updating the position.
+                 * @since 1.10
+                 * @param config a #GstPlayer configuration
+                 * @param interval interval in ms
+                 */
+                config_set_position_update_interval(config: Gst.Structure, interval: number): void
+                /**
+                 * Enable or disable accurate seeking. When enabled, elements will try harder
+                 * to seek as accurately as possible to the requested seek position. Generally
+                 * it will be slower especially for formats that don't have any indexes or
+                 * timestamp markers in the stream.
+                 *
+                 * If accurate seeking is disabled, elements will seek as close as the request
+                 * position without slowing down seeking too much.
+                 *
+                 * Accurate seeking is disabled by default.
+                 * @since 1.12
+                 * @param config a #GstPlayer configuration
+                 * @param accurate accurate seek or not
+                 */
+                config_set_seek_accurate(config: Gst.Structure, accurate: boolean): void
+                /**
+                 * Set the user agent to pass to the server if `player` needs to connect
+                 * to a server during playback. This is typically used when playing HTTP
+                 * or RTSP streams.
+                 * @since 1.10
+                 * @param config a #GstPlayer configuration
+                 * @param agent the string to use as user agent
+                 */
+                config_set_user_agent(config: Gst.Structure, agent: string | null): void
+                /**
+                 * @param info a #GstPlayerMediaInfo
+                 * @returns A #GList of matching #GstPlayerAudioInfo.
+                 */
+                get_audio_streams(info: PlayerMediaInfo): PlayerAudioInfo[]
+                /**
+                 * @param info a #GstPlayerMediaInfo
+                 * @returns A #GList of matching #GstPlayerSubtitleInfo.
+                 */
+                get_subtitle_streams(info: PlayerMediaInfo): PlayerSubtitleInfo[]
+                /**
+                 * @param info a #GstPlayerMediaInfo
+                 * @returns A #GList of matching #GstPlayerVideoInfo.
+                 */
+                get_video_streams(info: PlayerMediaInfo): PlayerVideoInfo[]
+                /**
+                 * Frees a %NULL terminated array of #GstPlayerVisualization.
+                 * @param viss a %NULL terminated array of #GstPlayerVisualization to free
+                 */
+                visualizations_free(viss: PlayerVisualization): void
+                /**
+                 * @returns   a %NULL terminated array containing all available  visualizations. Use gst_player_visualizations_free() after  usage.
+                 */
+                visualizations_get(): PlayerVisualization[]
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            interface $Exports {
+                /**
+                 * Starting from GStreamer 1.20, application developers are strongly advised to migrate to #GstPlay.
+                 * #GstPlayer will be deprecated in 1.20 and most likely removed by 1.24.
+                 */
+                Player: PlayerClass
+            }
+            
+
+            namespace PlayerAudioInfo {
+                interface SignalSignatures extends PlayerStreamInfo.SignalSignatures {
+                }
+
+                interface ReadableProperties extends PlayerStreamInfo.ReadableProperties {
+                }
+
+                interface WritableProperties extends PlayerStreamInfo.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends PlayerStreamInfo.ConstructOnlyProperties {
+                }
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
+            interface PlayerAudioInfo extends PlayerStreamInfo {
+                readonly $signals: PlayerAudioInfo.SignalSignatures
+                readonly $readableProperties: PlayerAudioInfo.ReadableProperties
+                readonly $writableProperties: PlayerAudioInfo.WritableProperties
+                readonly $constructOnlyProperties: PlayerAudioInfo.ConstructOnlyProperties
+                /**
+                 * @returns the audio bitrate in #GstPlayerAudioInfo or -1 if unknown.
+                 */
+                get_bitrate(): number
+                /**
+                 * @returns the number of audio channels in #GstPlayerAudioInfo or 0 if unknown.
+                 */
+                get_channels(): number
+                /**
+                 * @returns the language of the stream, or NULL if unknown.
+                 */
+                get_language(): string | null
+                /**
+                 * @returns the audio maximum bitrate in #GstPlayerAudioInfo or -1 if unknown.
+                 */
+                get_max_bitrate(): number
+                /**
+                 * @returns the audio sample rate in #GstPlayerAudioInfo or 0 if unknown.
+                 */
+                get_sample_rate(): number
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface PlayerAudioInfoClass extends Omit<PlayerStreamInfoClass, "new"> {
+                readonly $gtype: GObject.GType<PlayerAudioInfo>
+                readonly prototype: PlayerAudioInfo
+
+                new (props?: Partial<GObject.ConstructorProps<PlayerAudioInfo>>): PlayerAudioInfo
             }
 
-            interface Interface extends GObject.Object {
+            interface $Exports {
+                /**
+                 * #GstPlayerStreamInfo specific to audio streams.
+                 */
+                PlayerAudioInfo: PlayerAudioInfoClass
             }
-        }
+            
 
-        interface PlayerVideoRenderer extends GObject.Object, PlayerVideoRenderer.Interface {
-            readonly $signals: PlayerVideoRenderer.SignalSignatures
-            readonly $readableProperties: PlayerVideoRenderer.ReadableProperties
-            readonly $writableProperties: PlayerVideoRenderer.WritableProperties
-            readonly $constructOnlyProperties: PlayerVideoRenderer.ConstructOnlyProperties
-        }
+            namespace PlayerGMainContextSignalDispatcher {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, PlayerSignalDispatcher.SignalSignatures {
+                }
 
-        interface PlayerVideoRendererInterface {
-            readonly $gtype: GObject.GType<PlayerVideoRenderer>
-            readonly prototype: PlayerVideoRenderer
-            [Symbol.hasInstance](instance: unknown): instance is PlayerVideoRenderer
-        }
+                interface ReadableProperties extends GObject.Object.ReadableProperties, PlayerSignalDispatcher.ReadableProperties {
+                    "application-context": GLib.MainContext
+                }
 
-        interface $Exports {
-            /**
-             */
-            PlayerVideoRenderer: PlayerVideoRendererInterface
-        }
-        
+                interface WritableProperties extends GObject.Object.WritableProperties, PlayerSignalDispatcher.WritableProperties {
+                }
 
-        interface PlayerVisualizationStruct {
-            readonly $gtype: GObject.GType<PlayerVisualization>
-            [Symbol.hasInstance](instance: unknown): instance is PlayerVisualization
-        }
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, PlayerSignalDispatcher.ConstructOnlyProperties {
+                    "application-context": GLib.MainContext
+                }
+            }
 
-        interface PlayerVisualization {
-            /**
-             * name of the visualization.
-             */
-            name: string
-            /**
-             * description of the visualization.
-             */
-            description: string
-            /**
-             * Makes a copy of the #GstPlayerVisualization. The result must be
-             * freed using gst_player_visualization_free().
-             * @returns an allocated copy of `vis`.
-             */
-            copy(): PlayerVisualization
-            /**
-             * Frees a #GstPlayerVisualization.
-             */
-            free(): void
-        }
+            interface PlayerGMainContextSignalDispatcher extends GObject.Object, PlayerSignalDispatcher {
+                readonly $signals: PlayerGMainContextSignalDispatcher.SignalSignatures
+                readonly $readableProperties: PlayerGMainContextSignalDispatcher.ReadableProperties
+                readonly $writableProperties: PlayerGMainContextSignalDispatcher.WritableProperties
+                readonly $constructOnlyProperties: PlayerGMainContextSignalDispatcher.ConstructOnlyProperties
+                /**
+                 */
+                get applicationContext(): GLib.MainContext
+                set applicationContext(value: GLib.MainContext)
+            }
 
-        interface $Exports {
-            PlayerVisualization: PlayerVisualizationStruct
-        }
-        
-        interface PlayerColorBalanceTypeEnum {
-            readonly $gtype: GObject.GType<PlayerColorBalanceType>
-            /**
-             * hue or color balance.
-             */
-            readonly "HUE": 3
-            /**
-             * brightness or black level.
-             */
-            readonly "BRIGHTNESS": 0
-            /**
-             * color saturation or chroma
-             * gain.
-             */
-            readonly "SATURATION": 2
-            /**
-             * contrast or luma gain.
-             */
-            readonly "CONTRAST": 1
-        }
-        type PlayerColorBalanceType = PlayerColorBalanceTypeEnum[Exclude<keyof PlayerColorBalanceTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            PlayerColorBalanceType: PlayerColorBalanceTypeEnum
-            /**
-         * Gets a string representing the given color balance type.
-         * @param type a #GstPlayerColorBalanceType
-         * @returns a string with the name of the color   balance type.
-         */
-        get_name: (type: PlayerColorBalanceType) => string
-        }
-        
-        interface PlayerError extends GLib.Error {}
+            interface PlayerGMainContextSignalDispatcherClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<PlayerGMainContextSignalDispatcher>
+                readonly prototype: PlayerGMainContextSignalDispatcher
 
-        interface PlayerErrorEnum {
-            readonly $gtype: GObject.GType<PlayerError>
+                new (props?: Partial<GObject.ConstructorProps<PlayerGMainContextSignalDispatcher>>): PlayerGMainContextSignalDispatcher
+                /**
+                 * Creates a new GstPlayerSignalDispatcher that uses `application_context`,
+                 * or the thread default one if %NULL is used. See gst_player_new().
+                 * @param application_context GMainContext to use or %NULL
+                 * @returns the new GstPlayerSignalDispatcher
+                 */
+                "new"(application_context: GLib.MainContext | null): PlayerSignalDispatcher
+            }
 
-            new(props: { message: string, code: number }): PlayerError
-            /**
-             * generic error.
-             */
-            readonly "FAILED": 0
-            /**
-         * Gets a string representing the given error.
-         * @param error a #GstPlayerError
-         * @returns a string with the given error.
-         */
-        get_name: (error: PlayerError) => string
-            /**
-         */
-        quark: () => GLib.Quark
-        }
+            interface $Exports {
+                /**
+                 */
+                PlayerGMainContextSignalDispatcher: PlayerGMainContextSignalDispatcherClass
+            }
+            
 
-        interface $Exports {
-            /**
-             */
-            PlayerError: PlayerErrorEnum
-        }
-        
-        interface PlayerSnapshotFormatEnum {
-            readonly $gtype: GObject.GType<PlayerSnapshotFormat>
-            /**
-             */
-            readonly "RAW_NATIVE": 0
-            /**
-             */
-            readonly "RAW_XRGB": 1
-            /**
-             */
-            readonly "RAW_BGRX": 2
-            /**
-             */
-            readonly "JPG": 3
-            /**
-             */
-            readonly "PNG": 4
-        }
-        type PlayerSnapshotFormat = PlayerSnapshotFormatEnum[Exclude<keyof PlayerSnapshotFormatEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            PlayerSnapshotFormat: PlayerSnapshotFormatEnum
-        }
-        
-        interface PlayerStateEnum {
-            readonly $gtype: GObject.GType<PlayerState>
-            /**
-             * the player is stopped.
-             */
-            readonly "STOPPED": 0
-            /**
-             * the player is buffering.
-             */
-            readonly "BUFFERING": 1
-            /**
-             * the player is paused.
-             */
-            readonly "PAUSED": 2
-            /**
-             * the player is currently playing a
-             * stream.
-             */
-            readonly "PLAYING": 3
-        }
-        type PlayerState = PlayerStateEnum[Exclude<keyof PlayerStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            PlayerState: PlayerStateEnum
-            /**
-         * Gets a string representing the given state.
-         * @param state a #GstPlayerState
-         * @returns a string with the name of the state.
-         */
-        get_name: (state: PlayerState) => string
-        }
-        /**
-         * @param data
-         */
-        type PlayerSignalDispatcherFunc = (data: never | null) => void
+            namespace PlayerMediaInfo {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
 
-        interface $Exports {
-            __name__: "GstPlayer"
-            __version: "1.0"
-            /**
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface PlayerMediaInfo extends GObject.Object {
+                readonly $signals: PlayerMediaInfo.SignalSignatures
+                readonly $readableProperties: PlayerMediaInfo.ReadableProperties
+                readonly $writableProperties: PlayerMediaInfo.WritableProperties
+                readonly $constructOnlyProperties: PlayerMediaInfo.ConstructOnlyProperties
+                /**
+                 * @returns A #GList of matching #GstPlayerAudioInfo.
+                 */
+                get_audio_streams(): PlayerAudioInfo[]
+                /**
+                 * @returns the container format or %NULL if unknown.
+                 */
+                get_container_format(): string | null
+                /**
+                 * @returns duration of the media or %GST_CLOCK_TIME_NONE if unknown.
+                 */
+                get_duration(): Gst.ClockTime
+                /**
+                 * Function to get the image (or preview-image) stored in taglist.
+                 * Application can use `gst_sample_*_()` API's to get caps, buffer etc.
+                 * @returns GstSample or %NULL.
+                 */
+                get_image_sample(): Gst.Sample | null
+                /**
+                 * @since 1.12
+                 * @returns number of audio streams or 0 if unknown.
+                 */
+                get_number_of_audio_streams(): number
+                /**
+                 * @since 1.12
+                 * @returns number of total streams or 0 if unknown.
+                 */
+                get_number_of_streams(): number
+                /**
+                 * @since 1.12
+                 * @returns number of subtitle streams or 0 if unknown.
+                 */
+                get_number_of_subtitle_streams(): number
+                /**
+                 * @since 1.12
+                 * @returns number of video streams or 0 if unknown.
+                 */
+                get_number_of_video_streams(): number
+                /**
+                 * @returns A #GList of matching #GstPlayerStreamInfo.
+                 */
+                get_stream_list(): PlayerStreamInfo[]
+                /**
+                 * @returns A #GList of matching #GstPlayerSubtitleInfo.
+                 */
+                get_subtitle_streams(): PlayerSubtitleInfo[]
+                /**
+                 * @returns the tags contained in media info.
+                 */
+                get_tags(): Gst.TagList | null
+                /**
+                 * @returns the media title or %NULL if unknown.
+                 */
+                get_title(): string | null
+                /**
+                 * @returns the URI associated with #GstPlayerMediaInfo.
+                 */
+                get_uri(): string
+                /**
+                 * @returns A #GList of matching #GstPlayerVideoInfo.
+                 */
+                get_video_streams(): PlayerVideoInfo[]
+                /**
+                 * @returns %TRUE if the media is live.
+                 */
+                is_live(): boolean
+                /**
+                 * @returns %TRUE if the media is seekable.
+                 */
+                is_seekable(): boolean
+            }
+
+            interface PlayerMediaInfoClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<PlayerMediaInfo>
+                readonly prototype: PlayerMediaInfo
+
+                new (props?: Partial<GObject.ConstructorProps<PlayerMediaInfo>>): PlayerMediaInfo
+            }
+
+            interface $Exports {
+                /**
+                 * Structure containing the media information of a URI.
+                 */
+                PlayerMediaInfo: PlayerMediaInfoClass
+            }
+            
+
+            namespace PlayerStreamInfo {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface PlayerStreamInfo extends GObject.Object {
+                readonly $signals: PlayerStreamInfo.SignalSignatures
+                readonly $readableProperties: PlayerStreamInfo.ReadableProperties
+                readonly $writableProperties: PlayerStreamInfo.WritableProperties
+                readonly $constructOnlyProperties: PlayerStreamInfo.ConstructOnlyProperties
+                /**
+                 * @returns the #GstCaps of the stream.
+                 */
+                get_caps(): Gst.Caps | null
+                /**
+                 * A string describing codec used in #GstPlayerStreamInfo.
+                 * @returns codec string or %NULL on unknown.
+                 */
+                get_codec(): string | null
+                /**
+                 * Function to get stream index from #GstPlayerStreamInfo instance or -1 if
+                 * unknown.
+                 * @returns the stream index of this stream.
+                 */
+                get_index(): number
+                /**
+                 * Function to return human readable name for the stream type
+                 * of the given `info` (ex: "audio", "video", "subtitle")
+                 * @returns a human readable name
+                 */
+                get_stream_type(): string
+                /**
+                 * @returns the tags contained in this stream.
+                 */
+                get_tags(): Gst.TagList | null
+            }
+
+            interface PlayerStreamInfoClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<PlayerStreamInfo>
+                readonly prototype: PlayerStreamInfo
+
+                new (props?: Partial<GObject.ConstructorProps<PlayerStreamInfo>>): PlayerStreamInfo
+            }
+
+            interface $Exports {
+                /**
+                 * Base structure for information concerning a media stream. Depending on
+                 * the stream type, one can find more media-specific information in
+                 * #GstPlayerVideoInfo, #GstPlayerAudioInfo, #GstPlayerSubtitleInfo.
+                 */
+                PlayerStreamInfo: PlayerStreamInfoClass
+            }
+            
+
+            namespace PlayerSubtitleInfo {
+                interface SignalSignatures extends PlayerStreamInfo.SignalSignatures {
+                }
+
+                interface ReadableProperties extends PlayerStreamInfo.ReadableProperties {
+                }
+
+                interface WritableProperties extends PlayerStreamInfo.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends PlayerStreamInfo.ConstructOnlyProperties {
+                }
+            }
+
+            interface PlayerSubtitleInfo extends PlayerStreamInfo {
+                readonly $signals: PlayerSubtitleInfo.SignalSignatures
+                readonly $readableProperties: PlayerSubtitleInfo.ReadableProperties
+                readonly $writableProperties: PlayerSubtitleInfo.WritableProperties
+                readonly $constructOnlyProperties: PlayerSubtitleInfo.ConstructOnlyProperties
+                /**
+                 * @returns the language of the stream, or %NULL if unknown.
+                 */
+                get_language(): string | null
+            }
+
+            interface PlayerSubtitleInfoClass extends Omit<PlayerStreamInfoClass, "new"> {
+                readonly $gtype: GObject.GType<PlayerSubtitleInfo>
+                readonly prototype: PlayerSubtitleInfo
+
+                new (props?: Partial<GObject.ConstructorProps<PlayerSubtitleInfo>>): PlayerSubtitleInfo
+            }
+
+            interface $Exports {
+                /**
+                 * #GstPlayerStreamInfo specific to subtitle streams.
+                 */
+                PlayerSubtitleInfo: PlayerSubtitleInfoClass
+            }
+            
+
+            namespace PlayerVideoInfo {
+                interface SignalSignatures extends PlayerStreamInfo.SignalSignatures {
+                }
+
+                interface ReadableProperties extends PlayerStreamInfo.ReadableProperties {
+                }
+
+                interface WritableProperties extends PlayerStreamInfo.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends PlayerStreamInfo.ConstructOnlyProperties {
+                }
+            }
+
+            interface PlayerVideoInfo extends PlayerStreamInfo {
+                readonly $signals: PlayerVideoInfo.SignalSignatures
+                readonly $readableProperties: PlayerVideoInfo.ReadableProperties
+                readonly $writableProperties: PlayerVideoInfo.WritableProperties
+                readonly $constructOnlyProperties: PlayerVideoInfo.ConstructOnlyProperties
+                /**
+                 * @returns the current bitrate of video in #GstPlayerVideoInfo or -1 if unknown.
+                 */
+                get_bitrate(): number
+                /**
+                 * @returns , Numerator of frame rate, Denominator of frame rate
+                 */
+                get_framerate(): [number, number]
+                /**
+                 * @returns the height of video in #GstPlayerVideoInfo or -1 if unknown.
+                 */
+                get_height(): number
+                /**
+                 * @returns the maximum bitrate of video in #GstPlayerVideoInfo or -1 if unknown.
+                 */
+                get_max_bitrate(): number
+                /**
+                 * Returns the pixel aspect ratio in `par_n` and `par_d`
+                 * @returns , numerator, denominator
+                 */
+                get_pixel_aspect_ratio(): [number, number]
+                /**
+                 * @returns the width of video in #GstPlayerVideoInfo or -1 if unknown.
+                 */
+                get_width(): number
+            }
+
+            interface PlayerVideoInfoClass extends Omit<PlayerStreamInfoClass, "new"> {
+                readonly $gtype: GObject.GType<PlayerVideoInfo>
+                readonly prototype: PlayerVideoInfo
+
+                new (props?: Partial<GObject.ConstructorProps<PlayerVideoInfo>>): PlayerVideoInfo
+            }
+
+            interface $Exports {
+                /**
+                 * #GstPlayerStreamInfo specific to video streams.
+                 */
+                PlayerVideoInfo: PlayerVideoInfoClass
+            }
+            
+
+            namespace PlayerVideoOverlayVideoRenderer {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, PlayerVideoRenderer.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties, PlayerVideoRenderer.ReadableProperties {
+                    "video-sink": Gst.Element
+                    "window-handle": never | null
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties, PlayerVideoRenderer.WritableProperties {
+                    "video-sink": Gst.Element
+                    "window-handle": never | null
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, PlayerVideoRenderer.ConstructOnlyProperties {
+                }
+            }
+
+            interface PlayerVideoOverlayVideoRenderer extends GObject.Object, PlayerVideoRenderer {
+                readonly $signals: PlayerVideoOverlayVideoRenderer.SignalSignatures
+                readonly $readableProperties: PlayerVideoOverlayVideoRenderer.ReadableProperties
+                readonly $writableProperties: PlayerVideoOverlayVideoRenderer.WritableProperties
+                readonly $constructOnlyProperties: PlayerVideoOverlayVideoRenderer.ConstructOnlyProperties
+                /**
+                 */
+                get videoSink(): Gst.Element
+                set videoSink(value: Gst.Element)
+                /**
+                 */
+                get windowHandle(): never | null
+                set windowHandle(value: never | null)
+                /**
+                 * Tell an overlay that it has been exposed. This will redraw the current frame
+                 * in the drawable even if the pipeline is PAUSED.
+                 */
+                expose(): void
+                /**
+                 * Return the currently configured render rectangle. See gst_player_video_overlay_video_renderer_set_render_rectangle()
+                 * for details.
+                 * @returns , the horizontal offset of the render area inside the window, the vertical offset of the render area inside the window, the width of the render area inside the window, the height of the render area inside the window
+                 */
+                get_render_rectangle(): [number, number, number, number]
+                /**
+                 * @returns The currently set, platform specific window handle
+                 */
+                get_window_handle(): never | null
+                /**
+                 * Configure a subregion as a video target within the window set by
+                 * gst_player_video_overlay_video_renderer_set_window_handle(). If this is not
+                 * used or not supported the video will fill the area of the window set as the
+                 * overlay to 100%. By specifying the rectangle, the video can be overlaid to
+                 * a specific region of that window only. After setting the new rectangle one
+                 * should call gst_player_video_overlay_video_renderer_expose() to force a
+                 * redraw. To unset the region pass -1 for the `width` and `height` parameters.
+                 *
+                 * This method is needed for non fullscreen video overlay in UI toolkits that
+                 * do not support subwindows.
+                 * @param x the horizontal offset of the render area inside the window
+                 * @param y the vertical offset of the render area inside the window
+                 * @param width the width of the render area inside the window
+                 * @param height the height of the render area inside the window
+                 */
+                set_render_rectangle(x: number, y: number, width: number, height: number): void
+                /**
+                 * Sets the platform specific window handle into which the video
+                 * should be rendered
+                 * @param window_handle handle referencing to the platform specific window
+                 */
+                set_window_handle(window_handle: never | null): void
+            }
+
+            interface PlayerVideoOverlayVideoRendererClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<PlayerVideoOverlayVideoRenderer>
+                readonly prototype: PlayerVideoOverlayVideoRenderer
+
+                new (props?: Partial<GObject.ConstructorProps<PlayerVideoOverlayVideoRenderer>>): PlayerVideoOverlayVideoRenderer
+                /**
+                 * @param window_handle Window handle to use or %NULL
+                 */
+                "new"(window_handle: never | null): PlayerVideoRenderer
+                /**
+                 * @since 1.12
+                 * @param window_handle Window handle to use or %NULL
+                 * @param video_sink the custom video_sink element to be set for the video renderer
+                 */
+                new_with_sink(window_handle: never | null, video_sink: Gst.Element): PlayerVideoRenderer
+            }
+
+            interface $Exports {
+                /**
+                 */
+                PlayerVideoOverlayVideoRenderer: PlayerVideoOverlayVideoRendererClass
+            }
+            
+
+            namespace PlayerSignalDispatcher {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object {
+                    /**
+                     * @param player
+                     * @param emitter
+                     */
+                    vfunc_dispatch(player: Player, emitter: PlayerSignalDispatcherFunc): void
+                }
+            }
+
+            interface PlayerSignalDispatcher extends GObject.Object, PlayerSignalDispatcher.Interface {
+                readonly $signals: PlayerSignalDispatcher.SignalSignatures
+                readonly $readableProperties: PlayerSignalDispatcher.ReadableProperties
+                readonly $writableProperties: PlayerSignalDispatcher.WritableProperties
+                readonly $constructOnlyProperties: PlayerSignalDispatcher.ConstructOnlyProperties
+            }
+
+            interface PlayerSignalDispatcherInterface {
+                readonly $gtype: GObject.GType<PlayerSignalDispatcher>
+                readonly prototype: PlayerSignalDispatcher
+                [Symbol.hasInstance](instance: unknown): instance is PlayerSignalDispatcher
+            }
+
+            interface $Exports {
+                /**
+                 */
+                PlayerSignalDispatcher: PlayerSignalDispatcherInterface
+            }
+            
+
+            namespace PlayerVideoRenderer {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object {
+                }
+            }
+
+            interface PlayerVideoRenderer extends GObject.Object, PlayerVideoRenderer.Interface {
+                readonly $signals: PlayerVideoRenderer.SignalSignatures
+                readonly $readableProperties: PlayerVideoRenderer.ReadableProperties
+                readonly $writableProperties: PlayerVideoRenderer.WritableProperties
+                readonly $constructOnlyProperties: PlayerVideoRenderer.ConstructOnlyProperties
+            }
+
+            interface PlayerVideoRendererInterface {
+                readonly $gtype: GObject.GType<PlayerVideoRenderer>
+                readonly prototype: PlayerVideoRenderer
+                [Symbol.hasInstance](instance: unknown): instance is PlayerVideoRenderer
+            }
+
+            interface $Exports {
+                /**
+                 */
+                PlayerVideoRenderer: PlayerVideoRendererInterface
+            }
+            
+
+            interface PlayerVisualizationStruct {
+                readonly $gtype: GObject.GType<PlayerVisualization>
+                new (fields?: {
+                    name?: string
+                    description?: string
+                }): PlayerVisualization
+            }
+
+            interface PlayerVisualization {
+                /**
+                 * name of the visualization.
+                 */
+                name: string
+                /**
+                 * description of the visualization.
+                 */
+                description: string
+                /**
+                 * Makes a copy of the #GstPlayerVisualization. The result must be
+                 * freed using gst_player_visualization_free().
+                 * @returns an allocated copy of `vis`.
+                 */
+                copy(): PlayerVisualization
+                /**
+                 * Frees a #GstPlayerVisualization.
+                 */
+                free(): void
+            }
+
+            interface $Exports {
+                PlayerVisualization: PlayerVisualizationStruct
+            }
+            
+            interface PlayerColorBalanceTypeEnum {
+                readonly $gtype: GObject.GType<PlayerColorBalanceType>
+                /**
+                 * hue or color balance.
+                 */
+                readonly "HUE": 3
+                /**
+                 * brightness or black level.
+                 */
+                readonly "BRIGHTNESS": 0
+                /**
+                 * color saturation or chroma
+                 * gain.
+                 */
+                readonly "SATURATION": 2
+                /**
+                 * contrast or luma gain.
+                 */
+                readonly "CONTRAST": 1
+            }
+            type PlayerColorBalanceType = PlayerColorBalanceTypeEnum[Exclude<keyof PlayerColorBalanceTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                PlayerColorBalanceType: PlayerColorBalanceTypeEnum
+                /**
              * Gets a string representing the given color balance type.
              * @param type a #GstPlayerColorBalanceType
              * @returns a string with the name of the color   balance type.
              */
-            player_color_balance_type_get_name(type: PlayerColorBalanceType): string
-            /**
+            get_name: (type: PlayerColorBalanceType) => string
+            }
+            
+            interface PlayerError extends GLib.Error {}
+
+            interface PlayerErrorEnum {
+                readonly $gtype: GObject.GType<PlayerError>
+
+                new(props: { message: string, code: number }): PlayerError
+                /**
+                 * generic error.
+                 */
+                readonly "FAILED": 0
+                /**
              * Gets a string representing the given error.
              * @param error a #GstPlayerError
              * @returns a string with the given error.
              */
-            player_error_get_name(error: PlayerError): string
-            /**
+            get_name: (error: PlayerError) => string
+                /**
              */
-            player_error_quark(): GLib.Quark
-            /**
+            quark: () => GLib.Quark
+            }
+
+            interface $Exports {
+                /**
+                 */
+                PlayerError: PlayerErrorEnum
+            }
+            
+            interface PlayerSnapshotFormatEnum {
+                readonly $gtype: GObject.GType<PlayerSnapshotFormat>
+                /**
+                 */
+                readonly "RAW_NATIVE": 0
+                /**
+                 */
+                readonly "RAW_XRGB": 1
+                /**
+                 */
+                readonly "RAW_BGRX": 2
+                /**
+                 */
+                readonly "JPG": 3
+                /**
+                 */
+                readonly "PNG": 4
+            }
+            type PlayerSnapshotFormat = PlayerSnapshotFormatEnum[Exclude<keyof PlayerSnapshotFormatEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                PlayerSnapshotFormat: PlayerSnapshotFormatEnum
+            }
+            
+            interface PlayerStateEnum {
+                readonly $gtype: GObject.GType<PlayerState>
+                /**
+                 * the player is stopped.
+                 */
+                readonly "STOPPED": 0
+                /**
+                 * the player is buffering.
+                 */
+                readonly "BUFFERING": 1
+                /**
+                 * the player is paused.
+                 */
+                readonly "PAUSED": 2
+                /**
+                 * the player is currently playing a
+                 * stream.
+                 */
+                readonly "PLAYING": 3
+            }
+            type PlayerState = PlayerStateEnum[Exclude<keyof PlayerStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                PlayerState: PlayerStateEnum
+                /**
              * Gets a string representing the given state.
              * @param state a #GstPlayerState
              * @returns a string with the name of the state.
              */
-            player_state_get_name(state: PlayerState): string
+            get_name: (state: PlayerState) => string
+            }
+            /**
+             * @param data
+             */
+            type PlayerSignalDispatcherFunc = (data: never | null) => void
+
+            interface $Exports {
+                __name__: "GstPlayer"
+                __version__: "1.0"
+                /**
+                 * Gets a string representing the given color balance type.
+                 * @param type a #GstPlayerColorBalanceType
+                 * @returns a string with the name of the color   balance type.
+                 */
+                player_color_balance_type_get_name(type: PlayerColorBalanceType): string
+                /**
+                 * Gets a string representing the given error.
+                 * @param error a #GstPlayerError
+                 * @returns a string with the given error.
+                 */
+                player_error_get_name(error: PlayerError): string
+                /**
+                 */
+                player_error_quark(): GLib.Quark
+                /**
+                 * Gets a string representing the given state.
+                 * @param state a #GstPlayerState
+                 * @returns a string with the name of the state.
+                 */
+                player_state_get_name(state: PlayerState): string
+            }
         }
+
+        const GstPlayer: GstPlayer.$Exports
     }
 
-    const GstPlayer: GstPlayer.$Exports
-    export default GstPlayer
+    export default GI.GstPlayer
 }

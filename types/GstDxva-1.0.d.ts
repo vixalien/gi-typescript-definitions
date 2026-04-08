@@ -20,616 +20,635 @@ declare module "gi://GstDxva?version=1.0" {
     import type GstVideo from "gi://GstVideo?version=1.0"
     import type GstCodecs from "gi://GstCodecs?version=1.0"
 
-    
-
-    namespace GstDxva {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace DxvaAV1Decoder {
-            interface SignalSignatures extends GstCodecs.AV1Decoder.SignalSignatures {
+        namespace GstDxva {
+            
+
+            namespace DxvaAV1Decoder {
+                interface SignalSignatures extends GstCodecs.AV1Decoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstCodecs.AV1Decoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstCodecs.AV1Decoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstCodecs.AV1Decoder.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GstCodecs.AV1Decoder.ReadableProperties {
+            interface DxvaAV1Decoder extends GstCodecs.AV1Decoder {
+                readonly $signals: DxvaAV1Decoder.SignalSignatures
+                readonly $readableProperties: DxvaAV1Decoder.ReadableProperties
+                readonly $writableProperties: DxvaAV1Decoder.WritableProperties
+                readonly $constructOnlyProperties: DxvaAV1Decoder.ConstructOnlyProperties
+                /**
+                 * @param input_state
+                 * @param info
+                 * @param crop_x
+                 * @param crop_y
+                 * @param coded_width
+                 * @param coded_height
+                 * @param max_dpb_size
+                 */
+                vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
+                /**
+                 * @param src
+                 * @param dst
+                 */
+                vfunc_duplicate_picture(src: GstCodecs.CodecPicture, dst: GstCodecs.CodecPicture): Gst.FlowReturn
+                /**
+                 * @param picture
+                 */
+                vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
+                /**
+                 * @param picture
+                 */
+                vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
+                /**
+                 * @param frame
+                 * @param picture
+                 * @param buffer_flags
+                 * @param display_width
+                 * @param display_height
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
+                /**
+                 * @param picture
+                 * @param picture_id
+                 */
+                vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
             }
 
-            interface WritableProperties extends GstCodecs.AV1Decoder.WritableProperties {
+            interface DxvaAV1DecoderClass extends Omit<GstCodecs.AV1DecoderClass, "new"> {
+                readonly $gtype: GObject.GType<DxvaAV1Decoder>
+                readonly prototype: DxvaAV1Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<DxvaAV1Decoder>>): DxvaAV1Decoder
             }
 
-            interface ConstructOnlyProperties extends GstCodecs.AV1Decoder.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * @since 1.24
+                 */
+                DxvaAV1Decoder: DxvaAV1DecoderClass
+            }
+            
+
+            namespace DxvaH264Decoder {
+                interface SignalSignatures extends GstCodecs.H264Decoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstCodecs.H264Decoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstCodecs.H264Decoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstCodecs.H264Decoder.ConstructOnlyProperties {
+                }
+            }
+
+            interface DxvaH264Decoder extends GstCodecs.H264Decoder {
+                readonly $signals: DxvaH264Decoder.SignalSignatures
+                readonly $readableProperties: DxvaH264Decoder.ReadableProperties
+                readonly $writableProperties: DxvaH264Decoder.WritableProperties
+                readonly $constructOnlyProperties: DxvaH264Decoder.ConstructOnlyProperties
+                /**
+                 * @param input_state
+                 * @param info
+                 * @param crop_x
+                 * @param crop_y
+                 * @param coded_width
+                 * @param coded_height
+                 * @param max_dpb_size
+                 */
+                vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
+                /**
+                 * @param src
+                 * @param dst
+                 */
+                vfunc_duplicate_picture(src: GstCodecs.CodecPicture, dst: GstCodecs.CodecPicture): Gst.FlowReturn
+                /**
+                 * @param picture
+                 */
+                vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
+                /**
+                 * @param picture
+                 */
+                vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
+                /**
+                 * @param frame
+                 * @param picture
+                 * @param buffer_flags
+                 * @param display_width
+                 * @param display_height
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
+                /**
+                 * @param picture
+                 * @param picture_id
+                 */
+                vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
+            }
+
+            interface DxvaH264DecoderClass extends Omit<GstCodecs.H264DecoderClass, "new"> {
+                readonly $gtype: GObject.GType<DxvaH264Decoder>
+                readonly prototype: DxvaH264Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<DxvaH264Decoder>>): DxvaH264Decoder
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.24
+                 */
+                DxvaH264Decoder: DxvaH264DecoderClass
+            }
+            
+
+            namespace DxvaH265Decoder {
+                interface SignalSignatures extends GstCodecs.H265Decoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstCodecs.H265Decoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstCodecs.H265Decoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstCodecs.H265Decoder.ConstructOnlyProperties {
+                }
+            }
+
+            interface DxvaH265Decoder extends GstCodecs.H265Decoder {
+                readonly $signals: DxvaH265Decoder.SignalSignatures
+                readonly $readableProperties: DxvaH265Decoder.ReadableProperties
+                readonly $writableProperties: DxvaH265Decoder.WritableProperties
+                readonly $constructOnlyProperties: DxvaH265Decoder.ConstructOnlyProperties
+                /**
+                 * @param input_state
+                 * @param info
+                 * @param crop_x
+                 * @param crop_y
+                 * @param coded_width
+                 * @param coded_height
+                 * @param max_dpb_size
+                 */
+                vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
+                /**
+                 * @param picture
+                 */
+                vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
+                /**
+                 * @param picture
+                 */
+                vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
+                /**
+                 * @param frame
+                 * @param picture
+                 * @param buffer_flags
+                 * @param display_width
+                 * @param display_height
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
+                /**
+                 * @param picture
+                 * @param picture_id
+                 */
+                vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
+            }
+
+            interface DxvaH265DecoderClass extends Omit<GstCodecs.H265DecoderClass, "new"> {
+                readonly $gtype: GObject.GType<DxvaH265Decoder>
+                readonly prototype: DxvaH265Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<DxvaH265Decoder>>): DxvaH265Decoder
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.24
+                 */
+                DxvaH265Decoder: DxvaH265DecoderClass
+            }
+            
+
+            namespace DxvaMpeg2Decoder {
+                interface SignalSignatures extends GstCodecs.Mpeg2Decoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstCodecs.Mpeg2Decoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstCodecs.Mpeg2Decoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstCodecs.Mpeg2Decoder.ConstructOnlyProperties {
+                }
+            }
+
+            interface DxvaMpeg2Decoder extends GstCodecs.Mpeg2Decoder {
+                readonly $signals: DxvaMpeg2Decoder.SignalSignatures
+                readonly $readableProperties: DxvaMpeg2Decoder.ReadableProperties
+                readonly $writableProperties: DxvaMpeg2Decoder.WritableProperties
+                readonly $constructOnlyProperties: DxvaMpeg2Decoder.ConstructOnlyProperties
+                /**
+                 */
+                disable_postproc(): void
+                /**
+                 * @param input_state
+                 * @param info
+                 * @param crop_x
+                 * @param crop_y
+                 * @param coded_width
+                 * @param coded_height
+                 * @param max_dpb_size
+                 */
+                vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
+                /**
+                 * @param src
+                 * @param dst
+                 */
+                vfunc_duplicate_picture(src: GstCodecs.CodecPicture, dst: GstCodecs.CodecPicture): Gst.FlowReturn
+                /**
+                 * @param picture
+                 */
+                vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
+                /**
+                 * @param picture
+                 */
+                vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
+                /**
+                 * @param frame
+                 * @param picture
+                 * @param buffer_flags
+                 * @param display_width
+                 * @param display_height
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
+                /**
+                 * @param picture
+                 * @param picture_id
+                 */
+                vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
+            }
+
+            interface DxvaMpeg2DecoderClass extends Omit<GstCodecs.Mpeg2DecoderClass, "new"> {
+                readonly $gtype: GObject.GType<DxvaMpeg2Decoder>
+                readonly prototype: DxvaMpeg2Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<DxvaMpeg2Decoder>>): DxvaMpeg2Decoder
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.24
+                 */
+                DxvaMpeg2Decoder: DxvaMpeg2DecoderClass
+            }
+            
+
+            namespace DxvaVp8Decoder {
+                interface SignalSignatures extends GstCodecs.Vp8Decoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstCodecs.Vp8Decoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstCodecs.Vp8Decoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstCodecs.Vp8Decoder.ConstructOnlyProperties {
+                }
+            }
+
+            interface DxvaVp8Decoder extends GstCodecs.Vp8Decoder {
+                readonly $signals: DxvaVp8Decoder.SignalSignatures
+                readonly $readableProperties: DxvaVp8Decoder.ReadableProperties
+                readonly $writableProperties: DxvaVp8Decoder.WritableProperties
+                readonly $constructOnlyProperties: DxvaVp8Decoder.ConstructOnlyProperties
+                /**
+                 * @param input_state
+                 * @param info
+                 * @param crop_x
+                 * @param crop_y
+                 * @param coded_width
+                 * @param coded_height
+                 * @param max_dpb_size
+                 */
+                vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
+                /**
+                 * @param picture
+                 */
+                vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
+                /**
+                 * @param picture
+                 */
+                vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
+                /**
+                 * @param frame
+                 * @param picture
+                 * @param buffer_flags
+                 * @param display_width
+                 * @param display_height
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
+                /**
+                 * @param picture
+                 * @param picture_id
+                 */
+                vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
+            }
+
+            interface DxvaVp8DecoderClass extends Omit<GstCodecs.Vp8DecoderClass, "new"> {
+                readonly $gtype: GObject.GType<DxvaVp8Decoder>
+                readonly prototype: DxvaVp8Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<DxvaVp8Decoder>>): DxvaVp8Decoder
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.24
+                 */
+                DxvaVp8Decoder: DxvaVp8DecoderClass
+            }
+            
+
+            namespace DxvaVp9Decoder {
+                interface SignalSignatures extends GstCodecs.Vp9Decoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstCodecs.Vp9Decoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstCodecs.Vp9Decoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstCodecs.Vp9Decoder.ConstructOnlyProperties {
+                }
+            }
+
+            interface DxvaVp9Decoder extends GstCodecs.Vp9Decoder {
+                readonly $signals: DxvaVp9Decoder.SignalSignatures
+                readonly $readableProperties: DxvaVp9Decoder.ReadableProperties
+                readonly $writableProperties: DxvaVp9Decoder.WritableProperties
+                readonly $constructOnlyProperties: DxvaVp9Decoder.ConstructOnlyProperties
+                /**
+                 * @param input_state
+                 * @param info
+                 * @param crop_x
+                 * @param crop_y
+                 * @param coded_width
+                 * @param coded_height
+                 * @param max_dpb_size
+                 */
+                vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
+                /**
+                 * @param src
+                 * @param dst
+                 */
+                vfunc_duplicate_picture(src: GstCodecs.CodecPicture, dst: GstCodecs.CodecPicture): Gst.FlowReturn
+                /**
+                 * @param picture
+                 */
+                vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
+                /**
+                 * @param picture
+                 */
+                vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
+                /**
+                 * @param frame
+                 * @param picture
+                 * @param buffer_flags
+                 * @param display_width
+                 * @param display_height
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
+                /**
+                 * @param picture
+                 * @param picture_id
+                 */
+                vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
+            }
+
+            interface DxvaVp9DecoderClass extends Omit<GstCodecs.Vp9DecoderClass, "new"> {
+                readonly $gtype: GObject.GType<DxvaVp9Decoder>
+                readonly prototype: DxvaVp9Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<DxvaVp9Decoder>>): DxvaVp9Decoder
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.24
+                 */
+                DxvaVp9Decoder: DxvaVp9DecoderClass
+            }
+            
+
+            interface DxvaAV1DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<DxvaAV1DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is DxvaAV1DecoderPrivate
+            }
+
+            interface DxvaAV1DecoderPrivate {
+            }
+
+            interface $Exports {
+                DxvaAV1DecoderPrivate: DxvaAV1DecoderPrivateStruct
+            }
+            
+
+            interface DxvaDecodingArgsStruct {
+                readonly $gtype: GObject.GType<DxvaDecodingArgs>
+                new (fields?: {
+                    picture_params?: never
+                    picture_params_size?: number
+                    slice_control?: never
+                    slice_control_size?: number
+                    bitstream?: never
+                    bitstream_size?: number
+                    inverse_quantization_matrix?: never
+                    inverse_quantization_matrix_size?: number
+                }): DxvaDecodingArgs
+            }
+
+            interface DxvaDecodingArgs {
+                /**
+                 */
+                picture_params: never
+                /**
+                 */
+                picture_params_size: number
+                /**
+                 */
+                slice_control: never
+                /**
+                 */
+                slice_control_size: number
+                /**
+                 */
+                bitstream: never
+                /**
+                 */
+                bitstream_size: number
+                /**
+                 */
+                inverse_quantization_matrix: never
+                /**
+                 */
+                inverse_quantization_matrix_size: number
+            }
+
+            interface $Exports {
+                DxvaDecodingArgs: DxvaDecodingArgsStruct
+            }
+            
+
+            interface DxvaH264DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<DxvaH264DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is DxvaH264DecoderPrivate
+            }
+
+            interface DxvaH264DecoderPrivate {
+            }
+
+            interface $Exports {
+                DxvaH264DecoderPrivate: DxvaH264DecoderPrivateStruct
+            }
+            
+
+            interface DxvaH265DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<DxvaH265DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is DxvaH265DecoderPrivate
+            }
+
+            interface DxvaH265DecoderPrivate {
+            }
+
+            interface $Exports {
+                DxvaH265DecoderPrivate: DxvaH265DecoderPrivateStruct
+            }
+            
+
+            interface DxvaMpeg2DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<DxvaMpeg2DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is DxvaMpeg2DecoderPrivate
+            }
+
+            interface DxvaMpeg2DecoderPrivate {
+            }
+
+            interface $Exports {
+                DxvaMpeg2DecoderPrivate: DxvaMpeg2DecoderPrivateStruct
+            }
+            
+
+            interface DxvaResolutionStruct {
+                readonly $gtype: GObject.GType<DxvaResolution>
+                new (fields?: {
+                    width?: number
+                    height?: number
+                }): DxvaResolution
+            }
+
+            interface DxvaResolution {
+                /**
+                 */
+                width: number
+                /**
+                 */
+                height: number
+            }
+
+            interface $Exports {
+                DxvaResolution: DxvaResolutionStruct
+            }
+            
+
+            interface DxvaVp8DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<DxvaVp8DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is DxvaVp8DecoderPrivate
+            }
+
+            interface DxvaVp8DecoderPrivate {
+            }
+
+            interface $Exports {
+                DxvaVp8DecoderPrivate: DxvaVp8DecoderPrivateStruct
+            }
+            
+
+            interface DxvaVp9DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<DxvaVp9DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is DxvaVp9DecoderPrivate
+            }
+
+            interface DxvaVp9DecoderPrivate {
+            }
+
+            interface $Exports {
+                DxvaVp9DecoderPrivate: DxvaVp9DecoderPrivateStruct
+            }
+            
+            interface DxvaCodecEnum {
+                readonly $gtype: GObject.GType<DxvaCodec>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "MPEG2": 1
+                /**
+                 */
+                readonly "H264": 2
+                /**
+                 */
+                readonly "H265": 3
+                /**
+                 */
+                readonly "VP8": 4
+                /**
+                 */
+                readonly "VP9": 5
+                /**
+                 */
+                readonly "AV1": 6
+                /**
+                 */
+                readonly "LAST": 7
+            }
+            type DxvaCodec = DxvaCodecEnum[Exclude<keyof DxvaCodecEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * @since 1.24
+                 */
+                DxvaCodec: DxvaCodecEnum
+            }
+
+            interface $Exports {
+                __name__: "GstDxva"
+                __version__: "1.0"
+                /**
+                 * @since 1.24
+                 * @param codec a #GstDxvaCodec
+                 * @returns the string representation of `codec`
+                 */
+                dxva_codec_to_string(codec: DxvaCodec): string
             }
         }
 
-        interface DxvaAV1Decoder extends GstCodecs.AV1Decoder {
-            readonly $signals: DxvaAV1Decoder.SignalSignatures
-            readonly $readableProperties: DxvaAV1Decoder.ReadableProperties
-            readonly $writableProperties: DxvaAV1Decoder.WritableProperties
-            readonly $constructOnlyProperties: DxvaAV1Decoder.ConstructOnlyProperties
-            /**
-             * @param input_state
-             * @param info
-             * @param crop_x
-             * @param crop_y
-             * @param coded_width
-             * @param coded_height
-             * @param max_dpb_size
-             */
-            vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
-            /**
-             * @param src
-             * @param dst
-             */
-            vfunc_duplicate_picture(src: GstCodecs.CodecPicture, dst: GstCodecs.CodecPicture): Gst.FlowReturn
-            /**
-             * @param picture
-             */
-            vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
-            /**
-             * @param picture
-             */
-            vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
-            /**
-             * @param frame
-             * @param picture
-             * @param buffer_flags
-             * @param display_width
-             * @param display_height
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
-            /**
-             * @param picture
-             * @param picture_id
-             */
-            vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
-        }
-
-        interface DxvaAV1DecoderClass extends Omit<GstCodecs.AV1DecoderClass, "new"> {
-            readonly $gtype: GObject.GType<DxvaAV1Decoder>
-            readonly prototype: DxvaAV1Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<DxvaAV1Decoder>>): DxvaAV1Decoder
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.24
-             */
-            DxvaAV1Decoder: DxvaAV1DecoderClass
-        }
-        
-
-        namespace DxvaH264Decoder {
-            interface SignalSignatures extends GstCodecs.H264Decoder.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstCodecs.H264Decoder.ReadableProperties {
-            }
-
-            interface WritableProperties extends GstCodecs.H264Decoder.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GstCodecs.H264Decoder.ConstructOnlyProperties {
-            }
-        }
-
-        interface DxvaH264Decoder extends GstCodecs.H264Decoder {
-            readonly $signals: DxvaH264Decoder.SignalSignatures
-            readonly $readableProperties: DxvaH264Decoder.ReadableProperties
-            readonly $writableProperties: DxvaH264Decoder.WritableProperties
-            readonly $constructOnlyProperties: DxvaH264Decoder.ConstructOnlyProperties
-            /**
-             * @param input_state
-             * @param info
-             * @param crop_x
-             * @param crop_y
-             * @param coded_width
-             * @param coded_height
-             * @param max_dpb_size
-             */
-            vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
-            /**
-             * @param src
-             * @param dst
-             */
-            vfunc_duplicate_picture(src: GstCodecs.CodecPicture, dst: GstCodecs.CodecPicture): Gst.FlowReturn
-            /**
-             * @param picture
-             */
-            vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
-            /**
-             * @param picture
-             */
-            vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
-            /**
-             * @param frame
-             * @param picture
-             * @param buffer_flags
-             * @param display_width
-             * @param display_height
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
-            /**
-             * @param picture
-             * @param picture_id
-             */
-            vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
-        }
-
-        interface DxvaH264DecoderClass extends Omit<GstCodecs.H264DecoderClass, "new"> {
-            readonly $gtype: GObject.GType<DxvaH264Decoder>
-            readonly prototype: DxvaH264Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<DxvaH264Decoder>>): DxvaH264Decoder
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.24
-             */
-            DxvaH264Decoder: DxvaH264DecoderClass
-        }
-        
-
-        namespace DxvaH265Decoder {
-            interface SignalSignatures extends GstCodecs.H265Decoder.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstCodecs.H265Decoder.ReadableProperties {
-            }
-
-            interface WritableProperties extends GstCodecs.H265Decoder.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GstCodecs.H265Decoder.ConstructOnlyProperties {
-            }
-        }
-
-        interface DxvaH265Decoder extends GstCodecs.H265Decoder {
-            readonly $signals: DxvaH265Decoder.SignalSignatures
-            readonly $readableProperties: DxvaH265Decoder.ReadableProperties
-            readonly $writableProperties: DxvaH265Decoder.WritableProperties
-            readonly $constructOnlyProperties: DxvaH265Decoder.ConstructOnlyProperties
-            /**
-             * @param input_state
-             * @param info
-             * @param crop_x
-             * @param crop_y
-             * @param coded_width
-             * @param coded_height
-             * @param max_dpb_size
-             */
-            vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
-            /**
-             * @param picture
-             */
-            vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
-            /**
-             * @param picture
-             */
-            vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
-            /**
-             * @param frame
-             * @param picture
-             * @param buffer_flags
-             * @param display_width
-             * @param display_height
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
-            /**
-             * @param picture
-             * @param picture_id
-             */
-            vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
-        }
-
-        interface DxvaH265DecoderClass extends Omit<GstCodecs.H265DecoderClass, "new"> {
-            readonly $gtype: GObject.GType<DxvaH265Decoder>
-            readonly prototype: DxvaH265Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<DxvaH265Decoder>>): DxvaH265Decoder
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.24
-             */
-            DxvaH265Decoder: DxvaH265DecoderClass
-        }
-        
-
-        namespace DxvaMpeg2Decoder {
-            interface SignalSignatures extends GstCodecs.Mpeg2Decoder.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstCodecs.Mpeg2Decoder.ReadableProperties {
-            }
-
-            interface WritableProperties extends GstCodecs.Mpeg2Decoder.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GstCodecs.Mpeg2Decoder.ConstructOnlyProperties {
-            }
-        }
-
-        interface DxvaMpeg2Decoder extends GstCodecs.Mpeg2Decoder {
-            readonly $signals: DxvaMpeg2Decoder.SignalSignatures
-            readonly $readableProperties: DxvaMpeg2Decoder.ReadableProperties
-            readonly $writableProperties: DxvaMpeg2Decoder.WritableProperties
-            readonly $constructOnlyProperties: DxvaMpeg2Decoder.ConstructOnlyProperties
-            /**
-             */
-            disable_postproc(): void
-            /**
-             * @param input_state
-             * @param info
-             * @param crop_x
-             * @param crop_y
-             * @param coded_width
-             * @param coded_height
-             * @param max_dpb_size
-             */
-            vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
-            /**
-             * @param src
-             * @param dst
-             */
-            vfunc_duplicate_picture(src: GstCodecs.CodecPicture, dst: GstCodecs.CodecPicture): Gst.FlowReturn
-            /**
-             * @param picture
-             */
-            vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
-            /**
-             * @param picture
-             */
-            vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
-            /**
-             * @param frame
-             * @param picture
-             * @param buffer_flags
-             * @param display_width
-             * @param display_height
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
-            /**
-             * @param picture
-             * @param picture_id
-             */
-            vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
-        }
-
-        interface DxvaMpeg2DecoderClass extends Omit<GstCodecs.Mpeg2DecoderClass, "new"> {
-            readonly $gtype: GObject.GType<DxvaMpeg2Decoder>
-            readonly prototype: DxvaMpeg2Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<DxvaMpeg2Decoder>>): DxvaMpeg2Decoder
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.24
-             */
-            DxvaMpeg2Decoder: DxvaMpeg2DecoderClass
-        }
-        
-
-        namespace DxvaVp8Decoder {
-            interface SignalSignatures extends GstCodecs.Vp8Decoder.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstCodecs.Vp8Decoder.ReadableProperties {
-            }
-
-            interface WritableProperties extends GstCodecs.Vp8Decoder.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GstCodecs.Vp8Decoder.ConstructOnlyProperties {
-            }
-        }
-
-        interface DxvaVp8Decoder extends GstCodecs.Vp8Decoder {
-            readonly $signals: DxvaVp8Decoder.SignalSignatures
-            readonly $readableProperties: DxvaVp8Decoder.ReadableProperties
-            readonly $writableProperties: DxvaVp8Decoder.WritableProperties
-            readonly $constructOnlyProperties: DxvaVp8Decoder.ConstructOnlyProperties
-            /**
-             * @param input_state
-             * @param info
-             * @param crop_x
-             * @param crop_y
-             * @param coded_width
-             * @param coded_height
-             * @param max_dpb_size
-             */
-            vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
-            /**
-             * @param picture
-             */
-            vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
-            /**
-             * @param picture
-             */
-            vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
-            /**
-             * @param frame
-             * @param picture
-             * @param buffer_flags
-             * @param display_width
-             * @param display_height
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
-            /**
-             * @param picture
-             * @param picture_id
-             */
-            vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
-        }
-
-        interface DxvaVp8DecoderClass extends Omit<GstCodecs.Vp8DecoderClass, "new"> {
-            readonly $gtype: GObject.GType<DxvaVp8Decoder>
-            readonly prototype: DxvaVp8Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<DxvaVp8Decoder>>): DxvaVp8Decoder
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.24
-             */
-            DxvaVp8Decoder: DxvaVp8DecoderClass
-        }
-        
-
-        namespace DxvaVp9Decoder {
-            interface SignalSignatures extends GstCodecs.Vp9Decoder.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstCodecs.Vp9Decoder.ReadableProperties {
-            }
-
-            interface WritableProperties extends GstCodecs.Vp9Decoder.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GstCodecs.Vp9Decoder.ConstructOnlyProperties {
-            }
-        }
-
-        interface DxvaVp9Decoder extends GstCodecs.Vp9Decoder {
-            readonly $signals: DxvaVp9Decoder.SignalSignatures
-            readonly $readableProperties: DxvaVp9Decoder.ReadableProperties
-            readonly $writableProperties: DxvaVp9Decoder.WritableProperties
-            readonly $constructOnlyProperties: DxvaVp9Decoder.ConstructOnlyProperties
-            /**
-             * @param input_state
-             * @param info
-             * @param crop_x
-             * @param crop_y
-             * @param coded_width
-             * @param coded_height
-             * @param max_dpb_size
-             */
-            vfunc_configure(input_state: GstVideo.VideoCodecState, info: GstVideo.VideoInfo, crop_x: number, crop_y: number, coded_width: number, coded_height: number, max_dpb_size: number): Gst.FlowReturn
-            /**
-             * @param src
-             * @param dst
-             */
-            vfunc_duplicate_picture(src: GstCodecs.CodecPicture, dst: GstCodecs.CodecPicture): Gst.FlowReturn
-            /**
-             * @param picture
-             */
-            vfunc_get_picture_id(picture: GstCodecs.CodecPicture): number
-            /**
-             * @param picture
-             */
-            vfunc_new_picture(picture: GstCodecs.CodecPicture): Gst.FlowReturn
-            /**
-             * @param frame
-             * @param picture
-             * @param buffer_flags
-             * @param display_width
-             * @param display_height
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: GstCodecs.CodecPicture, buffer_flags: GstVideo.VideoBufferFlags, display_width: number, display_height: number): Gst.FlowReturn
-            /**
-             * @param picture
-             * @param picture_id
-             */
-            vfunc_start_picture(picture: GstCodecs.CodecPicture, picture_id: number): Gst.FlowReturn
-        }
-
-        interface DxvaVp9DecoderClass extends Omit<GstCodecs.Vp9DecoderClass, "new"> {
-            readonly $gtype: GObject.GType<DxvaVp9Decoder>
-            readonly prototype: DxvaVp9Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<DxvaVp9Decoder>>): DxvaVp9Decoder
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.24
-             */
-            DxvaVp9Decoder: DxvaVp9DecoderClass
-        }
-        
-
-        interface DxvaAV1DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<DxvaAV1DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is DxvaAV1DecoderPrivate
-        }
-
-        interface DxvaAV1DecoderPrivate {
-        }
-
-        interface $Exports {
-            DxvaAV1DecoderPrivate: DxvaAV1DecoderPrivateStruct
-        }
-        
-
-        interface DxvaDecodingArgsStruct {
-            readonly $gtype: GObject.GType<DxvaDecodingArgs>
-            [Symbol.hasInstance](instance: unknown): instance is DxvaDecodingArgs
-        }
-
-        interface DxvaDecodingArgs {
-            /**
-             */
-            picture_params: never
-            /**
-             */
-            picture_params_size: number
-            /**
-             */
-            slice_control: never
-            /**
-             */
-            slice_control_size: number
-            /**
-             */
-            bitstream: never
-            /**
-             */
-            bitstream_size: number
-            /**
-             */
-            inverse_quantization_matrix: never
-            /**
-             */
-            inverse_quantization_matrix_size: number
-        }
-
-        interface $Exports {
-            DxvaDecodingArgs: DxvaDecodingArgsStruct
-        }
-        
-
-        interface DxvaH264DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<DxvaH264DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is DxvaH264DecoderPrivate
-        }
-
-        interface DxvaH264DecoderPrivate {
-        }
-
-        interface $Exports {
-            DxvaH264DecoderPrivate: DxvaH264DecoderPrivateStruct
-        }
-        
-
-        interface DxvaH265DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<DxvaH265DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is DxvaH265DecoderPrivate
-        }
-
-        interface DxvaH265DecoderPrivate {
-        }
-
-        interface $Exports {
-            DxvaH265DecoderPrivate: DxvaH265DecoderPrivateStruct
-        }
-        
-
-        interface DxvaMpeg2DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<DxvaMpeg2DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is DxvaMpeg2DecoderPrivate
-        }
-
-        interface DxvaMpeg2DecoderPrivate {
-        }
-
-        interface $Exports {
-            DxvaMpeg2DecoderPrivate: DxvaMpeg2DecoderPrivateStruct
-        }
-        
-
-        interface DxvaResolutionStruct {
-            readonly $gtype: GObject.GType<DxvaResolution>
-            [Symbol.hasInstance](instance: unknown): instance is DxvaResolution
-        }
-
-        interface DxvaResolution {
-            /**
-             */
-            width: number
-            /**
-             */
-            height: number
-        }
-
-        interface $Exports {
-            DxvaResolution: DxvaResolutionStruct
-        }
-        
-
-        interface DxvaVp8DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<DxvaVp8DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is DxvaVp8DecoderPrivate
-        }
-
-        interface DxvaVp8DecoderPrivate {
-        }
-
-        interface $Exports {
-            DxvaVp8DecoderPrivate: DxvaVp8DecoderPrivateStruct
-        }
-        
-
-        interface DxvaVp9DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<DxvaVp9DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is DxvaVp9DecoderPrivate
-        }
-
-        interface DxvaVp9DecoderPrivate {
-        }
-
-        interface $Exports {
-            DxvaVp9DecoderPrivate: DxvaVp9DecoderPrivateStruct
-        }
-        
-        interface DxvaCodecEnum {
-            readonly $gtype: GObject.GType<DxvaCodec>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "MPEG2": 1
-            /**
-             */
-            readonly "H264": 2
-            /**
-             */
-            readonly "H265": 3
-            /**
-             */
-            readonly "VP8": 4
-            /**
-             */
-            readonly "VP9": 5
-            /**
-             */
-            readonly "AV1": 6
-            /**
-             */
-            readonly "LAST": 7
-        }
-        type DxvaCodec = DxvaCodecEnum[Exclude<keyof DxvaCodecEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * @since 1.24
-             */
-            DxvaCodec: DxvaCodecEnum
-        }
-
-        interface $Exports {
-            __name__: "GstDxva"
-            __version: "1.0"
-            /**
-             * @since 1.24
-             * @param codec a #GstDxvaCodec
-             * @returns the string representation of `codec`
-             */
-            dxva_codec_to_string(codec: DxvaCodec): string
-        }
+        const GstDxva: GstDxva.$Exports
     }
 
-    const GstDxva: GstDxva.$Exports
-    export default GstDxva
+    export default GI.GstDxva
 }

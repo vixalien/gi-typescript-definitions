@@ -30,24 +30,31 @@ declare module "gi://GlyGtk4?version=2" {
     import type Gdk from "gi://Gdk?version=4.0"
     import type Gly from "gi://Gly?version=2"
 
-    
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
+        
 
-    namespace GlyGtk4 {
+        namespace GlyGtk4 {
 
-        interface $Exports {
-            __name__: "GlyGtk4"
-            __version: "2"
-            /**
-             * Gets the actual image from a frame. See the [class@Gly.Loader] docs
-             * for a complete example.
-             * @since 2.0
-             * @param frame Frame
-             * @returns A GDK Texture
-             */
-            frame_get_texture(frame: Gly.Frame): Gdk.Texture
+            interface $Exports {
+                __name__: "GlyGtk4"
+                __version__: "2"
+                /**
+                 * Gets the actual image from a frame. See the {@link Gly.Loader} docs
+                 * for a complete example.
+                 * @since 2.0
+                 * @param frame Frame
+                 * @returns A GDK Texture
+                 */
+                frame_get_texture(frame: Gly.Frame): Gdk.Texture
+            }
         }
+
+        const GlyGtk4: GlyGtk4.$Exports
     }
 
-    const GlyGtk4: GlyGtk4.$Exports
-    export default GlyGtk4
+    export default GI.GlyGtk4
 }

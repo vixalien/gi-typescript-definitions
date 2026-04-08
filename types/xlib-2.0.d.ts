@@ -10,188 +10,204 @@ declare module "gi://xlib?version=2.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type GLib from "gi://GLib?version=2.0"
 
-    
-
-    namespace xlib {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface DisplayStruct {
-            readonly $gtype: GObject.GType<Display>
-            [Symbol.hasInstance](instance: unknown): instance is Display
-        }
+        namespace xlib {
+            
 
-        interface Display {
-        }
+            interface DisplayStruct {
+                readonly $gtype: GObject.GType<Display>
+                new (fields?: {
+                }): Display
+            }
 
-        interface $Exports {
-            Display: DisplayStruct
-        }
-        
+            interface Display {
+            }
 
-        interface ScreenStruct {
-            readonly $gtype: GObject.GType<Screen>
-            [Symbol.hasInstance](instance: unknown): instance is Screen
-        }
+            interface $Exports {
+                Display: DisplayStruct
+            }
+            
 
-        interface Screen {
-        }
+            interface ScreenStruct {
+                readonly $gtype: GObject.GType<Screen>
+                new (fields?: {
+                }): Screen
+            }
 
-        interface $Exports {
-            Screen: ScreenStruct
-        }
-        
+            interface Screen {
+            }
 
-        interface VisualStruct {
-            readonly $gtype: GObject.GType<Visual>
-            [Symbol.hasInstance](instance: unknown): instance is Visual
-        }
+            interface $Exports {
+                Screen: ScreenStruct
+            }
+            
 
-        interface Visual {
-        }
+            interface VisualStruct {
+                readonly $gtype: GObject.GType<Visual>
+                new (fields?: {
+                }): Visual
+            }
 
-        interface $Exports {
-            Visual: VisualStruct
-        }
-        
+            interface Visual {
+            }
 
-        interface XConfigureEventStruct {
-            readonly $gtype: GObject.GType<XConfigureEvent>
-            [Symbol.hasInstance](instance: unknown): instance is XConfigureEvent
-        }
+            interface $Exports {
+                Visual: VisualStruct
+            }
+            
 
-        interface XConfigureEvent {
-        }
+            interface XConfigureEventStruct {
+                readonly $gtype: GObject.GType<XConfigureEvent>
+                new (fields?: {
+                }): XConfigureEvent
+            }
 
-        interface $Exports {
-            XConfigureEvent: XConfigureEventStruct
-        }
-        
+            interface XConfigureEvent {
+            }
 
-        interface XImageStruct {
-            readonly $gtype: GObject.GType<XImage>
-            [Symbol.hasInstance](instance: unknown): instance is XImage
-        }
+            interface $Exports {
+                XConfigureEvent: XConfigureEventStruct
+            }
+            
 
-        interface XImage {
-        }
+            interface XImageStruct {
+                readonly $gtype: GObject.GType<XImage>
+                new (fields?: {
+                }): XImage
+            }
 
-        interface $Exports {
-            XImage: XImageStruct
-        }
-        
+            interface XImage {
+            }
 
-        interface XFontStructStruct {
-            readonly $gtype: GObject.GType<XFontStruct>
-            [Symbol.hasInstance](instance: unknown): instance is XFontStruct
-        }
+            interface $Exports {
+                XImage: XImageStruct
+            }
+            
 
-        interface XFontStruct {
-        }
+            interface XFontStructStruct {
+                readonly $gtype: GObject.GType<XFontStruct>
+                new (fields?: {
+                }): XFontStruct
+            }
 
-        interface $Exports {
-            XFontStruct: XFontStructStruct
-        }
-        
+            interface XFontStruct {
+            }
 
-        interface XTrapezoidStruct {
-            readonly $gtype: GObject.GType<XTrapezoid>
-            [Symbol.hasInstance](instance: unknown): instance is XTrapezoid
-        }
+            interface $Exports {
+                XFontStruct: XFontStructStruct
+            }
+            
 
-        interface XTrapezoid {
-        }
+            interface XTrapezoidStruct {
+                readonly $gtype: GObject.GType<XTrapezoid>
+                new (fields?: {
+                }): XTrapezoid
+            }
 
-        interface $Exports {
-            XTrapezoid: XTrapezoidStruct
-        }
-        
+            interface XTrapezoid {
+            }
 
-        interface XVisualInfoStruct {
-            readonly $gtype: GObject.GType<XVisualInfo>
-            [Symbol.hasInstance](instance: unknown): instance is XVisualInfo
-        }
+            interface $Exports {
+                XTrapezoid: XTrapezoidStruct
+            }
+            
 
-        interface XVisualInfo {
-        }
+            interface XVisualInfoStruct {
+                readonly $gtype: GObject.GType<XVisualInfo>
+                new (fields?: {
+                }): XVisualInfo
+            }
 
-        interface $Exports {
-            XVisualInfo: XVisualInfoStruct
-        }
-        
+            interface XVisualInfo {
+            }
 
-        interface XWindowAttributesStruct {
-            readonly $gtype: GObject.GType<XWindowAttributes>
-            [Symbol.hasInstance](instance: unknown): instance is XWindowAttributes
-        }
+            interface $Exports {
+                XVisualInfo: XVisualInfoStruct
+            }
+            
 
-        interface XWindowAttributes {
-        }
+            interface XWindowAttributesStruct {
+                readonly $gtype: GObject.GType<XWindowAttributes>
+                new (fields?: {
+                }): XWindowAttributes
+            }
 
-        interface $Exports {
-            XWindowAttributes: XWindowAttributesStruct
-        }
-        
+            interface XWindowAttributes {
+            }
 
-        interface XEventStruct {
-            readonly $gtype: GObject.GType<XEvent>
-            [Symbol.hasInstance](instance: unknown): instance is XEvent
-        }
+            interface $Exports {
+                XWindowAttributes: XWindowAttributesStruct
+            }
+            
 
-        interface XEvent {
-        }
+            interface XEventStruct {
+                readonly $gtype: GObject.GType<XEvent>
+                [Symbol.hasInstance](instance: unknown): instance is XEvent
+            }
 
-        interface $Exports {
-            XEvent: XEventStruct
-        }
-        /**
-         */
-        type Atom = number
-        /**
-         */
-        type Colormap = number
-        /**
-         */
-        type Cursor = number
-        /**
-         */
-        type Drawable = number
-        /**
-         */
-        type GC = never
-        /**
-         */
-        type KeyCode = number
-        /**
-         */
-        type KeySym = number
-        /**
-         */
-        type Picture = number
-        /**
-         */
-        type Time = number
-        /**
-         */
-        type VisualID = number
-        /**
-         */
-        type Window = number
-        /**
-         */
-        type XID = number
-        /**
-         */
-        type Pixmap = number
+            interface XEvent {
+            }
 
-        interface $Exports {
-            __name__: "xlib"
-            __version: "2.0"
+            interface $Exports {
+                XEvent: XEventStruct
+            }
             /**
              */
-            open_display(): void
+            type Atom = number
+            /**
+             */
+            type Colormap = number
+            /**
+             */
+            type Cursor = number
+            /**
+             */
+            type Drawable = number
+            /**
+             */
+            type GC = never
+            /**
+             */
+            type KeyCode = number
+            /**
+             */
+            type KeySym = number
+            /**
+             */
+            type Picture = number
+            /**
+             */
+            type Time = number
+            /**
+             */
+            type VisualID = number
+            /**
+             */
+            type Window = number
+            /**
+             */
+            type XID = number
+            /**
+             */
+            type Pixmap = number
+
+            interface $Exports {
+                __name__: "xlib"
+                __version__: "2.0"
+                /**
+                 */
+                open_display(): void
+            }
         }
+
+        const xlib: xlib.$Exports
     }
 
-    const xlib: xlib.$Exports
-    export default xlib
+    export default GI.xlib
 }

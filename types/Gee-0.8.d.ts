@@ -14,3365 +14,477 @@ declare module "gi://Gee?version=0.8" {
     import type GObject from "gi://GObject?version=2.0"
     import type Gio from "gi://Gio?version=2.0"
 
-    
-
-    namespace Gee {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace AbstractBidirList {
-            interface SignalSignatures extends Gee.AbstractList.SignalSignatures, Gee.BidirList.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractList.ReadableProperties, Gee.BidirList.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractList.WritableProperties, Gee.BidirList.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractList.ConstructOnlyProperties, Gee.BidirList.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractBidirList extends Gee.AbstractList, Gee.BidirList {
-            readonly $signals: AbstractBidirList.SignalSignatures
-            readonly $readableProperties: AbstractBidirList.ReadableProperties
-            readonly $writableProperties: AbstractBidirList.WritableProperties
-            readonly $constructOnlyProperties: AbstractBidirList.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             */
-            reserved9(): void
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-            /**
-             */
-            vfunc_reserved9(): void
-        }
-
-        interface AbstractBidirListClass extends Omit<Gee.AbstractListClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractBidirList>
-            readonly prototype: AbstractBidirList
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractBidirList>>): AbstractBidirList
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractBidirList: AbstractBidirListClass
-        }
-        
-
-        namespace AbstractBidirSortedSet {
-            interface SignalSignatures extends Gee.AbstractSortedSet.SignalSignatures, Gee.BidirSortedSet.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractSortedSet.ReadableProperties, Gee.BidirSortedSet.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractSortedSet.WritableProperties, Gee.BidirSortedSet.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractSortedSet.ConstructOnlyProperties, Gee.BidirSortedSet.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractBidirSortedSet extends Gee.AbstractSortedSet, Gee.BidirSortedSet {
-            readonly $signals: AbstractBidirSortedSet.SignalSignatures
-            readonly $readableProperties: AbstractBidirSortedSet.ReadableProperties
-            readonly $writableProperties: AbstractBidirSortedSet.WritableProperties
-            readonly $constructOnlyProperties: AbstractBidirSortedSet.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             */
-            reserved9(): void
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-            /**
-             */
-            vfunc_reserved9(): void
-        }
-
-        interface AbstractBidirSortedSetClass extends Omit<Gee.AbstractSortedSetClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractBidirSortedSet>
-            readonly prototype: AbstractBidirSortedSet
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractBidirSortedSet>>): AbstractBidirSortedSet
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractBidirSortedSet: AbstractBidirSortedSetClass
-        }
-        
-
-        namespace AbstractBidirSortedMap {
-            interface SignalSignatures extends Gee.AbstractSortedMap.SignalSignatures, Gee.BidirSortedMap.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractSortedMap.ReadableProperties, Gee.BidirSortedMap.ReadableProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractSortedMap.WritableProperties, Gee.BidirSortedMap.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractSortedMap.ConstructOnlyProperties, Gee.BidirSortedMap.ConstructOnlyProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractBidirSortedMap extends Gee.AbstractSortedMap, Gee.BidirSortedMap {
-            readonly $signals: AbstractBidirSortedMap.SignalSignatures
-            readonly $readableProperties: AbstractBidirSortedMap.ReadableProperties
-            readonly $writableProperties: AbstractBidirSortedMap.WritableProperties
-            readonly $constructOnlyProperties: AbstractBidirSortedMap.ConstructOnlyProperties
-            /**
-             */
-            get kType(): GObject.GType
-            set kType(value: GObject.GType)
-            /**
-             */
-            get kDupFunc(): GObject.BoxedCopyFunc
-            set kDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get kDestroyFunc(): GLib.DestroyNotify
-            set kDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get vType(): GObject.GType
-            set vType(value: GObject.GType)
-            /**
-             */
-            get vDupFunc(): GObject.BoxedCopyFunc
-            set vDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get vDestroyFunc(): GLib.DestroyNotify
-            set vDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             */
-            reserved9(): void
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-            /**
-             */
-            vfunc_reserved9(): void
-        }
-
-        interface AbstractBidirSortedMapClass extends Omit<Gee.AbstractSortedMapClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractBidirSortedMap>
-            readonly prototype: AbstractBidirSortedMap
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractBidirSortedMap>>): AbstractBidirSortedMap
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractBidirSortedMap: AbstractBidirSortedMapClass
-        }
-        
-
-        namespace AbstractCollection {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.Traversable.SignalSignatures, Gee.Iterable.SignalSignatures, Gee.Collection.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.Traversable.ReadableProperties, Gee.Iterable.ReadableProperties, Gee.Collection.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-                "size": number
-                "read-only": boolean
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, Gee.Traversable.WritableProperties, Gee.Iterable.WritableProperties, Gee.Collection.WritableProperties {
-                "size": number
-                "read-only": boolean
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.Traversable.ConstructOnlyProperties, Gee.Iterable.ConstructOnlyProperties, Gee.Collection.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractCollection extends GObject.Object, Gee.Traversable, Gee.Iterable, Gee.Collection {
-            readonly $signals: AbstractCollection.SignalSignatures
-            readonly $readableProperties: AbstractCollection.ReadableProperties
-            readonly $writableProperties: AbstractCollection.WritableProperties
-            readonly $constructOnlyProperties: AbstractCollection.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get size(): number
-            set size(value: number)
-            /**
-             */
-            get readOnly(): boolean
-            set readOnly(value: boolean)
-            /**
-             * @param item
-             */
-            contains(item: never): boolean
-            /**
-             * @param item
-             */
-            add(item: never): boolean
-            /**
-             * @param item
-             */
-            remove(item: never): boolean
-            /**
-             */
-            clear(): void
-            /**
-             * @param f
-             */
-            foreach(f: Gee.ForallFunc): boolean
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             */
-            reserved9(): void
-            /**
-             */
-            get_size(): number
-            /**
-             */
-            get_read_only(): boolean
-            /**
-             * @param item
-             */
-            vfunc_contains(item: never): boolean
-            /**
-             * @param item
-             */
-            vfunc_add(item: never): boolean
-            /**
-             * @param item
-             */
-            vfunc_remove(item: never): boolean
-            /**
-             */
-            vfunc_clear(): void
-            /**
-             * @param f
-             */
-            vfunc_foreach(f: Gee.ForallFunc): boolean
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-            /**
-             */
-            vfunc_reserved9(): void
-            /**
-             */
-            vfunc_get_size(): number
-            /**
-             */
-            vfunc_get_read_only(): boolean
-        }
-
-        interface AbstractCollectionClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractCollection>
-            readonly prototype: AbstractCollection
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractCollection>>): AbstractCollection
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractCollection: AbstractCollectionClass
-        }
-        
-
-        namespace AbstractList {
-            interface SignalSignatures extends Gee.AbstractCollection.SignalSignatures, Gee.List.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractCollection.ReadableProperties, Gee.List.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractCollection.WritableProperties, Gee.List.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractCollection.ConstructOnlyProperties, Gee.List.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractList extends Gee.AbstractCollection, Gee.List {
-            readonly $signals: AbstractList.SignalSignatures
-            readonly $readableProperties: AbstractList.ReadableProperties
-            readonly $writableProperties: AbstractList.WritableProperties
-            readonly $constructOnlyProperties: AbstractList.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @param index
-             */
-            get(index: number): never
-            /**
-             * @param index
-             * @param item
-             */
-            set(index: number, item: never): void
-            /**
-             * @param item
-             */
-            index_of(item: never): number
-            /**
-             * @param index
-             * @param item
-             */
-            insert(index: number, item: never): void
-            /**
-             * @param index
-             */
-            remove_at(index: number): never
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             */
-            reserved9(): void
-            /**
-             * @param index
-             */
-            vfunc_get(index: number): never
-            /**
-             * @param index
-             * @param item
-             */
-            vfunc_set(index: number, item: never): void
-            /**
-             * @param item
-             */
-            vfunc_index_of(item: never): number
-            /**
-             * @param index
-             * @param item
-             */
-            vfunc_insert(index: number, item: never): void
-            /**
-             * @param index
-             */
-            vfunc_remove_at(index: number): never
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-            /**
-             */
-            vfunc_reserved9(): void
-        }
-
-        interface AbstractListClass extends Omit<Gee.AbstractCollectionClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractList>
-            readonly prototype: AbstractList
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractList>>): AbstractList
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractList: AbstractListClass
-        }
-        
-
-        namespace AbstractMap {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.Traversable.SignalSignatures, Gee.Iterable.SignalSignatures, Gee.Map.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.Traversable.ReadableProperties, Gee.Iterable.ReadableProperties, Gee.Map.ReadableProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-                "size": number
-                "read-only": boolean
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, Gee.Traversable.WritableProperties, Gee.Iterable.WritableProperties, Gee.Map.WritableProperties {
-                "size": number
-                "read-only": boolean
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.Traversable.ConstructOnlyProperties, Gee.Iterable.ConstructOnlyProperties, Gee.Map.ConstructOnlyProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractMap extends GObject.Object, Gee.Traversable, Gee.Iterable, Gee.Map {
-            readonly $signals: AbstractMap.SignalSignatures
-            readonly $readableProperties: AbstractMap.ReadableProperties
-            readonly $writableProperties: AbstractMap.WritableProperties
-            readonly $constructOnlyProperties: AbstractMap.ConstructOnlyProperties
-            /**
-             */
-            get kType(): GObject.GType
-            set kType(value: GObject.GType)
-            /**
-             */
-            get kDupFunc(): GObject.BoxedCopyFunc
-            set kDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get kDestroyFunc(): GLib.DestroyNotify
-            set kDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get vType(): GObject.GType
-            set vType(value: GObject.GType)
-            /**
-             */
-            get vDupFunc(): GObject.BoxedCopyFunc
-            set vDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get vDestroyFunc(): GLib.DestroyNotify
-            set vDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get size(): number
-            set size(value: number)
-            /**
-             */
-            get readOnly(): boolean
-            set readOnly(value: boolean)
-            /**
-             * @param key
-             */
-            has_key(key: never): boolean
-            /**
-             * @param key
-             * @param value
-             */
-            has(key: never, value: never): boolean
-            /**
-             * @param key
-             */
-            get(key: never): never | null
-            /**
-             * @param key
-             * @param value
-             */
-            set(key: never, value: never): void
-            /**
-             * @param key
-             * @returns , 
-             */
-            unset(key: never): [boolean, never]
-            /**
-             */
-            clear(): void
-            /**
-             * @param f
-             */
-            foreach(f: Gee.ForallFunc): boolean
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             */
-            reserved9(): void
-            /**
-             */
-            get_size(): number
-            /**
-             */
-            get_read_only(): boolean
-            /**
-             * @param key
-             */
-            vfunc_has_key(key: never): boolean
-            /**
-             * @param key
-             * @param value
-             */
-            vfunc_has(key: never, value: never): boolean
-            /**
-             * @param key
-             */
-            vfunc_get(key: never): never | null
-            /**
-             * @param key
-             * @param value
-             */
-            vfunc_set(key: never, value: never): void
-            /**
-             * @param key
-             * @returns , 
-             */
-            vfunc_unset(key: never): [boolean, never]
-            /**
-             */
-            vfunc_clear(): void
-            /**
-             * @param f
-             */
-            vfunc_foreach(f: Gee.ForallFunc): boolean
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-            /**
-             */
-            vfunc_reserved9(): void
-            /**
-             */
-            vfunc_get_size(): number
-            /**
-             */
-            vfunc_get_read_only(): boolean
-        }
-
-        interface AbstractMapClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractMap>
-            readonly prototype: AbstractMap
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractMap>>): AbstractMap
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractMap: AbstractMapClass
-        }
-        
-
-        namespace AbstractMultiMap {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.MultiMap.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.MultiMap.ReadableProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, Gee.MultiMap.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.MultiMap.ConstructOnlyProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractMultiMap extends GObject.Object, Gee.MultiMap {
-            readonly $signals: AbstractMultiMap.SignalSignatures
-            readonly $readableProperties: AbstractMultiMap.ReadableProperties
-            readonly $writableProperties: AbstractMultiMap.WritableProperties
-            readonly $constructOnlyProperties: AbstractMultiMap.ConstructOnlyProperties
-            /**
-             */
-            get kType(): GObject.GType
-            set kType(value: GObject.GType)
-            /**
-             */
-            get kDupFunc(): GObject.BoxedCopyFunc
-            set kDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get kDestroyFunc(): GLib.DestroyNotify
-            set kDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get vType(): GObject.GType
-            set vType(value: GObject.GType)
-            /**
-             */
-            get vDupFunc(): GObject.BoxedCopyFunc
-            set vDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get vDestroyFunc(): GLib.DestroyNotify
-            set vDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @returns , , 
-             */
-            get_value_equal_func(): [Gee.EqualDataFunc, never, GLib.DestroyNotify]
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             * @returns , , 
-             */
-            vfunc_get_value_equal_func(): [Gee.EqualDataFunc, never, GLib.DestroyNotify]
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-        }
-
-        interface AbstractMultiMapClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractMultiMap>
-            readonly prototype: AbstractMultiMap
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractMultiMap>>): AbstractMultiMap
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractMultiMap: AbstractMultiMapClass
-        }
-        
-
-        namespace AbstractMultiSet {
-            interface SignalSignatures extends Gee.AbstractCollection.SignalSignatures, Gee.MultiSet.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractCollection.ReadableProperties, Gee.MultiSet.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractCollection.WritableProperties, Gee.MultiSet.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractCollection.ConstructOnlyProperties, Gee.MultiSet.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractMultiSet extends Gee.AbstractCollection, Gee.MultiSet {
-            readonly $signals: AbstractMultiSet.SignalSignatures
-            readonly $readableProperties: AbstractMultiSet.ReadableProperties
-            readonly $writableProperties: AbstractMultiSet.WritableProperties
-            readonly $constructOnlyProperties: AbstractMultiSet.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-        }
-
-        interface AbstractMultiSetClass extends Omit<Gee.AbstractCollectionClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractMultiSet>
-            readonly prototype: AbstractMultiSet
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractMultiSet>>): AbstractMultiSet
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractMultiSet: AbstractMultiSetClass
-        }
-        
-
-        namespace AbstractQueue {
-            interface SignalSignatures extends Gee.AbstractCollection.SignalSignatures, Gee.Queue.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractCollection.ReadableProperties, Gee.Queue.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-                "capacity": number
-                "remaining-capacity": number
-                "is-full": boolean
-            }
-
-            interface WritableProperties extends Gee.AbstractCollection.WritableProperties, Gee.Queue.WritableProperties {
-                "capacity": number
-                "remaining-capacity": number
-                "is-full": boolean
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractCollection.ConstructOnlyProperties, Gee.Queue.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractQueue extends Gee.AbstractCollection, Gee.Queue {
-            readonly $signals: AbstractQueue.SignalSignatures
-            readonly $readableProperties: AbstractQueue.ReadableProperties
-            readonly $writableProperties: AbstractQueue.WritableProperties
-            readonly $constructOnlyProperties: AbstractQueue.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get capacity(): number
-            set capacity(value: number)
-            /**
-             */
-            get remainingCapacity(): number
-            set remainingCapacity(value: number)
-            /**
-             */
-            get isFull(): boolean
-            set isFull(value: boolean)
-            /**
-             */
-            peek(): never | null
-            /**
-             */
-            poll(): never | null
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             */
-            reserved9(): void
-            /**
-             */
-            get_capacity(): number
-            /**
-             */
-            get_remaining_capacity(): number
-            /**
-             */
-            get_is_full(): boolean
-            /**
-             */
-            vfunc_peek(): never | null
-            /**
-             */
-            vfunc_poll(): never | null
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-            /**
-             */
-            vfunc_reserved9(): void
-            /**
-             */
-            vfunc_get_capacity(): number
-            /**
-             */
-            vfunc_get_remaining_capacity(): number
-            /**
-             */
-            vfunc_get_is_full(): boolean
-        }
-
-        interface AbstractQueueClass extends Omit<Gee.AbstractCollectionClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractQueue>
-            readonly prototype: AbstractQueue
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractQueue>>): AbstractQueue
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractQueue: AbstractQueueClass
-        }
-        
-
-        namespace AbstractSet {
-            interface SignalSignatures extends Gee.AbstractCollection.SignalSignatures, Gee.Set.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractCollection.ReadableProperties, Gee.Set.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractCollection.WritableProperties, Gee.Set.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractCollection.ConstructOnlyProperties, Gee.Set.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractSet extends Gee.AbstractCollection, Gee.Set {
-            readonly $signals: AbstractSet.SignalSignatures
-            readonly $readableProperties: AbstractSet.ReadableProperties
-            readonly $writableProperties: AbstractSet.WritableProperties
-            readonly $constructOnlyProperties: AbstractSet.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             */
-            reserved9(): void
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-            /**
-             */
-            vfunc_reserved9(): void
-        }
-
-        interface AbstractSetClass extends Omit<Gee.AbstractCollectionClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractSet>
-            readonly prototype: AbstractSet
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractSet>>): AbstractSet
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractSet: AbstractSetClass
-        }
-        
-
-        namespace AbstractSortedMap {
-            interface SignalSignatures extends Gee.AbstractMap.SignalSignatures, Gee.SortedMap.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractMap.ReadableProperties, Gee.SortedMap.ReadableProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractMap.WritableProperties, Gee.SortedMap.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractMap.ConstructOnlyProperties, Gee.SortedMap.ConstructOnlyProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractSortedMap extends Gee.AbstractMap, Gee.SortedMap {
-            readonly $signals: AbstractSortedMap.SignalSignatures
-            readonly $readableProperties: AbstractSortedMap.ReadableProperties
-            readonly $writableProperties: AbstractSortedMap.WritableProperties
-            readonly $constructOnlyProperties: AbstractSortedMap.ConstructOnlyProperties
-            /**
-             */
-            get kType(): GObject.GType
-            set kType(value: GObject.GType)
-            /**
-             */
-            get kDupFunc(): GObject.BoxedCopyFunc
-            set kDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get kDestroyFunc(): GLib.DestroyNotify
-            set kDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get vType(): GObject.GType
-            set vType(value: GObject.GType)
-            /**
-             */
-            get vDupFunc(): GObject.BoxedCopyFunc
-            set vDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get vDestroyFunc(): GLib.DestroyNotify
-            set vDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             */
-            reserved9(): void
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-            /**
-             */
-            vfunc_reserved9(): void
-        }
-
-        interface AbstractSortedMapClass extends Omit<Gee.AbstractMapClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractSortedMap>
-            readonly prototype: AbstractSortedMap
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractSortedMap>>): AbstractSortedMap
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractSortedMap: AbstractSortedMapClass
-        }
-        
-
-        namespace AbstractSortedSet {
-            interface SignalSignatures extends Gee.AbstractSet.SignalSignatures, Gee.SortedSet.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractSet.ReadableProperties, Gee.SortedSet.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractSet.WritableProperties, Gee.SortedSet.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractSet.ConstructOnlyProperties, Gee.SortedSet.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface AbstractSortedSet extends Gee.AbstractSet, Gee.SortedSet {
-            readonly $signals: AbstractSortedSet.SignalSignatures
-            readonly $readableProperties: AbstractSortedSet.ReadableProperties
-            readonly $writableProperties: AbstractSortedSet.WritableProperties
-            readonly $constructOnlyProperties: AbstractSortedSet.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            first(): never
-            /**
-             */
-            last(): never
-            /**
-             * @param element
-             */
-            lower(element: never): never | null
-            /**
-             * @param element
-             */
-            higher(element: never): never | null
-            /**
-             * @param element
-             */
-            floor(element: never): never | null
-            /**
-             * @param element
-             */
-            ceil(element: never): never | null
-            /**
-             */
-            reserved0(): void
-            /**
-             */
-            reserved1(): void
-            /**
-             */
-            reserved2(): void
-            /**
-             */
-            reserved3(): void
-            /**
-             */
-            reserved4(): void
-            /**
-             */
-            reserved5(): void
-            /**
-             */
-            reserved6(): void
-            /**
-             */
-            reserved7(): void
-            /**
-             */
-            reserved8(): void
-            /**
-             */
-            reserved9(): void
-            /**
-             */
-            vfunc_first(): never
-            /**
-             */
-            vfunc_last(): never
-            /**
-             * @param element
-             */
-            vfunc_lower(element: never): never | null
-            /**
-             * @param element
-             */
-            vfunc_higher(element: never): never | null
-            /**
-             * @param element
-             */
-            vfunc_floor(element: never): never | null
-            /**
-             * @param element
-             */
-            vfunc_ceil(element: never): never | null
-            /**
-             */
-            vfunc_reserved0(): void
-            /**
-             */
-            vfunc_reserved1(): void
-            /**
-             */
-            vfunc_reserved2(): void
-            /**
-             */
-            vfunc_reserved3(): void
-            /**
-             */
-            vfunc_reserved4(): void
-            /**
-             */
-            vfunc_reserved5(): void
-            /**
-             */
-            vfunc_reserved6(): void
-            /**
-             */
-            vfunc_reserved7(): void
-            /**
-             */
-            vfunc_reserved8(): void
-            /**
-             */
-            vfunc_reserved9(): void
-        }
-
-        interface AbstractSortedSetClass extends Omit<Gee.AbstractSetClass, "new"> {
-            readonly $gtype: GObject.GType<AbstractSortedSet>
-            readonly prototype: AbstractSortedSet
-
-            new (props?: Partial<GObject.ConstructorProps<AbstractSortedSet>>): AbstractSortedSet
-        }
-
-        interface $Exports {
-            /**
-             */
-            AbstractSortedSet: AbstractSortedSetClass
-        }
-        
-
-        namespace ArrayList {
-            interface SignalSignatures extends Gee.AbstractBidirList.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractBidirList.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractBidirList.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractBidirList.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface ArrayList extends Gee.AbstractBidirList {
-            readonly $signals: ArrayList.SignalSignatures
-            readonly $readableProperties: ArrayList.ReadableProperties
-            readonly $writableProperties: ArrayList.WritableProperties
-            readonly $constructOnlyProperties: ArrayList.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @returns , 
-             */
-            get_equal_func(): [Gee.EqualDataFunc, never]
-        }
-
-        interface ArrayListClass extends Omit<Gee.AbstractBidirListClass, "new"> {
-            readonly $gtype: GObject.GType<ArrayList>
-            readonly prototype: ArrayList
-
-            new (props?: Partial<GObject.ConstructorProps<ArrayList>>): ArrayList
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param equal_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): ArrayList
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param items
-             * @param equal_func
-             */
-            wrap(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, items: never[], equal_func: Gee.EqualDataFunc | null): ArrayList
-        }
-
-        interface $Exports {
-            /**
-             */
-            ArrayList: ArrayListClass
-        }
-        
-
-        namespace ArrayQueue {
-            interface SignalSignatures extends Gee.AbstractQueue.SignalSignatures, Gee.Deque.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractQueue.ReadableProperties, Gee.Deque.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-                "is-empty": boolean
-            }
-
-            interface WritableProperties extends Gee.AbstractQueue.WritableProperties, Gee.Deque.WritableProperties {
-                "is-empty": boolean
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractQueue.ConstructOnlyProperties, Gee.Deque.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface ArrayQueue extends Gee.AbstractQueue, Gee.Deque {
-            readonly $signals: ArrayQueue.SignalSignatures
-            readonly $readableProperties: ArrayQueue.ReadableProperties
-            readonly $writableProperties: ArrayQueue.WritableProperties
-            readonly $constructOnlyProperties: ArrayQueue.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get isEmpty(): boolean
-            set isEmpty(value: boolean)
-            /**
-             * @returns , 
-             */
-            get_equal_func(): [Gee.EqualDataFunc, never]
-            /**
-             */
-            get_is_empty(): boolean
-        }
-
-        interface ArrayQueueClass extends Omit<Gee.AbstractQueueClass, "new"> {
-            readonly $gtype: GObject.GType<ArrayQueue>
-            readonly prototype: ArrayQueue
-
-            new (props?: Partial<GObject.ConstructorProps<ArrayQueue>>): ArrayQueue
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param equal_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): ArrayQueue
-        }
-
-        interface $Exports {
-            /**
-             */
-            ArrayQueue: ArrayQueueClass
-        }
-        
-
-        namespace ConcurrentList {
-            interface SignalSignatures extends Gee.AbstractList.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractList.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-                "is-empty": boolean
-            }
-
-            interface WritableProperties extends Gee.AbstractList.WritableProperties {
-                "is-empty": boolean
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractList.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface ConcurrentList extends Gee.AbstractList {
-            readonly $signals: ConcurrentList.SignalSignatures
-            readonly $readableProperties: ConcurrentList.ReadableProperties
-            readonly $writableProperties: ConcurrentList.WritableProperties
-            readonly $constructOnlyProperties: ConcurrentList.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get isEmpty(): boolean
-            set isEmpty(value: boolean)
-            /**
-             * @returns , 
-             */
-            get_equal_func(): [Gee.EqualDataFunc, never]
-            /**
-             */
-            get_is_empty(): boolean
-        }
-
-        interface ConcurrentListClass extends Omit<Gee.AbstractListClass, "new"> {
-            readonly $gtype: GObject.GType<ConcurrentList>
-            readonly prototype: ConcurrentList
-
-            new (props?: Partial<GObject.ConstructorProps<ConcurrentList>>): ConcurrentList
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param equal_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): ConcurrentList
-        }
-
-        interface $Exports {
-            /**
-             */
-            ConcurrentList: ConcurrentListClass
-        }
-        
-
-        namespace ConcurrentSet {
-            interface SignalSignatures extends Gee.AbstractSortedSet.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractSortedSet.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractSortedSet.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractSortedSet.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface ConcurrentSet extends Gee.AbstractSortedSet {
-            readonly $signals: ConcurrentSet.SignalSignatures
-            readonly $readableProperties: ConcurrentSet.ReadableProperties
-            readonly $writableProperties: ConcurrentSet.WritableProperties
-            readonly $constructOnlyProperties: ConcurrentSet.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-        }
-
-        interface ConcurrentSetClass extends Omit<Gee.AbstractSortedSetClass, "new"> {
-            readonly $gtype: GObject.GType<ConcurrentSet>
-            readonly prototype: ConcurrentSet
-
-            new (props?: Partial<GObject.ConstructorProps<ConcurrentSet>>): ConcurrentSet
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param compare_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): ConcurrentSet
-        }
-
-        interface $Exports {
-            /**
-             */
-            ConcurrentSet: ConcurrentSetClass
-        }
-        
-
-        namespace HashMap {
-            interface SignalSignatures extends Gee.AbstractMap.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractMap.ReadableProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractMap.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractMap.ConstructOnlyProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface HashMap extends Gee.AbstractMap {
-            readonly $signals: HashMap.SignalSignatures
-            readonly $readableProperties: HashMap.ReadableProperties
-            readonly $writableProperties: HashMap.WritableProperties
-            readonly $constructOnlyProperties: HashMap.ConstructOnlyProperties
-            /**
-             */
-            get kType(): GObject.GType
-            set kType(value: GObject.GType)
-            /**
-             */
-            get kDupFunc(): GObject.BoxedCopyFunc
-            set kDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get kDestroyFunc(): GLib.DestroyNotify
-            set kDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get vType(): GObject.GType
-            set vType(value: GObject.GType)
-            /**
-             */
-            get vDupFunc(): GObject.BoxedCopyFunc
-            set vDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get vDestroyFunc(): GLib.DestroyNotify
-            set vDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @returns , 
-             */
-            get_key_hash_func(): [Gee.HashDataFunc, never]
-            /**
-             * @returns , 
-             */
-            get_key_equal_func(): [Gee.EqualDataFunc, never]
-            /**
-             * @returns , 
-             */
-            get_value_equal_func(): [Gee.EqualDataFunc, never]
-        }
-
-        interface HashMapClass extends Omit<Gee.AbstractMapClass, "new"> {
-            readonly $gtype: GObject.GType<HashMap>
-            readonly prototype: HashMap
-
-            new (props?: Partial<GObject.ConstructorProps<HashMap>>): HashMap
-            /**
-             * @param k_type
-             * @param k_dup_func
-             * @param k_destroy_func
-             * @param v_type
-             * @param v_dup_func
-             * @param v_destroy_func
-             * @param key_hash_func
-             * @param key_equal_func
-             * @param value_equal_func
-             */
-            "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_hash_func: Gee.HashDataFunc | null, key_equal_func: Gee.EqualDataFunc | null, value_equal_func: Gee.EqualDataFunc | null): HashMap
-        }
-
-        interface $Exports {
-            /**
-             */
-            HashMap: HashMapClass
-        }
-        
-
-        namespace HashMultiMap {
-            interface SignalSignatures extends Gee.AbstractMultiMap.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractMultiMap.ReadableProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractMultiMap.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractMultiMap.ConstructOnlyProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface HashMultiMap extends Gee.AbstractMultiMap {
-            readonly $signals: HashMultiMap.SignalSignatures
-            readonly $readableProperties: HashMultiMap.ReadableProperties
-            readonly $writableProperties: HashMultiMap.WritableProperties
-            readonly $constructOnlyProperties: HashMultiMap.ConstructOnlyProperties
-            /**
-             */
-            get kType(): GObject.GType
-            set kType(value: GObject.GType)
-            /**
-             */
-            get kDupFunc(): GObject.BoxedCopyFunc
-            set kDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get kDestroyFunc(): GLib.DestroyNotify
-            set kDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get vType(): GObject.GType
-            set vType(value: GObject.GType)
-            /**
-             */
-            get vDupFunc(): GObject.BoxedCopyFunc
-            set vDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get vDestroyFunc(): GLib.DestroyNotify
-            set vDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @returns , 
-             */
-            get_key_hash_func(): [Gee.HashDataFunc, never]
-            /**
-             * @returns , 
-             */
-            get_key_equal_func(): [Gee.EqualDataFunc, never]
-            /**
-             * @returns , 
-             */
-            get_value_hash_func(): [Gee.HashDataFunc, never]
-            /**
-             * @returns , 
-             */
-            get_value_equal_func(): [Gee.EqualDataFunc, never]
-        }
-
-        interface HashMultiMapClass extends Omit<Gee.AbstractMultiMapClass, "new"> {
-            readonly $gtype: GObject.GType<HashMultiMap>
-            readonly prototype: HashMultiMap
-
-            new (props?: Partial<GObject.ConstructorProps<HashMultiMap>>): HashMultiMap
-            /**
-             * @param k_type
-             * @param k_dup_func
-             * @param k_destroy_func
-             * @param v_type
-             * @param v_dup_func
-             * @param v_destroy_func
-             * @param key_hash_func
-             * @param key_equal_func
-             * @param value_hash_func
-             * @param value_equal_func
-             */
-            "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_hash_func: Gee.HashDataFunc | null, key_equal_func: Gee.EqualDataFunc | null, value_hash_func: Gee.HashDataFunc | null, value_equal_func: Gee.EqualDataFunc | null): HashMultiMap
-        }
-
-        interface $Exports {
-            /**
-             */
-            HashMultiMap: HashMultiMapClass
-        }
-        
-
-        namespace HashMultiSet {
-            interface SignalSignatures extends Gee.AbstractMultiSet.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractMultiSet.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractMultiSet.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractMultiSet.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface HashMultiSet extends Gee.AbstractMultiSet {
-            readonly $signals: HashMultiSet.SignalSignatures
-            readonly $readableProperties: HashMultiSet.ReadableProperties
-            readonly $writableProperties: HashMultiSet.WritableProperties
-            readonly $constructOnlyProperties: HashMultiSet.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @returns , 
-             */
-            get_hash_func(): [Gee.HashDataFunc, never]
-            /**
-             * @returns , 
-             */
-            get_equal_func(): [Gee.EqualDataFunc, never]
-        }
-
-        interface HashMultiSetClass extends Omit<Gee.AbstractMultiSetClass, "new"> {
-            readonly $gtype: GObject.GType<HashMultiSet>
-            readonly prototype: HashMultiSet
-
-            new (props?: Partial<GObject.ConstructorProps<HashMultiSet>>): HashMultiSet
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param hash_func
-             * @param equal_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, hash_func: Gee.HashDataFunc | null, equal_func: Gee.EqualDataFunc | null): HashMultiSet
-            /**
-             * @deprecated since 0.13.3
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param hash_func
-             * @param equal_func
-             */
-            broken(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, hash_func: Gee.HashDataFunc | null, equal_func: Gee.EqualDataFunc | null): HashMultiSet
-        }
-
-        interface $Exports {
-            /**
-             */
-            HashMultiSet: HashMultiSetClass
-        }
-        
-
-        namespace HashSet {
-            interface SignalSignatures extends Gee.AbstractSet.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractSet.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractSet.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractSet.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface HashSet extends Gee.AbstractSet {
-            readonly $signals: HashSet.SignalSignatures
-            readonly $readableProperties: HashSet.ReadableProperties
-            readonly $writableProperties: HashSet.WritableProperties
-            readonly $constructOnlyProperties: HashSet.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @returns , 
-             */
-            get_hash_func(): [Gee.HashDataFunc, never]
-            /**
-             * @returns , 
-             */
-            get_equal_func(): [Gee.EqualDataFunc, never]
-        }
-
-        interface HashSetClass extends Omit<Gee.AbstractSetClass, "new"> {
-            readonly $gtype: GObject.GType<HashSet>
-            readonly prototype: HashSet
-
-            new (props?: Partial<GObject.ConstructorProps<HashSet>>): HashSet
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param hash_func
-             * @param equal_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, hash_func: Gee.HashDataFunc | null, equal_func: Gee.EqualDataFunc | null): HashSet
-        }
-
-        interface $Exports {
-            /**
-             */
-            HashSet: HashSetClass
-        }
-        
-
-        namespace Lazy {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-        }
-
-        interface Lazy  {
-            readonly $signals: Lazy.SignalSignatures
-            readonly $readableProperties: Lazy.ReadableProperties
-            readonly $writableProperties: Lazy.WritableProperties
-            readonly $constructOnlyProperties: Lazy.ConstructOnlyProperties
-            /**
-             */
-            eval(): void
-            /**
-             */
-            get(): never
-            /**
-             */
-            get_value(): never
-        }
-
-        interface LazyClass {
-            readonly $gtype: GObject.GType<Lazy>
-            readonly prototype: Lazy
-
-            new (props?: Partial<GObject.ConstructorProps<Lazy>>): Lazy
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, func: Gee.LazyFunc): Lazy
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param item
-             */
-            from_value(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, item: never): Lazy
-        }
-
-        interface $Exports {
-            /**
-             */
-            Lazy: LazyClass
-        }
-        
-
-        namespace LinkedList {
-            interface SignalSignatures extends Gee.AbstractBidirList.SignalSignatures, Gee.Queue.SignalSignatures, Gee.Deque.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractBidirList.ReadableProperties, Gee.Queue.ReadableProperties, Gee.Deque.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractBidirList.WritableProperties, Gee.Queue.WritableProperties, Gee.Deque.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractBidirList.ConstructOnlyProperties, Gee.Queue.ConstructOnlyProperties, Gee.Deque.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface LinkedList extends Gee.AbstractBidirList, Gee.Queue, Gee.Deque {
-            readonly $signals: LinkedList.SignalSignatures
-            readonly $readableProperties: LinkedList.ReadableProperties
-            readonly $writableProperties: LinkedList.WritableProperties
-            readonly $constructOnlyProperties: LinkedList.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            first(): never
-            /**
-             */
-            last(): never
-            /**
-             * @returns , 
-             */
-            get_equal_func(): [Gee.EqualDataFunc, never]
-        }
-
-        interface LinkedListClass extends Omit<Gee.AbstractBidirListClass, "new"> {
-            readonly $gtype: GObject.GType<LinkedList>
-            readonly prototype: LinkedList
-
-            new (props?: Partial<GObject.ConstructorProps<LinkedList>>): LinkedList
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param equal_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): LinkedList
-        }
-
-        interface $Exports {
-            /**
-             */
-            LinkedList: LinkedListClass
-        }
-        
-
-        namespace PriorityQueue {
-            interface SignalSignatures extends Gee.AbstractQueue.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractQueue.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractQueue.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractQueue.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface PriorityQueue extends Gee.AbstractQueue {
-            readonly $signals: PriorityQueue.SignalSignatures
-            readonly $readableProperties: PriorityQueue.ReadableProperties
-            readonly $writableProperties: PriorityQueue.WritableProperties
-            readonly $constructOnlyProperties: PriorityQueue.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @param element
-             */
-            offer(element: never): boolean
-            /**
-             * @returns , 
-             */
-            get_compare_func(): [GLib.CompareDataFunc, never]
-        }
-
-        interface PriorityQueueClass extends Omit<Gee.AbstractQueueClass, "new"> {
-            readonly $gtype: GObject.GType<PriorityQueue>
-            readonly prototype: PriorityQueue
-
-            new (props?: Partial<GObject.ConstructorProps<PriorityQueue>>): PriorityQueue
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param compare_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): PriorityQueue
-        }
-
-        interface $Exports {
-            /**
-             */
-            PriorityQueue: PriorityQueueClass
-        }
-        
-
-        namespace Promise {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-        }
-
-        interface Promise  {
-            readonly $signals: Promise.SignalSignatures
-            readonly $readableProperties: Promise.ReadableProperties
-            readonly $writableProperties: Promise.WritableProperties
-            readonly $constructOnlyProperties: Promise.ConstructOnlyProperties
-            /**
-             * @param value
-             */
-            set_value(value: never): void
-            /**
-             * @param exception
-             */
-            set_exception(exception: GLib.Error): void
-        }
-
-        interface PromiseClass {
-            readonly $gtype: GObject.GType<Promise>
-            readonly prototype: Promise
-
-            new (props?: Partial<GObject.ConstructorProps<Promise>>): Promise
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify): Promise
-        }
-
-        interface $Exports {
-            /**
-             */
-            Promise: PromiseClass
-        }
-        
-
-        namespace TreeMap {
-            interface SignalSignatures extends Gee.AbstractBidirSortedMap.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractBidirSortedMap.ReadableProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractBidirSortedMap.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractBidirSortedMap.ConstructOnlyProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface TreeMap extends Gee.AbstractBidirSortedMap {
-            readonly $signals: TreeMap.SignalSignatures
-            readonly $readableProperties: TreeMap.ReadableProperties
-            readonly $writableProperties: TreeMap.WritableProperties
-            readonly $constructOnlyProperties: TreeMap.ConstructOnlyProperties
-            /**
-             */
-            get kType(): GObject.GType
-            set kType(value: GObject.GType)
-            /**
-             */
-            get kDupFunc(): GObject.BoxedCopyFunc
-            set kDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get kDestroyFunc(): GLib.DestroyNotify
-            set kDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get vType(): GObject.GType
-            set vType(value: GObject.GType)
-            /**
-             */
-            get vDupFunc(): GObject.BoxedCopyFunc
-            set vDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get vDestroyFunc(): GLib.DestroyNotify
-            set vDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @returns , 
-             */
-            get_key_compare_func(): [GLib.CompareDataFunc, never]
-            /**
-             * @returns , 
-             */
-            get_value_equal_func(): [Gee.EqualDataFunc, never]
-        }
-
-        interface TreeMapClass extends Omit<Gee.AbstractBidirSortedMapClass, "new"> {
-            readonly $gtype: GObject.GType<TreeMap>
-            readonly prototype: TreeMap
-
-            new (props?: Partial<GObject.ConstructorProps<TreeMap>>): TreeMap
-            /**
-             * @param k_type
-             * @param k_dup_func
-             * @param k_destroy_func
-             * @param v_type
-             * @param v_dup_func
-             * @param v_destroy_func
-             * @param key_compare_func
-             * @param value_equal_func
-             */
-            "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_compare_func: GLib.CompareDataFunc | null, value_equal_func: Gee.EqualDataFunc | null): TreeMap
-        }
-
-        interface $Exports {
-            /**
-             */
-            TreeMap: TreeMapClass
-        }
-        
-
-        namespace TreeMultiMap {
-            interface SignalSignatures extends Gee.AbstractMultiMap.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractMultiMap.ReadableProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractMultiMap.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractMultiMap.ConstructOnlyProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface TreeMultiMap extends Gee.AbstractMultiMap {
-            readonly $signals: TreeMultiMap.SignalSignatures
-            readonly $readableProperties: TreeMultiMap.ReadableProperties
-            readonly $writableProperties: TreeMultiMap.WritableProperties
-            readonly $constructOnlyProperties: TreeMultiMap.ConstructOnlyProperties
-            /**
-             */
-            get kType(): GObject.GType
-            set kType(value: GObject.GType)
-            /**
-             */
-            get kDupFunc(): GObject.BoxedCopyFunc
-            set kDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get kDestroyFunc(): GLib.DestroyNotify
-            set kDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get vType(): GObject.GType
-            set vType(value: GObject.GType)
-            /**
-             */
-            get vDupFunc(): GObject.BoxedCopyFunc
-            set vDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get vDestroyFunc(): GLib.DestroyNotify
-            set vDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @returns , 
-             */
-            get_key_compare_func(): [GLib.CompareDataFunc, never]
-            /**
-             * @returns , 
-             */
-            get_value_compare_func(): [GLib.CompareDataFunc, never]
-        }
-
-        interface TreeMultiMapClass extends Omit<Gee.AbstractMultiMapClass, "new"> {
-            readonly $gtype: GObject.GType<TreeMultiMap>
-            readonly prototype: TreeMultiMap
-
-            new (props?: Partial<GObject.ConstructorProps<TreeMultiMap>>): TreeMultiMap
-            /**
-             * @param k_type
-             * @param k_dup_func
-             * @param k_destroy_func
-             * @param v_type
-             * @param v_dup_func
-             * @param v_destroy_func
-             * @param key_compare_func
-             * @param value_compare_func
-             */
-            "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_compare_func: GLib.CompareDataFunc | null, value_compare_func: GLib.CompareDataFunc | null): TreeMultiMap
-        }
-
-        interface $Exports {
-            /**
-             */
-            TreeMultiMap: TreeMultiMapClass
-        }
-        
-
-        namespace TreeMultiSet {
-            interface SignalSignatures extends Gee.AbstractMultiSet.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractMultiSet.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractMultiSet.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractMultiSet.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface TreeMultiSet extends Gee.AbstractMultiSet {
-            readonly $signals: TreeMultiSet.SignalSignatures
-            readonly $readableProperties: TreeMultiSet.ReadableProperties
-            readonly $writableProperties: TreeMultiSet.WritableProperties
-            readonly $constructOnlyProperties: TreeMultiSet.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @returns , 
-             */
-            get_compare_func(): [GLib.CompareDataFunc, never]
-        }
-
-        interface TreeMultiSetClass extends Omit<Gee.AbstractMultiSetClass, "new"> {
-            readonly $gtype: GObject.GType<TreeMultiSet>
-            readonly prototype: TreeMultiSet
-
-            new (props?: Partial<GObject.ConstructorProps<TreeMultiSet>>): TreeMultiSet
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param compare_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): TreeMultiSet
-        }
-
-        interface $Exports {
-            /**
-             */
-            TreeMultiSet: TreeMultiSetClass
-        }
-        
-
-        namespace TreeSet {
-            interface SignalSignatures extends Gee.AbstractBidirSortedSet.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractBidirSortedSet.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractBidirSortedSet.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractBidirSortedSet.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface TreeSet extends Gee.AbstractBidirSortedSet {
-            readonly $signals: TreeSet.SignalSignatures
-            readonly $readableProperties: TreeSet.ReadableProperties
-            readonly $writableProperties: TreeSet.WritableProperties
-            readonly $constructOnlyProperties: TreeSet.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @returns , 
-             */
-            get_compare_func(): [GLib.CompareDataFunc, never]
-        }
-
-        interface TreeSetClass extends Omit<Gee.AbstractBidirSortedSetClass, "new"> {
-            readonly $gtype: GObject.GType<TreeSet>
-            readonly prototype: TreeSet
-
-            new (props?: Partial<GObject.ConstructorProps<TreeSet>>): TreeSet
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param compare_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): TreeSet
-        }
-
-        interface $Exports {
-            /**
-             */
-            TreeSet: TreeSetClass
-        }
-        
-
-        namespace UnrolledLinkedList {
-            interface SignalSignatures extends Gee.AbstractBidirList.SignalSignatures, Gee.Queue.SignalSignatures, Gee.Deque.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.AbstractBidirList.ReadableProperties, Gee.Queue.ReadableProperties, Gee.Deque.ReadableProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-
-            interface WritableProperties extends Gee.AbstractBidirList.WritableProperties, Gee.Queue.WritableProperties, Gee.Deque.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.AbstractBidirList.ConstructOnlyProperties, Gee.Queue.ConstructOnlyProperties, Gee.Deque.ConstructOnlyProperties {
-                "g-type": GObject.GType
-                "g-dup-func": GObject.BoxedCopyFunc
-                "g-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface UnrolledLinkedList extends Gee.AbstractBidirList, Gee.Queue, Gee.Deque {
-            readonly $signals: UnrolledLinkedList.SignalSignatures
-            readonly $readableProperties: UnrolledLinkedList.ReadableProperties
-            readonly $writableProperties: UnrolledLinkedList.WritableProperties
-            readonly $constructOnlyProperties: UnrolledLinkedList.ConstructOnlyProperties
-            /**
-             */
-            get gType(): GObject.GType
-            set gType(value: GObject.GType)
-            /**
-             */
-            get gDupFunc(): GObject.BoxedCopyFunc
-            set gDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get gDestroyFunc(): GLib.DestroyNotify
-            set gDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             * @returns , 
-             */
-            get_equal_func(): [Gee.EqualDataFunc, never]
-        }
-
-        interface UnrolledLinkedListClass extends Omit<Gee.AbstractBidirListClass, "new"> {
-            readonly $gtype: GObject.GType<UnrolledLinkedList>
-            readonly prototype: UnrolledLinkedList
-
-            new (props?: Partial<GObject.ConstructorProps<UnrolledLinkedList>>): UnrolledLinkedList
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param equal_func
-             */
-            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): UnrolledLinkedList
-        }
-
-        interface $Exports {
-            /**
-             */
-            UnrolledLinkedList: UnrolledLinkedListClass
-        }
-        
-
-        namespace MapEntry {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-                "key": never
-                "value": never
-                "read-only": boolean
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "key": never
-                "value": never
-                "read-only": boolean
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-                "k-type": GObject.GType
-                "k-dup-func": GObject.BoxedCopyFunc
-                "k-destroy-func": GLib.DestroyNotify
-                "v-type": GObject.GType
-                "v-dup-func": GObject.BoxedCopyFunc
-                "v-destroy-func": GLib.DestroyNotify
-            }
-        }
-
-        interface MapEntry extends GObject.Object {
-            readonly $signals: MapEntry.SignalSignatures
-            readonly $readableProperties: MapEntry.ReadableProperties
-            readonly $writableProperties: MapEntry.WritableProperties
-            readonly $constructOnlyProperties: MapEntry.ConstructOnlyProperties
-            /**
-             */
-            get kType(): GObject.GType
-            set kType(value: GObject.GType)
-            /**
-             */
-            get kDupFunc(): GObject.BoxedCopyFunc
-            set kDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get kDestroyFunc(): GLib.DestroyNotify
-            set kDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get vType(): GObject.GType
-            set vType(value: GObject.GType)
-            /**
-             */
-            get vDupFunc(): GObject.BoxedCopyFunc
-            set vDupFunc(value: GObject.BoxedCopyFunc)
-            /**
-             */
-            get vDestroyFunc(): GLib.DestroyNotify
-            set vDestroyFunc(value: GLib.DestroyNotify)
-            /**
-             */
-            get key(): never
-            set key(value: never)
-            /**
-             */
-            get value(): never
-            set value(value: never)
-            /**
-             */
-            get readOnly(): boolean
-            set readOnly(value: boolean)
-            /**
-             */
-            get_key(): never
-            /**
-             */
-            get_value(): never
-            /**
-             * @param value
-             */
-            set_value(value: never): void
-            /**
-             */
-            get_read_only(): boolean
-            /**
-             */
-            vfunc_get_key(): never
-            /**
-             */
-            vfunc_get_value(): never
-            /**
-             * @param value
-             */
-            vfunc_set_value(value: never): void
-            /**
-             */
-            vfunc_get_read_only(): boolean
-        }
-
-        interface MapEntryClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<MapEntry>
-            readonly prototype: MapEntry
-
-            new (props?: Partial<GObject.ConstructorProps<MapEntry>>): MapEntry
-        }
-
-        interface $Exports {
-            /**
-             */
-            MapEntry: MapEntryClass
-        }
-        
-
-        namespace BidirIterator {
-            interface SignalSignatures extends Gee.Iterator.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.Iterator.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gee.Iterator.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.Iterator.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.Iterator {
+        namespace Gee {
+            
+
+            namespace AbstractBidirList {
+                interface SignalSignatures extends Gee.AbstractList.SignalSignatures, Gee.BidirList.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractList.ReadableProperties, Gee.BidirList.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractList.WritableProperties, Gee.BidirList.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractList.ConstructOnlyProperties, Gee.BidirList.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface AbstractBidirList extends Gee.AbstractList, Gee.BidirList {
+                readonly $signals: AbstractBidirList.SignalSignatures
+                readonly $readableProperties: AbstractBidirList.ReadableProperties
+                readonly $writableProperties: AbstractBidirList.WritableProperties
+                readonly $constructOnlyProperties: AbstractBidirList.ConstructOnlyProperties
                 /**
                  */
-                vfunc_previous(): boolean
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
                 /**
                  */
-                vfunc_has_previous(): boolean
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
                 /**
                  */
-                vfunc_first(): boolean
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
                 /**
                  */
-                vfunc_last(): boolean
-            }
-        }
-
-        interface BidirIterator extends Gee.Iterator, BidirIterator.Interface {
-            readonly $signals: BidirIterator.SignalSignatures
-            readonly $readableProperties: BidirIterator.ReadableProperties
-            readonly $writableProperties: BidirIterator.WritableProperties
-            readonly $constructOnlyProperties: BidirIterator.ConstructOnlyProperties
-            /**
-             */
-            previous(): boolean
-            /**
-             */
-            has_previous(): boolean
-            /**
-             */
-            first(): boolean
-            /**
-             */
-            last(): boolean
-        }
-
-        interface BidirIteratorIface {
-            readonly $gtype: GObject.GType<BidirIterator>
-            readonly prototype: BidirIterator
-            [Symbol.hasInstance](instance: unknown): instance is BidirIterator
-        }
-
-        interface $Exports {
-            /**
-             */
-            BidirIterator: BidirIteratorIface
-        }
-        
-
-        namespace BidirList {
-            interface SignalSignatures extends Gee.List.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.List.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gee.List.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.List.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.List {
-            }
-        }
-
-        interface BidirList extends Gee.List, BidirList.Interface {
-            readonly $signals: BidirList.SignalSignatures
-            readonly $readableProperties: BidirList.ReadableProperties
-            readonly $writableProperties: BidirList.WritableProperties
-            readonly $constructOnlyProperties: BidirList.ConstructOnlyProperties
-        }
-
-        interface BidirListIface {
-            readonly $gtype: GObject.GType<BidirList>
-            readonly prototype: BidirList
-            [Symbol.hasInstance](instance: unknown): instance is BidirList
-        }
-
-        interface $Exports {
-            /**
-             */
-            BidirList: BidirListIface
-        }
-        
-
-        namespace BidirListIterator {
-            interface SignalSignatures extends Gee.BidirIterator.SignalSignatures, Gee.ListIterator.SignalSignatures {
+                reserved0(): void
+                /**
+                 */
+                reserved1(): void
+                /**
+                 */
+                reserved2(): void
+                /**
+                 */
+                reserved3(): void
+                /**
+                 */
+                reserved4(): void
+                /**
+                 */
+                reserved5(): void
+                /**
+                 */
+                reserved6(): void
+                /**
+                 */
+                reserved7(): void
+                /**
+                 */
+                reserved8(): void
+                /**
+                 */
+                reserved9(): void
+                /**
+                 */
+                vfunc_reserved0(): void
+                /**
+                 */
+                vfunc_reserved1(): void
+                /**
+                 */
+                vfunc_reserved2(): void
+                /**
+                 */
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+                /**
+                 */
+                vfunc_reserved9(): void
             }
 
-            interface ReadableProperties extends Gee.BidirIterator.ReadableProperties, Gee.ListIterator.ReadableProperties {
+            interface AbstractBidirListClass extends Omit<Gee.AbstractListClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractBidirList>
+                readonly prototype: AbstractBidirList
+
+                new (props?: Partial<GObject.ConstructorProps<AbstractBidirList>>): AbstractBidirList
             }
 
-            interface WritableProperties extends Gee.BidirIterator.WritableProperties, Gee.ListIterator.WritableProperties {
+            interface $Exports {
+                /**
+                 */
+                AbstractBidirList: AbstractBidirListClass
+            }
+            
+
+            namespace AbstractBidirSortedSet {
+                interface SignalSignatures extends Gee.AbstractSortedSet.SignalSignatures, Gee.BidirSortedSet.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractSortedSet.ReadableProperties, Gee.BidirSortedSet.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractSortedSet.WritableProperties, Gee.BidirSortedSet.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractSortedSet.ConstructOnlyProperties, Gee.BidirSortedSet.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
             }
 
-            interface ConstructOnlyProperties extends Gee.BidirIterator.ConstructOnlyProperties, Gee.ListIterator.ConstructOnlyProperties {
+            interface AbstractBidirSortedSet extends Gee.AbstractSortedSet, Gee.BidirSortedSet {
+                readonly $signals: AbstractBidirSortedSet.SignalSignatures
+                readonly $readableProperties: AbstractBidirSortedSet.ReadableProperties
+                readonly $writableProperties: AbstractBidirSortedSet.WritableProperties
+                readonly $constructOnlyProperties: AbstractBidirSortedSet.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                reserved0(): void
+                /**
+                 */
+                reserved1(): void
+                /**
+                 */
+                reserved2(): void
+                /**
+                 */
+                reserved3(): void
+                /**
+                 */
+                reserved4(): void
+                /**
+                 */
+                reserved5(): void
+                /**
+                 */
+                reserved6(): void
+                /**
+                 */
+                reserved7(): void
+                /**
+                 */
+                reserved8(): void
+                /**
+                 */
+                reserved9(): void
+                /**
+                 */
+                vfunc_reserved0(): void
+                /**
+                 */
+                vfunc_reserved1(): void
+                /**
+                 */
+                vfunc_reserved2(): void
+                /**
+                 */
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+                /**
+                 */
+                vfunc_reserved9(): void
             }
 
-            interface Interface extends Gee.BidirIterator, Gee.ListIterator {
+            interface AbstractBidirSortedSetClass extends Omit<Gee.AbstractSortedSetClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractBidirSortedSet>
+                readonly prototype: AbstractBidirSortedSet
+
+                new (props?: Partial<GObject.ConstructorProps<AbstractBidirSortedSet>>): AbstractBidirSortedSet
+            }
+
+            interface $Exports {
+                /**
+                 */
+                AbstractBidirSortedSet: AbstractBidirSortedSetClass
+            }
+            
+
+            namespace AbstractBidirSortedMap {
+                interface SignalSignatures extends Gee.AbstractSortedMap.SignalSignatures, Gee.BidirSortedMap.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractSortedMap.ReadableProperties, Gee.BidirSortedMap.ReadableProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractSortedMap.WritableProperties, Gee.BidirSortedMap.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractSortedMap.ConstructOnlyProperties, Gee.BidirSortedMap.ConstructOnlyProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface AbstractBidirSortedMap extends Gee.AbstractSortedMap, Gee.BidirSortedMap {
+                readonly $signals: AbstractBidirSortedMap.SignalSignatures
+                readonly $readableProperties: AbstractBidirSortedMap.ReadableProperties
+                readonly $writableProperties: AbstractBidirSortedMap.WritableProperties
+                readonly $constructOnlyProperties: AbstractBidirSortedMap.ConstructOnlyProperties
+                /**
+                 */
+                get kType(): GObject.GType
+                set kType(value: GObject.GType)
+                /**
+                 */
+                get kDupFunc(): GObject.BoxedCopyFunc
+                set kDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get kDestroyFunc(): GLib.DestroyNotify
+                set kDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get vType(): GObject.GType
+                set vType(value: GObject.GType)
+                /**
+                 */
+                get vDupFunc(): GObject.BoxedCopyFunc
+                set vDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get vDestroyFunc(): GLib.DestroyNotify
+                set vDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                reserved0(): void
+                /**
+                 */
+                reserved1(): void
+                /**
+                 */
+                reserved2(): void
+                /**
+                 */
+                reserved3(): void
+                /**
+                 */
+                reserved4(): void
+                /**
+                 */
+                reserved5(): void
+                /**
+                 */
+                reserved6(): void
+                /**
+                 */
+                reserved7(): void
+                /**
+                 */
+                reserved8(): void
+                /**
+                 */
+                reserved9(): void
+                /**
+                 */
+                vfunc_reserved0(): void
+                /**
+                 */
+                vfunc_reserved1(): void
+                /**
+                 */
+                vfunc_reserved2(): void
+                /**
+                 */
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+                /**
+                 */
+                vfunc_reserved9(): void
+            }
+
+            interface AbstractBidirSortedMapClass extends Omit<Gee.AbstractSortedMapClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractBidirSortedMap>
+                readonly prototype: AbstractBidirSortedMap
+
+                new (props?: Partial<GObject.ConstructorProps<AbstractBidirSortedMap>>): AbstractBidirSortedMap
+            }
+
+            interface $Exports {
+                /**
+                 */
+                AbstractBidirSortedMap: AbstractBidirSortedMapClass
+            }
+            
+
+            namespace AbstractCollection {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.Traversable.SignalSignatures, Gee.Iterable.SignalSignatures, Gee.Collection.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.Traversable.ReadableProperties, Gee.Iterable.ReadableProperties, Gee.Collection.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                    "size": number
+                    "read-only": boolean
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties, Gee.Traversable.WritableProperties, Gee.Iterable.WritableProperties, Gee.Collection.WritableProperties {
+                    "size": number
+                    "read-only": boolean
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.Traversable.ConstructOnlyProperties, Gee.Iterable.ConstructOnlyProperties, Gee.Collection.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface AbstractCollection extends GObject.Object, Gee.Traversable, Gee.Iterable, Gee.Collection {
+                readonly $signals: AbstractCollection.SignalSignatures
+                readonly $readableProperties: AbstractCollection.ReadableProperties
+                readonly $writableProperties: AbstractCollection.WritableProperties
+                readonly $constructOnlyProperties: AbstractCollection.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get size(): number
+                set size(value: number)
+                /**
+                 */
+                get readOnly(): boolean
+                set readOnly(value: boolean)
                 /**
                  * @param item
                  */
-                vfunc_insert(item: never): void
-            }
-        }
-
-        interface BidirListIterator extends Gee.BidirIterator, Gee.ListIterator, BidirListIterator.Interface {
-            readonly $signals: BidirListIterator.SignalSignatures
-            readonly $readableProperties: BidirListIterator.ReadableProperties
-            readonly $writableProperties: BidirListIterator.WritableProperties
-            readonly $constructOnlyProperties: BidirListIterator.ConstructOnlyProperties
-            /**
-             * @param item
-             */
-            insert(item: never): void
-        }
-
-        interface BidirListIteratorIface {
-            readonly $gtype: GObject.GType<BidirListIterator>
-            readonly prototype: BidirListIterator
-            [Symbol.hasInstance](instance: unknown): instance is BidirListIterator
-        }
-
-        interface $Exports {
-            /**
-             */
-            BidirListIterator: BidirListIteratorIface
-        }
-        
-
-        namespace BidirMapIterator {
-            interface SignalSignatures extends Gee.MapIterator.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.MapIterator.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gee.MapIterator.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.MapIterator.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.MapIterator {
+                contains(item: never): boolean
+                /**
+                 * @param item
+                 */
+                add(item: never): boolean
+                /**
+                 * @param item
+                 */
+                remove(item: never): boolean
                 /**
                  */
-                vfunc_previous(): boolean
+                clear(): void
+                /**
+                 * @param f
+                 */
+                foreach(f: Gee.ForallFunc): boolean
                 /**
                  */
-                vfunc_has_previous(): boolean
+                reserved0(): void
                 /**
                  */
-                vfunc_first(): boolean
+                reserved1(): void
                 /**
                  */
-                vfunc_last(): boolean
-            }
-        }
-
-        interface BidirMapIterator extends Gee.MapIterator, BidirMapIterator.Interface {
-            readonly $signals: BidirMapIterator.SignalSignatures
-            readonly $readableProperties: BidirMapIterator.ReadableProperties
-            readonly $writableProperties: BidirMapIterator.WritableProperties
-            readonly $constructOnlyProperties: BidirMapIterator.ConstructOnlyProperties
-            /**
-             */
-            previous(): boolean
-            /**
-             */
-            has_previous(): boolean
-            /**
-             */
-            first(): boolean
-            /**
-             */
-            last(): boolean
-        }
-
-        interface BidirMapIteratorIface {
-            readonly $gtype: GObject.GType<BidirMapIterator>
-            readonly prototype: BidirMapIterator
-            [Symbol.hasInstance](instance: unknown): instance is BidirMapIterator
-        }
-
-        interface $Exports {
-            /**
-             */
-            BidirMapIterator: BidirMapIteratorIface
-        }
-        
-
-        namespace BidirSortedSet {
-            interface SignalSignatures extends Gee.SortedSet.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.SortedSet.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gee.SortedSet.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.SortedSet.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.SortedSet {
-            }
-        }
-
-        interface BidirSortedSet extends Gee.SortedSet, BidirSortedSet.Interface {
-            readonly $signals: BidirSortedSet.SignalSignatures
-            readonly $readableProperties: BidirSortedSet.ReadableProperties
-            readonly $writableProperties: BidirSortedSet.WritableProperties
-            readonly $constructOnlyProperties: BidirSortedSet.ConstructOnlyProperties
-        }
-
-        interface BidirSortedSetIface {
-            readonly $gtype: GObject.GType<BidirSortedSet>
-            readonly prototype: BidirSortedSet
-            [Symbol.hasInstance](instance: unknown): instance is BidirSortedSet
-        }
-
-        interface $Exports {
-            /**
-             */
-            BidirSortedSet: BidirSortedSetIface
-        }
-        
-
-        namespace BidirSortedMap {
-            interface SignalSignatures extends Gee.SortedMap.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.SortedMap.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gee.SortedMap.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.SortedMap.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.SortedMap {
-            }
-        }
-
-        interface BidirSortedMap extends Gee.SortedMap, BidirSortedMap.Interface {
-            readonly $signals: BidirSortedMap.SignalSignatures
-            readonly $readableProperties: BidirSortedMap.ReadableProperties
-            readonly $writableProperties: BidirSortedMap.WritableProperties
-            readonly $constructOnlyProperties: BidirSortedMap.ConstructOnlyProperties
-        }
-
-        interface BidirSortedMapIface {
-            readonly $gtype: GObject.GType<BidirSortedMap>
-            readonly prototype: BidirSortedMap
-            [Symbol.hasInstance](instance: unknown): instance is BidirSortedMap
-        }
-
-        interface $Exports {
-            /**
-             */
-            BidirSortedMap: BidirSortedMapIface
-        }
-        
-
-        namespace Collection {
-            interface SignalSignatures extends Gee.Iterable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.Iterable.ReadableProperties {
-                "size": number
-                "read-only": boolean
-            }
-
-            interface WritableProperties extends Gee.Iterable.WritableProperties {
-                "size": number
-                "read-only": boolean
-            }
-
-            interface ConstructOnlyProperties extends Gee.Iterable.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.Iterable {
+                reserved2(): void
+                /**
+                 */
+                reserved3(): void
+                /**
+                 */
+                reserved4(): void
+                /**
+                 */
+                reserved5(): void
+                /**
+                 */
+                reserved6(): void
+                /**
+                 */
+                reserved7(): void
+                /**
+                 */
+                reserved8(): void
+                /**
+                 */
+                reserved9(): void
+                /**
+                 */
+                get_size(): number
+                /**
+                 */
+                get_read_only(): boolean
                 /**
                  * @param item
                  */
@@ -3389,513 +501,150 @@ declare module "gi://Gee?version=0.8" {
                  */
                 vfunc_clear(): void
                 /**
+                 * @param f
                  */
-                vfunc_to_array(): never[]
+                vfunc_foreach(f: Gee.ForallFunc): boolean
                 /**
-                 * @param array
                  */
-                vfunc_add_all_array(array: never[]): boolean
+                vfunc_reserved0(): void
                 /**
-                 * @param array
                  */
-                vfunc_contains_all_array(array: never[]): boolean
+                vfunc_reserved1(): void
                 /**
-                 * @param array
                  */
-                vfunc_remove_all_array(array: never[]): boolean
+                vfunc_reserved2(): void
+                /**
+                 */
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+                /**
+                 */
+                vfunc_reserved9(): void
                 /**
                  */
                 vfunc_get_size(): number
                 /**
                  */
-                vfunc_get_is_empty(): boolean
-                /**
-                 */
                 vfunc_get_read_only(): boolean
             }
-        }
 
-        interface Collection extends Gee.Iterable, Collection.Interface {
-            readonly $signals: Collection.SignalSignatures
-            readonly $readableProperties: Collection.ReadableProperties
-            readonly $writableProperties: Collection.WritableProperties
-            readonly $constructOnlyProperties: Collection.ConstructOnlyProperties
-            /**
-             */
-            get size(): number
-            set size(value: number)
-            /**
-             */
-            get readOnly(): boolean
-            set readOnly(value: boolean)
-            /**
-             * @param item
-             */
-            contains(item: never): boolean
-            /**
-             * @param item
-             */
-            add(item: never): boolean
-            /**
-             * @param item
-             */
-            remove(item: never): boolean
-            /**
-             */
-            clear(): void
-            /**
-             */
-            to_array(): never[]
-            /**
-             * @param array
-             */
-            add_all_array(array: never[]): boolean
-            /**
-             * @param array
-             */
-            contains_all_array(array: never[]): boolean
-            /**
-             * @param array
-             */
-            remove_all_array(array: never[]): boolean
-            /**
-             */
-            get_size(): number
-            /**
-             */
-            get_is_empty(): boolean
-            /**
-             */
-            get_read_only(): boolean
-        }
+            interface AbstractCollectionClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractCollection>
+                readonly prototype: AbstractCollection
 
-        interface CollectionIface {
-            readonly $gtype: GObject.GType<Collection>
-            readonly prototype: Collection
-            [Symbol.hasInstance](instance: unknown): instance is Collection
-        }
-
-        interface $Exports {
-            /**
-             */
-            Collection: CollectionIface
-        }
-        
-
-        namespace Comparable {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                new (props?: Partial<GObject.ConstructorProps<AbstractCollection>>): AbstractCollection
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-
-            interface Interface extends GObject.Object {
-                /**
-                 * @param object
-                 */
-                vfunc_compare_to(object: never): number
-            }
-        }
-
-        interface Comparable extends GObject.Object, Comparable.Interface {
-            readonly $signals: Comparable.SignalSignatures
-            readonly $readableProperties: Comparable.ReadableProperties
-            readonly $writableProperties: Comparable.WritableProperties
-            readonly $constructOnlyProperties: Comparable.ConstructOnlyProperties
-            /**
-             * @param object
-             */
-            compare_to(object: never): number
-        }
-
-        interface ComparableIface {
-            readonly $gtype: GObject.GType<Comparable>
-            readonly prototype: Comparable
-            [Symbol.hasInstance](instance: unknown): instance is Comparable
-        }
-
-        interface $Exports {
-            /**
-             */
-            Comparable: ComparableIface
-        }
-        
-
-        namespace Deque {
-            interface SignalSignatures extends Gee.Queue.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.Queue.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gee.Queue.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.Queue.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.Queue {
-                /**
-                 * @param element
-                 */
-                vfunc_offer_head(element: never): boolean
+            interface $Exports {
                 /**
                  */
-                vfunc_peek_head(): never | null
+                AbstractCollection: AbstractCollectionClass
+            }
+            
+
+            namespace AbstractList {
+                interface SignalSignatures extends Gee.AbstractCollection.SignalSignatures, Gee.List.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractCollection.ReadableProperties, Gee.List.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractCollection.WritableProperties, Gee.List.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractCollection.ConstructOnlyProperties, Gee.List.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface AbstractList extends Gee.AbstractCollection, Gee.List {
+                readonly $signals: AbstractList.SignalSignatures
+                readonly $readableProperties: AbstractList.ReadableProperties
+                readonly $writableProperties: AbstractList.WritableProperties
+                readonly $constructOnlyProperties: AbstractList.ConstructOnlyProperties
                 /**
                  */
-                vfunc_poll_head(): never | null
-                /**
-                 * @param element
-                 */
-                vfunc_offer_tail(element: never): boolean
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
                 /**
                  */
-                vfunc_peek_tail(): never | null
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
                 /**
                  */
-                vfunc_poll_tail(): never | null
-            }
-        }
-
-        interface Deque extends Gee.Queue, Deque.Interface {
-            readonly $signals: Deque.SignalSignatures
-            readonly $readableProperties: Deque.ReadableProperties
-            readonly $writableProperties: Deque.WritableProperties
-            readonly $constructOnlyProperties: Deque.ConstructOnlyProperties
-            /**
-             * @param element
-             */
-            offer_head(element: never): boolean
-            /**
-             */
-            peek_head(): never | null
-            /**
-             */
-            poll_head(): never | null
-            /**
-             * @param element
-             */
-            offer_tail(element: never): boolean
-            /**
-             */
-            peek_tail(): never | null
-            /**
-             */
-            poll_tail(): never | null
-        }
-
-        interface DequeIface {
-            readonly $gtype: GObject.GType<Deque>
-            readonly prototype: Deque
-            [Symbol.hasInstance](instance: unknown): instance is Deque
-        }
-
-        interface $Exports {
-            /**
-             */
-            Deque: DequeIface
-        }
-        
-
-        namespace Future {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "ready": boolean
-                "exception": GLib.Error
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "ready": boolean
-                "exception": GLib.Error
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-
-            interface Interface extends GObject.Object {
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
                 /**
-                 * @throws {GLib.Error}
+                 * @param index
                  */
-                vfunc_wait(): never
+                get(index: number): never
                 /**
-                 * @throws {GLib.Error}
-                 * @param end_time
-                 * @returns , 
+                 * @param index
+                 * @param item
                  */
-                vfunc_wait_until(end_time: number): [boolean, never]
+                set(index: number, item: never): void
                 /**
-                 * @param _callback_
+                 * @param item
                  */
-                vfunc_wait_async(_callback_: Gio.AsyncReadyCallback | null): void
+                index_of(item: never): number
                 /**
-                 * @throws {GLib.Error}
-                 * @param _res_
+                 * @param index
+                 * @param item
                  */
-                vfunc_wait_finish(_res_: Gio.AsyncResult): never
+                insert(index: number, item: never): void
+                /**
+                 * @param index
+                 */
+                remove_at(index: number): never
                 /**
                  */
-                vfunc_get_value(): never | null
+                reserved0(): void
                 /**
                  */
-                vfunc_get_ready(): boolean
+                reserved1(): void
                 /**
                  */
-                vfunc_get_exception(): GLib.Error | null
-            }
-        }
-
-        interface Future extends GObject.Object, Future.Interface {
-            readonly $signals: Future.SignalSignatures
-            readonly $readableProperties: Future.ReadableProperties
-            readonly $writableProperties: Future.WritableProperties
-            readonly $constructOnlyProperties: Future.ConstructOnlyProperties
-            /**
-             */
-            get ready(): boolean
-            set ready(value: boolean)
-            /**
-             */
-            get exception(): GLib.Error
-            set exception(value: GLib.Error)
-            /**
-             * @throws {GLib.Error}
-             */
-            wait(): never
-            /**
-             * @throws {GLib.Error}
-             * @param end_time
-             * @returns , 
-             */
-            wait_until(end_time: number): [boolean, never]
-            /**
-             * @param _callback_
-             */
-            wait_async(_callback_: Gio.AsyncReadyCallback | null): void
-            /**
-             * @throws {GLib.Error}
-             * @param _res_
-             */
-            wait_finish(_res_: Gio.AsyncResult): never
-            /**
-             */
-            get_value(): never | null
-            /**
-             */
-            get_ready(): boolean
-            /**
-             */
-            get_exception(): GLib.Error | null
-        }
-
-        interface FutureIface {
-            readonly $gtype: GObject.GType<Future>
-            readonly prototype: Future
-            [Symbol.hasInstance](instance: unknown): instance is Future
-        }
-
-        interface $Exports {
-            /**
-             */
-            Future: FutureIface
-        }
-        
-
-        namespace Hashable {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-
-            interface Interface extends GObject.Object {
+                reserved2(): void
                 /**
                  */
-                vfunc_hash(): number
-                /**
-                 * @param object
-                 */
-                vfunc_equal_to(object: never): boolean
-            }
-        }
-
-        interface Hashable extends GObject.Object, Hashable.Interface {
-            readonly $signals: Hashable.SignalSignatures
-            readonly $readableProperties: Hashable.ReadableProperties
-            readonly $writableProperties: Hashable.WritableProperties
-            readonly $constructOnlyProperties: Hashable.ConstructOnlyProperties
-            /**
-             */
-            hash(): number
-            /**
-             * @param object
-             */
-            equal_to(object: never): boolean
-        }
-
-        interface HashableIface {
-            readonly $gtype: GObject.GType<Hashable>
-            readonly prototype: Hashable
-            [Symbol.hasInstance](instance: unknown): instance is Hashable
-        }
-
-        interface $Exports {
-            /**
-             */
-            Hashable: HashableIface
-        }
-        
-
-        namespace Iterable {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.Traversable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.Traversable.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, Gee.Traversable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.Traversable.ConstructOnlyProperties {
-            }
-
-            interface Interface extends GObject.Object, Gee.Traversable {
-            }
-        }
-
-        interface Iterable extends GObject.Object, Gee.Traversable, Iterable.Interface {
-            readonly $signals: Iterable.SignalSignatures
-            readonly $readableProperties: Iterable.ReadableProperties
-            readonly $writableProperties: Iterable.WritableProperties
-            readonly $constructOnlyProperties: Iterable.ConstructOnlyProperties
-        }
-
-        interface IterableIface {
-            readonly $gtype: GObject.GType<Iterable>
-            readonly prototype: Iterable
-            [Symbol.hasInstance](instance: unknown): instance is Iterable
-        }
-
-        interface $Exports {
-            /**
-             */
-            Iterable: IterableIface
-        }
-        
-
-        namespace Iterator {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.Traversable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.Traversable.ReadableProperties {
-                "valid": boolean
-                "read-only": boolean
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, Gee.Traversable.WritableProperties {
-                "valid": boolean
-                "read-only": boolean
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.Traversable.ConstructOnlyProperties {
-            }
-
-            interface Interface extends GObject.Object, Gee.Traversable {
+                reserved3(): void
                 /**
                  */
-                vfunc_next(): boolean
+                reserved4(): void
                 /**
                  */
-                vfunc_has_next(): boolean
+                reserved5(): void
                 /**
                  */
-                vfunc_get(): never
+                reserved6(): void
                 /**
                  */
-                vfunc_remove(): void
+                reserved7(): void
                 /**
                  */
-                vfunc_get_valid(): boolean
+                reserved8(): void
                 /**
                  */
-                vfunc_get_read_only(): boolean
-            }
-        }
-
-        interface Iterator extends GObject.Object, Gee.Traversable, Iterator.Interface {
-            readonly $signals: Iterator.SignalSignatures
-            readonly $readableProperties: Iterator.ReadableProperties
-            readonly $writableProperties: Iterator.WritableProperties
-            readonly $constructOnlyProperties: Iterator.ConstructOnlyProperties
-            /**
-             */
-            get valid(): boolean
-            set valid(value: boolean)
-            /**
-             */
-            get readOnly(): boolean
-            set readOnly(value: boolean)
-            /**
-             */
-            next(): boolean
-            /**
-             */
-            has_next(): boolean
-            /**
-             */
-            get(): never
-            /**
-             */
-            remove(): void
-            /**
-             */
-            get_valid(): boolean
-            /**
-             */
-            get_read_only(): boolean
-        }
-
-        interface IteratorIface {
-            readonly $gtype: GObject.GType<Iterator>
-            readonly prototype: Iterator
-            [Symbol.hasInstance](instance: unknown): instance is Iterator
-        }
-
-        interface $Exports {
-            /**
-             */
-            Iterator: IteratorIface
-        }
-        
-
-        namespace List {
-            interface SignalSignatures extends Gee.Collection.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.Collection.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gee.Collection.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.Collection.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.Collection {
+                reserved9(): void
                 /**
                  * @param index
                  */
@@ -3920,146 +669,183 @@ declare module "gi://Gee?version=0.8" {
                 vfunc_remove_at(index: number): never
                 /**
                  */
-                vfunc_first(): never
+                vfunc_reserved0(): void
                 /**
                  */
-                vfunc_last(): never
-                /**
-                 * @param compare_func
-                 */
-                vfunc_sort(compare_func: GLib.CompareDataFunc | null): void
-            }
-        }
-
-        interface List extends Gee.Collection, List.Interface {
-            readonly $signals: List.SignalSignatures
-            readonly $readableProperties: List.ReadableProperties
-            readonly $writableProperties: List.WritableProperties
-            readonly $constructOnlyProperties: List.ConstructOnlyProperties
-            /**
-             * @param index
-             */
-            get(index: number): never
-            /**
-             * @param index
-             * @param item
-             */
-            set(index: number, item: never): void
-            /**
-             * @param item
-             */
-            index_of(item: never): number
-            /**
-             * @param index
-             * @param item
-             */
-            insert(index: number, item: never): void
-            /**
-             * @param index
-             */
-            remove_at(index: number): never
-            /**
-             */
-            first(): never
-            /**
-             */
-            last(): never
-            /**
-             * @param compare_func
-             */
-            sort(compare_func: GLib.CompareDataFunc | null): void
-        }
-
-        interface ListIface {
-            readonly $gtype: GObject.GType<List>
-            readonly prototype: List
-            [Symbol.hasInstance](instance: unknown): instance is List
-        }
-
-        interface $Exports {
-            /**
-             */
-            List: ListIface
-        }
-        
-
-        namespace ListIterator {
-            interface SignalSignatures extends Gee.Iterator.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.Iterator.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gee.Iterator.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.Iterator.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.Iterator {
-                /**
-                 * @param item
-                 */
-                vfunc_set(item: never): void
-                /**
-                 * @param item
-                 */
-                vfunc_add(item: never): void
+                vfunc_reserved1(): void
                 /**
                  */
-                vfunc_index(): number
-            }
-        }
-
-        interface ListIterator extends Gee.Iterator, ListIterator.Interface {
-            readonly $signals: ListIterator.SignalSignatures
-            readonly $readableProperties: ListIterator.ReadableProperties
-            readonly $writableProperties: ListIterator.WritableProperties
-            readonly $constructOnlyProperties: ListIterator.ConstructOnlyProperties
-            /**
-             * @param item
-             */
-            set(item: never): void
-            /**
-             * @param item
-             */
-            add(item: never): void
-            /**
-             */
-            index(): number
-        }
-
-        interface ListIteratorIface {
-            readonly $gtype: GObject.GType<ListIterator>
-            readonly prototype: ListIterator
-            [Symbol.hasInstance](instance: unknown): instance is ListIterator
-        }
-
-        interface $Exports {
-            /**
-             */
-            ListIterator: ListIteratorIface
-        }
-        
-
-        namespace Map {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.Iterable.SignalSignatures {
+                vfunc_reserved2(): void
+                /**
+                 */
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+                /**
+                 */
+                vfunc_reserved9(): void
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.Iterable.ReadableProperties {
-                "size": number
-                "read-only": boolean
+            interface AbstractListClass extends Omit<Gee.AbstractCollectionClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractList>
+                readonly prototype: AbstractList
+
+                new (props?: Partial<GObject.ConstructorProps<AbstractList>>): AbstractList
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties, Gee.Iterable.WritableProperties {
-                "size": number
-                "read-only": boolean
+            interface $Exports {
+                /**
+                 */
+                AbstractList: AbstractListClass
+            }
+            
+
+            namespace AbstractMap {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.Traversable.SignalSignatures, Gee.Iterable.SignalSignatures, Gee.Map.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.Traversable.ReadableProperties, Gee.Iterable.ReadableProperties, Gee.Map.ReadableProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                    "size": number
+                    "read-only": boolean
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties, Gee.Traversable.WritableProperties, Gee.Iterable.WritableProperties, Gee.Map.WritableProperties {
+                    "size": number
+                    "read-only": boolean
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.Traversable.ConstructOnlyProperties, Gee.Iterable.ConstructOnlyProperties, Gee.Map.ConstructOnlyProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.Iterable.ConstructOnlyProperties {
-            }
-
-            interface Interface extends GObject.Object, Gee.Iterable {
+            interface AbstractMap extends GObject.Object, Gee.Traversable, Gee.Iterable, Gee.Map {
+                readonly $signals: AbstractMap.SignalSignatures
+                readonly $readableProperties: AbstractMap.ReadableProperties
+                readonly $writableProperties: AbstractMap.WritableProperties
+                readonly $constructOnlyProperties: AbstractMap.ConstructOnlyProperties
+                /**
+                 */
+                get kType(): GObject.GType
+                set kType(value: GObject.GType)
+                /**
+                 */
+                get kDupFunc(): GObject.BoxedCopyFunc
+                set kDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get kDestroyFunc(): GLib.DestroyNotify
+                set kDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get vType(): GObject.GType
+                set vType(value: GObject.GType)
+                /**
+                 */
+                get vDupFunc(): GObject.BoxedCopyFunc
+                set vDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get vDestroyFunc(): GLib.DestroyNotify
+                set vDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get size(): number
+                set size(value: number)
+                /**
+                 */
+                get readOnly(): boolean
+                set readOnly(value: boolean)
+                /**
+                 * @param key
+                 */
+                has_key(key: never): boolean
+                /**
+                 * @param key
+                 * @param value
+                 */
+                has(key: never, value: never): boolean
+                /**
+                 * @param key
+                 */
+                get(key: never): never | null
+                /**
+                 * @param key
+                 * @param value
+                 */
+                set(key: never, value: never): void
+                /**
+                 * @param key
+                 * @returns , 
+                 */
+                unset(key: never): [boolean, never]
+                /**
+                 */
+                clear(): void
+                /**
+                 * @param f
+                 */
+                foreach(f: Gee.ForallFunc): boolean
+                /**
+                 */
+                reserved0(): void
+                /**
+                 */
+                reserved1(): void
+                /**
+                 */
+                reserved2(): void
+                /**
+                 */
+                reserved3(): void
+                /**
+                 */
+                reserved4(): void
+                /**
+                 */
+                reserved5(): void
+                /**
+                 */
+                reserved6(): void
+                /**
+                 */
+                reserved7(): void
+                /**
+                 */
+                reserved8(): void
+                /**
+                 */
+                reserved9(): void
+                /**
+                 */
+                get_size(): number
+                /**
+                 */
+                get_read_only(): boolean
                 /**
                  * @param key
                  */
@@ -4087,271 +873,39 @@ declare module "gi://Gee?version=0.8" {
                  */
                 vfunc_clear(): void
                 /**
-                 */
-                vfunc_get_size(): number
-                /**
-                 */
-                vfunc_get_is_empty(): boolean
-                /**
-                 */
-                vfunc_get_read_only(): boolean
-            }
-        }
-
-        interface Map extends GObject.Object, Gee.Iterable, Map.Interface {
-            readonly $signals: Map.SignalSignatures
-            readonly $readableProperties: Map.ReadableProperties
-            readonly $writableProperties: Map.WritableProperties
-            readonly $constructOnlyProperties: Map.ConstructOnlyProperties
-            /**
-             */
-            get size(): number
-            set size(value: number)
-            /**
-             */
-            get readOnly(): boolean
-            set readOnly(value: boolean)
-            /**
-             * @param key
-             */
-            has_key(key: never): boolean
-            /**
-             * @deprecated
-             * @param key
-             */
-            contains(key: never): boolean
-            /**
-             * @param key
-             * @param value
-             */
-            has(key: never, value: never): boolean
-            /**
-             * @param key
-             */
-            get(key: never): never | null
-            /**
-             * @param key
-             * @param value
-             */
-            set(key: never, value: never): void
-            /**
-             * @param key
-             * @returns , 
-             */
-            unset(key: never): [boolean, never]
-            /**
-             * @deprecated
-             * @param key
-             * @returns , 
-             */
-            remove(key: never): [boolean, never]
-            /**
-             */
-            clear(): void
-            /**
-             */
-            get_size(): number
-            /**
-             */
-            get_is_empty(): boolean
-            /**
-             */
-            get_read_only(): boolean
-            /**
-             */
-            get_key_type(): GObject.GType
-            /**
-             */
-            get_value_type(): GObject.GType
-        }
-
-        interface MapIface {
-            readonly $gtype: GObject.GType<Map>
-            readonly prototype: Map
-            [Symbol.hasInstance](instance: unknown): instance is Map
-        }
-
-        interface $Exports {
-            /**
-             */
-            Map: MapIface
-        }
-        
-
-        namespace MapIterator {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "valid": boolean
-                "mutable": boolean
-                "read-only": boolean
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "valid": boolean
-                "mutable": boolean
-                "read-only": boolean
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-
-            interface Interface extends GObject.Object {
-                /**
-                 */
-                vfunc_next(): boolean
-                /**
-                 */
-                vfunc_has_next(): boolean
-                /**
-                 */
-                vfunc_get_key(): never
-                /**
-                 */
-                vfunc_get_value(): never
-                /**
-                 * @param value
-                 */
-                vfunc_set_value(value: never): void
-                /**
-                 */
-                vfunc_unset(): void
-                /**
-                 * @param a_type
-                 * @param a_dup_func
-                 * @param a_destroy_func
-                 * @param f
-                 * @param seed
-                 */
-                vfunc_fold(a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, f: Gee.FoldMapFunc, seed: never): never
-                /**
                  * @param f
                  */
-                vfunc_foreach(f: Gee.ForallMapFunc): boolean
+                vfunc_foreach(f: Gee.ForallFunc): boolean
                 /**
                  */
-                vfunc_get_valid(): boolean
+                vfunc_reserved0(): void
                 /**
                  */
-                vfunc_get_mutable(): boolean
+                vfunc_reserved1(): void
                 /**
                  */
-                vfunc_get_read_only(): boolean
-            }
-        }
-
-        interface MapIterator extends GObject.Object, MapIterator.Interface {
-            readonly $signals: MapIterator.SignalSignatures
-            readonly $readableProperties: MapIterator.ReadableProperties
-            readonly $writableProperties: MapIterator.WritableProperties
-            readonly $constructOnlyProperties: MapIterator.ConstructOnlyProperties
-            /**
-             */
-            get valid(): boolean
-            set valid(value: boolean)
-            /**
-             */
-            get mutable(): boolean
-            set mutable(value: boolean)
-            /**
-             */
-            get readOnly(): boolean
-            set readOnly(value: boolean)
-            /**
-             */
-            next(): boolean
-            /**
-             */
-            has_next(): boolean
-            /**
-             */
-            get_key(): never
-            /**
-             */
-            get_value(): never
-            /**
-             * @param value
-             */
-            set_value(value: never): void
-            /**
-             */
-            unset(): void
-            /**
-             * @param a_type
-             * @param a_dup_func
-             * @param a_destroy_func
-             * @param f
-             * @param seed
-             */
-            fold(a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, f: Gee.FoldMapFunc, seed: never): never
-            /**
-             * @param f
-             */
-            foreach(f: Gee.ForallMapFunc): boolean
-            /**
-             */
-            get_valid(): boolean
-            /**
-             */
-            get_mutable(): boolean
-            /**
-             */
-            get_read_only(): boolean
-        }
-
-        interface MapIteratorIface {
-            readonly $gtype: GObject.GType<MapIterator>
-            readonly prototype: MapIterator
-            [Symbol.hasInstance](instance: unknown): instance is MapIterator
-        }
-
-        interface $Exports {
-            /**
-             */
-            MapIterator: MapIteratorIface
-        }
-        
-
-        namespace MultiMap {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "size": number
-                "read-only": boolean
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "size": number
-                "read-only": boolean
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-
-            interface Interface extends GObject.Object {
-                /**
-                 * @param key
-                 */
-                vfunc_contains(key: never): boolean
-                /**
-                 * @param key
-                 * @param value
-                 */
-                vfunc_set(key: never, value: never): void
-                /**
-                 * @param key
-                 * @param value
-                 */
-                vfunc_remove(key: never, value: never): boolean
-                /**
-                 * @param key
-                 */
-                vfunc_remove_all(key: never): boolean
+                vfunc_reserved2(): void
                 /**
                  */
-                vfunc_clear(): void
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+                /**
+                 */
+                vfunc_reserved9(): void
                 /**
                  */
                 vfunc_get_size(): number
@@ -4359,144 +913,397 @@ declare module "gi://Gee?version=0.8" {
                  */
                 vfunc_get_read_only(): boolean
             }
-        }
 
-        interface MultiMap extends GObject.Object, MultiMap.Interface {
-            readonly $signals: MultiMap.SignalSignatures
-            readonly $readableProperties: MultiMap.ReadableProperties
-            readonly $writableProperties: MultiMap.WritableProperties
-            readonly $constructOnlyProperties: MultiMap.ConstructOnlyProperties
-            /**
-             */
-            get size(): number
-            set size(value: number)
-            /**
-             */
-            get readOnly(): boolean
-            set readOnly(value: boolean)
-            /**
-             * @param key
-             */
-            contains(key: never): boolean
-            /**
-             * @param key
-             * @param value
-             */
-            set(key: never, value: never): void
-            /**
-             * @param key
-             * @param value
-             */
-            remove(key: never, value: never): boolean
-            /**
-             * @param key
-             */
-            remove_all(key: never): boolean
-            /**
-             */
-            clear(): void
-            /**
-             */
-            get_size(): number
-            /**
-             */
-            get_read_only(): boolean
-            /**
-             */
-            get_key_type(): GObject.GType
-            /**
-             */
-            get_value_type(): GObject.GType
-        }
+            interface AbstractMapClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractMap>
+                readonly prototype: AbstractMap
 
-        interface MultiMapIface {
-            readonly $gtype: GObject.GType<MultiMap>
-            readonly prototype: MultiMap
-            [Symbol.hasInstance](instance: unknown): instance is MultiMap
-        }
-
-        interface $Exports {
-            /**
-             */
-            MultiMap: MultiMapIface
-        }
-        
-
-        namespace MultiSet {
-            interface SignalSignatures extends Gee.Collection.SignalSignatures {
+                new (props?: Partial<GObject.ConstructorProps<AbstractMap>>): AbstractMap
             }
 
-            interface ReadableProperties extends Gee.Collection.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gee.Collection.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.Collection.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.Collection {
+            interface $Exports {
                 /**
-                 * @param item
                  */
-                vfunc_count(item: never): number
+                AbstractMap: AbstractMapClass
             }
-        }
+            
 
-        interface MultiSet extends Gee.Collection, MultiSet.Interface {
-            readonly $signals: MultiSet.SignalSignatures
-            readonly $readableProperties: MultiSet.ReadableProperties
-            readonly $writableProperties: MultiSet.WritableProperties
-            readonly $constructOnlyProperties: MultiSet.ConstructOnlyProperties
-            /**
-             * @param item
-             */
-            count(item: never): number
-        }
+            namespace AbstractMultiMap {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.MultiMap.SignalSignatures {
+                }
 
-        interface MultiSetIface {
-            readonly $gtype: GObject.GType<MultiSet>
-            readonly prototype: MultiSet
-            [Symbol.hasInstance](instance: unknown): instance is MultiSet
-        }
+                interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.MultiMap.ReadableProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
 
-        interface $Exports {
-            /**
-             */
-            MultiSet: MultiSetIface
-        }
-        
+                interface WritableProperties extends GObject.Object.WritableProperties, Gee.MultiMap.WritableProperties {
+                }
 
-        namespace Queue {
-            interface SignalSignatures extends Gee.Collection.SignalSignatures {
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.MultiMap.ConstructOnlyProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
             }
 
-            interface ReadableProperties extends Gee.Collection.ReadableProperties {
-                "capacity": number
-                "remaining-capacity": number
-                "is-full": boolean
-            }
-
-            interface WritableProperties extends Gee.Collection.WritableProperties {
-                "capacity": number
-                "remaining-capacity": number
-                "is-full": boolean
-            }
-
-            interface ConstructOnlyProperties extends Gee.Collection.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.Collection {
+            interface AbstractMultiMap extends GObject.Object, Gee.MultiMap {
+                readonly $signals: AbstractMultiMap.SignalSignatures
+                readonly $readableProperties: AbstractMultiMap.ReadableProperties
+                readonly $writableProperties: AbstractMultiMap.WritableProperties
+                readonly $constructOnlyProperties: AbstractMultiMap.ConstructOnlyProperties
                 /**
-                 * @param element
                  */
-                vfunc_offer(element: never): boolean
+                get kType(): GObject.GType
+                set kType(value: GObject.GType)
+                /**
+                 */
+                get kDupFunc(): GObject.BoxedCopyFunc
+                set kDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get kDestroyFunc(): GLib.DestroyNotify
+                set kDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get vType(): GObject.GType
+                set vType(value: GObject.GType)
+                /**
+                 */
+                get vDupFunc(): GObject.BoxedCopyFunc
+                set vDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get vDestroyFunc(): GLib.DestroyNotify
+                set vDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @returns , , 
+                 */
+                get_value_equal_func(): [Gee.EqualDataFunc, never, GLib.DestroyNotify]
+                /**
+                 */
+                reserved0(): void
+                /**
+                 */
+                reserved1(): void
+                /**
+                 */
+                reserved2(): void
+                /**
+                 */
+                reserved3(): void
+                /**
+                 */
+                reserved4(): void
+                /**
+                 */
+                reserved5(): void
+                /**
+                 */
+                reserved6(): void
+                /**
+                 */
+                reserved7(): void
+                /**
+                 */
+                reserved8(): void
+                /**
+                 * @returns , , 
+                 */
+                vfunc_get_value_equal_func(): [Gee.EqualDataFunc, never, GLib.DestroyNotify]
+                /**
+                 */
+                vfunc_reserved0(): void
+                /**
+                 */
+                vfunc_reserved1(): void
+                /**
+                 */
+                vfunc_reserved2(): void
+                /**
+                 */
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+            }
+
+            interface AbstractMultiMapClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractMultiMap>
+                readonly prototype: AbstractMultiMap
+
+                new (props?: Partial<GObject.ConstructorProps<AbstractMultiMap>>): AbstractMultiMap
+            }
+
+            interface $Exports {
+                /**
+                 */
+                AbstractMultiMap: AbstractMultiMapClass
+            }
+            
+
+            namespace AbstractMultiSet {
+                interface SignalSignatures extends Gee.AbstractCollection.SignalSignatures, Gee.MultiSet.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractCollection.ReadableProperties, Gee.MultiSet.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractCollection.WritableProperties, Gee.MultiSet.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractCollection.ConstructOnlyProperties, Gee.MultiSet.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface AbstractMultiSet extends Gee.AbstractCollection, Gee.MultiSet {
+                readonly $signals: AbstractMultiSet.SignalSignatures
+                readonly $readableProperties: AbstractMultiSet.ReadableProperties
+                readonly $writableProperties: AbstractMultiSet.WritableProperties
+                readonly $constructOnlyProperties: AbstractMultiSet.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                reserved0(): void
+                /**
+                 */
+                reserved1(): void
+                /**
+                 */
+                reserved2(): void
+                /**
+                 */
+                reserved3(): void
+                /**
+                 */
+                reserved4(): void
+                /**
+                 */
+                reserved5(): void
+                /**
+                 */
+                reserved6(): void
+                /**
+                 */
+                reserved7(): void
+                /**
+                 */
+                reserved8(): void
+                /**
+                 */
+                vfunc_reserved0(): void
+                /**
+                 */
+                vfunc_reserved1(): void
+                /**
+                 */
+                vfunc_reserved2(): void
+                /**
+                 */
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+            }
+
+            interface AbstractMultiSetClass extends Omit<Gee.AbstractCollectionClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractMultiSet>
+                readonly prototype: AbstractMultiSet
+
+                new (props?: Partial<GObject.ConstructorProps<AbstractMultiSet>>): AbstractMultiSet
+            }
+
+            interface $Exports {
+                /**
+                 */
+                AbstractMultiSet: AbstractMultiSetClass
+            }
+            
+
+            namespace AbstractQueue {
+                interface SignalSignatures extends Gee.AbstractCollection.SignalSignatures, Gee.Queue.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractCollection.ReadableProperties, Gee.Queue.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                    "capacity": number
+                    "remaining-capacity": number
+                    "is-full": boolean
+                }
+
+                interface WritableProperties extends Gee.AbstractCollection.WritableProperties, Gee.Queue.WritableProperties {
+                    "capacity": number
+                    "remaining-capacity": number
+                    "is-full": boolean
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractCollection.ConstructOnlyProperties, Gee.Queue.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface AbstractQueue extends Gee.AbstractCollection, Gee.Queue {
+                readonly $signals: AbstractQueue.SignalSignatures
+                readonly $readableProperties: AbstractQueue.ReadableProperties
+                readonly $writableProperties: AbstractQueue.WritableProperties
+                readonly $constructOnlyProperties: AbstractQueue.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get capacity(): number
+                set capacity(value: number)
+                /**
+                 */
+                get remainingCapacity(): number
+                set remainingCapacity(value: number)
+                /**
+                 */
+                get isFull(): boolean
+                set isFull(value: boolean)
+                /**
+                 */
+                peek(): never | null
+                /**
+                 */
+                poll(): never | null
+                /**
+                 */
+                reserved0(): void
+                /**
+                 */
+                reserved1(): void
+                /**
+                 */
+                reserved2(): void
+                /**
+                 */
+                reserved3(): void
+                /**
+                 */
+                reserved4(): void
+                /**
+                 */
+                reserved5(): void
+                /**
+                 */
+                reserved6(): void
+                /**
+                 */
+                reserved7(): void
+                /**
+                 */
+                reserved8(): void
+                /**
+                 */
+                reserved9(): void
+                /**
+                 */
+                get_capacity(): number
+                /**
+                 */
+                get_remaining_capacity(): number
+                /**
+                 */
+                get_is_full(): boolean
                 /**
                  */
                 vfunc_peek(): never | null
                 /**
                  */
                 vfunc_poll(): never | null
+                /**
+                 */
+                vfunc_reserved0(): void
+                /**
+                 */
+                vfunc_reserved1(): void
+                /**
+                 */
+                vfunc_reserved2(): void
+                /**
+                 */
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+                /**
+                 */
+                vfunc_reserved9(): void
                 /**
                  */
                 vfunc_get_capacity(): number
@@ -4507,147 +1314,354 @@ declare module "gi://Gee?version=0.8" {
                  */
                 vfunc_get_is_full(): boolean
             }
-        }
 
-        interface Queue extends Gee.Collection, Queue.Interface {
-            readonly $signals: Queue.SignalSignatures
-            readonly $readableProperties: Queue.ReadableProperties
-            readonly $writableProperties: Queue.WritableProperties
-            readonly $constructOnlyProperties: Queue.ConstructOnlyProperties
-            /**
-             */
-            get capacity(): number
-            set capacity(value: number)
-            /**
-             */
-            get remainingCapacity(): number
-            set remainingCapacity(value: number)
-            /**
-             */
-            get isFull(): boolean
-            set isFull(value: boolean)
-            /**
-             * @param element
-             */
-            offer(element: never): boolean
-            /**
-             */
-            peek(): never | null
-            /**
-             */
-            poll(): never | null
-            /**
-             */
-            get_capacity(): number
-            /**
-             */
-            get_remaining_capacity(): number
-            /**
-             */
-            get_is_full(): boolean
-        }
+            interface AbstractQueueClass extends Omit<Gee.AbstractCollectionClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractQueue>
+                readonly prototype: AbstractQueue
 
-        interface QueueIface {
-            readonly $gtype: GObject.GType<Queue>
-            readonly prototype: Queue
-            [Symbol.hasInstance](instance: unknown): instance is Queue
-        }
-
-        interface $Exports {
-            /**
-             */
-            Queue: QueueIface
-        }
-        
-
-        namespace Set {
-            interface SignalSignatures extends Gee.Collection.SignalSignatures {
+                new (props?: Partial<GObject.ConstructorProps<AbstractQueue>>): AbstractQueue
             }
 
-            interface ReadableProperties extends Gee.Collection.ReadableProperties {
+            interface $Exports {
+                /**
+                 */
+                AbstractQueue: AbstractQueueClass
+            }
+            
+
+            namespace AbstractSet {
+                interface SignalSignatures extends Gee.AbstractCollection.SignalSignatures, Gee.Set.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractCollection.ReadableProperties, Gee.Set.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractCollection.WritableProperties, Gee.Set.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractCollection.ConstructOnlyProperties, Gee.Set.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
             }
 
-            interface WritableProperties extends Gee.Collection.WritableProperties {
+            interface AbstractSet extends Gee.AbstractCollection, Gee.Set {
+                readonly $signals: AbstractSet.SignalSignatures
+                readonly $readableProperties: AbstractSet.ReadableProperties
+                readonly $writableProperties: AbstractSet.WritableProperties
+                readonly $constructOnlyProperties: AbstractSet.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                reserved0(): void
+                /**
+                 */
+                reserved1(): void
+                /**
+                 */
+                reserved2(): void
+                /**
+                 */
+                reserved3(): void
+                /**
+                 */
+                reserved4(): void
+                /**
+                 */
+                reserved5(): void
+                /**
+                 */
+                reserved6(): void
+                /**
+                 */
+                reserved7(): void
+                /**
+                 */
+                reserved8(): void
+                /**
+                 */
+                reserved9(): void
+                /**
+                 */
+                vfunc_reserved0(): void
+                /**
+                 */
+                vfunc_reserved1(): void
+                /**
+                 */
+                vfunc_reserved2(): void
+                /**
+                 */
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+                /**
+                 */
+                vfunc_reserved9(): void
             }
 
-            interface ConstructOnlyProperties extends Gee.Collection.ConstructOnlyProperties {
+            interface AbstractSetClass extends Omit<Gee.AbstractCollectionClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractSet>
+                readonly prototype: AbstractSet
+
+                new (props?: Partial<GObject.ConstructorProps<AbstractSet>>): AbstractSet
             }
 
-            interface Interface extends Gee.Collection {
+            interface $Exports {
+                /**
+                 */
+                AbstractSet: AbstractSetClass
             }
-        }
+            
 
-        interface Set extends Gee.Collection, Set.Interface {
-            readonly $signals: Set.SignalSignatures
-            readonly $readableProperties: Set.ReadableProperties
-            readonly $writableProperties: Set.WritableProperties
-            readonly $constructOnlyProperties: Set.ConstructOnlyProperties
-        }
+            namespace AbstractSortedMap {
+                interface SignalSignatures extends Gee.AbstractMap.SignalSignatures, Gee.SortedMap.SignalSignatures {
+                }
 
-        interface SetIface {
-            readonly $gtype: GObject.GType<Set>
-            readonly prototype: Set
-            [Symbol.hasInstance](instance: unknown): instance is Set
-        }
+                interface ReadableProperties extends Gee.AbstractMap.ReadableProperties, Gee.SortedMap.ReadableProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
 
-        interface $Exports {
-            /**
-             */
-            Set: SetIface
-        }
-        
+                interface WritableProperties extends Gee.AbstractMap.WritableProperties, Gee.SortedMap.WritableProperties {
+                }
 
-        namespace SortedMap {
-            interface SignalSignatures extends Gee.Map.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gee.Map.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gee.Map.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.Map.ConstructOnlyProperties {
+                interface ConstructOnlyProperties extends Gee.AbstractMap.ConstructOnlyProperties, Gee.SortedMap.ConstructOnlyProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
             }
 
-            interface Interface extends Gee.Map {
+            interface AbstractSortedMap extends Gee.AbstractMap, Gee.SortedMap {
+                readonly $signals: AbstractSortedMap.SignalSignatures
+                readonly $readableProperties: AbstractSortedMap.ReadableProperties
+                readonly $writableProperties: AbstractSortedMap.WritableProperties
+                readonly $constructOnlyProperties: AbstractSortedMap.ConstructOnlyProperties
+                /**
+                 */
+                get kType(): GObject.GType
+                set kType(value: GObject.GType)
+                /**
+                 */
+                get kDupFunc(): GObject.BoxedCopyFunc
+                set kDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get kDestroyFunc(): GLib.DestroyNotify
+                set kDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get vType(): GObject.GType
+                set vType(value: GObject.GType)
+                /**
+                 */
+                get vDupFunc(): GObject.BoxedCopyFunc
+                set vDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get vDestroyFunc(): GLib.DestroyNotify
+                set vDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                reserved0(): void
+                /**
+                 */
+                reserved1(): void
+                /**
+                 */
+                reserved2(): void
+                /**
+                 */
+                reserved3(): void
+                /**
+                 */
+                reserved4(): void
+                /**
+                 */
+                reserved5(): void
+                /**
+                 */
+                reserved6(): void
+                /**
+                 */
+                reserved7(): void
+                /**
+                 */
+                reserved8(): void
+                /**
+                 */
+                reserved9(): void
+                /**
+                 */
+                vfunc_reserved0(): void
+                /**
+                 */
+                vfunc_reserved1(): void
+                /**
+                 */
+                vfunc_reserved2(): void
+                /**
+                 */
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+                /**
+                 */
+                vfunc_reserved9(): void
             }
-        }
 
-        interface SortedMap extends Gee.Map, SortedMap.Interface {
-            readonly $signals: SortedMap.SignalSignatures
-            readonly $readableProperties: SortedMap.ReadableProperties
-            readonly $writableProperties: SortedMap.WritableProperties
-            readonly $constructOnlyProperties: SortedMap.ConstructOnlyProperties
-        }
+            interface AbstractSortedMapClass extends Omit<Gee.AbstractMapClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractSortedMap>
+                readonly prototype: AbstractSortedMap
 
-        interface SortedMapIface {
-            readonly $gtype: GObject.GType<SortedMap>
-            readonly prototype: SortedMap
-            [Symbol.hasInstance](instance: unknown): instance is SortedMap
-        }
-
-        interface $Exports {
-            /**
-             */
-            SortedMap: SortedMapIface
-        }
-        
-
-        namespace SortedSet {
-            interface SignalSignatures extends Gee.Set.SignalSignatures {
+                new (props?: Partial<GObject.ConstructorProps<AbstractSortedMap>>): AbstractSortedMap
             }
 
-            interface ReadableProperties extends Gee.Set.ReadableProperties {
+            interface $Exports {
+                /**
+                 */
+                AbstractSortedMap: AbstractSortedMapClass
+            }
+            
+
+            namespace AbstractSortedSet {
+                interface SignalSignatures extends Gee.AbstractSet.SignalSignatures, Gee.SortedSet.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractSet.ReadableProperties, Gee.SortedSet.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractSet.WritableProperties, Gee.SortedSet.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractSet.ConstructOnlyProperties, Gee.SortedSet.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
             }
 
-            interface WritableProperties extends Gee.Set.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gee.Set.ConstructOnlyProperties {
-            }
-
-            interface Interface extends Gee.Set {
+            interface AbstractSortedSet extends Gee.AbstractSet, Gee.SortedSet {
+                readonly $signals: AbstractSortedSet.SignalSignatures
+                readonly $readableProperties: AbstractSortedSet.ReadableProperties
+                readonly $writableProperties: AbstractSortedSet.WritableProperties
+                readonly $constructOnlyProperties: AbstractSortedSet.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                first(): never
+                /**
+                 */
+                last(): never
+                /**
+                 * @param element
+                 */
+                lower(element: never): never | null
+                /**
+                 * @param element
+                 */
+                higher(element: never): never | null
+                /**
+                 * @param element
+                 */
+                floor(element: never): never | null
+                /**
+                 * @param element
+                 */
+                ceil(element: never): never | null
+                /**
+                 */
+                reserved0(): void
+                /**
+                 */
+                reserved1(): void
+                /**
+                 */
+                reserved2(): void
+                /**
+                 */
+                reserved3(): void
+                /**
+                 */
+                reserved4(): void
+                /**
+                 */
+                reserved5(): void
+                /**
+                 */
+                reserved6(): void
+                /**
+                 */
+                reserved7(): void
+                /**
+                 */
+                reserved8(): void
+                /**
+                 */
+                reserved9(): void
                 /**
                  */
                 vfunc_first(): never
@@ -4670,69 +1684,2604 @@ declare module "gi://Gee?version=0.8" {
                  * @param element
                  */
                 vfunc_ceil(element: never): never | null
-            }
-        }
-
-        interface SortedSet extends Gee.Set, SortedSet.Interface {
-            readonly $signals: SortedSet.SignalSignatures
-            readonly $readableProperties: SortedSet.ReadableProperties
-            readonly $writableProperties: SortedSet.WritableProperties
-            readonly $constructOnlyProperties: SortedSet.ConstructOnlyProperties
-            /**
-             */
-            first(): never
-            /**
-             */
-            last(): never
-            /**
-             * @param element
-             */
-            lower(element: never): never | null
-            /**
-             * @param element
-             */
-            higher(element: never): never | null
-            /**
-             * @param element
-             */
-            floor(element: never): never | null
-            /**
-             * @param element
-             */
-            ceil(element: never): never | null
-        }
-
-        interface SortedSetIface {
-            readonly $gtype: GObject.GType<SortedSet>
-            readonly prototype: SortedSet
-            [Symbol.hasInstance](instance: unknown): instance is SortedSet
-        }
-
-        interface $Exports {
-            /**
-             */
-            SortedSet: SortedSetIface
-        }
-        
-
-        namespace Traversable {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-
-            interface Interface extends GObject.Object {
                 /**
-                 * @param f
                  */
-                vfunc_foreach(f: Gee.ForallFunc): boolean
+                vfunc_reserved0(): void
+                /**
+                 */
+                vfunc_reserved1(): void
+                /**
+                 */
+                vfunc_reserved2(): void
+                /**
+                 */
+                vfunc_reserved3(): void
+                /**
+                 */
+                vfunc_reserved4(): void
+                /**
+                 */
+                vfunc_reserved5(): void
+                /**
+                 */
+                vfunc_reserved6(): void
+                /**
+                 */
+                vfunc_reserved7(): void
+                /**
+                 */
+                vfunc_reserved8(): void
+                /**
+                 */
+                vfunc_reserved9(): void
+            }
+
+            interface AbstractSortedSetClass extends Omit<Gee.AbstractSetClass, "new"> {
+                readonly $gtype: GObject.GType<AbstractSortedSet>
+                readonly prototype: AbstractSortedSet
+
+                new (props?: Partial<GObject.ConstructorProps<AbstractSortedSet>>): AbstractSortedSet
+            }
+
+            interface $Exports {
+                /**
+                 */
+                AbstractSortedSet: AbstractSortedSetClass
+            }
+            
+
+            namespace ArrayList {
+                interface SignalSignatures extends Gee.AbstractBidirList.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractBidirList.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractBidirList.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractBidirList.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface ArrayList extends Gee.AbstractBidirList {
+                readonly $signals: ArrayList.SignalSignatures
+                readonly $readableProperties: ArrayList.ReadableProperties
+                readonly $writableProperties: ArrayList.WritableProperties
+                readonly $constructOnlyProperties: ArrayList.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @returns , 
+                 */
+                get_equal_func(): [Gee.EqualDataFunc, never]
+            }
+
+            interface ArrayListClass extends Omit<Gee.AbstractBidirListClass, "new"> {
+                readonly $gtype: GObject.GType<ArrayList>
+                readonly prototype: ArrayList
+
+                new (props?: Partial<GObject.ConstructorProps<ArrayList>>): ArrayList
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param equal_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): ArrayList
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param items
+                 * @param equal_func
+                 */
+                wrap(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, items: never[], equal_func: Gee.EqualDataFunc | null): ArrayList
+            }
+
+            interface $Exports {
+                /**
+                 */
+                ArrayList: ArrayListClass
+            }
+            
+
+            namespace ArrayQueue {
+                interface SignalSignatures extends Gee.AbstractQueue.SignalSignatures, Gee.Deque.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractQueue.ReadableProperties, Gee.Deque.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                    "is-empty": boolean
+                }
+
+                interface WritableProperties extends Gee.AbstractQueue.WritableProperties, Gee.Deque.WritableProperties {
+                    "is-empty": boolean
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractQueue.ConstructOnlyProperties, Gee.Deque.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface ArrayQueue extends Gee.AbstractQueue, Gee.Deque {
+                readonly $signals: ArrayQueue.SignalSignatures
+                readonly $readableProperties: ArrayQueue.ReadableProperties
+                readonly $writableProperties: ArrayQueue.WritableProperties
+                readonly $constructOnlyProperties: ArrayQueue.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get isEmpty(): boolean
+                set isEmpty(value: boolean)
+                /**
+                 * @returns , 
+                 */
+                get_equal_func(): [Gee.EqualDataFunc, never]
+                /**
+                 */
+                get_is_empty(): boolean
+            }
+
+            interface ArrayQueueClass extends Omit<Gee.AbstractQueueClass, "new"> {
+                readonly $gtype: GObject.GType<ArrayQueue>
+                readonly prototype: ArrayQueue
+
+                new (props?: Partial<GObject.ConstructorProps<ArrayQueue>>): ArrayQueue
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param equal_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): ArrayQueue
+            }
+
+            interface $Exports {
+                /**
+                 */
+                ArrayQueue: ArrayQueueClass
+            }
+            
+
+            namespace ConcurrentList {
+                interface SignalSignatures extends Gee.AbstractList.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractList.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                    "is-empty": boolean
+                }
+
+                interface WritableProperties extends Gee.AbstractList.WritableProperties {
+                    "is-empty": boolean
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractList.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface ConcurrentList extends Gee.AbstractList {
+                readonly $signals: ConcurrentList.SignalSignatures
+                readonly $readableProperties: ConcurrentList.ReadableProperties
+                readonly $writableProperties: ConcurrentList.WritableProperties
+                readonly $constructOnlyProperties: ConcurrentList.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get isEmpty(): boolean
+                set isEmpty(value: boolean)
+                /**
+                 * @returns , 
+                 */
+                get_equal_func(): [Gee.EqualDataFunc, never]
+                /**
+                 */
+                get_is_empty(): boolean
+            }
+
+            interface ConcurrentListClass extends Omit<Gee.AbstractListClass, "new"> {
+                readonly $gtype: GObject.GType<ConcurrentList>
+                readonly prototype: ConcurrentList
+
+                new (props?: Partial<GObject.ConstructorProps<ConcurrentList>>): ConcurrentList
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param equal_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): ConcurrentList
+            }
+
+            interface $Exports {
+                /**
+                 */
+                ConcurrentList: ConcurrentListClass
+            }
+            
+
+            namespace ConcurrentSet {
+                interface SignalSignatures extends Gee.AbstractSortedSet.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractSortedSet.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractSortedSet.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractSortedSet.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface ConcurrentSet extends Gee.AbstractSortedSet {
+                readonly $signals: ConcurrentSet.SignalSignatures
+                readonly $readableProperties: ConcurrentSet.ReadableProperties
+                readonly $writableProperties: ConcurrentSet.WritableProperties
+                readonly $constructOnlyProperties: ConcurrentSet.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+            }
+
+            interface ConcurrentSetClass extends Omit<Gee.AbstractSortedSetClass, "new"> {
+                readonly $gtype: GObject.GType<ConcurrentSet>
+                readonly prototype: ConcurrentSet
+
+                new (props?: Partial<GObject.ConstructorProps<ConcurrentSet>>): ConcurrentSet
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param compare_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): ConcurrentSet
+            }
+
+            interface $Exports {
+                /**
+                 */
+                ConcurrentSet: ConcurrentSetClass
+            }
+            
+
+            namespace HashMap {
+                interface SignalSignatures extends Gee.AbstractMap.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractMap.ReadableProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractMap.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractMap.ConstructOnlyProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface HashMap extends Gee.AbstractMap {
+                readonly $signals: HashMap.SignalSignatures
+                readonly $readableProperties: HashMap.ReadableProperties
+                readonly $writableProperties: HashMap.WritableProperties
+                readonly $constructOnlyProperties: HashMap.ConstructOnlyProperties
+                /**
+                 */
+                get kType(): GObject.GType
+                set kType(value: GObject.GType)
+                /**
+                 */
+                get kDupFunc(): GObject.BoxedCopyFunc
+                set kDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get kDestroyFunc(): GLib.DestroyNotify
+                set kDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get vType(): GObject.GType
+                set vType(value: GObject.GType)
+                /**
+                 */
+                get vDupFunc(): GObject.BoxedCopyFunc
+                set vDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get vDestroyFunc(): GLib.DestroyNotify
+                set vDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @returns , 
+                 */
+                get_key_hash_func(): [Gee.HashDataFunc, never]
+                /**
+                 * @returns , 
+                 */
+                get_key_equal_func(): [Gee.EqualDataFunc, never]
+                /**
+                 * @returns , 
+                 */
+                get_value_equal_func(): [Gee.EqualDataFunc, never]
+            }
+
+            interface HashMapClass extends Omit<Gee.AbstractMapClass, "new"> {
+                readonly $gtype: GObject.GType<HashMap>
+                readonly prototype: HashMap
+
+                new (props?: Partial<GObject.ConstructorProps<HashMap>>): HashMap
+                /**
+                 * @param k_type
+                 * @param k_dup_func
+                 * @param k_destroy_func
+                 * @param v_type
+                 * @param v_dup_func
+                 * @param v_destroy_func
+                 * @param key_hash_func
+                 * @param key_equal_func
+                 * @param value_equal_func
+                 */
+                "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_hash_func: Gee.HashDataFunc | null, key_equal_func: Gee.EqualDataFunc | null, value_equal_func: Gee.EqualDataFunc | null): HashMap
+            }
+
+            interface $Exports {
+                /**
+                 */
+                HashMap: HashMapClass
+            }
+            
+
+            namespace HashMultiMap {
+                interface SignalSignatures extends Gee.AbstractMultiMap.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractMultiMap.ReadableProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractMultiMap.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractMultiMap.ConstructOnlyProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface HashMultiMap extends Gee.AbstractMultiMap {
+                readonly $signals: HashMultiMap.SignalSignatures
+                readonly $readableProperties: HashMultiMap.ReadableProperties
+                readonly $writableProperties: HashMultiMap.WritableProperties
+                readonly $constructOnlyProperties: HashMultiMap.ConstructOnlyProperties
+                /**
+                 */
+                get kType(): GObject.GType
+                set kType(value: GObject.GType)
+                /**
+                 */
+                get kDupFunc(): GObject.BoxedCopyFunc
+                set kDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get kDestroyFunc(): GLib.DestroyNotify
+                set kDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get vType(): GObject.GType
+                set vType(value: GObject.GType)
+                /**
+                 */
+                get vDupFunc(): GObject.BoxedCopyFunc
+                set vDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get vDestroyFunc(): GLib.DestroyNotify
+                set vDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @returns , 
+                 */
+                get_key_hash_func(): [Gee.HashDataFunc, never]
+                /**
+                 * @returns , 
+                 */
+                get_key_equal_func(): [Gee.EqualDataFunc, never]
+                /**
+                 * @returns , 
+                 */
+                get_value_hash_func(): [Gee.HashDataFunc, never]
+                /**
+                 * @returns , 
+                 */
+                get_value_equal_func(): [Gee.EqualDataFunc, never]
+            }
+
+            interface HashMultiMapClass extends Omit<Gee.AbstractMultiMapClass, "new"> {
+                readonly $gtype: GObject.GType<HashMultiMap>
+                readonly prototype: HashMultiMap
+
+                new (props?: Partial<GObject.ConstructorProps<HashMultiMap>>): HashMultiMap
+                /**
+                 * @param k_type
+                 * @param k_dup_func
+                 * @param k_destroy_func
+                 * @param v_type
+                 * @param v_dup_func
+                 * @param v_destroy_func
+                 * @param key_hash_func
+                 * @param key_equal_func
+                 * @param value_hash_func
+                 * @param value_equal_func
+                 */
+                "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_hash_func: Gee.HashDataFunc | null, key_equal_func: Gee.EqualDataFunc | null, value_hash_func: Gee.HashDataFunc | null, value_equal_func: Gee.EqualDataFunc | null): HashMultiMap
+            }
+
+            interface $Exports {
+                /**
+                 */
+                HashMultiMap: HashMultiMapClass
+            }
+            
+
+            namespace HashMultiSet {
+                interface SignalSignatures extends Gee.AbstractMultiSet.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractMultiSet.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractMultiSet.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractMultiSet.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface HashMultiSet extends Gee.AbstractMultiSet {
+                readonly $signals: HashMultiSet.SignalSignatures
+                readonly $readableProperties: HashMultiSet.ReadableProperties
+                readonly $writableProperties: HashMultiSet.WritableProperties
+                readonly $constructOnlyProperties: HashMultiSet.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @returns , 
+                 */
+                get_hash_func(): [Gee.HashDataFunc, never]
+                /**
+                 * @returns , 
+                 */
+                get_equal_func(): [Gee.EqualDataFunc, never]
+            }
+
+            interface HashMultiSetClass extends Omit<Gee.AbstractMultiSetClass, "new"> {
+                readonly $gtype: GObject.GType<HashMultiSet>
+                readonly prototype: HashMultiSet
+
+                new (props?: Partial<GObject.ConstructorProps<HashMultiSet>>): HashMultiSet
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param hash_func
+                 * @param equal_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, hash_func: Gee.HashDataFunc | null, equal_func: Gee.EqualDataFunc | null): HashMultiSet
+                /**
+                 * @deprecated since 0.13.3
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param hash_func
+                 * @param equal_func
+                 */
+                broken(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, hash_func: Gee.HashDataFunc | null, equal_func: Gee.EqualDataFunc | null): HashMultiSet
+            }
+
+            interface $Exports {
+                /**
+                 */
+                HashMultiSet: HashMultiSetClass
+            }
+            
+
+            namespace HashSet {
+                interface SignalSignatures extends Gee.AbstractSet.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractSet.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractSet.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractSet.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface HashSet extends Gee.AbstractSet {
+                readonly $signals: HashSet.SignalSignatures
+                readonly $readableProperties: HashSet.ReadableProperties
+                readonly $writableProperties: HashSet.WritableProperties
+                readonly $constructOnlyProperties: HashSet.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @returns , 
+                 */
+                get_hash_func(): [Gee.HashDataFunc, never]
+                /**
+                 * @returns , 
+                 */
+                get_equal_func(): [Gee.EqualDataFunc, never]
+            }
+
+            interface HashSetClass extends Omit<Gee.AbstractSetClass, "new"> {
+                readonly $gtype: GObject.GType<HashSet>
+                readonly prototype: HashSet
+
+                new (props?: Partial<GObject.ConstructorProps<HashSet>>): HashSet
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param hash_func
+                 * @param equal_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, hash_func: Gee.HashDataFunc | null, equal_func: Gee.EqualDataFunc | null): HashSet
+            }
+
+            interface $Exports {
+                /**
+                 */
+                HashSet: HashSetClass
+            }
+            
+
+            namespace Lazy {
+                interface SignalSignatures  {
+                }
+
+                interface ReadableProperties  {
+                }
+
+                interface WritableProperties  {
+                }
+
+                interface ConstructOnlyProperties  {
+                }
+            }
+
+            interface Lazy  {
+                readonly $signals: Lazy.SignalSignatures
+                readonly $readableProperties: Lazy.ReadableProperties
+                readonly $writableProperties: Lazy.WritableProperties
+                readonly $constructOnlyProperties: Lazy.ConstructOnlyProperties
+                /**
+                 */
+                eval(): void
+                /**
+                 */
+                get(): never
+                /**
+                 */
+                get_value(): never
+            }
+
+            interface LazyClass {
+                readonly $gtype: GObject.GType<Lazy>
+                readonly prototype: Lazy
+
+                new (props?: Partial<GObject.ConstructorProps<Lazy>>): Lazy
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, func: Gee.LazyFunc): Lazy
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param item
+                 */
+                from_value(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, item: never): Lazy
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Lazy: LazyClass
+            }
+            
+
+            namespace LinkedList {
+                interface SignalSignatures extends Gee.AbstractBidirList.SignalSignatures, Gee.Queue.SignalSignatures, Gee.Deque.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractBidirList.ReadableProperties, Gee.Queue.ReadableProperties, Gee.Deque.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractBidirList.WritableProperties, Gee.Queue.WritableProperties, Gee.Deque.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractBidirList.ConstructOnlyProperties, Gee.Queue.ConstructOnlyProperties, Gee.Deque.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface LinkedList extends Gee.AbstractBidirList, Gee.Queue, Gee.Deque {
+                readonly $signals: LinkedList.SignalSignatures
+                readonly $readableProperties: LinkedList.ReadableProperties
+                readonly $writableProperties: LinkedList.WritableProperties
+                readonly $constructOnlyProperties: LinkedList.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                first(): never
+                /**
+                 */
+                last(): never
+                /**
+                 * @returns , 
+                 */
+                get_equal_func(): [Gee.EqualDataFunc, never]
+            }
+
+            interface LinkedListClass extends Omit<Gee.AbstractBidirListClass, "new"> {
+                readonly $gtype: GObject.GType<LinkedList>
+                readonly prototype: LinkedList
+
+                new (props?: Partial<GObject.ConstructorProps<LinkedList>>): LinkedList
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param equal_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): LinkedList
+            }
+
+            interface $Exports {
+                /**
+                 */
+                LinkedList: LinkedListClass
+            }
+            
+
+            namespace PriorityQueue {
+                interface SignalSignatures extends Gee.AbstractQueue.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractQueue.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractQueue.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractQueue.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface PriorityQueue extends Gee.AbstractQueue {
+                readonly $signals: PriorityQueue.SignalSignatures
+                readonly $readableProperties: PriorityQueue.ReadableProperties
+                readonly $writableProperties: PriorityQueue.WritableProperties
+                readonly $constructOnlyProperties: PriorityQueue.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @param element
+                 */
+                offer(element: never): boolean
+                /**
+                 * @returns , 
+                 */
+                get_compare_func(): [GLib.CompareDataFunc, never]
+            }
+
+            interface PriorityQueueClass extends Omit<Gee.AbstractQueueClass, "new"> {
+                readonly $gtype: GObject.GType<PriorityQueue>
+                readonly prototype: PriorityQueue
+
+                new (props?: Partial<GObject.ConstructorProps<PriorityQueue>>): PriorityQueue
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param compare_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): PriorityQueue
+            }
+
+            interface $Exports {
+                /**
+                 */
+                PriorityQueue: PriorityQueueClass
+            }
+            
+
+            namespace Promise {
+                interface SignalSignatures  {
+                }
+
+                interface ReadableProperties  {
+                }
+
+                interface WritableProperties  {
+                }
+
+                interface ConstructOnlyProperties  {
+                }
+            }
+
+            interface Promise  {
+                readonly $signals: Promise.SignalSignatures
+                readonly $readableProperties: Promise.ReadableProperties
+                readonly $writableProperties: Promise.WritableProperties
+                readonly $constructOnlyProperties: Promise.ConstructOnlyProperties
+                /**
+                 * @param value
+                 */
+                set_value(value: never): void
+                /**
+                 * @param exception
+                 */
+                set_exception(exception: GLib.Error): void
+            }
+
+            interface PromiseClass {
+                readonly $gtype: GObject.GType<Promise>
+                readonly prototype: Promise
+
+                new (props?: Partial<GObject.ConstructorProps<Promise>>): Promise
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify): Promise
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Promise: PromiseClass
+            }
+            
+
+            namespace TreeMap {
+                interface SignalSignatures extends Gee.AbstractBidirSortedMap.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractBidirSortedMap.ReadableProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractBidirSortedMap.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractBidirSortedMap.ConstructOnlyProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface TreeMap extends Gee.AbstractBidirSortedMap {
+                readonly $signals: TreeMap.SignalSignatures
+                readonly $readableProperties: TreeMap.ReadableProperties
+                readonly $writableProperties: TreeMap.WritableProperties
+                readonly $constructOnlyProperties: TreeMap.ConstructOnlyProperties
+                /**
+                 */
+                get kType(): GObject.GType
+                set kType(value: GObject.GType)
+                /**
+                 */
+                get kDupFunc(): GObject.BoxedCopyFunc
+                set kDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get kDestroyFunc(): GLib.DestroyNotify
+                set kDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get vType(): GObject.GType
+                set vType(value: GObject.GType)
+                /**
+                 */
+                get vDupFunc(): GObject.BoxedCopyFunc
+                set vDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get vDestroyFunc(): GLib.DestroyNotify
+                set vDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @returns , 
+                 */
+                get_key_compare_func(): [GLib.CompareDataFunc, never]
+                /**
+                 * @returns , 
+                 */
+                get_value_equal_func(): [Gee.EqualDataFunc, never]
+            }
+
+            interface TreeMapClass extends Omit<Gee.AbstractBidirSortedMapClass, "new"> {
+                readonly $gtype: GObject.GType<TreeMap>
+                readonly prototype: TreeMap
+
+                new (props?: Partial<GObject.ConstructorProps<TreeMap>>): TreeMap
+                /**
+                 * @param k_type
+                 * @param k_dup_func
+                 * @param k_destroy_func
+                 * @param v_type
+                 * @param v_dup_func
+                 * @param v_destroy_func
+                 * @param key_compare_func
+                 * @param value_equal_func
+                 */
+                "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_compare_func: GLib.CompareDataFunc | null, value_equal_func: Gee.EqualDataFunc | null): TreeMap
+            }
+
+            interface $Exports {
+                /**
+                 */
+                TreeMap: TreeMapClass
+            }
+            
+
+            namespace TreeMultiMap {
+                interface SignalSignatures extends Gee.AbstractMultiMap.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractMultiMap.ReadableProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractMultiMap.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractMultiMap.ConstructOnlyProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface TreeMultiMap extends Gee.AbstractMultiMap {
+                readonly $signals: TreeMultiMap.SignalSignatures
+                readonly $readableProperties: TreeMultiMap.ReadableProperties
+                readonly $writableProperties: TreeMultiMap.WritableProperties
+                readonly $constructOnlyProperties: TreeMultiMap.ConstructOnlyProperties
+                /**
+                 */
+                get kType(): GObject.GType
+                set kType(value: GObject.GType)
+                /**
+                 */
+                get kDupFunc(): GObject.BoxedCopyFunc
+                set kDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get kDestroyFunc(): GLib.DestroyNotify
+                set kDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get vType(): GObject.GType
+                set vType(value: GObject.GType)
+                /**
+                 */
+                get vDupFunc(): GObject.BoxedCopyFunc
+                set vDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get vDestroyFunc(): GLib.DestroyNotify
+                set vDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @returns , 
+                 */
+                get_key_compare_func(): [GLib.CompareDataFunc, never]
+                /**
+                 * @returns , 
+                 */
+                get_value_compare_func(): [GLib.CompareDataFunc, never]
+            }
+
+            interface TreeMultiMapClass extends Omit<Gee.AbstractMultiMapClass, "new"> {
+                readonly $gtype: GObject.GType<TreeMultiMap>
+                readonly prototype: TreeMultiMap
+
+                new (props?: Partial<GObject.ConstructorProps<TreeMultiMap>>): TreeMultiMap
+                /**
+                 * @param k_type
+                 * @param k_dup_func
+                 * @param k_destroy_func
+                 * @param v_type
+                 * @param v_dup_func
+                 * @param v_destroy_func
+                 * @param key_compare_func
+                 * @param value_compare_func
+                 */
+                "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_compare_func: GLib.CompareDataFunc | null, value_compare_func: GLib.CompareDataFunc | null): TreeMultiMap
+            }
+
+            interface $Exports {
+                /**
+                 */
+                TreeMultiMap: TreeMultiMapClass
+            }
+            
+
+            namespace TreeMultiSet {
+                interface SignalSignatures extends Gee.AbstractMultiSet.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractMultiSet.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractMultiSet.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractMultiSet.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface TreeMultiSet extends Gee.AbstractMultiSet {
+                readonly $signals: TreeMultiSet.SignalSignatures
+                readonly $readableProperties: TreeMultiSet.ReadableProperties
+                readonly $writableProperties: TreeMultiSet.WritableProperties
+                readonly $constructOnlyProperties: TreeMultiSet.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @returns , 
+                 */
+                get_compare_func(): [GLib.CompareDataFunc, never]
+            }
+
+            interface TreeMultiSetClass extends Omit<Gee.AbstractMultiSetClass, "new"> {
+                readonly $gtype: GObject.GType<TreeMultiSet>
+                readonly prototype: TreeMultiSet
+
+                new (props?: Partial<GObject.ConstructorProps<TreeMultiSet>>): TreeMultiSet
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param compare_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): TreeMultiSet
+            }
+
+            interface $Exports {
+                /**
+                 */
+                TreeMultiSet: TreeMultiSetClass
+            }
+            
+
+            namespace TreeSet {
+                interface SignalSignatures extends Gee.AbstractBidirSortedSet.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractBidirSortedSet.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractBidirSortedSet.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractBidirSortedSet.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface TreeSet extends Gee.AbstractBidirSortedSet {
+                readonly $signals: TreeSet.SignalSignatures
+                readonly $readableProperties: TreeSet.ReadableProperties
+                readonly $writableProperties: TreeSet.WritableProperties
+                readonly $constructOnlyProperties: TreeSet.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @returns , 
+                 */
+                get_compare_func(): [GLib.CompareDataFunc, never]
+            }
+
+            interface TreeSetClass extends Omit<Gee.AbstractBidirSortedSetClass, "new"> {
+                readonly $gtype: GObject.GType<TreeSet>
+                readonly prototype: TreeSet
+
+                new (props?: Partial<GObject.ConstructorProps<TreeSet>>): TreeSet
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param compare_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): TreeSet
+            }
+
+            interface $Exports {
+                /**
+                 */
+                TreeSet: TreeSetClass
+            }
+            
+
+            namespace UnrolledLinkedList {
+                interface SignalSignatures extends Gee.AbstractBidirList.SignalSignatures, Gee.Queue.SignalSignatures, Gee.Deque.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.AbstractBidirList.ReadableProperties, Gee.Queue.ReadableProperties, Gee.Deque.ReadableProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+
+                interface WritableProperties extends Gee.AbstractBidirList.WritableProperties, Gee.Queue.WritableProperties, Gee.Deque.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.AbstractBidirList.ConstructOnlyProperties, Gee.Queue.ConstructOnlyProperties, Gee.Deque.ConstructOnlyProperties {
+                    "g-type": GObject.GType
+                    "g-dup-func": GObject.BoxedCopyFunc
+                    "g-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface UnrolledLinkedList extends Gee.AbstractBidirList, Gee.Queue, Gee.Deque {
+                readonly $signals: UnrolledLinkedList.SignalSignatures
+                readonly $readableProperties: UnrolledLinkedList.ReadableProperties
+                readonly $writableProperties: UnrolledLinkedList.WritableProperties
+                readonly $constructOnlyProperties: UnrolledLinkedList.ConstructOnlyProperties
+                /**
+                 */
+                get gType(): GObject.GType
+                set gType(value: GObject.GType)
+                /**
+                 */
+                get gDupFunc(): GObject.BoxedCopyFunc
+                set gDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get gDestroyFunc(): GLib.DestroyNotify
+                set gDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 * @returns , 
+                 */
+                get_equal_func(): [Gee.EqualDataFunc, never]
+            }
+
+            interface UnrolledLinkedListClass extends Omit<Gee.AbstractBidirListClass, "new"> {
+                readonly $gtype: GObject.GType<UnrolledLinkedList>
+                readonly prototype: UnrolledLinkedList
+
+                new (props?: Partial<GObject.ConstructorProps<UnrolledLinkedList>>): UnrolledLinkedList
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param equal_func
+                 */
+                "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): UnrolledLinkedList
+            }
+
+            interface $Exports {
+                /**
+                 */
+                UnrolledLinkedList: UnrolledLinkedListClass
+            }
+            
+
+            namespace MapEntry {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                    "key": never
+                    "value": never
+                    "read-only": boolean
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "key": never
+                    "value": never
+                    "read-only": boolean
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                    "k-type": GObject.GType
+                    "k-dup-func": GObject.BoxedCopyFunc
+                    "k-destroy-func": GLib.DestroyNotify
+                    "v-type": GObject.GType
+                    "v-dup-func": GObject.BoxedCopyFunc
+                    "v-destroy-func": GLib.DestroyNotify
+                }
+            }
+
+            interface MapEntry extends GObject.Object {
+                readonly $signals: MapEntry.SignalSignatures
+                readonly $readableProperties: MapEntry.ReadableProperties
+                readonly $writableProperties: MapEntry.WritableProperties
+                readonly $constructOnlyProperties: MapEntry.ConstructOnlyProperties
+                /**
+                 */
+                get kType(): GObject.GType
+                set kType(value: GObject.GType)
+                /**
+                 */
+                get kDupFunc(): GObject.BoxedCopyFunc
+                set kDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get kDestroyFunc(): GLib.DestroyNotify
+                set kDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get vType(): GObject.GType
+                set vType(value: GObject.GType)
+                /**
+                 */
+                get vDupFunc(): GObject.BoxedCopyFunc
+                set vDupFunc(value: GObject.BoxedCopyFunc)
+                /**
+                 */
+                get vDestroyFunc(): GLib.DestroyNotify
+                set vDestroyFunc(value: GLib.DestroyNotify)
+                /**
+                 */
+                get key(): never
+                set key(value: never)
+                /**
+                 */
+                get value(): never
+                set value(value: never)
+                /**
+                 */
+                get readOnly(): boolean
+                set readOnly(value: boolean)
+                /**
+                 */
+                get_key(): never
+                /**
+                 */
+                get_value(): never
+                /**
+                 * @param value
+                 */
+                set_value(value: never): void
+                /**
+                 */
+                get_read_only(): boolean
+                /**
+                 */
+                vfunc_get_key(): never
+                /**
+                 */
+                vfunc_get_value(): never
+                /**
+                 * @param value
+                 */
+                vfunc_set_value(value: never): void
+                /**
+                 */
+                vfunc_get_read_only(): boolean
+            }
+
+            interface MapEntryClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<MapEntry>
+                readonly prototype: MapEntry
+
+                new (props?: Partial<GObject.ConstructorProps<MapEntry>>): MapEntry
+            }
+
+            interface $Exports {
+                /**
+                 */
+                MapEntry: MapEntryClass
+            }
+            
+
+            namespace BidirIterator {
+                interface SignalSignatures extends Gee.Iterator.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.Iterator.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.Iterator.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.Iterator.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.Iterator {
+                    /**
+                     */
+                    vfunc_previous(): boolean
+                    /**
+                     */
+                    vfunc_has_previous(): boolean
+                    /**
+                     */
+                    vfunc_first(): boolean
+                    /**
+                     */
+                    vfunc_last(): boolean
+                }
+            }
+
+            interface BidirIterator extends Gee.Iterator, BidirIterator.Interface {
+                readonly $signals: BidirIterator.SignalSignatures
+                readonly $readableProperties: BidirIterator.ReadableProperties
+                readonly $writableProperties: BidirIterator.WritableProperties
+                readonly $constructOnlyProperties: BidirIterator.ConstructOnlyProperties
+                /**
+                 */
+                previous(): boolean
+                /**
+                 */
+                has_previous(): boolean
+                /**
+                 */
+                first(): boolean
+                /**
+                 */
+                last(): boolean
+            }
+
+            interface BidirIteratorIface {
+                readonly $gtype: GObject.GType<BidirIterator>
+                readonly prototype: BidirIterator
+                [Symbol.hasInstance](instance: unknown): instance is BidirIterator
+            }
+
+            interface $Exports {
+                /**
+                 */
+                BidirIterator: BidirIteratorIface
+            }
+            
+
+            namespace BidirList {
+                interface SignalSignatures extends Gee.List.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.List.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.List.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.List.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.List {
+                }
+            }
+
+            interface BidirList extends Gee.List, BidirList.Interface {
+                readonly $signals: BidirList.SignalSignatures
+                readonly $readableProperties: BidirList.ReadableProperties
+                readonly $writableProperties: BidirList.WritableProperties
+                readonly $constructOnlyProperties: BidirList.ConstructOnlyProperties
+            }
+
+            interface BidirListIface {
+                readonly $gtype: GObject.GType<BidirList>
+                readonly prototype: BidirList
+                [Symbol.hasInstance](instance: unknown): instance is BidirList
+            }
+
+            interface $Exports {
+                /**
+                 */
+                BidirList: BidirListIface
+            }
+            
+
+            namespace BidirListIterator {
+                interface SignalSignatures extends Gee.BidirIterator.SignalSignatures, Gee.ListIterator.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.BidirIterator.ReadableProperties, Gee.ListIterator.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.BidirIterator.WritableProperties, Gee.ListIterator.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.BidirIterator.ConstructOnlyProperties, Gee.ListIterator.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.BidirIterator, Gee.ListIterator {
+                    /**
+                     * @param item
+                     */
+                    vfunc_insert(item: never): void
+                }
+            }
+
+            interface BidirListIterator extends Gee.BidirIterator, Gee.ListIterator, BidirListIterator.Interface {
+                readonly $signals: BidirListIterator.SignalSignatures
+                readonly $readableProperties: BidirListIterator.ReadableProperties
+                readonly $writableProperties: BidirListIterator.WritableProperties
+                readonly $constructOnlyProperties: BidirListIterator.ConstructOnlyProperties
+                /**
+                 * @param item
+                 */
+                insert(item: never): void
+            }
+
+            interface BidirListIteratorIface {
+                readonly $gtype: GObject.GType<BidirListIterator>
+                readonly prototype: BidirListIterator
+                [Symbol.hasInstance](instance: unknown): instance is BidirListIterator
+            }
+
+            interface $Exports {
+                /**
+                 */
+                BidirListIterator: BidirListIteratorIface
+            }
+            
+
+            namespace BidirMapIterator {
+                interface SignalSignatures extends Gee.MapIterator.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.MapIterator.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.MapIterator.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.MapIterator.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.MapIterator {
+                    /**
+                     */
+                    vfunc_previous(): boolean
+                    /**
+                     */
+                    vfunc_has_previous(): boolean
+                    /**
+                     */
+                    vfunc_first(): boolean
+                    /**
+                     */
+                    vfunc_last(): boolean
+                }
+            }
+
+            interface BidirMapIterator extends Gee.MapIterator, BidirMapIterator.Interface {
+                readonly $signals: BidirMapIterator.SignalSignatures
+                readonly $readableProperties: BidirMapIterator.ReadableProperties
+                readonly $writableProperties: BidirMapIterator.WritableProperties
+                readonly $constructOnlyProperties: BidirMapIterator.ConstructOnlyProperties
+                /**
+                 */
+                previous(): boolean
+                /**
+                 */
+                has_previous(): boolean
+                /**
+                 */
+                first(): boolean
+                /**
+                 */
+                last(): boolean
+            }
+
+            interface BidirMapIteratorIface {
+                readonly $gtype: GObject.GType<BidirMapIterator>
+                readonly prototype: BidirMapIterator
+                [Symbol.hasInstance](instance: unknown): instance is BidirMapIterator
+            }
+
+            interface $Exports {
+                /**
+                 */
+                BidirMapIterator: BidirMapIteratorIface
+            }
+            
+
+            namespace BidirSortedSet {
+                interface SignalSignatures extends Gee.SortedSet.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.SortedSet.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.SortedSet.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.SortedSet.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.SortedSet {
+                }
+            }
+
+            interface BidirSortedSet extends Gee.SortedSet, BidirSortedSet.Interface {
+                readonly $signals: BidirSortedSet.SignalSignatures
+                readonly $readableProperties: BidirSortedSet.ReadableProperties
+                readonly $writableProperties: BidirSortedSet.WritableProperties
+                readonly $constructOnlyProperties: BidirSortedSet.ConstructOnlyProperties
+            }
+
+            interface BidirSortedSetIface {
+                readonly $gtype: GObject.GType<BidirSortedSet>
+                readonly prototype: BidirSortedSet
+                [Symbol.hasInstance](instance: unknown): instance is BidirSortedSet
+            }
+
+            interface $Exports {
+                /**
+                 */
+                BidirSortedSet: BidirSortedSetIface
+            }
+            
+
+            namespace BidirSortedMap {
+                interface SignalSignatures extends Gee.SortedMap.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.SortedMap.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.SortedMap.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.SortedMap.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.SortedMap {
+                }
+            }
+
+            interface BidirSortedMap extends Gee.SortedMap, BidirSortedMap.Interface {
+                readonly $signals: BidirSortedMap.SignalSignatures
+                readonly $readableProperties: BidirSortedMap.ReadableProperties
+                readonly $writableProperties: BidirSortedMap.WritableProperties
+                readonly $constructOnlyProperties: BidirSortedMap.ConstructOnlyProperties
+            }
+
+            interface BidirSortedMapIface {
+                readonly $gtype: GObject.GType<BidirSortedMap>
+                readonly prototype: BidirSortedMap
+                [Symbol.hasInstance](instance: unknown): instance is BidirSortedMap
+            }
+
+            interface $Exports {
+                /**
+                 */
+                BidirSortedMap: BidirSortedMapIface
+            }
+            
+
+            namespace Collection {
+                interface SignalSignatures extends Gee.Iterable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.Iterable.ReadableProperties {
+                    "size": number
+                    "read-only": boolean
+                }
+
+                interface WritableProperties extends Gee.Iterable.WritableProperties {
+                    "size": number
+                    "read-only": boolean
+                }
+
+                interface ConstructOnlyProperties extends Gee.Iterable.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.Iterable {
+                    /**
+                     * @param item
+                     */
+                    vfunc_contains(item: never): boolean
+                    /**
+                     * @param item
+                     */
+                    vfunc_add(item: never): boolean
+                    /**
+                     * @param item
+                     */
+                    vfunc_remove(item: never): boolean
+                    /**
+                     */
+                    vfunc_clear(): void
+                    /**
+                     */
+                    vfunc_to_array(): never[]
+                    /**
+                     * @param array
+                     */
+                    vfunc_add_all_array(array: never[]): boolean
+                    /**
+                     * @param array
+                     */
+                    vfunc_contains_all_array(array: never[]): boolean
+                    /**
+                     * @param array
+                     */
+                    vfunc_remove_all_array(array: never[]): boolean
+                    /**
+                     */
+                    vfunc_get_size(): number
+                    /**
+                     */
+                    vfunc_get_is_empty(): boolean
+                    /**
+                     */
+                    vfunc_get_read_only(): boolean
+                }
+            }
+
+            interface Collection extends Gee.Iterable, Collection.Interface {
+                readonly $signals: Collection.SignalSignatures
+                readonly $readableProperties: Collection.ReadableProperties
+                readonly $writableProperties: Collection.WritableProperties
+                readonly $constructOnlyProperties: Collection.ConstructOnlyProperties
+                /**
+                 */
+                get size(): number
+                set size(value: number)
+                /**
+                 */
+                get readOnly(): boolean
+                set readOnly(value: boolean)
+                /**
+                 * @param item
+                 */
+                contains(item: never): boolean
+                /**
+                 * @param item
+                 */
+                add(item: never): boolean
+                /**
+                 * @param item
+                 */
+                remove(item: never): boolean
+                /**
+                 */
+                clear(): void
+                /**
+                 */
+                to_array(): never[]
+                /**
+                 * @param array
+                 */
+                add_all_array(array: never[]): boolean
+                /**
+                 * @param array
+                 */
+                contains_all_array(array: never[]): boolean
+                /**
+                 * @param array
+                 */
+                remove_all_array(array: never[]): boolean
+                /**
+                 */
+                get_size(): number
+                /**
+                 */
+                get_is_empty(): boolean
+                /**
+                 */
+                get_read_only(): boolean
+            }
+
+            interface CollectionIface {
+                readonly $gtype: GObject.GType<Collection>
+                readonly prototype: Collection
+                [Symbol.hasInstance](instance: unknown): instance is Collection
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Collection: CollectionIface
+            }
+            
+
+            namespace Comparable {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object {
+                    /**
+                     * @param object
+                     */
+                    vfunc_compare_to(object: never): number
+                }
+            }
+
+            interface Comparable extends GObject.Object, Comparable.Interface {
+                readonly $signals: Comparable.SignalSignatures
+                readonly $readableProperties: Comparable.ReadableProperties
+                readonly $writableProperties: Comparable.WritableProperties
+                readonly $constructOnlyProperties: Comparable.ConstructOnlyProperties
+                /**
+                 * @param object
+                 */
+                compare_to(object: never): number
+            }
+
+            interface ComparableIface {
+                readonly $gtype: GObject.GType<Comparable>
+                readonly prototype: Comparable
+                [Symbol.hasInstance](instance: unknown): instance is Comparable
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Comparable: ComparableIface
+            }
+            
+
+            namespace Deque {
+                interface SignalSignatures extends Gee.Queue.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.Queue.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.Queue.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.Queue.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.Queue {
+                    /**
+                     * @param element
+                     */
+                    vfunc_offer_head(element: never): boolean
+                    /**
+                     */
+                    vfunc_peek_head(): never | null
+                    /**
+                     */
+                    vfunc_poll_head(): never | null
+                    /**
+                     * @param element
+                     */
+                    vfunc_offer_tail(element: never): boolean
+                    /**
+                     */
+                    vfunc_peek_tail(): never | null
+                    /**
+                     */
+                    vfunc_poll_tail(): never | null
+                }
+            }
+
+            interface Deque extends Gee.Queue, Deque.Interface {
+                readonly $signals: Deque.SignalSignatures
+                readonly $readableProperties: Deque.ReadableProperties
+                readonly $writableProperties: Deque.WritableProperties
+                readonly $constructOnlyProperties: Deque.ConstructOnlyProperties
+                /**
+                 * @param element
+                 */
+                offer_head(element: never): boolean
+                /**
+                 */
+                peek_head(): never | null
+                /**
+                 */
+                poll_head(): never | null
+                /**
+                 * @param element
+                 */
+                offer_tail(element: never): boolean
+                /**
+                 */
+                peek_tail(): never | null
+                /**
+                 */
+                poll_tail(): never | null
+            }
+
+            interface DequeIface {
+                readonly $gtype: GObject.GType<Deque>
+                readonly prototype: Deque
+                [Symbol.hasInstance](instance: unknown): instance is Deque
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Deque: DequeIface
+            }
+            
+
+            namespace Future {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "ready": boolean
+                    "exception": GLib.Error
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "ready": boolean
+                    "exception": GLib.Error
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object {
+                    /**
+                     * @throws {GLib.Error}
+                     */
+                    vfunc_wait(): never
+                    /**
+                     * @throws {GLib.Error}
+                     * @param end_time
+                     * @returns , 
+                     */
+                    vfunc_wait_until(end_time: number): [boolean, never]
+                    /**
+                     * @param _callback_
+                     */
+                    vfunc_wait_async(_callback_: Gio.AsyncReadyCallback | null): void
+                    /**
+                     * @throws {GLib.Error}
+                     * @param _res_
+                     */
+                    vfunc_wait_finish(_res_: Gio.AsyncResult): never
+                    /**
+                     */
+                    vfunc_get_value(): never | null
+                    /**
+                     */
+                    vfunc_get_ready(): boolean
+                    /**
+                     */
+                    vfunc_get_exception(): GLib.Error | null
+                }
+            }
+
+            interface Future extends GObject.Object, Future.Interface {
+                readonly $signals: Future.SignalSignatures
+                readonly $readableProperties: Future.ReadableProperties
+                readonly $writableProperties: Future.WritableProperties
+                readonly $constructOnlyProperties: Future.ConstructOnlyProperties
+                /**
+                 */
+                get ready(): boolean
+                set ready(value: boolean)
+                /**
+                 */
+                get exception(): GLib.Error
+                set exception(value: GLib.Error)
+                /**
+                 * @throws {GLib.Error}
+                 */
+                wait(): never
+                /**
+                 * @throws {GLib.Error}
+                 * @param end_time
+                 * @returns , 
+                 */
+                wait_until(end_time: number): [boolean, never]
+                /**
+                 * @param _callback_
+                 */
+                wait_async(_callback_: Gio.AsyncReadyCallback | null): void
+                /**
+                 * @throws {GLib.Error}
+                 * @param _res_
+                 */
+                wait_finish(_res_: Gio.AsyncResult): never
+                /**
+                 */
+                get_value(): never | null
+                /**
+                 */
+                get_ready(): boolean
+                /**
+                 */
+                get_exception(): GLib.Error | null
+            }
+
+            interface FutureIface {
+                readonly $gtype: GObject.GType<Future>
+                readonly prototype: Future
+                [Symbol.hasInstance](instance: unknown): instance is Future
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Future: FutureIface
+            }
+            
+
+            namespace Hashable {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object {
+                    /**
+                     */
+                    vfunc_hash(): number
+                    /**
+                     * @param object
+                     */
+                    vfunc_equal_to(object: never): boolean
+                }
+            }
+
+            interface Hashable extends GObject.Object, Hashable.Interface {
+                readonly $signals: Hashable.SignalSignatures
+                readonly $readableProperties: Hashable.ReadableProperties
+                readonly $writableProperties: Hashable.WritableProperties
+                readonly $constructOnlyProperties: Hashable.ConstructOnlyProperties
+                /**
+                 */
+                hash(): number
+                /**
+                 * @param object
+                 */
+                equal_to(object: never): boolean
+            }
+
+            interface HashableIface {
+                readonly $gtype: GObject.GType<Hashable>
+                readonly prototype: Hashable
+                [Symbol.hasInstance](instance: unknown): instance is Hashable
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Hashable: HashableIface
+            }
+            
+
+            namespace Iterable {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.Traversable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.Traversable.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties, Gee.Traversable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.Traversable.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object, Gee.Traversable {
+                }
+            }
+
+            interface Iterable extends GObject.Object, Gee.Traversable, Iterable.Interface {
+                readonly $signals: Iterable.SignalSignatures
+                readonly $readableProperties: Iterable.ReadableProperties
+                readonly $writableProperties: Iterable.WritableProperties
+                readonly $constructOnlyProperties: Iterable.ConstructOnlyProperties
+            }
+
+            interface IterableIface {
+                readonly $gtype: GObject.GType<Iterable>
+                readonly prototype: Iterable
+                [Symbol.hasInstance](instance: unknown): instance is Iterable
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Iterable: IterableIface
+            }
+            
+
+            namespace Iterator {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.Traversable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.Traversable.ReadableProperties {
+                    "valid": boolean
+                    "read-only": boolean
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties, Gee.Traversable.WritableProperties {
+                    "valid": boolean
+                    "read-only": boolean
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.Traversable.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object, Gee.Traversable {
+                    /**
+                     */
+                    vfunc_next(): boolean
+                    /**
+                     */
+                    vfunc_has_next(): boolean
+                    /**
+                     */
+                    vfunc_get(): never
+                    /**
+                     */
+                    vfunc_remove(): void
+                    /**
+                     */
+                    vfunc_get_valid(): boolean
+                    /**
+                     */
+                    vfunc_get_read_only(): boolean
+                }
+            }
+
+            interface Iterator extends GObject.Object, Gee.Traversable, Iterator.Interface {
+                readonly $signals: Iterator.SignalSignatures
+                readonly $readableProperties: Iterator.ReadableProperties
+                readonly $writableProperties: Iterator.WritableProperties
+                readonly $constructOnlyProperties: Iterator.ConstructOnlyProperties
+                /**
+                 */
+                get valid(): boolean
+                set valid(value: boolean)
+                /**
+                 */
+                get readOnly(): boolean
+                set readOnly(value: boolean)
+                /**
+                 */
+                next(): boolean
+                /**
+                 */
+                has_next(): boolean
+                /**
+                 */
+                get(): never
+                /**
+                 */
+                remove(): void
+                /**
+                 */
+                get_valid(): boolean
+                /**
+                 */
+                get_read_only(): boolean
+            }
+
+            interface IteratorIface {
+                readonly $gtype: GObject.GType<Iterator>
+                readonly prototype: Iterator
+                [Symbol.hasInstance](instance: unknown): instance is Iterator
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Iterator: IteratorIface
+            }
+            
+
+            namespace List {
+                interface SignalSignatures extends Gee.Collection.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.Collection.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.Collection.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.Collection.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.Collection {
+                    /**
+                     * @param index
+                     */
+                    vfunc_get(index: number): never
+                    /**
+                     * @param index
+                     * @param item
+                     */
+                    vfunc_set(index: number, item: never): void
+                    /**
+                     * @param item
+                     */
+                    vfunc_index_of(item: never): number
+                    /**
+                     * @param index
+                     * @param item
+                     */
+                    vfunc_insert(index: number, item: never): void
+                    /**
+                     * @param index
+                     */
+                    vfunc_remove_at(index: number): never
+                    /**
+                     */
+                    vfunc_first(): never
+                    /**
+                     */
+                    vfunc_last(): never
+                    /**
+                     * @param compare_func
+                     */
+                    vfunc_sort(compare_func: GLib.CompareDataFunc | null): void
+                }
+            }
+
+            interface List extends Gee.Collection, List.Interface {
+                readonly $signals: List.SignalSignatures
+                readonly $readableProperties: List.ReadableProperties
+                readonly $writableProperties: List.WritableProperties
+                readonly $constructOnlyProperties: List.ConstructOnlyProperties
+                /**
+                 * @param index
+                 */
+                get(index: number): never
+                /**
+                 * @param index
+                 * @param item
+                 */
+                set(index: number, item: never): void
+                /**
+                 * @param item
+                 */
+                index_of(item: never): number
+                /**
+                 * @param index
+                 * @param item
+                 */
+                insert(index: number, item: never): void
+                /**
+                 * @param index
+                 */
+                remove_at(index: number): never
+                /**
+                 */
+                first(): never
+                /**
+                 */
+                last(): never
+                /**
+                 * @param compare_func
+                 */
+                sort(compare_func: GLib.CompareDataFunc | null): void
+            }
+
+            interface ListIface {
+                readonly $gtype: GObject.GType<List>
+                readonly prototype: List
+                [Symbol.hasInstance](instance: unknown): instance is List
+            }
+
+            interface $Exports {
+                /**
+                 */
+                List: ListIface
+            }
+            
+
+            namespace ListIterator {
+                interface SignalSignatures extends Gee.Iterator.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.Iterator.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.Iterator.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.Iterator.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.Iterator {
+                    /**
+                     * @param item
+                     */
+                    vfunc_set(item: never): void
+                    /**
+                     * @param item
+                     */
+                    vfunc_add(item: never): void
+                    /**
+                     */
+                    vfunc_index(): number
+                }
+            }
+
+            interface ListIterator extends Gee.Iterator, ListIterator.Interface {
+                readonly $signals: ListIterator.SignalSignatures
+                readonly $readableProperties: ListIterator.ReadableProperties
+                readonly $writableProperties: ListIterator.WritableProperties
+                readonly $constructOnlyProperties: ListIterator.ConstructOnlyProperties
+                /**
+                 * @param item
+                 */
+                set(item: never): void
+                /**
+                 * @param item
+                 */
+                add(item: never): void
+                /**
+                 */
+                index(): number
+            }
+
+            interface ListIteratorIface {
+                readonly $gtype: GObject.GType<ListIterator>
+                readonly prototype: ListIterator
+                [Symbol.hasInstance](instance: unknown): instance is ListIterator
+            }
+
+            interface $Exports {
+                /**
+                 */
+                ListIterator: ListIteratorIface
+            }
+            
+
+            namespace Map {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, Gee.Iterable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties, Gee.Iterable.ReadableProperties {
+                    "size": number
+                    "read-only": boolean
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties, Gee.Iterable.WritableProperties {
+                    "size": number
+                    "read-only": boolean
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gee.Iterable.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object, Gee.Iterable {
+                    /**
+                     * @param key
+                     */
+                    vfunc_has_key(key: never): boolean
+                    /**
+                     * @param key
+                     * @param value
+                     */
+                    vfunc_has(key: never, value: never): boolean
+                    /**
+                     * @param key
+                     */
+                    vfunc_get(key: never): never | null
+                    /**
+                     * @param key
+                     * @param value
+                     */
+                    vfunc_set(key: never, value: never): void
+                    /**
+                     * @param key
+                     * @returns , 
+                     */
+                    vfunc_unset(key: never): [boolean, never]
+                    /**
+                     */
+                    vfunc_clear(): void
+                    /**
+                     */
+                    vfunc_get_size(): number
+                    /**
+                     */
+                    vfunc_get_is_empty(): boolean
+                    /**
+                     */
+                    vfunc_get_read_only(): boolean
+                }
+            }
+
+            interface Map extends GObject.Object, Gee.Iterable, Map.Interface {
+                readonly $signals: Map.SignalSignatures
+                readonly $readableProperties: Map.ReadableProperties
+                readonly $writableProperties: Map.WritableProperties
+                readonly $constructOnlyProperties: Map.ConstructOnlyProperties
+                /**
+                 */
+                get size(): number
+                set size(value: number)
+                /**
+                 */
+                get readOnly(): boolean
+                set readOnly(value: boolean)
+                /**
+                 * @param key
+                 */
+                has_key(key: never): boolean
+                /**
+                 * @deprecated
+                 * @param key
+                 */
+                contains(key: never): boolean
+                /**
+                 * @param key
+                 * @param value
+                 */
+                has(key: never, value: never): boolean
+                /**
+                 * @param key
+                 */
+                get(key: never): never | null
+                /**
+                 * @param key
+                 * @param value
+                 */
+                set(key: never, value: never): void
+                /**
+                 * @param key
+                 * @returns , 
+                 */
+                unset(key: never): [boolean, never]
+                /**
+                 * @deprecated
+                 * @param key
+                 * @returns , 
+                 */
+                remove(key: never): [boolean, never]
+                /**
+                 */
+                clear(): void
+                /**
+                 */
+                get_size(): number
+                /**
+                 */
+                get_is_empty(): boolean
+                /**
+                 */
+                get_read_only(): boolean
+                /**
+                 */
+                get_key_type(): GObject.GType
+                /**
+                 */
+                get_value_type(): GObject.GType
+            }
+
+            interface MapIface {
+                readonly $gtype: GObject.GType<Map>
+                readonly prototype: Map
+                [Symbol.hasInstance](instance: unknown): instance is Map
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Map: MapIface
+            }
+            
+
+            namespace MapIterator {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "valid": boolean
+                    "mutable": boolean
+                    "read-only": boolean
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "valid": boolean
+                    "mutable": boolean
+                    "read-only": boolean
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object {
+                    /**
+                     */
+                    vfunc_next(): boolean
+                    /**
+                     */
+                    vfunc_has_next(): boolean
+                    /**
+                     */
+                    vfunc_get_key(): never
+                    /**
+                     */
+                    vfunc_get_value(): never
+                    /**
+                     * @param value
+                     */
+                    vfunc_set_value(value: never): void
+                    /**
+                     */
+                    vfunc_unset(): void
+                    /**
+                     * @param a_type
+                     * @param a_dup_func
+                     * @param a_destroy_func
+                     * @param f
+                     * @param seed
+                     */
+                    vfunc_fold(a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, f: Gee.FoldMapFunc, seed: never): never
+                    /**
+                     * @param f
+                     */
+                    vfunc_foreach(f: Gee.ForallMapFunc): boolean
+                    /**
+                     */
+                    vfunc_get_valid(): boolean
+                    /**
+                     */
+                    vfunc_get_mutable(): boolean
+                    /**
+                     */
+                    vfunc_get_read_only(): boolean
+                }
+            }
+
+            interface MapIterator extends GObject.Object, MapIterator.Interface {
+                readonly $signals: MapIterator.SignalSignatures
+                readonly $readableProperties: MapIterator.ReadableProperties
+                readonly $writableProperties: MapIterator.WritableProperties
+                readonly $constructOnlyProperties: MapIterator.ConstructOnlyProperties
+                /**
+                 */
+                get valid(): boolean
+                set valid(value: boolean)
+                /**
+                 */
+                get mutable(): boolean
+                set mutable(value: boolean)
+                /**
+                 */
+                get readOnly(): boolean
+                set readOnly(value: boolean)
+                /**
+                 */
+                next(): boolean
+                /**
+                 */
+                has_next(): boolean
+                /**
+                 */
+                get_key(): never
+                /**
+                 */
+                get_value(): never
+                /**
+                 * @param value
+                 */
+                set_value(value: never): void
+                /**
+                 */
+                unset(): void
                 /**
                  * @param a_type
                  * @param a_dup_func
@@ -4740,832 +4289,1325 @@ declare module "gi://Gee?version=0.8" {
                  * @param f
                  * @param seed
                  */
-                vfunc_fold(a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, f: Gee.FoldFunc, seed: never): never
+                fold(a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, f: Gee.FoldMapFunc, seed: never): never
                 /**
-                 * @param pred
+                 * @param f
                  */
-                vfunc_first_match(pred: Gee.Predicate): never | null
-                /**
-                 * @param pred
-                 */
-                vfunc_any_match(pred: Gee.Predicate): boolean
-                /**
-                 * @param pred
-                 */
-                vfunc_all_match(pred: Gee.Predicate): boolean
-                /**
-                 * @param compare
-                 */
-                vfunc_max(compare: GLib.CompareDataFunc): never
-                /**
-                 * @param compare
-                 */
-                vfunc_min(compare: GLib.CompareDataFunc): never
+                foreach(f: Gee.ForallMapFunc): boolean
                 /**
                  */
-                vfunc_get_element_type(): GObject.GType
+                get_valid(): boolean
+                /**
+                 */
+                get_mutable(): boolean
+                /**
+                 */
+                get_read_only(): boolean
             }
-        }
 
-        interface Traversable extends GObject.Object, Traversable.Interface {
-            readonly $signals: Traversable.SignalSignatures
-            readonly $readableProperties: Traversable.ReadableProperties
-            readonly $writableProperties: Traversable.WritableProperties
-            readonly $constructOnlyProperties: Traversable.ConstructOnlyProperties
+            interface MapIteratorIface {
+                readonly $gtype: GObject.GType<MapIterator>
+                readonly prototype: MapIterator
+                [Symbol.hasInstance](instance: unknown): instance is MapIterator
+            }
+
+            interface $Exports {
+                /**
+                 */
+                MapIterator: MapIteratorIface
+            }
+            
+
+            namespace MultiMap {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "size": number
+                    "read-only": boolean
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "size": number
+                    "read-only": boolean
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object {
+                    /**
+                     * @param key
+                     */
+                    vfunc_contains(key: never): boolean
+                    /**
+                     * @param key
+                     * @param value
+                     */
+                    vfunc_set(key: never, value: never): void
+                    /**
+                     * @param key
+                     * @param value
+                     */
+                    vfunc_remove(key: never, value: never): boolean
+                    /**
+                     * @param key
+                     */
+                    vfunc_remove_all(key: never): boolean
+                    /**
+                     */
+                    vfunc_clear(): void
+                    /**
+                     */
+                    vfunc_get_size(): number
+                    /**
+                     */
+                    vfunc_get_read_only(): boolean
+                }
+            }
+
+            interface MultiMap extends GObject.Object, MultiMap.Interface {
+                readonly $signals: MultiMap.SignalSignatures
+                readonly $readableProperties: MultiMap.ReadableProperties
+                readonly $writableProperties: MultiMap.WritableProperties
+                readonly $constructOnlyProperties: MultiMap.ConstructOnlyProperties
+                /**
+                 */
+                get size(): number
+                set size(value: number)
+                /**
+                 */
+                get readOnly(): boolean
+                set readOnly(value: boolean)
+                /**
+                 * @param key
+                 */
+                contains(key: never): boolean
+                /**
+                 * @param key
+                 * @param value
+                 */
+                set(key: never, value: never): void
+                /**
+                 * @param key
+                 * @param value
+                 */
+                remove(key: never, value: never): boolean
+                /**
+                 * @param key
+                 */
+                remove_all(key: never): boolean
+                /**
+                 */
+                clear(): void
+                /**
+                 */
+                get_size(): number
+                /**
+                 */
+                get_read_only(): boolean
+                /**
+                 */
+                get_key_type(): GObject.GType
+                /**
+                 */
+                get_value_type(): GObject.GType
+            }
+
+            interface MultiMapIface {
+                readonly $gtype: GObject.GType<MultiMap>
+                readonly prototype: MultiMap
+                [Symbol.hasInstance](instance: unknown): instance is MultiMap
+            }
+
+            interface $Exports {
+                /**
+                 */
+                MultiMap: MultiMapIface
+            }
+            
+
+            namespace MultiSet {
+                interface SignalSignatures extends Gee.Collection.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.Collection.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.Collection.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.Collection.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.Collection {
+                    /**
+                     * @param item
+                     */
+                    vfunc_count(item: never): number
+                }
+            }
+
+            interface MultiSet extends Gee.Collection, MultiSet.Interface {
+                readonly $signals: MultiSet.SignalSignatures
+                readonly $readableProperties: MultiSet.ReadableProperties
+                readonly $writableProperties: MultiSet.WritableProperties
+                readonly $constructOnlyProperties: MultiSet.ConstructOnlyProperties
+                /**
+                 * @param item
+                 */
+                count(item: never): number
+            }
+
+            interface MultiSetIface {
+                readonly $gtype: GObject.GType<MultiSet>
+                readonly prototype: MultiSet
+                [Symbol.hasInstance](instance: unknown): instance is MultiSet
+            }
+
+            interface $Exports {
+                /**
+                 */
+                MultiSet: MultiSetIface
+            }
+            
+
+            namespace Queue {
+                interface SignalSignatures extends Gee.Collection.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.Collection.ReadableProperties {
+                    "capacity": number
+                    "remaining-capacity": number
+                    "is-full": boolean
+                }
+
+                interface WritableProperties extends Gee.Collection.WritableProperties {
+                    "capacity": number
+                    "remaining-capacity": number
+                    "is-full": boolean
+                }
+
+                interface ConstructOnlyProperties extends Gee.Collection.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.Collection {
+                    /**
+                     * @param element
+                     */
+                    vfunc_offer(element: never): boolean
+                    /**
+                     */
+                    vfunc_peek(): never | null
+                    /**
+                     */
+                    vfunc_poll(): never | null
+                    /**
+                     */
+                    vfunc_get_capacity(): number
+                    /**
+                     */
+                    vfunc_get_remaining_capacity(): number
+                    /**
+                     */
+                    vfunc_get_is_full(): boolean
+                }
+            }
+
+            interface Queue extends Gee.Collection, Queue.Interface {
+                readonly $signals: Queue.SignalSignatures
+                readonly $readableProperties: Queue.ReadableProperties
+                readonly $writableProperties: Queue.WritableProperties
+                readonly $constructOnlyProperties: Queue.ConstructOnlyProperties
+                /**
+                 */
+                get capacity(): number
+                set capacity(value: number)
+                /**
+                 */
+                get remainingCapacity(): number
+                set remainingCapacity(value: number)
+                /**
+                 */
+                get isFull(): boolean
+                set isFull(value: boolean)
+                /**
+                 * @param element
+                 */
+                offer(element: never): boolean
+                /**
+                 */
+                peek(): never | null
+                /**
+                 */
+                poll(): never | null
+                /**
+                 */
+                get_capacity(): number
+                /**
+                 */
+                get_remaining_capacity(): number
+                /**
+                 */
+                get_is_full(): boolean
+            }
+
+            interface QueueIface {
+                readonly $gtype: GObject.GType<Queue>
+                readonly prototype: Queue
+                [Symbol.hasInstance](instance: unknown): instance is Queue
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Queue: QueueIface
+            }
+            
+
+            namespace Set {
+                interface SignalSignatures extends Gee.Collection.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.Collection.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.Collection.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.Collection.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.Collection {
+                }
+            }
+
+            interface Set extends Gee.Collection, Set.Interface {
+                readonly $signals: Set.SignalSignatures
+                readonly $readableProperties: Set.ReadableProperties
+                readonly $writableProperties: Set.WritableProperties
+                readonly $constructOnlyProperties: Set.ConstructOnlyProperties
+            }
+
+            interface SetIface {
+                readonly $gtype: GObject.GType<Set>
+                readonly prototype: Set
+                [Symbol.hasInstance](instance: unknown): instance is Set
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Set: SetIface
+            }
+            
+
+            namespace SortedMap {
+                interface SignalSignatures extends Gee.Map.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.Map.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.Map.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.Map.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.Map {
+                }
+            }
+
+            interface SortedMap extends Gee.Map, SortedMap.Interface {
+                readonly $signals: SortedMap.SignalSignatures
+                readonly $readableProperties: SortedMap.ReadableProperties
+                readonly $writableProperties: SortedMap.WritableProperties
+                readonly $constructOnlyProperties: SortedMap.ConstructOnlyProperties
+            }
+
+            interface SortedMapIface {
+                readonly $gtype: GObject.GType<SortedMap>
+                readonly prototype: SortedMap
+                [Symbol.hasInstance](instance: unknown): instance is SortedMap
+            }
+
+            interface $Exports {
+                /**
+                 */
+                SortedMap: SortedMapIface
+            }
+            
+
+            namespace SortedSet {
+                interface SignalSignatures extends Gee.Set.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gee.Set.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gee.Set.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gee.Set.ConstructOnlyProperties {
+                }
+
+                interface Interface extends Gee.Set {
+                    /**
+                     */
+                    vfunc_first(): never
+                    /**
+                     */
+                    vfunc_last(): never
+                    /**
+                     * @param element
+                     */
+                    vfunc_lower(element: never): never | null
+                    /**
+                     * @param element
+                     */
+                    vfunc_higher(element: never): never | null
+                    /**
+                     * @param element
+                     */
+                    vfunc_floor(element: never): never | null
+                    /**
+                     * @param element
+                     */
+                    vfunc_ceil(element: never): never | null
+                }
+            }
+
+            interface SortedSet extends Gee.Set, SortedSet.Interface {
+                readonly $signals: SortedSet.SignalSignatures
+                readonly $readableProperties: SortedSet.ReadableProperties
+                readonly $writableProperties: SortedSet.WritableProperties
+                readonly $constructOnlyProperties: SortedSet.ConstructOnlyProperties
+                /**
+                 */
+                first(): never
+                /**
+                 */
+                last(): never
+                /**
+                 * @param element
+                 */
+                lower(element: never): never | null
+                /**
+                 * @param element
+                 */
+                higher(element: never): never | null
+                /**
+                 * @param element
+                 */
+                floor(element: never): never | null
+                /**
+                 * @param element
+                 */
+                ceil(element: never): never | null
+            }
+
+            interface SortedSetIface {
+                readonly $gtype: GObject.GType<SortedSet>
+                readonly prototype: SortedSet
+                [Symbol.hasInstance](instance: unknown): instance is SortedSet
+            }
+
+            interface $Exports {
+                /**
+                 */
+                SortedSet: SortedSetIface
+            }
+            
+
+            namespace Traversable {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object {
+                    /**
+                     * @param f
+                     */
+                    vfunc_foreach(f: Gee.ForallFunc): boolean
+                    /**
+                     * @param a_type
+                     * @param a_dup_func
+                     * @param a_destroy_func
+                     * @param f
+                     * @param seed
+                     */
+                    vfunc_fold(a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, f: Gee.FoldFunc, seed: never): never
+                    /**
+                     * @param pred
+                     */
+                    vfunc_first_match(pred: Gee.Predicate): never | null
+                    /**
+                     * @param pred
+                     */
+                    vfunc_any_match(pred: Gee.Predicate): boolean
+                    /**
+                     * @param pred
+                     */
+                    vfunc_all_match(pred: Gee.Predicate): boolean
+                    /**
+                     * @param compare
+                     */
+                    vfunc_max(compare: GLib.CompareDataFunc): never
+                    /**
+                     * @param compare
+                     */
+                    vfunc_min(compare: GLib.CompareDataFunc): never
+                    /**
+                     */
+                    vfunc_get_element_type(): GObject.GType
+                }
+            }
+
+            interface Traversable extends GObject.Object, Traversable.Interface {
+                readonly $signals: Traversable.SignalSignatures
+                readonly $readableProperties: Traversable.ReadableProperties
+                readonly $writableProperties: Traversable.WritableProperties
+                readonly $constructOnlyProperties: Traversable.ConstructOnlyProperties
+                /**
+                 * @param f
+                 */
+                foreach(f: Gee.ForallFunc): boolean
+                /**
+                 * @param a_type
+                 * @param a_dup_func
+                 * @param a_destroy_func
+                 * @param f
+                 * @param seed
+                 */
+                fold(a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, f: Gee.FoldFunc, seed: never): never
+                /**
+                 * @param pred
+                 */
+                first_match(pred: Gee.Predicate): never | null
+                /**
+                 * @param pred
+                 */
+                any_match(pred: Gee.Predicate): boolean
+                /**
+                 * @param pred
+                 */
+                all_match(pred: Gee.Predicate): boolean
+                /**
+                 * @param compare
+                 */
+                max(compare: GLib.CompareDataFunc): never
+                /**
+                 * @param compare
+                 */
+                min(compare: GLib.CompareDataFunc): never
+                /**
+                 */
+                get_element_type(): GObject.GType
+            }
+
+            interface TraversableIface {
+                readonly $gtype: GObject.GType<Traversable>
+                readonly prototype: Traversable
+                [Symbol.hasInstance](instance: unknown): instance is Traversable
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Traversable: TraversableIface
+            }
+            
+
+            interface AbstractBidirListPrivateStruct {
+                readonly $gtype: GObject.GType<AbstractBidirListPrivate>
+                new (fields?: {
+                }): AbstractBidirListPrivate
+            }
+
+            interface AbstractBidirListPrivate {
+            }
+
+            interface $Exports {
+                AbstractBidirListPrivate: AbstractBidirListPrivateStruct
+            }
+            
+
+            interface AbstractBidirSortedSetPrivateStruct {
+                readonly $gtype: GObject.GType<AbstractBidirSortedSetPrivate>
+                new (fields?: {
+                }): AbstractBidirSortedSetPrivate
+            }
+
+            interface AbstractBidirSortedSetPrivate {
+            }
+
+            interface $Exports {
+                AbstractBidirSortedSetPrivate: AbstractBidirSortedSetPrivateStruct
+            }
+            
+
+            interface AbstractBidirSortedMapPrivateStruct {
+                readonly $gtype: GObject.GType<AbstractBidirSortedMapPrivate>
+                new (fields?: {
+                }): AbstractBidirSortedMapPrivate
+            }
+
+            interface AbstractBidirSortedMapPrivate {
+            }
+
+            interface $Exports {
+                AbstractBidirSortedMapPrivate: AbstractBidirSortedMapPrivateStruct
+            }
+            
+
+            interface AbstractCollectionPrivateStruct {
+                readonly $gtype: GObject.GType<AbstractCollectionPrivate>
+                new (fields?: {
+                }): AbstractCollectionPrivate
+            }
+
+            interface AbstractCollectionPrivate {
+            }
+
+            interface $Exports {
+                AbstractCollectionPrivate: AbstractCollectionPrivateStruct
+            }
+            
+
+            interface AbstractListPrivateStruct {
+                readonly $gtype: GObject.GType<AbstractListPrivate>
+                new (fields?: {
+                }): AbstractListPrivate
+            }
+
+            interface AbstractListPrivate {
+            }
+
+            interface $Exports {
+                AbstractListPrivate: AbstractListPrivateStruct
+            }
+            
+
+            interface AbstractMapPrivateStruct {
+                readonly $gtype: GObject.GType<AbstractMapPrivate>
+                new (fields?: {
+                }): AbstractMapPrivate
+            }
+
+            interface AbstractMapPrivate {
+            }
+
+            interface $Exports {
+                AbstractMapPrivate: AbstractMapPrivateStruct
+            }
+            
+
+            interface AbstractMultiMapPrivateStruct {
+                readonly $gtype: GObject.GType<AbstractMultiMapPrivate>
+                new (fields?: {
+                }): AbstractMultiMapPrivate
+            }
+
+            interface AbstractMultiMapPrivate {
+            }
+
+            interface $Exports {
+                AbstractMultiMapPrivate: AbstractMultiMapPrivateStruct
+            }
+            
+
+            interface AbstractMultiSetPrivateStruct {
+                readonly $gtype: GObject.GType<AbstractMultiSetPrivate>
+                new (fields?: {
+                }): AbstractMultiSetPrivate
+            }
+
+            interface AbstractMultiSetPrivate {
+            }
+
+            interface $Exports {
+                AbstractMultiSetPrivate: AbstractMultiSetPrivateStruct
+            }
+            
+
+            interface AbstractQueuePrivateStruct {
+                readonly $gtype: GObject.GType<AbstractQueuePrivate>
+                new (fields?: {
+                }): AbstractQueuePrivate
+            }
+
+            interface AbstractQueuePrivate {
+            }
+
+            interface $Exports {
+                AbstractQueuePrivate: AbstractQueuePrivateStruct
+            }
+            
+
+            interface AbstractSetPrivateStruct {
+                readonly $gtype: GObject.GType<AbstractSetPrivate>
+                new (fields?: {
+                }): AbstractSetPrivate
+            }
+
+            interface AbstractSetPrivate {
+            }
+
+            interface $Exports {
+                AbstractSetPrivate: AbstractSetPrivateStruct
+            }
+            
+
+            interface AbstractSortedMapPrivateStruct {
+                readonly $gtype: GObject.GType<AbstractSortedMapPrivate>
+                new (fields?: {
+                }): AbstractSortedMapPrivate
+            }
+
+            interface AbstractSortedMapPrivate {
+            }
+
+            interface $Exports {
+                AbstractSortedMapPrivate: AbstractSortedMapPrivateStruct
+            }
+            
+
+            interface AbstractSortedSetPrivateStruct {
+                readonly $gtype: GObject.GType<AbstractSortedSetPrivate>
+                new (fields?: {
+                }): AbstractSortedSetPrivate
+            }
+
+            interface AbstractSortedSetPrivate {
+            }
+
+            interface $Exports {
+                AbstractSortedSetPrivate: AbstractSortedSetPrivateStruct
+            }
+            
+
+            interface ArrayListPrivateStruct {
+                readonly $gtype: GObject.GType<ArrayListPrivate>
+                new (fields?: {
+                }): ArrayListPrivate
+            }
+
+            interface ArrayListPrivate {
+            }
+
+            interface $Exports {
+                ArrayListPrivate: ArrayListPrivateStruct
+            }
+            
+
+            interface ArrayQueuePrivateStruct {
+                readonly $gtype: GObject.GType<ArrayQueuePrivate>
+                new (fields?: {
+                }): ArrayQueuePrivate
+            }
+
+            interface ArrayQueuePrivate {
+            }
+
+            interface $Exports {
+                ArrayQueuePrivate: ArrayQueuePrivateStruct
+            }
+            
+
+            interface ConcurrentListPrivateStruct {
+                readonly $gtype: GObject.GType<ConcurrentListPrivate>
+                new (fields?: {
+                }): ConcurrentListPrivate
+            }
+
+            interface ConcurrentListPrivate {
+            }
+
+            interface $Exports {
+                ConcurrentListPrivate: ConcurrentListPrivateStruct
+            }
+            
+
+            interface ConcurrentSetPrivateStruct {
+                readonly $gtype: GObject.GType<ConcurrentSetPrivate>
+                new (fields?: {
+                }): ConcurrentSetPrivate
+            }
+
+            interface ConcurrentSetPrivate {
+            }
+
+            interface $Exports {
+                ConcurrentSetPrivate: ConcurrentSetPrivateStruct
+            }
+            
+
+            interface HashMapPrivateStruct {
+                readonly $gtype: GObject.GType<HashMapPrivate>
+                new (fields?: {
+                }): HashMapPrivate
+            }
+
+            interface HashMapPrivate {
+            }
+
+            interface $Exports {
+                HashMapPrivate: HashMapPrivateStruct
+            }
+            
+
+            interface HashMultiMapPrivateStruct {
+                readonly $gtype: GObject.GType<HashMultiMapPrivate>
+                new (fields?: {
+                }): HashMultiMapPrivate
+            }
+
+            interface HashMultiMapPrivate {
+            }
+
+            interface $Exports {
+                HashMultiMapPrivate: HashMultiMapPrivateStruct
+            }
+            
+
+            interface HashMultiSetPrivateStruct {
+                readonly $gtype: GObject.GType<HashMultiSetPrivate>
+                new (fields?: {
+                }): HashMultiSetPrivate
+            }
+
+            interface HashMultiSetPrivate {
+            }
+
+            interface $Exports {
+                HashMultiSetPrivate: HashMultiSetPrivateStruct
+            }
+            
+
+            interface HashSetPrivateStruct {
+                readonly $gtype: GObject.GType<HashSetPrivate>
+                new (fields?: {
+                }): HashSetPrivate
+            }
+
+            interface HashSetPrivate {
+            }
+
+            interface $Exports {
+                HashSetPrivate: HashSetPrivateStruct
+            }
+            
+
+            interface HazardPointerStruct {
+                readonly $gtype: GObject.GType<HazardPointer>
+                new (fields?: {
+                    node?: Gee.HazardPointerNode
+                }): HazardPointer
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param aptr
+                 * @param mask
+                 * @returns , 
+                 */
+                get_pointer(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, aptr: never | null, mask: number): [never | null, number]
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param aptr
+                 * @param new_ptr
+                 * @param mask
+                 * @param new_mask
+                 */
+                set_pointer(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, aptr: never | null, new_ptr: never | null, mask: number, new_mask: number): void
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param aptr
+                 * @param new_ptr
+                 * @param mask
+                 * @param new_mask
+                 * @returns , 
+                 */
+                exchange_pointer(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, aptr: never | null, new_ptr: never | null, mask: number, new_mask: number): [never | null, number]
+                /**
+                 * @param g_type
+                 * @param g_dup_func
+                 * @param g_destroy_func
+                 * @param aptr
+                 * @param old_ptr
+                 * @param _new_ptr
+                 * @param mask
+                 * @param old_mask
+                 * @param new_mask
+                 */
+                compare_and_exchange_pointer(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, aptr: never | null, old_ptr: never | null, _new_ptr: never | null, mask: number, old_mask: number, new_mask: number): boolean
+                /**
+                 * @param policy
+                 */
+                set_default_policy(policy: Gee.HazardPointerPolicy): void
+                /**
+                 * @param policy
+                 */
+                set_thread_exit_policy(policy: Gee.HazardPointerPolicy): void
+                /**
+                 * @param policy
+                 */
+                set_release_policy(policy: Gee.HazardPointerReleasePolicy): boolean
+            }
+
+            interface HazardPointer {
+                /**
+                 */
+                node: Gee.HazardPointerNode
+                /**
+                 * @param other_thread
+                 */
+                get(other_thread: boolean): never
+                /**
+                 * @param notify
+                 */
+                release(notify: GLib.DestroyNotify): void
+            }
+
+            interface $Exports {
+                HazardPointer: HazardPointerStruct
+            }
+            
+
+            interface HazardPointerContextStruct {
+                readonly $gtype: GObject.GType<HazardPointerContext>
+                new (fields?: {
+                    parent?: never
+                    policy?: Gee.HazardPointerPolicy
+                }): HazardPointerContext
+                /**
+                 * @param policy
+                 */
+                "new"(policy: Gee.HazardPointerPolicy | null): Gee.HazardPointerContext
+            }
+
+            interface HazardPointerContext {
+                /**
+                 */
+                parent: never
+                /**
+                 */
+                policy: Gee.HazardPointerPolicy
+                /**
+                 */
+                try_free(): void
+                /**
+                 */
+                free_all(): void
+                /**
+                 */
+                try_release(): void
+                /**
+                 */
+                release(): void
+            }
+
+            interface $Exports {
+                HazardPointerContext: HazardPointerContextStruct
+            }
+            
+
+            interface LazyPrivateStruct {
+                readonly $gtype: GObject.GType<LazyPrivate>
+                new (fields?: {
+                }): LazyPrivate
+            }
+
+            interface LazyPrivate {
+            }
+
+            interface $Exports {
+                LazyPrivate: LazyPrivateStruct
+            }
+            
+
+            interface LinkedListPrivateStruct {
+                readonly $gtype: GObject.GType<LinkedListPrivate>
+                new (fields?: {
+                }): LinkedListPrivate
+            }
+
+            interface LinkedListPrivate {
+            }
+
+            interface $Exports {
+                LinkedListPrivate: LinkedListPrivateStruct
+            }
+            
+
+            interface PriorityQueuePrivateStruct {
+                readonly $gtype: GObject.GType<PriorityQueuePrivate>
+                new (fields?: {
+                }): PriorityQueuePrivate
+            }
+
+            interface PriorityQueuePrivate {
+            }
+
+            interface $Exports {
+                PriorityQueuePrivate: PriorityQueuePrivateStruct
+            }
+            
+
+            interface PromisePrivateStruct {
+                readonly $gtype: GObject.GType<PromisePrivate>
+                new (fields?: {
+                }): PromisePrivate
+            }
+
+            interface PromisePrivate {
+            }
+
+            interface $Exports {
+                PromisePrivate: PromisePrivateStruct
+            }
+            
+
+            interface TreeMapPrivateStruct {
+                readonly $gtype: GObject.GType<TreeMapPrivate>
+                new (fields?: {
+                }): TreeMapPrivate
+            }
+
+            interface TreeMapPrivate {
+            }
+
+            interface $Exports {
+                TreeMapPrivate: TreeMapPrivateStruct
+            }
+            
+
+            interface TreeMultiMapPrivateStruct {
+                readonly $gtype: GObject.GType<TreeMultiMapPrivate>
+                new (fields?: {
+                }): TreeMultiMapPrivate
+            }
+
+            interface TreeMultiMapPrivate {
+            }
+
+            interface $Exports {
+                TreeMultiMapPrivate: TreeMultiMapPrivateStruct
+            }
+            
+
+            interface TreeMultiSetPrivateStruct {
+                readonly $gtype: GObject.GType<TreeMultiSetPrivate>
+                new (fields?: {
+                }): TreeMultiSetPrivate
+            }
+
+            interface TreeMultiSetPrivate {
+            }
+
+            interface $Exports {
+                TreeMultiSetPrivate: TreeMultiSetPrivateStruct
+            }
+            
+
+            interface TreeSetPrivateStruct {
+                readonly $gtype: GObject.GType<TreeSetPrivate>
+                new (fields?: {
+                }): TreeSetPrivate
+            }
+
+            interface TreeSetPrivate {
+            }
+
+            interface $Exports {
+                TreeSetPrivate: TreeSetPrivateStruct
+            }
+            
+
+            interface UnrolledLinkedListPrivateStruct {
+                readonly $gtype: GObject.GType<UnrolledLinkedListPrivate>
+                new (fields?: {
+                }): UnrolledLinkedListPrivate
+            }
+
+            interface UnrolledLinkedListPrivate {
+            }
+
+            interface $Exports {
+                UnrolledLinkedListPrivate: UnrolledLinkedListPrivateStruct
+            }
+            
+
+            interface MapEntryPrivateStruct {
+                readonly $gtype: GObject.GType<MapEntryPrivate>
+                new (fields?: {
+                }): MapEntryPrivate
+            }
+
+            interface MapEntryPrivate {
+            }
+
+            interface $Exports {
+                MapEntryPrivate: MapEntryPrivateStruct
+            }
+            
+            interface FutureError extends GLib.Error {}
+
+            interface FutureErrorEnum {
+                readonly $gtype: GObject.GType<FutureError>
+
+                new(props: { message: string, code: number }): FutureError
+                /**
+                 */
+                readonly "ABANDON_PROMISE": 0
+                /**
+                 */
+                readonly "EXCEPTION": 1
+            }
+
+            interface $Exports {
+                /**
+                 */
+                FutureError: FutureErrorEnum
+            }
+            
+            interface ConcurrentSetRangeTypeEnum {
+                readonly $gtype: GObject.GType<ConcurrentSetRangeType>
+                /**
+                 */
+                readonly "HEAD": 0
+                /**
+                 */
+                readonly "TAIL": 1
+                /**
+                 */
+                readonly "BOUNDED": 2
+                /**
+                 */
+                readonly "EMPTY": 3
+            }
+            type ConcurrentSetRangeType = ConcurrentSetRangeTypeEnum[Exclude<keyof ConcurrentSetRangeTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ConcurrentSetRangeType: ConcurrentSetRangeTypeEnum
+            }
+            
+            interface HazardPointerPolicyEnum {
+                readonly $gtype: GObject.GType<HazardPointerPolicy>
+                /**
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 */
+                readonly "THREAD_EXIT": 1
+                /**
+                 */
+                readonly "TRY_FREE": 2
+                /**
+                 */
+                readonly "FREE": 3
+                /**
+                 */
+                readonly "TRY_RELEASE": 4
+                /**
+                 */
+                readonly "RELEASE": 5
+            }
+            type HazardPointerPolicy = HazardPointerPolicyEnum[Exclude<keyof HazardPointerPolicyEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                HazardPointerPolicy: HazardPointerPolicyEnum
+            }
+            
+            interface HazardPointerReleasePolicyEnum {
+                readonly $gtype: GObject.GType<HazardPointerReleasePolicy>
+                /**
+                 */
+                readonly "HELPER_THREAD": 0
+                /**
+                 */
+                readonly "MAIN_LOOP": 1
+            }
+            type HazardPointerReleasePolicy = HazardPointerReleasePolicyEnum[Exclude<keyof HazardPointerReleasePolicyEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                HazardPointerReleasePolicy: HazardPointerReleasePolicyEnum
+            }
+            
+            interface TraversableStreamEnum {
+                readonly $gtype: GObject.GType<TraversableStream>
+                /**
+                 */
+                readonly "YIELD": 0
+                /**
+                 */
+                readonly "CONTINUE": 1
+                /**
+                 */
+                readonly "END": 2
+                /**
+                 */
+                readonly "WAIT": 3
+            }
+            type TraversableStream = TraversableStreamEnum[Exclude<keyof TraversableStreamEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                TraversableStream: TraversableStreamEnum
+            }
             /**
-             * @param f
+             * @param t_type
+             * @param t_dup_func
+             * @param t_destroy_func
+             * @param v
              */
-            foreach(f: Gee.ForallFunc): boolean
+            type HashDataFunc = (t_type: (GObject.GType | { $gtype: GObject.GType }), t_dup_func: GObject.BoxedCopyFunc, t_destroy_func: GLib.DestroyNotify, v: never) => number
+            /**
+             * @param t_type
+             * @param t_dup_func
+             * @param t_destroy_func
+             * @param a
+             * @param b
+             */
+            type EqualDataFunc = (t_type: (GObject.GType | { $gtype: GObject.GType }), t_dup_func: GObject.BoxedCopyFunc, t_destroy_func: GLib.DestroyNotify, a: never, b: never) => boolean
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             */
+            type LazyFunc = (g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify) => never
             /**
              * @param a_type
              * @param a_dup_func
              * @param a_destroy_func
-             * @param f
-             * @param seed
+             * @param k_type
+             * @param k_dup_func
+             * @param k_destroy_func
+             * @param v_type
+             * @param v_dup_func
+             * @param v_destroy_func
+             * @param k
+             * @param v
+             * @param a
              */
-            fold(a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, f: Gee.FoldFunc, seed: never): never
+            type FoldMapFunc = (a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, k: never, v: never, a: never) => never
             /**
-             * @param pred
+             * @param k_type
+             * @param k_dup_func
+             * @param k_destroy_func
+             * @param v_type
+             * @param v_dup_func
+             * @param v_destroy_func
+             * @param k
+             * @param v
              */
-            first_match(pred: Gee.Predicate): never | null
-            /**
-             * @param pred
-             */
-            any_match(pred: Gee.Predicate): boolean
-            /**
-             * @param pred
-             */
-            all_match(pred: Gee.Predicate): boolean
-            /**
-             * @param compare
-             */
-            max(compare: GLib.CompareDataFunc): never
-            /**
-             * @param compare
-             */
-            min(compare: GLib.CompareDataFunc): never
-            /**
-             */
-            get_element_type(): GObject.GType
-        }
-
-        interface TraversableIface {
-            readonly $gtype: GObject.GType<Traversable>
-            readonly prototype: Traversable
-            [Symbol.hasInstance](instance: unknown): instance is Traversable
-        }
-
-        interface $Exports {
-            /**
-             */
-            Traversable: TraversableIface
-        }
-        
-
-        interface AbstractBidirListPrivateStruct {
-            readonly $gtype: GObject.GType<AbstractBidirListPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractBidirListPrivate
-        }
-
-        interface AbstractBidirListPrivate {
-        }
-
-        interface $Exports {
-            AbstractBidirListPrivate: AbstractBidirListPrivateStruct
-        }
-        
-
-        interface AbstractBidirSortedSetPrivateStruct {
-            readonly $gtype: GObject.GType<AbstractBidirSortedSetPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractBidirSortedSetPrivate
-        }
-
-        interface AbstractBidirSortedSetPrivate {
-        }
-
-        interface $Exports {
-            AbstractBidirSortedSetPrivate: AbstractBidirSortedSetPrivateStruct
-        }
-        
-
-        interface AbstractBidirSortedMapPrivateStruct {
-            readonly $gtype: GObject.GType<AbstractBidirSortedMapPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractBidirSortedMapPrivate
-        }
-
-        interface AbstractBidirSortedMapPrivate {
-        }
-
-        interface $Exports {
-            AbstractBidirSortedMapPrivate: AbstractBidirSortedMapPrivateStruct
-        }
-        
-
-        interface AbstractCollectionPrivateStruct {
-            readonly $gtype: GObject.GType<AbstractCollectionPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractCollectionPrivate
-        }
-
-        interface AbstractCollectionPrivate {
-        }
-
-        interface $Exports {
-            AbstractCollectionPrivate: AbstractCollectionPrivateStruct
-        }
-        
-
-        interface AbstractListPrivateStruct {
-            readonly $gtype: GObject.GType<AbstractListPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractListPrivate
-        }
-
-        interface AbstractListPrivate {
-        }
-
-        interface $Exports {
-            AbstractListPrivate: AbstractListPrivateStruct
-        }
-        
-
-        interface AbstractMapPrivateStruct {
-            readonly $gtype: GObject.GType<AbstractMapPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractMapPrivate
-        }
-
-        interface AbstractMapPrivate {
-        }
-
-        interface $Exports {
-            AbstractMapPrivate: AbstractMapPrivateStruct
-        }
-        
-
-        interface AbstractMultiMapPrivateStruct {
-            readonly $gtype: GObject.GType<AbstractMultiMapPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractMultiMapPrivate
-        }
-
-        interface AbstractMultiMapPrivate {
-        }
-
-        interface $Exports {
-            AbstractMultiMapPrivate: AbstractMultiMapPrivateStruct
-        }
-        
-
-        interface AbstractMultiSetPrivateStruct {
-            readonly $gtype: GObject.GType<AbstractMultiSetPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractMultiSetPrivate
-        }
-
-        interface AbstractMultiSetPrivate {
-        }
-
-        interface $Exports {
-            AbstractMultiSetPrivate: AbstractMultiSetPrivateStruct
-        }
-        
-
-        interface AbstractQueuePrivateStruct {
-            readonly $gtype: GObject.GType<AbstractQueuePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractQueuePrivate
-        }
-
-        interface AbstractQueuePrivate {
-        }
-
-        interface $Exports {
-            AbstractQueuePrivate: AbstractQueuePrivateStruct
-        }
-        
-
-        interface AbstractSetPrivateStruct {
-            readonly $gtype: GObject.GType<AbstractSetPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractSetPrivate
-        }
-
-        interface AbstractSetPrivate {
-        }
-
-        interface $Exports {
-            AbstractSetPrivate: AbstractSetPrivateStruct
-        }
-        
-
-        interface AbstractSortedMapPrivateStruct {
-            readonly $gtype: GObject.GType<AbstractSortedMapPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractSortedMapPrivate
-        }
-
-        interface AbstractSortedMapPrivate {
-        }
-
-        interface $Exports {
-            AbstractSortedMapPrivate: AbstractSortedMapPrivateStruct
-        }
-        
-
-        interface AbstractSortedSetPrivateStruct {
-            readonly $gtype: GObject.GType<AbstractSortedSetPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AbstractSortedSetPrivate
-        }
-
-        interface AbstractSortedSetPrivate {
-        }
-
-        interface $Exports {
-            AbstractSortedSetPrivate: AbstractSortedSetPrivateStruct
-        }
-        
-
-        interface ArrayListPrivateStruct {
-            readonly $gtype: GObject.GType<ArrayListPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is ArrayListPrivate
-        }
-
-        interface ArrayListPrivate {
-        }
-
-        interface $Exports {
-            ArrayListPrivate: ArrayListPrivateStruct
-        }
-        
-
-        interface ArrayQueuePrivateStruct {
-            readonly $gtype: GObject.GType<ArrayQueuePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is ArrayQueuePrivate
-        }
-
-        interface ArrayQueuePrivate {
-        }
-
-        interface $Exports {
-            ArrayQueuePrivate: ArrayQueuePrivateStruct
-        }
-        
-
-        interface ConcurrentListPrivateStruct {
-            readonly $gtype: GObject.GType<ConcurrentListPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is ConcurrentListPrivate
-        }
-
-        interface ConcurrentListPrivate {
-        }
-
-        interface $Exports {
-            ConcurrentListPrivate: ConcurrentListPrivateStruct
-        }
-        
-
-        interface ConcurrentSetPrivateStruct {
-            readonly $gtype: GObject.GType<ConcurrentSetPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is ConcurrentSetPrivate
-        }
-
-        interface ConcurrentSetPrivate {
-        }
-
-        interface $Exports {
-            ConcurrentSetPrivate: ConcurrentSetPrivateStruct
-        }
-        
-
-        interface HashMapPrivateStruct {
-            readonly $gtype: GObject.GType<HashMapPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is HashMapPrivate
-        }
-
-        interface HashMapPrivate {
-        }
-
-        interface $Exports {
-            HashMapPrivate: HashMapPrivateStruct
-        }
-        
-
-        interface HashMultiMapPrivateStruct {
-            readonly $gtype: GObject.GType<HashMultiMapPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is HashMultiMapPrivate
-        }
-
-        interface HashMultiMapPrivate {
-        }
-
-        interface $Exports {
-            HashMultiMapPrivate: HashMultiMapPrivateStruct
-        }
-        
-
-        interface HashMultiSetPrivateStruct {
-            readonly $gtype: GObject.GType<HashMultiSetPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is HashMultiSetPrivate
-        }
-
-        interface HashMultiSetPrivate {
-        }
-
-        interface $Exports {
-            HashMultiSetPrivate: HashMultiSetPrivateStruct
-        }
-        
-
-        interface HashSetPrivateStruct {
-            readonly $gtype: GObject.GType<HashSetPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is HashSetPrivate
-        }
-
-        interface HashSetPrivate {
-        }
-
-        interface $Exports {
-            HashSetPrivate: HashSetPrivateStruct
-        }
-        
-
-        interface HazardPointerStruct {
-            readonly $gtype: GObject.GType<HazardPointer>
-            [Symbol.hasInstance](instance: unknown): instance is HazardPointer
+            type ForallMapFunc = (k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, k: never, v: never) => boolean
             /**
              * @param g_type
              * @param g_dup_func
              * @param g_destroy_func
-             * @param aptr
-             * @param mask
-             * @returns , 
              */
-            get_pointer(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, aptr: never | null, mask: number): [never | null, number]
+            type Task = (g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify) => never
+            /**
+             * @param a_type
+             * @param a_dup_func
+             * @param a_destroy_func
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param g
+             * @param a
+             */
+            type FoldFunc = (a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, g: never, a: never) => never
             /**
              * @param g_type
              * @param g_dup_func
              * @param g_destroy_func
-             * @param aptr
-             * @param new_ptr
-             * @param mask
-             * @param new_mask
+             * @param g
              */
-            set_pointer(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, aptr: never | null, new_ptr: never | null, mask: number, new_mask: number): void
+            type ForallFunc = (g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, g: never) => boolean
+            /**
+             * @param a_type
+             * @param a_dup_func
+             * @param a_destroy_func
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param g
+             */
+            type MapFunc = (a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, g: never) => never
             /**
              * @param g_type
              * @param g_dup_func
              * @param g_destroy_func
-             * @param aptr
-             * @param new_ptr
-             * @param mask
-             * @param new_mask
-             * @returns , 
+             * @param g
              */
-            exchange_pointer(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, aptr: never | null, new_ptr: never | null, mask: number, new_mask: number): [never | null, number]
-            /**
-             * @param g_type
-             * @param g_dup_func
-             * @param g_destroy_func
-             * @param aptr
-             * @param old_ptr
-             * @param _new_ptr
-             * @param mask
-             * @param old_mask
-             * @param new_mask
-             */
-            compare_and_exchange_pointer(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, aptr: never | null, old_ptr: never | null, _new_ptr: never | null, mask: number, old_mask: number, new_mask: number): boolean
-            /**
-             * @param policy
-             */
-            set_default_policy(policy: Gee.HazardPointerPolicy): void
-            /**
-             * @param policy
-             */
-            set_thread_exit_policy(policy: Gee.HazardPointerPolicy): void
-            /**
-             * @param policy
-             */
-            set_release_policy(policy: Gee.HazardPointerReleasePolicy): boolean
+            type Predicate = (g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, g: never) => boolean
+
+            interface $Exports {
+                __name__: "Gee"
+                __version__: "0.8"
+                /**
+                 * @param t
+                 * @returns , , 
+                 */
+                functions_get_equal_func_for(t: (GObject.GType | { $gtype: GObject.GType })): [Gee.EqualDataFunc, never, GLib.DestroyNotify]
+                /**
+                 * @param t
+                 * @returns , , 
+                 */
+                functions_get_hash_func_for(t: (GObject.GType | { $gtype: GObject.GType })): [Gee.HashDataFunc, never, GLib.DestroyNotify]
+                /**
+                 * @param t
+                 * @returns , , 
+                 */
+                functions_get_compare_func_for(t: (GObject.GType | { $gtype: GObject.GType })): [GLib.CompareDataFunc, never, GLib.DestroyNotify]
+                /**
+                 * @param self
+                 */
+                hazard_pointer_policy_is_concrete(self: Gee.HazardPointerPolicy): boolean
+                /**
+                 * @param self
+                 */
+                hazard_pointer_policy_is_blocking(self: Gee.HazardPointerPolicy): boolean
+                /**
+                 * @param self
+                 */
+                hazard_pointer_policy_is_safe(self: Gee.HazardPointerPolicy): boolean
+                /**
+                 * @param self
+                 */
+                hazard_pointer_policy_to_concrete(self: Gee.HazardPointerPolicy): Gee.HazardPointerPolicy
+                /**
+                 * @param _callback_
+                 */
+                async_task(_callback_: Gio.AsyncReadyCallback | null): void
+                /**
+                 * @throws {GLib.Error}
+                 * @param _res_
+                 */
+                async_task_finish(_res_: Gio.AsyncResult): void
+            }
         }
 
-        interface HazardPointer {
-            /**
-             */
-            node: Gee.HazardPointerNode
-            /**
-             * @param other_thread
-             */
-            get(other_thread: boolean): never
-            /**
-             * @param notify
-             */
-            release(notify: GLib.DestroyNotify): void
-        }
-
-        interface $Exports {
-            HazardPointer: HazardPointerStruct
-        }
-        
-
-        interface HazardPointerContextStruct {
-            readonly $gtype: GObject.GType<HazardPointerContext>
-            [Symbol.hasInstance](instance: unknown): instance is HazardPointerContext
-            /**
-             * @param policy
-             */
-            "new"(policy: Gee.HazardPointerPolicy | null): Gee.HazardPointerContext
-        }
-
-        interface HazardPointerContext {
-            /**
-             */
-            parent: never
-            /**
-             */
-            policy: Gee.HazardPointerPolicy
-            /**
-             */
-            try_free(): void
-            /**
-             */
-            free_all(): void
-            /**
-             */
-            try_release(): void
-            /**
-             */
-            release(): void
-        }
-
-        interface $Exports {
-            HazardPointerContext: HazardPointerContextStruct
-        }
-        
-
-        interface LazyPrivateStruct {
-            readonly $gtype: GObject.GType<LazyPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is LazyPrivate
-        }
-
-        interface LazyPrivate {
-        }
-
-        interface $Exports {
-            LazyPrivate: LazyPrivateStruct
-        }
-        
-
-        interface LinkedListPrivateStruct {
-            readonly $gtype: GObject.GType<LinkedListPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is LinkedListPrivate
-        }
-
-        interface LinkedListPrivate {
-        }
-
-        interface $Exports {
-            LinkedListPrivate: LinkedListPrivateStruct
-        }
-        
-
-        interface PriorityQueuePrivateStruct {
-            readonly $gtype: GObject.GType<PriorityQueuePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is PriorityQueuePrivate
-        }
-
-        interface PriorityQueuePrivate {
-        }
-
-        interface $Exports {
-            PriorityQueuePrivate: PriorityQueuePrivateStruct
-        }
-        
-
-        interface PromisePrivateStruct {
-            readonly $gtype: GObject.GType<PromisePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is PromisePrivate
-        }
-
-        interface PromisePrivate {
-        }
-
-        interface $Exports {
-            PromisePrivate: PromisePrivateStruct
-        }
-        
-
-        interface TreeMapPrivateStruct {
-            readonly $gtype: GObject.GType<TreeMapPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is TreeMapPrivate
-        }
-
-        interface TreeMapPrivate {
-        }
-
-        interface $Exports {
-            TreeMapPrivate: TreeMapPrivateStruct
-        }
-        
-
-        interface TreeMultiMapPrivateStruct {
-            readonly $gtype: GObject.GType<TreeMultiMapPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is TreeMultiMapPrivate
-        }
-
-        interface TreeMultiMapPrivate {
-        }
-
-        interface $Exports {
-            TreeMultiMapPrivate: TreeMultiMapPrivateStruct
-        }
-        
-
-        interface TreeMultiSetPrivateStruct {
-            readonly $gtype: GObject.GType<TreeMultiSetPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is TreeMultiSetPrivate
-        }
-
-        interface TreeMultiSetPrivate {
-        }
-
-        interface $Exports {
-            TreeMultiSetPrivate: TreeMultiSetPrivateStruct
-        }
-        
-
-        interface TreeSetPrivateStruct {
-            readonly $gtype: GObject.GType<TreeSetPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is TreeSetPrivate
-        }
-
-        interface TreeSetPrivate {
-        }
-
-        interface $Exports {
-            TreeSetPrivate: TreeSetPrivateStruct
-        }
-        
-
-        interface UnrolledLinkedListPrivateStruct {
-            readonly $gtype: GObject.GType<UnrolledLinkedListPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is UnrolledLinkedListPrivate
-        }
-
-        interface UnrolledLinkedListPrivate {
-        }
-
-        interface $Exports {
-            UnrolledLinkedListPrivate: UnrolledLinkedListPrivateStruct
-        }
-        
-
-        interface MapEntryPrivateStruct {
-            readonly $gtype: GObject.GType<MapEntryPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is MapEntryPrivate
-        }
-
-        interface MapEntryPrivate {
-        }
-
-        interface $Exports {
-            MapEntryPrivate: MapEntryPrivateStruct
-        }
-        
-        interface FutureError extends GLib.Error {}
-
-        interface FutureErrorEnum {
-            readonly $gtype: GObject.GType<FutureError>
-
-            new(props: { message: string, code: number }): FutureError
-            /**
-             */
-            readonly "ABANDON_PROMISE": 0
-            /**
-             */
-            readonly "EXCEPTION": 1
-        }
-
-        interface $Exports {
-            /**
-             */
-            FutureError: FutureErrorEnum
-        }
-        
-        interface ConcurrentSetRangeTypeEnum {
-            readonly $gtype: GObject.GType<ConcurrentSetRangeType>
-            /**
-             */
-            readonly "HEAD": 0
-            /**
-             */
-            readonly "TAIL": 1
-            /**
-             */
-            readonly "BOUNDED": 2
-            /**
-             */
-            readonly "EMPTY": 3
-        }
-        type ConcurrentSetRangeType = ConcurrentSetRangeTypeEnum[Exclude<keyof ConcurrentSetRangeTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ConcurrentSetRangeType: ConcurrentSetRangeTypeEnum
-        }
-        
-        interface HazardPointerPolicyEnum {
-            readonly $gtype: GObject.GType<HazardPointerPolicy>
-            /**
-             */
-            readonly "DEFAULT": 0
-            /**
-             */
-            readonly "THREAD_EXIT": 1
-            /**
-             */
-            readonly "TRY_FREE": 2
-            /**
-             */
-            readonly "FREE": 3
-            /**
-             */
-            readonly "TRY_RELEASE": 4
-            /**
-             */
-            readonly "RELEASE": 5
-        }
-        type HazardPointerPolicy = HazardPointerPolicyEnum[Exclude<keyof HazardPointerPolicyEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            HazardPointerPolicy: HazardPointerPolicyEnum
-        }
-        
-        interface HazardPointerReleasePolicyEnum {
-            readonly $gtype: GObject.GType<HazardPointerReleasePolicy>
-            /**
-             */
-            readonly "HELPER_THREAD": 0
-            /**
-             */
-            readonly "MAIN_LOOP": 1
-        }
-        type HazardPointerReleasePolicy = HazardPointerReleasePolicyEnum[Exclude<keyof HazardPointerReleasePolicyEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            HazardPointerReleasePolicy: HazardPointerReleasePolicyEnum
-        }
-        
-        interface TraversableStreamEnum {
-            readonly $gtype: GObject.GType<TraversableStream>
-            /**
-             */
-            readonly "YIELD": 0
-            /**
-             */
-            readonly "CONTINUE": 1
-            /**
-             */
-            readonly "END": 2
-            /**
-             */
-            readonly "WAIT": 3
-        }
-        type TraversableStream = TraversableStreamEnum[Exclude<keyof TraversableStreamEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            TraversableStream: TraversableStreamEnum
-        }
-        /**
-         * @param t_type
-         * @param t_dup_func
-         * @param t_destroy_func
-         * @param v
-         */
-        type HashDataFunc = (t_type: (GObject.GType | { $gtype: GObject.GType }), t_dup_func: GObject.BoxedCopyFunc, t_destroy_func: GLib.DestroyNotify, v: never) => number
-        /**
-         * @param t_type
-         * @param t_dup_func
-         * @param t_destroy_func
-         * @param a
-         * @param b
-         */
-        type EqualDataFunc = (t_type: (GObject.GType | { $gtype: GObject.GType }), t_dup_func: GObject.BoxedCopyFunc, t_destroy_func: GLib.DestroyNotify, a: never, b: never) => boolean
-        /**
-         * @param g_type
-         * @param g_dup_func
-         * @param g_destroy_func
-         */
-        type LazyFunc = (g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify) => never
-        /**
-         * @param a_type
-         * @param a_dup_func
-         * @param a_destroy_func
-         * @param k_type
-         * @param k_dup_func
-         * @param k_destroy_func
-         * @param v_type
-         * @param v_dup_func
-         * @param v_destroy_func
-         * @param k
-         * @param v
-         * @param a
-         */
-        type FoldMapFunc = (a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, k: never, v: never, a: never) => never
-        /**
-         * @param k_type
-         * @param k_dup_func
-         * @param k_destroy_func
-         * @param v_type
-         * @param v_dup_func
-         * @param v_destroy_func
-         * @param k
-         * @param v
-         */
-        type ForallMapFunc = (k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, k: never, v: never) => boolean
-        /**
-         * @param g_type
-         * @param g_dup_func
-         * @param g_destroy_func
-         */
-        type Task = (g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify) => never
-        /**
-         * @param a_type
-         * @param a_dup_func
-         * @param a_destroy_func
-         * @param g_type
-         * @param g_dup_func
-         * @param g_destroy_func
-         * @param g
-         * @param a
-         */
-        type FoldFunc = (a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, g: never, a: never) => never
-        /**
-         * @param g_type
-         * @param g_dup_func
-         * @param g_destroy_func
-         * @param g
-         */
-        type ForallFunc = (g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, g: never) => boolean
-        /**
-         * @param a_type
-         * @param a_dup_func
-         * @param a_destroy_func
-         * @param g_type
-         * @param g_dup_func
-         * @param g_destroy_func
-         * @param g
-         */
-        type MapFunc = (a_type: (GObject.GType | { $gtype: GObject.GType }), a_dup_func: GObject.BoxedCopyFunc, a_destroy_func: GLib.DestroyNotify, g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, g: never) => never
-        /**
-         * @param g_type
-         * @param g_dup_func
-         * @param g_destroy_func
-         * @param g
-         */
-        type Predicate = (g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, g: never) => boolean
-
-        interface $Exports {
-            __name__: "Gee"
-            __version: "0.8"
-            /**
-             * @param t
-             * @returns , , 
-             */
-            functions_get_equal_func_for(t: (GObject.GType | { $gtype: GObject.GType })): [Gee.EqualDataFunc, never, GLib.DestroyNotify]
-            /**
-             * @param t
-             * @returns , , 
-             */
-            functions_get_hash_func_for(t: (GObject.GType | { $gtype: GObject.GType })): [Gee.HashDataFunc, never, GLib.DestroyNotify]
-            /**
-             * @param t
-             * @returns , , 
-             */
-            functions_get_compare_func_for(t: (GObject.GType | { $gtype: GObject.GType })): [GLib.CompareDataFunc, never, GLib.DestroyNotify]
-            /**
-             * @param self
-             */
-            hazard_pointer_policy_is_concrete(self: Gee.HazardPointerPolicy): boolean
-            /**
-             * @param self
-             */
-            hazard_pointer_policy_is_blocking(self: Gee.HazardPointerPolicy): boolean
-            /**
-             * @param self
-             */
-            hazard_pointer_policy_is_safe(self: Gee.HazardPointerPolicy): boolean
-            /**
-             * @param self
-             */
-            hazard_pointer_policy_to_concrete(self: Gee.HazardPointerPolicy): Gee.HazardPointerPolicy
-            /**
-             * @param _callback_
-             */
-            async_task(_callback_: Gio.AsyncReadyCallback | null): void
-            /**
-             * @throws {GLib.Error}
-             * @param _res_
-             */
-            async_task_finish(_res_: Gio.AsyncResult): void
-        }
+        const Gee: Gee.$Exports
     }
 
-    const Gee: Gee.$Exports
-    export default Gee
+    export default GI.Gee
 }

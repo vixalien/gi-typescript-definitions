@@ -10,90 +10,100 @@ declare module "gi://DBusGLib?version=1.0" {
     import type GLib from "gi://GLib?version=2.0"
     import type GObject from "gi://GObject?version=2.0"
 
-    
-
-    namespace DBusGLib {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace Proxy {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+        namespace DBusGLib {
+            
+
+            namespace Proxy {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            interface Proxy extends GObject.Object {
+                readonly $signals: Proxy.SignalSignatures
+                readonly $readableProperties: Proxy.ReadableProperties
+                readonly $writableProperties: Proxy.WritableProperties
+                readonly $constructOnlyProperties: Proxy.ConstructOnlyProperties
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
+            interface ProxyClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Proxy>
+                readonly prototype: Proxy
+
+                new (props?: Partial<GObject.ConstructorProps<Proxy>>): Proxy
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 */
+                Proxy: ProxyClass
+            }
+            
+
+            interface ConnectionStruct {
+                readonly $gtype: GObject.GType<Connection>
+                new (fields?: {
+                }): Connection
+            }
+
+            interface Connection {
+            }
+
+            interface $Exports {
+                Connection: ConnectionStruct
+            }
+            
+
+            interface MethodInvocationStruct {
+                readonly $gtype: GObject.GType<MethodInvocation>
+                new (fields?: {
+                }): MethodInvocation
+            }
+
+            interface MethodInvocation {
+            }
+
+            interface $Exports {
+                MethodInvocation: MethodInvocationStruct
+            }
+            
+
+            interface ProxyClassStruct {
+                readonly $gtype: GObject.GType<ProxyClass>
+                new (fields?: {
+                }): ProxyClass
+            }
+
+            interface ProxyClass {
+            }
+
+            interface $Exports {
+                ProxyClass: ProxyClassStruct
+            }
+
+            interface $Exports {
+                __name__: "DBusGLib"
+                __version__: "1.0"
             }
         }
 
-        interface Proxy extends GObject.Object {
-            readonly $signals: Proxy.SignalSignatures
-            readonly $readableProperties: Proxy.ReadableProperties
-            readonly $writableProperties: Proxy.WritableProperties
-            readonly $constructOnlyProperties: Proxy.ConstructOnlyProperties
-        }
-
-        interface ProxyClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Proxy>
-            readonly prototype: Proxy
-
-            new (props?: Partial<GObject.ConstructorProps<Proxy>>): Proxy
-        }
-
-        interface $Exports {
-            /**
-             */
-            Proxy: ProxyClass
-        }
-        
-
-        interface ConnectionStruct {
-            readonly $gtype: GObject.GType<Connection>
-            [Symbol.hasInstance](instance: unknown): instance is Connection
-        }
-
-        interface Connection {
-        }
-
-        interface $Exports {
-            Connection: ConnectionStruct
-        }
-        
-
-        interface MethodInvocationStruct {
-            readonly $gtype: GObject.GType<MethodInvocation>
-            [Symbol.hasInstance](instance: unknown): instance is MethodInvocation
-        }
-
-        interface MethodInvocation {
-        }
-
-        interface $Exports {
-            MethodInvocation: MethodInvocationStruct
-        }
-        
-
-        interface ProxyClassStruct {
-            readonly $gtype: GObject.GType<ProxyClass>
-            [Symbol.hasInstance](instance: unknown): instance is ProxyClass
-        }
-
-        interface ProxyClass {
-        }
-
-        interface $Exports {
-            ProxyClass: ProxyClassStruct
-        }
-
-        interface $Exports {
-            __name__: "DBusGLib"
-            __version: "1.0"
-        }
+        const DBusGLib: DBusGLib.$Exports
     }
 
-    const DBusGLib: DBusGLib.$Exports
-    export default DBusGLib
+    export default GI.DBusGLib
 }

@@ -22,62 +22,69 @@ declare module "gi://GstVulkanXCB?version=1.0" {
     import type Vulkan from "gi://Vulkan?version=1.0"
     import type GstVulkan from "gi://GstVulkan?version=1.0"
 
-    
-
-    namespace GstVulkanXCB {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace VulkanDisplayXCB {
-            interface SignalSignatures extends GstVulkan.VulkanDisplay.SignalSignatures {
+        namespace GstVulkanXCB {
+            
+
+            namespace VulkanDisplayXCB {
+                interface SignalSignatures extends GstVulkan.VulkanDisplay.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstVulkan.VulkanDisplay.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstVulkan.VulkanDisplay.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstVulkan.VulkanDisplay.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GstVulkan.VulkanDisplay.ReadableProperties {
+            interface VulkanDisplayXCB extends GstVulkan.VulkanDisplay {
+                readonly $signals: VulkanDisplayXCB.SignalSignatures
+                readonly $readableProperties: VulkanDisplayXCB.ReadableProperties
+                readonly $writableProperties: VulkanDisplayXCB.WritableProperties
+                readonly $constructOnlyProperties: VulkanDisplayXCB.ConstructOnlyProperties
             }
 
-            interface WritableProperties extends GstVulkan.VulkanDisplay.WritableProperties {
+            interface VulkanDisplayXCBClass extends Omit<GstVulkan.VulkanDisplayClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanDisplayXCB>
+                readonly prototype: VulkanDisplayXCB
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanDisplayXCB>>): VulkanDisplayXCB
+                /**
+                 * Create a new #GstVulkanDisplayXCB from the xcb display name.  See XOpenDisplay\()
+                 * for details on what is a valid name.
+                 * @since 1.18
+                 * @param name a display name
+                 * @returns a new #GstVulkanDisplayXCB or %NULL
+                 */
+                "new"(name: string | null): VulkanDisplayXCB | null
             }
 
-            interface ConstructOnlyProperties extends GstVulkan.VulkanDisplay.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * the contents of a #GstVulkanDisplayXCB are private and should only be accessed
+                 * through the provided API
+                 * @since 1.18
+                 */
+                VulkanDisplayXCB: VulkanDisplayXCBClass
+            }
+
+            interface $Exports {
+                __name__: "GstVulkanXCB"
+                __version__: "1.0"
             }
         }
 
-        interface VulkanDisplayXCB extends GstVulkan.VulkanDisplay {
-            readonly $signals: VulkanDisplayXCB.SignalSignatures
-            readonly $readableProperties: VulkanDisplayXCB.ReadableProperties
-            readonly $writableProperties: VulkanDisplayXCB.WritableProperties
-            readonly $constructOnlyProperties: VulkanDisplayXCB.ConstructOnlyProperties
-        }
-
-        interface VulkanDisplayXCBClass extends Omit<GstVulkan.VulkanDisplayClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanDisplayXCB>
-            readonly prototype: VulkanDisplayXCB
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanDisplayXCB>>): VulkanDisplayXCB
-            /**
-             * Create a new #GstVulkanDisplayXCB from the xcb display name.  See XOpenDisplay\()
-             * for details on what is a valid name.
-             * @since 1.18
-             * @param name a display name
-             * @returns a new #GstVulkanDisplayXCB or %NULL
-             */
-            "new"(name: string | null): VulkanDisplayXCB | null
-        }
-
-        interface $Exports {
-            /**
-             * the contents of a #GstVulkanDisplayXCB are private and should only be accessed
-             * through the provided API
-             * @since 1.18
-             */
-            VulkanDisplayXCB: VulkanDisplayXCBClass
-        }
-
-        interface $Exports {
-            __name__: "GstVulkanXCB"
-            __version: "1.0"
-        }
+        const GstVulkanXCB: GstVulkanXCB.$Exports
     }
 
-    const GstVulkanXCB: GstVulkanXCB.$Exports
-    export default GstVulkanXCB
+    export default GI.GstVulkanXCB
 }
