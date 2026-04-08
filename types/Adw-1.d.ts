@@ -25871,8 +25871,8 @@ declare module "gi://Adw?version=1" {
             DURATION_INFINITE: 4294967295
             MAJOR_VERSION: 1
             MICRO_VERSION: 0
-            MINOR_VERSION: 9
-            VERSION_S: "1.9.0"
+            MINOR_VERSION: 10
+            VERSION_S: "1.10.alpha"
             /**
              * Converts @self to a `GdkRGBA` representing its background color.
              *
