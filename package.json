@@ -19,8 +19,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.31.0",
+  "packageManager": "pnpm@10.33.0",
   "devDependencies": {
-    "girgen": "^0.2.11"
+    "girgen": "^0.3.13"
   }
 }
