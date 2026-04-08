@@ -10,123 +10,138 @@ declare module "gi://libxml2?version=2.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type GLib from "gi://GLib?version=2.0"
 
-    
-
-    namespace libxml2 {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface NodeStruct {
-            readonly $gtype: GObject.GType<Node>
-            [Symbol.hasInstance](instance: unknown): instance is Node
+        namespace libxml2 {
+            
+
+            interface NodeStruct {
+                readonly $gtype: GObject.GType<Node>
+                new (fields?: {
+                }): Node
+            }
+
+            interface Node {
+            }
+
+            interface $Exports {
+                Node: NodeStruct
+            }
+            
+
+            interface NodePtrStruct {
+                readonly $gtype: GObject.GType<NodePtr>
+                new (fields?: {
+                }): NodePtr
+            }
+
+            interface NodePtr {
+            }
+
+            interface $Exports {
+                NodePtr: NodePtrStruct
+            }
+            
+
+            interface DocStruct {
+                readonly $gtype: GObject.GType<Doc>
+                new (fields?: {
+                }): Doc
+            }
+
+            interface Doc {
+            }
+
+            interface $Exports {
+                Doc: DocStruct
+            }
+            
+
+            interface DocPtrStruct {
+                readonly $gtype: GObject.GType<DocPtr>
+                new (fields?: {
+                }): DocPtr
+            }
+
+            interface DocPtr {
+            }
+
+            interface $Exports {
+                DocPtr: DocPtrStruct
+            }
+            
+
+            interface NsPtrStruct {
+                readonly $gtype: GObject.GType<NsPtr>
+                new (fields?: {
+                }): NsPtr
+            }
+
+            interface NsPtr {
+            }
+
+            interface $Exports {
+                NsPtr: NsPtrStruct
+            }
+            
+
+            interface CharStruct {
+                readonly $gtype: GObject.GType<Char>
+                new (fields?: {
+                }): Char
+            }
+
+            interface Char {
+            }
+
+            interface $Exports {
+                Char: CharStruct
+            }
+            
+
+            interface TextWriterStruct {
+                readonly $gtype: GObject.GType<TextWriter>
+                new (fields?: {
+                }): TextWriter
+            }
+
+            interface TextWriter {
+            }
+
+            interface $Exports {
+                TextWriter: TextWriterStruct
+            }
+            
+
+            interface TextReaderStruct {
+                readonly $gtype: GObject.GType<TextReader>
+                new (fields?: {
+                }): TextReader
+            }
+
+            interface TextReader {
+            }
+
+            interface $Exports {
+                TextReader: TextReaderStruct
+            }
+
+            interface $Exports {
+                __name__: "libxml2"
+                __version__: "2.0"
+                /**
+                 */
+                dummy(): void
+            }
         }
 
-        interface Node {
-        }
-
-        interface $Exports {
-            Node: NodeStruct
-        }
-        
-
-        interface NodePtrStruct {
-            readonly $gtype: GObject.GType<NodePtr>
-            [Symbol.hasInstance](instance: unknown): instance is NodePtr
-        }
-
-        interface NodePtr {
-        }
-
-        interface $Exports {
-            NodePtr: NodePtrStruct
-        }
-        
-
-        interface DocStruct {
-            readonly $gtype: GObject.GType<Doc>
-            [Symbol.hasInstance](instance: unknown): instance is Doc
-        }
-
-        interface Doc {
-        }
-
-        interface $Exports {
-            Doc: DocStruct
-        }
-        
-
-        interface DocPtrStruct {
-            readonly $gtype: GObject.GType<DocPtr>
-            [Symbol.hasInstance](instance: unknown): instance is DocPtr
-        }
-
-        interface DocPtr {
-        }
-
-        interface $Exports {
-            DocPtr: DocPtrStruct
-        }
-        
-
-        interface NsPtrStruct {
-            readonly $gtype: GObject.GType<NsPtr>
-            [Symbol.hasInstance](instance: unknown): instance is NsPtr
-        }
-
-        interface NsPtr {
-        }
-
-        interface $Exports {
-            NsPtr: NsPtrStruct
-        }
-        
-
-        interface CharStruct {
-            readonly $gtype: GObject.GType<Char>
-            [Symbol.hasInstance](instance: unknown): instance is Char
-        }
-
-        interface Char {
-        }
-
-        interface $Exports {
-            Char: CharStruct
-        }
-        
-
-        interface TextWriterStruct {
-            readonly $gtype: GObject.GType<TextWriter>
-            [Symbol.hasInstance](instance: unknown): instance is TextWriter
-        }
-
-        interface TextWriter {
-        }
-
-        interface $Exports {
-            TextWriter: TextWriterStruct
-        }
-        
-
-        interface TextReaderStruct {
-            readonly $gtype: GObject.GType<TextReader>
-            [Symbol.hasInstance](instance: unknown): instance is TextReader
-        }
-
-        interface TextReader {
-        }
-
-        interface $Exports {
-            TextReader: TextReaderStruct
-        }
-
-        interface $Exports {
-            __name__: "libxml2"
-            __version: "2.0"
-            /**
-             */
-            dummy(): void
-        }
+        const libxml2: libxml2.$Exports
     }
 
-    const libxml2: libxml2.$Exports
-    export default libxml2
+    export default GI.libxml2
 }

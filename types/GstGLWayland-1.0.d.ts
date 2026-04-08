@@ -20,66 +20,73 @@ declare module "gi://GstGLWayland?version=1.0" {
     import type GstVideo from "gi://GstVideo?version=1.0"
     import type GstGL from "gi://GstGL?version=1.0"
 
-    
-
-    namespace GstGLWayland {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace GLDisplayWayland {
-            interface SignalSignatures extends GstGL.GLDisplay.SignalSignatures {
+        namespace GstGLWayland {
+            
+
+            namespace GLDisplayWayland {
+                interface SignalSignatures extends GstGL.GLDisplay.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstGL.GLDisplay.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstGL.GLDisplay.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstGL.GLDisplay.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GstGL.GLDisplay.ReadableProperties {
+            interface GLDisplayWayland extends GstGL.GLDisplay {
+                readonly $signals: GLDisplayWayland.SignalSignatures
+                readonly $readableProperties: GLDisplayWayland.ReadableProperties
+                readonly $writableProperties: GLDisplayWayland.WritableProperties
+                readonly $constructOnlyProperties: GLDisplayWayland.ConstructOnlyProperties
             }
 
-            interface WritableProperties extends GstGL.GLDisplay.WritableProperties {
+            interface GLDisplayWaylandClass extends Omit<GstGL.GLDisplayClass, "new"> {
+                readonly $gtype: GObject.GType<GLDisplayWayland>
+                readonly prototype: GLDisplayWayland
+
+                new (props?: Partial<GObject.ConstructorProps<GLDisplayWayland>>): GLDisplayWayland
+                /**
+                 * Create a new #GstGLDisplayWayland from the wayland display name.  See `wl_display_connect`()
+                 * for details on what is a valid name.
+                 * @param name a display name
+                 * @returns a new #GstGLDisplayWayland or %NULL
+                 */
+                "new"(name: string | null): GLDisplayWayland | null
+                /**
+                 * Creates a new display connection from a wl_display Display.
+                 * @param display an existing, wayland display
+                 * @returns a new #GstGLDisplayWayland
+                 */
+                new_with_display(display: never | null): GLDisplayWayland
             }
 
-            interface ConstructOnlyProperties extends GstGL.GLDisplay.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * the contents of a #GstGLDisplayWayland are private and should only be accessed
+                 * through the provided API
+                 */
+                GLDisplayWayland: GLDisplayWaylandClass
+            }
+
+            interface $Exports {
+                __name__: "GstGLWayland"
+                __version__: "1.0"
             }
         }
 
-        interface GLDisplayWayland extends GstGL.GLDisplay {
-            readonly $signals: GLDisplayWayland.SignalSignatures
-            readonly $readableProperties: GLDisplayWayland.ReadableProperties
-            readonly $writableProperties: GLDisplayWayland.WritableProperties
-            readonly $constructOnlyProperties: GLDisplayWayland.ConstructOnlyProperties
-        }
-
-        interface GLDisplayWaylandClass extends Omit<GstGL.GLDisplayClass, "new"> {
-            readonly $gtype: GObject.GType<GLDisplayWayland>
-            readonly prototype: GLDisplayWayland
-
-            new (props?: Partial<GObject.ConstructorProps<GLDisplayWayland>>): GLDisplayWayland
-            /**
-             * Create a new #GstGLDisplayWayland from the wayland display name.  See `wl_display_connect`()
-             * for details on what is a valid name.
-             * @param name a display name
-             * @returns a new #GstGLDisplayWayland or %NULL
-             */
-            "new"(name: string | null): GLDisplayWayland | null
-            /**
-             * Creates a new display connection from a wl_display Display.
-             * @param display an existing, wayland display
-             * @returns a new #GstGLDisplayWayland
-             */
-            new_with_display(display: never | null): GLDisplayWayland
-        }
-
-        interface $Exports {
-            /**
-             * the contents of a #GstGLDisplayWayland are private and should only be accessed
-             * through the provided API
-             */
-            GLDisplayWayland: GLDisplayWaylandClass
-        }
-
-        interface $Exports {
-            __name__: "GstGLWayland"
-            __version: "1.0"
-        }
+        const GstGLWayland: GstGLWayland.$Exports
     }
 
-    const GstGLWayland: GstGLWayland.$Exports
-    export default GstGLWayland
+    export default GI.GstGLWayland
 }

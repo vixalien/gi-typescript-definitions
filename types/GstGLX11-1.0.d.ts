@@ -20,60 +20,67 @@ declare module "gi://GstGLX11?version=1.0" {
     import type GstVideo from "gi://GstVideo?version=1.0"
     import type GstGL from "gi://GstGL?version=1.0"
 
-    
-
-    namespace GstGLX11 {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace GLDisplayX11 {
-            interface SignalSignatures extends GstGL.GLDisplay.SignalSignatures {
+        namespace GstGLX11 {
+            
+
+            namespace GLDisplayX11 {
+                interface SignalSignatures extends GstGL.GLDisplay.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstGL.GLDisplay.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstGL.GLDisplay.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstGL.GLDisplay.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GstGL.GLDisplay.ReadableProperties {
+            interface GLDisplayX11 extends GstGL.GLDisplay {
+                readonly $signals: GLDisplayX11.SignalSignatures
+                readonly $readableProperties: GLDisplayX11.ReadableProperties
+                readonly $writableProperties: GLDisplayX11.WritableProperties
+                readonly $constructOnlyProperties: GLDisplayX11.ConstructOnlyProperties
             }
 
-            interface WritableProperties extends GstGL.GLDisplay.WritableProperties {
+            interface GLDisplayX11Class extends Omit<GstGL.GLDisplayClass, "new"> {
+                readonly $gtype: GObject.GType<GLDisplayX11>
+                readonly prototype: GLDisplayX11
+
+                new (props?: Partial<GObject.ConstructorProps<GLDisplayX11>>): GLDisplayX11
+                /**
+                 * Create a new #GstGLDisplayX11 from the x11 display name.  See `XOpenDisplay`()
+                 * for details on what is a valid name.
+                 * @param name a display name
+                 * @returns a new #GstGLDisplayX11 or %NULL
+                 */
+                "new"(name: string | null): GLDisplayX11 | null
             }
 
-            interface ConstructOnlyProperties extends GstGL.GLDisplay.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * the contents of a #GstGLDisplayX11 are private and should only be accessed
+                 * through the provided API
+                 */
+                GLDisplayX11: GLDisplayX11Class
+            }
+
+            interface $Exports {
+                __name__: "GstGLX11"
+                __version__: "1.0"
             }
         }
 
-        interface GLDisplayX11 extends GstGL.GLDisplay {
-            readonly $signals: GLDisplayX11.SignalSignatures
-            readonly $readableProperties: GLDisplayX11.ReadableProperties
-            readonly $writableProperties: GLDisplayX11.WritableProperties
-            readonly $constructOnlyProperties: GLDisplayX11.ConstructOnlyProperties
-        }
-
-        interface GLDisplayX11Class extends Omit<GstGL.GLDisplayClass, "new"> {
-            readonly $gtype: GObject.GType<GLDisplayX11>
-            readonly prototype: GLDisplayX11
-
-            new (props?: Partial<GObject.ConstructorProps<GLDisplayX11>>): GLDisplayX11
-            /**
-             * Create a new #GstGLDisplayX11 from the x11 display name.  See `XOpenDisplay`()
-             * for details on what is a valid name.
-             * @param name a display name
-             * @returns a new #GstGLDisplayX11 or %NULL
-             */
-            "new"(name: string | null): GLDisplayX11 | null
-        }
-
-        interface $Exports {
-            /**
-             * the contents of a #GstGLDisplayX11 are private and should only be accessed
-             * through the provided API
-             */
-            GLDisplayX11: GLDisplayX11Class
-        }
-
-        interface $Exports {
-            __name__: "GstGLX11"
-            __version: "1.0"
-        }
+        const GstGLX11: GstGLX11.$Exports
     }
 
-    const GstGLX11: GstGLX11.$Exports
-    export default GstGLX11
+    export default GI.GstGLX11
 }

@@ -14,1137 +14,1149 @@ declare module "gi://Gly?version=2" {
     import type GObject from "gi://GObject?version=2.0"
     import type Gio from "gi://Gio?version=2.0"
 
-    
-
-    namespace Gly {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace Creator {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+        namespace Gly {
+            
+
+            namespace Creator {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "mime-type": string
+                    "sandbox-selector": SandboxSelector
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "sandbox-selector": SandboxSelector
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                    "mime-type": string
+                }
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "mime-type": string
-                "sandbox-selector": SandboxSelector
+            interface Creator extends GObject.Object {
+                readonly $signals: Creator.SignalSignatures
+                readonly $readableProperties: Creator.ReadableProperties
+                readonly $writableProperties: Creator.WritableProperties
+                readonly $constructOnlyProperties: Creator.ConstructOnlyProperties
+                /**
+                 * @default NULL
+                 */
+                get mimeType(): string
+                set mimeType(value: string)
+                /**
+                 * @default Auto
+                 */
+                get sandboxSelector(): SandboxSelector
+                set sandboxSelector(value: SandboxSelector)
+                /**
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @param width
+                 * @param height
+                 * @param memory_format
+                 * @param texture Texture data
+                 * @returns a new {@link NewFrame}
+                 */
+                add_frame(width: number, height: number, memory_format: MemoryFormat, texture: (GLib.Bytes | Uint8Array)): NewFrame
+                /**
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @param width
+                 * @param height  `stride`
+                 * @param stride
+                 * @param memory_format
+                 * @param texture Texture data
+                 * @returns a new {@link NewFrame}
+                 */
+                add_frame_with_stride(width: number, height: number, stride: number, memory_format: MemoryFormat, texture: (GLib.Bytes | Uint8Array)): NewFrame
+                /**
+                 * Add metadata that are stored as key-value pairs.
+                 * A prominent example are PNG's `tEXt` chunks.
+                 *
+                 * If an entry with `key` already exists, it will be replaced.
+                 * @since 2.0
+                 * @param key A null-terminated string.
+                 * @param value A null-terminated string.
+                 * @returns `TRUE` if format supports key-value storage.
+                 */
+                add_metadata_key_value(key: string, value: string): boolean
+                /**
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @returns The encoded image.
+                 */
+                create(): EncodedImage | null
+                /**
+                 * Asynchronous version of {@link Creator.create}.
+                 * @since 2.0
+                 * @param cancellable A {@link Gio.Cancellable} to cancel the operation
+                 * @param callback A callback to call when the operation is complete
+                 */
+                create_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes the {@link Creator.create_async} call.
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @param result A `GAsyncResult`
+                 * @returns Encoded image.
+                 */
+                create_finish(result: Gio.AsyncResult): EncodedImage
+                /**
+                 * @since 2.0
+                 * @param compression Value between 0 and 100
+                 * @returns `TRUE` if the format supports compression setting.
+                 */
+                set_encoding_compression(compression: number): boolean
+                /**
+                 * @since 2.0
+                 * @param quality Value between 0 and 100
+                 * @returns `TRUE` if format supports a quality setting.
+                 */
+                set_encoding_quality(quality: number): boolean
+                /**
+                 * Selects which sandbox mechanism should be used. The default without calling this function is {@link SandboxSelector}`.AUTO`.
+                 * @since 2.0
+                 * @param sandbox_selector Method by which the sandbox mechanism is selected
+                 */
+                set_sandbox_selector(sandbox_selector: SandboxSelector): boolean
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "sandbox-selector": SandboxSelector
+            interface CreatorClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Creator>
+                readonly prototype: Creator
+
+                new (props?: Partial<GObject.ConstructorProps<Creator>>): Creator
+                /**
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @param mime_type A null-terminated string.
+                 * @returns a new {@link Creator}
+                 */
+                "new"(mime_type: string): Creator
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-                "mime-type": string
+            interface $Exports {
+                /**
+                 * Image creator
+                 *
+                 * ```c
+                 * #include <glycin.h>
+                 *
+                 * GlyCreator *creator = gly_creator_new("image/jpeg", NULL);
+                 *
+                 * if (!creator)
+                 *   return;
+                 *
+                 * // Create frame with a single red pixel
+                 * guint8 data[] = {255, 0, 0};
+                 * gsize length = sizeof(data);
+                 * GBytes *texture = g_bytes_new(data, length);
+                 * GlyNewFrame *new_frame = gly_creator_add_frame(creator, 1, 1, GLY_MEMORY_R8G8B8, texture, NULL);
+                 *
+                 * // Create JPEG
+                 * GlyEncodedImage *encoded_image = gly_creator_create(creator, NULL);
+                 *
+                 * if (encoded_image)
+                 * {
+                 *   GBytes *binary_data = gly_encoded_image_get_data(encoded_image);
+                 *   if (binary_data)
+                 *   {
+                 *     // Write image to file
+                 *     GFile *file = g_file_new_for_path("test.jpg");
+                 *     g_file_replace_contents(
+                 *         file,
+                 *         g_bytes_get_data(binary_data, NULL),
+                 *         g_bytes_get_size(binary_data),
+                 *         NULL,
+                 *         FALSE,
+                 *         G_FILE_CREATE_NONE,
+                 *         NULL,
+                 *         NULL,
+                 *         NULL);
+                 *   }
+                 * }
+                 * ```
+                 * @since 2.0
+                 */
+                Creator: CreatorClass
             }
-        }
+            
 
-        interface Creator extends GObject.Object {
-            readonly $signals: Creator.SignalSignatures
-            readonly $readableProperties: Creator.ReadableProperties
-            readonly $writableProperties: Creator.WritableProperties
-            readonly $constructOnlyProperties: Creator.ConstructOnlyProperties
-            /**
-             * @default NULL
-             */
-            get mimeType(): string
-            set mimeType(value: string)
-            /**
-             * @default Auto
-             */
-            get sandboxSelector(): SandboxSelector
-            set sandboxSelector(value: SandboxSelector)
-            /**
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @param width
-             * @param height
-             * @param memory_format
-             * @param texture Texture data
-             * @returns a new [class@NewFrame]
-             */
-            add_frame(width: number, height: number, memory_format: MemoryFormat, texture: (GLib.Bytes | Uint8Array)): NewFrame
-            /**
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @param width
-             * @param height @stride
-             * @param stride
-             * @param memory_format
-             * @param texture Texture data
-             * @returns a new [class@NewFrame]
-             */
-            add_frame_with_stride(width: number, height: number, stride: number, memory_format: MemoryFormat, texture: (GLib.Bytes | Uint8Array)): NewFrame
-            /**
-             * Add metadata that are stored as key-value pairs.
-             * A prominent example are PNG's `tEXt` chunks.
-             *
-             * If an entry with `key` already exists, it will be replaced.
-             * @since 2.0
-             * @param key A null-terminated string.
-             * @param value A null-terminated string.
-             * @returns `TRUE` if format supports key-value storage.
-             */
-            add_metadata_key_value(key: string, value: string): boolean
-            /**
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @returns The encoded image.
-             */
-            create(): EncodedImage | null
-            /**
-             * Asynchronous version of [method@Creator.create].
-             * @since 2.0
-             * @param cancellable A [class@Gio.Cancellable] to cancel the operation
-             * @param callback A callback to call when the operation is complete
-             */
-            create_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes the [method@Creator.create_async] call.
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @param result A `GAsyncResult`
-             * @returns Encoded image.
-             */
-            create_finish(result: Gio.AsyncResult): EncodedImage
-            /**
-             * @since 2.0
-             * @param compression Value between 0 and 100
-             * @returns `TRUE` if the format supports compression setting.
-             */
-            set_encoding_compression(compression: number): boolean
-            /**
-             * @since 2.0
-             * @param quality Value between 0 and 100
-             * @returns `TRUE` if format supports a quality setting.
-             */
-            set_encoding_quality(quality: number): boolean
-            /**
-             * Selects which sandbox mechanism should be used. The default without calling this function is [enum@SandboxSelector]`.AUTO`.
-             * @since 2.0
-             * @param sandbox_selector Method by which the sandbox mechanism is selected
-             */
-            set_sandbox_selector(sandbox_selector: SandboxSelector): boolean
-        }
+            namespace EncodedImage {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
 
-        interface CreatorClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Creator>
-            readonly prototype: Creator
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "data": GLib.Bytes
+                }
 
-            new (props?: Partial<GObject.ConstructorProps<Creator>>): Creator
-            /**
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @param mime_type A null-terminated string.
-             * @returns a new [class@Creator]
-             */
-            "new"(mime_type: string): Creator
-        }
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "data": GLib.Bytes
+                }
 
-        interface $Exports {
-            /**
-             * Image creator
-             *
-             * ```c
-             * #include <glycin.h>
-             *
-             * GlyCreator *creator = gly_creator_new("image/jpeg", NULL);
-             *
-             * if (!creator)
-             *   return;
-             *
-             * // Create frame with a single red pixel
-             * guint8 data[] = {255, 0, 0};
-             * gsize length = sizeof(data);
-             * GBytes *texture = g_bytes_new(data, length);
-             * GlyNewFrame *new_frame = gly_creator_add_frame(creator, 1, 1, GLY_MEMORY_R8G8B8, texture, NULL);
-             *
-             * // Create JPEG
-             * GlyEncodedImage *encoded_image = gly_creator_create(creator, NULL);
-             *
-             * if (encoded_image)
-             * {
-             *   GBytes *binary_data = gly_encoded_image_get_data(encoded_image);
-             *   if (binary_data)
-             *   {
-             *     // Write image to file
-             *     GFile *file = g_file_new_for_path("test.jpg");
-             *     g_file_replace_contents(
-             *         file,
-             *         g_bytes_get_data(binary_data, NULL),
-             *         g_bytes_get_size(binary_data),
-             *         NULL,
-             *         FALSE,
-             *         G_FILE_CREATE_NONE,
-             *         NULL,
-             *         NULL,
-             *         NULL);
-             *   }
-             * }
-             * ```
-             * @since 2.0
-             */
-            Creator: CreatorClass
-        }
-        
-
-        namespace EncodedImage {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "data": GLib.Bytes
+            interface EncodedImage extends GObject.Object {
+                readonly $signals: EncodedImage.SignalSignatures
+                readonly $readableProperties: EncodedImage.ReadableProperties
+                readonly $writableProperties: EncodedImage.WritableProperties
+                readonly $constructOnlyProperties: EncodedImage.ConstructOnlyProperties
+                /**
+                 */
+                get data(): GLib.Bytes
+                set data(value: GLib.Bytes)
+                /**
+                 * @since 2.0
+                 * @returns The encoded image data
+                 */
+                get_data(): GLib.Bytes
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "data": GLib.Bytes
+            interface EncodedImageClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<EncodedImage>
+                readonly prototype: EncodedImage
+
+                new (props?: Partial<GObject.ConstructorProps<EncodedImage>>): EncodedImage
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * Encoded image
+                 * @since 2.0
+                 */
+                EncodedImage: EncodedImageClass
             }
-        }
+            
 
-        interface EncodedImage extends GObject.Object {
-            readonly $signals: EncodedImage.SignalSignatures
-            readonly $readableProperties: EncodedImage.ReadableProperties
-            readonly $writableProperties: EncodedImage.WritableProperties
-            readonly $constructOnlyProperties: EncodedImage.ConstructOnlyProperties
-            /**
-             */
-            get data(): GLib.Bytes
-            set data(value: GLib.Bytes)
-            /**
-             * @since 2.0
-             * @returns The encoded image data
-             */
-            get_data(): GLib.Bytes
-        }
+            namespace Frame {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
 
-        interface EncodedImageClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<EncodedImage>
-            readonly prototype: EncodedImage
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
 
-            new (props?: Partial<GObject.ConstructorProps<EncodedImage>>): EncodedImage
-        }
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
 
-        interface $Exports {
-            /**
-             * Encoded image
-             * @since 2.0
-             */
-            EncodedImage: EncodedImageClass
-        }
-        
-
-        namespace Frame {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            interface Frame extends GObject.Object {
+                readonly $signals: Frame.SignalSignatures
+                readonly $readableProperties: Frame.ReadableProperties
+                readonly $writableProperties: Frame.WritableProperties
+                readonly $constructOnlyProperties: Frame.ConstructOnlyProperties
+                /**
+                 * Image data arranged according to {@link Frame.get_memory_format}
+                 * @since 2.0
+                 * @returns Image data
+                 */
+                get_buf_bytes(): GLib.Bytes
+                /**
+                 * Returns the CICP (coding-independent code point) for the frames texture.
+                 * This value is `NULL` if no CICP is used.
+                 * @since 2.0
+                 * @returns CICP
+                 */
+                get_color_cicp(): Cicp | null
+                /**
+                 * Duration to show frame for animations.
+                 *
+                 * If the value is zero, the image is not animated.
+                 * @since 2.0
+                 * @returns Duration in microseconds.
+                 */
+                get_delay(): number
+                /**
+                 * Height for image data in pixels
+                 * @since 2.0
+                 * @returns Height in pixels
+                 */
+                get_height(): number
+                /**
+                 * Format of the image data in {@link Gly.Frame.get_buf_bytes}
+                 * @since 2.0
+                 * @returns Format of image data
+                 */
+                get_memory_format(): MemoryFormat
+                /**
+                 * Width of a row for image data in bytes
+                 * @since 2.0
+                 * @returns Row stride in bytes
+                 */
+                get_stride(): number
+                /**
+                 * Width for image data in pixels
+                 * @since 2.0
+                 * @returns Width in pixels
+                 */
+                get_width(): number
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
+            interface FrameClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Frame>
+                readonly prototype: Frame
+
+                new (props?: Partial<GObject.ConstructorProps<Frame>>): Frame
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * A frame of an image often being the complete image.
+                 * @since 2.0
+                 */
+                Frame: FrameClass
             }
-        }
+            
 
-        interface Frame extends GObject.Object {
-            readonly $signals: Frame.SignalSignatures
-            readonly $readableProperties: Frame.ReadableProperties
-            readonly $writableProperties: Frame.WritableProperties
-            readonly $constructOnlyProperties: Frame.ConstructOnlyProperties
-            /**
-             * Image data arranged according to [method@Frame.get_memory_format]
-             * @since 2.0
-             * @returns Image data
-             */
-            get_buf_bytes(): GLib.Bytes
-            /**
-             * Returns the CICP (coding-independent code point) for the frames texture.
-             * This value is `NULL` if no CICP is used.
-             * @since 2.0
-             * @returns CICP
-             */
-            get_color_cicp(): Cicp | null
-            /**
-             * Duration to show frame for animations.
-             *
-             * If the value is zero, the image is not animated.
-             * @since 2.0
-             * @returns Duration in microseconds.
-             */
-            get_delay(): number
-            /**
-             * Height for image data in pixels
-             * @since 2.0
-             * @returns Height in pixels
-             */
-            get_height(): number
-            /**
-             * Format of the image data in [method@Gly.Frame.get_buf_bytes]
-             * @since 2.0
-             * @returns Format of image data
-             */
-            get_memory_format(): MemoryFormat
-            /**
-             * Width of a row for image data in bytes
-             * @since 2.0
-             * @returns Row stride in bytes
-             */
-            get_stride(): number
-            /**
-             * Width for image data in pixels
-             * @since 2.0
-             * @returns Width in pixels
-             */
-            get_width(): number
-        }
+            namespace FrameRequest {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
 
-        interface FrameClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Frame>
-            readonly prototype: Frame
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "loop-animation": boolean
+                    "scale-height": number
+                    "scale-width": number
+                }
 
-            new (props?: Partial<GObject.ConstructorProps<Frame>>): Frame
-        }
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "loop-animation": boolean
+                    "scale-height": number
+                    "scale-width": number
+                }
 
-        interface $Exports {
-            /**
-             * A frame of an image often being the complete image.
-             * @since 2.0
-             */
-            Frame: FrameClass
-        }
-        
-
-        namespace FrameRequest {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "loop-animation": boolean
-                "scale-height": number
-                "scale-width": number
+            interface FrameRequest extends GObject.Object {
+                readonly $signals: FrameRequest.SignalSignatures
+                readonly $readableProperties: FrameRequest.ReadableProperties
+                readonly $writableProperties: FrameRequest.WritableProperties
+                readonly $constructOnlyProperties: FrameRequest.ConstructOnlyProperties
+                /**
+                 * @default FALSE
+                 */
+                get loopAnimation(): boolean
+                set loopAnimation(value: boolean)
+                /**
+                 * @default 0
+                 */
+                get scaleHeight(): number
+                set scaleHeight(value: number)
+                /**
+                 * @default 0
+                 */
+                get scaleWidth(): number
+                set scaleWidth(value: number)
+                /**
+                 * Controls if first frame is returned after last frame
+                 *
+                 * By default, this option is set to `TRUE`, returning the first frame, if
+                 * the previously requested frame was the last frame.
+                 * @since 2.0.1
+                 * @param loop_animation
+                 */
+                set_loop_animation(loop_animation: boolean): void
+                /**
+                 * Set maximum dimensions for the frame. The texture will be scaled
+                 * to be within the maximum dimensions while keeping its aspect ratio.
+                 * This option is especially useful to SVGs which will be rendered at
+                 * the respective size.
+                 *
+                 * ::: warning
+                 *     Most loaders will ignore this option. Currently, only the SVG
+                 *     loader is known to obey it.
+                 * @since 2.0
+                 * @param width Maximum width
+                 * @param height Maximum height
+                 */
+                set_scale(width: number, height: number): void
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "loop-animation": boolean
-                "scale-height": number
-                "scale-width": number
+            interface FrameRequestClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<FrameRequest>
+                readonly prototype: FrameRequest
+
+                new (props?: Partial<GObject.ConstructorProps<FrameRequest>>): FrameRequest
+                /**
+                 * Creates a new frame request.
+                 * @since 2.0
+                 * @returns a new {@link FrameRequest}
+                 */
+                "new"(): FrameRequest
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * Defines which parts of an image to load.
+                 *
+                 * ::: warning
+                 *     Loaders can and frequently will ignore instructions set in
+                 *     `GlyFrameRequest`. The reason is that for most loaders
+                 *     many instructions don't have a meaningful interpretation.
+                 * @since 2.0
+                 */
+                FrameRequest: FrameRequestClass
             }
-        }
+            
 
-        interface FrameRequest extends GObject.Object {
-            readonly $signals: FrameRequest.SignalSignatures
-            readonly $readableProperties: FrameRequest.ReadableProperties
-            readonly $writableProperties: FrameRequest.WritableProperties
-            readonly $constructOnlyProperties: FrameRequest.ConstructOnlyProperties
-            /**
-             * @default FALSE
-             */
-            get loopAnimation(): boolean
-            set loopAnimation(value: boolean)
-            /**
-             * @default 0
-             */
-            get scaleHeight(): number
-            set scaleHeight(value: number)
-            /**
-             * @default 0
-             */
-            get scaleWidth(): number
-            set scaleWidth(value: number)
-            /**
-             * Controls if first frame is returned after last frame
-             *
-             * By default, this option is set to `TRUE`, returning the first frame, if
-             * the previously requested frame was the last frame.
-             * @since 2.0.1
-             * @param loop_animation
-             */
-            set_loop_animation(loop_animation: boolean): void
-            /**
-             * Set maximum dimensions for the frame. The texture will be scaled
-             * to be within the maximum dimensions while keeping its aspect ratio.
-             * This option is especially useful to SVGs which will be rendered at
-             * the respective size.
-             *
-             * ::: warning
-             *     Most loaders will ignore this option. Currently, only the SVG
-             *     loader is known to obey it.
-             * @since 2.0
-             * @param width Maximum width
-             * @param height Maximum height
-             */
-            set_scale(width: number, height: number): void
-        }
+            namespace Image {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
 
-        interface FrameRequestClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<FrameRequest>
-            readonly prototype: FrameRequest
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
 
-            new (props?: Partial<GObject.ConstructorProps<FrameRequest>>): FrameRequest
-            /**
-             * Creates a new frame request.
-             * @since 2.0
-             * @returns a new [class@FrameRequest]
-             */
-            "new"(): FrameRequest
-        }
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
 
-        interface $Exports {
-            /**
-             * Defines which parts of an image to load.
-             *
-             * ::: warning
-             *     Loaders can and frequently will ignore instructions set in
-             *     `GlyFrameRequest`. The reason is that for most loaders
-             *     many instructions don't have a meaningful interpretation.
-             * @since 2.0
-             */
-            FrameRequest: FrameRequestClass
-        }
-        
-
-        namespace Image {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            interface Image extends GObject.Object {
+                readonly $signals: Image.SignalSignatures
+                readonly $readableProperties: Image.ReadableProperties
+                readonly $writableProperties: Image.WritableProperties
+                readonly $constructOnlyProperties: Image.ConstructOnlyProperties
+                /**
+                 * See {@link Image.get_width}
+                 * @since 2.0
+                 * @returns height
+                 */
+                get_height(): number
+                /**
+                 * Get metadata that are stored as key-value pairs.
+                 * A prominent example are PNG's `tEXt` and `zTXt` chunks.
+                 *
+                 * ::: note
+                 *     In contrast to gdk-pixbuf's *option* feature, the
+                 *     keys do not carry prefixes like `tEXt::` or `zTXt::`.
+                 * @since 2.0
+                 * @param key A null-terminated string.
+                 * @returns The UTF-8 encoded value associated with `key`.
+                 */
+                get_metadata_key_value(key: string): string | null
+                /**
+                 * Get the list of available keys for {@link Image.get_metadata_key_value}.
+                 * @since 2.0
+                 * @returns List of existing keys.
+                 */
+                get_metadata_keys(): string[]
+                /**
+                 * Returns detected MIME type of the file
+                 * @since 2.0
+                 * @returns MIME type
+                 */
+                get_mime_type(): string
+                /**
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @param frame_request
+                 * @returns Loaded frame.
+                 */
+                get_specific_frame(frame_request: FrameRequest): Frame
+                /**
+                 * Asynchronous version of {@link Image.get_specific_frame}.
+                 * @since 2.0
+                 * @param frame_request
+                 * @param cancellable A {@link Gio.Cancellable} to cancel the operation
+                 * @param callback A callback to call when the operation is complete
+                 */
+                get_specific_frame_async(frame_request: FrameRequest, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes the {@link Image.get_specific_frame_async} call.
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @param result a `GAsyncResult`
+                 * @returns Loaded frame.
+                 */
+                get_specific_frame_finish(result: Gio.AsyncResult): Frame
+                /**
+                 * Get the image orientation
+                 *
+                 * The image orientation is given in Exif format. The function is
+                 * guaranteed to only return values from 1 to 8.
+                 *
+                 * If {@link Loader.set_apply_transformations} is set to `FALSE`,
+                 * the orientation has to be corrected manually to display the image
+                 * correctly.
+                 * @since 2.0
+                 */
+                get_transformation_orientation(): number
+                /**
+                 * Early width information.
+                 *
+                 * This information is often correct. However, it should only be used for
+                 * an early rendering estimates. For everything else, the specific frame
+                 * information should be used. See {@link Frame.get_width}.
+                 * @since 2.0
+                 * @returns Width
+                 */
+                get_width(): number
+                /**
+                 * Synchronously loads texture and information of the next frame.
+                 *
+                 * For single still images, this can only be called once.
+                 * For animated images, this function will loop to the first frame, when the last frame is reached.
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @returns a new {@link Frame} on success, or `NULL` with `error` filled in
+                 */
+                next_frame(): Frame
+                /**
+                 * Asynchronous version of {@link Image.next_frame}.
+                 * @since 2.0
+                 * @param cancellable A {@link Gio.Cancellable} to cancel the operation
+                 * @param callback A callback to call when the operation is complete
+                 */
+                next_frame_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes the {@link Image.next_frame_async} call.
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @param result a `GAsyncResult`
+                 * @returns Loaded frame.
+                 */
+                next_frame_finish(result: Gio.AsyncResult): Frame
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
+            interface ImageClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Image>
+                readonly prototype: Image
+
+                new (props?: Partial<GObject.ConstructorProps<Image>>): Image
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * Image handle containing metadata and allowing frame requests.
+                 * @since 2.0
+                 */
+                Image: ImageClass
             }
-        }
+            
 
-        interface Image extends GObject.Object {
-            readonly $signals: Image.SignalSignatures
-            readonly $readableProperties: Image.ReadableProperties
-            readonly $writableProperties: Image.WritableProperties
-            readonly $constructOnlyProperties: Image.ConstructOnlyProperties
-            /**
-             * See [method@Image.get_width]
-             * @since 2.0
-             * @returns height
-             */
-            get_height(): number
-            /**
-             * Get metadata that are stored as key-value pairs.
-             * A prominent example are PNG's `tEXt` and `zTXt` chunks.
-             *
-             * ::: note
-             *     In contrast to gdk-pixbuf's *option* feature, the
-             *     keys do not carry prefixes like `tEXt::` or `zTXt::`.
-             * @since 2.0
-             * @param key A null-terminated string.
-             * @returns The UTF-8 encoded value associated with `key`.
-             */
-            get_metadata_key_value(key: string): string | null
-            /**
-             * Get the list of available keys for [method@Image.get_metadata_key_value].
-             * @since 2.0
-             * @returns List of existing keys.
-             */
-            get_metadata_keys(): string[]
-            /**
-             * Returns detected MIME type of the file
-             * @since 2.0
-             * @returns MIME type
-             */
-            get_mime_type(): string
-            /**
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @param frame_request
-             * @returns Loaded frame.
-             */
-            get_specific_frame(frame_request: FrameRequest): Frame
-            /**
-             * Asynchronous version of [method@Image.get_specific_frame].
-             * @since 2.0
-             * @param frame_request
-             * @param cancellable A [class@Gio.Cancellable] to cancel the operation
-             * @param callback A callback to call when the operation is complete
-             */
-            get_specific_frame_async(frame_request: FrameRequest, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes the [method@Image.get_specific_frame_async] call.
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @param result a `GAsyncResult`
-             * @returns Loaded frame.
-             */
-            get_specific_frame_finish(result: Gio.AsyncResult): Frame
-            /**
-             * Get the image orientation
-             *
-             * The image orientation is given in Exif format. The function is
-             * guaranteed to only return values from 1 to 8.
-             *
-             * If [method@Loader.set_apply_transformations] is set to `FALSE`,
-             * the orientation has to be corrected manually to display the image
-             * correctly.
-             * @since 2.0
-             */
-            get_transformation_orientation(): number
-            /**
-             * Early width information.
-             *
-             * This information is often correct. However, it should only be used for
-             * an early rendering estimates. For everything else, the specific frame
-             * information should be used. See [method@Frame.get_width].
-             * @since 2.0
-             * @returns Width
-             */
-            get_width(): number
-            /**
-             * Synchronously loads texture and information of the next frame.
-             *
-             * For single still images, this can only be called once.
-             * For animated images, this function will loop to the first frame, when the last frame is reached.
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @returns a new [class@Frame] on success, or `NULL` with `error` filled in
-             */
-            next_frame(): Frame
-            /**
-             * Asynchronous version of [method@Image.next_frame].
-             * @since 2.0
-             * @param cancellable A [class@Gio.Cancellable] to cancel the operation
-             * @param callback A callback to call when the operation is complete
-             */
-            next_frame_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes the [method@Image.next_frame_async] call.
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @param result a `GAsyncResult`
-             * @returns Loaded frame.
-             */
-            next_frame_finish(result: Gio.AsyncResult): Frame
-        }
+            namespace Loader {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
 
-        interface ImageClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Image>
-            readonly prototype: Image
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "apply-transformation": boolean
+                    "bytes": GLib.Bytes
+                    "cancellable": Gio.Cancellable
+                    "file": Gio.File
+                    "memory-format-selection": MemoryFormatSelection
+                    "sandbox-selector": SandboxSelector
+                    "stream": Gio.InputStream
+                }
 
-            new (props?: Partial<GObject.ConstructorProps<Image>>): Image
-        }
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "apply-transformation": boolean
+                    "cancellable": Gio.Cancellable
+                    "memory-format-selection": MemoryFormatSelection
+                    "sandbox-selector": SandboxSelector
+                }
 
-        interface $Exports {
-            /**
-             * Image handle containing metadata and allowing frame requests.
-             * @since 2.0
-             */
-            Image: ImageClass
-        }
-        
-
-        namespace Loader {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                    "bytes": GLib.Bytes
+                    "file": Gio.File
+                    "stream": Gio.InputStream
+                }
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "apply-transformation": boolean
-                "bytes": GLib.Bytes
-                "cancellable": Gio.Cancellable
-                "file": Gio.File
-                "memory-format-selection": MemoryFormatSelection
-                "sandbox-selector": SandboxSelector
-                "stream": Gio.InputStream
+            interface Loader extends GObject.Object {
+                readonly $signals: Loader.SignalSignatures
+                readonly $readableProperties: Loader.ReadableProperties
+                readonly $writableProperties: Loader.WritableProperties
+                readonly $constructOnlyProperties: Loader.ConstructOnlyProperties
+                /**
+                 * @default FALSE
+                 */
+                get applyTransformation(): boolean
+                set applyTransformation(value: boolean)
+                /**
+                 */
+                get bytes(): GLib.Bytes
+                set bytes(value: GLib.Bytes)
+                /**
+                 */
+                get cancellable(): Gio.Cancellable
+                set cancellable(value: Gio.Cancellable)
+                /**
+                 */
+                get file(): Gio.File
+                set file(value: Gio.File)
+                /**
+                 * @default 0
+                 */
+                get memoryFormatSelection(): MemoryFormatSelection
+                set memoryFormatSelection(value: MemoryFormatSelection)
+                /**
+                 * @default Auto
+                 */
+                get sandboxSelector(): SandboxSelector
+                set sandboxSelector(value: SandboxSelector)
+                /**
+                 */
+                get stream(): Gio.InputStream
+                set stream(value: Gio.InputStream)
+                /**
+                 * Synchronously loads an image and returns an {@link Image} when successful.
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @returns a new {@link Image} on success, or `NULL` with `error` filled in
+                 */
+                load(): Image
+                /**
+                 * Asynchronous version of {@link Loader.load}.
+                 * @since 2.0
+                 * @param cancellable A {@link Gio.Cancellable} to cancel the operation
+                 * @param callback A callback to call when the operation is complete
+                 */
+                load_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes the {@link Loader.load_async} call.
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @param result A `GAsyncResult`
+                 * @returns Loaded image.
+                 */
+                load_finish(result: Gio.AsyncResult): Image
+                /**
+                 * Sets which memory formats can be returned by the loader
+                 *
+                 * If the memory format doesn't match one of the selected formats, the
+                 * format will be transformed into the best suitable format selected.
+                 * @since 2.0
+                 * @param memory_format_selection Accepted memory formats
+                 */
+                set_accepted_memory_formats(memory_format_selection: MemoryFormatSelection): void
+                /**
+                 * Set whether to apply transformations to texture
+                 *
+                 * When enabled, transformations like image orientation are applied to the
+                 * texture data.
+                 *
+                 * This option is enabled by default.
+                 * @since 2.0
+                 * @param apply_transformations
+                 */
+                set_apply_transformations(apply_transformations: boolean): void
+                /**
+                 * Selects which sandbox mechanism should be used. The default without calling this function is {@link SandboxSelector}`.AUTO`.
+                 * @since 2.0
+                 * @param sandbox_selector Method by which the sandbox mechanism is selected
+                 */
+                set_sandbox_selector(sandbox_selector: SandboxSelector): void
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "apply-transformation": boolean
-                "cancellable": Gio.Cancellable
-                "memory-format-selection": MemoryFormatSelection
-                "sandbox-selector": SandboxSelector
+            interface LoaderClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Loader>
+                readonly prototype: Loader
+
+                new (props?: Partial<GObject.ConstructorProps<Loader>>): Loader
+                /**
+                 * Creates a new loader for a file.
+                 * @since 2.0
+                 * @param file A file from which to load the image data
+                 * @returns a new {@link Loader}
+                 */
+                "new"(file: Gio.File): Loader
+                /**
+                 * Creates a new loader for bytes.
+                 * @since 2.0
+                 * @param bytes Data from which to load the image
+                 * @returns a new {@link Loader}
+                 */
+                new_for_bytes(bytes: (GLib.Bytes | Uint8Array)): Loader
+                /**
+                 * Creates a new loader for a stream.
+                 * @since 2.0
+                 * @param stream A stream from which to load the image data
+                 * @returns a new {@link Loader}
+                 */
+                new_for_stream(stream: Gio.InputStream): Loader
+                /**
+                 * Returns a list of MIME types currently supported for loading images.
+                 *
+                 * This list is generated from the config on first use of a loader or
+                 * call of this function and cached afterwards. Hence, the first call
+                 * can be blocking.
+                 * @since 2.0
+                 * @returns List of supported MIME types
+                 */
+                get_mime_types(): string[]
+                /**
+                 * Async variant of {@link Loader.get_mime_types}
+                 * @since 2.0
+                 * @param cancellable
+                 * @param callback
+                 */
+                get_mime_types_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes the {@link Loader.get_mime_types_async} call.
+                 * @throws {GLib.Error}
+                 * @since 2.0
+                 * @param result A `GAsyncResult`
+                 * @returns Mime types.
+                 */
+                get_mime_types_finish(result: Gio.AsyncResult): string[]
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-                "bytes": GLib.Bytes
-                "file": Gio.File
-                "stream": Gio.InputStream
+            interface $Exports {
+                /**
+                 * {@link Loader} prepares loading an image.
+                 *
+                 * The following example shows how to obtain a `Gdk.Texture`. It uses
+                 * [GlyGtk4](https://gnome.pages.gitlab.gnome.org/glycin/libglycin-gtk4)
+                 * for this.
+                 *
+                 * ```c
+                 * #include <glycin-gtk4.h>
+                 *
+                 * file = g_file_new_for_path ("test.png");
+                 * loader = gly_loader_new (file);
+                 * image = gly_loader_load (loader, NULL);
+                 * if (image)
+                 *   {
+                 *     frame = gly_image_next_frame (image, NULL);
+                 *     if (frame)
+                 *       {
+                 *         texture = gly_gtk_frame_get_texture (frame);
+                 *         g_print ("Image height: %d\n", gdk_texture_get_height (texture));
+                 *         image_widget = gtk_image_new_from_paintable (GDK_PAINTABLE (texture));
+                 *       }
+                 *   }
+                 * ```
+                 * @since 2.0
+                 */
+                Loader: LoaderClass
             }
-        }
+            
 
-        interface Loader extends GObject.Object {
-            readonly $signals: Loader.SignalSignatures
-            readonly $readableProperties: Loader.ReadableProperties
-            readonly $writableProperties: Loader.WritableProperties
-            readonly $constructOnlyProperties: Loader.ConstructOnlyProperties
-            /**
-             * @default FALSE
-             */
-            get applyTransformation(): boolean
-            set applyTransformation(value: boolean)
-            /**
-             */
-            get bytes(): GLib.Bytes
-            set bytes(value: GLib.Bytes)
-            /**
-             */
-            get cancellable(): Gio.Cancellable
-            set cancellable(value: Gio.Cancellable)
-            /**
-             */
-            get file(): Gio.File
-            set file(value: Gio.File)
-            /**
-             * @default 0
-             */
-            get memoryFormatSelection(): MemoryFormatSelection
-            set memoryFormatSelection(value: MemoryFormatSelection)
-            /**
-             * @default Auto
-             */
-            get sandboxSelector(): SandboxSelector
-            set sandboxSelector(value: SandboxSelector)
-            /**
-             */
-            get stream(): Gio.InputStream
-            set stream(value: Gio.InputStream)
-            /**
-             * Synchronously loads an image and returns an [class@Image] when successful.
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @returns a new [class@Image] on success, or `NULL` with `error` filled in
-             */
-            load(): Image
-            /**
-             * Asynchronous version of [method@Loader.load].
-             * @since 2.0
-             * @param cancellable A [class@Gio.Cancellable] to cancel the operation
-             * @param callback A callback to call when the operation is complete
-             */
-            load_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes the [method@Loader.load_async] call.
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @param result A `GAsyncResult`
-             * @returns Loaded image.
-             */
-            load_finish(result: Gio.AsyncResult): Image
-            /**
-             * Sets which memory formats can be returned by the loader
-             *
-             * If the memory format doesn't match one of the selected formats, the
-             * format will be transformed into the best suitable format selected.
-             * @since 2.0
-             * @param memory_format_selection Accepted memory formats
-             */
-            set_accepted_memory_formats(memory_format_selection: MemoryFormatSelection): void
-            /**
-             * Set whether to apply transformations to texture
-             *
-             * When enabled, transformations like image orientation are applied to the
-             * texture data.
-             *
-             * This option is enabled by default.
-             * @since 2.0
-             * @param apply_transformations
-             */
-            set_apply_transformations(apply_transformations: boolean): void
-            /**
-             * Selects which sandbox mechanism should be used. The default without calling this function is [enum@SandboxSelector]`.AUTO`.
-             * @since 2.0
-             * @param sandbox_selector Method by which the sandbox mechanism is selected
-             */
-            set_sandbox_selector(sandbox_selector: SandboxSelector): void
-        }
+            namespace NewFrame {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
 
-        interface LoaderClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Loader>
-            readonly prototype: Loader
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
 
-            new (props?: Partial<GObject.ConstructorProps<Loader>>): Loader
-            /**
-             * Creates a new loader for a file.
-             * @since 2.0
-             * @param file A file from which to load the image data
-             * @returns a new [class@Loader]
-             */
-            "new"(file: Gio.File): Loader
-            /**
-             * Creates a new loader for bytes.
-             * @since 2.0
-             * @param bytes Data from which to load the image
-             * @returns a new [class@Loader]
-             */
-            new_for_bytes(bytes: (GLib.Bytes | Uint8Array)): Loader
-            /**
-             * Creates a new loader for a stream.
-             * @since 2.0
-             * @param stream A stream from which to load the image data
-             * @returns a new [class@Loader]
-             */
-            new_for_stream(stream: Gio.InputStream): Loader
-            /**
-             * Returns a list of MIME types currently supported for loading images.
-             *
-             * This list is generated from the config on first use of a loader or
-             * call of this function and cached afterwards. Hence, the first call
-             * can be blocking.
-             * @since 2.0
-             * @returns List of supported MIME types
-             */
-            get_mime_types(): string[]
-            /**
-             * Async variant of [func@Loader.get_mime_types]
-             * @since 2.0
-             * @param cancellable
-             * @param callback
-             */
-            get_mime_types_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes the [func@Loader.get_mime_types_async] call.
-             * @throws {GLib.Error}
-             * @since 2.0
-             * @param result A `GAsyncResult`
-             * @returns Mime types.
-             */
-            get_mime_types_finish(result: Gio.AsyncResult): string[]
-        }
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
 
-        interface $Exports {
-            /**
-             * [class@Loader] prepares loading an image.
-             *
-             * The following example shows how to obtain a `Gdk.Texture`. It uses
-             * [GlyGtk4](https://gnome.pages.gitlab.gnome.org/glycin/libglycin-gtk4)
-             * for this.
-             *
-             * ```c
-             * #include <glycin-gtk4.h>
-             *
-             * file = g_file_new_for_path ("test.png");
-             * loader = gly_loader_new (file);
-             * image = gly_loader_load (loader, NULL);
-             * if (image)
-             *   {
-             *     frame = gly_image_next_frame (image, NULL);
-             *     if (frame)
-             *       {
-             *         texture = gly_gtk_frame_get_texture (frame);
-             *         g_print ("Image height: %d\n", gdk_texture_get_height (texture));
-             *         image_widget = gtk_image_new_from_paintable (GDK_PAINTABLE (texture));
-             *       }
-             *   }
-             * ```
-             * @since 2.0
-             */
-            Loader: LoaderClass
-        }
-        
-
-        namespace NewFrame {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            interface NewFrame extends GObject.Object {
+                readonly $signals: NewFrame.SignalSignatures
+                readonly $readableProperties: NewFrame.ReadableProperties
+                readonly $writableProperties: NewFrame.WritableProperties
+                readonly $constructOnlyProperties: NewFrame.ConstructOnlyProperties
+                /**
+                 * @since 2.0
+                 * @param icc_profile ICC profile
+                 * @returns `TRUE` if format supports ICC color profiles.
+                 */
+                set_color_icc_profile(icc_profile: (GLib.Bytes | Uint8Array)): boolean
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
+            interface NewFrameClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<NewFrame>
+                readonly prototype: NewFrame
+
+                new (props?: Partial<GObject.ConstructorProps<NewFrame>>): NewFrame
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * New frame
+                 * @since 2.0
+                 */
+                NewFrame: NewFrameClass
             }
-        }
+            
 
-        interface NewFrame extends GObject.Object {
-            readonly $signals: NewFrame.SignalSignatures
-            readonly $readableProperties: NewFrame.ReadableProperties
-            readonly $writableProperties: NewFrame.WritableProperties
-            readonly $constructOnlyProperties: NewFrame.ConstructOnlyProperties
-            /**
-             * @since 2.0
-             * @param icc_profile ICC profile
-             * @returns `TRUE` if format supports ICC color profiles.
-             */
-            set_color_icc_profile(icc_profile: (GLib.Bytes | Uint8Array)): boolean
-        }
+            interface CicpStruct {
+                readonly $gtype: GObject.GType<Cicp>
+                new (fields?: {
+                    color_primaries?: number
+                    transfer_characteristics?: number
+                    matrix_coefficients?: number
+                    video_full_range_flag?: number
+                }): Cicp
+            }
 
-        interface NewFrameClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<NewFrame>
-            readonly prototype: NewFrame
+            interface Cicp {
+                /**
+                 */
+                color_primaries: number
+                /**
+                 */
+                transfer_characteristics: number
+                /**
+                 */
+                matrix_coefficients: number
+                /**
+                 */
+                video_full_range_flag: number
+                /**
+                 */
+                copy(): Cicp
+                /**
+                 */
+                free(): void
+            }
 
-            new (props?: Partial<GObject.ConstructorProps<NewFrame>>): NewFrame
-        }
+            interface $Exports {
+                Cicp: CicpStruct
+            }
+            
+            interface LoaderError extends GLib.Error {}
 
-        interface $Exports {
-            /**
-             * New frame
-             * @since 2.0
-             */
-            NewFrame: NewFrameClass
-        }
-        
+            interface LoaderErrorEnum {
+                readonly $gtype: GObject.GType<LoaderError>
 
-        interface CicpStruct {
-            readonly $gtype: GObject.GType<Cicp>
-            [Symbol.hasInstance](instance: unknown): instance is Cicp
-        }
-
-        interface Cicp {
-            /**
-             */
-            color_primaries: number
-            /**
-             */
-            transfer_characteristics: number
-            /**
-             */
-            matrix_coefficients: number
-            /**
-             */
-            video_full_range_flag: number
-            /**
-             */
-            copy(): Cicp
-            /**
-             */
-            free(): void
-        }
-
-        interface $Exports {
-            Cicp: CicpStruct
-        }
-        
-        interface LoaderError extends GLib.Error {}
-
-        interface LoaderErrorEnum {
-            readonly $gtype: GObject.GType<LoaderError>
-
-            new(props: { message: string, code: number }): LoaderError
-            /**
-             * Generic type for all other errors.
-             * @since 2.0
-             */
-            readonly "FAILED": 0
-            /**
-             * Unknown image format.
-             * @since 2.0
-             */
-            readonly "UNKNOWN_IMAGE_FORMAT": 1
-            /**
-             * Reached last frame in an animation with [method@FrameRequest.set_loop_animation] to `FALSE`.
-             * @since 2.0.1
-             */
-            readonly "NO_MORE_FRAMES": 2
-            /**
-         * Error quark for [error@GlyLoaderError]
-         * @returns The error domain
-         */
-        quark: () => GLib.Quark
-        }
-
-        interface $Exports {
-            /**
-             * Errors that can appear while loading images.
-             * @since 2.0
-             */
-            LoaderError: LoaderErrorEnum
-        }
-        
-        interface MemoryFormatEnum {
-            readonly $gtype: GObject.GType<MemoryFormat>
-            /**
-             * 8-bit RGRA premultiplied
-             */
-            readonly "B8G8R8A8_PREMULTIPLIED": 0
-            /**
-             * 8-bit ARGB premultiplied
-             */
-            readonly "A8R8G8B8_PREMULTIPLIED": 1
-            /**
-             * 8-bit RGBA premultiplied
-             */
-            readonly "R8G8B8A8_PREMULTIPLIED": 2
-            /**
-             * 8-bit RGBA
-             */
-            readonly "B8G8R8A8": 3
-            /**
-             * 8-bit AGBR
-             */
-            readonly "A8R8G8B8": 4
-            /**
-             * 8-bit RGBA
-             */
-            readonly "R8G8B8A8": 5
-            /**
-             * 8-bit ABGR
-             */
-            readonly "A8B8G8R8": 6
-            /**
-             * 8-bit RGB
-             */
-            readonly "R8G8B8": 7
-            /**
-             * 8-bit BGR
-             */
-            readonly "B8G8R8": 8
-            /**
-             * 16-bit RGB
-             */
-            readonly "R16G16B16": 9
-            /**
-             * 16-bit RGBA premultiplied
-             */
-            readonly "R16G16B16A16_PREMULTIPLIED": 10
-            /**
-             * 16-bit RGBA
-             */
-            readonly "R16G16B16A16": 11
-            /**
-             * 16-bit float RGB
-             */
-            readonly "R16G16B16_FLOAT": 12
-            /**
-             * 16-bit float RGBA
-             */
-            readonly "R16G16B16A16_FLOAT": 13
-            /**
-             * 32-bit float RGB
-             */
-            readonly "R32G32B32_FLOAT": 14
-            /**
-             * 32-bit float RGBA premultiplied
-             */
-            readonly "R32G32B32A32_FLOAT_PREMULTIPLIED": 15
-            /**
-             * 16-bit float RGBA
-             */
-            readonly "R32G32B32A32_FLOAT": 16
-            /**
-             * 8-bit gray with alpha premultiplied
-             */
-            readonly "G8A8_PREMULTIPLIED": 17
-            /**
-             * 8-bit gray with alpha
-             */
-            readonly "G8A8": 18
-            /**
-             * 8-bit gray
-             */
-            readonly "G8": 19
-            /**
-             * 16-bit gray with alpha premultiplied
-             */
-            readonly "G16A16_PREMULTIPLIED": 20
-            /**
-             * 16-bit gray with alpha
-             */
-            readonly "G16A16": 21
-            /**
-             * 16-bit gray
-             */
-            readonly "G16": 22
-        }
-        type MemoryFormat = MemoryFormatEnum[Exclude<keyof MemoryFormatEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Memory format
-             * @since 2.0
-             */
-            MemoryFormat: MemoryFormatEnum
-            /**
-         * Whether a memory format has an alpha channel
-         * @since 2.0
-         * @param memory_format
-         * @returns Returns `TRUE` if the memory format has an alpha channel
-         */
-        has_alpha: (memory_format: MemoryFormat) => boolean
-            /**
-         * Whether a memory format has an alpha channel and the color values are
-         * premultiplied with the alpha value
-         * @since 2.0
-         * @param memory_format
-         * @returns Returns `TRUE` if color channels are premultiplied
-         */
-        is_premultiplied: (memory_format: MemoryFormat) => boolean
-        }
-        
-        interface SandboxSelectorEnum {
-            readonly $gtype: GObject.GType<SandboxSelector>
-            /**
-             * This mode selects `bwrap` outside of Flatpaks and usually
-             *  `flatpak-spawn` inside of Flatpaks. The sandbox is disabled
-             *  automatically inside of Flatpak development environments.
-             *  Inside of Flatpaks, `flatpak-spawn` is used to create the sandbox. This
-             *  mechanism starts an installed Flatpak with the same app id. For
-             *  development, Flatpak are usually not installed and the sandbox can
-             *  therefore not be used. If the sandbox has been started via
-             *  `flatpak-builder --run` (i.e. without installed Flatpak) and the app id
-             *  ends with `Devel`, the sandbox is disabled.
-             */
-            readonly "AUTO": 0
-            /**
-             * bwrap
-             */
-            readonly "BWRAP": 1
-            /**
-             * flatpak-spawn
-             */
-            readonly "FLATPAK_SPAWN": 2
-            /**
-             * Disable sandbox. Unsafe, only use for testing and development.
-             */
-            readonly "NOT_SANDBOXED": 3
-        }
-        type SandboxSelector = SandboxSelectorEnum[Exclude<keyof SandboxSelectorEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Sandbox mechanisms
-             *
-             * ::: warning
-             *     Using @GLY_SANDBOX_SELECTOR_NOT_SANDBOXED will disable an important security layer that sandboxes loaders. It is only intended for testing and development purposes.
-             * @since 2.0
-             */
-            SandboxSelector: SandboxSelectorEnum
-        }
-        
-        interface MemoryFormatSelectionBitfield {
-            readonly $gtype: GObject.GType<MemoryFormatSelection>
-            /**
-             * 8-bit BGRA premultiplied
-             */
-            readonly "B8G8R8A8_PREMULTIPLIED": 1
-            /**
-             * 8-bit ARGB premultiplied
-             */
-            readonly "A8R8G8B8_PREMULTIPLIED": 2
-            /**
-             * 8-bit RGBA premultiplied
-             */
-            readonly "R8G8B8A8_PREMULTIPLIED": 4
-            /**
-             * 8-bit BGRA
-             */
-            readonly "B8G8R8A8": 8
-            /**
-             * 8-bit ARGB
-             */
-            readonly "A8R8G8B8": 16
-            /**
-             * 8-bit RGBA
-             */
-            readonly "R8G8B8A8": 32
-            /**
-             * 8-bit ABGR
-             */
-            readonly "A8B8G8R8": 64
-            /**
-             * 8-bit RGB
-             */
-            readonly "R8G8B8": 128
-            /**
-             * 8-bit BGR
-             */
-            readonly "B8G8R8": 256
-            /**
-             * 16-bit RGB
-             */
-            readonly "R16G16B16": 512
-            /**
-             * 16-bit RGBA premultiplied
-             */
-            readonly "R16G16B16A16_PREMULTIPLIED": 1024
-            /**
-             * 16-bit RGBA
-             */
-            readonly "R16G16B16A16": 2048
-            /**
-             * 16-bit float RGB
-             */
-            readonly "R16G16B16_FLOAT": 4096
-            /**
-             * 16-bit float RGBA
-             */
-            readonly "R16G16B16A16_FLOAT": 8192
-            /**
-             * 32-bit float RGB
-             */
-            readonly "R32G32B32_FLOAT": 16384
-            /**
-             * 32-bit float RGBA premultiplied
-             */
-            readonly "R32G32B32A32_FLOAT_PREMULTIPLIED": 32768
-            /**
-             * 16-bit float RGBA
-             */
-            readonly "R32G32B32A32_FLOAT": 65536
-            /**
-             * 8-bit gray with alpha premultiplied
-             */
-            readonly "G8A8_PREMULTIPLIED": 131072
-            /**
-             * 8-bit gray with alpha
-             */
-            readonly "G8A8": 262144
-            /**
-             * 8-bit gray
-             */
-            readonly "G8": 524288
-            /**
-             * 16-bit gray with alpha premultiplied
-             */
-            readonly "G16A16_PREMULTIPLIED": 1048576
-            /**
-             * 16-bit gray with alpha
-             */
-            readonly "G16A16": 2097152
-            /**
-             * 16-bit gray
-             */
-            readonly "G16": 4194304
-        }
-        type MemoryFormatSelection = number
-        interface $Exports {
-            /**
-             * Memory format selection
-             * @since 2.0
-             */
-            MemoryFormatSelection: MemoryFormatSelectionBitfield
-        }
-        /**
-         * @param mime_types
-         * @param data
-         */
-        type LoaderGetMimeTypesDoneFunc = (mime_types: string[], data: never | null) => void
-
-        interface $Exports {
-            __name__: "Gly"
-            __version: "2"
-            /**
-             * Error quark for [error@GlyLoaderError]
+                new(props: { message: string, code: number }): LoaderError
+                /**
+                 * Generic type for all other errors.
+                 * @since 2.0
+                 */
+                readonly "FAILED": 0
+                /**
+                 * Unknown image format.
+                 * @since 2.0
+                 */
+                readonly "UNKNOWN_IMAGE_FORMAT": 1
+                /**
+                 * Reached last frame in an animation with {@link FrameRequest.set_loop_animation} to `FALSE`.
+                 * @since 2.0.1
+                 */
+                readonly "NO_MORE_FRAMES": 2
+                /**
+             * Error quark for {@link GlyLoaderError}
              * @returns The error domain
              */
-            loader_error_quark(): GLib.Quark
-            /**
+            quark: () => GLib.Quark
+            }
+
+            interface $Exports {
+                /**
+                 * Errors that can appear while loading images.
+                 * @since 2.0
+                 */
+                LoaderError: LoaderErrorEnum
+            }
+            
+            interface MemoryFormatEnum {
+                readonly $gtype: GObject.GType<MemoryFormat>
+                /**
+                 * 8-bit RGRA premultiplied
+                 */
+                readonly "B8G8R8A8_PREMULTIPLIED": 0
+                /**
+                 * 8-bit ARGB premultiplied
+                 */
+                readonly "A8R8G8B8_PREMULTIPLIED": 1
+                /**
+                 * 8-bit RGBA premultiplied
+                 */
+                readonly "R8G8B8A8_PREMULTIPLIED": 2
+                /**
+                 * 8-bit RGBA
+                 */
+                readonly "B8G8R8A8": 3
+                /**
+                 * 8-bit AGBR
+                 */
+                readonly "A8R8G8B8": 4
+                /**
+                 * 8-bit RGBA
+                 */
+                readonly "R8G8B8A8": 5
+                /**
+                 * 8-bit ABGR
+                 */
+                readonly "A8B8G8R8": 6
+                /**
+                 * 8-bit RGB
+                 */
+                readonly "R8G8B8": 7
+                /**
+                 * 8-bit BGR
+                 */
+                readonly "B8G8R8": 8
+                /**
+                 * 16-bit RGB
+                 */
+                readonly "R16G16B16": 9
+                /**
+                 * 16-bit RGBA premultiplied
+                 */
+                readonly "R16G16B16A16_PREMULTIPLIED": 10
+                /**
+                 * 16-bit RGBA
+                 */
+                readonly "R16G16B16A16": 11
+                /**
+                 * 16-bit float RGB
+                 */
+                readonly "R16G16B16_FLOAT": 12
+                /**
+                 * 16-bit float RGBA
+                 */
+                readonly "R16G16B16A16_FLOAT": 13
+                /**
+                 * 32-bit float RGB
+                 */
+                readonly "R32G32B32_FLOAT": 14
+                /**
+                 * 32-bit float RGBA premultiplied
+                 */
+                readonly "R32G32B32A32_FLOAT_PREMULTIPLIED": 15
+                /**
+                 * 16-bit float RGBA
+                 */
+                readonly "R32G32B32A32_FLOAT": 16
+                /**
+                 * 8-bit gray with alpha premultiplied
+                 */
+                readonly "G8A8_PREMULTIPLIED": 17
+                /**
+                 * 8-bit gray with alpha
+                 */
+                readonly "G8A8": 18
+                /**
+                 * 8-bit gray
+                 */
+                readonly "G8": 19
+                /**
+                 * 16-bit gray with alpha premultiplied
+                 */
+                readonly "G16A16_PREMULTIPLIED": 20
+                /**
+                 * 16-bit gray with alpha
+                 */
+                readonly "G16A16": 21
+                /**
+                 * 16-bit gray
+                 */
+                readonly "G16": 22
+            }
+            type MemoryFormat = MemoryFormatEnum[Exclude<keyof MemoryFormatEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Memory format
+                 * @since 2.0
+                 */
+                MemoryFormat: MemoryFormatEnum
+                /**
              * Whether a memory format has an alpha channel
              * @since 2.0
              * @param memory_format
              * @returns Returns `TRUE` if the memory format has an alpha channel
              */
-            memory_format_has_alpha(memory_format: MemoryFormat): boolean
-            /**
+            has_alpha: (memory_format: MemoryFormat) => boolean
+                /**
              * Whether a memory format has an alpha channel and the color values are
              * premultiplied with the alpha value
              * @since 2.0
              * @param memory_format
              * @returns Returns `TRUE` if color channels are premultiplied
              */
-            memory_format_is_premultiplied(memory_format: MemoryFormat): boolean
+            is_premultiplied: (memory_format: MemoryFormat) => boolean
+            }
+            
+            interface SandboxSelectorEnum {
+                readonly $gtype: GObject.GType<SandboxSelector>
+                /**
+                 * This mode selects `bwrap` outside of Flatpaks and usually
+                 *  `flatpak-spawn` inside of Flatpaks. The sandbox is disabled
+                 *  automatically inside of Flatpak development environments.
+                 *  Inside of Flatpaks, `flatpak-spawn` is used to create the sandbox. This
+                 *  mechanism starts an installed Flatpak with the same app id. For
+                 *  development, Flatpak are usually not installed and the sandbox can
+                 *  therefore not be used. If the sandbox has been started via
+                 *  `flatpak-builder --run` (i.e. without installed Flatpak) and the app id
+                 *  ends with `Devel`, the sandbox is disabled.
+                 */
+                readonly "AUTO": 0
+                /**
+                 * bwrap
+                 */
+                readonly "BWRAP": 1
+                /**
+                 * flatpak-spawn
+                 */
+                readonly "FLATPAK_SPAWN": 2
+                /**
+                 * Disable sandbox. Unsafe, only use for testing and development.
+                 */
+                readonly "NOT_SANDBOXED": 3
+            }
+            type SandboxSelector = SandboxSelectorEnum[Exclude<keyof SandboxSelectorEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Sandbox mechanisms
+                 *
+                 * ::: warning
+                 *     Using `GLY_SANDBOX_SELECTOR_NOT_SANDBOXED` will disable an important security layer that sandboxes loaders. It is only intended for testing and development purposes.
+                 * @since 2.0
+                 */
+                SandboxSelector: SandboxSelectorEnum
+            }
+            
+            interface MemoryFormatSelectionBitfield {
+                readonly $gtype: GObject.GType<MemoryFormatSelection>
+                /**
+                 * 8-bit BGRA premultiplied
+                 */
+                readonly "B8G8R8A8_PREMULTIPLIED": 1
+                /**
+                 * 8-bit ARGB premultiplied
+                 */
+                readonly "A8R8G8B8_PREMULTIPLIED": 2
+                /**
+                 * 8-bit RGBA premultiplied
+                 */
+                readonly "R8G8B8A8_PREMULTIPLIED": 4
+                /**
+                 * 8-bit BGRA
+                 */
+                readonly "B8G8R8A8": 8
+                /**
+                 * 8-bit ARGB
+                 */
+                readonly "A8R8G8B8": 16
+                /**
+                 * 8-bit RGBA
+                 */
+                readonly "R8G8B8A8": 32
+                /**
+                 * 8-bit ABGR
+                 */
+                readonly "A8B8G8R8": 64
+                /**
+                 * 8-bit RGB
+                 */
+                readonly "R8G8B8": 128
+                /**
+                 * 8-bit BGR
+                 */
+                readonly "B8G8R8": 256
+                /**
+                 * 16-bit RGB
+                 */
+                readonly "R16G16B16": 512
+                /**
+                 * 16-bit RGBA premultiplied
+                 */
+                readonly "R16G16B16A16_PREMULTIPLIED": 1024
+                /**
+                 * 16-bit RGBA
+                 */
+                readonly "R16G16B16A16": 2048
+                /**
+                 * 16-bit float RGB
+                 */
+                readonly "R16G16B16_FLOAT": 4096
+                /**
+                 * 16-bit float RGBA
+                 */
+                readonly "R16G16B16A16_FLOAT": 8192
+                /**
+                 * 32-bit float RGB
+                 */
+                readonly "R32G32B32_FLOAT": 16384
+                /**
+                 * 32-bit float RGBA premultiplied
+                 */
+                readonly "R32G32B32A32_FLOAT_PREMULTIPLIED": 32768
+                /**
+                 * 16-bit float RGBA
+                 */
+                readonly "R32G32B32A32_FLOAT": 65536
+                /**
+                 * 8-bit gray with alpha premultiplied
+                 */
+                readonly "G8A8_PREMULTIPLIED": 131072
+                /**
+                 * 8-bit gray with alpha
+                 */
+                readonly "G8A8": 262144
+                /**
+                 * 8-bit gray
+                 */
+                readonly "G8": 524288
+                /**
+                 * 16-bit gray with alpha premultiplied
+                 */
+                readonly "G16A16_PREMULTIPLIED": 1048576
+                /**
+                 * 16-bit gray with alpha
+                 */
+                readonly "G16A16": 2097152
+                /**
+                 * 16-bit gray
+                 */
+                readonly "G16": 4194304
+            }
+            type MemoryFormatSelection = number
+            interface $Exports {
+                /**
+                 * Memory format selection
+                 * @since 2.0
+                 */
+                MemoryFormatSelection: MemoryFormatSelectionBitfield
+            }
+            /**
+             * @param mime_types
+             * @param data
+             */
+            type LoaderGetMimeTypesDoneFunc = (mime_types: string[], data: never | null) => void
+
+            interface $Exports {
+                __name__: "Gly"
+                __version__: "2"
+                /**
+                 * Error quark for {@link GlyLoaderError}
+                 * @returns The error domain
+                 */
+                loader_error_quark(): GLib.Quark
+                /**
+                 * Whether a memory format has an alpha channel
+                 * @since 2.0
+                 * @param memory_format
+                 * @returns Returns `TRUE` if the memory format has an alpha channel
+                 */
+                memory_format_has_alpha(memory_format: MemoryFormat): boolean
+                /**
+                 * Whether a memory format has an alpha channel and the color values are
+                 * premultiplied with the alpha value
+                 * @since 2.0
+                 * @param memory_format
+                 * @returns Returns `TRUE` if color channels are premultiplied
+                 */
+                memory_format_is_premultiplied(memory_format: MemoryFormat): boolean
+            }
         }
+
+        const Gly: Gly.$Exports
     }
 
-    const Gly: Gly.$Exports
-    export default Gly
+    export default GI.Gly
 }

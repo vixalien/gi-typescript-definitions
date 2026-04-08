@@ -10,58 +10,68 @@ declare module "gi://freetype2?version=2.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type GLib from "gi://GLib?version=2.0"
 
-    
-
-    namespace freetype2 {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface BitmapStruct {
-            readonly $gtype: GObject.GType<Bitmap>
-            [Symbol.hasInstance](instance: unknown): instance is Bitmap
+        namespace freetype2 {
+            
+
+            interface BitmapStruct {
+                readonly $gtype: GObject.GType<Bitmap>
+                new (fields?: {
+                }): Bitmap
+            }
+
+            interface Bitmap {
+            }
+
+            interface $Exports {
+                Bitmap: BitmapStruct
+            }
+            
+
+            interface FaceStruct {
+                readonly $gtype: GObject.GType<Face>
+                new (fields?: {
+                }): Face
+            }
+
+            interface Face {
+            }
+
+            interface $Exports {
+                Face: FaceStruct
+            }
+            
+
+            interface LibraryStruct {
+                readonly $gtype: GObject.GType<Library>
+                new (fields?: {
+                }): Library
+            }
+
+            interface Library {
+            }
+
+            interface $Exports {
+                Library: LibraryStruct
+            }
+            /**
+             */
+            type Int32 = number
+
+            interface $Exports {
+                __name__: "freetype2"
+                __version__: "2.0"
+            }
         }
 
-        interface Bitmap {
-        }
-
-        interface $Exports {
-            Bitmap: BitmapStruct
-        }
-        
-
-        interface FaceStruct {
-            readonly $gtype: GObject.GType<Face>
-            [Symbol.hasInstance](instance: unknown): instance is Face
-        }
-
-        interface Face {
-        }
-
-        interface $Exports {
-            Face: FaceStruct
-        }
-        
-
-        interface LibraryStruct {
-            readonly $gtype: GObject.GType<Library>
-            [Symbol.hasInstance](instance: unknown): instance is Library
-        }
-
-        interface Library {
-        }
-
-        interface $Exports {
-            Library: LibraryStruct
-        }
-        /**
-         */
-        type Int32 = number
-
-        interface $Exports {
-            __name__: "freetype2"
-            __version: "2.0"
-        }
+        const freetype2: freetype2.$Exports
     }
 
-    const freetype2: freetype2.$Exports
-    export default freetype2
+    export default GI.freetype2
 }

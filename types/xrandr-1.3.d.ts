@@ -10,107 +10,121 @@ declare module "gi://xrandr?version=1.3" {
     import type GObject from "gi://GObject?version=2.0"
     import type GLib from "gi://GLib?version=2.0"
 
-    
-
-    namespace xrandr {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface ScreenSizeStruct {
-            readonly $gtype: GObject.GType<ScreenSize>
-            [Symbol.hasInstance](instance: unknown): instance is ScreenSize
+        namespace xrandr {
+            
+
+            interface ScreenSizeStruct {
+                readonly $gtype: GObject.GType<ScreenSize>
+                new (fields?: {
+                }): ScreenSize
+            }
+
+            interface ScreenSize {
+            }
+
+            interface $Exports {
+                ScreenSize: ScreenSizeStruct
+            }
+            
+
+            interface ScreenChangeNotifyEventStruct {
+                readonly $gtype: GObject.GType<ScreenChangeNotifyEvent>
+                new (fields?: {
+                }): ScreenChangeNotifyEvent
+            }
+
+            interface ScreenChangeNotifyEvent {
+            }
+
+            interface $Exports {
+                ScreenChangeNotifyEvent: ScreenChangeNotifyEventStruct
+            }
+            
+
+            interface NotifyEventStruct {
+                readonly $gtype: GObject.GType<NotifyEvent>
+                new (fields?: {
+                }): NotifyEvent
+            }
+
+            interface NotifyEvent {
+            }
+
+            interface $Exports {
+                NotifyEvent: NotifyEventStruct
+            }
+            
+
+            interface ScreenResourcesStruct {
+                readonly $gtype: GObject.GType<ScreenResources>
+                new (fields?: {
+                }): ScreenResources
+            }
+
+            interface ScreenResources {
+            }
+
+            interface $Exports {
+                ScreenResources: ScreenResourcesStruct
+            }
+            
+
+            interface OutputChangeNotifyEventStruct {
+                readonly $gtype: GObject.GType<OutputChangeNotifyEvent>
+                new (fields?: {
+                }): OutputChangeNotifyEvent
+            }
+
+            interface OutputChangeNotifyEvent {
+            }
+
+            interface $Exports {
+                OutputChangeNotifyEvent: OutputChangeNotifyEventStruct
+            }
+            
+
+            interface CrtcChangeNotifyEventStruct {
+                readonly $gtype: GObject.GType<CrtcChangeNotifyEvent>
+                new (fields?: {
+                }): CrtcChangeNotifyEvent
+            }
+
+            interface CrtcChangeNotifyEvent {
+            }
+
+            interface $Exports {
+                CrtcChangeNotifyEvent: CrtcChangeNotifyEventStruct
+            }
+            
+
+            interface OutputPropertyNotifyEventStruct {
+                readonly $gtype: GObject.GType<OutputPropertyNotifyEvent>
+                new (fields?: {
+                }): OutputPropertyNotifyEvent
+            }
+
+            interface OutputPropertyNotifyEvent {
+            }
+
+            interface $Exports {
+                OutputPropertyNotifyEvent: OutputPropertyNotifyEventStruct
+            }
+
+            interface $Exports {
+                __name__: "xrandr"
+                __version__: "1.3"
+            }
         }
 
-        interface ScreenSize {
-        }
-
-        interface $Exports {
-            ScreenSize: ScreenSizeStruct
-        }
-        
-
-        interface ScreenChangeNotifyEventStruct {
-            readonly $gtype: GObject.GType<ScreenChangeNotifyEvent>
-            [Symbol.hasInstance](instance: unknown): instance is ScreenChangeNotifyEvent
-        }
-
-        interface ScreenChangeNotifyEvent {
-        }
-
-        interface $Exports {
-            ScreenChangeNotifyEvent: ScreenChangeNotifyEventStruct
-        }
-        
-
-        interface NotifyEventStruct {
-            readonly $gtype: GObject.GType<NotifyEvent>
-            [Symbol.hasInstance](instance: unknown): instance is NotifyEvent
-        }
-
-        interface NotifyEvent {
-        }
-
-        interface $Exports {
-            NotifyEvent: NotifyEventStruct
-        }
-        
-
-        interface ScreenResourcesStruct {
-            readonly $gtype: GObject.GType<ScreenResources>
-            [Symbol.hasInstance](instance: unknown): instance is ScreenResources
-        }
-
-        interface ScreenResources {
-        }
-
-        interface $Exports {
-            ScreenResources: ScreenResourcesStruct
-        }
-        
-
-        interface OutputChangeNotifyEventStruct {
-            readonly $gtype: GObject.GType<OutputChangeNotifyEvent>
-            [Symbol.hasInstance](instance: unknown): instance is OutputChangeNotifyEvent
-        }
-
-        interface OutputChangeNotifyEvent {
-        }
-
-        interface $Exports {
-            OutputChangeNotifyEvent: OutputChangeNotifyEventStruct
-        }
-        
-
-        interface CrtcChangeNotifyEventStruct {
-            readonly $gtype: GObject.GType<CrtcChangeNotifyEvent>
-            [Symbol.hasInstance](instance: unknown): instance is CrtcChangeNotifyEvent
-        }
-
-        interface CrtcChangeNotifyEvent {
-        }
-
-        interface $Exports {
-            CrtcChangeNotifyEvent: CrtcChangeNotifyEventStruct
-        }
-        
-
-        interface OutputPropertyNotifyEventStruct {
-            readonly $gtype: GObject.GType<OutputPropertyNotifyEvent>
-            [Symbol.hasInstance](instance: unknown): instance is OutputPropertyNotifyEvent
-        }
-
-        interface OutputPropertyNotifyEvent {
-        }
-
-        interface $Exports {
-            OutputPropertyNotifyEvent: OutputPropertyNotifyEventStruct
-        }
-
-        interface $Exports {
-            __name__: "xrandr"
-            __version: "1.3"
-        }
+        const xrandr: xrandr.$Exports
     }
 
-    const xrandr: xrandr.$Exports
-    export default xrandr
+    export default GI.xrandr
 }

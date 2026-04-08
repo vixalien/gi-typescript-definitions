@@ -20,3806 +20,3904 @@ declare module "gi://GstVulkan?version=1.0" {
     import type GstVideo from "gi://GstVideo?version=1.0"
     import type Vulkan from "gi://Vulkan?version=1.0"
 
-    
-
-    namespace GstVulkan {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace VulkanBufferMemoryAllocator {
-            interface SignalSignatures extends Gst.Allocator.SignalSignatures {
+        namespace GstVulkan {
+            
+
+            namespace VulkanBufferMemoryAllocator {
+                interface SignalSignatures extends Gst.Allocator.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Allocator.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.Allocator.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Allocator.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends Gst.Allocator.ReadableProperties {
+            interface VulkanBufferMemoryAllocator extends Gst.Allocator {
+                readonly $signals: VulkanBufferMemoryAllocator.SignalSignatures
+                readonly $readableProperties: VulkanBufferMemoryAllocator.ReadableProperties
+                readonly $writableProperties: VulkanBufferMemoryAllocator.WritableProperties
+                readonly $constructOnlyProperties: VulkanBufferMemoryAllocator.ConstructOnlyProperties
             }
 
-            interface WritableProperties extends Gst.Allocator.WritableProperties {
+            interface VulkanBufferMemoryAllocatorClass extends Omit<Gst.AllocatorClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanBufferMemoryAllocator>
+                readonly prototype: VulkanBufferMemoryAllocator
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanBufferMemoryAllocator>>): VulkanBufferMemoryAllocator
             }
 
-            interface ConstructOnlyProperties extends Gst.Allocator.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanBufferMemoryAllocator extends Gst.Allocator {
-            readonly $signals: VulkanBufferMemoryAllocator.SignalSignatures
-            readonly $readableProperties: VulkanBufferMemoryAllocator.ReadableProperties
-            readonly $writableProperties: VulkanBufferMemoryAllocator.WritableProperties
-            readonly $constructOnlyProperties: VulkanBufferMemoryAllocator.ConstructOnlyProperties
-        }
-
-        interface VulkanBufferMemoryAllocatorClass extends Omit<Gst.AllocatorClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanBufferMemoryAllocator>
-            readonly prototype: VulkanBufferMemoryAllocator
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanBufferMemoryAllocator>>): VulkanBufferMemoryAllocator
-        }
-
-        interface $Exports {
-            /**
-             * Opaque #GstVulkanBufferMemoryAllocator struct
-             * @since 1.18
-             */
-            VulkanBufferMemoryAllocator: VulkanBufferMemoryAllocatorClass
-        }
-        
-
-        namespace VulkanBufferPool {
-            interface SignalSignatures extends Gst.BufferPool.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.BufferPool.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.BufferPool.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.BufferPool.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanBufferPool extends Gst.BufferPool {
-            readonly $signals: VulkanBufferPool.SignalSignatures
-            readonly $readableProperties: VulkanBufferPool.ReadableProperties
-            readonly $writableProperties: VulkanBufferPool.WritableProperties
-            readonly $constructOnlyProperties: VulkanBufferPool.ConstructOnlyProperties
-        }
-
-        interface VulkanBufferPoolClass extends Omit<Gst.BufferPoolClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanBufferPool>
-            readonly prototype: VulkanBufferPool
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanBufferPool>>): VulkanBufferPool
-            /**
-             * @since 1.18
-             * @param device the #GstVulkanDevice to use
-             * @returns a #GstBufferPool that allocates buffers with #GstGLMemory
-             */
-            "new"(device: VulkanDevice): VulkanBufferPool
-            /**
-             * Sets the @usage of the buffers to setup.
-             * @since 1.24
-             * @param config the #GstStructure with the pool's configuration.
-             * @param usage The Vulkan buffer usage flags.
-             * @param mem_properties
-             */
-            config_set_allocation_params(config: Gst.Structure, usage: Vulkan.BufferUsageFlags, mem_properties: Vulkan.MemoryPropertyFlags): void
-        }
-
-        interface $Exports {
-            /**
-             * Opaque #GstVulkanBufferPool struct
-             * @since 1.18
-             */
-            VulkanBufferPool: VulkanBufferPoolClass
-        }
-        
-
-        namespace VulkanCommandPool {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanCommandPool extends Gst.Object {
-            readonly $signals: VulkanCommandPool.SignalSignatures
-            readonly $readableProperties: VulkanCommandPool.ReadableProperties
-            readonly $writableProperties: VulkanCommandPool.WritableProperties
-            readonly $constructOnlyProperties: VulkanCommandPool.ConstructOnlyProperties
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @returns a new or recycled primary #GstVulkanCommandBuffer
-             */
-            create(): VulkanCommandBuffer
-            /**
-             * @since 1.18
-             * @returns the parent #GstVulkanQueue for this command pool
-             */
-            get_queue(): VulkanQueue
-            /**
-             * This should be called to ensure no other thread will attempt to access
-             * the pool's internal resources.  Any modification of any of the allocated
-             * #GstVulkanCommandBuffer's need to be encapsulated in a
-             * gst_vulkan_command_pool_lock()/gst_vulkan_command_pool_unlock() pair to meet
-             * the Vulkan API requirements that host access to the command pool is
-             * externally synchronised.
-             * @since 1.18
-             */
-            lock(): void
-            /**
-             * See the documentation for gst_vulkan_command_pool_lock() for when you would
-             * need to use this function.
-             * @since 1.18
-             */
-            unlock(): void
-        }
-
-        interface VulkanCommandPoolClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanCommandPool>
-            readonly prototype: VulkanCommandPool
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanCommandPool>>): VulkanCommandPool
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanCommandPool: VulkanCommandPoolClass
-        }
-        
-
-        namespace VulkanDescriptorCache {
-            interface SignalSignatures extends VulkanHandlePool.SignalSignatures {
-            }
-
-            interface ReadableProperties extends VulkanHandlePool.ReadableProperties {
-            }
-
-            interface WritableProperties extends VulkanHandlePool.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends VulkanHandlePool.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanDescriptorCache extends VulkanHandlePool {
-            readonly $signals: VulkanDescriptorCache.SignalSignatures
-            readonly $readableProperties: VulkanDescriptorCache.ReadableProperties
-            readonly $writableProperties: VulkanDescriptorCache.WritableProperties
-            readonly $constructOnlyProperties: VulkanDescriptorCache.ConstructOnlyProperties
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @returns a new #GstVulkanDescriptorSet
-             */
-            acquire(): VulkanDescriptorSet
-        }
-
-        interface VulkanDescriptorCacheClass extends Omit<VulkanHandlePoolClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanDescriptorCache>
-            readonly prototype: VulkanDescriptorCache
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanDescriptorCache>>): VulkanDescriptorCache
-            /**
-             * @since 1.18
-             * @param pool a #GstVulkanDescriptorPool
-             * @param layouts list of #GstVulkanHandle containing
-                                                descriptor set layouts
-             * @returns a new #GstVulkanDescriptorCache
-             */
-            "new"(pool: VulkanDescriptorPool, layouts: VulkanHandle[]): VulkanDescriptorCache
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanDescriptorCache: VulkanDescriptorCacheClass
-        }
-        
-
-        namespace VulkanDescriptorPool {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanDescriptorPool extends Gst.Object {
-            readonly $signals: VulkanDescriptorPool.SignalSignatures
-            readonly $readableProperties: VulkanDescriptorPool.ReadableProperties
-            readonly $writableProperties: VulkanDescriptorPool.WritableProperties
-            readonly $constructOnlyProperties: VulkanDescriptorPool.ConstructOnlyProperties
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @param layouts list of #GstVulkanHandle containing
-                                                descriptor set layouts
-             * @returns a new #GstVulkanDescriptorSet
-             */
-            create(layouts: VulkanHandle[]): VulkanDescriptorSet
-            /**
-             * @since 1.18
-             * @returns the parent #GstVulkanDevice for this descriptor pool
-             */
-            get_device(): VulkanDevice
-            /**
-             * @since 1.18
-             * @returns the maximum number of sets allocatable from `pool`
-             */
-            get_max_sets(): number
-        }
-
-        interface VulkanDescriptorPoolClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanDescriptorPool>
-            readonly prototype: VulkanDescriptorPool
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanDescriptorPool>>): VulkanDescriptorPool
-            /**
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param pool a `VkDescriptorPool`
-             * @param max_sets maximum descriptor sets allocatable wit @pool
-             * @returns a new #GstVulkanDescriptorPool
-             */
-            new_wrapped(device: VulkanDevice, pool: Vulkan.DescriptorPool, max_sets: number): VulkanDescriptorPool
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanDescriptorPool: VulkanDescriptorPoolClass
-        }
-        
-
-        namespace VulkanDevice {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "instance": VulkanInstance | null
-                "physical-device": VulkanPhysicalDevice
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "instance": VulkanInstance | null
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-                "physical-device": VulkanPhysicalDevice
-            }
-        }
-
-        interface VulkanDevice extends Gst.Object {
-            readonly $signals: VulkanDevice.SignalSignatures
-            readonly $readableProperties: VulkanDevice.ReadableProperties
-            readonly $writableProperties: VulkanDevice.WritableProperties
-            readonly $constructOnlyProperties: VulkanDevice.ConstructOnlyProperties
-            /**
-             */
-            get instance(): VulkanInstance | null
-            set instance(value: VulkanInstance | null)
-            /**
-             */
-            get physicalDevice(): VulkanPhysicalDevice
-            set physicalDevice(value: VulkanPhysicalDevice)
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @returns a new #GstVulkanFence or %NULL
-             */
-            create_fence(): VulkanFence | null
-            /**
-             * Disable an Vulkan extension by @name.  Disabling an extension will only have
-             * an effect before the call to gst_vulkan_device_open().
-             * @since 1.18
-             * @param name extension name to enable
-             * @returns whether the Vulkan extension could be disabled.
-             */
-            disable_extension(name: string): boolean
-            /**
-             * Enable an Vulkan extension by @name.  Enabling an extension will
-             * only have an effect before the call to gst_vulkan_device_open().
-             * @since 1.18
-             * @param name extension name to enable
-             * @returns whether the Vulkan extension could be enabled.
-             */
-            enable_extension(name: string): boolean
-            /**
-             * Enable an Vulkan layer by @name.  Enabling a layer will
-             * only have an effect before the call to gst_vulkan_device_open().
-             * @since 1.18
-             * @param name layer name to enable
-             * @returns whether the Vulkan layer could be enabled.
-             */
-            enable_layer(name: string): boolean
-            /**
-             * Iterate over each queue family available on #GstVulkanDevice
-             * @since 1.18
-             * @param func a #GstVulkanDeviceForEachQueueFunc
-               to run for each #GstVulkanQueue
-             */
-            foreach_queue(func: VulkanDeviceForEachQueueFunc): void
-            /**
-             * @since 1.18
-             * @returns the #GstVulkanInstance used to create this `device`
-             */
-            get_instance(): VulkanInstance | null
-            /**
-             * Performs `vkGetDeviceProcAddr()` with @device and @name
-             * @since 1.18
-             * @param name name of the function to retrieve
-             * @returns the function pointer for `name` or %NULL
-             */
-            get_proc_address(name: string): never | null
-            /**
-             * @since 1.18
-             * @param queue_family a queue family to retrieve
-             * @param queue_i index of the family to retrieve
-             * @returns a new #GstVulkanQueue
-             */
-            get_queue(queue_family: number, queue_i: number): VulkanQueue
-            /**
-             * @since 1.18
-             * @param name extension name
-             * @returns whether extension `name` is enabled
-             */
-            is_extension_enabled(name: string): boolean
-            /**
-             * @since 1.18
-             * @param name layer name
-             * @returns whether layer `name` is enabled
-             */
-            is_layer_enabled(name: string): boolean
-            /**
-             * Attempts to create the internal `VkDevice` object.
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @returns whether a vulkan device could be created
-             */
-            open(): boolean
-            /**
-             * @since 1.24
-             * @returns An array with the family     indexes of the created queues in `device`
-             */
-            queue_family_indices(): number[]
-            /**
-             * Select a compatible queue from the @device supporting the @expected_flags.
-             * @since 1.24
-             * @param expected_flags a VkQueueFlagBits
-             * @returns a #GstVulkanQueue for `queue` matching                                      the `expected_flags`
-             */
-            select_queue(expected_flags: Vulkan.QueueFlagBits): VulkanQueue | null
-        }
-
-        interface VulkanDeviceClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanDevice>
-            readonly prototype: VulkanDevice
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanDevice>>): VulkanDevice
-            /**
-             * @since 1.18
-             * @param physical_device the associated #GstVulkanPhysicalDevice
-             * @returns a new #GstVulkanDevice
-             */
-            "new"(physical_device: VulkanPhysicalDevice): VulkanDevice
-            /**
-             * @since 1.18
-             * @param instance the associated #GstVulkanInstance
-             * @param device_index the device index to create the new #GstVulkanDevice from
-             * @returns a new #GstVulkanDevice
-             */
-            new_with_index(instance: VulkanInstance, device_index: number): VulkanDevice
-            /**
-             * If a #GstVulkanDevice is requested in @query, sets @device as the reply.
-             *
-             * Intended for use with element query handlers to respond to #GST_QUERY_CONTEXT
-             * for a #GstVulkanDevice.
-             * @since 1.18
-             * @param element a #GstElement
-             * @param query a #GstQuery of type #GST_QUERY_CONTEXT
-             * @param device the #GstVulkanDevice
-             * @returns whether `query` was responded to with `device`
-             */
-            handle_context_query(element: Gst.Element, query: Gst.Query, device: VulkanDevice): boolean
-            /**
-             * Attempt to retrieve a #GstVulkanDevice using #GST_QUERY_CONTEXT from the
-             * surrounding elements of @element.
-             * @since 1.18
-             * @param element a #GstElement
-             * @returns whether `device` contains a valid #GstVulkanDevice, a #GstVulkanDevice
-             */
-            run_context_query(element: Gst.Element): [boolean, VulkanDevice]
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanDevice: VulkanDeviceClass
-        }
-        
-
-        namespace VulkanDisplay {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanDisplay extends Gst.Object {
-            readonly $signals: VulkanDisplay.SignalSignatures
-            readonly $readableProperties: VulkanDisplay.ReadableProperties
-            readonly $writableProperties: VulkanDisplay.WritableProperties
-            readonly $constructOnlyProperties: VulkanDisplay.ConstructOnlyProperties
-            /**
-             * @since 1.18
-             * @returns a new #GstVulkanWindow for `display` or                                      %NULL.
-             */
-            create_window(): VulkanWindow | null
-            /**
-             * Execute @compare_func over the list of windows stored by @display.  The
-             * first argument to @compare_func is the #GstVulkanWindow being checked and the
-             * second argument is @data.
-             * @since 1.18
-             * @param compare_func a comparison function to run
-             * @returns The first #GstVulkanWindow that                                      `compare_func` matches, or %NULL
-             */
-            find_window(compare_func: GLib.CompareFunc): VulkanWindow | null
-            /**
-             * @since 1.18
-             * @returns the winsys specific handle of `display`
-             */
-            get_handle(): never | null
-            /**
-             * @since 1.18
-             * @returns the #GstVulkanDisplayType of `display`
-             */
-            get_handle_type(): VulkanDisplayType
-            /**
-             * @since 1.18
-             * @param window the #GstVulkanWindow to remove
-             * @returns whether the window was successfully removed
-             */
-            remove_window(window: VulkanWindow): boolean
-            /**
-             * create a window
-             * @since 1.18
-             * @returns a new #GstVulkanWindow for `display` or                                      %NULL.
-             */
-            vfunc_create_window(): VulkanWindow | null
-            /**
-             * get the native handle to the display
-             * @since 1.18
-             * @returns the winsys specific handle of `display`
-             */
-            vfunc_get_handle(): never | null
-        }
-
-        interface VulkanDisplayClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanDisplay>
-            readonly prototype: VulkanDisplay
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanDisplay>>): VulkanDisplay
-            /**
-             * @since 1.18
-             * @param instance
-             * @returns a new #GstVulkanDisplay
-             */
-            "new"(instance: VulkanInstance): VulkanDisplay
-            /**
-             * @since 1.18
-             * @param instance a #GstVulkanInstance
-             * @param type the #GstVulkanDisplayType to create
-             * @returns a new #GstVulkanDisplay or %NULL if                                      e.g. `type` is unsupported
-             */
-            new_with_type(instance: VulkanInstance, type: VulkanDisplayType): VulkanDisplay | null
-            /**
-             * This function will read the `GST_VULKAN_WINDOW` environment variable for
-             * a user choice or choose the first supported implementation.
-             *
-             * gst_vulkan_instance_fill_info() must have been called prior to this function.
-             * @since 1.18
-             * @param instance a #GstVulkanInstance
-             * @returns the default #GstVulkanDisplayType #GstVulkanInstance will choose          on creation
-             */
-            choose_type(instance: VulkanInstance): VulkanDisplayType
-            /**
-             * If a #GstVulkanDisplay is requested in @query, sets @device as the reply.
-             *
-             * Intended for use with element query handlers to respond to #GST_QUERY_CONTEXT
-             * for a #GstVulkanDisplay.
-             * @since 1.18
-             * @param element a #GstElement
-             * @param query a #GstQuery of type #GST_QUERY_CONTEXT
-             * @param display the #GstVulkanDisplay
-             * @returns whether `query` was responded to with `display`
-             */
-            handle_context_query(element: Gst.Element, query: Gst.Query, display: VulkanDisplay | null): boolean
-            /**
-             * Attempt to retrieve a #GstVulkanDisplay using #GST_QUERY_CONTEXT from the
-             * surrounding elements of @element.
-             * @since 1.18
-             * @param element a #GstElement
-             * @returns whether `display` contains a valid #GstVulkanDisplay, a #GstVulkanDisplay
-             */
-            run_context_query(element: Gst.Element): [boolean, VulkanDisplay]
-        }
-
-        interface $Exports {
-            /**
-             * The contents of a #GstVulkanDisplay are private and should only be accessed
-             * through the provided API
-             * @since 1.18
-             */
-            VulkanDisplay: VulkanDisplayClass
-        }
-        
-
-        namespace VulkanFenceCache {
-            interface SignalSignatures extends VulkanHandlePool.SignalSignatures {
-            }
-
-            interface ReadableProperties extends VulkanHandlePool.ReadableProperties {
-            }
-
-            interface WritableProperties extends VulkanHandlePool.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends VulkanHandlePool.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanFenceCache extends VulkanHandlePool {
-            readonly $signals: VulkanFenceCache.SignalSignatures
-            readonly $readableProperties: VulkanFenceCache.ReadableProperties
-            readonly $writableProperties: VulkanFenceCache.WritableProperties
-            readonly $constructOnlyProperties: VulkanFenceCache.ConstructOnlyProperties
-        }
-
-        interface VulkanFenceCacheClass extends Omit<VulkanHandlePoolClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanFenceCache>
-            readonly prototype: VulkanFenceCache
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanFenceCache>>): VulkanFenceCache
-            /**
-             * @param device
-             */
-            "new"(device: VulkanDevice): VulkanFenceCache
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanFenceCache: VulkanFenceCacheClass
-        }
-        
-
-        namespace VulkanFullScreenQuad {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanFullScreenQuad extends Gst.Object {
-            readonly $signals: VulkanFullScreenQuad.SignalSignatures
-            readonly $readableProperties: VulkanFullScreenQuad.ReadableProperties
-            readonly $writableProperties: VulkanFullScreenQuad.WritableProperties
-            readonly $constructOnlyProperties: VulkanFullScreenQuad.ConstructOnlyProperties
-            /**
-             * Helper function for creation and submission of a command buffer that draws
-             * a full screen quad.  If you need to add other things to the command buffer,
-             * create the command buffer manually and call
-             * gst_vulkan_full_screen_quad_prepare_draw(),
-             * gst_vulkan_full_screen_quad_fill_command_buffer() and
-             * gst_vulkan_full_screen_quad_submit() instead.
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @returns whether the draw was successful
-             */
-            draw(): boolean
-            /**
-             * Enables blending of the input image to the output image.
-             *
-             * See also: gst_vulkan_full_screen_quad_set_blend_operation() and
-             * gst_vulkan_full_screen_quad_set_blend_factors().
-             * @since 1.22
-             * @param enable_blend whether to enable blending
-             */
-            enable_blend(enable_blend: boolean): void
-            /**
-             * @since 1.22
-             * @param enable_clear whether to clear the framebuffer on load
-             */
-            enable_clear(enable_clear: boolean): void
-            /**
-             * @cmd must be locked with gst_vulkan_command_buffer_lock().
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @param cmd the #GstVulkanCommandBuffer to fill with commands
-             * @param fence
-             * @returns whether `cmd` could be filled with the necessary commands
-             */
-            fill_command_buffer(cmd: VulkanCommandBuffer, fence: VulkanFence): boolean
-            /**
-             */
-            get_last_fence(): VulkanFence
-            /**
-             * @since 1.26
-             * @returns The currently configured     #GstVulkanQueue
-             */
-            get_queue(): VulkanQueue | null
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @param fence a #GstVulkanFence that will be signalled after submission
-             * @returns whether the necessary information could be generated for drawing a frame.
-             */
-            prepare_draw(fence: VulkanFence): boolean
-            /**
-             * You need to enable blend with gst_vulkan_full_screen_quad_enable_blend().
-             *
-             * See also: gst_vulkan_full_screen_quad_set_blend_operation().
-             * @since 1.22
-             * @param src_blend_factor the `VkBlendFactor` for the source image for the colour
-                               components (RGB)
-             * @param dst_blend_factor the `VkBlendFactor` for the destination image for the
-                               colour components (RGB)
-             * @param src_alpha_blend_factor the `VkBlendFactor` for the source image for the
-                                     alpha component.
-             * @param dst_alpha_blend_factor the `VkBlendFactor` for the destination image for
-                                     the alpha component.
-             */
-            set_blend_factors(src_blend_factor: Vulkan.BlendFactor, dst_blend_factor: Vulkan.BlendFactor, src_alpha_blend_factor: Vulkan.BlendFactor, dst_alpha_blend_factor: Vulkan.BlendFactor): void
-            /**
-             * You need to enable blend with gst_vulkan_full_screen_quad_enable_blend().
-             *
-             * See also: gst_vulkan_full_screen_quad_set_blend_factors().
-             * @since 1.22
-             * @param colour_blend_op the `VkBlendOp` to use for blending colour (RGB) values
-             * @param alpha_blend_op the `VkBlendOp` to use for blending alpha values
-             */
-            set_blend_operation(colour_blend_op: Vulkan.BlendOp, alpha_blend_op: Vulkan.BlendOp): void
-            /**
-             * See also gst_vulkan_full_screen_quad_set_vertex_buffer()
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @param indices the index data.  Must be a #GstVulkanBufferMemory
-             * @param n_indices number of indices in @indices
-             * @returns whether the index data could be set
-             */
-            set_index_buffer(indices: Gst.Memory, n_indices: number): boolean
-            /**
-             * @since 1.18
-             * @param in_info the input #GstVideoInfo to set
-             * @param out_info the output #GstVideoInfo to set
-             * @returns whether the information could be successfully set
-             */
-            set_info(in_info: GstVideo.VideoInfo, out_info: GstVideo.VideoInfo): boolean
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @param buffer the input #GstBuffer to set
-             * @returns whether the input buffer could be changed
-             */
-            set_input_buffer(buffer: Gst.Buffer | null): boolean
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @param buffer the output #GstBuffer to set
-             * @returns whether the input buffer could be changed
-             */
-            set_output_buffer(buffer: Gst.Buffer | null): boolean
-            /**
-             * @since 1.18
-             * @param vert the vertex shader to set
-             * @param frag the fragment shader to set
-             * @returns whether the shaders could be set
-             */
-            set_shaders(vert: VulkanHandle, frag: VulkanHandle): boolean
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @param uniforms the uniform data to set. Must be a #GstVulkanBufferMemory
-             * @returns whether the shaders could be set
-             */
-            set_uniform_buffer(uniforms: Gst.Memory): boolean
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @param vertices the vertex data. Must be a #GstVulkanBufferMemory
-             * @returns whether the index data could be set
-             */
-            set_vertex_buffer(vertices: Gst.Memory): boolean
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @param cmd a #GstVulkanCommandBuffer to submit
-             * @param fence a #GstVulkanFence to signal on completion
-             * @returns whether `cmd` could be submitted to the queue
-             */
-            submit(cmd: VulkanCommandBuffer, fence: VulkanFence): boolean
-        }
-
-        interface VulkanFullScreenQuadClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanFullScreenQuad>
-            readonly prototype: VulkanFullScreenQuad
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanFullScreenQuad>>): VulkanFullScreenQuad
-            /**
-             * @since 1.18
-             * @param queue a #GstVulkanQueue
-             * @returns a new #GstVulkanFullScreenQuad
-             */
-            "new"(queue: VulkanQueue): VulkanFullScreenQuad
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanFullScreenQuad: VulkanFullScreenQuadClass
-        }
-        
-
-        namespace VulkanHandlePool {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanHandlePool extends Gst.Object {
-            readonly $signals: VulkanHandlePool.SignalSignatures
-            readonly $readableProperties: VulkanHandlePool.ReadableProperties
-            readonly $writableProperties: VulkanHandlePool.WritableProperties
-            readonly $constructOnlyProperties: VulkanHandlePool.ConstructOnlyProperties
-            /**
-             * @throws {GLib.Error}
-             */
-            acquire(): never | null
-            /**
-             * @throws {GLib.Error}
-             */
-            alloc(): never | null
-            /**
-             * @param handle
-             */
-            release(handle: never | null): void
-            /**
-             * acquire a handle for usage
-             * @throws {GLib.Error}
-             */
-            vfunc_acquire(): never | null
-            /**
-             * allocate a new handle
-             * @throws {GLib.Error}
-             */
-            vfunc_alloc(): never | null
-            /**
-             * free a handle
-             * @param handle
-             */
-            vfunc_free(handle: never | null): void
-            /**
-             * release a handle for possible reuse at the next call to @acquire
-             * @param handle
-             */
-            vfunc_release(handle: never | null): void
-        }
-
-        interface VulkanHandlePoolClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanHandlePool>
-            readonly prototype: VulkanHandlePool
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanHandlePool>>): VulkanHandlePool
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanHandlePool: VulkanHandlePoolClass
-        }
-        
-
-        namespace VulkanImageBufferPool {
-            interface SignalSignatures extends Gst.BufferPool.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.BufferPool.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.BufferPool.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.BufferPool.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanImageBufferPool extends Gst.BufferPool {
-            readonly $signals: VulkanImageBufferPool.SignalSignatures
-            readonly $readableProperties: VulkanImageBufferPool.ReadableProperties
-            readonly $writableProperties: VulkanImageBufferPool.WritableProperties
-            readonly $constructOnlyProperties: VulkanImageBufferPool.ConstructOnlyProperties
-        }
-
-        interface VulkanImageBufferPoolClass extends Omit<Gst.BufferPoolClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanImageBufferPool>
-            readonly prototype: VulkanImageBufferPool
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanImageBufferPool>>): VulkanImageBufferPool
-            /**
-             * @since 1.18
-             * @param device the #GstVulkanDevice to use
-             * @returns a #GstBufferPool that allocates buffers with #GstGLMemory
-             */
-            "new"(device: VulkanDevice): VulkanImageBufferPool
-            /**
-             * Gets the configuration of the Vulkan image buffer pool.
-             * @since 1.26
-             * @param config the #GstStructure with the pool's configuration.
-             * @returns , The Vulkan image usage flags., Vulkan memory property flags., Initial Vulkan image layout., Initial Vulkan access flags.
-             */
-            config_get_allocation_params(config: Gst.Structure): [Vulkan.ImageUsageFlags, Vulkan.MemoryPropertyFlags, Vulkan.ImageLayout, number]
-            /**
-             * Sets the @usage and @mem_properties, @initial_layout and @initial_access of
-             * the images to setup.
-             *
-             * If @initial_access is VK_IMAGE_LAYOUT_UNDEFINED or
-             * VK_IMAGE_LAYOUT_PREINITIALIZED, the image crated by this pool has not been
-             * initialized to a particular layout
-             * @since 1.24
-             * @param config the #GstStructure with the pool's configuration.
-             * @param usage The Vulkan image usage flags.
-             * @param mem_properties Vulkan memory property flags.
-             * @param initial_layout Initial Vulkan image layout.
-             * @param initial_access Access flags for the layout transition if @initial_layout is
-            not VK_IMAGE_LAYOUT_UNDEFINED or VK_IMAGE_LAYOUT_PREINITIALIZED.
-             */
-            config_set_allocation_params(config: Gst.Structure, usage: Vulkan.ImageUsageFlags, mem_properties: Vulkan.MemoryPropertyFlags, initial_layout: Vulkan.ImageLayout, initial_access: number): void
-            /**
-             * Decode @caps are used when the buffers are going to be used either as decoded
-             * dest or DPB images.
-             * @since 1.24
-             * @param config the #GstStructure with the pool's configuration.
-             * @param caps Upstream decode caps.
-             */
-            config_set_decode_caps(config: Gst.Structure, caps: Gst.Caps): void
-            /**
-             * Encode @caps are used when the buffers are going to be used either as encoded
-             * src or DPB images.
-             * @since 1.26
-             * @param config the #GstStructure with the pool's configuration.
-             * @param caps Upstream encode caps.
-             */
-            config_set_encode_caps(config: Gst.Structure, caps: Gst.Caps): void
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanImageBufferPool: VulkanImageBufferPoolClass
-        }
-        
-
-        namespace VulkanImageMemoryAllocator {
-            interface SignalSignatures extends Gst.Allocator.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Allocator.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.Allocator.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Allocator.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanImageMemoryAllocator extends Gst.Allocator {
-            readonly $signals: VulkanImageMemoryAllocator.SignalSignatures
-            readonly $readableProperties: VulkanImageMemoryAllocator.ReadableProperties
-            readonly $writableProperties: VulkanImageMemoryAllocator.WritableProperties
-            readonly $constructOnlyProperties: VulkanImageMemoryAllocator.ConstructOnlyProperties
-        }
-
-        interface VulkanImageMemoryAllocatorClass extends Omit<Gst.AllocatorClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanImageMemoryAllocator>
-            readonly prototype: VulkanImageMemoryAllocator
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanImageMemoryAllocator>>): VulkanImageMemoryAllocator
-        }
-
-        interface $Exports {
-            /**
-             * Opaque #GstVulkanImageMemoryAllocator struct
-             * @since 1.18
-             */
-            VulkanImageMemoryAllocator: VulkanImageMemoryAllocatorClass
-        }
-        
-
-        namespace VulkanInstance {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+            interface $Exports {
                 /**
-                 * Overrides the #GstVulkanDevice creation mechanism.
-                 * It can be called from any thread.
+                 * Opaque #GstVulkanBufferMemoryAllocator struct
+                 * @since 1.18
+                 */
+                VulkanBufferMemoryAllocator: VulkanBufferMemoryAllocatorClass
+            }
+            
+
+            namespace VulkanBufferPool {
+                interface SignalSignatures extends Gst.BufferPool.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.BufferPool.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.BufferPool.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.BufferPool.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanBufferPool extends Gst.BufferPool {
+                readonly $signals: VulkanBufferPool.SignalSignatures
+                readonly $readableProperties: VulkanBufferPool.ReadableProperties
+                readonly $writableProperties: VulkanBufferPool.WritableProperties
+                readonly $constructOnlyProperties: VulkanBufferPool.ConstructOnlyProperties
+            }
+
+            interface VulkanBufferPoolClass extends Omit<Gst.BufferPoolClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanBufferPool>
+                readonly prototype: VulkanBufferPool
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanBufferPool>>): VulkanBufferPool
+                /**
+                 * @since 1.18
+                 * @param device the #GstVulkanDevice to use
+                 * @returns a #GstBufferPool that allocates buffers with #GstGLMemory
+                 */
+                "new"(device: VulkanDevice): VulkanBufferPool
+                /**
+                 * Sets the `usage` of the buffers to setup.
+                 * @since 1.24
+                 * @param config the #GstStructure with the pool's configuration.
+                 * @param usage The Vulkan buffer usage flags.
+                 * @param mem_properties
+                 */
+                config_set_allocation_params(config: Gst.Structure, usage: Vulkan.BufferUsageFlags, mem_properties: Vulkan.MemoryPropertyFlags): void
+            }
+
+            interface $Exports {
+                /**
+                 * Opaque #GstVulkanBufferPool struct
+                 * @since 1.18
+                 */
+                VulkanBufferPool: VulkanBufferPoolClass
+            }
+            
+
+            namespace VulkanCommandPool {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanCommandPool extends Gst.Object {
+                readonly $signals: VulkanCommandPool.SignalSignatures
+                readonly $readableProperties: VulkanCommandPool.ReadableProperties
+                readonly $writableProperties: VulkanCommandPool.WritableProperties
+                readonly $constructOnlyProperties: VulkanCommandPool.ConstructOnlyProperties
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @returns a new or recycled primary #GstVulkanCommandBuffer
+                 */
+                create(): VulkanCommandBuffer
+                /**
+                 * @since 1.18
+                 * @returns the parent #GstVulkanQueue for this command pool
+                 */
+                get_queue(): VulkanQueue
+                /**
+                 * This should be called to ensure no other thread will attempt to access
+                 * the pool's internal resources.  Any modification of any of the allocated
+                 * #GstVulkanCommandBuffer's need to be encapsulated in a
+                 * gst_vulkan_command_pool_lock()/gst_vulkan_command_pool_unlock() pair to meet
+                 * the Vulkan API requirements that host access to the command pool is
+                 * externally synchronised.
+                 * @since 1.18
+                 */
+                lock(): void
+                /**
+                 * See the documentation for gst_vulkan_command_pool_lock() for when you would
+                 * need to use this function.
+                 * @since 1.18
+                 */
+                unlock(): void
+            }
+
+            interface VulkanCommandPoolClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanCommandPool>
+                readonly prototype: VulkanCommandPool
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanCommandPool>>): VulkanCommandPool
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanCommandPool: VulkanCommandPoolClass
+            }
+            
+
+            namespace VulkanDescriptorCache {
+                interface SignalSignatures extends VulkanHandlePool.SignalSignatures {
+                }
+
+                interface ReadableProperties extends VulkanHandlePool.ReadableProperties {
+                }
+
+                interface WritableProperties extends VulkanHandlePool.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends VulkanHandlePool.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanDescriptorCache extends VulkanHandlePool {
+                readonly $signals: VulkanDescriptorCache.SignalSignatures
+                readonly $readableProperties: VulkanDescriptorCache.ReadableProperties
+                readonly $writableProperties: VulkanDescriptorCache.WritableProperties
+                readonly $constructOnlyProperties: VulkanDescriptorCache.ConstructOnlyProperties
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @returns a new #GstVulkanDescriptorSet
+                 */
+                acquire(): VulkanDescriptorSet
+            }
+
+            interface VulkanDescriptorCacheClass extends Omit<VulkanHandlePoolClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanDescriptorCache>
+                readonly prototype: VulkanDescriptorCache
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanDescriptorCache>>): VulkanDescriptorCache
+                /**
+                 * @since 1.18
+                 * @param pool a #GstVulkanDescriptorPool
+                 * @param layouts list of #GstVulkanHandle containing                                     descriptor set layouts
+                 * @returns a new #GstVulkanDescriptorCache
+                 */
+                "new"(pool: VulkanDescriptorPool, layouts: VulkanHandle[]): VulkanDescriptorCache
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanDescriptorCache: VulkanDescriptorCacheClass
+            }
+            
+
+            namespace VulkanDescriptorPool {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanDescriptorPool extends Gst.Object {
+                readonly $signals: VulkanDescriptorPool.SignalSignatures
+                readonly $readableProperties: VulkanDescriptorPool.ReadableProperties
+                readonly $writableProperties: VulkanDescriptorPool.WritableProperties
+                readonly $constructOnlyProperties: VulkanDescriptorPool.ConstructOnlyProperties
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @param layouts list of #GstVulkanHandle containing                                     descriptor set layouts
+                 * @returns a new #GstVulkanDescriptorSet
+                 */
+                create(layouts: VulkanHandle[]): VulkanDescriptorSet
+                /**
+                 * @since 1.18
+                 * @returns the parent #GstVulkanDevice for this descriptor pool
+                 */
+                get_device(): VulkanDevice
+                /**
+                 * @since 1.18
+                 * @returns the maximum number of sets allocatable from `pool`
+                 */
+                get_max_sets(): number
+            }
+
+            interface VulkanDescriptorPoolClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanDescriptorPool>
+                readonly prototype: VulkanDescriptorPool
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanDescriptorPool>>): VulkanDescriptorPool
+                /**
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param pool a `VkDescriptorPool`
+                 * @param max_sets maximum descriptor sets allocatable wit `pool`
+                 * @returns a new #GstVulkanDescriptorPool
+                 */
+                new_wrapped(device: VulkanDevice, pool: Vulkan.DescriptorPool, max_sets: number): VulkanDescriptorPool
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanDescriptorPool: VulkanDescriptorPoolClass
+            }
+            
+
+            namespace VulkanDevice {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "instance": VulkanInstance | null
+                    "physical-device": VulkanPhysicalDevice
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "instance": VulkanInstance | null
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                    "physical-device": VulkanPhysicalDevice
+                }
+            }
+
+            interface VulkanDevice extends Gst.Object {
+                readonly $signals: VulkanDevice.SignalSignatures
+                readonly $readableProperties: VulkanDevice.ReadableProperties
+                readonly $writableProperties: VulkanDevice.WritableProperties
+                readonly $constructOnlyProperties: VulkanDevice.ConstructOnlyProperties
+                /**
+                 */
+                get instance(): VulkanInstance | null
+                set instance(value: VulkanInstance | null)
+                /**
+                 */
+                get physicalDevice(): VulkanPhysicalDevice
+                set physicalDevice(value: VulkanPhysicalDevice)
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @returns a new #GstVulkanFence or %NULL
+                 */
+                create_fence(): VulkanFence | null
+                /**
+                 * Disable an Vulkan extension by `name`.  Disabling an extension will only have
+                 * an effect before the call to gst_vulkan_device_open().
+                 * @since 1.18
+                 * @param name extension name to enable
+                 * @returns whether the Vulkan extension could be disabled.
+                 */
+                disable_extension(name: string): boolean
+                /**
+                 * Enable an Vulkan extension by `name`.  Enabling an extension will
+                 * only have an effect before the call to gst_vulkan_device_open().
+                 * @since 1.18
+                 * @param name extension name to enable
+                 * @returns whether the Vulkan extension could be enabled.
+                 */
+                enable_extension(name: string): boolean
+                /**
+                 * Enable an Vulkan layer by `name`.  Enabling a layer will
+                 * only have an effect before the call to gst_vulkan_device_open().
+                 * @since 1.18
+                 * @param name layer name to enable
+                 * @returns whether the Vulkan layer could be enabled.
+                 */
+                enable_layer(name: string): boolean
+                /**
+                 * Iterate over each queue family available on #GstVulkanDevice
+                 * @since 1.18
+                 * @param func a #GstVulkanDeviceForEachQueueFunc    to run for each #GstVulkanQueue
+                 */
+                foreach_queue(func: VulkanDeviceForEachQueueFunc): void
+                /**
+                 * @since 1.18
+                 * @returns the #GstVulkanInstance used to create this `device`
+                 */
+                get_instance(): VulkanInstance | null
+                /**
+                 * Performs `vkGetDeviceProcAddr()` with `device` and `name`
+                 * @since 1.18
+                 * @param name name of the function to retrieve
+                 * @returns the function pointer for `name` or %NULL
+                 */
+                get_proc_address(name: string): never | null
+                /**
+                 * @since 1.18
+                 * @param queue_family a queue family to retrieve
+                 * @param queue_i index of the family to retrieve
+                 * @returns a new #GstVulkanQueue
+                 */
+                get_queue(queue_family: number, queue_i: number): VulkanQueue
+                /**
+                 * @since 1.18
+                 * @param name extension name
+                 * @returns whether extension `name` is enabled
+                 */
+                is_extension_enabled(name: string): boolean
+                /**
+                 * @since 1.18
+                 * @param name layer name
+                 * @returns whether layer `name` is enabled
+                 */
+                is_layer_enabled(name: string): boolean
+                /**
+                 * Attempts to create the internal `VkDevice` object.
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @returns whether a vulkan device could be created
+                 */
+                open(): boolean
+                /**
+                 * @since 1.24
+                 * @returns An array with the family     indexes of the created queues in `device`
+                 */
+                queue_family_indices(): number[]
+                /**
+                 * Select a compatible queue from the `device` supporting the `expected_flags`.
+                 * @since 1.24
+                 * @param expected_flags a VkQueueFlagBits
+                 * @returns a #GstVulkanQueue for `queue` matching                                      the `expected_flags`
+                 */
+                select_queue(expected_flags: Vulkan.QueueFlagBits): VulkanQueue | null
+            }
+
+            interface VulkanDeviceClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanDevice>
+                readonly prototype: VulkanDevice
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanDevice>>): VulkanDevice
+                /**
+                 * @since 1.18
+                 * @param physical_device the associated #GstVulkanPhysicalDevice
+                 * @returns a new #GstVulkanDevice
+                 */
+                "new"(physical_device: VulkanPhysicalDevice): VulkanDevice
+                /**
+                 * @since 1.18
+                 * @param instance the associated #GstVulkanInstance
+                 * @param device_index the device index to create the new #GstVulkanDevice from
+                 * @returns a new #GstVulkanDevice
+                 */
+                new_with_index(instance: VulkanInstance, device_index: number): VulkanDevice
+                /**
+                 * If a #GstVulkanDevice is requested in `query`, sets `device` as the reply.
+                 *
+                 * Intended for use with element query handlers to respond to #GST_QUERY_CONTEXT
+                 * for a #GstVulkanDevice.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @param query a #GstQuery of type #GST_QUERY_CONTEXT
+                 * @param device the #GstVulkanDevice
+                 * @returns whether `query` was responded to with `device`
+                 */
+                handle_context_query(element: Gst.Element, query: Gst.Query, device: VulkanDevice): boolean
+                /**
+                 * Attempt to retrieve a #GstVulkanDevice using #GST_QUERY_CONTEXT from the
+                 * surrounding elements of `element`.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @returns whether `device` contains a valid #GstVulkanDevice, a #GstVulkanDevice
+                 */
+                run_context_query(element: Gst.Element, device: VulkanDevice): [boolean, VulkanDevice]
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanDevice: VulkanDeviceClass
+            }
+            
+
+            namespace VulkanDisplay {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanDisplay extends Gst.Object {
+                readonly $signals: VulkanDisplay.SignalSignatures
+                readonly $readableProperties: VulkanDisplay.ReadableProperties
+                readonly $writableProperties: VulkanDisplay.WritableProperties
+                readonly $constructOnlyProperties: VulkanDisplay.ConstructOnlyProperties
+                /**
+                 * @since 1.18
+                 * @returns a new #GstVulkanWindow for `display` or                                      %NULL.
+                 */
+                create_window(): VulkanWindow | null
+                /**
+                 * Execute `compare_func` over the list of windows stored by `display`.  The
+                 * first argument to `compare_func` is the #GstVulkanWindow being checked and the
+                 * second argument is `data`.
+                 * @since 1.18
+                 * @param compare_func a comparison function to run
+                 * @returns The first #GstVulkanWindow that                                      `compare_func` matches, or %NULL
+                 */
+                find_window(compare_func: GLib.CompareFunc): VulkanWindow | null
+                /**
+                 * @since 1.18
+                 * @returns the winsys specific handle of `display`
+                 */
+                get_handle(): never | null
+                /**
+                 * @since 1.18
+                 * @returns the #GstVulkanDisplayType of `display`
+                 */
+                get_handle_type(): VulkanDisplayType
+                /**
+                 * @since 1.18
+                 * @param window the #GstVulkanWindow to remove
+                 * @returns whether the window was successfully removed
+                 */
+                remove_window(window: VulkanWindow): boolean
+                /**
+                 * create a window
+                 * @since 1.18
+                 * @returns a new #GstVulkanWindow for `display` or                                      %NULL.
+                 */
+                vfunc_create_window(): VulkanWindow | null
+                /**
+                 * get the native handle to the display
+                 * @since 1.18
+                 * @returns the winsys specific handle of `display`
+                 */
+                vfunc_get_handle(): never | null
+            }
+
+            interface VulkanDisplayClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanDisplay>
+                readonly prototype: VulkanDisplay
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanDisplay>>): VulkanDisplay
+                /**
+                 * @since 1.18
+                 * @param instance
+                 * @returns a new #GstVulkanDisplay
+                 */
+                "new"(instance: VulkanInstance): VulkanDisplay
+                /**
+                 * @since 1.18
+                 * @param instance a #GstVulkanInstance
+                 * @param type the #GstVulkanDisplayType to create
+                 * @returns a new #GstVulkanDisplay or %NULL if                                      e.g. `type` is unsupported
+                 */
+                new_with_type(instance: VulkanInstance, type: VulkanDisplayType): VulkanDisplay | null
+                /**
+                 * This function will read the `GST_VULKAN_WINDOW` environment variable for
+                 * a user choice or choose the first supported implementation.
+                 *
+                 * gst_vulkan_instance_fill_info() must have been called prior to this function.
+                 * @since 1.18
+                 * @param instance a #GstVulkanInstance
+                 * @returns the default #GstVulkanDisplayType #GstVulkanInstance will choose          on creation
+                 */
+                choose_type(instance: VulkanInstance): VulkanDisplayType
+                /**
+                 * If a #GstVulkanDisplay is requested in `query`, sets `device` as the reply.
+                 *
+                 * Intended for use with element query handlers to respond to #GST_QUERY_CONTEXT
+                 * for a #GstVulkanDisplay.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @param query a #GstQuery of type #GST_QUERY_CONTEXT
+                 * @param display the #GstVulkanDisplay
+                 * @returns whether `query` was responded to with `display`
+                 */
+                handle_context_query(element: Gst.Element, query: Gst.Query, display: VulkanDisplay | null): boolean
+                /**
+                 * Attempt to retrieve a #GstVulkanDisplay using #GST_QUERY_CONTEXT from the
+                 * surrounding elements of `element`.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @returns whether `display` contains a valid #GstVulkanDisplay, a #GstVulkanDisplay
+                 */
+                run_context_query(element: Gst.Element, display: VulkanDisplay): [boolean, VulkanDisplay]
+            }
+
+            interface $Exports {
+                /**
+                 * The contents of a #GstVulkanDisplay are private and should only be accessed
+                 * through the provided API
+                 * @since 1.18
+                 */
+                VulkanDisplay: VulkanDisplayClass
+            }
+            
+
+            namespace VulkanFenceCache {
+                interface SignalSignatures extends VulkanHandlePool.SignalSignatures {
+                }
+
+                interface ReadableProperties extends VulkanHandlePool.ReadableProperties {
+                }
+
+                interface WritableProperties extends VulkanHandlePool.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends VulkanHandlePool.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanFenceCache extends VulkanHandlePool {
+                readonly $signals: VulkanFenceCache.SignalSignatures
+                readonly $readableProperties: VulkanFenceCache.ReadableProperties
+                readonly $writableProperties: VulkanFenceCache.WritableProperties
+                readonly $constructOnlyProperties: VulkanFenceCache.ConstructOnlyProperties
+            }
+
+            interface VulkanFenceCacheClass extends Omit<VulkanHandlePoolClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanFenceCache>
+                readonly prototype: VulkanFenceCache
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanFenceCache>>): VulkanFenceCache
+                /**
+                 * @param device
+                 */
+                "new"(device: VulkanDevice): VulkanFenceCache
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanFenceCache: VulkanFenceCacheClass
+            }
+            
+
+            namespace VulkanFullScreenQuad {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanFullScreenQuad extends Gst.Object {
+                readonly $signals: VulkanFullScreenQuad.SignalSignatures
+                readonly $readableProperties: VulkanFullScreenQuad.ReadableProperties
+                readonly $writableProperties: VulkanFullScreenQuad.WritableProperties
+                readonly $constructOnlyProperties: VulkanFullScreenQuad.ConstructOnlyProperties
+                /**
+                 * Helper function for creation and submission of a command buffer that draws
+                 * a full screen quad.  If you need to add other things to the command buffer,
+                 * create the command buffer manually and call
+                 * gst_vulkan_full_screen_quad_prepare_draw(),
+                 * gst_vulkan_full_screen_quad_fill_command_buffer() and
+                 * gst_vulkan_full_screen_quad_submit() instead.
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @returns whether the draw was successful
+                 */
+                draw(): boolean
+                /**
+                 * Enables blending of the input image to the output image.
+                 *
+                 * See also: gst_vulkan_full_screen_quad_set_blend_operation() and
+                 * gst_vulkan_full_screen_quad_set_blend_factors().
+                 * @since 1.22
+                 * @param enable_blend whether to enable blending
+                 */
+                enable_blend(enable_blend: boolean): void
+                /**
+                 * @since 1.22
+                 * @param enable_clear whether to clear the framebuffer on load
+                 */
+                enable_clear(enable_clear: boolean): void
+                /**
+                 *  `cmd` must be locked with gst_vulkan_command_buffer_lock().
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @param cmd the #GstVulkanCommandBuffer to fill with commands
+                 * @param fence
+                 * @returns whether `cmd` could be filled with the necessary commands
+                 */
+                fill_command_buffer(cmd: VulkanCommandBuffer, fence: VulkanFence): boolean
+                /**
+                 */
+                get_last_fence(): VulkanFence
+                /**
                  * @since 1.26
-                 * @param device_index the index of the device
-                 * @returns the newly created #GstVulkanDevice.
+                 * @returns The currently configured     #GstVulkanQueue
                  */
-                "create-device"(device_index: number): VulkanDevice
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "requested-api-major": number
-                "requested-api-minor": number
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "requested-api-major": number
-                "requested-api-minor": number
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanInstance extends Gst.Object {
-            readonly $signals: VulkanInstance.SignalSignatures
-            readonly $readableProperties: VulkanInstance.ReadableProperties
-            readonly $writableProperties: VulkanInstance.WritableProperties
-            readonly $constructOnlyProperties: VulkanInstance.ConstructOnlyProperties
-            /**
-             * @since 1.18
-             * @default 0
-             */
-            get requestedApiMajor(): number
-            set requestedApiMajor(value: number)
-            /**
-             * @since 1.18
-             * @default 0
-             */
-            get requestedApiMinor(): number
-            set requestedApiMinor(value: number)
-            /**
-             * @since 1.26
-             * @param major the API major version to check
-             * @param minor the API minor version to check
-             * @param patch the API patch version to check
-             * @returns whether the #GstVulkanInstance supports the version specified          by `major`, `minor` and `patch`.
-             */
-            check_api_version(major: number, minor: number, patch: number): boolean
-            /**
-             * Check if the configured vulkan instance supports the specified version.
-             * Will not work prior to opening the instance with gst_vulkan_instance_open().
-             * If a specific version is requested, the @patch level is ignored.
-             * @since 1.18
-             * @param major major version
-             * @param minor minor version
-             * @param patch patch version
-             * @returns whether `instance` is at least the requested version.
-             */
-            check_version(major: number, minor: number, patch: number): boolean
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @returns a new #GstVulkanDevice
-             */
-            create_device(): VulkanDevice
-            /**
-             * @throws {GLib.Error}
-             * @since 1.26
-             * @param device_index the device index to create the new #GstVulkanDevice from
-             * @returns a new #GstVulkanDevice
-             */
-            create_device_with_index(device_index: number): VulkanDevice
-            /**
-             * Disable an Vulkan extension by @name.  Disabling an extension will only have
-             * an effect before the call to gst_vulkan_instance_open().
-             * @since 1.18
-             * @param name extension name to enable
-             * @returns whether the Vulkan extension could be disabled.
-             */
-            disable_extension(name: string): boolean
-            /**
-             * Enable an Vulkan extension by @name.  Extensions cannot be enabled until
-             * gst_vulkan_instance_fill_info() has been called.  Enabling an extension will
-             * only have an effect before the call to gst_vulkan_instance_open().
-             * @since 1.18
-             * @param name extension name to enable
-             * @returns whether the Vulkan extension could be enabled.
-             */
-            enable_extension(name: string): boolean
-            /**
-             * Enable an Vulkan layer by @name.  Layer cannot be enabled until
-             * gst_vulkan_instance_fill_info() has been called.  Enabling a layer will
-             * only have an effect before the call to gst_vulkan_instance_open().
-             * @since 1.18
-             * @param name layer name to enable
-             * @returns whether the Vulkan layer could be enabled.
-             */
-            enable_layer(name: string): boolean
-            /**
-             * Retrieve as much information about the available Vulkan instance without
-             * actually creating an Vulkan instance.  Will not do anything while @instance
-             * is open.
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @returns whether the instance information could be retrieved
-             */
-            fill_info(): boolean
-            /**
-             * Returns the vulkan API version configured when constructing the
-             * #GstVulkanInstance. This value can be any valid Vulkan API version and may
-             * not match gst_vulkan_instance_get_version() in any way.  This version is the
-             * maximum allowed vulkan API to be used in any capacity.
-             *
-             * This will not return valid values until gst_vulkan_instance_open() has been
-             * called.
-             * @since 1.26
-             * @returns , major version, minor version, patch version
-             */
-            get_api_version(): [number, number, number]
-            /**
-             * Retrieves information about an extension.
-             *
-             * Will not find any extensions before gst_vulkan_instance_fill_info() has been
-             * called.
-             * @since 1.18
-             * @param name the layer name to look for
-             * @returns whether extension `name` is available, return value for the layer specification version
-             */
-            get_extension_info(name: string): [boolean, number | null]
-            /**
-             * Retrieves information about a layer.
-             *
-             * Will not find any layers before gst_vulkan_instance_fill_info() has been
-             * called.
-             * @since 1.18
-             * @param name the layer name to look for
-             * @returns whether layer `name` is available, return value for the layer description or %NULL, return value for the layer specification version, return value for the layer implementation version
-             */
-            get_layer_info(name: string): [boolean, string | null, number | null, number | null]
-            /**
-             * Performs `vkGetInstanceProcAddr()` with @instance and @name
-             * @since 1.18
-             * @param name name of the function to retrieve
-             * @returns the function pointer for `name` or %NULL
-             */
-            get_proc_address(name: string): never | null
-            /**
-             * Retrieve the vulkan instance supported version.  Only returns the supported
-             * API version by the instance without taking into account the requested API
-             * version.  This means gst_vulkan_instance_check_version() will return
-             * different values if a specific version has been requested (which is the
-             * default) than a version check that is performed manually by retrieving the
-             * version with this function.
-             * @since 1.18
-             * @returns , major version, minor version, patch version
-             */
-            get_version(): [number, number, number]
-            /**
-             * @since 1.18
-             * @param name extension name
-             * @returns whether extension `name` is enabled
-             */
-            is_extension_enabled(name: string): boolean
-            /**
-             * @since 1.18
-             * @param name layer name
-             * @returns whether layer `name` is enabled
-             */
-            is_layer_enabled(name: string): boolean
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @returns whether the instance could be created
-             */
-            open(): boolean
-        }
-
-        interface VulkanInstanceClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanInstance>
-            readonly prototype: VulkanInstance
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanInstance>>): VulkanInstance
-            /**
-             * @since 1.18
-             * @returns a new uninitialized #GstVulkanInstance
-             */
-            "new"(): VulkanInstance
-            /**
-             * If a #GstVulkanInstance is requested in @query, sets @instance as the reply.
-             *
-             * Intended for use with element query handlers to respond to #GST_QUERY_CONTEXT
-             * for a #GstVulkanInstance.
-             * @since 1.18
-             * @param element a #GstElement
-             * @param query a #GstQuery of type #GST_QUERY_CONTEXT
-             * @param instance the #GstVulkanInstance
-             * @returns whether `query` was responded to with `instance`
-             */
-            handle_context_query(element: Gst.Element, query: Gst.Query, instance: VulkanInstance | null): boolean
-            /**
-             * Attempt to retrieve a #GstVulkanInstance using #GST_QUERY_CONTEXT from the
-             * surrounding elements of @element.
-             * @since 1.18
-             * @param element a #GstElement
-             * @returns whether `instance` contains a valid #GstVulkanInstance, a #GstVulkanInstance
-             */
-            run_context_query(element: Gst.Element): [boolean, VulkanInstance]
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanInstance: VulkanInstanceClass
-        }
-        
-
-        namespace VulkanMemoryAllocator {
-            interface SignalSignatures extends Gst.Allocator.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Allocator.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.Allocator.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Allocator.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanMemoryAllocator extends Gst.Allocator {
-            readonly $signals: VulkanMemoryAllocator.SignalSignatures
-            readonly $readableProperties: VulkanMemoryAllocator.ReadableProperties
-            readonly $writableProperties: VulkanMemoryAllocator.WritableProperties
-            readonly $constructOnlyProperties: VulkanMemoryAllocator.ConstructOnlyProperties
-        }
-
-        interface VulkanMemoryAllocatorClass extends Omit<Gst.AllocatorClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanMemoryAllocator>
-            readonly prototype: VulkanMemoryAllocator
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanMemoryAllocator>>): VulkanMemoryAllocator
-        }
-
-        interface $Exports {
-            /**
-             * Opaque #GstVulkanMemoryAllocator struct
-             * @since 1.18
-             */
-            VulkanMemoryAllocator: VulkanMemoryAllocatorClass
-        }
-        
-
-        namespace VulkanOperation {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "command-pool": VulkanCommandPool
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-                "command-pool": VulkanCommandPool
-            }
-        }
-
-        interface VulkanOperation extends Gst.Object {
-            readonly $signals: VulkanOperation.SignalSignatures
-            readonly $readableProperties: VulkanOperation.ReadableProperties
-            readonly $writableProperties: VulkanOperation.WritableProperties
-            readonly $constructOnlyProperties: VulkanOperation.ConstructOnlyProperties
-            /**
-             */
-            get commandPool(): VulkanCommandPool
-            set commandPool(value: VulkanCommandPool)
-            /**
-             * Add @frame as an operation dependency by adding the timeline semaphores in
-             * each memory of @frame into either the wait semaphore array. The signal array
-             * hold the same semaphores but increasing their current value.
-             * @param frame a Vulkan Image #GstBuffer
-             * @param wait_stage pipeline stage to wait (VkPipelineStageFlags or
-              VkPipelineStageFlags2)
-             * @param signal_stage pipeline stage to signal (VkPipelineStageFlags or
-              VkPipelineStageFlags2)
-             * @returns whether the `frame` was added as dependency.
-             */
-            add_dependency_frame(frame: Gst.Buffer, wait_stage: number, signal_stage: number): boolean
-            /**
-             * See also: gst_vulkan_operation_update_frame()
-             *
-             * Adds an image memory barrier per memory in @frame with its future state. And
-             * it updates the @frame barrier state by calling internally
-             * gst_vulkan_operation_update_frame().
-             * @param frame a Vulkan Image #GstBuffer
-             * @param src_stage source pipeline stage (VkPipelineStageFlags or
-              VkPipelineStageFlags2)
-             * @param dst_stage destination pipeline stage (VkPipelineStageFlags or
-              VkPipelineStageFlags2)
-             * @param new_access the new access flags (VkAccessFlags2 or VkAccessFlags)
-             * @param new_layout the new VkImageLayout
-             * @param new_queue destination #GstVulkanQueue for a transfer of @frame
-              ownership
-             * @returns whether the `frame` barriers were appended
-             */
-            add_frame_barrier(frame: Gst.Buffer, src_stage: number, dst_stage: number, new_access: number, new_layout: Vulkan.ImageLayout, new_queue: VulkanQueue | null): boolean
-            /**
-             * See also: gst_vulkan_operation_end() and gst_vulkan_operation_reset()
-             *
-             * Attempts to set the operation ready to work. It instantiates the common
-             * command buffer in @self and calls vkBeginCommandBuffer.
-             *
-             * After calling this function you can register commands in the command buffer,
-             * and finally call gst_vulkan_operation_end(). gst_vulkan_operation_reset() is
-             * called internally if something failed.
-             * @throws {GLib.Error}
-             * @returns whether the operation started. It might fill `error`.
-             */
-            begin(): boolean
-            /**
-             * Begins a query operation with @id in the current command buffer. If video maintenance1 extension
-             * is available the query will be recorded as a video inline query. If NULL is passed to @base,
-             * the query will be recorded as a normal query anyway.
-             * @since 1.26
-             * @param base a VkBaseInStructure base
-             * @param id query id
-             * @returns whether the begin command was set
-             */
-            begin_query(base: Vulkan.BaseInStructure, id: number): boolean
-            /**
-             * Discards barriers, and all the semaphore arrays populated by
-             * gst_vulkan_operation_add_dependency_frame().
-             */
-            discard_dependencies(): void
-            /**
-             * Tries to enable the query pool for the current operation.
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param query_type the VkQueryType to enable
-             * @param n_queries number of queries to enable
-             * @param pnext the structure pointer to use as pNext
-             * @returns whether the query pool was enabled. It might populate `error` in case    of error.
-             */
-            enable_query(query_type: number, n_queries: number, pnext: never | null): boolean
-            /**
-             * See also: gst_vulkan_operation_begin() and gst_vulkan_operation_reset()
-             *
-             * It calls vkEndCommandBuffer, and later either vkQueueSubmit or
-             * vkQueueSubmit2KHR filling up the semaphores from images declared as
-             * dependencies.
-             *
-             * You have called gst_vulkan_operation_begin() before.
-             * gst_vulkan_operation_reset() is called internally if something fails
-             * @throws {GLib.Error}
-             * @returns whether the operation failed. It might fill `error`.
-             */
-            end(): boolean
-            /**
-             * Ends a query operation with @id in the current command buffer. A query with
-             * @id has had started with gst_vulkan_operation_begin_query()
-             * @param id query id
-             * @returns whether the end command was set
-             */
-            end_query(id: number): boolean
-            /**
-             * Gets the latest operation results of all the queries in @data. API users have
-             * to parse the binary array of @data according of their needs (usually is a
-             * guint32 array of size of n_query).
-             *
-             * Don't free @data.
-             * @throws {GLib.Error}
-             * @returns whether a status was fetched. If not, it might populate `error`, result of all queries
-             */
-            get_query(): [boolean, never | null]
-            /**
-             * It's a wrapper to vkCmdPipelineBarrier2{KHR} if it's available.
-             * @param dependency_info a pointer to VkDependencyInfo
-             * @returns %TRUE if vkCmdPipelineBarrier2{KHR} it's available. %FALSE,   otherwise.
-             */
-            pipeline_barrier2(dependency_info: never | null): boolean
-            /**
-             * Resets the operation to a clean state.
-             */
-            reset(): void
-            /**
-             * Add or update the internal list of the future state of @frame. This state
-             * will be set after gst_vulkan_operation_end().
-             *
-             * This method is useful when new barriers are added to the array without using
-             * gst_vulkan_operation_add_frame_barrier().
-             * @param frame a #GstBuffer to update after submit
-             * @param dst_stage destination pipeline stage (VkPipelineStageFlags or
-              VkPipelineStageFlags2)
-             * @param new_access the new access flags (VkAccessFlags2 or VkAccessFlags)
-             * @param new_layout the new VkImageLayout
-             * @param new_queue destination #GstVulkanQueue for a transfer of @frame
-              ownership
-             */
-            update_frame(frame: Gst.Buffer, dst_stage: number, new_access: number, new_layout: Vulkan.ImageLayout, new_queue: VulkanQueue | null): void
-            /**
-             * @returns whether the operations are using synchronization2 extension.
-             */
-            use_sync2(): boolean
-            /**
-             * Waits for the operation's fence to signal.
-             * @returns whether the operation succeed.
-             */
-            wait(): boolean
-        }
-
-        interface VulkanOperationClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanOperation>
-            readonly prototype: VulkanOperation
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanOperation>>): VulkanOperation
-            /**
-             * @param cmd_pool a #GstVulkanCommandPool
-             * @returns a newly allocated #GstVulkanOperation
-             */
-            "new"(cmd_pool: VulkanCommandPool): VulkanOperation
-        }
-
-        interface $Exports {
-            /**
-             * When using the operation @cmd_buf, you should lock it using
-             * gst_vulkan_command_buffer_lock(), but you have to unlock it, with
-             * gst_vulkan_command_buffer_unlock(), when calling any of #GstVulkanOperation
-             * methods.
-             * @since 1.24
-             */
-            VulkanOperation: VulkanOperationClass
-        }
-        
-
-        namespace VulkanPhysicalDevice {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "device-index": number
-                "instance": VulkanInstance
-                "name": string
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "name": string
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-                "device-index": number
-                "instance": VulkanInstance
-            }
-        }
-
-        interface VulkanPhysicalDevice extends Gst.Object {
-            readonly $signals: VulkanPhysicalDevice.SignalSignatures
-            readonly $readableProperties: VulkanPhysicalDevice.ReadableProperties
-            readonly $writableProperties: VulkanPhysicalDevice.WritableProperties
-            readonly $constructOnlyProperties: VulkanPhysicalDevice.ConstructOnlyProperties
-            /**
-             * @default 0
-             */
-            get deviceIndex(): number
-            set deviceIndex(value: number)
-            /**
-             */
-            get instance(): VulkanInstance
-            set instance(value: VulkanInstance)
-            /**
-             * @default NULL
-             */
-            get name(): string
-            set name(value: string)
-            /**
-             * Note: This is the intersection of the exposed supported API version as would
-             * be returned by gst_vulkan_physical_device_get_api_version() and
-             * gst_vulkan_instance_check_version().  The latter will take into account any
-             * requested API version and may result in a different result than directly
-             * comparing against gst_vulkan_instance_get_version().
-             * @since 1.26
-             * @param major the API major version to check
-             * @param minor the API minor version to check
-             * @param patch the API patch version to check
-             * @returns whether the #GstVulkanPhysicalDevice supports the version specified          by `major`, `minor` and `patch`.
-             */
-            check_api_version(major: number, minor: number, patch: number): boolean
-            /**
-             * Retrieves the advertised Vulkan API version of the #GstVulkanPhysicalDevice.
-             * @since 1.26
-             * @returns , major version, minor version, patch version
-             */
-            get_api_version(): [number, number, number]
-            /**
-             * Retrieves information about a device extension.
-             *
-             * Will not find any extensions before gst_vulkan_instance_fill_info() has been
-             * called.
-             * @since 1.18
-             * @param name the extension name to look for
-             * @returns whether extension `name` is available, return value for the exteion specification version
-             */
-            get_extension_info(name: string): [boolean, number | null]
-            /**
-             * @since 1.18
-             * @returns The #GstVulkanInstance associated with this physical device
-             */
-            get_instance(): VulkanInstance
-            /**
-             * Retrieves information about a layer.
-             *
-             * Will not find any layers before gst_vulkan_instance_fill_info() has been
-             * called.
-             * @since 1.18
-             * @param name the layer name to look for
-             * @returns whether layer `name` is available, return value for the layer description or %NULL, return value for the layer specification version, return value for the layer implementation version
-             */
-            get_layer_info(name: string): [boolean, string | null, number | null, number | null]
-        }
-
-        interface VulkanPhysicalDeviceClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanPhysicalDevice>
-            readonly prototype: VulkanPhysicalDevice
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanPhysicalDevice>>): VulkanPhysicalDevice
-            /**
-             * @since 1.18
-             * @param instance the parent #GstVulkanInstance
-             * @param device_index
-             * @returns a new #GstVulkanPhysicalDevice
-             */
-            "new"(instance: VulkanInstance, device_index: number): VulkanPhysicalDevice
-            /**
-             * @since 1.18
-             * @param type a `VkPhysicalDeviceType
-             * @returns name of `type`
-             */
-            type_to_string(type: Vulkan.PhysicalDeviceType): string
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanPhysicalDevice: VulkanPhysicalDeviceClass
-        }
-        
-
-        namespace VulkanQueue {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanQueue extends Gst.Object {
-            readonly $signals: VulkanQueue.SignalSignatures
-            readonly $readableProperties: VulkanQueue.ReadableProperties
-            readonly $writableProperties: VulkanQueue.WritableProperties
-            readonly $constructOnlyProperties: VulkanQueue.ConstructOnlyProperties
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @returns a new #GstVulkanCommandPool or %NULL
-             */
-            create_command_pool(): VulkanCommandPool
-            /**
-             * @since 1.18
-             * @returns the #GstVulkanDevice for `queue`
-             */
-            get_device(): VulkanDevice | null
-            /**
-             * Locks the queue for command submission using `vkQueueSubmit()` to meet the
-             * Vulkan requirements for externally synchronised resources.
-             * @since 1.18
-             */
-            submit_lock(): void
-            /**
-             * Unlocks the queue for command submission using `vkQueueSubmit()`.
-             *
-             * See gst_vulkan_queue_submit_lock() for details on when this call is needed.
-             * @since 1.18
-             */
-            submit_unlock(): void
-        }
-
-        interface VulkanQueueClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanQueue>
-            readonly prototype: VulkanQueue
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanQueue>>): VulkanQueue
-            /**
-             * @since 1.18
-             * @param queue_bits
-             */
-            flags_to_string(queue_bits: Vulkan.QueueFlags): string
-            /**
-             * If a #GstVulkanQueue is requested in @query, sets @queue as the reply.
-             *
-             * Intended for use with element query handlers to respond to #GST_QUERY_CONTEXT
-             * for a #GstVulkanQueue.
-             * @since 1.18
-             * @param element a #GstElement
-             * @param query a #GstQuery of type #GST_QUERY_CONTEXT
-             * @param queue the #GstVulkanQueue
-             * @returns whether `query` was responded to with `queue`
-             */
-            handle_context_query(element: Gst.Element, query: Gst.Query, queue: VulkanQueue | null): boolean
-            /**
-             * Attempt to retrieve a #GstVulkanQueue using #GST_QUERY_CONTEXT from the
-             * surrounding elements of @element.
-             * @since 1.18
-             * @param element a #GstElement
-             * @returns whether `queue` contains a valid #GstVulkanQueue, a #GstVulkanQueue
-             */
-            run_context_query(element: Gst.Element): [boolean, VulkanQueue]
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanQueue: VulkanQueueClass
-        }
-        
-
-        namespace VulkanSwapper {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "force-aspect-ratio": boolean
-                "pixel-aspect-ratio": Gst.Fraction
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "force-aspect-ratio": boolean
-                "pixel-aspect-ratio": Gst.Fraction
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanSwapper extends Gst.Object {
-            readonly $signals: VulkanSwapper.SignalSignatures
-            readonly $readableProperties: VulkanSwapper.ReadableProperties
-            readonly $writableProperties: VulkanSwapper.WritableProperties
-            readonly $constructOnlyProperties: VulkanSwapper.ConstructOnlyProperties
-            /**
-             * @default TRUE
-             */
-            get forceAspectRatio(): boolean
-            set forceAspectRatio(value: boolean)
-            /**
-             * @default 1/1
-             */
-            get pixelAspectRatio(): Gst.Fraction
-            set pixelAspectRatio(value: Gst.Fraction)
-            /**
-             * @throws {GLib.Error}
-             * @param available_queue a #GstVulkanQueue chosen elsewhere
-             */
-            choose_queue(available_queue: VulkanQueue | null): boolean
-            /**
-             * @throws {GLib.Error}
-             */
-            get_supported_caps(): Gst.Caps
-            /**
-             * @since 1.18
-             * @returns , The #GstVideoRectangle for the configured      caps modified for DAR., The #GstVideoRectangle for where the      output surface is located relative to its parent, The #GstVideoRectangle for where the input      images are placed inside `surface_location`
-             */
-            get_surface_rectangles(): [GstVideo.VideoRectangle | null, GstVideo.VideoRectangle | null, GstVideo.VideoRectangle | null]
-            /**
-             * @throws {GLib.Error}
-             * @param buffer
-             */
-            render_buffer(buffer: Gst.Buffer): boolean
-            /**
-             * @throws {GLib.Error}
-             * @param caps
-             */
-            set_caps(caps: Gst.Caps): boolean
-        }
-
-        interface VulkanSwapperClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanSwapper>
-            readonly prototype: VulkanSwapper
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanSwapper>>): VulkanSwapper
-            /**
-             * @param device
-             * @param window
-             */
-            "new"(device: VulkanDevice, window: VulkanWindow): VulkanSwapper
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanSwapper: VulkanSwapperClass
-        }
-        
-
-        namespace VulkanTrashFenceList {
-            interface SignalSignatures extends VulkanTrashList.SignalSignatures {
-            }
-
-            interface ReadableProperties extends VulkanTrashList.ReadableProperties {
-            }
-
-            interface WritableProperties extends VulkanTrashList.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends VulkanTrashList.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanTrashFenceList extends VulkanTrashList {
-            readonly $signals: VulkanTrashFenceList.SignalSignatures
-            readonly $readableProperties: VulkanTrashFenceList.ReadableProperties
-            readonly $writableProperties: VulkanTrashFenceList.WritableProperties
-            readonly $constructOnlyProperties: VulkanTrashFenceList.ConstructOnlyProperties
-        }
-
-        interface VulkanTrashFenceListClass extends Omit<VulkanTrashListClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanTrashFenceList>
-            readonly prototype: VulkanTrashFenceList
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanTrashFenceList>>): VulkanTrashFenceList
-            /**
-             * @returns a new #gst_vulkan_trash_fence_list_new
-             */
-            "new"(): VulkanTrashFenceList
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanTrashFenceList: VulkanTrashFenceListClass
-        }
-        
-
-        namespace VulkanTrashList {
-            interface SignalSignatures extends VulkanHandlePool.SignalSignatures {
-            }
-
-            interface ReadableProperties extends VulkanHandlePool.ReadableProperties {
-            }
-
-            interface WritableProperties extends VulkanHandlePool.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends VulkanHandlePool.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanTrashList extends VulkanHandlePool {
-            readonly $signals: VulkanTrashList.SignalSignatures
-            readonly $readableProperties: VulkanTrashList.ReadableProperties
-            readonly $writableProperties: VulkanTrashList.WritableProperties
-            readonly $constructOnlyProperties: VulkanTrashList.ConstructOnlyProperties
-            /**
-             * @since 1.18
-             * @param fence a #GstVulkanFence to wait for signalling
-             * @param notify notify function for when @fence is signalled
-             * @returns a new or reused #GstVulkanTrash for the provided          parameters.
-             */
-            acquire(fence: VulkanFence, notify: VulkanTrashNotify): VulkanTrash
-            /**
-             * @since 1.18
-             * @param trash #GstVulkanTrash object to add to the list
-             * @returns whether `trash` could be added to `trash_list`
-             */
-            add(trash: VulkanTrash): boolean
-            /**
-             * Remove any stored #GstVulkanTrash objects that have had their associated
-             * #GstVulkanFence signalled.
-             * @since 1.18
-             */
-            gc(): void
-            /**
-             * @since 1.18
-             * @param timeout timeout in ns to wait, -1 for indefinite
-             * @returns whether the wait succeeded in waiting for all objects to be freed.
-             */
-            wait(timeout: number): boolean
-            /**
-             * the #GstVulkanTrashListAdd functions
-             * @param trash the #GstVulkanTrash to add to @trash_list
-             * @returns whether `trash` could be added to `trash_list`
-             */
-            vfunc_add_func(trash: VulkanTrash): boolean
-            /**
-             * the #GstVulkanTrashListGC function
-             */
-            vfunc_gc_func(): void
-            /**
-             * the #GstVulkanTrashListWait function
-             * @param timeout the timeout in ns to wait
-             * @returns whether all objects were signalled and freed within the `timeout`
-             */
-            vfunc_wait_func(timeout: number): boolean
-        }
-
-        interface VulkanTrashListClass extends Omit<VulkanHandlePoolClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanTrashList>
-            readonly prototype: VulkanTrashList
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanTrashList>>): VulkanTrashList
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanTrashList: VulkanTrashListClass
-        }
-        
-
-        namespace VulkanVideoFilter {
-            interface SignalSignatures extends GstBase.BaseTransform.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstBase.BaseTransform.ReadableProperties {
-            }
-
-            interface WritableProperties extends GstBase.BaseTransform.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GstBase.BaseTransform.ConstructOnlyProperties {
-            }
-        }
-
-        interface VulkanVideoFilter extends GstBase.BaseTransform {
-            readonly $signals: VulkanVideoFilter.SignalSignatures
-            readonly $readableProperties: VulkanVideoFilter.ReadableProperties
-            readonly $writableProperties: VulkanVideoFilter.WritableProperties
-            readonly $constructOnlyProperties: VulkanVideoFilter.ConstructOnlyProperties
-            /**
-             * @since 1.26
-             * @returns The currently configured     #GstVulkanDevice
-             */
-            get_device(): VulkanDevice | null
-            /**
-             * @since 1.26
-             * @returns The currently configured     #GstVulkanInstance
-             */
-            get_instance(): VulkanInstance | null
-            /**
-             * @since 1.26
-             * @returns The currently configured     #GstVulkanQueue
-             */
-            get_queue(): VulkanQueue | null
-        }
-
-        interface VulkanVideoFilterClass extends Omit<GstBase.BaseTransformClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanVideoFilter>
-            readonly prototype: VulkanVideoFilter
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanVideoFilter>>): VulkanVideoFilter
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanVideoFilter: VulkanVideoFilterClass
-        }
-        
-
-        namespace VulkanWindow {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                get_queue(): VulkanQueue | null
                 /**
-                 */
-                "close"(): boolean
-                /**
-                 */
-                "draw"(): void
-                /**
-                 * Will be emitted when a key event is received by the #GstVulkanWindow.
+                 * @throws {GLib.Error}
                  * @since 1.18
-                 * @param id the name of the event
-                 * @param key the id of the key pressed
+                 * @param fence a #GstVulkanFence that will be signalled after submission
+                 * @returns whether the necessary information could be generated for drawing a frame.
                  */
-                "key-event"(id: string, key: string): void
+                prepare_draw(fence: VulkanFence): boolean
                 /**
-                 * Will be emitted when a mouse event is received by the #GstVulkanWindow.
+                 * You need to enable blend with gst_vulkan_full_screen_quad_enable_blend().
+                 *
+                 * See also: gst_vulkan_full_screen_quad_set_blend_operation().
+                 * @since 1.22
+                 * @param src_blend_factor the `VkBlendFactor` for the source image for the colour                    components (RGB)
+                 * @param dst_blend_factor the `VkBlendFactor` for the destination image for the                    colour components (RGB)
+                 * @param src_alpha_blend_factor the `VkBlendFactor` for the source image for the                          alpha component.
+                 * @param dst_alpha_blend_factor the `VkBlendFactor` for the destination image for                          the alpha component.
+                 */
+                set_blend_factors(src_blend_factor: Vulkan.BlendFactor, dst_blend_factor: Vulkan.BlendFactor, src_alpha_blend_factor: Vulkan.BlendFactor, dst_alpha_blend_factor: Vulkan.BlendFactor): void
+                /**
+                 * You need to enable blend with gst_vulkan_full_screen_quad_enable_blend().
+                 *
+                 * See also: gst_vulkan_full_screen_quad_set_blend_factors().
+                 * @since 1.22
+                 * @param colour_blend_op the `VkBlendOp` to use for blending colour (RGB) values
+                 * @param alpha_blend_op the `VkBlendOp` to use for blending alpha values
+                 */
+                set_blend_operation(colour_blend_op: Vulkan.BlendOp, alpha_blend_op: Vulkan.BlendOp): void
+                /**
+                 * See also gst_vulkan_full_screen_quad_set_vertex_buffer()
+                 * @throws {GLib.Error}
                  * @since 1.18
-                 * @param id the name of the event
-                 * @param button the id of the button
-                 * @param x the x coordinate of the mouse event
-                 * @param y the y coordinate of the mouse event
+                 * @param indices the index data.  Must be a #GstVulkanBufferMemory
+                 * @param n_indices number of indices in `indices`
+                 * @returns whether the index data could be set
                  */
-                "mouse-event"(id: string, button: number, x: number, y: number): void
+                set_index_buffer(indices: Gst.Memory, n_indices: number): boolean
                 /**
-                 * @param object
-                 * @param p0
+                 * @since 1.18
+                 * @param in_info the input #GstVideoInfo to set
+                 * @param out_info the output #GstVideoInfo to set
+                 * @returns whether the information could be successfully set
                  */
-                "resize"(object: number, p0: number): void
+                set_info(in_info: GstVideo.VideoInfo, out_info: GstVideo.VideoInfo): boolean
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @param buffer the input #GstBuffer to set
+                 * @returns whether the input buffer could be changed
+                 */
+                set_input_buffer(buffer: Gst.Buffer | null): boolean
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @param buffer the output #GstBuffer to set
+                 * @returns whether the input buffer could be changed
+                 */
+                set_output_buffer(buffer: Gst.Buffer | null): boolean
+                /**
+                 * @since 1.18
+                 * @param vert the vertex shader to set
+                 * @param frag the fragment shader to set
+                 * @returns whether the shaders could be set
+                 */
+                set_shaders(vert: VulkanHandle, frag: VulkanHandle): boolean
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @param uniforms the uniform data to set. Must be a #GstVulkanBufferMemory
+                 * @returns whether the shaders could be set
+                 */
+                set_uniform_buffer(uniforms: Gst.Memory): boolean
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @param vertices the vertex data. Must be a #GstVulkanBufferMemory
+                 * @returns whether the index data could be set
+                 */
+                set_vertex_buffer(vertices: Gst.Memory): boolean
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @param cmd a #GstVulkanCommandBuffer to submit
+                 * @param fence a #GstVulkanFence to signal on completion
+                 * @returns whether `cmd` could be submitted to the queue
+                 */
+                submit(cmd: VulkanCommandBuffer, fence: VulkanFence): boolean
             }
 
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "display": VulkanDisplay
+            interface VulkanFullScreenQuadClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanFullScreenQuad>
+                readonly prototype: VulkanFullScreenQuad
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanFullScreenQuad>>): VulkanFullScreenQuad
+                /**
+                 * @since 1.18
+                 * @param queue a #GstVulkanQueue
+                 * @returns a new #GstVulkanFullScreenQuad
+                 */
+                "new"(queue: VulkanQueue): VulkanFullScreenQuad
             }
 
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "display": VulkanDisplay
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanFullScreenQuad: VulkanFullScreenQuadClass
+            }
+            
+
+            namespace VulkanHandlePool {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+            interface VulkanHandlePool extends Gst.Object {
+                readonly $signals: VulkanHandlePool.SignalSignatures
+                readonly $readableProperties: VulkanHandlePool.ReadableProperties
+                readonly $writableProperties: VulkanHandlePool.WritableProperties
+                readonly $constructOnlyProperties: VulkanHandlePool.ConstructOnlyProperties
+                /**
+                 * @throws {GLib.Error}
+                 */
+                acquire(): never | null
+                /**
+                 * @throws {GLib.Error}
+                 */
+                alloc(): never | null
+                /**
+                 * @param handle
+                 */
+                release(handle: never | null): void
+                /**
+                 * acquire a handle for usage
+                 * @throws {GLib.Error}
+                 */
+                vfunc_acquire(): never | null
+                /**
+                 * allocate a new handle
+                 * @throws {GLib.Error}
+                 */
+                vfunc_alloc(): never | null
+                /**
+                 * free a handle
+                 * @param handle
+                 */
+                vfunc_free(handle: never | null): void
+                /**
+                 * release a handle for possible reuse at the next call to `acquire`
+                 * @param handle
+                 */
+                vfunc_release(handle: never | null): void
             }
-        }
-
-        interface VulkanWindow extends Gst.Object {
-            readonly $signals: VulkanWindow.SignalSignatures
-            readonly $readableProperties: VulkanWindow.ReadableProperties
-            readonly $writableProperties: VulkanWindow.WritableProperties
-            readonly $constructOnlyProperties: VulkanWindow.ConstructOnlyProperties
-            /**
-             */
-            get display(): VulkanDisplay
-            set display(value: VulkanDisplay)
-            /**
-             * Attempt to close the window.
-             * @since 1.18
-             */
-            close(): void
-            /**
-             * @since 1.18
-             * @returns the #GstVulkanDisplay for `window`
-             */
-            get_display(): VulkanDisplay
-            /**
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param queue_family_idx the queue family
-             * @returns whether the given combination of `window`, `device` and          `queue_family_idx` supports presentation
-             */
-            get_presentation_support(device: VulkanDevice, queue_family_idx: number): boolean
-            /**
-             * @since 1.18
-             * @returns , Current width of `window`, Current height of `window`
-             */
-            get_surface_dimensions(): [number, number]
-            /**
-             * Tell a @window that it should handle events from the window system. These
-             * events are forwarded upstream as navigation events. In some window systems
-             * events are not propagated in the window hierarchy if a client is listening
-             * for them. This method allows you to disable events handling completely
-             * from the @window.
-             * @since 1.18
-             * @param handle_events a #gboolean indicating if events should be handled or not.
-             */
-            handle_events(handle_events: boolean): void
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @returns whether `window` could be successfully opened
-             */
-            open(): boolean
-            /**
-             * Ask the @window to redraw its contents
-             * @since 1.18
-             */
-            redraw(): void
-            /**
-             * Resize the output surface.
-             *
-             * Currently intended for subclasses to update internal state.
-             * @since 1.18
-             * @param width the new width
-             * @param height the new height
-             */
-            resize(width: number, height: number): void
-            /**
-             * @param event_type
-             * @param key_str
-             */
-            send_key_event(event_type: string, key_str: string): void
-            /**
-             * @param event_type
-             * @param button
-             * @param posx
-             * @param posy
-             */
-            send_mouse_event(event_type: string, button: number, posx: number, posy: number): void
-            /**
-             * @param handle
-             */
-            set_window_handle(handle: never): void
-            /**
-             * Attempt to close the window.
-             * @since 1.18
-             */
-            vfunc_close(): void
-            /**
-             * retrieve whether this window supports presentation
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param queue_family_idx the queue family
-             * @returns whether the given combination of `window`, `device` and          `queue_family_idx` supports presentation
-             */
-            vfunc_get_presentation_support(device: VulkanDevice, queue_family_idx: number): boolean
-            /**
-             * retrieve the current size of the window
-             * @since 1.18
-             * @returns , Current width of `window`, Current height of `window`
-             */
-            vfunc_get_surface_dimensions(): [number, number]
-            /**
-             * Tell a @window that it should handle events from the window system. These
-             * events are forwarded upstream as navigation events. In some window systems
-             * events are not propagated in the window hierarchy if a client is listening
-             * for them. This method allows you to disable events handling completely
-             * from the @window.
-             * @since 1.18
-             * @param handle_events a #gboolean indicating if events should be handled or not.
-             */
-            vfunc_handle_events(handle_events: boolean): void
-            /**
-             * open the connection to the display
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @returns whether `window` could be successfully opened
-             */
-            vfunc_open(): boolean
-            /**
-             * set the external window handle to render into
-             * @param handle
-             */
-            vfunc_set_window_handle(handle: never): void
-        }
-
-        interface VulkanWindowClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanWindow>
-            readonly prototype: VulkanWindow
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanWindow>>): VulkanWindow
-            /**
-             * @since 1.18
-             * @param display a #GstVulkanDisplay
-             * @returns a new #GstVulkanWindow using `display`'s connection
-             */
-            "new"(display: VulkanDisplay): VulkanWindow
-        }
-
-        interface $Exports {
-            /**
-             * #GstVulkanWindow is an opaque struct and should only be accessed through the
-             * provided api.
-             * @since 1.18
-             */
-            VulkanWindow: VulkanWindowClass
-        }
-        
-
-        interface VulkanBarrierBufferInfoStruct {
-            readonly $gtype: GObject.GType<VulkanBarrierBufferInfo>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanBarrierBufferInfo
-        }
-
-        interface VulkanBarrierBufferInfo {
-            /**
-             * parent #GstVulkanBarrierMemoryInfo
-             */
-            parent: VulkanBarrierMemoryInfo
-            /**
-             * offset into the vulkan buffer to execute the barrier with
-             */
-            offset: Vulkan.DeviceSize
-            /**
-             * size of memory to execute barrier over
-             */
-            size: Vulkan.DeviceSize
-        }
-
-        interface $Exports {
-            VulkanBarrierBufferInfo: VulkanBarrierBufferInfoStruct
-        }
-        
-
-        interface VulkanBarrierImageInfoStruct {
-            readonly $gtype: GObject.GType<VulkanBarrierImageInfo>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanBarrierImageInfo
-        }
-
-        interface VulkanBarrierImageInfo {
-            /**
-             * parent #GstVulkanBarrierMemoryInfo
-             */
-            parent: VulkanBarrierMemoryInfo
-            /**
-             * the image layout of this barrier
-             */
-            image_layout: Vulkan.ImageLayout
-            /**
-             * what subresource the barrier applies to
-             */
-            subresource_range: Vulkan.ImageSubresourceRange
-        }
-
-        interface $Exports {
-            VulkanBarrierImageInfo: VulkanBarrierImageInfoStruct
-        }
-        
-
-        interface VulkanBarrierMemoryInfoStruct {
-            readonly $gtype: GObject.GType<VulkanBarrierMemoryInfo>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanBarrierMemoryInfo
-        }
-
-        interface VulkanBarrierMemoryInfo {
-            /**
-             * the #GstVulkanBarrierType of the barrier
-             * @flags the #GstVulkanBarrierFlags of the barrier
-             */
-            type: VulkanBarrierType
-            /**
-             */
-            flags: VulkanBarrierFlags
-            /**
-             * the #GstVulkanQueue this barrier is to execute with
-             */
-            queue: VulkanQueue
-            /**
-             * the stages in the graphics pipeline to execute the barrier
-             */
-            pipeline_stages: number
-            /**
-             * access flags
-             */
-            access_flags: number
-            /**
-             * Timeline semaphore
-             * @since 1.24
-             */
-            semaphore: Vulkan.Semaphore
-            /**
-             * Current value of the timeline semaphore
-             * @since 1.24
-             */
-            semaphore_value: number
-        }
-
-        interface $Exports {
-            VulkanBarrierMemoryInfo: VulkanBarrierMemoryInfoStruct
-        }
-        
-
-        interface VulkanBufferMemoryStruct {
-            readonly $gtype: GObject.GType<VulkanBufferMemory>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanBufferMemory
-            /**
-             * Allocate a new #GstVulkanBufferMemory.
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param size size of the new buffer
-             * @param usage buffer usage flags
-             * @param mem_prop_flags memory properties flags for the backing memory
-             * @returns a #GstMemory object backed by a vulkan buffer          backed by vulkan device memory
-             */
-            alloc(device: VulkanDevice, size: number, usage: Vulkan.BufferUsageFlags, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
-            /**
-             * Allocate a new #GstVulkanBufferMemory.
-             * @since 1.24
-             * @param device a #GstVulkanDevice
-             * @param buffer_info the VkBufferCreateInfo structure
-             * @param mem_prop_flags memory properties flags for the backing memory
-             * @returns a #GstMemory object backed by a vulkan buffer          backed by vulkan device memory
-             */
-            alloc_with_buffer_info(device: VulkanDevice, buffer_info: Vulkan.BufferCreateInfo, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
-            /**
-             * Initializes the Vulkan buffer memory allocator. It is safe to call this function
-             * multiple times.  This must be called before any other #GstVulkanBufferMemory operation.
-             * @since 1.18
-             */
-            init_once(): void
-            /**
-             * Allocated a new wrapped #GstVulkanBufferMemory with @buffer.
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param buffer a `VkBuffer`
-             * @param usage usage flags of @buffer
-             * @param user_data user data to call @notify with
-             * @param notify a #GDestroyNotify called when @buffer is no longer in use
-             * @returns a #GstMemory object backed by a vulkan device memory
-             */
-            wrapped(device: VulkanDevice, buffer: Vulkan.Buffer, usage: Vulkan.BufferUsageFlags, user_data: never | null, notify: GLib.DestroyNotify | null): Gst.Memory
-        }
-
-        interface VulkanBufferMemory {
-            /**
-             * parent #GstMemory
-             */
-            parent: Gst.Memory
-            /**
-             * the #GstVulkanDevice this vulkan buffer is allocated from
-             */
-            device: VulkanDevice
-            /**
-             * Vulkan buffer object
-             */
-            buffer: Vulkan.Buffer
-            /**
-             * backing #GstVulkanMemory for @buffer
-             */
-            vk_mem: VulkanMemory
-            /**
-             * allocation requirements for @buffer
-             */
-            requirements: Vulkan.MemoryRequirements
-            /**
-             * intended usage for @buffer
-             */
-            usage: Vulkan.BufferUsageFlags
-            /**
-             * the last set barrier information
-             */
-            barrier: VulkanBarrierBufferInfo
-        }
-
-        interface $Exports {
-            VulkanBufferMemory: VulkanBufferMemoryStruct
-        }
-        
-
-        interface VulkanBufferPoolPrivateStruct {
-            readonly $gtype: GObject.GType<VulkanBufferPoolPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanBufferPoolPrivate
-        }
-
-        interface VulkanBufferPoolPrivate {
-        }
-
-        interface $Exports {
-            VulkanBufferPoolPrivate: VulkanBufferPoolPrivateStruct
-        }
-        
-
-        interface VulkanCommandBufferStruct {
-            readonly $gtype: GObject.GType<VulkanCommandBuffer>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanCommandBuffer
-            /**
-             * @since 1.18
-             * @param cmd a VkCommandBuffer
-             * @param level the VkCommandBufferLevel for @cmd
-             * @returns a new #GstVulkanCommandBuffer
-             */
-            new_wrapped(cmd: Vulkan.CommandBuffer, level: Vulkan.CommandBufferLevel): VulkanCommandBuffer
-        }
-
-        interface VulkanCommandBuffer {
-            /**
-             * the parent #GstMiniObject
-             */
-            parent: Gst.MiniObject
-            /**
-             * the vulkan command buffer handle
-             */
-            cmd: Vulkan.CommandBuffer
-            /**
-             * the parent #GstVulkanCommandPool for command buffer reuse and locking
-             */
-            pool: VulkanCommandPool
-            /**
-             * the level of the vulkan command buffer
-             */
-            level: Vulkan.CommandBufferLevel
-        }
-
-        interface $Exports {
-            VulkanCommandBuffer: VulkanCommandBufferStruct
-        }
-        
-
-        interface VulkanCommandPoolPrivateStruct {
-            readonly $gtype: GObject.GType<VulkanCommandPoolPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanCommandPoolPrivate
-        }
-
-        interface VulkanCommandPoolPrivate {
-        }
-
-        interface $Exports {
-            VulkanCommandPoolPrivate: VulkanCommandPoolPrivateStruct
-        }
-        
-
-        interface VulkanDescriptorCachePrivateStruct {
-            readonly $gtype: GObject.GType<VulkanDescriptorCachePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanDescriptorCachePrivate
-        }
-
-        interface VulkanDescriptorCachePrivate {
-        }
-
-        interface $Exports {
-            VulkanDescriptorCachePrivate: VulkanDescriptorCachePrivateStruct
-        }
-        
-
-        interface VulkanDescriptorPoolPrivateStruct {
-            readonly $gtype: GObject.GType<VulkanDescriptorPoolPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanDescriptorPoolPrivate
-        }
-
-        interface VulkanDescriptorPoolPrivate {
-        }
-
-        interface $Exports {
-            VulkanDescriptorPoolPrivate: VulkanDescriptorPoolPrivateStruct
-        }
-        
-
-        interface VulkanDescriptorSetStruct {
-            readonly $gtype: GObject.GType<VulkanDescriptorSet>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanDescriptorSet
-            /**
-             * @since 1.18
-             * @param pool
-             * @param set a VkDescriptorSet
-             * @param layouts list of #GstVulkanHandle containing
-                                                descriptor set layouts
-             * @returns a new #GstVulkanDescriptorSet
-             */
-            new_wrapped(pool: VulkanDescriptorPool, set: Vulkan.DescriptorSet, layouts: VulkanHandle[]): VulkanDescriptorSet
-        }
-
-        interface VulkanDescriptorSet {
-            /**
-             * the parent #GstMiniObject
-             */
-            parent: Gst.MiniObject
-            /**
-             * the vulkan descriptor set handle
-             */
-            set: Vulkan.DescriptorSet
-            /**
-             * the parent #GstVulkanDescriptorPool for pooling
-             */
-            pool: VulkanDescriptorPool
-            /**
-             * the parent #GstVulkanDescriptorCache for reuse
-             */
-            cache: VulkanDescriptorCache
-            /**
-             * number of layouts applied to this descriptor set
-             */
-            n_layouts: number
-            /**
-             * layouts applied to this descriptor set
-             */
-            layouts: VulkanHandle
-        }
-
-        interface $Exports {
-            VulkanDescriptorSet: VulkanDescriptorSetStruct
-        }
-        
-
-        interface VulkanDevicePrivateStruct {
-            readonly $gtype: GObject.GType<VulkanDevicePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanDevicePrivate
-        }
-
-        interface VulkanDevicePrivate {
-        }
-
-        interface $Exports {
-            VulkanDevicePrivate: VulkanDevicePrivateStruct
-        }
-        
-
-        interface VulkanDisplayPrivateStruct {
-            readonly $gtype: GObject.GType<VulkanDisplayPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanDisplayPrivate
-        }
-
-        interface VulkanDisplayPrivate {
-        }
-
-        interface $Exports {
-            VulkanDisplayPrivate: VulkanDisplayPrivateStruct
-        }
-        
-
-        interface VulkanEncodeQueryResultStruct {
-            readonly $gtype: GObject.GType<VulkanEncodeQueryResult>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanEncodeQueryResult
-        }
-
-        interface VulkanEncodeQueryResult {
-            /**
-             * buffer offset
-             */
-            offset: number
-            /**
-             * data size
-             */
-            data_size: number
-            /**
-             * status
-             */
-            status: number
-        }
-
-        interface $Exports {
-            VulkanEncodeQueryResult: VulkanEncodeQueryResultStruct
-        }
-        
-
-        interface VulkanFenceStruct {
-            readonly $gtype: GObject.GType<VulkanFence>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanFence
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @param device the parent #GstVulkanDevice
-             * @returns a new #GstVulkanFence or %NULL on error
-             */
-            "new"(device: VulkanDevice): VulkanFence
-            /**
-             * @since 1.18
-             * @param device
-             * @returns a new #GstVulkanFence that is always in the signalled state
-             */
-            new_always_signalled(device: VulkanDevice): VulkanFence
-        }
-
-        interface VulkanFence {
-            /**
-             * the parent #GstMiniObject
-             */
-            parent: Gst.MiniObject
-            /**
-             * the #GstVulkanDevice this fence is allocated from
-             */
-            device: VulkanDevice
-            /**
-             * the parent #GstVulkanFenceCache for fence reuse
-             */
-            cache: VulkanFenceCache
-            /**
-             * the vulkan fence handle
-             */
-            fence: Vulkan.Fence
-            /**
-             * @since 1.18
-             * @returns whether `fence` has been signalled
-             */
-            is_signaled(): boolean
-            /**
-             */
-            reset(): void
-        }
-
-        interface $Exports {
-            VulkanFence: VulkanFenceStruct
-        }
-        
-
-        interface VulkanFormatInfoStruct {
-            readonly $gtype: GObject.GType<VulkanFormatInfo>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanFormatInfo
-        }
-
-        interface VulkanFormatInfo {
-            /**
-             * the Vulkan format being described
-             */
-            format: Vulkan.Format
-            /**
-             * name of this format
-             */
-            name: string
-            /**
-             * how raw data is interpreted and scaled
-             */
-            scaling: VulkanFormatScaling
-            /**
-             * flags that apply to this format
-             */
-            flags: VulkanFormatFlags
-            /**
-             * The number of bits used to pack data items. This can be less than
-             *        8 when multiple pixels are stored in a byte. for values > 8 multiple
-             *        bytes should be read according to the endianness flag before
-             *        applying the shift and mask.
-             * @n_components; number of components in this format
-             */
-            bits: number
-            /**
-             */
-            n_components: number
-            /**
-             * the number of bits to shift away to get the component data
-             */
-            shift: Uint8Array
-            /**
-             * the depth in bits for each component
-             */
-            depth: Uint8Array
-            /**
-             */
-            pixel_stride: Uint8Array
-            /**
-             * the number of planes for this format. The number of planes can
-             *            be less than the amount of components when multiple components
-             *            are packed into one plane.
-             */
-            n_planes: number
-            /**
-             * the plane number where a component can be found
-             */
-            plane: Uint8Array
-            /**
-             * the offset in the plane where the first pixel of the components
-             *           can be found.
-             */
-            poffset: Uint8Array
-            /**
-             * subsampling factor of the width for the component.
-             *         Use GST_VIDEO_SUB_SCALE to scale a width.
-             */
-            w_sub: Uint8Array
-            /**
-             * subsampling factor of the height for the component.
-             *         Use GST_VIDEO_SUB_SCALE to scale a height.
-             */
-            h_sub: Uint8Array
-            /**
-             * image aspect of this format
-             * @since 1.24
-             */
-            aspect: Vulkan.ImageAspectFlags
-        }
-
-        interface $Exports {
-            VulkanFormatInfo: VulkanFormatInfoStruct
-        }
-        
-
-        interface VulkanFormatMapStruct {
-            readonly $gtype: GObject.GType<VulkanFormatMap>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanFormatMap
-        }
-
-        interface VulkanFormatMap {
-            /**
-             * the GStreamer video format
-             */
-            format: GstVideo.VideoFormat
-            /**
-             * the Vulkan format with a single memory
-             */
-            vkfrmt: Vulkan.Format
-            /**
-             * Vulkan formats for multiple memories
-             */
-            vkfrmts: Vulkan.Format[]
-        }
-
-        interface $Exports {
-            VulkanFormatMap: VulkanFormatMapStruct
-        }
-        
-
-        interface VulkanFullScreenQuadPrivateStruct {
-            readonly $gtype: GObject.GType<VulkanFullScreenQuadPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanFullScreenQuadPrivate
-        }
-
-        interface VulkanFullScreenQuadPrivate {
-        }
-
-        interface $Exports {
-            VulkanFullScreenQuadPrivate: VulkanFullScreenQuadPrivateStruct
-        }
-        
-
-        interface VulkanHandleStruct {
-            readonly $gtype: GObject.GType<VulkanHandle>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanHandle
-            /**
-             * @since 1.18
-             * @param device
-             * @param type
-             * @param handle a Vulkan handle
-             * @param notify a #GDestroyNotify
-             * @returns a new #GstVulkanHandle wrapping `handle`
-             */
-            new_wrapped(device: VulkanDevice, type: VulkanHandleType, handle: VulkanHandleTypedef, notify: VulkanHandleDestroyNotify): VulkanHandle
-            /**
-             * @since 1.18
-             * @param element a #GstElement
-             * @param query a #GstQuery of type %GST_QUERY_CONTEXT
-             * @param display a #GstVulkanDisplay
-             * @param instance a #GstVulkanInstance
-             * @param device a #GstVulkanDevice
-             * @returns Whether the `query` was successfully responded to from the passed          `display`, `instance`, and `device`.
-             */
-            context_query(element: Gst.Element, query: Gst.Query, display: VulkanDisplay | null, instance: VulkanInstance | null, device: VulkanDevice | null): boolean
-            /**
-             * Helper function for implementing #GstElementClass.set_context() in
-             * Vulkan capable elements.
-             *
-             * Retrieve's the #GstVulkanDisplay or #GstVulkanInstance in @context and places
-             * the result in @display or @instance respectively.
-             * @since 1.18
-             * @param element a #GstElement
-             * @param context a #GstContext
-             * @returns whether the `display` or `instance` could be set successfully, location of a #GstVulkanDisplay, location of a #GstVulkanInstance
-             */
-            set_context(element: Gst.Element, context: Gst.Context): [boolean, VulkanDisplay, VulkanInstance]
-        }
-
-        interface VulkanHandle {
-            /**
-             * the parent #GstMiniObject
-             */
-            parent: Gst.MiniObject
-            /**
-             * the #GstVulkanDevice for this handle
-             */
-            device: VulkanDevice
-            /**
-             * the type of handle
-             */
-            type: VulkanHandleType
-            /**
-             * the handle value
-             */
-            handle: VulkanHandleTypedef
-            /**
-             */
-            notify: VulkanHandleDestroyNotify
-            /**
-             */
-            user_data: never
-            /**
-             * Frees the descriptor set layout in @handle
-             * @since 1.18
-             * @param user_data callback user data
-             */
-            free_descriptor_set_layout(user_data: never | null): void
-            /**
-             * Frees the framebuffer in @handle
-             * @since 1.18
-             * @param user_data callback user data
-             */
-            free_framebuffer(user_data: never | null): void
-            /**
-             * Frees the pipeline in @handle
-             * @since 1.18
-             * @param user_data callback user data
-             */
-            free_pipeline(user_data: never | null): void
-            /**
-             * Frees the pipeline layout in @handle
-             * @since 1.18
-             * @param user_data callback user data
-             */
-            free_pipeline_layout(user_data: never | null): void
-            /**
-             * Frees the render pass in @handle
-             * @since 1.18
-             * @param user_data callback user data
-             */
-            free_render_pass(user_data: never | null): void
-            /**
-             * Frees the sampler in @handle
-             * @since 1.18
-             * @param user_data callback user data
-             */
-            free_sampler(user_data: never | null): void
-            /**
-             * Frees the shader in @handle
-             * @since 1.18
-             * @param user_data callback user data
-             */
-            free_shader(user_data: never | null): void
-        }
-
-        interface $Exports {
-            VulkanHandle: VulkanHandleStruct
-        }
-        
-
-        interface VulkanImageBufferPoolPrivateStruct {
-            readonly $gtype: GObject.GType<VulkanImageBufferPoolPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanImageBufferPoolPrivate
-        }
-
-        interface VulkanImageBufferPoolPrivate {
-        }
-
-        interface $Exports {
-            VulkanImageBufferPoolPrivate: VulkanImageBufferPoolPrivateStruct
-        }
-        
-
-        interface VulkanImageMemoryStruct {
-            readonly $gtype: GObject.GType<VulkanImageMemory>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanImageMemory
-            /**
-             * Allocated a new #GstVulkanImageMemory.
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param format the VkFormat for the new image
-             * @param width width for the new image
-             * @param height height for the new image
-             * @param tiling tiling for the new image
-             * @param usage usage flags for the new image
-             * @param mem_prop_flags VkDeviceMemory property flags for the new image
-             * @returns a #GstMemory object backed by a vulkan device memory
-             */
-            alloc(device: VulkanDevice, format: Vulkan.Format, width: number, height: number, tiling: Vulkan.ImageTiling, usage: Vulkan.ImageUsageFlags, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
-            /**
-             * @since 1.24
-             * @param device a #GstVulkanDevice
-             * @param image_info VkImageCreateInfo structure
-             * @param mem_prop_flags VkMemoryPropertyFlags flags
-             * @returns a #GstMemory object backed by a vulkan device memory
-             */
-            alloc_with_image_info(device: VulkanDevice, image_info: Vulkan.ImageCreateInfo, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
-            /**
-             * Initializes the Vulkan image memory allocator. It is safe to call this function
-             * multiple times.  This must be called before any other #GstVulkanImageMemory operation.
-             * @since 1.18
-             */
-            init_once(): void
-            /**
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param image a VkImage
-             * @param format the VkFormat for @image
-             * @param width width of @image
-             * @param height height of @image
-             * @param tiling tiling of @image
-             * @param usage usage flags of @image
-             * @param user_data user data for @notify
-             * @param notify a #GDestroyNotify when @image is no longer needed
-             * @returns a new #GstVulkanImageMemory wrapping `image`
-             */
-            wrapped(device: VulkanDevice, image: Vulkan.Image, format: Vulkan.Format, width: number, height: number, tiling: Vulkan.ImageTiling, usage: Vulkan.ImageUsageFlags, user_data: never | null, notify: GLib.DestroyNotify): Gst.Memory
-        }
-
-        interface VulkanImageMemory {
-            /**
-             * parent #GstMemory
-             */
-            parent: Gst.Memory
-            /**
-             * the #GstVulkanDevice to allocate images from
-             */
-            device: VulkanDevice
-            /**
-             * the Vulkan image handle
-             */
-            image: Vulkan.Image
-            /**
-             * the backing #GstVulkanMemory for @image
-             */
-            vk_mem: VulkanMemory
-            /**
-             * creation information for @image
-             */
-            create_info: Vulkan.ImageCreateInfo
-            /**
-             * memory requirements for @image
-             */
-            requirements: Vulkan.MemoryRequirements
-            /**
-             * format properties
-             */
-            format_properties: Vulkan.ImageFormatProperties
-            /**
-             * intended usage for @image
-             */
-            usage: Vulkan.ImageUsageFlags
-            /**
-             * last set barrier for @image
-             */
-            barrier: VulkanBarrierImageInfo
-            /**
-             * @since 1.18
-             * @param view a #GstVulkanImageView
-             */
-            add_view(view: VulkanImageView): void
-            /**
-             * @since 1.18
-             * @param find_func #GstVulkanImageMemoryFindViewFunc to search with
-             * @returns the first #GstVulkanImageView that                                     `find_func` returns %TRUE for, or %NULL
-             */
-            find_view(find_func: VulkanImageMemoryFindViewFunc): VulkanImageView | null
-            /**
-             * @since 1.18
-             * @returns the height of `image`
-             */
-            get_height(): number
-            /**
-             * @since 1.18
-             * @returns the width of `image`
-             */
-            get_width(): number
-            /**
-             * @param allocator
-             * @param parent
-             * @param device
-             * @param format
-             * @param usage
-             * @param initial_layout
-             * @param params
-             * @param size
-             * @param user_data
-             * @param notify
-             */
-            init(allocator: Gst.Allocator, parent: Gst.Memory, device: VulkanDevice, format: Vulkan.Format, usage: Vulkan.ImageUsageFlags, initial_layout: Vulkan.ImageLayout, params: Gst.AllocationParams, size: number, user_data: never | null, notify: GLib.DestroyNotify): boolean
-        }
-
-        interface $Exports {
-            VulkanImageMemory: VulkanImageMemoryStruct
-        }
-        
-
-        interface VulkanImageViewStruct {
-            readonly $gtype: GObject.GType<VulkanImageView>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanImageView
-            /**
-             * @since 1.18
-             * @param image a #GstVulkanImageMemory to create the new view from
-             * @param create_info the creation information to create the view from
-             * @returns A new #GstVulkanImageView from `image` and          `create_info`
-             */
-            "new"(image: VulkanImageMemory, create_info: Vulkan.ImageViewCreateInfo): VulkanImageView
-        }
-
-        interface VulkanImageView {
-            /**
-             * the parent #GstMiniObject
-             */
-            parent: Gst.MiniObject
-            /**
-             * the #GstVulkanDevice
-             */
-            device: VulkanDevice
-            /**
-             * the associated #GstVulkanImageMemory for this view
-             */
-            image: VulkanImageMemory
-            /**
-             * the vulkan image view handle
-             */
-            view: Vulkan.ImageView
-            /**
-             * the creation information for this view
-             */
-            create_info: Vulkan.ImageViewCreateInfo
-        }
-
-        interface $Exports {
-            VulkanImageView: VulkanImageViewStruct
-        }
-        
-
-        interface VulkanInstancePrivateStruct {
-            readonly $gtype: GObject.GType<VulkanInstancePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanInstancePrivate
-        }
-
-        interface VulkanInstancePrivate {
-        }
-
-        interface $Exports {
-            VulkanInstancePrivate: VulkanInstancePrivateStruct
-        }
-        
-
-        interface VulkanMemoryStruct {
-            readonly $gtype: GObject.GType<VulkanMemory>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanMemory
-            /**
-             * Allocated a new #GstVulkanMemory.
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param memory_type_index the Vulkan memory type index
-             * @param params a #GstAllocationParams
-             * @param size the size to allocate
-             * @param mem_prop_flags
-             * @returns a #GstMemory object backed by a vulkan device memory
-             */
-            alloc(device: VulkanDevice, memory_type_index: number, params: Gst.AllocationParams, size: number, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
-            /**
-             * @since 1.24
-             * @param device a #GstVulkanDevice
-             * @param req memory requirements to look for
-             * @param properties memory properties to search for
-             * @returns whether a valid memory type could be found, resulting index of the memory type
-             */
-            find_memory_type_index_with_requirements(device: VulkanDevice, req: Vulkan.MemoryRequirements, properties: Vulkan.MemoryPropertyFlags): [boolean, number]
-            /**
-             * @since 1.18
-             * @param prop_bits
-             */
-            heap_flags_to_string(prop_bits: Vulkan.MemoryHeapFlags): string
-            /**
-             * Initializes the Vulkan memory allocator. It is safe to call this function
-             * multiple times.  This must be called before any other #GstVulkanMemory operation.
-             * @since 1.18
-             */
-            init_once(): void
-            /**
-             * @since 1.18
-             * @param prop_bits
-             */
-            property_flags_to_string(prop_bits: Vulkan.MemoryPropertyFlags): string
-        }
-
-        interface VulkanMemory {
-            /**
-             * the parent #GstMemory
-             */
-            mem: Gst.Memory
-            /**
-             * the #GstVulkanDevice this memory is allocated from
-             */
-            device: VulkanDevice
-            /**
-             * the vulkan memory handle
-             */
-            mem_ptr: Vulkan.DeviceMemory
-            /**
-             * lock for accessing/changing memory informat
-             */
-            lock: GLib.Mutex
-            /**
-             * number of times this memory is mapped
-             */
-            map_count: number
-            /**
-             * internal pointer to already mapped memory
-             * @since 1.24
-             */
-            mapping: never
-        }
-
-        interface $Exports {
-            VulkanMemory: VulkanMemoryStruct
-        }
-        
-
-        interface VulkanOperationPrivateStruct {
-            readonly $gtype: GObject.GType<VulkanOperationPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanOperationPrivate
-        }
-
-        interface VulkanOperationPrivate {
-        }
-
-        interface $Exports {
-            VulkanOperationPrivate: VulkanOperationPrivateStruct
-        }
-        
-
-        interface VulkanPhysicalDevicePrivateStruct {
-            readonly $gtype: GObject.GType<VulkanPhysicalDevicePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanPhysicalDevicePrivate
-        }
-
-        interface VulkanPhysicalDevicePrivate {
-        }
-
-        interface $Exports {
-            VulkanPhysicalDevicePrivate: VulkanPhysicalDevicePrivateStruct
-        }
-        
-
-        interface VulkanQueueFamilyOpsStruct {
-            readonly $gtype: GObject.GType<VulkanQueueFamilyOps>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanQueueFamilyOps
-        }
-
-        interface VulkanQueueFamilyOps {
-            /**
-             * video operation supported by queue family
-             */
-            video: number
-            /**
-             * query status result support
-             * @since 1.26
-             */
-            query_result_status: boolean
-        }
-
-        interface $Exports {
-            VulkanQueueFamilyOps: VulkanQueueFamilyOpsStruct
-        }
-        
-
-        interface VulkanQueuePrivateStruct {
-            readonly $gtype: GObject.GType<VulkanQueuePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanQueuePrivate
-        }
-
-        interface VulkanQueuePrivate {
-        }
-
-        interface $Exports {
-            VulkanQueuePrivate: VulkanQueuePrivateStruct
-        }
-        
-
-        interface VulkanSwapperPrivateStruct {
-            readonly $gtype: GObject.GType<VulkanSwapperPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanSwapperPrivate
-        }
-
-        interface VulkanSwapperPrivate {
-        }
-
-        interface $Exports {
-            VulkanSwapperPrivate: VulkanSwapperPrivateStruct
-        }
-        
-
-        interface VulkanTrashStruct {
-            readonly $gtype: GObject.GType<VulkanTrash>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanTrash
-            /**
-             * Create and return a new #GstVulkanTrash object that will stores a callback
-             * to call when @fence is signalled.
-             * @since 1.18
-             * @param fence a #GstVulkanFence
-             * @param notify a #GstVulkanTrashNotify
-             * @returns a new #GstVulkanTrash
-             */
-            "new"(fence: VulkanFence, notify: VulkanTrashNotify): VulkanTrash
-            /**
-             * @since 1.18
-             * @param fence the #GstVulkanFence
-             * @param semaphore a `VkSemaphore` to free
-             * @returns a new #GstVulkanTrash object that will the free     `semaphore` when `fence` is signalled
-             */
-            new_free_semaphore(fence: VulkanFence, semaphore: Vulkan.Semaphore): VulkanTrash
-            /**
-             * A #GstVulkanTrashNotify implementation for unreffing a #GstMiniObject when the
-             * associated #GstVulkanFence is signalled
-             * @since 1.18
-             * @param device the #GstVulkanDevice
-             * @param user_data the #GstMiniObject
-             */
-            mini_object_unref(device: VulkanDevice, user_data: never | null): void
-            /**
-             * A #GstVulkanTrashNotify implementation for unreffing a #GstObject when the
-             * associated #GstVulkanFence is signalled
-             * @since 1.18
-             * @param device the #GstVulkanDevice
-             * @param user_data the #GstMiniObject
-             */
-            object_unref(device: VulkanDevice, user_data: never | null): void
-        }
-
-        interface VulkanTrash {
-            /**
-             */
-            parent: Gst.MiniObject
-            /**
-             */
-            cache: VulkanTrashList
-            /**
-             */
-            fence: VulkanFence
-            /**
-             */
-            notify: VulkanTrashNotify
-            /**
-             */
-            user_data: never
-        }
-
-        interface $Exports {
-            VulkanTrash: VulkanTrashStruct
-        }
-        
-
-        interface VulkanVideoCapabilitiesStruct {
-            readonly $gtype: GObject.GType<VulkanVideoCapabilities>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanVideoCapabilities
-        }
-
-        interface VulkanVideoCapabilities {
-        }
-
-        interface $Exports {
-            VulkanVideoCapabilities: VulkanVideoCapabilitiesStruct
-        }
-        
-
-        interface VulkanVideoProfileStruct {
-            readonly $gtype: GObject.GType<VulkanVideoProfile>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanVideoProfile
-        }
-
-        interface VulkanVideoProfile {
-            /**
-             */
-            reserved: never[]
-            /**
-             * @param b another #GstVulkanVideoProfile
-             * @returns whether `a` and `b` contains the same information.
-             */
-            is_equal(b: VulkanVideoProfile): boolean
-        }
-
-        interface $Exports {
-            VulkanVideoProfile: VulkanVideoProfileStruct
-        }
-        
-
-        interface VulkanWindowPrivateStruct {
-            readonly $gtype: GObject.GType<VulkanWindowPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is VulkanWindowPrivate
-        }
-
-        interface VulkanWindowPrivate {
-        }
-
-        interface $Exports {
-            VulkanWindowPrivate: VulkanWindowPrivateStruct
-        }
-        
-        interface VulkanBarrierFlagsEnum {
-            readonly $gtype: GObject.GType<VulkanBarrierFlags>
-            /**
-             */
-            readonly "NONE": 0
-        }
-        type VulkanBarrierFlags = VulkanBarrierFlagsEnum[Exclude<keyof VulkanBarrierFlagsEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanBarrierFlags: VulkanBarrierFlagsEnum
-        }
-        
-        interface VulkanBarrierTypeEnum {
-            readonly $gtype: GObject.GType<VulkanBarrierType>
-            /**
-             * no barrier type
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "TYPE_MEMORY": 1
-            /**
-             */
-            readonly "TYPE_BUFFER": 2
-            /**
-             */
-            readonly "TYPE_IMAGE": 3
-        }
-        type VulkanBarrierType = VulkanBarrierTypeEnum[Exclude<keyof VulkanBarrierTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanBarrierType: VulkanBarrierTypeEnum
-        }
-        
-        interface VulkanError extends GLib.Error {}
-
-        interface VulkanErrorEnum {
-            readonly $gtype: GObject.GType<VulkanError>
-
-            new(props: { message: string, code: number }): VulkanError
-            /**
-             * undetermined error
-             */
-            readonly "FAILED": 0
-            /**
-         * @since 1.18
-         */
-        quark: () => GLib.Quark
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanError: VulkanErrorEnum
-        }
-        
-        interface VulkanFormatScalingEnum {
-            readonly $gtype: GObject.GType<VulkanFormatScaling>
-            /**
-             * [0, 2^n - 1] -> [0.0, 1.0]
-             */
-            readonly "UNORM": 1
-            /**
-             * [-2^(n-1), 2^(n-1) - 1] -> [-1.0, 1.0]
-             */
-            readonly "SNORM": 2
-            /**
-             * [0, 2^n - 1] -> [0.0, float(2^n - 1)]
-             */
-            readonly "USCALED": 3
-            /**
-             * [-2^(n-1), 2^(n-1) - 1] -> [float(-2^(n-1)), float(2^(n-1) - 1)]
-             */
-            readonly "SSCALED": 4
-            /**
-             * [0, 2^n - 1] -> [0, 2^n - 1]
-             */
-            readonly "UINT": 5
-            /**
-             * [-2^(n-1), 2^(n-1) - 1] -> [-2^(n-1), 2^(n-1) - 1]
-             */
-            readonly "SINT": 6
-            /**
-             * @GST_VULKAN_FORMAT_SCALING_UNORM but the first three components are gamma corrected for the sRGB colour space.
-             */
-            readonly "SRGB": 7
-        }
-        type VulkanFormatScaling = VulkanFormatScalingEnum[Exclude<keyof VulkanFormatScalingEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanFormatScaling: VulkanFormatScalingEnum
-        }
-        
-        interface VulkanHandleTypeEnum {
-            readonly $gtype: GObject.GType<VulkanHandleType>
-            /**
-             * descripter set layout
-             */
-            readonly "DESCRIPTOR_SET_LAYOUT": 1
-            /**
-             * pipeline layout
-             */
-            readonly "PIPELINE_LAYOUT": 2
-            /**
-             * pipeline
-             */
-            readonly "PIPELINE": 3
-            /**
-             * render pass
-             */
-            readonly "RENDER_PASS": 4
-            /**
-             * sampler
-             */
-            readonly "SAMPLER": 5
-            /**
-             * framebuffer
-             */
-            readonly "FRAMEBUFFER": 6
-            /**
-             * shader
-             */
-            readonly "SHADER": 7
-            /**
-             * video session
-             * @since 1.24
-             */
-            readonly "VIDEO_SESSION": 8
-            /**
-             * video session parameters
-             * @since 1.24
-             */
-            readonly "VIDEO_SESSION_PARAMETERS": 9
-            /**
-             * sampler with YCBCR conversion
-             * @since 1.24
-             */
-            readonly "SAMPLER_YCBCR_CONVERSION": 10
-        }
-        type VulkanHandleType = VulkanHandleTypeEnum[Exclude<keyof VulkanHandleTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanHandleType: VulkanHandleTypeEnum
-        }
-        
-        interface VulkanVideoOperationEnum {
-            readonly $gtype: GObject.GType<VulkanVideoOperation>
-            /**
-             * decode operation
-             */
-            readonly "DECODE": 0
-            /**
-             * encode operation
-             */
-            readonly "ENCODE": 1
-            /**
-             * unknown
-             */
-            readonly "UNKNOWN": 2
-        }
-        type VulkanVideoOperation = VulkanVideoOperationEnum[Exclude<keyof VulkanVideoOperationEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * The type of video operation.
-             * @since 1.24
-             */
-            VulkanVideoOperation: VulkanVideoOperationEnum
-        }
-        
-        interface VulkanWindowError extends GLib.Error {}
-
-        interface VulkanWindowErrorEnum {
-            readonly $gtype: GObject.GType<VulkanWindowError>
-
-            new(props: { message: string, code: number }): VulkanWindowError
-            /**
-             * failed
-             */
-            readonly "FAILED": 0
-            /**
-             * old libraries
-             */
-            readonly "OLD_LIBS": 1
-            /**
-             * resource unavailable
-             */
-            readonly "RESOURCE_UNAVAILABLE": 2
-            /**
-         * @since 1.18
-         */
-        quark: () => GLib.Quark
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanWindowError: VulkanWindowErrorEnum
-        }
-        
-        interface VulkanDisplayTypeBitfield {
-            readonly $gtype: GObject.GType<VulkanDisplayType>
-            /**
-             * no display
-             */
-            readonly "NONE": 0
-            /**
-             * XCB display
-             */
-            readonly "XCB": 1
-            /**
-             * wayland display
-             */
-            readonly "WAYLAND": 2
-            /**
-             * cocoa display for macOS
-             */
-            readonly "COCOA": 4
-            /**
-             * ios display
-             */
-            readonly "IOS": 8
-            /**
-             * win32 display
-             */
-            readonly "WIN32": 16
-            /**
-             */
-            readonly "ANDROID": 32
-            /**
-             * any display type
-             */
-            readonly "ANY": 4294967295
-        }
-        type VulkanDisplayType = number
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanDisplayType: VulkanDisplayTypeBitfield
-            /**
-         * @since 1.18
-         * @param type a #GstVulkanDisplayType
-         * @returns the Vulkan extension string required for creating a                      VkSurfaceKHR using a window system handle or %NULL
-         */
-        to_extension_string: (type: VulkanDisplayType) => string | null
-        }
-        
-        interface VulkanFormatFlagsBitfield {
-            readonly $gtype: GObject.GType<VulkanFormatFlags>
-            /**
-             * is a YUV format
-             */
-            readonly "YUV": 1
-            /**
-             * is a RGB format
-             */
-            readonly "RGB": 2
-            /**
-             * has an alpha channel
-             */
-            readonly "ALPHA": 4
-            /**
-             * data is stored in little-endiate byte order
-             */
-            readonly "LE": 8
-            /**
-             * data is stored complex and cannot be read/write only using the information in the #GstVulkanFormatInfo
-             */
-            readonly "COMPLEX": 16
-        }
-        type VulkanFormatFlags = number
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            VulkanFormatFlags: VulkanFormatFlagsBitfield
-        }
-        /**
-         * @since 1.18
-         * @param device
-         * @param queue
-         */
-        type VulkanDeviceForEachQueueFunc = (device: VulkanDevice, queue: VulkanQueue) => boolean
-        /**
-         * Function definition called when the #GstVulkanHandle is no longer in use.
-         * All implementations of this callback must free the internal handle stored
-         * inside @handle.
-         * @since 1.18
-         * @param handle the #GstVulkanHandle
-         */
-        type VulkanHandleDestroyNotify = (handle: VulkanHandle) => void
-        /**
-         * Function definition used to find views.  Return %TRUE if @view matches the
-         * criteria.
-         * @since 1.18
-         * @param view
-         */
-        type VulkanImageMemoryFindViewFunc = (view: VulkanImageView) => boolean
-        /**
-         * Add @trash to @trash_list for tracking
-         * @since 1.18
-         * @param trash_list the #GstVulkanTrashList instance
-         * @param trash the #GstVulkanTrash to add to @trash_list
-         * @returns whether `trash` could be added to `trash_list`
-         */
-        type VulkanTrashListAdd = (trash_list: VulkanTrashList, trash: VulkanTrash) => boolean
-        /**
-         * Remove any memory allocated by any signalled objects.
-         * @since 1.18
-         * @param trash_list the #GstVulkanTrashList instance
-         */
-        type VulkanTrashListGC = (trash_list: VulkanTrashList) => void
-        /**
-         * Wait for a most @timeout to pass for all #GstVulkanTrash objects to be
-         * signalled and freed.
-         * @since 1.18
-         * @param trash_list the #GstVulkanTrashList instance
-         * @param timeout the timeout in ns to wait
-         * @returns whether all objects were signalled and freed within the `timeout`
-         */
-        type VulkanTrashListWait = (trash_list: VulkanTrashList, timeout: number) => boolean
-        /**
-         * @since 1.18
-         * @param device the #GstVulkanDevice
-         */
-        type VulkanTrashNotify = (device: VulkanDevice) => void
-        /**
-         */
-        type VulkanHandleTypedef = number
-
-        interface $Exports {
-            __name__: "GstVulkan"
-            __version: "1.0"
-            CAPS_FEATURE_MEMORY_VULKAN_BUFFER: "memory:VulkanBuffer"
-            CAPS_FEATURE_MEMORY_VULKAN_IMAGE: "memory:VulkanImage"
-            VULKAN_BUFFER_MEMORY_ALLOCATOR_NAME: "VulkanBuffer"
-            VULKAN_DEVICE_CONTEXT_TYPE_STR: "gst.vulkan.device"
-            VULKAN_DISPLAY_CONTEXT_TYPE_STR: "gst.vulkan.display"
-            VULKAN_IMAGE_MEMORY_ALLOCATOR_NAME: "VulkanImage"
-            VULKAN_INSTANCE_CONTEXT_TYPE_STR: "gst.vulkan.instance"
-            VULKAN_MAX_COMPONENTS: 4
-            VULKAN_MEMORY_ALLOCATOR_NAME: "Vulkan"
-            VULKAN_QUEUE_CONTEXT_TYPE_STR: "gst.vulkan.queue"
-            VULKAN_SWAPPER_VIDEO_FORMATS: " { RGBA, BGRA, RGB, BGR } "
-            /**
-             * @since 1.18
-             * @param context a #GstContext
-             * @returns Whether `device` was in `context`, resulting #GstVulkanDevice
-             */
-            context_get_vulkan_device(context: Gst.Context): [boolean, VulkanDevice | null]
-            /**
-             * @since 1.18
-             * @param context a #GstContext
-             * @returns Whether `display` was in `context`, resulting #GstVulkanDisplay
-             */
-            context_get_vulkan_display(context: Gst.Context): [boolean, VulkanDisplay | null]
-            /**
-             * @since 1.18
-             * @param context a #GstContext
-             * @returns Whether `instance` was in `context`, resulting #GstVulkanInstance
-             */
-            context_get_vulkan_instance(context: Gst.Context): [boolean, VulkanInstance | null]
-            /**
-             * @since 1.18
-             * @param context a #GstContext
-             * @returns Whether `queue` was in `context`, resulting #GstVulkanQueue
-             */
-            context_get_vulkan_queue(context: Gst.Context): [boolean, VulkanQueue | null]
-            /**
-             * Sets @device on @context
-             * @since 1.18
-             * @param context a #GstContext
-             * @param device a #GstVulkanDevice
-             */
-            context_set_vulkan_device(context: Gst.Context, device: VulkanDevice | null): void
-            /**
-             * Sets @display on @context
-             * @since 1.18
-             * @param context a #GstContext
-             * @param display a #GstVulkanDisplay
-             */
-            context_set_vulkan_display(context: Gst.Context, display: VulkanDisplay | null): void
-            /**
-             * Sets @instance on @context
-             * @since 1.18
-             * @param context a #GstContext
-             * @param instance a #GstVulkanInstance
-             */
-            context_set_vulkan_instance(context: Gst.Context, instance: VulkanInstance | null): void
-            /**
-             * Sets @queue on @context
-             * @since 1.18
-             * @param context a #GstContext
-             * @param queue a #GstVulkanQueue
-             */
-            context_set_vulkan_queue(context: Gst.Context, queue: VulkanQueue | null): void
-            /**
-             * @since 1.18
-             * @param mem a #GstMemory
-             * @returns whether the memory at `mem` is a #GstVulkanBufferMemory
-             */
-            is_vulkan_buffer_memory(mem: Gst.Memory): boolean
-            /**
-             * @since 1.18
-             * @param mem a #GstMemory
-             * @returns whether the memory at `mem` is a #GstVulkanImageMemory
-             */
-            is_vulkan_image_memory(mem: Gst.Memory): boolean
-            /**
-             * @since 1.18
-             * @param mem a #GstMemory
-             * @returns whether the memory at `mem` is a #GstVulkanMemory
-             */
-            is_vulkan_memory(mem: Gst.Memory): boolean
-            /**
-             * Allocate a new #GstVulkanBufferMemory.
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param size size of the new buffer
-             * @param usage buffer usage flags
-             * @param mem_prop_flags memory properties flags for the backing memory
-             * @returns a #GstMemory object backed by a vulkan buffer          backed by vulkan device memory
-             */
-            vulkan_buffer_memory_alloc(device: VulkanDevice, size: number, usage: Vulkan.BufferUsageFlags, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
-            /**
-             * Allocate a new #GstVulkanBufferMemory.
-             * @since 1.24
-             * @param device a #GstVulkanDevice
-             * @param buffer_info the VkBufferCreateInfo structure
-             * @param mem_prop_flags memory properties flags for the backing memory
-             * @returns a #GstMemory object backed by a vulkan buffer          backed by vulkan device memory
-             */
-            vulkan_buffer_memory_alloc_with_buffer_info(device: VulkanDevice, buffer_info: Vulkan.BufferCreateInfo, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
-            /**
-             * Initializes the Vulkan buffer memory allocator. It is safe to call this function
-             * multiple times.  This must be called before any other #GstVulkanBufferMemory operation.
-             * @since 1.18
-             */
-            vulkan_buffer_memory_init_once(): void
-            /**
-             * Allocated a new wrapped #GstVulkanBufferMemory with @buffer.
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param buffer a `VkBuffer`
-             * @param usage usage flags of @buffer
-             * @param user_data user data to call @notify with
-             * @param notify a #GDestroyNotify called when @buffer is no longer in use
-             * @returns a #GstMemory object backed by a vulkan device memory
-             */
-            vulkan_buffer_memory_wrapped(device: VulkanDevice, buffer: Vulkan.Buffer, usage: Vulkan.BufferUsageFlags, user_data: never | null, notify: GLib.DestroyNotify | null): Gst.Memory
-            /**
-             * @throws {GLib.Error}
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param code the SPIR-V shader byte code
-             * @param size length of @code.  Must be a multiple of 4
-             * @returns a #GstVulkanHandle for `image` matching the                           original layout and format of `image` or %NULL
-             */
-            vulkan_create_shader(device: VulkanDevice, code: string, size: number): VulkanHandle
-            /**
+
+            interface VulkanHandlePoolClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanHandlePool>
+                readonly prototype: VulkanHandlePool
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanHandlePool>>): VulkanHandlePool
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanHandlePool: VulkanHandlePoolClass
+            }
+            
+
+            namespace VulkanImageBufferPool {
+                interface SignalSignatures extends Gst.BufferPool.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.BufferPool.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.BufferPool.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.BufferPool.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanImageBufferPool extends Gst.BufferPool {
+                readonly $signals: VulkanImageBufferPool.SignalSignatures
+                readonly $readableProperties: VulkanImageBufferPool.ReadableProperties
+                readonly $writableProperties: VulkanImageBufferPool.WritableProperties
+                readonly $constructOnlyProperties: VulkanImageBufferPool.ConstructOnlyProperties
+            }
+
+            interface VulkanImageBufferPoolClass extends Omit<Gst.BufferPoolClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanImageBufferPool>
+                readonly prototype: VulkanImageBufferPool
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanImageBufferPool>>): VulkanImageBufferPool
+                /**
+                 * @since 1.18
+                 * @param device the #GstVulkanDevice to use
+                 * @returns a #GstBufferPool that allocates buffers with #GstGLMemory
+                 */
+                "new"(device: VulkanDevice): VulkanImageBufferPool
+                /**
+                 * Gets the configuration of the Vulkan image buffer pool.
+                 * @since 1.26
+                 * @param config the #GstStructure with the pool's configuration.
+                 * @returns , The Vulkan image usage flags., Vulkan memory property flags., Initial Vulkan image layout., Initial Vulkan access flags.
+                 */
+                config_get_allocation_params(config: Gst.Structure): [Vulkan.ImageUsageFlags, Vulkan.MemoryPropertyFlags, Vulkan.ImageLayout, number]
+                /**
+                 * Sets the `usage` and `mem_properties`, `initial_layout` and `initial_access` of
+                 * the images to setup.
+                 *
+                 * If `initial_access` is VK_IMAGE_LAYOUT_UNDEFINED or
+                 * VK_IMAGE_LAYOUT_PREINITIALIZED, the image crated by this pool has not been
+                 * initialized to a particular layout
+                 * @since 1.24
+                 * @param config the #GstStructure with the pool's configuration.
+                 * @param usage The Vulkan image usage flags.
+                 * @param mem_properties Vulkan memory property flags.
+                 * @param initial_layout Initial Vulkan image layout.
+                 * @param initial_access Access flags for the layout transition if `initial_layout` is not VK_IMAGE_LAYOUT_UNDEFINED or VK_IMAGE_LAYOUT_PREINITIALIZED.
+                 */
+                config_set_allocation_params(config: Gst.Structure, usage: Vulkan.ImageUsageFlags, mem_properties: Vulkan.MemoryPropertyFlags, initial_layout: Vulkan.ImageLayout, initial_access: number): void
+                /**
+                 * Decode `caps` are used when the buffers are going to be used either as decoded
+                 * dest or DPB images.
+                 * @since 1.24
+                 * @param config the #GstStructure with the pool's configuration.
+                 * @param caps Upstream decode caps.
+                 */
+                config_set_decode_caps(config: Gst.Structure, caps: Gst.Caps): void
+                /**
+                 * Encode `caps` are used when the buffers are going to be used either as encoded
+                 * src or DPB images.
+                 * @since 1.26
+                 * @param config the #GstStructure with the pool's configuration.
+                 * @param caps Upstream encode caps.
+                 */
+                config_set_encode_caps(config: Gst.Structure, caps: Gst.Caps): void
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanImageBufferPool: VulkanImageBufferPoolClass
+            }
+            
+
+            namespace VulkanImageMemoryAllocator {
+                interface SignalSignatures extends Gst.Allocator.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Allocator.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.Allocator.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Allocator.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanImageMemoryAllocator extends Gst.Allocator {
+                readonly $signals: VulkanImageMemoryAllocator.SignalSignatures
+                readonly $readableProperties: VulkanImageMemoryAllocator.ReadableProperties
+                readonly $writableProperties: VulkanImageMemoryAllocator.WritableProperties
+                readonly $constructOnlyProperties: VulkanImageMemoryAllocator.ConstructOnlyProperties
+            }
+
+            interface VulkanImageMemoryAllocatorClass extends Omit<Gst.AllocatorClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanImageMemoryAllocator>
+                readonly prototype: VulkanImageMemoryAllocator
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanImageMemoryAllocator>>): VulkanImageMemoryAllocator
+            }
+
+            interface $Exports {
+                /**
+                 * Opaque #GstVulkanImageMemoryAllocator struct
+                 * @since 1.18
+                 */
+                VulkanImageMemoryAllocator: VulkanImageMemoryAllocatorClass
+            }
+            
+
+            namespace VulkanInstance {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                    /**
+                     * Overrides the #GstVulkanDevice creation mechanism.
+                     * It can be called from any thread.
+                     * @since 1.26
+                     * @param device_index the index of the device
+                     * @returns the newly created #GstVulkanDevice.
+                     */
+                    "create-device"(device_index: number): VulkanDevice
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "requested-api-major": number
+                    "requested-api-minor": number
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "requested-api-major": number
+                    "requested-api-minor": number
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanInstance extends Gst.Object {
+                readonly $signals: VulkanInstance.SignalSignatures
+                readonly $readableProperties: VulkanInstance.ReadableProperties
+                readonly $writableProperties: VulkanInstance.WritableProperties
+                readonly $constructOnlyProperties: VulkanInstance.ConstructOnlyProperties
+                /**
+                 * @since 1.18
+                 * @default 0
+                 */
+                get requestedApiMajor(): number
+                set requestedApiMajor(value: number)
+                /**
+                 * @since 1.18
+                 * @default 0
+                 */
+                get requestedApiMinor(): number
+                set requestedApiMinor(value: number)
+                /**
+                 * @since 1.26
+                 * @param major the API major version to check
+                 * @param minor the API minor version to check
+                 * @param patch the API patch version to check
+                 * @returns whether the #GstVulkanInstance supports the version specified          by `major`, `minor` and `patch`.
+                 */
+                check_api_version(major: number, minor: number, patch: number): boolean
+                /**
+                 * Check if the configured vulkan instance supports the specified version.
+                 * Will not work prior to opening the instance with gst_vulkan_instance_open().
+                 * If a specific version is requested, the `patch` level is ignored.
+                 * @since 1.18
+                 * @param major major version
+                 * @param minor minor version
+                 * @param patch patch version
+                 * @returns whether `instance` is at least the requested version.
+                 */
+                check_version(major: number, minor: number, patch: number): boolean
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @returns a new #GstVulkanDevice
+                 */
+                create_device(): VulkanDevice
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.26
+                 * @param device_index the device index to create the new #GstVulkanDevice from
+                 * @returns a new #GstVulkanDevice
+                 */
+                create_device_with_index(device_index: number): VulkanDevice
+                /**
+                 * Disable an Vulkan extension by `name`.  Disabling an extension will only have
+                 * an effect before the call to gst_vulkan_instance_open().
+                 * @since 1.18
+                 * @param name extension name to enable
+                 * @returns whether the Vulkan extension could be disabled.
+                 */
+                disable_extension(name: string): boolean
+                /**
+                 * Enable an Vulkan extension by `name`.  Extensions cannot be enabled until
+                 * gst_vulkan_instance_fill_info() has been called.  Enabling an extension will
+                 * only have an effect before the call to gst_vulkan_instance_open().
+                 * @since 1.18
+                 * @param name extension name to enable
+                 * @returns whether the Vulkan extension could be enabled.
+                 */
+                enable_extension(name: string): boolean
+                /**
+                 * Enable an Vulkan layer by `name`.  Layer cannot be enabled until
+                 * gst_vulkan_instance_fill_info() has been called.  Enabling a layer will
+                 * only have an effect before the call to gst_vulkan_instance_open().
+                 * @since 1.18
+                 * @param name layer name to enable
+                 * @returns whether the Vulkan layer could be enabled.
+                 */
+                enable_layer(name: string): boolean
+                /**
+                 * Retrieve as much information about the available Vulkan instance without
+                 * actually creating an Vulkan instance.  Will not do anything while `instance`
+                 * is open.
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @returns whether the instance information could be retrieved
+                 */
+                fill_info(): boolean
+                /**
+                 * Returns the vulkan API version configured when constructing the
+                 * #GstVulkanInstance. This value can be any valid Vulkan API version and may
+                 * not match gst_vulkan_instance_get_version() in any way.  This version is the
+                 * maximum allowed vulkan API to be used in any capacity.
+                 *
+                 * This will not return valid values until gst_vulkan_instance_open() has been
+                 * called.
+                 * @since 1.26
+                 * @returns , major version, minor version, patch version
+                 */
+                get_api_version(): [number, number, number]
+                /**
+                 * Retrieves information about an extension.
+                 *
+                 * Will not find any extensions before gst_vulkan_instance_fill_info() has been
+                 * called.
+                 * @since 1.18
+                 * @param name the layer name to look for
+                 * @returns whether extension `name` is available, return value for the layer specification version
+                 */
+                get_extension_info(name: string): [boolean, number | null]
+                /**
+                 * Retrieves information about a layer.
+                 *
+                 * Will not find any layers before gst_vulkan_instance_fill_info() has been
+                 * called.
+                 * @since 1.18
+                 * @param name the layer name to look for
+                 * @returns whether layer `name` is available, return value for the layer description or %NULL, return value for the layer specification version, return value for the layer implementation version
+                 */
+                get_layer_info(name: string): [boolean, string | null, number | null, number | null]
+                /**
+                 * Performs `vkGetInstanceProcAddr()` with `instance` and `name`
+                 * @since 1.18
+                 * @param name name of the function to retrieve
+                 * @returns the function pointer for `name` or %NULL
+                 */
+                get_proc_address(name: string): never | null
+                /**
+                 * Retrieve the vulkan instance supported version.  Only returns the supported
+                 * API version by the instance without taking into account the requested API
+                 * version.  This means gst_vulkan_instance_check_version() will return
+                 * different values if a specific version has been requested (which is the
+                 * default) than a version check that is performed manually by retrieving the
+                 * version with this function.
+                 * @since 1.18
+                 * @returns , major version, minor version, patch version
+                 */
+                get_version(): [number, number, number]
+                /**
+                 * @since 1.18
+                 * @param name extension name
+                 * @returns whether extension `name` is enabled
+                 */
+                is_extension_enabled(name: string): boolean
+                /**
+                 * @since 1.18
+                 * @param name layer name
+                 * @returns whether layer `name` is enabled
+                 */
+                is_layer_enabled(name: string): boolean
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @returns whether the instance could be created
+                 */
+                open(): boolean
+            }
+
+            interface VulkanInstanceClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanInstance>
+                readonly prototype: VulkanInstance
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanInstance>>): VulkanInstance
+                /**
+                 * @since 1.18
+                 * @returns a new uninitialized #GstVulkanInstance
+                 */
+                "new"(): VulkanInstance
+                /**
+                 * If a #GstVulkanInstance is requested in `query`, sets `instance` as the reply.
+                 *
+                 * Intended for use with element query handlers to respond to #GST_QUERY_CONTEXT
+                 * for a #GstVulkanInstance.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @param query a #GstQuery of type #GST_QUERY_CONTEXT
+                 * @param instance the #GstVulkanInstance
+                 * @returns whether `query` was responded to with `instance`
+                 */
+                handle_context_query(element: Gst.Element, query: Gst.Query, instance: VulkanInstance | null): boolean
+                /**
+                 * Attempt to retrieve a #GstVulkanInstance using #GST_QUERY_CONTEXT from the
+                 * surrounding elements of `element`.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @returns whether `instance` contains a valid #GstVulkanInstance, a #GstVulkanInstance
+                 */
+                run_context_query(element: Gst.Element, instance: VulkanInstance): [boolean, VulkanInstance]
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanInstance: VulkanInstanceClass
+            }
+            
+
+            namespace VulkanMemoryAllocator {
+                interface SignalSignatures extends Gst.Allocator.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Allocator.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.Allocator.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Allocator.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanMemoryAllocator extends Gst.Allocator {
+                readonly $signals: VulkanMemoryAllocator.SignalSignatures
+                readonly $readableProperties: VulkanMemoryAllocator.ReadableProperties
+                readonly $writableProperties: VulkanMemoryAllocator.WritableProperties
+                readonly $constructOnlyProperties: VulkanMemoryAllocator.ConstructOnlyProperties
+            }
+
+            interface VulkanMemoryAllocatorClass extends Omit<Gst.AllocatorClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanMemoryAllocator>
+                readonly prototype: VulkanMemoryAllocator
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanMemoryAllocator>>): VulkanMemoryAllocator
+            }
+
+            interface $Exports {
+                /**
+                 * Opaque #GstVulkanMemoryAllocator struct
+                 * @since 1.18
+                 */
+                VulkanMemoryAllocator: VulkanMemoryAllocatorClass
+            }
+            
+
+            namespace VulkanOperation {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "command-pool": VulkanCommandPool
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                    "command-pool": VulkanCommandPool
+                }
+            }
+
+            interface VulkanOperation extends Gst.Object {
+                readonly $signals: VulkanOperation.SignalSignatures
+                readonly $readableProperties: VulkanOperation.ReadableProperties
+                readonly $writableProperties: VulkanOperation.WritableProperties
+                readonly $constructOnlyProperties: VulkanOperation.ConstructOnlyProperties
+                /**
+                 */
+                get commandPool(): VulkanCommandPool
+                set commandPool(value: VulkanCommandPool)
+                /**
+                 * Add `frame` as an operation dependency by adding the timeline semaphores in
+                 * each memory of `frame` into either the wait semaphore array. The signal array
+                 * hold the same semaphores but increasing their current value.
+                 * @param frame a Vulkan Image #GstBuffer
+                 * @param wait_stage pipeline stage to wait (VkPipelineStageFlags or   VkPipelineStageFlags2)
+                 * @param signal_stage pipeline stage to signal (VkPipelineStageFlags or   VkPipelineStageFlags2)
+                 * @returns whether the `frame` was added as dependency.
+                 */
+                add_dependency_frame(frame: Gst.Buffer, wait_stage: number, signal_stage: number): boolean
+                /**
+                 * See also: gst_vulkan_operation_update_frame()
+                 *
+                 * Adds an image memory barrier per memory in `frame` with its future state. And
+                 * it updates the `frame` barrier state by calling internally
+                 * gst_vulkan_operation_update_frame().
+                 * @param frame a Vulkan Image #GstBuffer
+                 * @param src_stage source pipeline stage (VkPipelineStageFlags or   VkPipelineStageFlags2)
+                 * @param dst_stage destination pipeline stage (VkPipelineStageFlags or   VkPipelineStageFlags2)
+                 * @param new_access the new access flags (VkAccessFlags2 or VkAccessFlags)
+                 * @param new_layout the new VkImageLayout
+                 * @param new_queue destination #GstVulkanQueue for a transfer of `frame`   ownership
+                 * @returns whether the `frame` barriers were appended
+                 */
+                add_frame_barrier(frame: Gst.Buffer, src_stage: number, dst_stage: number, new_access: number, new_layout: Vulkan.ImageLayout, new_queue: VulkanQueue | null): boolean
+                /**
+                 * See also: gst_vulkan_operation_end() and gst_vulkan_operation_reset()
+                 *
+                 * Attempts to set the operation ready to work. It instantiates the common
+                 * command buffer in `self` and calls vkBeginCommandBuffer.
+                 *
+                 * After calling this function you can register commands in the command buffer,
+                 * and finally call gst_vulkan_operation_end(). gst_vulkan_operation_reset() is
+                 * called internally if something failed.
+                 * @throws {GLib.Error}
+                 * @returns whether the operation started. It might fill `error`.
+                 */
+                begin(): boolean
+                /**
+                 * Begins a query operation with `id` in the current command buffer. If video maintenance1 extension
+                 * is available the query will be recorded as a video inline query. If NULL is passed to `base`,
+                 * the query will be recorded as a normal query anyway.
+                 * @since 1.26
+                 * @param base a VkBaseInStructure base
+                 * @param id query id
+                 * @returns whether the begin command was set
+                 */
+                begin_query(base: Vulkan.BaseInStructure, id: number): boolean
+                /**
+                 * Discards barriers, and all the semaphore arrays populated by
+                 * gst_vulkan_operation_add_dependency_frame().
+                 */
+                discard_dependencies(): void
+                /**
+                 * Tries to enable the query pool for the current operation.
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param query_type the VkQueryType to enable
+                 * @param n_queries number of queries to enable
+                 * @param pnext the structure pointer to use as pNext
+                 * @returns whether the query pool was enabled. It might populate `error` in case    of error.
+                 */
+                enable_query(query_type: number, n_queries: number, pnext: never | null): boolean
+                /**
+                 * See also: gst_vulkan_operation_begin() and gst_vulkan_operation_reset()
+                 *
+                 * It calls vkEndCommandBuffer, and later either vkQueueSubmit or
+                 * vkQueueSubmit2KHR filling up the semaphores from images declared as
+                 * dependencies.
+                 *
+                 * You have called gst_vulkan_operation_begin() before.
+                 * gst_vulkan_operation_reset() is called internally if something fails
+                 * @throws {GLib.Error}
+                 * @returns whether the operation failed. It might fill `error`.
+                 */
+                end(): boolean
+                /**
+                 * Ends a query operation with `id` in the current command buffer. A query with
+                 *  `id` has had started with gst_vulkan_operation_begin_query()
+                 * @param id query id
+                 * @returns whether the end command was set
+                 */
+                end_query(id: number): boolean
+                /**
+                 * Gets the latest operation results of all the queries in `data`. API users have
+                 * to parse the binary array of `data` according of their needs (usually is a
+                 * guint32 array of size of n_query).
+                 *
+                 * Don't free `data`.
+                 * @throws {GLib.Error}
+                 * @returns whether a status was fetched. If not, it might populate `error`, result of all queries
+                 */
+                get_query(): [boolean, never | null]
+                /**
+                 * It's a wrapper to vkCmdPipelineBarrier2{KHR} if it's available.
+                 * @param dependency_info a pointer to VkDependencyInfo
+                 * @returns %TRUE if vkCmdPipelineBarrier2{KHR} it's available. %FALSE,   otherwise.
+                 */
+                pipeline_barrier2(dependency_info: never | null): boolean
+                /**
+                 * Resets the operation to a clean state.
+                 */
+                reset(): void
+                /**
+                 * Add or update the internal list of the future state of `frame`. This state
+                 * will be set after gst_vulkan_operation_end().
+                 *
+                 * This method is useful when new barriers are added to the array without using
+                 * gst_vulkan_operation_add_frame_barrier().
+                 * @param frame a #GstBuffer to update after submit
+                 * @param dst_stage destination pipeline stage (VkPipelineStageFlags or   VkPipelineStageFlags2)
+                 * @param new_access the new access flags (VkAccessFlags2 or VkAccessFlags)
+                 * @param new_layout the new VkImageLayout
+                 * @param new_queue destination #GstVulkanQueue for a transfer of `frame`   ownership
+                 */
+                update_frame(frame: Gst.Buffer, dst_stage: number, new_access: number, new_layout: Vulkan.ImageLayout, new_queue: VulkanQueue | null): void
+                /**
+                 * @returns whether the operations are using synchronization2 extension.
+                 */
+                use_sync2(): boolean
+                /**
+                 * Waits for the operation's fence to signal.
+                 * @returns whether the operation succeed.
+                 */
+                wait(): boolean
+            }
+
+            interface VulkanOperationClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanOperation>
+                readonly prototype: VulkanOperation
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanOperation>>): VulkanOperation
+                /**
+                 * @param cmd_pool a #GstVulkanCommandPool
+                 * @returns a newly allocated #GstVulkanOperation
+                 */
+                "new"(cmd_pool: VulkanCommandPool): VulkanOperation
+            }
+
+            interface $Exports {
+                /**
+                 * When using the operation `cmd_buf`, you should lock it using
+                 * gst_vulkan_command_buffer_lock(), but you have to unlock it, with
+                 * gst_vulkan_command_buffer_unlock(), when calling any of #GstVulkanOperation
+                 * methods.
+                 * @since 1.24
+                 */
+                VulkanOperation: VulkanOperationClass
+            }
+            
+
+            namespace VulkanPhysicalDevice {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "device-index": number
+                    "instance": VulkanInstance
+                    "name": string
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "name": string
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                    "device-index": number
+                    "instance": VulkanInstance
+                }
+            }
+
+            interface VulkanPhysicalDevice extends Gst.Object {
+                readonly $signals: VulkanPhysicalDevice.SignalSignatures
+                readonly $readableProperties: VulkanPhysicalDevice.ReadableProperties
+                readonly $writableProperties: VulkanPhysicalDevice.WritableProperties
+                readonly $constructOnlyProperties: VulkanPhysicalDevice.ConstructOnlyProperties
+                /**
+                 * @default 0
+                 */
+                get deviceIndex(): number
+                set deviceIndex(value: number)
+                /**
+                 */
+                get instance(): VulkanInstance
+                set instance(value: VulkanInstance)
+                /**
+                 * @default NULL
+                 */
+                get name(): string
+                set name(value: string)
+                /**
+                 * Note: This is the intersection of the exposed supported API version as would
+                 * be returned by gst_vulkan_physical_device_get_api_version() and
+                 * gst_vulkan_instance_check_version().  The latter will take into account any
+                 * requested API version and may result in a different result than directly
+                 * comparing against gst_vulkan_instance_get_version().
+                 * @since 1.26
+                 * @param major the API major version to check
+                 * @param minor the API minor version to check
+                 * @param patch the API patch version to check
+                 * @returns whether the #GstVulkanPhysicalDevice supports the version specified          by `major`, `minor` and `patch`.
+                 */
+                check_api_version(major: number, minor: number, patch: number): boolean
+                /**
+                 * Retrieves the advertised Vulkan API version of the #GstVulkanPhysicalDevice.
+                 * @since 1.26
+                 * @returns , major version, minor version, patch version
+                 */
+                get_api_version(): [number, number, number]
+                /**
+                 * Retrieves information about a device extension.
+                 *
+                 * Will not find any extensions before gst_vulkan_instance_fill_info() has been
+                 * called.
+                 * @since 1.18
+                 * @param name the extension name to look for
+                 * @returns whether extension `name` is available, return value for the exteion specification version
+                 */
+                get_extension_info(name: string): [boolean, number | null]
+                /**
+                 * @since 1.18
+                 * @returns The #GstVulkanInstance associated with this physical device
+                 */
+                get_instance(): VulkanInstance
+                /**
+                 * Retrieves information about a layer.
+                 *
+                 * Will not find any layers before gst_vulkan_instance_fill_info() has been
+                 * called.
+                 * @since 1.18
+                 * @param name the layer name to look for
+                 * @returns whether layer `name` is available, return value for the layer description or %NULL, return value for the layer specification version, return value for the layer implementation version
+                 */
+                get_layer_info(name: string): [boolean, string | null, number | null, number | null]
+            }
+
+            interface VulkanPhysicalDeviceClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanPhysicalDevice>
+                readonly prototype: VulkanPhysicalDevice
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanPhysicalDevice>>): VulkanPhysicalDevice
+                /**
+                 * @since 1.18
+                 * @param instance the parent #GstVulkanInstance
+                 * @param device_index
+                 * @returns a new #GstVulkanPhysicalDevice
+                 */
+                "new"(instance: VulkanInstance, device_index: number): VulkanPhysicalDevice
+                /**
+                 * @since 1.18
+                 * @param type a `VkPhysicalDeviceType
+                 * @returns name of `type`
+                 */
+                type_to_string(type: Vulkan.PhysicalDeviceType): string
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanPhysicalDevice: VulkanPhysicalDeviceClass
+            }
+            
+
+            namespace VulkanQueue {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanQueue extends Gst.Object {
+                readonly $signals: VulkanQueue.SignalSignatures
+                readonly $readableProperties: VulkanQueue.ReadableProperties
+                readonly $writableProperties: VulkanQueue.WritableProperties
+                readonly $constructOnlyProperties: VulkanQueue.ConstructOnlyProperties
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @returns a new #GstVulkanCommandPool or %NULL
+                 */
+                create_command_pool(): VulkanCommandPool
+                /**
+                 * @since 1.18
+                 * @returns the #GstVulkanDevice for `queue`
+                 */
+                get_device(): VulkanDevice | null
+                /**
+                 * Locks the queue for command submission using `vkQueueSubmit()` to meet the
+                 * Vulkan requirements for externally synchronised resources.
+                 * @since 1.18
+                 */
+                submit_lock(): void
+                /**
+                 * Unlocks the queue for command submission using `vkQueueSubmit()`.
+                 *
+                 * See gst_vulkan_queue_submit_lock() for details on when this call is needed.
+                 * @since 1.18
+                 */
+                submit_unlock(): void
+            }
+
+            interface VulkanQueueClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanQueue>
+                readonly prototype: VulkanQueue
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanQueue>>): VulkanQueue
+                /**
+                 * @since 1.18
+                 * @param queue_bits
+                 */
+                flags_to_string(queue_bits: Vulkan.QueueFlags): string
+                /**
+                 * If a #GstVulkanQueue is requested in `query`, sets `queue` as the reply.
+                 *
+                 * Intended for use with element query handlers to respond to #GST_QUERY_CONTEXT
+                 * for a #GstVulkanQueue.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @param query a #GstQuery of type #GST_QUERY_CONTEXT
+                 * @param queue the #GstVulkanQueue
+                 * @returns whether `query` was responded to with `queue`
+                 */
+                handle_context_query(element: Gst.Element, query: Gst.Query, queue: VulkanQueue | null): boolean
+                /**
+                 * Attempt to retrieve a #GstVulkanQueue using #GST_QUERY_CONTEXT from the
+                 * surrounding elements of `element`.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @returns whether `queue` contains a valid #GstVulkanQueue, a #GstVulkanQueue
+                 */
+                run_context_query(element: Gst.Element, queue: VulkanQueue): [boolean, VulkanQueue]
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanQueue: VulkanQueueClass
+            }
+            
+
+            namespace VulkanSwapper {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "force-aspect-ratio": boolean
+                    "pixel-aspect-ratio": Gst.Fraction
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "force-aspect-ratio": boolean
+                    "pixel-aspect-ratio": Gst.Fraction
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanSwapper extends Gst.Object {
+                readonly $signals: VulkanSwapper.SignalSignatures
+                readonly $readableProperties: VulkanSwapper.ReadableProperties
+                readonly $writableProperties: VulkanSwapper.WritableProperties
+                readonly $constructOnlyProperties: VulkanSwapper.ConstructOnlyProperties
+                /**
+                 * @default TRUE
+                 */
+                get forceAspectRatio(): boolean
+                set forceAspectRatio(value: boolean)
+                /**
+                 * @default 1/1
+                 */
+                get pixelAspectRatio(): Gst.Fraction
+                set pixelAspectRatio(value: Gst.Fraction)
+                /**
+                 * @throws {GLib.Error}
+                 * @param available_queue a #GstVulkanQueue chosen elsewhere
+                 */
+                choose_queue(available_queue: VulkanQueue | null): boolean
+                /**
+                 * @throws {GLib.Error}
+                 */
+                get_supported_caps(): Gst.Caps
+                /**
+                 * @since 1.18
+                 * @returns , The #GstVideoRectangle for the configured      caps modified for DAR., The #GstVideoRectangle for where the      output surface is located relative to its parent, The #GstVideoRectangle for where the input      images are placed inside `surface_location`
+                 */
+                get_surface_rectangles(): [GstVideo.VideoRectangle | null, GstVideo.VideoRectangle | null, GstVideo.VideoRectangle | null]
+                /**
+                 * @throws {GLib.Error}
+                 * @param buffer
+                 */
+                render_buffer(buffer: Gst.Buffer): boolean
+                /**
+                 * @throws {GLib.Error}
+                 * @param caps
+                 */
+                set_caps(caps: Gst.Caps): boolean
+            }
+
+            interface VulkanSwapperClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanSwapper>
+                readonly prototype: VulkanSwapper
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanSwapper>>): VulkanSwapper
+                /**
+                 * @param device
+                 * @param window
+                 */
+                "new"(device: VulkanDevice, window: VulkanWindow): VulkanSwapper
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanSwapper: VulkanSwapperClass
+            }
+            
+
+            namespace VulkanTrashFenceList {
+                interface SignalSignatures extends VulkanTrashList.SignalSignatures {
+                }
+
+                interface ReadableProperties extends VulkanTrashList.ReadableProperties {
+                }
+
+                interface WritableProperties extends VulkanTrashList.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends VulkanTrashList.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanTrashFenceList extends VulkanTrashList {
+                readonly $signals: VulkanTrashFenceList.SignalSignatures
+                readonly $readableProperties: VulkanTrashFenceList.ReadableProperties
+                readonly $writableProperties: VulkanTrashFenceList.WritableProperties
+                readonly $constructOnlyProperties: VulkanTrashFenceList.ConstructOnlyProperties
+            }
+
+            interface VulkanTrashFenceListClass extends Omit<VulkanTrashListClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanTrashFenceList>
+                readonly prototype: VulkanTrashFenceList
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanTrashFenceList>>): VulkanTrashFenceList
+                /**
+                 * @returns a new #gst_vulkan_trash_fence_list_new
+                 */
+                "new"(): VulkanTrashFenceList
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanTrashFenceList: VulkanTrashFenceListClass
+            }
+            
+
+            namespace VulkanTrashList {
+                interface SignalSignatures extends VulkanHandlePool.SignalSignatures {
+                }
+
+                interface ReadableProperties extends VulkanHandlePool.ReadableProperties {
+                }
+
+                interface WritableProperties extends VulkanHandlePool.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends VulkanHandlePool.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanTrashList extends VulkanHandlePool {
+                readonly $signals: VulkanTrashList.SignalSignatures
+                readonly $readableProperties: VulkanTrashList.ReadableProperties
+                readonly $writableProperties: VulkanTrashList.WritableProperties
+                readonly $constructOnlyProperties: VulkanTrashList.ConstructOnlyProperties
+                /**
+                 * @since 1.18
+                 * @param fence a #GstVulkanFence to wait for signalling
+                 * @param notify notify function for when `fence` is signalled
+                 * @returns a new or reused #GstVulkanTrash for the provided          parameters.
+                 */
+                acquire(fence: VulkanFence, notify: VulkanTrashNotify): VulkanTrash
+                /**
+                 * @since 1.18
+                 * @param trash #GstVulkanTrash object to add to the list
+                 * @returns whether `trash` could be added to `trash_list`
+                 */
+                add(trash: VulkanTrash): boolean
+                /**
+                 * Remove any stored #GstVulkanTrash objects that have had their associated
+                 * #GstVulkanFence signalled.
+                 * @since 1.18
+                 */
+                gc(): void
+                /**
+                 * @since 1.18
+                 * @param timeout timeout in ns to wait, -1 for indefinite
+                 * @returns whether the wait succeeded in waiting for all objects to be freed.
+                 */
+                wait(timeout: number): boolean
+                /**
+                 * the #GstVulkanTrashListAdd functions
+                 * @param trash the #GstVulkanTrash to add to `trash_list`
+                 * @returns whether `trash` could be added to `trash_list`
+                 */
+                vfunc_add_func(trash: VulkanTrash): boolean
+                /**
+                 * the #GstVulkanTrashListGC function
+                 */
+                vfunc_gc_func(): void
+                /**
+                 * the #GstVulkanTrashListWait function
+                 * @param timeout the timeout in ns to wait
+                 * @returns whether all objects were signalled and freed within the `timeout`
+                 */
+                vfunc_wait_func(timeout: number): boolean
+            }
+
+            interface VulkanTrashListClass extends Omit<VulkanHandlePoolClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanTrashList>
+                readonly prototype: VulkanTrashList
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanTrashList>>): VulkanTrashList
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanTrashList: VulkanTrashListClass
+            }
+            
+
+            namespace VulkanVideoFilter {
+                interface SignalSignatures extends GstBase.BaseTransform.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstBase.BaseTransform.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstBase.BaseTransform.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstBase.BaseTransform.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanVideoFilter extends GstBase.BaseTransform {
+                readonly $signals: VulkanVideoFilter.SignalSignatures
+                readonly $readableProperties: VulkanVideoFilter.ReadableProperties
+                readonly $writableProperties: VulkanVideoFilter.WritableProperties
+                readonly $constructOnlyProperties: VulkanVideoFilter.ConstructOnlyProperties
+                /**
+                 * @since 1.26
+                 * @returns The currently configured     #GstVulkanDevice
+                 */
+                get_device(): VulkanDevice | null
+                /**
+                 * @since 1.26
+                 * @returns The currently configured     #GstVulkanInstance
+                 */
+                get_instance(): VulkanInstance | null
+                /**
+                 * @since 1.26
+                 * @returns The currently configured     #GstVulkanQueue
+                 */
+                get_queue(): VulkanQueue | null
+            }
+
+            interface VulkanVideoFilterClass extends Omit<GstBase.BaseTransformClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanVideoFilter>
+                readonly prototype: VulkanVideoFilter
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanVideoFilter>>): VulkanVideoFilter
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanVideoFilter: VulkanVideoFilterClass
+            }
+            
+
+            namespace VulkanWindow {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                    /**
+                     */
+                    "close"(): boolean
+                    /**
+                     */
+                    "draw"(): void
+                    /**
+                     * Will be emitted when a key event is received by the #GstVulkanWindow.
+                     * @since 1.18
+                     * @param id the name of the event
+                     * @param key the id of the key pressed
+                     */
+                    "key-event"(id: string, key: string): void
+                    /**
+                     * Will be emitted when a mouse event is received by the #GstVulkanWindow.
+                     * @since 1.18
+                     * @param id the name of the event
+                     * @param button the id of the button
+                     * @param x the x coordinate of the mouse event
+                     * @param y the y coordinate of the mouse event
+                     */
+                    "mouse-event"(id: string, button: number, x: number, y: number): void
+                    /**
+                     * @param object
+                     * @param p0
+                     */
+                    "resize"(object: number, p0: number): void
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "display": VulkanDisplay
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "display": VulkanDisplay
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface VulkanWindow extends Gst.Object {
+                readonly $signals: VulkanWindow.SignalSignatures
+                readonly $readableProperties: VulkanWindow.ReadableProperties
+                readonly $writableProperties: VulkanWindow.WritableProperties
+                readonly $constructOnlyProperties: VulkanWindow.ConstructOnlyProperties
+                /**
+                 */
+                get display(): VulkanDisplay
+                set display(value: VulkanDisplay)
+                /**
+                 * Attempt to close the window.
+                 * @since 1.18
+                 */
+                close(): void
+                /**
+                 * @since 1.18
+                 * @returns the #GstVulkanDisplay for `window`
+                 */
+                get_display(): VulkanDisplay
+                /**
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param queue_family_idx the queue family
+                 * @returns whether the given combination of `window`, `device` and          `queue_family_idx` supports presentation
+                 */
+                get_presentation_support(device: VulkanDevice, queue_family_idx: number): boolean
+                /**
+                 * @since 1.18
+                 * @returns , Current width of `window`, Current height of `window`
+                 */
+                get_surface_dimensions(): [number, number]
+                /**
+                 * Tell a `window` that it should handle events from the window system. These
+                 * events are forwarded upstream as navigation events. In some window systems
+                 * events are not propagated in the window hierarchy if a client is listening
+                 * for them. This method allows you to disable events handling completely
+                 * from the `window`.
+                 * @since 1.18
+                 * @param handle_events a #gboolean indicating if events should be handled or not.
+                 */
+                handle_events(handle_events: boolean): void
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @returns whether `window` could be successfully opened
+                 */
+                open(): boolean
+                /**
+                 * Ask the `window` to redraw its contents
+                 * @since 1.18
+                 */
+                redraw(): void
+                /**
+                 * Resize the output surface.
+                 *
+                 * Currently intended for subclasses to update internal state.
+                 * @since 1.18
+                 * @param width the new width
+                 * @param height the new height
+                 */
+                resize(width: number, height: number): void
+                /**
+                 * @param event_type
+                 * @param key_str
+                 */
+                send_key_event(event_type: string, key_str: string): void
+                /**
+                 * @param event_type
+                 * @param button
+                 * @param posx
+                 * @param posy
+                 */
+                send_mouse_event(event_type: string, button: number, posx: number, posy: number): void
+                /**
+                 * @param handle
+                 */
+                set_window_handle(handle: never): void
+                /**
+                 * Attempt to close the window.
+                 * @since 1.18
+                 */
+                vfunc_close(): void
+                /**
+                 * retrieve whether this window supports presentation
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param queue_family_idx the queue family
+                 * @returns whether the given combination of `window`, `device` and          `queue_family_idx` supports presentation
+                 */
+                vfunc_get_presentation_support(device: VulkanDevice, queue_family_idx: number): boolean
+                /**
+                 * retrieve the current size of the window
+                 * @since 1.18
+                 * @returns , Current width of `window`, Current height of `window`
+                 */
+                vfunc_get_surface_dimensions(): [number, number]
+                /**
+                 * Tell a `window` that it should handle events from the window system. These
+                 * events are forwarded upstream as navigation events. In some window systems
+                 * events are not propagated in the window hierarchy if a client is listening
+                 * for them. This method allows you to disable events handling completely
+                 * from the `window`.
+                 * @since 1.18
+                 * @param handle_events a #gboolean indicating if events should be handled or not.
+                 */
+                vfunc_handle_events(handle_events: boolean): void
+                /**
+                 * open the connection to the display
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @returns whether `window` could be successfully opened
+                 */
+                vfunc_open(): boolean
+                /**
+                 * set the external window handle to render into
+                 * @param handle
+                 */
+                vfunc_set_window_handle(handle: never): void
+            }
+
+            interface VulkanWindowClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanWindow>
+                readonly prototype: VulkanWindow
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanWindow>>): VulkanWindow
+                /**
+                 * @since 1.18
+                 * @param display a #GstVulkanDisplay
+                 * @returns a new #GstVulkanWindow using `display`'s connection
+                 */
+                "new"(display: VulkanDisplay): VulkanWindow
+            }
+
+            interface $Exports {
+                /**
+                 * #GstVulkanWindow is an opaque struct and should only be accessed through the
+                 * provided api.
+                 * @since 1.18
+                 */
+                VulkanWindow: VulkanWindowClass
+            }
+            
+
+            interface VulkanBarrierBufferInfoStruct {
+                readonly $gtype: GObject.GType<VulkanBarrierBufferInfo>
+                new (fields?: {
+                    parent?: VulkanBarrierMemoryInfo
+                    offset?: Vulkan.DeviceSize
+                    size?: Vulkan.DeviceSize
+                }): VulkanBarrierBufferInfo
+            }
+
+            interface VulkanBarrierBufferInfo {
+                /**
+                 * parent #GstVulkanBarrierMemoryInfo
+                 */
+                parent: VulkanBarrierMemoryInfo
+                /**
+                 * offset into the vulkan buffer to execute the barrier with
+                 */
+                offset: Vulkan.DeviceSize
+                /**
+                 * size of memory to execute barrier over
+                 */
+                size: Vulkan.DeviceSize
+            }
+
+            interface $Exports {
+                VulkanBarrierBufferInfo: VulkanBarrierBufferInfoStruct
+            }
+            
+
+            interface VulkanBarrierImageInfoStruct {
+                readonly $gtype: GObject.GType<VulkanBarrierImageInfo>
+                new (fields?: {
+                    parent?: VulkanBarrierMemoryInfo
+                    image_layout?: Vulkan.ImageLayout
+                    subresource_range?: Vulkan.ImageSubresourceRange
+                }): VulkanBarrierImageInfo
+            }
+
+            interface VulkanBarrierImageInfo {
+                /**
+                 * parent #GstVulkanBarrierMemoryInfo
+                 */
+                parent: VulkanBarrierMemoryInfo
+                /**
+                 * the image layout of this barrier
+                 */
+                image_layout: Vulkan.ImageLayout
+                /**
+                 * what subresource the barrier applies to
+                 */
+                subresource_range: Vulkan.ImageSubresourceRange
+            }
+
+            interface $Exports {
+                VulkanBarrierImageInfo: VulkanBarrierImageInfoStruct
+            }
+            
+
+            interface VulkanBarrierMemoryInfoStruct {
+                readonly $gtype: GObject.GType<VulkanBarrierMemoryInfo>
+                new (fields?: {
+                    type?: VulkanBarrierType
+                    flags?: VulkanBarrierFlags
+                    queue?: VulkanQueue
+                    pipeline_stages?: number
+                    access_flags?: number
+                    semaphore?: Vulkan.Semaphore
+                    semaphore_value?: number
+                }): VulkanBarrierMemoryInfo
+            }
+
+            interface VulkanBarrierMemoryInfo {
+                /**
+                 * the #GstVulkanBarrierType of the barrier
+                 *  `flags` the #GstVulkanBarrierFlags of the barrier
+                 */
+                type: VulkanBarrierType
+                /**
+                 */
+                flags: VulkanBarrierFlags
+                /**
+                 * the #GstVulkanQueue this barrier is to execute with
+                 */
+                queue: VulkanQueue
+                /**
+                 * the stages in the graphics pipeline to execute the barrier
+                 */
+                pipeline_stages: number
+                /**
+                 * access flags
+                 */
+                access_flags: number
+                /**
+                 * Timeline semaphore
+                 * @since 1.24
+                 */
+                semaphore: Vulkan.Semaphore
+                /**
+                 * Current value of the timeline semaphore
+                 * @since 1.24
+                 */
+                semaphore_value: number
+            }
+
+            interface $Exports {
+                VulkanBarrierMemoryInfo: VulkanBarrierMemoryInfoStruct
+            }
+            
+
+            interface VulkanBufferMemoryStruct {
+                readonly $gtype: GObject.GType<VulkanBufferMemory>
+                new (fields?: {
+                    parent?: Gst.Memory
+                    device?: VulkanDevice
+                    buffer?: Vulkan.Buffer
+                    vk_mem?: VulkanMemory
+                    requirements?: Vulkan.MemoryRequirements
+                    usage?: Vulkan.BufferUsageFlags
+                    barrier?: VulkanBarrierBufferInfo
+                }): VulkanBufferMemory
+                /**
+                 * Allocate a new #GstVulkanBufferMemory.
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param size size of the new buffer
+                 * @param usage buffer usage flags
+                 * @param mem_prop_flags memory properties flags for the backing memory
+                 * @returns a #GstMemory object backed by a vulkan buffer          backed by vulkan device memory
+                 */
+                alloc(device: VulkanDevice, size: number, usage: Vulkan.BufferUsageFlags, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
+                /**
+                 * Allocate a new #GstVulkanBufferMemory.
+                 * @since 1.24
+                 * @param device a #GstVulkanDevice
+                 * @param buffer_info the VkBufferCreateInfo structure
+                 * @param mem_prop_flags memory properties flags for the backing memory
+                 * @returns a #GstMemory object backed by a vulkan buffer          backed by vulkan device memory
+                 */
+                alloc_with_buffer_info(device: VulkanDevice, buffer_info: Vulkan.BufferCreateInfo, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
+                /**
+                 * Initializes the Vulkan buffer memory allocator. It is safe to call this function
+                 * multiple times.  This must be called before any other #GstVulkanBufferMemory operation.
+                 * @since 1.18
+                 */
+                init_once(): void
+                /**
+                 * Allocated a new wrapped #GstVulkanBufferMemory with `buffer`.
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param buffer a `VkBuffer`
+                 * @param usage usage flags of `buffer`
+                 * @param user_data user data to call `notify` with
+                 * @param notify a #GDestroyNotify called when `buffer` is no longer in use
+                 * @returns a #GstMemory object backed by a vulkan device memory
+                 */
+                wrapped(device: VulkanDevice, buffer: Vulkan.Buffer, usage: Vulkan.BufferUsageFlags, user_data: never | null, notify: GLib.DestroyNotify | null): Gst.Memory
+            }
+
+            interface VulkanBufferMemory {
+                /**
+                 * parent #GstMemory
+                 */
+                parent: Gst.Memory
+                /**
+                 * the #GstVulkanDevice this vulkan buffer is allocated from
+                 */
+                device: VulkanDevice
+                /**
+                 * Vulkan buffer object
+                 */
+                buffer: Vulkan.Buffer
+                /**
+                 * backing #GstVulkanMemory for `buffer`
+                 */
+                vk_mem: VulkanMemory
+                /**
+                 * allocation requirements for `buffer`
+                 */
+                requirements: Vulkan.MemoryRequirements
+                /**
+                 * intended usage for `buffer`
+                 */
+                usage: Vulkan.BufferUsageFlags
+                /**
+                 * the last set barrier information
+                 */
+                barrier: VulkanBarrierBufferInfo
+            }
+
+            interface $Exports {
+                VulkanBufferMemory: VulkanBufferMemoryStruct
+            }
+            
+
+            interface VulkanBufferPoolPrivateStruct {
+                readonly $gtype: GObject.GType<VulkanBufferPoolPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanBufferPoolPrivate
+            }
+
+            interface VulkanBufferPoolPrivate {
+            }
+
+            interface $Exports {
+                VulkanBufferPoolPrivate: VulkanBufferPoolPrivateStruct
+            }
+            
+
+            interface VulkanCommandBufferStruct {
+                readonly $gtype: GObject.GType<VulkanCommandBuffer>
+                new (fields?: {
+                    parent?: Gst.MiniObject
+                    cmd?: Vulkan.CommandBuffer
+                    pool?: VulkanCommandPool
+                    level?: Vulkan.CommandBufferLevel
+                }): VulkanCommandBuffer
+                /**
+                 * @since 1.18
+                 * @param cmd a VkCommandBuffer
+                 * @param level the VkCommandBufferLevel for `cmd`
+                 * @returns a new #GstVulkanCommandBuffer
+                 */
+                new_wrapped(cmd: Vulkan.CommandBuffer, level: Vulkan.CommandBufferLevel): VulkanCommandBuffer
+            }
+
+            interface VulkanCommandBuffer {
+                /**
+                 * the parent #GstMiniObject
+                 */
+                parent: Gst.MiniObject
+                /**
+                 * the vulkan command buffer handle
+                 */
+                cmd: Vulkan.CommandBuffer
+                /**
+                 * the parent #GstVulkanCommandPool for command buffer reuse and locking
+                 */
+                pool: VulkanCommandPool
+                /**
+                 * the level of the vulkan command buffer
+                 */
+                level: Vulkan.CommandBufferLevel
+            }
+
+            interface $Exports {
+                VulkanCommandBuffer: VulkanCommandBufferStruct
+            }
+            
+
+            interface VulkanCommandPoolPrivateStruct {
+                readonly $gtype: GObject.GType<VulkanCommandPoolPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanCommandPoolPrivate
+            }
+
+            interface VulkanCommandPoolPrivate {
+            }
+
+            interface $Exports {
+                VulkanCommandPoolPrivate: VulkanCommandPoolPrivateStruct
+            }
+            
+
+            interface VulkanDescriptorCachePrivateStruct {
+                readonly $gtype: GObject.GType<VulkanDescriptorCachePrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanDescriptorCachePrivate
+            }
+
+            interface VulkanDescriptorCachePrivate {
+            }
+
+            interface $Exports {
+                VulkanDescriptorCachePrivate: VulkanDescriptorCachePrivateStruct
+            }
+            
+
+            interface VulkanDescriptorPoolPrivateStruct {
+                readonly $gtype: GObject.GType<VulkanDescriptorPoolPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanDescriptorPoolPrivate
+            }
+
+            interface VulkanDescriptorPoolPrivate {
+            }
+
+            interface $Exports {
+                VulkanDescriptorPoolPrivate: VulkanDescriptorPoolPrivateStruct
+            }
+            
+
+            interface VulkanDescriptorSetStruct {
+                readonly $gtype: GObject.GType<VulkanDescriptorSet>
+                new (fields?: {
+                    parent?: Gst.MiniObject
+                    set?: Vulkan.DescriptorSet
+                    pool?: VulkanDescriptorPool
+                    cache?: VulkanDescriptorCache
+                    n_layouts?: number
+                    layouts?: VulkanHandle
+                }): VulkanDescriptorSet
+                /**
+                 * @since 1.18
+                 * @param pool
+                 * @param set a VkDescriptorSet
+                 * @param layouts list of #GstVulkanHandle containing                                     descriptor set layouts
+                 * @returns a new #GstVulkanDescriptorSet
+                 */
+                new_wrapped(pool: VulkanDescriptorPool, set: Vulkan.DescriptorSet, layouts: VulkanHandle[]): VulkanDescriptorSet
+            }
+
+            interface VulkanDescriptorSet {
+                /**
+                 * the parent #GstMiniObject
+                 */
+                parent: Gst.MiniObject
+                /**
+                 * the vulkan descriptor set handle
+                 */
+                set: Vulkan.DescriptorSet
+                /**
+                 * the parent #GstVulkanDescriptorPool for pooling
+                 */
+                pool: VulkanDescriptorPool
+                /**
+                 * the parent #GstVulkanDescriptorCache for reuse
+                 */
+                cache: VulkanDescriptorCache
+                /**
+                 * number of layouts applied to this descriptor set
+                 */
+                n_layouts: number
+                /**
+                 * layouts applied to this descriptor set
+                 */
+                layouts: VulkanHandle
+            }
+
+            interface $Exports {
+                VulkanDescriptorSet: VulkanDescriptorSetStruct
+            }
+            
+
+            interface VulkanDevicePrivateStruct {
+                readonly $gtype: GObject.GType<VulkanDevicePrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanDevicePrivate
+            }
+
+            interface VulkanDevicePrivate {
+            }
+
+            interface $Exports {
+                VulkanDevicePrivate: VulkanDevicePrivateStruct
+            }
+            
+
+            interface VulkanDisplayPrivateStruct {
+                readonly $gtype: GObject.GType<VulkanDisplayPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanDisplayPrivate
+            }
+
+            interface VulkanDisplayPrivate {
+            }
+
+            interface $Exports {
+                VulkanDisplayPrivate: VulkanDisplayPrivateStruct
+            }
+            
+
+            interface VulkanEncodeQueryResultStruct {
+                readonly $gtype: GObject.GType<VulkanEncodeQueryResult>
+                new (fields?: {
+                    offset?: number
+                    data_size?: number
+                    status?: number
+                }): VulkanEncodeQueryResult
+            }
+
+            interface VulkanEncodeQueryResult {
+                /**
+                 * buffer offset
+                 */
+                offset: number
+                /**
+                 * data size
+                 */
+                data_size: number
+                /**
+                 * status
+                 */
+                status: number
+            }
+
+            interface $Exports {
+                VulkanEncodeQueryResult: VulkanEncodeQueryResultStruct
+            }
+            
+
+            interface VulkanFenceStruct {
+                readonly $gtype: GObject.GType<VulkanFence>
+                new (fields?: {
+                    parent?: Gst.MiniObject
+                    device?: VulkanDevice
+                    cache?: VulkanFenceCache
+                    fence?: Vulkan.Fence
+                }): VulkanFence
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @param device the parent #GstVulkanDevice
+                 * @returns a new #GstVulkanFence or %NULL on error
+                 */
+                "new"(device: VulkanDevice): VulkanFence
+                /**
+                 * @since 1.18
+                 * @param device
+                 * @returns a new #GstVulkanFence that is always in the signalled state
+                 */
+                new_always_signalled(device: VulkanDevice): VulkanFence
+            }
+
+            interface VulkanFence {
+                /**
+                 * the parent #GstMiniObject
+                 */
+                parent: Gst.MiniObject
+                /**
+                 * the #GstVulkanDevice this fence is allocated from
+                 */
+                device: VulkanDevice
+                /**
+                 * the parent #GstVulkanFenceCache for fence reuse
+                 */
+                cache: VulkanFenceCache
+                /**
+                 * the vulkan fence handle
+                 */
+                fence: Vulkan.Fence
+                /**
+                 * @since 1.18
+                 * @returns whether `fence` has been signalled
+                 */
+                is_signaled(): boolean
+                /**
+                 */
+                reset(): void
+            }
+
+            interface $Exports {
+                VulkanFence: VulkanFenceStruct
+            }
+            
+
+            interface VulkanFormatInfoStruct {
+                readonly $gtype: GObject.GType<VulkanFormatInfo>
+                new (fields?: {
+                    format?: Vulkan.Format
+                    name?: string
+                    scaling?: VulkanFormatScaling
+                    flags?: VulkanFormatFlags
+                    bits?: number
+                    n_components?: number
+                    shift?: Uint8Array
+                    depth?: Uint8Array
+                    pixel_stride?: Uint8Array
+                    n_planes?: number
+                    plane?: Uint8Array
+                    poffset?: Uint8Array
+                    w_sub?: Uint8Array
+                    h_sub?: Uint8Array
+                    aspect?: Vulkan.ImageAspectFlags
+                }): VulkanFormatInfo
+            }
+
+            interface VulkanFormatInfo {
+                /**
+                 * the Vulkan format being described
+                 */
+                format: Vulkan.Format
+                /**
+                 * name of this format
+                 */
+                name: string
+                /**
+                 * how raw data is interpreted and scaled
+                 */
+                scaling: VulkanFormatScaling
+                /**
+                 * flags that apply to this format
+                 */
+                flags: VulkanFormatFlags
+                /**
+                 * The number of bits used to pack data items. This can be less than
+                 *        8 when multiple pixels are stored in a byte. for values > 8 multiple
+                 *        bytes should be read according to the endianness flag before
+                 *        applying the shift and mask.
+                 *  `n_components`; number of components in this format
+                 */
+                bits: number
+                /**
+                 */
+                n_components: number
+                /**
+                 * the number of bits to shift away to get the component data
+                 */
+                shift: Uint8Array
+                /**
+                 * the depth in bits for each component
+                 */
+                depth: Uint8Array
+                /**
+                 */
+                pixel_stride: Uint8Array
+                /**
+                 * the number of planes for this format. The number of planes can
+                 *            be less than the amount of components when multiple components
+                 *            are packed into one plane.
+                 */
+                n_planes: number
+                /**
+                 * the plane number where a component can be found
+                 */
+                plane: Uint8Array
+                /**
+                 * the offset in the plane where the first pixel of the components
+                 *           can be found.
+                 */
+                poffset: Uint8Array
+                /**
+                 * subsampling factor of the width for the component.
+                 *         Use GST_VIDEO_SUB_SCALE to scale a width.
+                 */
+                w_sub: Uint8Array
+                /**
+                 * subsampling factor of the height for the component.
+                 *         Use GST_VIDEO_SUB_SCALE to scale a height.
+                 */
+                h_sub: Uint8Array
+                /**
+                 * image aspect of this format
+                 * @since 1.24
+                 */
+                aspect: Vulkan.ImageAspectFlags
+            }
+
+            interface $Exports {
+                VulkanFormatInfo: VulkanFormatInfoStruct
+            }
+            
+
+            interface VulkanFormatMapStruct {
+                readonly $gtype: GObject.GType<VulkanFormatMap>
+                new (fields?: {
+                    format?: GstVideo.VideoFormat
+                    vkfrmt?: Vulkan.Format
+                    vkfrmts?: Vulkan.Format[]
+                }): VulkanFormatMap
+            }
+
+            interface VulkanFormatMap {
+                /**
+                 * the GStreamer video format
+                 */
+                format: GstVideo.VideoFormat
+                /**
+                 * the Vulkan format with a single memory
+                 */
+                vkfrmt: Vulkan.Format
+                /**
+                 * Vulkan formats for multiple memories
+                 */
+                vkfrmts: Vulkan.Format[]
+            }
+
+            interface $Exports {
+                VulkanFormatMap: VulkanFormatMapStruct
+            }
+            
+
+            interface VulkanFullScreenQuadPrivateStruct {
+                readonly $gtype: GObject.GType<VulkanFullScreenQuadPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanFullScreenQuadPrivate
+            }
+
+            interface VulkanFullScreenQuadPrivate {
+            }
+
+            interface $Exports {
+                VulkanFullScreenQuadPrivate: VulkanFullScreenQuadPrivateStruct
+            }
+            
+
+            interface VulkanHandleStruct {
+                readonly $gtype: GObject.GType<VulkanHandle>
+                new (fields?: {
+                    parent?: Gst.MiniObject
+                    device?: VulkanDevice
+                    type?: VulkanHandleType
+                    handle?: VulkanHandleTypedef
+                    notify?: VulkanHandleDestroyNotify
+                    user_data?: never
+                }): VulkanHandle
+                /**
+                 * @since 1.18
+                 * @param device
+                 * @param type
+                 * @param handle a Vulkan handle
+                 * @param notify a #GDestroyNotify
+                 * @returns a new #GstVulkanHandle wrapping `handle`
+                 */
+                new_wrapped(device: VulkanDevice, type: VulkanHandleType, handle: VulkanHandleTypedef, notify: VulkanHandleDestroyNotify): VulkanHandle
+                /**
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @param query a #GstQuery of type %GST_QUERY_CONTEXT
+                 * @param display a #GstVulkanDisplay
+                 * @param instance a #GstVulkanInstance
+                 * @param device a #GstVulkanDevice
+                 * @returns Whether the `query` was successfully responded to from the passed          `display`, `instance`, and `device`.
+                 */
+                context_query(element: Gst.Element, query: Gst.Query, display: VulkanDisplay | null, instance: VulkanInstance | null, device: VulkanDevice | null): boolean
+                /**
+                 * Helper function for implementing #GstElementClass.set_context() in
+                 * Vulkan capable elements.
+                 *
+                 * Retrieve's the #GstVulkanDisplay or #GstVulkanInstance in `context` and places
+                 * the result in `display` or `instance` respectively.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @param context a #GstContext
+                 * @returns whether the `display` or `instance` could be set successfully, location of a #GstVulkanDisplay, location of a #GstVulkanInstance
+                 */
+                set_context(element: Gst.Element, context: Gst.Context, display: VulkanDisplay, instance: VulkanInstance): [boolean, VulkanDisplay, VulkanInstance]
+            }
+
+            interface VulkanHandle {
+                /**
+                 * the parent #GstMiniObject
+                 */
+                parent: Gst.MiniObject
+                /**
+                 * the #GstVulkanDevice for this handle
+                 */
+                device: VulkanDevice
+                /**
+                 * the type of handle
+                 */
+                type: VulkanHandleType
+                /**
+                 * the handle value
+                 */
+                handle: VulkanHandleTypedef
+                /**
+                 */
+                notify: VulkanHandleDestroyNotify
+                /**
+                 */
+                user_data: never
+                /**
+                 * Frees the descriptor set layout in `handle`
+                 * @since 1.18
+                 * @param user_data callback user data
+                 */
+                free_descriptor_set_layout(user_data: never | null): void
+                /**
+                 * Frees the framebuffer in `handle`
+                 * @since 1.18
+                 * @param user_data callback user data
+                 */
+                free_framebuffer(user_data: never | null): void
+                /**
+                 * Frees the pipeline in `handle`
+                 * @since 1.18
+                 * @param user_data callback user data
+                 */
+                free_pipeline(user_data: never | null): void
+                /**
+                 * Frees the pipeline layout in `handle`
+                 * @since 1.18
+                 * @param user_data callback user data
+                 */
+                free_pipeline_layout(user_data: never | null): void
+                /**
+                 * Frees the render pass in `handle`
+                 * @since 1.18
+                 * @param user_data callback user data
+                 */
+                free_render_pass(user_data: never | null): void
+                /**
+                 * Frees the sampler in `handle`
+                 * @since 1.18
+                 * @param user_data callback user data
+                 */
+                free_sampler(user_data: never | null): void
+                /**
+                 * Frees the shader in `handle`
+                 * @since 1.18
+                 * @param user_data callback user data
+                 */
+                free_shader(user_data: never | null): void
+            }
+
+            interface $Exports {
+                VulkanHandle: VulkanHandleStruct
+            }
+            
+
+            interface VulkanImageBufferPoolPrivateStruct {
+                readonly $gtype: GObject.GType<VulkanImageBufferPoolPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanImageBufferPoolPrivate
+            }
+
+            interface VulkanImageBufferPoolPrivate {
+            }
+
+            interface $Exports {
+                VulkanImageBufferPoolPrivate: VulkanImageBufferPoolPrivateStruct
+            }
+            
+
+            interface VulkanImageMemoryStruct {
+                readonly $gtype: GObject.GType<VulkanImageMemory>
+                new (fields?: {
+                    parent?: Gst.Memory
+                    device?: VulkanDevice
+                    image?: Vulkan.Image
+                    vk_mem?: VulkanMemory
+                    create_info?: Vulkan.ImageCreateInfo
+                    requirements?: Vulkan.MemoryRequirements
+                    format_properties?: Vulkan.ImageFormatProperties
+                    usage?: Vulkan.ImageUsageFlags
+                    barrier?: VulkanBarrierImageInfo
+                }): VulkanImageMemory
+                /**
+                 * Allocated a new #GstVulkanImageMemory.
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param format the VkFormat for the new image
+                 * @param width width for the new image
+                 * @param height height for the new image
+                 * @param tiling tiling for the new image
+                 * @param usage usage flags for the new image
+                 * @param mem_prop_flags VkDeviceMemory property flags for the new image
+                 * @returns a #GstMemory object backed by a vulkan device memory
+                 */
+                alloc(device: VulkanDevice, format: Vulkan.Format, width: number, height: number, tiling: Vulkan.ImageTiling, usage: Vulkan.ImageUsageFlags, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
+                /**
+                 * @since 1.24
+                 * @param device a #GstVulkanDevice
+                 * @param image_info VkImageCreateInfo structure
+                 * @param mem_prop_flags VkMemoryPropertyFlags flags
+                 * @returns a #GstMemory object backed by a vulkan device memory
+                 */
+                alloc_with_image_info(device: VulkanDevice, image_info: Vulkan.ImageCreateInfo, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
+                /**
+                 * Initializes the Vulkan image memory allocator. It is safe to call this function
+                 * multiple times.  This must be called before any other #GstVulkanImageMemory operation.
+                 * @since 1.18
+                 */
+                init_once(): void
+                /**
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param image a VkImage
+                 * @param format the VkFormat for `image`
+                 * @param width width of `image`
+                 * @param height height of `image`
+                 * @param tiling tiling of `image`
+                 * @param usage usage flags of `image`
+                 * @param user_data user data for `notify`
+                 * @param notify a #GDestroyNotify when `image` is no longer needed
+                 * @returns a new #GstVulkanImageMemory wrapping `image`
+                 */
+                wrapped(device: VulkanDevice, image: Vulkan.Image, format: Vulkan.Format, width: number, height: number, tiling: Vulkan.ImageTiling, usage: Vulkan.ImageUsageFlags, user_data: never | null, notify: GLib.DestroyNotify): Gst.Memory
+            }
+
+            interface VulkanImageMemory {
+                /**
+                 * parent #GstMemory
+                 */
+                parent: Gst.Memory
+                /**
+                 * the #GstVulkanDevice to allocate images from
+                 */
+                device: VulkanDevice
+                /**
+                 * the Vulkan image handle
+                 */
+                image: Vulkan.Image
+                /**
+                 * the backing #GstVulkanMemory for `image`
+                 */
+                vk_mem: VulkanMemory
+                /**
+                 * creation information for `image`
+                 */
+                create_info: Vulkan.ImageCreateInfo
+                /**
+                 * memory requirements for `image`
+                 */
+                requirements: Vulkan.MemoryRequirements
+                /**
+                 * format properties
+                 */
+                format_properties: Vulkan.ImageFormatProperties
+                /**
+                 * intended usage for `image`
+                 */
+                usage: Vulkan.ImageUsageFlags
+                /**
+                 * last set barrier for `image`
+                 */
+                barrier: VulkanBarrierImageInfo
+                /**
+                 * @since 1.18
+                 * @param view a #GstVulkanImageView
+                 */
+                add_view(view: VulkanImageView): void
+                /**
+                 * @since 1.18
+                 * @param find_func #GstVulkanImageMemoryFindViewFunc to search with
+                 * @returns the first #GstVulkanImageView that                                     `find_func` returns %TRUE for, or %NULL
+                 */
+                find_view(find_func: VulkanImageMemoryFindViewFunc): VulkanImageView | null
+                /**
+                 * @since 1.18
+                 * @returns the height of `image`
+                 */
+                get_height(): number
+                /**
+                 * @since 1.18
+                 * @returns the width of `image`
+                 */
+                get_width(): number
+                /**
+                 * @param allocator
+                 * @param parent
+                 * @param device
+                 * @param format
+                 * @param usage
+                 * @param initial_layout
+                 * @param params
+                 * @param size
+                 * @param user_data
+                 * @param notify
+                 */
+                init(allocator: Gst.Allocator, parent: Gst.Memory, device: VulkanDevice, format: Vulkan.Format, usage: Vulkan.ImageUsageFlags, initial_layout: Vulkan.ImageLayout, params: Gst.AllocationParams, size: number, user_data: never | null, notify: GLib.DestroyNotify): boolean
+            }
+
+            interface $Exports {
+                VulkanImageMemory: VulkanImageMemoryStruct
+            }
+            
+
+            interface VulkanImageViewStruct {
+                readonly $gtype: GObject.GType<VulkanImageView>
+                new (fields?: {
+                    parent?: Gst.MiniObject
+                    device?: VulkanDevice
+                    image?: VulkanImageMemory
+                    view?: Vulkan.ImageView
+                    create_info?: Vulkan.ImageViewCreateInfo
+                }): VulkanImageView
+                /**
+                 * @since 1.18
+                 * @param image a #GstVulkanImageMemory to create the new view from
+                 * @param create_info the creation information to create the view from
+                 * @returns A new #GstVulkanImageView from `image` and          `create_info`
+                 */
+                "new"(image: VulkanImageMemory, create_info: Vulkan.ImageViewCreateInfo): VulkanImageView
+            }
+
+            interface VulkanImageView {
+                /**
+                 * the parent #GstMiniObject
+                 */
+                parent: Gst.MiniObject
+                /**
+                 * the #GstVulkanDevice
+                 */
+                device: VulkanDevice
+                /**
+                 * the associated #GstVulkanImageMemory for this view
+                 */
+                image: VulkanImageMemory
+                /**
+                 * the vulkan image view handle
+                 */
+                view: Vulkan.ImageView
+                /**
+                 * the creation information for this view
+                 */
+                create_info: Vulkan.ImageViewCreateInfo
+            }
+
+            interface $Exports {
+                VulkanImageView: VulkanImageViewStruct
+            }
+            
+
+            interface VulkanInstancePrivateStruct {
+                readonly $gtype: GObject.GType<VulkanInstancePrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanInstancePrivate
+            }
+
+            interface VulkanInstancePrivate {
+            }
+
+            interface $Exports {
+                VulkanInstancePrivate: VulkanInstancePrivateStruct
+            }
+            
+
+            interface VulkanMemoryStruct {
+                readonly $gtype: GObject.GType<VulkanMemory>
+                new (fields?: {
+                    mem?: Gst.Memory
+                    device?: VulkanDevice
+                    mem_ptr?: Vulkan.DeviceMemory
+                    lock?: GLib.Mutex
+                    map_count?: number
+                    mapping?: never
+                }): VulkanMemory
+                /**
+                 * Allocated a new #GstVulkanMemory.
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param memory_type_index the Vulkan memory type index
+                 * @param params a #GstAllocationParams
+                 * @param size the size to allocate
+                 * @param mem_prop_flags
+                 * @returns a #GstMemory object backed by a vulkan device memory
+                 */
+                alloc(device: VulkanDevice, memory_type_index: number, params: Gst.AllocationParams, size: number, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
+                /**
+                 * @since 1.24
+                 * @param device a #GstVulkanDevice
+                 * @param req memory requirements to look for
+                 * @param properties memory properties to search for
+                 * @returns whether a valid memory type could be found, resulting index of the memory type
+                 */
+                find_memory_type_index_with_requirements(device: VulkanDevice, req: Vulkan.MemoryRequirements, properties: Vulkan.MemoryPropertyFlags): [boolean, number]
+                /**
+                 * @since 1.18
+                 * @param prop_bits
+                 */
+                heap_flags_to_string(prop_bits: Vulkan.MemoryHeapFlags): string
+                /**
+                 * Initializes the Vulkan memory allocator. It is safe to call this function
+                 * multiple times.  This must be called before any other #GstVulkanMemory operation.
+                 * @since 1.18
+                 */
+                init_once(): void
+                /**
+                 * @since 1.18
+                 * @param prop_bits
+                 */
+                property_flags_to_string(prop_bits: Vulkan.MemoryPropertyFlags): string
+            }
+
+            interface VulkanMemory {
+                /**
+                 * the parent #GstMemory
+                 */
+                mem: Gst.Memory
+                /**
+                 * the #GstVulkanDevice this memory is allocated from
+                 */
+                device: VulkanDevice
+                /**
+                 * the vulkan memory handle
+                 */
+                mem_ptr: Vulkan.DeviceMemory
+                /**
+                 * lock for accessing/changing memory informat
+                 */
+                lock: GLib.Mutex
+                /**
+                 * number of times this memory is mapped
+                 */
+                map_count: number
+                /**
+                 * internal pointer to already mapped memory
+                 * @since 1.24
+                 */
+                mapping: never
+            }
+
+            interface $Exports {
+                VulkanMemory: VulkanMemoryStruct
+            }
+            
+
+            interface VulkanOperationPrivateStruct {
+                readonly $gtype: GObject.GType<VulkanOperationPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanOperationPrivate
+            }
+
+            interface VulkanOperationPrivate {
+            }
+
+            interface $Exports {
+                VulkanOperationPrivate: VulkanOperationPrivateStruct
+            }
+            
+
+            interface VulkanPhysicalDevicePrivateStruct {
+                readonly $gtype: GObject.GType<VulkanPhysicalDevicePrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanPhysicalDevicePrivate
+            }
+
+            interface VulkanPhysicalDevicePrivate {
+            }
+
+            interface $Exports {
+                VulkanPhysicalDevicePrivate: VulkanPhysicalDevicePrivateStruct
+            }
+            
+
+            interface VulkanQueueFamilyOpsStruct {
+                readonly $gtype: GObject.GType<VulkanQueueFamilyOps>
+                new (fields?: {
+                    video?: number
+                    query_result_status?: boolean
+                }): VulkanQueueFamilyOps
+            }
+
+            interface VulkanQueueFamilyOps {
+                /**
+                 * video operation supported by queue family
+                 */
+                video: number
+                /**
+                 * query status result support
+                 * @since 1.26
+                 */
+                query_result_status: boolean
+            }
+
+            interface $Exports {
+                VulkanQueueFamilyOps: VulkanQueueFamilyOpsStruct
+            }
+            
+
+            interface VulkanQueuePrivateStruct {
+                readonly $gtype: GObject.GType<VulkanQueuePrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanQueuePrivate
+            }
+
+            interface VulkanQueuePrivate {
+            }
+
+            interface $Exports {
+                VulkanQueuePrivate: VulkanQueuePrivateStruct
+            }
+            
+
+            interface VulkanSwapperPrivateStruct {
+                readonly $gtype: GObject.GType<VulkanSwapperPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanSwapperPrivate
+            }
+
+            interface VulkanSwapperPrivate {
+            }
+
+            interface $Exports {
+                VulkanSwapperPrivate: VulkanSwapperPrivateStruct
+            }
+            
+
+            interface VulkanTrashStruct {
+                readonly $gtype: GObject.GType<VulkanTrash>
+                new (fields?: {
+                    parent?: Gst.MiniObject
+                    cache?: VulkanTrashList
+                    fence?: VulkanFence
+                    notify?: VulkanTrashNotify
+                    user_data?: never
+                }): VulkanTrash
+                /**
+                 * Create and return a new #GstVulkanTrash object that will stores a callback
+                 * to call when `fence` is signalled.
+                 * @since 1.18
+                 * @param fence a #GstVulkanFence
+                 * @param notify a #GstVulkanTrashNotify
+                 * @returns a new #GstVulkanTrash
+                 */
+                "new"(fence: VulkanFence, notify: VulkanTrashNotify): VulkanTrash
+                /**
+                 * @since 1.18
+                 * @param fence the #GstVulkanFence
+                 * @param semaphore a `VkSemaphore` to free
+                 * @returns a new #GstVulkanTrash object that will the free     `semaphore` when `fence` is signalled
+                 */
+                new_free_semaphore(fence: VulkanFence, semaphore: Vulkan.Semaphore): VulkanTrash
+                /**
+                 * A #GstVulkanTrashNotify implementation for unreffing a #GstMiniObject when the
+                 * associated #GstVulkanFence is signalled
+                 * @since 1.18
+                 * @param device the #GstVulkanDevice
+                 * @param user_data the #GstMiniObject
+                 */
+                mini_object_unref(device: VulkanDevice, user_data: never | null): void
+                /**
+                 * A #GstVulkanTrashNotify implementation for unreffing a #GstObject when the
+                 * associated #GstVulkanFence is signalled
+                 * @since 1.18
+                 * @param device the #GstVulkanDevice
+                 * @param user_data the #GstMiniObject
+                 */
+                object_unref(device: VulkanDevice, user_data: never | null): void
+            }
+
+            interface VulkanTrash {
+                /**
+                 */
+                parent: Gst.MiniObject
+                /**
+                 */
+                cache: VulkanTrashList
+                /**
+                 */
+                fence: VulkanFence
+                /**
+                 */
+                notify: VulkanTrashNotify
+                /**
+                 */
+                user_data: never
+            }
+
+            interface $Exports {
+                VulkanTrash: VulkanTrashStruct
+            }
+            
+
+            interface VulkanVideoCapabilitiesStruct {
+                readonly $gtype: GObject.GType<VulkanVideoCapabilities>
+                new (fields?: {
+                }): VulkanVideoCapabilities
+            }
+
+            interface VulkanVideoCapabilities {
+            }
+
+            interface $Exports {
+                VulkanVideoCapabilities: VulkanVideoCapabilitiesStruct
+            }
+            
+
+            interface VulkanVideoProfileStruct {
+                readonly $gtype: GObject.GType<VulkanVideoProfile>
+                new (fields?: {
+                    reserved?: never[]
+                }): VulkanVideoProfile
+            }
+
+            interface VulkanVideoProfile {
+                /**
+                 */
+                reserved: never[]
+                /**
+                 * @param b another #GstVulkanVideoProfile
+                 * @returns whether `a` and `b` contains the same information.
+                 */
+                is_equal(b: VulkanVideoProfile): boolean
+            }
+
+            interface $Exports {
+                VulkanVideoProfile: VulkanVideoProfileStruct
+            }
+            
+
+            interface VulkanWindowPrivateStruct {
+                readonly $gtype: GObject.GType<VulkanWindowPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is VulkanWindowPrivate
+            }
+
+            interface VulkanWindowPrivate {
+            }
+
+            interface $Exports {
+                VulkanWindowPrivate: VulkanWindowPrivateStruct
+            }
+            
+            interface VulkanBarrierFlagsEnum {
+                readonly $gtype: GObject.GType<VulkanBarrierFlags>
+                /**
+                 */
+                readonly "NONE": 0
+            }
+            type VulkanBarrierFlags = VulkanBarrierFlagsEnum[Exclude<keyof VulkanBarrierFlagsEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanBarrierFlags: VulkanBarrierFlagsEnum
+            }
+            
+            interface VulkanBarrierTypeEnum {
+                readonly $gtype: GObject.GType<VulkanBarrierType>
+                /**
+                 * no barrier type
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "TYPE_MEMORY": 1
+                /**
+                 */
+                readonly "TYPE_BUFFER": 2
+                /**
+                 */
+                readonly "TYPE_IMAGE": 3
+            }
+            type VulkanBarrierType = VulkanBarrierTypeEnum[Exclude<keyof VulkanBarrierTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanBarrierType: VulkanBarrierTypeEnum
+            }
+            
+            interface VulkanError extends GLib.Error {}
+
+            interface VulkanErrorEnum {
+                readonly $gtype: GObject.GType<VulkanError>
+
+                new(props: { message: string, code: number }): VulkanError
+                /**
+                 * undetermined error
+                 */
+                readonly "FAILED": 0
+                /**
+             * @since 1.18
+             */
+            quark: () => GLib.Quark
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanError: VulkanErrorEnum
+            }
+            
+            interface VulkanFormatScalingEnum {
+                readonly $gtype: GObject.GType<VulkanFormatScaling>
+                /**
+                 * [0, 2^n - 1] -> [0.0, 1.0]
+                 */
+                readonly "UNORM": 1
+                /**
+                 * [-2^(n-1), 2^(n-1) - 1] -> [-1.0, 1.0]
+                 */
+                readonly "SNORM": 2
+                /**
+                 * [0, 2^n - 1] -> [0.0, float(2^n - 1)]
+                 */
+                readonly "USCALED": 3
+                /**
+                 * [-2^(n-1), 2^(n-1) - 1] -> [float(-2^(n-1)), float(2^(n-1) - 1)]
+                 */
+                readonly "SSCALED": 4
+                /**
+                 * [0, 2^n - 1] -> [0, 2^n - 1]
+                 */
+                readonly "UINT": 5
+                /**
+                 * [-2^(n-1), 2^(n-1) - 1] -> [-2^(n-1), 2^(n-1) - 1]
+                 */
+                readonly "SINT": 6
+                /**
+                 *  `GST_VULKAN_FORMAT_SCALING_UNORM` but the first three components are gamma corrected for the sRGB colour space.
+                 */
+                readonly "SRGB": 7
+            }
+            type VulkanFormatScaling = VulkanFormatScalingEnum[Exclude<keyof VulkanFormatScalingEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanFormatScaling: VulkanFormatScalingEnum
+            }
+            
+            interface VulkanHandleTypeEnum {
+                readonly $gtype: GObject.GType<VulkanHandleType>
+                /**
+                 * descripter set layout
+                 */
+                readonly "DESCRIPTOR_SET_LAYOUT": 1
+                /**
+                 * pipeline layout
+                 */
+                readonly "PIPELINE_LAYOUT": 2
+                /**
+                 * pipeline
+                 */
+                readonly "PIPELINE": 3
+                /**
+                 * render pass
+                 */
+                readonly "RENDER_PASS": 4
+                /**
+                 * sampler
+                 */
+                readonly "SAMPLER": 5
+                /**
+                 * framebuffer
+                 */
+                readonly "FRAMEBUFFER": 6
+                /**
+                 * shader
+                 */
+                readonly "SHADER": 7
+                /**
+                 * video session
+                 * @since 1.24
+                 */
+                readonly "VIDEO_SESSION": 8
+                /**
+                 * video session parameters
+                 * @since 1.24
+                 */
+                readonly "VIDEO_SESSION_PARAMETERS": 9
+                /**
+                 * sampler with YCBCR conversion
+                 * @since 1.24
+                 */
+                readonly "SAMPLER_YCBCR_CONVERSION": 10
+            }
+            type VulkanHandleType = VulkanHandleTypeEnum[Exclude<keyof VulkanHandleTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanHandleType: VulkanHandleTypeEnum
+            }
+            
+            interface VulkanVideoOperationEnum {
+                readonly $gtype: GObject.GType<VulkanVideoOperation>
+                /**
+                 * decode operation
+                 */
+                readonly "DECODE": 0
+                /**
+                 * encode operation
+                 */
+                readonly "ENCODE": 1
+                /**
+                 * unknown
+                 */
+                readonly "UNKNOWN": 2
+            }
+            type VulkanVideoOperation = VulkanVideoOperationEnum[Exclude<keyof VulkanVideoOperationEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * The type of video operation.
+                 * @since 1.24
+                 */
+                VulkanVideoOperation: VulkanVideoOperationEnum
+            }
+            
+            interface VulkanWindowError extends GLib.Error {}
+
+            interface VulkanWindowErrorEnum {
+                readonly $gtype: GObject.GType<VulkanWindowError>
+
+                new(props: { message: string, code: number }): VulkanWindowError
+                /**
+                 * failed
+                 */
+                readonly "FAILED": 0
+                /**
+                 * old libraries
+                 */
+                readonly "OLD_LIBS": 1
+                /**
+                 * resource unavailable
+                 */
+                readonly "RESOURCE_UNAVAILABLE": 2
+                /**
+             * @since 1.18
+             */
+            quark: () => GLib.Quark
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanWindowError: VulkanWindowErrorEnum
+            }
+            
+            interface VulkanDisplayTypeBitfield {
+                readonly $gtype: GObject.GType<VulkanDisplayType>
+                /**
+                 * no display
+                 */
+                readonly "NONE": 0
+                /**
+                 * XCB display
+                 */
+                readonly "XCB": 1
+                /**
+                 * wayland display
+                 */
+                readonly "WAYLAND": 2
+                /**
+                 * cocoa display for macOS
+                 */
+                readonly "COCOA": 4
+                /**
+                 * ios display
+                 */
+                readonly "IOS": 8
+                /**
+                 * win32 display
+                 */
+                readonly "WIN32": 16
+                /**
+                 */
+                readonly "ANDROID": 32
+                /**
+                 * any display type
+                 */
+                readonly "ANY": 4294967295
+            }
+            type VulkanDisplayType = number
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanDisplayType: VulkanDisplayTypeBitfield
+                /**
              * @since 1.18
              * @param type a #GstVulkanDisplayType
              * @returns the Vulkan extension string required for creating a                      VkSurfaceKHR using a window system handle or %NULL
              */
-            vulkan_display_type_to_extension_string(type: VulkanDisplayType): string | null
-            /**
-             * Perform the steps necessary for retrieving a #GstVulkanInstance and
-             * (optionally) an #GstVulkanDisplay from the surrounding elements or from
-             * the application using the #GstContext mechanism.
-             *
-             * If the contents of @display_ptr or @instance_ptr are not %NULL, then no
-             * #GstContext query is necessary and no #GstVulkanInstance or #GstVulkanDisplay
-             * retrieval is performed.
-             * @since 1.18
-             * @param element a #GstElement
-             * @returns whether a #GstVulkanInstance exists in `instance_ptr` and if          `display_ptr` is not %NULL, whether a #GstVulkanDisplay exists in          `display_ptr`, the resulting #GstVulkanDisplay, the resulting #GstVulkanInstance
-             */
-            vulkan_ensure_element_data(element: Gst.Element): [boolean, VulkanDisplay, VulkanInstance]
-            /**
-             * Perform the steps necessary for retrieving a #GstVulkanDevice from
-             * the surrounding elements or create a new device according to the device_id.
-             *
-             * If the contents of @device_ptr is not %NULL, then no
-             * #GstContext query is necessary and no #GstVulkanDevice
-             * retrieval is performed.
-             * @since 1.26
-             * @param element a #GstElement
-             * @param instance the #GstVulkanInstance
-             * @param device_id The device number to use, 0 is default.
-             * @returns whether a #GstVulkanDevice exists in `device_ptr`, the resulting #GstVulkanDevice
-             */
-            vulkan_ensure_element_device(element: Gst.Element, instance: VulkanInstance, device_id: number): [boolean, VulkanDevice]
-            /**
-             * @since 1.18
-             */
-            vulkan_error_quark(): GLib.Quark
-            /**
-             * @since 1.24
-             * @param format Vulkan Format
-             * @returns the `format` aspect
-             */
-            vulkan_format_get_aspect(format: Vulkan.Format): number
+            to_extension_string: (type: VulkanDisplayType) => string | null
+            }
+            
+            interface VulkanFormatFlagsBitfield {
+                readonly $gtype: GObject.GType<VulkanFormatFlags>
+                /**
+                 * is a YUV format
+                 */
+                readonly "YUV": 1
+                /**
+                 * is a RGB format
+                 */
+                readonly "RGB": 2
+                /**
+                 * has an alpha channel
+                 */
+                readonly "ALPHA": 4
+                /**
+                 * data is stored in little-endiate byte order
+                 */
+                readonly "LE": 8
+                /**
+                 * data is stored complex and cannot be read/write only using the information in the #GstVulkanFormatInfo
+                 */
+                readonly "COMPLEX": 16
+            }
+            type VulkanFormatFlags = number
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                VulkanFormatFlags: VulkanFormatFlagsBitfield
+            }
             /**
              * @since 1.18
-             * @param format a valid `VkFormat`
-             * @returns the #GstVulkanFormatInfo for `format` or %NULL
+             * @param device
+             * @param queue
              */
-            vulkan_format_get_info(format: Vulkan.Format): VulkanFormatInfo | null
+            type VulkanDeviceForEachQueueFunc = (device: VulkanDevice, queue: VulkanQueue) => boolean
             /**
-             * @since 1.24
-             * @param vk_format the Vulkan format to convert
-             * @returns the #GstVideoFormat that maps to `vk_format`
-             */
-            vulkan_format_to_video_format(vk_format: Vulkan.Format): GstVideo.VideoFormat
-            /**
+             * Function definition called when the #GstVulkanHandle is no longer in use.
+             * All implementations of this callback must free the internal handle stored
+             * inside `handle`.
              * @since 1.18
-             * @param image a #GstVulkanImageMemory
-             * @returns a #GstVulkanImageView for `image` matching the                           original layout and format of `image`
+             * @param handle the #GstVulkanHandle
              */
-            vulkan_get_or_create_image_view(image: VulkanImageMemory): VulkanImageView
+            type VulkanHandleDestroyNotify = (handle: VulkanHandle) => void
             /**
-             * Create a new #GstVulkanImageView with a specific @create_info.
-             * @since 1.24
-             * @param image a #GstVulkanImageMemory
-             * @param create_info a VkImageViewCreateInfo
-             * @returns a #GstVulkanImageView for `image` matching the                           original layout and format of `image`
-             */
-            vulkan_get_or_create_image_view_with_info(image: VulkanImageMemory, create_info: Vulkan.ImageViewCreateInfo | null): VulkanImageView
-            /**
-             * Performs the steps necessary for executing a context query including
-             * posting a message for the application to respond.
+             * Function definition used to find views.  Return %TRUE if `view` matches the
+             * criteria.
              * @since 1.18
-             * @param element a #GstElement
-             * @param context_type the context type to query for
+             * @param view
              */
-            vulkan_global_context_query(element: Gst.Element, context_type: string): void
+            type VulkanImageMemoryFindViewFunc = (view: VulkanImageView) => boolean
             /**
+             * Add `trash` to `trash_list` for tracking
              * @since 1.18
-             * @param element a #GstElement
-             * @param query a #GstQuery of type %GST_QUERY_CONTEXT
-             * @param display a #GstVulkanDisplay
-             * @param instance a #GstVulkanInstance
-             * @param device a #GstVulkanDevice
-             * @returns Whether the `query` was successfully responded to from the passed          `display`, `instance`, and `device`.
+             * @param trash_list the #GstVulkanTrashList instance
+             * @param trash the #GstVulkanTrash to add to `trash_list`
+             * @returns whether `trash` could be added to `trash_list`
              */
-            vulkan_handle_context_query(element: Gst.Element, query: Gst.Query, display: VulkanDisplay | null, instance: VulkanInstance | null, device: VulkanDevice | null): boolean
+            type VulkanTrashListAdd = (trash_list: VulkanTrashList, trash: VulkanTrash) => boolean
             /**
-             * Helper function for implementing #GstElementClass.set_context() in
-             * Vulkan capable elements.
-             *
-             * Retrieve's the #GstVulkanDisplay or #GstVulkanInstance in @context and places
-             * the result in @display or @instance respectively.
+             * Remove any memory allocated by any signalled objects.
              * @since 1.18
-             * @param element a #GstElement
-             * @param context a #GstContext
-             * @returns whether the `display` or `instance` could be set successfully, location of a #GstVulkanDisplay, location of a #GstVulkanInstance
+             * @param trash_list the #GstVulkanTrashList instance
              */
-            vulkan_handle_set_context(element: Gst.Element, context: Gst.Context): [boolean, VulkanDisplay, VulkanInstance]
+            type VulkanTrashListGC = (trash_list: VulkanTrashList) => void
             /**
-             * Allocated a new #GstVulkanImageMemory.
+             * Wait for a most `timeout` to pass for all #GstVulkanTrash objects to be
+             * signalled and freed.
              * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param format the VkFormat for the new image
-             * @param width width for the new image
-             * @param height height for the new image
-             * @param tiling tiling for the new image
-             * @param usage usage flags for the new image
-             * @param mem_prop_flags VkDeviceMemory property flags for the new image
-             * @returns a #GstMemory object backed by a vulkan device memory
+             * @param trash_list the #GstVulkanTrashList instance
+             * @param timeout the timeout in ns to wait
+             * @returns whether all objects were signalled and freed within the `timeout`
              */
-            vulkan_image_memory_alloc(device: VulkanDevice, format: Vulkan.Format, width: number, height: number, tiling: Vulkan.ImageTiling, usage: Vulkan.ImageUsageFlags, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
+            type VulkanTrashListWait = (trash_list: VulkanTrashList, timeout: number) => boolean
             /**
-             * @since 1.24
-             * @param device a #GstVulkanDevice
-             * @param image_info VkImageCreateInfo structure
-             * @param mem_prop_flags VkMemoryPropertyFlags flags
-             * @returns a #GstMemory object backed by a vulkan device memory
-             */
-            vulkan_image_memory_alloc_with_image_info(device: VulkanDevice, image_info: Vulkan.ImageCreateInfo, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
-            /**
-             * Initializes the Vulkan image memory allocator. It is safe to call this function
-             * multiple times.  This must be called before any other #GstVulkanImageMemory operation.
-             * @since 1.18
-             */
-            vulkan_image_memory_init_once(): void
-            /**
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param image a VkImage
-             * @param format the VkFormat for @image
-             * @param width width of @image
-             * @param height height of @image
-             * @param tiling tiling of @image
-             * @param usage usage flags of @image
-             * @param user_data user data for @notify
-             * @param notify a #GDestroyNotify when @image is no longer needed
-             * @returns a new #GstVulkanImageMemory wrapping `image`
-             */
-            vulkan_image_memory_wrapped(device: VulkanDevice, image: Vulkan.Image, format: Vulkan.Format, width: number, height: number, tiling: Vulkan.ImageTiling, usage: Vulkan.ImageUsageFlags, user_data: never | null, notify: GLib.DestroyNotify): Gst.Memory
-            /**
-             * Performs the steps necessary for executing a context query between only
-             * other elements in the pipeline
-             * @since 1.18
-             * @param element a #GstElement
-             * @param context_type the context type to query for
-             */
-            vulkan_local_context_query(element: Gst.Element, context_type: string): Gst.Query
-            /**
-             * Allocated a new #GstVulkanMemory.
-             * @since 1.18
-             * @param device a #GstVulkanDevice
-             * @param memory_type_index the Vulkan memory type index
-             * @param params a #GstAllocationParams
-             * @param size the size to allocate
-             * @param mem_prop_flags
-             * @returns a #GstMemory object backed by a vulkan device memory
-             */
-            vulkan_memory_alloc(device: VulkanDevice, memory_type_index: number, params: Gst.AllocationParams, size: number, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
-            /**
-             * @since 1.24
-             * @param device a #GstVulkanDevice
-             * @param req memory requirements to look for
-             * @param properties memory properties to search for
-             * @returns whether a valid memory type could be found, resulting index of the memory type
-             */
-            vulkan_memory_find_memory_type_index_with_requirements(device: VulkanDevice, req: Vulkan.MemoryRequirements, properties: Vulkan.MemoryPropertyFlags): [boolean, number]
-            /**
-             * @since 1.18
-             * @param prop_bits
-             */
-            vulkan_memory_heap_flags_to_string(prop_bits: Vulkan.MemoryHeapFlags): string
-            /**
-             * Initializes the Vulkan memory allocator. It is safe to call this function
-             * multiple times.  This must be called before any other #GstVulkanMemory operation.
-             * @since 1.18
-             */
-            vulkan_memory_init_once(): void
-            /**
-             * @since 1.18
-             * @param prop_bits
-             */
-            vulkan_memory_property_flags_to_string(prop_bits: Vulkan.MemoryPropertyFlags): string
-            /**
-             * @since 1.20
-             * @param present_mode a `VkPresentModeKHR`
-             * @returns name of `present_mode`
-             */
-            vulkan_present_mode_to_string(present_mode: Vulkan.PresentModeKHR): string
-            /**
-             * @since 1.18
-             * @param element a #GstElement
-             * @param query the #GstQuery to perform
-             * @param direction the #GstPadDirection to perform query on
-             * @returns whether `query` was answered successfully
-             */
-            vulkan_run_query(element: Gst.Element, query: Gst.Query, direction: Gst.PadDirection): boolean
-            /**
-             * @since 1.18
-             * @param sample_count_bits
-             */
-            vulkan_sample_count_flags_to_string(sample_count_bits: Vulkan.SampleCountFlags): string
-            /**
-             * A #GstVulkanTrashNotify implementation for unreffing a #GstMiniObject when the
-             * associated #GstVulkanFence is signalled
              * @since 1.18
              * @param device the #GstVulkanDevice
-             * @param user_data the #GstMiniObject
              */
-            vulkan_trash_mini_object_unref(device: VulkanDevice, user_data: never | null): void
+            type VulkanTrashNotify = (device: VulkanDevice) => void
             /**
-             * A #GstVulkanTrashNotify implementation for unreffing a #GstObject when the
-             * associated #GstVulkanFence is signalled
-             * @since 1.18
-             * @param device the #GstVulkanDevice
-             * @param user_data the #GstMiniObject
              */
-            vulkan_trash_object_unref(device: VulkanDevice, user_data: never | null): void
-            /**
-             * @since 1.18
-             */
-            vulkan_window_error_quark(): GLib.Quark
+            type VulkanHandleTypedef = number
+
+            interface $Exports {
+                __name__: "GstVulkan"
+                __version__: "1.0"
+                CAPS_FEATURE_MEMORY_VULKAN_BUFFER: "memory:VulkanBuffer"
+                CAPS_FEATURE_MEMORY_VULKAN_IMAGE: "memory:VulkanImage"
+                VULKAN_BUFFER_MEMORY_ALLOCATOR_NAME: "VulkanBuffer"
+                VULKAN_DEVICE_CONTEXT_TYPE_STR: "gst.vulkan.device"
+                VULKAN_DISPLAY_CONTEXT_TYPE_STR: "gst.vulkan.display"
+                VULKAN_IMAGE_MEMORY_ALLOCATOR_NAME: "VulkanImage"
+                VULKAN_INSTANCE_CONTEXT_TYPE_STR: "gst.vulkan.instance"
+                VULKAN_MAX_COMPONENTS: 4
+                VULKAN_MEMORY_ALLOCATOR_NAME: "Vulkan"
+                VULKAN_QUEUE_CONTEXT_TYPE_STR: "gst.vulkan.queue"
+                VULKAN_SWAPPER_VIDEO_FORMATS: " { RGBA, BGRA, RGB, BGR } "
+                /**
+                 * @since 1.18
+                 * @param context a #GstContext
+                 * @returns Whether `device` was in `context`, resulting #GstVulkanDevice
+                 */
+                context_get_vulkan_device(context: Gst.Context): [boolean, VulkanDevice | null]
+                /**
+                 * @since 1.18
+                 * @param context a #GstContext
+                 * @returns Whether `display` was in `context`, resulting #GstVulkanDisplay
+                 */
+                context_get_vulkan_display(context: Gst.Context): [boolean, VulkanDisplay | null]
+                /**
+                 * @since 1.18
+                 * @param context a #GstContext
+                 * @returns Whether `instance` was in `context`, resulting #GstVulkanInstance
+                 */
+                context_get_vulkan_instance(context: Gst.Context): [boolean, VulkanInstance | null]
+                /**
+                 * @since 1.18
+                 * @param context a #GstContext
+                 * @returns Whether `queue` was in `context`, resulting #GstVulkanQueue
+                 */
+                context_get_vulkan_queue(context: Gst.Context): [boolean, VulkanQueue | null]
+                /**
+                 * Sets `device` on `context`
+                 * @since 1.18
+                 * @param context a #GstContext
+                 * @param device a #GstVulkanDevice
+                 */
+                context_set_vulkan_device(context: Gst.Context, device: VulkanDevice | null): void
+                /**
+                 * Sets `display` on `context`
+                 * @since 1.18
+                 * @param context a #GstContext
+                 * @param display a #GstVulkanDisplay
+                 */
+                context_set_vulkan_display(context: Gst.Context, display: VulkanDisplay | null): void
+                /**
+                 * Sets `instance` on `context`
+                 * @since 1.18
+                 * @param context a #GstContext
+                 * @param instance a #GstVulkanInstance
+                 */
+                context_set_vulkan_instance(context: Gst.Context, instance: VulkanInstance | null): void
+                /**
+                 * Sets `queue` on `context`
+                 * @since 1.18
+                 * @param context a #GstContext
+                 * @param queue a #GstVulkanQueue
+                 */
+                context_set_vulkan_queue(context: Gst.Context, queue: VulkanQueue | null): void
+                /**
+                 * @since 1.18
+                 * @param mem a #GstMemory
+                 * @returns whether the memory at `mem` is a #GstVulkanBufferMemory
+                 */
+                is_vulkan_buffer_memory(mem: Gst.Memory): boolean
+                /**
+                 * @since 1.18
+                 * @param mem a #GstMemory
+                 * @returns whether the memory at `mem` is a #GstVulkanImageMemory
+                 */
+                is_vulkan_image_memory(mem: Gst.Memory): boolean
+                /**
+                 * @since 1.18
+                 * @param mem a #GstMemory
+                 * @returns whether the memory at `mem` is a #GstVulkanMemory
+                 */
+                is_vulkan_memory(mem: Gst.Memory): boolean
+                /**
+                 * Allocate a new #GstVulkanBufferMemory.
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param size size of the new buffer
+                 * @param usage buffer usage flags
+                 * @param mem_prop_flags memory properties flags for the backing memory
+                 * @returns a #GstMemory object backed by a vulkan buffer          backed by vulkan device memory
+                 */
+                vulkan_buffer_memory_alloc(device: VulkanDevice, size: number, usage: Vulkan.BufferUsageFlags, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
+                /**
+                 * Allocate a new #GstVulkanBufferMemory.
+                 * @since 1.24
+                 * @param device a #GstVulkanDevice
+                 * @param buffer_info the VkBufferCreateInfo structure
+                 * @param mem_prop_flags memory properties flags for the backing memory
+                 * @returns a #GstMemory object backed by a vulkan buffer          backed by vulkan device memory
+                 */
+                vulkan_buffer_memory_alloc_with_buffer_info(device: VulkanDevice, buffer_info: Vulkan.BufferCreateInfo, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
+                /**
+                 * Initializes the Vulkan buffer memory allocator. It is safe to call this function
+                 * multiple times.  This must be called before any other #GstVulkanBufferMemory operation.
+                 * @since 1.18
+                 */
+                vulkan_buffer_memory_init_once(): void
+                /**
+                 * Allocated a new wrapped #GstVulkanBufferMemory with `buffer`.
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param buffer a `VkBuffer`
+                 * @param usage usage flags of `buffer`
+                 * @param user_data user data to call `notify` with
+                 * @param notify a #GDestroyNotify called when `buffer` is no longer in use
+                 * @returns a #GstMemory object backed by a vulkan device memory
+                 */
+                vulkan_buffer_memory_wrapped(device: VulkanDevice, buffer: Vulkan.Buffer, usage: Vulkan.BufferUsageFlags, user_data: never | null, notify: GLib.DestroyNotify | null): Gst.Memory
+                /**
+                 * @throws {GLib.Error}
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param code the SPIR-V shader byte code
+                 * @param size length of `code`.  Must be a multiple of 4
+                 * @returns a #GstVulkanHandle for `image` matching the                           original layout and format of `image` or %NULL
+                 */
+                vulkan_create_shader(device: VulkanDevice, code: string, size: number): VulkanHandle
+                /**
+                 * @since 1.18
+                 * @param type a #GstVulkanDisplayType
+                 * @returns the Vulkan extension string required for creating a                      VkSurfaceKHR using a window system handle or %NULL
+                 */
+                vulkan_display_type_to_extension_string(type: VulkanDisplayType): string | null
+                /**
+                 * Perform the steps necessary for retrieving a #GstVulkanInstance and
+                 * (optionally) an #GstVulkanDisplay from the surrounding elements or from
+                 * the application using the #GstContext mechanism.
+                 *
+                 * If the contents of `display_ptr` or `instance_ptr` are not %NULL, then no
+                 * #GstContext query is necessary and no #GstVulkanInstance or #GstVulkanDisplay
+                 * retrieval is performed.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @returns whether a #GstVulkanInstance exists in `instance_ptr` and if          `display_ptr` is not %NULL, whether a #GstVulkanDisplay exists in          `display_ptr`, the resulting #GstVulkanDisplay, the resulting #GstVulkanInstance
+                 */
+                vulkan_ensure_element_data(element: Gst.Element, display_ptr: VulkanDisplay, instance_ptr: VulkanInstance): [boolean, VulkanDisplay, VulkanInstance]
+                /**
+                 * Perform the steps necessary for retrieving a #GstVulkanDevice from
+                 * the surrounding elements or create a new device according to the device_id.
+                 *
+                 * If the contents of `device_ptr` is not %NULL, then no
+                 * #GstContext query is necessary and no #GstVulkanDevice
+                 * retrieval is performed.
+                 * @since 1.26
+                 * @param element a #GstElement
+                 * @param instance the #GstVulkanInstance
+                 * @param device_id The device number to use, 0 is default.
+                 * @returns whether a #GstVulkanDevice exists in `device_ptr`, the resulting #GstVulkanDevice
+                 */
+                vulkan_ensure_element_device(element: Gst.Element, instance: VulkanInstance, device_ptr: VulkanDevice, device_id: number): [boolean, VulkanDevice]
+                /**
+                 * @since 1.18
+                 */
+                vulkan_error_quark(): GLib.Quark
+                /**
+                 * @since 1.24
+                 * @param format Vulkan Format
+                 * @returns the `format` aspect
+                 */
+                vulkan_format_get_aspect(format: Vulkan.Format): number
+                /**
+                 * @since 1.18
+                 * @param format a valid `VkFormat`
+                 * @returns the #GstVulkanFormatInfo for `format` or %NULL
+                 */
+                vulkan_format_get_info(format: Vulkan.Format): VulkanFormatInfo | null
+                /**
+                 * @since 1.24
+                 * @param vk_format the Vulkan format to convert
+                 * @returns the #GstVideoFormat that maps to `vk_format`
+                 */
+                vulkan_format_to_video_format(vk_format: Vulkan.Format): GstVideo.VideoFormat
+                /**
+                 * @since 1.18
+                 * @param image a #GstVulkanImageMemory
+                 * @returns a #GstVulkanImageView for `image` matching the                           original layout and format of `image`
+                 */
+                vulkan_get_or_create_image_view(image: VulkanImageMemory): VulkanImageView
+                /**
+                 * Create a new #GstVulkanImageView with a specific `create_info`.
+                 * @since 1.24
+                 * @param image a #GstVulkanImageMemory
+                 * @param create_info a VkImageViewCreateInfo
+                 * @returns a #GstVulkanImageView for `image` matching the                           original layout and format of `image`
+                 */
+                vulkan_get_or_create_image_view_with_info(image: VulkanImageMemory, create_info: Vulkan.ImageViewCreateInfo | null): VulkanImageView
+                /**
+                 * Performs the steps necessary for executing a context query including
+                 * posting a message for the application to respond.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @param context_type the context type to query for
+                 */
+                vulkan_global_context_query(element: Gst.Element, context_type: string): void
+                /**
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @param query a #GstQuery of type %GST_QUERY_CONTEXT
+                 * @param display a #GstVulkanDisplay
+                 * @param instance a #GstVulkanInstance
+                 * @param device a #GstVulkanDevice
+                 * @returns Whether the `query` was successfully responded to from the passed          `display`, `instance`, and `device`.
+                 */
+                vulkan_handle_context_query(element: Gst.Element, query: Gst.Query, display: VulkanDisplay | null, instance: VulkanInstance | null, device: VulkanDevice | null): boolean
+                /**
+                 * Helper function for implementing #GstElementClass.set_context() in
+                 * Vulkan capable elements.
+                 *
+                 * Retrieve's the #GstVulkanDisplay or #GstVulkanInstance in `context` and places
+                 * the result in `display` or `instance` respectively.
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @param context a #GstContext
+                 * @returns whether the `display` or `instance` could be set successfully, location of a #GstVulkanDisplay, location of a #GstVulkanInstance
+                 */
+                vulkan_handle_set_context(element: Gst.Element, context: Gst.Context, display: VulkanDisplay, instance: VulkanInstance): [boolean, VulkanDisplay, VulkanInstance]
+                /**
+                 * Allocated a new #GstVulkanImageMemory.
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param format the VkFormat for the new image
+                 * @param width width for the new image
+                 * @param height height for the new image
+                 * @param tiling tiling for the new image
+                 * @param usage usage flags for the new image
+                 * @param mem_prop_flags VkDeviceMemory property flags for the new image
+                 * @returns a #GstMemory object backed by a vulkan device memory
+                 */
+                vulkan_image_memory_alloc(device: VulkanDevice, format: Vulkan.Format, width: number, height: number, tiling: Vulkan.ImageTiling, usage: Vulkan.ImageUsageFlags, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
+                /**
+                 * @since 1.24
+                 * @param device a #GstVulkanDevice
+                 * @param image_info VkImageCreateInfo structure
+                 * @param mem_prop_flags VkMemoryPropertyFlags flags
+                 * @returns a #GstMemory object backed by a vulkan device memory
+                 */
+                vulkan_image_memory_alloc_with_image_info(device: VulkanDevice, image_info: Vulkan.ImageCreateInfo, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
+                /**
+                 * Initializes the Vulkan image memory allocator. It is safe to call this function
+                 * multiple times.  This must be called before any other #GstVulkanImageMemory operation.
+                 * @since 1.18
+                 */
+                vulkan_image_memory_init_once(): void
+                /**
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param image a VkImage
+                 * @param format the VkFormat for `image`
+                 * @param width width of `image`
+                 * @param height height of `image`
+                 * @param tiling tiling of `image`
+                 * @param usage usage flags of `image`
+                 * @param user_data user data for `notify`
+                 * @param notify a #GDestroyNotify when `image` is no longer needed
+                 * @returns a new #GstVulkanImageMemory wrapping `image`
+                 */
+                vulkan_image_memory_wrapped(device: VulkanDevice, image: Vulkan.Image, format: Vulkan.Format, width: number, height: number, tiling: Vulkan.ImageTiling, usage: Vulkan.ImageUsageFlags, user_data: never | null, notify: GLib.DestroyNotify): Gst.Memory
+                /**
+                 * Performs the steps necessary for executing a context query between only
+                 * other elements in the pipeline
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @param context_type the context type to query for
+                 */
+                vulkan_local_context_query(element: Gst.Element, context_type: string): Gst.Query
+                /**
+                 * Allocated a new #GstVulkanMemory.
+                 * @since 1.18
+                 * @param device a #GstVulkanDevice
+                 * @param memory_type_index the Vulkan memory type index
+                 * @param params a #GstAllocationParams
+                 * @param size the size to allocate
+                 * @param mem_prop_flags
+                 * @returns a #GstMemory object backed by a vulkan device memory
+                 */
+                vulkan_memory_alloc(device: VulkanDevice, memory_type_index: number, params: Gst.AllocationParams, size: number, mem_prop_flags: Vulkan.MemoryPropertyFlags): Gst.Memory
+                /**
+                 * @since 1.24
+                 * @param device a #GstVulkanDevice
+                 * @param req memory requirements to look for
+                 * @param properties memory properties to search for
+                 * @returns whether a valid memory type could be found, resulting index of the memory type
+                 */
+                vulkan_memory_find_memory_type_index_with_requirements(device: VulkanDevice, req: Vulkan.MemoryRequirements, properties: Vulkan.MemoryPropertyFlags): [boolean, number]
+                /**
+                 * @since 1.18
+                 * @param prop_bits
+                 */
+                vulkan_memory_heap_flags_to_string(prop_bits: Vulkan.MemoryHeapFlags): string
+                /**
+                 * Initializes the Vulkan memory allocator. It is safe to call this function
+                 * multiple times.  This must be called before any other #GstVulkanMemory operation.
+                 * @since 1.18
+                 */
+                vulkan_memory_init_once(): void
+                /**
+                 * @since 1.18
+                 * @param prop_bits
+                 */
+                vulkan_memory_property_flags_to_string(prop_bits: Vulkan.MemoryPropertyFlags): string
+                /**
+                 * @since 1.20
+                 * @param present_mode a `VkPresentModeKHR`
+                 * @returns name of `present_mode`
+                 */
+                vulkan_present_mode_to_string(present_mode: Vulkan.PresentModeKHR): string
+                /**
+                 * @since 1.18
+                 * @param element a #GstElement
+                 * @param query the #GstQuery to perform
+                 * @param direction the #GstPadDirection to perform query on
+                 * @returns whether `query` was answered successfully
+                 */
+                vulkan_run_query(element: Gst.Element, query: Gst.Query, direction: Gst.PadDirection): boolean
+                /**
+                 * @since 1.18
+                 * @param sample_count_bits
+                 */
+                vulkan_sample_count_flags_to_string(sample_count_bits: Vulkan.SampleCountFlags): string
+                /**
+                 * A #GstVulkanTrashNotify implementation for unreffing a #GstMiniObject when the
+                 * associated #GstVulkanFence is signalled
+                 * @since 1.18
+                 * @param device the #GstVulkanDevice
+                 * @param user_data the #GstMiniObject
+                 */
+                vulkan_trash_mini_object_unref(device: VulkanDevice, user_data: never | null): void
+                /**
+                 * A #GstVulkanTrashNotify implementation for unreffing a #GstObject when the
+                 * associated #GstVulkanFence is signalled
+                 * @since 1.18
+                 * @param device the #GstVulkanDevice
+                 * @param user_data the #GstMiniObject
+                 */
+                vulkan_trash_object_unref(device: VulkanDevice, user_data: never | null): void
+                /**
+                 * @since 1.18
+                 */
+                vulkan_window_error_quark(): GLib.Quark
+            }
         }
+
+        const GstVulkan: GstVulkan.$Exports
     }
 
-    const GstVulkan: GstVulkan.$Exports
-    export default GstVulkan
+    export default GI.GstVulkan
 }

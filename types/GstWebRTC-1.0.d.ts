@@ -16,1700 +16,1718 @@ declare module "gi://GstWebRTC?version=1.0" {
     import type Gst from "gi://Gst?version=1.0"
     import type GstSdp from "gi://GstSdp?version=1.0"
 
-    
-
-    namespace GstWebRTC {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace WebRTCDTLSTransport {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+        namespace GstWebRTC {
+            
+
+            namespace WebRTCDTLSTransport {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "certificate": string
+                    "client": boolean
+                    "remote-certificate": string
+                    "session-id": number
+                    "state": WebRTCDTLSTransportState
+                    "transport": WebRTCICETransport
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "certificate": string
+                    "client": boolean
+                    "remote-certificate": string
+                    "state": WebRTCDTLSTransportState
+                    "transport": WebRTCICETransport
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                    "session-id": number
+                }
             }
 
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "certificate": string
-                "client": boolean
-                "remote-certificate": string
-                "session-id": number
-                "state": WebRTCDTLSTransportState
-                "transport": WebRTCICETransport
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "certificate": string
-                "client": boolean
-                "remote-certificate": string
-                "state": WebRTCDTLSTransportState
-                "transport": WebRTCICETransport
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-                "session-id": number
-            }
-        }
-
-        interface WebRTCDTLSTransport extends Gst.Object {
-            readonly $signals: WebRTCDTLSTransport.SignalSignatures
-            readonly $readableProperties: WebRTCDTLSTransport.ReadableProperties
-            readonly $writableProperties: WebRTCDTLSTransport.WritableProperties
-            readonly $constructOnlyProperties: WebRTCDTLSTransport.ConstructOnlyProperties
-            /**
-             * @default NULL
-             */
-            get certificate(): string
-            set certificate(value: string)
-            /**
-             * @default FALSE
-             */
-            get client(): boolean
-            set client(value: boolean)
-            /**
-             * @default NULL
-             */
-            get remoteCertificate(): string
-            set remoteCertificate(value: string)
-            /**
-             * @default 0
-             */
-            get sessionId(): number
-            set sessionId(value: number)
-            /**
-             * @default GST_WEBRTC_DTLS_TRANSPORT_STATE_NEW
-             */
-            get state(): WebRTCDTLSTransportState
-            set state(value: WebRTCDTLSTransportState)
-            /**
-             */
-            get transport(): WebRTCICETransport
-            set transport(value: WebRTCICETransport)
-        }
-
-        interface WebRTCDTLSTransportClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<WebRTCDTLSTransport>
-            readonly prototype: WebRTCDTLSTransport
-
-            new (props?: Partial<GObject.ConstructorProps<WebRTCDTLSTransport>>): WebRTCDTLSTransport
-        }
-
-        interface $Exports {
-            /**
-             */
-            WebRTCDTLSTransport: WebRTCDTLSTransportClass
-        }
-        
-
-        namespace WebRTCDataChannel {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            interface WebRTCDTLSTransport extends Gst.Object {
+                readonly $signals: WebRTCDTLSTransport.SignalSignatures
+                readonly $readableProperties: WebRTCDTLSTransport.ReadableProperties
+                readonly $writableProperties: WebRTCDTLSTransport.WritableProperties
+                readonly $constructOnlyProperties: WebRTCDTLSTransport.ConstructOnlyProperties
                 /**
-                 * Close the data channel
+                 * @default NULL
                  */
-                "close"(): void
+                get certificate(): string
+                set certificate(value: string)
+                /**
+                 * @default FALSE
+                 */
+                get client(): boolean
+                set client(value: boolean)
+                /**
+                 * @default NULL
+                 */
+                get remoteCertificate(): string
+                set remoteCertificate(value: string)
+                /**
+                 * @default 0
+                 */
+                get sessionId(): number
+                set sessionId(value: number)
+                /**
+                 * @default GST_WEBRTC_DTLS_TRANSPORT_STATE_NEW
+                 */
+                get state(): WebRTCDTLSTransportState
+                set state(value: WebRTCDTLSTransportState)
                 /**
                  */
-                "on-buffered-amount-low"(): void
+                get transport(): WebRTCICETransport
+                set transport(value: WebRTCICETransport)
+            }
+
+            interface WebRTCDTLSTransportClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<WebRTCDTLSTransport>
+                readonly prototype: WebRTCDTLSTransport
+
+                new (props?: Partial<GObject.ConstructorProps<WebRTCDTLSTransport>>): WebRTCDTLSTransport
+            }
+
+            interface $Exports {
                 /**
                  */
-                "on-close"(): void
+                WebRTCDTLSTransport: WebRTCDTLSTransportClass
+            }
+            
+
+            namespace WebRTCDataChannel {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                    /**
+                     * Close the data channel
+                     */
+                    "close"(): void
+                    /**
+                     */
+                    "on-buffered-amount-low"(): void
+                    /**
+                     */
+                    "on-close"(): void
+                    /**
+                     * @param error the #GError thrown
+                     */
+                    "on-error"(error: GLib.Error): void
+                    /**
+                     * @param data a #GBytes of the data received
+                     */
+                    "on-message-data"(data: (GLib.Bytes | Uint8Array | null)): void
+                    /**
+                     * @param data the data received as a string
+                     */
+                    "on-message-string"(data: string | null): void
+                    /**
+                     */
+                    "on-open"(): void
+                    /**
+                     * @param data a #GBytes with the data
+                     */
+                    "send-data"(data: (GLib.Bytes | Uint8Array | null)): void
+                    /**
+                     * @param data the data to send as a string
+                     */
+                    "send-string"(data: string | null): void
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "buffered-amount": number
+                    "buffered-amount-low-threshold": number
+                    "id": number
+                    "label": string
+                    "max-packet-lifetime": number
+                    "max-retransmits": number
+                    "negotiated": boolean
+                    "ordered": boolean
+                    "priority": WebRTCPriorityType
+                    "protocol": string
+                    "ready-state": WebRTCDataChannelState
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "buffered-amount": number
+                    "buffered-amount-low-threshold": number
+                    "ready-state": WebRTCDataChannelState
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                    "id": number
+                    "label": string
+                    "max-packet-lifetime": number
+                    "max-retransmits": number
+                    "negotiated": boolean
+                    "ordered": boolean
+                    "priority": WebRTCPriorityType
+                    "protocol": string
+                }
+            }
+
+            interface WebRTCDataChannel extends GObject.Object {
+                readonly $signals: WebRTCDataChannel.SignalSignatures
+                readonly $readableProperties: WebRTCDataChannel.ReadableProperties
+                readonly $writableProperties: WebRTCDataChannel.WritableProperties
+                readonly $constructOnlyProperties: WebRTCDataChannel.ConstructOnlyProperties
                 /**
-                 * @param error the #GError thrown
+                 * @default 0
                  */
-                "on-error"(error: GLib.Error): void
+                get bufferedAmount(): number
+                set bufferedAmount(value: number)
                 /**
-                 * @param data a #GBytes of the data received
+                 * @default 0
                  */
-                "on-message-data"(data: (GLib.Bytes | Uint8Array | null)): void
+                get bufferedAmountLowThreshold(): number
+                set bufferedAmountLowThreshold(value: number)
                 /**
-                 * @param data the data received as a string
+                 * @default -1
                  */
-                "on-message-string"(data: string | null): void
+                get id(): number
+                set id(value: number)
                 /**
+                 * @default NULL
                  */
-                "on-open"(): void
+                get label(): string
+                set label(value: string)
                 /**
-                 * @param data a #GBytes with the data
+                 * @default -1
                  */
-                "send-data"(data: (GLib.Bytes | Uint8Array | null)): void
+                get maxPacketLifetime(): number
+                set maxPacketLifetime(value: number)
                 /**
-                 * @param data the data to send as a string
+                 * @default 0
                  */
-                "send-string"(data: string | null): void
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "buffered-amount": number
-                "buffered-amount-low-threshold": number
-                "id": number
-                "label": string
-                "max-packet-lifetime": number
-                "max-retransmits": number
-                "negotiated": boolean
-                "ordered": boolean
-                "priority": WebRTCPriorityType
-                "protocol": string
-                "ready-state": WebRTCDataChannelState
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "buffered-amount": number
-                "buffered-amount-low-threshold": number
-                "ready-state": WebRTCDataChannelState
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-                "id": number
-                "label": string
-                "max-packet-lifetime": number
-                "max-retransmits": number
-                "negotiated": boolean
-                "ordered": boolean
-                "priority": WebRTCPriorityType
-                "protocol": string
-            }
-        }
-
-        interface WebRTCDataChannel extends GObject.Object {
-            readonly $signals: WebRTCDataChannel.SignalSignatures
-            readonly $readableProperties: WebRTCDataChannel.ReadableProperties
-            readonly $writableProperties: WebRTCDataChannel.WritableProperties
-            readonly $constructOnlyProperties: WebRTCDataChannel.ConstructOnlyProperties
-            /**
-             * @default 0
-             */
-            get bufferedAmount(): number
-            set bufferedAmount(value: number)
-            /**
-             * @default 0
-             */
-            get bufferedAmountLowThreshold(): number
-            set bufferedAmountLowThreshold(value: number)
-            /**
-             * @default -1
-             */
-            get id(): number
-            set id(value: number)
-            /**
-             * @default NULL
-             */
-            get label(): string
-            set label(value: string)
-            /**
-             * @default -1
-             */
-            get maxPacketLifetime(): number
-            set maxPacketLifetime(value: number)
-            /**
-             * @default 0
-             */
-            get maxRetransmits(): number
-            set maxRetransmits(value: number)
-            /**
-             * @default FALSE
-             */
-            get negotiated(): boolean
-            set negotiated(value: boolean)
-            /**
-             * @default FALSE
-             */
-            get ordered(): boolean
-            set ordered(value: boolean)
-            /**
-             * @default GST_WEBRTC_PRIORITY_TYPE_LOW
-             */
-            get priority(): WebRTCPriorityType
-            set priority(value: WebRTCPriorityType)
-            /**
-             */
-            get protocol(): string
-            set protocol(value: string)
-            /**
-             * @default GST_WEBRTC_DATA_CHANNEL_STATE_CONNECTING
-             */
-            get readyState(): WebRTCDataChannelState
-            set readyState(value: WebRTCDataChannelState)
-            /**
-             * Close the @channel.
-             */
-            close(): void
-            /**
-             * Send @data as a data message over @channel.
-             * @param data a #GBytes or %NULL
-             */
-            send_data(data: (GLib.Bytes | Uint8Array | null)): void
-            /**
-             * Send @data as a data message over @channel.
-             * @throws {GLib.Error}
-             * @since 1.22
-             * @param data a #GBytes or %NULL
-             * @returns TRUE if `channel` is open and data could be queued
-             */
-            send_data_full(data: (GLib.Bytes | Uint8Array | null)): boolean
-            /**
-             * Send @str as a string message over @channel.
-             * @param str a string or %NULL
-             */
-            send_string(str: string | null): void
-            /**
-             * Send @str as a string message over @channel.
-             * @throws {GLib.Error}
-             * @since 1.22
-             * @param str a string or %NULL
-             * @returns TRUE if `channel` is open and data could be queued
-             */
-            send_string_full(str: string | null): boolean
-        }
-
-        interface WebRTCDataChannelClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<WebRTCDataChannel>
-            readonly prototype: WebRTCDataChannel
-
-            new (props?: Partial<GObject.ConstructorProps<WebRTCDataChannel>>): WebRTCDataChannel
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.18
-             */
-            WebRTCDataChannel: WebRTCDataChannelClass
-        }
-        
-
-        namespace WebRTCICE {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                get maxRetransmits(): number
+                set maxRetransmits(value: number)
                 /**
-                 * Add a local IP address to use for ICE candidate gathering.  If none
-                 * are supplied, they will be discovered automatically. Calling this signal
-                 * stops automatic ICE gathering.
-                 * @param address The local IP address
-                 * @returns whether the address could be added.
+                 * @default FALSE
                  */
-                "add-local-ip-address"(address: string): boolean
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "max-rtp-port": number
-                "min-rtp-port": number
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "max-rtp-port": number
-                "min-rtp-port": number
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface WebRTCICE extends Gst.Object {
-            readonly $signals: WebRTCICE.SignalSignatures
-            readonly $readableProperties: WebRTCICE.ReadableProperties
-            readonly $writableProperties: WebRTCICE.WritableProperties
-            readonly $constructOnlyProperties: WebRTCICE.ConstructOnlyProperties
-            /**
-             * Maximum port for local rtp port range.
-             * min-rtp-port must be <= max-rtp-port
-             * @since 1.20
-             * @default 65535
-             */
-            get maxRtpPort(): number
-            set maxRtpPort(value: number)
-            /**
-             * Minimum port for local rtp port range.
-             * min-rtp-port must be <= max-rtp-port
-             * @since 1.20
-             * @default 0
-             */
-            get minRtpPort(): number
-            set minRtpPort(value: number)
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @param candidate The ICE candidate
-             * @param promise A #GstPromise for task notifications (Since: 1.24)
-             */
-            add_candidate(stream: WebRTCICEStream, candidate: string, promise: Gst.Promise | null): void
-            /**
-             * @since 1.22
-             * @param session_id The session id
-             * @returns The #GstWebRTCICEStream, or %NULL
-             */
-            add_stream(session_id: number): WebRTCICEStream | null
-            /**
-             * @since 1.22
-             * @param uri URI of the TURN server
-             * @returns FALSE on error, TRUE otherwise
-             */
-            add_turn_server(uri: string): boolean
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @param component The #GstWebRTCICEComponent
-             * @returns The #GstWebRTCICETransport, or %NULL
-             */
-            find_transport(stream: WebRTCICEStream, component: WebRTCICEComponent): WebRTCICETransport | null
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @returns FALSE on error, TRUE otherwise
-             */
-            gather_candidates(stream: WebRTCICEStream): boolean
-            /**
-             * @since 1.22
-             * @returns URI of the HTTP proxy of the form   http://[username:password@]hostname[:port][?alpn=<alpn>]  Get HTTP Proxy to be used when connecting to TURN server.
-             */
-            get_http_proxy(): string
-            /**
-             * @since 1.22
-             * @returns TRUE if set as controller, FALSE otherwise
-             */
-            get_is_controller(): boolean
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @returns List of local candidates
-             */
-            get_local_candidates(stream: WebRTCICEStream): WebRTCICECandidateStats[]
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @returns List of remote candidates
-             */
-            get_remote_candidates(stream: WebRTCICEStream): WebRTCICECandidateStats[]
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @returns FALSE on failure, otherwise `local_stats` `remote_stats` will be set, A pointer to #GstWebRTCICECandidateStats for local candidate, pointer to #GstWebRTCICECandidateStats for remote candidate
-             */
-            get_selected_pair(stream: WebRTCICEStream): [boolean, WebRTCICECandidateStats, WebRTCICECandidateStats]
-            /**
-             * @since 1.22
-             * @returns URI of the STUN sever
-             */
-            get_stun_server(): string | null
-            /**
-             * @since 1.22
-             * @returns URI of the TURN sever
-             */
-            get_turn_server(): string | null
-            /**
-             * @since 1.22
-             * @param force_relay TRUE to enable force relay
-             */
-            set_force_relay(force_relay: boolean): void
-            /**
-             * Set HTTP Proxy to be used when connecting to TURN server.
-             * @since 1.22
-             * @param uri URI of the HTTP proxy of the form
-              http://[username:password@]hostname[:port][?alpn=<alpn>]
-             */
-            set_http_proxy(uri: string): void
-            /**
-             * @since 1.22
-             * @param controller TRUE to set as controller
-             */
-            set_is_controller(controller: boolean): void
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @param ufrag ICE username
-             * @param pwd ICE password
-             * @returns FALSE on error, TRUE otherwise
-             */
-            set_local_credentials(stream: WebRTCICEStream, ufrag: string, pwd: string): boolean
-            /**
-             * @since 1.22
-             * @param func The #GstWebRTCICEOnCandidateFunc callback function
-             */
-            set_on_ice_candidate(func: WebRTCICEOnCandidateFunc): void
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @param ufrag ICE username
-             * @param pwd ICE password
-             * @returns FALSE on error, TRUE otherwise
-             */
-            set_remote_credentials(stream: WebRTCICEStream, ufrag: string, pwd: string): boolean
-            /**
-             * @since 1.22
-             * @param uri URI of the STUN server
-             */
-            set_stun_server(uri: string | null): void
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @param tos ToS to be set
-             */
-            set_tos(stream: WebRTCICEStream, tos: number): void
-            /**
-             * @since 1.22
-             * @param uri URI of the TURN sever
-             */
-            set_turn_server(uri: string | null): void
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @param candidate The ICE candidate
-             * @param promise A #GstPromise for task notifications (Since: 1.24)
-             */
-            vfunc_add_candidate(stream: WebRTCICEStream, candidate: string, promise: Gst.Promise | null): void
-            /**
-             * @since 1.22
-             * @param session_id The session id
-             * @returns The #GstWebRTCICEStream, or %NULL
-             */
-            vfunc_add_stream(session_id: number): WebRTCICEStream | null
-            /**
-             * @since 1.22
-             * @param uri URI of the TURN server
-             * @returns FALSE on error, TRUE otherwise
-             */
-            vfunc_add_turn_server(uri: string): boolean
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @param component The #GstWebRTCICEComponent
-             * @returns The #GstWebRTCICETransport, or %NULL
-             */
-            vfunc_find_transport(stream: WebRTCICEStream, component: WebRTCICEComponent): WebRTCICETransport | null
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @returns FALSE on error, TRUE otherwise
-             */
-            vfunc_gather_candidates(stream: WebRTCICEStream): boolean
-            /**
-             * Get HTTP Proxy to be used when connecting to TURN server.
-             * @since 1.22
-             * @returns URI of the HTTP proxy of the form   http://[username:password@]hostname[:port][?alpn=<alpn>]  Get HTTP Proxy to be used when connecting to TURN server.
-             */
-            vfunc_get_http_proxy(): string
-            /**
-             * @since 1.22
-             * @returns TRUE if set as controller, FALSE otherwise
-             */
-            vfunc_get_is_controller(): boolean
-            /**
-             * @param stream
-             */
-            vfunc_get_local_candidates(stream: WebRTCICEStream): WebRTCICECandidateStats
-            /**
-             * @param stream
-             */
-            vfunc_get_remote_candidates(stream: WebRTCICEStream): WebRTCICECandidateStats
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @returns FALSE on failure, otherwise `local_stats` `remote_stats` will be set, A pointer to #GstWebRTCICECandidateStats for local candidate, pointer to #GstWebRTCICECandidateStats for remote candidate
-             */
-            vfunc_get_selected_pair(stream: WebRTCICEStream): [boolean, WebRTCICECandidateStats, WebRTCICECandidateStats]
-            /**
-             * @since 1.22
-             * @returns URI of the STUN sever
-             */
-            vfunc_get_stun_server(): string | null
-            /**
-             * @since 1.22
-             * @returns URI of the TURN sever
-             */
-            vfunc_get_turn_server(): string | null
-            /**
-             * @since 1.22
-             * @param force_relay TRUE to enable force relay
-             */
-            vfunc_set_force_relay(force_relay: boolean): void
-            /**
-             * Set HTTP Proxy to be used when connecting to TURN server.
-             * @since 1.22
-             * @param uri URI of the HTTP proxy of the form
-              http://[username:password@]hostname[:port][?alpn=<alpn>]
-             */
-            vfunc_set_http_proxy(uri: string): void
-            /**
-             * @since 1.22
-             * @param controller TRUE to set as controller
-             */
-            vfunc_set_is_controller(controller: boolean): void
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @param ufrag ICE username
-             * @param pwd ICE password
-             * @returns FALSE on error, TRUE otherwise
-             */
-            vfunc_set_local_credentials(stream: WebRTCICEStream, ufrag: string, pwd: string): boolean
-            /**
-             * @since 1.22
-             * @param func The #GstWebRTCICEOnCandidateFunc callback function
-             */
-            vfunc_set_on_ice_candidate(func: WebRTCICEOnCandidateFunc): void
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @param ufrag ICE username
-             * @param pwd ICE password
-             * @returns FALSE on error, TRUE otherwise
-             */
-            vfunc_set_remote_credentials(stream: WebRTCICEStream, ufrag: string, pwd: string): boolean
-            /**
-             * @since 1.22
-             * @param uri URI of the STUN server
-             */
-            vfunc_set_stun_server(uri: string | null): void
-            /**
-             * @since 1.22
-             * @param stream The #GstWebRTCICEStream
-             * @param tos ToS to be set
-             */
-            vfunc_set_tos(stream: WebRTCICEStream, tos: number): void
-            /**
-             * @since 1.22
-             * @param uri URI of the TURN sever
-             */
-            vfunc_set_turn_server(uri: string | null): void
-        }
-
-        interface WebRTCICEClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<WebRTCICE>
-            readonly prototype: WebRTCICE
-
-            new (props?: Partial<GObject.ConstructorProps<WebRTCICE>>): WebRTCICE
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.22
-             */
-            WebRTCICE: WebRTCICEClass
-        }
-        
-
-        namespace WebRTCICEStream {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "stream-id": number
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-                "stream-id": number
-            }
-        }
-
-        interface WebRTCICEStream extends Gst.Object {
-            readonly $signals: WebRTCICEStream.SignalSignatures
-            readonly $readableProperties: WebRTCICEStream.ReadableProperties
-            readonly $writableProperties: WebRTCICEStream.WritableProperties
-            readonly $constructOnlyProperties: WebRTCICEStream.ConstructOnlyProperties
-            /**
-             * @default 0
-             */
-            get streamId(): number
-            set streamId(value: number)
-            /**
-             * @since 1.22
-             * @param component The #GstWebRTCICEComponent
-             * @returns the #GstWebRTCICETransport, or %NULL
-             */
-            find_transport(component: WebRTCICEComponent): WebRTCICETransport | null
-            /**
-             * @since 1.22
-             * @returns FALSE on error, TRUE otherwise
-             */
-            gather_candidates(): boolean
-            /**
-             * @since 1.22
-             * @param component The #GstWebRTCICEComponent
-             * @returns the #GstWebRTCICETransport, or %NULL
-             */
-            vfunc_find_transport(component: WebRTCICEComponent): WebRTCICETransport | null
-            /**
-             * @since 1.22
-             * @returns FALSE on error, TRUE otherwise
-             */
-            vfunc_gather_candidates(): boolean
-        }
-
-        interface WebRTCICEStreamClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<WebRTCICEStream>
-            readonly prototype: WebRTCICEStream
-
-            new (props?: Partial<GObject.ConstructorProps<WebRTCICEStream>>): WebRTCICEStream
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.22
-             */
-            WebRTCICEStream: WebRTCICEStreamClass
-        }
-        
-
-        namespace WebRTCICETransport {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                get negotiated(): boolean
+                set negotiated(value: boolean)
                 /**
-                 * @param object
+                 * @default FALSE
                  */
-                "on-new-candidate"(object: string): void
+                get ordered(): boolean
+                set ordered(value: boolean)
+                /**
+                 * @default GST_WEBRTC_PRIORITY_TYPE_LOW
+                 */
+                get priority(): WebRTCPriorityType
+                set priority(value: WebRTCPriorityType)
                 /**
                  */
-                "on-selected-candidate-pair-change"(): void
+                get protocol(): string
+                set protocol(value: string)
+                /**
+                 * @default GST_WEBRTC_DATA_CHANNEL_STATE_CONNECTING
+                 */
+                get readyState(): WebRTCDataChannelState
+                set readyState(value: WebRTCDataChannelState)
+                /**
+                 * Close the `channel`.
+                 */
+                close(): void
+                /**
+                 * Send `data` as a data message over `channel`.
+                 * @param data a #GBytes or %NULL
+                 */
+                send_data(data: (GLib.Bytes | Uint8Array | null)): void
+                /**
+                 * Send `data` as a data message over `channel`.
+                 * @throws {GLib.Error}
+                 * @since 1.22
+                 * @param data a #GBytes or %NULL
+                 * @returns TRUE if `channel` is open and data could be queued
+                 */
+                send_data_full(data: (GLib.Bytes | Uint8Array | null)): boolean
+                /**
+                 * Send `str` as a string message over `channel`.
+                 * @param str a string or %NULL
+                 */
+                send_string(str: string | null): void
+                /**
+                 * Send `str` as a string message over `channel`.
+                 * @throws {GLib.Error}
+                 * @since 1.22
+                 * @param str a string or %NULL
+                 * @returns TRUE if `channel` is open and data could be queued
+                 */
+                send_string_full(str: string | null): boolean
             }
 
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "component": WebRTCICEComponent
-                "gathering-state": WebRTCICEGatheringState
-                "state": WebRTCICEConnectionState
+            interface WebRTCDataChannelClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<WebRTCDataChannel>
+                readonly prototype: WebRTCDataChannel
+
+                new (props?: Partial<GObject.ConstructorProps<WebRTCDataChannel>>): WebRTCDataChannel
             }
 
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "gathering-state": WebRTCICEGatheringState
-                "state": WebRTCICEConnectionState
+            interface $Exports {
+                /**
+                 * @since 1.18
+                 */
+                WebRTCDataChannel: WebRTCDataChannelClass
+            }
+            
+
+            namespace WebRTCICE {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                    /**
+                     * Add a local IP address to use for ICE candidate gathering.  If none
+                     * are supplied, they will be discovered automatically. Calling this signal
+                     * stops automatic ICE gathering.
+                     * @param address The local IP address
+                     * @returns whether the address could be added.
+                     */
+                    "add-local-ip-address"(address: string): boolean
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "max-rtp-port": number
+                    "min-rtp-port": number
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "max-rtp-port": number
+                    "min-rtp-port": number
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-                "component": WebRTCICEComponent
+            interface WebRTCICE extends Gst.Object {
+                readonly $signals: WebRTCICE.SignalSignatures
+                readonly $readableProperties: WebRTCICE.ReadableProperties
+                readonly $writableProperties: WebRTCICE.WritableProperties
+                readonly $constructOnlyProperties: WebRTCICE.ConstructOnlyProperties
+                /**
+                 * Maximum port for local rtp port range.
+                 * min-rtp-port must be <= max-rtp-port
+                 * @since 1.20
+                 * @default 65535
+                 */
+                get maxRtpPort(): number
+                set maxRtpPort(value: number)
+                /**
+                 * Minimum port for local rtp port range.
+                 * min-rtp-port must be <= max-rtp-port
+                 * @since 1.20
+                 * @default 0
+                 */
+                get minRtpPort(): number
+                set minRtpPort(value: number)
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @param candidate The ICE candidate
+                 * @param promise A #GstPromise for task notifications (Since: 1.24)
+                 */
+                add_candidate(stream: WebRTCICEStream, candidate: string, promise: Gst.Promise | null): void
+                /**
+                 * @since 1.22
+                 * @param session_id The session id
+                 * @returns The #GstWebRTCICEStream, or %NULL
+                 */
+                add_stream(session_id: number): WebRTCICEStream | null
+                /**
+                 * @since 1.22
+                 * @param uri URI of the TURN server
+                 * @returns FALSE on error, TRUE otherwise
+                 */
+                add_turn_server(uri: string): boolean
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @param component The #GstWebRTCICEComponent
+                 * @returns The #GstWebRTCICETransport, or %NULL
+                 */
+                find_transport(stream: WebRTCICEStream, component: WebRTCICEComponent): WebRTCICETransport | null
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @returns FALSE on error, TRUE otherwise
+                 */
+                gather_candidates(stream: WebRTCICEStream): boolean
+                /**
+                 * @since 1.22
+                 * @returns URI of the HTTP proxy of the form   http://[username:password@]hostname[:port][?alpn=<alpn>]  Get HTTP Proxy to be used when connecting to TURN server.
+                 */
+                get_http_proxy(): string
+                /**
+                 * @since 1.22
+                 * @returns TRUE if set as controller, FALSE otherwise
+                 */
+                get_is_controller(): boolean
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @returns List of local candidates
+                 */
+                get_local_candidates(stream: WebRTCICEStream): WebRTCICECandidateStats[]
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @returns List of remote candidates
+                 */
+                get_remote_candidates(stream: WebRTCICEStream): WebRTCICECandidateStats[]
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @returns FALSE on failure, otherwise `local_stats` `remote_stats` will be set, A pointer to #GstWebRTCICECandidateStats for local candidate, pointer to #GstWebRTCICECandidateStats for remote candidate
+                 */
+                get_selected_pair(stream: WebRTCICEStream): [boolean, WebRTCICECandidateStats, WebRTCICECandidateStats]
+                /**
+                 * @since 1.22
+                 * @returns URI of the STUN sever
+                 */
+                get_stun_server(): string | null
+                /**
+                 * @since 1.22
+                 * @returns URI of the TURN sever
+                 */
+                get_turn_server(): string | null
+                /**
+                 * @since 1.22
+                 * @param force_relay TRUE to enable force relay
+                 */
+                set_force_relay(force_relay: boolean): void
+                /**
+                 * Set HTTP Proxy to be used when connecting to TURN server.
+                 * @since 1.22
+                 * @param uri URI of the HTTP proxy of the form   http://[username:password@]hostname[:port][?alpn=<alpn>]
+                 */
+                set_http_proxy(uri: string): void
+                /**
+                 * @since 1.22
+                 * @param controller TRUE to set as controller
+                 */
+                set_is_controller(controller: boolean): void
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @param ufrag ICE username
+                 * @param pwd ICE password
+                 * @returns FALSE on error, TRUE otherwise
+                 */
+                set_local_credentials(stream: WebRTCICEStream, ufrag: string, pwd: string): boolean
+                /**
+                 * @since 1.22
+                 * @param func The #GstWebRTCICEOnCandidateFunc callback function
+                 */
+                set_on_ice_candidate(func: WebRTCICEOnCandidateFunc): void
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @param ufrag ICE username
+                 * @param pwd ICE password
+                 * @returns FALSE on error, TRUE otherwise
+                 */
+                set_remote_credentials(stream: WebRTCICEStream, ufrag: string, pwd: string): boolean
+                /**
+                 * @since 1.22
+                 * @param uri URI of the STUN server
+                 */
+                set_stun_server(uri: string | null): void
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @param tos ToS to be set
+                 */
+                set_tos(stream: WebRTCICEStream, tos: number): void
+                /**
+                 * @since 1.22
+                 * @param uri URI of the TURN sever
+                 */
+                set_turn_server(uri: string | null): void
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @param candidate The ICE candidate
+                 * @param promise A #GstPromise for task notifications (Since: 1.24)
+                 */
+                vfunc_add_candidate(stream: WebRTCICEStream, candidate: string, promise: Gst.Promise | null): void
+                /**
+                 * @since 1.22
+                 * @param session_id The session id
+                 * @returns The #GstWebRTCICEStream, or %NULL
+                 */
+                vfunc_add_stream(session_id: number): WebRTCICEStream | null
+                /**
+                 * @since 1.22
+                 * @param uri URI of the TURN server
+                 * @returns FALSE on error, TRUE otherwise
+                 */
+                vfunc_add_turn_server(uri: string): boolean
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @param component The #GstWebRTCICEComponent
+                 * @returns The #GstWebRTCICETransport, or %NULL
+                 */
+                vfunc_find_transport(stream: WebRTCICEStream, component: WebRTCICEComponent): WebRTCICETransport | null
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @returns FALSE on error, TRUE otherwise
+                 */
+                vfunc_gather_candidates(stream: WebRTCICEStream): boolean
+                /**
+                 * Get HTTP Proxy to be used when connecting to TURN server.
+                 * @since 1.22
+                 * @returns URI of the HTTP proxy of the form   http://[username:password@]hostname[:port][?alpn=<alpn>]  Get HTTP Proxy to be used when connecting to TURN server.
+                 */
+                vfunc_get_http_proxy(): string
+                /**
+                 * @since 1.22
+                 * @returns TRUE if set as controller, FALSE otherwise
+                 */
+                vfunc_get_is_controller(): boolean
+                /**
+                 * @param stream
+                 */
+                vfunc_get_local_candidates(stream: WebRTCICEStream): WebRTCICECandidateStats
+                /**
+                 * @param stream
+                 */
+                vfunc_get_remote_candidates(stream: WebRTCICEStream): WebRTCICECandidateStats
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @returns FALSE on failure, otherwise `local_stats` `remote_stats` will be set, A pointer to #GstWebRTCICECandidateStats for local candidate, pointer to #GstWebRTCICECandidateStats for remote candidate
+                 */
+                vfunc_get_selected_pair(stream: WebRTCICEStream): [boolean, WebRTCICECandidateStats, WebRTCICECandidateStats]
+                /**
+                 * @since 1.22
+                 * @returns URI of the STUN sever
+                 */
+                vfunc_get_stun_server(): string | null
+                /**
+                 * @since 1.22
+                 * @returns URI of the TURN sever
+                 */
+                vfunc_get_turn_server(): string | null
+                /**
+                 * @since 1.22
+                 * @param force_relay TRUE to enable force relay
+                 */
+                vfunc_set_force_relay(force_relay: boolean): void
+                /**
+                 * Set HTTP Proxy to be used when connecting to TURN server.
+                 * @since 1.22
+                 * @param uri URI of the HTTP proxy of the form   http://[username:password@]hostname[:port][?alpn=<alpn>]
+                 */
+                vfunc_set_http_proxy(uri: string): void
+                /**
+                 * @since 1.22
+                 * @param controller TRUE to set as controller
+                 */
+                vfunc_set_is_controller(controller: boolean): void
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @param ufrag ICE username
+                 * @param pwd ICE password
+                 * @returns FALSE on error, TRUE otherwise
+                 */
+                vfunc_set_local_credentials(stream: WebRTCICEStream, ufrag: string, pwd: string): boolean
+                /**
+                 * @since 1.22
+                 * @param func The #GstWebRTCICEOnCandidateFunc callback function
+                 */
+                vfunc_set_on_ice_candidate(func: WebRTCICEOnCandidateFunc): void
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @param ufrag ICE username
+                 * @param pwd ICE password
+                 * @returns FALSE on error, TRUE otherwise
+                 */
+                vfunc_set_remote_credentials(stream: WebRTCICEStream, ufrag: string, pwd: string): boolean
+                /**
+                 * @since 1.22
+                 * @param uri URI of the STUN server
+                 */
+                vfunc_set_stun_server(uri: string | null): void
+                /**
+                 * @since 1.22
+                 * @param stream The #GstWebRTCICEStream
+                 * @param tos ToS to be set
+                 */
+                vfunc_set_tos(stream: WebRTCICEStream, tos: number): void
+                /**
+                 * @since 1.22
+                 * @param uri URI of the TURN sever
+                 */
+                vfunc_set_turn_server(uri: string | null): void
             }
-        }
 
-        interface WebRTCICETransport extends Gst.Object {
-            readonly $signals: WebRTCICETransport.SignalSignatures
-            readonly $readableProperties: WebRTCICETransport.ReadableProperties
-            readonly $writableProperties: WebRTCICETransport.WritableProperties
-            readonly $constructOnlyProperties: WebRTCICETransport.ConstructOnlyProperties
-            /**
-             * @default GST_WEBRTC_ICE_COMPONENT_RTP
-             */
-            get component(): WebRTCICEComponent
-            set component(value: WebRTCICEComponent)
-            /**
-             * @default GST_WEBRTC_ICE_GATHERING_STATE_NEW
-             */
-            get gatheringState(): WebRTCICEGatheringState
-            set gatheringState(value: WebRTCICEGatheringState)
-            /**
-             * @default GST_WEBRTC_ICE_CONNECTION_STATE_NEW
-             */
-            get state(): WebRTCICEConnectionState
-            set state(value: WebRTCICEConnectionState)
-            /**
-             * @param new_state
-             */
-            connection_state_change(new_state: WebRTCICEConnectionState): void
-            /**
-             * @param new_state
-             */
-            gathering_state_change(new_state: WebRTCICEGatheringState): void
-            /**
-             * @param stream_id
-             * @param component
-             * @param attr
-             */
-            new_candidate(stream_id: number, component: WebRTCICEComponent, attr: string): void
-            /**
-             */
-            selected_pair_change(): void
-            /**
-             */
-            vfunc_gather_candidates(): boolean
-        }
+            interface WebRTCICEClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<WebRTCICE>
+                readonly prototype: WebRTCICE
 
-        interface WebRTCICETransportClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<WebRTCICETransport>
-            readonly prototype: WebRTCICETransport
-
-            new (props?: Partial<GObject.ConstructorProps<WebRTCICETransport>>): WebRTCICETransport
-        }
-
-        interface $Exports {
-            /**
-             */
-            WebRTCICETransport: WebRTCICETransportClass
-        }
-        
-
-        namespace WebRTCRTPReceiver {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                new (props?: Partial<GObject.ConstructorProps<WebRTCICE>>): WebRTCICE
             }
 
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "transport": WebRTCDTLSTransport
+            interface $Exports {
+                /**
+                 * @since 1.22
+                 */
+                WebRTCICE: WebRTCICEClass
+            }
+            
+
+            namespace WebRTCICEStream {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "stream-id": number
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                    "stream-id": number
+                }
             }
 
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "transport": WebRTCDTLSTransport
+            interface WebRTCICEStream extends Gst.Object {
+                readonly $signals: WebRTCICEStream.SignalSignatures
+                readonly $readableProperties: WebRTCICEStream.ReadableProperties
+                readonly $writableProperties: WebRTCICEStream.WritableProperties
+                readonly $constructOnlyProperties: WebRTCICEStream.ConstructOnlyProperties
+                /**
+                 * @default 0
+                 */
+                get streamId(): number
+                set streamId(value: number)
+                /**
+                 * @since 1.22
+                 * @param component The #GstWebRTCICEComponent
+                 * @returns the #GstWebRTCICETransport, or %NULL
+                 */
+                find_transport(component: WebRTCICEComponent): WebRTCICETransport | null
+                /**
+                 * @since 1.22
+                 * @returns FALSE on error, TRUE otherwise
+                 */
+                gather_candidates(): boolean
+                /**
+                 * @since 1.22
+                 * @param component The #GstWebRTCICEComponent
+                 * @returns the #GstWebRTCICETransport, or %NULL
+                 */
+                vfunc_find_transport(component: WebRTCICEComponent): WebRTCICETransport | null
+                /**
+                 * @since 1.22
+                 * @returns FALSE on error, TRUE otherwise
+                 */
+                vfunc_gather_candidates(): boolean
             }
 
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
+            interface WebRTCICEStreamClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<WebRTCICEStream>
+                readonly prototype: WebRTCICEStream
 
-        interface WebRTCRTPReceiver extends Gst.Object {
-            readonly $signals: WebRTCRTPReceiver.SignalSignatures
-            readonly $readableProperties: WebRTCRTPReceiver.ReadableProperties
-            readonly $writableProperties: WebRTCRTPReceiver.WritableProperties
-            readonly $constructOnlyProperties: WebRTCRTPReceiver.ConstructOnlyProperties
-            /**
-             * The DTLS transport for this receiver
+                new (props?: Partial<GObject.ConstructorProps<WebRTCICEStream>>): WebRTCICEStream
+            }
+
+            interface $Exports {
+                /**
+                 * @since 1.22
+                 */
+                WebRTCICEStream: WebRTCICEStreamClass
+            }
+            
+
+            namespace WebRTCICETransport {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                    /**
+                     * @param object
+                     */
+                    "on-new-candidate"(object: string): void
+                    /**
+                     */
+                    "on-selected-candidate-pair-change"(): void
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "component": WebRTCICEComponent
+                    "gathering-state": WebRTCICEGatheringState
+                    "state": WebRTCICEConnectionState
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "gathering-state": WebRTCICEGatheringState
+                    "state": WebRTCICEConnectionState
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                    "component": WebRTCICEComponent
+                }
+            }
+
+            interface WebRTCICETransport extends Gst.Object {
+                readonly $signals: WebRTCICETransport.SignalSignatures
+                readonly $readableProperties: WebRTCICETransport.ReadableProperties
+                readonly $writableProperties: WebRTCICETransport.WritableProperties
+                readonly $constructOnlyProperties: WebRTCICETransport.ConstructOnlyProperties
+                /**
+                 * @default GST_WEBRTC_ICE_COMPONENT_RTP
+                 */
+                get component(): WebRTCICEComponent
+                set component(value: WebRTCICEComponent)
+                /**
+                 * @default GST_WEBRTC_ICE_GATHERING_STATE_NEW
+                 */
+                get gatheringState(): WebRTCICEGatheringState
+                set gatheringState(value: WebRTCICEGatheringState)
+                /**
+                 * @default GST_WEBRTC_ICE_CONNECTION_STATE_NEW
+                 */
+                get state(): WebRTCICEConnectionState
+                set state(value: WebRTCICEConnectionState)
+                /**
+                 * @param new_state
+                 */
+                connection_state_change(new_state: WebRTCICEConnectionState): void
+                /**
+                 * @param new_state
+                 */
+                gathering_state_change(new_state: WebRTCICEGatheringState): void
+                /**
+                 * @param stream_id
+                 * @param component
+                 * @param attr
+                 */
+                new_candidate(stream_id: number, component: WebRTCICEComponent, attr: string): void
+                /**
+                 */
+                selected_pair_change(): void
+                /**
+                 */
+                vfunc_gather_candidates(): boolean
+            }
+
+            interface WebRTCICETransportClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<WebRTCICETransport>
+                readonly prototype: WebRTCICETransport
+
+                new (props?: Partial<GObject.ConstructorProps<WebRTCICETransport>>): WebRTCICETransport
+            }
+
+            interface $Exports {
+                /**
+                 */
+                WebRTCICETransport: WebRTCICETransportClass
+            }
+            
+
+            namespace WebRTCRTPReceiver {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "transport": WebRTCDTLSTransport
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "transport": WebRTCDTLSTransport
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface WebRTCRTPReceiver extends Gst.Object {
+                readonly $signals: WebRTCRTPReceiver.SignalSignatures
+                readonly $readableProperties: WebRTCRTPReceiver.ReadableProperties
+                readonly $writableProperties: WebRTCRTPReceiver.WritableProperties
+                readonly $constructOnlyProperties: WebRTCRTPReceiver.ConstructOnlyProperties
+                /**
+                 * The DTLS transport for this receiver
+                 * @since 1.20
+                 */
+                get transport(): WebRTCDTLSTransport
+                set transport(value: WebRTCDTLSTransport)
+            }
+
+            interface WebRTCRTPReceiverClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<WebRTCRTPReceiver>
+                readonly prototype: WebRTCRTPReceiver
+
+                new (props?: Partial<GObject.ConstructorProps<WebRTCRTPReceiver>>): WebRTCRTPReceiver
+            }
+
+            interface $Exports {
+                /**
+                 * An object to track the receiving aspect of the stream
+                 *
+                 * Mostly matches the WebRTC RTCRtpReceiver interface.
+                 */
+                WebRTCRTPReceiver: WebRTCRTPReceiverClass
+            }
+            
+
+            namespace WebRTCRTPSender {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "priority": WebRTCPriorityType
+                    "transport": WebRTCDTLSTransport
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "priority": WebRTCPriorityType
+                    "transport": WebRTCDTLSTransport
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface WebRTCRTPSender extends Gst.Object {
+                readonly $signals: WebRTCRTPSender.SignalSignatures
+                readonly $readableProperties: WebRTCRTPSender.ReadableProperties
+                readonly $writableProperties: WebRTCRTPSender.WritableProperties
+                readonly $constructOnlyProperties: WebRTCRTPSender.ConstructOnlyProperties
+                /**
+                 * The priority from which to set the DSCP field on packets
+                 * @since 1.20
+                 * @default GST_WEBRTC_PRIORITY_TYPE_LOW
+                 */
+                get priority(): WebRTCPriorityType
+                set priority(value: WebRTCPriorityType)
+                /**
+                 * The DTLS transport for this sender
+                 * @since 1.20
+                 */
+                get transport(): WebRTCDTLSTransport
+                set transport(value: WebRTCDTLSTransport)
+                /**
+                 * Sets the content of the IPv4 Type of Service (ToS), also known as DSCP
+                 * (Differentiated Services Code Point).
+                 * This also sets the Traffic Class field of IPv6.
+                 * @since 1.20
+                 * @param priority The priority of this sender
+                 */
+                set_priority(priority: WebRTCPriorityType): void
+            }
+
+            interface WebRTCRTPSenderClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<WebRTCRTPSender>
+                readonly prototype: WebRTCRTPSender
+
+                new (props?: Partial<GObject.ConstructorProps<WebRTCRTPSender>>): WebRTCRTPSender
+            }
+
+            interface $Exports {
+                /**
+                 * An object to track the sending aspect of the stream
+                 *
+                 * Mostly matches the WebRTC RTCRtpSender interface.
+                 */
+                WebRTCRTPSender: WebRTCRTPSenderClass
+            }
+            
+
+            namespace WebRTCRTPTransceiver {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "codec-preferences": Gst.Caps
+                    "current-direction": WebRTCRTPTransceiverDirection
+                    "direction": WebRTCRTPTransceiverDirection
+                    "kind": WebRTCKind
+                    "mid": string
+                    "mlineindex": number
+                    "receiver": WebRTCRTPReceiver
+                    "sender": WebRTCRTPSender
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "codec-preferences": Gst.Caps
+                    "current-direction": WebRTCRTPTransceiverDirection
+                    "direction": WebRTCRTPTransceiverDirection
+                    "kind": WebRTCKind
+                    "mid": string
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                    "mlineindex": number
+                    "receiver": WebRTCRTPReceiver
+                    "sender": WebRTCRTPSender
+                }
+            }
+
+            interface WebRTCRTPTransceiver extends Gst.Object {
+                readonly $signals: WebRTCRTPTransceiver.SignalSignatures
+                readonly $readableProperties: WebRTCRTPTransceiver.ReadableProperties
+                readonly $writableProperties: WebRTCRTPTransceiver.WritableProperties
+                readonly $constructOnlyProperties: WebRTCRTPTransceiver.ConstructOnlyProperties
+                /**
+                 * Caps representing the codec preferences.
+                 * @since 1.20
+                 */
+                get codecPreferences(): Gst.Caps
+                set codecPreferences(value: Gst.Caps)
+                /**
+                 * The transceiver's current directionality, or none if the
+                 * transceiver is stopped or has never participated in an exchange
+                 * of offers and answers. To change the transceiver's
+                 * directionality, set the value of the direction property.
+                 * @since 1.20
+                 * @default GST_WEBRTC_RTP_TRANSCEIVER_DIRECTION_NONE
+                 */
+                get currentDirection(): WebRTCRTPTransceiverDirection
+                set currentDirection(value: WebRTCRTPTransceiverDirection)
+                /**
+                 * Direction of the transceiver.
+                 * @since 1.18
+                 * @default GST_WEBRTC_RTP_TRANSCEIVER_DIRECTION_NONE
+                 */
+                get direction(): WebRTCRTPTransceiverDirection
+                set direction(value: WebRTCRTPTransceiverDirection)
+                /**
+                 * The kind of media this transceiver transports
+                 * @since 1.20
+                 * @default GST_WEBRTC_KIND_UNKNOWN
+                 */
+                get kind(): WebRTCKind
+                set kind(value: WebRTCKind)
+                /**
+                 * The media ID of the m-line associated with this transceiver. This
+                 * association is established, when possible, whenever either a
+                 * local or remote description is applied. This field is null if
+                 * neither a local or remote description has been applied, or if its
+                 * associated m-line is rejected by either a remote offer or any
+                 * answer.
+                 * @since 1.20
+                 * @default NULL
+                 */
+                get mid(): string
+                set mid(value: string)
+                /**
+                 * @default 0
+                 */
+                get mlineindex(): number
+                set mlineindex(value: number)
+                /**
+                 */
+                get receiver(): WebRTCRTPReceiver
+                set receiver(value: WebRTCRTPReceiver)
+                /**
+                 */
+                get sender(): WebRTCRTPSender
+                set sender(value: WebRTCRTPSender)
+            }
+
+            interface WebRTCRTPTransceiverClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<WebRTCRTPTransceiver>
+                readonly prototype: WebRTCRTPTransceiver
+
+                new (props?: Partial<GObject.ConstructorProps<WebRTCRTPTransceiver>>): WebRTCRTPTransceiver
+            }
+
+            interface $Exports {
+                /**
+                 * Mostly matches the WebRTC RTCRtpTransceiver interface.
+                 */
+                WebRTCRTPTransceiver: WebRTCRTPTransceiverClass
+            }
+            
+
+            namespace WebRTCSCTPTransport {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "max-channels": number
+                    "max-message-size": number
+                    "state": WebRTCSCTPTransportState
+                    "transport": WebRTCDTLSTransport
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "max-channels": number
+                    "max-message-size": number
+                    "state": WebRTCSCTPTransportState
+                    "transport": WebRTCDTLSTransport
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface WebRTCSCTPTransport extends Gst.Object {
+                readonly $signals: WebRTCSCTPTransport.SignalSignatures
+                readonly $readableProperties: WebRTCSCTPTransport.ReadableProperties
+                readonly $writableProperties: WebRTCSCTPTransport.WritableProperties
+                readonly $constructOnlyProperties: WebRTCSCTPTransport.ConstructOnlyProperties
+                /**
+                 * @default 0
+                 */
+                get maxChannels(): number
+                set maxChannels(value: number)
+                /**
+                 * @default 0
+                 */
+                get maxMessageSize(): number
+                set maxMessageSize(value: number)
+                /**
+                 * @default GST_WEBRTC_SCTP_TRANSPORT_STATE_NEW
+                 */
+                get state(): WebRTCSCTPTransportState
+                set state(value: WebRTCSCTPTransportState)
+                /**
+                 */
+                get transport(): WebRTCDTLSTransport
+                set transport(value: WebRTCDTLSTransport)
+            }
+
+            interface WebRTCSCTPTransportClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<WebRTCSCTPTransport>
+                readonly prototype: WebRTCSCTPTransport
+
+                new (props?: Partial<GObject.ConstructorProps<WebRTCSCTPTransport>>): WebRTCSCTPTransport
+            }
+
+            interface $Exports {
+                /**
+                 */
+                WebRTCSCTPTransport: WebRTCSCTPTransportClass
+            }
+            
+
+            interface WebRTCICECandidateStatsStruct {
+                readonly $gtype: GObject.GType<WebRTCICECandidateStats>
+                new (fields?: {
+                    ipaddr?: string
+                    port?: number
+                    stream_id?: number
+                    type?: string
+                    proto?: string
+                    relay_proto?: string
+                    prio?: number
+                    url?: string
+                    gst_reserved?: never[]
+                }): WebRTCICECandidateStats
+            }
+
+            interface WebRTCICECandidateStats {
+                /**
+                 */
+                ipaddr: string
+                /**
+                 */
+                port: number
+                /**
+                 */
+                stream_id: number
+                /**
+                 */
+                type: string
+                /**
+                 */
+                proto: string
+                /**
+                 */
+                relay_proto: string
+                /**
+                 */
+                prio: number
+                /**
+                 */
+                url: string
+                /**
+                 */
+                gst_reserved: never[]
+                /**
+                 * @since 1.22
+                 * @returns A copy of `stats`
+                 */
+                copy(): WebRTCICECandidateStats
+                /**
+                 * Helper function to free #GstWebRTCICECandidateStats
+                 * @since 1.22
+                 */
+                free(): void
+            }
+
+            interface $Exports {
+                WebRTCICECandidateStats: WebRTCICECandidateStatsStruct
+            }
+            
+
+            interface WebRTCSessionDescriptionStruct {
+                readonly $gtype: GObject.GType<WebRTCSessionDescription>
+                new (fields?: {
+                    type?: WebRTCSDPType
+                    sdp?: GstSdp.SDPMessage
+                }): WebRTCSessionDescription
+                /**
+                 * @param type a #GstWebRTCSDPType
+                 * @param sdp a #GstSDPMessage
+                 * @returns a new #GstWebRTCSessionDescription from `type`      and `sdp`
+                 */
+                "new"(type: WebRTCSDPType, sdp: GstSdp.SDPMessage): WebRTCSessionDescription
+            }
+
+            interface WebRTCSessionDescription {
+                /**
+                 * the #GstWebRTCSDPType of the description
+                 */
+                type: WebRTCSDPType
+                /**
+                 * the #GstSDPMessage of the description
+                 */
+                sdp: GstSdp.SDPMessage
+                /**
+                 * @returns a new copy of `src`
+                 */
+                copy(): WebRTCSessionDescription
+                /**
+                 * Free `desc` and all associated resources
+                 */
+                free(): void
+            }
+
+            interface $Exports {
+                WebRTCSessionDescription: WebRTCSessionDescriptionStruct
+            }
+            
+            interface WebRTCBundlePolicyEnum {
+                readonly $gtype: GObject.GType<WebRTCBundlePolicy>
+                /**
+                 * none
+                 */
+                readonly "NONE": 0
+                /**
+                 * balanced
+                 */
+                readonly "BALANCED": 1
+                /**
+                 * max-compat
+                 */
+                readonly "MAX_COMPAT": 2
+                /**
+                 * max-bundle
+                 */
+                readonly "MAX_BUNDLE": 3
+            }
+            type WebRTCBundlePolicy = WebRTCBundlePolicyEnum[Exclude<keyof WebRTCBundlePolicyEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * See https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-24#section-4.1.1
+                 * for more information.
+                 * @since 1.16
+                 */
+                WebRTCBundlePolicy: WebRTCBundlePolicyEnum
+            }
+            
+            interface WebRTCDTLSSetupEnum {
+                readonly $gtype: GObject.GType<WebRTCDTLSSetup>
+                /**
+                 * none
+                 */
+                readonly "NONE": 0
+                /**
+                 * actpass
+                 */
+                readonly "ACTPASS": 1
+                /**
+                 * sendonly
+                 */
+                readonly "ACTIVE": 2
+                /**
+                 * recvonly
+                 */
+                readonly "PASSIVE": 3
+            }
+            type WebRTCDTLSSetup = WebRTCDTLSSetupEnum[Exclude<keyof WebRTCDTLSSetupEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                WebRTCDTLSSetup: WebRTCDTLSSetupEnum
+            }
+            
+            interface WebRTCDTLSTransportStateEnum {
+                readonly $gtype: GObject.GType<WebRTCDTLSTransportState>
+                /**
+                 * new
+                 */
+                readonly "NEW": 0
+                /**
+                 * closed
+                 */
+                readonly "CLOSED": 1
+                /**
+                 * failed
+                 */
+                readonly "FAILED": 2
+                /**
+                 * connecting
+                 */
+                readonly "CONNECTING": 3
+                /**
+                 * connected
+                 */
+                readonly "CONNECTED": 4
+            }
+            type WebRTCDTLSTransportState = WebRTCDTLSTransportStateEnum[Exclude<keyof WebRTCDTLSTransportStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                WebRTCDTLSTransportState: WebRTCDTLSTransportStateEnum
+            }
+            
+            interface WebRTCDataChannelStateEnum {
+                readonly $gtype: GObject.GType<WebRTCDataChannelState>
+                /**
+                 * connecting
+                 */
+                readonly "CONNECTING": 1
+                /**
+                 * open
+                 */
+                readonly "OPEN": 2
+                /**
+                 * closing
+                 */
+                readonly "CLOSING": 3
+                /**
+                 * closed
+                 */
+                readonly "CLOSED": 4
+            }
+            type WebRTCDataChannelState = WebRTCDataChannelStateEnum[Exclude<keyof WebRTCDataChannelStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * See <http://w3c.github.io/webrtc-pc/#dom-rtcdatachannelstate>
+                 * @since 1.16
+                 */
+                WebRTCDataChannelState: WebRTCDataChannelStateEnum
+            }
+            
+            interface WebRTCError extends GLib.Error {}
+
+            interface WebRTCErrorEnum {
+                readonly $gtype: GObject.GType<WebRTCError>
+
+                new(props: { message: string, code: number }): WebRTCError
+                /**
+                 * data-channel-failure
+                 */
+                readonly "DATA_CHANNEL_FAILURE": 0
+                /**
+                 * dtls-failure
+                 */
+                readonly "DTLS_FAILURE": 1
+                /**
+                 * fingerprint-failure
+                 */
+                readonly "FINGERPRINT_FAILURE": 2
+                /**
+                 * sctp-failure
+                 */
+                readonly "SCTP_FAILURE": 3
+                /**
+                 * sdp-syntax-error
+                 */
+                readonly "SDP_SYNTAX_ERROR": 4
+                /**
+                 * hardware-encoder-not-available
+                 */
+                readonly "HARDWARE_ENCODER_NOT_AVAILABLE": 5
+                /**
+                 * encoder-error
+                 */
+                readonly "ENCODER_ERROR": 6
+                /**
+                 * invalid-state (part of WebIDL specification)
+                 */
+                readonly "INVALID_STATE": 7
+                /**
+                 * GStreamer-specific failure, not matching any other value from the specification
+                 */
+                readonly "INTERNAL_FAILURE": 8
+                /**
+                 * invalid-modification (part of WebIDL specification)
+                 * @since 1.22
+                 */
+                readonly "INVALID_MODIFICATION": 9
+                /**
+                 * type-error (maps to JavaScript TypeError)
+                 * @since 1.22
+                 */
+                readonly "TYPE_ERROR": 10
+                /**
              * @since 1.20
              */
-            get transport(): WebRTCDTLSTransport
-            set transport(value: WebRTCDTLSTransport)
-        }
-
-        interface WebRTCRTPReceiverClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<WebRTCRTPReceiver>
-            readonly prototype: WebRTCRTPReceiver
-
-            new (props?: Partial<GObject.ConstructorProps<WebRTCRTPReceiver>>): WebRTCRTPReceiver
-        }
-
-        interface $Exports {
-            /**
-             * An object to track the receiving aspect of the stream
-             *
-             * Mostly matches the WebRTC RTCRtpReceiver interface.
-             */
-            WebRTCRTPReceiver: WebRTCRTPReceiverClass
-        }
-        
-
-        namespace WebRTCRTPSender {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+            quark: () => GLib.Quark
             }
 
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "priority": WebRTCPriorityType
-                "transport": WebRTCDTLSTransport
+            interface $Exports {
+                /**
+                 * See <https://www.w3.org/TR/webrtc/#dom-rtcerrordetailtype> for more information.
+                 * @since 1.20
+                 */
+                WebRTCError: WebRTCErrorEnum
             }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "priority": WebRTCPriorityType
-                "transport": WebRTCDTLSTransport
+            
+            interface WebRTCFECTypeEnum {
+                readonly $gtype: GObject.GType<WebRTCFECType>
+                /**
+                 * none
+                 */
+                readonly "NONE": 0
+                /**
+                 * ulpfec + red
+                 */
+                readonly "ULP_RED": 1
             }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+            type WebRTCFECType = WebRTCFECTypeEnum[Exclude<keyof WebRTCFECTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * @since 1.14.1
+                 */
+                WebRTCFECType: WebRTCFECTypeEnum
             }
-        }
-
-        interface WebRTCRTPSender extends Gst.Object {
-            readonly $signals: WebRTCRTPSender.SignalSignatures
-            readonly $readableProperties: WebRTCRTPSender.ReadableProperties
-            readonly $writableProperties: WebRTCRTPSender.WritableProperties
-            readonly $constructOnlyProperties: WebRTCRTPSender.ConstructOnlyProperties
-            /**
-             * The priority from which to set the DSCP field on packets
-             * @since 1.20
-             * @default GST_WEBRTC_PRIORITY_TYPE_LOW
-             */
-            get priority(): WebRTCPriorityType
-            set priority(value: WebRTCPriorityType)
-            /**
-             * The DTLS transport for this sender
-             * @since 1.20
-             */
-            get transport(): WebRTCDTLSTransport
-            set transport(value: WebRTCDTLSTransport)
-            /**
-             * Sets the content of the IPv4 Type of Service (ToS), also known as DSCP
-             * (Differentiated Services Code Point).
-             * This also sets the Traffic Class field of IPv6.
-             * @since 1.20
-             * @param priority The priority of this sender
-             */
-            set_priority(priority: WebRTCPriorityType): void
-        }
-
-        interface WebRTCRTPSenderClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<WebRTCRTPSender>
-            readonly prototype: WebRTCRTPSender
-
-            new (props?: Partial<GObject.ConstructorProps<WebRTCRTPSender>>): WebRTCRTPSender
-        }
-
-        interface $Exports {
-            /**
-             * An object to track the sending aspect of the stream
-             *
-             * Mostly matches the WebRTC RTCRtpSender interface.
-             */
-            WebRTCRTPSender: WebRTCRTPSenderClass
-        }
-        
-
-        namespace WebRTCRTPTransceiver {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+            
+            interface WebRTCICEComponentEnum {
+                readonly $gtype: GObject.GType<WebRTCICEComponent>
+                /**
+                 * RTP component
+                 */
+                readonly "RTP": 0
+                /**
+                 * RTCP component
+                 */
+                readonly "RTCP": 1
             }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "codec-preferences": Gst.Caps
-                "current-direction": WebRTCRTPTransceiverDirection
-                "direction": WebRTCRTPTransceiverDirection
-                "kind": WebRTCKind
-                "mid": string
-                "mlineindex": number
-                "receiver": WebRTCRTPReceiver
-                "sender": WebRTCRTPSender
+            type WebRTCICEComponent = WebRTCICEComponentEnum[Exclude<keyof WebRTCICEComponentEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                WebRTCICEComponent: WebRTCICEComponentEnum
             }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "codec-preferences": Gst.Caps
-                "current-direction": WebRTCRTPTransceiverDirection
-                "direction": WebRTCRTPTransceiverDirection
-                "kind": WebRTCKind
-                "mid": string
+            
+            interface WebRTCICEConnectionStateEnum {
+                readonly $gtype: GObject.GType<WebRTCICEConnectionState>
+                /**
+                 * new
+                 */
+                readonly "NEW": 0
+                /**
+                 * checking
+                 */
+                readonly "CHECKING": 1
+                /**
+                 * connected
+                 */
+                readonly "CONNECTED": 2
+                /**
+                 * completed
+                 */
+                readonly "COMPLETED": 3
+                /**
+                 * failed
+                 */
+                readonly "FAILED": 4
+                /**
+                 * disconnected
+                 */
+                readonly "DISCONNECTED": 5
+                /**
+                 * closed
+                 */
+                readonly "CLOSED": 6
             }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-                "mlineindex": number
-                "receiver": WebRTCRTPReceiver
-                "sender": WebRTCRTPSender
+            type WebRTCICEConnectionState = WebRTCICEConnectionStateEnum[Exclude<keyof WebRTCICEConnectionStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * See <http://w3c.github.io/webrtc-pc/#dom-rtciceconnectionstate>
+                 */
+                WebRTCICEConnectionState: WebRTCICEConnectionStateEnum
             }
-        }
-
-        interface WebRTCRTPTransceiver extends Gst.Object {
-            readonly $signals: WebRTCRTPTransceiver.SignalSignatures
-            readonly $readableProperties: WebRTCRTPTransceiver.ReadableProperties
-            readonly $writableProperties: WebRTCRTPTransceiver.WritableProperties
-            readonly $constructOnlyProperties: WebRTCRTPTransceiver.ConstructOnlyProperties
-            /**
-             * Caps representing the codec preferences.
-             * @since 1.20
-             */
-            get codecPreferences(): Gst.Caps
-            set codecPreferences(value: Gst.Caps)
-            /**
-             * The transceiver's current directionality, or none if the
-             * transceiver is stopped or has never participated in an exchange
-             * of offers and answers. To change the transceiver's
-             * directionality, set the value of the direction property.
-             * @since 1.20
-             * @default GST_WEBRTC_RTP_TRANSCEIVER_DIRECTION_NONE
-             */
-            get currentDirection(): WebRTCRTPTransceiverDirection
-            set currentDirection(value: WebRTCRTPTransceiverDirection)
-            /**
-             * Direction of the transceiver.
-             * @since 1.18
-             * @default GST_WEBRTC_RTP_TRANSCEIVER_DIRECTION_NONE
-             */
-            get direction(): WebRTCRTPTransceiverDirection
-            set direction(value: WebRTCRTPTransceiverDirection)
-            /**
-             * The kind of media this transceiver transports
-             * @since 1.20
-             * @default GST_WEBRTC_KIND_UNKNOWN
-             */
-            get kind(): WebRTCKind
-            set kind(value: WebRTCKind)
-            /**
-             * The media ID of the m-line associated with this transceiver. This
-             * association is established, when possible, whenever either a
-             * local or remote description is applied. This field is null if
-             * neither a local or remote description has been applied, or if its
-             * associated m-line is rejected by either a remote offer or any
-             * answer.
-             * @since 1.20
-             * @default NULL
-             */
-            get mid(): string
-            set mid(value: string)
-            /**
-             * @default 0
-             */
-            get mlineindex(): number
-            set mlineindex(value: number)
-            /**
-             */
-            get receiver(): WebRTCRTPReceiver
-            set receiver(value: WebRTCRTPReceiver)
-            /**
-             */
-            get sender(): WebRTCRTPSender
-            set sender(value: WebRTCRTPSender)
-        }
-
-        interface WebRTCRTPTransceiverClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<WebRTCRTPTransceiver>
-            readonly prototype: WebRTCRTPTransceiver
-
-            new (props?: Partial<GObject.ConstructorProps<WebRTCRTPTransceiver>>): WebRTCRTPTransceiver
-        }
-
-        interface $Exports {
-            /**
-             * Mostly matches the WebRTC RTCRtpTransceiver interface.
-             */
-            WebRTCRTPTransceiver: WebRTCRTPTransceiverClass
-        }
-        
-
-        namespace WebRTCSCTPTransport {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+            
+            interface WebRTCICEGatheringStateEnum {
+                readonly $gtype: GObject.GType<WebRTCICEGatheringState>
+                /**
+                 * new
+                 */
+                readonly "NEW": 0
+                /**
+                 * gathering
+                 */
+                readonly "GATHERING": 1
+                /**
+                 * complete
+                 */
+                readonly "COMPLETE": 2
             }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "max-channels": number
-                "max-message-size": number
-                "state": WebRTCSCTPTransportState
-                "transport": WebRTCDTLSTransport
+            type WebRTCICEGatheringState = WebRTCICEGatheringStateEnum[Exclude<keyof WebRTCICEGatheringStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * See <http://w3c.github.io/webrtc-pc/#dom-rtcicegatheringstate>
+                 */
+                WebRTCICEGatheringState: WebRTCICEGatheringStateEnum
             }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "max-channels": number
-                "max-message-size": number
-                "state": WebRTCSCTPTransportState
-                "transport": WebRTCDTLSTransport
+            
+            interface WebRTCICERoleEnum {
+                readonly $gtype: GObject.GType<WebRTCICERole>
+                /**
+                 * controlled
+                 */
+                readonly "CONTROLLED": 0
+                /**
+                 * controlling
+                 */
+                readonly "CONTROLLING": 1
             }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+            type WebRTCICERole = WebRTCICERoleEnum[Exclude<keyof WebRTCICERoleEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                WebRTCICERole: WebRTCICERoleEnum
             }
-        }
-
-        interface WebRTCSCTPTransport extends Gst.Object {
-            readonly $signals: WebRTCSCTPTransport.SignalSignatures
-            readonly $readableProperties: WebRTCSCTPTransport.ReadableProperties
-            readonly $writableProperties: WebRTCSCTPTransport.WritableProperties
-            readonly $constructOnlyProperties: WebRTCSCTPTransport.ConstructOnlyProperties
-            /**
-             * @default 0
-             */
-            get maxChannels(): number
-            set maxChannels(value: number)
-            /**
-             * @default 0
-             */
-            get maxMessageSize(): number
-            set maxMessageSize(value: number)
-            /**
-             * @default GST_WEBRTC_SCTP_TRANSPORT_STATE_NEW
-             */
-            get state(): WebRTCSCTPTransportState
-            set state(value: WebRTCSCTPTransportState)
-            /**
-             */
-            get transport(): WebRTCDTLSTransport
-            set transport(value: WebRTCDTLSTransport)
-        }
-
-        interface WebRTCSCTPTransportClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<WebRTCSCTPTransport>
-            readonly prototype: WebRTCSCTPTransport
-
-            new (props?: Partial<GObject.ConstructorProps<WebRTCSCTPTransport>>): WebRTCSCTPTransport
-        }
-
-        interface $Exports {
-            /**
-             */
-            WebRTCSCTPTransport: WebRTCSCTPTransportClass
-        }
-        
-
-        interface WebRTCICECandidateStatsStruct {
-            readonly $gtype: GObject.GType<WebRTCICECandidateStats>
-            [Symbol.hasInstance](instance: unknown): instance is WebRTCICECandidateStats
-        }
-
-        interface WebRTCICECandidateStats {
-            /**
-             */
-            ipaddr: string
-            /**
-             */
-            port: number
-            /**
-             */
-            stream_id: number
-            /**
-             */
-            type: string
-            /**
-             */
-            proto: string
-            /**
-             */
-            relay_proto: string
-            /**
-             */
-            prio: number
-            /**
-             */
-            url: string
-            /**
-             */
-            gst_reserved: never[]
-            /**
-             * @since 1.22
-             * @returns A copy of `stats`
-             */
-            copy(): WebRTCICECandidateStats
-            /**
-             * Helper function to free #GstWebRTCICECandidateStats
-             * @since 1.22
-             */
-            free(): void
-        }
-
-        interface $Exports {
-            WebRTCICECandidateStats: WebRTCICECandidateStatsStruct
-        }
-        
-
-        interface WebRTCSessionDescriptionStruct {
-            readonly $gtype: GObject.GType<WebRTCSessionDescription>
-            [Symbol.hasInstance](instance: unknown): instance is WebRTCSessionDescription
-            /**
-             * @param type a #GstWebRTCSDPType
-             * @param sdp a #GstSDPMessage
-             * @returns a new #GstWebRTCSessionDescription from `type`      and `sdp`
-             */
-            "new"(type: WebRTCSDPType, sdp: GstSdp.SDPMessage): WebRTCSessionDescription
-        }
-
-        interface WebRTCSessionDescription {
-            /**
-             * the #GstWebRTCSDPType of the description
-             */
-            type: WebRTCSDPType
-            /**
-             * the #GstSDPMessage of the description
-             */
-            sdp: GstSdp.SDPMessage
-            /**
-             * @returns a new copy of `src`
-             */
-            copy(): WebRTCSessionDescription
-            /**
-             * Free @desc and all associated resources
-             */
-            free(): void
-        }
-
-        interface $Exports {
-            WebRTCSessionDescription: WebRTCSessionDescriptionStruct
-        }
-        
-        interface WebRTCBundlePolicyEnum {
-            readonly $gtype: GObject.GType<WebRTCBundlePolicy>
-            /**
-             * none
-             */
-            readonly "NONE": 0
-            /**
-             * balanced
-             */
-            readonly "BALANCED": 1
-            /**
-             * max-compat
-             */
-            readonly "MAX_COMPAT": 2
-            /**
-             * max-bundle
-             */
-            readonly "MAX_BUNDLE": 3
-        }
-        type WebRTCBundlePolicy = WebRTCBundlePolicyEnum[Exclude<keyof WebRTCBundlePolicyEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * See https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-24#section-4.1.1
-             * for more information.
-             * @since 1.16
-             */
-            WebRTCBundlePolicy: WebRTCBundlePolicyEnum
-        }
-        
-        interface WebRTCDTLSSetupEnum {
-            readonly $gtype: GObject.GType<WebRTCDTLSSetup>
-            /**
-             * none
-             */
-            readonly "NONE": 0
-            /**
-             * actpass
-             */
-            readonly "ACTPASS": 1
-            /**
-             * sendonly
-             */
-            readonly "ACTIVE": 2
-            /**
-             * recvonly
-             */
-            readonly "PASSIVE": 3
-        }
-        type WebRTCDTLSSetup = WebRTCDTLSSetupEnum[Exclude<keyof WebRTCDTLSSetupEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            WebRTCDTLSSetup: WebRTCDTLSSetupEnum
-        }
-        
-        interface WebRTCDTLSTransportStateEnum {
-            readonly $gtype: GObject.GType<WebRTCDTLSTransportState>
-            /**
-             * new
-             */
-            readonly "NEW": 0
-            /**
-             * closed
-             */
-            readonly "CLOSED": 1
-            /**
-             * failed
-             */
-            readonly "FAILED": 2
-            /**
-             * connecting
-             */
-            readonly "CONNECTING": 3
-            /**
-             * connected
-             */
-            readonly "CONNECTED": 4
-        }
-        type WebRTCDTLSTransportState = WebRTCDTLSTransportStateEnum[Exclude<keyof WebRTCDTLSTransportStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            WebRTCDTLSTransportState: WebRTCDTLSTransportStateEnum
-        }
-        
-        interface WebRTCDataChannelStateEnum {
-            readonly $gtype: GObject.GType<WebRTCDataChannelState>
-            /**
-             * connecting
-             */
-            readonly "CONNECTING": 1
-            /**
-             * open
-             */
-            readonly "OPEN": 2
-            /**
-             * closing
-             */
-            readonly "CLOSING": 3
-            /**
-             * closed
-             */
-            readonly "CLOSED": 4
-        }
-        type WebRTCDataChannelState = WebRTCDataChannelStateEnum[Exclude<keyof WebRTCDataChannelStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * See <http://w3c.github.io/webrtc-pc/#dom-rtcdatachannelstate>
-             * @since 1.16
-             */
-            WebRTCDataChannelState: WebRTCDataChannelStateEnum
-        }
-        
-        interface WebRTCError extends GLib.Error {}
-
-        interface WebRTCErrorEnum {
-            readonly $gtype: GObject.GType<WebRTCError>
-
-            new(props: { message: string, code: number }): WebRTCError
-            /**
-             * data-channel-failure
-             */
-            readonly "DATA_CHANNEL_FAILURE": 0
-            /**
-             * dtls-failure
-             */
-            readonly "DTLS_FAILURE": 1
-            /**
-             * fingerprint-failure
-             */
-            readonly "FINGERPRINT_FAILURE": 2
-            /**
-             * sctp-failure
-             */
-            readonly "SCTP_FAILURE": 3
-            /**
-             * sdp-syntax-error
-             */
-            readonly "SDP_SYNTAX_ERROR": 4
-            /**
-             * hardware-encoder-not-available
-             */
-            readonly "HARDWARE_ENCODER_NOT_AVAILABLE": 5
-            /**
-             * encoder-error
-             */
-            readonly "ENCODER_ERROR": 6
-            /**
-             * invalid-state (part of WebIDL specification)
-             */
-            readonly "INVALID_STATE": 7
-            /**
-             * GStreamer-specific failure, not matching any other value from the specification
-             */
-            readonly "INTERNAL_FAILURE": 8
-            /**
-             * invalid-modification (part of WebIDL specification)
-             * @since 1.22
-             */
-            readonly "INVALID_MODIFICATION": 9
-            /**
-             * type-error (maps to JavaScript TypeError)
-             * @since 1.22
-             */
-            readonly "TYPE_ERROR": 10
-            /**
-         * @since 1.20
-         */
-        quark: () => GLib.Quark
-        }
-
-        interface $Exports {
-            /**
-             * See <https://www.w3.org/TR/webrtc/#dom-rtcerrordetailtype> for more information.
-             * @since 1.20
-             */
-            WebRTCError: WebRTCErrorEnum
-        }
-        
-        interface WebRTCFECTypeEnum {
-            readonly $gtype: GObject.GType<WebRTCFECType>
-            /**
-             * none
-             */
-            readonly "NONE": 0
-            /**
-             * ulpfec + red
-             */
-            readonly "ULP_RED": 1
-        }
-        type WebRTCFECType = WebRTCFECTypeEnum[Exclude<keyof WebRTCFECTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * @since 1.14.1
-             */
-            WebRTCFECType: WebRTCFECTypeEnum
-        }
-        
-        interface WebRTCICEComponentEnum {
-            readonly $gtype: GObject.GType<WebRTCICEComponent>
-            /**
-             * RTP component
-             */
-            readonly "RTP": 0
-            /**
-             * RTCP component
-             */
-            readonly "RTCP": 1
-        }
-        type WebRTCICEComponent = WebRTCICEComponentEnum[Exclude<keyof WebRTCICEComponentEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            WebRTCICEComponent: WebRTCICEComponentEnum
-        }
-        
-        interface WebRTCICEConnectionStateEnum {
-            readonly $gtype: GObject.GType<WebRTCICEConnectionState>
-            /**
-             * new
-             */
-            readonly "NEW": 0
-            /**
-             * checking
-             */
-            readonly "CHECKING": 1
-            /**
-             * connected
-             */
-            readonly "CONNECTED": 2
-            /**
-             * completed
-             */
-            readonly "COMPLETED": 3
-            /**
-             * failed
-             */
-            readonly "FAILED": 4
-            /**
-             * disconnected
-             */
-            readonly "DISCONNECTED": 5
-            /**
-             * closed
-             */
-            readonly "CLOSED": 6
-        }
-        type WebRTCICEConnectionState = WebRTCICEConnectionStateEnum[Exclude<keyof WebRTCICEConnectionStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * See <http://w3c.github.io/webrtc-pc/#dom-rtciceconnectionstate>
-             */
-            WebRTCICEConnectionState: WebRTCICEConnectionStateEnum
-        }
-        
-        interface WebRTCICEGatheringStateEnum {
-            readonly $gtype: GObject.GType<WebRTCICEGatheringState>
-            /**
-             * new
-             */
-            readonly "NEW": 0
-            /**
-             * gathering
-             */
-            readonly "GATHERING": 1
-            /**
-             * complete
-             */
-            readonly "COMPLETE": 2
-        }
-        type WebRTCICEGatheringState = WebRTCICEGatheringStateEnum[Exclude<keyof WebRTCICEGatheringStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * See <http://w3c.github.io/webrtc-pc/#dom-rtcicegatheringstate>
-             */
-            WebRTCICEGatheringState: WebRTCICEGatheringStateEnum
-        }
-        
-        interface WebRTCICERoleEnum {
-            readonly $gtype: GObject.GType<WebRTCICERole>
-            /**
-             * controlled
-             */
-            readonly "CONTROLLED": 0
-            /**
-             * controlling
-             */
-            readonly "CONTROLLING": 1
-        }
-        type WebRTCICERole = WebRTCICERoleEnum[Exclude<keyof WebRTCICERoleEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            WebRTCICERole: WebRTCICERoleEnum
-        }
-        
-        interface WebRTCICETransportPolicyEnum {
-            readonly $gtype: GObject.GType<WebRTCICETransportPolicy>
-            /**
-             * all
-             */
-            readonly "ALL": 0
-            /**
-             * relay
-             */
-            readonly "RELAY": 1
-        }
-        type WebRTCICETransportPolicy = WebRTCICETransportPolicyEnum[Exclude<keyof WebRTCICETransportPolicyEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * See https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-24#section-4.1.1
-             * for more information.
-             * @since 1.16
-             */
-            WebRTCICETransportPolicy: WebRTCICETransportPolicyEnum
-        }
-        
-        interface WebRTCKindEnum {
-            readonly $gtype: GObject.GType<WebRTCKind>
-            /**
-             * Kind has not yet been set
-             */
-            readonly "UNKNOWN": 0
-            /**
-             * Kind is audio
-             */
-            readonly "AUDIO": 1
-            /**
-             * Kind is video
-             */
-            readonly "VIDEO": 2
-        }
-        type WebRTCKind = WebRTCKindEnum[Exclude<keyof WebRTCKindEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack-kind
-             * @since 1.20
-             */
-            WebRTCKind: WebRTCKindEnum
-        }
-        
-        interface WebRTCPeerConnectionStateEnum {
-            readonly $gtype: GObject.GType<WebRTCPeerConnectionState>
-            /**
-             * new
-             */
-            readonly "NEW": 0
-            /**
-             * connecting
-             */
-            readonly "CONNECTING": 1
-            /**
-             * connected
-             */
-            readonly "CONNECTED": 2
-            /**
-             * disconnected
-             */
-            readonly "DISCONNECTED": 3
-            /**
-             * failed
-             */
-            readonly "FAILED": 4
-            /**
-             * closed
-             */
-            readonly "CLOSED": 5
-        }
-        type WebRTCPeerConnectionState = WebRTCPeerConnectionStateEnum[Exclude<keyof WebRTCPeerConnectionStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * See <http://w3c.github.io/webrtc-pc/#dom-rtcpeerconnectionstate>
-             */
-            WebRTCPeerConnectionState: WebRTCPeerConnectionStateEnum
-        }
-        
-        interface WebRTCPriorityTypeEnum {
-            readonly $gtype: GObject.GType<WebRTCPriorityType>
-            /**
-             * very-low
-             */
-            readonly "VERY_LOW": 1
-            /**
-             * low
-             */
-            readonly "LOW": 2
-            /**
-             * medium
-             */
-            readonly "MEDIUM": 3
-            /**
-             * high
-             */
-            readonly "HIGH": 4
-        }
-        type WebRTCPriorityType = WebRTCPriorityTypeEnum[Exclude<keyof WebRTCPriorityTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * See <http://w3c.github.io/webrtc-pc/#dom-rtcprioritytype>
-             * @since 1.16
-             */
-            WebRTCPriorityType: WebRTCPriorityTypeEnum
-        }
-        
-        interface WebRTCRTPTransceiverDirectionEnum {
-            readonly $gtype: GObject.GType<WebRTCRTPTransceiverDirection>
-            /**
-             * none
-             */
-            readonly "NONE": 0
-            /**
-             * inactive
-             */
-            readonly "INACTIVE": 1
-            /**
-             * sendonly
-             */
-            readonly "SENDONLY": 2
-            /**
-             * recvonly
-             */
-            readonly "RECVONLY": 3
-            /**
-             * sendrecv
-             */
-            readonly "SENDRECV": 4
-        }
-        type WebRTCRTPTransceiverDirection = WebRTCRTPTransceiverDirectionEnum[Exclude<keyof WebRTCRTPTransceiverDirectionEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            WebRTCRTPTransceiverDirection: WebRTCRTPTransceiverDirectionEnum
-        }
-        
-        interface WebRTCSCTPTransportStateEnum {
-            readonly $gtype: GObject.GType<WebRTCSCTPTransportState>
-            /**
-             * new
-             */
-            readonly "NEW": 0
-            /**
-             * connecting
-             */
-            readonly "CONNECTING": 1
-            /**
-             * connected
-             */
-            readonly "CONNECTED": 2
-            /**
-             * closed
-             */
-            readonly "CLOSED": 3
-        }
-        type WebRTCSCTPTransportState = WebRTCSCTPTransportStateEnum[Exclude<keyof WebRTCSCTPTransportStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * See <http://w3c.github.io/webrtc-pc/#dom-rtcsctptransportstate>
-             * @since 1.16
-             */
-            WebRTCSCTPTransportState: WebRTCSCTPTransportStateEnum
-        }
-        
-        interface WebRTCSDPTypeEnum {
-            readonly $gtype: GObject.GType<WebRTCSDPType>
-            /**
-             * offer
-             */
-            readonly "OFFER": 1
-            /**
-             * pranswer
-             */
-            readonly "PRANSWER": 2
-            /**
-             * answer
-             */
-            readonly "ANSWER": 3
-            /**
-             * rollback
-             */
-            readonly "ROLLBACK": 4
-        }
-        type WebRTCSDPType = WebRTCSDPTypeEnum[Exclude<keyof WebRTCSDPTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * See <http://w3c.github.io/webrtc-pc/#rtcsdptype>
-             */
-            WebRTCSDPType: WebRTCSDPTypeEnum
-            /**
-         * @param type a #GstWebRTCSDPType
-         * @returns the string representation of `type` or "unknown" when `type` is not      recognized.
-         */
-        to_string: (type: WebRTCSDPType) => string
-        }
-        
-        interface WebRTCSignalingStateEnum {
-            readonly $gtype: GObject.GType<WebRTCSignalingState>
-            /**
-             * stable
-             */
-            readonly "STABLE": 0
-            /**
-             * closed
-             */
-            readonly "CLOSED": 1
-            /**
-             * have-local-offer
-             */
-            readonly "HAVE_LOCAL_OFFER": 2
-            /**
-             * have-remote-offer
-             */
-            readonly "HAVE_REMOTE_OFFER": 3
-            /**
-             * have-local-pranswer
-             */
-            readonly "HAVE_LOCAL_PRANSWER": 4
-            /**
-             * have-remote-pranswer
-             */
-            readonly "HAVE_REMOTE_PRANSWER": 5
-        }
-        type WebRTCSignalingState = WebRTCSignalingStateEnum[Exclude<keyof WebRTCSignalingStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * See <http://w3c.github.io/webrtc-pc/#dom-rtcsignalingstate>
-             */
-            WebRTCSignalingState: WebRTCSignalingStateEnum
-        }
-        
-        interface WebRTCStatsTypeEnum {
-            readonly $gtype: GObject.GType<WebRTCStatsType>
-            /**
-             * codec
-             */
-            readonly "CODEC": 1
-            /**
-             * inbound-rtp
-             */
-            readonly "INBOUND_RTP": 2
-            /**
-             * outbound-rtp
-             */
-            readonly "OUTBOUND_RTP": 3
-            /**
-             * remote-inbound-rtp
-             */
-            readonly "REMOTE_INBOUND_RTP": 4
-            /**
-             * remote-outbound-rtp
-             */
-            readonly "REMOTE_OUTBOUND_RTP": 5
-            /**
-             * csrc
-             */
-            readonly "CSRC": 6
-            /**
-             * peer-connection
-             */
-            readonly "PEER_CONNECTION": 7
-            /**
-             * data-channel
-             */
-            readonly "DATA_CHANNEL": 8
-            /**
-             * stream
-             */
-            readonly "STREAM": 9
-            /**
-             * transport
-             */
-            readonly "TRANSPORT": 10
-            /**
-             * candidate-pair
-             */
-            readonly "CANDIDATE_PAIR": 11
-            /**
-             * local-candidate
-             */
-            readonly "LOCAL_CANDIDATE": 12
-            /**
-             * remote-candidate
-             */
-            readonly "REMOTE_CANDIDATE": 13
-            /**
-             * certificate
-             */
-            readonly "CERTIFICATE": 14
-        }
-        type WebRTCStatsType = WebRTCStatsTypeEnum[Exclude<keyof WebRTCStatsTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * See <https://w3c.github.io/webrtc-stats/#dom-rtcstatstype>
-             */
-            WebRTCStatsType: WebRTCStatsTypeEnum
-        }
-        /**
-         * Callback function to be triggered on discovery of a new candidate
-         * @since 1.22
-         * @param ice The #GstWebRTCICE
-         * @param stream_id The stream id
-         * @param candidate The discovered candidate
-         */
-        type WebRTCICEOnCandidateFunc = (ice: WebRTCICE, stream_id: number, candidate: string) => void
-
-        interface $Exports {
-            __name__: "GstWebRTC"
-            __version: "1.0"
-            /**
-             * @since 1.20
-             */
-            webrtc_error_quark(): GLib.Quark
-            /**
+            
+            interface WebRTCICETransportPolicyEnum {
+                readonly $gtype: GObject.GType<WebRTCICETransportPolicy>
+                /**
+                 * all
+                 */
+                readonly "ALL": 0
+                /**
+                 * relay
+                 */
+                readonly "RELAY": 1
+            }
+            type WebRTCICETransportPolicy = WebRTCICETransportPolicyEnum[Exclude<keyof WebRTCICETransportPolicyEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * See https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-24#section-4.1.1
+                 * for more information.
+                 * @since 1.16
+                 */
+                WebRTCICETransportPolicy: WebRTCICETransportPolicyEnum
+            }
+            
+            interface WebRTCKindEnum {
+                readonly $gtype: GObject.GType<WebRTCKind>
+                /**
+                 * Kind has not yet been set
+                 */
+                readonly "UNKNOWN": 0
+                /**
+                 * Kind is audio
+                 */
+                readonly "AUDIO": 1
+                /**
+                 * Kind is video
+                 */
+                readonly "VIDEO": 2
+            }
+            type WebRTCKind = WebRTCKindEnum[Exclude<keyof WebRTCKindEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack-kind
+                 * @since 1.20
+                 */
+                WebRTCKind: WebRTCKindEnum
+            }
+            
+            interface WebRTCPeerConnectionStateEnum {
+                readonly $gtype: GObject.GType<WebRTCPeerConnectionState>
+                /**
+                 * new
+                 */
+                readonly "NEW": 0
+                /**
+                 * connecting
+                 */
+                readonly "CONNECTING": 1
+                /**
+                 * connected
+                 */
+                readonly "CONNECTED": 2
+                /**
+                 * disconnected
+                 */
+                readonly "DISCONNECTED": 3
+                /**
+                 * failed
+                 */
+                readonly "FAILED": 4
+                /**
+                 * closed
+                 */
+                readonly "CLOSED": 5
+            }
+            type WebRTCPeerConnectionState = WebRTCPeerConnectionStateEnum[Exclude<keyof WebRTCPeerConnectionStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * See <http://w3c.github.io/webrtc-pc/#dom-rtcpeerconnectionstate>
+                 */
+                WebRTCPeerConnectionState: WebRTCPeerConnectionStateEnum
+            }
+            
+            interface WebRTCPriorityTypeEnum {
+                readonly $gtype: GObject.GType<WebRTCPriorityType>
+                /**
+                 * very-low
+                 */
+                readonly "VERY_LOW": 1
+                /**
+                 * low
+                 */
+                readonly "LOW": 2
+                /**
+                 * medium
+                 */
+                readonly "MEDIUM": 3
+                /**
+                 * high
+                 */
+                readonly "HIGH": 4
+            }
+            type WebRTCPriorityType = WebRTCPriorityTypeEnum[Exclude<keyof WebRTCPriorityTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * See <http://w3c.github.io/webrtc-pc/#dom-rtcprioritytype>
+                 * @since 1.16
+                 */
+                WebRTCPriorityType: WebRTCPriorityTypeEnum
+            }
+            
+            interface WebRTCRTPTransceiverDirectionEnum {
+                readonly $gtype: GObject.GType<WebRTCRTPTransceiverDirection>
+                /**
+                 * none
+                 */
+                readonly "NONE": 0
+                /**
+                 * inactive
+                 */
+                readonly "INACTIVE": 1
+                /**
+                 * sendonly
+                 */
+                readonly "SENDONLY": 2
+                /**
+                 * recvonly
+                 */
+                readonly "RECVONLY": 3
+                /**
+                 * sendrecv
+                 */
+                readonly "SENDRECV": 4
+            }
+            type WebRTCRTPTransceiverDirection = WebRTCRTPTransceiverDirectionEnum[Exclude<keyof WebRTCRTPTransceiverDirectionEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                WebRTCRTPTransceiverDirection: WebRTCRTPTransceiverDirectionEnum
+            }
+            
+            interface WebRTCSCTPTransportStateEnum {
+                readonly $gtype: GObject.GType<WebRTCSCTPTransportState>
+                /**
+                 * new
+                 */
+                readonly "NEW": 0
+                /**
+                 * connecting
+                 */
+                readonly "CONNECTING": 1
+                /**
+                 * connected
+                 */
+                readonly "CONNECTED": 2
+                /**
+                 * closed
+                 */
+                readonly "CLOSED": 3
+            }
+            type WebRTCSCTPTransportState = WebRTCSCTPTransportStateEnum[Exclude<keyof WebRTCSCTPTransportStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * See <http://w3c.github.io/webrtc-pc/#dom-rtcsctptransportstate>
+                 * @since 1.16
+                 */
+                WebRTCSCTPTransportState: WebRTCSCTPTransportStateEnum
+            }
+            
+            interface WebRTCSDPTypeEnum {
+                readonly $gtype: GObject.GType<WebRTCSDPType>
+                /**
+                 * offer
+                 */
+                readonly "OFFER": 1
+                /**
+                 * pranswer
+                 */
+                readonly "PRANSWER": 2
+                /**
+                 * answer
+                 */
+                readonly "ANSWER": 3
+                /**
+                 * rollback
+                 */
+                readonly "ROLLBACK": 4
+            }
+            type WebRTCSDPType = WebRTCSDPTypeEnum[Exclude<keyof WebRTCSDPTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * See <http://w3c.github.io/webrtc-pc/#rtcsdptype>
+                 */
+                WebRTCSDPType: WebRTCSDPTypeEnum
+                /**
              * @param type a #GstWebRTCSDPType
              * @returns the string representation of `type` or "unknown" when `type` is not      recognized.
              */
-            webrtc_sdp_type_to_string(type: WebRTCSDPType): string
+            to_string: (type: WebRTCSDPType) => string
+            }
+            
+            interface WebRTCSignalingStateEnum {
+                readonly $gtype: GObject.GType<WebRTCSignalingState>
+                /**
+                 * stable
+                 */
+                readonly "STABLE": 0
+                /**
+                 * closed
+                 */
+                readonly "CLOSED": 1
+                /**
+                 * have-local-offer
+                 */
+                readonly "HAVE_LOCAL_OFFER": 2
+                /**
+                 * have-remote-offer
+                 */
+                readonly "HAVE_REMOTE_OFFER": 3
+                /**
+                 * have-local-pranswer
+                 */
+                readonly "HAVE_LOCAL_PRANSWER": 4
+                /**
+                 * have-remote-pranswer
+                 */
+                readonly "HAVE_REMOTE_PRANSWER": 5
+            }
+            type WebRTCSignalingState = WebRTCSignalingStateEnum[Exclude<keyof WebRTCSignalingStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * See <http://w3c.github.io/webrtc-pc/#dom-rtcsignalingstate>
+                 */
+                WebRTCSignalingState: WebRTCSignalingStateEnum
+            }
+            
+            interface WebRTCStatsTypeEnum {
+                readonly $gtype: GObject.GType<WebRTCStatsType>
+                /**
+                 * codec
+                 */
+                readonly "CODEC": 1
+                /**
+                 * inbound-rtp
+                 */
+                readonly "INBOUND_RTP": 2
+                /**
+                 * outbound-rtp
+                 */
+                readonly "OUTBOUND_RTP": 3
+                /**
+                 * remote-inbound-rtp
+                 */
+                readonly "REMOTE_INBOUND_RTP": 4
+                /**
+                 * remote-outbound-rtp
+                 */
+                readonly "REMOTE_OUTBOUND_RTP": 5
+                /**
+                 * csrc
+                 */
+                readonly "CSRC": 6
+                /**
+                 * peer-connection
+                 */
+                readonly "PEER_CONNECTION": 7
+                /**
+                 * data-channel
+                 */
+                readonly "DATA_CHANNEL": 8
+                /**
+                 * stream
+                 */
+                readonly "STREAM": 9
+                /**
+                 * transport
+                 */
+                readonly "TRANSPORT": 10
+                /**
+                 * candidate-pair
+                 */
+                readonly "CANDIDATE_PAIR": 11
+                /**
+                 * local-candidate
+                 */
+                readonly "LOCAL_CANDIDATE": 12
+                /**
+                 * remote-candidate
+                 */
+                readonly "REMOTE_CANDIDATE": 13
+                /**
+                 * certificate
+                 */
+                readonly "CERTIFICATE": 14
+            }
+            type WebRTCStatsType = WebRTCStatsTypeEnum[Exclude<keyof WebRTCStatsTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * See <https://w3c.github.io/webrtc-stats/#dom-rtcstatstype>
+                 */
+                WebRTCStatsType: WebRTCStatsTypeEnum
+            }
+            /**
+             * Callback function to be triggered on discovery of a new candidate
+             * @since 1.22
+             * @param ice The #GstWebRTCICE
+             * @param stream_id The stream id
+             * @param candidate The discovered candidate
+             */
+            type WebRTCICEOnCandidateFunc = (ice: WebRTCICE, stream_id: number, candidate: string) => void
+
+            interface $Exports {
+                __name__: "GstWebRTC"
+                __version__: "1.0"
+                /**
+                 * @since 1.20
+                 */
+                webrtc_error_quark(): GLib.Quark
+                /**
+                 * @param type a #GstWebRTCSDPType
+                 * @returns the string representation of `type` or "unknown" when `type` is not      recognized.
+                 */
+                webrtc_sdp_type_to_string(type: WebRTCSDPType): string
+            }
         }
+
+        const GstWebRTC: GstWebRTC.$Exports
     }
 
-    const GstWebRTC: GstWebRTC.$Exports
-    export default GstWebRTC
+    export default GI.GstWebRTC
 }
